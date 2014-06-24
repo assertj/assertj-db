@@ -1,4 +1,4 @@
-AssertJ-DB - Fluent assertions for database in Java
+AssertJ-DB - Assertions for database
 ==========
 
 Assertions for database
