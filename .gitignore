@@ -1,0 +1,17 @@
+#Maven build result directory
+/target
+#IntelliJ project files
+/.idea
+/*.iml
+out
+#Eclipse project files
+/.settings
+/.classpath
+/.project
+#Other
+/clover.license
+/actual.txt
+/expected.txt
+/cobertura.ser
+#jEnv configuration
+.java-version
