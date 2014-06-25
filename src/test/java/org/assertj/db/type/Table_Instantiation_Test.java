@@ -100,7 +100,7 @@ public class Table_Instantiation_Test extends AbstractTest {
 
   /**
    * This method should throw a {@code AssertJDBException}, because the {@code Source} field is set but not
-   * the table name when call {@code getColumnsNameList()}.
+   * all the informations of the {@code Source}.
    */
   @Test(expected = AssertJDBException.class)
   public void should_throw_AssertJDBException_if_get_list_of_rows_with_setting_source_having_bad_user() {
