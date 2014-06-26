@@ -5,7 +5,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -44,6 +46,10 @@ public abstract class AbstractDbDatas<E extends AbstractDbDatas<E>> {
    * List of the rows.
    */
   private List<Row> rowsList;
+  /**
+   * Map the columns with their index in key (contains the columns already generated).
+   */
+  private Map<Integer, Column> columnsMap = new HashMap<Integer, Column>();
 
   /**
    * Default constructor.
@@ -274,9 +280,14 @@ public abstract class AbstractDbDatas<E extends AbstractDbDatas<E>> {
    * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
    */
   public Column getColumn(int index) {
+    if (columnsMap.containsKey(index)) {
+      return columnsMap.get(index);
+    }
     String name = getColumnsNameList().get(index);
     List<Object> valuesList = getValuesList(index);
-    return new Column(name, valuesList);
+    Column column = new Column(name, valuesList);
+    columnsMap.put(index, column);
+    return column;
   }
 
   /**
@@ -303,10 +314,15 @@ public abstract class AbstractDbDatas<E extends AbstractDbDatas<E>> {
     if (index == -1) {
       return null;
     }
+    if (columnsMap.containsKey(index)) {
+      return columnsMap.get(index);
+    }
 
     List<Object> valuesList = getValuesList(index);
 
-    return new Column(name, valuesList);
+    Column column = new Column(name, valuesList);
+    columnsMap.put(index, column);
+    return column;
   }
 
   /**
