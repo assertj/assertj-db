@@ -76,7 +76,18 @@ public abstract class AbstractDbAssert<S extends AbstractDbAssert<S, A>, A exten
   }
 
   /**
-   * {@inheritDoc}
+   * Verifies that the number of rows is equal to the number in parameter.
+   * <p>
+   * Example where the assertion verifies that the table have 2 rows :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).hasRowsSize(2);
+   * </pre>
+   * 
+   * @param expected The number to compare to the number of rows.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the number of rows is different to the number in parameter.
    */
   public S hasRowsSize(int expected) {
     List<Row> rowsList = actual.getRowsList();
@@ -88,7 +99,18 @@ public abstract class AbstractDbAssert<S extends AbstractDbAssert<S, A>, A exten
   }
 
   /**
-   * {@inheritDoc}
+   * Verifies that the number of columns is equal to the number in parameter.
+   * <p>
+   * Example where the assertion verifies that the table have 8 columns :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).hasColumnsSize(8);
+   * </pre>
+   * 
+   * @param expected The number to compare to the number of columns.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the number of columns is different to the number in parameter.
    */
   public S hasColumnsSize(int expected) {
     List<String> columnsNameList = actual.getColumnsNameList();
