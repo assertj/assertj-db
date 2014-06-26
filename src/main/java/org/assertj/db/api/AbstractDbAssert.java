@@ -9,7 +9,9 @@ import org.assertj.core.api.Descriptable;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.description.Description;
 import org.assertj.core.internal.Failures;
+import org.assertj.db.error.AssertJDBException;
 import org.assertj.db.type.AbstractDbDatas;
+import org.assertj.db.type.Column;
 import org.assertj.db.type.Row;
 
 public abstract class AbstractDbAssert<S extends AbstractDbAssert<S, A>, A extends AbstractDbDatas<A>> implements
@@ -27,6 +29,15 @@ public abstract class AbstractDbAssert<S extends AbstractDbAssert<S, A>, A exten
    * Class of the assertion.
    */
   private final S myself;
+
+  /**
+   * Index of the next row to get.
+   */
+  private int indexNextRow;
+  /**
+   * Index of the next column to get.
+   */
+  private int indexNextColumn;
 
   /**
    * To notice failures in the assertion.
@@ -119,5 +130,81 @@ public abstract class AbstractDbAssert<S extends AbstractDbAssert<S, A>, A exten
       throw failures.failure(info, shouldHaveColumnsSize(size, expected));
     }
     return myself;
+  }
+
+  /**
+   * Returns the next {@link Row} in the list of {@link Row}.
+   * 
+   * @return The next {@link Row}.
+   * @throws AssertJDBException If the {@code index} is out of the bounds.
+   */
+  protected Row getRow() {
+    return getRow(indexNextRow);
+  }
+
+  /**
+   * Returns the {@link Row} at the {@code index} in parameter.
+   * 
+   * @param index The index corresponding to the {@link Row}.
+   * @return The {@link Row}.
+   * @throws AssertJDBException If the {@code index} is out of the bounds.
+   */
+  protected Row getRow(int index) {
+    int size = actual.getRowsList().size();
+    if (index < 0 || index >= size) {
+      throw new AssertJDBException("Index %s out of the limits [0, %s[", index, size);
+    }
+    Row row = actual.getRow(index);
+    indexNextRow = index + 1;
+    return row;
+  }
+
+  /**
+   * Returns the next {@link Column} in the list of {@link Column}.
+   * 
+   * @return The next {@link Column}.
+   * @throws AssertJDBException If the {@code index} is out of the bounds.
+   */
+  protected Column getColumn() {
+    return getColumn(indexNextColumn);
+  }
+
+  /**
+   * Returns the {@link Column} at the {@code index} in parameter.
+   * 
+   * @param index The index corresponding to the {@link Column}.
+   * @return The {@link Column}.
+   * @throws AssertJDBException If the {@code index} is out of the bounds.
+   */
+  protected Column getColumn(int index) {
+    List<String> columnsNameList = actual.getColumnsNameList();
+    int size = columnsNameList.size();
+    if (index < 0 || index >= size) {
+      throw new AssertJDBException("Index %s out of the limits [0, %s[", index, size);
+    }
+    String columnName = columnsNameList.get(index);
+    Column column = actual.getColumn(columnName);
+    indexNextColumn = index + 1;
+    return column;
+  }
+
+  /**
+   * Returns the {@link Column} corresponding to the column name in parameter.
+   * 
+   * @param columnName The column name.
+   * @return The {@link Column}.
+   * @throws NullPointerException If the column name in parameter is null.
+   * @throws AssertJDBException If there is no column with this name.
+   */
+  protected Column getColumn(String columnName) {
+    if (columnName == null) {
+      throw new NullPointerException("Column name must be not null");
+    }
+    List<String> columnsNameList = actual.getColumnsNameList();
+    int index = columnsNameList.indexOf(columnName.toUpperCase());
+    if (index == -1) {
+      throw new AssertJDBException("Column <%s> does not exist", columnName);
+    }
+    return getColumn(index);
   }
 }
