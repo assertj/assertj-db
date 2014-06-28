@@ -26,7 +26,7 @@ public class RequestColumnAssert extends ColumnAssert<RequestAssert, Request, Re
    * 
    * @return a object of assertion methods on a {@link Request}.
    */
-  public RequestAssert returnToTable() {
+  public RequestAssert returnToRequest() {
     return returnToDbAssert();
   }
 

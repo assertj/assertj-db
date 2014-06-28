@@ -81,11 +81,11 @@ public class RequestAssert_Column_Test extends AbstractTest {
         + " AND movie.year > ?"
         + " ORDER BY actor.name, movie.year", 2000);
     assertThat(request)
-        .column().returnToTable()
-        .column().returnToTable()
-        .column().returnToTable()
-        .column().returnToTable()
-        .column().returnToTable();
+        .column().returnToRequest()
+        .column().returnToRequest()
+        .column().returnToRequest()
+        .column().returnToRequest()
+        .column();
   }
 
   /**
