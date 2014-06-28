@@ -1,8 +1,11 @@
 package org.assertj.db.api;
 
+import static org.assertj.db.error.ShouldBeType.shouldBeType;
+
 import org.assertj.core.api.Descriptable;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.description.Description;
+import org.assertj.core.internal.Failures;
 import org.assertj.db.type.AbstractDbData;
 
 public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A extends AbstractDbData<A>, T extends AbstractSubAssert<S, A, T>, V extends AbstractValueAssert<S, A, T, V>>
@@ -24,6 +27,11 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
    * The information about the assertion.
    */
   private final WritableAssertionInfo info;
+
+  /**
+   * To notice failures in the assertion.
+   */
+  private static Failures failures = Failures.instance();
 
   // Like in AbstractAssert from assertj-core :
   // we prefer not to use Class<? extends S> selfType because it would force inherited
@@ -78,4 +86,33 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
     return originalAssert;
   }
 
+  /**
+   * Returns the type of the value (text, boolean, number, date, ...).
+   * 
+   * @return The type of the value.
+   */
+  protected ValueType getType() {
+    return ValueType.getType(value);
+  }
+
+  /**
+   * Verifies that the type of the value is equal to the type in parameter.
+   * <p>
+   * Example where the assertion verifies that the value in the
+   * </p>
+   * TODO
+   * <pre>
+   * </pre>
+   * 
+   * @param expected The expected type to compare to.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is different to the type in parameter.
+   */
+  public V isOfType(ValueType expected) {
+    ValueType type = getType();
+    if (type != expected) {
+      throw failures.failure(info, shouldBeType(value, expected, type));
+    }
+    return myself;
+  }
 }
