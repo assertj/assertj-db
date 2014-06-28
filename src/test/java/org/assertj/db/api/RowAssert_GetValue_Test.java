@@ -11,12 +11,12 @@ import org.assertj.db.type.Table;
 import org.junit.Test;
 
 /**
- * Test on the assertion methods on {@code Column} for {@code Table}.
+ * Test on the {@code getValue) assertion methods on {@code Row}.
  * 
  * @author Régis Pouiller
  * 
  */
-public class TableAssert_Column_Test extends AbstractTest {
+public class RowAssert_GetValue_Test extends AbstractTest {
 
   /**
    * This method should throw a {@code AssertJDBException}, because the {@code index} parameter is less than the
@@ -32,7 +32,7 @@ public class TableAssert_Column_Test extends AbstractTest {
   @Test(expected = AssertJDBException.class)
   public void should_throw_AssertJDBException_because_index_is_less_than_the_minimum() {
     Table table = new Table(source, "movie");
-    assertThat(table).column(-1);
+    assertThat(table).row().getValue(-1);
   }
 
   /**
@@ -49,11 +49,11 @@ public class TableAssert_Column_Test extends AbstractTest {
   @Test(expected = AssertJDBException.class)
   public void should_throw_AssertJDBException_because_index_is_more_than_the_maximum() {
     Table table = new Table(source, "movie");
-    assertThat(table).column(3);
+    assertThat(table).row().getValue(3);
   }
 
   /**
-   * This method should throw a {@code AssertJDBException}, because of reading after the last column.
+   * This method should throw a {@code AssertJDBException}, because of reading after the last row.
    * <p>
    * Message :
    * </p>
@@ -65,11 +65,11 @@ public class TableAssert_Column_Test extends AbstractTest {
   @Test(expected = AssertJDBException.class)
   public void should_throw_AssertJDBException_because_reading_after_the_end() {
     Table table = new Table(source, "movie");
-    assertThat(table)
-        .column().returnToTable()
-        .column().returnToTable()
-        .column().returnToTable()
-        .column().returnToTable();
+    TableRowAssert assertion = assertThat(table).row();
+    assertion.getValue();
+    assertion.getValue();
+    assertion.getValue();
+    assertion.getValue();
   }
 
   /**
@@ -78,7 +78,7 @@ public class TableAssert_Column_Test extends AbstractTest {
   @Test(expected = NullPointerException.class)
   public void should_throw_NullPointerException_because_column_name_is_null() {
     Table table = new Table(source, "movie");
-    assertThat(table).column(null);
+    assertThat(table).row().getValue(null);
   }
 
   /**
@@ -95,11 +95,11 @@ public class TableAssert_Column_Test extends AbstractTest {
   @Test(expected = AssertJDBException.class)
   public void should_throw_AssertJDBException_because_column_dont_exist() {
     Table table = new Table(source, "movie");
-    assertThat(table).column("notexist");
+    assertThat(table).row().getValue("notexist");
   }
 
   /**
-   * This method tests the {@code getColumn} method when using without parameter.
+   * This method tests the {@code getValue} method when using without parameter.
    * 
    * @throws IllegalAccessException
    * @throws IllegalArgumentException
@@ -111,24 +111,22 @@ public class TableAssert_Column_Test extends AbstractTest {
       SecurityException, NoSuchFieldException {
 
     Table table = new Table(source, "movie");
-    TableAssert assertion = assertThat(table);
+    TableRowAssert assertion = assertThat(table).row();
 
-    Field field = AbstractDbAssert.class.getDeclaredField("indexNextColumn");
-    Field field2 = AbstractColumnAssert.class.getDeclaredField("column");
+    Field field = AbstractSubAssert.class.getDeclaredField("indexNextValue");
     field.setAccessible(true);
-    field2.setAccessible(true);
 
     assertThat(field.getInt(assertion)).isEqualTo(0);
-    assertThat(field2.get(assertion.column())).isSameAs(table.getColumn(0));
+    assertThat(assertion.getValue()).isSameAs(table.getRow(0).getValuesList().get(0));
     assertThat(field.getInt(assertion)).isEqualTo(1);
-    assertThat(field2.get(assertion.column())).isSameAs(table.getColumn(1));
+    assertThat(assertion.getValue()).isSameAs(table.getRow(0).getValuesList().get(1));
     assertThat(field.getInt(assertion)).isEqualTo(2);
-    assertThat(field2.get(assertion.column())).isSameAs(table.getColumn(2));
+    assertThat(assertion.getValue()).isSameAs(table.getRow(0).getValuesList().get(2));
     assertThat(field.getInt(assertion)).isEqualTo(3);
   }
 
   /**
-   * This method tests the {@code getColumn} method when using with {@code index} parameter.
+   * This method tests the {@code getRow} method when using with {@code index} parameter.
    * 
    * @throws IllegalAccessException
    * @throws IllegalArgumentException
@@ -136,23 +134,21 @@ public class TableAssert_Column_Test extends AbstractTest {
    * @throws SecurityException
    */
   @Test
-  public void test_when_get_rows_with_index_parameter() throws IllegalArgumentException, IllegalAccessException,
+  public void test_when_get_rows_with_parameter() throws IllegalArgumentException, IllegalAccessException,
       SecurityException, NoSuchFieldException {
 
     Table table = new Table(source, "movie");
-    TableAssert assertion = assertThat(table);
+    TableRowAssert assertion = assertThat(table).row();
 
-    Field field = AbstractDbAssert.class.getDeclaredField("indexNextColumn");
-    Field field2 = AbstractColumnAssert.class.getDeclaredField("column");
+    Field field = AbstractSubAssert.class.getDeclaredField("indexNextValue");
     field.setAccessible(true);
-    field2.setAccessible(true);
 
     assertThat(field.getInt(assertion)).isEqualTo(0);
-    assertThat(field2.get(assertion.column(2))).isSameAs(table.getColumn(2));
+    assertThat(assertion.getValue(2)).isSameAs(table.getRow(0).getValuesList().get(2));
     assertThat(field.getInt(assertion)).isEqualTo(3);
-    assertThat(field2.get(assertion.column(1))).isSameAs(table.getColumn(1));
+    assertThat(assertion.getValue(1)).isSameAs(table.getRow(0).getValuesList().get(1));
     assertThat(field.getInt(assertion)).isEqualTo(2);
-    assertThat(field2.get(assertion.column(0))).isSameAs(table.getColumn(0));
+    assertThat(assertion.getValue(0)).isSameAs(table.getRow(0).getValuesList().get(0));
     assertThat(field.getInt(assertion)).isEqualTo(1);
   }
 
@@ -169,20 +165,17 @@ public class TableAssert_Column_Test extends AbstractTest {
       SecurityException, NoSuchFieldException {
 
     Table table = new Table(source, "movie");
-    TableAssert assertion = assertThat(table);
+    TableRowAssert assertion = assertThat(table).row();
 
-    Field field = AbstractDbAssert.class.getDeclaredField("indexNextColumn");
-    Field field2 = AbstractColumnAssert.class.getDeclaredField("column");
+    Field field = AbstractSubAssert.class.getDeclaredField("indexNextValue");
     field.setAccessible(true);
-    field2.setAccessible(true);
 
     assertThat(field.getInt(assertion)).isEqualTo(0);
-    assertThat(field2.get(assertion.column("YEAR"))).isSameAs(table.getColumn(2));
+    assertThat(assertion.getValue("YEAR")).isSameAs(table.getRow(0).getValuesList().get(2));
     assertThat(field.getInt(assertion)).isEqualTo(3);
-    assertThat(field2.get(assertion.column("title"))).isSameAs(table.getColumn(1));
+    assertThat(assertion.getValue("title")).isSameAs(table.getRow(0).getValuesList().get(1));
     assertThat(field.getInt(assertion)).isEqualTo(2);
-    assertThat(field2.get(assertion.column("ID"))).isSameAs(table.getColumn(0));
+    assertThat(assertion.getValue("ID")).isSameAs(table.getRow(0).getValuesList().get(0));
     assertThat(field.getInt(assertion)).isEqualTo(1);
   }
-
 }

@@ -11,12 +11,12 @@ import org.assertj.db.type.Request;
 import org.junit.Test;
 
 /**
- * Test on the assertion methods on {@code Row} for {@code Request}.
+ * Test on the assertion methods on value of {@code Column} for {@code Request}.
  * 
  * @author Régis Pouiller
  * 
  */
-public class RequestAssert_Row_Test extends AbstractTest {
+public class RequestColumnAssert_Value_Test extends AbstractTest {
 
   /**
    * This method should throw a {@code AssertJDBException}, because the {@code index} parameter is less than the
@@ -34,7 +34,7 @@ public class RequestAssert_Row_Test extends AbstractTest {
         + " AND interpretation.id_actor = actor.id"
         + " AND movie.year > ?"
         + " ORDER BY actor.name, movie.year", 2000);
-    assertThat(request).row(-1);
+    assertThat(request).column().value(-1);
   }
 
   /**
@@ -53,7 +53,7 @@ public class RequestAssert_Row_Test extends AbstractTest {
         + " AND interpretation.id_actor = actor.id"
         + " AND movie.year > ?"
         + " ORDER BY actor.name, movie.year", 2000);
-    assertThat(request).row(4);
+    assertThat(request).column().value(4);
   }
 
   /**
@@ -75,11 +75,12 @@ public class RequestAssert_Row_Test extends AbstractTest {
         + " AND movie.year > ?"
         + " ORDER BY actor.name, movie.year", 2000);
     assertThat(request)
-        .row().returnToRequest()
-        .row().returnToRequest()
-        .row().returnToRequest()
-        .row().returnToRequest()
-        .row();
+        .column()
+            .value().returnToRow()
+            .value().returnToRow()
+            .value().returnToRow()
+            .value().returnToRow()
+            .value();
   }
 
   /**
@@ -100,21 +101,21 @@ public class RequestAssert_Row_Test extends AbstractTest {
         + " AND interpretation.id_actor = actor.id"
         + " AND movie.year > ?"
         + " ORDER BY actor.name, movie.year", 2000);
-    RequestAssert assertion = assertThat(request);
+    RequestColumnAssert assertion = assertThat(request).column();
 
-    Field field = AbstractDbAssert.class.getDeclaredField("indexNextRow");
-    Field field2 = AbstractRowAssert.class.getDeclaredField("row");
+    Field field = AbstractSubAssert.class.getDeclaredField("indexNextValue");
+    Field field2 = AbstractValueAssert.class.getDeclaredField("value");
     field.setAccessible(true);
     field2.setAccessible(true);
 
     assertThat(field.getInt(assertion)).isEqualTo(0);
-    assertThat(field2.get(assertion.row())).isSameAs(request.getRow(0));
+    assertThat(field2.get(assertion.value())).isSameAs(request.getColumn(0).getValuesList().get(0));
     assertThat(field.getInt(assertion)).isEqualTo(1);
-    assertThat(field2.get(assertion.row())).isSameAs(request.getRow(1));
+    assertThat(field2.get(assertion.value())).isSameAs(request.getColumn(0).getValuesList().get(1));
     assertThat(field.getInt(assertion)).isEqualTo(2);
-    assertThat(field2.get(assertion.row())).isSameAs(request.getRow(2));
+    assertThat(field2.get(assertion.value())).isSameAs(request.getColumn(0).getValuesList().get(2));
     assertThat(field.getInt(assertion)).isEqualTo(3);
-    assertThat(field2.get(assertion.row())).isSameAs(request.getRow(3));
+    assertThat(field2.get(assertion.value())).isSameAs(request.getColumn(0).getValuesList().get(3));
     assertThat(field.getInt(assertion)).isEqualTo(4);
   }
 
@@ -136,21 +137,22 @@ public class RequestAssert_Row_Test extends AbstractTest {
         + " AND interpretation.id_actor = actor.id"
         + " AND movie.year > ?"
         + " ORDER BY actor.name, movie.year", 2000);
-    RequestAssert assertion = assertThat(request);
+    RequestColumnAssert assertion = assertThat(request).column();
 
-    Field field = AbstractDbAssert.class.getDeclaredField("indexNextRow");
-    Field field2 = AbstractRowAssert.class.getDeclaredField("row");
+    Field field = AbstractSubAssert.class.getDeclaredField("indexNextValue");
+    Field field2 = AbstractValueAssert.class.getDeclaredField("value");
     field.setAccessible(true);
     field2.setAccessible(true);
 
     assertThat(field.getInt(assertion)).isEqualTo(0);
-    assertThat(field2.get(assertion.row(3))).isSameAs(request.getRow(3));
+    assertThat(field2.get(assertion.value(3))).isSameAs(request.getColumn(0).getValuesList().get(3));
     assertThat(field.getInt(assertion)).isEqualTo(4);
-    assertThat(field2.get(assertion.row(2))).isSameAs(request.getRow(2));
+    assertThat(field2.get(assertion.value(2))).isSameAs(request.getColumn(0).getValuesList().get(2));
     assertThat(field.getInt(assertion)).isEqualTo(3);
-    assertThat(field2.get(assertion.row(1))).isSameAs(request.getRow(1));
+    assertThat(field2.get(assertion.value(1))).isSameAs(request.getColumn(0).getValuesList().get(1));
     assertThat(field.getInt(assertion)).isEqualTo(2);
-    assertThat(field2.get(assertion.row(0))).isSameAs(request.getRow(0));
+    assertThat(field2.get(assertion.value(0))).isSameAs(request.getColumn(0).getValuesList().get(0));
     assertThat(field.getInt(assertion)).isEqualTo(1);
   }
+
 }

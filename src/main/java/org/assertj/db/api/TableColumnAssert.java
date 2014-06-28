@@ -1,5 +1,6 @@
 package org.assertj.db.api;
 
+import org.assertj.db.error.AssertJDBException;
 import org.assertj.db.type.Column;
 import org.assertj.db.type.Table;
 
@@ -9,7 +10,7 @@ import org.assertj.db.type.Table;
  * @author Régis Pouiller
  * 
  */
-public class TableColumnAssert extends ColumnAssert<TableAssert, Table, TableColumnAssert> {
+public class TableColumnAssert extends AbstractColumnAssert<TableAssert, Table, TableColumnAssert> {
 
   /**
    * Constructor.
@@ -28,6 +29,27 @@ public class TableColumnAssert extends ColumnAssert<TableAssert, Table, TableCol
    */
   public TableAssert returnToTable() {
     return returnToDbAssert();
+  }
+
+  /**
+   * Returns assertion methods on the next value in the list of value.
+   * 
+   * @return An object to make assertions on the next value.
+   * @throws AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public TableColumnValueAssert value() {
+    return new TableColumnValueAssert(this, getValue());
+  }
+
+  /**
+   * Returns assertion methods on the value at the {@code index} in parameter.
+   * 
+   * @param index The index corresponding to the value.
+   * @return An object to make assertions on the value.
+   * @throws AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public TableColumnValueAssert value(int index) {
+    return new TableColumnValueAssert(this, getValue(index));
   }
 
 }

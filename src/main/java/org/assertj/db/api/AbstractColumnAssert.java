@@ -16,9 +16,9 @@ import org.assertj.db.type.Column;
  * 
  * @param <S> The class of the original assert (an sub-class of {@link AbstractDbAssert}).
  * @param <A> The class of the actual value (an sub-class of {@link AbstractDbData}).
- * @param <R> The class of this assert (an sub-class of {@link RowAssert}).
+ * @param <R> The class of this assert (an sub-class of {@link AbstractRowAssert}).
  */
-public class ColumnAssert<S extends AbstractDbAssert<S, A>, A extends AbstractDbData<A>, R extends ColumnAssert<S, A, R>>
+public abstract class AbstractColumnAssert<S extends AbstractDbAssert<S, A>, A extends AbstractDbData<A>, R extends AbstractColumnAssert<S, A, R>>
     extends AbstractSubAssert<S, A, R> {
 
   /**
@@ -37,9 +37,15 @@ public class ColumnAssert<S extends AbstractDbAssert<S, A>, A extends AbstractDb
    * @param originalDbAssert The original assert. That could be a {@link RequestAssert} or a {@link TableAssert}.
    * @param selfType Class of this assert (the sub assert) : a sub-class of {@code AbstractSubAssert}.
    */
-  ColumnAssert(S originalDbAssert, Class<?> selfType, Column column) {
+  AbstractColumnAssert(S originalDbAssert, Class<?> selfType, Column column) {
     super(originalDbAssert, selfType);
     this.column = column;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  protected List<Object> getValuesList() {
+      return column.getValuesList();
   }
 
   /** {@inheritDoc} */

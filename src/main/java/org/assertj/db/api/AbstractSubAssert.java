@@ -1,9 +1,13 @@
 package org.assertj.db.api;
 
+import java.util.List;
+
 import org.assertj.core.api.Descriptable;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.description.Description;
+import org.assertj.db.error.AssertJDBException;
 import org.assertj.db.type.AbstractDbData;
+import org.assertj.db.type.Row;
 
 /**
  * Assertion methods about {@link Column} or {@link Row}.
@@ -29,6 +33,11 @@ public abstract class AbstractSubAssert<S extends AbstractDbAssert<S, A>, A exte
    * This assertion.
    */
   private final T myself;
+
+  /**
+   * Index of the next value to get.
+   */
+  private int indexNextValue;
 
   // Like in AbstractAssert from assertj-core :
   // we prefer not to use Class<? extends S> selfType because it would force inherited
@@ -83,6 +92,40 @@ public abstract class AbstractSubAssert<S extends AbstractDbAssert<S, A>, A exte
   }
 
   /**
+   * Returns the list of values.
+   * @return The list of values.
+   */
+  protected abstract List<Object> getValuesList();
+
+  /**
+   * Returns the next value in the list of value.
+   * 
+   * @return The next value.
+   * @throws AssertJDBException If the {@code index} is out of the bounds.
+   */
+  protected Object getValue() {
+    return getValue(indexNextValue);
+  }
+
+  /**
+   * Returns the value at the {@code index} in parameter.
+   * 
+   * @param index The index corresponding to the value.
+   * @return The value.
+   * @throws AssertJDBException If the {@code index} is out of the bounds.
+   */
+  protected Object getValue(int index) {
+    int size = getValuesList().size();
+    if (index < 0 || index >= size) {
+        throw new AssertJDBException("Index %s out of the limits [0, %s[",
+            index, size);
+    }
+    Object object = getValuesList().get(index);
+    indexNextValue = index + 1;
+    return object;
+  }
+
+  /**
    * Verifies that the size of a {@link Row} or of a {@link Column} is equal to the number in parameter.
    * <p>
    * Example where the assertion verifies that the first row of the table have 8 columns :
@@ -110,8 +153,8 @@ public abstract class AbstractSubAssert<S extends AbstractDbAssert<S, A>, A exte
 
   /**
    * Called by {@link AbstractSubAssert#hasSize(int)}, the sub-classes implement this method. This is a skeleton
-   * pattern. So for a {@link Row}, the implementation in {@link RowAssert} sub-class tests the number of columns and
-   * for a {@link Column}, the implementation in {@link ColumnAssert} sub-class tests the number of rows.
+   * pattern. So for a {@link Row}, the implementation in {@link AbstractRowAssert} sub-class tests the number of columns and
+   * for a {@link Column}, the implementation in {@link AbstractColumnAssert} sub-class tests the number of rows.
    * 
    * @param info Info on the object to assert.
    * @param expected The number to compare to the size.
