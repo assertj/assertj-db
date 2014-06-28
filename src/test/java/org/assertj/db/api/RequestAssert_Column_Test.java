@@ -150,13 +150,13 @@ public class RequestAssert_Column_Test extends AbstractTest {
     field2.setAccessible(true);
 
     assertThat(field.getInt(assertion)).isEqualTo(0);
-    assertThat(field2.get(assertion.column())).isSameAs(request.getColumn(0)).isSameAs(request.getColumn("name"));
+    assertThat(field2.get(assertion.column())).isSameAs(request.getColumn(0));
     assertThat(field.getInt(assertion)).isEqualTo(1);
-    assertThat(field2.get(assertion.column())).isSameAs(request.getColumn(1)).isSameAs(request.getColumn("firstname"));
+    assertThat(field2.get(assertion.column())).isSameAs(request.getColumn(1));
     assertThat(field.getInt(assertion)).isEqualTo(2);
-    assertThat(field2.get(assertion.column())).isSameAs(request.getColumn(2)).isSameAs(request.getColumn("YEAR"));
+    assertThat(field2.get(assertion.column())).isSameAs(request.getColumn(2));
     assertThat(field.getInt(assertion)).isEqualTo(3);
-    assertThat(field2.get(assertion.column())).isSameAs(request.getColumn(3)).isSameAs(request.getColumn("character"));
+    assertThat(field2.get(assertion.column())).isSameAs(request.getColumn(3));
     assertThat(field.getInt(assertion)).isEqualTo(4);
   }
 
@@ -186,13 +186,13 @@ public class RequestAssert_Column_Test extends AbstractTest {
     field2.setAccessible(true);
 
     assertThat(field.getInt(assertion)).isEqualTo(0);
-    assertThat(field2.get(assertion.column(3))).isSameAs(request.getColumn(3)).isSameAs(request.getColumn("character"));
+    assertThat(field2.get(assertion.column(3))).isSameAs(request.getColumn(3));
     assertThat(field.getInt(assertion)).isEqualTo(4);
-    assertThat(field2.get(assertion.column(2))).isSameAs(request.getColumn(2)).isSameAs(request.getColumn("YEAR"));
+    assertThat(field2.get(assertion.column(2))).isSameAs(request.getColumn(2));
     assertThat(field.getInt(assertion)).isEqualTo(3);
-    assertThat(field2.get(assertion.column(1))).isSameAs(request.getColumn(1)).isSameAs(request.getColumn("firstname"));
+    assertThat(field2.get(assertion.column(1))).isSameAs(request.getColumn(1));
     assertThat(field.getInt(assertion)).isEqualTo(2);
-    assertThat(field2.get(assertion.column(0))).isSameAs(request.getColumn(0)).isSameAs(request.getColumn("name"));
+    assertThat(field2.get(assertion.column(0))).isSameAs(request.getColumn(0));
     assertThat(field.getInt(assertion)).isEqualTo(1);
   }
 
@@ -222,13 +222,13 @@ public class RequestAssert_Column_Test extends AbstractTest {
     field2.setAccessible(true);
 
     assertThat(field.getInt(assertion)).isEqualTo(0);
-    assertThat(field2.get(assertion.column("character"))).isSameAs(request.getColumn(3)).isSameAs(request.getColumn("character"));
+    assertThat(field2.get(assertion.column("character"))).isSameAs(request.getColumn(3));
     assertThat(field.getInt(assertion)).isEqualTo(4);
-    assertThat(field2.get(assertion.column("YEAR"))).isSameAs(request.getColumn(2)).isSameAs(request.getColumn("YEAR"));
+    assertThat(field2.get(assertion.column("YEAR"))).isSameAs(request.getColumn(2));
     assertThat(field.getInt(assertion)).isEqualTo(3);
-    assertThat(field2.get(assertion.column("firstname"))).isSameAs(request.getColumn(1)).isSameAs(request.getColumn("firstname"));
+    assertThat(field2.get(assertion.column("firstname"))).isSameAs(request.getColumn(1));
     assertThat(field.getInt(assertion)).isEqualTo(2);
-    assertThat(field2.get(assertion.column("name"))).isSameAs(request.getColumn(0)).isSameAs(request.getColumn("name"));
+    assertThat(field2.get(assertion.column("name"))).isSameAs(request.getColumn(0));
     assertThat(field.getInt(assertion)).isEqualTo(1);
   }
 

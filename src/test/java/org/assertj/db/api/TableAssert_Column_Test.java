@@ -119,11 +119,11 @@ public class TableAssert_Column_Test extends AbstractTest {
     field2.setAccessible(true);
 
     assertThat(field.getInt(assertion)).isEqualTo(0);
-    assertThat(field2.get(assertion.column())).isSameAs(table.getColumn(0)).isSameAs(table.getColumn("ID"));
+    assertThat(field2.get(assertion.column())).isSameAs(table.getColumn(0));
     assertThat(field.getInt(assertion)).isEqualTo(1);
-    assertThat(field2.get(assertion.column())).isSameAs(table.getColumn(1)).isSameAs(table.getColumn("title"));
+    assertThat(field2.get(assertion.column())).isSameAs(table.getColumn(1));
     assertThat(field.getInt(assertion)).isEqualTo(2);
-    assertThat(field2.get(assertion.column())).isSameAs(table.getColumn(2)).isSameAs(table.getColumn("YEAR"));
+    assertThat(field2.get(assertion.column())).isSameAs(table.getColumn(2));
     assertThat(field.getInt(assertion)).isEqualTo(3);
   }
 
@@ -148,11 +148,11 @@ public class TableAssert_Column_Test extends AbstractTest {
     field2.setAccessible(true);
 
     assertThat(field.getInt(assertion)).isEqualTo(0);
-    assertThat(field2.get(assertion.column(2))).isSameAs(table.getColumn(2)).isSameAs(table.getColumn("YEAR"));
+    assertThat(field2.get(assertion.column(2))).isSameAs(table.getColumn(2));
     assertThat(field.getInt(assertion)).isEqualTo(3);
-    assertThat(field2.get(assertion.column(1))).isSameAs(table.getColumn(1)).isSameAs(table.getColumn("title"));
+    assertThat(field2.get(assertion.column(1))).isSameAs(table.getColumn(1));
     assertThat(field.getInt(assertion)).isEqualTo(2);
-    assertThat(field2.get(assertion.column(0))).isSameAs(table.getColumn(0)).isSameAs(table.getColumn("ID"));
+    assertThat(field2.get(assertion.column(0))).isSameAs(table.getColumn(0));
     assertThat(field.getInt(assertion)).isEqualTo(1);
   }
 
@@ -177,11 +177,11 @@ public class TableAssert_Column_Test extends AbstractTest {
     field2.setAccessible(true);
 
     assertThat(field.getInt(assertion)).isEqualTo(0);
-    assertThat(field2.get(assertion.column("YEAR"))).isSameAs(table.getColumn(2)).isSameAs(table.getColumn("YEAR"));
+    assertThat(field2.get(assertion.column("YEAR"))).isSameAs(table.getColumn(2));
     assertThat(field.getInt(assertion)).isEqualTo(3);
-    assertThat(field2.get(assertion.column("title"))).isSameAs(table.getColumn(1)).isSameAs(table.getColumn("title"));
+    assertThat(field2.get(assertion.column("title"))).isSameAs(table.getColumn(1));
     assertThat(field.getInt(assertion)).isEqualTo(2);
-    assertThat(field2.get(assertion.column("ID"))).isSameAs(table.getColumn(0)).isSameAs(table.getColumn("ID"));
+    assertThat(field2.get(assertion.column("ID"))).isSameAs(table.getColumn(0));
     assertThat(field.getInt(assertion)).isEqualTo(1);
   }
 

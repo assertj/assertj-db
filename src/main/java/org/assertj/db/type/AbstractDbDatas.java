@@ -291,41 +291,6 @@ public abstract class AbstractDbDatas<E extends AbstractDbDatas<E>> {
   }
 
   /**
-   * Returns the column corresponding to the column name in parameter and the values inside the column.
-   * <p>
-   * This method calls {@link #getColumnsNameList()} and {@link #getValuesList(int)} which calls {@link #getRowsList()}.
-   * <br/>
-   * If it is the first call to {@link #getColumnsNameList()} or {@link #getRowsList()}, the data are loaded from
-   * database by calling the {@link #load()} private method.
-   * </p>
-   * 
-   * @param columnName The column name (must be not {@code null}).
-   * @return The column and the values
-   * @throws NullPointerException If the {@code columnName} parameter is {@code null}.
-   * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
-   * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
-   */
-  public Column getColumn(String columnName) {
-    if (columnName == null) {
-      throw new NullPointerException("Column name must be not null");
-    }
-    String name = columnName.toUpperCase();
-    int index = getColumnsNameList().indexOf(name);
-    if (index == -1) {
-      return null;
-    }
-    if (columnsMap.containsKey(index)) {
-      return columnsMap.get(index);
-    }
-
-    List<Object> valuesList = getValuesList(index);
-
-    Column column = new Column(name, valuesList);
-    columnsMap.put(index, column);
-    return column;
-  }
-
-  /**
    * Returns the row corresponding to the index.
    * <p>
    * This method calls {@link #getRowsList()}.<br/>
