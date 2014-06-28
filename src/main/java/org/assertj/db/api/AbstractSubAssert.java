@@ -3,7 +3,7 @@ package org.assertj.db.api;
 import org.assertj.core.api.Descriptable;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.description.Description;
-import org.assertj.db.type.AbstractDbDatas;
+import org.assertj.db.type.AbstractDbData;
 
 /**
  * Assertion methods about {@link Column} or {@link Row}.
@@ -11,10 +11,10 @@ import org.assertj.db.type.AbstractDbDatas;
  * @author Régis Pouiller
  * 
  * @param <S> The class of the original assertion (an sub-class of {@link AbstractDbAssert}).
- * @param <A> The class of the actual value (an sub-class of {@link AbstractDbDatas}).
+ * @param <A> The class of the actual value (an sub-class of {@link AbstractDbData}).
  * @param <T> The class of this assertion (an sub-class of {@link AbstractSubAssert}).
  */
-public abstract class AbstractSubAssert<S extends AbstractDbAssert<S, A>, A extends AbstractDbDatas<A>, T extends AbstractSubAssert<S, A, T>>
+public abstract class AbstractSubAssert<S extends AbstractDbAssert<S, A>, A extends AbstractDbData<A>, T extends AbstractSubAssert<S, A, T>>
     implements Descriptable<T> {
 
   /**

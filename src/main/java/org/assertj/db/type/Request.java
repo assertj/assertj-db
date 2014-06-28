@@ -49,7 +49,7 @@ import javax.sql.DataSource;
  * @author Régis Pouiller
  * 
  */
-public class Request extends AbstractDbDatas<Request> {
+public class Request extends AbstractDbData<Request> {
 
   /**
    * SQL request to get the values.
@@ -160,8 +160,8 @@ public class Request extends AbstractDbDatas<Request> {
   /**
    * Specific implementation of the loading for a {@code Request}.
    * 
-   * @see AbstractDbDatas#loadImpl(Connection)
-   * @param connection {@link Connection} to the database provided by {@link AbstractDbDatas#load()} private method.
+   * @see AbstractDbData#loadImpl(Connection)
+   * @param connection {@link Connection} to the database provided by {@link AbstractDbData#load()} private method.
    * @throws NullPointerException If the {@link #name} field is {@code null}.
    * @throws SQLException SQL Exception.
    */

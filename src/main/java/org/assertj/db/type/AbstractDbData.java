@@ -25,10 +25,10 @@ import org.assertj.db.error.AssertJDBException;
  * 
  * @author Régis Pouiller
  * 
- * @param <E> Class of the subclass (an implementation of {@link AbstractDbDatas}) : useful for the fluent methods
+ * @param <E> Class of the subclass (an implementation of {@link AbstractDbData}) : useful for the fluent methods
  *          (setters).
  */
-public abstract class AbstractDbDatas<E extends AbstractDbDatas<E>> {
+public abstract class AbstractDbData<E extends AbstractDbData<E>> {
 
   /**
    * Source of the datas.
@@ -54,7 +54,7 @@ public abstract class AbstractDbDatas<E extends AbstractDbDatas<E>> {
   /**
    * Default constructor.
    */
-  public AbstractDbDatas() {
+  public AbstractDbData() {
     // empty
   }
 
@@ -64,7 +64,7 @@ public abstract class AbstractDbDatas<E extends AbstractDbDatas<E>> {
    * @param source The {@link Source} to connect to the database (must be not {@code null}).
    * @throws NullPointerException If {@code source} is {@code null}.
    */
-  public AbstractDbDatas(Source source) {
+  public AbstractDbData(Source source) {
     setSource(source);
   }
 
@@ -74,7 +74,7 @@ public abstract class AbstractDbDatas<E extends AbstractDbDatas<E>> {
    * @param dataSource The {@link DataSource} (must be not {@code null}).
    * @throws NullPointerException If {@code dataSource} is {@code null}.
    */
-  public AbstractDbDatas(DataSource dataSource) {
+  public AbstractDbData(DataSource dataSource) {
     setDataSource(dataSource);
   }
 
@@ -148,7 +148,7 @@ public abstract class AbstractDbDatas<E extends AbstractDbDatas<E>> {
   /**
    * Loads the informations of the data from the database.
    * <p>
-   * This method gets a {@link Connection} and calls {@link AbstractDbDatas#loadImpl(Connection)} for specific loading
+   * This method gets a {@link Connection} and calls {@link AbstractDbData#loadImpl(Connection)} for specific loading
    * depending of being a {@link Table} or a {@link Request}.
    * </p>
    * 
@@ -187,7 +187,7 @@ public abstract class AbstractDbDatas<E extends AbstractDbDatas<E>> {
   /**
    * Implementation of the loading that depends of the kind of data.
    * <p>
-   * In fact it is like in the Skeleton Design Pattern : this method is called by the {@link AbstractDbDatas#load()}
+   * In fact it is like in the Skeleton Design Pattern : this method is called by the {@link AbstractDbData#load()}
    * method but {@code loadImpl()} is abstract here and it is implemented in the sub-classes depending of the need of
    * the sub-class.
    * </p>

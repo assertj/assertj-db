@@ -3,14 +3,14 @@ package org.assertj.db.type;
 import java.util.List;
 
 /**
- * Row in a <code>{@link AbstractDbDatas}</code>.
+ * Row in a <code>{@link AbstractDbData}</code>.
  * <p>
  * A row can have many columns with a value in front of this column.
  * </p>
  * <p>
  * Note : you never instantiate directly this class. You will get an object of this class from a {@link Table} or a
- * {@link Request} by using {@link AbstractDbDatas#getRow(int)} or with the list by using
- * {@link AbstractDbDatas#getRowsList()}.
+ * {@link Request} by using {@link AbstractDbData#getRow(int)} or with the list by using
+ * {@link AbstractDbData#getRowsList()}.
  * </p>
  * 
  * @author Régis Pouiller

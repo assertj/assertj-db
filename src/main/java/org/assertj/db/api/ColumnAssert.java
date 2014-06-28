@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
-import org.assertj.db.type.AbstractDbDatas;
+import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Column;
 
 /**
@@ -15,10 +15,10 @@ import org.assertj.db.type.Column;
  * @author Régis Pouiller
  * 
  * @param <S> The class of the original assert (an sub-class of {@link AbstractDbAssert}).
- * @param <A> The class of the actual value (an sub-class of {@link AbstractDbDatas}).
+ * @param <A> The class of the actual value (an sub-class of {@link AbstractDbData}).
  * @param <R> The class of this assert (an sub-class of {@link RowAssert}).
  */
-public class ColumnAssert<S extends AbstractDbAssert<S, A>, A extends AbstractDbDatas<A>, R extends ColumnAssert<S, A, R>>
+public class ColumnAssert<S extends AbstractDbAssert<S, A>, A extends AbstractDbData<A>, R extends ColumnAssert<S, A, R>>
     extends AbstractSubAssert<S, A, R> {
 
   /**

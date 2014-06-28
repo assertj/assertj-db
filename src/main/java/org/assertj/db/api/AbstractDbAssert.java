@@ -10,11 +10,11 @@ import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.description.Description;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.error.AssertJDBException;
-import org.assertj.db.type.AbstractDbDatas;
+import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Column;
 import org.assertj.db.type.Row;
 
-public abstract class AbstractDbAssert<S extends AbstractDbAssert<S, A>, A extends AbstractDbDatas<A>> implements
+public abstract class AbstractDbAssert<S extends AbstractDbAssert<S, A>, A extends AbstractDbData<A>> implements
     Descriptable<S> {
 
   /**

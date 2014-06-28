@@ -54,7 +54,7 @@ import javax.sql.DataSource;
  * @author Régis Pouiller
  * 
  */
-public class Table extends AbstractDbDatas<Table> {
+public class Table extends AbstractDbData<Table> {
 
   /**
    * The name of the table.
@@ -156,7 +156,7 @@ public class Table extends AbstractDbDatas<Table> {
   }
 
   /**
-   * Returns the columns to check (which are present in {@link AbstractDbDatas#getColumnsNameList()}.
+   * Returns the columns to check (which are present in {@link AbstractDbData#getColumnsNameList()}.
    * 
    * @see #setColumnsToCheck(String[])
    * @return Array of the name of the columns to check. If {@code null} that means to check all the columns.
@@ -166,7 +166,7 @@ public class Table extends AbstractDbDatas<Table> {
   }
 
   /**
-   * Sets the columns to check (which are present in {@link AbstractDbDatas#getColumnsNameList()}.
+   * Sets the columns to check (which are present in {@link AbstractDbData#getColumnsNameList()}.
    * 
    * @see #getColumnsToCheck()
    * @param columnsToCheck Array of the name of the columns to check. If {@code null} that means to check all the
@@ -193,7 +193,7 @@ public class Table extends AbstractDbDatas<Table> {
   }
 
   /**
-   * Returns the columns to exclude (which are not present in {@link AbstractDbDatas#getColumnsNameList()}.
+   * Returns the columns to exclude (which are not present in {@link AbstractDbData#getColumnsNameList()}.
    * 
    * @see #setColumnsToExclude(String[])
    * @return The columns.
@@ -203,7 +203,7 @@ public class Table extends AbstractDbDatas<Table> {
   }
 
   /**
-   * Sets the columns to exclude (which are not present in {@link AbstractDbDatas#getColumnsNameList()}.
+   * Sets the columns to exclude (which are not present in {@link AbstractDbData#getColumnsNameList()}.
    * 
    * @see #getColumnsToExclude()
    * @param columnsToExclude The columns.
@@ -228,7 +228,7 @@ public class Table extends AbstractDbDatas<Table> {
   /**
    * Returns the SQL request.
    * 
-   * @see AbstractDbDatas#getRequest()
+   * @see AbstractDbData#getRequest()
    * @return The SQL request.
    */
   public String getRequest() {
@@ -285,8 +285,8 @@ public class Table extends AbstractDbDatas<Table> {
   /**
    * Specific implementation of the loading for a {@code Table}.
    * 
-   * @see AbstractDbDatas#loadImpl(Connection)
-   * @param connection {@link Connection} to the database provided by {@link AbstractDbDatas#load()} private method.
+   * @see AbstractDbData#loadImpl(Connection)
+   * @param connection {@link Connection} to the database provided by {@link AbstractDbData#load()} private method.
    * @throws SQLException SQL Exception.
    */
   @Override
