@@ -31,7 +31,7 @@ import org.assertj.db.error.AssertJDBException;
 public abstract class AbstractDbData<E extends AbstractDbData<E>> {
 
   /**
-   * Source of the datas.
+   * Source of the data.
    */
   private Source source;
   /**

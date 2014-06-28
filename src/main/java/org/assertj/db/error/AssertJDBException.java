@@ -1,7 +1,7 @@
 package org.assertj.db.error;
 
 /**
- * Exception during the assertion (for example : when getting the datas in the database, or accessing to file system).
+ * Exception during the assertion (for example : when getting the data in the database, or accessing to file system).
  * 
  * @author Régis Pouiller
  * 

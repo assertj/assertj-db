@@ -48,7 +48,7 @@ public class Row {
   }
 
   /**
-   * Returns the list of the values for the datas from database.
+   * Returns the list of the values for the data from database.
    * 
    * @return The list of the values.
    */
