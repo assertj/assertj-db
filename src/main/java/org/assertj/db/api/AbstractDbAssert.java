@@ -182,8 +182,7 @@ public abstract class AbstractDbAssert<S extends AbstractDbAssert<S, A>, A exten
     if (index < 0 || index >= size) {
       throw new AssertJDBException("Index %s out of the limits [0, %s[", index, size);
     }
-    String columnName = columnsNameList.get(index);
-    Column column = actual.getColumn(columnName);
+    Column column = actual.getColumn(index);
     indexNextColumn = index + 1;
     return column;
   }
