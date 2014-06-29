@@ -98,10 +98,12 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
   /**
    * Verifies that the type of the value is equal to the type in parameter.
    * <p>
-   * Example where the assertion verifies that the value in the
+   * Example where the assertion verifies that the value in the {@code Column} called "title" of the second {@code Row}
+   * of the {@code Table} is of type {@code TEXT} :
    * </p>
-   * TODO
+   * 
    * <pre>
+   * assertThat(table).row(1).value(&quot;title&quot;).isOfType(ValueType.TEXT);
    * </pre>
    * 
    * @param expected The expected type to compare to.
@@ -114,5 +116,131 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
       throw failures.failure(info, shouldBeType(value, expected, type));
     }
     return myself;
+  }
+
+  /**
+   * Verifies that the value is a number.
+   * <p>
+   * Example where the assertion verifies that the value in the {@code Column} called "year" of the first {@code Row} of
+   * the {@code Table} is a number :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).row().value(&quot;year&quot;).isNumber();
+   * </pre>
+   * 
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is not a number.
+   */
+  public V isNumber() {
+    return isOfType(ValueType.NUMBER);
+  }
+
+  /**
+   * Verifies that the value is a boolean.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is a boolean :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).row().value().isBoolean();
+   * </pre>
+   * 
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is not a number.
+   */
+  public V isBoolean() {
+    return isOfType(ValueType.BOOLEAN);
+  }
+
+  /**
+   * Verifies that the value is a date.
+   * <p>
+   * Example where the assertion verifies that the value in the {@code Column} called "birth" of the first {@code Row}
+   * of the {@code Table} is a date :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).row().value(&quot;birth&quot;).isDate();
+   * </pre>
+   * 
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is not a number.
+   */
+  public V isDate() {
+    return isOfType(ValueType.DATE);
+  }
+
+  /**
+   * Verifies that the value is a time.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is a time :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).row().value().isTime();
+   * </pre>
+   * 
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is not a number.
+   */
+  public V isTime() {
+    return isOfType(ValueType.TIME);
+  }
+
+  /**
+   * Verifies that the value is a date/time.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is a date/time :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).row().value().isDateTime();
+   * </pre>
+   * 
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is not a number.
+   */
+  public V isDateTime() {
+    return isOfType(ValueType.DATE_TIME);
+  }
+
+  /**
+   * Verifies that the value is a array of bytes.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is a array of bytes :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).row().value().isBytes();
+   * </pre>
+   * 
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is not a number.
+   */
+  public V isBytes() {
+    return isOfType(ValueType.BYTES);
+  }
+
+  /**
+   * Verifies that the value is a text.
+   * <p>
+   * Example where the assertion verifies that the value in the {@code Column} called "title" of the first {@code Row}
+   * of the {@code Table} is a text :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).row().value(&quot;title&quot;).isText();
+   * </pre>
+   * 
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is not a number.
+   */
+  public V isText() {
+    return isOfType(ValueType.TEXT);
   }
 }

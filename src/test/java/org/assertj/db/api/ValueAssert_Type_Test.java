@@ -48,20 +48,20 @@ public class ValueAssert_Type_Test extends AbstractTest {
 
     assertThat(table)
         .row()
-            .value().as("var1 type").isOfType(ValueType.NUMBER).returnToRow()
-            .value().as("var2 type").isOfType(ValueType.BOOLEAN).returnToRow()
-            .value().as("var3 type").isOfType(ValueType.NUMBER).returnToRow()
-            .value().as("var4 type").isOfType(ValueType.NUMBER).returnToRow()
-            .value().as("var5 type").isOfType(ValueType.NUMBER).returnToRow()
-            .value().as("var6 type").isOfType(ValueType.NUMBER).returnToRow()
-            .value().as("var7 type").isOfType(ValueType.NUMBER).returnToRow()
-            .value().as("var8 type").isOfType(ValueType.TIME).returnToRow()
-            .value().as("var9 type").isOfType(ValueType.DATE).returnToRow()
-            .value().as("var10 type").isOfType(ValueType.DATE_TIME).returnToRow()
-            .value().as("var11 type").isOfType(ValueType.BYTES).returnToRow()
-            .value().as("var12 type").isOfType(ValueType.TEXT).returnToRow()
-            .value().as("var13 type").isOfType(ValueType.NUMBER).returnToRow()
-            .value().as("var14 type").isOfType(ValueType.NUMBER);
+            .value().as("var1").isOfType(ValueType.NUMBER).returnToRow()
+            .value().as("var2").isOfType(ValueType.BOOLEAN).returnToRow()
+            .value().as("var3").isOfType(ValueType.NUMBER).returnToRow()
+            .value().as("var4").isOfType(ValueType.NUMBER).returnToRow()
+            .value().as("var5").isOfType(ValueType.NUMBER).returnToRow()
+            .value().as("var6").isOfType(ValueType.NUMBER).returnToRow()
+            .value().as("var7").isOfType(ValueType.NUMBER).returnToRow()
+            .value().as("var8").isOfType(ValueType.TIME).returnToRow()
+            .value().as("var9").isOfType(ValueType.DATE).returnToRow()
+            .value().as("var10").isOfType(ValueType.DATE_TIME).returnToRow()
+            .value().as("var11").isOfType(ValueType.BYTES).returnToRow()
+            .value().as("var12").isOfType(ValueType.TEXT).returnToRow()
+            .value().as("var13").isOfType(ValueType.NUMBER).returnToRow()
+            .value().as("var14").isOfType(ValueType.NUMBER);
   }
 
   /**
@@ -74,5 +74,115 @@ public class ValueAssert_Type_Test extends AbstractTest {
     assertThat(table)
         .row()
             .value().as("var1 type").isOfType(ValueType.BOOLEAN);
+  }
+
+  /**
+   * This method tests the result of {@code isNumber}, {@code isBoolean} and others methods.
+   */
+  @Test
+  public void test_the_types_with_the_methods_to_test_that() {
+    Table table = new Table(source, "test");
+
+    assertThat(table)
+        .row()
+            .value().as("var1").isNumber().returnToRow()
+            .value().as("var2").isBoolean().returnToRow()
+            .value().as("var3").isNumber().returnToRow()
+            .value().as("var4").isNumber().returnToRow()
+            .value().as("var5").isNumber().returnToRow()
+            .value().as("var6").isNumber().returnToRow()
+            .value().as("var7").isNumber().returnToRow()
+            .value().as("var8").isTime().returnToRow()
+            .value().as("var9").isDate().returnToRow()
+            .value().as("var10").isDateTime().returnToRow()
+            .value().as("var11").isBytes().returnToRow()
+            .value().as("var12").isText().returnToRow()
+            .value().as("var13").isNumber().returnToRow()
+            .value().as("var14").isNumber();
+  }
+
+  /**
+   * This method should fail because var2 is a boolean and not a number.
+   */
+  @Test(expected = AssertionError.class)
+  public void should_fail_because_var2_is_not_a_number() {
+    Table table = new Table(source, "test");
+
+    assertThat(table)
+        .row()
+            .value().as("var1").isNumber().returnToRow()
+            .value().as("var2").isNumber();
+  }
+
+  /**
+   * This method should fail because var1 is a boolean and not a number.
+   */
+  @Test(expected = AssertionError.class)
+  public void should_fail_because_var1_is_not_a_boolean() {
+    Table table = new Table(source, "test");
+
+    assertThat(table)
+        .row()
+            .value().as("var1").isBoolean();
+  }
+
+  /**
+   * This method should fail because var1 is a boolean and not a time.
+   */
+  @Test(expected = AssertionError.class)
+  public void should_fail_because_var1_is_not_a_time() {
+    Table table = new Table(source, "test");
+
+    assertThat(table)
+        .row()
+            .value().as("var1").isTime();
+  }
+
+  /**
+   * This method should fail because var1 is a boolean and not a date.
+   */
+  @Test(expected = AssertionError.class)
+  public void should_fail_because_var1_is_not_a_date() {
+    Table table = new Table(source, "test");
+
+    assertThat(table)
+        .row()
+            .value().as("var1").isDate();
+  }
+
+  /**
+   * This method should fail because var1 is a boolean and not a date/time.
+   */
+  @Test(expected = AssertionError.class)
+  public void should_fail_because_var1_is_not_a_datetime() {
+    Table table = new Table(source, "test");
+
+    assertThat(table)
+        .row()
+            .value().as("var1").isDateTime();
+  }
+
+  /**
+   * This method should fail because var1 is a boolean and not a array of bytes.
+   */
+  @Test(expected = AssertionError.class)
+  public void should_fail_because_var1_is_not_a_array_of_byte() {
+    Table table = new Table(source, "test");
+
+    assertThat(table)
+        .row()
+            .value().as("var1").isBytes();
+  }
+
+  /**
+   * This method should fail because var1 is a boolean and not a text.
+   */
+  @Test(expected = AssertionError.class)
+  public void should_fail_because_var1_is_not_a_text() {
+    Table table = new Table(source, "test");
+
+    assertThat(table)
+        .row()
+            .value().as("var1").isText();
   }
 }
