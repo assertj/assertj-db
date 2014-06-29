@@ -6,6 +6,7 @@ import org.assertj.core.api.Descriptable;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.description.Description;
 import org.assertj.core.internal.Failures;
+import org.assertj.core.internal.Objects;
 import org.assertj.db.type.AbstractDbData;
 
 public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A extends AbstractDbData<A>, T extends AbstractSubAssert<S, A, T>, V extends AbstractValueAssert<S, A, T, V>>
@@ -32,6 +33,10 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
    * To notice failures in the assertion.
    */
   private static Failures failures = Failures.instance();
+  /**
+   * Assertions for {@code Object}s provided by assertj-core.
+   */
+  private Objects objects = Objects.instance();
 
   // Like in AbstractAssert from assertj-core :
   // we prefer not to use Class<? extends S> selfType because it would force inherited
@@ -242,5 +247,15 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
    */
   public V isText() {
     return isOfType(ValueType.TEXT);
+  }
+
+  public V isNull() {
+    objects.assertNull(info, value);
+    return myself;
+  }
+
+  public V isNotNull() {
+    objects.assertNotNull(info, value);
+    return myself;
   }
 }
