@@ -249,11 +249,39 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
     return isOfType(ValueType.TEXT);
   }
 
+  /**
+   * Verifies that the value is a array of bytes.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is null :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).row().value().isNull();
+   * </pre>
+   * 
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is not a number.
+   */
   public V isNull() {
     objects.assertNull(info, value);
     return myself;
   }
 
+  /**
+   * Verifies that the value is a array of bytes.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is not null :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).row().value().isNotNull();
+   * </pre>
+   * 
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is not a number.
+   */
   public V isNotNull() {
     objects.assertNotNull(info, value);
     return myself;
