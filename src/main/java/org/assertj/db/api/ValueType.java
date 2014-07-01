@@ -17,7 +17,7 @@ public enum ValueType {
    * Bytes type.
    */
   BYTES,
- /**
+  /**
    * Boolean type.
    */
   BOOLEAN,
@@ -38,44 +38,44 @@ public enum ValueType {
    */
   DATE_TIME,
   /**
-   * Number type
-   * (INT, SMALLINT, TINYINT, BIGINT, REAL or DECIMAL column).
+   * Number type (INT, SMALLINT, TINYINT, BIGINT, REAL or DECIMAL column).
    */
-  NUMBER;
+  NUMBER,
+  /**
+   * Default type : corresponding to anything else.
+   */
+  DEFAULT;
 
   /**
    * Returns the type of the actual value (data).
+   * 
    * @param pValue The actual value
    * @return The type of the actual value
    */
   public static ValueType getType(final Object pValue) {
-      if (pValue instanceof byte[]) {
-          return BYTES;
-      }
-      if (pValue instanceof Boolean) {
-          return BOOLEAN;
-      }
-      if (pValue instanceof String) {
-          return TEXT;
-      }
-      if (pValue instanceof Date) {
-          return DATE;
-      }
-      if (pValue instanceof Time) {
-          return TIME;
-      }
-      if (pValue instanceof Timestamp) {
-          return DATE_TIME;
-      }
-      if (pValue instanceof Byte
-              || pValue instanceof Short
-              || pValue instanceof Integer
-              || pValue instanceof Long
-              || pValue instanceof Float
-              || pValue instanceof BigDecimal) {
+    if (pValue instanceof byte[]) {
+      return BYTES;
+    }
+    if (pValue instanceof Boolean) {
+      return BOOLEAN;
+    }
+    if (pValue instanceof String) {
+      return TEXT;
+    }
+    if (pValue instanceof Date) {
+      return DATE;
+    }
+    if (pValue instanceof Time) {
+      return TIME;
+    }
+    if (pValue instanceof Timestamp) {
+      return DATE_TIME;
+    }
+    if (pValue instanceof Byte || pValue instanceof Short || pValue instanceof Integer || pValue instanceof Long
+        || pValue instanceof Float || pValue instanceof BigDecimal) {
 
-          return NUMBER;
-      }
-      return null;
+      return NUMBER;
+    }
+    return DEFAULT;
   }
 }
