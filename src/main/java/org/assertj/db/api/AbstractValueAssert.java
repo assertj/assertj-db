@@ -2,11 +2,11 @@ package org.assertj.db.api;
 
 import static org.assertj.core.error.ShouldBeEqual.shouldBeEqual;
 import static org.assertj.db.error.ShouldBeType.shouldBeType;
+import static org.assertj.db.util.Values.areEqual;
 
 import org.assertj.core.api.Descriptable;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.description.Description;
-import org.assertj.core.internal.Booleans;
 import org.assertj.core.internal.Failures;
 import org.assertj.core.internal.Objects;
 import org.assertj.db.type.AbstractDbData;
@@ -306,7 +306,7 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
    */
   public V isEqualTo(Boolean expected) {
     isBoolean();
-    if (testIfEqualTo(expected)) {
+    if (areEqual(value, expected)) {
       return myself;
     }
     throw failures.failure(info, shouldBeEqual(value, expected, info.representation()));
@@ -344,33 +344,5 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
    */
   public V isFalse() {
     return isEqualTo(false);
-  }
-
-  /**
-   * Returns if the value is equal to another value in parameter.
-   * @param expected The value to compare.
-   * @return {@code true} if the value is equal to the value in parameter, {@code false} otherwise.
-   */
-  boolean testIfEqualTo(Object expected) {
-    switch (getType()) {
-      case BOOLEAN:
-        if (expected instanceof Boolean) {
-          return testIfEqualTo((Boolean) expected);
-        }
-      default:
-        if (expected == null && value == null) {
-          return true;
-        }
-    }
-    return false;
-  }
-
-  /**
-   * Returns if the value is equal to the boolean in parameter.
-   * @param expected The boolean to compare.
-   * @return {@code true} if the value is equal to the boolean parameter, {@code false} otherwise.
-   */
-  boolean testIfEqualTo(Boolean expected) {
-    return expected.equals(value);
   }
 }

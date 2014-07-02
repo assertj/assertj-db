@@ -71,8 +71,12 @@ public enum ValueType {
     if (pValue instanceof Timestamp) {
       return DATE_TIME;
     }
-    if (pValue instanceof Byte || pValue instanceof Short || pValue instanceof Integer || pValue instanceof Long
-        || pValue instanceof Float || pValue instanceof BigDecimal) {
+    if (pValue instanceof Byte
+        || pValue instanceof Short
+        || pValue instanceof Integer
+        || pValue instanceof Long
+        || pValue instanceof Float
+        || pValue instanceof BigDecimal) {
 
       return NUMBER;
     }
