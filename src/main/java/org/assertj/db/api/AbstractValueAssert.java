@@ -345,4 +345,27 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
   public V isFalse() {
     return isEqualTo(false);
   }
+
+  /**
+   * Verifies that the value is equal to a number.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is equal to number 3 :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).row().value().isEqualTo(3);
+   * </pre>
+   * 
+   * @param expected The expected number value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the number in parameter.
+   */
+  public V isEqualTo(Number expected) {
+    isNumber();
+    if (areEqual(value, expected)) {
+      return myself;
+    }
+    throw failures.failure(info, shouldBeEqual(value, expected, info.representation()));
+  }
 }
