@@ -14,6 +14,14 @@ import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Column;
 import org.assertj.db.type.Row;
 
+/**
+ * Assertion methods about the data in a <code>{@link Table}</code> or in a <code>{@link Request}</code>.
+ * 
+ * @author Régis Pouiller
+ *
+ * @param <S> The class of the original assert (an sub-class of {@link AbstractDbAssert}).
+ * @param <A> The class of the actual value (an sub-class of {@link AbstractDbData}).
+ */
 public abstract class AbstractDbAssert<S extends AbstractDbAssert<S, A>, A extends AbstractDbData<A>> implements
     Descriptable<S> {
 
