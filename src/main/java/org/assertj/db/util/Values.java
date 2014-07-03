@@ -44,6 +44,11 @@ public class Values {
         return areEqual(value, (byte[]) expected);
       }
       break;
+    case TEXT:
+      if (expected instanceof String) {
+        return areEqual(value, (String) expected);
+      }
+      break;
     default:
       if (expected == null && value == null) {
         return true;
@@ -186,6 +191,17 @@ public class Values {
       return true;
     }
     return false;
+  }
+
+  /**
+   * Returns if the value is equal to the {@code String} in parameter.
+   * 
+   * @param value The value.
+   * @param expected The {@code String} to compare.
+   * @return {@code true} if the value is equal to the {@code String} parameter, {@code false} otherwise.
+   */
+  public static boolean areEqual(Object value, String expected) {
+    return expected.equals(value);
   }
 
 }

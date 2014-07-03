@@ -172,4 +172,13 @@ public class Values_AreEqual_Object_Test extends AbstractTest {
     assertThat(Values.areEqual(bytes, badBytes)).isFalse();
     assertThat(Values.areEqual(bytes, (Object) "")).isFalse();
   }
+
+  /**
+   * This method tests the {@code areEqual} method for {@code String}s.
+   */
+  @Test
+  public void test_are_equal_for_string() {
+    assertThat(Values.areEqual("text", (Object) "text")).isTrue();
+    assertThat(Values.areEqual("Text", (Object) "text")).isFalse();
+  }
 }

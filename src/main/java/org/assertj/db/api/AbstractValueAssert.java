@@ -392,4 +392,27 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
     }
     throw failures.failure(info, shouldBeEqual(value, expected, info.representation()));
   }
+
+  /**
+   * Verifies that the value is equal to a text.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is equal to a text :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).row().value().isEqualTo("text");
+   * </pre>
+   * 
+   * @param expected The expected text value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the text in parameter.
+   */
+  public V isEqualTo(String expected) {
+    isText();
+    if (areEqual(value, expected)) {
+      return myself;
+    }
+    throw failures.failure(info, shouldBeEqual(value, expected, info.representation()));
+  }
 }
