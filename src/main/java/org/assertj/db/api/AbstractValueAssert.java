@@ -368,4 +368,28 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
     }
     throw failures.failure(info, shouldBeEqual(value, expected, info.representation()));
   }
+
+  /**
+   * Verifies that the value is equal to a array of bytes.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is equal to a array of bytes loaded from a file in the classpath :
+   * </p>
+   * 
+   * <pre>
+   * byte[] bytes = bytesContentFromClassPathOf("file.png");
+   * assertThat(table).row().value().isEqualTo(bytes);
+   * </pre>
+   * 
+   * @param expected The expected array of bytes value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the array of bytes in parameter.
+   */
+  public V isEqualTo(byte[] expected) {
+    isBytes();
+    if (areEqual(value, expected)) {
+      return myself;
+    }
+    throw failures.failure(info, shouldBeEqual(value, expected, info.representation()));
+  }
 }

@@ -8,7 +8,7 @@ import org.assertj.db.error.AssertJDBException;
 
 /**
  * Utility methods related to values.
- *
+ * 
  * @author Régis Pouiller
  */
 public class Values {
@@ -37,6 +37,11 @@ public class Values {
     case NUMBER:
       if (expected instanceof Number) {
         return areEqual(value, (Number) expected);
+      }
+      break;
+    case BYTES:
+      if (expected instanceof byte[]) {
+        return areEqual(value, (byte[]) expected);
       }
       break;
     default:
@@ -157,6 +162,29 @@ public class Values {
       }
     }
 
+    return false;
+  }
+
+  /**
+   * Returns if the value is equal to the array of {@code byte} in parameter.
+   * 
+   * @param value The value.
+   * @param expected The array of {@code byte} to compare.
+   * @return {@code true} if the value is equal to the array of {@code byte} parameter, {@code false} otherwise.
+   */
+  public static boolean areEqual(Object value, byte[] expected) {
+    if (value instanceof byte[]) {
+      byte[] bytes = (byte[]) value;
+      if (bytes.length != expected.length) {
+        return false;
+      }
+      for (int i = 0; i < bytes.length; i++) {
+        if (bytes[i] != expected[i]) {
+          return false;
+        }
+      }
+      return true;
+    }
     return false;
   }
 

@@ -1,6 +1,7 @@
 package org.assertj.db.util;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.db.api.Assertions.bytesContentFromClassPathOf;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -10,8 +11,9 @@ import org.junit.Test;
 
 /**
  * Tests on {@code areEqual} method for {@code Object}s.
+ * 
  * @author Régis Pouiller
- *
+ * 
  */
 public class Values_AreEqual_Object_Test extends AbstractTest {
 
@@ -156,5 +158,18 @@ public class Values_AreEqual_Object_Test extends AbstractTest {
     assertThat(Values.areEqual((long) 2, (Object) 1F)).isFalse();
     assertThat(Values.areEqual((long) 1, (Object) 1D)).isTrue();
     assertThat(Values.areEqual((long) 2, (Object) 1D)).isFalse();
+  }
+
+  /**
+   * This method tests the {@code areEqual} method for arrays of {@code byte}s.
+   */
+  @Test
+  public void test_are_equal_for_bytes() {
+    byte[] bytes = bytesContentFromClassPathOf("test.txt");
+    Object goodBytes = (Object) new byte[] { 'T', 'e', 'x', 't', ' ', 'f', 'o', 'r', ' ', 't', 'e', 's', 't', 's' };
+    Object badBytes = (Object) new byte[] { 'T', 'e', 'x', 't', ' ', 'f', 'o', 'r', ' ', ' ', 'e', 's', 't', 's' };
+    assertThat(Values.areEqual(bytes, goodBytes)).isTrue();
+    assertThat(Values.areEqual(bytes, badBytes)).isFalse();
+    assertThat(Values.areEqual(bytes, (Object) "")).isFalse();
   }
 }
