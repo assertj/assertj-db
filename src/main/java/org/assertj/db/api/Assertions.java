@@ -11,6 +11,12 @@ import org.assertj.db.error.AssertJDBException;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
 
+/**
+ * Entry point of all the assertions.
+ * 
+ * @author Régis Pouiller
+ * 
+ */
 public final class Assertions {
 
   /**
