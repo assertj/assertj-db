@@ -129,4 +129,13 @@ public class DateValue_Test extends AbstractTest {
     assertThat(dateValue.getMonth()).isEqualTo(07);
     assertThat(dateValue.getYear()).isEqualTo(2002);
   }
+
+  /**
+   * This method tests the {@code toString} method.
+   */
+  @Test
+  public void test_toString() {
+    assertThat(DateValue.of(2007, 12, 23).toString()).isEqualTo("2007-12-23");
+    assertThat(DateValue.of(2007, 2, 3).toString()).isEqualTo("2007-02-03");
+  }
 }

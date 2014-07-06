@@ -225,4 +225,12 @@ public class TimeValue_Test extends AbstractTest {
     assertThat(timeValue.getNanoSeconds()).isEqualTo(0);
   }
 
+  /**
+   * This method tests the {@code toString} method.
+   */
+  @Test
+  public void test_toString() {
+    assertThat(TimeValue.of(9, 1, 6, 3).toString()).isEqualTo("09:01:06.000000003");
+  }
+
 }

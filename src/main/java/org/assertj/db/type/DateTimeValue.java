@@ -119,4 +119,10 @@ public class DateTimeValue {
     return time;
   }
 
+  @Override
+  public String toString() {
+    return String.format("%4d-%02d-%02d %02d:%02d:%02d.%09d", date.getYear(), date.getMonth(), date.getDayOfTheMonth(),
+        time.getHour(), time.getMinutes(), time.getSeconds(), time.getNanoSeconds());
+  }
+
 }

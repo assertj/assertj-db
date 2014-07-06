@@ -196,4 +196,9 @@ public class TimeValue {
     return nanoSeconds;
   }
 
+  @Override
+  public String toString() {
+    return String.format("%02d:%02d:%02d.%09d", hour, minutes, seconds, nanoSeconds);
+  }
+
 }

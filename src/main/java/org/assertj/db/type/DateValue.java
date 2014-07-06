@@ -111,4 +111,9 @@ public class DateValue {
   public int getYear() {
     return year;
   }
+
+  @Override
+  public String toString() {
+    return String.format("%4d-%02d-%02d", year, month, dayOfTheMonth);
+  }
 }
