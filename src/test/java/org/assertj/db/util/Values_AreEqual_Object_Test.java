@@ -180,5 +180,6 @@ public class Values_AreEqual_Object_Test extends AbstractTest {
   public void test_are_equal_for_string() {
     assertThat(Values.areEqual("text", (Object) "text")).isTrue();
     assertThat(Values.areEqual("Text", (Object) "text")).isFalse();
+    assertThat(Values.areEqual("Text", (Object) 1)).isFalse();
   }
 }
