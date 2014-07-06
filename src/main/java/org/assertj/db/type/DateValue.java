@@ -15,19 +15,19 @@ public class DateValue {
   /**
    * Day of the month.
    */
-  private int dayOfTheMonth;
+  private final int dayOfTheMonth;
   /**
    * Month.
    */
-  private int month;
+  private final int month;
   /**
    * Year.
    */
-  private int year;
+  private final int year;
   /**
    * Indicates where there are the digits in the {@code String} for {@link DateValue#DateValue(String)}.
    */
-  private boolean[] DATE_FORMAT = { true, true, true, true, false, true, true, false, true, true };
+  private static final boolean[] DATE_FORMAT = { true, true, true, true, false, true, true, false, true, true };
 
   /**
    * Makes an instance of date value from a day of month, a month and an year.
@@ -78,13 +78,12 @@ public class DateValue {
     if (date.length() != DATE_FORMAT.length) {
       throw new ParseException("date must be of " + DATE_FORMAT.length + " characters", date.length());
     }
-    for (int i=0; i < DATE_FORMAT.length; i++) {
+    for (int i = 0; i < DATE_FORMAT.length; i++) {
       if (DATE_FORMAT[i]) {
         if (!isDigit(date.charAt(i))) {
           throw new ParseException("date must respect yyyy-mm-dd format", i);
         }
-      }
-      else {
+      } else {
         if (date.charAt(i) != '-') {
           throw new ParseException("date must respect yyyy-mm-dd format", i);
         }
