@@ -33,6 +33,7 @@ public class DateValue {
    * @param year Year.
    * @param month Month.
    * @param dayOfTheMonth Day of the month.
+   * @return An instance of date value.
    */
   public static DateValue of(int year, int month, int dayOfTheMonth) {
     return new DateValue(year, month, dayOfTheMonth);
@@ -44,6 +45,7 @@ public class DateValue {
    * @param date Date in {@code String} format ({@code yyyy-mm-dd}).
    * @throws NullPointerException If {@code date} is {@code null}.
    * @throws ParseException If {@code date} don't respect the {@code yyyy-mm-dd} format.
+   * @return An instance of date value.
    */
   public static DateValue parse(String date) throws ParseException {
     return new DateValue(date);

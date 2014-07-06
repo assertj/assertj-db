@@ -48,6 +48,7 @@ public class TimeValue {
    * @param minutes Minutes.
    * @param seconds Seconds.
    * @param nanoSeconds Nanoseconds.
+   * @return An instance of time value.
    */
   public static TimeValue of(int hour, int minutes, int seconds, int nanoSeconds) {
     return new TimeValue(hour, minutes, seconds, nanoSeconds);
@@ -59,6 +60,7 @@ public class TimeValue {
    * @param hour Hour.
    * @param minutes Minutes.
    * @param seconds Seconds.
+   * @return An instance of time value.
    */
   public static TimeValue of(int hour, int minutes, int seconds) {
     return new TimeValue(hour, minutes, seconds);
@@ -69,6 +71,7 @@ public class TimeValue {
    * 
    * @param hour Hour.
    * @param minutes Minutes.
+   * @return An instance of time value.
    */
   public static TimeValue of(int hour, int minutes) {
     return new TimeValue(hour, minutes);
@@ -79,6 +82,7 @@ public class TimeValue {
    * {@code hh:mm:ss.nnnnnnnnn} format.
    * 
    * @param time Time in {@code String} format ({@code hh:mm}, {@code hh:mm:ss} or {@code hh:mm:ss.nnnnnnnnn}).
+   * @return An instance of time value.
    * @throws NullPointerException If {@code time} is {@code null}.
    * @throws ParseException If {@code time} don't respect the {@code hh:mm}, {@code hh:mm:ss} or
    *           {@code hh:mm:ss.nnnnnnnnn} format.
