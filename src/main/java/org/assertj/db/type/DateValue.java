@@ -1,7 +1,5 @@
 package org.assertj.db.type;
 
-import static java.lang.Character.isDigit;
-
 import java.text.ParseException;
 
 /**
@@ -27,7 +25,7 @@ public class DateValue {
   /**
    * Indicates where there are the digits in the {@code String} for {@link DateValue#DateValue(String)}.
    */
-  private static final boolean[] DATE_FORMAT = { true, true, true, true, false, true, true, false, true, true };
+  private static final String DATE_FORMAT = "\\d\\d\\d\\d-\\d\\d-\\d\\d";
 
   /**
    * Makes an instance of date value from a day of month, a month and an year.
@@ -75,24 +73,14 @@ public class DateValue {
     if (date == null) {
       throw new NullPointerException("date should be not null");
     }
-    if (date.length() != DATE_FORMAT.length) {
-      throw new ParseException("date must be of " + DATE_FORMAT.length + " characters", date.length());
-    }
-    for (int i = 0; i < DATE_FORMAT.length; i++) {
-      if (DATE_FORMAT[i]) {
-        if (!isDigit(date.charAt(i))) {
-          throw new ParseException("date must respect yyyy-mm-dd format", i);
-        }
-      } else {
-        if (date.charAt(i) != '-') {
-          throw new ParseException("date must respect yyyy-mm-dd format", i);
-        }
-      }
-    }
 
-    year = Integer.parseInt(date.substring(0, 4));
-    month = Integer.parseInt(date.substring(5, 7));
-    dayOfTheMonth = Integer.parseInt(date.substring(8));
+    if (date.matches(DATE_FORMAT)) {
+      year = Integer.parseInt(date.substring(0, 4));
+      month = Integer.parseInt(date.substring(5, 7));
+      dayOfTheMonth = Integer.parseInt(date.substring(8));
+    } else {
+      throw new ParseException("date must respect yyyy-mm-dd format", date.length());
+    }
   }
 
   /**
