@@ -44,7 +44,8 @@ public class DateValue_Test extends AbstractTest {
   }
 
   /**
-   * This method should throw a {@code ParseException} because passing a parameter to constructor with a bad character on year.
+   * This method should throw a {@code ParseException} because passing a parameter to constructor with a bad character
+   * on year.
    */
   @Test(expected = ParseException.class)
   public void should_constructor_with_string_fail_if_date_have_bad_character_on_year() throws ParseException {
@@ -52,7 +53,8 @@ public class DateValue_Test extends AbstractTest {
   }
 
   /**
-   * This method should throw a {@code ParseException} because passing a parameter to constructor with a bad character on separator.
+   * This method should throw a {@code ParseException} because passing a parameter to constructor with a bad character
+   * on separator.
    */
   @Test(expected = ParseException.class)
   public void should_constructor_with_string_fail_if_date_have_bad_character_on_separator() throws ParseException {
@@ -91,7 +93,8 @@ public class DateValue_Test extends AbstractTest {
   }
 
   /**
-   * This method should throw a {@code ParseException} because passing a parameter to constructor with a bad length.
+   * This method should throw a {@code ParseException} because passing a parameter to {@code parse} static method with a
+   * bad length.
    */
   @Test(expected = ParseException.class)
   public void should_parse_fail_if_date_have_bad_length() throws ParseException {
@@ -99,7 +102,8 @@ public class DateValue_Test extends AbstractTest {
   }
 
   /**
-   * This method should throw a {@code ParseException} because passing a parameter to constructor with a bad character on year.
+   * This method should throw a {@code ParseException} because passing a parameter to {@code parse} static method with a
+   * bad character on year.
    */
   @Test(expected = ParseException.class)
   public void should_parse_fail_if_date_have_bad_character_on_year() throws ParseException {
@@ -107,7 +111,8 @@ public class DateValue_Test extends AbstractTest {
   }
 
   /**
-   * This method should throw a {@code ParseException} because passing a parameter to constructor with a bad character on separator.
+   * This method should throw a {@code ParseException} because passing a parameter to {@code parse} static method with a
+   * bad character on separator.
    */
   @Test(expected = ParseException.class)
   public void should_parse_fail_if_date_have_bad_character_on_separator() throws ParseException {
