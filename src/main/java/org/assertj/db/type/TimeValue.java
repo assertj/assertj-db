@@ -1,6 +1,8 @@
 package org.assertj.db.type;
 
+import java.sql.Time;
 import java.text.ParseException;
+import java.util.Calendar;
 
 /**
  * This class represents a time value in the database.
@@ -92,6 +94,17 @@ public class TimeValue {
   }
 
   /**
+   * Makes an instance of time value from a {@link Time}.
+   * 
+   * @param time Time.
+   * @throws NullPointerException If {@code time} is {@code null}.
+   * @return An instance of time value.
+   */
+  public static TimeValue from(Time time) {
+    return new TimeValue(time);
+  }
+
+  /**
    * Constructor.
    * 
    * @param hour Hour.
@@ -158,6 +171,26 @@ public class TimeValue {
     } else {
       throw new ParseException("time must respect hh:mm, hh:mm:ss or hh:mm:ss.nnnnnnnnn format", time.length());
     }
+  }
+
+  /**
+   * Constructor.
+   * 
+   * @param time Time.
+   * @throws NullPointerException If {@code time} is {@code null}.
+   */
+  public TimeValue(Time time) {
+    if (time == null) {
+      throw new NullPointerException("time should be not null");
+    }
+
+    Calendar calendar = Calendar.getInstance();
+    calendar.setTimeInMillis(time.getTime());
+
+    hour = calendar.get(Calendar.HOUR_OF_DAY);
+    minutes = calendar.get(Calendar.MINUTE);
+    seconds = calendar.get(Calendar.SECOND);
+    nanoSeconds = 0;
   }
 
   /**

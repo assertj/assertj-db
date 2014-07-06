@@ -1,6 +1,8 @@
 package org.assertj.db.type;
 
+import java.sql.Date;
 import java.text.ParseException;
+import java.util.Calendar;
 
 /**
  * This class represents a date value in the database.
@@ -52,6 +54,17 @@ public class DateValue {
   }
 
   /**
+   * Makes an instance of date value from a {@link Date}.
+   * 
+   * @param date Date.
+   * @throws NullPointerException If {@code date} is {@code null}.
+   * @return An instance of date value.
+   */
+  public static DateValue from(Date date) {
+    return new DateValue(date);
+  }
+
+  /**
    * Constructor.
    * 
    * @param year Year.
@@ -83,6 +96,25 @@ public class DateValue {
     } else {
       throw new ParseException("date must respect yyyy-mm-dd format", date.length());
     }
+  }
+
+  /**
+   * Constructor.
+   * 
+   * @param date Date.
+   * @throws NullPointerException If {@code date} is {@code null}.
+   */
+  public DateValue(Date date) {
+    if (date == null) {
+      throw new NullPointerException("date should be not null");
+    }
+
+    Calendar calendar = Calendar.getInstance();
+    calendar.setTimeInMillis(date.getTime());
+
+    dayOfTheMonth = calendar.get(Calendar.DAY_OF_MONTH);
+    month = calendar.get(Calendar.MONTH) + 1;
+    year = calendar.get(Calendar.YEAR);
   }
 
   /**

@@ -2,6 +2,7 @@ package org.assertj.db.type;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.sql.Date;
 import java.text.ParseException;
 
 import org.assertj.db.common.AbstractTest;
@@ -14,6 +15,26 @@ import org.junit.Test;
  * 
  */
 public class DateValue_Test extends AbstractTest {
+
+  /**
+   * This method tests the constructor with a {@code String}.
+   */
+  @Test
+  public void test_contructor_with_date() throws ParseException {
+    DateValue dateValue = new DateValue(Date.valueOf("2007-12-23"));
+    assertThat(dateValue.getDayOfTheMonth()).isEqualTo(23);
+    assertThat(dateValue.getMonth()).isEqualTo(12);
+    assertThat(dateValue.getYear()).isEqualTo(2007);
+  }
+
+  /**
+   * This method should throw a {@code NullPointerException} because passing a {@code null} parameter to constructor
+   * with a {@code String}.
+   */
+  @Test(expected = NullPointerException.class)
+  public void should_constructor_with_date_fail_if_date_is_null() throws ParseException {
+    new DateValue((Date) null);
+  }
 
   /**
    * This method tests the constructor with a {@code String}.
@@ -32,7 +53,7 @@ public class DateValue_Test extends AbstractTest {
    */
   @Test(expected = NullPointerException.class)
   public void should_constructor_with_string_fail_if_date_is_null() throws ParseException {
-    new DateValue(null);
+    new DateValue((String) null);
   }
 
   /**
@@ -70,6 +91,26 @@ public class DateValue_Test extends AbstractTest {
     assertThat(dateValue.getDayOfTheMonth()).isEqualTo(23);
     assertThat(dateValue.getMonth()).isEqualTo(12);
     assertThat(dateValue.getYear()).isEqualTo(2007);
+  }
+
+  /**
+   * This method tests the {@code from} static method.
+   */
+  @Test
+  public void test_from() throws ParseException {
+    DateValue dateValue = DateValue.from(Date.valueOf("2002-07-26"));
+    assertThat(dateValue.getDayOfTheMonth()).isEqualTo(26);
+    assertThat(dateValue.getMonth()).isEqualTo(07);
+    assertThat(dateValue.getYear()).isEqualTo(2002);
+  }
+
+  /**
+   * This method should throw a {@code NullPointerException} because passing a {@code null} parameter to the
+   * {@code from} static method.
+   */
+  @Test(expected = NullPointerException.class)
+  public void should_from_fail_if_date_is_null() throws ParseException {
+    DateValue.from(null);
   }
 
   /**

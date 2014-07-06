@@ -2,6 +2,7 @@ package org.assertj.db.type;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 
 import org.assertj.db.common.AbstractTest;
@@ -81,7 +82,7 @@ public class DateTimeValue_Test extends AbstractTest {
    */
   @Test(expected = NullPointerException.class)
   public void should_constructor_with_string_fail_if_date_is_null() throws ParseException {
-    new DateTimeValue(null);
+    new DateTimeValue((String) null);
   }
 
   /**
@@ -108,6 +109,29 @@ public class DateTimeValue_Test extends AbstractTest {
   @Test(expected = ParseException.class)
   public void should_constructor_with_string_fail_if_date_have_bad_character_on_separator() throws ParseException {
     new DateTimeValue("2007a12-23");
+  }
+
+  /**
+   * This method tests the {@code from} method containing seconds.
+   */
+  @Test
+  public void test_constructor_with_timestamp() throws ParseException {
+    DateTimeValue dateTimeValue = new DateTimeValue(Timestamp.valueOf("2007-12-23 09:01:06.000000003"));
+    assertThat(dateTimeValue.getDate().getDayOfTheMonth()).isEqualTo(23);
+    assertThat(dateTimeValue.getDate().getMonth()).isEqualTo(12);
+    assertThat(dateTimeValue.getDate().getYear()).isEqualTo(2007);
+    assertThat(dateTimeValue.getTime().getHour()).isEqualTo(9);
+    assertThat(dateTimeValue.getTime().getMinutes()).isEqualTo(1);
+    assertThat(dateTimeValue.getTime().getSeconds()).isEqualTo(6);
+    assertThat(dateTimeValue.getTime().getNanoSeconds()).isEqualTo(3);
+  }
+
+  /**
+   * This method should throw a {@code NullPointerException} because passing a {@code null} parameter to constructor with a {@code TimeStamp}.
+   */
+  @Test(expected = NullPointerException.class)
+  public void should_constructor_with_timestamp_fail_if_date_is_null() throws ParseException {
+    new DateTimeValue((Timestamp) null);
   }
 
   /**
@@ -221,6 +245,29 @@ public class DateTimeValue_Test extends AbstractTest {
   @Test(expected = ParseException.class)
   public void should_parse_fail_if_date_have_bad_character_on_separator() throws ParseException {
     DateTimeValue.parse("2007a12-23");
+  }
+
+  /**
+   * This method tests the {@code from} method containing seconds.
+   */
+  @Test
+  public void test_from() throws ParseException {
+    DateTimeValue dateTimeValue = DateTimeValue.from(Timestamp.valueOf("2007-12-23 09:01:06.000000003"));
+    assertThat(dateTimeValue.getDate().getDayOfTheMonth()).isEqualTo(23);
+    assertThat(dateTimeValue.getDate().getMonth()).isEqualTo(12);
+    assertThat(dateTimeValue.getDate().getYear()).isEqualTo(2007);
+    assertThat(dateTimeValue.getTime().getHour()).isEqualTo(9);
+    assertThat(dateTimeValue.getTime().getMinutes()).isEqualTo(1);
+    assertThat(dateTimeValue.getTime().getSeconds()).isEqualTo(6);
+    assertThat(dateTimeValue.getTime().getNanoSeconds()).isEqualTo(3);
+  }
+
+  /**
+   * This method should throw a {@code NullPointerException} because passing a {@code null} parameter to {@code from} method.
+   */
+  @Test(expected = NullPointerException.class)
+  public void should_from_fail_if_date_is_null() throws ParseException {
+    DateTimeValue.from(null);
   }
 
   /**

@@ -1,6 +1,8 @@
 package org.assertj.db.type;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
+import java.util.Calendar;
 
 /**
  * This class represents a date/time value in the database.
@@ -63,6 +65,17 @@ public class DateTimeValue {
   }
 
   /**
+   * Makes an instance of date/time value from a {@link Timestamp}.
+   * 
+   * @param timestamp Timestamp.
+   * @throws NullPointerException If {@code timestamp} is {@code null}.
+   * @return An instance of date/time value.
+   */
+  public static DateTimeValue from(Timestamp timestamp) {
+    return new DateTimeValue(timestamp);
+  }
+
+  /**
    * Constructor.
    * 
    * @param date The date.
@@ -99,6 +112,25 @@ public class DateTimeValue {
       throw new ParseException("date/time must respect yyyy-mm-dd, yyyy-mm-dd hh:mm, "
           + "yyyy-mm-dd hh:mm:ss or yyyy-mm-dd hh:mm:ss.nnnnnnnnn format", dateTime.length());
     }
+  }
+
+  /**
+   * Constructor.
+   * 
+   * @param timestamp Timestamp.
+   * @throws NullPointerException If {@code dateTime} is {@code null}.
+   */
+  public DateTimeValue(Timestamp timestamp) {
+    if (timestamp == null) {
+      throw new NullPointerException("date/time should be not null");
+    }
+
+    Calendar calendar = Calendar.getInstance();
+    calendar.setTimeInMillis(timestamp.getTime());
+
+    date = DateValue.of(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
+    time = TimeValue.of(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),
+        calendar.get(Calendar.SECOND), timestamp.getNanos());
   }
 
   /**

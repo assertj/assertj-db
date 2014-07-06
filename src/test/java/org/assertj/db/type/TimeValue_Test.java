@@ -2,6 +2,7 @@ package org.assertj.db.type;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.sql.Time;
 import java.text.ParseException;
 
 import org.assertj.db.common.AbstractTest;
@@ -57,7 +58,7 @@ public class TimeValue_Test extends AbstractTest {
    */
   @Test(expected = NullPointerException.class)
   public void should_constructor_with_string_fail_if_date_is_null() throws ParseException {
-    new TimeValue(null);
+    new TimeValue((String) null);
   }
 
   /**
@@ -82,6 +83,27 @@ public class TimeValue_Test extends AbstractTest {
   @Test(expected = ParseException.class)
   public void should_constructor_with_string_fail_if_date_have_bad_character_on_separator() throws ParseException {
     new TimeValue("09a01");
+  }
+
+  /**
+   * This method tests the constructor with a {@code Time} containing seconds.
+   */
+  @Test
+  public void test_contructor_with_time_containing_seconds() throws ParseException {
+    TimeValue timeValue = new TimeValue(Time.valueOf("09:01:06"));
+    assertThat(timeValue.getHour()).isEqualTo(9);
+    assertThat(timeValue.getMinutes()).isEqualTo(1);
+    assertThat(timeValue.getSeconds()).isEqualTo(6);
+    assertThat(timeValue.getNanoSeconds()).isEqualTo(0);
+  }
+
+  /**
+   * This method should throw a {@code NullPointerException} because passing a {@code null} parameter to constructor
+   * with a {@code Time}.
+   */
+  @Test(expected = NullPointerException.class)
+  public void should_constructor_with_time_fail_if_date_is_null() throws ParseException {
+    new TimeValue((String) null);
   }
 
   /**
@@ -187,6 +209,26 @@ public class TimeValue_Test extends AbstractTest {
   @Test(expected = ParseException.class)
   public void should_parse_fail_if_date_have_bad_character_on_separator() throws ParseException {
     TimeValue.parse("09a01");
+  }
+
+  /**
+   * This method tests the {@code from} method containing seconds.
+   */
+  @Test
+  public void test_from_containing_seconds() throws ParseException {
+    TimeValue timeValue = TimeValue.from(Time.valueOf("09:01:06"));
+    assertThat(timeValue.getHour()).isEqualTo(9);
+    assertThat(timeValue.getMinutes()).isEqualTo(1);
+    assertThat(timeValue.getSeconds()).isEqualTo(6);
+    assertThat(timeValue.getNanoSeconds()).isEqualTo(0);
+  }
+
+  /**
+   * This method should throw a {@code NullPointerException} because passing a {@code null} parameter to {@code from} method.
+   */
+  @Test(expected = NullPointerException.class)
+  public void should_from_fail_if_date_is_null() throws ParseException {
+    TimeValue.from(null);
   }
 
   /**
