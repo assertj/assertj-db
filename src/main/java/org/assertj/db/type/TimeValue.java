@@ -158,46 +158,6 @@ public class TimeValue {
     } else {
       throw new ParseException("time must respect hh:mm, hh:mm:ss or hh:mm:ss.nnnnnnnnn format", time.length());
     }
-
-    // if (time.length() == DATE_FORMAT.length) {
-    // for (int i = 0; i < DATE_FORMAT_PART_1.length; i++) {
-    // if (DATE_FORMAT_PART_1[i]) {
-    // if (!isDigit(time.charAt(i))) {
-    // throw new ParseException("time must respect hh:mm", i);
-    // }
-    // } else {
-    // if (time.charAt(i) != ':') {
-    // throw new ParseException("time must respect hh:mm", i);
-    // }
-    // }
-    // }
-    // } else if (time.length() == DATE_FORMAT_PART_1.length + DATE_FORMAT_PART_2.length) {
-    // for (int i = 0; i < DATE_FORMAT_PART_1.length; i++) {
-    // if (DATE_FORMAT_PART_1[i]) {
-    // if (!isDigit(time.charAt(i))) {
-    // throw new ParseException("time must respect hh:mm:ss", i);
-    // }
-    // } else {
-    // if (time.charAt(i) != ':') {
-    // throw new ParseException("time must respect hh:mm:ss", i);
-    // }
-    // }
-    // }
-    // for (int i = 0; i < DATE_FORMAT_PART_2.length; i++) {
-    // if (DATE_FORMAT_PART_2[i]) {
-    // if (!isDigit(time.charAt(DATE_FORMAT_PART_1.length + i))) {
-    // throw new ParseException("time must respect hh:mm:ss", DATE_FORMAT_PART_1.length + i);
-    // }
-    // } else {
-    // if (time.charAt(DATE_FORMAT_PART_1.length + i) != ':') {
-    // throw new ParseException("time must respect hh:mm:ss", DATE_FORMAT_PART_1.length + i);
-    // }
-    // }
-    // }
-    // } else if (time.length() == DATE_FORMAT_PART_1.length + DATE_FORMAT_PART_2.length + DATE_FORMAT_PART_3.length) {
-    //
-    // }
-
   }
 
   /**
