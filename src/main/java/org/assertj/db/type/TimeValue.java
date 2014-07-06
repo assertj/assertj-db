@@ -29,17 +29,17 @@ public class TimeValue {
   /**
    * Indicates where there are the digits for {@code String} for {@link TimeValue#TimeValue(String)}.
    */
-  private static final String DATE_FORMAT = "\\d\\d:\\d\\d";
+  private static final String TIME_FORMAT = "\\d\\d:\\d\\d";
   /**
    * Indicates where there are the digits in style with seconds for {@code String} for
    * {@link TimeValue#TimeValue(String)}.
    */
-  private static final String DATE_FORMAT_WITH_SECONDS = "\\d\\d:\\d\\d:\\d\\d";
+  private static final String TIME_FORMAT_WITH_SECONDS = "\\d\\d:\\d\\d:\\d\\d";
   /**
    * Indicates where there are the digits in style with nanoseconds for {@code String} for
    * {@link TimeValue#TimeValue(String)}.
    */
-  private static final String DATE_FORMAT_WITH_NANO = "\\d\\d:\\d\\d:\\d\\d.\\d\\d\\d\\d\\d\\d\\d\\d\\d";
+  private static final String TIME_FORMAT_WITH_NANO = "\\d\\d:\\d\\d:\\d\\d.\\d\\d\\d\\d\\d\\d\\d\\d\\d";
 
   /**
    * Makes an instance of time value from a hour, minutes, seconds and nanoseconds.
@@ -136,17 +136,17 @@ public class TimeValue {
       throw new NullPointerException("time should be not null");
     }
 
-    if (time.matches(DATE_FORMAT)) {
+    if (time.matches(TIME_FORMAT)) {
       hour = Integer.parseInt(time.substring(0, 2));
       minutes = Integer.parseInt(time.substring(3));
       seconds = 0;
       nanoSeconds = 0;
-    } else if (time.matches(DATE_FORMAT_WITH_SECONDS)) {
+    } else if (time.matches(TIME_FORMAT_WITH_SECONDS)) {
       hour = Integer.parseInt(time.substring(0, 2));
       minutes = Integer.parseInt(time.substring(3, 5));
       seconds = Integer.parseInt(time.substring(6));
       nanoSeconds = 0;
-    } else if (time.matches(DATE_FORMAT_WITH_NANO)) {
+    } else if (time.matches(TIME_FORMAT_WITH_NANO)) {
       hour = Integer.parseInt(time.substring(0, 2));
       minutes = Integer.parseInt(time.substring(3, 5));
       seconds = Integer.parseInt(time.substring(6, 8));
