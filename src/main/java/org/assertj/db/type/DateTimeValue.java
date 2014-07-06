@@ -90,13 +90,9 @@ public class DateTimeValue {
     if (dateTime.matches(DATE_FORMAT)) {
       date = DateValue.parse(dateTime);
       time = new TimeValue(0, 0);
-    } else if (dateTime.matches(TIME_FORMAT)) {
-      date = DateValue.parse(dateTime.substring(0, 10));
-      time = TimeValue.parse(dateTime.substring(11));
-    } else if (dateTime.matches(TIME_FORMAT_WITH_SECONDS)) {
-      date = DateValue.parse(dateTime.substring(0, 10));
-      time = TimeValue.parse(dateTime.substring(11));
-    } else if (dateTime.matches(TIME_FORMAT_WITH_NANO)) {
+    } else if (dateTime.matches(TIME_FORMAT) || dateTime.matches(TIME_FORMAT_WITH_SECONDS)
+        || dateTime.matches(TIME_FORMAT_WITH_NANO)) {
+
       date = DateValue.parse(dateTime.substring(0, 10));
       time = TimeValue.parse(dateTime.substring(11));
     } else {
