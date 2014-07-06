@@ -2,6 +2,12 @@ package org.assertj.db.type;
 
 import java.text.ParseException;
 
+/**
+ * This class represents a time value in the database.
+ * 
+ * @author Régis Pouiller
+ * 
+ */
 public class TimeValue {
 
   /**
