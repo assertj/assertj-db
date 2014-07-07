@@ -36,7 +36,7 @@ public class DateTimeValue_Test extends AbstractTest {
    */
   @Test
   public void test_contructor_with_string_with_minutes() throws ParseException {
-    DateTimeValue dateTimeValue = new DateTimeValue("2007-12-23 09:01");
+    DateTimeValue dateTimeValue = new DateTimeValue("2007-12-23T09:01");
     assertThat(dateTimeValue.getDate().getDayOfTheMonth()).isEqualTo(23);
     assertThat(dateTimeValue.getDate().getMonth()).isEqualTo(12);
     assertThat(dateTimeValue.getDate().getYear()).isEqualTo(2007);
@@ -51,7 +51,7 @@ public class DateTimeValue_Test extends AbstractTest {
    */
   @Test
   public void test_contructor_with_string_with_seconds() throws ParseException {
-    DateTimeValue dateTimeValue = new DateTimeValue("2007-12-23 09:01:06");
+    DateTimeValue dateTimeValue = new DateTimeValue("2007-12-23T09:01:06");
     assertThat(dateTimeValue.getDate().getDayOfTheMonth()).isEqualTo(23);
     assertThat(dateTimeValue.getDate().getMonth()).isEqualTo(12);
     assertThat(dateTimeValue.getDate().getYear()).isEqualTo(2007);
@@ -66,7 +66,7 @@ public class DateTimeValue_Test extends AbstractTest {
    */
   @Test
   public void test_contructor_with_string_with_nano() throws ParseException {
-    DateTimeValue dateTimeValue = new DateTimeValue("2007-12-23 09:01:06.000000003");
+    DateTimeValue dateTimeValue = new DateTimeValue("2007-12-23T09:01:06.000000003");
     assertThat(dateTimeValue.getDate().getDayOfTheMonth()).isEqualTo(23);
     assertThat(dateTimeValue.getDate().getMonth()).isEqualTo(12);
     assertThat(dateTimeValue.getDate().getYear()).isEqualTo(2007);
@@ -171,7 +171,7 @@ public class DateTimeValue_Test extends AbstractTest {
    */
   @Test
   public void test_parse_with_minutes() throws ParseException {
-    DateTimeValue dateTimeValue = DateTimeValue.parse("2007-12-23 09:01");
+    DateTimeValue dateTimeValue = DateTimeValue.parse("2007-12-23T09:01");
     assertThat(dateTimeValue.getDate().getDayOfTheMonth()).isEqualTo(23);
     assertThat(dateTimeValue.getDate().getMonth()).isEqualTo(12);
     assertThat(dateTimeValue.getDate().getYear()).isEqualTo(2007);
@@ -186,7 +186,7 @@ public class DateTimeValue_Test extends AbstractTest {
    */
   @Test
   public void test_parse_with_seconds() throws ParseException {
-    DateTimeValue dateTimeValue = DateTimeValue.parse("2007-12-23 09:01:06");
+    DateTimeValue dateTimeValue = DateTimeValue.parse("2007-12-23T09:01:06");
     assertThat(dateTimeValue.getDate().getDayOfTheMonth()).isEqualTo(23);
     assertThat(dateTimeValue.getDate().getMonth()).isEqualTo(12);
     assertThat(dateTimeValue.getDate().getYear()).isEqualTo(2007);
@@ -201,7 +201,7 @@ public class DateTimeValue_Test extends AbstractTest {
    */
   @Test
   public void test_parse_with_nano() throws ParseException {
-    DateTimeValue dateTimeValue = DateTimeValue.parse("2007-12-23 09:01:06.000000003");
+    DateTimeValue dateTimeValue = DateTimeValue.parse("2007-12-23T09:01:06.000000003");
     assertThat(dateTimeValue.getDate().getDayOfTheMonth()).isEqualTo(23);
     assertThat(dateTimeValue.getDate().getMonth()).isEqualTo(12);
     assertThat(dateTimeValue.getDate().getYear()).isEqualTo(2007);

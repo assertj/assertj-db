@@ -27,17 +27,17 @@ public class DateTimeValue {
   /**
    * Indicates where there are the digits for {@code String} for {@link TimeValue#TimeValue(String)}.
    */
-  private static final String TIME_FORMAT = "\\d\\d\\d\\d-\\d\\d-\\d\\d \\d\\d:\\d\\d";
+  private static final String TIME_FORMAT = "\\d\\d\\d\\d-\\d\\d-\\d\\dT\\d\\d:\\d\\d";
   /**
    * Indicates where there are the digits in style with seconds for {@code String} for
    * {@link TimeValue#TimeValue(String)}.
    */
-  private static final String TIME_FORMAT_WITH_SECONDS = "\\d\\d\\d\\d-\\d\\d-\\d\\d \\d\\d:\\d\\d:\\d\\d";
+  private static final String TIME_FORMAT_WITH_SECONDS = "\\d\\d\\d\\d-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d";
   /**
    * Indicates where there are the digits in style with nanoseconds for {@code String} for
    * {@link TimeValue#TimeValue(String)}.
    */
-  private static final String TIME_FORMAT_WITH_NANO = "\\d\\d\\d\\d-\\d\\d-\\d\\d \\d\\d:\\d\\d:\\d\\d.\\d\\d\\d\\d\\d\\d\\d\\d\\d";
+  private static final String TIME_FORMAT_WITH_NANO = "\\d\\d\\d\\d-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d.\\d\\d\\d\\d\\d\\d\\d\\d\\d";
 
   /**
    * Makes an instance of date/time value from a date and a time.
@@ -51,13 +51,13 @@ public class DateTimeValue {
   }
 
   /**
-   * Makes an instance of date/time value from a {@code String} in {@code yyyy-mm-dd}, {@code yyyy-mm-dd hh:mm},
-   * {@code yyyy-mm-dd hh:mm:ss} or {@code yyyy-mm-dd hh:mm:ss.nnnnnnnnn} format.
+   * Makes an instance of date/time value from a {@code String} in {@code yyyy-mm-dd}, {@code yyyy-mm-ddThh:mm},
+   * {@code yyyy-mm-ddThh:mm:ss} or {@code yyyy-mm-ddThh:mm:ss.nnnnnnnnn} format.
    * 
    * @param dateTime Date/time in {@code String} format ({@code yyyy-mm-dd}).
    * @throws NullPointerException If {@code dateTime} is {@code null}.
-   * @throws ParseException If {@code date} don't respect the {@code yyyy-mm-dd}, {@code yyyy-mm-dd hh:mm},
-   *           {@code yyyy-mm-dd hh:mm:ss} or {@code yyyy-mm-dd hh:mm:ss.nnnnnnnnn} format.
+   * @throws ParseException If {@code date} don't respect the {@code yyyy-mm-dd}, {@code yyyy-mm-ddThh:mm},
+   *           {@code yyyy-mm-ddThh:mm:ss} or {@code yyyy-mm-ddThh:mm:ss.nnnnnnnnn} format.
    * @return An instance of date/time value.
    */
   public static DateTimeValue parse(String dateTime) throws ParseException {
@@ -89,11 +89,11 @@ public class DateTimeValue {
   /**
    * Constructor.
    * 
-   * @param dateTime Time in {@code String} format ({@code yyyy-mm-dd}, {@code yyyy-mm-dd hh:mm},
-   *          {@code yyyy-mm-dd hh:mm:ss} or {@code yyyy-mm-dd hh:mm:ss.nnnnnnnnn}).
+   * @param dateTime Time in {@code String} format ({@code yyyy-mm-dd}, {@code yyyy-mm-ddThh:mm},
+   *          {@code yyyy-mm-ddThh:mm:ss} or {@code yyyy-mm-ddThh:mm:ss.nnnnnnnnn}).
    * @throws NullPointerException If {@code dateTime} is {@code null}.
-   * @throws ParseException If {@code date} don't respect the {@code yyyy-mm-dd}, {@code yyyy-mm-dd hh:mm},
-   *           {@code yyyy-mm-dd hh:mm:ss} or {@code yyyy-mm-dd hh:mm:ss.nnnnnnnnn} format.
+   * @throws ParseException If {@code date} don't respect the {@code yyyy-mm-dd}, {@code yyyy-mm-ddThh:mm},
+   *           {@code yyyy-mm-ddThh:mm:ss} or {@code yyyy-mm-ddThh:mm:ss.nnnnnnnnn} format.
    */
   public DateTimeValue(String dateTime) throws ParseException {
     if (dateTime == null) {
@@ -109,8 +109,8 @@ public class DateTimeValue {
       date = DateValue.parse(dateTime.substring(0, 10));
       time = TimeValue.parse(dateTime.substring(11));
     } else {
-      throw new ParseException("date/time must respect yyyy-mm-dd, yyyy-mm-dd hh:mm, "
-          + "yyyy-mm-dd hh:mm:ss or yyyy-mm-dd hh:mm:ss.nnnnnnnnn format", dateTime.length());
+      throw new ParseException("date/time must respect yyyy-mm-dd, yyyy-mm-ddThh:mm, "
+          + "yyyy-mm-ddThh:mm:ss or yyyy-mm-ddThh:mm:ss.nnnnnnnnn format", dateTime.length());
     }
   }
 
