@@ -4,12 +4,19 @@ import static org.assertj.core.error.ShouldBeEqual.shouldBeEqual;
 import static org.assertj.db.error.ShouldBeType.shouldBeType;
 import static org.assertj.db.util.Values.areEqual;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
+
 import org.assertj.core.api.Descriptable;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.description.Description;
 import org.assertj.core.internal.Failures;
 import org.assertj.core.internal.Objects;
 import org.assertj.db.type.AbstractDbData;
+import org.assertj.db.type.DateTimeValue;
+import org.assertj.db.type.DateValue;
+import org.assertj.db.type.TimeValue;
 
 public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A extends AbstractDbData<A>, T extends AbstractSubAssert<S, A, T>, V extends AbstractValueAssert<S, A, T, V>>
     implements Descriptable<V> {
@@ -377,7 +384,7 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
    * </p>
    * 
    * <pre>
-   * byte[] bytes = bytesContentFromClassPathOf("file.png");
+   * byte[] bytes = bytesContentFromClassPathOf(&quot;file.png&quot;);
    * assertThat(table).row().value().isEqualTo(bytes);
    * </pre>
    * 
@@ -401,7 +408,7 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
    * </p>
    * 
    * <pre>
-   * assertThat(table).row().value().isEqualTo("text");
+   * assertThat(table).row().value().isEqualTo(&quot;text&quot;);
    * </pre>
    * 
    * @param expected The expected text value.
@@ -414,5 +421,74 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
       return myself;
     }
     throw failures.failure(info, shouldBeEqual(value, expected, info.representation()));
+  }
+
+  /**
+   * Verifies that the value is equal to a date value.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is equal to a date value :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).row().value().isEqualTo(DateValue.of(2014, 7, 7));
+   * </pre>
+   * 
+   * @param expected The expected date value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the date value in parameter.
+   */
+  public V isEqualTo(DateValue expected) {
+    isDate();
+    if (areEqual(value, expected)) {
+      return myself;
+    }
+    throw failures.failure(info, shouldBeEqual(DateValue.from((Date) value), expected, info.representation()));
+  }
+
+  /**
+   * Verifies that the value is equal to a time value.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is equal to a time value :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).row().value().isEqualTo(TimeValue.of(21, 29, 30));
+   * </pre>
+   * 
+   * @param expected The expected time value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the time value in parameter.
+   */
+  public V isEqualTo(TimeValue expected) {
+    isTime();
+    if (areEqual(value, expected)) {
+      return myself;
+    }
+    throw failures.failure(info, shouldBeEqual(TimeValue.from((Time) value), expected, info.representation()));
+  }
+
+  /**
+   * Verifies that the value is equal to a date/time value.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is equal to a date/time value :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).row().value().isEqualTo(DateTimeValue.of(DateValue.of(2014, 7, 7), TimeValue.of(21, 29)));
+   * </pre>
+   * 
+   * @param expected The expected date/time value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the date/time value in parameter.
+   */
+  public V isEqualTo(DateTimeValue expected) {
+    isDateTime();
+    if (areEqual(value, expected)) {
+      return myself;
+    }
+    throw failures.failure(info, shouldBeEqual(DateTimeValue.from((Timestamp) value), expected, info.representation()));
   }
 }

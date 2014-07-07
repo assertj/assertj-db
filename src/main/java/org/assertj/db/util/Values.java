@@ -2,9 +2,15 @@ package org.assertj.db.util;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
 
 import org.assertj.db.api.ValueType;
 import org.assertj.db.error.AssertJDBException;
+import org.assertj.db.type.DateTimeValue;
+import org.assertj.db.type.DateValue;
+import org.assertj.db.type.TimeValue;
 
 /**
  * Utility methods related to values.
@@ -47,6 +53,21 @@ public class Values {
     case TEXT:
       if (expected instanceof String) {
         return areEqual(value, (String) expected);
+      }
+      break;
+    case DATE:
+      if (expected instanceof DateValue) {
+        return areEqual(value, (DateValue) expected);
+      }
+      break;
+    case TIME:
+      if (expected instanceof TimeValue) {
+        return areEqual(value, (TimeValue) expected);
+      }
+      break;
+    case DATE_TIME:
+      if (expected instanceof DateTimeValue) {
+        return areEqual(value, (DateTimeValue) expected);
       }
       break;
     default:
@@ -204,4 +225,59 @@ public class Values {
     return expected.equals(value);
   }
 
+  /**
+   * Returns if the value is equal to the {@link DateValue} in parameter.
+   * 
+   * @param value The value.
+   * @param expected The {@link DateValue} to compare.
+   * @return {@code true} if the value is equal to the {@link DateValue} parameter, {@code false} otherwise.
+   */
+  public static boolean areEqual(Object value, DateValue expected) {
+    if (value instanceof Date && expected != null) {
+      Date date = (Date) value;
+      DateValue dateValue = DateValue.from(date);
+      return dateValue.getYear() == expected.getYear() && dateValue.getMonth() == expected.getMonth()
+          && dateValue.getDayOfTheMonth() == expected.getDayOfTheMonth();
+    }
+    return false;
+  }
+
+  /**
+   * Returns if the value is equal to the {@link TimeValue} in parameter.
+   * 
+   * @param value The value.
+   * @param expected The {@link DatTimeValueeValue} to compare.
+   * @return {@code true} if the value is equal to the {@link TimeValue} parameter, {@code false} otherwise.
+   */
+  public static boolean areEqual(Object value, TimeValue expected) {
+    if (value instanceof Time && expected != null) {
+      Time time = (Time) value;
+      TimeValue timeValue = TimeValue.from(time);
+      return timeValue.getHour() == expected.getHour() && timeValue.getMinutes() == expected.getMinutes()
+          && timeValue.getSeconds() == expected.getSeconds() && timeValue.getNanoSeconds() == expected.getNanoSeconds();
+    }
+    return false;
+  }
+
+  /**
+   * Returns if the value is equal to the {@link DateTimeValue} in parameter.
+   * 
+   * @param value The value.
+   * @param expected The {@link DateTimeValue} to compare.
+   * @return {@code true} if the value is equal to the {@link DateTimeValue} parameter, {@code false} otherwise.
+   */
+  public static boolean areEqual(Object value, DateTimeValue expected) {
+    if (value instanceof Timestamp && expected != null) {
+      Timestamp timestamp = (Timestamp) value;
+      DateTimeValue dateTimeValue = DateTimeValue.from(timestamp);
+      return dateTimeValue.getDate().getYear() == expected.getDate().getYear()
+          && dateTimeValue.getDate().getMonth() == expected.getDate().getMonth()
+          && dateTimeValue.getDate().getDayOfTheMonth() == expected.getDate().getDayOfTheMonth()
+          && dateTimeValue.getTime().getHour() == expected.getTime().getHour()
+          && dateTimeValue.getTime().getMinutes() == expected.getTime().getMinutes()
+          && dateTimeValue.getTime().getSeconds() == expected.getTime().getSeconds()
+          && dateTimeValue.getTime().getNanoSeconds() == expected.getTime().getNanoSeconds();
+    }
+    return false;
+  }
 }

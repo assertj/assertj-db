@@ -5,8 +5,14 @@ import static org.assertj.db.api.Assertions.bytesContentFromClassPathOf;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
 
 import org.assertj.db.common.AbstractTest;
+import org.assertj.db.type.DateTimeValue;
+import org.assertj.db.type.DateValue;
+import org.assertj.db.type.TimeValue;
 import org.junit.Test;
 
 /**
@@ -181,5 +187,43 @@ public class Values_AreEqual_Object_Test extends AbstractTest {
     assertThat(Values.areEqual("text", (Object) "text")).isTrue();
     assertThat(Values.areEqual("Text", (Object) "text")).isFalse();
     assertThat(Values.areEqual("Text", (Object) 1)).isFalse();
+  }
+
+  /**
+   * This method tests the {@code areEqual} method for {@code DateValue}s.
+   */
+  @Test
+  public void test_are_equal_for_dates() {
+    assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (Object) DateValue.of(2007, 12, 23))).isTrue();
+    assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (Object) DateValue.of(2007, 1, 2))).isFalse();
+    assertThat(Values.areEqual("", (Object) DateValue.of(2007, 12, 23))).isFalse();
+    assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (Object) null)).isFalse();
+  }
+
+  /**
+   * This method tests the {@code areEqual} method for {@code TimeValue}s.
+   */
+  @Test
+  public void test_are_equal_for_times() {
+    assertThat(Values.areEqual(Time.valueOf("09:01:06"), (Object) TimeValue.of(9, 1, 6))).isTrue();
+    assertThat(Values.areEqual(Time.valueOf("09:01:06"), (Object) TimeValue.of(9, 1, 5))).isFalse();
+    assertThat(Values.areEqual("", (Object) TimeValue.of(9, 1, 6))).isFalse();
+    assertThat(Values.areEqual(Time.valueOf("09:01:06"), (Object) null)).isFalse();
+  }
+
+  /**
+   * This method tests the {@code areEqual} method for {@code TimeValue}s.
+   */
+  @Test
+  public void test_are_equal_for_timestamps() {
+    assertThat(
+        Values.areEqual(Timestamp.valueOf("2007-12-23 09:01:06.000000003"),
+            (Object) DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)))).isTrue();
+    assertThat(
+        Values.areEqual(Timestamp.valueOf("2007-12-23 09:01:06.000000003"),
+            (Object) DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 5, 3)))).isFalse();
+    assertThat(Values.areEqual("", (Object) DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3))))
+        .isFalse();
+    assertThat(Values.areEqual(Timestamp.valueOf("2007-12-23 09:01:06.000000003"), (Object) null)).isFalse();
   }
 }
