@@ -11,7 +11,7 @@ import org.junit.Test;
  * @author Régis Pouiller
  * 
  */
-public class Values_AreEqual_String_Test extends AbstractTest {
+public class Values_AreEqual_Object_And_String_Test extends AbstractTest {
 
   /**
    * This method tests the {@code areEqual} method for {@code String}s.
