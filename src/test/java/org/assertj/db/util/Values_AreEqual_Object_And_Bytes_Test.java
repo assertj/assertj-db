@@ -1,9 +1,8 @@
 package org.assertj.db.util;
 
-import static org.assertj.db.api.Assertions.bytesContentFromClassPathOf;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.db.api.Assertions.bytesContentFromClassPathOf;
 
-import org.assertj.db.common.AbstractTest;
 import org.junit.Test;
 
 /**
@@ -12,7 +11,7 @@ import org.junit.Test;
  * @author Régis Pouiller
  * 
  */
-public class Values_AreEqual_Object_And_Bytes_Test extends AbstractTest {
+public class Values_AreEqual_Object_And_Bytes_Test {
 
   /**
    * This method tests the {@code areEqual} method for arrays of {@code byte}s.

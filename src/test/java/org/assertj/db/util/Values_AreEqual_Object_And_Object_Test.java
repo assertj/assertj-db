@@ -9,7 +9,6 @@ import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 
-import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
@@ -21,7 +20,7 @@ import org.junit.Test;
  * @author Régis Pouiller
  * 
  */
-public class Values_AreEqual_Object_And_Object_Test extends AbstractTest {
+public class Values_AreEqual_Object_And_Object_Test {
 
   /**
    * This method tests the {@code areEqual} method for {@code Object}s with booleans.

@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import org.assertj.db.common.AbstractTest;
 import org.assertj.db.error.AssertJDBException;
 import org.junit.Test;
 
@@ -15,7 +14,7 @@ import org.junit.Test;
  * @author Régis Pouiller
  * 
  */
-public class Values_AreEqual_Object_And_Number_Test extends AbstractTest {
+public class Values_AreEqual_Object_And_Number_Test {
 
   /**
    * This method tests the {@code areEqual} method for {@code BigInteger}s.

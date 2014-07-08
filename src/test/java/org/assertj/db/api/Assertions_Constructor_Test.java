@@ -6,7 +6,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 
-import org.assertj.db.common.AbstractTest;
 import org.junit.Test;
 
 /**
@@ -15,7 +14,7 @@ import org.junit.Test;
  * @author Régis Pouiller
  * 
  */
-public class Assertions_Constructor_Test extends AbstractTest {
+public class Assertions_Constructor_Test {
 
   /**
    * This method tests the private constructor of {@code Assertions} for the tests coverage..

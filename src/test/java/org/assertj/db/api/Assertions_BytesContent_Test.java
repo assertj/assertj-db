@@ -12,7 +12,6 @@ import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import org.assertj.db.common.AbstractTest;
 import org.assertj.db.error.AssertJDBException;
 import org.junit.Test;
 
@@ -22,7 +21,7 @@ import org.junit.Test;
  * @author Régis Pouiller
  * 
  */
-public class Assertions_BytesContent_Test extends AbstractTest {
+public class Assertions_BytesContent_Test {
 
   /**
    * This method should throw a {@code NullPointerException}, because of call to {@code bytesContentOf} with

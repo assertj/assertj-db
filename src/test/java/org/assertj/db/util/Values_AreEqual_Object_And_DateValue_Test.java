@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.sql.Date;
 
-import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.DateValue;
 import org.junit.Test;
 
@@ -14,7 +13,7 @@ import org.junit.Test;
  * @author Régis Pouiller
  * 
  */
-public class Values_AreEqual_Object_And_DateValue_Test extends AbstractTest {
+public class Values_AreEqual_Object_And_DateValue_Test {
 
   /**
    * This method tests the {@code areEqual} method for {@code DateValue}s.

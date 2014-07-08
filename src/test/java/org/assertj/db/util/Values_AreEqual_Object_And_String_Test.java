@@ -2,7 +2,6 @@ package org.assertj.db.util;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.assertj.db.common.AbstractTest;
 import org.junit.Test;
 
 /**
@@ -11,7 +10,7 @@ import org.junit.Test;
  * @author Régis Pouiller
  * 
  */
-public class Values_AreEqual_Object_And_String_Test extends AbstractTest {
+public class Values_AreEqual_Object_And_String_Test {
 
   /**
    * This method tests the {@code areEqual} method for {@code String}s.
