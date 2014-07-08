@@ -15,7 +15,7 @@ import org.junit.Test;
  * @author Régis Pouiller
  * 
  */
-public class Values_AreEqual_Number_Test extends AbstractTest {
+public class Values_AreEqual_Object_And_Number_Test extends AbstractTest {
 
   /**
    * This method tests the {@code areEqual} method for {@code BigInteger}s.
