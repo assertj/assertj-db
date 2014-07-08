@@ -21,7 +21,7 @@ import org.junit.Test;
  * @author Régis Pouiller
  * 
  */
-public class Values_AreEqual_Object_Test extends AbstractTest {
+public class Values_AreEqual_Object_And_Object_Test extends AbstractTest {
 
   /**
    * This method tests the {@code areEqual} method for {@code Object}s with booleans.
