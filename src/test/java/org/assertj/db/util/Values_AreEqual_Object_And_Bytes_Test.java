@@ -12,7 +12,7 @@ import org.junit.Test;
  * @author Régis Pouiller
  * 
  */
-public class Values_AreEqual_Bytes_Test extends AbstractTest {
+public class Values_AreEqual_Object_And_Bytes_Test extends AbstractTest {
 
   /**
    * This method tests the {@code areEqual} method for arrays of {@code byte}s.
