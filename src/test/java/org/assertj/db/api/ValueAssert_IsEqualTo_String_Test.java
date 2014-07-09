@@ -41,8 +41,8 @@ public class ValueAssert_IsEqualTo_String_Test extends AbstractTest {
   @Test(expected = AssertionError.class)
   public void should_fail_because_value_is_not_a_text() {
     Table table = new Table(source, "test");
-    assertThat(table).column("var1")
-        .value().as("var1").isEqualTo("Text");
+    assertThat(table).column("var2")
+        .value().as("var2").isEqualTo("Text");
   }
 
 }
