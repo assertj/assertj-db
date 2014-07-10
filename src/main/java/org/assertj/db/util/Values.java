@@ -44,6 +44,9 @@ public class Values {
       if (expected instanceof Number) {
         return areEqual(value, (Number) expected);
       }
+      else if (expected instanceof String) {
+        return areEqual(value, (String) expected);
+      }
       break;
     case BYTES:
       if (expected instanceof byte[]) {

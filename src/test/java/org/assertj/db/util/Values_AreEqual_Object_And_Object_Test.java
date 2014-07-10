@@ -8,7 +8,9 @@ import java.math.BigInteger;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.concurrent.atomic.AtomicLong;
 
+import org.assertj.db.error.AssertJDBException;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
@@ -224,5 +226,100 @@ public class Values_AreEqual_Object_And_Object_Test {
     assertThat(Values.areEqual("", (Object) DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3))))
         .isFalse();
     assertThat(Values.areEqual(Timestamp.valueOf("2007-12-23 09:01:06.000000003"), (Object) null)).isFalse();
+  }
+
+  /**
+   * This method tests the {@code areEqual} method for another type of value and {@code Float}s.
+   */
+  @Test
+  public void test_are_equal_for_float_and_string() {
+    assertThat(Values.areEqual(1F, (Object) "1")).isTrue();
+    assertThat(Values.areEqual(2F, (Object) "1")).isFalse();
+    assertThat(Values.areEqual(1.5F, (Object) "1.5")).isTrue();
+    assertThat(Values.areEqual(2.5F, (Object) "1.5")).isFalse();
+  }
+
+  /**
+   * This method tests the {@code areEqual} method for another type of value and {@code Double}s.
+   */
+  @Test
+  public void test_are_equal_for_double_and_string() {
+    assertThat(Values.areEqual(1D, (Object) "1")).isFalse();
+    assertThat(Values.areEqual(2D, (Object) "1")).isFalse();
+    assertThat(Values.areEqual(1.5D, (Object) "1.5")).isFalse();
+    assertThat(Values.areEqual(2.5D, (Object) "1.5")).isFalse();
+  }
+
+  /**
+   * This method tests the {@code areEqual} method for another type of value and {@code BigInteger}s.
+   */
+  @Test
+  public void test_are_equal_for_biginteger_and_string() {
+    assertThat(Values.areEqual(new BigInteger("1"), (Object) "1")).isFalse();
+    assertThat(Values.areEqual(new BigInteger("2"), (Object) "1")).isFalse();
+  }
+
+  /**
+   * This method tests the {@code areEqual} method for another type of value and {@code BigDecimal}s.
+   */
+  @Test
+  public void test_are_equal_for_bigdecimal_and_string() {
+    assertThat(Values.areEqual(new BigDecimal("1"), (Object) "1")).isTrue();
+    assertThat(Values.areEqual(new BigDecimal("2"), (Object) "1")).isFalse();
+    assertThat(Values.areEqual(new BigDecimal("1.5"), (Object) "1.5")).isTrue();
+    assertThat(Values.areEqual(new BigDecimal("2.5"), (Object) "1.5")).isFalse();
+  }
+
+  /**
+   * This method tests the {@code areEqual} method for another type of value and {@code Byte}s.
+   */
+  @Test
+  public void test_are_equal_for_byte_and_string() {
+    assertThat(Values.areEqual((byte) 1, (Object) "1")).isTrue();
+    assertThat(Values.areEqual((byte) 2, (Object) "1")).isFalse();
+  }
+
+  /**
+   * This method tests the {@code areEqual} method for another type of value and {@code Short}s.
+   */
+  @Test
+  public void test_are_equal_for_short_and_string() {
+    assertThat(Values.areEqual((short) 1, (Object) "1")).isTrue();
+    assertThat(Values.areEqual((short) 2, (Object) "1")).isFalse();
+  }
+
+  /**
+   * This method tests the {@code areEqual} method for another type of value and {@code Int}s.
+   */
+  @Test
+  public void test_are_equal_for_int_and_string() {
+    assertThat(Values.areEqual((int) 1, (Object) "1")).isTrue();
+    assertThat(Values.areEqual((int) 2, (Object) "1")).isFalse();
+  }
+
+  /**
+   * This method tests the {@code areEqual} method for another type of value and {@code Long}s.
+   */
+  @Test
+  public void test_are_equal_for_long_and_string() {
+    assertThat(Values.areEqual((long) 1, (Object) "1")).isTrue();
+    assertThat(Values.areEqual((long) 2, (Object) "1")).isFalse();
+  }
+
+  /**
+   * This method tests the {@code areEqual} method for another type of value and {@code AtomicLong}s.
+   */
+  @Test
+  public void test_are_equal_for_atomiclong_and_string() {
+    assertThat(Values.areEqual(new AtomicLong(1), (Object) "1")).isFalse();
+    assertThat(Values.areEqual(new AtomicLong(2), (Object) "1")).isFalse();
+  }
+
+  /**
+   * This method should fail because the expected value ("***") if not parsable to do the comparison.
+   */
+  @Test(expected = AssertJDBException.class)
+  public void should_fail_because_string_is_not_parseable() {
+    Values.areEqual(1, (Object) "***");
   }
 }
