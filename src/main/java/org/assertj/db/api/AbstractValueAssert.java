@@ -2,6 +2,7 @@ package org.assertj.db.api;
 
 import static org.assertj.core.error.ShouldBeEqual.shouldBeEqual;
 import static org.assertj.db.error.ShouldBeType.shouldBeType;
+import static org.assertj.db.error.ShouldBeTypeOfAny.shouldBeTypeOfAny;
 import static org.assertj.db.util.Values.areEqual;
 
 import java.sql.Date;
@@ -130,6 +131,31 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
       throw failures.failure(info, shouldBeType(value, expected, type));
     }
     return myself;
+  }
+
+  /**
+   * Verifies that the type of the value is equal to one of the types in parameters.
+   * <p>
+   * Example where the assertion verifies that the value in the {@code Column} called "title" of the second {@code Row}
+   * of the {@code Table} is of type {@code TEXT} or of type {@code NUMBER} :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).row(1).value(&quot;title&quot;).isOfType(ValueType.TEXT, ValueType.NUMBER);
+   * </pre>
+   * 
+   * @param expected The expected types to compare to.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is different to all the types in parameters.
+   */
+  public V isOfAnyOfTypes(ValueType... expected) {
+    ValueType type = getType();
+    for (ValueType valueType : expected) {
+      if (type == valueType) {
+        return myself;
+      }
+    }
+    throw failures.failure(info, shouldBeTypeOfAny(value, type, expected));
   }
 
   /**
@@ -416,7 +442,7 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
    * @throws AssertionError If the value is not equal to the text in parameter.
    */
   public V isEqualTo(String expected) {
-    isText();
+    isOfAnyOfTypes(ValueType.TEXT, ValueType.NUMBER);
     if (areEqual(value, expected)) {
       return myself;
     }

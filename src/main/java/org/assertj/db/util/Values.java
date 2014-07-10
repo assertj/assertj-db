@@ -215,13 +215,70 @@ public class Values {
   }
 
   /**
+   * Returns if the number is equal to the {@code String} representation in parameter.
+   * 
+   * @param number The number.
+   * @param expected The {@code String} representation to compare.
+   * @return {@code true} if the number is equal to the {@code String} representation parameter, {@code false}
+   *         otherwise.
+   * @throws AssertJDBException If it is not possible to compare {@code number} to {@code expected}.
+   */
+  private static boolean areEqual(Number number, String expected) {
+    try {
+      if (number instanceof Float) {
+        if (((Float) number).floatValue() == Float.parseFloat(expected)) {
+          return true;
+        }
+      } else if (number instanceof Double) {
+        if (((Double) number).doubleValue() == Double.parseDouble(expected)) {
+          return true;
+        }
+      } else if (number instanceof BigInteger) {
+        BigInteger bi = new BigInteger("" + expected);
+        if (((BigInteger) number).compareTo(bi) == 0) {
+          return true;
+        }
+      } else if (number instanceof BigDecimal) {
+        BigDecimal bd = new BigDecimal("" + expected);
+        if (((BigDecimal) number).compareTo(bd) == 0) {
+          return true;
+        }
+      } else {
+        Long actual = null;
+
+        if (number instanceof Byte) {
+          actual = ((Byte) number).longValue();
+        } else if (number instanceof Short) {
+          actual = ((Short) number).longValue();
+        } else if (number instanceof Integer) {
+          actual = ((Integer) number).longValue();
+        } else if (number instanceof Long) {
+          actual = ((Long) number).longValue();
+        }
+
+        if (actual != null && actual.longValue() == Long.parseLong(expected)) {
+          return true;
+        }
+      }
+    } catch (NumberFormatException e) {
+      throw new AssertJDBException("<%s> is not correct to compare to <%s>", number, expected);
+    }
+    return false;
+  }
+
+  /**
    * Returns if the value is equal to the {@code String} in parameter.
    * 
    * @param value The value.
    * @param expected The {@code String} to compare.
    * @return {@code true} if the value is equal to the {@code String} parameter, {@code false} otherwise.
+   * @throws AssertJDBException If {@code value} is a {@code Number} and it is not possible to compare to
+   *           {@code expected}.
    */
   public static boolean areEqual(Object value, String expected) {
+    if (value instanceof Number) {
+      return areEqual((Number) value, expected);
+    }
     return expected.equals(value);
   }
 
