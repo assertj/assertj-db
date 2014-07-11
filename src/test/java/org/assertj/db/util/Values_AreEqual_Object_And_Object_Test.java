@@ -342,7 +342,7 @@ public class Values_AreEqual_Object_And_Object_Test {
    * This method tests the {@code areEqual} method for {@code TimeValue}s.
    */
   @Test
-  public void test_are_equal_for_times_int_string() {
+  public void test_are_equal_for_times_in_string() {
     assertThat(Values.areEqual(Time.valueOf("09:01:06"), (Object) "09:01:06")).isTrue();
     assertThat(Values.areEqual(Time.valueOf("09:01:00"), (Object) "09:01:00")).isTrue();
     assertThat(Values.areEqual(Time.valueOf("09:01:00"), (Object) "09:01")).isTrue();
@@ -359,5 +359,46 @@ public class Values_AreEqual_Object_And_Object_Test {
   @Test(expected = AssertJDBException.class)
   public void should_fail_because_string_is_not_parseable_in_time() {
     Values.areEqual(Time.valueOf("09:01:06"), (Object) "***");
+  }
+
+  /**
+   * This method tests the {@code areEqual} method for {@code TimeValue}s.
+   */
+  @Test
+  public void test_are_equal_for_dates_in_string() {
+    assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (Object) "2007-12-23")).isTrue();
+    assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (Object) "2007-12-23T00:00")).isTrue();
+    assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (Object) "2007-12-23T00:00:00")).isTrue();
+    assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (Object) "2007-12-23T00:00:00.000000000")).isTrue();
+
+    assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (Object) "2007-12-24")).isFalse();
+    assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (Object) "2007-01-23")).isFalse();
+    assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (Object) "2008-12-23")).isFalse();
+    assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (Object) "2007-12-23T00:01")).isFalse();
+    assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (Object) "2007-12-23T01:00")).isFalse();
+    assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (Object) "2007-12-24T00:00")).isFalse();
+    assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (Object) "2007-01-23T00:00")).isFalse();
+    assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (Object) "2008-12-23T00:00")).isFalse();
+    assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (Object) "2007-12-23T00:00:01")).isFalse();
+    assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (Object) "2007-12-23T00:01:00")).isFalse();
+    assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (Object) "2007-12-23T01:00:00")).isFalse();
+    assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (Object) "2007-12-24T00:00:00")).isFalse();
+    assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (Object) "2007-01-23T00:00:00")).isFalse();
+    assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (Object) "2008-12-23T00:00:00")).isFalse();
+    assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (Object) "2007-12-23T00:00:00.000000001")).isFalse();
+    assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (Object) "2007-12-23T00:00:01.000000000")).isFalse();
+    assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (Object) "2007-12-23T00:01:00.000000000")).isFalse();
+    assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (Object) "2007-12-23T01:00:00.000000000")).isFalse();
+    assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (Object) "2007-12-24T00:00:00.000000000")).isFalse();
+    assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (Object) "2007-01-23T00:00:00.000000000")).isFalse();
+    assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (Object) "2008-12-23T00:00:00.000000000")).isFalse();
+  }
+
+  /**
+   * This method should fail because the expected value ("***") is not parsable to do the comparison.
+   */
+  @Test(expected = AssertJDBException.class)
+  public void should_fail_because_string_is_not_parseable_in_date() {
+    Values.areEqual(Date.valueOf("2007-12-23"), (Object) "***");
   }
 }

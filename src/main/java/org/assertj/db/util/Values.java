@@ -61,6 +61,8 @@ public class Values {
     case DATE:
       if (expected instanceof DateValue) {
         return areEqual(value, (DateValue) expected);
+      } else if (expected instanceof String) {
+        return areEqual(value, (String) expected);
       }
       break;
     case TIME:
@@ -222,6 +224,31 @@ public class Values {
   }
 
   /**
+   * Returns if the date is equal to the {@code String} representation in parameter.
+   * 
+   * @param date The date.
+   * @param expected The {@code String} representation to compare.
+   * @return {@code true} if the date is equal to the {@code String} representation parameter, {@code false} otherwise.
+   * @throws NullPointerException if {@code expected} is {@code null}.
+   * @throws AssertJDBException If it is not possible to compare {@code date} to {@code expected}.
+   */
+  private static boolean areEqual(Date date, String expected) {
+    if (expected == null) {
+      throw new NullPointerException("expected must be not null");
+    }
+    try {
+      DateValue dateValue = DateValue.from(date);
+      DateTimeValue expectedDateTimeValue = DateTimeValue.parse(expected);
+      if (dateValue.equals(expectedDateTimeValue)) {
+        return true;
+      }
+    } catch (ParseException e) {
+      throw new AssertJDBException("<%s> is not correct to compare to <%s>", date, expected);
+    }
+    return false;
+  }
+
+  /**
    * Returns if the time is equal to the {@code String} representation in parameter.
    * 
    * @param time The time.
@@ -315,8 +342,9 @@ public class Values {
   public static boolean areEqual(Object value, String expected) {
     if (value instanceof Number) {
       return areEqual((Number) value, expected);
-    }
-    else if (value instanceof Time) {
+    } else if (value instanceof Date) {
+      return areEqual((Date) value, expected);
+    } else if (value instanceof Time) {
       return areEqual((Time) value, expected);
     }
     return expected.equals(value);

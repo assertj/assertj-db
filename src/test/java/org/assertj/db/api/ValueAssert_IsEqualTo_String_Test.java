@@ -61,7 +61,27 @@ public class ValueAssert_IsEqualTo_String_Test extends AbstractTest {
         .column("var8")
             .value().isEqualTo("09:46:30").returnToRow()
             .value().isEqualTo("12:29:49").returnToRow()
-            .value().isEqualTo("12:29:49").returnToRow();
+            .value().isEqualTo("12:29:49").returnToRow()
+        .returnToTable()
+        .column("var9")
+            .value().isEqualTo("2014-05-24").returnToRow()
+            .value().isEqualTo("2014-05-30").returnToRow()
+            .value().isEqualTo("2014-05-30").returnToRow()
+        .returnToTable()
+        .column("var9")
+            .value().isEqualTo("2014-05-24T00:00").returnToRow()
+            .value().isEqualTo("2014-05-30T00:00").returnToRow()
+            .value().isEqualTo("2014-05-30T00:00").returnToRow()
+            .returnToTable()
+        .column("var9")
+            .value().isEqualTo("2014-05-24T00:00:00").returnToRow()
+            .value().isEqualTo("2014-05-30T00:00:00").returnToRow()
+            .value().isEqualTo("2014-05-30T00:00:00").returnToRow()
+        .returnToTable()
+        .column("var9")
+            .value().isEqualTo("2014-05-24T00:00:00.000000000").returnToRow()
+            .value().isEqualTo("2014-05-30T00:00:00.000000000").returnToRow()
+            .value().isEqualTo("2014-05-30T00:00:00.000000000").returnToRow();
   }
 
   /**
@@ -92,6 +112,16 @@ public class ValueAssert_IsEqualTo_String_Test extends AbstractTest {
     Table table = new Table(source, "test");
     assertThat(table).column("var8")
         .value().isEqualTo("09:46:31");
+  }
+
+  /**
+   * This method should fail because the value is not equal to the date.
+   */
+  @Test(expected = AssertionError.class)
+  public void should_fail_because_value_is_not_equal_to_date() {
+    Table table = new Table(source, "test");
+    assertThat(table).column("var9")
+        .value().isEqualTo("2014-05-25");
   }
 
   /**
