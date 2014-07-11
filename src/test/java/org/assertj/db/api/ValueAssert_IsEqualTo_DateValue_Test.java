@@ -49,4 +49,15 @@ public class ValueAssert_IsEqualTo_DateValue_Test extends AbstractTest {
         .value().as("var1").isEqualTo(DateValue.of(2014, 5, 23));
   }
 
+  /**
+   * This method tests that the date/time value is equal to a date.
+   * @throws ParseException 
+   */
+  @Test
+  public void test_if_datetime_value_is_equal_to_date() throws ParseException {
+    Table table = new Table(source, "test");
+    assertThat(table).column("var10")
+        .value(2).isEqualTo(DateValue.parse("2014-05-30"));
+  }
+
 }

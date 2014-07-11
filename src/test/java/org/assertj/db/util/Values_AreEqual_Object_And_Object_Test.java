@@ -202,6 +202,21 @@ public class Values_AreEqual_Object_And_Object_Test {
   }
 
   /**
+   * This method tests the {@code areEqual} method for {@code DateValue}s.
+   */
+  @Test
+  public void test_are_equal_for_timestamp_and_dates() {
+    assertThat(Values.areEqual(Timestamp.valueOf("2007-12-23 00:00:00.000000000"), (Object) DateValue.of(2007, 12, 23))).isTrue();
+    assertThat(Values.areEqual(Timestamp.valueOf("2007-12-23 00:00:00.000000000"), (Object) DateValue.of(2007, 1, 2))).isFalse();
+    assertThat(Values.areEqual("", (Object) DateValue.of(2007, 12, 23))).isFalse();
+    assertThat(Values.areEqual(Timestamp.valueOf("2007-12-23 00:00:00.000000000"), (Object) null)).isFalse();
+
+    assertThat(Values.areEqual(Timestamp.valueOf("2007-12-23 00:00:00.000000000"), (Object) DateValue.of(2007, 12, 2))).isFalse();
+    assertThat(Values.areEqual(Timestamp.valueOf("2007-12-23 00:00:00.000000000"), (Object) DateValue.of(2007, 1, 23))).isFalse();
+    assertThat(Values.areEqual(Timestamp.valueOf("2007-12-23 00:00:00.000000000"), (Object) DateValue.of(2006, 12, 23))).isFalse();
+  }
+
+  /**
    * This method tests the {@code areEqual} method for {@code TimeValue}s.
    */
   @Test

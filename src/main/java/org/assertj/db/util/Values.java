@@ -72,6 +72,9 @@ public class Values {
       if (expected instanceof DateTimeValue) {
         return areEqual(value, (DateTimeValue) expected);
       }
+      else if (expected instanceof DateValue) {
+        return areEqual(value, (DateValue) expected);
+      }
       break;
     default:
       if (expected == null && value == null) {
@@ -298,6 +301,17 @@ public class Values {
       DateValue dateValue = DateValue.from(date);
       return dateValue.getYear() == expected.getYear() && dateValue.getMonth() == expected.getMonth()
           && dateValue.getDayOfTheMonth() == expected.getDayOfTheMonth();
+    }
+    else if (value instanceof Timestamp && expected != null) {
+      Timestamp timestamp = (Timestamp) value;
+      DateTimeValue dateTimeValue = DateTimeValue.from(timestamp);
+      return dateTimeValue.getDate().getYear() == expected.getYear()
+          && dateTimeValue.getDate().getMonth() == expected.getMonth()
+          && dateTimeValue.getDate().getDayOfTheMonth() == expected.getDayOfTheMonth()
+          && dateTimeValue.getTime().getHour() == 0
+          && dateTimeValue.getTime().getMinutes() == 0
+          && dateTimeValue.getTime().getSeconds() == 0
+          && dateTimeValue.getTime().getNanoSeconds() == 0;
     }
     return false;
   }
