@@ -148,4 +148,19 @@ public class DateValue {
   public String toString() {
     return String.format("%4d-%02d-%02d", year, month, dayOfTheMonth);
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj instanceof DateTimeValue) {
+      DateTimeValue dateTimeValue = (DateTimeValue) obj;
+      return year == dateTimeValue.getDate().getYear() && month == dateTimeValue.getDate().getMonth()
+          && dayOfTheMonth == dateTimeValue.getDate().getDayOfTheMonth() && 0 == dateTimeValue.getTime().getHour()
+          && 0 == dateTimeValue.getTime().getMinutes() && 0 == dateTimeValue.getTime().getSeconds()
+          && 0 == dateTimeValue.getTime().getNanoSeconds();
+    } else if (obj instanceof DateValue) {
+      DateValue dateValue = (DateValue) obj;
+      return year == dateValue.year && month == dateValue.month && dayOfTheMonth == dateValue.dayOfTheMonth;
+    }
+    return false;
+  }
 }

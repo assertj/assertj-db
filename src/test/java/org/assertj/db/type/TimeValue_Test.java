@@ -275,4 +275,19 @@ public class TimeValue_Test extends AbstractTest {
     assertThat(TimeValue.of(9, 1, 6, 3).toString()).isEqualTo("09:01:06.000000003");
   }
 
+  /**
+   * This method tests the {@code equals} method.
+   */
+  @Test
+  public void test_equals() {
+    assertThat(TimeValue.of(9, 1).equals(TimeValue.of(9, 1))).isTrue();
+    assertThat(TimeValue.of(9, 1, 6).equals(TimeValue.of(9, 1, 6))).isTrue();
+    assertThat(TimeValue.of(9, 1, 6, 3).equals(TimeValue.of(9, 1, 6, 3))).isTrue();
+
+    assertThat(TimeValue.of(9, 1).equals(TimeValue.of(10, 1))).isFalse();
+    assertThat(TimeValue.of(9, 1).equals(TimeValue.of(9, 2))).isFalse();
+    assertThat(TimeValue.of(9, 1, 6).equals(TimeValue.of(9, 1, 7))).isFalse();
+    assertThat(TimeValue.of(9, 1, 6, 3).equals(TimeValue.of(9, 1, 6, 4))).isFalse();
+    assertThat(TimeValue.of(9, 1, 6, 3).equals("")).isFalse();
+  }
 }

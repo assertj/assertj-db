@@ -128,7 +128,8 @@ public class DateTimeValue {
     Calendar calendar = Calendar.getInstance();
     calendar.setTimeInMillis(timestamp.getTime());
 
-    date = DateValue.of(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
+    date = DateValue.of(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1,
+        calendar.get(Calendar.DAY_OF_MONTH));
     time = TimeValue.of(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),
         calendar.get(Calendar.SECOND), timestamp.getNanos());
   }
@@ -155,6 +156,24 @@ public class DateTimeValue {
   public String toString() {
     return String.format("%4d-%02d-%02dT%02d:%02d:%02d.%09d", date.getYear(), date.getMonth(), date.getDayOfTheMonth(),
         time.getHour(), time.getMinutes(), time.getSeconds(), time.getNanoSeconds());
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj instanceof DateTimeValue) {
+      DateTimeValue dateTimeValue = (DateTimeValue) obj;
+      return date.getYear() == dateTimeValue.date.getYear() && date.getMonth() == dateTimeValue.date.getMonth()
+          && date.getDayOfTheMonth() == dateTimeValue.date.getDayOfTheMonth()
+          && time.getHour() == dateTimeValue.time.getHour() && time.getMinutes() == dateTimeValue.time.getMinutes()
+          && time.getSeconds() == dateTimeValue.time.getSeconds()
+          && time.getNanoSeconds() == dateTimeValue.time.getNanoSeconds();
+    } else if (obj instanceof DateValue) {
+      DateValue dateValue = (DateValue) obj;
+      return date.getYear() == dateValue.getYear() && date.getMonth() == dateValue.getMonth()
+          && date.getDayOfTheMonth() == dateValue.getDayOfTheMonth() && time.getHour() == 0 && time.getMinutes() == 0
+          && time.getSeconds() == 0 && time.getNanoSeconds() == 0;
+    }
+    return false;
   }
 
 }

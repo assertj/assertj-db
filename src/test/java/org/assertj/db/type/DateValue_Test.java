@@ -179,4 +179,41 @@ public class DateValue_Test extends AbstractTest {
     assertThat(DateValue.of(2007, 12, 23).toString()).isEqualTo("2007-12-23");
     assertThat(DateValue.of(2007, 2, 3).toString()).isEqualTo("2007-02-03");
   }
+
+  /**
+   * This method tests the {@code equals} method.
+   */
+  @Test
+  public void test_equals() {
+    assertThat(DateValue.of(2007, 12, 23).equals(DateValue.of(2007, 12, 23))).isTrue();
+    assertThat(DateValue.of(2007, 12, 23).equals(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 0))))
+        .isTrue();
+    assertThat(DateValue.of(2007, 12, 23).equals(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 0, 0))))
+        .isTrue();
+    assertThat(
+        DateValue.of(2007, 12, 23).equals(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 0, 0, 0))))
+        .isTrue();
+
+    assertThat(DateValue.of(2007, 12, 23).equals(DateValue.of(2008, 12, 23))).isFalse();
+    assertThat(DateValue.of(2007, 12, 23).equals(DateValue.of(2007, 1, 23))).isFalse();
+    assertThat(DateValue.of(2007, 12, 23).equals(DateValue.of(2007, 12, 24))).isFalse();
+    assertThat(DateValue.of(2007, 12, 23).equals(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 0))))
+        .isFalse();
+    assertThat(DateValue.of(2007, 12, 23).equals(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 1))))
+        .isFalse();
+    assertThat(DateValue.of(2007, 12, 23).equals(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 0, 6))))
+        .isFalse();
+    assertThat(
+        DateValue.of(2007, 12, 23).equals(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 0, 0, 3))))
+        .isFalse();
+    assertThat(
+        DateValue.of(2007, 12, 23).equals(DateTimeValue.of(DateValue.of(2008, 12, 23), TimeValue.of(0, 0, 0, 0))))
+        .isFalse();
+    assertThat(DateValue.of(2007, 12, 23).equals(DateTimeValue.of(DateValue.of(2007, 1, 23), TimeValue.of(0, 0, 0, 0))))
+        .isFalse();
+    assertThat(
+        DateValue.of(2007, 12, 23).equals(DateTimeValue.of(DateValue.of(2007, 12, 24), TimeValue.of(0, 0, 0, 0))))
+        .isFalse();
+    assertThat(DateValue.of(2007, 12, 23).equals("")).isFalse();
+  }
 }

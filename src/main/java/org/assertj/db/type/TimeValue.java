@@ -234,4 +234,14 @@ public class TimeValue {
     return String.format("%02d:%02d:%02d.%09d", hour, minutes, seconds, nanoSeconds);
   }
 
+  @Override
+  public boolean equals(Object obj) {
+    if (obj instanceof TimeValue) {
+      TimeValue timeValue = (TimeValue) obj;
+      return hour == timeValue.hour && minutes == timeValue.minutes && seconds == timeValue.seconds
+          && nanoSeconds == timeValue.nanoSeconds;
+    }
+    return false;
+  }
+
 }

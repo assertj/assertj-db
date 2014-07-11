@@ -299,19 +299,12 @@ public class Values {
     if (value instanceof Date && expected != null) {
       Date date = (Date) value;
       DateValue dateValue = DateValue.from(date);
-      return dateValue.getYear() == expected.getYear() && dateValue.getMonth() == expected.getMonth()
-          && dateValue.getDayOfTheMonth() == expected.getDayOfTheMonth();
+      return dateValue.equals(expected);
     }
     else if (value instanceof Timestamp && expected != null) {
       Timestamp timestamp = (Timestamp) value;
       DateTimeValue dateTimeValue = DateTimeValue.from(timestamp);
-      return dateTimeValue.getDate().getYear() == expected.getYear()
-          && dateTimeValue.getDate().getMonth() == expected.getMonth()
-          && dateTimeValue.getDate().getDayOfTheMonth() == expected.getDayOfTheMonth()
-          && dateTimeValue.getTime().getHour() == 0
-          && dateTimeValue.getTime().getMinutes() == 0
-          && dateTimeValue.getTime().getSeconds() == 0
-          && dateTimeValue.getTime().getNanoSeconds() == 0;
+      return dateTimeValue.equals(expected);
     }
     return false;
   }
@@ -327,8 +320,7 @@ public class Values {
     if (value instanceof Time && expected != null) {
       Time time = (Time) value;
       TimeValue timeValue = TimeValue.from(time);
-      return timeValue.getHour() == expected.getHour() && timeValue.getMinutes() == expected.getMinutes()
-          && timeValue.getSeconds() == expected.getSeconds() && timeValue.getNanoSeconds() == expected.getNanoSeconds();
+      return timeValue.equals(expected);
     }
     return false;
   }
@@ -344,13 +336,7 @@ public class Values {
     if (value instanceof Timestamp && expected != null) {
       Timestamp timestamp = (Timestamp) value;
       DateTimeValue dateTimeValue = DateTimeValue.from(timestamp);
-      return dateTimeValue.getDate().getYear() == expected.getDate().getYear()
-          && dateTimeValue.getDate().getMonth() == expected.getDate().getMonth()
-          && dateTimeValue.getDate().getDayOfTheMonth() == expected.getDate().getDayOfTheMonth()
-          && dateTimeValue.getTime().getHour() == expected.getTime().getHour()
-          && dateTimeValue.getTime().getMinutes() == expected.getTime().getMinutes()
-          && dateTimeValue.getTime().getSeconds() == expected.getTime().getSeconds()
-          && dateTimeValue.getTime().getNanoSeconds() == expected.getTime().getNanoSeconds();
+      return dateTimeValue.equals(expected);
     }
     return false;
   }
