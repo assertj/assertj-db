@@ -105,10 +105,74 @@ public class Values_AreEqual_Number_And_String_Test {
   }
 
   /**
-   * This method should fail because the expected value ("***") if not parsable to do the comparison.
+   * This method should fail because the expected value ("***") is not parsable to do the comparison.
    */
   @Test(expected = AssertJDBException.class)
   public void should_fail_because_string_is_not_parseable() {
     Values.areEqual(1, "***");
+  }
+
+  /**
+   * This method should fail because the expected value is null.
+   */
+  @Test(expected = NullPointerException.class)
+  public void should_fail_because_string_is_null_with_float() {
+    Values.areEqual(1F, (String) null);
+  }
+
+  /**
+   * This method should fail because the expected value is null.
+   */
+  @Test(expected = NullPointerException.class)
+  public void should_fail_because_string_is_null_with_double() {
+    Values.areEqual(1D, (String) null);
+  }
+
+  /**
+   * This method should fail because the expected value is null.
+   */
+  @Test(expected = NullPointerException.class)
+  public void should_fail_because_string_is_null_with_byte() {
+    Values.areEqual((byte) 1, (String) null);
+  }
+
+  /**
+   * This method should fail because the expected value is null.
+   */
+  @Test(expected = NullPointerException.class)
+  public void should_fail_because_string_is_null_with_short() {
+    Values.areEqual((short) 1, (String) null);
+  }
+
+  /**
+   * This method should fail because the expected value is null.
+   */
+  @Test(expected = NullPointerException.class)
+  public void should_fail_because_string_is_null_with_int() {
+    Values.areEqual((int) 1, (String) null);
+  }
+
+  /**
+   * This method should fail because the expected value is null.
+   */
+  @Test(expected = NullPointerException.class)
+  public void should_fail_because_string_is_null_with_long() {
+    Values.areEqual((long) 1, (String) null);
+  }
+
+  /**
+   * This method should fail because the expected value is null.
+   */
+  @Test(expected = NullPointerException.class)
+  public void should_fail_because_string_is_null_with_biginteger() {
+    Values.areEqual(new BigInteger("1"), (String) null);
+  }
+
+  /**
+   * This method should fail because the expected value is null.
+   */
+  @Test(expected = NullPointerException.class)
+  public void should_fail_because_string_is_null_with_bigdecimal() {
+    Values.areEqual(new BigDecimal("1"), (String) null);
   }
 }

@@ -251,9 +251,13 @@ public class Values {
    * @param expected The {@code String} representation to compare.
    * @return {@code true} if the number is equal to the {@code String} representation parameter, {@code false}
    *         otherwise.
+   * @throws NullPointerException if {@code expected} is {@code null}.
    * @throws AssertJDBException If it is not possible to compare {@code number} to {@code expected}.
    */
   private static boolean areEqual(Number number, String expected) {
+    if (expected == null) {
+      throw new NullPointerException("expected must be not null");
+    }
     try {
       if (number instanceof Float) {
         if (((Float) number).floatValue() == Float.parseFloat(expected)) {
