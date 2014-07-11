@@ -66,6 +66,8 @@ public class Values {
     case TIME:
       if (expected instanceof TimeValue) {
         return areEqual(value, (TimeValue) expected);
+      } else if (expected instanceof String) {
+        return areEqual(value, (String) expected);
       }
       break;
     case DATE_TIME:
