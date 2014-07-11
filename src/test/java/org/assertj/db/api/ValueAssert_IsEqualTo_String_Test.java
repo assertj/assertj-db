@@ -56,7 +56,12 @@ public class ValueAssert_IsEqualTo_String_Test extends AbstractTest {
         .returnToTable()
         .column("var14")
             .value().isEqualTo("7").returnToRow()
-            .value().isEqualTo("70").returnToRow();
+            .value().isEqualTo("70").returnToRow()
+        .returnToTable()
+        .column("var8")
+            .value().isEqualTo("09:46:30").returnToRow()
+            .value().isEqualTo("12:29:49").returnToRow()
+            .value().isEqualTo("12:29:49").returnToRow();
   }
 
   /**
@@ -77,6 +82,16 @@ public class ValueAssert_IsEqualTo_String_Test extends AbstractTest {
     Table table = new Table(source, "test");
     assertThat(table).column("var1")
         .value().isEqualTo("2");
+  }
+
+  /**
+   * This method should fail because the value is not equal to the time.
+   */
+  @Test(expected = AssertionError.class)
+  public void should_fail_because_value_is_not_equal_to_time() {
+    Table table = new Table(source, "test");
+    assertThat(table).column("var8")
+        .value().isEqualTo("09:46:31");
   }
 
   /**

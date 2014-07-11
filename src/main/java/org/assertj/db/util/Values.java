@@ -5,6 +5,7 @@ import java.math.BigInteger;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.text.ParseException;
 
 import org.assertj.db.api.ValueType;
 import org.assertj.db.error.AssertJDBException;
@@ -43,8 +44,7 @@ public class Values {
     case NUMBER:
       if (expected instanceof Number) {
         return areEqual(value, (Number) expected);
-      }
-      else if (expected instanceof String) {
+      } else if (expected instanceof String) {
         return areEqual(value, (String) expected);
       }
       break;
@@ -71,8 +71,7 @@ public class Values {
     case DATE_TIME:
       if (expected instanceof DateTimeValue) {
         return areEqual(value, (DateTimeValue) expected);
-      }
-      else if (expected instanceof DateValue) {
+      } else if (expected instanceof DateValue) {
         return areEqual(value, (DateValue) expected);
       }
       break;
@@ -221,6 +220,31 @@ public class Values {
   }
 
   /**
+   * Returns if the time is equal to the {@code String} representation in parameter.
+   * 
+   * @param time The time.
+   * @param expected The {@code String} representation to compare.
+   * @return {@code true} if the time is equal to the {@code String} representation parameter, {@code false} otherwise.
+   * @throws NullPointerException if {@code expected} is {@code null}.
+   * @throws AssertJDBException If it is not possible to compare {@code time} to {@code expected}.
+   */
+  private static boolean areEqual(Time time, String expected) {
+    if (expected == null) {
+      throw new NullPointerException("expected must be not null");
+    }
+    try {
+      TimeValue timeValue = TimeValue.from(time);
+      TimeValue expectedTimeValue = TimeValue.parse(expected);
+      if (timeValue.equals(expectedTimeValue)) {
+        return true;
+      }
+    } catch (ParseException e) {
+      throw new AssertJDBException("<%s> is not correct to compare to <%s>", time, expected);
+    }
+    return false;
+  }
+
+  /**
    * Returns if the number is equal to the {@code String} representation in parameter.
    * 
    * @param number The number.
@@ -278,12 +302,16 @@ public class Values {
    * @param value The value.
    * @param expected The {@code String} to compare.
    * @return {@code true} if the value is equal to the {@code String} parameter, {@code false} otherwise.
+   * @throws NullPointerException if {@code expected} is {@code null}.
    * @throws AssertJDBException If {@code value} is a {@code Number} and it is not possible to compare to
    *           {@code expected}.
    */
   public static boolean areEqual(Object value, String expected) {
     if (value instanceof Number) {
       return areEqual((Number) value, expected);
+    }
+    else if (value instanceof Time) {
+      return areEqual((Time) value, expected);
     }
     return expected.equals(value);
   }
@@ -300,8 +328,7 @@ public class Values {
       Date date = (Date) value;
       DateValue dateValue = DateValue.from(date);
       return dateValue.equals(expected);
-    }
-    else if (value instanceof Timestamp && expected != null) {
+    } else if (value instanceof Timestamp && expected != null) {
       Timestamp timestamp = (Timestamp) value;
       DateTimeValue dateTimeValue = DateTimeValue.from(timestamp);
       return dateTimeValue.equals(expected);

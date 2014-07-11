@@ -442,7 +442,7 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
    * @throws AssertionError If the value is not equal to the text in parameter.
    */
   public V isEqualTo(String expected) {
-    isOfAnyOfTypes(ValueType.TEXT, ValueType.NUMBER);
+    isOfAnyOfTypes(ValueType.TEXT, ValueType.NUMBER, ValueType.TIME);
     if (areEqual(value, expected)) {
       return myself;
     }
