@@ -620,4 +620,27 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
     }
     throw failures.failure(info, shouldNotBeEqual(DateTimeValue.from((Timestamp) value), DateTimeValue.of(expected, TimeValue.of(0, 0))));
   }
+
+  /**
+   * Verifies that the value is not equal to a number.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is not equal to number 3 :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).row().value().isNotEqualTo(3);
+   * </pre>
+   * 
+   * @param expected The expected number value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is equal to the number in parameter.
+   */
+  public V isNotEqualTo(Number expected) {
+    isNumber();
+    if (!areEqual(value, expected)) {
+      return myself;
+    }
+    throw failures.failure(info, shouldNotBeEqual(value, expected));
+  }
 }
