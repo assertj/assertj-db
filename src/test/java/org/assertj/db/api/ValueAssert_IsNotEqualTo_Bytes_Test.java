@@ -23,7 +23,7 @@ public class ValueAssert_IsNotEqualTo_Bytes_Test extends AbstractTest {
    * This method tests that the value is not equal to a array of bytes.
    */
   @Test
-  public void test_if_value_is_equal_to_bytes() {
+  public void test_if_value_is_not_equal_to_bytes() {
     Table table = new Table(source, "test");
     assertThat(table).column("var11")
         .value().isNotEqualTo(bytesDev).returnToRow()
@@ -34,7 +34,7 @@ public class ValueAssert_IsNotEqualTo_Bytes_Test extends AbstractTest {
    * This method should fail because the value is equal to the array of bytes.
    */
   @Test(expected = AssertionError.class)
-  public void should_fail_because_value_is_not_equal() {
+  public void should_fail_because_value_is_equal() {
     Table table = new Table(source, "test");
     assertThat(table).column("var11")
         .value().isNotEqualTo(bytesH2);

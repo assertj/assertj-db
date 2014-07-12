@@ -18,7 +18,7 @@ public class ValueAssert_IsNotEqualTo_Boolean_Test extends AbstractTest {
    * This method tests that the value is not equal to a boolean.
    */
   @Test
-  public void test_if_value_is_equal_to_boolean() {
+  public void test_if_value_is_not_equal_to_boolean() {
     Table table = new Table(source, "test");
     assertThat(table).column("var2")
         .value().isNotEqualTo(false).returnToRow()
