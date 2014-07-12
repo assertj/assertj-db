@@ -20,7 +20,7 @@ public class ValueAssert_IsNotEqualTo_Bytes_Test extends AbstractTest {
   private byte[] bytesH2 = bytesContentFromClassPathOf("h2-logo-2.png");
 
   /**
-   * This method tests that the value is equal to a array of bytes.
+   * This method tests that the value is not equal to a array of bytes.
    */
   @Test
   public void test_if_value_is_equal_to_bytes() {
@@ -31,7 +31,7 @@ public class ValueAssert_IsNotEqualTo_Bytes_Test extends AbstractTest {
   }
 
   /**
-   * This method should fail because the value is not equal to the array of bytes.
+   * This method should fail because the value is equal to the array of bytes.
    */
   @Test(expected = AssertionError.class)
   public void should_fail_because_value_is_not_equal() {
