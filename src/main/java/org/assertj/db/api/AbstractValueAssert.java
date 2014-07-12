@@ -470,7 +470,13 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
     if (areEqual(value, expected)) {
       return myself;
     }
-    throw failures.failure(info, shouldBeEqual(DateValue.from((Date) value), expected, info.representation()));
+    if (getType() == ValueType.DATE) {
+      throw failures.failure(info, shouldBeEqual(DateValue.from((Date) value), expected, info.representation()));
+    }
+    throw failures.failure(
+        info,
+        shouldBeEqual(DateTimeValue.from((Timestamp) value), DateTimeValue.of(expected, TimeValue.of(0, 0)),
+            info.representation()));
   }
 
   /**
@@ -612,6 +618,6 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
     if (getType() == ValueType.DATE) {
       throw failures.failure(info, shouldNotBeEqual(DateValue.from((Date) value), expected));
     }
-    throw failures.failure(info, shouldNotBeEqual(DateTimeValue.from((Timestamp) value), expected));
+    throw failures.failure(info, shouldNotBeEqual(DateTimeValue.from((Timestamp) value), DateTimeValue.of(expected, TimeValue.of(0, 0))));
   }
 }
