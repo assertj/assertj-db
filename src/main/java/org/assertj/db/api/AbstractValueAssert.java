@@ -565,4 +565,53 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
     }
     throw failures.failure(info, shouldNotBeEqual(value, expected));
   }
+
+  /**
+   * Verifies that the value is not equal to a date/time value.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is not equal to a date/time value :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).row().value().isNotEqualTo(DateTimeValue.of(DateValue.of(2014, 7, 7), TimeValue.of(21, 29)));
+   * </pre>
+   * 
+   * @param expected The expected date/time value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is equal to the date/time value in parameter.
+   */
+  public V isNotEqualTo(DateTimeValue expected) {
+    isDateTime();
+    if (!areEqual(value, expected)) {
+      return myself;
+    }
+    throw failures.failure(info, shouldNotBeEqual(DateTimeValue.from((Timestamp) value), expected));
+  }
+
+  /**
+   * Verifies that the value is not equal to a date value.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is not equal to a date value :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).row().value().isNotEqualTo(DateValue.of(2014, 7, 7));
+   * </pre>
+   * 
+   * @param expected The expected date value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is equal to the date value in parameter.
+   */
+  public V isNotEqualTo(DateValue expected) {
+    isOfAnyOfTypes(ValueType.DATE, ValueType.DATE_TIME);
+    if (!areEqual(value, expected)) {
+      return myself;
+    }
+    if (getType() == ValueType.DATE) {
+      throw failures.failure(info, shouldNotBeEqual(DateValue.from((Date) value), expected));
+    }
+    throw failures.failure(info, shouldNotBeEqual(DateTimeValue.from((Timestamp) value), expected));
+  }
 }
