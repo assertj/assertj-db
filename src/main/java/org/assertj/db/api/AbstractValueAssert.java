@@ -643,4 +643,50 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
     }
     throw failures.failure(info, shouldNotBeEqual(value, expected));
   }
+
+  /**
+   * Verifies that the value is not equal to a text.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is not equal to a text :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).row().value().isNotEqualTo(&quot;text&quot;);
+   * </pre>
+   * 
+   * @param expected The expected text value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is equal to the text in parameter.
+   */
+  public V isNotEqualTo(String expected) {
+    isOfAnyOfTypes(ValueType.TEXT, ValueType.NUMBER, ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME);
+    if (!areEqual(value, expected)) {
+      return myself;
+    }
+    throw failures.failure(info, shouldNotBeEqual(value, expected));
+  }
+
+  /**
+   * Verifies that the value is not equal to a time value.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is not equal to a time value :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).row().value().isNotEqualTo(TimeValue.of(21, 29, 30));
+   * </pre>
+   * 
+   * @param expected The expected time value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is equal to the time value in parameter.
+   */
+  public V isNotEqualTo(TimeValue expected) {
+    isTime();
+    if (!areEqual(value, expected)) {
+      return myself;
+    }
+    throw failures.failure(info, shouldNotBeEqual(TimeValue.from((Time) value), expected));
+  }
 }
