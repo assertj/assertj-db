@@ -1,5 +1,6 @@
 package org.assertj.db.api;
 
+import static org.assertj.core.error.ShouldNotBeEqual.shouldNotBeEqual;
 import static org.assertj.core.error.ShouldBeEqual.shouldBeEqual;
 import static org.assertj.db.error.ShouldBeType.shouldBeType;
 import static org.assertj.db.error.ShouldBeTypeOfAny.shouldBeTypeOfAny;
@@ -516,5 +517,52 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
       return myself;
     }
     throw failures.failure(info, shouldBeEqual(DateTimeValue.from((Timestamp) value), expected, info.representation()));
+  }
+
+  /**
+   * Verifies that the value is not equal to a boolean.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is not equal to true boolean :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).row().value().isNotEqualTo(true);
+   * </pre>
+   * 
+   * @param expected The expected boolean value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is equal to the boolean in parameter.
+   */
+  public V isNotEqualTo(Boolean expected) {
+    isBoolean();
+    if (!areEqual(value, expected)) {
+      return myself;
+    }
+    throw failures.failure(info, shouldNotBeEqual(value, expected));
+  }
+
+  /**
+   * Verifies that the value is not equal to a array of bytes.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is not equal to a array of bytes loaded from a file in the classpath :
+   * </p>
+   * 
+   * <pre>
+   * byte[] bytes = bytesContentFromClassPathOf(&quot;file.png&quot;);
+   * assertThat(table).row().value().isNotEqualTo(bytes);
+   * </pre>
+   * 
+   * @param expected The expected array of bytes value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is equal to the array of bytes in parameter.
+   */
+  public V isNotEqualTo(byte[] expected) {
+    isBytes();
+    if (!areEqual(value, expected)) {
+      return myself;
+    }
+    throw failures.failure(info, shouldNotBeEqual(value, expected));
   }
 }
