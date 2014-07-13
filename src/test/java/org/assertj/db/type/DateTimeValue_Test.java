@@ -376,4 +376,52 @@ public class DateTimeValue_Test extends AbstractTest {
     assertThat(DateTimeValue.of(DateValue.of(2007, 11, 23), TimeValue.of(9, 1, 6, 3)).compareTo(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)))).isEqualTo(-1);
     assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).compareTo(DateTimeValue.of(DateValue.of(2008, 12, 23), TimeValue.of(9, 1, 6, 3)))).isEqualTo(-1);
   }
+
+  /**
+   * This method tests the {@code isBefore} method.
+   */
+  @Test
+  public void test_isBefore() {
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).isBefore(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 2)))).isFalse();
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).isBefore(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 5, 3)))).isFalse();
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).isBefore(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 0, 6, 3)))).isFalse();
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).isBefore(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(8, 1, 6, 3)))).isFalse();
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).isBefore(DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(9, 1, 6, 3)))).isFalse();
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).isBefore(DateTimeValue.of(DateValue.of(2007, 11, 23), TimeValue.of(9, 1, 6, 3)))).isFalse();
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).isBefore(DateTimeValue.of(DateValue.of(2006, 12, 23), TimeValue.of(9, 1, 6, 3)))).isFalse();
+
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).isBefore(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)))).isFalse();
+
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).isBefore(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 4)))).isTrue();
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).isBefore(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 7, 3)))).isTrue();
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).isBefore(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 2, 6, 3)))).isTrue();
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).isBefore(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(10, 1, 6, 3)))).isTrue();
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).isBefore(DateTimeValue.of(DateValue.of(2007, 12, 24), TimeValue.of(9, 1, 6, 3)))).isTrue();
+    assertThat(DateTimeValue.of(DateValue.of(2007, 11, 23), TimeValue.of(9, 1, 6, 3)).isBefore(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)))).isTrue();
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).isBefore(DateTimeValue.of(DateValue.of(2008, 12, 23), TimeValue.of(9, 1, 6, 3)))).isTrue();
+  }
+
+  /**
+   * This method tests the {@code isAfter} method.
+   */
+  @Test
+  public void test_isAfter() {
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).isAfter(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 2)))).isTrue();
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).isAfter(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 5, 3)))).isTrue();
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).isAfter(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 0, 6, 3)))).isTrue();
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).isAfter(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(8, 1, 6, 3)))).isTrue();
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).isAfter(DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(9, 1, 6, 3)))).isTrue();
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).isAfter(DateTimeValue.of(DateValue.of(2007, 11, 23), TimeValue.of(9, 1, 6, 3)))).isTrue();
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).isAfter(DateTimeValue.of(DateValue.of(2006, 12, 23), TimeValue.of(9, 1, 6, 3)))).isTrue();
+
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).isAfter(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)))).isFalse();
+
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).isAfter(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 4)))).isFalse();
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).isAfter(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 7, 3)))).isFalse();
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).isAfter(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 2, 6, 3)))).isFalse();
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).isAfter(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(10, 1, 6, 3)))).isFalse();
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).isAfter(DateTimeValue.of(DateValue.of(2007, 12, 24), TimeValue.of(9, 1, 6, 3)))).isFalse();
+    assertThat(DateTimeValue.of(DateValue.of(2007, 11, 23), TimeValue.of(9, 1, 6, 3)).isAfter(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)))).isFalse();
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).isAfter(DateTimeValue.of(DateValue.of(2008, 12, 23), TimeValue.of(9, 1, 6, 3)))).isFalse();
+  }
 }

@@ -320,4 +320,64 @@ public class TimeValue_Test extends AbstractTest {
     assertThat(TimeValue.of(9, 1, 6, 3).compareTo(TimeValue.of(9, 2, 6, 3))).isEqualTo(-1);
     assertThat(TimeValue.of(9, 1, 6, 3).compareTo(TimeValue.of(10, 1, 6, 3))).isEqualTo(-1);
   }
+
+  /**
+   * This method tests the {@code isBefore} method.
+   */
+  @Test
+  public void test_isBefore() {
+    assertThat(TimeValue.of(9, 1).isBefore(TimeValue.of(9, 0))).isFalse();
+    assertThat(TimeValue.of(9, 1).isBefore(TimeValue.of(8, 1))).isFalse();
+    assertThat(TimeValue.of(9, 1, 6).isBefore(TimeValue.of(9, 1, 5))).isFalse();
+    assertThat(TimeValue.of(9, 1, 6).isBefore(TimeValue.of(9, 0, 6))).isFalse();
+    assertThat(TimeValue.of(9, 1, 6).isBefore(TimeValue.of(8, 1, 6))).isFalse();
+    assertThat(TimeValue.of(9, 1, 6, 3).isBefore(TimeValue.of(9, 1, 6, 2))).isFalse();
+    assertThat(TimeValue.of(9, 1, 6, 3).isBefore(TimeValue.of(9, 1, 5, 3))).isFalse();
+    assertThat(TimeValue.of(9, 1, 6, 3).isBefore(TimeValue.of(9, 0, 6, 3))).isFalse();
+    assertThat(TimeValue.of(9, 1, 6, 3).isBefore(TimeValue.of(8, 1, 6, 3))).isFalse();
+
+    assertThat(TimeValue.of(9, 1).isBefore(TimeValue.of(9, 1))).isFalse();
+    assertThat(TimeValue.of(9, 1, 6).isBefore(TimeValue.of(9, 1, 6))).isFalse();
+    assertThat(TimeValue.of(9, 1, 6, 3).isBefore(TimeValue.of(9, 1, 6, 3))).isFalse();
+
+    assertThat(TimeValue.of(9, 1).isBefore(TimeValue.of(9, 2))).isTrue();
+    assertThat(TimeValue.of(9, 1).isBefore(TimeValue.of(10, 1))).isTrue();
+    assertThat(TimeValue.of(9, 1, 6).isBefore(TimeValue.of(9, 1, 7))).isTrue();
+    assertThat(TimeValue.of(9, 1, 6).isBefore(TimeValue.of(9, 2, 6))).isTrue();
+    assertThat(TimeValue.of(9, 1, 6).isBefore(TimeValue.of(10, 1, 6))).isTrue();
+    assertThat(TimeValue.of(9, 1, 6, 3).isBefore(TimeValue.of(9, 1, 6, 4))).isTrue();
+    assertThat(TimeValue.of(9, 1, 6, 3).isBefore(TimeValue.of(9, 1, 7, 3))).isTrue();
+    assertThat(TimeValue.of(9, 1, 6, 3).isBefore(TimeValue.of(9, 2, 6, 3))).isTrue();
+    assertThat(TimeValue.of(9, 1, 6, 3).isBefore(TimeValue.of(10, 1, 6, 3))).isTrue();
+  }
+
+  /**
+   * This method tests the {@code isAfter} method.
+   */
+  @Test
+  public void test_isAfter() {
+    assertThat(TimeValue.of(9, 1).isAfter(TimeValue.of(9, 0))).isTrue();
+    assertThat(TimeValue.of(9, 1).isAfter(TimeValue.of(8, 1))).isTrue();
+    assertThat(TimeValue.of(9, 1, 6).isAfter(TimeValue.of(9, 1, 5))).isTrue();
+    assertThat(TimeValue.of(9, 1, 6).isAfter(TimeValue.of(9, 0, 6))).isTrue();
+    assertThat(TimeValue.of(9, 1, 6).isAfter(TimeValue.of(8, 1, 6))).isTrue();
+    assertThat(TimeValue.of(9, 1, 6, 3).isAfter(TimeValue.of(9, 1, 6, 2))).isTrue();
+    assertThat(TimeValue.of(9, 1, 6, 3).isAfter(TimeValue.of(9, 1, 5, 3))).isTrue();
+    assertThat(TimeValue.of(9, 1, 6, 3).isAfter(TimeValue.of(9, 0, 6, 3))).isTrue();
+    assertThat(TimeValue.of(9, 1, 6, 3).isAfter(TimeValue.of(8, 1, 6, 3))).isTrue();
+
+    assertThat(TimeValue.of(9, 1).isAfter(TimeValue.of(9, 1))).isFalse();
+    assertThat(TimeValue.of(9, 1, 6).isAfter(TimeValue.of(9, 1, 6))).isFalse();
+    assertThat(TimeValue.of(9, 1, 6, 3).isAfter(TimeValue.of(9, 1, 6, 3))).isFalse();
+
+    assertThat(TimeValue.of(9, 1).isAfter(TimeValue.of(9, 2))).isFalse();
+    assertThat(TimeValue.of(9, 1).isAfter(TimeValue.of(10, 1))).isFalse();
+    assertThat(TimeValue.of(9, 1, 6).isAfter(TimeValue.of(9, 1, 7))).isFalse();
+    assertThat(TimeValue.of(9, 1, 6).isAfter(TimeValue.of(9, 2, 6))).isFalse();
+    assertThat(TimeValue.of(9, 1, 6).isAfter(TimeValue.of(10, 1, 6))).isFalse();
+    assertThat(TimeValue.of(9, 1, 6, 3).isAfter(TimeValue.of(9, 1, 6, 4))).isFalse();
+    assertThat(TimeValue.of(9, 1, 6, 3).isAfter(TimeValue.of(9, 1, 7, 3))).isFalse();
+    assertThat(TimeValue.of(9, 1, 6, 3).isAfter(TimeValue.of(9, 2, 6, 3))).isFalse();
+    assertThat(TimeValue.of(9, 1, 6, 3).isAfter(TimeValue.of(10, 1, 6, 3))).isFalse();
+  }
 }

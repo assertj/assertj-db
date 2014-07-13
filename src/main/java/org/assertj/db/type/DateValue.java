@@ -186,4 +186,22 @@ public class DateValue implements Comparable<DateValue> {
     }
     return 0;
   }
+
+  /**
+   * Returns if this date value is before the date value in parameter.
+   * @param date The date value to compare to.
+   * @return If this date value is before the date value in parameter.
+   */
+  public boolean isBefore(DateValue date) {
+    return compareTo(date) == -1;
+  }
+
+  /**
+   * Returns if this date value is after the date value in parameter.
+   * @param date The date value to compare to.
+   * @return If this date value is after the date value in parameter.
+   */
+  public boolean isAfter(DateValue date) {
+    return compareTo(date) == 1;
+  }
 }

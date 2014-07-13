@@ -185,4 +185,22 @@ public class DateTimeValue implements Comparable<DateTimeValue> {
     return time.compareTo(other.time);
   }
 
+  /**
+   * Returns if this date/time value is before the date/time value in parameter.
+   * @param dateTime The date/time value to compare to.
+   * @return If this date/time value is before the date/time value in parameter.
+   */
+  public boolean isBefore(DateTimeValue dateTime) {
+    return compareTo(dateTime) == -1;
+  }
+
+  /**
+   * Returns if this date/time value is after the date/time value in parameter.
+   * @param dateTime The date/time value to compare to.
+   * @return If this date/time value is after the date/time value in parameter.
+   */
+  public boolean isAfter(DateTimeValue dateTime) {
+    return compareTo(dateTime) == 1;
+  }
+
 }

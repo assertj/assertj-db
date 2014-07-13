@@ -236,4 +236,44 @@ public class DateValue_Test extends AbstractTest {
     assertThat(DateValue.of(2007, 11, 23).compareTo(DateValue.of(2007, 12, 22))).isEqualTo(-1);
     assertThat(DateValue.of(2007, 12, 23).compareTo(DateValue.of(2008, 11, 23))).isEqualTo(-1);
   }
+
+  /**
+   * This method tests the {@code isBefore} method.
+   */
+  @Test
+  public void test_isBefore() {
+    assertThat(DateValue.of(2007, 12, 23).isBefore(DateValue.of(2007, 12, 22))).isFalse();
+    assertThat(DateValue.of(2007, 12, 23).isBefore(DateValue.of(2007, 11, 23))).isFalse();
+    assertThat(DateValue.of(2007, 12, 23).isBefore(DateValue.of(2006, 12, 23))).isFalse();
+    assertThat(DateValue.of(2007, 12, 23).isBefore(DateValue.of(2007, 11, 24))).isFalse();
+    assertThat(DateValue.of(2007, 11, 23).isBefore(DateValue.of(2006, 12, 23))).isFalse();
+
+    assertThat(DateValue.of(2007, 12, 23).isBefore(DateValue.of(2007, 12, 23))).isFalse();
+
+    assertThat(DateValue.of(2007, 12, 23).isBefore(DateValue.of(2007, 12, 24))).isTrue();
+    assertThat(DateValue.of(2007, 11, 23).isBefore(DateValue.of(2007, 12, 23))).isTrue();
+    assertThat(DateValue.of(2007, 12, 23).isBefore(DateValue.of(2008, 12, 23))).isTrue();
+    assertThat(DateValue.of(2007, 11, 23).isBefore(DateValue.of(2007, 12, 22))).isTrue();
+    assertThat(DateValue.of(2007, 12, 23).isBefore(DateValue.of(2008, 11, 23))).isTrue();
+  }
+
+  /**
+   * This method tests the {@code isAfter} method.
+   */
+  @Test
+  public void test_isAfter() {
+    assertThat(DateValue.of(2007, 12, 23).isAfter(DateValue.of(2007, 12, 22))).isTrue();
+    assertThat(DateValue.of(2007, 12, 23).isAfter(DateValue.of(2007, 11, 23))).isTrue();
+    assertThat(DateValue.of(2007, 12, 23).isAfter(DateValue.of(2006, 12, 23))).isTrue();
+    assertThat(DateValue.of(2007, 12, 23).isAfter(DateValue.of(2007, 11, 24))).isTrue();
+    assertThat(DateValue.of(2007, 11, 23).isAfter(DateValue.of(2006, 12, 23))).isTrue();
+
+    assertThat(DateValue.of(2007, 12, 23).isBefore(DateValue.of(2007, 12, 23))).isFalse();
+
+    assertThat(DateValue.of(2007, 12, 23).isAfter(DateValue.of(2007, 12, 24))).isFalse();
+    assertThat(DateValue.of(2007, 11, 23).isAfter(DateValue.of(2007, 12, 23))).isFalse();
+    assertThat(DateValue.of(2007, 12, 23).isAfter(DateValue.of(2008, 12, 23))).isFalse();
+    assertThat(DateValue.of(2007, 11, 23).isAfter(DateValue.of(2007, 12, 22))).isFalse();
+    assertThat(DateValue.of(2007, 12, 23).isAfter(DateValue.of(2008, 11, 23))).isFalse();
+  }
 }
