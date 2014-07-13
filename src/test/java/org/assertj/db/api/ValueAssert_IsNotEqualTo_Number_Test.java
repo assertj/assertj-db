@@ -218,6 +218,17 @@ public class ValueAssert_IsNotEqualTo_Number_Test extends AbstractTest {
   }
 
   /**
+   * This method should fail because the value is equal to the number in parameter.
+   */
+  @Test(expected = AssertionError.class)
+  public void should_fail_because_value_is_equal() {
+    Table table = new Table(source, "test");
+    assertThat(table)
+        .row()
+            .value("var1").isNotEqualTo(1);
+  }
+
+  /**
    * This method should fail because the value is not a number.
    */
   @Test(expected = AssertionError.class)

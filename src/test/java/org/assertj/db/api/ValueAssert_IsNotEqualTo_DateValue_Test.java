@@ -54,4 +54,15 @@ public class ValueAssert_IsNotEqualTo_DateValue_Test extends AbstractTest {
         .value(2).isNotEqualTo(DateValue.parse("2014-05-31"));
   }
 
+  /**
+   * This method should fail because the date/time value is equal to the date value.
+   * @throws ParseException 
+   */
+  @Test(expected = AssertionError.class)
+  public void should_fail_because_datetime_value_is_equal() throws ParseException {
+    Table table = new Table(source, "test");
+    assertThat(table).column("var10")
+        .value(2).isNotEqualTo(DateValue.parse("2014-05-30"));
+  }
+
 }
