@@ -2,6 +2,7 @@ package org.assertj.db.api;
 
 import static org.assertj.core.error.ShouldBeEqual.shouldBeEqual;
 import static org.assertj.core.error.ShouldNotBeEqual.shouldNotBeEqual;
+import static org.assertj.db.error.ShouldBeAfter.shouldBeAfter;
 import static org.assertj.db.error.ShouldBeType.shouldBeType;
 import static org.assertj.db.error.ShouldBeTypeOfAny.shouldBeTypeOfAny;
 import static org.assertj.db.error.ShouldBefore.shouldBefore;
@@ -767,5 +768,82 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
       return myself;
     }
     throw failures.failure(info, shouldBefore(DateTimeValue.from((Timestamp) value), dateTime));
+  }
+
+  /**
+   * Verifies that the value is after a date value.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is after a date value :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).row().value().isAfter(DateValue.of(2007, 12, 23));
+   * </pre>
+   * 
+   * @param date The expected date value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is equal to the time value in parameter.
+   */
+  public V isAfter(DateValue date) {
+    isOfAnyOfTypes(ValueType.DATE, ValueType.DATE_TIME);
+    if (value instanceof Date) {
+      if (DateValue.from((Date) value).isAfter(date)) {
+        return myself;
+      }
+      throw failures.failure(info, shouldBeAfter(DateValue.from((Date) value), date));
+    } else {
+      DateTimeValue dateTimeValue = DateTimeValue.of(date, TimeValue.of(0, 0));
+      if (DateTimeValue.from((Timestamp) value).isAfter(dateTimeValue)) {
+        return myself;
+      }
+      throw failures.failure(info, shouldBeAfter(DateTimeValue.from((Timestamp) value), dateTimeValue));
+    }
+  }
+
+  /**
+   * Verifies that the value is after a time value.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is after a time value :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).row().value().isAfter(TimeValue.of(2007, 12, 23));
+   * </pre>
+   * 
+   * @param time The expected time value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is equal to the time value in parameter.
+   */
+  public V isAfter(TimeValue time) {
+    isTime();
+    if (TimeValue.from((Time) value).isAfter(time)) {
+      return myself;
+    }
+    throw failures.failure(info, shouldBeAfter(TimeValue.from((Time) value), time));
+  }
+
+  /**
+   * Verifies that the value is after a date/time value.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is after a date/time value :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).row().value().isAfter(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(21, 29)));
+   * </pre>
+   * 
+   * @param expected The expected time value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is equal to the date/time value in parameter.
+   */
+  public V isAfter(DateTimeValue dateTime) {
+    isDateTime();
+    if (DateTimeValue.from((Timestamp) value).isAfter(dateTime)) {
+      return myself;
+    }
+    throw failures.failure(info, shouldBeAfter(DateTimeValue.from((Timestamp) value), dateTime));
   }
 }
