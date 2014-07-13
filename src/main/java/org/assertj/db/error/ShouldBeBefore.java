@@ -9,18 +9,17 @@ import org.assertj.core.error.ErrorMessageFactory;
  * @author Régis Pouiller
  * 
  */
-public class ShouldBefore extends BasicErrorMessageFactory {
+public class ShouldBeBefore extends BasicErrorMessageFactory {
 
   /**
-   * Creates a new <code>{@link ShouldBefore}</code>.
+   * Creates a new <code>{@link ShouldBeBefore}</code>.
    * 
    * @param pActual The actual value in the failed assertion.
    * @param pExpected The expected value to compare to.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBefore(final Object pActual, final Object pExpected) {
-
-    return new ShouldBefore(pActual, pExpected);
+  public static ErrorMessageFactory shouldBeBefore(final Object pActual, final Object pExpected) {
+    return new ShouldBeBefore(pActual, pExpected);
   }
 
   /**
@@ -29,7 +28,7 @@ public class ShouldBefore extends BasicErrorMessageFactory {
    * @param pActual The actual value in the failed assertion.
    * @param pExpected The expected value to compare to.
    */
-  public ShouldBefore(final Object pActual, final Object pExpected) {
+  public ShouldBeBefore(final Object pActual, final Object pExpected) {
     super("\nExpecting:\n  <%s>\nto be before \n  <%s>", pActual, pExpected);
   }
 }

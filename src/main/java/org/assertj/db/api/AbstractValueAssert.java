@@ -5,7 +5,7 @@ import static org.assertj.core.error.ShouldNotBeEqual.shouldNotBeEqual;
 import static org.assertj.db.error.ShouldBeAfter.shouldBeAfter;
 import static org.assertj.db.error.ShouldBeType.shouldBeType;
 import static org.assertj.db.error.ShouldBeTypeOfAny.shouldBeTypeOfAny;
-import static org.assertj.db.error.ShouldBefore.shouldBefore;
+import static org.assertj.db.error.ShouldBeBefore.shouldBeBefore;
 import static org.assertj.db.util.Values.areEqual;
 
 import java.sql.Date;
@@ -714,13 +714,13 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
       if (DateValue.from((Date) value).isBefore(date)) {
         return myself;
       }
-      throw failures.failure(info, shouldBefore(DateValue.from((Date) value), date));
+      throw failures.failure(info, shouldBeBefore(DateValue.from((Date) value), date));
     } else {
       DateTimeValue dateTimeValue = DateTimeValue.of(date, TimeValue.of(0, 0));
       if (DateTimeValue.from((Timestamp) value).isBefore(dateTimeValue)) {
         return myself;
       }
-      throw failures.failure(info, shouldBefore(DateTimeValue.from((Timestamp) value), dateTimeValue));
+      throw failures.failure(info, shouldBeBefore(DateTimeValue.from((Timestamp) value), dateTimeValue));
     }
   }
 
@@ -744,7 +744,7 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
     if (TimeValue.from((Time) value).isBefore(time)) {
       return myself;
     }
-    throw failures.failure(info, shouldBefore(TimeValue.from((Time) value), time));
+    throw failures.failure(info, shouldBeBefore(TimeValue.from((Time) value), time));
   }
 
   /**
@@ -767,7 +767,7 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
     if (DateTimeValue.from((Timestamp) value).isBefore(dateTime)) {
       return myself;
     }
-    throw failures.failure(info, shouldBefore(DateTimeValue.from((Timestamp) value), dateTime));
+    throw failures.failure(info, shouldBeBefore(DateTimeValue.from((Timestamp) value), dateTime));
   }
 
   /**
