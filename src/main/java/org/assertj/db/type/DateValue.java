@@ -10,7 +10,7 @@ import java.util.Calendar;
  * @author Régis Pouiller
  * 
  */
-public class DateValue {
+public class DateValue implements Comparable<DateValue> {
 
   /**
    * Day of the month.
@@ -162,5 +162,28 @@ public class DateValue {
       return year == dateValue.year && month == dateValue.month && dayOfTheMonth == dateValue.dayOfTheMonth;
     }
     return false;
+  }
+
+  @Override
+  public int compareTo(DateValue other) {
+    if (year < other.year) {
+      return -1;
+    }
+    else if (year > other.year) {
+      return 1;
+    }
+    else if (month < other.month) {
+      return -1;
+    }
+    else if (month > other.month) {
+      return 1;
+    }
+    else if (dayOfTheMonth < other.dayOfTheMonth) {
+      return -1;
+    }
+    else if (dayOfTheMonth > other.dayOfTheMonth) {
+      return 1;
+    }
+    return 0;
   }
 }

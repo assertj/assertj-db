@@ -216,4 +216,24 @@ public class DateValue_Test extends AbstractTest {
         .isFalse();
     assertThat(DateValue.of(2007, 12, 23).equals("")).isFalse();
   }
+
+  /**
+   * This method tests the {@code compareTo} method.
+   */
+  @Test
+  public void test_compareTo() {
+    assertThat(DateValue.of(2007, 12, 23).compareTo(DateValue.of(2007, 12, 22))).isEqualTo(1);
+    assertThat(DateValue.of(2007, 12, 23).compareTo(DateValue.of(2007, 11, 23))).isEqualTo(1);
+    assertThat(DateValue.of(2007, 12, 23).compareTo(DateValue.of(2006, 12, 23))).isEqualTo(1);
+    assertThat(DateValue.of(2007, 12, 23).compareTo(DateValue.of(2007, 11, 24))).isEqualTo(1);
+    assertThat(DateValue.of(2007, 11, 23).compareTo(DateValue.of(2006, 12, 23))).isEqualTo(1);
+
+    assertThat(DateValue.of(2007, 12, 23).compareTo(DateValue.of(2007, 12, 23))).isEqualTo(0);
+
+    assertThat(DateValue.of(2007, 12, 23).compareTo(DateValue.of(2007, 12, 24))).isEqualTo(-1);
+    assertThat(DateValue.of(2007, 11, 23).compareTo(DateValue.of(2007, 12, 23))).isEqualTo(-1);
+    assertThat(DateValue.of(2007, 12, 23).compareTo(DateValue.of(2008, 12, 23))).isEqualTo(-1);
+    assertThat(DateValue.of(2007, 11, 23).compareTo(DateValue.of(2007, 12, 22))).isEqualTo(-1);
+    assertThat(DateValue.of(2007, 12, 23).compareTo(DateValue.of(2008, 11, 23))).isEqualTo(-1);
+  }
 }

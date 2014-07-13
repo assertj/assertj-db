@@ -290,4 +290,34 @@ public class TimeValue_Test extends AbstractTest {
     assertThat(TimeValue.of(9, 1, 6, 3).equals(TimeValue.of(9, 1, 6, 4))).isFalse();
     assertThat(TimeValue.of(9, 1, 6, 3).equals("")).isFalse();
   }
+
+  /**
+   * This method tests the {@code compareTo} method.
+   */
+  @Test
+  public void test_compareTo() {
+    assertThat(TimeValue.of(9, 1).compareTo(TimeValue.of(9, 0))).isEqualTo(1);
+    assertThat(TimeValue.of(9, 1).compareTo(TimeValue.of(8, 1))).isEqualTo(1);
+    assertThat(TimeValue.of(9, 1, 6).compareTo(TimeValue.of(9, 1, 5))).isEqualTo(1);
+    assertThat(TimeValue.of(9, 1, 6).compareTo(TimeValue.of(9, 0, 6))).isEqualTo(1);
+    assertThat(TimeValue.of(9, 1, 6).compareTo(TimeValue.of(8, 1, 6))).isEqualTo(1);
+    assertThat(TimeValue.of(9, 1, 6, 3).compareTo(TimeValue.of(9, 1, 6, 2))).isEqualTo(1);
+    assertThat(TimeValue.of(9, 1, 6, 3).compareTo(TimeValue.of(9, 1, 5, 3))).isEqualTo(1);
+    assertThat(TimeValue.of(9, 1, 6, 3).compareTo(TimeValue.of(9, 0, 6, 3))).isEqualTo(1);
+    assertThat(TimeValue.of(9, 1, 6, 3).compareTo(TimeValue.of(8, 1, 6, 3))).isEqualTo(1);
+
+    assertThat(TimeValue.of(9, 1).compareTo(TimeValue.of(9, 1))).isEqualTo(0);
+    assertThat(TimeValue.of(9, 1, 6).compareTo(TimeValue.of(9, 1, 6))).isEqualTo(0);
+    assertThat(TimeValue.of(9, 1, 6, 3).compareTo(TimeValue.of(9, 1, 6, 3))).isEqualTo(0);
+
+    assertThat(TimeValue.of(9, 1).compareTo(TimeValue.of(9, 2))).isEqualTo(-1);
+    assertThat(TimeValue.of(9, 1).compareTo(TimeValue.of(10, 1))).isEqualTo(-1);
+    assertThat(TimeValue.of(9, 1, 6).compareTo(TimeValue.of(9, 1, 7))).isEqualTo(-1);
+    assertThat(TimeValue.of(9, 1, 6).compareTo(TimeValue.of(9, 2, 6))).isEqualTo(-1);
+    assertThat(TimeValue.of(9, 1, 6).compareTo(TimeValue.of(10, 1, 6))).isEqualTo(-1);
+    assertThat(TimeValue.of(9, 1, 6, 3).compareTo(TimeValue.of(9, 1, 6, 4))).isEqualTo(-1);
+    assertThat(TimeValue.of(9, 1, 6, 3).compareTo(TimeValue.of(9, 1, 7, 3))).isEqualTo(-1);
+    assertThat(TimeValue.of(9, 1, 6, 3).compareTo(TimeValue.of(9, 2, 6, 3))).isEqualTo(-1);
+    assertThat(TimeValue.of(9, 1, 6, 3).compareTo(TimeValue.of(10, 1, 6, 3))).isEqualTo(-1);
+  }
 }

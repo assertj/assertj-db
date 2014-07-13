@@ -10,7 +10,7 @@ import java.util.Calendar;
  * @author Régis Pouiller
  * 
  */
-public class DateTimeValue {
+public class DateTimeValue implements Comparable<DateTimeValue> {
 
   /**
    * The date part.
@@ -174,6 +174,15 @@ public class DateTimeValue {
           && time.getSeconds() == 0 && time.getNanoSeconds() == 0;
     }
     return false;
+  }
+
+  @Override
+  public int compareTo(DateTimeValue other) {
+    int compareDate = date.compareTo(other.date);
+    if (compareDate != 0) {
+      return compareDate;
+    }
+    return time.compareTo(other.time);
   }
 
 }

@@ -352,4 +352,28 @@ public class DateTimeValue_Test extends AbstractTest {
             DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 4)))).isFalse();
     assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).equals("")).isFalse();
   }
+
+  /**
+   * This method tests the {@code compareTo} method.
+   */
+  @Test
+  public void test_compareTo() {
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).compareTo(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 2)))).isEqualTo(1);
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).compareTo(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 5, 3)))).isEqualTo(1);
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).compareTo(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 0, 6, 3)))).isEqualTo(1);
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).compareTo(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(8, 1, 6, 3)))).isEqualTo(1);
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).compareTo(DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(9, 1, 6, 3)))).isEqualTo(1);
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).compareTo(DateTimeValue.of(DateValue.of(2007, 11, 23), TimeValue.of(9, 1, 6, 3)))).isEqualTo(1);
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).compareTo(DateTimeValue.of(DateValue.of(2006, 12, 23), TimeValue.of(9, 1, 6, 3)))).isEqualTo(1);
+
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).compareTo(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)))).isEqualTo(0);
+
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).compareTo(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 4)))).isEqualTo(-1);
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).compareTo(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 7, 3)))).isEqualTo(-1);
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).compareTo(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 2, 6, 3)))).isEqualTo(-1);
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).compareTo(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(10, 1, 6, 3)))).isEqualTo(-1);
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).compareTo(DateTimeValue.of(DateValue.of(2007, 12, 24), TimeValue.of(9, 1, 6, 3)))).isEqualTo(-1);
+    assertThat(DateTimeValue.of(DateValue.of(2007, 11, 23), TimeValue.of(9, 1, 6, 3)).compareTo(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)))).isEqualTo(-1);
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).compareTo(DateTimeValue.of(DateValue.of(2008, 12, 23), TimeValue.of(9, 1, 6, 3)))).isEqualTo(-1);
+  }
 }

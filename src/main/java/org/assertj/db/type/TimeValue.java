@@ -10,7 +10,7 @@ import java.util.Calendar;
  * @author Régis Pouiller
  * 
  */
-public class TimeValue {
+public class TimeValue implements Comparable<TimeValue> {
 
   /**
    * Hour.
@@ -242,6 +242,35 @@ public class TimeValue {
           && nanoSeconds == timeValue.nanoSeconds;
     }
     return false;
+  }
+
+  @Override
+  public int compareTo(TimeValue other) {
+    if (hour < other.hour) {
+      return -1;
+    }
+    else if (hour > other.hour) {
+      return 1;
+    }
+    else if (minutes < other.minutes) {
+      return -1;
+    }
+    else if (minutes > other.minutes) {
+      return 1;
+    }
+    else if (seconds < other.seconds) {
+      return -1;
+    }
+    else if (seconds > other.seconds) {
+      return 1;
+    }
+    else if (nanoSeconds < other.nanoSeconds) {
+      return -1;
+    }
+    else if (nanoSeconds > other.nanoSeconds) {
+      return 1;
+    }
+    return 0;
   }
 
 }
