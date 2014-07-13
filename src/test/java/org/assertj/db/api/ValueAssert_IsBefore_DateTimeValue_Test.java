@@ -53,6 +53,6 @@ public class ValueAssert_IsBefore_DateTimeValue_Test extends AbstractTest {
   public void should_fail_because_value_is_not_a_datetime() {
     Table table = new Table(source, "test");
     assertThat(table).column("var1").value().as("var1")
-        .isBefore(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)));
+        .isBefore(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 31)));
   }
 }
