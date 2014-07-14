@@ -33,7 +33,15 @@ public class ValueAssert_IsBefore_DateTimeValue_Test extends AbstractTest {
                 .isBefore(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 31)))
             .returnToRow()
             .value()
-                .isBefore(DateTimeValue.parse("2014-05-30T12:29:50"));
+                .isBefore(DateTimeValue.parse("2014-05-30T12:29:50"))
+            .returnToRow()
+        .returnToTable()
+        .column("var9")
+            .value()
+                .isBefore(DateTimeValue.parse("2014-05-24T00:01"))
+            .returnToRow()
+            .value()
+                .isBefore(DateTimeValue.of(DateValue.of(2014, 5, 30), TimeValue.of(0, 1)));
   }
 
   /**

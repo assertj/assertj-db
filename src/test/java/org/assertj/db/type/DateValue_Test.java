@@ -186,6 +186,7 @@ public class DateValue_Test extends AbstractTest {
   @Test
   public void test_equals() {
     assertThat(DateValue.of(2007, 12, 23).equals(DateValue.of(2007, 12, 23))).isTrue();
+    assertThat(DateValue.of(2007, 12, 23).equals(DateTimeValue.of(DateValue.of(2007, 12, 23)))).isTrue();
     assertThat(DateValue.of(2007, 12, 23).equals(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 0))))
         .isTrue();
     assertThat(DateValue.of(2007, 12, 23).equals(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 0, 0))))
@@ -214,6 +215,7 @@ public class DateValue_Test extends AbstractTest {
     assertThat(
         DateValue.of(2007, 12, 23).equals(DateTimeValue.of(DateValue.of(2007, 12, 24), TimeValue.of(0, 0, 0, 0))))
         .isFalse();
+    assertThat(DateValue.of(2007, 12, 23).equals(DateTimeValue.of(DateValue.of(2007, 12, 24)))).isFalse();
     assertThat(DateValue.of(2007, 12, 23).equals("")).isFalse();
   }
 

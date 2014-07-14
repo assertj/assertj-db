@@ -20,8 +20,20 @@ import org.assertj.core.internal.Objects;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
+import org.assertj.db.type.Row;
 import org.assertj.db.type.TimeValue;
 
+/**
+ * Assertion methods about the value.
+ * 
+ * @author Régis Pouiller
+ * 
+ * @param <S> The class of the original assert (an sub-class of {@link AbstractDbAssert}).
+ * @param <A> The class of the actual value (an sub-class of {@link AbstractDbData}).
+ * @param <T> The class of which contains assertion methods about {@link Column} or {@link Row} (an sub-class of
+ *          {@link AbstractSubAssert}).
+ * @param <V> The class of this assert (an sub-class of {@link AbstractValueAssert}).
+ */
 public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A extends AbstractDbData<A>, T extends AbstractSubAssert<S, A, T>, V extends AbstractValueAssert<S, A, T, V>>
     implements Descriptable<V> {
 
@@ -477,7 +489,7 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
     }
     throw failures.failure(
         info,
-        shouldBeEqual(DateTimeValue.from((Timestamp) value), DateTimeValue.of(expected, TimeValue.of(0, 0)),
+        shouldBeEqual(DateTimeValue.from((Timestamp) value), DateTimeValue.of(expected),
             info.representation()));
   }
 
@@ -621,7 +633,7 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
       throw failures.failure(info, shouldNotBeEqual(DateValue.from((Date) value), expected));
     }
     throw failures.failure(info,
-        shouldNotBeEqual(DateTimeValue.from((Timestamp) value), DateTimeValue.of(expected, TimeValue.of(0, 0))));
+        shouldNotBeEqual(DateTimeValue.from((Timestamp) value), DateTimeValue.of(expected)));
   }
 
   /**
@@ -716,7 +728,7 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
       }
       throw failures.failure(info, shouldBeBefore(DateValue.from((Date) value), date));
     } else {
-      DateTimeValue dateTimeValue = DateTimeValue.of(date, TimeValue.of(0, 0));
+      DateTimeValue dateTimeValue = DateTimeValue.of(date);
       if (DateTimeValue.from((Timestamp) value).isBefore(dateTimeValue)) {
         return myself;
       }
@@ -763,8 +775,14 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
    * @throws AssertionError If the value is equal to the date/time value in parameter.
    */
   public V isBefore(DateTimeValue dateTime) {
-    isDateTime();
-    if (DateTimeValue.from((Timestamp) value).isBefore(dateTime)) {
+    isOfAnyOfTypes(ValueType.DATE, ValueType.DATE_TIME);
+    DateTimeValue dateTimeValue; 
+    if (value instanceof Date) {
+      dateTimeValue = DateTimeValue.of(DateValue.from((Date) value));
+    } else {
+      dateTimeValue = DateTimeValue.from((Timestamp) value);
+    }
+    if (dateTimeValue.isBefore(dateTime)) {
       return myself;
     }
     throw failures.failure(info, shouldBeBefore(DateTimeValue.from((Timestamp) value), dateTime));
@@ -793,11 +811,11 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
       }
       throw failures.failure(info, shouldBeAfter(DateValue.from((Date) value), date));
     } else {
-      DateTimeValue dateTimeValue = DateTimeValue.of(date, TimeValue.of(0, 0));
+      DateTimeValue dateTimeValue = DateTimeValue.of(date);
       if (DateTimeValue.from((Timestamp) value).isAfter(dateTimeValue)) {
         return myself;
       }
-      throw failures.failure(info, shouldBeAfter(DateTimeValue.from((Timestamp) value), dateTimeValue));
+      throw failures.failure(info, shouldBeAfter(dateTimeValue, dateTimeValue));
     }
   }
 
@@ -840,10 +858,16 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
    * @throws AssertionError If the value is equal to the date/time value in parameter.
    */
   public V isAfter(DateTimeValue dateTime) {
-    isDateTime();
-    if (DateTimeValue.from((Timestamp) value).isAfter(dateTime)) {
+    isOfAnyOfTypes(ValueType.DATE, ValueType.DATE_TIME);
+    DateTimeValue dateTimeValue; 
+    if (value instanceof Date) {
+      dateTimeValue = DateTimeValue.of(DateValue.from((Date) value));
+    } else {
+      dateTimeValue = DateTimeValue.from((Timestamp) value);
+    }
+    if (dateTimeValue.isAfter(dateTime)) {
       return myself;
     }
-    throw failures.failure(info, shouldBeAfter(DateTimeValue.from((Timestamp) value), dateTime));
+    throw failures.failure(info, shouldBeAfter(dateTimeValue, dateTime));
   }
 }

@@ -40,6 +40,16 @@ public class DateTimeValue implements Comparable<DateTimeValue> {
   private static final String TIME_FORMAT_WITH_NANO = "\\d\\d\\d\\d-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d.\\d\\d\\d\\d\\d\\d\\d\\d\\d";
 
   /**
+   * Makes an instance of date/time value from a date with time at 00:00AM.
+   * 
+   * @param date The date.
+   * @return An instance of date/time.
+   */
+  public static DateTimeValue of(DateValue date) {
+    return new DateTimeValue(date, TimeValue.of(0, 0));
+  }
+
+  /**
    * Makes an instance of date/time value from a date and a time.
    * 
    * @param date The date.
@@ -187,6 +197,7 @@ public class DateTimeValue implements Comparable<DateTimeValue> {
 
   /**
    * Returns if this date/time value is before the date/time value in parameter.
+   * 
    * @param dateTime The date/time value to compare to.
    * @return If this date/time value is before the date/time value in parameter.
    */
@@ -196,6 +207,7 @@ public class DateTimeValue implements Comparable<DateTimeValue> {
 
   /**
    * Returns if this date/time value is after the date/time value in parameter.
+   * 
    * @param dateTime The date/time value to compare to.
    * @return If this date/time value is after the date/time value in parameter.
    */
