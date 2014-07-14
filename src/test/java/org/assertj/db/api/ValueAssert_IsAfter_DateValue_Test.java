@@ -24,9 +24,24 @@ public class ValueAssert_IsAfter_DateValue_Test extends AbstractTest {
   @Test
   public void test_if_value_is_after_date() throws ParseException {
     Table table = new Table(source, "test");
-    assertThat(table).column("var9")
-        .value().isAfter(DateValue.of(2014, 5, 23)).returnToRow()
-        .value().isAfter(DateValue.parse("2014-05-29"));
+    assertThat(table)
+        .column("var9")
+            .value()
+                .isAfter(DateValue.of(2014, 5, 23))
+            .returnToRow()
+            .value()
+                .isAfter(DateValue.parse("2014-05-29"))
+            .returnToRow()
+        .returnToTable()
+        .column("var10")
+            .value()
+                .isAfter(DateValue.of(2014, 5, 23))
+            .returnToRow()
+            .value()
+                .isAfter(DateValue.parse("2014-05-29"))
+            .returnToRow()
+        .returnToTable()
+;
   }
 
   /**

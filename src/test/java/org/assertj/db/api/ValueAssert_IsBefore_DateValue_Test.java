@@ -24,16 +24,28 @@ public class ValueAssert_IsBefore_DateValue_Test extends AbstractTest {
   @Test
   public void test_if_value_is_before_date() throws ParseException {
     Table table = new Table(source, "test");
-    assertThat(table).column("var9")
-        .value().isBefore(DateValue.of(2014, 5, 25)).returnToRow()
-        .value().isBefore(DateValue.parse("2014-05-31"));
+    assertThat(table)
+        .column("var9")
+            .value()
+                .isBefore(DateValue.of(2014, 5, 25))
+            .returnToRow()
+            .value()
+                .isBefore(DateValue.parse("2014-05-31"))
+            .returnToRow()
+        .returnToTable()
+        .column("var10")
+            .value()
+                .isBefore(DateValue.of(2014, 5, 25))
+            .returnToRow()
+            .value()
+                .isBefore(DateValue.parse("2014-05-31"));
   }
 
   /**
    * This method should fail because the value is not before the date value.
    */
   @Test(expected = AssertionError.class)
-  public void should_fail_because_value_is_not_before() {
+  public void should_fail_because_date_value_is_not_before() {
     Table table = new Table(source, "test");
     assertThat(table).column("var9")
         .value().isBefore(DateValue.of(2014, 5, 24));
