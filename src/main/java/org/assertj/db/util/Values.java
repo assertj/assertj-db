@@ -119,7 +119,7 @@ public class Values {
         try {
           bi = new BigInteger("" + value);
         } catch (NumberFormatException e) {
-          throw new AssertJDBException("<%s> can not be compared to a BigInteger (<%s>)", value, expected);
+          throw new AssertJDBException("Expected <%s> can not be compared to a BigInteger (<%s>)", expected, value);
         }
       }
 
@@ -138,7 +138,7 @@ public class Values {
         try {
           bd = new BigDecimal("" + value);
         } catch (NumberFormatException e) {
-          throw new AssertJDBException("<%s> can not be compared to a BigDecimal (<%s>)", value, expected);
+          throw new AssertJDBException("Expected <%s> can not be compared to a BigDecimal (<%s>)", expected, value);
         }
       }
 
@@ -245,7 +245,7 @@ public class Values {
         return true;
       }
     } catch (ParseException e) {
-      throw new AssertJDBException("<%s> is not correct to compare to <%s>", date, expected);
+      throw new AssertJDBException("Expected <%s> is not correct to compare to <%s>", expected, date);
     }
     return false;
   }
@@ -270,7 +270,7 @@ public class Values {
         return true;
       }
     } catch (ParseException e) {
-      throw new AssertJDBException("<%s> is not correct to compare to <%s>", time, expected);
+      throw new AssertJDBException("Expected <%s> is not correct to compare to <%s>", expected, time);
     }
     return false;
   }
@@ -296,7 +296,7 @@ public class Values {
         return true;
       }
     } catch (ParseException e) {
-      throw new AssertJDBException("<%s> is not correct to compare to <%s>", timestamp, expected);
+      throw new AssertJDBException("Expected <%s> is not correct to compare to <%s>", expected, timestamp);
     }
     return false;
   }
@@ -352,7 +352,7 @@ public class Values {
         }
       }
     } catch (NumberFormatException e) {
-      throw new AssertJDBException("<%s> is not correct to compare to <%s>", number, expected);
+      throw new AssertJDBException("Expected <%s> is not correct to compare to <%s>", expected, number);
     }
     return false;
   }

@@ -45,7 +45,7 @@ public class ValueAssert_IsAfter_DateTimeValue_Test extends AbstractTest {
   }
 
   /**
-   * This method should fail because the value is not equal to the date/time value.
+   * This method should fail because the value is not after the date/time value.
    */
   @Test(expected = AssertionError.class)
   public void should_fail_because_value_is_not_after() {

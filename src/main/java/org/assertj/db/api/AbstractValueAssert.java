@@ -11,12 +11,14 @@ import static org.assertj.db.util.Values.areEqual;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.text.ParseException;
 
 import org.assertj.core.api.Descriptable;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.description.Description;
 import org.assertj.core.internal.Failures;
 import org.assertj.core.internal.Objects;
+import org.assertj.db.error.AssertJDBException;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
@@ -716,9 +718,9 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
    * assertThat(table).row().value().isBefore(DateValue.of(2007, 12, 23));
    * </pre>
    * 
-   * @param date The expected date value.
+   * @param date The date value to compare to.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the value is equal to the time value in parameter.
+   * @throws AssertionError If the value is not before to the time value in parameter.
    */
   public V isBefore(DateValue date) {
     isOfAnyOfTypes(ValueType.DATE, ValueType.DATE_TIME);
@@ -747,9 +749,9 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
    * assertThat(table).row().value().isBefore(TimeValue.of(2007, 12, 23));
    * </pre>
    * 
-   * @param time The expected time value.
+   * @param time The time value to compare to.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the value is equal to the time value in parameter.
+   * @throws AssertionError If the value is not before to the time value in parameter.
    */
   public V isBefore(TimeValue time) {
     isTime();
@@ -770,9 +772,9 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
    * assertThat(table).row().value().isBefore(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(21, 29)));
    * </pre>
    * 
-   * @param expected The expected time value.
+   * @param dateTime The date/time value to compare to.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the value is equal to the date/time value in parameter.
+   * @throws AssertionError If the value is not before to the date/time value in parameter.
    */
   public V isBefore(DateTimeValue dateTime) {
     isOfAnyOfTypes(ValueType.DATE, ValueType.DATE_TIME);
@@ -789,6 +791,61 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
   }
 
   /**
+   * Verifies that the value is before a date, time or date/time represented by a {@code String}.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is before a date represented by a {@code String} :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).row().value().isBefore("2007-12-23");
+   * </pre>
+   * 
+   * @param expected The {@code String} representing a date, time or date/time to compare to.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not before the date, time or date/time represented in parameter.
+   */
+  public V isBefore(String expected) {
+    isOfAnyOfTypes(ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME);
+
+    // By considering the possible types, the class of the value is
+    // java.sql.Date, java.sql.Time or java.sql.Timestamp
+
+    // If the class is java.sql.Time then comparison by using TimeValue
+    if (value instanceof Time) {
+      TimeValue timeValue = TimeValue.from((Time) value);
+      try {
+        TimeValue expectedTimeValue = TimeValue.parse(expected);
+        if (timeValue.isBefore(expectedTimeValue)) {
+          return myself;
+        }
+        throw failures.failure(info, shouldBeBefore(timeValue, expectedTimeValue));
+      } catch (ParseException e) {
+        throw new AssertJDBException("Expected <%s> is not correct to compare to <%s>", expected, timeValue);
+      }
+    }
+
+    // In the other case then comparison by using DateTimeValue
+    DateTimeValue dateTimeValue;
+    if (value instanceof Date) {
+      dateTimeValue = DateTimeValue.of(DateValue.from((Date) value));
+    }
+    else {
+      dateTimeValue = DateTimeValue.from((Timestamp) value);
+    }
+
+    try {
+      DateTimeValue expectedDateTimeValue = DateTimeValue.parse(expected);
+      if (dateTimeValue.isBefore(expectedDateTimeValue)) {
+        return myself;
+      }
+      throw failures.failure(info, shouldBeBefore(dateTimeValue, expectedDateTimeValue));
+    } catch (ParseException e) {
+      throw new AssertJDBException("Expected <%s> is not correct to compare to <%s>", expected, dateTimeValue);
+    }
+  }
+
+  /**
    * Verifies that the value is after a date value.
    * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
@@ -799,9 +856,9 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
    * assertThat(table).row().value().isAfter(DateValue.of(2007, 12, 23));
    * </pre>
    * 
-   * @param date The expected date value.
+   * @param date The date value to compare to.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the value is equal to the time value in parameter.
+   * @throws AssertionError If the value is not after to the time value in parameter.
    */
   public V isAfter(DateValue date) {
     isOfAnyOfTypes(ValueType.DATE, ValueType.DATE_TIME);
@@ -830,9 +887,9 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
    * assertThat(table).row().value().isAfter(TimeValue.of(2007, 12, 23));
    * </pre>
    * 
-   * @param time The expected time value.
+   * @param time The time value to compare to.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the value is equal to the time value in parameter.
+   * @throws AssertionError If the value is not after to the time value in parameter.
    */
   public V isAfter(TimeValue time) {
     isTime();
@@ -853,9 +910,9 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
    * assertThat(table).row().value().isAfter(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(21, 29)));
    * </pre>
    * 
-   * @param expected The expected time value.
+   * @param dateTime The date/time value to compare to.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the value is equal to the date/time value in parameter.
+   * @throws AssertionError If the value is not after to the date/time value in parameter.
    */
   public V isAfter(DateTimeValue dateTime) {
     isOfAnyOfTypes(ValueType.DATE, ValueType.DATE_TIME);
@@ -869,5 +926,60 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
       return myself;
     }
     throw failures.failure(info, shouldBeAfter(dateTimeValue, dateTime));
+  }
+
+  /**
+   * Verifies that the value is after a date, time or date/time represented by a {@code String}.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is after a date represented by a {@code String} :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).row().value().isAfter("2007-12-23");
+   * </pre>
+   * 
+   * @param expected The {@code String} representing a date, time or date/time to compare to.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not after the date, time or date/time represented in parameter.
+   */
+  public V isAfter(String expected) {
+    isOfAnyOfTypes(ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME);
+
+    // By considering the possible types, the class of the value is
+    // java.sql.Date, java.sql.Time or java.sql.Timestamp
+
+    // If the class is java.sql.Time then comparison by using TimeValue
+    if (value instanceof Time) {
+      TimeValue timeValue = TimeValue.from((Time) value);
+      try {
+        TimeValue expectedTimeValue = TimeValue.parse(expected);
+        if (timeValue.isAfter(expectedTimeValue)) {
+          return myself;
+        }
+        throw failures.failure(info, shouldBeAfter(timeValue, expectedTimeValue));
+      } catch (ParseException e) {
+        throw new AssertJDBException("Expected <%s> is not correct to compare to <%s>", expected, timeValue);
+      }
+    }
+
+    // In the other case then comparison by using DateTimeValue
+    DateTimeValue dateTimeValue;
+    if (value instanceof Date) {
+      dateTimeValue = DateTimeValue.of(DateValue.from((Date) value));
+    }
+    else {
+      dateTimeValue = DateTimeValue.from((Timestamp) value);
+    }
+
+    try {
+      DateTimeValue expectedDateTimeValue = DateTimeValue.parse(expected);
+      if (dateTimeValue.isAfter(expectedDateTimeValue)) {
+        return myself;
+      }
+      throw failures.failure(info, shouldBeAfter(dateTimeValue, expectedDateTimeValue));
+    } catch (ParseException e) {
+      throw new AssertJDBException("Expected <%s> is not correct to compare to <%s>", expected, dateTimeValue);
+    }
   }
 }
