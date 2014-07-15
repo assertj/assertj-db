@@ -14,6 +14,22 @@ import org.assertj.db.type.Table;
 /**
  * Entry point of all the assertions.
  * 
+ * <p>
+ * Exemple :
+ * </p>
+ * 
+ * <pre>
+ * Source source = new Source(&quot;jdbc:h2:mem:test&quot;, &quot;sa&quot;, &quot;&quot;);
+ * Table table = new Table(source, &quot;movie&quot;);
+ * assertThat(table)
+ *     .row()
+ *        .value("title")
+ *            .isEqualTo("Alien")
+ *        .returnToRow()
+ *        .value()
+ *            .isEqualTo(1979);
+ * </pre>
+ * 
  * @author Régis Pouiller
  * 
  */
