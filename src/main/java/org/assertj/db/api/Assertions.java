@@ -15,7 +15,7 @@ import org.assertj.db.type.Table;
  * Entry point of all the assertions.
  * 
  * <p>
- * Exemple :
+ * Example :
  * </p>
  * 
  * <pre>
