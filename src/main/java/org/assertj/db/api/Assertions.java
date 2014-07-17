@@ -15,7 +15,8 @@ import org.assertj.db.type.Table;
  * Entry point of all the assertions.
  * 
  * <p>
- * Example :
+ * Example with a {@link Source} and a {@link Table} with test on the content on the first row of the {@code movie}
+ * table that the {@code title} column contains "Alien" like text and the next column contains 1979 like number :
  * </p>
  * 
  * <pre>
