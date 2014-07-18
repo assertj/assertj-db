@@ -31,6 +31,18 @@ import org.assertj.db.type.Table;
  *            .isEqualTo(1979);
  * </pre>
  * 
+ * <p>
+ * It is possible to chain assertion on a value :
+ * </p>
+ * 
+ * <pre>
+ * asserThat(table)
+ *     .row()
+ *         .value("title")
+ *             .isText()
+ *             .isEqualTo("Alien");
+ * </pre>
+ * 
  * @author Régis Pouiller
  * 
  */
