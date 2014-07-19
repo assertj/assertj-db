@@ -1,4 +1,7 @@
 AssertJ-DB - Assertions for database
 ==========
 
-Assertions for database
+AssertJ-DB provides some assertions to test values in a database.
+
+The goal is to be an alternative to DBUnit for people who don't like to write XML.
+
