@@ -7,6 +7,7 @@ import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.description.Description;
 import org.assertj.db.error.AssertJDBException;
 import org.assertj.db.type.AbstractDbData;
+import org.assertj.db.type.Column;
 import org.assertj.db.type.Row;
 
 /**

@@ -31,4 +31,16 @@ public class TableColumnValueAssert extends
     return returnToSubAssert();
   }
 
+  /** {@inheritDoc} */
+  @Override
+  public TableColumnValueAssert value() {
+    return returnToRow().value();
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public TableColumnValueAssert value(int index) {
+    return returnToRow().value(index);
+  }
+
 }

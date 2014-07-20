@@ -31,4 +31,16 @@ public class RequestColumnValueAssert extends
     return returnToSubAssert();
   }
 
+  /** {@inheritDoc} */
+  @Override
+  public RequestColumnValueAssert value() {
+    return returnToRow().value();
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public RequestColumnValueAssert value(int index) {
+    return returnToRow().value(index);
+  }
+
 }
