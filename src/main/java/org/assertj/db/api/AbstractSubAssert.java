@@ -23,7 +23,7 @@ import org.assertj.db.type.Row;
  * @param <T> The class of this assertion (an sub-class of {@link AbstractSubAssert}).
  * @param <V> The class of this assertion on the value (an sub-class of {@link AbstractValueAssert}).
  */
-public abstract class AbstractSubAssert<E extends AbstractDbData<E>, S extends AbstractDbAssert<E, S>, T extends AbstractSubAssert<E, S, T, V>, V extends AbstractValueAssert<S, E, T, V>>
+public abstract class AbstractSubAssert<E extends AbstractDbData<E>, S extends AbstractDbAssert<E, S>, T extends AbstractSubAssert<E, S, T, V>, V extends AbstractValueAssert<E, S, T, V>>
     implements Descriptable<T> {
 
   /**

@@ -30,13 +30,13 @@ import org.assertj.db.type.TimeValue;
  * 
  * @author Régis Pouiller
  * 
- * @param <S> The class of the original assert (an sub-class of {@link AbstractDbAssert}).
  * @param <E> The class of the actual value (an sub-class of {@link AbstractDbData}).
+ * @param <S> The class of the original assert (an sub-class of {@link AbstractDbAssert}).
  * @param <T> The class of which contains assertion methods about {@link Column} or {@link Row} (an sub-class of
  *          {@link AbstractSubAssert}).
  * @param <V> The class of this assert (an sub-class of {@link AbstractValueAssert}).
  */
-public abstract class AbstractValueAssert<S extends AbstractDbAssert<E, S>, E extends AbstractDbData<E>, T extends AbstractSubAssert<E, S, T, V>, V extends AbstractValueAssert<S, E, T, V>>
+public abstract class AbstractValueAssert<E extends AbstractDbData<E>, S extends AbstractDbAssert<E, S>, T extends AbstractSubAssert<E, S, T, V>, V extends AbstractValueAssert<E, S, T, V>>
     implements Descriptable<V> {
 
   /**
