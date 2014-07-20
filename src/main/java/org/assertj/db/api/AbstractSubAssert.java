@@ -163,16 +163,6 @@ public abstract class AbstractSubAssert<S extends AbstractDbAssert<S, A>, A exte
   protected abstract List<Object> getValuesList();
 
   /**
-   * Returns the next value in the list of value.
-   * 
-   * @return The next value.
-   * @throws AssertJDBException If the {@code index} is out of the bounds.
-   */
-  protected Object getValue() {
-    return getValue(indexNextValue);
-  }
-
-  /**
    * Returns the value at the {@code index} in parameter.
    * 
    * @param index The index corresponding to the value.
