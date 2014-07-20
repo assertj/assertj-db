@@ -36,7 +36,7 @@ import org.assertj.db.type.TimeValue;
  *          {@link AbstractSubAssert}).
  * @param <V> The class of this assert (an sub-class of {@link AbstractValueAssert}).
  */
-public abstract class AbstractValueAssert<S extends AbstractDbAssert<A, S>, A extends AbstractDbData<A>, T extends AbstractSubAssert<S, A, T, V>, V extends AbstractValueAssert<S, A, T, V>>
+public abstract class AbstractValueAssert<S extends AbstractDbAssert<A, S>, A extends AbstractDbData<A>, T extends AbstractSubAssert<A, S, T, V>, V extends AbstractValueAssert<S, A, T, V>>
     implements Descriptable<V> {
 
   /**

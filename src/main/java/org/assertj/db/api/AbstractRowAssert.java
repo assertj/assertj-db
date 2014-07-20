@@ -20,8 +20,8 @@ import org.assertj.db.type.Row;
  * @param <R> The class of this assert (an sub-class of {@link AbstractRowAssert}).
  * @param <V> The class of this assertion on the value (an sub-class of {@link AbstractValueAssert}).
  */
-public abstract class AbstractRowAssert<S extends AbstractDbAssert<A, S>, A extends AbstractDbData<A>, R extends AbstractRowAssert<S, A, R, V>, V extends AbstractValueAssert<S, A, R, V>>
-    extends AbstractSubAssert<S, A, R, V> {
+public abstract class AbstractRowAssert<A extends AbstractDbData<A>, S extends AbstractDbAssert<A, S>, R extends AbstractRowAssert<A, S, R, V>, V extends AbstractValueAssert<S, A, R, V>>
+    extends AbstractSubAssert<A, S, R, V> {
 
   /**
    * Row on which do the assertion.

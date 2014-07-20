@@ -9,7 +9,7 @@ import org.assertj.db.type.Table;
  * @author Régis Pouiller
  * 
  */
-public class TableRowAssert extends AbstractRowAssert<TableAssert, Table, TableRowAssert, TableRowValueAssert> {
+public class TableRowAssert extends AbstractRowAssert<Table, TableAssert, TableRowAssert, TableRowValueAssert> {
 
   /**
    * Constructor.
