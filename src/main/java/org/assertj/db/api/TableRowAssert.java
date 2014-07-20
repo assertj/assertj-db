@@ -1,6 +1,5 @@
 package org.assertj.db.api;
 
-import org.assertj.db.error.AssertJDBException;
 import org.assertj.db.type.Row;
 import org.assertj.db.type.Table;
 
@@ -29,18 +28,6 @@ public class TableRowAssert extends AbstractRowAssert<TableAssert, Table, TableR
    */
   public TableAssert returnToTable() {
     return returnToDbAssert();
-  }
-
-  /**
-   * Returns assertion methods on the value corresponding to the column name in parameter.
-   * 
-   * @param columnName The column name.
-   * @return An object to make assertions on the value.
-   * @throws NullPointerException If the column name in parameter is null.
-   * @throws AssertJDBException If there is no column with this name.
-   */
-  public TableRowValueAssert value(String columnName) {
-    return new TableRowValueAssert(this, getValue(columnName));
   }
 
 }

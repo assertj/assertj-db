@@ -72,6 +72,27 @@ public abstract class AbstractRowAssert<S extends AbstractDbAssert<S, A>, A exte
     return getValue(index);
   }
 
+  /**
+   * Returns assertion methods on the value corresponding to the column name in parameter.
+   * 
+   * @param columnName The column name.
+   * @return An object to make assertions on the value.
+   * @throws NullPointerException If the column name in parameter is null.
+   * @throws AssertJDBException If there is no column with this name.
+   */
+  public V value(String columnName) {
+    if (columnName == null) {
+      throw new NullPointerException("Column name must be not null");
+    }
+    List<String> columnsNameList = row.getColumnsNameList();
+    int index = columnsNameList.indexOf(columnName.toUpperCase());
+    if (index == -1) {
+      throw new AssertJDBException("Column <%s> does not exist", columnName);
+    }
+    return getValueAssertInstance(index);
+  }
+
+
   /** {@inheritDoc} */
   @Override
   protected void assertHasSize(WritableAssertionInfo info, int expected) {
