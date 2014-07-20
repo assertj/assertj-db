@@ -27,20 +27,20 @@ public class TableColumnValueAssert extends
    * 
    * @return a object of assertion methods on a {@link Column}.
    */
-  public TableColumnAssert returnToRow() {
+  public TableColumnAssert returnToColumn() {
     return returnToSubAssert();
   }
 
   /** {@inheritDoc} */
   @Override
   public TableColumnValueAssert value() {
-    return returnToRow().value();
+    return returnToColumn().value();
   }
 
   /** {@inheritDoc} */
   @Override
   public TableColumnValueAssert value(int index) {
-    return returnToRow().value(index);
+    return returnToColumn().value(index);
   }
 
 }

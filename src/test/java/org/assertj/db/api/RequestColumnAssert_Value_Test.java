@@ -76,10 +76,10 @@ public class RequestColumnAssert_Value_Test extends AbstractTest {
         + " ORDER BY actor.name, movie.year", 2000);
     assertThat(request)
         .column()
-            .value().returnToRow()
-            .value().returnToRow()
-            .value().returnToRow()
-            .value().returnToRow()
+            .value().returnToColumn()
+            .value().returnToColumn()
+            .value().returnToColumn()
+            .value().returnToColumn()
             .value();
   }
 

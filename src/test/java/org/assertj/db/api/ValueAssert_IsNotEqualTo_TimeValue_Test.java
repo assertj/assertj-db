@@ -25,7 +25,7 @@ public class ValueAssert_IsNotEqualTo_TimeValue_Test extends AbstractTest {
   public void test_if_value_is_not_equal_to_time() throws ParseException {
     Table table = new Table(source, "test");
     assertThat(table).column("var8")
-        .value().isNotEqualTo(TimeValue.of(9, 46, 31)).returnToRow()
+        .value().isNotEqualTo(TimeValue.of(9, 46, 31)).returnToColumn()
         .value().isNotEqualTo(TimeValue.parse("12:29:50"));
   }
 

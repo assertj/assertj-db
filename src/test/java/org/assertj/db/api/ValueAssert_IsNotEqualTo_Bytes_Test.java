@@ -26,7 +26,7 @@ public class ValueAssert_IsNotEqualTo_Bytes_Test extends AbstractTest {
   public void test_if_value_is_not_equal_to_bytes() {
     Table table = new Table(source, "test");
     assertThat(table).column("var11")
-        .value().isNotEqualTo(bytesDev).returnToRow()
+        .value().isNotEqualTo(bytesDev).returnToColumn()
         .value().isNotEqualTo(bytesH2);
   }
 

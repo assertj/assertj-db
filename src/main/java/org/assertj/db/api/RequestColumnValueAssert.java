@@ -27,20 +27,20 @@ public class RequestColumnValueAssert extends
    * 
    * @return a object of assertion methods on a {@link Column}.
    */
-  public RequestColumnAssert returnToRow() {
+  public RequestColumnAssert returnToColumn() {
     return returnToSubAssert();
   }
 
   /** {@inheritDoc} */
   @Override
   public RequestColumnValueAssert value() {
-    return returnToRow().value();
+    return returnToColumn().value();
   }
 
   /** {@inheritDoc} */
   @Override
   public RequestColumnValueAssert value(int index) {
-    return returnToRow().value(index);
+    return returnToColumn().value(index);
   }
 
 }

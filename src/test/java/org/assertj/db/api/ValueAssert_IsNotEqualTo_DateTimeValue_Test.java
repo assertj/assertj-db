@@ -28,7 +28,7 @@ public class ValueAssert_IsNotEqualTo_DateTimeValue_Test extends AbstractTest {
   public void test_if_value_is_not_equal_to_date() throws ParseException {
     Table table = new Table(source, "test");
     assertThat(table).column("var10").value()
-        .isNotEqualTo(DateTimeValue.of(DateValue.of(2014, 5, 25), TimeValue.of(9, 46, 30))).returnToRow().value()
+        .isNotEqualTo(DateTimeValue.of(DateValue.of(2014, 5, 25), TimeValue.of(9, 46, 30))).returnToColumn().value()
         .isNotEqualTo(DateTimeValue.parse("2014-05-30T12:29:50"));
   }
 

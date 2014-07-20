@@ -21,7 +21,7 @@ public class ValueAssert_IsEqualTo_Boolean_Test extends AbstractTest {
   public void test_if_value_is_equal_to_boolean() {
     Table table = new Table(source, "test");
     assertThat(table).column("var2")
-        .value().isEqualTo(true).returnToRow()
+        .value().isEqualTo(true).returnToColumn()
         .value().isEqualTo(false);
   }
 

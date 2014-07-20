@@ -25,7 +25,7 @@ public class ValueAssert_IsAfter_TimeValue_Test extends AbstractTest {
   public void test_if_value_is_after_time() throws ParseException {
     Table table = new Table(source, "test");
     assertThat(table).column("var8")
-        .value().isAfter(TimeValue.of(9, 46, 29)).returnToRow()
+        .value().isAfter(TimeValue.of(9, 46, 29)).returnToColumn()
         .value().isAfter(TimeValue.parse("12:29:48"));
   }
 

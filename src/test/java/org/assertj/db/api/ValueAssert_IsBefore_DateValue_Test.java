@@ -28,15 +28,15 @@ public class ValueAssert_IsBefore_DateValue_Test extends AbstractTest {
         .column("var9")
             .value()
                 .isBefore(DateValue.of(2014, 5, 25))
-            .returnToRow()
+            .returnToColumn()
             .value()
                 .isBefore(DateValue.parse("2014-05-31"))
-            .returnToRow()
+            .returnToColumn()
         .returnToTable()
         .column("var10")
             .value()
                 .isBefore(DateValue.of(2014, 5, 25))
-            .returnToRow()
+            .returnToColumn()
             .value()
                 .isBefore(DateValue.parse("2014-05-31"));
   }

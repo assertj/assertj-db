@@ -25,7 +25,7 @@ public class ValueAssert_IsEqualTo_DateValue_Test extends AbstractTest {
   public void test_if_value_is_equal_to_date() throws ParseException {
     Table table = new Table(source, "test");
     assertThat(table).column("var9")
-        .value().isEqualTo(DateValue.of(2014, 5, 24)).returnToRow()
+        .value().isEqualTo(DateValue.of(2014, 5, 24)).returnToColumn()
         .value().isEqualTo(DateValue.parse("2014-05-30"));
   }
 

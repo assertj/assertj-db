@@ -31,15 +31,15 @@ public class ValueAssert_IsAfter_DateTimeValue_Test extends AbstractTest {
         .column("var10")
             .value()
                 .isAfter(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 29)))
-            .returnToRow()
+            .returnToColumn()
             .value()
                 .isAfter(DateTimeValue.parse("2014-05-30T12:29:48"))
-            .returnToRow()
+            .returnToColumn()
         .returnToTable()
         .column("var9")
             .value()
                 .isAfter(DateTimeValue.parse("2014-05-23T23:59:59"))
-            .returnToRow()
+            .returnToColumn()
             .value()
                 .isAfter(DateTimeValue.of(DateValue.of(2014, 5, 29), TimeValue.of(23, 59, 59)));
   }

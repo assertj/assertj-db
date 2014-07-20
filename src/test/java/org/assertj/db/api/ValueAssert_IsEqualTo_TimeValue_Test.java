@@ -25,7 +25,7 @@ public class ValueAssert_IsEqualTo_TimeValue_Test extends AbstractTest {
   public void test_if_value_is_equal_to_time() throws ParseException {
     Table table = new Table(source, "test");
     assertThat(table).column("var8")
-        .value().isEqualTo(TimeValue.of(9, 46, 30)).returnToRow()
+        .value().isEqualTo(TimeValue.of(9, 46, 30)).returnToColumn()
         .value().isEqualTo(TimeValue.parse("12:29:49"));
   }
 

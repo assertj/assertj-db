@@ -67,9 +67,9 @@ public class TableColumnAssert_Value_Test extends AbstractTest {
     Table table = new Table(source, "movie");
     assertThat(table)
         .column()
-            .value().returnToRow()
-            .value().returnToRow()
-            .value().returnToRow()
+            .value().returnToColumn()
+            .value().returnToColumn()
+            .value().returnToColumn()
             .value();
   }
 

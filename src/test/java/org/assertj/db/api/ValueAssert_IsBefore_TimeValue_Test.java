@@ -25,7 +25,7 @@ public class ValueAssert_IsBefore_TimeValue_Test extends AbstractTest {
   public void test_if_value_is_before_time() throws ParseException {
     Table table = new Table(source, "test");
     assertThat(table).column("var8")
-        .value().isBefore(TimeValue.of(9, 46, 31)).returnToRow()
+        .value().isBefore(TimeValue.of(9, 46, 31)).returnToColumn()
         .value().isBefore(TimeValue.parse("12:29:50"));
   }
 
