@@ -14,7 +14,7 @@ import org.assertj.db.type.Column;
  *          {@link AbstractColumnAssert}).
  * @param <R> The class of this assert (an sub-class of {@link AbstractColumnValueAssert}).
  */
-public class AbstractColumnValueAssert<S extends AbstractDbAssert<S, A>, A extends AbstractDbData<A>, T extends AbstractColumnAssert<S, A, T, R>, R extends AbstractColumnValueAssert<S, A, T, R>>
+public class AbstractColumnValueAssert<S extends AbstractDbAssert<A, S>, A extends AbstractDbData<A>, T extends AbstractColumnAssert<S, A, T, R>, R extends AbstractColumnValueAssert<S, A, T, R>>
     extends AbstractValueAssert<S, A, T, R> {
 
   /**

@@ -10,7 +10,7 @@ import org.assertj.db.type.Row;
  * @author Régis Pouiller
  * 
  */
-public class RequestAssert extends AbstractDbAssert<RequestAssert, Request> {
+public class RequestAssert extends AbstractDbAssert<Request, RequestAssert> {
 
   /**
    * Constructor.

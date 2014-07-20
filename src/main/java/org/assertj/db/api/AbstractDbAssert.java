@@ -19,10 +19,10 @@ import org.assertj.db.type.Row;
  * 
  * @author Régis Pouiller
  *
+ * @param <E> The class of the actual value (an sub-class of {@link AbstractDbData}).
  * @param <S> The class of the original assert (an sub-class of {@link AbstractDbAssert}).
- * @param <A> The class of the actual value (an sub-class of {@link AbstractDbData}).
  */
-public abstract class AbstractDbAssert<S extends AbstractDbAssert<S, A>, A extends AbstractDbData<A>> implements
+public abstract class AbstractDbAssert<E extends AbstractDbData<E>, S extends AbstractDbAssert<E, S>> implements
     Descriptable<S> {
 
   /**
@@ -32,7 +32,7 @@ public abstract class AbstractDbAssert<S extends AbstractDbAssert<S, A>, A exten
   /**
    * The actual value on which the assertion is.
    */
-  private final A actual;
+  private final E actual;
   /**
    * Class of the assertion.
    */
@@ -63,7 +63,7 @@ public abstract class AbstractDbAssert<S extends AbstractDbAssert<S, A>, A exten
    * @param selfType Class of the assertion
    */
   @SuppressWarnings("unchecked")
-  protected AbstractDbAssert(final A actualValue, final Class<?> selfType) {
+  protected AbstractDbAssert(final E actualValue, final Class<?> selfType) {
     myself = (S) selfType.cast(this);
     actual = actualValue;
     info = new WritableAssertionInfo();

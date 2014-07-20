@@ -15,7 +15,7 @@ import org.assertj.db.type.Row;
  *          {@link AbstractRowAssert}).
  * @param <R> The class of this assert (an sub-class of {@link AbstractRowValueAssert}).
  */
-public class AbstractRowValueAssert<S extends AbstractDbAssert<S, A>, A extends AbstractDbData<A>, T extends AbstractRowAssert<S, A, T, R>, R extends AbstractRowValueAssert<S, A, T, R>>
+public class AbstractRowValueAssert<S extends AbstractDbAssert<A, S>, A extends AbstractDbData<A>, T extends AbstractRowAssert<S, A, T, R>, R extends AbstractRowValueAssert<S, A, T, R>>
     extends AbstractValueAssert<S, A, T, R> {
 
   /**
