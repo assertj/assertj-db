@@ -73,32 +73,6 @@ public class RowAssert_GetValue_Test extends AbstractTest {
   }
 
   /**
-   * This method should throw a {@code NullPointerException}, because the column name in parameter is null.
-   */
-  @Test(expected = NullPointerException.class)
-  public void should_throw_NullPointerException_because_column_name_is_null() {
-    Table table = new Table(source, "movie");
-    assertThat(table).row().getValue(null);
-  }
-
-  /**
-   * This method should throw a {@code AssertJDBException}, because the column name in parameter don't exist in the list
-   * of columns.
-   * <p>
-   * Message :
-   * </p>
-   * 
-   * <pre>
-   * Column &lt;notexist> does not exist
-   * </pre>
-   */
-  @Test(expected = AssertJDBException.class)
-  public void should_throw_AssertJDBException_because_column_dont_exist() {
-    Table table = new Table(source, "movie");
-    assertThat(table).row().getValue("notexist");
-  }
-
-  /**
    * This method tests the {@code getValue} method when using without parameter.
    * 
    * @throws IllegalAccessException
@@ -149,33 +123,6 @@ public class RowAssert_GetValue_Test extends AbstractTest {
     assertThat(assertion.getValue(1)).isSameAs(table.getRow(0).getValuesList().get(1));
     assertThat(field.getInt(assertion)).isEqualTo(2);
     assertThat(assertion.getValue(0)).isSameAs(table.getRow(0).getValuesList().get(0));
-    assertThat(field.getInt(assertion)).isEqualTo(1);
-  }
-
-  /**
-   * This method tests the {@code getColumn} method when using with {@code columnName} parameter.
-   * 
-   * @throws IllegalAccessException
-   * @throws IllegalArgumentException
-   * @throws NoSuchFieldException
-   * @throws SecurityException
-   */
-  @Test
-  public void test_when_get_rows_with_column_name_parameter() throws IllegalArgumentException, IllegalAccessException,
-      SecurityException, NoSuchFieldException {
-
-    Table table = new Table(source, "movie");
-    TableRowAssert assertion = assertThat(table).row();
-
-    Field field = AbstractSubAssert.class.getDeclaredField("indexNextValue");
-    field.setAccessible(true);
-
-    assertThat(field.getInt(assertion)).isEqualTo(0);
-    assertThat(assertion.getValue("YEAR")).isSameAs(table.getRow(0).getValuesList().get(2));
-    assertThat(field.getInt(assertion)).isEqualTo(3);
-    assertThat(assertion.getValue("title")).isSameAs(table.getRow(0).getValuesList().get(1));
-    assertThat(field.getInt(assertion)).isEqualTo(2);
-    assertThat(assertion.getValue("ID")).isSameAs(table.getRow(0).getValuesList().get(0));
     assertThat(field.getInt(assertion)).isEqualTo(1);
   }
 }
