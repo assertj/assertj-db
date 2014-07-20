@@ -20,10 +20,10 @@ import org.assertj.db.type.Row;
  * @author Régis Pouiller
  *
  * @param <E> The class of the actual value (an sub-class of {@link AbstractDbData}).
- * @param <S> The class of the original assert (an sub-class of {@link AbstractDbAssert}).
+ * @param <D> The class of the original assert (an sub-class of {@link AbstractDbAssert}).
  */
-public abstract class AbstractDbAssert<E extends AbstractDbData<E>, S extends AbstractDbAssert<E, S>> implements
-    Descriptable<S> {
+public abstract class AbstractDbAssert<E extends AbstractDbData<E>, D extends AbstractDbAssert<E, D>> implements
+    Descriptable<D> {
 
   /**
    * Info on the object to assert.
@@ -36,7 +36,7 @@ public abstract class AbstractDbAssert<E extends AbstractDbData<E>, S extends Ab
   /**
    * Class of the assertion.
    */
-  private final S myself;
+  private final D myself;
 
   /**
    * Index of the next row to get.
@@ -64,32 +64,32 @@ public abstract class AbstractDbAssert<E extends AbstractDbData<E>, S extends Ab
    */
   @SuppressWarnings("unchecked")
   protected AbstractDbAssert(final E actualValue, final Class<?> selfType) {
-    myself = (S) selfType.cast(this);
+    myself = (D) selfType.cast(this);
     actual = actualValue;
     info = new WritableAssertionInfo();
   }
 
   /** {@inheritDoc} */
-  public S as(String description, Object... args) {
+  public D as(String description, Object... args) {
     return describedAs(description, args);
   }
 
   /** {@inheritDoc} */
   @Override
-  public S as(Description description) {
+  public D as(Description description) {
     return describedAs(description);
   }
 
   /** {@inheritDoc} */
   @Override
-  public S describedAs(String description, Object... args) {
+  public D describedAs(String description, Object... args) {
     info.description(description, args);
     return myself;
   }
 
   /** {@inheritDoc} */
   @Override
-  public S describedAs(Description description) {
+  public D describedAs(Description description) {
     info.description(description);
     return myself;
   }
@@ -108,7 +108,7 @@ public abstract class AbstractDbAssert<E extends AbstractDbData<E>, S extends Ab
    * @return {@code this} assertion object.
    * @throws AssertionError If the number of rows is different to the number in parameter.
    */
-  public S hasRowsSize(int expected) {
+  public D hasRowsSize(int expected) {
     List<Row> rowsList = actual.getRowsList();
     int size = rowsList.size();
     if (size != expected) {
@@ -131,7 +131,7 @@ public abstract class AbstractDbAssert<E extends AbstractDbData<E>, S extends Ab
    * @return {@code this} assertion object.
    * @throws AssertionError If the number of columns is different to the number in parameter.
    */
-  public S hasColumnsSize(int expected) {
+  public D hasColumnsSize(int expected) {
     List<String> columnsNameList = actual.getColumnsNameList();
     int size = columnsNameList.size();
     if (size != expected) {

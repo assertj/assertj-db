@@ -19,11 +19,11 @@ import org.assertj.db.type.Row;
  * @author Régis Pouiller
  * 
  * @param <E> The class of the actual value (an sub-class of {@link AbstractDbData}).
- * @param <S> The class of the original assertion (an sub-class of {@link AbstractDbAssert}).
+ * @param <D> The class of the original assertion (an sub-class of {@link AbstractDbAssert}).
  * @param <T> The class of this assertion (an sub-class of {@link AbstractSubAssert}).
  * @param <V> The class of this assertion on the value (an sub-class of {@link AbstractValueAssert}).
  */
-public abstract class AbstractSubAssert<E extends AbstractDbData<E>, S extends AbstractDbAssert<E, S>, T extends AbstractSubAssert<E, S, T, V>, V extends AbstractValueAssert<E, S, T, V>>
+public abstract class AbstractSubAssert<E extends AbstractDbData<E>, D extends AbstractDbAssert<E, D>, T extends AbstractSubAssert<E, D, T, V>, V extends AbstractValueAssert<E, D, T, V>>
     implements Descriptable<T> {
 
   /**
@@ -33,7 +33,7 @@ public abstract class AbstractSubAssert<E extends AbstractDbData<E>, S extends A
   /**
    * The original assert. That could be a {@link RequestAssert} or a {@link TableAssert}.
    */
-  private final S original;
+  private final D original;
   /**
    * This assertion.
    */
@@ -64,7 +64,7 @@ public abstract class AbstractSubAssert<E extends AbstractDbData<E>, S extends A
    * @param valueType Class of the assert on the value : a sub-class of {@code AbstractValueAssert}.
    */
   @SuppressWarnings({ "unchecked", "rawtypes" })
-  AbstractSubAssert(S originalDbAssert, Class<? extends AbstractSubAssert> selfType,
+  AbstractSubAssert(D originalDbAssert, Class<? extends AbstractSubAssert> selfType,
       Class<? extends AbstractValueAssert> valueType) {
 
     myself = (T) selfType.cast(this);
@@ -104,7 +104,7 @@ public abstract class AbstractSubAssert<E extends AbstractDbData<E>, S extends A
    * 
    * @return The original assertion.
    */
-  protected S returnToDbAssert() {
+  protected D returnToDbAssert() {
     return original;
   }
 
