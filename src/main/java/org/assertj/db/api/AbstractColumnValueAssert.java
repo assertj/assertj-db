@@ -9,13 +9,13 @@ import org.assertj.db.type.Column;
  * @author Régis Pouiller
  * 
  * @param <S> The class of the original assert (an sub-class of {@link AbstractDbAssert}).
- * @param <A> The class of the actual value (an sub-class of {@link AbstractDbData}).
+ * @param <E> The class of the actual value (an sub-class of {@link AbstractDbData}).
  * @param <T> The class of which contains assertion methods about {@link Column} (an sub-class of
  *          {@link AbstractColumnAssert}).
  * @param <R> The class of this assert (an sub-class of {@link AbstractColumnValueAssert}).
  */
-public class AbstractColumnValueAssert<S extends AbstractDbAssert<A, S>, A extends AbstractDbData<A>, T extends AbstractColumnAssert<A, S, T, R>, R extends AbstractColumnValueAssert<S, A, T, R>>
-    extends AbstractValueAssert<S, A, T, R> {
+public class AbstractColumnValueAssert<S extends AbstractDbAssert<E, S>, E extends AbstractDbData<E>, T extends AbstractColumnAssert<E, S, T, R>, R extends AbstractColumnValueAssert<S, E, T, R>>
+    extends AbstractValueAssert<S, E, T, R> {
 
   /**
    * Constructor.
