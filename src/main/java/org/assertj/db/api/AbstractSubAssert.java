@@ -20,11 +20,11 @@ import org.assertj.db.type.Row;
  * 
  * @param <E> The class of the actual value (an sub-class of {@link AbstractDbData}).
  * @param <D> The class of the original assertion (an sub-class of {@link AbstractDbAssert}).
- * @param <T> The class of this assertion (an sub-class of {@link AbstractSubAssert}).
+ * @param <S> The class of this assertion (an sub-class of {@link AbstractSubAssert}).
  * @param <V> The class of this assertion on the value (an sub-class of {@link AbstractValueAssert}).
  */
-public abstract class AbstractSubAssert<E extends AbstractDbData<E>, D extends AbstractDbAssert<E, D>, T extends AbstractSubAssert<E, D, T, V>, V extends AbstractValueAssert<E, D, T, V>>
-    implements Descriptable<T> {
+public abstract class AbstractSubAssert<E extends AbstractDbData<E>, D extends AbstractDbAssert<E, D>, S extends AbstractSubAssert<E, D, S, V>, V extends AbstractValueAssert<E, D, S, V>>
+    implements Descriptable<S> {
 
   /**
    * Info on the object to assert.
@@ -37,7 +37,7 @@ public abstract class AbstractSubAssert<E extends AbstractDbData<E>, D extends A
   /**
    * This assertion.
    */
-  private final T myself;
+  private final S myself;
   /**
    * Class of the assert on the value (used to make instance).
    */
@@ -67,7 +67,7 @@ public abstract class AbstractSubAssert<E extends AbstractDbData<E>, D extends A
   AbstractSubAssert(D originalDbAssert, Class<? extends AbstractSubAssert> selfType,
       Class<? extends AbstractValueAssert> valueType) {
 
-    myself = (T) selfType.cast(this);
+    myself = (S) selfType.cast(this);
     valueClass = valueType;
     original = originalDbAssert;
     info = new WritableAssertionInfo();
@@ -75,26 +75,26 @@ public abstract class AbstractSubAssert<E extends AbstractDbData<E>, D extends A
 
   /** {@inheritDoc} */
   @Override
-  public T as(String description, Object... args) {
+  public S as(String description, Object... args) {
     return describedAs(description, args);
   }
 
   /** {@inheritDoc} */
   @Override
-  public T as(Description description) {
+  public S as(Description description) {
     return describedAs(description);
   }
 
   /** {@inheritDoc} */
   @Override
-  public T describedAs(String description, Object... args) {
+  public S describedAs(String description, Object... args) {
     info.description(description, args);
     return myself;
   }
 
   /** {@inheritDoc} */
   @Override
-  public T describedAs(Description description) {
+  public S describedAs(Description description) {
     info.description(description);
     return myself;
   }
@@ -200,7 +200,7 @@ public abstract class AbstractSubAssert<E extends AbstractDbData<E>, D extends A
    * @return {@code this} assertion object.
    * @throws AssertionError If the size is different to the number in parameter.
    */
-  public T hasSize(int expected) {
+  public S hasSize(int expected) {
     assertHasSize(info, expected);
     return myself;
   }

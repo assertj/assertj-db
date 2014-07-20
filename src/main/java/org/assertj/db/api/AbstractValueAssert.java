@@ -32,17 +32,17 @@ import org.assertj.db.type.TimeValue;
  * 
  * @param <E> The class of the actual value (an sub-class of {@link AbstractDbData}).
  * @param <D> The class of the original assert (an sub-class of {@link AbstractDbAssert}).
- * @param <T> The class of which contains assertion methods about {@link Column} or {@link Row} (an sub-class of
+ * @param <S> The class of which contains assertion methods about {@link Column} or {@link Row} (an sub-class of
  *          {@link AbstractSubAssert}).
  * @param <V> The class of this assert (an sub-class of {@link AbstractValueAssert}).
  */
-public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends AbstractDbAssert<E, D>, T extends AbstractSubAssert<E, D, T, V>, V extends AbstractValueAssert<E, D, T, V>>
+public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends AbstractDbAssert<E, D>, S extends AbstractSubAssert<E, D, S, V>, V extends AbstractValueAssert<E, D, S, V>>
     implements Descriptable<V> {
 
   /**
    * The original assert.
    */
-  private final T originalAssert;
+  private final S originalAssert;
   /**
    * The actual value on which this assertion is.
    */
@@ -72,7 +72,7 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * @param selfType Class of this assert (the value assert) : a sub-class of {@code AbstractValueAssert}.
    * @param actualValue The value to assert.
    */
-  AbstractValueAssert(T originalAssert, Class<V> selfType, Object actualValue) {
+  AbstractValueAssert(S originalAssert, Class<V> selfType, Object actualValue) {
     myself = (V) selfType.cast(this);
     this.originalAssert = originalAssert;
     this.value = actualValue;
@@ -131,7 +131,7 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * 
    * @return The original assertion.
    */
-  protected T returnToSubAssert() {
+  protected S returnToSubAssert() {
     return originalAssert;
   }
 
