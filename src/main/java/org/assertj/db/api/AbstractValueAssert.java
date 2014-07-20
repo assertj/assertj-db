@@ -65,10 +65,6 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
    */
   private Objects objects = Objects.instance();
 
-  // Like in AbstractAssert from assertj-core :
-  // we prefer not to use Class<? extends S> selfType because it would force inherited
-  // constructor to cast with a compiler warning
-  // let's keep compiler warning internal (when we can) and not expose them to our end users.
   /**
    * Constructor.
    * 
@@ -76,8 +72,7 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
    * @param selfType Class of this assert (the value assert) : a sub-class of {@code AbstractValueAssert}.
    * @param actualValue The value to assert.
    */
-  @SuppressWarnings("unchecked")
-  AbstractValueAssert(T originalAssert, Class<?> selfType, Object actualValue) {
+  AbstractValueAssert(T originalAssert, Class<V> selfType, Object actualValue) {
     myself = (V) selfType.cast(this);
     this.originalAssert = originalAssert;
     this.value = actualValue;
