@@ -115,7 +115,9 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
    * @return An object to make assertions on the next value.
    * @throws AssertJDBException If the {@code index} is out of the bounds.
    */
-  public abstract V value();
+  public V value() {
+    return returnToSubAssert().value();
+  }
 
   /**
    * Returns assertion methods on the value at the {@code index} in parameter in the list of value of the original
@@ -125,7 +127,9 @@ public abstract class AbstractValueAssert<S extends AbstractDbAssert<S, A>, A ex
    * @return An object to make assertions on the value.
    * @throws AssertJDBException If the {@code index} is out of the bounds.
    */
-  public abstract V value(int index);
+  public V value(int index) {
+    return returnToSubAssert().value(index);
+  }
 
   /**
    * Returns the original assertion (an instance of a sub-class of {@link AbstractSubAssert}.

@@ -32,18 +32,6 @@ public class RequestRowValueAssert extends
     return returnToSubAssert();
   }
 
-  /** {@inheritDoc} */
-  @Override
-  public RequestRowValueAssert value() {
-    return returnToRow().value();
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public RequestRowValueAssert value(int index) {
-    return returnToRow().value(index);
-  }
-
   /**
    * Returns assertion methods on the value corresponding to the column name in parameter in the list of value of the
    * original assertion.

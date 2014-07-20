@@ -31,18 +31,6 @@ public class TableRowValueAssert extends AbstractValueAssert<TableAssert, Table,
     return returnToSubAssert();
   }
 
-  /** {@inheritDoc} */
-  @Override
-  public TableRowValueAssert value() {
-    return returnToRow().value();
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public TableRowValueAssert value(int index) {
-    return returnToRow().value(index);
-  }
-
   /**
    * Returns assertion methods on the value corresponding to the column name in parameter in the list of value of the
    * original assertion.
