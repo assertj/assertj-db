@@ -10,7 +10,7 @@ import org.assertj.db.type.Table;
  * @author Régis Pouiller
  * 
  */
-public class TableRowAssert extends AbstractRowAssert<TableAssert, Table, TableRowAssert> {
+public class TableRowAssert extends AbstractRowAssert<TableAssert, Table, TableRowAssert, TableRowValueAssert> {
 
   /**
    * Constructor.
@@ -19,7 +19,7 @@ public class TableRowAssert extends AbstractRowAssert<TableAssert, Table, TableR
    * @param row The row on which do assertion.
    */
   TableRowAssert(TableAssert originalTableAssert, Row row) {
-    super(originalTableAssert, TableRowAssert.class, row);
+    super(originalTableAssert, TableRowAssert.class, TableRowValueAssert.class, row);
   }
 
   /**

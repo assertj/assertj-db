@@ -18,8 +18,9 @@ import org.assertj.db.type.Row;
  * @param <S> The class of the original assertion (an sub-class of {@link AbstractDbAssert}).
  * @param <A> The class of the actual value (an sub-class of {@link AbstractDbData}).
  * @param <T> The class of this assertion (an sub-class of {@link AbstractSubAssert}).
+ * @param <V> The class of this assertion on the value (an sub-class of {@link AbstractValueAssert}).
  */
-public abstract class AbstractSubAssert<S extends AbstractDbAssert<S, A>, A extends AbstractDbData<A>, T extends AbstractSubAssert<S, A, T>>
+public abstract class AbstractSubAssert<S extends AbstractDbAssert<S, A>, A extends AbstractDbData<A>, T extends AbstractSubAssert<S, A, T, V>, V extends AbstractValueAssert<S, A, T, V>>
     implements Descriptable<T> {
 
   /**
@@ -34,6 +35,10 @@ public abstract class AbstractSubAssert<S extends AbstractDbAssert<S, A>, A exte
    * This assertion.
    */
   private final T myself;
+  /**
+   * Class of the assert on the value (used to make instance).
+   */
+  private final Class<?> valueClass;
 
   /**
    * Index of the next value to get.
@@ -49,10 +54,12 @@ public abstract class AbstractSubAssert<S extends AbstractDbAssert<S, A>, A exte
    * 
    * @param originalDbAssert The original assert. That could be a {@link RequestAssert} or a {@link TableAssert}.
    * @param selfType Class of this assert (the sub assert) : a sub-class of {@code AbstractSubAssert}.
+   * @param valueType Class of the assert on the value : a sub-class of {@code AbstractValueAssert}.
    */
   @SuppressWarnings("unchecked")
-  AbstractSubAssert(S originalDbAssert, Class<?> selfType) {
+  AbstractSubAssert(S originalDbAssert, Class<?> selfType, Class<?> valueType) {
     myself = (T) selfType.cast(this);
+    valueClass = valueType;
     original = originalDbAssert;
     info = new WritableAssertionInfo();
   }

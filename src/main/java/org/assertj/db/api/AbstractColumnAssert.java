@@ -17,9 +17,10 @@ import org.assertj.db.type.Column;
  * @param <S> The class of the original assert (an sub-class of {@link AbstractDbAssert}).
  * @param <A> The class of the actual value (an sub-class of {@link AbstractDbData}).
  * @param <R> The class of this assert (an sub-class of {@link AbstractRowAssert}).
+ * @param <V> The class of this assertion on the value (an sub-class of {@link AbstractValueAssert}).
  */
-public abstract class AbstractColumnAssert<S extends AbstractDbAssert<S, A>, A extends AbstractDbData<A>, R extends AbstractColumnAssert<S, A, R>>
-    extends AbstractSubAssert<S, A, R> {
+public abstract class AbstractColumnAssert<S extends AbstractDbAssert<S, A>, A extends AbstractDbData<A>, R extends AbstractColumnAssert<S, A, R, V>, V extends AbstractValueAssert<S, A, R, V>>
+    extends AbstractSubAssert<S, A, R, V> {
 
   /**
    * Column on which do the assertion.
@@ -36,9 +37,10 @@ public abstract class AbstractColumnAssert<S extends AbstractDbAssert<S, A>, A e
    * 
    * @param originalDbAssert The original assert. That could be a {@link RequestAssert} or a {@link TableAssert}.
    * @param selfType Class of this assert (the sub assert) : a sub-class of {@code AbstractSubAssert}.
+   * @param valueType Class of the assert on the value : a sub-class of {@code AbstractValueAssert}.
    */
-  AbstractColumnAssert(S originalDbAssert, Class<?> selfType, Column column) {
-    super(originalDbAssert, selfType);
+  AbstractColumnAssert(S originalDbAssert, Class<?> selfType, Class<?> valueType, Column column) {
+    super(originalDbAssert, valueType, selfType);
     this.column = column;
   }
 

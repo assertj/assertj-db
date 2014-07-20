@@ -11,7 +11,8 @@ import org.assertj.db.type.Table;
  * @author Régis Pouiller
  * 
  */
-public class RequestRowAssert extends AbstractRowAssert<RequestAssert, Request, RequestRowAssert> {
+public class RequestRowAssert extends
+    AbstractRowAssert<RequestAssert, Request, RequestRowAssert, RequestRowValueAssert> {
 
   /**
    * Constructor.
@@ -20,7 +21,7 @@ public class RequestRowAssert extends AbstractRowAssert<RequestAssert, Request, 
    * @param row The row on which do assertion.
    */
   RequestRowAssert(RequestAssert originalRequestAssert, Row row) {
-    super(originalRequestAssert, RequestRowAssert.class, row);
+    super(originalRequestAssert, RequestRowAssert.class, RequestRowValueAssert.class, row);
   }
 
   /**

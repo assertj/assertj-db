@@ -10,7 +10,8 @@ import org.assertj.db.type.Request;
  * @author Régis Pouiller
  * 
  */
-public class RequestColumnAssert extends AbstractColumnAssert<RequestAssert, Request, RequestColumnAssert> {
+public class RequestColumnAssert extends
+    AbstractColumnAssert<RequestAssert, Request, RequestColumnAssert, RequestColumnValueAssert> {
 
   /**
    * Constructor.
@@ -19,7 +20,7 @@ public class RequestColumnAssert extends AbstractColumnAssert<RequestAssert, Req
    * @param column The column on which do assertion.
    */
   RequestColumnAssert(RequestAssert originalRequestAssert, Column column) {
-    super(originalRequestAssert, RequestColumnAssert.class, column);
+    super(originalRequestAssert, RequestColumnAssert.class, RequestColumnValueAssert.class, column);
   }
 
   /**
