@@ -40,7 +40,8 @@ public abstract class AbstractRowAssert<S extends AbstractDbAssert<S, A>, A exte
    * @param selfType Class of this assert (the sub assert) : a sub-class of {@code AbstractSubAssert}.
    * @param valueType Class of the assert on the value : a sub-class of {@code AbstractValueAssert}.
    */
-  AbstractRowAssert(S originalDbAssert, Class<?> selfType, Class<?> valueType, Row row) {
+  @SuppressWarnings("rawtypes")
+  AbstractRowAssert(S originalDbAssert, Class<? extends AbstractSubAssert> selfType, Class<? extends AbstractValueAssert> valueType, Row row) {
     super(originalDbAssert, selfType, valueType);
     this.row = row;
   }

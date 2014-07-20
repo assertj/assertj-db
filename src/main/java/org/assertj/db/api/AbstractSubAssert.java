@@ -1,6 +1,9 @@
 package org.assertj.db.api;
 
+import java.lang.reflect.Constructor;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.assertj.core.api.Descriptable;
 import org.assertj.core.api.WritableAssertionInfo;
@@ -44,6 +47,10 @@ public abstract class AbstractSubAssert<S extends AbstractDbAssert<S, A>, A exte
    * Index of the next value to get.
    */
   private int indexNextValue;
+  /**
+   * Map the values assert with their index in key (contains the values assert already generated).
+   */
+  private Map<Integer, V> valuesAssertMap = new HashMap<Integer, V>();
 
   // Like in AbstractAssert from assertj-core :
   // we prefer not to use Class<? extends S> selfType because it would force inherited
@@ -56,8 +63,10 @@ public abstract class AbstractSubAssert<S extends AbstractDbAssert<S, A>, A exte
    * @param selfType Class of this assert (the sub assert) : a sub-class of {@code AbstractSubAssert}.
    * @param valueType Class of the assert on the value : a sub-class of {@code AbstractValueAssert}.
    */
-  @SuppressWarnings("unchecked")
-  AbstractSubAssert(S originalDbAssert, Class<?> selfType, Class<?> valueType) {
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+  AbstractSubAssert(S originalDbAssert, Class<? extends AbstractSubAssert> selfType,
+      Class<? extends AbstractValueAssert> valueType) {
+
     myself = (T) selfType.cast(this);
     valueClass = valueType;
     original = originalDbAssert;
@@ -100,7 +109,55 @@ public abstract class AbstractSubAssert<S extends AbstractDbAssert<S, A>, A exte
   }
 
   /**
+   * Gets an instance of value assert corresponding to the index. If this instance is already instanced, the method
+   * returns it from the cache.
+   * 
+   * @param index Index of the value on which is the instance of value assert.
+   * @return The value assert implementation.
+   */
+  protected V getValueAssertInstance(int index) {
+    if (valuesAssertMap.containsKey(index)) {
+      return valuesAssertMap.get(index);
+    }
+
+    try {
+      @SuppressWarnings("unchecked")
+      Constructor<V> constructor = (Constructor<V>) valueClass.getDeclaredConstructor(myself.getClass(), Object.class);
+      V instance = constructor.newInstance(this, getValue(index));
+      valuesAssertMap.put(index, instance);
+      return instance;
+    } catch (Exception e) {
+      throw new AssertJDBException("There is an exception " + (e.getClass())
+          + " in the instanciation of the assertion on the value. "
+          + "It is normally impossible. That means there is a big mistake in the development of AssertJDB. "
+          + "Please write an issue for that if you meet this problem.");
+    }
+  }
+
+  /**
+   * Returns assertion methods on the next value in the list of value.
+   * 
+   * @return An object to make assertions on the next value.
+   * @throws AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public V value() {
+    return getValueAssertInstance(indexNextValue);
+  }
+
+  /**
+   * Returns assertion methods on the value at the {@code index} in parameter.
+   * 
+   * @param index The index corresponding to the value.
+   * @return An object to make assertions on the value.
+   * @throws AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public V value(int index) {
+    return getValueAssertInstance(index);
+  }
+
+  /**
    * Returns the list of values.
+   * 
    * @return The list of values.
    */
   protected abstract List<Object> getValuesList();
@@ -125,8 +182,7 @@ public abstract class AbstractSubAssert<S extends AbstractDbAssert<S, A>, A exte
   protected Object getValue(int index) {
     int size = getValuesList().size();
     if (index < 0 || index >= size) {
-        throw new AssertJDBException("Index %s out of the limits [0, %s[",
-            index, size);
+      throw new AssertJDBException("Index %s out of the limits [0, %s[", index, size);
     }
     Object object = getValuesList().get(index);
     indexNextValue = index + 1;
@@ -161,8 +217,9 @@ public abstract class AbstractSubAssert<S extends AbstractDbAssert<S, A>, A exte
 
   /**
    * Called by {@link AbstractSubAssert#hasSize(int)}, the sub-classes implement this method. This is a skeleton
-   * pattern. So for a {@link Row}, the implementation in {@link AbstractRowAssert} sub-class tests the number of columns and
-   * for a {@link Column}, the implementation in {@link AbstractColumnAssert} sub-class tests the number of rows.
+   * pattern. So for a {@link Row}, the implementation in {@link AbstractRowAssert} sub-class tests the number of
+   * columns and for a {@link Column}, the implementation in {@link AbstractColumnAssert} sub-class tests the number of
+   * rows.
    * 
    * @param info Info on the object to assert.
    * @param expected The number to compare to the size.
