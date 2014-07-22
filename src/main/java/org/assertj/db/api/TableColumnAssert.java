@@ -10,7 +10,7 @@ import org.assertj.db.type.Table;
  * 
  */
 public class TableColumnAssert extends
-    AbstractColumnAssert<Table, TableAssert, TableColumnAssert, TableColumnValueAssert> {
+    AbstractColumnAssert<Table, TableAssert, TableColumnAssert, TableColumnValueAssert, TableRowAssert, TableRowValueAssert> {
 
   /**
    * Constructor.

@@ -10,7 +10,7 @@ import org.assertj.db.type.Row;
  * 
  */
 public class RequestRowValueAssert extends
-    AbstractRowValueAssert<Request, RequestAssert, RequestRowAssert, RequestRowValueAssert> {
+    AbstractRowValueAssert<Request, RequestAssert, RequestColumnAssert, RequestColumnValueAssert, RequestRowAssert, RequestRowValueAssert> {
 
   /**
    * Constructor.

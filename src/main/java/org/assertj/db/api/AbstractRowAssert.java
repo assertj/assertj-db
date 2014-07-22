@@ -17,11 +17,13 @@ import org.assertj.db.type.Row;
  * 
  * @param <E> The class of the actual value (an sub-class of {@link AbstractDbData}).
  * @param <D> The class of the original assert (an sub-class of {@link AbstractDbAssert}).
- * @param <S> The class of this assert (an sub-class of {@link AbstractRowAssert}).
- * @param <V> The class of this assertion on the value (an sub-class of {@link AbstractValueAssert}).
+ * @param <C> The class of the equivalent row assert (an sub-class of {@link AbstractColumnAssert}).
+ * @param <CV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractColumnValueAssert}).
+ * @param <R> The class of this assert (an sub-class of {@link AbstractRowAssert}).
+ * @param <RV> The class of this assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
-public abstract class AbstractRowAssert<E extends AbstractDbData<E>, D extends AbstractDbAssert<E, D>, S extends AbstractRowAssert<E, D, S, V>, V extends AbstractRowValueAssert<E, D, S, V>>
-    extends AbstractSubAssert<E, D, S, V> {
+public abstract class AbstractRowAssert<E extends AbstractDbData<E>, D extends AbstractDbAssert<E, D>, C extends AbstractColumnAssert<E, D, C, CV, R, RV>, CV extends AbstractColumnValueAssert<E, D, C, CV, R, RV>, R extends AbstractRowAssert<E, D, C, CV, R, RV>, RV extends AbstractRowValueAssert<E, D, C, CV, R, RV>>
+    extends AbstractSubAssert<E, D, R, RV> {
 
   /**
    * Row on which do the assertion.
@@ -37,11 +39,10 @@ public abstract class AbstractRowAssert<E extends AbstractDbData<E>, D extends A
    * Constructor.
    * 
    * @param originalDbAssert The original assert. That could be a {@link RequestAssert} or a {@link TableAssert}.
-   * @param selfType Class of this assert (the sub assert) : a sub-class of {@code AbstractSubAssert}.
-   * @param valueType Class of the assert on the value : a sub-class of {@code AbstractValueAssert}.
+   * @param selfType Class of this assert (the sub assert) : a sub-class of {@code AbstractRowAssert}.
+   * @param valueType Class of the assert on the value : a sub-class of {@code AbstractRowValueAssert}.
    */
-  @SuppressWarnings("rawtypes")
-  AbstractRowAssert(D originalDbAssert, Class<? extends AbstractSubAssert> selfType, Class<? extends AbstractValueAssert> valueType, Row row) {
+  AbstractRowAssert(D originalDbAssert, Class<R> selfType, Class<RV> valueType, Row row) {
     super(originalDbAssert, selfType, valueType);
     this.row = row;
   }
@@ -60,7 +61,7 @@ public abstract class AbstractRowAssert<E extends AbstractDbData<E>, D extends A
    * @throws NullPointerException If the column name in parameter is null.
    * @throws AssertJDBException If there is no column with this name.
    */
-  public V value(String columnName) {
+  public RV value(String columnName) {
     if (columnName == null) {
       throw new NullPointerException("Column name must be not null");
     }

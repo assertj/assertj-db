@@ -16,11 +16,13 @@ import org.assertj.db.type.Column;
  * 
  * @param <E> The class of the actual value (an sub-class of {@link AbstractDbData}).
  * @param <D> The class of the original assert (an sub-class of {@link AbstractDbAssert}).
- * @param <S> The class of this assert (an sub-class of {@link AbstractRowAssert}).
- * @param <V> The class of this assertion on the value (an sub-class of {@link AbstractValueAssert}).
+ * @param <C> The class of this assert (an sub-class of {@link AbstractColumnAssert}).
+ * @param <CV> The class of this assertion on the value (an sub-class of {@link AbstractColumnValueAssert}).
+ * @param <R> The class of the equivalent row assert (an sub-class of {@link AbstractRowAssert}).
+ * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
-public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extends AbstractDbAssert<E, D>, S extends AbstractColumnAssert<E, D, S, V>, V extends AbstractColumnValueAssert<E, D, S, V>>
-    extends AbstractSubAssert<E, D, S, V> {
+public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extends AbstractDbAssert<E, D>, C extends AbstractColumnAssert<E, D, C, CV, R, RV>, CV extends AbstractColumnValueAssert<E, D, C, CV, R, RV>, R extends AbstractRowAssert<E, D, C, CV, R, RV>, RV extends AbstractRowValueAssert<E, D, C, CV, R, RV>>
+    extends AbstractSubAssert<E, D, C, CV> {
 
   /**
    * Column on which do the assertion.
@@ -39,8 +41,7 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
    * @param selfType Class of this assert (the sub assert) : a sub-class of {@code AbstractSubAssert}.
    * @param valueType Class of the assert on the value : a sub-class of {@code AbstractValueAssert}.
    */
-  @SuppressWarnings("rawtypes")
-  AbstractColumnAssert(D originalDbAssert, Class<? extends AbstractSubAssert> selfType, Class<? extends AbstractValueAssert> valueType, Column column) {
+  AbstractColumnAssert(D originalDbAssert, Class<C> selfType, Class<CV> valueType, Column column) {
     super(originalDbAssert, selfType, valueType);
     this.column = column;
   }
