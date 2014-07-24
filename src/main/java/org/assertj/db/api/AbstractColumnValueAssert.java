@@ -15,7 +15,7 @@ import org.assertj.db.type.Column;
  * @param <R> The class of the equivalent row assert (an sub-class of {@link AbstractRowAssert}).
  * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
-public class AbstractColumnValueAssert<E extends AbstractDbData<E>, D extends AbstractDbAssert<E, D>, C extends AbstractColumnAssert<E, D, C, CV, R, RV>, CV extends AbstractColumnValueAssert<E, D, C, CV, R, RV>, R extends AbstractRowAssert<E, D, C, CV, R, RV>, RV extends AbstractRowValueAssert<E, D, C, CV, R, RV>>
+public class AbstractColumnValueAssert<E extends AbstractDbData<E>, D extends AbstractDbAssert<E, D, C, CV, R, RV>, C extends AbstractColumnAssert<E, D, C, CV, R, RV>, CV extends AbstractColumnValueAssert<E, D, C, CV, R, RV>, R extends AbstractRowAssert<E, D, C, CV, R, RV>, RV extends AbstractRowValueAssert<E, D, C, CV, R, RV>>
     extends AbstractValueAssert<E, D, C, CV, C, CV, R, RV> {
 
   /**
