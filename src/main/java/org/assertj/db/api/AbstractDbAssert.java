@@ -3,7 +3,10 @@ package org.assertj.db.api;
 import static org.assertj.db.error.ShouldHaveColumnsSize.shouldHaveColumnsSize;
 import static org.assertj.db.error.ShouldHaveRowsSize.shouldHaveRowsSize;
 
+import java.lang.reflect.Constructor;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.assertj.core.api.Descriptable;
 import org.assertj.core.api.WritableAssertionInfo;
@@ -18,7 +21,7 @@ import org.assertj.db.type.Row;
  * Assertion methods about the data in a <code>{@link Table}</code> or in a <code>{@link Request}</code>.
  * 
  * @author Régis Pouiller
- *
+ * 
  * @param <E> The class of the actual value (an sub-class of {@link AbstractDbData}).
  * @param <D> The class of the original assert (an sub-class of {@link AbstractDbAssert}).
  * @param <C> The class of this assert (an sub-class of {@link AbstractColumnAssert}).
@@ -26,8 +29,8 @@ import org.assertj.db.type.Row;
  * @param <R> The class of the equivalent row assert (an sub-class of {@link AbstractRowAssert}).
  * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
-public abstract class AbstractDbAssert<E extends AbstractDbData<E>, D extends AbstractDbAssert<E, D, C, CV, R, RV>, C extends AbstractColumnAssert<E, D, C, CV, R, RV>, CV extends AbstractColumnValueAssert<E,D,C,CV,R,RV>, R extends AbstractRowAssert<E,D,C,CV,R,RV>, RV extends AbstractRowValueAssert<E,D,C,CV,R,RV>> implements
-    Descriptable<D> {
+public abstract class AbstractDbAssert<E extends AbstractDbData<E>, D extends AbstractDbAssert<E, D, C, CV, R, RV>, C extends AbstractColumnAssert<E, D, C, CV, R, RV>, CV extends AbstractColumnValueAssert<E, D, C, CV, R, RV>, R extends AbstractRowAssert<E, D, C, CV, R, RV>, RV extends AbstractRowValueAssert<E, D, C, CV, R, RV>>
+    implements Descriptable<D> {
 
   /**
    * Info on the object to assert.
@@ -47,29 +50,43 @@ public abstract class AbstractDbAssert<E extends AbstractDbData<E>, D extends Ab
    */
   private int indexNextRow;
   /**
+   * Class of the assert on the row (used to make instance).
+   */
+  private final Class<R> rowAssertClass;
+  /**
+   * Class of the assert on the column (used to make instance).
+   */
+  private final Class<C> columnAssertClass;
+  /**
    * Index of the next column to get.
    */
   private int indexNextColumn;
+  /**
+   * Map the rows assert with their index in key (contains the rows assert already generated).
+   */
+  private Map<Integer, R> rowsAssertMap = new HashMap<Integer, R>();
+  /**
+   * Map the columns assert with their index in key (contains the columns assert already generated).
+   */
+  private Map<Integer, C> columnsAssertMap = new HashMap<Integer, C>();
 
   /**
    * To notice failures in the assertion.
    */
   private static Failures failures = Failures.instance();
 
-  // Like in AbstractAssert from assertj-core :
-  // we prefer not to use Class<? extends S> selfType because it would force inherited
-  // constructor to cast with a compiler warning
-  // let's keep compiler warning internal (when we can) and not expose them to our end users.
   /**
    * Constructor of the database assertions.
    * 
    * @param actualValue The actual value on which the assertion is.
    * @param selfType Class of the assertion
    */
-  @SuppressWarnings("unchecked")
-  protected AbstractDbAssert(final E actualValue, final Class<?> selfType) {
-    myself = (D) selfType.cast(this);
+  protected AbstractDbAssert(final E actualValue, final Class<D> selfType, Class<C> columnAssertType,
+      Class<R> rowAssertType) {
+    myself = selfType.cast(this);
     actual = actualValue;
+    rowAssertClass = rowAssertType;
+    columnAssertClass = columnAssertType;
     info = new WritableAssertionInfo();
   }
 
@@ -145,16 +162,6 @@ public abstract class AbstractDbAssert<E extends AbstractDbData<E>, D extends Ab
   }
 
   /**
-   * Returns the next {@link Row} in the list of {@link Row}.
-   * 
-   * @return The next {@link Row}.
-   * @throws AssertJDBException If the {@code index} is out of the bounds.
-   */
-  protected Row getRow() {
-    return getRow(indexNextRow);
-  }
-
-  /**
    * Returns the {@link Row} at the {@code index} in parameter.
    * 
    * @param index The index corresponding to the {@link Row}.
@@ -172,13 +179,52 @@ public abstract class AbstractDbAssert<E extends AbstractDbData<E>, D extends Ab
   }
 
   /**
-   * Returns the next {@link Column} in the list of {@link Column}.
+   * Gets an instance of row assert corresponding to the index. If this instance is already instanced, the method
+   * returns it from the cache.
    * 
-   * @return The next {@link Column}.
+   * @param index Index of the row on which is the instance of row assert.
+   * @return The row assert implementation.
+   */
+  private R getRowAssertInstance(int index) {
+    if (rowsAssertMap.containsKey(index)) {
+      R rowAssert = rowsAssertMap.get(index).initialize();
+      indexNextRow = index + 1;
+      return rowAssert;
+    }
+
+    try {
+      Constructor<R> constructor = rowAssertClass.getDeclaredConstructor(myself.getClass(), Row.class);
+      R instance = constructor.newInstance(this, getRow(index));
+      rowsAssertMap.put(index, instance);
+      return instance;
+    } catch (Exception e) {
+      throw new AssertJDBException("There is an exception '" + e.getMessage()
+          + "'\n\t in the instanciation of the assertion " + rowAssertClass.getName() + "\n\t on the row with "
+          + myself.getClass() + ".\n "
+          + "It is normally impossible.\n That means there is a big mistake in the development of AssertJDB.\n "
+          + "Please write an issue for that if you meet this problem.");
+    }
+  }
+
+  /**
+   * Returns assertion methods on the next {@link Row} in the list of {@link Row}.
+   * 
+   * @return An object to make assertions on the next {@link Row}.
    * @throws AssertJDBException If the {@code index} is out of the bounds.
    */
-  protected Column getColumn() {
-    return getColumn(indexNextColumn);
+  public R row() {
+    return getRowAssertInstance(indexNextRow);
+  }
+
+  /**
+   * Returns assertion methods on the {@link Row} at the {@code index} in parameter.
+   * 
+   * @param index The index corresponding to the {@link Row}.
+   * @return An object to make assertions on the {@link Row}.
+   * @throws AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public R row(int index) {
+    return getRowAssertInstance(index);
   }
 
   /**
@@ -200,14 +246,63 @@ public abstract class AbstractDbAssert<E extends AbstractDbData<E>, D extends Ab
   }
 
   /**
-   * Returns the {@link Column} corresponding to the column name in parameter.
+   * Gets an instance of column assert corresponding to the index. If this instance is already instanced, the method
+   * returns it from the cache.
+   * 
+   * @param index Index of the column on which is the instance of column assert.
+   * @return The column assert implementation.
+   */
+  private C getColumnAssertInstance(int index) {
+    if (columnsAssertMap.containsKey(index)) {
+      C columnAssert = columnsAssertMap.get(index).initialize();
+      indexNextColumn = index + 1;
+      return columnAssert;
+    }
+
+    try {
+      Constructor<C> constructor = columnAssertClass.getDeclaredConstructor(myself.getClass(), Column.class);
+      C instance = constructor.newInstance(this, getColumn(index));
+      columnsAssertMap.put(index, instance);
+      return instance;
+    } catch (Exception e) {
+      throw new AssertJDBException("There is an exception '" + e.getMessage()
+          + "'\n\t in the instanciation of the assertion " + columnAssertClass.getName() + "\n\t on the column with "
+          + myself.getClass() + ".\n "
+          + "It is normally impossible.\n That means there is a big mistake in the development of AssertJDB.\n "
+          + "Please write an issue for that if you meet this problem.");
+    }
+  }
+
+  /**
+   * Returns assertion methods on the next {@link Column} in the list of {@link Column}.
+   * 
+   * @return An object to make assertions on the next {@link Column}.
+   * @throws AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public C column() {
+    return getColumnAssertInstance(indexNextColumn);
+  }
+
+  /**
+   * Returns assertion methods on the {@link Column} at the {@code index} in parameter.
+   * 
+   * @param index The index corresponding to the {@link Column}.
+   * @return An object to make assertions on the {@link Column}.
+   * @throws AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public C column(int index) {
+    return getColumnAssertInstance(index);
+  }
+
+  /**
+   * Returns assertion methods on the {@link Column} corresponding to the column name in parameter.
    * 
    * @param columnName The column name.
-   * @return The {@link Column}.
+   * @return An object to make assertions on the {@link Column}.
    * @throws NullPointerException If the column name in parameter is null.
    * @throws AssertJDBException If there is no column with this name.
    */
-  protected Column getColumn(String columnName) {
+  public C column(String columnName) {
     if (columnName == null) {
       throw new NullPointerException("Column name must be not null");
     }
@@ -216,6 +311,6 @@ public abstract class AbstractDbAssert<E extends AbstractDbData<E>, D extends Ab
     if (index == -1) {
       throw new AssertJDBException("Column <%s> does not exist", columnName);
     }
-    return getColumn(index);
+    return getColumnAssertInstance(index);
   }
 }

@@ -27,7 +27,7 @@ import org.assertj.db.type.Row;
  * @param <R> The class of the equivalent row assert (an sub-class of {@link AbstractRowAssert}).
  * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
-public abstract class AbstractSubAssert<E extends AbstractDbData<E>, D extends AbstractDbAssert<E, D, C, CV, R, RV>, S extends AbstractSubAssert<E, D, S, V, C, CV, R, RV>, V extends AbstractValueAssert<E, D, S, V, C, CV, R, RV>, C extends AbstractColumnAssert<E, D, C, CV, R, RV>, CV extends AbstractColumnValueAssert<E,D,C,CV,R,RV>, R extends AbstractRowAssert<E,D,C,CV,R,RV>, RV extends AbstractRowValueAssert<E,D,C,CV,R,RV>>
+public abstract class AbstractSubAssert<E extends AbstractDbData<E>, D extends AbstractDbAssert<E, D, C, CV, R, RV>, S extends AbstractSubAssert<E, D, S, V, C, CV, R, RV>, V extends AbstractValueAssert<E, D, S, V, C, CV, R, RV>, C extends AbstractColumnAssert<E, D, C, CV, R, RV>, CV extends AbstractColumnValueAssert<E, D, C, CV, R, RV>, R extends AbstractRowAssert<E, D, C, CV, R, RV>, RV extends AbstractRowValueAssert<E, D, C, CV, R, RV>>
     implements Descriptable<S> {
 
   /**
@@ -104,6 +104,14 @@ public abstract class AbstractSubAssert<E extends AbstractDbData<E>, D extends A
   }
 
   /**
+   * To initialize the object when getting from cache.
+   */
+  S initialize() {
+    indexNextValue = 0;
+    return myself;
+  }
+
+  /**
    * Returns the original assertion (an instance of a sub-class of {@link AbstractDbAssert}.
    * 
    * @return The original assertion.
@@ -121,7 +129,9 @@ public abstract class AbstractSubAssert<E extends AbstractDbData<E>, D extends A
    */
   protected V getValueAssertInstance(int index) {
     if (valuesAssertMap.containsKey(index)) {
-      return valuesAssertMap.get(index);
+      V valueAssert = valuesAssertMap.get(index);
+      indexNextValue = index + 1;
+      return valueAssert;
     }
 
     try {
@@ -131,9 +141,10 @@ public abstract class AbstractSubAssert<E extends AbstractDbData<E>, D extends A
       valuesAssertMap.put(index, instance);
       return instance;
     } catch (Exception e) {
-      throw new AssertJDBException("There is an exception " + (e.getClass())
-          + " in the instanciation of the assertion on the value. "
-          + "It is normally impossible. That means there is a big mistake in the development of AssertJDB. "
+      throw new AssertJDBException("There is an exception '" + e.getMessage()
+          + "'\n\t in the instanciation of the assertion " + valueClass.getName() + "\n\t on the value with "
+          + myself.getClass() + ".\n "
+          + "It is normally impossible.\n That means there is a big mistake in the development of AssertJDB.\n "
           + "Please write an issue for that if you meet this problem.");
     }
   }
