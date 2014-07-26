@@ -230,4 +230,37 @@ public abstract class AbstractSubAssert<E extends AbstractDbData<E>, D extends A
    * @param expected The number to compare to the size.
    */
   protected abstract void assertHasSize(WritableAssertionInfo info, int expected);
+
+  /**
+   * Returns assertion methods on the next {@link Column} in the list of {@link Column}.
+   * 
+   * @return An object to make assertions on the next {@link Column}.
+   * @throws AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public C column() {
+    return returnToDbAssert().column();
+  }
+
+  /**
+   * Returns assertion methods on the {@link Column} at the {@code index} in parameter.
+   * 
+   * @param index The index corresponding to the {@link Column}.
+   * @return An object to make assertions on the {@link Column}.
+   * @throws AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public C column(int index) {
+    return returnToDbAssert().column(index);
+  }
+
+  /**
+   * Returns assertion methods on the {@link Column} corresponding to the column name in parameter.
+   * 
+   * @param columnName The column name.
+   * @return An object to make assertions on the {@link Column}.
+   * @throws NullPointerException If the column name in parameter is null.
+   * @throws AssertJDBException If there is no column with this name.
+   */
+  public C column(String columnName) {
+    return returnToDbAssert().column(columnName);
+  }
 }
