@@ -7,6 +7,12 @@ import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
+/**
+ * Test on {@code column} methods on column assert from a table.
+ * 
+ * @author Régis Pouiller
+ * 
+ */
 public class TableColumnAssert_Column_Test extends AbstractTest {
 
   /**

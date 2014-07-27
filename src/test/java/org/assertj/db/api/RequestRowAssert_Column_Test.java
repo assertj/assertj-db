@@ -7,6 +7,12 @@ import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Request;
 import org.junit.Test;
 
+/**
+ * Test on {@code column} methods on row assert from a request.
+ * 
+ * @author Régis Pouiller
+ * 
+ */
 public class RequestRowAssert_Column_Test extends AbstractTest {
 
   /**
