@@ -10,10 +10,10 @@ import org.junit.Test;
 public class RequestColumnAssert_Column_Test extends AbstractTest {
 
   /**
-   * This method tests the result of {@code value} methods on values assert from a row of a table.
+   * This method tests the result of {@code column} methods on column assert from a request.
    */
   @Test
-  public void test_with_table_and_row() {
+  public void test_with_request_and_column() {
     Request request = new Request(source, "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
         + " FROM movie, actor, interpretation"
         + " WHERE movie.id = interpretation.id_movie"

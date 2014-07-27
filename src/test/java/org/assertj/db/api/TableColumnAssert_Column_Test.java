@@ -10,10 +10,10 @@ import org.junit.Test;
 public class TableColumnAssert_Column_Test extends AbstractTest {
 
   /**
-   * This method tests the result of {@code value} methods on values assert from a row of a table.
+   * This method tests the result of {@code column} methods on column assert from a table.
    */
   @Test
-  public void test_with_table_and_row() {
+  public void test_with_table_and_column() {
     Table table = new Table(source, "test");
     
     TableAssert tableAssert = assertThat(table);
