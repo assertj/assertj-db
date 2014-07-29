@@ -17,7 +17,7 @@ import org.junit.Test;
 public class ValueAssert_Column_Test extends AbstractTest {
 
   /**
-   * This method tests the result of {@code value} methods on values assert from a row of a table.
+   * This method tests the result of {@code column} methods on values assert from a row of a table.
    */
   @Test
   public void test_with_table_and_row() {
@@ -34,7 +34,7 @@ public class ValueAssert_Column_Test extends AbstractTest {
   }
 
   /**
-   * This method tests the result of {@code value} methods on values assert from a column of a table.
+   * This method tests the result of {@code column} methods on values assert from a column of a table.
    */
   @Test
   public void test_with_table_and_column() {
@@ -50,7 +50,7 @@ public class ValueAssert_Column_Test extends AbstractTest {
   }
 
   /**
-   * This method tests the result of {@code value} methods on values assert from a row of a request.
+   * This method tests the result of {@code column} methods on values assert from a row of a request.
    */
   @Test
   public void test_with_request_and_row() {
@@ -67,7 +67,7 @@ public class ValueAssert_Column_Test extends AbstractTest {
   }
 
   /**
-   * This method tests the result of {@code value} methods on values assert from a column of a request.
+   * This method tests the result of {@code column} methods on values assert from a column of a request.
    */
   @Test
   public void test_with_request_and_column() {
