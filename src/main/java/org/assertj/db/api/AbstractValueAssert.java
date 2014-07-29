@@ -20,6 +20,7 @@ import org.assertj.core.internal.Failures;
 import org.assertj.core.internal.Objects;
 import org.assertj.db.error.AssertJDBException;
 import org.assertj.db.type.AbstractDbData;
+import org.assertj.db.type.Column;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.Row;
@@ -146,6 +147,39 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    */
   protected ValueType getType() {
     return ValueType.getType(value);
+  }
+
+  /**
+   * Returns assertion methods on the next {@link Column} in the list of {@link Column}.
+   * 
+   * @return An object to make assertions on the next {@link Column}.
+   * @throws AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public C column() {
+    return returnToSubAssert().column();
+  }
+
+  /**
+   * Returns assertion methods on the {@link Column} at the {@code index} in parameter.
+   * 
+   * @param index The index corresponding to the {@link Column}.
+   * @return An object to make assertions on the {@link Column}.
+   * @throws AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public C column(int index) {
+    return returnToSubAssert().column(index);
+  }
+
+  /**
+   * Returns assertion methods on the {@link Column} corresponding to the column name in parameter.
+   * 
+   * @param columnName The column name.
+   * @return An object to make assertions on the {@link Column}.
+   * @throws NullPointerException If the column name in parameter is null.
+   * @throws AssertJDBException If there is no column with this name.
+   */
+  public C column(String columnName) {
+    return returnToSubAssert().column(columnName);
   }
 
   /**
