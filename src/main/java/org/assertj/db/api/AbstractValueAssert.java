@@ -150,6 +150,27 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
   }
 
   /**
+   * Returns assertion methods on the next {@link Row} in the list of {@link Row}.
+   * 
+   * @return An object to make assertions on the next {@link Row}.
+   * @throws AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public R row() {
+    return returnToSubAssert().row();
+  }
+
+  /**
+   * Returns assertion methods on the {@link Row} at the {@code index} in parameter.
+   * 
+   * @param index The index corresponding to the {@link Row}.
+   * @return An object to make assertions on the {@link Row}.
+   * @throws AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public R row(int index) {
+    return returnToSubAssert().row(index);
+  }
+
+  /**
    * Returns assertion methods on the next {@link Column} in the list of {@link Column}.
    * 
    * @return An object to make assertions on the next {@link Column}.
