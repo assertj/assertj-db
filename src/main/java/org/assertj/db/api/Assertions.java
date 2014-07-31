@@ -43,6 +43,39 @@ import org.assertj.db.type.Table;
  *             .isEqualTo("Alien");
  * </pre>
  * 
+ * <p>
+ * It is not necessary to use the <code>returnToXxxx</code> methods.
+ * The next example is equivalent to the first :
+ * </p>
+ * 
+ * <pre>
+ * Source source = new Source(&quot;jdbc:h2:mem:test&quot;, &quot;sa&quot;, &quot;&quot;);
+ * Table table = new Table(source, &quot;movie&quot;);
+ * assertThat(table)
+ *     .row()
+ *        .value("title")
+ *            .isEqualTo("Alien")
+ *        .value()
+ *            .isEqualTo(1979);
+ * </pre>
+ * 
+ * <p>
+ * It is possible to do the same thing with column and the row :
+ * </p>
+ * 
+ * <pre>
+ * assertThat(table)
+ *     .row()
+ *        .value("title")
+ *            .isEqualTo("Alien")
+ *     .row()
+ *        .value()
+ *            .isEqualTo("The Village")
+ *     .column("year")
+ *         .value(1)
+ *            .equalTo(2004);
+ * </pre>
+ * 
  * @author Régis Pouiller
  * 
  */
