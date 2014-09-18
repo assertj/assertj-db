@@ -1329,4 +1329,40 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
       throw new AssertJDBException("Expected <%s> is not correct to compare to <%s>", expected, dateTimeValue);
     }
   }
+
+  /**
+   * Verifies that the value is equal to zero.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is equal to zero :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).row().value().isZero();
+   * </pre>
+   * 
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to zero.
+   */
+  public V isZero() {
+    return isEqualTo(0);
+  }
+
+  /**
+   * Verifies that the value is not equal to zero.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is not equal to zero :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).row().value().isNotZero();
+   * </pre>
+   * 
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is equal to zero.
+   */
+  public V isNotZero() {
+    return isNotEqualTo(0);
+  }
 }

@@ -102,3 +102,20 @@ insert into test values (
     500,
     700
 );
+
+insert into test values (
+    0,
+    false,
+    0,
+    0,
+    0,
+    0,
+    0,
+    PARSEDATETIME('12:29:49', 'HH:mm:ss'),
+    PARSEDATETIME('30/05/2014', 'dd/MM/yyyy'),
+    PARSEDATETIME('30/05/2014', 'dd/MM/yyyy'),
+    null,
+    'another text again',
+    500,
+    700
+);
