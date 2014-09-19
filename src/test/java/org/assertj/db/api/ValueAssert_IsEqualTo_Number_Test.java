@@ -193,7 +193,7 @@ public class ValueAssert_IsEqualTo_Number_Test extends AbstractTest {
    * This method tests that the value is equal to a big decimal number.
    */
   @Test
-  public void test_if_value_is_equal_to_number_bigdecima() {
+  public void test_if_value_is_equal_to_number_bigdecimal() {
     Table table = new Table(source, "test");
     assertThat(table)
         .row()
@@ -232,7 +232,7 @@ public class ValueAssert_IsEqualTo_Number_Test extends AbstractTest {
    * This method should fail because the value is not a number.
    */
   @Test(expected = AssertionError.class)
-  public void should_fail_because_value_is_not_a_boolean() {
+  public void should_fail_because_value_is_not_a_number() {
     Table table = new Table(source, "test");
     assertThat(table).column("var2")
         .value().as("var2").isEqualTo(1);
