@@ -431,4 +431,126 @@ public class Values {
     }
     return false;
   }
+
+  /**
+   * Returns the result of the comparison between the value and the {@code Number} in parameter.
+   * 
+   * @param value The value.
+   * @param expected The {@code Number} to compare.
+   * @return {@code 0} if the value is equal to the {@code Number} parameter, {@code -1} if value is less than the
+   *         {@code Number} parameter and {@code 1} if value is greater than the {@code Number} parameter.
+   */
+  public static int compare(Object value, Number expected) {
+    // If parameter is a BigInteger,
+    // change the actual in BigInteger to compare
+    if (expected instanceof BigInteger) {
+      BigInteger bi = null;
+
+      if (value instanceof BigInteger) {
+        bi = (BigInteger) value;
+      } else {
+        try {
+          bi = new BigInteger("" + value);
+        } catch (NumberFormatException e) {
+          throw new AssertJDBException("Expected <%s> can not be compared to a BigInteger (<%s>)", expected, value);
+        }
+      }
+
+      return bi.compareTo((BigInteger) expected);
+    }
+    // If parameter is a BigDecimal,
+    // change the value in BigDecimal to compare
+    else if (expected instanceof BigDecimal) {
+      BigDecimal bd = null;
+
+      if (value instanceof BigDecimal) {
+        bd = (BigDecimal) value;
+      } else {
+        try {
+          bd = new BigDecimal("" + value);
+        } catch (NumberFormatException e) {
+          throw new AssertJDBException("Expected <%s> can not be compared to a BigDecimal (<%s>)", expected, value);
+        }
+      }
+
+      return bd.compareTo((BigDecimal) expected);
+    }
+    // Otherwise
+    // If the value is Float, Double, BigInteger or BigDecimal
+    // change the value to compare to make the comparison possible
+    // else
+    // get the value value in Long to compare
+    else {
+      Long actualValue = null;
+
+      if (value instanceof Float) {
+        float f = ((Float) value).floatValue();
+        float expectedF = expected.floatValue();
+        if (f > expectedF) {
+          return 1;
+        } else if (f < expectedF) {
+          return -1;
+        } else {
+          return 0;
+        }
+      } else if (value instanceof Double) {
+        double d = ((Double) value).doubleValue();
+        double expectedD = expected.doubleValue();
+        if (d > expectedD) {
+          return 1;
+        } else if (d < expectedD) {
+          return -1;
+        } else {
+          return 0;
+        }
+      } else if (value instanceof BigInteger) {
+        BigInteger bi = new BigInteger("" + expected);
+        return ((BigInteger) value).compareTo(bi);
+      } else if (value instanceof BigDecimal) {
+        BigDecimal bd = new BigDecimal("" + expected);
+        return ((BigDecimal) value).compareTo(bd);
+      } else if (value instanceof Byte) {
+        actualValue = ((Byte) value).longValue();
+      } else if (value instanceof Short) {
+        actualValue = ((Short) value).longValue();
+      } else if (value instanceof Integer) {
+        actualValue = ((Integer) value).longValue();
+      } else if (value instanceof Long) {
+        actualValue = (Long) value;
+      }
+
+      if (actualValue != null) {
+        if (expected instanceof Float) {
+          float expectedF = expected.floatValue();
+          if (actualValue > expectedF) {
+            return 1;
+          } else if (actualValue < expectedF) {
+            return -1;
+          } else {
+            return 0;
+          }
+        } else if (expected instanceof Double) {
+          double expectedD = expected.doubleValue();
+          if (actualValue > expectedD) {
+            return 1;
+          } else if (actualValue < expectedD) {
+            return -1;
+          } else {
+            return 0;
+          }
+        } else {
+          double expectedL = expected.longValue();
+          if (actualValue > expectedL) {
+            return 1;
+          } else if (actualValue < expectedL) {
+            return -1;
+          } else {
+            return 0;
+          }
+        }
+      }
+    }
+
+    throw new AssertJDBException("Expected <%s> can not be compared to a Number (<%s>)", expected, value);
+  }
 }

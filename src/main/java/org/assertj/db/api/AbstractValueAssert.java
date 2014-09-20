@@ -6,9 +6,14 @@ import static org.assertj.db.error.ShouldBeAfter.shouldBeAfter;
 import static org.assertj.db.error.ShouldBeAfterOrEqual.shouldBeAfterOrEqual;
 import static org.assertj.db.error.ShouldBeBefore.shouldBeBefore;
 import static org.assertj.db.error.ShouldBeBeforeOrEqual.shouldBeBeforeOrEqual;
+import static org.assertj.db.error.ShouldBeGreater.shouldBeGreater;
+import static org.assertj.db.error.ShouldBeGreaterOrEqual.shouldBeGreaterOrEqual;
+import static org.assertj.db.error.ShouldBeLess.shouldBeLess;
+import static org.assertj.db.error.ShouldBeLessOrEqual.shouldBeLessOrEqual;
 import static org.assertj.db.error.ShouldBeType.shouldBeType;
 import static org.assertj.db.error.ShouldBeTypeOfAny.shouldBeTypeOfAny;
 import static org.assertj.db.util.Values.areEqual;
+import static org.assertj.db.util.Values.compare;
 
 import java.sql.Date;
 import java.sql.Time;
@@ -1364,5 +1369,97 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    */
   public V isNotZero() {
     return isNotEqualTo(0);
+  }
+
+  /**
+   * Verifies that the value is greater than a number.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is greater than number 3 :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).row().value().isGreaterThan(3);
+   * </pre>
+   * 
+   * @param expected The expected number value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is less than or equal to the number in parameter.
+   */
+  public V isGreaterThan(Number expected) {
+    isNumber();
+    if (compare(value, expected) > 0) {
+      return myself;
+    }
+    throw failures.failure(info, shouldBeGreater(value, expected));
+  }
+
+  /**
+   * Verifies that the value is less than a number.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is less than number 3 :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).row().value().isLessThan(3);
+   * </pre>
+   * 
+   * @param expected The expected number value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is greater than or equal to the number in parameter.
+   */
+  public V isLessThan(Number expected) {
+    isNumber();
+    if (compare(value, expected) < 0) {
+      return myself;
+    }
+    throw failures.failure(info, shouldBeLess(value, expected));
+  }
+
+  /**
+   * Verifies that the value is greater than or equal to a number.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is greater than or equal to number 3 :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).row().value().isGreaterThanOrEqual(3);
+   * </pre>
+   * 
+   * @param expected The expected number value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is less than the number in parameter.
+   */
+  public V isGreaterThanOrEqualTo(Number expected) {
+    isNumber();
+    if (compare(value, expected) >= 0) {
+      return myself;
+    }
+    throw failures.failure(info, shouldBeGreaterOrEqual(value, expected));
+  }
+
+  /**
+   * Verifies that the value is less than or equal to a number.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is less than or equal to number 3 :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).row().value().isLessThanOrEqual(3);
+   * </pre>
+   * 
+   * @param expected The expected number value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is greater than the number in parameter.
+   */
+  public V isLessThanOrEqualTo(Number expected) {
+    isNumber();
+    if (compare(value, expected) <= 0) {
+      return myself;
+    }
+    throw failures.failure(info, shouldBeLessOrEqual(value, expected));
   }
 }
