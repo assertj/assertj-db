@@ -42,9 +42,9 @@ public enum ValueType {
    */
   NUMBER,
   /**
-   * Default type : corresponding to anything else.
+   * Not identified type : null value for example.
    */
-  DEFAULT;
+  NOT_IDENTIFIED;
 
   /**
    * Returns the type of the actual value (data).
@@ -80,6 +80,6 @@ public enum ValueType {
 
       return NUMBER;
     }
-    return DEFAULT;
+    return NOT_IDENTIFIED;
   }
 }
