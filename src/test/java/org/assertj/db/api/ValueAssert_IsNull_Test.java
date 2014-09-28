@@ -19,10 +19,10 @@ public class ValueAssert_IsNull_Test extends AbstractTest {
    */
   @Test
   public void test_if_a_value_is_null() {
-    Table table = new Table(source, "test");
+    Table table = new Table(source, "test2");
     
     assertThat(table)
-        .row(2)
+        .row(1)
             .value("var11").isNull();
   }
 
@@ -31,10 +31,10 @@ public class ValueAssert_IsNull_Test extends AbstractTest {
    */
   @Test(expected = AssertionError.class)
   public void should_fail_because_value_is_not_null() {
-    Table table = new Table(source, "test");
+    Table table = new Table(source, "test2");
     
     assertThat(table)
-        .row(2)
+        .row(0)
             .value("var10").isNull();
   }
 
@@ -43,10 +43,10 @@ public class ValueAssert_IsNull_Test extends AbstractTest {
    */
   @Test
   public void test_if_a_value_is_not_null() {
-    Table table = new Table(source, "test");
+    Table table = new Table(source, "test2");
     
     assertThat(table)
-        .row(2)
+        .row(0)
             .value("var10").isNotNull();
   }
 
@@ -55,10 +55,10 @@ public class ValueAssert_IsNull_Test extends AbstractTest {
    */
   @Test(expected = AssertionError.class)
   public void should_fail_because_value_is_null() {
-    Table table = new Table(source, "test");
+    Table table = new Table(source, "test2");
     
     assertThat(table)
-        .row(2)
+        .row(1)
             .value("var11").isNotNull();
   }
 }

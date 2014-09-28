@@ -97,7 +97,7 @@ insert into test values (
     PARSEDATETIME('12:29:49', 'HH:mm:ss'),
     PARSEDATETIME('30/05/2014', 'dd/MM/yyyy'),
     PARSEDATETIME('30/05/2014', 'dd/MM/yyyy'),
-    null,
+    FILE_READ('classpath:logo-dev.jpg'),
     'another text again',
     500,
     700
@@ -114,8 +114,60 @@ insert into test values (
     PARSEDATETIME('12:29:49', 'HH:mm:ss'),
     PARSEDATETIME('30/05/2014', 'dd/MM/yyyy'),
     PARSEDATETIME('30/05/2014', 'dd/MM/yyyy'),
-    null,
+    FILE_READ('classpath:logo-dev.jpg'),
     'another text again',
     500,
     700
+);
+
+
+create table test2(
+    var1 int,
+    var2 boolean,
+    var3 tinyint,
+    var4 smallint,
+    var5 bigint,
+    var6 decimal(20,2),
+    var7 real,
+    var8 time,
+    var9 date,
+    var10 timestamp,
+    var11 binary,
+    var12 varchar,
+    var13 decimal(20,2),
+    var14 real
+);
+
+insert into test2 values (
+    1,
+    true,
+    2,
+    3,
+    4,
+    5.6,
+    7.8,
+    PARSEDATETIME('09:46:30', 'HH:mm:ss'),
+    PARSEDATETIME('24/05/2014', 'dd/MM/yyyy'),
+    PARSEDATETIME('24/05/2014 09:46:30', 'dd/MM/yyyy HH:mm:ss'),
+    FILE_READ('classpath:h2-logo-2.png'),
+    'text',
+    5,
+    7
+);
+
+insert into test2 values (
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
 );
