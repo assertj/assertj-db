@@ -33,7 +33,7 @@ public abstract class AbstractSubAssert<E extends AbstractDbData<E>, D extends A
   /**
    * Info on the object to assert.
    */
-  private final WritableAssertionInfo info;
+  protected final WritableAssertionInfo info;
   /**
    * The original assert. That could be a {@link RequestAssert} or a {@link TableAssert}.
    */
@@ -41,7 +41,7 @@ public abstract class AbstractSubAssert<E extends AbstractDbData<E>, D extends A
   /**
    * This assertion.
    */
-  private final S myself;
+  protected final S myself;
   /**
    * Class of the assert on the value (used to make instance).
    */
