@@ -68,7 +68,7 @@ public class ValueAssert_Type_Test extends AbstractTest {
    * This method should fail because the type of the value is {@code ValueType.Number}.
    */
   @Test(expected = AssertionError.class)
-  public void should_faile_isOfType_assertion_because_value_is_number() {
+  public void should_fail_isOfType_assertion_because_value_is_number() {
     Table table = new Table(source, "test");
 
     assertThat(table)
