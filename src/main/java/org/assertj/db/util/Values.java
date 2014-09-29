@@ -97,6 +97,9 @@ public class Values {
    * @return {@code true} if the value is equal to the {@code Boolean} parameter, {@code false} otherwise.
    */
   public static boolean areEqual(Object value, Boolean expected) {
+    if (expected == null) {
+      return value == null;
+    }
     return expected.equals(value);
   }
 

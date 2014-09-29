@@ -1,7 +1,9 @@
 package org.assertj.db.api;
 
+import static org.assertj.core.error.ShouldBeEqual.shouldBeEqual;
 import static org.assertj.db.error.ShouldBeType.shouldBeType;
 import static org.assertj.db.error.ShouldHaveRowsSize.shouldHaveRowsSize;
+import static org.assertj.db.util.Values.areEqual;
 
 import java.util.List;
 
@@ -236,5 +238,33 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
    */
   public C isText(boolean lenient) {
     return isOfType(ValueType.TEXT, lenient);
+  }
+
+  /**
+   * Verifies that the values of a column are equal to booleans.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the
+   * {@code Table} are equal to true boolean, false boolean and true boolean :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).column().haveValuesEqualTo(true, false, true);
+   * </pre>
+   * 
+   * @param expected The expected boolean values.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the boolean in parameter.
+   */
+  public C haveValuesEqualTo(Boolean... expected) {
+    isBoolean(true);
+    hasSize(expected.length);
+    int index = 0;
+    for (Object value : getValuesList()) {
+      if (!areEqual(value, expected[index])) {
+        throw failures.failure(info, shouldBeEqual(value, expected, info.representation()));
+      }
+      index++;
+    }
+    return myself;
   }
 }
