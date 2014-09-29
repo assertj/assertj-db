@@ -74,7 +74,7 @@ public class ColumnAssert_IsOfType_Test extends AbstractTest {
    * This method should fail because the type of the column is {@code ValueType.Number}.
    */
   @Test(expected = AssertionError.class)
-  public void should_faile_isOfType_assertion_because_value_is_number() {
+  public void should_fail_isOfType_assertion_because_value_is_number() {
     Table table = new Table(source, "test");
 
     assertThat(table)
@@ -85,7 +85,7 @@ public class ColumnAssert_IsOfType_Test extends AbstractTest {
    * This method should fail because a value is {@code null}.
    */
   @Test(expected = AssertionError.class)
-  public void should_faile_isOfType_assertion_because_value_is_null() {
+  public void should_fail_isOfType_assertion_because_value_is_null() {
     Table table = new Table(source, "test2");
 
     assertThat(table)
