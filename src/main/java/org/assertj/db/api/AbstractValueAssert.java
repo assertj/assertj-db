@@ -388,7 +388,7 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * Verifies that the value is {@code null}.
    * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
-   * {@code Table} is null :
+   * {@code Table} is {@code null} :
    * </p>
    * 
    * <pre>
@@ -407,7 +407,7 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * Verifies that the value is not {@code null}.
    * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
-   * {@code Table} is not null :
+   * {@code Table} is not {@code null} :
    * </p>
    * 
    * <pre>
