@@ -396,7 +396,7 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * </pre>
    * 
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is not a number.
+   * @throws AssertionError If the type is not {@code null}.
    */
   public V isNull() {
     objects.assertNull(info, value);
@@ -415,7 +415,7 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * </pre>
    * 
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is not a number.
+   * @throws AssertionError If the type is {@code null}.
    */
   public V isNotNull() {
     objects.assertNotNull(info, value);
