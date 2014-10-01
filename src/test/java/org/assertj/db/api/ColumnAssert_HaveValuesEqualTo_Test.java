@@ -60,7 +60,7 @@ public class ColumnAssert_HaveValuesEqualTo_Test extends AbstractTest {
     Table table = new Table(source, "test2");
 
     assertThat(table)
-        .column().as("var1 type").haveValuesEqualTo(true, false);
+        .column(1).as("var2").haveValuesEqualTo(true, false);
   }
 
 }
