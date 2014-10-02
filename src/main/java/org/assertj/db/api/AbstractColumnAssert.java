@@ -291,8 +291,8 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
   /**
    * Verifies that the values of a column are equal to booleans.
    * <p>
-   * Example where the assertion verifies that the value in the first {@code Column} of the
-   * {@code Table} are equal to true boolean, false boolean and true boolean :
+   * Example where the assertion verifies that the values in the first {@code Column} of the
+   * {@code Table} are equal to the booleans in parameter :
    * </p>
    * 
    * <pre>
@@ -301,14 +301,42 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
    * 
    * @param expected The expected boolean values.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the value is not equal to the boolean in parameter.
+   * @throws AssertionError If the value is not equal to the booleans in parameter.
    */
   public C haveValuesEqualTo(Boolean... expected) {
     isBoolean(true);
     hasSize(expected.length);
     int index = 0;
     for (Object value : getValuesList()) {
-      if (!areEqual(value, expected[index])) {
+      if (!areEqual((Boolean) value, expected[index])) {
+        throw failures.failure(info, shouldBeEqual(getValuesList(), expected, info.representation()));
+      }
+      index++;
+    }
+    return myself;
+  }
+
+  /**
+   * Verifies that the values of a column are equal to numbers.
+   * <p>
+   * Example where the assertion verifies that the values in the first {@code Column} of the
+   * {@code Table} are equal to the numbers in parameter :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).column().haveValuesEqualTo(5, 10.5, 6);
+   * </pre>
+   * 
+   * @param expected The expected numbers values.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the numbers in parameter.
+   */
+  public C haveValuesEqualTo(Number... expected) {
+    isNumber(true);
+    hasSize(expected.length);
+    int index = 0;
+    for (Object value : getValuesList()) {
+      if (!areEqual((Number) value, expected[index])) {
         throw failures.failure(info, shouldBeEqual(getValuesList(), expected, info.representation()));
       }
       index++;

@@ -111,6 +111,10 @@ public class Values {
    * @return {@code true} if the value is equal to the {@code Number} parameter, {@code false} otherwise.
    */
   public static boolean areEqual(Object value, Number expected) {
+    if (expected == null) {
+      return value == null;
+    }
+
     // If parameter is a BigInteger,
     // change the actual in BigInteger to compare
     if (expected instanceof BigInteger) {
