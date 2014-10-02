@@ -343,4 +343,34 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
     }
     return myself;
   }
+
+  /**
+   * Verifies that the values of a column are equal to bytes.
+   * <p>
+   * Example where the assertion verifies that the values in the first {@code Column} of the
+   * {@code Table} are equal to arrays of bytes loaded from files in the classpath :
+   * </p>
+   * 
+   * <pre>
+   * byte[] bytes1 = bytesContentFromClassPathOf(&quot;file1.png&quot;);
+   * byte[] bytes2 = bytesContentFromClassPathOf(&quot;file2.png&quot;);
+   * assertThat(table).column().haveValuesEqualTo(bytes1, bytes2);
+   * </pre>
+   * 
+   * @param expected The expected bytes values.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the bytes in parameter.
+   */
+  public C haveValuesEqualTo(byte[]... expected) {
+    isBytes(true);
+    hasSize(expected.length);
+    int index = 0;
+    for (Object value : getValuesList()) {
+      if (!areEqual((byte[]) value, expected[index])) {
+        throw failures.failure(info, shouldBeEqual(getValuesList(), expected, info.representation()));
+      }
+      index++;
+    }
+    return myself;
+  }
 }

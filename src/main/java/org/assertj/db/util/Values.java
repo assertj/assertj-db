@@ -217,6 +217,10 @@ public class Values {
    * @return {@code true} if the value is equal to the array of {@code byte} parameter, {@code false} otherwise.
    */
   public static boolean areEqual(Object value, byte[] expected) {
+    if (expected == null) {
+      return value == null;
+    }
+
     if (value instanceof byte[]) {
       byte[] bytes = (byte[]) value;
       if (bytes.length != expected.length) {
