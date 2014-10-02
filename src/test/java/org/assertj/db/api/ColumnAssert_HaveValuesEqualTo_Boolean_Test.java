@@ -12,7 +12,7 @@ import org.junit.Test;
  * @author Régis Pouiller
  * 
  */
-public class ColumnAssert_HaveValuesEqualTo_Test extends AbstractTest {
+public class ColumnAssert_HaveValuesEqualTo_Boolean_Test extends AbstractTest {
 
   /**
    * This method tests the {@code haveValuesEqualTo} assertion method.
