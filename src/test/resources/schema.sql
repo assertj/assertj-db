@@ -135,7 +135,8 @@ create table test2(
     var11 binary,
     var12 varchar,
     var13 decimal(20,2),
-    var14 real
+    var14 real,
+    var15 tinyint
 );
 
 insert into test2 values (
@@ -152,10 +153,12 @@ insert into test2 values (
     FILE_READ('classpath:h2-logo-2.png'),
     'text',
     5,
-    7
+    7,
+    null
 );
 
 insert into test2 values (
+    null,
     null,
     null,
     null,

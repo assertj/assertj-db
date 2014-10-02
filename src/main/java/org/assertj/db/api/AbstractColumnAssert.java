@@ -2,6 +2,8 @@ package org.assertj.db.api;
 
 import static org.assertj.core.error.ShouldBeEqual.shouldBeEqual;
 import static org.assertj.db.error.ShouldBeType.shouldBeType;
+import static org.assertj.db.error.ShouldContainsOnlyNotNull.shouldContainsOnlyNotNull;
+import static org.assertj.db.error.ShouldContainsOnlyNull.shouldContainsOnlyNull;
 import static org.assertj.db.error.ShouldHaveRowsSize.shouldHaveRowsSize;
 import static org.assertj.db.util.Values.areEqual;
 
@@ -241,6 +243,52 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
   }
 
   /**
+   * Verifies that all the values of the column are {@code null}.
+   * <p>
+   * Example where the assertion verifies that all the values in the first {@code Column} of the
+   * {@code Table} are {@code null} :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).column().haveOnlyNullValues();
+   * </pre>
+   * 
+   * @return {@code this} assertion object.
+   * @throws AssertionError If at least one of the values of the column are not {@code null}.
+   */
+  public C haveOnlyNullValues() {
+    for (Object value : getValuesList()) {
+      if (value != null) {
+        throw failures.failure(info, shouldContainsOnlyNull(getValuesList()));
+      }
+    }
+    return myself;
+  }
+
+  /**
+   * Verifies that all the values of the column are not {@code null}.
+   * <p>
+   * Example where the assertion verifies that all the values in the first {@code Column} of the
+   * {@code Table} are not {@code null} :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).column().haveOnlyNotNullValues();
+   * </pre>
+   * 
+   * @return {@code this} assertion object.
+   * @throws AssertionError If at least one of the values of the column are {@code null}.
+   */
+  public C haveOnlyNotNullValues() {
+    for (Object value : getValuesList()) {
+      if (value == null) {
+        throw failures.failure(info, shouldContainsOnlyNotNull(getValuesList()));
+      }
+    }
+    return myself;
+  }
+
+  /**
    * Verifies that the values of a column are equal to booleans.
    * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the
@@ -261,7 +309,7 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
     int index = 0;
     for (Object value : getValuesList()) {
       if (!areEqual(value, expected[index])) {
-        throw failures.failure(info, shouldBeEqual(value, expected, info.representation()));
+        throw failures.failure(info, shouldBeEqual(getValuesList(), expected, info.representation()));
       }
       index++;
     }
