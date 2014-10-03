@@ -2,6 +2,7 @@ package org.assertj.db.api;
 
 import static org.assertj.core.error.ShouldBeEqual.shouldBeEqual;
 import static org.assertj.db.error.ShouldBeType.shouldBeType;
+import static org.assertj.db.error.ShouldBeTypeOfAny.shouldBeTypeOfAny;
 import static org.assertj.db.error.ShouldContainsOnlyNotNull.shouldContainsOnlyNotNull;
 import static org.assertj.db.error.ShouldContainsOnlyNull.shouldContainsOnlyNull;
 import static org.assertj.db.error.ShouldHaveRowsSize.shouldHaveRowsSize;
@@ -93,11 +94,44 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
    * @throws AssertionError If the type is different to the type in parameter.
    */
   public C isOfType(ValueType expected, boolean lenient) {
+    if (lenient) {
+      return isOfAnyOfTypes(expected, ValueType.NOT_IDENTIFIED);
+    }
+
     for (Object value : getValuesList()) {
       ValueType type = ValueType.getType(value);
-      if (type != expected && (!lenient || type != ValueType.NOT_IDENTIFIED)) {
+      if (type != expected) {
         throw failures.failure(info, shouldBeType(value, expected, type));
       }
+    }
+    return myself;
+  }
+
+  /**
+   * Verifies that the type of the column is equal to one of the types in parameters.
+   * <p>
+   * Example where the assertion verifies that the values in the {@code Column} called "title" 
+   * of the {@code Table} is of type {@code TEXT} or of type {@code NUMBER} :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).column(&quot;title&quot;).isOfAnyOfTypes(ValueType.TEXT, ValueType.NUMBER);
+   * </pre>
+   * 
+   * @param expected The expected types to compare to.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is different to all the types in parameters.
+   */
+  public C isOfAnyOfTypes(ValueType... expected) {
+    loop:
+    for (Object value : getValuesList()) {
+      ValueType type = ValueType.getType(value);
+      for (ValueType valueType : expected) {
+        if (type == valueType) {
+          continue loop;
+        }
+      }
+      throw failures.failure(info, shouldBeTypeOfAny(value, type, expected));
     }
     return myself;
   }
