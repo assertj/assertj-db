@@ -379,6 +379,10 @@ public class Values {
    *           {@code expected}.
    */
   public static boolean areEqual(Object value, String expected) {
+    if (expected == null) {
+      return value == null;
+    }
+
     if (value instanceof Number) {
       return areEqual((Number) value, expected);
     } else if (value instanceof Date) {

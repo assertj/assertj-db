@@ -407,4 +407,32 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
     }
     return myself;
   }
+
+  /**
+   * Verifies that the values of a column are equal to texts.
+   * <p>
+   * Example where the assertion verifies that the values in the first {@code Column} of the
+   * {@code Table} are equal to the texts in parameter :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).column().haveValuesEqualTo("text", "text2", "text3");
+   * </pre>
+   * 
+   * @param expected The expected text values.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the texts in parameter.
+   */
+  public C haveValuesEqualTo(String... expected) {
+    isOfAnyOfTypes(ValueType.TEXT, ValueType.NUMBER, ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
+    hasSize(expected.length);
+    int index = 0;
+    for (Object value : getValuesList()) {
+      if (!areEqual(value, expected[index])) {
+        throw failures.failure(info, shouldBeEqual(getValuesList(), expected, info.representation()));
+      }
+      index++;
+    }
+    return myself;
+  }
 }
