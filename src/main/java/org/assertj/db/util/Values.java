@@ -427,6 +427,10 @@ public class Values {
    * @return {@code true} if the value is equal to the {@link TimeValue} parameter, {@code false} otherwise.
    */
   public static boolean areEqual(Object value, TimeValue expected) {
+    if (expected == null) {
+      return value == null;
+    }
+
     if (value instanceof Time && expected != null) {
       Time time = (Time) value;
       TimeValue timeValue = TimeValue.from(time);
