@@ -1,7 +1,11 @@
 package org.assertj.db.api;
 
+import static org.assertj.core.error.ShouldBeEqual.shouldBeEqual;
+import static org.assertj.db.error.ShouldBeTypeOfAny.shouldBeTypeOfAny;
 import static org.assertj.db.error.ShouldHaveColumnsSize.shouldHaveColumnsSize;
+import static org.assertj.db.util.Values.areEqual;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.assertj.core.api.WritableAssertionInfo;
@@ -82,5 +86,22 @@ public abstract class AbstractRowAssert<E extends AbstractDbData<E>, D extends A
     if (size != expected) {
       throw failures.failure(info, shouldHaveColumnsSize(size, expected));
     }
+  }
+
+  public R haveValuesEqualTo(Object... expected) {
+    hasSize(expected.length);
+    int index = 0;
+    for (Object value : getValuesList()) {
+      ValueType[] possibleTypes = ValueType.getPossibleTypesForComparison(expected[index]);
+      ValueType type = ValueType.getType(value);
+      if (!Arrays.asList(possibleTypes).contains(type)) {
+        throw failures.failure(info, shouldBeTypeOfAny(value, type, possibleTypes));
+      }
+      if (!areEqual(value, expected[index])) {
+        throw failures.failure(info, shouldBeEqual(getValuesList(), expected, info.representation()));
+      }
+      index++;
+    }
+    return myself;
   }
 }
