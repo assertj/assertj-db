@@ -14,6 +14,7 @@ import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Column;
+import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
 
@@ -485,6 +486,36 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
    */
   public C haveValuesEqualTo(TimeValue... expected) {
     isOfAnyOfTypes(ValueType.TIME, ValueType.NOT_IDENTIFIED);
+    hasSize(expected.length);
+    int index = 0;
+    for (Object value : getValuesList()) {
+      if (!areEqual(value, expected[index])) {
+        throw failures.failure(info, shouldBeEqual(getValuesList(), expected, info.representation()));
+      }
+      index++;
+    }
+    return myself;
+  }
+
+  /**
+   * Verifies that the values of a column are equal to date/time values.
+   * <p>
+   * Example where the assertion verifies that the values in the first {@code Column} of the {@code Table} are equal to
+   * the date/time values in parameter :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).column().haveValuesEqualTo(DateTimeValue.of(DateValue.of(2014, 7, 7), TimeValue.of(21, 29)),
+   *        DateTimeValue.of(DateValue.of(2014, 7, 7), TimeValue.of(10, 1, 25)),
+   *        DateTimeValue.of(DateValue.of(2014, 7, 7), TimeValue.of(9, 1)));
+   * </pre>
+   * 
+   * @param expected The expected date/time values.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the date/time values in parameter.
+   */
+  public C haveValuesEqualTo(DateTimeValue... expected) {
+    isOfAnyOfTypes(ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
     hasSize(expected.length);
     int index = 0;
     for (Object value : getValuesList()) {

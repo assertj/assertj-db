@@ -447,6 +447,10 @@ public class Values {
    * @return {@code true} if the value is equal to the {@link DateTimeValue} parameter, {@code false} otherwise.
    */
   public static boolean areEqual(Object value, DateTimeValue expected) {
+    if (expected == null) {
+      return value == null;
+    }
+
     if (value instanceof Timestamp && expected != null) {
       Timestamp timestamp = (Timestamp) value;
       DateTimeValue dateTimeValue = DateTimeValue.from(timestamp);
