@@ -5,6 +5,10 @@ import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 
+import org.assertj.db.type.DateTimeValue;
+import org.assertj.db.type.DateValue;
+import org.assertj.db.type.TimeValue;
+
 /**
  * Enumeration of the different type of value that are in the database.
  * 
@@ -81,5 +85,36 @@ public enum ValueType {
       return NUMBER;
     }
     return NOT_IDENTIFIED;
+  }
+
+  /**
+   * Returns the types which are possible for the actual value (data) for the comparison with an expected value.
+   * 
+   * @param expected The expected value
+   * @return The possible types of the actual value
+   */
+  public static ValueType[] getPossibleTypesForComparison(final Object expected) {
+    if (expected instanceof byte[]) {
+      return new ValueType[] { BYTES };
+    }
+    if (expected instanceof Boolean) {
+      return new ValueType[] { BOOLEAN };
+    }
+    if (expected instanceof String) {
+      return new ValueType[] { ValueType.TEXT, ValueType.NUMBER, ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME };
+    }
+    if (expected instanceof DateValue) {
+      return new ValueType[] { ValueType.DATE, ValueType.DATE_TIME };
+    }
+    if (expected instanceof TimeValue) {
+      return new ValueType[] { ValueType.TIME };
+    }
+    if (expected instanceof DateTimeValue) {
+      return new ValueType[] { DATE_TIME };
+    }
+    if (expected instanceof Number) {
+      return new ValueType[] { NUMBER };
+    }
+    return new ValueType[] { NOT_IDENTIFIED };
   }
 }
