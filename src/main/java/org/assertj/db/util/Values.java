@@ -403,6 +403,10 @@ public class Values {
    * @return {@code true} if the value is equal to the {@link DateValue} parameter, {@code false} otherwise.
    */
   public static boolean areEqual(Object value, DateValue expected) {
+    if (expected == null) {
+      return value == null;
+    }
+
     if (value instanceof Date && expected != null) {
       Date date = (Date) value;
       DateValue dateValue = DateValue.from(date);

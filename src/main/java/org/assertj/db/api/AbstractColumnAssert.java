@@ -14,6 +14,7 @@ import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Column;
+import org.assertj.db.type.DateValue;
 
 /**
  * Assertion methods about the data in a <code>{@link Column}</code>.
@@ -71,16 +72,16 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
   /**
    * Verifies that the type of the values of the column is equal to the type in parameter.
    * <p>
-   * Example where the assertion verifies that all the values in the {@code Column} called "title" of the {@code Table} is of
-   * type {@code TEXT} :
+   * Example where the assertion verifies that all the values in the {@code Column} called "title" of the {@code Table}
+   * is of type {@code TEXT} :
    * </p>
    * 
    * <pre>
    * assertThat(table).column(&quot;title&quot;).isOfType(ValueType.TEXT, false);
    * </pre>
    * <p>
-   * Example where the assertion verifies that all the values in the {@code Column} called "title" of the {@code Table} is of
-   * type {@code TEXT} or not identified (for example {@code null}) :
+   * Example where the assertion verifies that all the values in the {@code Column} called "title" of the {@code Table}
+   * is of type {@code TEXT} or not identified (for example {@code null}) :
    * </p>
    * 
    * <pre>
@@ -110,8 +111,8 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
   /**
    * Verifies that the type of the column is equal to one of the types in parameters.
    * <p>
-   * Example where the assertion verifies that the values in the {@code Column} called "title" 
-   * of the {@code Table} is of type {@code TEXT} or of type {@code NUMBER} :
+   * Example where the assertion verifies that the values in the {@code Column} called "title" of the {@code Table} is
+   * of type {@code TEXT} or of type {@code NUMBER} :
    * </p>
    * 
    * <pre>
@@ -123,8 +124,7 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
    * @throws AssertionError If the type is different to all the types in parameters.
    */
   public C isOfAnyOfTypes(ValueType... expected) {
-    loop:
-    for (Object value : getValuesList()) {
+    loop: for (Object value : getValuesList()) {
       ValueType type = ValueType.getType(value);
       for (ValueType valueType : expected) {
         if (type == valueType) {
@@ -139,8 +139,8 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
   /**
    * Verifies that the type of the values of the column is a number.
    * <p>
-   * Example where the assertion verifies that all the values in the {@code Column} called "year" of the first {@code Row} of
-   * the {@code Table} is a number :
+   * Example where the assertion verifies that all the values in the {@code Column} called "year" of the first
+   * {@code Row} of the {@code Table} is a number :
    * </p>
    * 
    * <pre>
@@ -159,8 +159,8 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
   /**
    * Verifies that the type of the values of the column is a boolean.
    * <p>
-   * Example where the assertion verifies that all the values in the first {@code Column} of the first {@code Row} of the
-   * {@code Table} is a boolean :
+   * Example where the assertion verifies that all the values in the first {@code Column} of the first {@code Row} of
+   * the {@code Table} is a boolean :
    * </p>
    * 
    * <pre>
@@ -179,8 +179,8 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
   /**
    * Verifies that the type of the values of the column is a date.
    * <p>
-   * Example where the assertion verifies that all the values in the {@code Column} called "birth" of the first {@code Row}
-   * of the {@code Table} is a date :
+   * Example where the assertion verifies that all the values in the {@code Column} called "birth" of the first
+   * {@code Row} of the {@code Table} is a date :
    * </p>
    * 
    * <pre>
@@ -199,8 +199,8 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
   /**
    * Verifies that the type of the values of the column is a time.
    * <p>
-   * Example where the assertion verifies that all the values in the first {@code Column} of the first {@code Row} of the
-   * {@code Table} is a time :
+   * Example where the assertion verifies that all the values in the first {@code Column} of the first {@code Row} of
+   * the {@code Table} is a time :
    * </p>
    * 
    * <pre>
@@ -219,8 +219,8 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
   /**
    * Verifies that the type of the values of the column is a date/time.
    * <p>
-   * Example where the assertion verifies that all the values in the first {@code Column} of the first {@code Row} of the
-   * {@code Table} is a date/time :
+   * Example where the assertion verifies that all the values in the first {@code Column} of the first {@code Row} of
+   * the {@code Table} is a date/time :
    * </p>
    * 
    * <pre>
@@ -239,8 +239,8 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
   /**
    * Verifies that the type of the values of the column is a array of bytes.
    * <p>
-   * Example where the assertion verifies that all the values in the first {@code Column} of the first {@code Row} of the
-   * {@code Table} is a array of bytes :
+   * Example where the assertion verifies that all the values in the first {@code Column} of the first {@code Row} of
+   * the {@code Table} is a array of bytes :
    * </p>
    * 
    * <pre>
@@ -259,8 +259,8 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
   /**
    * Verifies that the type of the values of the column is a text.
    * <p>
-   * Example where the assertion verifies that all the values in the {@code Column} called "title" of the first {@code Row}
-   * of the {@code Table} is a text :
+   * Example where the assertion verifies that all the values in the {@code Column} called "title" of the first
+   * {@code Row} of the {@code Table} is a text :
    * </p>
    * 
    * <pre>
@@ -279,8 +279,8 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
   /**
    * Verifies that all the values of the column are {@code null}.
    * <p>
-   * Example where the assertion verifies that all the values in the first {@code Column} of the
-   * {@code Table} are {@code null} :
+   * Example where the assertion verifies that all the values in the first {@code Column} of the {@code Table} are
+   * {@code null} :
    * </p>
    * 
    * <pre>
@@ -302,8 +302,8 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
   /**
    * Verifies that all the values of the column are not {@code null}.
    * <p>
-   * Example where the assertion verifies that all the values in the first {@code Column} of the
-   * {@code Table} are not {@code null} :
+   * Example where the assertion verifies that all the values in the first {@code Column} of the {@code Table} are not
+   * {@code null} :
    * </p>
    * 
    * <pre>
@@ -325,8 +325,8 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
   /**
    * Verifies that the values of a column are equal to booleans.
    * <p>
-   * Example where the assertion verifies that the values in the first {@code Column} of the
-   * {@code Table} are equal to the booleans in parameter :
+   * Example where the assertion verifies that the values in the first {@code Column} of the {@code Table} are equal to
+   * the booleans in parameter :
    * </p>
    * 
    * <pre>
@@ -353,8 +353,8 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
   /**
    * Verifies that the values of a column are equal to numbers.
    * <p>
-   * Example where the assertion verifies that the values in the first {@code Column} of the
-   * {@code Table} are equal to the numbers in parameter :
+   * Example where the assertion verifies that the values in the first {@code Column} of the {@code Table} are equal to
+   * the numbers in parameter :
    * </p>
    * 
    * <pre>
@@ -381,8 +381,8 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
   /**
    * Verifies that the values of a column are equal to bytes.
    * <p>
-   * Example where the assertion verifies that the values in the first {@code Column} of the
-   * {@code Table} are equal to arrays of bytes loaded from files in the classpath :
+   * Example where the assertion verifies that the values in the first {@code Column} of the {@code Table} are equal to
+   * arrays of bytes loaded from files in the classpath :
    * </p>
    * 
    * <pre>
@@ -411,12 +411,12 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
   /**
    * Verifies that the values of a column are equal to texts.
    * <p>
-   * Example where the assertion verifies that the values in the first {@code Column} of the
-   * {@code Table} are equal to the texts in parameter :
+   * Example where the assertion verifies that the values in the first {@code Column} of the {@code Table} are equal to
+   * the texts in parameter :
    * </p>
    * 
    * <pre>
-   * assertThat(table).column().haveValuesEqualTo("text", "text2", "text3");
+   * assertThat(table).column().haveValuesEqualTo(&quot;text&quot;, &quot;text2&quot;, &quot;text3&quot;);
    * </pre>
    * 
    * @param expected The expected text values.
@@ -424,7 +424,37 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
    * @throws AssertionError If the value is not equal to the texts in parameter.
    */
   public C haveValuesEqualTo(String... expected) {
-    isOfAnyOfTypes(ValueType.TEXT, ValueType.NUMBER, ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
+    isOfAnyOfTypes(ValueType.TEXT, ValueType.NUMBER, ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME,
+        ValueType.NOT_IDENTIFIED);
+    hasSize(expected.length);
+    int index = 0;
+    for (Object value : getValuesList()) {
+      if (!areEqual(value, expected[index])) {
+        throw failures.failure(info, shouldBeEqual(getValuesList(), expected, info.representation()));
+      }
+      index++;
+    }
+    return myself;
+  }
+
+  /**
+   * Verifies that the values of a column are equal to date values.
+   * <p>
+   * Example where the assertion verifies that the values in the first {@code Column} of the {@code Table} are equal to
+   * the date values in parameter :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).column().haveValuesEqualTo(DateValue.of(2014, 7, 7), DateValue.of(2014, 10, 3),
+   *     DateValue.of(2014, 12, 23));
+   * </pre>
+   * 
+   * @param expected The expected date values.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the date values in parameter.
+   */
+  public C haveValuesEqualTo(DateValue... expected) {
+    isOfAnyOfTypes(ValueType.DATE, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
     hasSize(expected.length);
     int index = 0;
     for (Object value : getValuesList()) {
