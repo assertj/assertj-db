@@ -88,6 +88,21 @@ public abstract class AbstractRowAssert<E extends AbstractDbData<E>, D extends A
     }
   }
 
+  /**
+   * Verifies that the values of a column are equal to values in parameter.
+   * <p>
+   * Example where the assertion verifies that the values in the first {@code Row} of the {@code Table} are equal to
+   * the values in parameter :
+   * </p>
+   * 
+   * <pre>
+   * assertThat(table).row().haveValuesEqualTo(1, "Text", TimeValue.of(9, 1));
+   * </pre>
+   * 
+   * @param expected The expected values.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the values in parameter.
+   */
   public R haveValuesEqualTo(Object... expected) {
     hasSize(expected.length);
     int index = 0;
