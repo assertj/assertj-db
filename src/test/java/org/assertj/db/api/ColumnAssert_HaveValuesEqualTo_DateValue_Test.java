@@ -52,7 +52,7 @@ public class ColumnAssert_HaveValuesEqualTo_DateValue_Test extends AbstractTest 
     Table table2 = new Table(source, "test2");
 
     assertThat(table2)
-        .column().as("var1").haveValuesEqualTo(DateValue.of(2014, 5, 24), DateValue.of(2014, 5, 30), 
+        .column().as("var9").haveValuesEqualTo(DateValue.of(2014, 5, 24), DateValue.of(2014, 5, 30), 
             DateValue.of(2014, 5, 30));
   }
 
@@ -64,7 +64,7 @@ public class ColumnAssert_HaveValuesEqualTo_DateValue_Test extends AbstractTest 
     Table table = new Table(source, "test2");
 
     assertThat(table)
-        .column().as("var1").haveValuesEqualTo(DateValue.of(2014, 5, 24), DateValue.of(2014, 5, 24));
+        .column().as("var9").haveValuesEqualTo(DateValue.of(2014, 5, 24), DateValue.of(2014, 5, 24));
   }
 
 }
