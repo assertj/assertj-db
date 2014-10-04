@@ -49,34 +49,34 @@ public enum ValueType {
   /**
    * Returns the type of the actual value (data).
    * 
-   * @param pValue The actual value
+   * @param value The actual value
    * @return The type of the actual value
    */
-  public static ValueType getType(final Object pValue) {
-    if (pValue instanceof byte[]) {
+  public static ValueType getType(final Object value) {
+    if (value instanceof byte[]) {
       return BYTES;
     }
-    if (pValue instanceof Boolean) {
+    if (value instanceof Boolean) {
       return BOOLEAN;
     }
-    if (pValue instanceof String) {
+    if (value instanceof String) {
       return TEXT;
     }
-    if (pValue instanceof Date) {
+    if (value instanceof Date) {
       return DATE;
     }
-    if (pValue instanceof Time) {
+    if (value instanceof Time) {
       return TIME;
     }
-    if (pValue instanceof Timestamp) {
+    if (value instanceof Timestamp) {
       return DATE_TIME;
     }
-    if (pValue instanceof Byte
-        || pValue instanceof Short
-        || pValue instanceof Integer
-        || pValue instanceof Long
-        || pValue instanceof Float
-        || pValue instanceof BigDecimal) {
+    if (value instanceof Byte
+        || value instanceof Short
+        || value instanceof Integer
+        || value instanceof Long
+        || value instanceof Float
+        || value instanceof BigDecimal) {
 
       return NUMBER;
     }
