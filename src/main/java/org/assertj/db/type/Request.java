@@ -40,7 +40,7 @@ import javax.sql.DataSource;
  * 
  * <pre>
  * DataSource dataSource = ...;
- * Request request = new Request(source, "select title from movie where year > ?;", 2000);
+ * Request request = new Request(dataSource, "select title from movie where year > ?;", 2000);
  * </pre>
  * 
  * </pre></li>
