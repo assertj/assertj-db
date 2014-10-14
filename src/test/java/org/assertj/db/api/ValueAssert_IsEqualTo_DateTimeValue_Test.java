@@ -29,7 +29,10 @@ public class ValueAssert_IsEqualTo_DateTimeValue_Test extends AbstractTest {
     Table table = new Table(source, "test");
     assertThat(table).column("var10").value()
         .isEqualTo(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30))).returnToColumn().value()
-        .isEqualTo(DateTimeValue.parse("2014-05-30T12:29:49"));
+        .isEqualTo(DateTimeValue.parse("2014-05-30T12:29:49"))
+        .column("var9")
+        .value().isEqualTo(DateTimeValue.of(DateValue.of(2014, 5, 24)))
+        .value().isEqualTo(DateTimeValue.parse("2014-05-30"));
   }
 
   /**

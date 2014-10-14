@@ -615,11 +615,15 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * @throws AssertionError If the value is not equal to the date/time value in parameter.
    */
   public V isEqualTo(DateTimeValue expected) {
-    isDateTime();
+    isOfAnyOfTypes(ValueType.DATE, ValueType.DATE_TIME);
     if (areEqual(value, expected)) {
       return myself;
     }
-    throw failures.failure(info, shouldBeEqual(DateTimeValue.from((Timestamp) value), expected, info.representation()));
+    if (getType() == ValueType.DATE) {
+      throw failures.failure(info, shouldBeEqual(DateTimeValue.of(DateValue.from((Date) value)), expected, info.representation()));
+    }
+    throw failures.failure(info,
+        shouldBeEqual(DateTimeValue.from((Timestamp) value), expected, info.representation()));
   }
 
   /**
@@ -685,9 +689,12 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * @throws AssertionError If the value is equal to the date/time value in parameter.
    */
   public V isNotEqualTo(DateTimeValue expected) {
-    isDateTime();
+    isOfAnyOfTypes(ValueType.DATE, ValueType.DATE_TIME);
     if (!areEqual(value, expected)) {
       return myself;
+    }
+    if (getType() == ValueType.DATE) {
+      throw failures.failure(info, shouldNotBeEqual(DateTimeValue.of(DateValue.from((Date) value)), expected));
     }
     throw failures.failure(info, shouldNotBeEqual(DateTimeValue.from((Timestamp) value), expected));
   }

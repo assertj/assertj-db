@@ -407,7 +407,7 @@ public class Values {
       return value == null;
     }
 
-    if (value instanceof Date && expected != null) {
+    if (value instanceof Date) {
       Date date = (Date) value;
       DateValue dateValue = DateValue.from(date);
       return dateValue.equals(expected);
@@ -431,7 +431,7 @@ public class Values {
       return value == null;
     }
 
-    if (value instanceof Time && expected != null) {
+    if (value instanceof Time) {
       Time time = (Time) value;
       TimeValue timeValue = TimeValue.from(time);
       return timeValue.equals(expected);
@@ -451,7 +451,12 @@ public class Values {
       return value == null;
     }
 
-    if (value instanceof Timestamp && expected != null) {
+    if (value instanceof Date) {
+      Date date = (Date) value;
+      DateTimeValue dateTimeValue = DateTimeValue.of(DateValue.from(date));
+      return dateTimeValue.equals(expected);
+    }
+    if (value instanceof Timestamp) {
       Timestamp timestamp = (Timestamp) value;
       DateTimeValue dateTimeValue = DateTimeValue.from(timestamp);
       return dateTimeValue.equals(expected);

@@ -2,6 +2,7 @@ package org.assertj.db.util;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 import org.assertj.db.type.DateTimeValue;
@@ -51,6 +52,37 @@ public class Values_AreEqual_Object_And_DateTimeValue_Test {
             DateTimeValue.of(DateValue.of(2007, 2, 23), TimeValue.of(9, 1, 6, 3)))).isFalse();
     assertThat(
         Values.areEqual(Timestamp.valueOf("2007-12-23 09:01:06.000000003"),
+            DateTimeValue.of(DateValue.of(2008, 12, 23), TimeValue.of(9, 1, 6, 3)))).isFalse();
+
+    assertThat(
+        Values.areEqual(Date.valueOf("2007-12-23"),
+            DateTimeValue.of(DateValue.of(2007, 12, 23)))).isTrue();
+    assertThat(
+        Values.areEqual(Date.valueOf("2007-12-23"),
+            DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 5, 3)))).isFalse();
+    assertThat(Values.areEqual("", DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)))).isFalse();
+    assertThat(Values.areEqual(Date.valueOf("2007-12-23"),(DateTimeValue) null)).isFalse();
+
+    assertThat(
+        Values.areEqual(Date.valueOf("2007-12-23"),
+            DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 2)))).isFalse();
+    assertThat(
+        Values.areEqual(Date.valueOf("2007-12-23"),
+            DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 5, 3)))).isFalse();
+    assertThat(
+        Values.areEqual(Date.valueOf("2007-12-23"),
+            DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 2, 6, 3)))).isFalse();
+    assertThat(
+        Values.areEqual(Date.valueOf("2007-12-23"),
+            DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(10, 1, 6, 3)))).isFalse();
+    assertThat(
+        Values.areEqual(Date.valueOf("2007-12-23"),
+            DateTimeValue.of(DateValue.of(2007, 12, 3), TimeValue.of(9, 1, 6, 3)))).isFalse();
+    assertThat(
+        Values.areEqual(Date.valueOf("2007-12-23"),
+            DateTimeValue.of(DateValue.of(2007, 2, 23), TimeValue.of(9, 1, 6, 3)))).isFalse();
+    assertThat(
+        Values.areEqual(Date.valueOf("2007-12-23"),
             DateTimeValue.of(DateValue.of(2008, 12, 23), TimeValue.of(9, 1, 6, 3)))).isFalse();
   }
 
