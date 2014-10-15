@@ -32,14 +32,31 @@ public class RowAssert_HaveValuesEqualTo_Test extends AbstractTest {
         .row().haveValuesEqualTo(1, true, 2, 3, 4, 5.6, 7.8, TimeValue.of(9, 46, 30),
             DateValue.of(2014, 5, 24), DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)),
             bytesH2, "text", 5, 7)
+            .haveValuesEqualTo("1", true, "2", "3", "4", "5.6", "7.8", "09:46:30",
+            "2014-05-24", "2014-05-24T09:46:30", bytesH2, "text", "5", "7")
         .row().haveValuesEqualTo("10", false, "20", "30", "40", "50.6", "70.8", TimeValue.of(12, 29, 49),
             DateValue.of(2014, 5, 30), DateTimeValue.of(DateValue.of(2014, 5, 30), TimeValue.of(12, 29, 49)),
+            bytesDev, "another text", "50", "70")
+            .haveValuesEqualTo("10", false, "20", "30", "40", "50.6", "70.8", TimeValue.of(12, 29, 49),
+            "2014-05-30T00:00", DateTimeValue.of(DateValue.of(2014, 5, 30), TimeValue.of(12, 29, 49)),
             bytesDev, "another text", "50", "70")
         .row().haveValuesEqualTo(100, false, 25, 300, 400, 500.6, 700.8, TimeValue.of(12, 29, 49),
             DateValue.of(2014, 5, 30), DateValue.of(2014, 5, 30),
             bytesDev, "another text again", 500, 700)
         .row().haveValuesEqualTo(0, false, 0, 0, 0, 0, 0, TimeValue.of(12, 29, 49),
             DateValue.of(2014, 5, 30), DateValue.of(2014, 5, 30),
+            bytesDev, "another text again", 500, 700)
+            .haveValuesEqualTo(0, false, 0, 0, 0, 0, 0, TimeValue.of(12, 29, 49),
+            "2014-05-30", "2014-05-30",
+            bytesDev, "another text again", 500, 700)
+            .haveValuesEqualTo(0, false, 0, 0, 0, 0, 0, TimeValue.of(12, 29, 49),
+            "2014-05-30T00:00", "2014-05-30T00:00",
+            bytesDev, "another text again", 500, 700)
+            .haveValuesEqualTo(0, false, 0, 0, 0, 0, 0, TimeValue.of(12, 29, 49),
+            "2014-05-30T00:00:00", "2014-05-30T00:00:00",
+            bytesDev, "another text again", 500, 700)
+            .haveValuesEqualTo(0, false, 0, 0, 0, 0, 0, TimeValue.of(12, 29, 49),
+            "2014-05-30T00:00:00.000000000", "2014-05-30T00:00:00.000000000",
             bytesDev, "another text again", 500, 700);
 
     Table table2 = new Table(source, "test2");
