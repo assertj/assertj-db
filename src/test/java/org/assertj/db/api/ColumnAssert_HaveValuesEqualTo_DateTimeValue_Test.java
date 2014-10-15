@@ -28,7 +28,8 @@ public class ColumnAssert_HaveValuesEqualTo_DateTimeValue_Test extends AbstractT
         .column("var10").haveValuesEqualTo(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)), 
             DateTimeValue.of(DateValue.of(2014, 5, 30), TimeValue.of(12, 29, 49)),
             DateTimeValue.of(DateValue.of(2014, 5, 30), TimeValue.of(0, 0)),
-            DateTimeValue.of(DateValue.of(2014, 5, 30), TimeValue.of(0, 0)));
+            DateTimeValue.of(DateValue.of(2014, 5, 30), TimeValue.of(0, 0)))
+            .haveValuesEqualTo("2014-05-24T09:46:30", "2014-05-30T12:29:49", "2014-05-30T00:00", "2014-05-30");
 
     Table table2 = new Table(source, "test2");
 

@@ -24,7 +24,8 @@ public class ColumnAssert_HaveValuesEqualTo_DateValue_Test extends AbstractTest 
 
     assertThat(table)
         .column("var9").haveValuesEqualTo(DateValue.of(2014, 5, 24), DateValue.of(2014, 5, 30), 
-            DateValue.of(2014, 5, 30), DateValue.of(2014, 5, 30));
+            DateValue.of(2014, 5, 30), DateValue.of(2014, 5, 30))
+            .haveValuesEqualTo("2014-05-24", "2014-05-30", "2014-05-30", "2014-05-30");
 
     Table table2 = new Table(source, "test2");
 

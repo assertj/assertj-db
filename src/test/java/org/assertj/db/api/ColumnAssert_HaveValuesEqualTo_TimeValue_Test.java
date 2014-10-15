@@ -24,7 +24,8 @@ public class ColumnAssert_HaveValuesEqualTo_TimeValue_Test extends AbstractTest 
 
     assertThat(table)
         .column("var8").haveValuesEqualTo(TimeValue.of(9, 46, 30), TimeValue.of(12, 29, 49), 
-            TimeValue.of(12, 29, 49), TimeValue.of(12, 29, 49));
+            TimeValue.of(12, 29, 49), TimeValue.of(12, 29, 49))
+            .haveValuesEqualTo("09:46:30", "12:29:49", "12:29:49", "12:29:49");
 
     Table table2 = new Table(source, "test2");
 
