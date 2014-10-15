@@ -199,6 +199,10 @@ public class Values_AreEqual_Object_And_Object_Test {
     assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (Object) DateValue.of(2007, 1, 2))).isFalse();
     assertThat(Values.areEqual("", (Object) DateValue.of(2007, 12, 23))).isFalse();
     assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (Object) null)).isFalse();
+    assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (Object) "2007-12-23")).isTrue();
+    assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (Object) "2007-12-23T00:00")).isTrue();
+    assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (Object) "2007-12-23T00:00:00")).isTrue();
+    assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (Object) "2007-12-23T00:00:00.000000000")).isTrue();
   }
 
   /**
@@ -225,6 +229,8 @@ public class Values_AreEqual_Object_And_Object_Test {
     assertThat(Values.areEqual(Time.valueOf("09:01:06"), (Object) TimeValue.of(9, 1, 5))).isFalse();
     assertThat(Values.areEqual("", (Object) TimeValue.of(9, 1, 6))).isFalse();
     assertThat(Values.areEqual(Time.valueOf("09:01:06"), (Object) null)).isFalse();
+    assertThat(Values.areEqual(Time.valueOf("09:01:06"), (Object) "09:01:06")).isTrue();
+    assertThat(Values.areEqual(Time.valueOf("09:01:06"), (Object) "09:01:06.000000000")).isTrue();
   }
 
   /**
@@ -241,6 +247,9 @@ public class Values_AreEqual_Object_And_Object_Test {
     assertThat(Values.areEqual("", (Object) DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3))))
         .isFalse();
     assertThat(Values.areEqual(Timestamp.valueOf("2007-12-23 09:01:06.000000003"), (Object) null)).isFalse();
+    assertThat(
+        Values.areEqual(Timestamp.valueOf("2007-12-23 09:01:06.000000003"),
+            (Object) "2007-12-23T09:01:06.000000003")).isTrue();
   }
 
   /**
