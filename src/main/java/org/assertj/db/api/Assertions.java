@@ -95,7 +95,7 @@ public final class Assertions {
    * @return The created assertion object.
    */
   public static TableAssert assertThat(Table table) {
-    return new TableAssert(table);
+    return new TableAssert(table).as(table.getName() + " table");
   }
 
   /**
@@ -105,7 +105,7 @@ public final class Assertions {
    * @return The created assertion object.
    */
   public static RequestAssert assertThat(Request request) {
-    return new RequestAssert(request);
+    return new RequestAssert(request).as("Request");
   }
 
   /**

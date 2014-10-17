@@ -196,7 +196,7 @@ public abstract class AbstractDbAssert<E extends AbstractDbData<E>, D extends Ab
       Constructor<R> constructor = rowAssertClass.getDeclaredConstructor(myself.getClass(), Row.class);
       R instance = constructor.newInstance(this, getRow(index));
       rowsAssertMap.put(index, instance);
-      return instance;
+      return instance.as("Row at index " + index + " of " + info.descriptionText());
     } catch (Exception e) {
       throw new AssertJDBException("There is an exception '" + e.getMessage()
           + "'\n\t in the instanciation of the assertion " + rowAssertClass.getName() + "\n\t on the row with "
@@ -263,7 +263,7 @@ public abstract class AbstractDbAssert<E extends AbstractDbData<E>, D extends Ab
       Constructor<C> constructor = columnAssertClass.getDeclaredConstructor(myself.getClass(), Column.class);
       C instance = constructor.newInstance(this, getColumn(index));
       columnsAssertMap.put(index, instance);
-      return instance;
+      return instance.as("Column at index " + index + " of " + info.descriptionText());
     } catch (Exception e) {
       throw new AssertJDBException("There is an exception '" + e.getMessage()
           + "'\n\t in the instanciation of the assertion " + columnAssertClass.getName() + "\n\t on the column with "

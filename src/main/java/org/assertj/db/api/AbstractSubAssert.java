@@ -139,7 +139,7 @@ public abstract class AbstractSubAssert<E extends AbstractDbData<E>, D extends A
       Constructor<V> constructor = (Constructor<V>) valueClass.getDeclaredConstructor(myself.getClass(), Object.class);
       V instance = constructor.newInstance(this, getValue(index));
       valuesAssertMap.put(index, instance);
-      return instance;
+      return instance.as("Value at index " + index + " of " + info.descriptionText());
     } catch (Exception e) {
       throw new AssertJDBException("There is an exception '" + e.getMessage()
           + "'\n\t in the instanciation of the assertion " + valueClass.getName() + "\n\t on the value with "
