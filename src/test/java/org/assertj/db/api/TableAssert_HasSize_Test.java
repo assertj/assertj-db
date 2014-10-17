@@ -1,6 +1,8 @@
 package org.assertj.db.api;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
 
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
@@ -26,10 +28,21 @@ public class TableAssert_HasSize_Test extends AbstractTest {
   /**
    * This test should fail because the rows size is different (3).
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_beacause_rows_size_is_different() {
-    Table table = new Table(source, "movie");
-    assertThat(table).hasRowsSize(4);
+    try {
+      Table table = new Table(source, "movie");
+      assertThat(table).hasRowsSize(4);
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[movie table] \n" +
+          "Expecting size of the rows to be equal to :\n" +
+          "   <4>\n" +
+          "but was:\n" +
+          "   <3>");
+    }
   }
 
   /**
@@ -44,9 +57,20 @@ public class TableAssert_HasSize_Test extends AbstractTest {
   /**
    * This test should fail because the columns size is different (3).
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_beacause_columns_size_is_different() {
-    Table table = new Table(source, "movie");
-    assertThat(table).hasColumnsSize(4);
+    try {
+      Table table = new Table(source, "movie");
+      assertThat(table).hasColumnsSize(4);
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[movie table] \n" +
+          "Expecting size of the columns to be equal to :\n" +
+          "   <4>\n" +
+          "but was:\n" +
+          "   <3>");
+    }
   }
 }

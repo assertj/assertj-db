@@ -105,7 +105,11 @@ public final class Assertions {
    * @return The created assertion object.
    */
   public static RequestAssert assertThat(Request request) {
-    return new RequestAssert(request).as("Request");
+    String sql = request.getRequest();
+    if (sql != null && sql.length() > 20) {
+      sql = sql.substring(0, 20) + "...";
+    }
+    return new RequestAssert(request).as("'" + sql + "' request");
   }
 
   /**
