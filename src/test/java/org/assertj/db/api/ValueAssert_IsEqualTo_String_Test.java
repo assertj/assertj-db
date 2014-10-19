@@ -1,6 +1,8 @@
 package org.assertj.db.api;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
 
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.error.AssertJDBException;
@@ -86,6 +88,11 @@ public class ValueAssert_IsEqualTo_String_Test extends AbstractTest {
         .column("var10")
             .value().isEqualTo("2014-05-24T09:46:30.000000000").returnToColumn()
             .value().isEqualTo("2014-05-30T12:29:49.000000000").returnToColumn()
+            .value().isEqualTo("2014-05-30T00:00:00.000000000").returnToColumn()
+        .returnToTable()
+        .column("var10")
+            .value().isEqualTo("2014-05-24T09:46:30.000000000").returnToColumn()
+            .value().isEqualTo("2014-05-30T12:29:49.000000000").returnToColumn()
             .value().isEqualTo("2014-05-30T00:00:00").returnToColumn()
         .returnToTable()
         .column("var10")
@@ -102,51 +109,106 @@ public class ValueAssert_IsEqualTo_String_Test extends AbstractTest {
   /**
    * This method should fail because the value is not equal to the string.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_because_value_is_not_equal_to_string() {
-    Table table = new Table(source, "test");
-    assertThat(table).column("var12")
-        .value().isEqualTo("Text");
+    try {
+      Table table = new Table(source, "test");
+      assertThat(table).column("var12")
+          .value().isEqualTo("Text");
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Column at index 11 of test table] \n" +
+          "Expecting:\n" +
+          "  <\"text\">\n" +
+          "to be equal to: \n" +
+          "  <\"Text\">");
+    }
   }
 
   /**
    * This method should fail because the value is not equal to the number.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_because_value_is_not_equal_to_number() {
-    Table table = new Table(source, "test");
-    assertThat(table).column("var1")
-        .value().isEqualTo("2");
+    try {
+      Table table = new Table(source, "test");
+      assertThat(table).column("var1")
+          .value().isEqualTo("2");
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Column at index 0 of test table] \n" +
+          "Expecting:\n" +
+          "  <1>\n" +
+          "to be equal to: \n" +
+          "  <\"2\">");
+    }
   }
 
   /**
    * This method should fail because the value is not equal to the time.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_because_value_is_not_equal_to_time() {
-    Table table = new Table(source, "test");
-    assertThat(table).column("var8")
-        .value().isEqualTo("09:46:31");
+    try {
+      Table table = new Table(source, "test");
+      assertThat(table).column("var8")
+          .value().isEqualTo("09:46:31");
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Column at index 7 of test table] \n" +
+          "Expecting:\n" +
+          "  <09:46:30.000000000>\n" +
+          "to be equal to: \n" +
+          "  <09:46:31.000000000>");
+    }
   }
 
   /**
    * This method should fail because the value is not equal to the date.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_because_value_is_not_equal_to_date() {
-    Table table = new Table(source, "test");
-    assertThat(table).column("var9")
-        .value().isEqualTo("2014-05-25");
+    try {
+      Table table = new Table(source, "test");
+      assertThat(table).column("var9")
+          .value().isEqualTo("2014-05-25");
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Column at index 8 of test table] \n" +
+          "Expecting:\n" +
+          "  <2014-05-24>\n" +
+          "to be equal to: \n" +
+          "  <2014-05-25>");
+    }
   }
 
   /**
    * This method should fail because the value is not equal to the date/time.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_because_value_is_not_equal_to_datetime() {
-    Table table = new Table(source, "test");
-    assertThat(table).column("var10")
-        .value().isEqualTo("2014-05-24T09:46:31");
+    try {
+      Table table = new Table(source, "test");
+      assertThat(table).column("var10")
+          .value().isEqualTo("2014-05-24T09:46:31");
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Column at index 9 of test table] \n" +
+          "Expecting:\n" +
+          "  <2014-05-24T09:46:30.000000000>\n" +
+          "to be equal to: \n" +
+          "  <2014-05-24T09:46:31.000000000>");
+    }
   }
 
   /**
@@ -162,11 +224,24 @@ public class ValueAssert_IsEqualTo_String_Test extends AbstractTest {
   /**
    * This method should fail because the value is not a text.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_because_value_is_not_a_text() {
-    Table table = new Table(source, "test");
-    assertThat(table).column("var2")
-        .value().as("var2").isEqualTo("Text");
+    try {
+      Table table = new Table(source, "test");
+      assertThat(table).column("var2")
+          .value().as("var2").isEqualTo("Text");
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[var2] \n" +
+          "Expecting:\n" +
+          "  <true>\n" +
+          "to be of type\n" +
+          "  <BOOLEAN>\n" +
+          "but was of type\n" +
+          "  <[TEXT, NUMBER, DATE, TIME, DATE_TIME]>");
+    }
   }
 
 }
