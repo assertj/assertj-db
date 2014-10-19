@@ -1,6 +1,5 @@
 package org.assertj.db.api;
 
-import static org.assertj.core.error.ShouldBeEqual.shouldBeEqual;
 import static org.assertj.core.error.ShouldNotBeEqual.shouldNotBeEqual;
 import static org.assertj.db.error.ShouldBeAfter.shouldBeAfter;
 import static org.assertj.db.error.ShouldBeAfterOrEqual.shouldBeAfterOrEqual;
@@ -525,7 +524,7 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
     if (areEqual(value, expected)) {
       return myself;
     }
-    throw failures.failure(info, shouldBeEqual(value, expected, info.representation()));
+    throw failures.failure(info, shouldBeEqual());
   }
 
   /**
@@ -687,7 +686,7 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
     if (!areEqual(value, expected)) {
       return myself;
     }
-    throw failures.failure(info, shouldNotBeEqual(value, expected));
+    throw failures.failure(info, shouldNotBeEqual());
   }
 
   /**

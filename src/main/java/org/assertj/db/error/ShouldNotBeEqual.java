@@ -16,6 +16,7 @@ import org.assertj.db.type.TimeValue;
 public class ShouldNotBeEqual extends BasicErrorMessageFactory {
 
   private static final String EXPECTED_MESSAGE = "\nExpecting:\n  <%s>\nnot to be equal to: \n  <%s>";
+  private static final String EXPECTED_MESSAGE_BUT_NOT = "\nExpecting to be not equal to value but was equal";
 
   /**
    * Creates a new <code>{@link ShouldNotBeEqual.java}</code>.
@@ -84,6 +85,15 @@ public class ShouldNotBeEqual extends BasicErrorMessageFactory {
   }
 
   /**
+   * Creates a new <code>{@link ShouldNotBeEqual.java}</code>.
+   * 
+   * @return the created {@code ErrorMessageFactory}.
+   */
+  public static ErrorMessageFactory shouldNotBeEqual() {
+    return new ShouldNotBeEqual();
+  }
+
+  /**
    * Constructor.
    * 
    * @param pActual The actual value in the failed assertion.
@@ -141,5 +151,12 @@ public class ShouldNotBeEqual extends BasicErrorMessageFactory {
    */
   public ShouldNotBeEqual(final DateTimeValue pActual, final DateTimeValue pExpected) {
     super(EXPECTED_MESSAGE, pActual, pExpected);
+  }
+
+  /**
+   * Constructor.
+   */
+  public ShouldNotBeEqual() {
+    super(EXPECTED_MESSAGE_BUT_NOT);
   }
 }
