@@ -1,6 +1,8 @@
 package org.assertj.db.api;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
 
 import java.text.ParseException;
 
@@ -49,21 +51,45 @@ public class ValueAssert_IsBeforeOrEqualTo_DateValue_Test extends AbstractTest {
   /**
    * This method should fail because the value is not before or equal to the date value.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_because_date_value_is_not_before_or_equal_to() {
-    Table table = new Table(source, "test");
-    assertThat(table).column("var9")
-        .value().isBeforeOrEqualTo(DateValue.of(2014, 5, 23));
+    try {
+      Table table = new Table(source, "test");
+      assertThat(table).column("var9")
+          .value().isBeforeOrEqualTo(DateValue.of(2014, 5, 23));
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Column at index 8 of test table] \n" +
+          "Expecting:\n" +
+          "  <2014-05-24>\n" +
+          "to be before or equal to \n" +
+          "  <2014-05-23>");
+    }
   }
 
   /**
    * This method should fail because the value is not a date.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_because_value_is_not_a_date() {
-    Table table = new Table(source, "test");
-    assertThat(table).column("var1")
-        .value().as("var1").isBeforeOrEqualTo(DateValue.of(2014, 5, 25));
+    try {
+      Table table = new Table(source, "test");
+      assertThat(table).column("var1").as("column1")
+          .value().isBeforeOrEqualTo(DateValue.of(2014, 5, 25));
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of column1] \n" +
+          "Expecting:\n" +
+          "  <1>\n" +
+          "to be of type\n" +
+          "  <NUMBER>\n" +
+          "but was of type\n" +
+          "  <[DATE, DATE_TIME]>");
+    }
   }
 
   /**
@@ -81,11 +107,22 @@ public class ValueAssert_IsBeforeOrEqualTo_DateValue_Test extends AbstractTest {
    * This method should fail because the date/time value is not before or equal to the date value.
    * @throws ParseException 
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_because_datetime_value_is_not_before_or_equal() throws ParseException {
-    Table table = new Table(source, "test");
-    assertThat(table).column("var10")
-        .value(2).isBeforeOrEqualTo(DateValue.parse("2014-05-29"));
+    try {
+      Table table = new Table(source, "test");
+      assertThat(table).column("var10")
+          .value(2).isBeforeOrEqualTo(DateValue.parse("2014-05-29"));
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 2 of Column at index 9 of test table] \n" +
+          "Expecting:\n" +
+          "  <2014-05-30T00:00:00.000000000>\n" +
+          "to be before or equal to \n" +
+          "  <2014-05-29T00:00:00.000000000>");
+    }
   }
 
 }

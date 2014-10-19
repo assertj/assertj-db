@@ -1,6 +1,8 @@
 package org.assertj.db.api;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
 
 import java.text.ParseException;
 
@@ -101,61 +103,129 @@ public class ValueAssert_IsBeforeOrEqualTo_String_Test extends AbstractTest {
   /**
    * This method should fail because the value is not before or equal to the string.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_because_time_value_is_not_before_or_equal_to_time() {
-    Table table = new Table(source, "test");
-    assertThat(table).column("var8").value()
-        .isBeforeOrEqualTo("09:46:29");
+    try {
+      Table table = new Table(source, "test");
+      assertThat(table).column("var8").value()
+          .isBeforeOrEqualTo("09:46:29");
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Column at index 7 of test table] \n" +
+          "Expecting:\n" +
+          "  <09:46:30.000000000>\n" +
+          "to be before or equal to \n" +
+          "  <09:46:29.000000000>");
+    }
   }
 
   /**
    * This method should fail because the value is not before or equal to the string.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_because_date_value_is_not_before_or_equal_to_date() {
-    Table table = new Table(source, "test");
-    assertThat(table).column("var9").value()
-        .isBeforeOrEqualTo("2014-05-23");
+    try {
+      Table table = new Table(source, "test");
+      assertThat(table).column("var9").value()
+          .isBeforeOrEqualTo("2014-05-23");
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Column at index 8 of test table] \n" +
+          "Expecting:\n" +
+          "  <2014-05-24T00:00:00.000000000>\n" +
+          "to be before or equal to \n" +
+          "  <2014-05-23T00:00:00.000000000>");
+    }
   }
 
   /**
    * This method should fail because the value is not before or equal to the string.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_because_date_value_is_not_before_or_equal_to_datetime() {
-    Table table = new Table(source, "test");
-    assertThat(table).column("var9").value()
-        .isBeforeOrEqualTo("2014-05-23T00:00");
+    try {
+      Table table = new Table(source, "test");
+      assertThat(table).column("var9").value()
+          .isBeforeOrEqualTo("2014-05-23T00:00");
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Column at index 8 of test table] \n" +
+          "Expecting:\n" +
+          "  <2014-05-24T00:00:00.000000000>\n" +
+          "to be before or equal to \n" +
+          "  <2014-05-23T00:00:00.000000000>");
+    }
   }
 
   /**
    * This method should fail because the value is not before or equal to the string.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_because_datetime_value_is_not_before_or_equal_to_date() {
-    Table table = new Table(source, "test");
-    assertThat(table).column("var10").value(2)
-        .isBeforeOrEqualTo("2014-05-29");
+    try {
+      Table table = new Table(source, "test");
+      assertThat(table).column("var10").value(2)
+          .isBeforeOrEqualTo("2014-05-29");
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 2 of Column at index 9 of test table] \n" +
+          "Expecting:\n" +
+          "  <2014-05-30T00:00:00.000000000>\n" +
+          "to be before or equal to \n" +
+          "  <2014-05-29T00:00:00.000000000>");
+    }
   }
 
   /**
    * This method should fail because the value is not before or equal to the string.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_because_datetime_value_is_not_before_or_equal_to_datetime() {
-    Table table = new Table(source, "test");
-    assertThat(table).column("var10").value()
-        .isBeforeOrEqualTo("2014-05-24T09:46:29");
+    try {
+      Table table = new Table(source, "test");
+      assertThat(table).column("var10").value()
+          .isBeforeOrEqualTo("2014-05-24T09:46:29");
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Column at index 9 of test table] \n" +
+          "Expecting:\n" +
+          "  <2014-05-24T09:46:30.000000000>\n" +
+          "to be before or equal to \n" +
+          "  <2014-05-24T09:46:29.000000000>");
+    }
   }
 
   /**
    * This method should fail because the value is not a date/time.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_because_value_is_not_a_datetime() {
-    Table table = new Table(source, "test");
-    assertThat(table).column("var1").value().as("var1")
-        .isBeforeOrEqualTo("2014-05-24T09:46:31");
+    try {
+      Table table = new Table(source, "test");
+      assertThat(table).column("var1").value().as("var1")
+          .isBeforeOrEqualTo("2014-05-24T09:46:31");
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[var1] \n" +
+          "Expecting:\n" +
+          "  <1>\n" +
+          "to be of type\n" +
+          "  <NUMBER>\n" +
+          "but was of type\n" +
+          "  <[DATE, TIME, DATE_TIME]>");
+    }
   }
 
   /**
