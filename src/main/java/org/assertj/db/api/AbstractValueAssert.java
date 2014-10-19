@@ -6,12 +6,14 @@ import static org.assertj.db.error.ShouldBeAfter.shouldBeAfter;
 import static org.assertj.db.error.ShouldBeAfterOrEqual.shouldBeAfterOrEqual;
 import static org.assertj.db.error.ShouldBeBefore.shouldBeBefore;
 import static org.assertj.db.error.ShouldBeBeforeOrEqual.shouldBeBeforeOrEqual;
+import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
 import static org.assertj.db.error.ShouldBeGreater.shouldBeGreater;
 import static org.assertj.db.error.ShouldBeGreaterOrEqual.shouldBeGreaterOrEqual;
 import static org.assertj.db.error.ShouldBeLess.shouldBeLess;
 import static org.assertj.db.error.ShouldBeLessOrEqual.shouldBeLessOrEqual;
 import static org.assertj.db.error.ShouldBeType.shouldBeType;
 import static org.assertj.db.error.ShouldBeTypeOfAny.shouldBeTypeOfAny;
+import static org.assertj.db.error.ShouldNotBeEqual.shouldNotBeEqual;
 import static org.assertj.db.util.Values.areEqual;
 import static org.assertj.db.util.Values.compare;
 
@@ -442,7 +444,7 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
     if (areEqual(value, expected)) {
       return myself;
     }
-    throw failures.failure(info, shouldBeEqual(value, expected, info.representation()));
+    throw failures.failure(info, shouldBeEqual((Boolean) value, expected));
   }
 
   /**
@@ -499,7 +501,7 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
     if (areEqual(value, expected)) {
       return myself;
     }
-    throw failures.failure(info, shouldBeEqual(value, expected, info.representation()));
+    throw failures.failure(info, shouldBeEqual((Number) value, expected));
   }
 
   /**
@@ -546,7 +548,22 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
     if (areEqual(value, expected)) {
       return myself;
     }
-    throw failures.failure(info, shouldBeEqual(value, expected, info.representation()));
+    try {
+      switch(ValueType.getType(value)) {
+        case NUMBER:
+          throw failures.failure(info, shouldBeEqual((Number) value, expected));
+        case DATE:
+          throw failures.failure(info, shouldBeEqual(DateValue.from((Date) value), DateValue.parse(expected)));
+        case TIME:
+          throw failures.failure(info, shouldBeEqual(TimeValue.from((Time) value), TimeValue.parse(expected)));
+        case DATE_TIME:
+          throw failures.failure(info, shouldBeEqual(DateTimeValue.from((Timestamp) value), DateTimeValue.parse(expected)));
+        default:
+          throw failures.failure(info, shouldBeEqual((String) value, expected));
+      }
+    } catch (ParseException e) {
+      throw new AssertJDBException("Expected <%s> is not correct to compare to <%s>", expected, value);
+    }
   }
 
   /**
@@ -570,10 +587,10 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
       return myself;
     }
     if (getType() == ValueType.DATE) {
-      throw failures.failure(info, shouldBeEqual(DateValue.from((Date) value), expected, info.representation()));
+      throw failures.failure(info, shouldBeEqual(DateValue.from((Date) value), expected));
     }
     throw failures.failure(info,
-        shouldBeEqual(DateTimeValue.from((Timestamp) value), DateTimeValue.of(expected), info.representation()));
+        shouldBeEqual(DateTimeValue.from((Timestamp) value), DateTimeValue.of(expected)));
   }
 
   /**
@@ -596,7 +613,7 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
     if (areEqual(value, expected)) {
       return myself;
     }
-    throw failures.failure(info, shouldBeEqual(TimeValue.from((Time) value), expected, info.representation()));
+    throw failures.failure(info, shouldBeEqual(TimeValue.from((Time) value), expected));
   }
 
   /**
@@ -620,10 +637,10 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
       return myself;
     }
     if (getType() == ValueType.DATE) {
-      throw failures.failure(info, shouldBeEqual(DateTimeValue.of(DateValue.from((Date) value)), expected, info.representation()));
+      throw failures.failure(info, shouldBeEqual(DateTimeValue.of(DateValue.from((Date) value)), expected));
     }
     throw failures.failure(info,
-        shouldBeEqual(DateTimeValue.from((Timestamp) value), expected, info.representation()));
+        shouldBeEqual(DateTimeValue.from((Timestamp) value), expected));
   }
 
   /**
@@ -646,7 +663,7 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
     if (!areEqual(value, expected)) {
       return myself;
     }
-    throw failures.failure(info, shouldNotBeEqual(value, expected));
+    throw failures.failure(info, shouldNotBeEqual((Boolean) value, expected));
   }
 
   /**
@@ -745,7 +762,7 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
     if (!areEqual(value, expected)) {
       return myself;
     }
-    throw failures.failure(info, shouldNotBeEqual(value, expected));
+    throw failures.failure(info, shouldNotBeEqual((Number) value, expected));
   }
 
   /**
@@ -768,7 +785,22 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
     if (!areEqual(value, expected)) {
       return myself;
     }
-    throw failures.failure(info, shouldNotBeEqual(value, expected));
+    try {
+      switch(ValueType.getType(value)) {
+        case NUMBER:
+          throw failures.failure(info, shouldNotBeEqual((Number) value, expected));
+        case DATE:
+          throw failures.failure(info, shouldNotBeEqual(DateValue.from((Date) value), DateValue.parse(expected)));
+        case TIME:
+          throw failures.failure(info, shouldNotBeEqual(TimeValue.from((Time) value), TimeValue.parse(expected)));
+        case DATE_TIME:
+          throw failures.failure(info, shouldNotBeEqual(DateTimeValue.from((Timestamp) value), DateTimeValue.parse(expected)));
+        default:
+          throw failures.failure(info, shouldNotBeEqual((String) value, expected));
+      }
+    } catch (ParseException e) {
+      throw new AssertJDBException("Expected <%s> is not correct to compare to <%s>", expected, value);
+    }
   }
 
   /**
