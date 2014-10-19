@@ -48,7 +48,7 @@ public class RequestAssert_HasSize_Test extends AbstractTest {
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("['SELECT actor.name, a...' request] \n" +
-          "Expecting size of the rows to be equal to :\n" +
+          "Expecting size (number of rows) to be equal to :\n" +
           "   <3>\n" +
           "but was:\n" +
           "   <4>");
@@ -87,7 +87,7 @@ public class RequestAssert_HasSize_Test extends AbstractTest {
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("['SELECT actor.name, a...' request] \n" +
-          "Expecting size of the columns to be equal to :\n" +
+          "Expecting size (number of columns) to be equal to :\n" +
           "   <3>\n" +
           "but was:\n" +
           "   <4>");

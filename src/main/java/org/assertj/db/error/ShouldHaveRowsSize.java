@@ -23,6 +23,6 @@ public class ShouldHaveRowsSize extends BasicErrorMessageFactory {
   }
 
   private ShouldHaveRowsSize(int actualSize, int expectedSize) {
-    super("\nExpecting size of the rows to be equal to :\n   <%s>\nbut was:\n   <%s>", expectedSize, actualSize);
+    super("\nExpecting size (number of rows) to be equal to :\n   <%s>\nbut was:\n   <%s>", expectedSize, actualSize);
   }
 }

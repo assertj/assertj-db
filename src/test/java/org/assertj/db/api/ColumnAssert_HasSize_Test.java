@@ -39,7 +39,7 @@ public class ColumnAssert_HasSize_Test extends AbstractTest {
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 0 of movie table] \n" +
-          "Expecting size of the rows to be equal to :\n" +
+          "Expecting size (number of rows) to be equal to :\n" +
           "   <4>\n" +
           "but was:\n" +
           "   <3>");
@@ -78,7 +78,7 @@ public class ColumnAssert_HasSize_Test extends AbstractTest {
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 0 of 'SELECT actor.name, a...' request] \n" +
-          "Expecting size of the rows to be equal to :\n" +
+          "Expecting size (number of rows) to be equal to :\n" +
           "   <3>\n" +
           "but was:\n" +
           "   <4>");

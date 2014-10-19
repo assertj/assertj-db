@@ -38,7 +38,7 @@ public class TableAssert_HasSize_Test extends AbstractTest {
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[movie table] \n" +
-          "Expecting size of the rows to be equal to :\n" +
+          "Expecting size (number of rows) to be equal to :\n" +
           "   <4>\n" +
           "but was:\n" +
           "   <3>");
@@ -67,7 +67,7 @@ public class TableAssert_HasSize_Test extends AbstractTest {
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[movie table] \n" +
-          "Expecting size of the columns to be equal to :\n" +
+          "Expecting size (number of columns) to be equal to :\n" +
           "   <4>\n" +
           "but was:\n" +
           "   <3>");
