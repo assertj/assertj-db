@@ -1,6 +1,8 @@
 package org.assertj.db.api;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
 
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
@@ -73,23 +75,49 @@ public class ColumnAssert_IsOfType_Test extends AbstractTest {
   /**
    * This method should fail because the type of the column is {@code ValueType.Number}.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_isOfType_assertion_because_value_is_number() {
-    Table table = new Table(source, "test");
-
-    assertThat(table)
-        .column().as("var1 type").isOfType(ValueType.BOOLEAN, true);
+    try {
+      Table table = new Table(source, "test");
+  
+      assertThat(table)
+          .column().as("var1 type").isOfType(ValueType.BOOLEAN, true);
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[var1 type] \n" +
+          "Expecting:\n" +
+          "  <1>\n" +
+          "to be of type\n" +
+          "  <NUMBER>\n" +
+          "but was of type\n" +
+          "  <[BOOLEAN, NOT_IDENTIFIED]>");
+    }
   }
 
   /**
    * This method should fail because a value is {@code null}.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_isOfType_assertion_because_value_is_null() {
-    Table table = new Table(source, "test2");
-
-    assertThat(table)
-        .column().as("var1 type").isOfType(ValueType.NUMBER, false);
+    try {
+      Table table = new Table(source, "test2");
+  
+      assertThat(table)
+          .column().as("var1 type").isOfType(ValueType.NUMBER, false);
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[var1 type] \n" +
+          "Expecting:\n" +
+          "  <null>\n" +
+          "to be of type\n" +
+          "  <NUMBER>\n" +
+          "but was of type\n" +
+          "  <NOT_IDENTIFIED>");
+    }
   }
 
   /**
@@ -151,23 +179,49 @@ public class ColumnAssert_IsOfType_Test extends AbstractTest {
   /**
    * This method should fail because the type of the column is a number.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_isBoolean_assertion_because_value_is_number() {
-    Table table = new Table(source, "test");
-
-    assertThat(table)
-        .column().as("var1 type").isBoolean(true);
+    try {
+      Table table = new Table(source, "test");
+  
+      assertThat(table)
+          .column().as("var1 type").isBoolean(true);
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[var1 type] \n" +
+          "Expecting:\n" +
+          "  <1>\n" +
+          "to be of type\n" +
+          "  <NUMBER>\n" +
+          "but was of type\n" +
+          "  <[BOOLEAN, NOT_IDENTIFIED]>");
+    }
   }
 
   /**
    * This method should fail because a value is {@code null}.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_isNumber_assertion_because_value_is_null() {
-    Table table = new Table(source, "test2");
-
-    assertThat(table)
-        .column().as("var1 type").isNumber(false);
+    try {
+      Table table = new Table(source, "test2");
+  
+      assertThat(table)
+          .column().as("var1 type").isNumber(false);
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[var1 type] \n" +
+          "Expecting:\n" +
+          "  <null>\n" +
+          "to be of type\n" +
+          "  <NUMBER>\n" +
+          "but was of type\n" +
+          "  <NOT_IDENTIFIED>");
+    }
   }
 
 }
