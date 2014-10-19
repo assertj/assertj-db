@@ -2,6 +2,7 @@ package org.assertj.db.api;
 
 import static org.assertj.db.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
 
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
@@ -67,13 +68,26 @@ public class ValueAssert_Type_Test extends AbstractTest {
   /**
    * This method should fail because the type of the value is {@code ValueType.Number}.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_isOfType_assertion_because_value_is_number() {
-    Table table = new Table(source, "test");
-
-    assertThat(table)
-        .row()
-            .value().as("var1 type").isOfType(ValueType.BOOLEAN);
+    try {
+      Table table = new Table(source, "test");
+  
+      assertThat(table)
+          .row()
+              .value().as("var1 type").isOfType(ValueType.BOOLEAN);
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[var1 type] \n" +
+          "Expecting:\n" +
+          "  <1>\n" +
+          "to be of type\n" +
+          "  <BOOLEAN>\n" +
+          "but was of type\n" +
+          "  <NUMBER>");
+    }
   }
 
   /**
@@ -104,85 +118,176 @@ public class ValueAssert_Type_Test extends AbstractTest {
   /**
    * This method should fail because var2 is a boolean and not a number.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_because_var2_is_not_a_number() {
-    Table table = new Table(source, "test");
-
-    assertThat(table)
-        .row()
-            .value().as("var1").isNumber().returnToRow()
-            .value().as("var2").isNumber();
+    try {
+      Table table = new Table(source, "test");
+  
+      assertThat(table)
+          .row()
+              .value().as("var1").isNumber().returnToRow()
+              .value().as("var2").isNumber();
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[var2] \n" +
+          "Expecting:\n" +
+          "  <true>\n" +
+          "to be of type\n" +
+          "  <NUMBER>\n" +
+          "but was of type\n" +
+          "  <BOOLEAN>");
+    }
   }
 
   /**
    * This method should fail because var1 is a boolean and not a number.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_because_var1_is_not_a_boolean() {
-    Table table = new Table(source, "test");
-
-    assertThat(table)
-        .row()
-            .value().as("var1").isBoolean();
+    try {
+      Table table = new Table(source, "test");
+  
+      assertThat(table)
+          .row()
+              .value().as("var1").isBoolean();
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[var1] \n" +
+          "Expecting:\n" +
+          "  <1>\n" +
+          "to be of type\n" +
+          "  <BOOLEAN>\n" +
+          "but was of type\n" +
+          "  <NUMBER>");
+    }
   }
 
   /**
    * This method should fail because var1 is a boolean and not a time.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_because_var1_is_not_a_time() {
-    Table table = new Table(source, "test");
-
-    assertThat(table)
-        .row()
-            .value().as("var1").isTime();
+    try {
+      Table table = new Table(source, "test");
+  
+      assertThat(table)
+          .row()
+              .value().as("var1").isTime();
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[var1] \n" +
+          "Expecting:\n" +
+          "  <1>\n" +
+          "to be of type\n" +
+          "  <TIME>\n" +
+          "but was of type\n" +
+          "  <NUMBER>");
+    }
   }
 
   /**
    * This method should fail because var1 is a boolean and not a date.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_because_var1_is_not_a_date() {
-    Table table = new Table(source, "test");
-
-    assertThat(table)
-        .row()
-            .value().as("var1").isDate();
+    try {
+      Table table = new Table(source, "test");
+  
+      assertThat(table)
+          .row()
+              .value().as("var1").isDate();
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[var1] \n" +
+          "Expecting:\n" +
+          "  <1>\n" +
+          "to be of type\n" +
+          "  <DATE>\n" +
+          "but was of type\n" +
+          "  <NUMBER>");
+    }
   }
 
   /**
    * This method should fail because var1 is a boolean and not a date/time.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_because_var1_is_not_a_datetime() {
-    Table table = new Table(source, "test");
-
-    assertThat(table)
-        .row()
-            .value().as("var1").isDateTime();
+    try {
+      Table table = new Table(source, "test");
+  
+      assertThat(table)
+          .row()
+              .value().as("var1").isDateTime();
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[var1] \n" +
+          "Expecting:\n" +
+          "  <1>\n" +
+          "to be of type\n" +
+          "  <DATE_TIME>\n" +
+          "but was of type\n" +
+          "  <NUMBER>");
+    }
   }
 
   /**
    * This method should fail because var1 is a boolean and not a array of bytes.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_because_var1_is_not_a_array_of_byte() {
-    Table table = new Table(source, "test");
-
-    assertThat(table)
-        .row()
-            .value().as("var1").isBytes();
+    try {
+      Table table = new Table(source, "test");
+  
+      assertThat(table)
+          .row()
+              .value().as("var1").isBytes();
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[var1] \n" +
+          "Expecting:\n" +
+          "  <1>\n" +
+          "to be of type\n" +
+          "  <BYTES>\n" +
+          "but was of type\n" +
+          "  <NUMBER>");
+    }
   }
 
   /**
    * This method should fail because var1 is a boolean and not a text.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_because_var1_is_not_a_text() {
-    Table table = new Table(source, "test");
-
-    assertThat(table)
-        .row()
-            .value().as("var1").isText();
+    try {
+      Table table = new Table(source, "test");
+  
+      assertThat(table)
+          .row()
+              .value().as("var1").isText();
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[var1] \n" +
+          "Expecting:\n" +
+          "  <1>\n" +
+          "to be of type\n" +
+          "  <TEXT>\n" +
+          "but was of type\n" +
+          "  <NUMBER>");
+    }
   }
 }
