@@ -1,6 +1,8 @@
 package org.assertj.db.api;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -220,22 +222,46 @@ public class ValueAssert_IsLessThanOrEqualTo_Number_Test extends AbstractTest {
   /**
    * This method should fail because the value is not equal to the number in parameter.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_because_value_is_not_less_than_or_equal() {
-    Table table = new Table(source, "test");
-    assertThat(table)
-        .row()
-            .value("var1").isLessThanOrEqualTo(0);
+    try {
+      Table table = new Table(source, "test");
+      assertThat(table)
+          .row()
+              .value("var1").isLessThanOrEqualTo(0);
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Row at index 0 of test table] \n" +
+          "Expecting:\n" +
+          "  <1>\n" +
+          "to be less than or equal to \n" +
+          "  <0>");
+    }
   }
 
   /**
    * This method should fail because the value is not a number.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_because_value_is_not_a_number() {
-    Table table = new Table(source, "test");
-    assertThat(table).column("var2")
-        .value().as("var2").isLessThanOrEqualTo(1);
+    try {
+      Table table = new Table(source, "test");
+      assertThat(table).column("var2")
+          .value().as("var2").isLessThanOrEqualTo(1);
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[var2] \n" +
+          "Expecting:\n" +
+          "  <true>\n" +
+          "to be of type\n" +
+          "  <NUMBER>\n" +
+          "but was of type\n" +
+          "  <BOOLEAN>");
+    }
   }
 
 }
