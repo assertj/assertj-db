@@ -1,6 +1,8 @@
 package org.assertj.db.api;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
 
 import java.text.ParseException;
 
@@ -35,6 +37,9 @@ public class ValueAssert_IsAfter_DateTimeValue_Test extends AbstractTest {
             .value()
                 .isAfter(DateTimeValue.parse("2014-05-30T12:29:48"))
             .returnToColumn()
+            .value()
+                .isAfter(DateValue.parse("2014-05-29"))
+            .returnToColumn()
         .returnToTable()
         .column("var9")
             .value()
@@ -47,20 +52,65 @@ public class ValueAssert_IsAfter_DateTimeValue_Test extends AbstractTest {
   /**
    * This method should fail because the value is not after the date/time value.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_because_value_is_not_after() {
-    Table table = new Table(source, "test");
-    assertThat(table).column("var10").value()
-        .isAfter(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)));
+    try {
+      Table table = new Table(source, "test");
+      assertThat(table).column("var10").value()
+          .isAfter(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)));
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Column at index 9 of test table] \n" +
+          "Expecting:\n" +
+          "  <2014-05-24T09:46:30.000000000>\n" +
+          "to be after \n" +
+          "  <2014-05-24T09:46:30.000000000>");
+    }
   }
 
   /**
    * This method should fail because the value is not a date/time.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_because_value_is_not_a_datetime() {
-    Table table = new Table(source, "test");
-    assertThat(table).column("var1").value().as("var1")
-        .isAfter(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 29)));
+    try {
+      Table table = new Table(source, "test");
+      assertThat(table).column("var1").value().as("var1")
+          .isAfter(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 29)));
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[var1] \n" +
+          "Expecting:\n" +
+          "  <1>\n" +
+          "to be of type\n" +
+          "  <NUMBER>\n" +
+          "but was of type\n" +
+          "  <[DATE, DATE_TIME]>");
+    }
+  }
+
+  /**
+   * This method should fail because the value is not after the date value.
+   */
+  @Test
+  public void should_fail_because_value_is_not_after_date() {
+    try {
+      Table table = new Table(source, "test");
+      assertThat(table).column("var10").value()
+          .isAfter(DateValue.of(2014, 5, 30));
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Column at index 9 of test table] \n"+
+          "Expecting:\n"+
+          "  <2014-05-30T00:00:00.000000000>\n"+
+          "to be after \n"+
+          "  <2014-05-30T00:00:00.000000000>");
+    }
   }
 }
