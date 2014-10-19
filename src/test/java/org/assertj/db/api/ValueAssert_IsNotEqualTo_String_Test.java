@@ -1,6 +1,8 @@
 package org.assertj.db.api;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
 
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.error.AssertJDBException;
@@ -102,51 +104,106 @@ public class ValueAssert_IsNotEqualTo_String_Test extends AbstractTest {
   /**
    * This method should fail because the value is equal to the string.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_because_value_is_equal_to_string() {
-    Table table = new Table(source, "test");
-    assertThat(table).column("var12")
-        .value().isNotEqualTo("text");
+    try {
+      Table table = new Table(source, "test");
+      assertThat(table).column("var12")
+          .value().isNotEqualTo("text");
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Column at index 11 of test table] \n" +
+          "Expecting:\n" +
+          "  <\"text\">\n" +
+          "not to be equal to: \n" +
+          "  <\"text\">");
+    }
   }
 
   /**
    * This method should fail because the value is equal to the number.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_because_value_is_equal_to_number() {
-    Table table = new Table(source, "test");
-    assertThat(table).column("var1")
-        .value().isNotEqualTo("1");
+    try {
+      Table table = new Table(source, "test");
+      assertThat(table).column("var1")
+          .value().isNotEqualTo("1");
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Column at index 0 of test table] \n" +
+          "Expecting:\n" +
+          "  <1>\n" +
+          "not to be equal to: \n" +
+          "  <\"1\">");
+    }
   }
 
   /**
    * This method should fail because the value is equal to the time.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_because_value_is_equal_to_time() {
-    Table table = new Table(source, "test");
-    assertThat(table).column("var8")
-        .value().isNotEqualTo("09:46:30");
+    try {
+      Table table = new Table(source, "test");
+      assertThat(table).column("var8")
+          .value().isNotEqualTo("09:46:30");
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Column at index 7 of test table] \n" +
+          "Expecting:\n" +
+          "  <09:46:30.000000000>\n" +
+          "not to be equal to: \n" +
+          "  <09:46:30.000000000>");
+    }
   }
 
   /**
    * This method should fail because the value is equal to the date.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_because_value_is_equal_to_date() {
-    Table table = new Table(source, "test");
-    assertThat(table).column("var9")
-        .value().isNotEqualTo("2014-05-24");
+    try {
+      Table table = new Table(source, "test");
+      assertThat(table).column("var9")
+          .value().isNotEqualTo("2014-05-24");
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Column at index 8 of test table] \n" +
+          "Expecting:\n" +
+          "  <2014-05-24>\n" +
+          "not to be equal to: \n" +
+          "  <2014-05-24>");
+    }
   }
 
   /**
    * This method should fail because the value is equal to the date/time.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_because_value_is_equal_to_datetime() {
-    Table table = new Table(source, "test");
-    assertThat(table).column("var10")
-        .value().isNotEqualTo("2014-05-24T09:46:30");
+    try {
+      Table table = new Table(source, "test");
+      assertThat(table).column("var10")
+          .value().isNotEqualTo("2014-05-24T09:46:30");
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Column at index 9 of test table] \n" +
+          "Expecting:\n" +
+          "  <2014-05-24T09:46:30.000000000>\n" +
+          "not to be equal to: \n" +
+          "  <2014-05-24T09:46:30.000000000>");
+    }
   }
 
   /**
@@ -162,11 +219,24 @@ public class ValueAssert_IsNotEqualTo_String_Test extends AbstractTest {
   /**
    * This method should fail because the value is not a text.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_because_value_is_not_a_text() {
-    Table table = new Table(source, "test");
-    assertThat(table).column("var2")
-        .value().as("var2").isNotEqualTo("Text");
+    try {
+      Table table = new Table(source, "test");
+      assertThat(table).column("var2")
+          .value().as("var2").isNotEqualTo("Text");
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[var2] \n" +
+          "Expecting:\n" +
+          "  <true>\n" +
+          "to be of type\n" +
+          "  <BOOLEAN>\n" +
+          "but was of type\n" +
+          "  <[TEXT, NUMBER, DATE, TIME, DATE_TIME]>");
+    }
   }
 
 }
