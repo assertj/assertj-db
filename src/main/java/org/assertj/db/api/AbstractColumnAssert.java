@@ -293,10 +293,12 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
    * @throws AssertionError If at least one of the values of the column are not {@code null}.
    */
   public C haveOnlyNullValues() {
+    int index = 0;
     for (Object value : getValuesList()) {
       if (value != null) {
-        throw failures.failure(info, shouldContainsOnlyNull(getValuesList()));
+        throw failures.failure(info, shouldContainsOnlyNull(index));
       }
+      index++;
     }
     return myself;
   }
@@ -316,10 +318,12 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
    * @throws AssertionError If at least one of the values of the column are {@code null}.
    */
   public C haveOnlyNotNullValues() {
+    int index = 0;
     for (Object value : getValuesList()) {
       if (value == null) {
-        throw failures.failure(info, shouldContainsOnlyNotNull(getValuesList()));
+        throw failures.failure(info, shouldContainsOnlyNotNull(index));
       }
+      index++;
     }
     return myself;
   }
