@@ -1,6 +1,8 @@
 package org.assertj.db.api;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
 
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
@@ -33,34 +35,69 @@ public class ColumnAssert_HaveValuesEqualTo_Boolean_Test extends AbstractTest {
   /**
    * This method should fail because the type of the column is {@code ValueType.Number}.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_isOfType_assertion_because_column_is_number() {
-    Table table = new Table(source, "test2");
-
-    assertThat(table)
-        .column().as("var1 type").haveValuesEqualTo(true, null);
+    try {
+      Table table = new Table(source, "test2");
+  
+      assertThat(table)
+          .column().as("var1 type").haveValuesEqualTo(true, null);
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[var1 type] \n" +
+          "Expecting that the value at index 0:\n" +
+          "  <1>\n" +
+          "to be of type\n" +
+          "  <[BOOLEAN, NOT_IDENTIFIED]>\n" +
+          "but was of type\n" +
+          "  <NUMBER>");
+    }
   }
 
   /**
    * This method should fail because the type of the column have less values.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_isOfType_assertion_because_column_have_less_values() {
-    Table table2 = new Table(source, "test2");
-
-    assertThat(table2)
-        .column(1).as("var2").haveValuesEqualTo(true, null, null);
+    try {
+      Table table2 = new Table(source, "test2");
+  
+      assertThat(table2)
+          .column(1).as("var2").haveValuesEqualTo(true, null, null);
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[var2] \n" +
+          "Expecting size (number of rows) to be equal to :\n" +
+          "   <3>\n" +
+          "but was:\n" +
+          "   <2>");
+    }
   }
 
   /**
    * This method should fail because the type of the second value is {@code null}.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_isOfType_assertion_because_value_is_different() {
-    Table table = new Table(source, "test2");
-
-    assertThat(table)
-        .column(1).as("var2").haveValuesEqualTo(true, false);
+    try {
+      Table table = new Table(source, "test2");
+  
+      assertThat(table)
+          .column(1).as("var2").haveValuesEqualTo(true, false);
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[var2] \n" +
+          "Expecting that the value at index 1:\n" +
+          "  <null>\n" +
+          "to be equal to: \n" +
+          "  <false>");
+    }
   }
 
 }

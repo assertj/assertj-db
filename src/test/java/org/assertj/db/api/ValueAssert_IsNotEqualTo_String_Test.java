@@ -233,9 +233,9 @@ public class ValueAssert_IsNotEqualTo_String_Test extends AbstractTest {
           "Expecting:\n" +
           "  <true>\n" +
           "to be of type\n" +
-          "  <BOOLEAN>\n" +
+          "  <[TEXT, NUMBER, DATE, TIME, DATE_TIME]>\n" +
           "but was of type\n" +
-          "  <[TEXT, NUMBER, DATE, TIME, DATE_TIME]>");
+          "  <BOOLEAN>");
     }
   }
 

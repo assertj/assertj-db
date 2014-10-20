@@ -87,12 +87,12 @@ public class ColumnAssert_IsOfType_Test extends AbstractTest {
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var1 type] \n" +
-          "Expecting:\n" +
+          "Expecting that the value at index 0:\n" +
           "  <1>\n" +
           "to be of type\n" +
-          "  <NUMBER>\n" +
+          "  <[BOOLEAN, NOT_IDENTIFIED]>\n" +
           "but was of type\n" +
-          "  <[BOOLEAN, NOT_IDENTIFIED]>");
+          "  <NUMBER>");
     }
   }
 
@@ -111,7 +111,7 @@ public class ColumnAssert_IsOfType_Test extends AbstractTest {
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var1 type] \n" +
-          "Expecting:\n" +
+          "Expecting that the value at index 1:\n" +
           "  <null>\n" +
           "to be of type\n" +
           "  <NUMBER>\n" +
@@ -191,12 +191,12 @@ public class ColumnAssert_IsOfType_Test extends AbstractTest {
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var1 type] \n" +
-          "Expecting:\n" +
+          "Expecting that the value at index 0:\n" +
           "  <1>\n" +
           "to be of type\n" +
-          "  <NUMBER>\n" +
+          "  <[BOOLEAN, NOT_IDENTIFIED]>\n" +
           "but was of type\n" +
-          "  <[BOOLEAN, NOT_IDENTIFIED]>");
+          "  <NUMBER>");
     }
   }
 
@@ -215,7 +215,7 @@ public class ColumnAssert_IsOfType_Test extends AbstractTest {
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var1 type] \n" +
-          "Expecting:\n" +
+          "Expecting that the value at index 1:\n" +
           "  <null>\n" +
           "to be of type\n" +
           "  <NUMBER>\n" +

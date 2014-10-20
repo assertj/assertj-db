@@ -46,7 +46,7 @@ public class ValueAssert_IsEqualTo_Bytes_Test extends AbstractTest {
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Column at index 10 of test table] \n" +
-          "Expecting to be equal to value but was not equal");
+          "Expecting to be equal to the expected value but was not equal");
     }
   }
 

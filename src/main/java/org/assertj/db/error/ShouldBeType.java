@@ -12,6 +12,11 @@ import org.assertj.db.api.ValueType;
  */
 public class ShouldBeType extends BasicErrorMessageFactory {
 
+  private static final String EXPECTED_MESSAGE = "\nExpecting:\n  <%s>\nto be of type\n"
+      + "  <%s>\nbut was of type\n  <%s>";
+  private static final String EXPECTED_MESSAGE_WITH_INDEX = "\nExpecting that the value at index %s:\n  <%s>\nto be of type\n"
+      + "  <%s>\nbut was of type\n  <%s>";
+
   /**
    * Creates a new <code>{@link ShouldBeType}</code>.
    * 
@@ -20,10 +25,21 @@ public class ShouldBeType extends BasicErrorMessageFactory {
    * @param tested The tested type.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBeType(final Object actual, final ValueType expected,
-      final ValueType tested) {
-
+  public static ErrorMessageFactory shouldBeType(Object actual, ValueType expected, ValueType tested) {
     return new ShouldBeType(actual, expected, tested);
+  }
+
+  /**
+   * Creates a new <code>{@link ShouldBeType}</code>.
+   * 
+   * @param index The index of the value.
+   * @param actual The actual value in the failed assertion.
+   * @param expected The expected type.
+   * @param tested The tested type.
+   * @return the created {@code ErrorMessageFactory}.
+   */
+  public static ErrorMessageFactory shouldBeType(int index, Object actual, ValueType expected, ValueType tested) {
+    return new ShouldBeType(index, actual, expected, tested);
   }
 
   /**
@@ -33,8 +49,19 @@ public class ShouldBeType extends BasicErrorMessageFactory {
    * @param expected The expected type.
    * @param tested The tested type.
    */
-  public ShouldBeType(final Object actual, final ValueType expected, final ValueType tested) {
+  public ShouldBeType(Object actual, ValueType expected, ValueType tested) {
+    super(EXPECTED_MESSAGE, actual, expected, tested);
+  }
 
-    super("\nExpecting:\n  <%s>\nto be of type\n" + "  <%s>\nbut was of type\n  <%s>", actual, expected, tested);
+  /**
+   * Constructor.
+   * 
+   * @param index The index of the value.
+   * @param actual The actual value in the failed assertion.
+   * @param expected The expected type.
+   * @param tested The tested type.
+   */
+  public ShouldBeType(int index, Object actual, ValueType expected, ValueType tested) {
+    super(EXPECTED_MESSAGE_WITH_INDEX, index, actual, expected, tested);
   }
 }

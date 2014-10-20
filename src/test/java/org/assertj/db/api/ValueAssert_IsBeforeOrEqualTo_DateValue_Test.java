@@ -86,9 +86,9 @@ public class ValueAssert_IsBeforeOrEqualTo_DateValue_Test extends AbstractTest {
           "Expecting:\n" +
           "  <1>\n" +
           "to be of type\n" +
-          "  <NUMBER>\n" +
+          "  <[DATE, DATE_TIME]>\n" +
           "but was of type\n" +
-          "  <[DATE, DATE_TIME]>");
+          "  <NUMBER>");
     }
   }
 

@@ -1,6 +1,7 @@
 package org.assertj.db.api;
 
 import static org.assertj.core.error.ShouldBeEqual.shouldBeEqual;
+import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
 import static org.assertj.db.error.ShouldBeType.shouldBeType;
 import static org.assertj.db.error.ShouldBeTypeOfAny.shouldBeTypeOfAny;
 import static org.assertj.db.error.ShouldContainsOnlyNotNull.shouldContainsOnlyNotNull;
@@ -8,6 +9,7 @@ import static org.assertj.db.error.ShouldContainsOnlyNull.shouldContainsOnlyNull
 import static org.assertj.db.error.ShouldHaveRowsSize.shouldHaveRowsSize;
 import static org.assertj.db.util.Values.areEqual;
 
+import java.sql.Time;
 import java.util.List;
 
 import org.assertj.core.api.WritableAssertionInfo;
@@ -101,11 +103,13 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
       return isOfAnyOfTypes(expected, ValueType.NOT_IDENTIFIED);
     }
 
+    int index = 0;
     for (Object value : getValuesList()) {
       ValueType type = ValueType.getType(value);
       if (type != expected) {
-        throw failures.failure(info, shouldBeType(value, expected, type));
+        throw failures.failure(info, shouldBeType(index, value, expected, type));
       }
+      index++;
     }
     return myself;
   }
@@ -126,14 +130,16 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
    * @throws AssertionError If the type is different to all the types in parameters.
    */
   public C isOfAnyOfTypes(ValueType... expected) {
+    int index = 0;
     loop: for (Object value : getValuesList()) {
       ValueType type = ValueType.getType(value);
       for (ValueType valueType : expected) {
         if (type == valueType) {
+          index++;
           continue loop;
         }
       }
-      throw failures.failure(info, shouldBeTypeOfAny(value, type, expected));
+      throw failures.failure(info, shouldBeTypeOfAny(index, value, type, expected));
     }
     return myself;
   }
@@ -348,8 +354,9 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
     hasSize(expected.length);
     int index = 0;
     for (Object value : getValuesList()) {
-      if (!areEqual((Boolean) value, expected[index])) {
-        throw failures.failure(info, shouldBeEqual(getValuesList(), expected, info.representation()));
+      Boolean val = (Boolean) value;
+      if (!areEqual(val, expected[index])) {
+        throw failures.failure(info, shouldBeEqual(index, val, expected[index]));
       }
       index++;
     }
@@ -376,8 +383,9 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
     hasSize(expected.length);
     int index = 0;
     for (Object value : getValuesList()) {
-      if (!areEqual((Number) value, expected[index])) {
-        throw failures.failure(info, shouldBeEqual(getValuesList(), expected, info.representation()));
+      Number val = (Number) value;
+      if (!areEqual(val, expected[index])) {
+        throw failures.failure(info, shouldBeEqual(index, val, expected[index]));
       }
       index++;
     }
@@ -480,8 +488,7 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
    * </p>
    * 
    * <pre>
-   * assertThat(table).column().haveValuesEqualTo(TimeValue.of(21, 29, 30), TimeValue.of(10, 1, 25),
-   *     TimeValue.of(9, 1));
+   * assertThat(table).column().haveValuesEqualTo(TimeValue.of(21, 29, 30), TimeValue.of(10, 1, 25), TimeValue.of(9, 1));
    * </pre>
    * 
    * @param expected The expected time values.
@@ -493,8 +500,12 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
     hasSize(expected.length);
     int index = 0;
     for (Object value : getValuesList()) {
+      TimeValue val = null;
+      if (value != null) {
+        val = TimeValue.from((Time) value);
+      }
       if (!areEqual(value, expected[index])) {
-        throw failures.failure(info, shouldBeEqual(getValuesList(), expected, info.representation()));
+        throw failures.failure(info, shouldBeEqual(index, val, expected[index]));
       }
       index++;
     }
@@ -510,8 +521,8 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
    * 
    * <pre>
    * assertThat(table).column().haveValuesEqualTo(DateTimeValue.of(DateValue.of(2014, 7, 7), TimeValue.of(21, 29)),
-   *        DateTimeValue.of(DateValue.of(2014, 7, 7), TimeValue.of(10, 1, 25)),
-   *        DateTimeValue.of(DateValue.of(2014, 7, 7), TimeValue.of(9, 1)));
+   *     DateTimeValue.of(DateValue.of(2014, 7, 7), TimeValue.of(10, 1, 25)),
+   *     DateTimeValue.of(DateValue.of(2014, 7, 7), TimeValue.of(9, 1)));
    * </pre>
    * 
    * @param expected The expected date/time values.

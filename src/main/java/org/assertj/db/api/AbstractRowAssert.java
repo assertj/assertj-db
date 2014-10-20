@@ -110,7 +110,7 @@ public abstract class AbstractRowAssert<E extends AbstractDbData<E>, D extends A
       ValueType[] possibleTypes = ValueType.getPossibleTypesForComparison(expected[index]);
       ValueType type = ValueType.getType(value);
       if (!Arrays.asList(possibleTypes).contains(type)) {
-        throw failures.failure(info, shouldBeTypeOfAny(value, type, possibleTypes));
+        throw failures.failure(info, shouldBeTypeOfAny(index, value, type, possibleTypes));
       }
       if (!areEqual(value, expected[index])) {
         throw failures.failure(info, shouldBeEqual(getValuesList(), expected, info.representation()));

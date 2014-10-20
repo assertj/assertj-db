@@ -12,6 +12,11 @@ import org.assertj.db.api.ValueType;
  */
 public class ShouldBeTypeOfAny extends BasicErrorMessageFactory {
 
+  private static final String EXPECTED_MESSAGE = "\nExpecting:\n  <%s>\nto be of type\n"
+      + "  <%s>\nbut was of type\n  <%s>";
+  private static final String EXPECTED_MESSAGE_WITH_INDEX = "\nExpecting that the value at index %s:\n  <%s>\nto be of type\n"
+      + "  <%s>\nbut was of type\n  <%s>";
+
   /**
    * Creates a new <code>{@link ShouldBeTypeOfAny}</code>.
    * 
@@ -27,6 +32,21 @@ public class ShouldBeTypeOfAny extends BasicErrorMessageFactory {
   }
 
   /**
+   * Creates a new <code>{@link ShouldBeTypeOfAny}</code>.
+   * 
+   * @param index The index of the value.
+   * @param actual The actual value in the failed assertion.
+   * @param tested The tested type.
+   * @param expected The expected types.
+   * @return the created {@code ErrorMessageFactory}.
+   */
+  public static ErrorMessageFactory shouldBeTypeOfAny(final int index, final Object actual, final ValueType tested,
+      final ValueType... expected) {
+
+    return new ShouldBeTypeOfAny(index, actual, tested, expected);
+  }
+
+  /**
    * Constructor.
    * 
    * @param actual The actual value in the failed assertion.
@@ -34,7 +54,19 @@ public class ShouldBeTypeOfAny extends BasicErrorMessageFactory {
    * @param expected The expected types.
    */
   public ShouldBeTypeOfAny(final Object actual, final ValueType tested, final ValueType... expected) {
-    super("\nExpecting:\n  <%s>\nto be of type\n" + "  <%s>\nbut was of type\n  <%s>", actual, tested, expected);
+    super(EXPECTED_MESSAGE, actual, expected, tested);
+  }
+
+  /**
+   * Constructor.
+   * 
+   * @param index The index of the value.
+   * @param actual The actual value in the failed assertion.
+   * @param tested The tested type.
+   * @param expected The expected types.
+   */
+  public ShouldBeTypeOfAny(final int index, final Object actual, final ValueType tested, final ValueType... expected) {
+    super(EXPECTED_MESSAGE_WITH_INDEX, index, actual, expected, tested);
   }
 
 }

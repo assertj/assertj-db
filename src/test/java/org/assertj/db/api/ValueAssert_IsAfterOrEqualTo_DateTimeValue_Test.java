@@ -91,9 +91,9 @@ public class ValueAssert_IsAfterOrEqualTo_DateTimeValue_Test extends AbstractTes
           "Expecting:\n" +
           "  <1>\n" +
           "to be of type\n" +
-          "  <NUMBER>\n" +
+          "  <[DATE, DATE_TIME]>\n" +
           "but was of type\n" +
-          "  <[DATE, DATE_TIME]>");
+          "  <NUMBER>");
     }
   }
 
