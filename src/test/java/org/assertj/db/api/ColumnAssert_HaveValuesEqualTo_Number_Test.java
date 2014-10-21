@@ -50,7 +50,7 @@ public class ColumnAssert_HaveValuesEqualTo_Number_Test extends AbstractTest {
    * This method should fail because the type of the column is {@code ValueType.Boolean}.
    */
   @Test
-  public void should_fail_isOfType_assertion_because_column_is_boolean() {
+  public void should_fail_haveValuesEqualTo_assertion_because_column_is_boolean() {
     try {
       Table table = new Table(source, "test2");
   
@@ -74,7 +74,7 @@ public class ColumnAssert_HaveValuesEqualTo_Number_Test extends AbstractTest {
    * This method should fail because the type of the column have less values.
    */
   @Test
-  public void should_fail_isOfType_assertion_because_column_have_less_values() {
+  public void should_fail_haveValuesEqualTo_assertion_because_column_have_less_values() {
     try {
       Table table2 = new Table(source, "test2");
   
@@ -93,10 +93,10 @@ public class ColumnAssert_HaveValuesEqualTo_Number_Test extends AbstractTest {
   }
 
   /**
-   * This method should fail because the type of the second value is {@code null}.
+   * This method should fail because the second value is {@code null}.
    */
   @Test
-  public void should_fail_isOfType_assertion_because_value_is_different() {
+  public void should_fail_haveValuesEqualTo_assertion_because_value_is_different_because_is_null() {
     try {
       Table table = new Table(source, "test2");
   
@@ -111,6 +111,28 @@ public class ColumnAssert_HaveValuesEqualTo_Number_Test extends AbstractTest {
           "  <null>\n" +
           "to be equal to: \n" +
           "  <1>");
+    }
+  }
+
+  /**
+   * This method should fail because the first value is 1.
+   */
+  @Test
+  public void should_fail_haveValuesEqualTo_assertion_because_value_is_different() {
+    try {
+      Table table = new Table(source, "test2");
+  
+      assertThat(table)
+          .column().as("var1").haveValuesEqualTo(2, 1);
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[var1] \n" +
+          "Expecting that the value at index 0:\n" +
+          "  <1>\n" +
+          "to be equal to: \n" +
+          "  <2>");
     }
   }
 

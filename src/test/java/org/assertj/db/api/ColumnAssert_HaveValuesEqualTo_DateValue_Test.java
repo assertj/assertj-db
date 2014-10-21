@@ -1,6 +1,8 @@
 package org.assertj.db.api;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
 
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.DateValue;
@@ -36,36 +38,93 @@ public class ColumnAssert_HaveValuesEqualTo_DateValue_Test extends AbstractTest 
   /**
    * This method should fail because the type of the column is {@code ValueType.Boolean}.
    */
-  @Test(expected = AssertionError.class)
-  public void should_fail_isOfType_assertion_because_column_is_boolean() {
-    Table table = new Table(source, "test2");
-
-    assertThat(table)
-        .column(1).as("var2 type").haveValuesEqualTo(DateValue.of(2014, 5, 24), DateValue.of(2014, 5, 30), 
-            DateValue.of(2014, 5, 30), DateValue.of(2014, 5, 30));
+  @Test
+  public void should_fail_haveValuesEqualTo_assertion_because_column_is_boolean() {
+    try {
+      Table table = new Table(source, "test2");
+  
+      assertThat(table)
+          .column(1).as("var2 type").haveValuesEqualTo(DateValue.of(2014, 5, 24), DateValue.of(2014, 5, 30), 
+              DateValue.of(2014, 5, 30), DateValue.of(2014, 5, 30));
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[var2 type] \n"+
+          "Expecting that the value at index 0:\n"+
+          "  <true>\n"+
+          "to be of type\n"+
+          "  <[DATE, DATE_TIME, NOT_IDENTIFIED]>\n"+
+          "but was of type\n"+
+          "  <BOOLEAN>");
+    }
   }
 
   /**
    * This method should fail because the type of the column have less values.
    */
-  @Test(expected = AssertionError.class)
-  public void should_fail_isOfType_assertion_because_column_have_less_values() {
-    Table table2 = new Table(source, "test2");
-
-    assertThat(table2)
-        .column().as("var9").haveValuesEqualTo(DateValue.of(2014, 5, 24), DateValue.of(2014, 5, 30), 
-            DateValue.of(2014, 5, 30));
+  @Test
+  public void should_fail_haveValuesEqualTo_assertion_because_column_have_less_values() {
+    try {
+      Table table2 = new Table(source, "test2");
+  
+      assertThat(table2)
+          .column("var9").haveValuesEqualTo(DateValue.of(2014, 5, 24), DateValue.of(2014, 5, 30), 
+              DateValue.of(2014, 5, 30));
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 8 of test2 table] \n" +
+          "Expecting size (number of rows) to be equal to :\n" +
+          "   <3>\n" +
+          "but was:\n" +
+          "   <2>");
+    }
   }
 
   /**
-   * This method should fail because the type of the second value is {@code null}.
+   * This method should fail because the second value is {@code null}.
    */
-  @Test(expected = AssertionError.class)
-  public void should_fail_isOfType_assertion_because_value_is_different() {
-    Table table = new Table(source, "test2");
+  @Test
+  public void should_fail_haveValuesEqualTo_assertion_because_value_is_different_because_is_null() {
+    try {
+      Table table = new Table(source, "test2");
+  
+      assertThat(table)
+          .column("var9").haveValuesEqualTo(DateValue.of(2014, 5, 24), DateValue.of(2014, 5, 24));
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 8 of test2 table] \n" +
+          "Expecting that the value at index 1:\n" +
+          "  <null>\n" +
+          "to be equal to: \n" +
+          "  <2014-05-24>");
+    }
+  }
 
-    assertThat(table)
-        .column().as("var9").haveValuesEqualTo(DateValue.of(2014, 5, 24), DateValue.of(2014, 5, 24));
+  /**
+   * This method should fail because the first value is 24/05/2014.
+   */
+  @Test
+  public void should_fail_haveValuesEqualTo_assertion_because_value_is_different() {
+    try {
+      Table table = new Table(source, "test2");
+  
+      assertThat(table)
+          .column("var9").haveValuesEqualTo(DateValue.of(2014, 5, 25), DateValue.of(2014, 5, 24));
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 8 of test2 table] \n" +
+          "Expecting that the value at index 0:\n" +
+          "  <2014-05-24>\n" +
+          "to be equal to: \n" +
+          "  <2014-05-25>");
+    }
   }
 
 }

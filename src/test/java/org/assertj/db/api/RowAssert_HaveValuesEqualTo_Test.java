@@ -1,7 +1,9 @@
 package org.assertj.db.api;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.db.api.Assertions.assertThat;
 import static org.assertj.db.api.Assertions.bytesContentFromClassPathOf;
+import static org.junit.Assert.fail;
 
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.DateTimeValue;
@@ -71,50 +73,85 @@ public class RowAssert_HaveValuesEqualTo_Test extends AbstractTest {
   }
 
   /**
-   * This method should fail because the type of the column is {@code ValueType.Boolean}.
+   * This method should fail because the type of the column is {@code ValueType.NOT_IDENTIFIED}.
    */
-  @Test(expected = AssertionError.class)
-  public void should_fail_isOfType_assertion_because_column_is_boolean() {
-    Table table2 = new Table(source, "test2");
-
-    assertThat(table2)
-        .row().haveValuesEqualTo(1, true, 2, 3, 4, 5.6, 7.8, TimeValue.of(9, 46, 30),
-            DateValue.of(2014, 5, 24), DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)),
-            bytesH2, "text", 5, 7, null)
-        .row().haveValuesEqualTo(null, "1", null, null, null, null, null, null, 
-            null, null, 
-            null, null, null, null, null);
+  @Test
+  public void should_fail_isOfType_assertion_because_column_is_not_identified() {
+    try {
+      Table table2 = new Table(source, "test2");
+  
+      assertThat(table2)
+          .row().haveValuesEqualTo(1, true, 2, 3, 4, 5.6, 7.8, TimeValue.of(9, 46, 30),
+              DateValue.of(2014, 5, 24), DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)),
+              bytesH2, "text", 5, 7, null)
+          .row().haveValuesEqualTo(null, "1", null, null, null, null, null, null, 
+              null, null, 
+              null, null, null, null, null);
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Row at index 1 of test2 table] \n" +
+          "Expecting that the value at index 1:\n" +
+          "  <null>\n" +
+          "to be of type\n" +
+          "  <[TEXT, NUMBER, DATE, TIME, DATE_TIME]>\n" +
+          "but was of type\n" +
+          "  <NOT_IDENTIFIED>");
+    }
   }
 
   /**
    * This method should fail because the second row have more values.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_isOfType_assertion_because_column_have_less_values() {
-    Table table2 = new Table(source, "test2");
-
-    assertThat(table2)
-        .row().haveValuesEqualTo(1, true, 2, 3, 4, 5.6, 7.8, TimeValue.of(9, 46, 30),
-            DateValue.of(2014, 5, 24), DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)),
-            bytesH2, "text", 5, 7, null)
-        .row().haveValuesEqualTo(null, null, null, null, null, null, null, 
-            null, null, 
-            null, null, null, null, null);
+    try {
+      Table table2 = new Table(source, "test2");
+  
+      assertThat(table2)
+          .row().haveValuesEqualTo(1, true, 2, 3, 4, 5.6, 7.8, TimeValue.of(9, 46, 30),
+              DateValue.of(2014, 5, 24), DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)),
+              bytesH2, "text", 5, 7, null)
+          .row().haveValuesEqualTo(null, null, null, null, null, null, null, 
+              null, null, 
+              null, null, null, null, null);
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Row at index 1 of test2 table] \n" +
+          "Expecting size (number of columns) to be equal to :\n" +
+          "   <14>\n" +
+          "but was:\n" +
+          "   <15>");
+    }
   }
 
   /**
    * This method should fail because the second value of the first row is {@code true}.
    */
-  @Test(expected = AssertionError.class)
+  @Test
   public void should_fail_isOfType_assertion_because_value_is_different() {
-    Table table2 = new Table(source, "test2");
-
-    assertThat(table2)
-        .row().haveValuesEqualTo(1, false, 2, 3, 4, 5.6, 7.8, TimeValue.of(9, 46, 30),
-            DateValue.of(2014, 5, 24), DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)),
-            bytesH2, "text", 5, 7, null)
-        .row().haveValuesEqualTo(null, null, null, null, null, null, null, null, 
-            null, null, 
-            null, null, null, null, null);
+    try {
+      Table table2 = new Table(source, "test2");
+  
+      assertThat(table2)
+          .row().haveValuesEqualTo(1, false, 2, 3, 4, 5.6, 7.8, TimeValue.of(9, 46, 30),
+              DateValue.of(2014, 5, 24), DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)),
+              bytesH2, "text", 5, 7, null)
+          .row().haveValuesEqualTo(null, null, null, null, null, null, null, null, 
+              null, null, 
+              null, null, null, null, null);
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Row at index 0 of test2 table] \n" +
+          "Expecting that the value at index 1:\n" +
+          "  <true>\n" +
+          "to be equal to: \n" +
+          "  <false>");
+    }
   }
 }

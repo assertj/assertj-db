@@ -1,6 +1,5 @@
 package org.assertj.db.api;
 
-import static org.assertj.core.error.ShouldBeEqual.shouldBeEqual;
 import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
 import static org.assertj.db.error.ShouldBeType.shouldBeType;
 import static org.assertj.db.error.ShouldBeTypeOfAny.shouldBeTypeOfAny;
@@ -9,7 +8,6 @@ import static org.assertj.db.error.ShouldContainsOnlyNull.shouldContainsOnlyNull
 import static org.assertj.db.error.ShouldHaveRowsSize.shouldHaveRowsSize;
 import static org.assertj.db.util.Values.areEqual;
 
-import java.sql.Time;
 import java.util.List;
 
 import org.assertj.core.api.WritableAssertionInfo;
@@ -19,6 +17,7 @@ import org.assertj.db.type.Column;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
+import org.assertj.db.util.Values;
 
 /**
  * Assertion methods about the data in a <code>{@link Column}</code>.
@@ -385,7 +384,8 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
     for (Object value : getValuesList()) {
       Number val = (Number) value;
       if (!areEqual(val, expected[index])) {
-        throw failures.failure(info, shouldBeEqual(index, val, expected[index]));
+        throw failures.failure(info,
+            shouldBeEqual(index, Values.getRepresentationFromValueInFrontOfExpected(val, expected[index]), expected[index]));
       }
       index++;
     }
@@ -415,7 +415,7 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
     int index = 0;
     for (Object value : getValuesList()) {
       if (!areEqual((byte[]) value, expected[index])) {
-        throw failures.failure(info, shouldBeEqual(getValuesList(), expected, info.representation()));
+        throw failures.failure(info, shouldBeEqual(index));
       }
       index++;
     }
@@ -444,7 +444,8 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
     int index = 0;
     for (Object value : getValuesList()) {
       if (!areEqual(value, expected[index])) {
-        throw failures.failure(info, shouldBeEqual(getValuesList(), expected, info.representation()));
+        throw failures.failure(info,
+            shouldBeEqual(index, Values.getRepresentationFromValueInFrontOfExpected(value, expected[index]), expected[index]));
       }
       index++;
     }
@@ -473,7 +474,8 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
     int index = 0;
     for (Object value : getValuesList()) {
       if (!areEqual(value, expected[index])) {
-        throw failures.failure(info, shouldBeEqual(getValuesList(), expected, info.representation()));
+        throw failures.failure(info,
+            shouldBeEqual(index, Values.getRepresentationFromValueInFrontOfExpected(value, expected[index]), expected[index]));
       }
       index++;
     }
@@ -500,12 +502,9 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
     hasSize(expected.length);
     int index = 0;
     for (Object value : getValuesList()) {
-      TimeValue val = null;
-      if (value != null) {
-        val = TimeValue.from((Time) value);
-      }
       if (!areEqual(value, expected[index])) {
-        throw failures.failure(info, shouldBeEqual(index, val, expected[index]));
+        throw failures.failure(info,
+            shouldBeEqual(index, Values.getRepresentationFromValueInFrontOfExpected(value, expected[index]), expected[index]));
       }
       index++;
     }
@@ -535,7 +534,8 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
     int index = 0;
     for (Object value : getValuesList()) {
       if (!areEqual(value, expected[index])) {
-        throw failures.failure(info, shouldBeEqual(getValuesList(), expected, info.representation()));
+        throw failures.failure(info,
+            shouldBeEqual(index, Values.getRepresentationFromValueInFrontOfExpected(value, expected[index]), expected[index]));
       }
       index++;
     }

@@ -1,6 +1,6 @@
 package org.assertj.db.api;
 
-import static org.assertj.core.error.ShouldBeEqual.shouldBeEqual;
+import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
 import static org.assertj.db.error.ShouldBeTypeOfAny.shouldBeTypeOfAny;
 import static org.assertj.db.error.ShouldHaveColumnsSize.shouldHaveColumnsSize;
 import static org.assertj.db.util.Values.areEqual;
@@ -13,6 +13,7 @@ import org.assertj.core.internal.Failures;
 import org.assertj.db.error.AssertJDBException;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Row;
+import org.assertj.db.util.Values;
 
 /**
  * Assertion methods about the data in a <code>{@link Row}</code>.
@@ -22,7 +23,8 @@ import org.assertj.db.type.Row;
  * @param <E> The class of the actual value (an sub-class of {@link AbstractDbData}).
  * @param <D> The class of the original assert (an sub-class of {@link AbstractDbAssert}).
  * @param <C> The class of the equivalent row assert (an sub-class of {@link AbstractColumnAssert}).
- * @param <CV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractColumnValueAssert}).
+ * @param <CV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractColumnValueAssert}
+ *          ).
  * @param <R> The class of this assert (an sub-class of {@link AbstractRowAssert}).
  * @param <RV> The class of this assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
@@ -54,7 +56,7 @@ public abstract class AbstractRowAssert<E extends AbstractDbData<E>, D extends A
   /** {@inheritDoc} */
   @Override
   protected List<Object> getValuesList() {
-      return row.getValuesList();
+    return row.getValuesList();
   }
 
   /**
@@ -77,7 +79,6 @@ public abstract class AbstractRowAssert<E extends AbstractDbData<E>, D extends A
     return getValueAssertInstance(index);
   }
 
-
   /** {@inheritDoc} */
   @Override
   protected void assertHasSize(WritableAssertionInfo info, int expected) {
@@ -91,12 +92,12 @@ public abstract class AbstractRowAssert<E extends AbstractDbData<E>, D extends A
   /**
    * Verifies that the values of a column are equal to values in parameter.
    * <p>
-   * Example where the assertion verifies that the values in the first {@code Row} of the {@code Table} are equal to
-   * the values in parameter :
+   * Example where the assertion verifies that the values in the first {@code Row} of the {@code Table} are equal to the
+   * values in parameter :
    * </p>
    * 
    * <pre>
-   * assertThat(table).row().haveValuesEqualTo(1, "Text", TimeValue.of(9, 1));
+   * assertThat(table).row().haveValuesEqualTo(1, &quot;Text&quot;, TimeValue.of(9, 1));
    * </pre>
    * 
    * @param expected The expected values.
@@ -113,7 +114,15 @@ public abstract class AbstractRowAssert<E extends AbstractDbData<E>, D extends A
         throw failures.failure(info, shouldBeTypeOfAny(index, value, type, possibleTypes));
       }
       if (!areEqual(value, expected[index])) {
-        throw failures.failure(info, shouldBeEqual(getValuesList(), expected, info.representation()));
+        if (ValueType.getType(value) == ValueType.BYTES) {
+          throw failures.failure(info, shouldBeEqual(index));
+        } else {
+          throw failures
+              .failure(
+                  info,
+                  shouldBeEqual(index, Values.getRepresentationFromValueInFrontOfExpected(value, expected[index]),
+                      expected[index]));
+        }
       }
       index++;
     }

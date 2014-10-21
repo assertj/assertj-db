@@ -36,7 +36,7 @@ public class ColumnAssert_HaveValuesEqualTo_Boolean_Test extends AbstractTest {
    * This method should fail because the type of the column is {@code ValueType.Number}.
    */
   @Test
-  public void should_fail_isOfType_assertion_because_column_is_number() {
+  public void should_fail_haveValuesEqualTo_assertion_because_column_is_number() {
     try {
       Table table = new Table(source, "test2");
   
@@ -60,7 +60,7 @@ public class ColumnAssert_HaveValuesEqualTo_Boolean_Test extends AbstractTest {
    * This method should fail because the type of the column have less values.
    */
   @Test
-  public void should_fail_isOfType_assertion_because_column_have_less_values() {
+  public void should_fail_haveValuesEqualTo_assertion_because_column_have_less_values() {
     try {
       Table table2 = new Table(source, "test2");
   
@@ -79,10 +79,10 @@ public class ColumnAssert_HaveValuesEqualTo_Boolean_Test extends AbstractTest {
   }
 
   /**
-   * This method should fail because the type of the second value is {@code null}.
+   * This method should fail because the second value is {@code null}.
    */
   @Test
-  public void should_fail_isOfType_assertion_because_value_is_different() {
+  public void should_fail_haveValuesEqualTo_assertion_because_value_is_different_because_is_null() {
     try {
       Table table = new Table(source, "test2");
   
@@ -95,6 +95,28 @@ public class ColumnAssert_HaveValuesEqualTo_Boolean_Test extends AbstractTest {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var2] \n" +
           "Expecting that the value at index 1:\n" +
           "  <null>\n" +
+          "to be equal to: \n" +
+          "  <false>");
+    }
+  }
+
+  /**
+   * This method should fail because the first value is {@code true}.
+   */
+  @Test
+  public void should_fail_haveValuesEqualTo_assertion_because_value_is_different() {
+    try {
+      Table table = new Table(source, "test2");
+  
+      assertThat(table)
+          .column(1).as("var2").haveValuesEqualTo(false, false);
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[var2] \n" +
+          "Expecting that the value at index 0:\n" +
+          "  <true>\n" +
           "to be equal to: \n" +
           "  <false>");
     }

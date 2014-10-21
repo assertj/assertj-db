@@ -79,12 +79,12 @@ public class ColumnAssert_HaveValuesEqualTo_String_Test extends AbstractTest {
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var2 type] \n" +
-          "Expecting:\n" +
+          "Expecting that the value at index 0:\n" +
           "  <true>\n" +
           "to be of type\n" +
-          "  <BOOLEAN>\n" +
+          "  <[TEXT, NUMBER, DATE, TIME, DATE_TIME, NOT_IDENTIFIED]>\n" +
           "but was of type\n" +
-          "  <[TEXT, NUMBER, DATE, TIME, DATE_TIME, NOT_IDENTIFIED]>");
+          "  <BOOLEAN>");
     }
   }
 
@@ -97,12 +97,12 @@ public class ColumnAssert_HaveValuesEqualTo_String_Test extends AbstractTest {
       Table table2 = new Table(source, "test2");
   
       assertThat(table2)
-          .column().as("var1").haveValuesEqualTo("1", "10", "100");
+          .column("var1").haveValuesEqualTo("1", "10", "100");
       
       fail("Une Erreur doit être levée");
     }
     catch (AssertionError e) {
-      assertThat(e.getLocalizedMessage()).isEqualTo("[var1] \n" +
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 0 of test2 table] \n" +
           "Expecting size (number of rows) to be equal to :\n" +
           "   <3>\n" +
           "but was:\n" +
@@ -111,20 +111,222 @@ public class ColumnAssert_HaveValuesEqualTo_String_Test extends AbstractTest {
   }
 
   /**
-   * This method should fail because the type of the second value is {@code null}.
+   * This method should fail because the second value is a null number.
    */
   @Test
-  public void should_fail_isOfType_assertion_because_value_is_different() {
+  public void should_fail_isOfType_assertion_because_value_is_null_number() {
     try {
       Table table = new Table(source, "test2");
   
       assertThat(table)
-          .column().as("var1").haveValuesEqualTo("1", "1");
+          .column("var1").haveValuesEqualTo("1", "1");
       
       fail("Une Erreur doit être levée");
     }
     catch (AssertionError e) {
-      assertThat(e.getLocalizedMessage()).isEqualTo("");
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 0 of test2 table] \n" +
+          "Expecting that the value at index 1:\n" +
+          "  <null>\n" +
+          "to be equal to: \n" +
+          "  <\"1\">");
+    }
+  }
+
+  /**
+   * This method should fail because the first value is a different number.
+   */
+  @Test
+  public void should_fail_isOfType_assertion_because_value_is_different_number() {
+    try {
+      Table table = new Table(source, "test2");
+  
+      assertThat(table)
+          .column("var1").haveValuesEqualTo("2", "1");
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 0 of test2 table] \n" +
+          "Expecting that the value at index 0:\n" +
+          "  <\"1\">\n" +
+          "to be equal to: \n" +
+          "  <\"2\">");
+    }
+  }
+
+  /**
+   * This method should fail because the second value is a null time.
+   */
+  @Test
+  public void should_fail_isOfType_assertion_because_value_is_null_time() {
+    try {
+      Table table = new Table(source, "test2");
+  
+      assertThat(table)
+          .column("var8").haveValuesEqualTo("09:46:30", "09:46:30");
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 7 of test2 table] \n" +
+          "Expecting that the value at index 1:\n" +
+          "  <null>\n" +
+          "to be equal to: \n" +
+          "  <\"09:46:30\">");
+    }
+  }
+
+  /**
+   * This method should fail because the first value is a different time.
+   */
+  @Test
+  public void should_fail_isOfType_assertion_because_value_is_different_time() {
+    try {
+      Table table = new Table(source, "test2");
+  
+      assertThat(table)
+          .column("var8").haveValuesEqualTo("09:46:31", "09:46:30");
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 7 of test2 table] \n" +
+          "Expecting that the value at index 0:\n" +
+          "  <\"09:46:30.000000000\">\n" +
+          "to be equal to: \n" +
+          "  <\"09:46:31\">");
+    }
+  }
+
+  /**
+   * This method should fail because the second value is a null date.
+   */
+  @Test
+  public void should_fail_isOfType_assertion_because_value_is_null_date() {
+    try {
+      Table table = new Table(source, "test2");
+  
+      assertThat(table)
+          .column("var9").haveValuesEqualTo("2014-05-24", "2014-05-24");
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 8 of test2 table] \n" +
+          "Expecting that the value at index 1:\n" +
+          "  <null>\n" +
+          "to be equal to: \n" +
+          "  <\"2014-05-24\">");
+    }
+  }
+
+  /**
+   * This method should fail because the first value is a different date.
+   */
+  @Test
+  public void should_fail_isOfType_assertion_because_value_is_different_date() {
+    try {
+      Table table = new Table(source, "test2");
+  
+      assertThat(table)
+          .column("var9").haveValuesEqualTo("2014-05-25", "2014-05-24");
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 8 of test2 table] \n" +
+          "Expecting that the value at index 0:\n" +
+          "  <\"2014-05-24\">\n" +
+          "to be equal to: \n" +
+          "  <\"2014-05-25\">");
+    }
+  }
+
+  /**
+   * This method should fail because the second value is a null date/time.
+   */
+  @Test
+  public void should_fail_isOfType_assertion_because_value_is_null_datetime() {
+    try {
+      Table table = new Table(source, "test2");
+  
+      assertThat(table)
+          .column("var10").haveValuesEqualTo("2014-05-24T09:46:30", "2014-05-24T09:46:30");
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 9 of test2 table] \n" +
+          "Expecting that the value at index 1:\n" +
+          "  <null>\n" +
+          "to be equal to: \n" +
+          "  <\"2014-05-24T09:46:30\">");
+    }
+  }
+
+  /**
+   * This method should fail because the first value is a different date/time.
+   */
+  @Test
+  public void should_fail_isOfType_assertion_because_value_is_different_datetime() {
+    try {
+      Table table = new Table(source, "test2");
+  
+      assertThat(table)
+          .column("var10").haveValuesEqualTo("2014-05-24T09:46:31", "2014-05-24T09:46:30");
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 9 of test2 table] \n" +
+          "Expecting that the value at index 0:\n" +
+          "  <\"2014-05-24T09:46:30.000000000\">\n" +
+          "to be equal to: \n" +
+          "  <\"2014-05-24T09:46:31\">");
+    }
+  }
+
+  /**
+   * This method should fail because the second value is a null text.
+   */
+  @Test
+  public void should_fail_isOfType_assertion_because_value_is_null_text() {
+    try {
+      Table table = new Table(source, "test2");
+  
+      assertThat(table)
+          .column("var12").haveValuesEqualTo("text", "text");
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 11 of test2 table] \n" +
+          "Expecting that the value at index 1:\n" +
+          "  <null>\n" +
+          "to be equal to: \n" +
+          "  <\"text\">");
+    }
+  }
+
+  /**
+   * This method should fail because the first value is a different text.
+   */
+  @Test
+  public void should_fail_isOfType_assertion_because_value_is_different_text() {
+    try {
+      Table table = new Table(source, "test2");
+  
+      assertThat(table)
+          .column("var12").haveValuesEqualTo("texT", "text");
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 11 of test2 table] \n" +
+          "Expecting that the value at index 0:\n" +
+          "  <\"text\">\n" +
+          "to be equal to: \n" +
+          "  <\"texT\">");
     }
   }
 
