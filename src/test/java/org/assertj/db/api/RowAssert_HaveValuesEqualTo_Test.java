@@ -154,4 +154,25 @@ public class RowAssert_HaveValuesEqualTo_Test extends AbstractTest {
           "  <false>");
     }
   }
+
+  /**
+   * This method should fail because the array of bytes of the first row is different.
+   */
+  @Test
+  public void should_fail_isOfType_assertion_because_value_is_different_on_array_of_bytes() {
+    try {
+      Table table2 = new Table(source, "test2");
+  
+      assertThat(table2)
+          .row().haveValuesEqualTo(1, true, 2, 3, 4, 5.6, 7.8, TimeValue.of(9, 46, 30),
+              DateValue.of(2014, 5, 24), DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)),
+              bytesDev, "text", 5, 7, null);
+      
+      fail("Une Erreur doit être levée");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Row at index 0 of test2 table] \n" +
+          "Expecting that the value at index 10 to be equal to the expected value but was not equal");
+    }
+  }
 }
