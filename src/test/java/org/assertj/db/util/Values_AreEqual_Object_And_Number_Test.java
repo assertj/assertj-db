@@ -25,6 +25,8 @@ public class Values_AreEqual_Object_And_Number_Test {
     assertThat(Values.areEqual(new BigInteger("1"), new BigInteger("1"))).isTrue();
     assertThat(Values.areEqual(1, new BigInteger("2"))).isFalse();
     assertThat(Values.areEqual(new BigInteger("1"), new BigInteger("2"))).isFalse();
+    assertThat(Values.areEqual(null, (BigInteger) null)).isTrue();
+    assertThat(Values.areEqual(new BigInteger("1"), (BigInteger) null)).isFalse();
   }
 
   /**
@@ -44,6 +46,8 @@ public class Values_AreEqual_Object_And_Number_Test {
     assertThat(Values.areEqual(new BigDecimal("1"), new BigDecimal("1"))).isTrue();
     assertThat(Values.areEqual(1, new BigDecimal("2"))).isFalse();
     assertThat(Values.areEqual(new BigDecimal("1"), new BigDecimal("2"))).isFalse();
+    assertThat(Values.areEqual(null, (BigDecimal) null)).isTrue();
+    assertThat(Values.areEqual(new BigDecimal("1"), (BigDecimal) null)).isFalse();
   }
 
   /**
@@ -71,6 +75,8 @@ public class Values_AreEqual_Object_And_Number_Test {
     assertThat(Values.areEqual(2.5F, 1.5F)).isFalse();
     assertThat(Values.areEqual(1.5F, 1.5D)).isTrue();
     assertThat(Values.areEqual(2.5F, 1.5D)).isFalse();
+    assertThat(Values.areEqual(null, (Float) null)).isTrue();
+    assertThat(Values.areEqual(2.5F, (Float) null)).isFalse();
   }
 
   /**
@@ -90,6 +96,8 @@ public class Values_AreEqual_Object_And_Number_Test {
     assertThat(Values.areEqual(2.5D, 1.5F)).isFalse();
     assertThat(Values.areEqual(1.5D, 1.5D)).isTrue();
     assertThat(Values.areEqual(2.5D, 1.5D)).isFalse();
+    assertThat(Values.areEqual(null, (Double) null)).isTrue();
+    assertThat(Values.areEqual(2.5D, (Double) null)).isFalse();
   }
 
   /**

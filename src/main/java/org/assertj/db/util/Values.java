@@ -242,13 +242,9 @@ public class Values {
    * @param date The date.
    * @param expected The {@code String} representation to compare.
    * @return {@code true} if the date is equal to the {@code String} representation parameter, {@code false} otherwise.
-   * @throws NullPointerException if {@code expected} is {@code null}.
    * @throws AssertJDBException If it is not possible to compare {@code date} to {@code expected}.
    */
   private static boolean areEqual(Date date, String expected) {
-    if (expected == null) {
-      throw new NullPointerException("expected must be not null");
-    }
     try {
       DateValue dateValue = DateValue.from(date);
       DateTimeValue expectedDateTimeValue = DateTimeValue.parse(expected);
@@ -267,13 +263,9 @@ public class Values {
    * @param time The time.
    * @param expected The {@code String} representation to compare.
    * @return {@code true} if the time is equal to the {@code String} representation parameter, {@code false} otherwise.
-   * @throws NullPointerException if {@code expected} is {@code null}.
    * @throws AssertJDBException If it is not possible to compare {@code time} to {@code expected}.
    */
   private static boolean areEqual(Time time, String expected) {
-    if (expected == null) {
-      throw new NullPointerException("expected must be not null");
-    }
     try {
       TimeValue timeValue = TimeValue.from(time);
       TimeValue expectedTimeValue = TimeValue.parse(expected);
@@ -293,13 +285,9 @@ public class Values {
    * @param expected The {@code String} representation to compare.
    * @return {@code true} if the timestamp is equal to the {@code String} representation parameter, {@code false}
    *         otherwise.
-   * @throws NullPointerException if {@code expected} is {@code null}.
    * @throws AssertJDBException If it is not possible to compare {@code timestamp} to {@code expected}.
    */
   private static boolean areEqual(Timestamp timestamp, String expected) {
-    if (expected == null) {
-      throw new NullPointerException("expected must be not null");
-    }
     try {
       DateTimeValue dateTimeValue = DateTimeValue.from(timestamp);
       DateTimeValue expectedDateTimeValue = DateTimeValue.parse(expected);
@@ -323,9 +311,6 @@ public class Values {
    * @throws AssertJDBException If it is not possible to compare {@code number} to {@code expected}.
    */
   private static boolean areEqual(Number number, String expected) {
-    if (expected == null) {
-      throw new NullPointerException("expected must be not null");
-    }
     try {
       if (number instanceof Float) {
         if (((Float) number).floatValue() == Float.parseFloat(expected)) {

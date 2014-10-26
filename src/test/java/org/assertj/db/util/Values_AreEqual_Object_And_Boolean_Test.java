@@ -21,5 +21,7 @@ public class Values_AreEqual_Object_And_Boolean_Test {
     assertThat(Values.areEqual(true, false)).isFalse();
     assertThat(Values.areEqual(false, true)).isFalse();
     assertThat(Values.areEqual(false, false)).isTrue();
+    assertThat(Values.areEqual(null, (Boolean) null)).isTrue();
+    assertThat(Values.areEqual(false, (Boolean) null)).isFalse();
   }
 }

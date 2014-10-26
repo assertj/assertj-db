@@ -24,5 +24,7 @@ public class Values_AreEqual_Object_And_Bytes_Test {
     assertThat(Values.areEqual(bytes, goodBytes)).isTrue();
     assertThat(Values.areEqual(bytes, badBytes)).isFalse();
     assertThat(Values.areEqual("", goodBytes)).isFalse();
+    assertThat(Values.areEqual(null, (byte[]) null)).isTrue();
+    assertThat(Values.areEqual(bytes, (byte[]) null)).isFalse();
   }
 }
