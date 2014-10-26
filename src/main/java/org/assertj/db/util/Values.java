@@ -411,7 +411,7 @@ public class Values {
       Date date = (Date) value;
       DateValue dateValue = DateValue.from(date);
       return dateValue.equals(expected);
-    } else if (value instanceof Timestamp && expected != null) {
+    } else if (value instanceof Timestamp) {
       Timestamp timestamp = (Timestamp) value;
       DateTimeValue dateTimeValue = DateTimeValue.from(timestamp);
       return dateTimeValue.equals(expected);
