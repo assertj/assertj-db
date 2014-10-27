@@ -19,7 +19,7 @@ import org.junit.Test;
 public class Values_AreEqual_Object_And_DateTimeValue_Test {
 
   /**
-   * This method tests the {@code areEqual} method for {@code TimeValue}s.
+   * This method tests the {@code areEqual} method for {@code DateTimeValue}s.
    */
   @Test
   public void test_are_equal_for_timestamps() {
