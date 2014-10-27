@@ -55,12 +55,4 @@ public class Values_AreEqual_DateTime_And_String_Test {
     Values.areEqual(Timestamp.valueOf("2007-12-23 09:01:06.000000003"), "***");
   }
 
-  /**
-   * This method should fail because the expected value is null.
-   */
-  @Test
-  public void should_fail_because_string_is_null_with_datetime() {
-    assertThat(Values.areEqual(Timestamp.valueOf("2007-12-23 09:01:06.000000003"), (String) null)).isFalse();
-  }
-
 }
