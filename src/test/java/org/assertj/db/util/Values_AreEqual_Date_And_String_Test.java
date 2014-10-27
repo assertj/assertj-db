@@ -52,12 +52,4 @@ public class Values_AreEqual_Date_And_String_Test {
     Values.areEqual(Date.valueOf("2007-12-23"), "***");
   }
 
-  /**
-   * This method should fail because the expected value is null.
-   */
-  @Test
-  public void should_fail_because_string_is_null_with_date() {
-    assertThat(Values.areEqual(Date.valueOf("2007-12-23"), (String) null)).isFalse();
-  }
-
 }
