@@ -11,6 +11,12 @@ import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
 import org.junit.Test;
 
+/**
+* Tests on {@code getRepresentationFromValueInFrontOfExpected} method from utility class {@code Values}.
+*
+* @author Régis Pouiller
+*
+*/
 public class Values_GetRepresentationFromValueInFrontOfExpected_Test {
 
   /**
