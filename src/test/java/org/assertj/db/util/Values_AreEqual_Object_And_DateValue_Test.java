@@ -17,7 +17,7 @@ import org.junit.Test;
 public class Values_AreEqual_Object_And_DateValue_Test {
 
   /**
-   * This method tests the {@code areEqual} method for {@code DateValue}s.
+   * This method tests the {@code areEqual} method for {@code DateValue}s and {@code java.sql.Date}.
    */
   @Test
   public void test_are_equal_for_dates() {
@@ -32,7 +32,7 @@ public class Values_AreEqual_Object_And_DateValue_Test {
   }
 
   /**
-   * This method tests the {@code areEqual} method for {@code DateValue}s.
+   * This method tests the {@code areEqual} method for {@code DateValue}s and {@code java.sql.Timestamp}.
    */
   @Test
   public void test_are_equal_for_timestamp_and_dates() {
