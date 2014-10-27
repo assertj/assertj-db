@@ -25,7 +25,7 @@ import org.junit.Test;
 public class Values_AreEqual_Object_And_Object_Test {
 
   /**
-   * This method tests the {@code areEqual} method for {@code Object}s with booleans.
+   * This method tests the {@code areEqual} method for {@code Object}s with {@code null}.
    */
   @Test
   public void test_are_equal_for_null() {
