@@ -40,12 +40,4 @@ public class Values_AreEqual_Time_And_String_Test {
     Values.areEqual(Time.valueOf("09:01:06"), "***");
   }
 
-  /**
-   * This method should fail because the expected value is null.
-   */
-  @Test
-  public void should_fail_because_string_is_null_with_time() {
-    assertThat(Values.areEqual(Time.valueOf("09:01:06"), (String) null)).isFalse();
-  }
-
 }
