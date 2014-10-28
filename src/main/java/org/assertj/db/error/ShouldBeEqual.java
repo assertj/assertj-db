@@ -23,7 +23,7 @@ public class ShouldBeEqual extends BasicErrorMessageFactory {
    * @param pExpected The expected value to compare to.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBeEqual(final Object pActual, final Object pExpected) {
+  public static ErrorMessageFactory shouldBeEqual(Object pActual, Object pExpected) {
     return new ShouldBeEqual(pActual, pExpected);
   }
 
@@ -44,7 +44,7 @@ public class ShouldBeEqual extends BasicErrorMessageFactory {
    * @param pExpected The expected value to compare to.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBeEqual(final int index, final Object pActual, final Object pExpected) {
+  public static ErrorMessageFactory shouldBeEqual(int index, Object pActual, Object pExpected) {
     return new ShouldBeEqual(index, pActual, pExpected);
   }
 
@@ -54,7 +54,7 @@ public class ShouldBeEqual extends BasicErrorMessageFactory {
    * @param index The index of the value.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBeEqual(final int index) {
+  public static ErrorMessageFactory shouldBeEqual(int index) {
     return new ShouldBeEqual(index);
   }
 
@@ -64,7 +64,7 @@ public class ShouldBeEqual extends BasicErrorMessageFactory {
    * @param pActual The actual value in the failed assertion.
    * @param pExpected The expected value to compare to.
    */
-  public ShouldBeEqual(final Object pActual, final Object pExpected) {
+  public ShouldBeEqual(Object pActual, Object pExpected) {
     super(EXPECTED_MESSAGE, pActual, pExpected);
   }
 
@@ -82,7 +82,7 @@ public class ShouldBeEqual extends BasicErrorMessageFactory {
    * @param pActual The actual value in the failed assertion.
    * @param pExpected The expected value to compare to.
    */
-  public ShouldBeEqual(final int index, final Object pActual, final Object pExpected) {
+  public ShouldBeEqual(int index, Object pActual, Object pExpected) {
     super(EXPECTED_MESSAGE_WITH_INDEX, index, pActual, pExpected);
   }
 
@@ -91,7 +91,7 @@ public class ShouldBeEqual extends BasicErrorMessageFactory {
    * 
    * @param index The index of the value.
    */
-  public ShouldBeEqual(final int index) {
+  public ShouldBeEqual(int index) {
     super(EXPECTED_MESSAGE_BUT_NOT_WITH_INDEX, index);
   }
 }

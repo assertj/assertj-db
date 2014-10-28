@@ -81,8 +81,7 @@ public abstract class AbstractDbAssert<E extends AbstractDbData<E>, D extends Ab
    * @param actualValue The actual value on which the assertion is.
    * @param selfType Class of the assertion
    */
-  protected AbstractDbAssert(final E actualValue, final Class<D> selfType, Class<C> columnAssertType,
-      Class<R> rowAssertType) {
+  protected AbstractDbAssert(E actualValue, Class<D> selfType, Class<C> columnAssertType, Class<R> rowAssertType) {
     myself = selfType.cast(this);
     actual = actualValue;
     rowAssertClass = rowAssertType;

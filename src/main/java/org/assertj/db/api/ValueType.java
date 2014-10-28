@@ -56,7 +56,7 @@ public enum ValueType {
    * @param value The actual value
    * @return The type of the actual value
    */
-  public static ValueType getType(final Object value) {
+  public static ValueType getType(Object value) {
     if (value instanceof byte[]) {
       return BYTES;
     }
@@ -93,7 +93,7 @@ public enum ValueType {
    * @param expected The expected value
    * @return The possible types of the actual value
    */
-  public static ValueType[] getPossibleTypesForComparison(final Object expected) {
+  public static ValueType[] getPossibleTypesForComparison(Object expected) {
     if (expected instanceof byte[]) {
       return new ValueType[] { BYTES };
     }

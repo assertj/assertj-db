@@ -18,7 +18,7 @@ public class ShouldBeLess extends BasicErrorMessageFactory {
    * @param pExpected The expected value to compare to.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBeLess(final Object pActual, final Object pExpected) {
+  public static ErrorMessageFactory shouldBeLess(Object pActual, Object pExpected) {
     return new ShouldBeLess(pActual, pExpected);
   }
 
@@ -28,7 +28,7 @@ public class ShouldBeLess extends BasicErrorMessageFactory {
    * @param pActual The actual value in the failed assertion.
    * @param pExpected The expected value to compare to.
    */
-  public ShouldBeLess(final Object pActual, final Object pExpected) {
+  public ShouldBeLess(Object pActual, Object pExpected) {
     super("\nExpecting:\n  <%s>\nto be less than \n  <%s>", pActual, pExpected);
   }
 }

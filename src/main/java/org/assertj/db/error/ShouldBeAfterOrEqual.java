@@ -18,7 +18,7 @@ public class ShouldBeAfterOrEqual extends BasicErrorMessageFactory {
    * @param pExpected The expected value to compare to.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBeAfterOrEqual(final Object pActual, final Object pExpected) {
+  public static ErrorMessageFactory shouldBeAfterOrEqual(Object pActual, Object pExpected) {
     return new ShouldBeAfterOrEqual(pActual, pExpected);
   }
 
@@ -28,7 +28,7 @@ public class ShouldBeAfterOrEqual extends BasicErrorMessageFactory {
    * @param pActual The actual value in the failed assertion.
    * @param pExpected The expected value to compare to.
    */
-  public ShouldBeAfterOrEqual(final Object pActual, final Object pExpected) {
+  public ShouldBeAfterOrEqual(Object pActual, Object pExpected) {
     super("\nExpecting:\n  <%s>\nto be after or equal to \n  <%s>", pActual, pExpected);
   }
 }

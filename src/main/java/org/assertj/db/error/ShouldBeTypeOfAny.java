@@ -25,9 +25,7 @@ public class ShouldBeTypeOfAny extends BasicErrorMessageFactory {
    * @param expected The expected types.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBeTypeOfAny(final Object actual, final ValueType tested,
-      final ValueType... expected) {
-
+  public static ErrorMessageFactory shouldBeTypeOfAny(Object actual, ValueType tested, ValueType... expected) {
     return new ShouldBeTypeOfAny(actual, tested, expected);
   }
 
@@ -40,9 +38,7 @@ public class ShouldBeTypeOfAny extends BasicErrorMessageFactory {
    * @param expected The expected types.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBeTypeOfAny(final int index, final Object actual, final ValueType tested,
-      final ValueType... expected) {
-
+  public static ErrorMessageFactory shouldBeTypeOfAny(int index, Object actual, ValueType tested, ValueType... expected) {
     return new ShouldBeTypeOfAny(index, actual, tested, expected);
   }
 
@@ -53,7 +49,7 @@ public class ShouldBeTypeOfAny extends BasicErrorMessageFactory {
    * @param tested The tested type.
    * @param expected The expected types.
    */
-  public ShouldBeTypeOfAny(final Object actual, final ValueType tested, final ValueType... expected) {
+  public ShouldBeTypeOfAny(Object actual, ValueType tested, ValueType... expected) {
     super(EXPECTED_MESSAGE, actual, expected, tested);
   }
 
@@ -65,7 +61,7 @@ public class ShouldBeTypeOfAny extends BasicErrorMessageFactory {
    * @param tested The tested type.
    * @param expected The expected types.
    */
-  public ShouldBeTypeOfAny(final int index, final Object actual, final ValueType tested, final ValueType... expected) {
+  public ShouldBeTypeOfAny(int index, Object actual, ValueType tested, ValueType... expected) {
     super(EXPECTED_MESSAGE_WITH_INDEX, index, actual, expected, tested);
   }
 

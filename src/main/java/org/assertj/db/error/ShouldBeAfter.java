@@ -18,7 +18,7 @@ public class ShouldBeAfter extends BasicErrorMessageFactory {
    * @param pExpected The expected value to compare to.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBeAfter(final Object pActual, final Object pExpected) {
+  public static ErrorMessageFactory shouldBeAfter(Object pActual, Object pExpected) {
     return new ShouldBeAfter(pActual, pExpected);
   }
 
@@ -28,7 +28,7 @@ public class ShouldBeAfter extends BasicErrorMessageFactory {
    * @param pActual The actual value in the failed assertion.
    * @param pExpected The expected value to compare to.
    */
-  public ShouldBeAfter(final Object pActual, final Object pExpected) {
+  public ShouldBeAfter(Object pActual, Object pExpected) {
     super("\nExpecting:\n  <%s>\nto be after \n  <%s>", pActual, pExpected);
   }
 }

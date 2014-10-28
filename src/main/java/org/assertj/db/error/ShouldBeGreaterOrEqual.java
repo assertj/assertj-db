@@ -19,7 +19,7 @@ public class ShouldBeGreaterOrEqual extends BasicErrorMessageFactory {
    * @param pExpected The expected value to compare to.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBeGreaterOrEqual(final Object pActual, final Object pExpected) {
+  public static ErrorMessageFactory shouldBeGreaterOrEqual(Object pActual, Object pExpected) {
     return new ShouldBeGreaterOrEqual(pActual, pExpected);
   }
 
@@ -29,7 +29,7 @@ public class ShouldBeGreaterOrEqual extends BasicErrorMessageFactory {
    * @param pActual The actual value in the failed assertion.
    * @param pExpected The expected value to compare to.
    */
-  public ShouldBeGreaterOrEqual(final Object pActual, final Object pExpected) {
+  public ShouldBeGreaterOrEqual(Object pActual, Object pExpected) {
     super("\nExpecting:\n  <%s>\nto be greater than or equal to \n  <%s>", pActual, pExpected);
   }
 }
