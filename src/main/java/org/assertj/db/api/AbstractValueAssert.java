@@ -1,6 +1,5 @@
 package org.assertj.db.api;
 
-import static org.assertj.core.error.ShouldNotBeEqual.shouldNotBeEqual;
 import static org.assertj.db.error.ShouldBeAfter.shouldBeAfter;
 import static org.assertj.db.error.ShouldBeAfterOrEqual.shouldBeAfterOrEqual;
 import static org.assertj.db.error.ShouldBeBefore.shouldBeBefore;
