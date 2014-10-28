@@ -14,21 +14,21 @@ public class ShouldBeLess extends BasicErrorMessageFactory {
   /**
    * Creates a new <code>{@link ShouldBeLess}</code>.
    * 
-   * @param pActual The actual value in the failed assertion.
-   * @param pExpected The expected value to compare to.
+   * @param actual The actual value in the failed assertion.
+   * @param expected The expected value to compare to.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBeLess(Object pActual, Object pExpected) {
-    return new ShouldBeLess(pActual, pExpected);
+  public static ErrorMessageFactory shouldBeLess(Object actual, Object expected) {
+    return new ShouldBeLess(actual, expected);
   }
 
   /**
    * Constructor.
    * 
-   * @param pActual The actual value in the failed assertion.
-   * @param pExpected The expected value to compare to.
+   * @param actual The actual value in the failed assertion.
+   * @param expected The expected value to compare to.
    */
-  public ShouldBeLess(Object pActual, Object pExpected) {
-    super("\nExpecting:\n  <%s>\nto be less than \n  <%s>", pActual, pExpected);
+  public ShouldBeLess(Object actual, Object expected) {
+    super("\nExpecting:\n  <%s>\nto be less than \n  <%s>", actual, expected);
   }
 }

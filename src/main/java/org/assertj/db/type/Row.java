@@ -30,12 +30,12 @@ public class Row {
   /**
    * Constructor of the row with visibility in the package.
    * 
-   * @param pColumnsNameList The list of the columns name.
-   * @param pValuesList The values in the row.
+   * @param columnsNameList The list of the columns name.
+   * @param valuesList The values in the row.
    */
-  Row(List<String> pColumnsNameList, List<Object> pValuesList) {
-    this.columnsNameList = pColumnsNameList;
-    this.valuesList = pValuesList;
+  Row(List<String> columnsNameList, List<Object> valuesList) {
+    this.columnsNameList = columnsNameList;
+    this.valuesList = valuesList;
   }
 
   /**

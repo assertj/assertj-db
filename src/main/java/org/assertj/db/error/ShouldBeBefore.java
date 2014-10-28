@@ -14,21 +14,21 @@ public class ShouldBeBefore extends BasicErrorMessageFactory {
   /**
    * Creates a new <code>{@link ShouldBeBefore}</code>.
    * 
-   * @param pActual The actual value in the failed assertion.
-   * @param pExpected The expected value to compare to.
+   * @param actual The actual value in the failed assertion.
+   * @param expected The expected value to compare to.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBeBefore(Object pActual, Object pExpected) {
-    return new ShouldBeBefore(pActual, pExpected);
+  public static ErrorMessageFactory shouldBeBefore(Object actual, Object expected) {
+    return new ShouldBeBefore(actual, expected);
   }
 
   /**
    * Constructor.
    * 
-   * @param pActual The actual value in the failed assertion.
-   * @param pExpected The expected value to compare to.
+   * @param actual The actual value in the failed assertion.
+   * @param expected The expected value to compare to.
    */
-  public ShouldBeBefore(Object pActual, Object pExpected) {
-    super("\nExpecting:\n  <%s>\nto be before \n  <%s>", pActual, pExpected);
+  public ShouldBeBefore(Object actual, Object expected) {
+    super("\nExpecting:\n  <%s>\nto be before \n  <%s>", actual, expected);
   }
 }

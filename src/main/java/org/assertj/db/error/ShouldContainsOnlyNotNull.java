@@ -14,19 +14,19 @@ public class ShouldContainsOnlyNotNull extends BasicErrorMessageFactory {
   /**
    * Creates a new <code>{@link ShouldContainsOnlyNotNull}</code>.
    * 
-   * @param pIndex The index of value in the failed assertion.
+   * @param index The index of value in the failed assertion.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldContainsOnlyNotNull(int pIndex) {
-    return new ShouldContainsOnlyNotNull(pIndex);
+  public static ErrorMessageFactory shouldContainsOnlyNotNull(int index) {
+    return new ShouldContainsOnlyNotNull(index);
   }
 
   /**
    * Constructor.
    * 
-   * @param pIndex The index of value in the failed assertion.
+   * @param index The index of value in the failed assertion.
    */
-  public ShouldContainsOnlyNotNull(int pIndex) {
-    super("\nExpecting to contain only not null:\nbut contains null at index: %s", pIndex);
+  public ShouldContainsOnlyNotNull(int index) {
+    super("\nExpecting to contain only not null:\nbut contains null at index: %s", index);
   }
 }

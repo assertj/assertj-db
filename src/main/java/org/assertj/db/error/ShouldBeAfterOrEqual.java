@@ -14,21 +14,21 @@ public class ShouldBeAfterOrEqual extends BasicErrorMessageFactory {
   /**
    * Creates a new <code>{@link ShouldBeAfterOrEqual}</code>.
    * 
-   * @param pActual The actual value in the failed assertion.
-   * @param pExpected The expected value to compare to.
+   * @param actual The actual value in the failed assertion.
+   * @param expected The expected value to compare to.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBeAfterOrEqual(Object pActual, Object pExpected) {
-    return new ShouldBeAfterOrEqual(pActual, pExpected);
+  public static ErrorMessageFactory shouldBeAfterOrEqual(Object actual, Object expected) {
+    return new ShouldBeAfterOrEqual(actual, expected);
   }
 
   /**
    * Constructor.
    * 
-   * @param pActual The actual value in the failed assertion.
-   * @param pExpected The expected value to compare to.
+   * @param actual The actual value in the failed assertion.
+   * @param expected The expected value to compare to.
    */
-  public ShouldBeAfterOrEqual(Object pActual, Object pExpected) {
-    super("\nExpecting:\n  <%s>\nto be after or equal to \n  <%s>", pActual, pExpected);
+  public ShouldBeAfterOrEqual(Object actual, Object expected) {
+    super("\nExpecting:\n  <%s>\nto be after or equal to \n  <%s>", actual, expected);
   }
 }

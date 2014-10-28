@@ -19,12 +19,12 @@ public class ShouldBeEqual extends BasicErrorMessageFactory {
   /**
    * Creates a new <code>{@link ShouldBeEqual.java}</code>.
    * 
-   * @param pActual The actual value in the failed assertion.
-   * @param pExpected The expected value to compare to.
+   * @param actual The actual value in the failed assertion.
+   * @param expected The expected value to compare to.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBeEqual(Object pActual, Object pExpected) {
-    return new ShouldBeEqual(pActual, pExpected);
+  public static ErrorMessageFactory shouldBeEqual(Object actual, Object expected) {
+    return new ShouldBeEqual(actual, expected);
   }
 
   /**
@@ -40,12 +40,12 @@ public class ShouldBeEqual extends BasicErrorMessageFactory {
    * Creates a new <code>{@link ShouldBeEqual.java}</code>.
    * 
    * @param index The index of the value.
-   * @param pActual The actual value in the failed assertion.
-   * @param pExpected The expected value to compare to.
+   * @param actual The actual value in the failed assertion.
+   * @param expected The expected value to compare to.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBeEqual(int index, Object pActual, Object pExpected) {
-    return new ShouldBeEqual(index, pActual, pExpected);
+  public static ErrorMessageFactory shouldBeEqual(int index, Object actual, Object expected) {
+    return new ShouldBeEqual(index, actual, expected);
   }
 
   /**
@@ -61,11 +61,11 @@ public class ShouldBeEqual extends BasicErrorMessageFactory {
   /**
    * Constructor.
    * 
-   * @param pActual The actual value in the failed assertion.
-   * @param pExpected The expected value to compare to.
+   * @param actual The actual value in the failed assertion.
+   * @param expected The expected value to compare to.
    */
-  public ShouldBeEqual(Object pActual, Object pExpected) {
-    super(EXPECTED_MESSAGE, pActual, pExpected);
+  public ShouldBeEqual(Object actual, Object expected) {
+    super(EXPECTED_MESSAGE, actual, expected);
   }
 
   /**
@@ -79,11 +79,11 @@ public class ShouldBeEqual extends BasicErrorMessageFactory {
    * Constructor.
    * 
    * @param index The index of the value.
-   * @param pActual The actual value in the failed assertion.
-   * @param pExpected The expected value to compare to.
+   * @param actual The actual value in the failed assertion.
+   * @param expected The expected value to compare to.
    */
-  public ShouldBeEqual(int index, Object pActual, Object pExpected) {
-    super(EXPECTED_MESSAGE_WITH_INDEX, index, pActual, pExpected);
+  public ShouldBeEqual(int index, Object actual, Object expected) {
+    super(EXPECTED_MESSAGE_WITH_INDEX, index, actual, expected);
   }
 
   /**

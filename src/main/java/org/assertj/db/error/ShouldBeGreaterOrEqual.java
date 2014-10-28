@@ -15,21 +15,21 @@ public class ShouldBeGreaterOrEqual extends BasicErrorMessageFactory {
   /**
    * Creates a new <code>{@link ShouldBeGreaterOrEqual}</code>.
    * 
-   * @param pActual The actual value in the failed assertion.
-   * @param pExpected The expected value to compare to.
+   * @param actual The actual value in the failed assertion.
+   * @param expected The expected value to compare to.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBeGreaterOrEqual(Object pActual, Object pExpected) {
-    return new ShouldBeGreaterOrEqual(pActual, pExpected);
+  public static ErrorMessageFactory shouldBeGreaterOrEqual(Object actual, Object expected) {
+    return new ShouldBeGreaterOrEqual(actual, expected);
   }
 
   /**
    * Constructor.
    * 
-   * @param pActual The actual value in the failed assertion.
-   * @param pExpected The expected value to compare to.
+   * @param actual The actual value in the failed assertion.
+   * @param expected The expected value to compare to.
    */
-  public ShouldBeGreaterOrEqual(Object pActual, Object pExpected) {
-    super("\nExpecting:\n  <%s>\nto be greater than or equal to \n  <%s>", pActual, pExpected);
+  public ShouldBeGreaterOrEqual(Object actual, Object expected) {
+    super("\nExpecting:\n  <%s>\nto be greater than or equal to \n  <%s>", actual, expected);
   }
 }

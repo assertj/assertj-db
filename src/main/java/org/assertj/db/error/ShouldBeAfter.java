@@ -14,21 +14,21 @@ public class ShouldBeAfter extends BasicErrorMessageFactory {
   /**
    * Creates a new <code>{@link ShouldBeAfter}</code>.
    * 
-   * @param pActual The actual value in the failed assertion.
-   * @param pExpected The expected value to compare to.
+   * @param actual The actual value in the failed assertion.
+   * @param expected The expected value to compare to.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBeAfter(Object pActual, Object pExpected) {
-    return new ShouldBeAfter(pActual, pExpected);
+  public static ErrorMessageFactory shouldBeAfter(Object actual, Object expected) {
+    return new ShouldBeAfter(actual, expected);
   }
 
   /**
    * Constructor.
    * 
-   * @param pActual The actual value in the failed assertion.
-   * @param pExpected The expected value to compare to.
+   * @param actual The actual value in the failed assertion.
+   * @param expected The expected value to compare to.
    */
-  public ShouldBeAfter(Object pActual, Object pExpected) {
-    super("\nExpecting:\n  <%s>\nto be after \n  <%s>", pActual, pExpected);
+  public ShouldBeAfter(Object actual, Object expected) {
+    super("\nExpecting:\n  <%s>\nto be after \n  <%s>", actual, expected);
   }
 }

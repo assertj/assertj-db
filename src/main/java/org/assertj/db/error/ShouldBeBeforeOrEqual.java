@@ -14,21 +14,21 @@ public class ShouldBeBeforeOrEqual extends BasicErrorMessageFactory {
   /**
    * Creates a new <code>{@link ShouldBeBeforeOrEqual}</code>.
    * 
-   * @param pActual The actual value in the failed assertion.
-   * @param pExpected The expected value to compare to.
+   * @param actual The actual value in the failed assertion.
+   * @param expected The expected value to compare to.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBeBeforeOrEqual(Object pActual, Object pExpected) {
-    return new ShouldBeBeforeOrEqual(pActual, pExpected);
+  public static ErrorMessageFactory shouldBeBeforeOrEqual(Object actual, Object expected) {
+    return new ShouldBeBeforeOrEqual(actual, expected);
   }
 
   /**
    * Constructor.
    * 
-   * @param pActual The actual value in the failed assertion.
-   * @param pExpected The expected value to compare to.
+   * @param actual The actual value in the failed assertion.
+   * @param expected The expected value to compare to.
    */
-  public ShouldBeBeforeOrEqual(Object pActual, Object pExpected) {
-    super("\nExpecting:\n  <%s>\nto be before or equal to \n  <%s>", pActual, pExpected);
+  public ShouldBeBeforeOrEqual(Object actual, Object expected) {
+    super("\nExpecting:\n  <%s>\nto be before or equal to \n  <%s>", actual, expected);
   }
 }
