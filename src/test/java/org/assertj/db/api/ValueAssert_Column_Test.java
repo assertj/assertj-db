@@ -15,6 +15,8 @@ package org.assertj.db.api;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.db.api.Assertions.assertThat;
 
+import java.lang.reflect.Field;
+
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
@@ -30,19 +32,45 @@ public class ValueAssert_Column_Test extends AbstractTest {
 
   /**
    * This method tests the result of {@code column} methods on values assert from a row of a table.
+   * 
+   * @throws IllegalAccessException
+   * @throws IllegalArgumentException
+   * @throws NoSuchFieldException
+   * @throws SecurityException
    */
   @Test
-  public void test_with_table_and_row() {
+  public void test_with_table_and_row() throws IllegalArgumentException, IllegalAccessException,
+      SecurityException, NoSuchFieldException {
+
     Table table = new Table(source, "test");
 
     TableAssert tableAssert = assertThat(table);
-    TableColumnAssert columnAssert = tableAssert.column(1);
     TableRowValueAssert valueAssert = tableAssert.row().value(1);
 
+    Field field = AbstractDbAssert.class.getDeclaredField("indexNextColumn");
+    field.setAccessible(true);
+
+    TableColumnAssert columnAssert0 = valueAssert.column().column();
+    int index0 = field.getInt(tableAssert);
+    TableColumnAssert columnAssert1 = valueAssert.column(0).column();
+    int index1 = field.getInt(tableAssert);
+    TableColumnAssert columnAssert2 = valueAssert.column(1);
+    int index2 = field.getInt(tableAssert);
+    TableColumnAssert columnAssert3 = valueAssert.column("var2");
+    int index3 = field.getInt(tableAssert);
+
+    assertThat(index0).isEqualTo(2);
+    assertThat(index1).isEqualTo(2);
+    assertThat(index2).isEqualTo(2);
+    assertThat(index3).isEqualTo(2);
+
+    TableColumnAssert columnAssert = tableAssert.column(1);
+
     assertThat(columnAssert)
-        .isSameAs(valueAssert.column(0).column())
-        .isSameAs(valueAssert.column(1))
-        .isSameAs(valueAssert.column("var2"));
+        .isSameAs(columnAssert0)
+        .isSameAs(columnAssert1)
+        .isSameAs(columnAssert2)
+        .isSameAs(columnAssert3);
   }
 
   /**
@@ -63,19 +91,45 @@ public class ValueAssert_Column_Test extends AbstractTest {
 
   /**
    * This method tests the result of {@code column} methods on values assert from a row of a request.
+   * 
+   * @throws IllegalAccessException
+   * @throws IllegalArgumentException
+   * @throws NoSuchFieldException
+   * @throws SecurityException
    */
   @Test
-  public void test_with_request_and_row() {
+  public void test_with_request_and_row() throws IllegalArgumentException, IllegalAccessException,
+      SecurityException, NoSuchFieldException {
+
     Request request = new Request(source, "select * from test");
 
     RequestAssert requestAssert = assertThat(request);
-    RequestColumnAssert columnAssert = requestAssert.column(1);
     RequestRowValueAssert valueAssert = requestAssert.row().value(1);
 
+    Field field = AbstractDbAssert.class.getDeclaredField("indexNextColumn");
+    field.setAccessible(true);
+
+    RequestColumnAssert columnAssert0 = valueAssert.column().column();
+    int index0 = field.getInt(requestAssert);
+    RequestColumnAssert columnAssert1 = valueAssert.column(0).column();
+    int index1 = field.getInt(requestAssert);
+    RequestColumnAssert columnAssert2 = valueAssert.column(1);
+    int index2 = field.getInt(requestAssert);
+    RequestColumnAssert columnAssert3 = valueAssert.column("var2");
+    int index3 = field.getInt(requestAssert);
+
+    assertThat(index0).isEqualTo(2);
+    assertThat(index1).isEqualTo(2);
+    assertThat(index2).isEqualTo(2);
+    assertThat(index3).isEqualTo(2);
+
+    RequestColumnAssert columnAssert = requestAssert.column(1);
+
     assertThat(columnAssert)
-        .isSameAs(valueAssert.column(0).column())
-        .isSameAs(valueAssert.column(1))
-        .isSameAs(valueAssert.column("var2"));
+        .isSameAs(columnAssert0)
+        .isSameAs(columnAssert1)
+        .isSameAs(columnAssert2)
+        .isSameAs(columnAssert3);
   }
 
   /**

@@ -96,7 +96,7 @@ public class Assertions_BytesContent_Test {
    * @throws Throwable
    */
   @Test(expected = AssertJDBException.class)
-  public void should_throw_an_AssertJDBException_when_IOException_during_reading() throws Throwable {
+  public void should_throw_an_AssertJDBException_when_IOException_during_reading_and_closing() throws Throwable {
     InputStream inputStream = new BufferedInputStream(new ByteArrayInputStream(new byte[0])) {
 
       @Override
@@ -106,6 +106,32 @@ public class Assertions_BytesContent_Test {
 
       @Override
       public void close() throws IOException {
+        throw new IOException();
+      }
+    };
+    
+    Class<?> assertionClass = Assertions.class;
+    Method method = assertionClass.getDeclaredMethod("read", InputStream.class);
+    method.setAccessible(true);
+    try {
+      method.invoke(null, inputStream);
+    } catch (InvocationTargetException e) {
+      throw e.getCause();
+    }
+  }
+
+  /**
+   * This method should throw an {@code AssertJDBException} when the {@code InputStream} throw an {@code IOException}
+   * during the reading.
+   * 
+   * @throws Throwable
+   */
+  @Test(expected = AssertJDBException.class)
+  public void should_throw_an_AssertJDBException_when_IOException_during_reading() throws Throwable {
+    InputStream inputStream = new BufferedInputStream(new ByteArrayInputStream(new byte[0])) {
+
+      @Override
+      public synchronized int read() throws IOException {
         throw new IOException();
       }
     };

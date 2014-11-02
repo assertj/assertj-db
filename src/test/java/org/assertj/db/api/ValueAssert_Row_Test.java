@@ -15,6 +15,8 @@ package org.assertj.db.api;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.db.api.Assertions.assertThat;
 
+import java.lang.reflect.Field;
+
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
@@ -45,18 +47,41 @@ public class ValueAssert_Row_Test extends AbstractTest {
 
   /**
    * This method tests the result of {@code row} methods on values assert from a column of a table.
+   * 
+   * @throws IllegalAccessException
+   * @throws IllegalArgumentException
+   * @throws NoSuchFieldException
+   * @throws SecurityException
    */
   @Test
-  public void test_with_table_and_column() {
+  public void test_with_table_and_column() throws IllegalArgumentException, IllegalAccessException,
+      SecurityException, NoSuchFieldException {
+
     Table table = new Table(source, "test");
 
     TableAssert tableAssert = assertThat(table);
-    TableRowAssert rowAssert = tableAssert.row(1);
     TableColumnValueAssert valueAssert = tableAssert.column().value(1);
 
+    Field field = AbstractDbAssert.class.getDeclaredField("indexNextRow");
+    field.setAccessible(true);
+
+    TableRowAssert rowAssert0 = valueAssert.row().row();
+    int index0 = field.getInt(tableAssert);
+    TableRowAssert rowAssert1 = valueAssert.row(0).row();
+    int index1 = field.getInt(tableAssert);
+    TableRowAssert rowAssert2 = valueAssert.row(1);
+    int index2 = field.getInt(tableAssert);
+
+    assertThat(index0).isEqualTo(2);
+    assertThat(index1).isEqualTo(2);
+    assertThat(index2).isEqualTo(2);
+
+    TableRowAssert rowAssert = tableAssert.row(1);
+
     assertThat(rowAssert)
-        .isSameAs(valueAssert.row(0).row())
-        .isSameAs(valueAssert.row(1));
+        .isSameAs(rowAssert0)
+        .isSameAs(rowAssert1)
+        .isSameAs(rowAssert2);
   }
 
   /**
@@ -76,17 +101,40 @@ public class ValueAssert_Row_Test extends AbstractTest {
 
   /**
    * This method tests the result of {@code row} methods on values assert from a column of a request.
+   * 
+   * @throws IllegalAccessException
+   * @throws IllegalArgumentException
+   * @throws NoSuchFieldException
+   * @throws SecurityException
    */
   @Test
-  public void test_with_request_and_column() {
+  public void test_with_request_and_column() throws IllegalArgumentException, IllegalAccessException,
+      SecurityException, NoSuchFieldException {
+
     Request request = new Request(source, "select * from test");
 
     RequestAssert requestAssert = assertThat(request);
-    RequestRowAssert rowAssert = requestAssert.row(1);
     RequestColumnValueAssert valueAssert = requestAssert.column().value(1);
 
+    Field field = AbstractDbAssert.class.getDeclaredField("indexNextRow");
+    field.setAccessible(true);
+
+    RequestRowAssert rowAssert0 = valueAssert.row().row();
+    int index0 = field.getInt(requestAssert);
+    RequestRowAssert rowAssert1 = valueAssert.row(0).row();
+    int index1 = field.getInt(requestAssert);
+    RequestRowAssert rowAssert2 = valueAssert.row(1);
+    int index2 = field.getInt(requestAssert);
+
+    assertThat(index0).isEqualTo(2);
+    assertThat(index1).isEqualTo(2);
+    assertThat(index2).isEqualTo(2);
+
+    RequestRowAssert rowAssert = requestAssert.row(1);
+
     assertThat(rowAssert)
-        .isSameAs(valueAssert.row(0).row())
-        .isSameAs(valueAssert.row(1));
+        .isSameAs(rowAssert0)
+        .isSameAs(rowAssert1)
+        .isSameAs(rowAssert2);
   }
 }
