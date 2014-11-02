@@ -101,16 +101,16 @@ public class ValueAssert_IsEqualTo_DateTimeValue_Test extends AbstractTest {
     try {
       Table table = new Table(source, "test");
       assertThat(table).column("var9").value(2)
-          .isEqualTo(DateValue.of(2014, 5, 25));
+          .isEqualTo(DateTimeValue.of(DateValue.of(2014, 5, 25)));
       
       fail("Une Erreur doit être levée");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 2 of Column at index 8 of test table] \n" +
           "Expecting:\n" +
-          "  <2014-05-30>\n" +
+          "  <2014-05-30T00:00:00.000000000>\n" +
           "to be equal to: \n" +
-          "  <2014-05-25>");
+          "  <2014-05-25T00:00:00.000000000>");
     }
   }
 }
