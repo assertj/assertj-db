@@ -27,10 +27,10 @@ import javax.sql.DataSource;
  * {@link Source}.
  * </p>
  * 
- * <pre>
+ * <pre><code class='java'>
  * Source source = new Source(&quot;jdbc:h2:mem:test&quot;, &quot;sa&quot;, &quot;&quot;);
  * Table table = new Table(source, &quot;movie&quot;);
- * </pre>
+ * </code></pre>
  * 
  * </li>
  * <li>
@@ -42,11 +42,11 @@ import javax.sql.DataSource;
  * The {@link Table} use a {@code DataSource} instead of a {@link Source} like above.
  * </p>
  * 
- * <pre>
+ * <pre><code class='java'>
  * DataSource dataSource = ...;
  * Table table1 = new Table(dataSource, &quot;song&quot;, new String[] { &quot;number&quot;, &quot;title&quot; }, null);
  * Table table2 = new Table(dataSource, &quot;musician&quot;, null, new String[] { &quot;birthday&quot; });
- * </pre>
+ * </code></pre>
  * 
  * </li>
  * </ul>

@@ -200,16 +200,16 @@ public abstract class AbstractSubAssert<E extends AbstractDbData<E>, D extends A
    * Example where the assertion verifies that the first row of the table have 8 columns :
    * </p>
    * 
-   * <pre>
+   * <pre><code class='java'>
    * assertThat(table).row().hasSize(8);
-   * </pre>
+   * </code></pre>
    * <p>
    * Example where the assertion verifies that the column with index 1 of the table have 5 rows :
    * </p>
    * 
-   * <pre>
+   * <pre><code class='java'>
    * assertThat(table).column(1).hasSize(5);
-   * </pre>
+   * </code></pre>
    * 
    * @param expected The number to compare to the size.
    * @return {@code this} assertion object.

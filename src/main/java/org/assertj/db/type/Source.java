@@ -4,9 +4,9 @@ package org.assertj.db.type;
  * A source to indicates the informations to connect to the database. It contains the url, user and password to the
  * database. A source is used by a {@link Table} or a {@link Request}.
  * <p>Example of instantiation :</p>
- * <pre>
+ * <pre><code class='java'>
  * Source source = new Source("jdbc:h2:mem:test", "sa", "");
- * </pre>
+ * </code></pre>
  * <p>That creates a source to a H2 database in memory.</p>
  * 
  * @author Régis Pouiller

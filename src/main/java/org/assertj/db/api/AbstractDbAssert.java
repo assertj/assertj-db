@@ -120,9 +120,9 @@ public abstract class AbstractDbAssert<E extends AbstractDbData<E>, D extends Ab
    * Example where the assertion verifies that the table have 2 rows :
    * </p>
    * 
-   * <pre>
+   * <pre><code class='java'>
    * assertThat(table).hasRowsSize(2);
-   * </pre>
+   * </code></pre>
    * 
    * @param expected The number to compare to the number of rows.
    * @return {@code this} assertion object.
@@ -143,9 +143,9 @@ public abstract class AbstractDbAssert<E extends AbstractDbData<E>, D extends Ab
    * Example where the assertion verifies that the table have 8 columns :
    * </p>
    * 
-   * <pre>
+   * <pre><code class='java'>
    * assertThat(table).hasColumnsSize(8);
-   * </pre>
+   * </code></pre>
    * 
    * @param expected The number to compare to the number of columns.
    * @return {@code this} assertion object.

@@ -79,17 +79,17 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
    * is of type {@code TEXT} :
    * </p>
    * 
-   * <pre>
+   * <pre><code class='java'>
    * assertThat(table).column(&quot;title&quot;).isOfType(ValueType.TEXT, false);
-   * </pre>
+   * </code></pre>
    * <p>
    * Example where the assertion verifies that all the values in the {@code Column} called "title" of the {@code Table}
    * is of type {@code TEXT} or not identified (for example {@code null}) :
    * </p>
    * 
-   * <pre>
+   * <pre><code class='java'>
    * assertThat(table).column(&quot;title&quot;).isOfType(ValueType.TEXT, true);
-   * </pre>
+   * </code></pre>
    * 
    * @param expected The expected type to compare to.
    * @param lenient {@code true} if the test is lenient : if the type of a value is not identified (for example when the
@@ -120,9 +120,9 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
    * of type {@code TEXT} or of type {@code NUMBER} :
    * </p>
    * 
-   * <pre>
+   * <pre><code class='java'>
    * assertThat(table).column(&quot;title&quot;).isOfAnyOfTypes(ValueType.TEXT, ValueType.NUMBER);
-   * </pre>
+   * </code></pre>
    * 
    * @param expected The expected types to compare to.
    * @return {@code this} assertion object.
@@ -150,9 +150,9 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
    * {@code Row} of the {@code Table} is a number :
    * </p>
    * 
-   * <pre>
+   * <pre><code class='java'>
    * assertThat(table).column(&quot;year&quot;).isNumber(true);
-   * </pre>
+   * </code></pre>
    * 
    * @param lenient {@code true} if the test is lenient : if the type of a value is not identified (for example when the
    *          value is {@code null}), it consider that it is ok.
@@ -170,9 +170,9 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
    * the {@code Table} is a boolean :
    * </p>
    * 
-   * <pre>
+   * <pre><code class='java'>
    * assertThat(table).column().isBoolean(false);
-   * </pre>
+   * </code></pre>
    * 
    * @param lenient {@code true} if the test is lenient : if the type of a value is not identified (for example when the
    *          value is {@code null}), it consider that it is ok.
@@ -190,9 +190,9 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
    * {@code Row} of the {@code Table} is a date :
    * </p>
    * 
-   * <pre>
+   * <pre><code class='java'>
    * assertThat(table).column(&quot;birth&quot;).isDate(false);
-   * </pre>
+   * </code></pre>
    * 
    * @param lenient {@code true} if the test is lenient : if the type of a value is not identified (for example when the
    *          value is {@code null}), it consider that it is ok.
@@ -210,9 +210,9 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
    * the {@code Table} is a time :
    * </p>
    * 
-   * <pre>
+   * <pre><code class='java'>
    * assertThat(table).column().isTime(false);
-   * </pre>
+   * </code></pre>
    * 
    * @param lenient {@code true} if the test is lenient : if the type of a value is not identified (for example when the
    *          value is {@code null}), it consider that it is ok.
@@ -230,9 +230,9 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
    * the {@code Table} is a date/time :
    * </p>
    * 
-   * <pre>
+   * <pre><code class='java'>
    * assertThat(table).column().isDateTime(false);
-   * </pre>
+   * </code></pre>
    * 
    * @param lenient {@code true} if the test is lenient : if the type of a value is not identified (for example when the
    *          value is {@code null}), it consider that it is ok.
@@ -250,9 +250,9 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
    * the {@code Table} is a array of bytes :
    * </p>
    * 
-   * <pre>
+   * <pre><code class='java'>
    * assertThat(table).column().isBytes(false);
-   * </pre>
+   * </code></pre>
    * 
    * @param lenient {@code true} if the test is lenient : if the type of a value is not identified (for example when the
    *          value is {@code null}), it consider that it is ok.
@@ -270,9 +270,9 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
    * {@code Row} of the {@code Table} is a text :
    * </p>
    * 
-   * <pre>
+   * <pre><code class='java'>
    * assertThat(table).column(&quot;title&quot;).isText(false);
-   * </pre>
+   * </code></pre>
    * 
    * @param lenient {@code true} if the test is lenient : if the type of a value is not identified (for example when the
    *          value is {@code null}), it consider that it is ok.
@@ -290,9 +290,9 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
    * {@code null} :
    * </p>
    * 
-   * <pre>
+   * <pre><code class='java'>
    * assertThat(table).column().haveOnlyNullValues();
-   * </pre>
+   * </code></pre>
    * 
    * @return {@code this} assertion object.
    * @throws AssertionError If at least one of the values of the column are not {@code null}.
@@ -315,9 +315,9 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
    * {@code null} :
    * </p>
    * 
-   * <pre>
+   * <pre><code class='java'>
    * assertThat(table).column().haveOnlyNotNullValues();
-   * </pre>
+   * </code></pre>
    * 
    * @return {@code this} assertion object.
    * @throws AssertionError If at least one of the values of the column are {@code null}.
@@ -340,9 +340,9 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
    * the booleans in parameter :
    * </p>
    * 
-   * <pre>
+   * <pre><code class='java'>
    * assertThat(table).column().haveValuesEqualTo(true, false, true);
-   * </pre>
+   * </code></pre>
    * 
    * @param expected The expected boolean values.
    * @return {@code this} assertion object.
@@ -369,9 +369,9 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
    * the numbers in parameter :
    * </p>
    * 
-   * <pre>
+   * <pre><code class='java'>
    * assertThat(table).column().haveValuesEqualTo(5, 10.5, 6);
-   * </pre>
+   * </code></pre>
    * 
    * @param expected The expected numbers values.
    * @return {@code this} assertion object.
@@ -399,11 +399,11 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
    * arrays of bytes loaded from files in the classpath :
    * </p>
    * 
-   * <pre>
+   * <pre><code class='java'>
    * byte[] bytes1 = bytesContentFromClassPathOf(&quot;file1.png&quot;);
    * byte[] bytes2 = bytesContentFromClassPathOf(&quot;file2.png&quot;);
    * assertThat(table).column().haveValuesEqualTo(bytes1, bytes2);
-   * </pre>
+   * </code></pre>
    * 
    * @param expected The expected bytes values.
    * @return {@code this} assertion object.
@@ -429,9 +429,9 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
    * the texts in parameter :
    * </p>
    * 
-   * <pre>
+   * <pre><code class='java'>
    * assertThat(table).column().haveValuesEqualTo(&quot;text&quot;, &quot;text2&quot;, &quot;text3&quot;);
-   * </pre>
+   * </code></pre>
    * 
    * @param expected The expected text values.
    * @return {@code this} assertion object.
@@ -459,10 +459,10 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
    * the date values in parameter :
    * </p>
    * 
-   * <pre>
+   * <pre><code class='java'>
    * assertThat(table).column().haveValuesEqualTo(DateValue.of(2014, 7, 7), DateValue.of(2014, 10, 3),
    *     DateValue.of(2014, 12, 23));
-   * </pre>
+   * </code></pre>
    * 
    * @param expected The expected date values.
    * @return {@code this} assertion object.
@@ -489,9 +489,9 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
    * the time values in parameter :
    * </p>
    * 
-   * <pre>
+   * <pre><code class='java'>
    * assertThat(table).column().haveValuesEqualTo(TimeValue.of(21, 29, 30), TimeValue.of(10, 1, 25), TimeValue.of(9, 1));
-   * </pre>
+   * </code></pre>
    * 
    * @param expected The expected time values.
    * @return {@code this} assertion object.
@@ -518,11 +518,11 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
    * the date/time values in parameter :
    * </p>
    * 
-   * <pre>
+   * <pre><code class='java'>
    * assertThat(table).column().haveValuesEqualTo(DateTimeValue.of(DateValue.of(2014, 7, 7), TimeValue.of(21, 29)),
    *     DateTimeValue.of(DateValue.of(2014, 7, 7), TimeValue.of(10, 1, 25)),
    *     DateTimeValue.of(DateValue.of(2014, 7, 7), TimeValue.of(9, 1)));
-   * </pre>
+   * </code></pre>
    * 
    * @param expected The expected date/time values.
    * @return {@code this} assertion object.

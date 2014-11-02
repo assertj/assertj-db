@@ -19,7 +19,7 @@ import org.assertj.db.type.Table;
  * table that the {@code title} column contains "Alien" like text and the next column contains 1979 like number :
  * </p>
  * 
- * <pre>
+ * <pre><code class='java'>
  * Source source = new Source(&quot;jdbc:h2:mem:test&quot;, &quot;sa&quot;, &quot;&quot;);
  * Table table = new Table(source, &quot;movie&quot;);
  * assertThat(table)
@@ -29,26 +29,26 @@ import org.assertj.db.type.Table;
  *        .returnToRow()
  *        .value()
  *            .isEqualTo(1979);
- * </pre>
+ * </code></pre>
  * 
  * <p>
  * It is possible to chain assertion on a value :
  * </p>
  * 
- * <pre>
+ * <pre><code class='java'>
  * asserThat(table)
  *     .row()
  *         .value("title")
  *             .isText()
  *             .isEqualTo("Alien");
- * </pre>
+ * </code></pre>
  * 
  * <p>
  * It is not necessary to use the <code>returnToXxxx</code> methods.
  * The next example is equivalent to the first :
  * </p>
  * 
- * <pre>
+ * <pre><code class='java'>
  * Source source = new Source(&quot;jdbc:h2:mem:test&quot;, &quot;sa&quot;, &quot;&quot;);
  * Table table = new Table(source, &quot;movie&quot;);
  * assertThat(table)
@@ -57,13 +57,13 @@ import org.assertj.db.type.Table;
  *            .isEqualTo("Alien")
  *        .value()
  *            .isEqualTo(1979);
- * </pre>
+ * </code></pre>
  * 
  * <p>
  * It is possible to do the same thing with column and the row :
  * </p>
  * 
- * <pre>
+ * <pre><code class='java'>
  * assertThat(table)
  *     .row()
  *        .value("title")
@@ -74,7 +74,7 @@ import org.assertj.db.type.Table;
  *     .column("year")
  *         .value(1)
  *            .equalTo(2004);
- * </pre>
+ * </code></pre>
  * 
  * @author Régis Pouiller
  * 

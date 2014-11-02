@@ -96,9 +96,9 @@ public abstract class AbstractRowAssert<E extends AbstractDbData<E>, D extends A
    * values in parameter :
    * </p>
    * 
-   * <pre>
+   * <pre><code class='java'>
    * assertThat(table).row().haveValuesEqualTo(1, &quot;Text&quot;, TimeValue.of(9, 1));
-   * </pre>
+   * </code></pre>
    * 
    * @param expected The expected values.
    * @return {@code this} assertion object.

@@ -26,10 +26,10 @@ import javax.sql.DataSource;
  * {@link Source}.
  * </p>
  * 
- * <pre>
+ * <pre><code class='java'>
  * Source source = new Source(&quot;jdbc:h2:mem:test&quot;, &quot;sa&quot;, &quot;&quot;);
  * Request request = new Request(source, &quot;select title from movie;&quot;);
- * </pre>
+ * </code></pre>
  * 
  * </li>
  * <li>
@@ -38,12 +38,12 @@ import javax.sql.DataSource;
  * The {@link Request} use a {@code DataSource} instead of a {@link Source} like above.
  * </p>
  * 
- * <pre>
+ * <pre><code class='java'>
  * DataSource dataSource = ...;
  * Request request = new Request(dataSource, "select title from movie where year > ?;", 2000);
- * </pre>
+ * </code></pre>
  * 
- * </pre></li>
+ * </li>
  * </ul>
  * 
  * @author Régis Pouiller
