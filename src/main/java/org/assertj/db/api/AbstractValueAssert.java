@@ -1,13 +1,13 @@
 /**
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
- *
+ * 
  * Copyright 2012-2014 the original author or authors.
  */
 package org.assertj.db.api;
@@ -44,6 +44,7 @@ import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.Row;
 import org.assertj.db.type.TimeValue;
+import org.assertj.db.util.Values;
 
 /**
  * Assertion methods about the value.
@@ -60,7 +61,7 @@ import org.assertj.db.type.TimeValue;
  * @param <R> The class of the equivalent row assert (an sub-class of {@link AbstractRowAssert}).
  * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
-public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends AbstractDbAssert<E, D, C, CV, R, RV>, S extends AbstractSubAssert<E, D, S, V, C, CV, R, RV>, V extends AbstractValueAssert<E, D, S, V, C, CV, R, RV>, C extends AbstractColumnAssert<E, D, C, CV, R, RV>, CV extends AbstractColumnValueAssert<E,D,C,CV,R,RV>, R extends AbstractRowAssert<E,D,C,CV,R,RV>, RV extends AbstractRowValueAssert<E,D,C,CV,R,RV>>
+public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends AbstractDbAssert<E, D, C, CV, R, RV>, S extends AbstractSubAssert<E, D, S, V, C, CV, R, RV>, V extends AbstractValueAssert<E, D, S, V, C, CV, R, RV>, C extends AbstractColumnAssert<E, D, C, CV, R, RV>, CV extends AbstractColumnValueAssert<E, D, C, CV, R, RV>, R extends AbstractRowAssert<E, D, C, CV, R, RV>, RV extends AbstractRowValueAssert<E, D, C, CV, R, RV>>
     implements Descriptable<V> {
 
   /**
@@ -229,9 +230,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * of the {@code Table} is of type {@code TEXT} :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row(1).value(&quot;title&quot;).isOfType(ValueType.TEXT);
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param expected The expected type to compare to.
    * @return {@code this} assertion object.
@@ -252,9 +255,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * of the {@code Table} is of type {@code TEXT} or of type {@code NUMBER} :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row(1).value(&quot;title&quot;).isOfType(ValueType.TEXT, ValueType.NUMBER);
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param expected The expected types to compare to.
    * @return {@code this} assertion object.
@@ -277,9 +282,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * the {@code Table} is a number :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value(&quot;year&quot;).isNumber();
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is not a number.
@@ -295,9 +302,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is a boolean :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isBoolean();
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is not a number.
@@ -313,9 +322,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * of the {@code Table} is a date :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value(&quot;birth&quot;).isDate();
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is not a number.
@@ -331,9 +342,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is a time :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isTime();
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is not a number.
@@ -349,9 +362,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is a date/time :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isDateTime();
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is not a number.
@@ -367,9 +382,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is a array of bytes :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isBytes();
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is not a number.
@@ -385,9 +402,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * of the {@code Table} is a text :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value(&quot;title&quot;).isText();
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is not a number.
@@ -403,9 +422,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is {@code null} :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isNull();
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is not {@code null}.
@@ -422,9 +443,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is not {@code null} :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isNotNull();
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is {@code null}.
@@ -441,9 +464,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is equal to true boolean :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isEqualTo(true);
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param expected The expected boolean value.
    * @return {@code this} assertion object.
@@ -463,9 +488,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * Example with the value in the first {@code Column} of the first {@code Row} of the {@code Table} :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isTrue();
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to true boolean.
@@ -480,9 +507,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * Example with the value in the first {@code Column} of the first {@code Row} of the {@code Table} :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isFalse();
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to false boolean.
@@ -498,9 +527,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is equal to number 3 :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isEqualTo(3);
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param expected The expected number value.
    * @return {@code this} assertion object.
@@ -521,10 +552,12 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is equal to a array of bytes loaded from a file in the classpath :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * byte[] bytes = bytesContentFromClassPathOf(&quot;file.png&quot;);
    * assertThat(table).row().value().isEqualTo(bytes);
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param expected The expected array of bytes value.
    * @return {@code this} assertion object.
@@ -545,9 +578,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is equal to a text :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isEqualTo(&quot;text&quot;);
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param expected The expected text value.
    * @return {@code this} assertion object.
@@ -558,22 +593,8 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
     if (areEqual(value, expected)) {
       return myself;
     }
-    try {
-      switch(ValueType.getType(value)) {
-        case NUMBER:
-          throw failures.failure(info, shouldBeEqual((Number) value, expected));
-        case DATE:
-          throw failures.failure(info, shouldBeEqual(DateValue.from((Date) value), DateValue.parse(expected)));
-        case TIME:
-          throw failures.failure(info, shouldBeEqual(TimeValue.from((Time) value), TimeValue.parse(expected)));
-        case DATE_TIME:
-          throw failures.failure(info, shouldBeEqual(DateTimeValue.from((Timestamp) value), DateTimeValue.parse(expected)));
-        default:
-          throw failures.failure(info, shouldBeEqual((String) value, expected));
-      }
-    } catch (ParseException e) {
-      throw new AssertJDBException("Expected <%s> is not correct to compare to <%s>", expected, value);
-    }
+    throw failures.failure(info,
+        shouldBeEqual(Values.getRepresentationFromValueInFrontOfExpected(value, expected), expected));
   }
 
   /**
@@ -583,9 +604,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is equal to a date value :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isEqualTo(DateValue.of(2014, 7, 7));
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param expected The expected date value.
    * @return {@code this} assertion object.
@@ -599,8 +622,7 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
     if (getType() == ValueType.DATE) {
       throw failures.failure(info, shouldBeEqual(DateValue.from((Date) value), expected));
     }
-    throw failures.failure(info,
-        shouldBeEqual(DateTimeValue.from((Timestamp) value), DateTimeValue.of(expected)));
+    throw failures.failure(info, shouldBeEqual(DateTimeValue.from((Timestamp) value), DateTimeValue.of(expected)));
   }
 
   /**
@@ -610,9 +632,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is equal to a time value :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isEqualTo(TimeValue.of(21, 29, 30));
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param expected The expected time value.
    * @return {@code this} assertion object.
@@ -633,9 +657,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is equal to a date/time value :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isEqualTo(DateTimeValue.of(DateValue.of(2014, 7, 7), TimeValue.of(21, 29)));
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param expected The expected date/time value.
    * @return {@code this} assertion object.
@@ -649,8 +675,7 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
     if (getType() == ValueType.DATE) {
       throw failures.failure(info, shouldBeEqual(DateTimeValue.of(DateValue.from((Date) value)), expected));
     }
-    throw failures.failure(info,
-        shouldBeEqual(DateTimeValue.from((Timestamp) value), expected));
+    throw failures.failure(info, shouldBeEqual(DateTimeValue.from((Timestamp) value), expected));
   }
 
   /**
@@ -660,9 +685,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is not equal to true boolean :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isNotEqualTo(true);
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param expected The expected boolean value.
    * @return {@code this} assertion object.
@@ -683,10 +710,12 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is not equal to a array of bytes loaded from a file in the classpath :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * byte[] bytes = bytesContentFromClassPathOf(&quot;file.png&quot;);
    * assertThat(table).row().value().isNotEqualTo(bytes);
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param expected The expected array of bytes value.
    * @return {@code this} assertion object.
@@ -707,9 +736,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is not equal to a date/time value :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isNotEqualTo(DateTimeValue.of(DateValue.of(2014, 7, 7), TimeValue.of(21, 29)));
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param expected The expected date/time value.
    * @return {@code this} assertion object.
@@ -733,9 +764,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is not equal to a date value :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isNotEqualTo(DateValue.of(2014, 7, 7));
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param expected The expected date value.
    * @return {@code this} assertion object.
@@ -759,9 +792,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is not equal to number 3 :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isNotEqualTo(3);
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param expected The expected number value.
    * @return {@code this} assertion object.
@@ -782,9 +817,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is not equal to a text :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isNotEqualTo(&quot;text&quot;);
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param expected The expected text value.
    * @return {@code this} assertion object.
@@ -795,22 +832,8 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
     if (!areEqual(value, expected)) {
       return myself;
     }
-    try {
-      switch(ValueType.getType(value)) {
-        case NUMBER:
-          throw failures.failure(info, shouldNotBeEqual((Number) value, expected));
-        case DATE:
-          throw failures.failure(info, shouldNotBeEqual(DateValue.from((Date) value), DateValue.parse(expected)));
-        case TIME:
-          throw failures.failure(info, shouldNotBeEqual(TimeValue.from((Time) value), TimeValue.parse(expected)));
-        case DATE_TIME:
-          throw failures.failure(info, shouldNotBeEqual(DateTimeValue.from((Timestamp) value), DateTimeValue.parse(expected)));
-        default:
-          throw failures.failure(info, shouldNotBeEqual((String) value, expected));
-      }
-    } catch (ParseException e) {
-      throw new AssertJDBException("Expected <%s> is not correct to compare to <%s>", expected, value);
-    }
+    throw failures.failure(info,
+        shouldNotBeEqual(Values.getRepresentationFromValueInFrontOfExpected(value, expected), expected));
   }
 
   /**
@@ -820,9 +843,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is not equal to a time value :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isNotEqualTo(TimeValue.of(21, 29, 30));
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param expected The expected time value.
    * @return {@code this} assertion object.
@@ -843,9 +868,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is before a date value :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isBefore(DateValue.of(2007, 12, 23));
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param date The date value to compare to.
    * @return {@code this} assertion object.
@@ -874,9 +901,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is before a time value :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isBefore(TimeValue.of(2007, 12, 23));
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param time The time value to compare to.
    * @return {@code this} assertion object.
@@ -897,9 +926,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is before a date/time value :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isBefore(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(21, 29)));
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param dateTime The date/time value to compare to.
    * @return {@code this} assertion object.
@@ -926,9 +957,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is before a date represented by a {@code String} :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isBefore(&quot;2007-12-23&quot;);
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param expected The {@code String} representing a date, time or date/time to compare to.
    * @return {@code this} assertion object.
@@ -980,9 +1013,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is before or equal to a date value :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isBeforeOrEqualTo(DateValue.of(2007, 12, 23));
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param date The date value to compare to.
    * @return {@code this} assertion object.
@@ -1011,9 +1046,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is before or equal to a time value :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isBeforeOrEqualTo(TimeValue.of(2007, 12, 23));
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param time The time value to compare to.
    * @return {@code this} assertion object.
@@ -1034,9 +1071,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is before or equal to a date/time value :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isBeforeOrEqualTo(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(21, 29)));
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param dateTime The date/time value to compare to.
    * @return {@code this} assertion object.
@@ -1063,9 +1102,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is before or equal to a date represented by a {@code String} :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isBeforeOrEqualTo(&quot;2007-12-23&quot;);
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param expected The {@code String} representing a date, time or date/time to compare to.
    * @return {@code this} assertion object.
@@ -1117,9 +1158,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is after a date value :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isAfter(DateValue.of(2007, 12, 23));
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param date The date value to compare to.
    * @return {@code this} assertion object.
@@ -1148,9 +1191,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is after a time value :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isAfter(TimeValue.of(2007, 12, 23));
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param time The time value to compare to.
    * @return {@code this} assertion object.
@@ -1171,9 +1216,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is after a date/time value :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isAfter(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(21, 29)));
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param dateTime The date/time value to compare to.
    * @return {@code this} assertion object.
@@ -1200,9 +1247,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is after a date represented by a {@code String} :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isAfter(&quot;2007-12-23&quot;);
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param expected The {@code String} representing a date, time or date/time to compare to.
    * @return {@code this} assertion object.
@@ -1254,9 +1303,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is after or equal to a date value :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isAfterOrEqualTo(DateValue.of(2007, 12, 23));
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param date The date value to compare to.
    * @return {@code this} assertion object.
@@ -1285,9 +1336,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is after or equal to a time value :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isAfterOrEqualTo(TimeValue.of(2007, 12, 23));
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param time The time value to compare to.
    * @return {@code this} assertion object.
@@ -1308,9 +1361,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is after or equal to a date/time value :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isAfterOrEqualTo(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(21, 29)));
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param dateTime The date/time value to compare to.
    * @return {@code this} assertion object.
@@ -1337,9 +1392,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is after or equal to a date represented by a {@code String} :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isAfterOrEqualTo(&quot;2007-12-23&quot;);
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param expected The {@code String} representing a date, time or date/time to compare to.
    * @return {@code this} assertion object.
@@ -1391,9 +1448,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is equal to zero :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isZero();
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to zero.
@@ -1409,9 +1468,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is not equal to zero :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isNotZero();
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is equal to zero.
@@ -1427,9 +1488,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is greater than number 3 :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isGreaterThan(3);
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param expected The expected number value.
    * @return {@code this} assertion object.
@@ -1450,9 +1513,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is less than number 3 :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isLessThan(3);
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param expected The expected number value.
    * @return {@code this} assertion object.
@@ -1473,9 +1538,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is greater than or equal to number 3 :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isGreaterThanOrEqual(3);
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param expected The expected number value.
    * @return {@code this} assertion object.
@@ -1496,9 +1563,11 @@ public abstract class AbstractValueAssert<E extends AbstractDbData<E>, D extends
    * {@code Table} is less than or equal to number 3 :
    * </p>
    * 
-   * <pre><code class='java'>
+   * <pre>
+   * <code class='java'>
    * assertThat(table).row().value().isLessThanOrEqual(3);
-   * </code></pre>
+   * </code>
+   * </pre>
    * 
    * @param expected The expected number value.
    * @return {@code this} assertion object.

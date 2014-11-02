@@ -49,10 +49,10 @@ import org.junit.Test;
 public class AbstractDbData_Exception_Test extends AbstractTest {
 
   /**
-   * This method should fail because the connection throw an exception.
+   * This method should fail because the connection throw an exception when creating a statement.
    */
   @Test(expected = AssertJDBException.class)
-  public void should_fail_because_connection_throws_exception() {
+  public void should_fail_because_connection_throws_exception_when_creating_a_statement() {
     DataSource ds = new DataSource() {
 
       @Override
@@ -350,6 +350,63 @@ public class AbstractDbData_Exception_Test extends AbstractTest {
             return 0;
           }
         };
+      }
+
+      @Override
+      public Connection getConnection(String username, String password) throws SQLException {
+        return null;
+      }
+
+      @Override
+      public Logger getParentLogger() throws SQLFeatureNotSupportedException {
+        return null;
+      }
+
+    };
+    Table table = new Table(ds, "movi");
+    table.getColumnsNameList();
+  }
+
+  /**
+   * This method should fail because the connection throw an exception when getting a connection.
+   */
+  @Test(expected = AssertJDBException.class)
+  public void should_fail_because_connection_throws_exception_when_getting_a_connection() {
+    DataSource ds = new DataSource() {
+
+      @Override
+      public PrintWriter getLogWriter() throws SQLException {
+        return null;
+      }
+
+      @Override
+      public void setLogWriter(PrintWriter out) throws SQLException {
+
+      }
+
+      @Override
+      public void setLoginTimeout(int seconds) throws SQLException {
+
+      }
+
+      @Override
+      public int getLoginTimeout() throws SQLException {
+        return 0;
+      }
+
+      @Override
+      public <T> T unwrap(Class<T> iface) throws SQLException {
+        return null;
+      }
+
+      @Override
+      public boolean isWrapperFor(Class<?> iface) throws SQLException {
+        return false;
+      }
+
+      @Override
+      public Connection getConnection() throws SQLException {
+        throw new SQLException();
       }
 
       @Override

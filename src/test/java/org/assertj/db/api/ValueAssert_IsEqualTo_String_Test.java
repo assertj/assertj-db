@@ -154,7 +154,7 @@ public class ValueAssert_IsEqualTo_String_Test extends AbstractTest {
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Column at index 0 of test table] \n" +
           "Expecting:\n" +
-          "  <1>\n" +
+          "  <\"1\">\n" +
           "to be equal to: \n" +
           "  <\"2\">");
     }
@@ -175,10 +175,24 @@ public class ValueAssert_IsEqualTo_String_Test extends AbstractTest {
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Column at index 7 of test table] \n" +
           "Expecting:\n" +
-          "  <09:46:30.000000000>\n" +
+          "  <\"09:46:30.000000000\">\n" +
           "to be equal to: \n" +
-          "  <09:46:31.000000000>");
+          "  <\"09:46:31\">");
     }
+  }
+
+  /**
+   * This method should throw a {@code AssertJDBException}, because the time is not parsable.
+   * 
+   * <pre>
+   * Expected <-9:46:31> is not correct to compare to <09:46:30>
+   * </pre>
+   */
+  @Test(expected = AssertJDBException.class)
+  public void should_throw_AssertJDBException_because_the_time_is_not_parsable() {
+    Table table = new Table(source, "test");
+    assertThat(table).column("var8")
+        .value().isEqualTo("-9:46:31");
   }
 
   /**
@@ -196,10 +210,24 @@ public class ValueAssert_IsEqualTo_String_Test extends AbstractTest {
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Column at index 8 of test table] \n" +
           "Expecting:\n" +
-          "  <2014-05-24>\n" +
+          "  <\"2014-05-24\">\n" +
           "to be equal to: \n" +
-          "  <2014-05-25>");
+          "  <\"2014-05-25\">");
     }
+  }
+
+  /**
+   * This method should throw a {@code AssertJDBException}, because the date is not parsable.
+   * 
+   * <pre>
+   * Expected <2-14-05-25> is not correct to compare to <2014-05-25>
+   * </pre>
+   */
+  @Test(expected = AssertJDBException.class)
+  public void should_throw_AssertJDBException_because_the_date_is_not_parsable() {
+    Table table = new Table(source, "test");
+    assertThat(table).column("var9")
+    .value().isEqualTo("2-14-05-25");
   }
 
   /**
@@ -217,10 +245,24 @@ public class ValueAssert_IsEqualTo_String_Test extends AbstractTest {
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Column at index 9 of test table] \n" +
           "Expecting:\n" +
-          "  <2014-05-24T09:46:30.000000000>\n" +
+          "  <\"2014-05-24T09:46:30.000000000\">\n" +
           "to be equal to: \n" +
-          "  <2014-05-24T09:46:31.000000000>");
+          "  <\"2014-05-24T09:46:31\">");
     }
+  }
+
+  /**
+   * This method should throw a {@code AssertJDBException}, because the date/time is not parsable.
+   * 
+   * <pre>
+   * Expected <2014-05-A4T09:46:31.000000000> is not correct to compare to <2014-05-24T09:46:31.000000000>
+   * </pre>
+   */
+  @Test(expected = AssertJDBException.class)
+  public void should_throw_AssertJDBException_because_the_datetime_is_not_parsable() {
+    Table table = new Table(source, "test");
+    assertThat(table).column("var10")
+    .value().isEqualTo("2014-05-A4T09:46:31.000000000");
   }
 
   /**

@@ -592,43 +592,43 @@ public class Values {
    */
   public static Object getRepresentationFromValueInFrontOfExpected(Object value, Object expected) {
     switch (ValueType.getType(value)) {
-    case DATE:
-      if (expected instanceof DateValue) {
-        return DateValue.from((Date) value);
-      } else if (expected instanceof DateTimeValue) {
-        return DateTimeValue.of(DateValue.from((Date) value));
-      } else if (expected instanceof String) {
-        if (((String) expected).contains("T")) {
-          return DateTimeValue.of(DateValue.from((Date) value)).toString();
-        } else {
-          return DateValue.from((Date) value).toString();
+      case DATE:
+        if (expected instanceof DateValue) {
+          return DateValue.from((Date) value);
+        } else if (expected instanceof DateTimeValue) {
+          return DateTimeValue.of(DateValue.from((Date) value));
+        } else if (expected instanceof String) {
+          if (((String) expected).contains("T")) {
+            return DateTimeValue.of(DateValue.from((Date) value)).toString();
+          } else {
+            return DateValue.from((Date) value).toString();
+          }
         }
-      }
-      return value;
-    case TIME:
-      if (expected instanceof String) {
-        return TimeValue.from((Time) value).toString();
-      } else {
-        return TimeValue.from((Time) value);
-      }
-    case DATE_TIME:
-      if (expected instanceof String) {
-        return DateTimeValue.from((Timestamp) value).toString();
-      } else {
-        return DateTimeValue.from((Timestamp) value);
-      }
-    case NUMBER:
-      if (expected instanceof String) {
-        return value.toString();
-      } else {
         return value;
-      }
-
-    case BYTES:
-    case TEXT:
-    case BOOLEAN:
-    default:
-      return value;
+      case TIME:
+        if (expected instanceof String) {
+          return TimeValue.from((Time) value).toString();
+        } else {
+          return TimeValue.from((Time) value);
+        }
+      case DATE_TIME:
+        if (expected instanceof String) {
+          return DateTimeValue.from((Timestamp) value).toString();
+        } else {
+          return DateTimeValue.from((Timestamp) value);
+        }
+      case NUMBER:
+        if (expected instanceof String) {
+          return value.toString();
+        } else {
+          return value;
+        }
+  
+      case BYTES:
+      case TEXT:
+      case BOOLEAN:
+      default:
+        return value;
     }
   }
 }
