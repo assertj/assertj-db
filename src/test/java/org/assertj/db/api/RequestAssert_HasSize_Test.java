@@ -59,7 +59,7 @@ public class RequestAssert_HasSize_Test extends AbstractTest {
       fail("Une Erreur doit être levée");
     }
     catch (AssertionError e) {
-      assertThat(e.getLocalizedMessage()).isEqualTo("['SELECT actor.name, a...' request] \n" +
+      assertThat(e.getLocalizedMessage()).isEqualTo("['SELECT actor.name, actor.first...' request] \n" +
           "Expecting size (number of rows) to be equal to :\n" +
           "   <3>\n" +
           "but was:\n" +
@@ -98,7 +98,7 @@ public class RequestAssert_HasSize_Test extends AbstractTest {
       fail("Une Erreur doit être levée");
     }
     catch (AssertionError e) {
-      assertThat(e.getLocalizedMessage()).isEqualTo("['SELECT actor.name, a...' request] \n" +
+      assertThat(e.getLocalizedMessage()).isEqualTo("['SELECT actor.name, actor.first...' request] \n" +
           "Expecting size (number of columns) to be equal to :\n" +
           "   <3>\n" +
           "but was:\n" +

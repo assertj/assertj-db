@@ -118,8 +118,8 @@ public final class Assertions {
    */
   public static RequestAssert assertThat(Request request) {
     String sql = request.getRequest();
-    if (sql != null && sql.length() > 20) {
-      sql = sql.substring(0, 20) + "...";
+    if (sql.length() > 30) {
+      sql = sql.substring(0, 30) + "...";
     }
     return new RequestAssert(request).as("'" + sql + "' request");
   }
