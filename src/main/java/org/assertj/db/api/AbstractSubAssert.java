@@ -57,7 +57,7 @@ public abstract class AbstractSubAssert<E extends AbstractDbData<E>, D extends A
   /**
    * Class of the assert on the value (used to make instance).
    */
-  private final Class<?> valueClass;
+  private final Class<V> valueClass;
 
   /**
    * Index of the next value to get.
@@ -68,10 +68,6 @@ public abstract class AbstractSubAssert<E extends AbstractDbData<E>, D extends A
    */
   private Map<Integer, V> valuesAssertMap = new HashMap<Integer, V>();
 
-  // Like in AbstractAssert from assertj-core :
-  // we prefer not to use Class<? extends S> selfType because it would force inherited
-  // constructor to cast with a compiler warning
-  // let's keep compiler warning internal (when we can) and not expose them to our end users.
   /**
    * Constructor.
    * 
@@ -79,10 +75,7 @@ public abstract class AbstractSubAssert<E extends AbstractDbData<E>, D extends A
    * @param selfType Class of this assert (the sub assert) : a sub-class of {@code AbstractSubAssert}.
    * @param valueType Class of the assert on the value : a sub-class of {@code AbstractValueAssert}.
    */
-  @SuppressWarnings({ "unchecked", "rawtypes" })
-  AbstractSubAssert(D originalDbAssert, Class<? extends AbstractSubAssert> selfType,
-      Class<? extends AbstractValueAssert> valueType) {
-
+  AbstractSubAssert(D originalDbAssert, Class<S> selfType, Class<V> valueType) {
     myself = (S) selfType.cast(this);
     valueClass = valueType;
     original = originalDbAssert;
@@ -147,7 +140,6 @@ public abstract class AbstractSubAssert<E extends AbstractDbData<E>, D extends A
     }
 
     try {
-      @SuppressWarnings("unchecked")
       Constructor<V> constructor = (Constructor<V>) valueClass.getDeclaredConstructor(myself.getClass(), Object.class);
       V instance = constructor.newInstance(this, getValue(index));
       valuesAssertMap.put(index, instance);
