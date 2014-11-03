@@ -95,7 +95,7 @@ public abstract class AbstractDbAssert<E extends AbstractDbData<E>, D extends Ab
    * @param columnAssertType Class of the assertion on the column.
    * @param rowAssertType Class of the assertion on the row.
    */
-  protected AbstractDbAssert(E actualValue, Class<D> selfType, Class<C> columnAssertType, Class<R> rowAssertType) {
+  AbstractDbAssert(E actualValue, Class<D> selfType, Class<C> columnAssertType, Class<R> rowAssertType) {
     myself = selfType.cast(this);
     actual = actualValue;
     rowAssertClass = rowAssertType;
