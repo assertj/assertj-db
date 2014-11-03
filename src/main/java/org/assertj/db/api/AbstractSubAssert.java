@@ -76,7 +76,7 @@ public abstract class AbstractSubAssert<E extends AbstractDbData<E>, D extends A
    * @param valueType Class of the assert on the value : a sub-class of {@code AbstractValueAssert}.
    */
   AbstractSubAssert(D originalDbAssert, Class<S> selfType, Class<V> valueType) {
-    myself = (S) selfType.cast(this);
+    myself = selfType.cast(this);
     valueClass = valueType;
     original = originalDbAssert;
     info = new WritableAssertionInfo();
