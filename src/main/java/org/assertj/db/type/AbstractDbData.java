@@ -28,9 +28,9 @@ import org.assertj.db.error.AssertJDBException;
 /**
  * This class represents data from the database.
  * <p>
- * That could be data from a {@link Table} or from a {@link Request}.<br/>
+ * That could be data from a {@link Table} or from a {@link Request}.<br>
  * So this class contains : the way to access the database with {@link #getSource()} and {@link #getDataSource()} (one
- * of them need to be set before loading the data).<br/>
+ * of them need to be set before loading the data).<br>
  * There are also the list of columns name ({@link #getColumnsNameList()}) and the list of the rows (
  * {@link #getRowsList()}). The first call to one of these methods triggers a loading from the database.
  * </p>
@@ -281,7 +281,7 @@ public abstract class AbstractDbData<E extends AbstractDbData<E>> {
    * Returns the column corresponding to the column index in parameter and the values inside the column.
    * <p>
    * This method calls {@link #getColumnsNameList()} and {@link #getValuesList(int)} which calls {@link #getRowsList()}.
-   * <br/>
+   * <br>
    * If it is the first call to {@link #getColumnsNameList()} or {@link #getRowsList()}, the data are loaded from
    * database by calling the {@link #load()} private method.
    * </p>
@@ -305,7 +305,7 @@ public abstract class AbstractDbData<E extends AbstractDbData<E>> {
   /**
    * Returns the row corresponding to the index.
    * <p>
-   * This method calls {@link #getRowsList()}.<br/>
+   * This method calls {@link #getRowsList()}.<br>
    * If it is the first call to {@link #getRowsList()}, the data are loaded from database by calling the {@link #load()}
    * private method.
    * </p>
@@ -322,7 +322,7 @@ public abstract class AbstractDbData<E extends AbstractDbData<E>> {
   /**
    * Returns the values of the column corresponding to the column name.
    * <p>
-   * This method calls {@link #getColumnsNameList()} and {@link #getRowsList()}.<br/>
+   * This method calls {@link #getColumnsNameList()} and {@link #getRowsList()}.<br>
    * If it is the first call to {@link #getColumnsNameList()} or {@link #getRowsList()}, the data are loaded from
    * database by calling the {@link #load()} private method.
    * </p>

@@ -28,7 +28,7 @@ public class ShouldNotBeEqual extends BasicErrorMessageFactory {
   private static final String EXPECTED_MESSAGE_BUT_NOT = "\nExpecting to be not equal to value but was equal";
 
   /**
-   * Creates a new <code>{@link ShouldNotBeEqual.java}</code>.
+   * Creates a new <code>{@link ShouldNotBeEqual}</code>.
    * 
    * @param actual The actual value in the failed assertion.
    * @param expected The expected value to compare to.
@@ -39,7 +39,7 @@ public class ShouldNotBeEqual extends BasicErrorMessageFactory {
   }
 
   /**
-   * Creates a new <code>{@link ShouldNotBeEqual.java}</code>.
+   * Creates a new <code>{@link ShouldNotBeEqual}</code>.
    * 
    * @return the created {@code ErrorMessageFactory}.
    */

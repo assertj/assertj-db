@@ -29,7 +29,7 @@ public class ShouldBeEqual extends BasicErrorMessageFactory {
   private static final String EXPECTED_MESSAGE_BUT_NOT_WITH_INDEX = "\nExpecting that the value at index %s to be equal to the expected value but was not equal";
 
   /**
-   * Creates a new <code>{@link ShouldBeEqual.java}</code>.
+   * Creates a new <code>{@link ShouldBeEqual}</code>.
    * 
    * @param actual The actual value in the failed assertion.
    * @param expected The expected value to compare to.
@@ -40,7 +40,7 @@ public class ShouldBeEqual extends BasicErrorMessageFactory {
   }
 
   /**
-   * Creates a new <code>{@link ShouldBeEqual.java}</code>.
+   * Creates a new <code>{@link ShouldBeEqual}</code>.
    * 
    * @return the created {@code ErrorMessageFactory}.
    */
@@ -49,7 +49,7 @@ public class ShouldBeEqual extends BasicErrorMessageFactory {
   }
 
   /**
-   * Creates a new <code>{@link ShouldBeEqual.java}</code>.
+   * Creates a new <code>{@link ShouldBeEqual}</code>.
    * 
    * @param index The index of the value.
    * @param actual The actual value in the failed assertion.
@@ -61,7 +61,7 @@ public class ShouldBeEqual extends BasicErrorMessageFactory {
   }
 
   /**
-   * Creates a new <code>{@link ShouldBeEqual.java}</code>.
+   * Creates a new <code>{@link ShouldBeEqual}</code>.
    * 
    * @param index The index of the value.
    * @return the created {@code ErrorMessageFactory}.

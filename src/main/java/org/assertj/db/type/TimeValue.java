@@ -101,8 +101,8 @@ public class TimeValue implements Comparable<TimeValue> {
    * @throws ParseException If {@code time} don't respect the {@code hh:mm}, {@code hh:mm:ss} or
    *           {@code hh:mm:ss.nnnnnnnnn} format.
    */
-  public static TimeValue parse(String date) throws ParseException {
-    return new TimeValue(date);
+  public static TimeValue parse(String time) throws ParseException {
+    return new TimeValue(time);
   }
 
   /**

@@ -46,13 +46,13 @@ import javax.sql.DataSource;
  * </li>
  * <li>
  * <p>
- * Below the {@link Request} point to a request with {@code 2000} in parameter.<br/>
+ * Below the {@link Request} point to a request with {@code 2000} in parameter.<br>
  * The {@link Request} use a {@code DataSource} instead of a {@link Source} like above.
  * </p>
  * 
  * <pre><code class='java'>
  * DataSource dataSource = ...;
- * Request request = new Request(dataSource, "select title from movie where year > ?;", 2000);
+ * Request request = new Request(dataSource, "select title from movie where year &gt; ?;", 2000);
  * </code></pre>
  * 
  * </li>
@@ -119,6 +119,7 @@ public class Request extends AbstractDbData<Request> {
    * 
    * @param request The SQL request.
    * @return The SQL request.
+   * @throws NullPointerException If the {@link #request} field is {@code null}.
    */
   public Request setRequest(String request) {
     if (request == null) {
@@ -174,7 +175,7 @@ public class Request extends AbstractDbData<Request> {
    * 
    * @see AbstractDbData#loadImpl(Connection)
    * @param connection {@link Connection} to the database provided by {@link AbstractDbData#load()} private method.
-   * @throws NullPointerException If the {@link #name} field is {@code null}.
+   * @throws NullPointerException If the {@link #request} field is {@code null}.
    * @throws SQLException SQL Exception.
    */
   @Override

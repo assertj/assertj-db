@@ -48,9 +48,9 @@ import javax.sql.DataSource;
  * <li>
  * <p>
  * Below the {@link Table} {@code table1} point to a table called {@code song} (but only on the columns called
- * {@code number} and {@code title}).<br/>
+ * {@code number} and {@code title}).<br>
  * And the {@link Table} {@code table2} point to a table called {@code musician} (but ignore on the column called
- * {@code birthday}).<br/>
+ * {@code birthday}).<br>
  * The {@link Table} use a {@code DataSource} instead of a {@link Source} like above.
  * </p>
  * 
@@ -242,6 +242,7 @@ public class Table extends AbstractDbData<Table> {
    * 
    * @see AbstractDbData#getRequest()
    * @return The SQL request.
+   * @throws NullPointerException If the {@link #name} field is {@code null}.
    */
   public String getRequest() {
     if (name == null) {

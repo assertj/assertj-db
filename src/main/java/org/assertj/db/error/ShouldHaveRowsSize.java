@@ -24,7 +24,7 @@ import org.assertj.core.error.ErrorMessageFactory;
 public class ShouldHaveRowsSize extends BasicErrorMessageFactory {
 
   /**
-   * Creates a new </code>{@link ShouldHaveRowsSize}</code>.
+   * Creates a new <code>{@link ShouldHaveRowsSize}</code>.
    * 
    * @param actualSize the size of {@code actual}.
    * @param expectedSize the expected size.
@@ -34,6 +34,12 @@ public class ShouldHaveRowsSize extends BasicErrorMessageFactory {
     return new ShouldHaveRowsSize(actualSize, expectedSize);
   }
 
+  /**
+   * Constructor.
+   * 
+   * @param actualSize the size of {@code actual}.
+   * @param expectedSize the expected size.
+   */
   private ShouldHaveRowsSize(int actualSize, int expectedSize) {
     super("\nExpecting size (number of rows) to be equal to :\n   <%s>\nbut was:\n   <%s>", expectedSize, actualSize);
   }

@@ -24,7 +24,7 @@ import org.assertj.core.error.ErrorMessageFactory;
 public class ShouldHaveColumnsSize extends BasicErrorMessageFactory {
 
   /**
-   * Creates a new </code>{@link ShouldHaveColumnsSize}</code>.
+   * Creates a new <code>{@link ShouldHaveColumnsSize}</code>.
    * 
    * @param actualSize the size of {@code actual}.
    * @param expectedSize the expected size.
@@ -34,6 +34,12 @@ public class ShouldHaveColumnsSize extends BasicErrorMessageFactory {
     return new ShouldHaveColumnsSize(actualSize, expectedSize);
   }
 
+  /**
+   * Constructor.
+   * 
+   * @param actualSize the size of {@code actual}.
+   * @param expectedSize the expected size.
+   */
   private ShouldHaveColumnsSize(int actualSize, int expectedSize) {
     super("\nExpecting size (number of columns) to be equal to :\n   <%s>\nbut was:\n   <%s>", expectedSize, actualSize);
   }

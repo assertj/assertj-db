@@ -420,7 +420,7 @@ public class Values {
    * Returns if the value is equal to the {@link TimeValue} in parameter.
    * 
    * @param value The value.
-   * @param expected The {@link DatTimeValueeValue} to compare.
+   * @param expected The {@link TimeValue} to compare.
    * @return {@code true} if the value is equal to the {@link TimeValue} parameter, {@code false} otherwise.
    */
   public static boolean areEqual(Object value, TimeValue expected) {

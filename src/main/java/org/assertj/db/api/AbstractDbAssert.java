@@ -30,7 +30,7 @@ import org.assertj.db.type.Column;
 import org.assertj.db.type.Row;
 
 /**
- * Assertion methods about the data in a <code>{@link Table}</code> or in a <code>{@link Request}</code>.
+ * Assertion methods about the data in a {@code Table} or in a {@code Request}.
  * 
  * @author Régis Pouiller
  * 
@@ -91,7 +91,9 @@ public abstract class AbstractDbAssert<E extends AbstractDbData<E>, D extends Ab
    * Constructor of the database assertions.
    * 
    * @param actualValue The actual value on which the assertion is.
-   * @param selfType Class of the assertion
+   * @param selfType Class of the assertion.
+   * @param columnAssertType Class of the assertion on the column.
+   * @param rowAssertType Class of the assertion on the row.
    */
   protected AbstractDbAssert(E actualValue, Class<D> selfType, Class<C> columnAssertType, Class<R> rowAssertType) {
     myself = selfType.cast(this);

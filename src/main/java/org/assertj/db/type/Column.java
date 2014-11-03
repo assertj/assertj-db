@@ -21,7 +21,7 @@ import java.util.List;
  * </p>
  * <p>
  * Note : you never instantiate directly this class. You will get an object of this class from a {@link Table} or a
- * {@link Request} by using {@link AbstractDbData#getColumn(int)} and {@link AbstractDbData#getColumn(String)}.
+ * {@link Request} by using {@link AbstractDbData#getColumn(int)}.
  * </p>
  * 
  * @author Régis Pouiller.

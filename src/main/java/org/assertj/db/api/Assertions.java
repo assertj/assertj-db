@@ -27,7 +27,7 @@ import org.assertj.db.type.Table;
  * Entry point of all the assertions.
  * 
  * <p>
- * Example with a {@link Source} and a {@link Table} with test on the content on the first row of the {@code movie}
+ * Example with a {@code Source} and a {@code Table} with test on the content on the first row of the {@code movie}
  * table that the {@code title} column contains "Alien" like text and the next column contains 1979 like number :
  * </p>
  * 
@@ -158,8 +158,8 @@ public final class Assertions {
    * 
    * @param file The {@link File}
    * @return The bytes of the file.
-   * @throws NullPointerException
-   * @throws AssertJDBException
+   * @throws NullPointerException If the {@code file} field is {@code null}.
+   * @throws AssertJDBException If triggered, this exception wrap a possible {@link FileNotFoundException} during the loading.
    */
   public static byte[] bytesContentOf(File file) {
     if (file == null) {
@@ -179,8 +179,7 @@ public final class Assertions {
    * 
    * @param resource The name of the file in the classpath.
    * @return The bytes of the file.
-   * @throws NullPointerException
-   * @throws AssertJDBException
+   * @throws NullPointerException If the {@code resource} field is {@code null}.
    */
   public static byte[] bytesContentFromClassPathOf(String resource) {
     if (resource == null) {
