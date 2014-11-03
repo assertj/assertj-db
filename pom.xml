@@ -4,10 +4,10 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>assertj-db</artifactId>
 	<version>1.0.0</version>
+	<packaging>bundle</packaging>
 	<name>AssertJ fluent assertions</name>
 	<description>Rich and fluent assertions for testing</description>
 	<inceptionYear>2014</inceptionYear>
-
 	<parent>
 		<groupId>org.assertj</groupId>
 		<artifactId>assertj-parent-pom</artifactId>
@@ -18,35 +18,12 @@
 		<developerConnection>scm:git:git@github.com:joel-costigliola/assertj-db.git</developerConnection>
 		<connection>scm:git:git@github.com:joel-costigliola/assertj-db.git</connection>
 		<url>git@github.com:joel-costigliola/assertj-db</url>
+		<tag>HEAD</tag>
 	</scm>
-
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>cobertura-maven-plugin</artifactId>
-				<version>2.5</version>
-				<configuration>
-					<formats>
-						<format>html</format>
-						<format>xml</format>
-					</formats>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<reportSets>
-					<reportSet>
-						<reports>
-							<report>checkstyle</report>
-						</reports>
-					</reportSet>
-				</reportSets>
-			</plugin>
-		</plugins>
-	</reporting>
-
+	<issueManagement>
+		<system>github</system>
+		<url>https://github.com/joel-costigliola/assertj-db/issues</url>
+	</issueManagement>
 	<dependencies>
 		<dependency>
 			<groupId>org.assertj</groupId>
@@ -83,5 +60,79 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>2.3.7</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Export-Package>
+							!org.assertj.db.internal,
+							org.assertj.db.api.*,
+							org.assertj.db.type.*
+						</Export-Package>
+						<Bundle-RequiredExecutionEnvironment>JavaSE-1.7</Bundle-RequiredExecutionEnvironment>
+						<_removeheaders>Bnd-LastModified</_removeheaders>
+					</instructions>
+				</configuration>
+			</plugin>
+			<!-- generate jacoco report -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>check</id>
+						<goals>
+							<goal>check</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<rule implementation="org.jacoco.maven.RuleConfiguration">
+									<element>BUNDLE</element>
+									<limits>
+										<limit implementation="org.jacoco.report.check.Limit">
+											<counter>INSTRUCTION</counter>
+											<value>COVEREDRATIO</value>
+											<minimum>0.99</minimum>
+										</limit>
+									</limits>
+								</rule>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- to get jacoco report we need to set argLine in surefire, without 
+				this snippet the jacoco argLine is lost -->
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<argLine>${argLine}</argLine>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.1</version>
+				<configuration>
+					<!-- (1) CSS file location -->
+					<stylesheetfile>src/main/javadoc/assertj-javadoc-code.css</stylesheetfile>
+					<!-- (2) Highlight Javascript file -->
+					<top><![CDATA[
+<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+]]></top>
+					<!-- init Highlight -->
+					<footer><![CDATA[
+<script type="text/javascript">
+hljs.initHighlightingOnLoad();
+</script>
+]]></footer>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
