@@ -66,7 +66,7 @@ public abstract class AbstractDbData<E extends AbstractDbData<E>> {
   /**
    * Default constructor.
    */
-  public AbstractDbData() {
+  AbstractDbData() {
     // empty
   }
 
@@ -76,7 +76,7 @@ public abstract class AbstractDbData<E extends AbstractDbData<E>> {
    * @param source The {@link Source} to connect to the database (must be not {@code null}).
    * @throws NullPointerException If {@code source} is {@code null}.
    */
-  public AbstractDbData(Source source) {
+  AbstractDbData(Source source) {
     setSource(source);
   }
 
@@ -86,7 +86,7 @@ public abstract class AbstractDbData<E extends AbstractDbData<E>> {
    * @param dataSource The {@link DataSource} (must be not {@code null}).
    * @throws NullPointerException If {@code dataSource} is {@code null}.
    */
-  public AbstractDbData(DataSource dataSource) {
+  AbstractDbData(DataSource dataSource) {
     setDataSource(dataSource);
   }
 
