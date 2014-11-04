@@ -184,20 +184,14 @@ public class Request extends AbstractDbData<Request> {
       throw new NullPointerException("request can not be null");
     }
 
-    PreparedStatement statement = connection.prepareStatement(request);
-    try {
+    try (PreparedStatement statement = connection.prepareStatement(request);) {
       for (int i = 0; i < parameters.length; i++) {
         statement.setObject(i + 1, parameters[i]);
       }
-      ResultSet resultSet = statement.executeQuery();
-      try {
+      try (ResultSet resultSet = statement.executeQuery();) {
         collectColumnsNameFromResultSet(resultSet);
         collectRowsFromResultSet(resultSet);
-      } finally {
-        resultSet.close();
       }
-    } finally {
-      statement.close();
     }
   }
 }

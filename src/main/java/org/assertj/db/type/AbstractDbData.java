@@ -1,13 +1,13 @@
 /**
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
- *
+ * 
  * Copyright 2012-2014 the original author or authors.
  */
 package org.assertj.db.type;
@@ -172,27 +172,26 @@ public abstract class AbstractDbData<E extends AbstractDbData<E>> {
       throw new NullPointerException("connection or dataSource must be not null");
     }
 
-    Connection connection = null;
-    try {
-      // Get a Connection differently, depending if it is a DataSource or a Source.
-      if (dataSource != null) {
-        connection = dataSource.getConnection();
-      } else {
-        connection = DriverManager.getConnection(source.getUrl(), source.getUser(), source.getPassword());
-      }
-
+    try (Connection connection = getConnection()) {
       // Call the specific loading depending of Table or Request.
       loadImpl(connection);
     } catch (SQLException e) {
       throw new AssertJDBException(e);
-    } finally {
-      if (connection != null) {
-        try {
-          connection.close();
-        } catch (SQLException e) {
-          // This exception is mute.
-        }
-      }
+    }
+  }
+
+  /**
+   * Returns a {@link Connection} from a {@link DataSource} or from a {@link Source}.
+   * 
+   * @return A {@link Connection} differently, depending if it is a {@link DataSource} or a {@link Source}.
+   * @throws SQLException SQL Exception
+   */
+  private Connection getConnection() throws SQLException {
+    // Get a Connection differently, depending if it is a DataSource or a Source.
+    if (dataSource != null) {
+      return dataSource.getConnection();
+    } else {
+      return DriverManager.getConnection(source.getUrl(), source.getUser(), source.getPassword());
     }
   }
 

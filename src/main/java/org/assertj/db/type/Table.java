@@ -300,21 +300,20 @@ public class Table extends AbstractDbData<Table> {
    * 
    * @see AbstractDbData#loadImpl(Connection)
    * @param connection {@link Connection} to the database provided by {@link AbstractDbData#load()} private method.
+   * @throws NullPointerException If the {@link #name} field is {@code null}.
    * @throws SQLException SQL Exception.
    */
   @Override
   protected void loadImpl(Connection connection) throws SQLException {
-    Statement statement = connection.createStatement();
-    try {
-      ResultSet resultSet = statement.executeQuery(getRequest());
-      try {
+    if (name == null) {
+      throw new NullPointerException("name can not be null");
+    }
+
+    try (Statement statement = connection.createStatement();) {
+      try (ResultSet resultSet = statement.executeQuery(getRequest());) {
         collectColumnsNameFromResultSet(resultSet);
         collectRowsFromResultSet(resultSet);
-      } finally {
-        resultSet.close();
       }
-    } finally {
-      statement.close();
     }
   }
 }

@@ -15,7 +15,6 @@ package org.assertj.db.api;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -129,6 +128,7 @@ public final class Assertions {
    * 
    * @param inputStream The {@link InputStream}
    * @return A array of {@code byte}
+   * @throws AssertJDBException If triggered, this exception wrap a possible {@link IOException} during the loading.
    */
   private static byte[] read(InputStream inputStream) {
     try {
@@ -144,12 +144,6 @@ public final class Assertions {
       return values;
     } catch (IOException e) {
       throw new AssertJDBException(e);
-    } finally {
-      try {
-        inputStream.close();
-      } catch (IOException e) {
-        // Mute exception
-      }
     }
   }
 
@@ -159,17 +153,16 @@ public final class Assertions {
    * @param file The {@link File}
    * @return The bytes of the file.
    * @throws NullPointerException If the {@code file} field is {@code null}.
-   * @throws AssertJDBException If triggered, this exception wrap a possible {@link FileNotFoundException} during the loading.
+   * @throws AssertJDBException If triggered, this exception wrap a possible {@link IOException} during the loading.
    */
   public static byte[] bytesContentOf(File file) {
     if (file == null) {
       throw new NullPointerException("File must be not null");
     }
 
-    try {
-      InputStream inputStream = new FileInputStream(file);
+    try (InputStream inputStream = new FileInputStream(file);) {
       return read(inputStream);
-    } catch (FileNotFoundException e) {
+    } catch (IOException e) {
       throw new AssertJDBException(e);
     }
   }
@@ -187,11 +180,14 @@ public final class Assertions {
     }
 
     ClassLoader classLoader = Assertions.class.getClassLoader();
-    InputStream inputStream = classLoader.getResourceAsStream(resource);
-    if (inputStream == null) {
-      throw new AssertJDBException("Resource %s not found in the classpath", resource);
+    try (InputStream inputStream = classLoader.getResourceAsStream(resource);) {
+      if (inputStream == null) {
+        throw new AssertJDBException("Resource %s not found in the classpath", resource);
+      }
+  
+      return read(inputStream);
+    } catch (IOException e) {
+      throw new AssertJDBException(e);
     }
-
-    return read(inputStream);
   }
 }
