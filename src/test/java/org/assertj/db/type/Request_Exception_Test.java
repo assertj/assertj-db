@@ -40,7 +40,7 @@ public class Request_Exception_Test extends AbstractTest {
   @Test(expected = AssertJDBException.class)
   public void should_fail_because_connection_throws_exception_when_getting_an_object() {
     DataSource ds = new DefaultDataSource();
-    Request request = new Request(ds, "select * from movi");
+    Request request = new Request(ds, "select * from movi where id = ?", 1);
     request.getColumnsNameList();
   }
 
@@ -67,7 +67,7 @@ public class Request_Exception_Test extends AbstractTest {
         };
       }
     };
-    Request request = new Request(ds, "select * from movi");
+    Request request = new Request(ds, "select * from movi where id = ?", 1);
     request.getColumnsNameList();
   }
 
@@ -88,7 +88,7 @@ public class Request_Exception_Test extends AbstractTest {
         };
       }
     };
-    Request request = new Request(ds, "select * from movi");
+    Request request = new Request(ds, "select * from movi where id = ?", 1);
     request.getColumnsNameList();
   }
 
@@ -103,7 +103,7 @@ public class Request_Exception_Test extends AbstractTest {
         throw new SQLException();
       }
     };
-    Request request = new Request(ds, "select * from movi");
+    Request request = new Request(ds, "select * from movi where id = ?", 1);
     request.getColumnsNameList();
   }
 }
