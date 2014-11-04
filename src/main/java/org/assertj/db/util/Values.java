@@ -352,7 +352,7 @@ public class Values {
         } else if (number instanceof Integer) {
           actual = ((Integer) number).longValue();
         } else if (number instanceof Long) {
-          actual = ((Long) number).longValue();
+          actual = (Long) number;
         }
 
         if (actual != null && actual.longValue() == Long.parseLong(expected)) {

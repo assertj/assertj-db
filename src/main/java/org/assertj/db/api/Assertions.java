@@ -160,7 +160,7 @@ public final class Assertions {
       throw new NullPointerException("File must be not null");
     }
 
-    try (InputStream inputStream = new FileInputStream(file);) {
+    try (InputStream inputStream = new FileInputStream(file)) {
       return read(inputStream);
     } catch (IOException e) {
       throw new AssertJDBException(e);
@@ -180,7 +180,7 @@ public final class Assertions {
     }
 
     ClassLoader classLoader = Assertions.class.getClassLoader();
-    try (InputStream inputStream = classLoader.getResourceAsStream(resource);) {
+    try (InputStream inputStream = classLoader.getResourceAsStream(resource)) {
       if (inputStream == null) {
         throw new AssertJDBException("Resource %s not found in the classpath", resource);
       }

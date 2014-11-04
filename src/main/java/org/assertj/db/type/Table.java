@@ -309,8 +309,8 @@ public class Table extends AbstractDbData<Table> {
       throw new NullPointerException("name can not be null");
     }
 
-    try (Statement statement = connection.createStatement();) {
-      try (ResultSet resultSet = statement.executeQuery(getRequest());) {
+    try (Statement statement = connection.createStatement()) {
+      try (ResultSet resultSet = statement.executeQuery(getRequest())) {
         collectColumnsNameFromResultSet(resultSet);
         collectRowsFromResultSet(resultSet);
       }
