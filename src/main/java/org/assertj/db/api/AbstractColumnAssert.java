@@ -158,8 +158,8 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
   /**
    * Verifies that the type of the values of the column is a number.
    * <p>
-   * Example where the assertion verifies that all the values in the {@code Column} called "year" of the first
-   * {@code Row} of the {@code Table} is a number :
+   * Example where the assertion verifies that all the values in the {@code Column} called "year"
+   * of the {@code Table} is a number :
    * </p>
    * 
    * <pre><code class='java'>
@@ -178,7 +178,7 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
   /**
    * Verifies that the type of the values of the column is a boolean.
    * <p>
-   * Example where the assertion verifies that all the values in the first {@code Column} of the first {@code Row} of
+   * Example where the assertion verifies that all the values in the first {@code Column} of
    * the {@code Table} is a boolean :
    * </p>
    * 
@@ -198,8 +198,8 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
   /**
    * Verifies that the type of the values of the column is a date.
    * <p>
-   * Example where the assertion verifies that all the values in the {@code Column} called "birth" of the first
-   * {@code Row} of the {@code Table} is a date :
+   * Example where the assertion verifies that all the values in the {@code Column} called "birth"
+   * of the {@code Table} is a date :
    * </p>
    * 
    * <pre><code class='java'>
@@ -218,7 +218,7 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
   /**
    * Verifies that the type of the values of the column is a time.
    * <p>
-   * Example where the assertion verifies that all the values in the first {@code Column} of the first {@code Row} of
+   * Example where the assertion verifies that all the values in the first {@code Column} of
    * the {@code Table} is a time :
    * </p>
    * 
@@ -238,7 +238,7 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
   /**
    * Verifies that the type of the values of the column is a date/time.
    * <p>
-   * Example where the assertion verifies that all the values in the first {@code Column} of the first {@code Row} of
+   * Example where the assertion verifies that all the values in the first {@code Column} of
    * the {@code Table} is a date/time :
    * </p>
    * 
@@ -258,7 +258,7 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
   /**
    * Verifies that the type of the values of the column is a array of bytes.
    * <p>
-   * Example where the assertion verifies that all the values in the first {@code Column} of the first {@code Row} of
+   * Example where the assertion verifies that all the values in the first {@code Column} of
    * the {@code Table} is a array of bytes :
    * </p>
    * 
@@ -278,8 +278,8 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
   /**
    * Verifies that the type of the values of the column is a text.
    * <p>
-   * Example where the assertion verifies that all the values in the {@code Column} called "title" of the first
-   * {@code Row} of the {@code Table} is a text :
+   * Example where the assertion verifies that all the values in the {@code Column} called "title"
+   * of the {@code Table} is a text :
    * </p>
    * 
    * <pre><code class='java'>
