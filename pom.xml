@@ -5,8 +5,8 @@
 	<artifactId>assertj-db</artifactId>
 	<version>1.0.0</version>
 	<packaging>bundle</packaging>
-	<name>AssertJ fluent assertions</name>
-	<description>Rich and fluent assertions for testing</description>
+	<name>AssertJ-DB - Assertions for database</name>
+	<description>AssertJ-DB - Rich and fluent assertions for testing with database</description>
 	<inceptionYear>2014</inceptionYear>
 	<parent>
 		<groupId>org.assertj</groupId>
