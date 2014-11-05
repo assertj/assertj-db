@@ -22,7 +22,7 @@ import java.util.Calendar;
  * @author Régis Pouiller
  * 
  */
-public class DateValue implements Comparable<DateValue> {
+public class DateValue implements Comparable<DateValue>, DateValueContainer {
 
   /**
    * Day of the month.
@@ -129,6 +129,16 @@ public class DateValue implements Comparable<DateValue> {
     year = calendar.get(Calendar.YEAR);
   }
 
+  /** {@inheritDoc} */
+  @Override
+  public DateValue getDate() {
+    return this;
+  }
+
+  public boolean isMidnight() {
+    return true;
+  }
+
   /**
    * Returns the day of the month.
    * 
@@ -163,17 +173,24 @@ public class DateValue implements Comparable<DateValue> {
 
   @Override
   public boolean equals(Object obj) {
-    if (obj instanceof DateTimeValue) {
-      DateTimeValue dateTimeValue = (DateTimeValue) obj;
-      return year == dateTimeValue.getDate().getYear() && month == dateTimeValue.getDate().getMonth()
-          && dayOfTheMonth == dateTimeValue.getDate().getDayOfTheMonth() && 0 == dateTimeValue.getTime().getHour()
-          && 0 == dateTimeValue.getTime().getMinutes() && 0 == dateTimeValue.getTime().getSeconds()
-          && 0 == dateTimeValue.getTime().getNanoSeconds();
-    } else if (obj instanceof DateValue) {
+    if (obj instanceof DateValue) {
       DateValue dateValue = (DateValue) obj;
       return year == dateValue.year && month == dateValue.month && dayOfTheMonth == dateValue.dayOfTheMonth;
+    } else if (obj instanceof DateValueContainer) {
+      DateValueContainer value = (DateValueContainer) obj;
+      return equals(value.getDate()) && value.isMidnight();
     }
     return false;
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + dayOfTheMonth;
+    result = prime * result + month;
+    result = prime * result + year;
+    return result;
   }
 
   @Override

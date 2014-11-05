@@ -258,9 +258,9 @@ public class Values {
    */
   private static boolean areEqual(Date date, String expected) {
     try {
-      DateValue dateValue = DateValue.from(date);
+      DateTimeValue dateTimeValue = DateTimeValue.of(DateValue.from(date));
       DateTimeValue expectedDateTimeValue = DateTimeValue.parse(expected);
-      if (dateValue.equals(expectedDateTimeValue)) {
+      if (dateTimeValue.equals(expectedDateTimeValue)) {
         return true;
       }
     } catch (ParseException e) {
@@ -411,7 +411,7 @@ public class Values {
     } else if (value instanceof Timestamp) {
       Timestamp timestamp = (Timestamp) value;
       DateTimeValue dateTimeValue = DateTimeValue.from(timestamp);
-      return dateTimeValue.equals(expected);
+      return dateTimeValue.equals(DateTimeValue.of(expected));
     }
     return false;
   }

@@ -174,7 +174,10 @@ public class Table extends AbstractDbData<Table> {
    * @return Array of the name of the columns to check. If {@code null} that means to check all the columns.
    */
   public String[] getColumnsToCheck() {
-    return columnsToCheck;
+    if (columnsToCheck == null) {
+      return null;
+    }
+    return columnsToCheck.clone();
   }
 
   /**
@@ -211,7 +214,10 @@ public class Table extends AbstractDbData<Table> {
    * @return The columns.
    */
   public String[] getColumnsToExclude() {
-    return columnsToExclude;
+    if (columnsToExclude == null) {
+      return null;
+    }
+    return columnsToExclude.clone();
   }
 
   /**

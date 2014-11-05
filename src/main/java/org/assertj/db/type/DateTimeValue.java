@@ -1,13 +1,13 @@
 /**
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
- *
+ * 
  * Copyright 2012-2014 the original author or authors.
  */
 package org.assertj.db.type;
@@ -22,7 +22,7 @@ import java.util.Calendar;
  * @author Régis Pouiller
  * 
  */
-public class DateTimeValue implements Comparable<DateTimeValue> {
+public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContainer {
 
   /**
    * The date part.
@@ -102,8 +102,15 @@ public class DateTimeValue implements Comparable<DateTimeValue> {
    * 
    * @param date The date.
    * @param time The time.
+   * @throws NullPointerException If {@code date} or {@code time} is {@code null}.
    */
   public DateTimeValue(DateValue date, TimeValue time) {
+    if (date == null) {
+      throw new NullPointerException("date should be not null");
+    }
+    if (time == null) {
+      throw new NullPointerException("time should be not null");
+    }
     this.date = date;
     this.time = time;
   }
@@ -156,13 +163,14 @@ public class DateTimeValue implements Comparable<DateTimeValue> {
         calendar.get(Calendar.SECOND), timestamp.getNanos());
   }
 
-  /**
-   * Returns the date.
-   * 
-   * @return The date.
-   */
+  /** {@inheritDoc} */
+  @Override
   public DateValue getDate() {
     return date;
+  }
+
+  public boolean isMidnight() {
+    return time.getHour() == 0 && time.getMinutes() == 0 && time.getSeconds() == 0 && time.getNanoSeconds() == 0;
   }
 
   /**
@@ -184,18 +192,21 @@ public class DateTimeValue implements Comparable<DateTimeValue> {
   public boolean equals(Object obj) {
     if (obj instanceof DateTimeValue) {
       DateTimeValue dateTimeValue = (DateTimeValue) obj;
-      return date.getYear() == dateTimeValue.date.getYear() && date.getMonth() == dateTimeValue.date.getMonth()
-          && date.getDayOfTheMonth() == dateTimeValue.date.getDayOfTheMonth()
-          && time.getHour() == dateTimeValue.time.getHour() && time.getMinutes() == dateTimeValue.time.getMinutes()
-          && time.getSeconds() == dateTimeValue.time.getSeconds()
-          && time.getNanoSeconds() == dateTimeValue.time.getNanoSeconds();
-    } else if (obj instanceof DateValue) {
-      DateValue dateValue = (DateValue) obj;
-      return date.getYear() == dateValue.getYear() && date.getMonth() == dateValue.getMonth()
-          && date.getDayOfTheMonth() == dateValue.getDayOfTheMonth() && time.getHour() == 0 && time.getMinutes() == 0
-          && time.getSeconds() == 0 && time.getNanoSeconds() == 0;
+      return date.equals(dateTimeValue.date) && time.equals(dateTimeValue.time);
+    } else if (obj instanceof DateValueContainer) {
+      DateValueContainer value = (DateValueContainer) obj;
+      return date.equals(value.getDate()) && isMidnight() && value.isMidnight();
     }
     return false;
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((date == null) ? 0 : date.hashCode());
+    result = prime * result + ((time == null) ? 0 : time.hashCode());
+    return result;
   }
 
   @Override

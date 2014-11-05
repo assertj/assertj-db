@@ -97,7 +97,12 @@
 										<limit implementation="org.jacoco.report.check.Limit">
 											<counter>INSTRUCTION</counter>
 											<value>COVEREDRATIO</value>
-											<minimum>0.99</minimum>
+											<minimum>0.95</minimum>
+										</limit>
+										<limit implementation="org.jacoco.report.check.Limit">
+											<counter>CLASS</counter>
+											<value>COVEREDRATIO</value>
+											<minimum>1</minimum>
 										</limit>
 									</limits>
 								</rule>

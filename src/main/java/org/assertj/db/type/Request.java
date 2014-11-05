@@ -136,7 +136,10 @@ public class Request extends AbstractDbData<Request> {
    * @return The SQL request.
    */
   public Object[] getParameters() {
-    return parameters;
+    if (parameters == null) {
+      return null;
+    }
+    return parameters.clone();
   }
 
   /**

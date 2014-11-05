@@ -257,6 +257,17 @@ public class TimeValue implements Comparable<TimeValue> {
   }
 
   @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + hour;
+    result = prime * result + minutes;
+    result = prime * result + nanoSeconds;
+    result = prime * result + seconds;
+    return result;
+  }
+
+  @Override
   public int compareTo(TimeValue other) {
     if (hour < other.hour) {
       return -1;
