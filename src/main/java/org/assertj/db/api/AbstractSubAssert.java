@@ -20,6 +20,7 @@ import java.util.Map;
 import org.assertj.core.api.Descriptable;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.description.Description;
+import org.assertj.core.internal.Failures;
 import org.assertj.db.error.AssertJDBException;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Column;
@@ -41,6 +42,11 @@ import org.assertj.db.type.Row;
  */
 public abstract class AbstractSubAssert<E extends AbstractDbData<E>, D extends AbstractDbAssert<E, D, C, CV, R, RV>, S extends AbstractSubAssert<E, D, S, V, C, CV, R, RV>, V extends AbstractValueAssert<E, D, S, V, C, CV, R, RV>, C extends AbstractColumnAssert<E, D, C, CV, R, RV>, CV extends AbstractColumnValueAssert<E, D, C, CV, R, RV>, R extends AbstractRowAssert<E, D, C, CV, R, RV>, RV extends AbstractRowValueAssert<E, D, C, CV, R, RV>>
     implements Descriptable<S> {
+
+  /**
+   * To notice failures in the assertion.
+   */
+  protected static Failures failures = Failures.instance();
 
   /**
    * Info on the object to assert.

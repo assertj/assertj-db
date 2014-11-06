@@ -23,7 +23,6 @@ import static org.assertj.db.util.Values.areEqual;
 import java.util.List;
 
 import org.assertj.core.api.WritableAssertionInfo;
-import org.assertj.core.internal.Failures;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Column;
 import org.assertj.db.type.DateTimeValue;
@@ -50,11 +49,6 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
    * Column on which do the assertion.
    */
   private Column column;
-
-  /**
-   * To notice failures in the assertion.
-   */
-  private static Failures failures = Failures.instance();
 
   /**
    * Constructor.
