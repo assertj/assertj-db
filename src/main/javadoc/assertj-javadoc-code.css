@@ -65,7 +65,7 @@ ul {
     list-style-type:disc;
 }
 code, tt {
-    font-size:1.0em;
+    font-size:1.3em;
 }
 dt code {
     font-size:1.0em;
@@ -490,6 +490,7 @@ h1.hidden {
 */
 .hljs {
   display: block;
+  font-size: 1.0em;
   overflow-x: auto;
   padding-left: 0.6em;
   padding-right: 0.6em;
