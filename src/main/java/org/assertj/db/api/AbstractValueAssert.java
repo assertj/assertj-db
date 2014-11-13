@@ -32,7 +32,6 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.ParseException;
 
-import org.assertj.core.description.Description;
 import org.assertj.core.internal.Objects;
 import org.assertj.db.error.AssertJDBException;
 import org.assertj.db.type.AbstractDbData;
@@ -86,31 +85,6 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
     super(selfType);
     this.originalAssert = originalAssert;
     this.value = actualValue;
-  }
-
-  /** {@inheritDoc} */
-  public V as(String description, Object... args) {
-    return describedAs(description, args);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public V as(Description description) {
-    return describedAs(description);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public V describedAs(String description, Object... args) {
-    info.description(description, args);
-    return myself;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public V describedAs(Description description) {
-    info.description(description);
-    return myself;
   }
 
   /**

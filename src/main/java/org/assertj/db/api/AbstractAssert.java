@@ -14,6 +14,7 @@ package org.assertj.db.api;
 
 import org.assertj.core.api.Descriptable;
 import org.assertj.core.api.WritableAssertionInfo;
+import org.assertj.core.description.Description;
 import org.assertj.core.internal.Failures;
 
 /**
@@ -50,5 +51,30 @@ public abstract class AbstractAssert<E extends Descriptable<E>> implements Descr
   AbstractAssert(Class<E> selfType) {
     myself = selfType.cast(this);
     info = new WritableAssertionInfo();
+  }
+
+  /** {@inheritDoc} */
+  public E as(String description, Object... args) {
+    return describedAs(description, args);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E as(Description description) {
+    return describedAs(description);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E describedAs(String description, Object... args) {
+    info.description(description, args);
+    return myself;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E describedAs(Description description) {
+    info.description(description);
+    return myself;
   }
 }

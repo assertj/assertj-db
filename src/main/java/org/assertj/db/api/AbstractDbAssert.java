@@ -20,7 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.assertj.core.description.Description;
 import org.assertj.db.error.AssertJDBException;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Column;
@@ -84,31 +83,6 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
     actual = actualValue;
     rowAssertClass = rowAssertType;
     columnAssertClass = columnAssertType;
-  }
-
-  /** {@inheritDoc} */
-  public A as(String description, Object... args) {
-    return describedAs(description, args);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public A as(Description description) {
-    return describedAs(description);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public A describedAs(String description, Object... args) {
-    info.description(description, args);
-    return myself;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public A describedAs(Description description) {
-    info.description(description);
-    return myself;
   }
 
   /**

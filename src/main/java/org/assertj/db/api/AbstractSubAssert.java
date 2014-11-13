@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.assertj.core.api.WritableAssertionInfo;
-import org.assertj.core.description.Description;
 import org.assertj.db.error.AssertJDBException;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Column;
@@ -70,32 +69,6 @@ public abstract class AbstractSubAssert<D extends AbstractDbData<D>, A extends A
     super(selfType);
     valueClass = valueType;
     original = originalDbAssert;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public S as(String description, Object... args) {
-    return describedAs(description, args);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public S as(Description description) {
-    return describedAs(description);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public S describedAs(String description, Object... args) {
-    info.description(description, args);
-    return myself;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public S describedAs(Description description) {
-    info.description(description);
-    return myself;
   }
 
   /**
