@@ -37,10 +37,10 @@ import org.assertj.db.error.AssertJDBException;
  * 
  * @author Régis Pouiller
  * 
- * @param <E> Class of the subclass (an implementation of {@link AbstractDbData}) : useful for the fluent methods
+ * @param <D> Class of the subclass (an implementation of {@link AbstractDbData}) : useful for the fluent methods
  *          (setters).
  */
-public abstract class AbstractDbData<E extends AbstractDbData<E>> {
+public abstract class AbstractDbData<D extends AbstractDbData<D>> {
 
   /**
    * Source of the data.
@@ -110,13 +110,13 @@ public abstract class AbstractDbData<E extends AbstractDbData<E>> {
    */
   // Need the @SuppressWarnings because of the cast (E)
   @SuppressWarnings("unchecked")
-  public E setSource(Source source) {
+  public D setSource(Source source) {
     if (source == null) {
       throw new NullPointerException("source must be not null");
     }
     this.source = source;
     this.dataSource = null;
-    return (E) this;
+    return (D) this;
   }
 
   /**
@@ -139,13 +139,13 @@ public abstract class AbstractDbData<E extends AbstractDbData<E>> {
    */
   // Need the @SuppressWarnings because of the cast (E)
   @SuppressWarnings("unchecked")
-  public E setDataSource(DataSource dataSource) {
+  public D setDataSource(DataSource dataSource) {
     if (dataSource == null) {
       throw new NullPointerException("dataSource must be not null");
     }
     this.source = null;
     this.dataSource = dataSource;
-    return (E) this;
+    return (D) this;
   }
 
   /**

@@ -21,15 +21,15 @@ import org.assertj.db.type.Row;
  * 
  * @author Régis Pouiller
  * 
- * @param <E> The class of the actual value (an sub-class of {@link AbstractDbData}).
- * @param <D> The class of the original assert (an sub-class of {@link AbstractDbAssert}).
+ * @param <D> The class of the actual value (an sub-class of {@link AbstractDbData}).
+ * @param <A> The class of the original assert (an sub-class of {@link AbstractDbAssert}).
  * @param <C> The class of the equivalent row assert (an sub-class of {@link AbstractColumnAssert}).
  * @param <CV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractColumnValueAssert}).
  * @param <R> The class of this assert (an sub-class of {@link AbstractRowAssert}).
  * @param <RV> The class of this assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
-public class AbstractRowValueAssert<E extends AbstractDbData<E>, D extends AbstractDbAssert<E, D, C, CV, R, RV>, C extends AbstractColumnAssert<E, D, C, CV, R, RV>, CV extends AbstractColumnValueAssert<E, D, C, CV, R, RV>, R extends AbstractRowAssert<E, D, C, CV, R, RV>, RV extends AbstractRowValueAssert<E, D, C, CV, R, RV>>
-    extends AbstractValueAssert<E, D, R, RV, C, CV, R, RV> {
+public class AbstractRowValueAssert<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
+    extends AbstractValueAssert<D, A, R, RV, C, CV, R, RV> {
 
   /**
    * Constructor.

@@ -35,15 +35,15 @@ import org.assertj.db.util.Values;
  * 
  * @author Régis Pouiller
  * 
- * @param <E> The class of the actual value (an sub-class of {@link AbstractDbData}).
- * @param <D> The class of the original assert (an sub-class of {@link AbstractDbAssert}).
+ * @param <D> The class of the actual value (an sub-class of {@link AbstractDbData}).
+ * @param <A> The class of the original assert (an sub-class of {@link AbstractDbAssert}).
  * @param <C> The class of this assert (an sub-class of {@link AbstractColumnAssert}).
  * @param <CV> The class of this assertion on the value (an sub-class of {@link AbstractColumnValueAssert}).
  * @param <R> The class of the equivalent row assert (an sub-class of {@link AbstractRowAssert}).
  * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
-public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extends AbstractDbAssert<E, D, C, CV, R, RV>, C extends AbstractColumnAssert<E, D, C, CV, R, RV>, CV extends AbstractColumnValueAssert<E, D, C, CV, R, RV>, R extends AbstractRowAssert<E, D, C, CV, R, RV>, RV extends AbstractRowValueAssert<E, D, C, CV, R, RV>>
-    extends AbstractSubAssert<E, D, C, CV, C, CV, R, RV> {
+public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
+    extends AbstractSubAssert<D, A, C, CV, C, CV, R, RV> {
 
   /**
    * Column on which do the assertion.
@@ -57,7 +57,7 @@ public abstract class AbstractColumnAssert<E extends AbstractDbData<E>, D extend
    * @param selfType Class of this assert (the sub assert) : a sub-class of {@code AbstractSubAssert}.
    * @param valueType Class of the assert on the value : a sub-class of {@code AbstractValueAssert}.
    */
-  AbstractColumnAssert(D originalDbAssert, Class<C> selfType, Class<CV> valueType, Column column) {
+  AbstractColumnAssert(A originalDbAssert, Class<C> selfType, Class<CV> valueType, Column column) {
     super(originalDbAssert, selfType, valueType);
     this.column = column;
   }

@@ -34,15 +34,15 @@ import org.assertj.db.type.Row;
  * 
  * @author Régis Pouiller
  * 
- * @param <E> The class of the actual value (an sub-class of {@link AbstractDbData}).
- * @param <D> The class of the original assert (an sub-class of {@link AbstractDbAssert}).
+ * @param <D> The class of the actual value (an sub-class of {@link AbstractDbData}).
+ * @param <A> The class of the original assert (an sub-class of {@link AbstractDbAssert}).
  * @param <C> The class of this assert (an sub-class of {@link AbstractColumnAssert}).
  * @param <CV> The class of this assertion on the value (an sub-class of {@link AbstractColumnValueAssert}).
  * @param <R> The class of the equivalent row assert (an sub-class of {@link AbstractRowAssert}).
  * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
-public abstract class AbstractDbAssert<E extends AbstractDbData<E>, D extends AbstractDbAssert<E, D, C, CV, R, RV>, C extends AbstractColumnAssert<E, D, C, CV, R, RV>, CV extends AbstractColumnValueAssert<E, D, C, CV, R, RV>, R extends AbstractRowAssert<E, D, C, CV, R, RV>, RV extends AbstractRowValueAssert<E, D, C, CV, R, RV>>
-    implements Descriptable<D> {
+public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
+    implements Descriptable<A> {
 
   /**
    * Info on the object to assert.
@@ -51,11 +51,11 @@ public abstract class AbstractDbAssert<E extends AbstractDbData<E>, D extends Ab
   /**
    * The actual value on which the assertion is.
    */
-  private final E actual;
+  private final D actual;
   /**
    * Class of the assertion.
    */
-  private final D myself;
+  private final A myself;
 
   /**
    * Index of the next row to get.
@@ -95,7 +95,7 @@ public abstract class AbstractDbAssert<E extends AbstractDbData<E>, D extends Ab
    * @param columnAssertType Class of the assertion on the column.
    * @param rowAssertType Class of the assertion on the row.
    */
-  AbstractDbAssert(E actualValue, Class<D> selfType, Class<C> columnAssertType, Class<R> rowAssertType) {
+  AbstractDbAssert(D actualValue, Class<A> selfType, Class<C> columnAssertType, Class<R> rowAssertType) {
     myself = selfType.cast(this);
     actual = actualValue;
     rowAssertClass = rowAssertType;
@@ -104,26 +104,26 @@ public abstract class AbstractDbAssert<E extends AbstractDbData<E>, D extends Ab
   }
 
   /** {@inheritDoc} */
-  public D as(String description, Object... args) {
+  public A as(String description, Object... args) {
     return describedAs(description, args);
   }
 
   /** {@inheritDoc} */
   @Override
-  public D as(Description description) {
+  public A as(Description description) {
     return describedAs(description);
   }
 
   /** {@inheritDoc} */
   @Override
-  public D describedAs(String description, Object... args) {
+  public A describedAs(String description, Object... args) {
     info.description(description, args);
     return myself;
   }
 
   /** {@inheritDoc} */
   @Override
-  public D describedAs(Description description) {
+  public A describedAs(Description description) {
     info.description(description);
     return myself;
   }
@@ -142,7 +142,7 @@ public abstract class AbstractDbAssert<E extends AbstractDbData<E>, D extends Ab
    * @return {@code this} assertion object.
    * @throws AssertionError If the number of rows is different to the number in parameter.
    */
-  public D hasRowsSize(int expected) {
+  public A hasRowsSize(int expected) {
     List<Row> rowsList = actual.getRowsList();
     int size = rowsList.size();
     if (size != expected) {
@@ -165,7 +165,7 @@ public abstract class AbstractDbAssert<E extends AbstractDbData<E>, D extends Ab
    * @return {@code this} assertion object.
    * @throws AssertionError If the number of columns is different to the number in parameter.
    */
-  public D hasColumnsSize(int expected) {
+  public A hasColumnsSize(int expected) {
     List<String> columnsNameList = actual.getColumnsNameList();
     int size = columnsNameList.size();
     if (size != expected) {

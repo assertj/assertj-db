@@ -31,8 +31,8 @@ import org.assertj.db.type.Row;
  * 
  * @author Régis Pouiller
  * 
- * @param <E> The class of the actual value (an sub-class of {@link AbstractDbData}).
- * @param <D> The class of the original assertion (an sub-class of {@link AbstractDbAssert}).
+ * @param <D> The class of the actual value (an sub-class of {@link AbstractDbData}).
+ * @param <A> The class of the original assertion (an sub-class of {@link AbstractDbAssert}).
  * @param <S> The class of this assertion (an sub-class of {@link AbstractSubAssert}).
  * @param <V> The class of this assertion on the value (an sub-class of {@link AbstractValueAssert}).
  * @param <C> The class of this assert (an sub-class of {@link AbstractColumnAssert}).
@@ -40,7 +40,7 @@ import org.assertj.db.type.Row;
  * @param <R> The class of the equivalent row assert (an sub-class of {@link AbstractRowAssert}).
  * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
-public abstract class AbstractSubAssert<E extends AbstractDbData<E>, D extends AbstractDbAssert<E, D, C, CV, R, RV>, S extends AbstractSubAssert<E, D, S, V, C, CV, R, RV>, V extends AbstractValueAssert<E, D, S, V, C, CV, R, RV>, C extends AbstractColumnAssert<E, D, C, CV, R, RV>, CV extends AbstractColumnValueAssert<E, D, C, CV, R, RV>, R extends AbstractRowAssert<E, D, C, CV, R, RV>, RV extends AbstractRowValueAssert<E, D, C, CV, R, RV>>
+public abstract class AbstractSubAssert<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, S extends AbstractSubAssert<D, A, S, V, C, CV, R, RV>, V extends AbstractValueAssert<D, A, S, V, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
     implements Descriptable<S> {
 
   /**
@@ -55,7 +55,7 @@ public abstract class AbstractSubAssert<E extends AbstractDbData<E>, D extends A
   /**
    * The original assert. That could be a {@link RequestAssert} or a {@link TableAssert}.
    */
-  private final D original;
+  private final A original;
   /**
    * This assertion.
    */
@@ -81,7 +81,7 @@ public abstract class AbstractSubAssert<E extends AbstractDbData<E>, D extends A
    * @param selfType Class of this assert (the sub assert) : a sub-class of {@code AbstractSubAssert}.
    * @param valueType Class of the assert on the value : a sub-class of {@code AbstractValueAssert}.
    */
-  AbstractSubAssert(D originalDbAssert, Class<S> selfType, Class<V> valueType) {
+  AbstractSubAssert(A originalDbAssert, Class<S> selfType, Class<V> valueType) {
     myself = selfType.cast(this);
     valueClass = valueType;
     original = originalDbAssert;
@@ -127,7 +127,7 @@ public abstract class AbstractSubAssert<E extends AbstractDbData<E>, D extends A
    * 
    * @return The original assertion.
    */
-  protected D returnToDbAssert() {
+  protected A returnToDbAssert() {
     return original;
   }
 
