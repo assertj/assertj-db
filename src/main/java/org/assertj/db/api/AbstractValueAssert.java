@@ -32,10 +32,7 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.ParseException;
 
-import org.assertj.core.api.Descriptable;
-import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.description.Description;
-import org.assertj.core.internal.Failures;
 import org.assertj.core.internal.Objects;
 import org.assertj.db.error.AssertJDBException;
 import org.assertj.db.type.AbstractDbData;
@@ -62,7 +59,7 @@ import org.assertj.db.util.Values;
  * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
 public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, S extends AbstractSubAssert<D, A, S, V, C, CV, R, RV>, V extends AbstractValueAssert<D, A, S, V, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
-    implements Descriptable<V> {
+    extends AbstractAssert<V> {
 
   /**
    * The original assert.
@@ -72,19 +69,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * The actual value on which this assertion is.
    */
   private final Object value;
-  /**
-   * This assertion.
-   */
-  private final V myself;
-  /**
-   * The information about the assertion.
-   */
-  private final WritableAssertionInfo info;
 
-  /**
-   * To notice failures in the assertion.
-   */
-  private static Failures failures = Failures.instance();
   /**
    * Assertions for {@code Object}s provided by assertj-core.
    */
@@ -98,10 +83,9 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @param actualValue The value to assert.
    */
   AbstractValueAssert(S originalAssert, Class<V> selfType, Object actualValue) {
-    myself = (V) selfType.cast(this);
+    super(selfType);
     this.originalAssert = originalAssert;
     this.value = actualValue;
-    info = new WritableAssertionInfo();
   }
 
   /** {@inheritDoc} */

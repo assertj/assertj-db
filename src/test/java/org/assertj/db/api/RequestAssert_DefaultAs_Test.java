@@ -50,7 +50,7 @@ public class RequestAssert_DefaultAs_Test extends AbstractTest {
         + " ORDER BY actor.name, movie.year", 2000);
     RequestAssert assertion = assertThat(request);
 
-    Field field = AbstractDbAssert.class.getDeclaredField("info");
+    Field field = AbstractAssert.class.getDeclaredField("info");
     field.setAccessible(true);
     WritableAssertionInfo info = (WritableAssertionInfo) field.get(assertion);
 
@@ -72,7 +72,7 @@ public class RequestAssert_DefaultAs_Test extends AbstractTest {
     Request request = new Request(source, "SELECT name FROM movie");
     RequestAssert assertion = assertThat(request);
 
-    Field field = AbstractDbAssert.class.getDeclaredField("info");
+    Field field = AbstractAssert.class.getDeclaredField("info");
     field.setAccessible(true);
     WritableAssertionInfo info = (WritableAssertionInfo) field.get(assertion);
 

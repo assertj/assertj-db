@@ -20,10 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.assertj.core.api.Descriptable;
-import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.description.Description;
-import org.assertj.core.internal.Failures;
 import org.assertj.db.error.AssertJDBException;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Column;
@@ -42,20 +39,12 @@ import org.assertj.db.type.Row;
  * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
 public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
-    implements Descriptable<A> {
+    extends AbstractAssert<A> {
 
-  /**
-   * Info on the object to assert.
-   */
-  private final WritableAssertionInfo info;
   /**
    * The actual value on which the assertion is.
    */
   private final D actual;
-  /**
-   * Class of the assertion.
-   */
-  private final A myself;
 
   /**
    * Index of the next row to get.
@@ -83,11 +72,6 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
   private Map<Integer, C> columnsAssertMap = new HashMap<Integer, C>();
 
   /**
-   * To notice failures in the assertion.
-   */
-  private static Failures failures = Failures.instance();
-
-  /**
    * Constructor of the database assertions.
    * 
    * @param actualValue The actual value on which the assertion is.
@@ -96,11 +80,10 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
    * @param rowAssertType Class of the assertion on the row.
    */
   AbstractDbAssert(D actualValue, Class<A> selfType, Class<C> columnAssertType, Class<R> rowAssertType) {
-    myself = selfType.cast(this);
+    super(selfType);
     actual = actualValue;
     rowAssertClass = rowAssertType;
     columnAssertClass = columnAssertType;
-    info = new WritableAssertionInfo();
   }
 
   /** {@inheritDoc} */

@@ -17,10 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.assertj.core.api.Descriptable;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.description.Description;
-import org.assertj.core.internal.Failures;
 import org.assertj.db.error.AssertJDBException;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Column;
@@ -41,25 +39,12 @@ import org.assertj.db.type.Row;
  * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
 public abstract class AbstractSubAssert<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, S extends AbstractSubAssert<D, A, S, V, C, CV, R, RV>, V extends AbstractValueAssert<D, A, S, V, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
-    implements Descriptable<S> {
+    extends AbstractAssert<S> {
 
-  /**
-   * To notice failures in the assertion.
-   */
-  protected static Failures failures = Failures.instance();
-
-  /**
-   * Info on the object to assert.
-   */
-  protected final WritableAssertionInfo info;
   /**
    * The original assert. That could be a {@link RequestAssert} or a {@link TableAssert}.
    */
   private final A original;
-  /**
-   * This assertion.
-   */
-  protected final S myself;
   /**
    * Class of the assert on the value (used to make instance).
    */
@@ -82,10 +67,9 @@ public abstract class AbstractSubAssert<D extends AbstractDbData<D>, A extends A
    * @param valueType Class of the assert on the value : a sub-class of {@code AbstractValueAssert}.
    */
   AbstractSubAssert(A originalDbAssert, Class<S> selfType, Class<V> valueType) {
-    myself = selfType.cast(this);
+    super(selfType);
     valueClass = valueType;
     original = originalDbAssert;
-    info = new WritableAssertionInfo();
   }
 
   /** {@inheritDoc} */
