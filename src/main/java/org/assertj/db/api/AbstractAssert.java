@@ -26,7 +26,7 @@ import org.assertj.core.internal.Failures;
  *          target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
  *          for more details.
  */
-public abstract class AbstractAssert<E extends Descriptable<E>> implements Descriptable<E> {
+public abstract class AbstractAssert<E extends AbstractAssert<E>> implements Descriptable<E> {
 
   /**
    * To notice failures in the assertion.

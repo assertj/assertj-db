@@ -58,7 +58,7 @@ import org.assertj.db.util.Values;
  * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
 public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, S extends AbstractSubAssert<D, A, S, V, C, CV, R, RV>, V extends AbstractValueAssert<D, A, S, V, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
-    extends AbstractAssert<V> {
+    extends AbstractAssertWithOriginAssert<V, S, D, A, C, CV, R, RV> {
 
   /**
    * The original assert.
@@ -82,7 +82,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @param actualValue The value to assert.
    */
   AbstractValueAssert(S originalAssert, Class<V> selfType, Object actualValue) {
-    super(selfType);
+    super(selfType, originalAssert);
     this.originalAssert = originalAssert;
     this.value = actualValue;
   }
@@ -125,60 +125,6 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    */
   protected ValueType getType() {
     return ValueType.getType(value);
-  }
-
-  /**
-   * Returns assertion methods on the next {@link Row} in the list of {@link Row}.
-   * 
-   * @return An object to make assertions on the next {@link Row}.
-   * @throws AssertJDBException If the {@code index} is out of the bounds.
-   */
-  public R row() {
-    return returnToSubAssert().row();
-  }
-
-  /**
-   * Returns assertion methods on the {@link Row} at the {@code index} in parameter.
-   * 
-   * @param index The index corresponding to the {@link Row}.
-   * @return An object to make assertions on the {@link Row}.
-   * @throws AssertJDBException If the {@code index} is out of the bounds.
-   */
-  public R row(int index) {
-    return returnToSubAssert().row(index);
-  }
-
-  /**
-   * Returns assertion methods on the next {@link Column} in the list of {@link Column}.
-   * 
-   * @return An object to make assertions on the next {@link Column}.
-   * @throws AssertJDBException If the {@code index} is out of the bounds.
-   */
-  public C column() {
-    return returnToSubAssert().column();
-  }
-
-  /**
-   * Returns assertion methods on the {@link Column} at the {@code index} in parameter.
-   * 
-   * @param index The index corresponding to the {@link Column}.
-   * @return An object to make assertions on the {@link Column}.
-   * @throws AssertJDBException If the {@code index} is out of the bounds.
-   */
-  public C column(int index) {
-    return returnToSubAssert().column(index);
-  }
-
-  /**
-   * Returns assertion methods on the {@link Column} corresponding to the column name in parameter.
-   * 
-   * @param columnName The column name.
-   * @return An object to make assertions on the {@link Column}.
-   * @throws NullPointerException If the column name in parameter is null.
-   * @throws AssertJDBException If there is no column with this name.
-   */
-  public C column(String columnName) {
-    return returnToSubAssert().column(columnName);
   }
 
   /**
