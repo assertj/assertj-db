@@ -40,7 +40,7 @@ public class RequestRowValueAssert extends
    * @return a object of assertion methods on a {@link Row}.
    */
   public RequestRowAssert returnToRow() {
-    return returnToSubAssert();
+    return returnToOriginAssert();
   }
 
 }

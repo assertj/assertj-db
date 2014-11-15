@@ -39,7 +39,7 @@ public class AbstractRowValueAssert<D extends AbstractDbData<D>, A extends Abstr
    * @param actualValue The value to assert.
    */
   AbstractRowValueAssert(R originalAssert, Class<RV> selfType, Object actualValue) {
-    super(originalAssert, selfType, actualValue);
+    super(selfType, originalAssert, actualValue);
   }
 
   /**
@@ -52,7 +52,7 @@ public class AbstractRowValueAssert<D extends AbstractDbData<D>, A extends Abstr
    * @throws AssertJDBException If there is no column with this name.
    */
   public RV value(String columnName) {
-    return returnToSubAssert().value(columnName);
+    return returnToOriginAssert().value(columnName);
   }
 
 }

@@ -38,7 +38,7 @@ public class AbstractColumnValueAssert<D extends AbstractDbData<D>, A extends Ab
    * @param actualValue The value to assert.
    */
   AbstractColumnValueAssert(C originalAssert, Class<CV> selfType, Object actualValue) {
-    super(originalAssert, selfType, actualValue);
+    super(selfType, originalAssert, actualValue);
   }
 
 }

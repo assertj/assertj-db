@@ -73,13 +73,12 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
 
   /**
    * Constructor.
-   * 
-   * @param originalAssert The original assert.
    * @param selfType Class of this assert (the value assert) : a sub-class of {@code AbstractValueAssert}.
+   * @param originAssert The assert of origin.
    * @param actualValue The value to assert.
    */
-  AbstractValueAssert(S originalAssert, Class<V> selfType, Object actualValue) {
-    super(selfType, originalAssert);
+  AbstractValueAssert(Class<V> selfType, S originAssert, Object actualValue) {
+    super(selfType, originAssert);
     this.value = actualValue;
   }
 
