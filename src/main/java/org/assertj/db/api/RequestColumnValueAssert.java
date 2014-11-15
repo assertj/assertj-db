@@ -27,11 +27,11 @@ public class RequestColumnValueAssert extends
   /**
    * Constructor.
    * 
-   * @param originalAssert The original assert.
+   * @param originAssert The assert of origin.
    * @param value The value to assert.
    */
-  RequestColumnValueAssert(RequestColumnAssert originalAssert, Object value) {
-    super(originalAssert, RequestColumnValueAssert.class, value);
+  RequestColumnValueAssert(RequestColumnAssert originAssert, Object value) {
+    super(RequestColumnValueAssert.class, originAssert, value);
   }
 
   /**

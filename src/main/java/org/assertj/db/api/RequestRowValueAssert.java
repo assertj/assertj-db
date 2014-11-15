@@ -27,11 +27,11 @@ public class RequestRowValueAssert extends
   /**
    * Constructor.
    * 
-   * @param originalAssert The original assert.
+   * @param originAssert The assert of origin.
    * @param value The value to assert.
    */
-  RequestRowValueAssert(RequestRowAssert originalAssert, Object value) {
-    super(originalAssert, RequestRowValueAssert.class, value);
+  RequestRowValueAssert(RequestRowAssert originAssert, Object value) {
+    super(RequestRowValueAssert.class, originAssert, value);
   }
 
   /**

@@ -27,11 +27,11 @@ public class TableColumnValueAssert extends
   /**
    * Constructor.
    * 
-   * @param originalAssert The original assert.
+   * @param originAssert The assert of origin.
    * @param value The value to assert.
    */
-  TableColumnValueAssert(TableColumnAssert originalAssert, Object value) {
-    super(originalAssert, TableColumnValueAssert.class, value);
+  TableColumnValueAssert(TableColumnAssert originAssert, Object value) {
+    super(TableColumnValueAssert.class, originAssert, value);
   }
 
   /**
