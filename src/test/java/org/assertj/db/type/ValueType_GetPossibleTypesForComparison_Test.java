@@ -10,7 +10,7 @@
  *
  * Copyright 2012-2014 the original author or authors.
  */
-package org.assertj.db.api;
+package org.assertj.db.type;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -21,6 +21,7 @@ import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
+import org.assertj.db.type.ValueType;
 import org.junit.Test;
 
 /**

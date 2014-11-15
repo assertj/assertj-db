@@ -19,11 +19,11 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.ParseException;
 
-import org.assertj.db.api.ValueType;
 import org.assertj.db.error.AssertJDBException;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
+import org.assertj.db.type.ValueType;
 
 /**
  * Utility methods related to values.

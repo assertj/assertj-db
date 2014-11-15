@@ -18,6 +18,7 @@ import static org.junit.Assert.fail;
 
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
+import org.assertj.db.type.ValueType;
 import org.junit.Test;
 
 /**

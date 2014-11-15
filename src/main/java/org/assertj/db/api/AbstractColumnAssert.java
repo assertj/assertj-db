@@ -28,6 +28,7 @@ import org.assertj.db.type.Column;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
+import org.assertj.db.type.ValueType;
 import org.assertj.db.util.Values;
 
 /**

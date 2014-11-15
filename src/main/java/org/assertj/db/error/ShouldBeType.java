@@ -14,7 +14,7 @@ package org.assertj.db.error;
 
 import org.assertj.core.error.BasicErrorMessageFactory;
 import org.assertj.core.error.ErrorMessageFactory;
-import org.assertj.db.api.ValueType;
+import org.assertj.db.type.ValueType;
 
 /**
  * Creates an error message indicating that an assertion that verifies that a value is of a type.
