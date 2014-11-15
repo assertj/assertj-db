@@ -62,10 +62,6 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
     extends AbstractAssertWithOriginAssert<V, S, D, A, C, CV, R, RV> {
 
   /**
-   * The original assert.
-   */
-  private final S originalAssert;
-  /**
    * The actual value on which this assertion is.
    */
   private final Object value;
@@ -84,7 +80,6 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    */
   AbstractValueAssert(S originalAssert, Class<V> selfType, Object actualValue) {
     super(selfType, originalAssert);
-    this.originalAssert = originalAssert;
     this.value = actualValue;
   }
 
@@ -95,7 +90,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertJDBException If the {@code index} is out of the bounds.
    */
   public V value() {
-    return returnToSubAssert().value();
+    return returnToOriginAssert().value();
   }
 
   /**
@@ -107,16 +102,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertJDBException If the {@code index} is out of the bounds.
    */
   public V value(int index) {
-    return returnToSubAssert().value(index);
-  }
-
-  /**
-   * Returns the original assertion (an instance of a sub-class of {@link AbstractSubAssert}.
-   * 
-   * @return The original assertion.
-   */
-  protected S returnToSubAssert() {
-    return originalAssert;
+    return returnToOriginAssert().value(index);
   }
 
   /**
