@@ -54,6 +54,7 @@ public abstract class AbstractAssert<E extends AbstractAssert<E>> implements Des
   }
 
   /** {@inheritDoc} */
+  @Override
   public E as(String description, Object... args) {
     return describedAs(description, args);
   }
