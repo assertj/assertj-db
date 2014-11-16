@@ -24,6 +24,7 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.util.Data;
 
 /**
  * This class represents data from the database.
@@ -172,26 +173,11 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> {
       throw new NullPointerException("connection or dataSource must be not null");
     }
 
-    try (Connection connection = getConnection()) {
+    try (Connection connection = Data.getConnection(dataSource, source)) {
       // Call the specific loading depending of Table or Request.
       loadImpl(connection);
     } catch (SQLException e) {
       throw new AssertJDBException(e);
-    }
-  }
-
-  /**
-   * Returns a {@link Connection} from a {@link DataSource} or from a {@link Source}.
-   * 
-   * @return A {@link Connection} differently, depending if it is a {@link DataSource} or a {@link Source}.
-   * @throws SQLException SQL Exception
-   */
-  private Connection getConnection() throws SQLException {
-    // Get a Connection differently, depending if it is a DataSource or a Source.
-    if (dataSource != null) {
-      return dataSource.getConnection();
-    } else {
-      return DriverManager.getConnection(source.getUrl(), source.getUser(), source.getPassword());
     }
   }
 
