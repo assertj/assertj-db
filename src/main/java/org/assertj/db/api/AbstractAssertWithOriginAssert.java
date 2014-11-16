@@ -12,10 +12,7 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.db.error.AssertJDBException;
 import org.assertj.db.type.AbstractDbData;
-import org.assertj.db.type.Column;
-import org.assertj.db.type.Row;
 
 /**
  * Abstract class that represents a assert with an origin assert (like {@link AbstractValueAssert} with
@@ -35,7 +32,7 @@ import org.assertj.db.type.Row;
  * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
 public abstract class AbstractAssertWithOriginAssert<E extends AbstractAssertWithOriginAssert<E, O, D, A, C, CV, R, RV>, O extends OriginAssert<D, A, C, CV, R, RV>, D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
-    extends AbstractAssert<E> {
+    extends AbstractAssert<E> implements AssertWithColumnsAndRows<D, A, C, CV, R, RV> {
 
   /**
    * The origin assert.
@@ -62,56 +59,32 @@ public abstract class AbstractAssertWithOriginAssert<E extends AbstractAssertWit
     return originAssert;
   }
 
-  /**
-   * Returns assertion methods on the next {@link Row} in the list of {@link Row}.
-   * 
-   * @return An object to make assertions on the next {@link Row}.
-   * @throws AssertJDBException If the {@code index} is out of the bounds.
-   */
+  /** {@inheritDoc} */
+  @Override
   public R row() {
     return returnToOriginAssert().row();
   }
 
-  /**
-   * Returns assertion methods on the {@link Row} at the {@code index} in parameter.
-   * 
-   * @param index The index corresponding to the {@link Row}.
-   * @return An object to make assertions on the {@link Row}.
-   * @throws AssertJDBException If the {@code index} is out of the bounds.
-   */
+  /** {@inheritDoc} */
+  @Override
   public R row(int index) {
     return returnToOriginAssert().row(index);
   }
 
-  /**
-   * Returns assertion methods on the next {@link Column} in the list of {@link Column}.
-   * 
-   * @return An object to make assertions on the next {@link Column}.
-   * @throws AssertJDBException If the {@code index} is out of the bounds.
-   */
+  /** {@inheritDoc} */
+  @Override
   public C column() {
     return returnToOriginAssert().column();
   }
 
-  /**
-   * Returns assertion methods on the {@link Column} at the {@code index} in parameter.
-   * 
-   * @param index The index corresponding to the {@link Column}.
-   * @return An object to make assertions on the {@link Column}.
-   * @throws AssertJDBException If the {@code index} is out of the bounds.
-   */
+  /** {@inheritDoc} */
+  @Override
   public C column(int index) {
     return returnToOriginAssert().column(index);
   }
 
-  /**
-   * Returns assertion methods on the {@link Column} corresponding to the column name in parameter.
-   * 
-   * @param columnName The column name.
-   * @return An object to make assertions on the {@link Column}.
-   * @throws NullPointerException If the column name in parameter is null.
-   * @throws AssertJDBException If there is no column with this name.
-   */
+  /** {@inheritDoc} */
+  @Override
   public C column(String columnName) {
     return returnToOriginAssert().column(columnName);
   }
