@@ -22,7 +22,6 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.assertj.db.error.AssertJDBException;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;

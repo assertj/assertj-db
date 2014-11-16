@@ -20,10 +20,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.assertj.db.error.AssertJDBException;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Column;
 import org.assertj.db.type.Row;
+import org.assertj.db.util.AssertJDBException;
 
 /**
  * Assertion methods about the data in a {@code Table} or in a {@code Request}.

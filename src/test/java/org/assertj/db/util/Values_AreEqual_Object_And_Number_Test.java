@@ -17,7 +17,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import org.assertj.db.error.AssertJDBException;
 import org.junit.Test;
 
 /**

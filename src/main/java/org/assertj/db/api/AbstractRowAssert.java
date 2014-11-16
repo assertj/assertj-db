@@ -21,10 +21,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.assertj.core.api.WritableAssertionInfo;
-import org.assertj.db.error.AssertJDBException;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Row;
 import org.assertj.db.type.ValueType;
+import org.assertj.db.util.AssertJDBException;
 import org.assertj.db.util.Values;
 
 /**

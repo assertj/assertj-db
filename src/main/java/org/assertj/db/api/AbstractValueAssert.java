@@ -33,7 +33,6 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 
 import org.assertj.core.internal.Objects;
-import org.assertj.db.error.AssertJDBException;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Column;
 import org.assertj.db.type.DateTimeValue;
@@ -41,6 +40,7 @@ import org.assertj.db.type.DateValue;
 import org.assertj.db.type.Row;
 import org.assertj.db.type.TimeValue;
 import org.assertj.db.type.ValueType;
+import org.assertj.db.util.AssertJDBException;
 import org.assertj.db.util.Values;
 
 /**

@@ -17,8 +17,8 @@ import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 import org.assertj.db.common.AbstractTest;
-import org.assertj.db.error.AssertJDBException;
 import org.assertj.db.type.Table;
+import org.assertj.db.util.AssertJDBException;
 import org.junit.Test;
 
 /**

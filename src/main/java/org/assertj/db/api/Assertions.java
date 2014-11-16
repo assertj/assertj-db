@@ -18,9 +18,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.assertj.db.error.AssertJDBException;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
+import org.assertj.db.util.AssertJDBException;
 
 /**
  * Entry point of all the assertions.

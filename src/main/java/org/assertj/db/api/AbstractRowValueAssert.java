@@ -12,9 +12,9 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.db.error.AssertJDBException;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Row;
+import org.assertj.db.util.AssertJDBException;
 
 /**
  * Assertion methods about a value in a {@link Row}.

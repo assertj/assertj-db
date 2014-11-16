@@ -10,7 +10,7 @@
  *
  * Copyright 2012-2014 the original author or authors.
  */
-package org.assertj.db.error;
+package org.assertj.db.util;
 
 /**
  * Exception during the assertion (for example : when getting the data in the database, or accessing to file system).

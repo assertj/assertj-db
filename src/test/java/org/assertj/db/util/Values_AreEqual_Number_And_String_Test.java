@@ -18,7 +18,6 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.assertj.db.error.AssertJDBException;
 import org.junit.Test;
 
 /**

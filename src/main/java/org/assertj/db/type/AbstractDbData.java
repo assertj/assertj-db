@@ -23,7 +23,7 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
-import org.assertj.db.error.AssertJDBException;
+import org.assertj.db.util.AssertJDBException;
 
 /**
  * This class represents data from the database.
