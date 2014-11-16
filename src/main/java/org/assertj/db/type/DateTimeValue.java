@@ -204,8 +204,8 @@ public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContai
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((date == null) ? 0 : date.hashCode());
-    result = prime * result + ((time == null) ? 0 : time.hashCode());
+    result = prime * result + date.hashCode();
+    result = prime * result + time.hashCode();
     return result;
   }
 
