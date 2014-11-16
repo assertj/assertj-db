@@ -85,7 +85,7 @@ public class Table extends AbstractDbData<Table> {
    * Default constructor.
    */
   public Table() {
-    // empty
+    super(Table.class);
   }
 
   /**
@@ -109,7 +109,7 @@ public class Table extends AbstractDbData<Table> {
    *          column.
    */
   public Table(Source source, String name, String[] columnsToCheck, String[] columnsToExclude) {
-    super(source);
+    super(Table.class, source);
     setName(name);
     setColumnsToCheck(columnsToCheck);
     setColumnsToExclude(columnsToExclude);
@@ -136,7 +136,7 @@ public class Table extends AbstractDbData<Table> {
    *          column.
    */
   public Table(DataSource dataSource, String name, String[] columnsToCheck, String[] columnsToExclude) {
-    super(dataSource);
+    super(Table.class, dataSource);
     setName(name);
     setColumnsToCheck(columnsToCheck);
     setColumnsToExclude(columnsToExclude);

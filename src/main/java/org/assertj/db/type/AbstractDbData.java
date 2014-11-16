@@ -13,7 +13,6 @@
 package org.assertj.db.type;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,7 +23,6 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import org.assertj.db.exception.AssertJDBException;
-import org.assertj.db.util.Data;
 
 /**
  * This class represents data from the database.
@@ -41,16 +39,8 @@ import org.assertj.db.util.Data;
  * @param <D> Class of the subclass (an implementation of {@link AbstractDbData}) : useful for the fluent methods
  *          (setters).
  */
-public abstract class AbstractDbData<D extends AbstractDbData<D>> {
+public abstract class AbstractDbData<D extends AbstractDbData<D>> extends AbstractDbElement<D> {
 
-  /**
-   * Source of the data.
-   */
-  private Source source;
-  /**
-   * Data source.
-   */
-  private DataSource dataSource;
   /**
    * List of the column names.
    */
@@ -66,87 +56,32 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> {
 
   /**
    * Default constructor.
+   * @param selfType Class of this element : a sub-class of {@code AbstractDbData}.
    */
-  AbstractDbData() {
-    // empty
+  AbstractDbData(Class<D> selfType) {
+    super(selfType);
   }
 
   /**
    * Constructor with a {@link Source}.
    * 
+   * @param selfType Class of this element : a sub-class of {@code AbstractDbData}.
    * @param source The {@link Source} to connect to the database (must be not {@code null}).
    * @throws NullPointerException If {@code source} is {@code null}.
    */
-  AbstractDbData(Source source) {
-    setSource(source);
+  AbstractDbData(Class<D> selfType, Source source) {
+    super(selfType, source);
   }
 
   /**
    * Constructor with a {@link DataSource}.
    * 
+   * @param selfType Class of this element : a sub-class of {@code AbstractDbData}.
    * @param dataSource The {@link DataSource} (must be not {@code null}).
    * @throws NullPointerException If {@code dataSource} is {@code null}.
    */
-  AbstractDbData(DataSource dataSource) {
-    setDataSource(dataSource);
-  }
-
-  /**
-   * Return the source.
-   * 
-   * @see #setSource(Source)
-   * @return The {@link Source} to connect.
-   */
-  public Source getSource() {
-    return source;
-  }
-
-  /**
-   * Sets the source.
-   * 
-   * @see #getSource()
-   * @param source {@link Source} to connect to the database (must be not {@code null}).
-   * @return The actual instance.
-   * @throws NullPointerException If {@code source} is {@code null}.
-   */
-  // Need the @SuppressWarnings because of the cast (E)
-  @SuppressWarnings("unchecked")
-  public D setSource(Source source) {
-    if (source == null) {
-      throw new NullPointerException("source must be not null");
-    }
-    this.source = source;
-    this.dataSource = null;
-    return (D) this;
-  }
-
-  /**
-   * Return the data source.
-   * 
-   * @see #setDataSource(DataSource)
-   * @return The data source.
-   */
-  public DataSource getDataSource() {
-    return dataSource;
-  }
-
-  /**
-   * Sets the data source.
-   * 
-   * @see #getDataSource()
-   * @param dataSource The {@link DataSource} (must be not {@code null}).
-   * @return The actual instance.
-   * @throws NullPointerException If {@code dataSource} is {@code null}.
-   */
-  // Need the @SuppressWarnings because of the cast (E)
-  @SuppressWarnings("unchecked")
-  public D setDataSource(DataSource dataSource) {
-    if (dataSource == null) {
-      throw new NullPointerException("dataSource must be not null");
-    }
-    this.source = null;
-    this.dataSource = dataSource;
-    return (D) this;
+  AbstractDbData(Class<D> selfType, DataSource dataSource) {
+    super(selfType, dataSource);
   }
 
   /**
@@ -169,11 +104,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> {
    * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
    */
   private void load() {
-    if (dataSource == null && source == null) {
-      throw new NullPointerException("connection or dataSource must be not null");
-    }
-
-    try (Connection connection = Data.getConnection(dataSource, source)) {
+    try (Connection connection = getConnection()) {
       // Call the specific loading depending of Table or Request.
       loadImpl(connection);
     } catch (SQLException e) {
