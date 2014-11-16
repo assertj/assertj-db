@@ -23,7 +23,7 @@ import org.assertj.db.common.AbstractTest;
 import org.assertj.db.common.DefaultConnection;
 import org.assertj.db.common.DefaultDataSource;
 import org.assertj.db.common.DefaultPreparedStatement;
-import org.assertj.db.util.AssertJDBException;
+import org.assertj.db.exception.AssertJDBException;
 import org.junit.Test;
 
 /**

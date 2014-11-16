@@ -16,6 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.sql.Time;
 
+import org.assertj.db.exception.AssertJDBException;
 import org.junit.Test;
 
 /**

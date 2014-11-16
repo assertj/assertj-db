@@ -24,7 +24,7 @@ import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import org.assertj.db.util.AssertJDBException;
+import org.assertj.db.exception.AssertJDBException;
 import org.junit.Test;
 
 /**

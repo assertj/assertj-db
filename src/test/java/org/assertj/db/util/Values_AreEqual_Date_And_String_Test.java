@@ -16,6 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.sql.Date;
 
+import org.assertj.db.exception.AssertJDBException;
 import org.junit.Test;
 
 public class Values_AreEqual_Date_And_String_Test {

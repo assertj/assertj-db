@@ -15,7 +15,7 @@ package org.assertj.db.type;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.assertj.db.common.AbstractTest;
-import org.assertj.db.util.AssertJDBException;
+import org.assertj.db.exception.AssertJDBException;
 import org.junit.Test;
 
 /**

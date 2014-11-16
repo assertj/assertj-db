@@ -12,10 +12,10 @@
  */
 package org.assertj.db.api;
 
+import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Column;
 import org.assertj.db.type.Row;
-import org.assertj.db.util.AssertJDBException;
 
 /**
  * Interface that represents a assert with {@link Column} and {@link Row}.

@@ -18,8 +18,8 @@ import static org.assertj.db.api.Assertions.assertThat;
 import java.lang.reflect.Field;
 
 import org.assertj.db.common.AbstractTest;
+import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Request;
-import org.assertj.db.util.AssertJDBException;
 import org.junit.Test;
 
 /**

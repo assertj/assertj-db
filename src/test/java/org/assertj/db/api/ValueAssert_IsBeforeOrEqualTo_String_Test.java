@@ -19,8 +19,8 @@ import static org.junit.Assert.fail;
 import java.text.ParseException;
 
 import org.assertj.db.common.AbstractTest;
+import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Table;
-import org.assertj.db.util.AssertJDBException;
 import org.junit.Test;
 
 /**
