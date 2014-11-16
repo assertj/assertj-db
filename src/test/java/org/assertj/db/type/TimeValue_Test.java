@@ -1,13 +1,13 @@
 /**
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
- *
+ * 
  * Copyright 2012-2014 the original author or authors.
  */
 package org.assertj.db.type;
@@ -82,7 +82,8 @@ public class TimeValue_Test extends AbstractTest {
   }
 
   /**
-   * This method should throw a {@code ParseException} because passing a parameter to constructor with a bad character on year.
+   * This method should throw a {@code ParseException} because passing a parameter to constructor with a bad character
+   * on year.
    */
   @Test(expected = ParseException.class)
   public void should_constructor_with_string_fail_if_date_have_bad_character_on_year() throws ParseException {
@@ -90,7 +91,8 @@ public class TimeValue_Test extends AbstractTest {
   }
 
   /**
-   * This method should throw a {@code ParseException} because passing a parameter to constructor with a bad character on separator.
+   * This method should throw a {@code ParseException} because passing a parameter to constructor with a bad character
+   * on separator.
    */
   @Test(expected = ParseException.class)
   public void should_constructor_with_string_fail_if_date_have_bad_character_on_separator() throws ParseException {
@@ -191,8 +193,8 @@ public class TimeValue_Test extends AbstractTest {
   }
 
   /**
-   * This method should throw a {@code NullPointerException} because passing a {@code null} parameter to {@code parse} static method
-   * with a {@code String}.
+   * This method should throw a {@code NullPointerException} because passing a {@code null} parameter to {@code parse}
+   * static method with a {@code String}.
    */
   @Test(expected = NullPointerException.class)
   public void should_parse_fail_if_date_is_null() throws ParseException {
@@ -200,7 +202,8 @@ public class TimeValue_Test extends AbstractTest {
   }
 
   /**
-   * This method should throw a {@code ParseException} because passing a parameter to {@code parse} static method with a bad length.
+   * This method should throw a {@code ParseException} because passing a parameter to {@code parse} static method with a
+   * bad length.
    */
   @Test(expected = ParseException.class)
   public void should_parse_fail_if_date_have_bad_length() throws ParseException {
@@ -208,7 +211,8 @@ public class TimeValue_Test extends AbstractTest {
   }
 
   /**
-   * This method should throw a {@code ParseException} because passing a parameter to {@code parse} static method with a bad character on year.
+   * This method should throw a {@code ParseException} because passing a parameter to {@code parse} static method with a
+   * bad character on year.
    */
   @Test(expected = ParseException.class)
   public void should_parse_fail_if_date_have_bad_character_on_year() throws ParseException {
@@ -216,7 +220,8 @@ public class TimeValue_Test extends AbstractTest {
   }
 
   /**
-   * This method should throw a {@code ParseException} because passing a parameter to {@code parse} static method with a bad character on separator.
+   * This method should throw a {@code ParseException} because passing a parameter to {@code parse} static method with a
+   * bad character on separator.
    */
   @Test(expected = ParseException.class)
   public void should_parse_fail_if_date_have_bad_character_on_separator() throws ParseException {
@@ -236,7 +241,8 @@ public class TimeValue_Test extends AbstractTest {
   }
 
   /**
-   * This method should throw a {@code NullPointerException} because passing a {@code null} parameter to {@code from} method.
+   * This method should throw a {@code NullPointerException} because passing a {@code null} parameter to {@code from}
+   * method.
    */
   @Test(expected = NullPointerException.class)
   public void should_from_fail_if_date_is_null() throws ParseException {
@@ -301,6 +307,16 @@ public class TimeValue_Test extends AbstractTest {
     assertThat(TimeValue.of(9, 1, 6).equals(TimeValue.of(9, 1, 7))).isFalse();
     assertThat(TimeValue.of(9, 1, 6, 3).equals(TimeValue.of(9, 1, 6, 4))).isFalse();
     assertThat(TimeValue.of(9, 1, 6, 3).equals("")).isFalse();
+  }
+
+  /**
+   * This method tests the {@code hashCode} method.
+   */
+  @Test
+  public void test_hashCode() {
+    assertThat(TimeValue.of(9, 1).hashCode()).isEqualTo(1192601);
+    assertThat(TimeValue.of(9, 1, 6).hashCode()).isEqualTo(1192607);
+    assertThat(TimeValue.of(9, 1, 6, 3).hashCode()).isEqualTo(1192700);
   }
 
   /**
