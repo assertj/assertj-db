@@ -148,6 +148,24 @@ public class DateTimeValue_Test extends AbstractTest {
   }
 
   /**
+   * This method should throw a {@code NullPointerException} because passing a {@code null} parameter to constructor
+   * with a {@code DateValue}.
+   */
+  @Test(expected = NullPointerException.class)
+  public void should_constructor_with_datevalue_fail_if_date_is_null() throws ParseException {
+    new DateTimeValue((DateValue) null, TimeValue.of(9, 1));
+  }
+
+  /**
+   * This method should throw a {@code NullPointerException} because passing a {@code null} parameter to constructor
+   * with a {@code TimeValue}.
+   */
+  @Test(expected = NullPointerException.class)
+  public void should_constructor_with_timevalue_fail_if_time_is_null() throws ParseException {
+    new DateTimeValue(DateValue.of(2007, 12, 23), null);
+  }
+
+  /**
    * This method tests the constructor with values.
    */
   @Test
