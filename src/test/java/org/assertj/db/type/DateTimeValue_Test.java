@@ -347,6 +347,7 @@ public class DateTimeValue_Test extends AbstractTest {
         DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).equals(
             DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)))).isTrue();
 
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23)).equals(DateValue.of(2007, 12, 24))).isFalse();
     assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23)).equals(DateValue.of(2007, 12, 23))).isTrue();
     assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 0)).equals(DateValue.of(2007, 12, 23)))
         .isFalse();
