@@ -29,7 +29,7 @@ public class Changes_Constructor_Test extends AbstractTest {
    * This method test the constructor with source.
    */
   @Test
-  public void test_constructor_source_test() {
+  public void test_constructor_source() {
     Changes changes = new Changes(source);
 
     assertThat(changes.getRequestAtStartPoint()).isNull();
@@ -119,7 +119,7 @@ public class Changes_Constructor_Test extends AbstractTest {
    * This method test the constructor with datasource.
    */
   @Test
-  public void test_constructor_datasource_test() {
+  public void test_constructor_datasource() {
     Changes changes = new Changes(dataSource);
 
     assertThat(changes.getRequestAtStartPoint()).isNull();
@@ -209,7 +209,7 @@ public class Changes_Constructor_Test extends AbstractTest {
    * This method test the constructor with one table.
    */
   @Test
-  public void test_constructor_one_table_test() {
+  public void test_constructor_one_table() {
     Changes changes = new Changes(new Table(source, "test"));
 
     assertThat(changes.getRequestAtStartPoint()).isNull();
@@ -238,7 +238,7 @@ public class Changes_Constructor_Test extends AbstractTest {
    * This method test the constructor with two tables.
    */
   @Test
-  public void test_constructor_two_tables_test() {
+  public void test_constructor_two_tables() {
     Changes changes = new Changes(new Table(source, "test"), new Table(dataSource, "test2"));
 
     assertThat(changes.getRequestAtStartPoint()).isNull();
@@ -275,7 +275,7 @@ public class Changes_Constructor_Test extends AbstractTest {
    * This method test the constructor with a request.
    */
   @Test
-  public void test_constructor_request_test() {
+  public void test_constructor_request() {
     Changes changes = new Changes(new Request(source, "select * from test"));
 
     assertThat(changes.getRequestAtStartPoint()).isNull();
