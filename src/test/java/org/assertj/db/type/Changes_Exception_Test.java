@@ -12,10 +12,17 @@
  */
 package org.assertj.db.type;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import javax.sql.DataSource;
 
 import org.assertj.db.common.AbstractTest;
+import org.assertj.db.common.DefaultConnection;
 import org.assertj.db.common.DefaultDataSource;
+import org.assertj.db.common.DefaultStatement;
 import org.assertj.db.exception.AssertJDBException;
 import org.junit.Test;
 
@@ -33,6 +40,72 @@ public class Changes_Exception_Test extends AbstractTest {
   @Test(expected = AssertJDBException.class)
   public void should_fail_because_connection_throws_exception_when_getting_an_object() {
     DataSource ds = new DefaultDataSource();
+    Table table = new Table(ds, "movi");
+    Changes changes = new Changes().setTables(table);
+    changes.setStartPointNow();
+  }
+
+  /**
+   * This method should fail because the connection throw an exception when executing a query.
+   */
+  @Test(expected = AssertJDBException.class)
+  public void should_fail_because_connection_throws_exception_when_executing_a_query() {
+    DataSource ds = new DefaultDataSource() {
+      @Override
+      public Connection getConnection() throws SQLException {
+        return new DefaultConnection() {
+
+          @Override
+          public Statement createStatement() throws SQLException {
+            return new DefaultStatement() {
+
+              @Override
+              public ResultSet executeQuery(String sql) throws SQLException {
+                throw new SQLException();
+              }
+            };
+          }
+        };
+      }
+    };
+    Table table = new Table(ds, "movi");
+    Changes changes = new Changes().setTables(table);
+    changes.setStartPointNow();
+  }
+
+  /**
+   * This method should fail because the connection throw an exception when creating a statement.
+   */
+  @Test(expected = AssertJDBException.class)
+  public void should_fail_because_connection_throws_exception_when_creating_a_statement() {
+    DataSource ds = new DefaultDataSource() {
+      @Override
+      public Connection getConnection() throws SQLException {
+        return new DefaultConnection() {
+
+          @Override
+          public Statement createStatement() throws SQLException {
+            throw new SQLException();
+          }
+        };
+      }
+    };
+    Table table = new Table(ds, "movi");
+    Changes changes = new Changes().setTables(table);
+    changes.setStartPointNow();
+  }
+
+  /**
+   * This method should fail because the connection throw an exception when getting a connection.
+   */
+  @Test(expected = AssertJDBException.class)
+  public void should_fail_because_connection_throws_exception_when_getting_a_connection() {
+    DataSource ds = new DefaultDataSource() {
+      @Override
+      public Connection getConnection() throws SQLException {
+        throw new SQLException();
+      }
+    };
     Table table = new Table(ds, "movi");
     Changes changes = new Changes().setTables(table);
     changes.setStartPointNow();
