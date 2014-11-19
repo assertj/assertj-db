@@ -195,7 +195,7 @@ public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContai
       return date.equals(dateTimeValue.date) && time.equals(dateTimeValue.time);
     } else if (obj instanceof DateValueContainer) {
       DateValueContainer value = (DateValueContainer) obj;
-      return date.equals(value.getDate()) && isMidnight() && value.isMidnight();
+      return date.equals(value.getDate()) && isMidnight();
     }
     return false;
   }

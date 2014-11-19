@@ -298,4 +298,12 @@ public class DateValue_Test extends AbstractTest {
     assertThat(DateValue.of(2007, 11, 23).isAfter(DateValue.of(2007, 12, 22))).isFalse();
     assertThat(DateValue.of(2007, 12, 23).isAfter(DateValue.of(2008, 11, 23))).isFalse();
   }
+
+  /**
+   * This method tests the {@code isMidnight} method.
+   */
+  @Test
+  public void test_isMidnight() {
+    assertThat(DateValue.of(2007, 12, 23).isMidnight()).isTrue();
+  }
 }

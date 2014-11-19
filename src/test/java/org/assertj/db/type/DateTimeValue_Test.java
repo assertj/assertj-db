@@ -347,6 +347,7 @@ public class DateTimeValue_Test extends AbstractTest {
         DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).equals(
             DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)))).isTrue();
 
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23)).equals(DateValue.of(2007, 12, 23))).isTrue();
     assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 0)).equals(DateValue.of(2007, 12, 23)))
         .isFalse();
     assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 1)).equals(DateValue.of(2007, 12, 23)))
@@ -556,5 +557,22 @@ public class DateTimeValue_Test extends AbstractTest {
     assertThat(
         DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).isAfter(
             DateTimeValue.of(DateValue.of(2008, 12, 23), TimeValue.of(9, 1, 6, 3)))).isFalse();
+  }
+
+  /**
+   * This method tests the {@code isMidnight} method.
+   */
+  @Test
+  public void test_isMidnight() {
+    assertThat(
+        DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).isMidnight()).isFalse();
+    assertThat(
+        DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6)).isMidnight()).isFalse();
+    assertThat(
+        DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1)).isMidnight()).isFalse();
+    assertThat(
+        DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 0)).isMidnight()).isTrue();
+    assertThat(
+        DateTimeValue.of(DateValue.of(2007, 12, 23)).isMidnight()).isTrue();
   }
 }
