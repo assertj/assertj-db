@@ -18,6 +18,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -150,6 +151,18 @@ public class Request extends AbstractDbData<Request> {
    */
   public Request setParameters(Object... parameters) {
     this.parameters = parameters;
+    return this;
+  }
+
+  /**
+   * Sets the primary keys name.
+   * 
+   * @param pksName The primary keys name.
+   */
+  public Request setPksNameList(String... pksName) {
+    List<String> pksNameList = new ArrayList<String>();
+    pksNameList.addAll(Arrays.asList(pksName));
+    super.setPksNameList(pksNameList);
     return this;
   }
 

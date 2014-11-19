@@ -12,6 +12,8 @@
  */
 package org.assertj.db.type;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -19,7 +21,7 @@ import java.sql.SQLException;
 import javax.sql.DataSource;
 
 /**
- * This class represents element from the database (either a {@link AbstractDbData} or a {@link Change}).
+ * This class represents element from the database (either a {@code AbstractDbData} or a {@code Change}).
  * 
  * @author Régis Pouiller
  *
@@ -144,4 +146,43 @@ public class AbstractDbElement<D extends AbstractDbElement<D>> {
     }
   }
 
+  /**
+   * Returns the catalog from a connection.
+   * @param connection The connection with the catalog
+   * @return The catalog from a connection.
+   * @throws SQLException SQL Exception
+   */
+  protected static String getCatalog(Connection connection) throws SQLException {
+    Class<? extends Connection> connectionClass = connection.getClass();
+    Method[] methods = connectionClass.getMethods();
+    for (Method method : methods) {
+      if ("getCatalog".equals(method.getName())) {
+        int modifiers = method.getModifiers();
+        if (Modifier.isAbstract(modifiers)) {
+          return null;
+        }
+      }
+    }
+    return connection.getCatalog();
+  }
+
+  /**
+   * Returns the schema from a connection.
+   * @param connection The connection with the catalog
+   * @return The schema from a connection.
+   * @throws SQLException SQL Exception
+   */
+  protected static String getSchema(Connection connection) throws SQLException {
+    Class<? extends Connection> connectionClass = connection.getClass();
+    Method[] methods = connectionClass.getMethods();
+    for (Method method : methods) {
+      if ("getSchema".equals(method.getName())) {
+        int modifiers = method.getModifiers();
+        if (Modifier.isAbstract(modifiers)) {
+          return null;
+        }
+      }
+    }
+    return connection.getSchema();
+  }
 }

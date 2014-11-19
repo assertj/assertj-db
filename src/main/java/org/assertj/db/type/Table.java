@@ -1,18 +1,19 @@
 /**
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
- *
+ * 
  * Copyright 2012-2014 the original author or authors.
  */
 package org.assertj.db.type;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -39,10 +40,12 @@ import javax.sql.DataSource;
  * {@link Source}.
  * </p>
  * 
- * <pre><code class='java'>
+ * <pre>
+ * <code class='java'>
  * Source source = new Source(&quot;jdbc:h2:mem:test&quot;, &quot;sa&quot;, &quot;&quot;);
  * Table table = new Table(source, &quot;movie&quot;);
- * </code></pre>
+ * </code>
+ * </pre>
  * 
  * </li>
  * <li>
@@ -54,11 +57,13 @@ import javax.sql.DataSource;
  * The {@link Table} use a {@code DataSource} instead of a {@link Source} like above.
  * </p>
  * 
- * <pre><code class='java'>
+ * <pre>
+ * <code class='java'>
  * DataSource dataSource = ...;
  * Table table1 = new Table(dataSource, &quot;song&quot;, new String[] { &quot;number&quot;, &quot;title&quot; }, null);
  * Table table2 = new Table(dataSource, &quot;musician&quot;, null, new String[] { &quot;birthday&quot; });
- * </code></pre>
+ * </code>
+ * </pre>
  * 
  * </li>
  * </ul>
@@ -302,6 +307,30 @@ public class Table extends AbstractDbData<Table> {
   }
 
   /**
+   * Collects the primary key name from the {@code Connection} to the database.
+   * <p>
+   * This method use the {@link DatabaseMetaData} from the {@code Connection} parameter to list the primary keys of the
+   * table.
+   * </p>
+   * 
+   * @param connection The {@code Connection} to the database.
+   * @throws SQLException SQL Exception.
+   */
+  private void collectPrimaryKeyName(Connection connection) throws SQLException {
+    List<String> pksNameList = new ArrayList<String>();
+    DatabaseMetaData metaData = connection.getMetaData();
+
+    try (ResultSet resultSet = metaData.getPrimaryKeys(getCatalog(connection), getSchema(connection),
+        name.toUpperCase());) {
+      while (resultSet.next()) {
+        String columnName = resultSet.getString("COLUMN_NAME");
+        pksNameList.add(columnName);
+      }
+    }
+    setPksNameList(pksNameList);
+  }
+
+  /**
    * Specific implementation of the loading for a {@code Table}.
    * 
    * @see AbstractDbData#loadImpl(Connection)
@@ -321,5 +350,6 @@ public class Table extends AbstractDbData<Table> {
         collectRowsFromResultSet(resultSet);
       }
     }
+    collectPrimaryKeyName(connection);
   }
 }

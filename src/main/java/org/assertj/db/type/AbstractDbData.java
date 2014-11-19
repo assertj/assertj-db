@@ -46,6 +46,10 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    */
   private List<String> columnsNameList;
   /**
+   * List of the primary key names.
+   */
+  private List<String> pksNameList;
+  /**
    * List of the rows.
    */
   private List<Row> rowsList;
@@ -173,6 +177,33 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    */
   protected void setColumnsNameList(List<String> columnsNameList) {
     this.columnsNameList = columnsNameList;
+  }
+
+  /**
+   * Return the list of the primary key name for the data from database.
+   * <p>
+   * If it is the first call to {@code getIdsNameList()}, the data are loaded from database by calling the
+   * {@link #load()} private method.
+   * </p>
+   * 
+   * @return The list of the primary key name.
+   * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
+   * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
+   */
+  public List<String> getPksNameList() {
+    if (pksNameList == null) {
+      load();
+    }
+    return pksNameList;
+  }
+
+  /**
+   * Sets the list of the primary key name.
+   * 
+   * @param pksNameList The list of the primary key name.
+   */
+  protected void setPksNameList(List<String> pksNameList) {
+    this.pksNameList = pksNameList;
   }
 
   /**
