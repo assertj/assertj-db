@@ -60,6 +60,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
 
   /**
    * Default constructor.
+   * 
    * @param selfType Class of this element : a sub-class of {@code AbstractDbData}.
    */
   AbstractDbData(Class<D> selfType) {
@@ -148,7 +149,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
       for (String columnName : columnsNameList) {
         objectsList.add(resultSet.getObject(columnName));
       }
-      rowsList.add(new Row(columnsNameList, objectsList));
+      rowsList.add(new Row(pksNameList, columnsNameList, objectsList));
     }
   }
 
@@ -198,12 +199,39 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
   }
 
   /**
+   * Controls that all the primary keys name exist in the columns.
+   */
+  protected void controlIfAllThePksNameExistInTheColumns() {
+    if (pksNameList != null) {
+      for (String pkName : pksNameList) {
+        // If the list of columns name is not set, the presence of the column is not tested
+        if (columnsNameList != null) {
+          if (columnsNameList.indexOf(pkName) == -1) {
+            throw new AssertJDBException("Primary key %s do not exist in the columns %s", pkName, columnsNameList);
+          }
+        }
+      }
+    }
+  }
+
+  /**
    * Sets the list of the primary key name.
    * 
-   * @param pksNameList The list of the primary key name.
+   * @param pksNameList The list of the primary keys name.
+   * @throws AssertJDBException If one the primary keys do not exist in the columns name, the exception is triggered.
    */
   protected void setPksNameList(List<String> pksNameList) {
-    this.pksNameList = pksNameList;
+    this.pksNameList = new ArrayList<String>();
+    for (String pkName : pksNameList) {
+      String pkNameUp = pkName.toUpperCase();
+      this.pksNameList.add(pkNameUp);
+    }
+    if (rowsList != null) {
+      for (Row row : rowsList) {
+        row.setPksNameList(this.pksNameList);
+      }
+    }
+    controlIfAllThePksNameExistInTheColumns();
   }
 
   /**
@@ -286,5 +314,20 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
     }
 
     return valuesList;
+  }
+
+  /**
+   * Returns the {@link Row} with the primary keys values in parameter.
+   * 
+   * @param pksValues The primary keys values.
+   * @return The {@link Row} with the same primary keys values.
+   */
+  public Row getRowFromPksValues(Object... pksValues) {
+    for (Row row : getRowsList()) {
+      if (row.havePksValuesEqualTo(pksValues)) {
+        return row;
+      }
+    }
+    return null;
   }
 }

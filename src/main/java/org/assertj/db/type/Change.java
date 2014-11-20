@@ -1,13 +1,13 @@
 /**
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
- *
+ * 
  * Copyright 2012-2014 the original author or authors.
  */
 package org.assertj.db.type;
@@ -44,17 +44,51 @@ public class Change {
   private final Row rowAtEndPoint;
 
   /**
+   * Returns a new instance of a creation change.
+   * @param dataName The name of the data.
+   * @param rowAtEndPoint The row at end point.
+   * @return The new instance of a creation change.
+   */
+  static Change createCreationChange(String dataName, Row rowAtEndPoint) {
+    return new Change(dataName, ChangeType.CREATION, null, rowAtEndPoint);
+  }
+
+  /**
+   * Returns a new instance of a modification change.
+   * @param dataName The name of the data.
+   * @param rowAtStartPoint The row at start point.
+   * @param rowAtEndPoint The row at end point.
+   * @return The new instance of a modification change.
+   */
+  static Change createModificationChange(String dataName, Row rowAtStartPoint, Row rowAtEndPoint) {
+    return new Change(dataName, ChangeType.MODIFICATION, rowAtStartPoint, rowAtEndPoint);
+  }
+
+  /**
+   * Returns a new instance of a deletion change.
+   * @param dataName The name of the data.
+   * @param rowAtStartPoint The row at start point.
+   * @return The new instance of a deletion change.
+   */
+  static Change createDeletionChange(String dataName, Row rowAtStartPoint) {
+    return new Change(dataName, ChangeType.DELETION, rowAtStartPoint, null);
+  }
+
+  /**
    * Constructor.
    * 
    * @param dataName The name of the data on which is the change.
-   * @param columnsNameList The list of the column names.
    * @param changeType The type of the change.
    * @param rowAtStartPoint The row at start point.
    * @param rowAtEndPoint The row at end point.
    */
-  Change(String dataName, List<String> columnsNameList, ChangeType changeType, Row rowAtStartPoint, Row rowAtEndPoint) {
+  Change(String dataName, ChangeType changeType, Row rowAtStartPoint, Row rowAtEndPoint) {
     this.dataName = dataName;
-    this.columnsNameList = columnsNameList;
+    if (rowAtStartPoint != null) {
+      this.columnsNameList = rowAtStartPoint.getColumnsNameList();
+    } else {
+      this.columnsNameList = rowAtEndPoint.getColumnsNameList();
+    }
     this.changeType = changeType;
     this.rowAtStartPoint = rowAtStartPoint;
     this.rowAtEndPoint = rowAtEndPoint;

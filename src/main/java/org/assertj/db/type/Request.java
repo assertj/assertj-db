@@ -159,7 +159,7 @@ public class Request extends AbstractDbData<Request> {
    * 
    * @param pksName The primary keys name.
    */
-  public Request setPksNameList(String... pksName) {
+  public Request setPksName(String... pksName) {
     List<String> pksNameList = new ArrayList<String>();
     pksNameList.addAll(Arrays.asList(pksName));
     super.setPksNameList(pksNameList);
@@ -184,6 +184,7 @@ public class Request extends AbstractDbData<Request> {
       columnsNameList.add(columnName.toUpperCase());
     }
     setColumnsNameList(columnsNameList);
+    controlIfAllThePksNameExistInTheColumns();
   }
 
   /**

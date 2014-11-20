@@ -12,6 +12,10 @@
  */
 package org.assertj.db.type;
 
+import static org.assertj.db.type.Change.createCreationChange;
+import static org.assertj.db.type.Change.createModificationChange;
+import static org.assertj.db.type.Change.createDeletionChange;
+
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -310,105 +314,78 @@ public class Changes extends AbstractDbElement<Changes> {
   }
 
   /**
-   * Returns the value of the primary keys from a {@link Row}.
+   * Returns the list of changes for the data.
    * 
-   * @param columnsNameList The list of columns name of the data.
-   * @param pksNameList The list of the primary keys name.
-   * @param row The {@link Row}.
-   * @return The value of the primary keys.
+   * @param dataName The name of the data.
+   * @param dataAtStartPoint The data at start point.
+   * @param dataAtEndPoint The data at end point.
+   * @return The list of changes for the data.
    */
-  private Object[] getPrimaryKeysValue(List<String> columnsNameList, List<String> pksNameList, Row row) {
-    List<Object> valuesList = new ArrayList<Object>();
-    for (String pkName : pksNameList) {
-      int index = columnsNameList.indexOf(pkName);
-      Object value = row.getValuesList().get(index);
-      valuesList.add(value);
-    }
-    return valuesList.toArray(new Object[0]);
-  }
-
-  /**
-   * Returns if the two values of the primary keys are equal.
-   * 
-   * @param primaryKeysValue1 The first value of the primary keys.
-   * @param primaryKeysValue2 The second value of the primary keys.
-   * @return If the two values are equal.
-   */
-  private boolean arePrimaryKeysValueEqual(Object[] primaryKeysValue1, Object[] primaryKeysValue2) {
-    if (primaryKeysValue1.length != 0) {
-      for (int index = 0; index < primaryKeysValue1.length; index++) {
-        if ((primaryKeysValue1[index] == null && primaryKeysValue2[index] != null)
-            || !primaryKeysValue1[index].equals(primaryKeysValue2[index])) {
-
-          return false;
-        }
-      }
-      return true;
-    }
-
-    return false;
-  }
-
-  /**
-   * Returns the {@link Row} with the same primary key value in a list of {@link Row}s.
-   * 
-   * @param columnsNameList The list of columns name of the data.
-   * @param pksNameList The list of the primary keys name.
-   * @param rowsList The list of {@link Row}s.
-   * @param row The {@link Row} to search.
-   * @return The {@link Row} with the same primary key value.
-   */
-  private Row getRowFromList(List<String> columnsNameList, List<String> pksNameList, List<Row> rowsList, Row row) {
-    Object[] primaryKeysValue = getPrimaryKeysValue(columnsNameList, pksNameList, row);
-    for (Row row2 : rowsList) {
-      Object[] primaryKeysValue2 = getPrimaryKeysValue(columnsNameList, pksNameList, row);
-      if (arePrimaryKeysValueEqual(primaryKeysValue, primaryKeysValue2)) {
-        return row2;
-      }
-    }
-    return null;
-  }
-
-  /**
-   * Returns the list of changes for the rows of a data.
-   * 
-   * @param dataName The name of the data
-   * @param columnsNameList The list of columns name of the data.
-   * @param pksNameList The list of the primary keys name.
-   * @param rowsAtStartPointList The list of the rows at start point.
-   * @param rowsAtEndPointList The list of the rows at end point.
-   * @return
-   */
-  private List<Change> getChangesList(String dataName, List<String> columnsNameList, List<String> pksNameList,
-      List<Row> rowsAtStartPointList, List<Row> rowsAtEndPointList) {
+  private List<Change> getChangesList(String dataName, AbstractDbData<?> dataAtStartPoint,
+      AbstractDbData<?> dataAtEndPoint) {
 
     List<Change> changesList = new ArrayList<Change>();
-    // List the created rows : the row is not present at the start point
-    for (Row row : rowsAtEndPointList) {
-      Row rowAtStartPoint = getRowFromList(columnsNameList, pksNameList, rowsAtStartPointList, row);
-      if (rowAtStartPoint == null) {
-        Change change = new Change(dataName, columnsNameList, ChangeType.CREATION, rowAtStartPoint, row);
-        changesList.add(change);
+    if (dataAtStartPoint.getPksNameList() != null && dataAtStartPoint.getPksNameList().size() > 0) {
+      // List the created rows : the row is not present at the start point
+      for (Row row : dataAtEndPoint.getRowsList()) {
+        Row rowAtStartPoint = dataAtStartPoint.getRowFromPksValues(row.getPksValues());
+        if (rowAtStartPoint == null) {
+          Change change = createCreationChange(dataName, row);
+          changesList.add(change);
+        }
       }
-    }
-    for (Row row : rowsAtStartPointList) {
-      Row rowAtEndPoint = getRowFromList(columnsNameList, pksNameList, rowsAtEndPointList, row);
-      if (rowAtEndPoint == null) {
-        // List the deleted rows : the row is not present at the end point
-        Change change = new Change(dataName, columnsNameList, ChangeType.DELETION, row, rowAtEndPoint);
-        changesList.add(change);
-      } else {
-        // List the modified rows
-        List<Object> valuesAtStartPointList = row.getValuesList();
-        List<Object> valuesAtEndPointList = rowAtEndPoint.getValuesList();
-        for (int index = 0; index < valuesAtStartPointList.size(); index++) {
-          Object valueAtStartPoint = valuesAtStartPointList.get(index);
-          Object valueAtEndPoint = valuesAtEndPointList.get(index);
-          if ((valueAtStartPoint == null && valueAtEndPoint != null) || !valueAtStartPoint.equals(valueAtEndPoint)) {
+      for (Row row : dataAtStartPoint.getRowsList()) {
+        Row rowAtEndPoint = dataAtEndPoint.getRowFromPksValues(row.getPksValues());
+        if (rowAtEndPoint == null) {
+          // List the deleted rows : the row is not present at the end point
+          Change change = createDeletionChange(dataName, row);
+          changesList.add(change);
+        } else {
+          // List the modified rows
+          if (!row.haveValuesEqualTo(rowAtEndPoint)) {
             // If at least one value in the rows is different, add the change
-            Change change = new Change(dataName, columnsNameList, ChangeType.MODIFICATION, row, rowAtEndPoint);
+            Change change = createModificationChange(dataName, row, rowAtEndPoint);
             changesList.add(change);
           }
+        }
+      }
+    } else {
+      // List the created rows : the row is not present at the start point
+      List<Row> rowsAtStartPointList = new ArrayList<Row>(dataAtStartPoint.getRowsList());
+      for (Row rowAtEndPoint : dataAtEndPoint.getRowsList()) {
+        int index = -1;
+        int index1 = 0;
+        for (Row rowAtStartPoint : rowsAtStartPointList) {
+          if (rowAtEndPoint.haveValuesEqualTo(rowAtStartPoint)) {
+            index = index1;
+            break;
+          }
+          index1++;
+        }
+        if (index == -1) {
+          Change change = createCreationChange(dataName, rowAtEndPoint);
+          changesList.add(change);
+        } else {
+          rowsAtStartPointList.remove(index);
+        }
+      }
+      // List the deleted rows : the row is not present at the end point
+      List<Row> rowsAtEndPointList = new ArrayList<Row>(dataAtEndPoint.getRowsList());
+      for (Row rowAtStartPoint : dataAtStartPoint.getRowsList()) {
+        int index = -1;
+        int index1 = 0;
+        for (Row rowAtEndPoint : rowsAtEndPointList) {
+          if (rowAtStartPoint.haveValuesEqualTo(rowAtEndPoint)) {
+            index = index1;
+            break;
+          }
+          index1++;
+        }
+        if (index == -1) {
+          Change change = createDeletionChange(dataName, rowAtStartPoint);
+          changesList.add(change);
+        } else {
+          rowsAtEndPointList.remove(index);
         }
       }
     }
@@ -437,8 +414,7 @@ public class Changes extends AbstractDbElement<Changes> {
       }
 
       if (requestAtEndPoint != null) {
-        changesList = getChangesList(requestAtStartPoint.getRequest(), requestAtStartPoint.getColumnsNameList(),
-            requestAtStartPoint.getPksNameList(), requestAtStartPoint.getRowsList(), requestAtEndPoint.getRowsList());
+        changesList = getChangesList(requestAtStartPoint.getRequest(), requestAtStartPoint, requestAtEndPoint);
       } else {
         changesList = new ArrayList<Change>();
         Iterator<Table> iteratorAtStartPoint = tablesAtStartPointList.iterator();
@@ -446,8 +422,7 @@ public class Changes extends AbstractDbElement<Changes> {
         while (iteratorAtStartPoint.hasNext() && iteratorAtEndPoint.hasNext()) {
           Table tableAtStartPoint = iteratorAtStartPoint.next();
           Table tableAtEndPoint = iteratorAtEndPoint.next();
-          changesList.addAll(getChangesList(tableAtStartPoint.getRequest(), tableAtStartPoint.getColumnsNameList(),
-              tableAtStartPoint.getPksNameList(), tableAtStartPoint.getRowsList(), tableAtEndPoint.getRowsList()));
+          changesList.addAll(getChangesList(tableAtStartPoint.getName(), tableAtStartPoint, tableAtEndPoint));
         }
       }
     }

@@ -78,10 +78,9 @@ public class Table_PrimaryKeys_Name_Test extends AbstractTest {
    */
   @Test
   public void test_pks_name_to_exclude_with_source_set() {
-    Table table = new Table(source, "interpretation", null, new String[] { "id" });
+    Table table = new Table(source, "interpretation", null, new String[] { "ID" });
 
-    assertThat(table.getPksNameList()).as("Primary Keys of INTERPRETATION table").hasSize(1)
-        .containsExactly("ID");
+    assertThat(table.getPksNameList()).as("Primary Keys of INTERPRETATION table").hasSize(0);
   }
 
   /**
@@ -91,8 +90,7 @@ public class Table_PrimaryKeys_Name_Test extends AbstractTest {
   public void test_pks_name_to_exclude_with_datasource_set() {
     Table table = new Table(dataSource, "interpretation", null, new String[] { "id" });
 
-    assertThat(table.getPksNameList()).as("Primary Keys of INTERPRETATION table").hasSize(1)
-        .containsExactly("ID");
+    assertThat(table.getPksNameList()).as("Primary Keys of INTERPRETATION table").hasSize(0);
   }
 
   /**

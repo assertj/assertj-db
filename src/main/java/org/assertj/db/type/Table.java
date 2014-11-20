@@ -324,7 +324,9 @@ public class Table extends AbstractDbData<Table> {
         name.toUpperCase());) {
       while (resultSet.next()) {
         String columnName = resultSet.getString("COLUMN_NAME");
-        pksNameList.add(columnName);
+        if (getColumnsNameList().indexOf(columnName) != -1) {
+          pksNameList.add(columnName);
+        }
       }
     }
     setPksNameList(pksNameList);

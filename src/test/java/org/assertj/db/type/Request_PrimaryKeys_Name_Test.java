@@ -55,7 +55,7 @@ public class Request_PrimaryKeys_Name_Test extends AbstractTest {
         + " FROM movie, actor, interpretation"
         + " WHERE movie.id = interpretation.id_movie"
         + " AND interpretation.id_actor = actor.id"
-        + " ORDER BY actor.name, movie.year").setPksNameList("NAME");
+        + " ORDER BY actor.name, movie.year").setPksName("NAME");
 
     assertThat(request.getPksNameList()).as("Primary Keys of the request")
         .hasSize(1)
@@ -72,7 +72,7 @@ public class Request_PrimaryKeys_Name_Test extends AbstractTest {
         + " FROM movie, actor, interpretation"
         + " WHERE movie.id = interpretation.id_movie"
         + " AND interpretation.id_actor = actor.id"
-        + " ORDER BY actor.name, movie.year").setPksNameList("NAME");
+        + " ORDER BY actor.name, movie.year").setPksName("NAME");
 
     assertThat(request.getPksNameList()).as("Primary Keys of the request")
         .hasSize(1)
@@ -90,7 +90,7 @@ public class Request_PrimaryKeys_Name_Test extends AbstractTest {
             + " WHERE movie.id = interpretation.id_movie"
             + " AND interpretation.id_actor = actor.id"
             + " AND movie.year > ?"
-            + " ORDER BY actor.name, movie.year", 2000).setPksNameList("NAME", "ID");
+            + " ORDER BY actor.name, movie.year", 2000).setPksName("NAME", "ID");
 
     assertThat(request.getPksNameList()).as("Primary Keys of the request")
         .hasSize(2)
@@ -109,7 +109,7 @@ public class Request_PrimaryKeys_Name_Test extends AbstractTest {
             + " AND interpretation.id_actor = actor.id"
             + " AND movie.year > ?"
             + " ORDER BY actor.name, movie.year")
-        .setParameters(2000).setPksNameList("NAME", "ID");
+        .setParameters(2000).setPksName("NAME", "ID");
 
     assertThat(request.getPksNameList()).as("Primary Keys of the request")
         .hasSize(2)

@@ -75,6 +75,8 @@ public class Values {
         return areEqual(value, (DateValue) expected);
       } else if (expected instanceof String) {
         return areEqual(value, (String) expected);
+      } else if (expected instanceof Date) {
+        return areEqual(value, DateValue.from((Date) expected));
       }
       break;
     case TIME:
@@ -82,6 +84,8 @@ public class Values {
         return areEqual(value, (TimeValue) expected);
       } else if (expected instanceof String) {
         return areEqual(value, (String) expected);
+      } else if (expected instanceof Time) {
+        return areEqual(value, TimeValue.from((Time) expected));
       }
       break;
     case DATE_TIME:
@@ -91,6 +95,8 @@ public class Values {
         return areEqual(value, (DateValue) expected);
       } else if (expected instanceof String) {
         return areEqual(value, (String) expected);
+      } else if (expected instanceof Timestamp) {
+        return areEqual(value, DateTimeValue.from((Timestamp) expected));
       }
       break;
     default:

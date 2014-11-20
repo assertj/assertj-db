@@ -12,9 +12,13 @@
  */
 package org.assertj.db.common;
 
+import java.lang.reflect.Constructor;
+import java.util.List;
+
 import javax.sql.DataSource;
 
 import org.assertj.db.configuration.TestsConfiguration;
+import org.assertj.db.type.Row;
 import org.assertj.db.type.Source;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,4 +41,19 @@ public abstract class AbstractTest {
   protected DataSource dataSource;
 
   protected Source source = new Source("jdbc:h2:mem:test", "sa", "");
+
+  /**
+   * Returns an instance of a Row.
+   * 
+   * @param pksNameList The list of the primary keys name.
+   * @param columnsNameList The list of the columns name.
+   * @param valuesList The values in the row.
+   * @return An instance.
+   * @throws Exception Exception
+   */
+  protected static Row getRow(List<String> pksNameList, List<String> columnsNameList, List<Object> valuesList) throws Exception {
+    Constructor<Row> constructor = Row.class.getDeclaredConstructor(List.class, List.class, List.class);
+    constructor.setAccessible(true);
+    return constructor.newInstance(pksNameList, columnsNameList, valuesList);
+  }
 }
