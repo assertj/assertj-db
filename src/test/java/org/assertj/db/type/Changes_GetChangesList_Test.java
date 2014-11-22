@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.assertj.db.common.AbstractTest;
+import org.assertj.db.common.NeedReload;
 import org.junit.Test;
 
 /**
@@ -40,11 +41,27 @@ public class Changes_GetChangesList_Test extends AbstractTest {
   }
 
   /**
+   * This method test when there is no change found because it is another table.
+   * 
+   * @throws SQLException
+   */
+  @Test
+  @NeedReload
+  public void test_when_there_is_no_change_found() throws SQLException {
+    Changes changes = new Changes(new Table(source, "test"));
+    changes.setStartPointNow();
+    update("delete from test2 where var1 is null");
+    changes.setEndPointNow();
+    assertThat(changes.getChangesList()).hasSize(0);
+  }
+
+  /**
    * This method test when there is a deletion change.
    * 
    * @throws SQLException
    */
   @Test
+  @NeedReload
   public void test_when_there_is_deletion_change() throws SQLException {
     Changes changes = new Changes(source);
     changes.setStartPointNow();
