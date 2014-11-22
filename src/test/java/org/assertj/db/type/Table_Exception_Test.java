@@ -35,6 +35,22 @@ import org.junit.Test;
 public class Table_Exception_Test extends AbstractTest {
 
   /**
+   * This method should fail because setting the datasource to null.
+   */
+  @Test(expected = NullPointerException.class)
+  public void should_fail_because_setting_datasource_to_null() {
+    new Table().setDataSource(null);
+  }
+
+  /**
+   * This method should fail because setting the source to null.
+   */
+  @Test(expected = NullPointerException.class)
+  public void should_fail_because_setting_source_to_null() {
+    new Table().setSource(null);
+  }
+
+  /**
    * This method should fail because the connection throw an exception when getting an object.
    */
   @Test(expected = AssertJDBException.class)
