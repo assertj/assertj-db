@@ -13,6 +13,8 @@
 package org.assertj.db.common;
 
 import java.lang.reflect.Constructor;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -24,6 +26,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -39,6 +42,8 @@ public abstract class AbstractTest {
 
   @Autowired(required = true)
   protected DataSource dataSource;
+  @Autowired(required = true)
+  protected PlatformTransactionManager transactionManager;
 
   protected Source source = new Source("jdbc:h2:mem:test", "sa", "");
 
@@ -55,5 +60,24 @@ public abstract class AbstractTest {
     Constructor<Row> constructor = Row.class.getDeclaredConstructor(List.class, List.class, List.class);
     constructor.setAccessible(true);
     return constructor.newInstance(pksNameList, columnsNameList, valuesList);
+  }
+
+  /**
+   * Update the database.
+   * @param request Request to update.
+   * @param parameters The parameters of the request.
+   */
+  protected void update(String request, Object... parameters) {
+    try (Connection connection = dataSource.getConnection()) {
+      try (PreparedStatement statement = connection.prepareStatement(request)) {
+        for (int i = 0; i < parameters.length; i++) {
+          statement.setObject(i + 1, parameters[i]);
+        }
+        statement.executeUpdate();
+      }
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 }
