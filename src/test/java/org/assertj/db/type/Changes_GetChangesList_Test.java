@@ -14,9 +14,14 @@ package org.assertj.db.type;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.math.BigDecimal;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.List;
 
+import org.assertj.db.api.Assertions;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.common.NeedReload;
 import org.junit.Test;
@@ -76,5 +81,62 @@ public class Changes_GetChangesList_Test extends AbstractTest {
     assertThat(change.getRowAtStartPoint().getValuesList()).containsExactly(null, null, null, null, null, null, null,
         null, null, null, null, null, null, null, null);
     assertThat(change.getRowAtEndPoint()).isNull();
+  }
+
+  /**
+   * This method test when there is a creation change.
+   * 
+   * @throws SQLException
+   */
+  @Test
+  @NeedReload
+  public void test_when_there_is_creation_change() throws SQLException {
+    Changes changes = new Changes(source);
+    changes.setStartPointNow();
+    update("insert into test2(var1) values(200)");
+    changes.setEndPointNow();
+
+    List<Change> changesList = changes.getChangesList();
+    assertThat(changesList).hasSize(1);
+    Change change = changesList.get(0);
+    assertThat(change.getDataName()).isEqualTo("TEST2");
+    assertThat(change.getChangeType()).isEqualTo(ChangeType.CREATION);
+    assertThat(change.getRowAtStartPoint()).isNull();
+    assertThat(change.getRowAtEndPoint().getValuesList()).containsExactly(200, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null);
+  }
+
+  /**
+   * This method test when there is a modification change without primary key.
+   * 
+   * @throws SQLException
+   */
+  @Test
+  @NeedReload
+  public void test_when_there_is_modification_change() throws SQLException {
+    Changes changes = new Changes(source);
+    changes.setStartPointNow();
+    update("update test2 set var12 = 'modification' where var1 = 1");
+    changes.setEndPointNow();
+
+    List<Change> changesList = changes.getChangesList();
+    assertThat(changesList).hasSize(2);
+    Change change = changesList.get(0);
+    assertThat(change.getDataName()).isEqualTo("TEST2");
+    assertThat(change.getChangeType()).isEqualTo(ChangeType.CREATION);
+    assertThat(change.getRowAtStartPoint()).isNull();
+
+    assertThat(change.getRowAtEndPoint().getValuesList()).containsExactly(1, true, (byte) 2, (short) 3, 4L,
+        new BigDecimal("5.60"), 7.8f, Time.valueOf("09:46:30"), Date.valueOf("2014-05-24"),
+        Timestamp.valueOf("2014-05-24 09:46:30"), Assertions.bytesContentFromClassPathOf("h2-logo-2.png"),
+        "modification", new BigDecimal("5.00"), 7f, null);
+    Change change1 = changesList.get(1);
+    assertThat(change1.getDataName()).isEqualTo("TEST2");
+    assertThat(change1.getChangeType()).isEqualTo(ChangeType.DELETION);
+    assertThat(change1.getRowAtStartPoint().getValuesList()).containsExactly(1, true, (byte) 2, (short) 3, 4L,
+        new BigDecimal("5.60"), 7.8f, Time.valueOf("09:46:30"), Date.valueOf("2014-05-24"),
+        Timestamp.valueOf("2014-05-24 09:46:30"), Assertions.bytesContentFromClassPathOf("h2-logo-2.png"), "text",
+        new BigDecimal("5.00"), 7f, null);
+    assertThat(change1.getRowAtEndPoint()).isNull();
   }
 }
