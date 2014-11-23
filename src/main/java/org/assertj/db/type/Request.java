@@ -158,6 +158,7 @@ public class Request extends AbstractDbData<Request> {
    * Sets the primary keys name.
    * 
    * @param pksName The primary keys name.
+   * @return {@code this} instance.
    */
   public Request setPksName(String... pksName) {
     List<String> pksNameList = new ArrayList<String>();
