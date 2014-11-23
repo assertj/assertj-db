@@ -321,7 +321,7 @@ public class Table extends AbstractDbData<Table> {
     DatabaseMetaData metaData = connection.getMetaData();
 
     try (ResultSet resultSet = metaData.getPrimaryKeys(getCatalog(connection), getSchema(connection),
-        name.toUpperCase());) {
+        name.toUpperCase())) {
       while (resultSet.next()) {
         String columnName = resultSet.getString("COLUMN_NAME");
         if (getColumnsNameList().indexOf(columnName) != -1) {
