@@ -42,7 +42,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ninja_squad.dbsetup.DbSetup;
@@ -68,8 +67,6 @@ public abstract class AbstractTest {
 
   @Autowired(required = true)
   protected DataSource dataSource;
-  @Autowired(required = true)
-  protected PlatformTransactionManager transactionManager;
 
   protected Source source = new Source("jdbc:h2:mem:test", "sa", "");
 
@@ -77,30 +74,36 @@ public abstract class AbstractTest {
 
   private static final Operation DELETE_ALL = deleteAllFrom("test2", "test", "interpretation", "actor", "movie");
 
-  private static final Operation INSERT_MOVIE = sequenceOf(insertInto("movie").columns("id", "title", "year")
-      .values(3, "Avatar", 2009).values(2, "The Village", 2004).values(1, "Alien", 1979).build());
+  private static final Operation INSERT_MOVIE = sequenceOf(insertInto("movie").columns("id", "title", "year").values(1, "Alien", 1979)
+      .values(2, "The Village", 2004).values(3, "Avatar", 2009).build());
 
   private static final Operation INSERT_ACTOR = insertInto("actor").columns("id", "name", "firstname", "birth")
-      .values(3, "Worthington", "Sam", Date.valueOf("1976-08-02"))
+      .values(1, "Weaver", "Sigourney", Date.valueOf("1949-10-08"))
       .values(2, "Phoenix", "Joaquim", Date.valueOf("1974-10-28"))
-      .values(1, "Weaver", "Sigourney", Date.valueOf("1949-10-08")).build();
+      .values(3, "Worthington", "Sam", Date.valueOf("1976-08-02"))
+      .build();
 
   private static final Operation INSERT_INTERPRETATION = insertInto("interpretation")
-      .columns("id", "id_movie", "id_actor", "character").values(5, 3, 3, "Jake Sully").values(4, 2, 2, "Lucius Hunt")
-      .values(3, 3, 1, "Dr Grace Augustine").values(2, 2, 1, "Alice Hunt").values(1, 1, 1, "Ellen Louise Ripley")
+      .columns("id", "id_movie", "id_actor", "character")
+      .values(1, 1, 1, "Ellen Louise Ripley")
+      .values(2, 2, 1, "Alice Hunt")
+      .values(3, 3, 1, "Dr Grace Augustine")
+      .values(4, 2, 2, "Lucius Hunt")
+      .values(5, 3, 3, "Jake Sully")
       .build();
 
   private static final Operation INSERT_TEST = insertInto("test")
       .columns("var1", "var2", "var3", "var4", "var5", "var6", "var7", "var8", "var9", "var10", "var11", "var12",
           "var13", "var14")
-      .values(0, false, 0, 0, 0, 0, 0, Time.valueOf("12:29:49"), Date.valueOf("2014-05-30"),
-          Timestamp.valueOf("2014-05-30 00:00:00"), new byte[0], "another text again", 500, 700)
-      .values(100, false, 25, 300, 400, 500.6, 700.8, Time.valueOf("12:29:49"), Date.valueOf("2014-05-30"),
-          Timestamp.valueOf("2014-05-30 00:00:00"), new byte[0], "another text again", 500, 700)
+      .values(1, true, 2, 3, 4, 5.6, 7.8, Time.valueOf("09:46:30"), Date.valueOf("2014-05-24"),
+          Timestamp.valueOf("2014-05-24 09:46:30"), new byte[0], "text", 5, 7)
       .values(10, false, 20, 30, 40, 50.6, 70.8, Time.valueOf("12:29:49"), Date.valueOf("2014-05-30"),
           Timestamp.valueOf("2014-05-30 12:29:49"), new byte[0], "another text", 50, 70)
-      .values(1, true, 2, 3, 4, 5.6, 7.8, Time.valueOf("09:46:30"), Date.valueOf("2014-05-24"),
-          Timestamp.valueOf("2014-05-24 09:46:30"), new byte[0], "text", 5, 7).build();
+      .values(100, false, 25, 300, 400, 500.6, 700.8, Time.valueOf("12:29:49"), Date.valueOf("2014-05-30"),
+          Timestamp.valueOf("2014-05-30 00:00:00"), new byte[0], "another text again", 500, 700)
+      .values(1000, false, 0, 0, 0, 0, 0, Time.valueOf("12:29:49"), Date.valueOf("2014-05-30"),
+          Timestamp.valueOf("2014-05-30 00:00:00"), new byte[0], "another text again", 500, 700)
+          .build();
 
   private static final Operation INSERT_TEST2 = insertInto("test2")
       .columns("var1", "var2", "var3", "var4", "var5", "var6", "var7", "var8", "var9", "var10", "var11", "var12",
@@ -113,7 +116,7 @@ public abstract class AbstractTest {
       "update test set var11 = FILE_READ('classpath:h2-logo-2.png') where var1 = 1",
       "update test set var11 = FILE_READ('classpath:logo-dev.jpg') where var1 = 10",
       "update test set var11 = FILE_READ('classpath:logo-dev.jpg') where var1 = 100",
-      "update test set var11 = FILE_READ('classpath:logo-dev.jpg') where var1 = 0",
+      "update test set var11 = FILE_READ('classpath:logo-dev.jpg') where var1 = 1000",
       "update test2 set var11 = FILE_READ('classpath:h2-logo-2.png') where var1 = 1");
 
   private static final Operation OPERATIONS = sequenceOf(DELETE_ALL, INSERT_MOVIE, INSERT_ACTOR, INSERT_INTERPRETATION,
@@ -124,6 +127,7 @@ public abstract class AbstractTest {
   @Before
   public void initiate() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException,
       SecurityException {
+    
     Field fieldLastSetup = DbSetupTracker.class.getDeclaredField("lastSetupLaunched");
     Field fieldNextLaunch = DbSetupTracker.class.getDeclaredField("nextLaunchSkipped");
     fieldLastSetup.setAccessible(true);

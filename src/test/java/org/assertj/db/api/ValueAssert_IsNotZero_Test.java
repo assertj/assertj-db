@@ -61,12 +61,12 @@ public class ValueAssert_IsNotZero_Test extends AbstractTest {
       Table table = new Table(source, "test");
       assertThat(table)
           .row(3)
-              .value("var1").isNotZero();
+              .value("var3").isNotZero();
       
       fail("Une Erreur doit être levée");
     }
     catch (AssertionError e) {
-      assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Row at index 3 of test table] \n" +
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 2 of Row at index 3 of test table] \n" +
           "Expecting:\n" +
           "  <0>\n" +
           "not to be equal to: \n" +

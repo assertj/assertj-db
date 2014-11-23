@@ -57,19 +57,19 @@ public class RowAssert_HaveValuesEqualTo_Test extends AbstractTest {
         .row().haveValuesEqualTo(100, false, 25, 300, 400, 500.6, 700.8, TimeValue.of(12, 29, 49),
             DateValue.of(2014, 5, 30), DateValue.of(2014, 5, 30),
             bytesDev, "another text again", 500, 700)
-        .row().haveValuesEqualTo(0, false, 0, 0, 0, 0, 0, TimeValue.of(12, 29, 49),
+        .row().haveValuesEqualTo(1000, false, 0, 0, 0, 0, 0, TimeValue.of(12, 29, 49),
             DateValue.of(2014, 5, 30), DateValue.of(2014, 5, 30),
             bytesDev, "another text again", 500, 700)
-            .haveValuesEqualTo(0, false, 0, 0, 0, 0, 0, TimeValue.of(12, 29, 49),
+            .haveValuesEqualTo(1000, false, 0, 0, 0, 0, 0, TimeValue.of(12, 29, 49),
             "2014-05-30", "2014-05-30",
             bytesDev, "another text again", 500, 700)
-            .haveValuesEqualTo(0, false, 0, 0, 0, 0, 0, TimeValue.of(12, 29, 49),
+            .haveValuesEqualTo(1000, false, 0, 0, 0, 0, 0, TimeValue.of(12, 29, 49),
             "2014-05-30T00:00", "2014-05-30T00:00",
             bytesDev, "another text again", 500, 700)
-            .haveValuesEqualTo(0, false, 0, 0, 0, 0, 0, TimeValue.of(12, 29, 49),
+            .haveValuesEqualTo(1000, false, 0, 0, 0, 0, 0, TimeValue.of(12, 29, 49),
             "2014-05-30T00:00:00", "2014-05-30T00:00:00",
             bytesDev, "another text again", 500, 700)
-            .haveValuesEqualTo(0, false, 0, 0, 0, 0, 0, TimeValue.of(12, 29, 49),
+            .haveValuesEqualTo(1000, false, 0, 0, 0, 0, 0, TimeValue.of(12, 29, 49),
             "2014-05-30T00:00:00.000000000", "2014-05-30T00:00:00.000000000",
             bytesDev, "another text again", 500, 700);
 

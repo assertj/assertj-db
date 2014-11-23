@@ -36,7 +36,6 @@ public class ValueAssert_IsZero_Test extends AbstractTest {
     Table table = new Table(source, "test");
     assertThat(table)
         .row(3)
-            .value("var1").isZero().returnToRow()
             .value("var3").isZero().returnToRow()
             .value("var4").isZero().returnToRow()
             .value("var5").isZero().returnToRow()

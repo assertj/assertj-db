@@ -36,7 +36,7 @@ public class ColumnAssert_HaveValuesEqualTo_String_Test extends AbstractTest {
     Table table = new Table(source, "test");
 
     assertThat(table)
-        .column().as("var1").haveValuesEqualTo("1", "10", "100", "0")
+        .column().as("var1").haveValuesEqualTo("1", "10", "100", "1000")
         .column("var3").haveValuesEqualTo("2", "20", "25", "0")
         .column().as("var4").haveValuesEqualTo("3", "30", "300", "0")
         .column().as("var5").haveValuesEqualTo("4", "40", "400", "0")
