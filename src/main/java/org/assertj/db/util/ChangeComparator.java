@@ -40,6 +40,12 @@ public enum ChangeComparator implements Comparator<Change> {
     if (compare != 0) {
       return compare;
     }
+    String dataName1 = change1.getDataName();
+    String dataName2 = change2.getDataName();
+    compare = dataName1.compareTo(dataName2);
+    if (compare != 0) {
+      return compare;
+    }
     Row row1 = change1.getRowAtStartPoint();
     Row row2 = change2.getRowAtStartPoint();
     if (row1 == null) {

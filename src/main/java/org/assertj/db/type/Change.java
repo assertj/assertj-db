@@ -48,6 +48,7 @@ public class Change {
    * @param dataName The name of the data.
    * @param rowAtEndPoint The row at end point.
    * @return The new instance of a creation change.
+   * @throws NullPointerException If the name of the date is {@code null}.
    */
   static Change createCreationChange(String dataName, Row rowAtEndPoint) {
     return new Change(dataName, ChangeType.CREATION, null, rowAtEndPoint);
@@ -59,6 +60,7 @@ public class Change {
    * @param rowAtStartPoint The row at start point.
    * @param rowAtEndPoint The row at end point.
    * @return The new instance of a modification change.
+   * @throws NullPointerException If the name of the date is {@code null}.
    */
   static Change createModificationChange(String dataName, Row rowAtStartPoint, Row rowAtEndPoint) {
     return new Change(dataName, ChangeType.MODIFICATION, rowAtStartPoint, rowAtEndPoint);
@@ -69,6 +71,7 @@ public class Change {
    * @param dataName The name of the data.
    * @param rowAtStartPoint The row at start point.
    * @return The new instance of a deletion change.
+   * @throws NullPointerException If the name of the date is {@code null}.
    */
   static Change createDeletionChange(String dataName, Row rowAtStartPoint) {
     return new Change(dataName, ChangeType.DELETION, rowAtStartPoint, null);
@@ -81,8 +84,12 @@ public class Change {
    * @param changeType The type of the change.
    * @param rowAtStartPoint The row at start point.
    * @param rowAtEndPoint The row at end point.
+   * @throws NullPointerException If the name of the date is {@code null}.
    */
-  Change(String dataName, ChangeType changeType, Row rowAtStartPoint, Row rowAtEndPoint) {
+  private Change(String dataName, ChangeType changeType, Row rowAtStartPoint, Row rowAtEndPoint) {
+    if (dataName == null) {
+      throw new NullPointerException("The name of the data must be not null");
+    }
     this.dataName = dataName;
     if (rowAtStartPoint != null) {
       this.columnsNameList = rowAtStartPoint.getColumnsNameList();
