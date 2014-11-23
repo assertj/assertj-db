@@ -13,8 +13,8 @@
 package org.assertj.db.type;
 
 import static org.assertj.db.type.Change.createCreationChange;
-import static org.assertj.db.type.Change.createModificationChange;
 import static org.assertj.db.type.Change.createDeletionChange;
+import static org.assertj.db.type.Change.createModificationChange;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -22,7 +22,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,6 +29,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.util.ChangeComparator;
 
 /**
  * Changes in the database.
@@ -390,15 +390,7 @@ public class Changes extends AbstractDbElement<Changes> {
       }
     }
 
-    Collections.sort(changesList, new Comparator<Change>() {
-
-      @Override
-      public int compare(Change change1, Change change2) {
-        ChangeType changeType1 = change1.getChangeType();
-        ChangeType changeType2 = change2.getChangeType();
-        return changeType1.compareTo(changeType2);
-      }
-    });
+    Collections.sort(changesList, ChangeComparator.INSTANCE);
     return changesList;
   }
 

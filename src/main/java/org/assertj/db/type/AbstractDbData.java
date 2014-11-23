@@ -16,6 +16,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,7 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.util.RowComparator;
 
 /**
  * This class represents data from the database.
@@ -112,6 +114,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
     try (Connection connection = getConnection()) {
       // Call the specific loading depending of Table or Request.
       loadImpl(connection);
+      Collections.sort(rowsList, RowComparator.INSTANCE);
     } catch (SQLException e) {
       throw new AssertJDBException(e);
     }
