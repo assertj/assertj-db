@@ -137,4 +137,16 @@ public class Changes_Exception_Test extends AbstractTest {
     Changes changes = new Changes().setTables(table);
     changes.setEndPointNow();
   }
+
+  /**
+   * This method should fail because getting list of changes before setting end point.
+   */
+  @Test(expected = AssertJDBException.class)
+  public void should_fail_because_getting_list_of_changes_before_end() {
+    DataSource ds = new DefaultDataSource();
+    Table table = new Table(ds, "test");
+    Changes changes = new Changes().setTables(table);
+    changes.setStartPointNow();
+    changes.getChangesList();
+  }
 }
