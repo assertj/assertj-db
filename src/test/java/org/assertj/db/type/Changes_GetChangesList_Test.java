@@ -113,7 +113,7 @@ public class Changes_GetChangesList_Test extends AbstractTest {
    */
   @Test
   @NeedReload
-  public void test_when_there_is_modification_change() throws SQLException {
+  public void test_when_there_is_modification_change_without_primary_key() throws SQLException {
     Changes changes = new Changes(source);
     changes.setStartPointNow();
     update("update test2 set var12 = 'modification' where var1 = 1");
@@ -138,5 +138,29 @@ public class Changes_GetChangesList_Test extends AbstractTest {
         Timestamp.valueOf("2014-05-24 09:46:30"), Assertions.bytesContentFromClassPathOf("h2-logo-2.png"), "text",
         new BigDecimal("5.00"), 7f, null);
     assertThat(change1.getRowAtEndPoint()).isNull();
+  }
+
+  /**
+   * This method test when there is a modification change with primary key.
+   * 
+   * @throws SQLException
+   */
+  @Test
+  @NeedReload
+  public void test_when_there_is_modification_change_with_primary_key() throws SQLException {
+    Changes changes = new Changes(source);
+    changes.setStartPointNow();
+    update("update interpretation set character = 'Doctor Grace Augustine' where id = 3");
+    changes.setEndPointNow();
+
+    List<Change> changesList = changes.getChangesList();
+    assertThat(changesList).hasSize(1);
+    Change change = changesList.get(0);
+    assertThat(change.getDataName()).isEqualTo("INTERPRETATION");
+    assertThat(change.getChangeType()).isEqualTo(ChangeType.MODIFICATION);
+    assertThat(change.getRowAtStartPoint().getValuesList()).containsExactly(new BigDecimal(3), new BigDecimal(3),
+        new BigDecimal(1), "Dr Grace Augustine");
+    assertThat(change.getRowAtEndPoint().getValuesList()).containsExactly(new BigDecimal(3), new BigDecimal(3),
+        new BigDecimal(1), "Doctor Grace Augustine");
   }
 }
