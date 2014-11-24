@@ -13,6 +13,7 @@
 package org.assertj.db.type;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -44,6 +45,30 @@ public class Changes_Exception_Test extends AbstractTest {
     Changes changes = new Changes().setTables(table);
     changes.setStartPointNow();
   }
+
+  /**
+   * This method should fail because the connection throw an exception when getting the tables.
+   */
+  @Test(expected = AssertJDBException.class)
+  public void should_fail_because_connection_throws_exception_when_getting_tables() {
+    DataSource ds = new DefaultDataSource() {
+      @Override
+      public Connection getConnection() throws SQLException {
+        return new DefaultConnection() {
+
+          
+          @Override
+          public DatabaseMetaData getMetaData() throws SQLException {
+            throw new SQLException();
+          }
+        };
+      }
+    };
+    Table table = new Table(ds, "movi");
+    Changes changes = new Changes().setTables(table);
+    changes.setStartPointNow();
+  }
+
 
   /**
    * This method should fail because the connection throw an exception when executing a query.
@@ -132,8 +157,7 @@ public class Changes_Exception_Test extends AbstractTest {
    */
   @Test(expected = AssertJDBException.class)
   public void should_fail_because_end_before_start() {
-    DataSource ds = new DefaultDataSource();
-    Table table = new Table(ds, "test");
+    Table table = new Table(dataSource, "test");
     Changes changes = new Changes().setTables(table);
     changes.setEndPointNow();
   }
@@ -143,8 +167,7 @@ public class Changes_Exception_Test extends AbstractTest {
    */
   @Test(expected = AssertJDBException.class)
   public void should_fail_because_getting_list_of_changes_before_end() {
-    DataSource ds = new DefaultDataSource();
-    Table table = new Table(ds, "test");
+    Table table = new Table(dataSource, "test");
     Changes changes = new Changes().setTables(table);
     changes.setStartPointNow();
     changes.getChangesList();
