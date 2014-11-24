@@ -14,7 +14,9 @@ package org.assertj.db.type;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -146,11 +148,29 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    * @throws SQLException A SQL Exception.
    */
   protected void collectRowsFromResultSet(ResultSet resultSet) throws SQLException {
+    ResultSetMetaData metaData = resultSet.getMetaData();
     rowsList = new ArrayList<Row>();
     while (resultSet.next()) {
       List<Object> objectsList = new ArrayList<Object>();
       for (String columnName : columnsNameList) {
-        objectsList.add(resultSet.getObject(columnName));
+        // TODO Improve the check of the type
+        int index = columnsNameList.indexOf(columnName);
+        int type = metaData.getColumnType(index + 1);
+        switch (type) {
+          case Types.DATE:
+            objectsList.add(resultSet.getDate(columnName));
+            break;
+          case Types.TIME:
+            objectsList.add(resultSet.getTime(columnName));
+            break;
+          case Types.TIMESTAMP:
+            objectsList.add(resultSet.getTimestamp(columnName));
+            break;
+
+          default:
+            objectsList.add(resultSet.getObject(columnName));
+            break;
+        }
       }
       rowsList.add(new Row(pksNameList, columnsNameList, objectsList));
     }
