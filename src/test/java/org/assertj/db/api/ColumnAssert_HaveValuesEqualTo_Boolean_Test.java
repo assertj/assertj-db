@@ -55,7 +55,7 @@ public class ColumnAssert_HaveValuesEqualTo_Boolean_Test extends AbstractTest {
       assertThat(table)
           .column().as("var1 type").haveValuesEqualTo(true, null);
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var1 type] \n" +
@@ -79,7 +79,7 @@ public class ColumnAssert_HaveValuesEqualTo_Boolean_Test extends AbstractTest {
       assertThat(table2)
           .column(1).as("var2").haveValuesEqualTo(true, null, null);
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var2] \n" +
@@ -101,7 +101,7 @@ public class ColumnAssert_HaveValuesEqualTo_Boolean_Test extends AbstractTest {
       assertThat(table)
           .column(1).as("var2").haveValuesEqualTo(true, false);
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var2] \n" +
@@ -123,7 +123,7 @@ public class ColumnAssert_HaveValuesEqualTo_Boolean_Test extends AbstractTest {
       assertThat(table)
           .column(1).as("var2").haveValuesEqualTo(false, false);
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var2] \n" +

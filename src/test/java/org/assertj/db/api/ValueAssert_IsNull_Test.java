@@ -52,7 +52,7 @@ public class ValueAssert_IsNull_Test extends AbstractTest {
           .row(0)
               .value("var10").isNull();
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 9 of Row at index 0 of test2 table] expected:<null> but was:<2014-05-24T09:46:30>");
@@ -83,7 +83,7 @@ public class ValueAssert_IsNull_Test extends AbstractTest {
           .row(1)
               .value("var11").isNotNull();
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 10 of Row at index 1 of test2 table] \n" +

@@ -59,7 +59,7 @@ public class ColumnAssert_HaveValuesEqualTo_TimeValue_Test extends AbstractTest 
           .column(1).as("var2 type").haveValuesEqualTo(TimeValue.of(9, 46, 30), TimeValue.of(12, 29, 49), 
               TimeValue.of(12, 29, 49), TimeValue.of(12, 29, 49));
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var2 type] \n" +
@@ -84,7 +84,7 @@ public class ColumnAssert_HaveValuesEqualTo_TimeValue_Test extends AbstractTest 
           .column("var8").haveValuesEqualTo(TimeValue.of(9, 46, 30), TimeValue.of(12, 29, 49), 
               TimeValue.of(12, 29, 49));
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 7 of test2 table] \n" +
@@ -106,7 +106,7 @@ public class ColumnAssert_HaveValuesEqualTo_TimeValue_Test extends AbstractTest 
       assertThat(table)
           .column("var8").haveValuesEqualTo(TimeValue.of(9, 46, 30), TimeValue.of(9, 46, 30));
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 7 of test2 table] \n" +

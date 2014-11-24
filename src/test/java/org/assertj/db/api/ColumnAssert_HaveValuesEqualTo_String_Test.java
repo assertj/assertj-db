@@ -87,7 +87,7 @@ public class ColumnAssert_HaveValuesEqualTo_String_Test extends AbstractTest {
       assertThat(table)
           .column(1).as("var2 type").haveValuesEqualTo("1", "10", "100", "0");
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var2 type] \n" +
@@ -111,7 +111,7 @@ public class ColumnAssert_HaveValuesEqualTo_String_Test extends AbstractTest {
       assertThat(table2)
           .column("var1").haveValuesEqualTo("1", "10", "100");
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 0 of test2 table] \n" +
@@ -133,7 +133,7 @@ public class ColumnAssert_HaveValuesEqualTo_String_Test extends AbstractTest {
       assertThat(table)
           .column("var1").haveValuesEqualTo("1", "1");
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 0 of test2 table] \n" +
@@ -155,7 +155,7 @@ public class ColumnAssert_HaveValuesEqualTo_String_Test extends AbstractTest {
       assertThat(table)
           .column("var1").haveValuesEqualTo("2", "1");
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 0 of test2 table] \n" +
@@ -177,7 +177,7 @@ public class ColumnAssert_HaveValuesEqualTo_String_Test extends AbstractTest {
       assertThat(table)
           .column("var8").haveValuesEqualTo("09:46:30", "09:46:30");
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 7 of test2 table] \n" +
@@ -199,7 +199,7 @@ public class ColumnAssert_HaveValuesEqualTo_String_Test extends AbstractTest {
       assertThat(table)
           .column("var8").haveValuesEqualTo("09:46:31", "09:46:30");
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 7 of test2 table] \n" +
@@ -221,7 +221,7 @@ public class ColumnAssert_HaveValuesEqualTo_String_Test extends AbstractTest {
       assertThat(table)
           .column("var9").haveValuesEqualTo("2014-05-24", "2014-05-24");
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 8 of test2 table] \n" +
@@ -243,7 +243,7 @@ public class ColumnAssert_HaveValuesEqualTo_String_Test extends AbstractTest {
       assertThat(table)
           .column("var9").haveValuesEqualTo("2014-05-25", "2014-05-24");
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 8 of test2 table] \n" +
@@ -265,7 +265,7 @@ public class ColumnAssert_HaveValuesEqualTo_String_Test extends AbstractTest {
       assertThat(table)
           .column("var10").haveValuesEqualTo("2014-05-24T09:46:30", "2014-05-24T09:46:30");
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 9 of test2 table] \n" +
@@ -287,7 +287,7 @@ public class ColumnAssert_HaveValuesEqualTo_String_Test extends AbstractTest {
       assertThat(table)
           .column("var10").haveValuesEqualTo("2014-05-24T09:46:31", "2014-05-24T09:46:30");
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 9 of test2 table] \n" +
@@ -309,7 +309,7 @@ public class ColumnAssert_HaveValuesEqualTo_String_Test extends AbstractTest {
       assertThat(table)
           .column("var12").haveValuesEqualTo("text", "text");
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 11 of test2 table] \n" +
@@ -331,7 +331,7 @@ public class ColumnAssert_HaveValuesEqualTo_String_Test extends AbstractTest {
       assertThat(table)
           .column("var12").haveValuesEqualTo("texT", "text");
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 11 of test2 table] \n" +

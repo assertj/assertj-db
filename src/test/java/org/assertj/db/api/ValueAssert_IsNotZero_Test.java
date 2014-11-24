@@ -63,7 +63,7 @@ public class ValueAssert_IsNotZero_Test extends AbstractTest {
           .row(3)
               .value("var3").isNotZero();
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 2 of Row at index 3 of test table] \n" +
@@ -84,7 +84,7 @@ public class ValueAssert_IsNotZero_Test extends AbstractTest {
       assertThat(table).column("var2")
           .value().as("var2").isNotZero();
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var2] \n" +

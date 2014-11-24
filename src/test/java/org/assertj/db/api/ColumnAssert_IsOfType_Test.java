@@ -96,7 +96,7 @@ public class ColumnAssert_IsOfType_Test extends AbstractTest {
       assertThat(table)
           .column().as("var1 type").isOfType(ValueType.BOOLEAN, true);
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var1 type] \n" +
@@ -120,7 +120,7 @@ public class ColumnAssert_IsOfType_Test extends AbstractTest {
       assertThat(table)
           .column().as("var1 type").isOfType(ValueType.NUMBER, false);
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var1 type] \n" +
@@ -200,7 +200,7 @@ public class ColumnAssert_IsOfType_Test extends AbstractTest {
       assertThat(table)
           .column().as("var1 type").isBoolean(true);
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var1 type] \n" +
@@ -224,7 +224,7 @@ public class ColumnAssert_IsOfType_Test extends AbstractTest {
       assertThat(table)
           .column().as("var1 type").isNumber(false);
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var1 type] \n" +

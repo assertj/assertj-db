@@ -69,7 +69,7 @@ public class ColumnAssert_HaveValuesEqualTo_Number_Test extends AbstractTest {
       assertThat(table)
           .column(1).as("var2 type").haveValuesEqualTo(1, 10, 100, 0);
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var2 type] \n" +
@@ -93,7 +93,7 @@ public class ColumnAssert_HaveValuesEqualTo_Number_Test extends AbstractTest {
       assertThat(table2)
           .column().as("var1").haveValuesEqualTo(1, 10, 100);
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var1] \n" +
@@ -115,7 +115,7 @@ public class ColumnAssert_HaveValuesEqualTo_Number_Test extends AbstractTest {
       assertThat(table)
           .column().as("var1").haveValuesEqualTo(1, 1);
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var1] \n" +
@@ -137,7 +137,7 @@ public class ColumnAssert_HaveValuesEqualTo_Number_Test extends AbstractTest {
       assertThat(table)
           .column().as("var1").haveValuesEqualTo(2, 1);
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var1] \n" +

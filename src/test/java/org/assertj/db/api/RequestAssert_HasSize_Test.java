@@ -56,7 +56,7 @@ public class RequestAssert_HasSize_Test extends AbstractTest {
           + " ORDER BY actor.name, movie.year", 2000);
       assertThat(request).hasRowsSize(3);
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("['SELECT actor.name, actor.first...' request] \n" +
@@ -95,7 +95,7 @@ public class RequestAssert_HasSize_Test extends AbstractTest {
           + " ORDER BY actor.name, movie.year", 2000);
       assertThat(request).hasColumnsSize(3);
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("['SELECT actor.name, actor.first...' request] \n" +

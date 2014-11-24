@@ -47,7 +47,7 @@ public class RowAssert_HasSize_Test extends AbstractTest {
       Table table = new Table(source, "movie");
       assertThat(table).row().hasSize(4);
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Row at index 0 of movie table] \n" +
@@ -86,7 +86,7 @@ public class RowAssert_HasSize_Test extends AbstractTest {
           + " ORDER BY actor.name, movie.year", 2000);
       assertThat(request).row().hasSize(3);
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Row at index 0 of 'SELECT actor.name, actor.first...' request] \n" +

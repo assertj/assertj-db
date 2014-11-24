@@ -59,7 +59,7 @@ public class ValueAssert_IsEqualTo_DateTimeValue_Test extends AbstractTest {
       assertThat(table).column("var10").value()
           .isEqualTo(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 31)));
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Column at index 9 of test table] \n" +
@@ -80,7 +80,7 @@ public class ValueAssert_IsEqualTo_DateTimeValue_Test extends AbstractTest {
       assertThat(table).column("var1").value().as("var1")
           .isEqualTo(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)));
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var1] \n" +
@@ -103,7 +103,7 @@ public class ValueAssert_IsEqualTo_DateTimeValue_Test extends AbstractTest {
       assertThat(table).column("var9").value(2)
           .isEqualTo(DateTimeValue.of(DateValue.of(2014, 5, 25)));
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 2 of Column at index 8 of test table] \n" +

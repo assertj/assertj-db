@@ -46,7 +46,7 @@ public class TableAssert_HasSize_Test extends AbstractTest {
       Table table = new Table(source, "movie");
       assertThat(table).hasRowsSize(4);
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[movie table] \n" +
@@ -75,7 +75,7 @@ public class TableAssert_HasSize_Test extends AbstractTest {
       Table table = new Table(source, "movie");
       assertThat(table).hasColumnsSize(4);
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[movie table] \n" +

@@ -71,7 +71,7 @@ public class ValueAssert_IsBefore_DateTimeValue_Test extends AbstractTest {
       assertThat(table).column("var10").value()
           .isBefore(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)));
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Column at index 9 of test table] \n" +
@@ -92,7 +92,7 @@ public class ValueAssert_IsBefore_DateTimeValue_Test extends AbstractTest {
       assertThat(table).column("var1").value().as("var1")
           .isBefore(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 31)));
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var1] \n" +
@@ -115,7 +115,7 @@ public class ValueAssert_IsBefore_DateTimeValue_Test extends AbstractTest {
       assertThat(table).column("var10").value(2)
           .isBefore(DateValue.of(2014, 5, 30));
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 2 of Column at index 9 of test table] \n" +

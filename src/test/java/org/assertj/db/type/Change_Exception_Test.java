@@ -25,7 +25,7 @@ public class Change_Exception_Test extends AbstractTest {
       getChange(null, ChangeType.CREATION, getRow(Arrays.asList(""), Arrays.asList(""), Arrays.asList()),
           getRow(Arrays.asList(""), Arrays.asList(""), Arrays.asList()));
 
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     } catch (Exception exception) {
       assertThat(exception.getCause().getLocalizedMessage()).isEqualTo("The name of the data must be not null");
     }

@@ -54,7 +54,7 @@ public class ValueAssert_IsEqualTo_Bytes_Test extends AbstractTest {
       assertThat(table).column("var11")
           .value().isEqualTo(bytesTest);
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Column at index 10 of test table] \n" +
@@ -72,7 +72,7 @@ public class ValueAssert_IsEqualTo_Bytes_Test extends AbstractTest {
       assertThat(table).column("var1")
           .value().as("var1").isEqualTo(bytesTest);
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var1] \n" +

@@ -59,7 +59,7 @@ public class ColumnAssert_HaveValuesEqualTo_DateValue_Test extends AbstractTest 
           .column(1).as("var2 type").haveValuesEqualTo(DateValue.of(2014, 5, 24), DateValue.of(2014, 5, 30), 
               DateValue.of(2014, 5, 30), DateValue.of(2014, 5, 30));
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var2 type] \n"+
@@ -84,7 +84,7 @@ public class ColumnAssert_HaveValuesEqualTo_DateValue_Test extends AbstractTest 
           .column("var9").haveValuesEqualTo(DateValue.of(2014, 5, 24), DateValue.of(2014, 5, 30), 
               DateValue.of(2014, 5, 30));
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 8 of test2 table] \n" +
@@ -106,7 +106,7 @@ public class ColumnAssert_HaveValuesEqualTo_DateValue_Test extends AbstractTest 
       assertThat(table)
           .column("var9").haveValuesEqualTo(DateValue.of(2014, 5, 24), DateValue.of(2014, 5, 24));
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 8 of test2 table] \n" +
@@ -128,7 +128,7 @@ public class ColumnAssert_HaveValuesEqualTo_DateValue_Test extends AbstractTest 
       assertThat(table)
           .column("var9").haveValuesEqualTo(DateValue.of(2014, 5, 25), DateValue.of(2014, 5, 24));
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 8 of test2 table] \n" +

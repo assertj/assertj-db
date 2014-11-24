@@ -50,7 +50,7 @@ public class ColumnAssert_HaveOnlyNotNullValues_Test extends AbstractTest {
       assertThat(table2)
           .column(1).as("var2").haveOnlyNotNullValues();
   
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var2] \n" +
@@ -70,7 +70,7 @@ public class ColumnAssert_HaveOnlyNotNullValues_Test extends AbstractTest {
       assertThat(table2)
           .column("var15").as("var15").haveOnlyNotNullValues();
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var15] \n" +

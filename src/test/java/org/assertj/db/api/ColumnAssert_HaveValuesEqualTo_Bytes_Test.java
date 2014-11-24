@@ -60,7 +60,7 @@ public class ColumnAssert_HaveValuesEqualTo_Bytes_Test extends AbstractTest {
       assertThat(table)
           .column(1).as("var2 type").haveValuesEqualTo(bytesTest);
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var2 type] \n" +
@@ -84,7 +84,7 @@ public class ColumnAssert_HaveValuesEqualTo_Bytes_Test extends AbstractTest {
       assertThat(table2)
           .column("var11").haveValuesEqualTo(bytesH2, bytesDev, bytesDev);
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 10 of test2 table] \n" +
@@ -106,7 +106,7 @@ public class ColumnAssert_HaveValuesEqualTo_Bytes_Test extends AbstractTest {
       assertThat(table)
           .column("var11").haveValuesEqualTo(bytesH2, bytesTest);
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 10 of test2 table] \n" +
@@ -125,7 +125,7 @@ public class ColumnAssert_HaveValuesEqualTo_Bytes_Test extends AbstractTest {
       assertThat(table)
           .column("var11").haveValuesEqualTo(bytesTest, bytesTest);
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 10 of test2 table] \n" +

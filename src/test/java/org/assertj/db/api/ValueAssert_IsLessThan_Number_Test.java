@@ -242,7 +242,7 @@ public class ValueAssert_IsLessThan_Number_Test extends AbstractTest {
           .row()
               .value("var1").isLessThan(1);
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Row at index 0 of test table] \n" +
@@ -263,7 +263,7 @@ public class ValueAssert_IsLessThan_Number_Test extends AbstractTest {
       assertThat(table).column("var2")
           .value().as("var2").isLessThan(1);
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var2] \n" +

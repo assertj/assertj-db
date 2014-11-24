@@ -90,7 +90,7 @@ public class ValueAssert_Type_Test extends AbstractTest {
           .row()
               .value().as("var1 type").isOfType(ValueType.BOOLEAN);
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var1 type] \n" +
@@ -141,7 +141,7 @@ public class ValueAssert_Type_Test extends AbstractTest {
               .value().as("var1").isNumber().returnToRow()
               .value().as("var2").isNumber();
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var2] \n" +
@@ -166,7 +166,7 @@ public class ValueAssert_Type_Test extends AbstractTest {
           .row()
               .value().as("var1").isBoolean();
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var1] \n" +
@@ -191,7 +191,7 @@ public class ValueAssert_Type_Test extends AbstractTest {
           .row()
               .value().as("var1").isTime();
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var1] \n" +
@@ -216,7 +216,7 @@ public class ValueAssert_Type_Test extends AbstractTest {
           .row()
               .value().as("var1").isDate();
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var1] \n" +
@@ -241,7 +241,7 @@ public class ValueAssert_Type_Test extends AbstractTest {
           .row()
               .value().as("var1").isDateTime();
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var1] \n" +
@@ -266,7 +266,7 @@ public class ValueAssert_Type_Test extends AbstractTest {
           .row()
               .value().as("var1").isBytes();
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var1] \n" +
@@ -291,7 +291,7 @@ public class ValueAssert_Type_Test extends AbstractTest {
           .row()
               .value().as("var1").isText();
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var1] \n" +

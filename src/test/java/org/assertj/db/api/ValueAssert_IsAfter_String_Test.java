@@ -86,7 +86,7 @@ public class ValueAssert_IsAfter_String_Test extends AbstractTest {
       assertThat(table).column("var8").value()
           .isAfter("09:46:30");
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Column at index 7 of test table] \n" +
@@ -107,7 +107,7 @@ public class ValueAssert_IsAfter_String_Test extends AbstractTest {
       assertThat(table).column("var9").value()
           .isAfter("2014-05-24");
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Column at index 8 of test table] \n" +
@@ -128,7 +128,7 @@ public class ValueAssert_IsAfter_String_Test extends AbstractTest {
       assertThat(table).column("var9").value()
           .isAfter("2014-05-24T00:00");
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Column at index 8 of test table] \n" +
@@ -149,7 +149,7 @@ public class ValueAssert_IsAfter_String_Test extends AbstractTest {
       assertThat(table).column("var10").value(2)
           .isAfter("2014-05-30");
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 2 of Column at index 9 of test table] \n" +
@@ -170,7 +170,7 @@ public class ValueAssert_IsAfter_String_Test extends AbstractTest {
       assertThat(table).column("var10").value()
           .isAfter("2014-05-24T09:46:30");
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Column at index 9 of test table] \n" +
@@ -191,7 +191,7 @@ public class ValueAssert_IsAfter_String_Test extends AbstractTest {
       assertThat(table).column("var1").value().as("var1")
           .isAfter("2014-05-24T09:46:29");
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var1] \n" +

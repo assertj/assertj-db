@@ -123,7 +123,7 @@ public class ValueAssert_IsNotEqualTo_String_Test extends AbstractTest {
       assertThat(table).column("var12")
           .value().isNotEqualTo("text");
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Column at index 11 of test table] \n" +
@@ -144,7 +144,7 @@ public class ValueAssert_IsNotEqualTo_String_Test extends AbstractTest {
       assertThat(table).column("var1")
           .value().isNotEqualTo("1");
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Column at index 0 of test table] \n" +
@@ -165,7 +165,7 @@ public class ValueAssert_IsNotEqualTo_String_Test extends AbstractTest {
       assertThat(table).column("var8")
           .value().isNotEqualTo("09:46:30");
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Column at index 7 of test table] \n" +
@@ -200,7 +200,7 @@ public class ValueAssert_IsNotEqualTo_String_Test extends AbstractTest {
       assertThat(table).column("var9")
           .value().isNotEqualTo("2014-05-24");
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Column at index 8 of test table] \n" +
@@ -235,7 +235,7 @@ public class ValueAssert_IsNotEqualTo_String_Test extends AbstractTest {
       assertThat(table).column("var10")
           .value().isNotEqualTo("2014-05-24T09:46:30");
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 0 of Column at index 9 of test table] \n" +
@@ -280,7 +280,7 @@ public class ValueAssert_IsNotEqualTo_String_Test extends AbstractTest {
       assertThat(table).column("var2")
           .value().as("var2").isNotEqualTo("Text");
       
-      fail("Une Erreur doit être levée");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var2] \n" +
