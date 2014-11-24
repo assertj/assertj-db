@@ -54,7 +54,7 @@ public class Changes_GetChangesList_Test extends AbstractTest {
   public void test_when_there_is_no_change_found() throws SQLException {
     Changes changes = new Changes(new Table(source, "test"));
     changes.setStartPointNow();
-    update("delete from test2 where var1 is null");
+    update("delete from test2 where VAR1 is null");
     changes.setEndPointNow();
     assertThat(changes.getChangesList()).hasSize(0);
   }
@@ -69,13 +69,15 @@ public class Changes_GetChangesList_Test extends AbstractTest {
   public void test_when_there_is_deletion_change() throws SQLException {
     Changes changes = new Changes(source);
     changes.setStartPointNow();
-    update("delete from test2 where var1 is null");
+    update("delete from test2 where VAR1 is null");
     changes.setEndPointNow();
 
     assertThat(changes.getChangesList()).hasSize(1);
     Change change = changes.getChangesList().get(0);
     assertThat(change.getDataName()).isEqualTo("TEST2");
     assertThat(change.getChangeType()).isEqualTo(ChangeType.DELETION);
+    assertThat(change.getColumnsNameList()).containsExactly("VAR1", "VAR2", "VAR3", "VAR4", "VAR5", "VAR6", "VAR7",
+        "VAR8", "VAR9", "VAR10", "VAR11", "VAR12", "VAR13", "VAR14", "VAR15");
     assertThat(change.getRowAtStartPoint().getValuesList()).containsExactly(null, null, null, null, null, null, null,
         null, null, null, null, null, null, null, null);
     assertThat(change.getRowAtEndPoint()).isNull();
@@ -91,13 +93,15 @@ public class Changes_GetChangesList_Test extends AbstractTest {
   public void test_when_there_is_creation_change() throws SQLException {
     Changes changes = new Changes(source);
     changes.setStartPointNow();
-    update("insert into test2(var1) values(200)");
+    update("insert into test2(VAR1) values(200)");
     changes.setEndPointNow();
 
     assertThat(changes.getChangesList()).hasSize(1);
     Change change = changes.getChangesList().get(0);
     assertThat(change.getDataName()).isEqualTo("TEST2");
     assertThat(change.getChangeType()).isEqualTo(ChangeType.CREATION);
+    assertThat(change.getColumnsNameList()).containsExactly("VAR1", "VAR2", "VAR3", "VAR4", "VAR5", "VAR6", "VAR7",
+        "VAR8", "VAR9", "VAR10", "VAR11", "VAR12", "VAR13", "VAR14", "VAR15");
     assertThat(change.getRowAtStartPoint()).isNull();
     assertThat(change.getRowAtEndPoint().getValuesList()).containsExactly(200, null, null, null, null, null, null,
         null, null, null, null, null, null, null, null);
@@ -113,15 +117,16 @@ public class Changes_GetChangesList_Test extends AbstractTest {
   public void test_when_there_is_modification_change_without_primary_key() throws SQLException {
     Changes changes = new Changes(source);
     changes.setStartPointNow();
-    update("update test2 set var12 = 'modification' where var1 = 1");
+    update("update test2 set VAR12 = 'modification' where VAR1 = 1");
     changes.setEndPointNow();
 
     assertThat(changes.getChangesList()).hasSize(2);
     Change change = changes.getChangesList().get(0);
     assertThat(change.getDataName()).isEqualTo("TEST2");
     assertThat(change.getChangeType()).isEqualTo(ChangeType.CREATION);
+    assertThat(change.getColumnsNameList()).containsExactly("VAR1", "VAR2", "VAR3", "VAR4", "VAR5", "VAR6", "VAR7",
+        "VAR8", "VAR9", "VAR10", "VAR11", "VAR12", "VAR13", "VAR14", "VAR15");
     assertThat(change.getRowAtStartPoint()).isNull();
-
     assertThat(change.getRowAtEndPoint().getValuesList()).containsExactly(1, true, (byte) 2, (short) 3, 4L,
         new BigDecimal("5.60"), 7.8f, Time.valueOf("09:46:30"), Date.valueOf("2014-05-24"),
         Timestamp.valueOf("2014-05-24 09:46:30"), Assertions.bytesContentFromClassPathOf("h2-logo-2.png"),
@@ -129,6 +134,8 @@ public class Changes_GetChangesList_Test extends AbstractTest {
     Change change1 = changes.getChangesList().get(1);
     assertThat(change1.getDataName()).isEqualTo("TEST2");
     assertThat(change1.getChangeType()).isEqualTo(ChangeType.DELETION);
+    assertThat(change1.getColumnsNameList()).containsExactly("VAR1", "VAR2", "VAR3", "VAR4", "VAR5", "VAR6", "VAR7",
+        "VAR8", "VAR9", "VAR10", "VAR11", "VAR12", "VAR13", "VAR14", "VAR15");
     assertThat(change1.getRowAtStartPoint().getValuesList()).containsExactly(1, true, (byte) 2, (short) 3, 4L,
         new BigDecimal("5.60"), 7.8f, Time.valueOf("09:46:30"), Date.valueOf("2014-05-24"),
         Timestamp.valueOf("2014-05-24 09:46:30"), Assertions.bytesContentFromClassPathOf("h2-logo-2.png"), "text",
@@ -153,6 +160,7 @@ public class Changes_GetChangesList_Test extends AbstractTest {
     Change change = changes.getChangesList().get(0);
     assertThat(change.getDataName()).isEqualTo("INTERPRETATION");
     assertThat(change.getChangeType()).isEqualTo(ChangeType.MODIFICATION);
+    assertThat(change.getColumnsNameList()).containsExactly("ID", "ID_MOVIE", "ID_ACTOR", "CHARACTER");
     assertThat(change.getRowAtStartPoint().getValuesList()).containsExactly(new BigDecimal(3), new BigDecimal(3),
         new BigDecimal(1), "Dr Grace Augustine");
     assertThat(change.getRowAtEndPoint().getValuesList()).containsExactly(new BigDecimal(3), new BigDecimal(3),

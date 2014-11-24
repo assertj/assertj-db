@@ -35,6 +35,14 @@ import org.junit.Test;
 public class Request_Exception_Test extends AbstractTest {
 
   /**
+   * This method should fail because setting primary key name which do not exist in the columns.
+   */
+  @Test(expected = AssertJDBException.class)
+  public void should_fail_because_setting_primarykey_which_donot_exist() {
+    new Request(dataSource, "select var1 from test").setPksName("var2").getRowsList();
+  }
+
+  /**
    * This method should fail because setting the datasource to null.
    */
   @Test(expected = NullPointerException.class)
