@@ -24,7 +24,7 @@ import org.assertj.db.type.TimeValue;
 import org.junit.Test;
 
 /**
- * Test on the {@code haveValuesEqualTo} assertion method on {@code Column} for the date/time values.
+ * Test on the {@code hasValuesEqualTo} assertion method on {@code Column} for the date/time values.
  * 
  * @author Régis Pouiller
  * 
@@ -32,35 +32,35 @@ import org.junit.Test;
 public class ColumnAssert_HaveValuesEqualTo_DateTimeValue_Test extends AbstractTest {
 
   /**
-   * This method tests the {@code haveValuesEqualTo} assertion method.
+   * This method tests the {@code hasValuesEqualTo} assertion method.
    */
   @Test
-  public void test_haveValuesEqualTo_assertion() {
+  public void test_hasValuesEqualTo_assertion() {
     Table table = new Table(source, "test");
 
     assertThat(table)
-        .column("var10").haveValuesEqualTo(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)), 
+        .column("var10").hasValuesEqualTo(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)), 
             DateTimeValue.of(DateValue.of(2014, 5, 30), TimeValue.of(12, 29, 49)),
             DateTimeValue.of(DateValue.of(2014, 5, 30), TimeValue.of(0, 0)),
             DateTimeValue.of(DateValue.of(2014, 5, 30), TimeValue.of(0, 0)))
-            .haveValuesEqualTo("2014-05-24T09:46:30", "2014-05-30T12:29:49", "2014-05-30T00:00", "2014-05-30");
+            .hasValuesEqualTo("2014-05-24T09:46:30", "2014-05-30T12:29:49", "2014-05-30T00:00", "2014-05-30");
 
     Table table2 = new Table(source, "test2");
 
     assertThat(table2)
-        .column("var10").haveValuesEqualTo(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)), null);
+        .column("var10").hasValuesEqualTo(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)), null);
   }
 
   /**
    * This method should fail because the type of the column is {@code ValueType.Boolean}.
    */
   @Test
-  public void should_fail_haveValuesEqualTo_assertion_because_column_is_boolean() {
+  public void should_fail_hasValuesEqualTo_assertion_because_column_is_boolean() {
     try {
       Table table = new Table(source, "test2");
   
       assertThat(table)
-          .column(1).as("var2 type").haveValuesEqualTo(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)), 
+          .column(1).as("var2 type").hasValuesEqualTo(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)), 
               DateTimeValue.of(DateValue.of(2014, 5, 30), TimeValue.of(12, 29, 49)),
               DateTimeValue.of(DateValue.of(2014, 5, 30), TimeValue.of(0, 0)),
               DateTimeValue.of(DateValue.of(2014, 5, 30), TimeValue.of(0, 0)));
@@ -79,15 +79,15 @@ public class ColumnAssert_HaveValuesEqualTo_DateTimeValue_Test extends AbstractT
   }
 
   /**
-   * This method should fail because the type of the column have less values.
+   * This method should fail because the type of the column has less values.
    */
   @Test
-  public void should_fail_haveValuesEqualTo_assertion_because_column_have_less_values() {
+  public void should_fail_hasValuesEqualTo_assertion_because_column_has_less_values() {
     try {
       Table table2 = new Table(source, "test2");
   
       assertThat(table2)
-          .column("var10").haveValuesEqualTo(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)), 
+          .column("var10").hasValuesEqualTo(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)), 
               DateTimeValue.of(DateValue.of(2014, 5, 30), TimeValue.of(12, 29, 49)),
               DateTimeValue.of(DateValue.of(2014, 5, 30), TimeValue.of(0, 0)));
       
@@ -106,12 +106,12 @@ public class ColumnAssert_HaveValuesEqualTo_DateTimeValue_Test extends AbstractT
    * This method should fail because the second value is {@code null}.
    */
   @Test
-  public void should_fail_haveValuesEqualTo_assertion_because_value_is_different_because_is_null() {
+  public void should_fail_hasValuesEqualTo_assertion_because_value_is_different_because_is_null() {
     try {
       Table table = new Table(source, "test2");
   
       assertThat(table)
-          .column("var10").haveValuesEqualTo(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)), 
+          .column("var10").hasValuesEqualTo(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)), 
               DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)));
       
       fail("An exception must be raised");
@@ -129,12 +129,12 @@ public class ColumnAssert_HaveValuesEqualTo_DateTimeValue_Test extends AbstractT
    * This method should fail because the first value is 24/05/2014 09:46:30.
    */
   @Test
-  public void should_fail_haveValuesEqualTo_assertion_because_value_is_different() {
+  public void should_fail_hasValuesEqualTo_assertion_because_value_is_different() {
     try {
       Table table = new Table(source, "test2");
   
       assertThat(table)
-          .column("var10").haveValuesEqualTo(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 31)), 
+          .column("var10").hasValuesEqualTo(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 31)), 
               DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)));
       
       fail("An exception must be raised");

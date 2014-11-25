@@ -25,61 +25,61 @@ import org.assertj.db.type.TimeValue;
 import org.junit.Test;
 
 /**
- * Test on the {@code haveValuesEqualTo) assertion methods on {@code Row}.
+ * Test on the {@code hasValuesEqualTo) assertion methods on {@code Row}.
  * 
  * @author Régis Pouiller
  * 
  */
-public class RowAssert_HaveValuesEqualTo_Test extends AbstractTest {
+public class RowAssert_HasValuesEqualTo_Test extends AbstractTest {
 
   private byte[] bytesDev = bytesContentFromClassPathOf("logo-dev.jpg");
   private byte[] bytesH2 = bytesContentFromClassPathOf("h2-logo-2.png");
 
   /**
-   * This method tests the {@code haveValuesEqualTo} assertion method.
+   * This method tests the {@code hasValuesEqualTo} assertion method.
    */
   @Test
-  public void test_haveValuesEqualTo_assertion() {
+  public void test_hasValuesEqualTo_assertion() {
     Table table = new Table(source, "test");
 
     assertThat(table)
-        .row().haveValuesEqualTo(1, true, 2, 3, 4, 5.6, 7.8, TimeValue.of(9, 46, 30),
+        .row().hasValuesEqualTo(1, true, 2, 3, 4, 5.6, 7.8, TimeValue.of(9, 46, 30),
             DateValue.of(2014, 5, 24), DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)),
             bytesH2, "text", 5, 7)
-            .haveValuesEqualTo("1", true, "2", "3", "4", "5.6", "7.8", "09:46:30",
+            .hasValuesEqualTo("1", true, "2", "3", "4", "5.6", "7.8", "09:46:30",
             "2014-05-24", "2014-05-24T09:46:30", bytesH2, "text", "5", "7")
-        .row().haveValuesEqualTo("10", false, "20", "30", "40", "50.6", "70.8", TimeValue.of(12, 29, 49),
+        .row().hasValuesEqualTo("10", false, "20", "30", "40", "50.6", "70.8", TimeValue.of(12, 29, 49),
             DateValue.of(2014, 5, 30), DateTimeValue.of(DateValue.of(2014, 5, 30), TimeValue.of(12, 29, 49)),
             bytesDev, "another text", "50", "70")
-            .haveValuesEqualTo("10", false, "20", "30", "40", "50.6", "70.8", TimeValue.of(12, 29, 49),
+            .hasValuesEqualTo("10", false, "20", "30", "40", "50.6", "70.8", TimeValue.of(12, 29, 49),
             "2014-05-30T00:00", DateTimeValue.of(DateValue.of(2014, 5, 30), TimeValue.of(12, 29, 49)),
             bytesDev, "another text", "50", "70")
-        .row().haveValuesEqualTo(100, false, 25, 300, 400, 500.6, 700.8, TimeValue.of(12, 29, 49),
+        .row().hasValuesEqualTo(100, false, 25, 300, 400, 500.6, 700.8, TimeValue.of(12, 29, 49),
             DateValue.of(2014, 5, 30), DateValue.of(2014, 5, 30),
             bytesDev, "another text again", 500, 700)
-        .row().haveValuesEqualTo(1000, false, 0, 0, 0, 0, 0, TimeValue.of(12, 29, 49),
+        .row().hasValuesEqualTo(1000, false, 0, 0, 0, 0, 0, TimeValue.of(12, 29, 49),
             DateValue.of(2014, 5, 30), DateValue.of(2014, 5, 30),
             bytesDev, "another text again", 500, 700)
-            .haveValuesEqualTo(1000, false, 0, 0, 0, 0, 0, TimeValue.of(12, 29, 49),
+            .hasValuesEqualTo(1000, false, 0, 0, 0, 0, 0, TimeValue.of(12, 29, 49),
             "2014-05-30", "2014-05-30",
             bytesDev, "another text again", 500, 700)
-            .haveValuesEqualTo(1000, false, 0, 0, 0, 0, 0, TimeValue.of(12, 29, 49),
+            .hasValuesEqualTo(1000, false, 0, 0, 0, 0, 0, TimeValue.of(12, 29, 49),
             "2014-05-30T00:00", "2014-05-30T00:00",
             bytesDev, "another text again", 500, 700)
-            .haveValuesEqualTo(1000, false, 0, 0, 0, 0, 0, TimeValue.of(12, 29, 49),
+            .hasValuesEqualTo(1000, false, 0, 0, 0, 0, 0, TimeValue.of(12, 29, 49),
             "2014-05-30T00:00:00", "2014-05-30T00:00:00",
             bytesDev, "another text again", 500, 700)
-            .haveValuesEqualTo(1000, false, 0, 0, 0, 0, 0, TimeValue.of(12, 29, 49),
+            .hasValuesEqualTo(1000, false, 0, 0, 0, 0, 0, TimeValue.of(12, 29, 49),
             "2014-05-30T00:00:00.000000000", "2014-05-30T00:00:00.000000000",
             bytesDev, "another text again", 500, 700);
 
     Table table2 = new Table(source, "test2");
 
     assertThat(table2)
-        .row().haveValuesEqualTo(1, true, 2, 3, 4, 5.6, 7.8, TimeValue.of(9, 46, 30),
+        .row().hasValuesEqualTo(1, true, 2, 3, 4, 5.6, 7.8, TimeValue.of(9, 46, 30),
             DateValue.of(2014, 5, 24), DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)),
             bytesH2, "text", 5, 7, null)
-        .row().haveValuesEqualTo(null, null, null, null, null, null, null, null, 
+        .row().hasValuesEqualTo(null, null, null, null, null, null, null, null, 
             null, null, 
             null, null, null, null, null);
   }
@@ -93,10 +93,10 @@ public class RowAssert_HaveValuesEqualTo_Test extends AbstractTest {
       Table table2 = new Table(source, "test2");
   
       assertThat(table2)
-          .row().haveValuesEqualTo(1, true, 2, 3, 4, 5.6, 7.8, TimeValue.of(9, 46, 30),
+          .row().hasValuesEqualTo(1, true, 2, 3, 4, 5.6, 7.8, TimeValue.of(9, 46, 30),
               DateValue.of(2014, 5, 24), DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)),
               bytesH2, "text", 5, 7, null)
-          .row().haveValuesEqualTo(null, "1", null, null, null, null, null, null, 
+          .row().hasValuesEqualTo(null, "1", null, null, null, null, null, null, 
               null, null, 
               null, null, null, null, null);
       
@@ -114,18 +114,18 @@ public class RowAssert_HaveValuesEqualTo_Test extends AbstractTest {
   }
 
   /**
-   * This method should fail because the second row have more values.
+   * This method should fail because the second row has more values.
    */
   @Test
-  public void should_fail_isOfType_assertion_because_column_have_less_values() {
+  public void should_fail_isOfType_assertion_because_column_has_less_values() {
     try {
       Table table2 = new Table(source, "test2");
   
       assertThat(table2)
-          .row().haveValuesEqualTo(1, true, 2, 3, 4, 5.6, 7.8, TimeValue.of(9, 46, 30),
+          .row().hasValuesEqualTo(1, true, 2, 3, 4, 5.6, 7.8, TimeValue.of(9, 46, 30),
               DateValue.of(2014, 5, 24), DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)),
               bytesH2, "text", 5, 7, null)
-          .row().haveValuesEqualTo(null, null, null, null, null, null, null, 
+          .row().hasValuesEqualTo(null, null, null, null, null, null, null, 
               null, null, 
               null, null, null, null, null);
       
@@ -149,10 +149,10 @@ public class RowAssert_HaveValuesEqualTo_Test extends AbstractTest {
       Table table2 = new Table(source, "test2");
   
       assertThat(table2)
-          .row().haveValuesEqualTo(1, false, 2, 3, 4, 5.6, 7.8, TimeValue.of(9, 46, 30),
+          .row().hasValuesEqualTo(1, false, 2, 3, 4, 5.6, 7.8, TimeValue.of(9, 46, 30),
               DateValue.of(2014, 5, 24), DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)),
               bytesH2, "text", 5, 7, null)
-          .row().haveValuesEqualTo(null, null, null, null, null, null, null, null, 
+          .row().hasValuesEqualTo(null, null, null, null, null, null, null, null, 
               null, null, 
               null, null, null, null, null);
       
@@ -176,7 +176,7 @@ public class RowAssert_HaveValuesEqualTo_Test extends AbstractTest {
       Table table2 = new Table(source, "test2");
   
       assertThat(table2)
-          .row().haveValuesEqualTo(1, true, 2, 3, 4, 5.6, 7.8, TimeValue.of(9, 46, 30),
+          .row().hasValuesEqualTo(1, true, 2, 3, 4, 5.6, 7.8, TimeValue.of(9, 46, 30),
               DateValue.of(2014, 5, 24), DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)),
               bytesDev, "text", 5, 7, null);
       

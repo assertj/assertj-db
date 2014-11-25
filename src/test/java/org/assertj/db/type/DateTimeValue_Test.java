@@ -101,7 +101,7 @@ public class DateTimeValue_Test extends AbstractTest {
    * This method should throw a {@code ParseException} because passing a parameter to constructor with a bad length.
    */
   @Test(expected = ParseException.class)
-  public void should_constructor_with_string_fail_if_date_have_bad_length() throws ParseException {
+  public void should_constructor_with_string_fail_if_date_has_bad_length() throws ParseException {
     new DateTimeValue("12345678901");
   }
 
@@ -110,7 +110,7 @@ public class DateTimeValue_Test extends AbstractTest {
    * on year.
    */
   @Test(expected = ParseException.class)
-  public void should_constructor_with_string_fail_if_date_have_bad_character_on_year() throws ParseException {
+  public void should_constructor_with_string_fail_if_date_has_bad_character_on_year() throws ParseException {
     new DateTimeValue("a007-12-23");
   }
 
@@ -119,7 +119,7 @@ public class DateTimeValue_Test extends AbstractTest {
    * on separator.
    */
   @Test(expected = ParseException.class)
-  public void should_constructor_with_string_fail_if_date_have_bad_character_on_separator() throws ParseException {
+  public void should_constructor_with_string_fail_if_date_has_bad_character_on_separator() throws ParseException {
     new DateTimeValue("2007a12-23");
   }
 
@@ -256,7 +256,7 @@ public class DateTimeValue_Test extends AbstractTest {
    * bad length.
    */
   @Test(expected = ParseException.class)
-  public void should_parse_fail_if_date_have_bad_length() throws ParseException {
+  public void should_parse_fail_if_date_has_bad_length() throws ParseException {
     DateTimeValue.parse("12345678901");
   }
 
@@ -265,7 +265,7 @@ public class DateTimeValue_Test extends AbstractTest {
    * bad character on year.
    */
   @Test(expected = ParseException.class)
-  public void should_parse_fail_if_date_have_bad_character_on_year() throws ParseException {
+  public void should_parse_fail_if_date_has_bad_character_on_year() throws ParseException {
     DateTimeValue.parse("a007-12-23");
   }
 
@@ -274,7 +274,7 @@ public class DateTimeValue_Test extends AbstractTest {
    * bad character on separator.
    */
   @Test(expected = ParseException.class)
-  public void should_parse_fail_if_date_have_bad_character_on_separator() throws ParseException {
+  public void should_parse_fail_if_date_has_bad_character_on_separator() throws ParseException {
     DateTimeValue.parse("2007a12-23");
   }
 

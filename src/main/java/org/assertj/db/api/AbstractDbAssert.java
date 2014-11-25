@@ -88,7 +88,7 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
   /**
    * Verifies that the number of rows is equal to the number in parameter.
    * <p>
-   * Example where the assertion verifies that the table have 2 rows :
+   * Example where the assertion verifies that the table has 2 rows :
    * </p>
    * 
    * <pre><code class='java'>
@@ -111,7 +111,7 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
   /**
    * Verifies that the number of columns is equal to the number in parameter.
    * <p>
-   * Example where the assertion verifies that the table have 8 columns :
+   * Example where the assertion verifies that the table has 8 columns :
    * </p>
    * 
    * <pre><code class='java'>

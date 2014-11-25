@@ -21,7 +21,7 @@ import org.assertj.db.type.Table;
 import org.junit.Test;
 
 /**
- * Test on the {@code haveValuesEqualTo} assertion method on {@code Column} for the {@code boolean}.
+ * Test on the {@code hasValuesEqualTo} assertion method on {@code Column} for the {@code boolean}.
  * 
  * @author Régis Pouiller
  * 
@@ -29,31 +29,31 @@ import org.junit.Test;
 public class ColumnAssert_HaveValuesEqualTo_Boolean_Test extends AbstractTest {
 
   /**
-   * This method tests the {@code haveValuesEqualTo} assertion method.
+   * This method tests the {@code hasValuesEqualTo} assertion method.
    */
   @Test
-  public void test_haveValuesEqualTo_assertion() {
+  public void test_hasValuesEqualTo_assertion() {
     Table table = new Table(source, "test");
 
     assertThat(table)
-        .column(1).as("var2").haveValuesEqualTo(true, false, false, false);
+        .column(1).as("var2").hasValuesEqualTo(true, false, false, false);
 
     Table table2 = new Table(source, "test2");
 
     assertThat(table2)
-        .column(1).as("var2").haveValuesEqualTo(true, null);
+        .column(1).as("var2").hasValuesEqualTo(true, null);
   }
 
   /**
    * This method should fail because the type of the column is {@code ValueType.Number}.
    */
   @Test
-  public void should_fail_haveValuesEqualTo_assertion_because_column_is_number() {
+  public void should_fail_hasValuesEqualTo_assertion_because_column_is_number() {
     try {
       Table table = new Table(source, "test2");
   
       assertThat(table)
-          .column().as("var1 type").haveValuesEqualTo(true, null);
+          .column().as("var1 type").hasValuesEqualTo(true, null);
       
       fail("An exception must be raised");
     }
@@ -69,15 +69,15 @@ public class ColumnAssert_HaveValuesEqualTo_Boolean_Test extends AbstractTest {
   }
 
   /**
-   * This method should fail because the type of the column have less values.
+   * This method should fail because the type of the column has less values.
    */
   @Test
-  public void should_fail_haveValuesEqualTo_assertion_because_column_have_less_values() {
+  public void should_fail_hasValuesEqualTo_assertion_because_column_has_less_values() {
     try {
       Table table2 = new Table(source, "test2");
   
       assertThat(table2)
-          .column(1).as("var2").haveValuesEqualTo(true, null, null);
+          .column(1).as("var2").hasValuesEqualTo(true, null, null);
       
       fail("An exception must be raised");
     }
@@ -94,12 +94,12 @@ public class ColumnAssert_HaveValuesEqualTo_Boolean_Test extends AbstractTest {
    * This method should fail because the second value is {@code null}.
    */
   @Test
-  public void should_fail_haveValuesEqualTo_assertion_because_value_is_different_because_is_null() {
+  public void should_fail_hasValuesEqualTo_assertion_because_value_is_different_because_is_null() {
     try {
       Table table = new Table(source, "test2");
   
       assertThat(table)
-          .column(1).as("var2").haveValuesEqualTo(true, false);
+          .column(1).as("var2").hasValuesEqualTo(true, false);
       
       fail("An exception must be raised");
     }
@@ -116,12 +116,12 @@ public class ColumnAssert_HaveValuesEqualTo_Boolean_Test extends AbstractTest {
    * This method should fail because the first value is {@code true}.
    */
   @Test
-  public void should_fail_haveValuesEqualTo_assertion_because_value_is_different() {
+  public void should_fail_hasValuesEqualTo_assertion_because_value_is_different() {
     try {
       Table table = new Table(source, "test2");
   
       assertThat(table)
-          .column(1).as("var2").haveValuesEqualTo(false, false);
+          .column(1).as("var2").hasValuesEqualTo(false, false);
       
       fail("An exception must be raised");
     }

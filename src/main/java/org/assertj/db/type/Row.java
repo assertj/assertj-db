@@ -118,7 +118,7 @@ public class Row {
    * @param pksValues The values of the primary keys to compare.
    * @return If the values of the primary keys are equal.
    */
-  public boolean havePksValuesEqualTo(Object[] pksValues) {
+  public boolean hasPksValuesEqualTo(Object[] pksValues) {
     Object[] pksValues1 = getPksValues();
     if (pksValues1.length != 0 && pksValues1.length == pksValues.length) {
       for (int index = 0; index < pksValues1.length; index++) {
@@ -137,7 +137,7 @@ public class Row {
    * @param row The {@code Row} to compare with.
    * @return If the values are equal.
    */
-  public boolean haveValuesEqualTo(Row row) {
+  public boolean hasValuesEqualTo(Row row) {
     List<Object> valuesList = getValuesList();
     List<Object> rowValuesList = row.getValuesList();
     for (int index = 0; index < valuesList.size(); index++) {

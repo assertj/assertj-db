@@ -21,59 +21,59 @@ import org.assertj.db.type.Table;
 import org.junit.Test;
 
 /**
- * Test on the {@code haveValuesEqualTo} assertion method on {@code Column} for the texts.
+ * Test on the {@code hasValuesEqualTo} assertion method on {@code Column} for the texts.
  * 
  * @author Régis Pouiller
  * 
  */
-public class ColumnAssert_HaveValuesEqualTo_String_Test extends AbstractTest {
+public class ColumnAssert_HasValuesEqualTo_String_Test extends AbstractTest {
 
   /**
-   * This method tests the {@code haveValuesEqualTo} assertion method.
+   * This method tests the {@code hasValuesEqualTo} assertion method.
    */
   @Test
-  public void test_haveValuesEqualTo_assertion() {
+  public void test_hasValuesEqualTo_assertion() {
     Table table = new Table(source, "test");
 
     assertThat(table)
-        .column().as("var1").haveValuesEqualTo("1", "10", "100", "1000")
-        .column("var3").haveValuesEqualTo("2", "20", "25", "0")
-        .column().as("var4").haveValuesEqualTo("3", "30", "300", "0")
-        .column().as("var5").haveValuesEqualTo("4", "40", "400", "0")
-        .column().as("var6").haveValuesEqualTo("5.6", "50.6", "500.6", "0")
-        .column().as("var7").haveValuesEqualTo("7.8", "70.8", "700.8", "0")
-        .column("var8").haveValuesEqualTo("09:46:30", "12:29:49", "12:29:49", "12:29:49")
-        .column("var9").haveValuesEqualTo("2014-05-24", "2014-05-30", "2014-05-30", "2014-05-30")
-        .column("var9").haveValuesEqualTo("2014-05-24T00:00", "2014-05-30T00:00", "2014-05-30T00:00", "2014-05-30T00:00")
-        .column("var9").haveValuesEqualTo("2014-05-24T00:00:00", "2014-05-30T00:00:00", "2014-05-30T00:00:00", "2014-05-30T00:00:00")
-        .column("var9").haveValuesEqualTo("2014-05-24T00:00:00.000000000", "2014-05-30T00:00:00.000000000", "2014-05-30T00:00:00.000000000", "2014-05-30T00:00:00.000000000")
-        .column("var10").haveValuesEqualTo("2014-05-24T09:46:30.000000000", "2014-05-30T12:29:49.000000000", "2014-05-30T00:00:00", "2014-05-30T00:00:00")
-        .column("var10").haveValuesEqualTo("2014-05-24T09:46:30", "2014-05-30T12:29:49", "2014-05-30", "2014-05-30")
-        .column("var10").haveValuesEqualTo("2014-05-24T09:46:30", "2014-05-30T12:29:49", "2014-05-30T00:00", "2014-05-30T00:00")
-        .column("var12").haveValuesEqualTo("text", "another text", "another text again", "another text again")
-        .column("var13").haveValuesEqualTo("5", "50", "500", "500")
-        .column().as("var14").haveValuesEqualTo("7", "70", "700", "700");
+        .column().as("var1").hasValuesEqualTo("1", "10", "100", "1000")
+        .column("var3").hasValuesEqualTo("2", "20", "25", "0")
+        .column().as("var4").hasValuesEqualTo("3", "30", "300", "0")
+        .column().as("var5").hasValuesEqualTo("4", "40", "400", "0")
+        .column().as("var6").hasValuesEqualTo("5.6", "50.6", "500.6", "0")
+        .column().as("var7").hasValuesEqualTo("7.8", "70.8", "700.8", "0")
+        .column("var8").hasValuesEqualTo("09:46:30", "12:29:49", "12:29:49", "12:29:49")
+        .column("var9").hasValuesEqualTo("2014-05-24", "2014-05-30", "2014-05-30", "2014-05-30")
+        .column("var9").hasValuesEqualTo("2014-05-24T00:00", "2014-05-30T00:00", "2014-05-30T00:00", "2014-05-30T00:00")
+        .column("var9").hasValuesEqualTo("2014-05-24T00:00:00", "2014-05-30T00:00:00", "2014-05-30T00:00:00", "2014-05-30T00:00:00")
+        .column("var9").hasValuesEqualTo("2014-05-24T00:00:00.000000000", "2014-05-30T00:00:00.000000000", "2014-05-30T00:00:00.000000000", "2014-05-30T00:00:00.000000000")
+        .column("var10").hasValuesEqualTo("2014-05-24T09:46:30.000000000", "2014-05-30T12:29:49.000000000", "2014-05-30T00:00:00", "2014-05-30T00:00:00")
+        .column("var10").hasValuesEqualTo("2014-05-24T09:46:30", "2014-05-30T12:29:49", "2014-05-30", "2014-05-30")
+        .column("var10").hasValuesEqualTo("2014-05-24T09:46:30", "2014-05-30T12:29:49", "2014-05-30T00:00", "2014-05-30T00:00")
+        .column("var12").hasValuesEqualTo("text", "another text", "another text again", "another text again")
+        .column("var13").hasValuesEqualTo("5", "50", "500", "500")
+        .column().as("var14").hasValuesEqualTo("7", "70", "700", "700");
 
     Table table2 = new Table(source, "test2");
 
     assertThat(table2)
-        .column("var1").haveValuesEqualTo("1", null)
-        .column("var3").haveValuesEqualTo("2", null)
-        .column("var4").haveValuesEqualTo("3", null)
-        .column("var5").haveValuesEqualTo("4", null)
-        .column("var6").haveValuesEqualTo("5.6", null)
-        .column("var7").haveValuesEqualTo("7.8", null)
-        .column("var8").haveValuesEqualTo("09:46:30", null)
-        .column("var9").haveValuesEqualTo("2014-05-24", null)
-        .column("var9").haveValuesEqualTo("2014-05-24T00:00", null)
-        .column("var9").haveValuesEqualTo("2014-05-24T00:00:00", null)
-        .column("var9").haveValuesEqualTo("2014-05-24T00:00:00.000000000", null)
-        .column("var10").haveValuesEqualTo("2014-05-24T09:46:30.000000000", null)
-        .column("var10").haveValuesEqualTo("2014-05-24T09:46:30", null)
-        .column("var10").haveValuesEqualTo("2014-05-24T09:46:30", null)
-        .column("var12").haveValuesEqualTo("text", null)
-        .column("var13").haveValuesEqualTo("5", null)
-        .column("var14").haveValuesEqualTo("7", null);
+        .column("var1").hasValuesEqualTo("1", null)
+        .column("var3").hasValuesEqualTo("2", null)
+        .column("var4").hasValuesEqualTo("3", null)
+        .column("var5").hasValuesEqualTo("4", null)
+        .column("var6").hasValuesEqualTo("5.6", null)
+        .column("var7").hasValuesEqualTo("7.8", null)
+        .column("var8").hasValuesEqualTo("09:46:30", null)
+        .column("var9").hasValuesEqualTo("2014-05-24", null)
+        .column("var9").hasValuesEqualTo("2014-05-24T00:00", null)
+        .column("var9").hasValuesEqualTo("2014-05-24T00:00:00", null)
+        .column("var9").hasValuesEqualTo("2014-05-24T00:00:00.000000000", null)
+        .column("var10").hasValuesEqualTo("2014-05-24T09:46:30.000000000", null)
+        .column("var10").hasValuesEqualTo("2014-05-24T09:46:30", null)
+        .column("var10").hasValuesEqualTo("2014-05-24T09:46:30", null)
+        .column("var12").hasValuesEqualTo("text", null)
+        .column("var13").hasValuesEqualTo("5", null)
+        .column("var14").hasValuesEqualTo("7", null);
   }
 
   /**
@@ -85,7 +85,7 @@ public class ColumnAssert_HaveValuesEqualTo_String_Test extends AbstractTest {
       Table table = new Table(source, "test2");
   
       assertThat(table)
-          .column(1).as("var2 type").haveValuesEqualTo("1", "10", "100", "0");
+          .column(1).as("var2 type").hasValuesEqualTo("1", "10", "100", "0");
       
       fail("An exception must be raised");
     }
@@ -101,15 +101,15 @@ public class ColumnAssert_HaveValuesEqualTo_String_Test extends AbstractTest {
   }
 
   /**
-   * This method should fail because the type of the column have less values.
+   * This method should fail because the type of the column has less values.
    */
   @Test
-  public void should_fail_isOfType_assertion_because_column_have_less_values() {
+  public void should_fail_isOfType_assertion_because_column_has_less_values() {
     try {
       Table table2 = new Table(source, "test2");
   
       assertThat(table2)
-          .column("var1").haveValuesEqualTo("1", "10", "100");
+          .column("var1").hasValuesEqualTo("1", "10", "100");
       
       fail("An exception must be raised");
     }
@@ -131,7 +131,7 @@ public class ColumnAssert_HaveValuesEqualTo_String_Test extends AbstractTest {
       Table table = new Table(source, "test2");
   
       assertThat(table)
-          .column("var1").haveValuesEqualTo("1", "1");
+          .column("var1").hasValuesEqualTo("1", "1");
       
       fail("An exception must be raised");
     }
@@ -153,7 +153,7 @@ public class ColumnAssert_HaveValuesEqualTo_String_Test extends AbstractTest {
       Table table = new Table(source, "test2");
   
       assertThat(table)
-          .column("var1").haveValuesEqualTo("2", "1");
+          .column("var1").hasValuesEqualTo("2", "1");
       
       fail("An exception must be raised");
     }
@@ -175,7 +175,7 @@ public class ColumnAssert_HaveValuesEqualTo_String_Test extends AbstractTest {
       Table table = new Table(source, "test2");
   
       assertThat(table)
-          .column("var8").haveValuesEqualTo("09:46:30", "09:46:30");
+          .column("var8").hasValuesEqualTo("09:46:30", "09:46:30");
       
       fail("An exception must be raised");
     }
@@ -197,7 +197,7 @@ public class ColumnAssert_HaveValuesEqualTo_String_Test extends AbstractTest {
       Table table = new Table(source, "test2");
   
       assertThat(table)
-          .column("var8").haveValuesEqualTo("09:46:31", "09:46:30");
+          .column("var8").hasValuesEqualTo("09:46:31", "09:46:30");
       
       fail("An exception must be raised");
     }
@@ -219,7 +219,7 @@ public class ColumnAssert_HaveValuesEqualTo_String_Test extends AbstractTest {
       Table table = new Table(source, "test2");
   
       assertThat(table)
-          .column("var9").haveValuesEqualTo("2014-05-24", "2014-05-24");
+          .column("var9").hasValuesEqualTo("2014-05-24", "2014-05-24");
       
       fail("An exception must be raised");
     }
@@ -241,7 +241,7 @@ public class ColumnAssert_HaveValuesEqualTo_String_Test extends AbstractTest {
       Table table = new Table(source, "test2");
   
       assertThat(table)
-          .column("var9").haveValuesEqualTo("2014-05-25", "2014-05-24");
+          .column("var9").hasValuesEqualTo("2014-05-25", "2014-05-24");
       
       fail("An exception must be raised");
     }
@@ -263,7 +263,7 @@ public class ColumnAssert_HaveValuesEqualTo_String_Test extends AbstractTest {
       Table table = new Table(source, "test2");
   
       assertThat(table)
-          .column("var10").haveValuesEqualTo("2014-05-24T09:46:30", "2014-05-24T09:46:30");
+          .column("var10").hasValuesEqualTo("2014-05-24T09:46:30", "2014-05-24T09:46:30");
       
       fail("An exception must be raised");
     }
@@ -285,7 +285,7 @@ public class ColumnAssert_HaveValuesEqualTo_String_Test extends AbstractTest {
       Table table = new Table(source, "test2");
   
       assertThat(table)
-          .column("var10").haveValuesEqualTo("2014-05-24T09:46:31", "2014-05-24T09:46:30");
+          .column("var10").hasValuesEqualTo("2014-05-24T09:46:31", "2014-05-24T09:46:30");
       
       fail("An exception must be raised");
     }
@@ -307,7 +307,7 @@ public class ColumnAssert_HaveValuesEqualTo_String_Test extends AbstractTest {
       Table table = new Table(source, "test2");
   
       assertThat(table)
-          .column("var12").haveValuesEqualTo("text", "text");
+          .column("var12").hasValuesEqualTo("text", "text");
       
       fail("An exception must be raised");
     }
@@ -329,7 +329,7 @@ public class ColumnAssert_HaveValuesEqualTo_String_Test extends AbstractTest {
       Table table = new Table(source, "test2");
   
       assertThat(table)
-          .column("var12").haveValuesEqualTo("texT", "text");
+          .column("var12").hasValuesEqualTo("texT", "text");
       
       fail("An exception must be raised");
     }

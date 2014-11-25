@@ -22,7 +22,7 @@ import org.assertj.db.type.TimeValue;
 import org.junit.Test;
 
 /**
- * Test on the {@code haveValuesEqualTo} assertion method on {@code Column} for the time values.
+ * Test on the {@code hasValuesEqualTo} assertion method on {@code Column} for the time values.
  * 
  * @author Régis Pouiller
  * 
@@ -30,21 +30,21 @@ import org.junit.Test;
 public class ColumnAssert_HaveValuesEqualTo_TimeValue_Test extends AbstractTest {
 
   /**
-   * This method tests the {@code haveValuesEqualTo} assertion method.
+   * This method tests the {@code hasValuesEqualTo} assertion method.
    */
   @Test
-  public void test_haveValuesEqualTo_assertion() {
+  public void test_hasValuesEqualTo_assertion() {
     Table table = new Table(source, "test");
 
     assertThat(table)
-        .column("var8").haveValuesEqualTo(TimeValue.of(9, 46, 30), TimeValue.of(12, 29, 49), 
+        .column("var8").hasValuesEqualTo(TimeValue.of(9, 46, 30), TimeValue.of(12, 29, 49), 
             TimeValue.of(12, 29, 49), TimeValue.of(12, 29, 49))
-            .haveValuesEqualTo("09:46:30", "12:29:49", "12:29:49", "12:29:49");
+            .hasValuesEqualTo("09:46:30", "12:29:49", "12:29:49", "12:29:49");
 
     Table table2 = new Table(source, "test2");
 
     assertThat(table2)
-        .column("var8").haveValuesEqualTo(TimeValue.of(9, 46, 30), null);
+        .column("var8").hasValuesEqualTo(TimeValue.of(9, 46, 30), null);
   }
 
   /**
@@ -56,7 +56,7 @@ public class ColumnAssert_HaveValuesEqualTo_TimeValue_Test extends AbstractTest 
       Table table = new Table(source, "test2");
   
       assertThat(table)
-          .column(1).as("var2 type").haveValuesEqualTo(TimeValue.of(9, 46, 30), TimeValue.of(12, 29, 49), 
+          .column(1).as("var2 type").hasValuesEqualTo(TimeValue.of(9, 46, 30), TimeValue.of(12, 29, 49), 
               TimeValue.of(12, 29, 49), TimeValue.of(12, 29, 49));
       
       fail("An exception must be raised");
@@ -73,15 +73,15 @@ public class ColumnAssert_HaveValuesEqualTo_TimeValue_Test extends AbstractTest 
   }
 
   /**
-   * This method should fail because the type of the column have less values.
+   * This method should fail because the type of the column has less values.
    */
   @Test
-  public void should_fail_isOfType_assertion_because_column_have_less_values() {
+  public void should_fail_isOfType_assertion_because_column_has_less_values() {
     try {
       Table table2 = new Table(source, "test2");
   
       assertThat(table2)
-          .column("var8").haveValuesEqualTo(TimeValue.of(9, 46, 30), TimeValue.of(12, 29, 49), 
+          .column("var8").hasValuesEqualTo(TimeValue.of(9, 46, 30), TimeValue.of(12, 29, 49), 
               TimeValue.of(12, 29, 49));
       
       fail("An exception must be raised");
@@ -104,7 +104,7 @@ public class ColumnAssert_HaveValuesEqualTo_TimeValue_Test extends AbstractTest 
       Table table = new Table(source, "test2");
   
       assertThat(table)
-          .column("var8").haveValuesEqualTo(TimeValue.of(9, 46, 30), TimeValue.of(9, 46, 30));
+          .column("var8").hasValuesEqualTo(TimeValue.of(9, 46, 30), TimeValue.of(9, 46, 30));
       
       fail("An exception must be raised");
     }

@@ -343,7 +343,7 @@ public class Changes extends AbstractDbElement<Changes> {
         changesList.add(change);
       } else {
         // List the modified rows
-        if (!row.haveValuesEqualTo(rowAtEndPoint)) {
+        if (!row.hasValuesEqualTo(rowAtEndPoint)) {
           // If at least one value in the rows is different, add the change
           Change change = createModificationChange(dataName, row, rowAtEndPoint);
           changesList.add(change);
@@ -373,7 +373,7 @@ public class Changes extends AbstractDbElement<Changes> {
       int index = -1;
       int index1 = 0;
       for (Row rowAtStartPoint : rowsAtStartPointList) {
-        if (rowAtEndPoint.haveValuesEqualTo(rowAtStartPoint)) {
+        if (rowAtEndPoint.hasValuesEqualTo(rowAtStartPoint)) {
           index = index1;
           break;
         }
@@ -392,7 +392,7 @@ public class Changes extends AbstractDbElement<Changes> {
       int index = -1;
       int index1 = 0;
       for (Row rowAtEndPoint : rowsAtEndPointList) {
-        if (rowAtStartPoint.haveValuesEqualTo(rowAtEndPoint)) {
+        if (rowAtStartPoint.hasValuesEqualTo(rowAtEndPoint)) {
           index = index1;
           break;
         }

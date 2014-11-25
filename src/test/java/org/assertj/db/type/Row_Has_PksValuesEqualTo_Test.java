@@ -25,7 +25,7 @@ import org.junit.Test;
  * @author Régis Pouiller
  * 
  */
-public class Row_HavePksValuesEqualTo_Test extends AbstractTest {
+public class Row_Has_PksValuesEqualTo_Test extends AbstractTest {
 
   /**
    * This method test the result when getting the primary keys value with one primary key.
@@ -33,13 +33,13 @@ public class Row_HavePksValuesEqualTo_Test extends AbstractTest {
    * @throws Exception Exception
    */
   @Test
-  public void test_when_havepksvaluesequalto_with_one_pk() throws Exception {
+  public void test_when_havingpksvaluesequalto_with_one_pk() throws Exception {
     assertThat(
         getRow(Arrays.asList("col1"), Arrays.asList("col1", "col2", "col3"),
-            Arrays.asList((Object) "val1", "val2", "val3")).havePksValuesEqualTo(new Object[] { "val1" })).isTrue();
+            Arrays.asList((Object) "val1", "val2", "val3")).hasPksValuesEqualTo(new Object[] { "val1" })).isTrue();
     assertThat(
         getRow(Arrays.asList("col1"), Arrays.asList("col1", "col2", "col3"),
-            Arrays.asList((Object) "val1", "val2", "val3")).havePksValuesEqualTo(new Object[] { "val2" })).isFalse();
+            Arrays.asList((Object) "val1", "val2", "val3")).hasPksValuesEqualTo(new Object[] { "val2" })).isFalse();
   }
 
   /**
@@ -48,16 +48,16 @@ public class Row_HavePksValuesEqualTo_Test extends AbstractTest {
    * @throws Exception Exception
    */
   @Test
-  public void test_when_havepksvaluesequalto_with_two_pks() throws Exception {
+  public void test_when_havingpksvaluesequalto_with_two_pks() throws Exception {
     assertThat(
         getRow(Arrays.asList("col3", "col1"), Arrays.asList("col1", "col2", "col3"),
-            Arrays.asList((Object) "val1", 1, 2)).havePksValuesEqualTo(new Object[] { 2, "val1" })).isTrue();
+            Arrays.asList((Object) "val1", 1, 2)).hasPksValuesEqualTo(new Object[] { 2, "val1" })).isTrue();
     assertThat(
         getRow(Arrays.asList("col3", "col1"), Arrays.asList("col1", "col2", "col3"),
-            Arrays.asList((Object) "val1", 1, 2)).havePksValuesEqualTo(new Object[] { 1, "val1" })).isFalse();
+            Arrays.asList((Object) "val1", 1, 2)).hasPksValuesEqualTo(new Object[] { 1, "val1" })).isFalse();
     assertThat(
         getRow(Arrays.asList("col3", "col1"), Arrays.asList("col1", "col2", "col3"),
-            Arrays.asList((Object) "val1", 1, 2)).havePksValuesEqualTo(new Object[] { 2, "val2" })).isFalse();
+            Arrays.asList((Object) "val1", 1, 2)).hasPksValuesEqualTo(new Object[] { 2, "val2" })).isFalse();
   }
 
 }

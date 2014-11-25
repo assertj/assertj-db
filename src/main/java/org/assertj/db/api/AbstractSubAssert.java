@@ -164,14 +164,14 @@ public abstract class AbstractSubAssert<D extends AbstractDbData<D>, A extends A
   /**
    * Verifies that the size of a {@link Row} or of a {@link Column} is equal to the number in parameter.
    * <p>
-   * Example where the assertion verifies that the first row of the table have 8 columns :
+   * Example where the assertion verifies that the first row of the table has 8 columns :
    * </p>
    * 
    * <pre><code class='java'>
    * assertThat(table).row().hasSize(8);
    * </code></pre>
    * <p>
-   * Example where the assertion verifies that the column with index 1 of the table have 5 rows :
+   * Example where the assertion verifies that the column with index 1 of the table has 5 rows :
    * </p>
    * 
    * <pre><code class='java'>

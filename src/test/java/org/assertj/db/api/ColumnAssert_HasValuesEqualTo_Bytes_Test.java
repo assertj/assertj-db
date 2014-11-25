@@ -22,43 +22,43 @@ import org.assertj.db.type.Table;
 import org.junit.Test;
 
 /**
- * Test on the {@code haveValuesEqualTo} assertion method on {@code Column} for the arrays of {@code byte}.
+ * Test on the {@code hasValuesEqualTo} assertion method on {@code Column} for the arrays of {@code byte}.
  * 
  * @author Régis Pouiller
  * 
  */
-public class ColumnAssert_HaveValuesEqualTo_Bytes_Test extends AbstractTest {
+public class ColumnAssert_HasValuesEqualTo_Bytes_Test extends AbstractTest {
 
   private byte[] bytesTest = bytesContentFromClassPathOf("test.txt");
   private byte[] bytesDev = bytesContentFromClassPathOf("logo-dev.jpg");
   private byte[] bytesH2 = bytesContentFromClassPathOf("h2-logo-2.png");
 
   /**
-   * This method tests the {@code haveValuesEqualTo} assertion method.
+   * This method tests the {@code hasValuesEqualTo} assertion method.
    */
   @Test
-  public void test_haveValuesEqualTo_assertion() {
+  public void test_hasValuesEqualTo_assertion() {
     Table table = new Table(source, "test");
 
     assertThat(table)
-        .column("var11").haveValuesEqualTo(bytesH2, bytesDev, bytesDev, bytesDev);
+        .column("var11").hasValuesEqualTo(bytesH2, bytesDev, bytesDev, bytesDev);
 
     Table table2 = new Table(source, "test2");
 
     assertThat(table2)
-        .column("var11").haveValuesEqualTo(bytesH2, null);
+        .column("var11").hasValuesEqualTo(bytesH2, null);
   }
 
   /**
    * This method should fail because the type of the column is {@code ValueType.Boolean}.
    */
   @Test
-  public void should_fail_haveValuesEqualTo_assertion_because_column_is_boolean() {
+  public void should_fail_hasValuesEqualTo_assertion_because_column_is_boolean() {
     try {
       Table table = new Table(source, "test2");
   
       assertThat(table)
-          .column(1).as("var2 type").haveValuesEqualTo(bytesTest);
+          .column(1).as("var2 type").hasValuesEqualTo(bytesTest);
       
       fail("An exception must be raised");
     }
@@ -74,15 +74,15 @@ public class ColumnAssert_HaveValuesEqualTo_Bytes_Test extends AbstractTest {
   }
 
   /**
-   * This method should fail because the type of the column have less values.
+   * This method should fail because the type of the column has less values.
    */
   @Test
-  public void should_fail_haveValuesEqualTo_assertion_because_column_have_less_values() {
+  public void should_fail_hasValuesEqualTo_assertion_because_column_has_less_values() {
     try {
       Table table2 = new Table(source, "test2");
   
       assertThat(table2)
-          .column("var11").haveValuesEqualTo(bytesH2, bytesDev, bytesDev);
+          .column("var11").hasValuesEqualTo(bytesH2, bytesDev, bytesDev);
       
       fail("An exception must be raised");
     }
@@ -99,12 +99,12 @@ public class ColumnAssert_HaveValuesEqualTo_Bytes_Test extends AbstractTest {
    * This method should fail because the second value is {@code null}.
    */
   @Test
-  public void should_fail_haveValuesEqualTo_assertion_because_value_is_different_because_is_null() {
+  public void should_fail_hasValuesEqualTo_assertion_because_value_is_different_because_is_null() {
     try {
       Table table = new Table(source, "test2");
   
       assertThat(table)
-          .column("var11").haveValuesEqualTo(bytesH2, bytesTest);
+          .column("var11").hasValuesEqualTo(bytesH2, bytesTest);
       
       fail("An exception must be raised");
     }
@@ -118,12 +118,12 @@ public class ColumnAssert_HaveValuesEqualTo_Bytes_Test extends AbstractTest {
    * This method should fail because the first value is different.
    */
   @Test
-  public void should_fail_haveValuesEqualTo_assertion_because_value_is_different() {
+  public void should_fail_hasValuesEqualTo_assertion_because_value_is_different() {
     try {
       Table table = new Table(source, "test2");
   
       assertThat(table)
-          .column("var11").haveValuesEqualTo(bytesTest, bytesTest);
+          .column("var11").hasValuesEqualTo(bytesTest, bytesTest);
       
       fail("An exception must be raised");
     }

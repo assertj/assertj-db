@@ -77,7 +77,7 @@ public class TimeValue_Test extends AbstractTest {
    * This method should throw a {@code ParseException} because passing a parameter to constructor with a bad length.
    */
   @Test(expected = ParseException.class)
-  public void should_constructor_with_string_fail_if_date_have_bad_length() throws ParseException {
+  public void should_constructor_with_string_fail_if_date_has_bad_length() throws ParseException {
     new TimeValue("12345678901");
   }
 
@@ -86,7 +86,7 @@ public class TimeValue_Test extends AbstractTest {
    * on year.
    */
   @Test(expected = ParseException.class)
-  public void should_constructor_with_string_fail_if_date_have_bad_character_on_year() throws ParseException {
+  public void should_constructor_with_string_fail_if_date_has_bad_character_on_year() throws ParseException {
     new TimeValue("a9:01");
   }
 
@@ -95,7 +95,7 @@ public class TimeValue_Test extends AbstractTest {
    * on separator.
    */
   @Test(expected = ParseException.class)
-  public void should_constructor_with_string_fail_if_date_have_bad_character_on_separator() throws ParseException {
+  public void should_constructor_with_string_fail_if_date_has_bad_character_on_separator() throws ParseException {
     new TimeValue("09a01");
   }
 
@@ -206,7 +206,7 @@ public class TimeValue_Test extends AbstractTest {
    * bad length.
    */
   @Test(expected = ParseException.class)
-  public void should_parse_fail_if_date_have_bad_length() throws ParseException {
+  public void should_parse_fail_if_date_has_bad_length() throws ParseException {
     TimeValue.parse("12345678901");
   }
 
@@ -215,7 +215,7 @@ public class TimeValue_Test extends AbstractTest {
    * bad character on year.
    */
   @Test(expected = ParseException.class)
-  public void should_parse_fail_if_date_have_bad_character_on_year() throws ParseException {
+  public void should_parse_fail_if_date_has_bad_character_on_year() throws ParseException {
     TimeValue.parse("a9:01");
   }
 
@@ -224,7 +224,7 @@ public class TimeValue_Test extends AbstractTest {
    * bad character on separator.
    */
   @Test(expected = ParseException.class)
-  public void should_parse_fail_if_date_have_bad_character_on_separator() throws ParseException {
+  public void should_parse_fail_if_date_has_bad_character_on_separator() throws ParseException {
     TimeValue.parse("09a01");
   }
 

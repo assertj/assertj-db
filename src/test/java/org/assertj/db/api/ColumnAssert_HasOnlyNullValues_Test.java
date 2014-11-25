@@ -21,34 +21,34 @@ import org.assertj.db.type.Table;
 import org.junit.Test;
 
 /**
- * Test on the {@code haveOnlyNullValues} assertion method on {@code Column}.
+ * Test on the {@code hasOnlyNullValues} assertion method on {@code Column}.
  * 
  * @author Régis Pouiller
  * 
  */
-public class ColumnAssert_HaveOnlyNullValues_Test extends AbstractTest {
+public class ColumnAssert_HasOnlyNullValues_Test extends AbstractTest {
 
   /**
-   * This method tests the {@code haveOnlyNullValues} assertion method.
+   * This method tests the {@code hasOnlyNullValues} assertion method.
    */
   @Test
-  public void test_haveOnlyNullValues_assertion() {
+  public void test_hasOnlyNullValues_assertion() {
     Table table2 = new Table(source, "test2");
 
     assertThat(table2)
-        .column("var15").as("var15").haveOnlyNullValues();
+        .column("var15").as("var15").hasOnlyNullValues();
   }
 
   /**
    * This method should fail because there is a not null in the first row.
    */
   @Test
-  public void should_fail_haveOnlyNotNullValues_assertion_because_there_is_a_not_null() {
+  public void should_fail_hasOnlyNotNullValues_assertion_because_there_is_a_not_null() {
     try {
       Table table2 = new Table(source, "test2");
   
       assertThat(table2)
-          .column(1).as("var2").haveOnlyNullValues();
+          .column(1).as("var2").hasOnlyNullValues();
       
       fail("An exception must be raised");
     }
@@ -63,12 +63,12 @@ public class ColumnAssert_HaveOnlyNullValues_Test extends AbstractTest {
    * This method should fail because there is only not null value in the column.
    */
   @Test
-  public void should_fail_haveOnlyNotNullValues_assertion_because_there_is_only_not_null() {
+  public void should_fail_hasOnlyNotNullValues_assertion_because_there_is_only_not_null() {
     try {
       Table table = new Table(source, "test");
   
       assertThat(table)
-          .column(1).as("var2").haveOnlyNullValues();
+          .column(1).as("var2").hasOnlyNullValues();
       
       fail("An exception must be raised");
     }

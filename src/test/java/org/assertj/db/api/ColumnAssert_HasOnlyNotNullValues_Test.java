@@ -21,34 +21,34 @@ import org.assertj.db.type.Table;
 import org.junit.Test;
 
 /**
- * Test on the {@code haveOnlyNotNullValues} assertion method on {@code Column}.
+ * Test on the {@code hasOnlyNotNullValues} assertion method on {@code Column}.
  * 
  * @author Régis Pouiller
  * 
  */
-public class ColumnAssert_HaveOnlyNotNullValues_Test extends AbstractTest {
+public class ColumnAssert_HasOnlyNotNullValues_Test extends AbstractTest {
 
   /**
-   * This method tests the {@code haveOnlyNotNullValues} assertion method.
+   * This method tests the {@code hasOnlyNotNullValues} assertion method.
    */
   @Test
-  public void test_haveOnlyNotNullValues_assertion() {
+  public void test_hasOnlyNotNullValues_assertion() {
     Table table = new Table(source, "test");
 
     assertThat(table)
-        .column(1).as("var2").haveOnlyNotNullValues();
+        .column(1).as("var2").hasOnlyNotNullValues();
   }
 
   /**
    * This method should fail because there is a null in the second row.
    */
   @Test
-  public void should_fail_haveOnlyNotNullValues_assertion_because_there_is_a_null() {
+  public void should_fail_hasOnlyNotNullValues_assertion_because_there_is_a_null() {
     try {
       Table table2 = new Table(source, "test2");
   
       assertThat(table2)
-          .column(1).as("var2").haveOnlyNotNullValues();
+          .column(1).as("var2").hasOnlyNotNullValues();
   
       fail("An exception must be raised");
     }
@@ -63,12 +63,12 @@ public class ColumnAssert_HaveOnlyNotNullValues_Test extends AbstractTest {
    * This method should fail because there is only null value in the column.
    */
   @Test
-  public void should_fail_haveOnlyNotNullValues_assertion_because_there_is_only_null() {
+  public void should_fail_hasOnlyNotNullValues_assertion_because_there_is_only_null() {
     try {
       Table table2 = new Table(source, "test2");
   
       assertThat(table2)
-          .column("var15").as("var15").haveOnlyNotNullValues();
+          .column("var15").as("var15").hasOnlyNotNullValues();
       
       fail("An exception must be raised");
     }

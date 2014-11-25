@@ -104,14 +104,14 @@ public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends A
    * </p>
    * 
    * <pre><code class='java'>
-   * assertThat(table).row().haveValuesEqualTo(1, &quot;Text&quot;, TimeValue.of(9, 1));
+   * assertThat(table).row().hasValuesEqualTo(1, &quot;Text&quot;, TimeValue.of(9, 1));
    * </code></pre>
    * 
    * @param expected The expected values.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to the values in parameter.
    */
-  public R haveValuesEqualTo(Object... expected) {
+  public R hasValuesEqualTo(Object... expected) {
     hasSize(expected.length);
     int index = 0;
     for (Object value : getValuesList()) {

@@ -298,13 +298,13 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * </p>
    * 
    * <pre><code class='java'>
-   * assertThat(table).column().haveOnlyNullValues();
+   * assertThat(table).column().hasOnlyNullValues();
    * </code></pre>
    * 
    * @return {@code this} assertion object.
    * @throws AssertionError If at least one of the values of the column are not {@code null}.
    */
-  public C haveOnlyNullValues() {
+  public C hasOnlyNullValues() {
     int index = 0;
     for (Object value : getValuesList()) {
       if (value != null) {
@@ -323,13 +323,13 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * </p>
    * 
    * <pre><code class='java'>
-   * assertThat(table).column().haveOnlyNotNullValues();
+   * assertThat(table).column().hasOnlyNotNullValues();
    * </code></pre>
    * 
    * @return {@code this} assertion object.
    * @throws AssertionError If at least one of the values of the column are {@code null}.
    */
-  public C haveOnlyNotNullValues() {
+  public C hasOnlyNotNullValues() {
     int index = 0;
     for (Object value : getValuesList()) {
       if (value == null) {
@@ -348,14 +348,14 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * </p>
    * 
    * <pre><code class='java'>
-   * assertThat(table).column().haveValuesEqualTo(true, false, true);
+   * assertThat(table).column().hasValuesEqualTo(true, false, true);
    * </code></pre>
    * 
    * @param expected The expected boolean values.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to the booleans in parameter.
    */
-  public C haveValuesEqualTo(Boolean... expected) {
+  public C hasValuesEqualTo(Boolean... expected) {
     isBoolean(true);
     hasSize(expected.length);
     int index = 0;
@@ -377,14 +377,14 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * </p>
    * 
    * <pre><code class='java'>
-   * assertThat(table).column().haveValuesEqualTo(5, 10.5, 6);
+   * assertThat(table).column().hasValuesEqualTo(5, 10.5, 6);
    * </code></pre>
    * 
    * @param expected The expected numbers values.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to the numbers in parameter.
    */
-  public C haveValuesEqualTo(Number... expected) {
+  public C hasValuesEqualTo(Number... expected) {
     isNumber(true);
     hasSize(expected.length);
     int index = 0;
@@ -409,14 +409,14 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * <pre><code class='java'>
    * byte[] bytes1 = bytesContentFromClassPathOf(&quot;file1.png&quot;);
    * byte[] bytes2 = bytesContentFromClassPathOf(&quot;file2.png&quot;);
-   * assertThat(table).column().haveValuesEqualTo(bytes1, bytes2);
+   * assertThat(table).column().hasValuesEqualTo(bytes1, bytes2);
    * </code></pre>
    * 
    * @param expected The expected bytes values.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to the bytes in parameter.
    */
-  public C haveValuesEqualTo(byte[]... expected) {
+  public C hasValuesEqualTo(byte[]... expected) {
     isBytes(true);
     hasSize(expected.length);
     int index = 0;
@@ -437,14 +437,14 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * </p>
    * 
    * <pre><code class='java'>
-   * assertThat(table).column().haveValuesEqualTo(&quot;text&quot;, &quot;text2&quot;, &quot;text3&quot;);
+   * assertThat(table).column().hasValuesEqualTo(&quot;text&quot;, &quot;text2&quot;, &quot;text3&quot;);
    * </code></pre>
    * 
    * @param expected The expected text values.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to the texts in parameter.
    */
-  public C haveValuesEqualTo(String... expected) {
+  public C hasValuesEqualTo(String... expected) {
     isOfAnyOfTypes(ValueType.TEXT, ValueType.NUMBER, ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME,
         ValueType.NOT_IDENTIFIED);
     hasSize(expected.length);
@@ -467,7 +467,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * </p>
    * 
    * <pre><code class='java'>
-   * assertThat(table).column().haveValuesEqualTo(DateValue.of(2014, 7, 7), DateValue.of(2014, 10, 3),
+   * assertThat(table).column().hasValuesEqualTo(DateValue.of(2014, 7, 7), DateValue.of(2014, 10, 3),
    *     DateValue.of(2014, 12, 23));
    * </code></pre>
    * 
@@ -475,7 +475,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to the date values in parameter.
    */
-  public C haveValuesEqualTo(DateValue... expected) {
+  public C hasValuesEqualTo(DateValue... expected) {
     isOfAnyOfTypes(ValueType.DATE, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
     hasSize(expected.length);
     int index = 0;
@@ -497,14 +497,14 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * </p>
    * 
    * <pre><code class='java'>
-   * assertThat(table).column().haveValuesEqualTo(TimeValue.of(21, 29, 30), TimeValue.of(10, 1, 25), TimeValue.of(9, 1));
+   * assertThat(table).column().hasValuesEqualTo(TimeValue.of(21, 29, 30), TimeValue.of(10, 1, 25), TimeValue.of(9, 1));
    * </code></pre>
    * 
    * @param expected The expected time values.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to the time values in parameter.
    */
-  public C haveValuesEqualTo(TimeValue... expected) {
+  public C hasValuesEqualTo(TimeValue... expected) {
     isOfAnyOfTypes(ValueType.TIME, ValueType.NOT_IDENTIFIED);
     hasSize(expected.length);
     int index = 0;
@@ -526,7 +526,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * </p>
    * 
    * <pre><code class='java'>
-   * assertThat(table).column().haveValuesEqualTo(DateTimeValue.of(DateValue.of(2014, 7, 7), TimeValue.of(21, 29)),
+   * assertThat(table).column().hasValuesEqualTo(DateTimeValue.of(DateValue.of(2014, 7, 7), TimeValue.of(21, 29)),
    *     DateTimeValue.of(DateValue.of(2014, 7, 7), TimeValue.of(10, 1, 25)),
    *     DateTimeValue.of(DateValue.of(2014, 7, 7), TimeValue.of(9, 1)));
    * </code></pre>
@@ -535,7 +535,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to the date/time values in parameter.
    */
-  public C haveValuesEqualTo(DateTimeValue... expected) {
+  public C hasValuesEqualTo(DateTimeValue... expected) {
     isOfAnyOfTypes(ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
     hasSize(expected.length);
     int index = 0;

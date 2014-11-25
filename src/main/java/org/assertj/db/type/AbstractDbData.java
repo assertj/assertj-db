@@ -350,7 +350,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    */
   public Row getRowFromPksValues(Object... pksValues) {
     for (Row row : getRowsList()) {
-      if (row.havePksValuesEqualTo(pksValues)) {
+      if (row.hasPksValuesEqualTo(pksValues)) {
         return row;
       }
     }
