@@ -117,6 +117,9 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
       // Call the specific loading depending of Table or Request.
       loadImpl(connection);
       Collections.sort(rowsList, RowComparator.INSTANCE);
+      if (pksNameList == null) {
+        pksNameList = new ArrayList<String>();
+      }
     } catch (SQLException e) {
       throw new AssertJDBException(e);
     }

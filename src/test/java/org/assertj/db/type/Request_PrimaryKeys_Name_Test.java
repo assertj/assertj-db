@@ -42,7 +42,7 @@ public class Request_PrimaryKeys_Name_Test extends AbstractTest {
         + " ORDER BY actor.name, movie.year");
 
     assertThat(request.getPksNameList()).as("Primary Keys of the request")
-        .isNull();
+        .hasSize(0);
   }
 
   /**

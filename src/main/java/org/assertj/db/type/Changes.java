@@ -227,7 +227,8 @@ public class Changes extends AbstractDbElement<Changes> {
   private static Request getDuplicatedRequest(Request request) {
     Request r = new Request();
     copyElement(request, r);
-    return r.setRequest(request.getRequest()).setParameters(request.getParameters());
+    return r.setRequest(request.getRequest()).setParameters(request.getParameters())
+        .setPksName(request.getPksNameList().toArray(new String[0]));
   }
 
   /**
@@ -419,7 +420,7 @@ public class Changes extends AbstractDbElement<Changes> {
   private List<Change> getChangesList(String dataName, AbstractDbData<?> dataAtStartPoint,
       AbstractDbData<?> dataAtEndPoint) {
 
-    if (dataAtStartPoint.getPksNameList() != null && dataAtStartPoint.getPksNameList().size() > 0) {
+    if (dataAtStartPoint.getPksNameList().size() > 0) {
       return getChangesListWithPks(dataName, dataAtStartPoint, dataAtEndPoint);
     } else {
       return getChangesListWithoutPks(dataName, dataAtStartPoint, dataAtEndPoint);
@@ -442,9 +443,6 @@ public class Changes extends AbstractDbElement<Changes> {
       if (requestAtEndPoint != null) {
         changesList = getChangesList(requestAtStartPoint.getRequest(), requestAtStartPoint, requestAtEndPoint);
       } else {
-        if (tablesAtStartPointList.size() != tablesAtEndPointList.size()) {
-          throw new AssertJDBException("The number of tables is different between the start point and the end point");
-        }
         changesList = new ArrayList<Change>();
         Iterator<Table> iteratorAtStartPoint = tablesAtStartPointList.iterator();
         Iterator<Table> iteratorAtEndPoint = tablesAtEndPointList.iterator();
