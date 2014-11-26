@@ -42,7 +42,7 @@ public class ColumnAssert_HasSize_Test extends AbstractTest {
    * This test should fail because the rows size is different (3).
    */
   @Test
-  public void should_fail_beacause_rows_size_of_column_table_is_different() {
+  public void should_fail_because_rows_size_of_column_table_is_different() {
     try {
       Table table = new Table(source, "movie");
       assertThat(table).column().hasSize(4);
@@ -76,7 +76,7 @@ public class ColumnAssert_HasSize_Test extends AbstractTest {
    * This test should fail because the rows size is different (3).
    */
   @Test
-  public void should_fail_beacause_rows_size_of_column_request_is_different() {
+  public void should_fail_because_rows_size_of_column_request_is_different() {
     try {
       Request request = new Request(source, "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
           + " FROM movie, actor, interpretation"
