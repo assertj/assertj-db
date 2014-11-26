@@ -172,4 +172,20 @@ public class Changes_Exception_Test extends AbstractTest {
     changes.setStartPointNow();
     changes.getChangesList();
   }
+
+  /**
+   * This method should fail because the table name is null.
+   */
+  @Test(expected = NullPointerException.class)
+  public void should_fail_because_tablename_is_null() {
+    new Changes(source).getChangesOfTable(null);
+  }
+
+  /**
+   * This method should fail because the type is null.
+   */
+  @Test(expected = NullPointerException.class)
+  public void should_fail_because_type_is_null() {
+    new Changes(source).getChangesOfType(null);
+  }
 }

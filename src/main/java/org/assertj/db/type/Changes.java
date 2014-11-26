@@ -457,4 +457,36 @@ public class Changes extends AbstractDbElement<Changes> {
     Collections.sort(changesList, ChangeComparator.INSTANCE);
     return changesList;
   }
+
+  public Changes getChangesOfTable(String tableName) {
+    if (tableName == null) {
+      throw new NullPointerException("tableName must be not null");
+    }
+    Changes changes = new Changes();
+    changes.changesList = new ArrayList<Change>();
+    List<Change> changesList = getChangesList();
+    if (tablesList != null) {
+      for (Change change : changesList) {
+        if (tableName.equalsIgnoreCase(change.getDataName())) {
+          changes.changesList.add(change);
+        }
+      }
+    }
+    return changes;
+  }
+
+  public Changes getChangesOfType(ChangeType changeType) {
+    if (changeType == null) {
+      throw new NullPointerException("changeType must be not null");
+    }
+    Changes changes = new Changes();
+    changes.changesList = new ArrayList<Change>();
+    List<Change> changesList = getChangesList();
+    for (Change change : changesList) {
+      if (changeType.equals(change.getChangeType())) {
+        changes.changesList.add(change);
+      }
+    }
+    return changes;
+  }
 }
