@@ -260,4 +260,158 @@ public class ChangesAssert_DefaultAs_Test extends AbstractTest {
     assertThat(info.descriptionText()).isEqualTo("Changes on 'SELECT actor.name, actor.first...' request of a data source");
   }
 
+  /**
+   * This method tests the description of changes on datasource (only creation).
+   * 
+   * @throws IllegalAccessException
+   * @throws IllegalArgumentException
+   * @throws NoSuchFieldException
+   * @throws SecurityException
+   */
+  @Test
+  public void test_default_description_of_changes_on_datasource_only_creation() throws NoSuchFieldException, SecurityException,
+      IllegalArgumentException, IllegalAccessException {
+
+    Changes changes = new Changes(dataSource).setStartPointNow().setEndPointNow();
+    ChangesAssert assertion = assertThat(changes).ofCreation();
+
+    Field field = AbstractAssert.class.getDeclaredField("info");
+    field.setAccessible(true);
+    WritableAssertionInfo info = (WritableAssertionInfo) field.get(assertion);
+
+    assertThat(info.descriptionText()).isEqualTo("Changes on tables of a data source (only creation changes)");
+  }
+
+  /**
+   * This method tests the description of changes on datasource (only modification).
+   * 
+   * @throws IllegalAccessException
+   * @throws IllegalArgumentException
+   * @throws NoSuchFieldException
+   * @throws SecurityException
+   */
+  @Test
+  public void test_default_description_of_changes_on_datasource_only_modification() throws NoSuchFieldException, SecurityException,
+      IllegalArgumentException, IllegalAccessException {
+
+    Changes changes = new Changes(dataSource).setStartPointNow().setEndPointNow();
+    ChangesAssert assertion = assertThat(changes).ofModification();
+
+    Field field = AbstractAssert.class.getDeclaredField("info");
+    field.setAccessible(true);
+    WritableAssertionInfo info = (WritableAssertionInfo) field.get(assertion);
+
+    assertThat(info.descriptionText()).isEqualTo("Changes on tables of a data source (only modification changes)");
+  }
+
+  /**
+   * This method tests the description of changes on datasource (only deletion).
+   * 
+   * @throws IllegalAccessException
+   * @throws IllegalArgumentException
+   * @throws NoSuchFieldException
+   * @throws SecurityException
+   */
+  @Test
+  public void test_default_description_of_changes_on_datasource_only_deletion() throws NoSuchFieldException, SecurityException,
+      IllegalArgumentException, IllegalAccessException {
+
+    Changes changes = new Changes(dataSource).setStartPointNow().setEndPointNow();
+    ChangesAssert assertion = assertThat(changes).ofDeletion();
+
+    Field field = AbstractAssert.class.getDeclaredField("info");
+    field.setAccessible(true);
+    WritableAssertionInfo info = (WritableAssertionInfo) field.get(assertion);
+
+    assertThat(info.descriptionText()).isEqualTo("Changes on tables of a data source (only deletion changes)");
+  }
+
+  /**
+   * This method tests the description of changes on datasource (only on a table).
+   * 
+   * @throws IllegalAccessException
+   * @throws IllegalArgumentException
+   * @throws NoSuchFieldException
+   * @throws SecurityException
+   */
+  @Test
+  public void test_default_description_of_changes_on_datasource_only_on_a_table() throws NoSuchFieldException, SecurityException,
+      IllegalArgumentException, IllegalAccessException {
+
+    Changes changes = new Changes(dataSource).setStartPointNow().setEndPointNow();
+    ChangesAssert assertion = assertThat(changes).onTable("movie");
+
+    Field field = AbstractAssert.class.getDeclaredField("info");
+    field.setAccessible(true);
+    WritableAssertionInfo info = (WritableAssertionInfo) field.get(assertion);
+
+    assertThat(info.descriptionText()).isEqualTo("Changes on tables of a data source (only on movie table)");
+  }
+
+  /**
+   * This method tests the description of changes on datasource (only creation on a table).
+   * 
+   * @throws IllegalAccessException
+   * @throws IllegalArgumentException
+   * @throws NoSuchFieldException
+   * @throws SecurityException
+   */
+  @Test
+  public void test_default_description_of_changes_on_datasource_only_creation_on_a_table() throws NoSuchFieldException, SecurityException,
+      IllegalArgumentException, IllegalAccessException {
+
+    Changes changes = new Changes(dataSource).setStartPointNow().setEndPointNow();
+    ChangesAssert assertion = assertThat(changes).ofCreationOnTable("movie");
+
+    Field field = AbstractAssert.class.getDeclaredField("info");
+    field.setAccessible(true);
+    WritableAssertionInfo info = (WritableAssertionInfo) field.get(assertion);
+
+    assertThat(info.descriptionText()).isEqualTo("Changes on tables of a data source (only creation changes on movie table)");
+  }
+
+  /**
+   * This method tests the description of changes on datasource (only modification on a table).
+   * 
+   * @throws IllegalAccessException
+   * @throws IllegalArgumentException
+   * @throws NoSuchFieldException
+   * @throws SecurityException
+   */
+  @Test
+  public void test_default_description_of_changes_on_datasource_only_modification_on_a_table() throws NoSuchFieldException, SecurityException,
+      IllegalArgumentException, IllegalAccessException {
+
+    Changes changes = new Changes(dataSource).setStartPointNow().setEndPointNow();
+    ChangesAssert assertion = assertThat(changes).ofModificationOnTable("movie");
+
+    Field field = AbstractAssert.class.getDeclaredField("info");
+    field.setAccessible(true);
+    WritableAssertionInfo info = (WritableAssertionInfo) field.get(assertion);
+
+    assertThat(info.descriptionText()).isEqualTo("Changes on tables of a data source (only modification changes on movie table)");
+  }
+
+  /**
+   * This method tests the description of changes on datasource (only deletion on a table).
+   * 
+   * @throws IllegalAccessException
+   * @throws IllegalArgumentException
+   * @throws NoSuchFieldException
+   * @throws SecurityException
+   */
+  @Test
+  public void test_default_description_of_changes_on_datasource_only_deletion_on_a_table() throws NoSuchFieldException, SecurityException,
+      IllegalArgumentException, IllegalAccessException {
+
+    Changes changes = new Changes(dataSource).setStartPointNow().setEndPointNow();
+    ChangesAssert assertion = assertThat(changes).ofDeletionOnTable("movie");
+
+    Field field = AbstractAssert.class.getDeclaredField("info");
+    field.setAccessible(true);
+    WritableAssertionInfo info = (WritableAssertionInfo) field.get(assertion);
+
+    assertThat(info.descriptionText()).isEqualTo("Changes on tables of a data source (only deletion changes on movie table)");
+  }
+
 }

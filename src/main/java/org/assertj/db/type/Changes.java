@@ -125,7 +125,7 @@ public class Changes extends AbstractDbElement<Changes> {
     request = null;
     requestAtStartPoint = null;
     requestAtEndPoint = null;
-    tablesList = new LinkedList<Table>();
+    tablesList = new ArrayList<Table>();
     tablesAtStartPointList = null;
     tablesAtEndPointList = null;
     changesList = null;
@@ -474,12 +474,16 @@ public class Changes extends AbstractDbElement<Changes> {
     return changesList;
   }
 
+  /**
+   * Returns {@code Changes} only on the table name in parameter.
+   * @param tableName The table name
+   * @return {@code Changes} instance.
+   */
   public Changes getChangesOfTable(String tableName) {
     if (tableName == null) {
       throw new NullPointerException("tableName must be not null");
     }
-    Changes changes = new Changes();
-    changes.changesList = new ArrayList<Change>();
+    Changes changes = createChangesFromThis();
     List<Change> changesList = getChangesList();
     if (tablesList != null) {
       for (Change change : changesList) {
@@ -491,18 +495,41 @@ public class Changes extends AbstractDbElement<Changes> {
     return changes;
   }
 
+  /**
+   * Returns {@code Changes} only on the change type in parameter.
+   * @param changeType The change type
+   * @return {@code Changes} instance.
+   */
   public Changes getChangesOfType(ChangeType changeType) {
     if (changeType == null) {
       throw new NullPointerException("changeType must be not null");
     }
-    Changes changes = new Changes();
-    changes.changesList = new ArrayList<Change>();
+    Changes changes = createChangesFromThis();
     List<Change> changesList = getChangesList();
     for (Change change : changesList) {
       if (changeType.equals(change.getChangeType())) {
         changes.changesList.add(change);
       }
     }
+    return changes;
+  }
+
+  /**
+   * Creates a new instance of {@code Changes} from {@code this} one.
+   * @return The new instance.
+   */
+  private Changes createChangesFromThis() {
+    Changes changes = new Changes();
+    if (request != null) {
+      changes.request = getDuplicatedRequest(request);
+    }
+    if (tablesList != null) {
+      changes.tablesList = new ArrayList<Table>(); 
+      for (Table table : tablesList) {
+        changes.tablesList.add(getDuplicatedTable(table));
+      }
+    }
+    changes.changesList = new ArrayList<Change>();
     return changes;
   }
 }
