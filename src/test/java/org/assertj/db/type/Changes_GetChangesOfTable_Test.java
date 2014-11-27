@@ -27,7 +27,7 @@ import org.junit.Test;
  * @author Régis Pouiller.
  * 
  */
-public class Changes_Table_GetChangesOfTable_Test extends AbstractTest {
+public class Changes_GetChangesOfTable_Test extends AbstractTest {
 
   /**
    * This method test when getting changes of table.
