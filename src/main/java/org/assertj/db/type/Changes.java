@@ -98,7 +98,7 @@ public class Changes extends AbstractDbElement<Changes> {
   /**
    * Constructor.
    * 
-   * @param tables Table on which are the comparison
+   * @param tables Table on which are the comparison.
    */
   public Changes(Table... tables) {
     super(Changes.class);
@@ -108,7 +108,7 @@ public class Changes extends AbstractDbElement<Changes> {
   /**
    * Constructor.
    * 
-   * @param request Request on which are the comparison
+   * @param request Request on which are the comparison.
    */
   public Changes(Request request) {
     super(Changes.class);
@@ -118,7 +118,7 @@ public class Changes extends AbstractDbElement<Changes> {
   /**
    * Sets the table on which are the comparison.
    * 
-   * @param tables Table on which are the comparison
+   * @param tables Table on which are the comparison.
    * @return {@code this} actual instance.
    */
   public Changes setTables(Table... tables) {
@@ -143,9 +143,17 @@ public class Changes extends AbstractDbElement<Changes> {
   }
 
   /**
-   * Sets the {@link Request}
+   * Returns the list of {@link Table}.
+   * @return The list of {@link Table}.
+   */
+  public List<Table> getTablesList() {
+    return tablesList;
+  }
+
+  /**
+   * Sets the {@link Request}.
    * 
-   * @param request The {@link Request}
+   * @param request The {@link Request}.
    * @return {@code this} actual instance.
    */
   public Changes setRequest(Request request) {
@@ -161,6 +169,14 @@ public class Changes extends AbstractDbElement<Changes> {
     requestAtEndPoint = null;
     changesList = null;
     return myself;
+  }
+
+  /**
+   * Returns the {@link Request}.
+   * @return The {@link Request}.
+   */
+  public Request getRequest() {
+    return request;
   }
 
   /**

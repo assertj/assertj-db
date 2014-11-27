@@ -17,9 +17,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.type.Changes;
 import org.assertj.db.type.Request;
+import org.assertj.db.type.Source;
 import org.assertj.db.type.Table;
 
 /**
@@ -121,6 +124,45 @@ public final class Assertions {
       sql = sql.substring(0, 30) + "...";
     }
     return new RequestAssert(request).as("'" + sql + "' request");
+  }
+
+  /**
+   * Creates a new instance of <code>{@link ChangesAssert}</code>.
+   * 
+   * @param changes The changes to assert on.
+   * @return The created assertion object.
+   */
+  public static ChangesAssert assertThat(Changes changes) {
+    StringBuilder stringBuilder = new StringBuilder();
+    if (changes.getTablesList() != null) {
+      List<Table> tablesList = changes.getTablesList();
+      if (tablesList.size() == 1) {
+        Table table = tablesList.get(0);
+        stringBuilder.append("Changes on " + table.getName() + " table");
+      }
+      else {
+        stringBuilder.append("Changes on tables");
+      }
+    }
+    else if (changes.getRequest() != null) {
+      Request request = changes.getRequest();
+      String sql = request.getRequest();
+      if (sql.length() > 30) {
+        sql = sql.substring(0, 30) + "...";
+      }
+      stringBuilder.append("Changes on '" + sql + "' request");
+    }
+    if (stringBuilder.length() == 0) {
+      stringBuilder.append("Changes");
+    }
+    if (changes.getSource() != null) {
+      Source source = changes.getSource();
+      stringBuilder.append(" of '" + source.getUser() + "/" + source.getUrl() + "' source");
+    }
+    else if (changes.getDataSource() != null) {
+      stringBuilder.append(" of a data source");
+    }
+    return new ChangesAssert(changes).as(stringBuilder.toString());
   }
 
   /**
