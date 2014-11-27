@@ -1,13 +1,13 @@
 /**
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
- *
+ * 
  * Copyright 2012-2014 the original author or authors.
  */
 package org.assertj.db.api;
@@ -33,7 +33,8 @@ import org.assertj.db.type.Table;
  * table that the {@code title} column contains "Alien" like text and the next column contains 1979 like number :
  * </p>
  * 
- * <pre><code class='java'>
+ * <pre>
+ * <code class='java'>
  * Source source = new Source(&quot;jdbc:h2:mem:test&quot;, &quot;sa&quot;, &quot;&quot;);
  * Table table = new Table(source, &quot;movie&quot;);
  * assertThat(table)
@@ -43,26 +44,29 @@ import org.assertj.db.type.Table;
  *        .returnToRow()
  *        .value()
  *            .isEqualTo(1979);
- * </code></pre>
+ * </code>
+ * </pre>
  * 
  * <p>
  * It is possible to chain assertion on a value :
  * </p>
  * 
- * <pre><code class='java'>
+ * <pre>
+ * <code class='java'>
  * asserThat(table)
  *     .row()
  *         .value("title")
  *             .isText()
  *             .isEqualTo("Alien");
- * </code></pre>
+ * </code>
+ * </pre>
  * 
  * <p>
- * It is not necessary to use the <code>returnToXxxx</code> methods.
- * The next example is equivalent to the first :
+ * It is not necessary to use the <code>returnToXxxx</code> methods. The next example is equivalent to the first :
  * </p>
  * 
- * <pre><code class='java'>
+ * <pre>
+ * <code class='java'>
  * Source source = new Source(&quot;jdbc:h2:mem:test&quot;, &quot;sa&quot;, &quot;&quot;);
  * Table table = new Table(source, &quot;movie&quot;);
  * assertThat(table)
@@ -71,13 +75,15 @@ import org.assertj.db.type.Table;
  *            .isEqualTo("Alien")
  *        .value()
  *            .isEqualTo(1979);
- * </code></pre>
+ * </code>
+ * </pre>
  * 
  * <p>
  * It is possible to do the same thing with column and the row :
  * </p>
  * 
- * <pre><code class='java'>
+ * <pre>
+ * <code class='java'>
  * assertThat(table)
  *     .row()
  *        .value("title")
@@ -88,7 +94,8 @@ import org.assertj.db.type.Table;
  *     .column("year")
  *         .value(1)
  *            .equalTo(2004);
- * </code></pre>
+ * </code>
+ * </pre>
  * 
  * @author Régis Pouiller
  * 
@@ -139,12 +146,10 @@ public final class Assertions {
       if (tablesList.size() == 1) {
         Table table = tablesList.get(0);
         stringBuilder.append("Changes on " + table.getName() + " table");
-      }
-      else {
+      } else {
         stringBuilder.append("Changes on tables");
       }
-    }
-    else if (changes.getRequest() != null) {
+    } else if (changes.getRequest() != null) {
       Request request = changes.getRequest();
       String sql = request.getRequest();
       if (sql.length() > 30) {
@@ -158,8 +163,7 @@ public final class Assertions {
     if (changes.getSource() != null) {
       Source source = changes.getSource();
       stringBuilder.append(" of '" + source.getUser() + "/" + source.getUrl() + "' source");
-    }
-    else if (changes.getDataSource() != null) {
+    } else {
       stringBuilder.append(" of a data source");
     }
     return new ChangesAssert(changes).as(stringBuilder.toString());
@@ -226,7 +230,7 @@ public final class Assertions {
       if (inputStream == null) {
         throw new AssertJDBException("Resource %s not found in the classpath", resource);
       }
-  
+
       return read(inputStream);
     } catch (IOException e) {
       throw new AssertJDBException(e);
