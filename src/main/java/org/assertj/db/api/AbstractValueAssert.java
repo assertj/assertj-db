@@ -59,7 +59,7 @@ import org.assertj.db.util.Values;
  * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
 public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, S extends AbstractSubAssert<D, A, S, V, C, CV, R, RV>, V extends AbstractValueAssert<D, A, S, V, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
-    extends AbstractAssertWithOriginAssert<V, S, D, A, C, CV, R, RV> {
+    extends AbstractAssertWithColumnsAndRows<V, S, D, A, C, CV, R, RV> {
 
   /**
    * The actual value on which this assertion is.

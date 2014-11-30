@@ -38,7 +38,7 @@ import org.assertj.db.type.Row;
  * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
 public abstract class AbstractSubAssert<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, S extends AbstractSubAssert<D, A, S, V, C, CV, R, RV>, V extends AbstractValueAssert<D, A, S, V, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
-    extends AbstractAssertWithOriginAssert<S, A, D, A, C, CV, R, RV> implements OriginAssert<D, A, C, CV, R, RV> {
+    extends AbstractAssertWithColumnsAndRows<S, A, D, A, C, CV, R, RV> implements OriginAssert<D, A, C, CV, R, RV> {
 
   /**
    * The original assert. That could be a {@link RequestAssert} or a {@link TableAssert}.
