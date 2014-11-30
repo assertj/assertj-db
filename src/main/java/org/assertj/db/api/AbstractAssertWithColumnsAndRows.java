@@ -32,7 +32,7 @@ import org.assertj.db.type.AbstractDbData;
  * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
 public abstract class AbstractAssertWithColumnsAndRows<E extends AbstractAssertWithColumnsAndRows<E, O, D, A, C, CV, R, RV>, O extends OriginAssert<D, A, C, CV, R, RV>, D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
-  extends AbstractAssertWithOriginAssert<E, O, D, A, C, CV, R, RV> /*implements AssertWithColumnsAndRows<D, A, C, CV, R, RV>*/ {
+  extends AbstractAssertWithOriginAssert<E, O, D, A, C, CV, R, RV> implements AssertWithColumnsAndRows<D, A, C, CV, R, RV> {
 
   /**
    * Constructor.
@@ -45,31 +45,31 @@ public abstract class AbstractAssertWithColumnsAndRows<E extends AbstractAssertW
   }
 
   /** {@inheritDoc} */
-//  @Override
+  @Override
   public R row() {
     return returnToOriginAssert().row();
   }
 
   /** {@inheritDoc} */
-//  @Override
+  @Override
   public R row(int index) {
     return returnToOriginAssert().row(index);
   }
 
   /** {@inheritDoc} */
-//  @Override
+  @Override
   public C column() {
     return returnToOriginAssert().column();
   }
 
   /** {@inheritDoc} */
-//  @Override
+  @Override
   public C column(int index) {
     return returnToOriginAssert().column(index);
   }
 
   /** {@inheritDoc} */
-//  @Override
+  @Override
   public C column(String columnName) {
     return returnToOriginAssert().column(columnName);
   }

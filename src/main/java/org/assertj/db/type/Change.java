@@ -23,6 +23,10 @@ import java.util.List;
 public class Change {
 
   /**
+   * The type of the date on which is the change.
+   */
+  private final DataType dataType;
+  /**
    * The name of the data on which is the change.
    */
   private final String dataName;
@@ -45,51 +49,62 @@ public class Change {
 
   /**
    * Returns a new instance of a creation change.
+   * 
+   * @param dataType The type of the data on which is the change.
    * @param dataName The name of the data.
    * @param rowAtEndPoint The row at end point.
    * @return The new instance of a creation change.
    * @throws NullPointerException If the name of the date is {@code null}.
    */
-  static Change createCreationChange(String dataName, Row rowAtEndPoint) {
-    return new Change(dataName, ChangeType.CREATION, null, rowAtEndPoint);
+  static Change createCreationChange(DataType dataType, String dataName, Row rowAtEndPoint) {
+    return new Change(dataType, dataName, ChangeType.CREATION, null, rowAtEndPoint);
   }
 
   /**
    * Returns a new instance of a modification change.
+   * 
+   * @param dataType The type of the data on which is the change.
    * @param dataName The name of the data.
    * @param rowAtStartPoint The row at start point.
    * @param rowAtEndPoint The row at end point.
    * @return The new instance of a modification change.
    * @throws NullPointerException If the name of the date is {@code null}.
    */
-  static Change createModificationChange(String dataName, Row rowAtStartPoint, Row rowAtEndPoint) {
-    return new Change(dataName, ChangeType.MODIFICATION, rowAtStartPoint, rowAtEndPoint);
+  static Change createModificationChange(DataType dataType, String dataName, Row rowAtStartPoint, Row rowAtEndPoint) {
+    return new Change(dataType, dataName, ChangeType.MODIFICATION, rowAtStartPoint, rowAtEndPoint);
   }
 
   /**
    * Returns a new instance of a deletion change.
+   * 
+   * @param dataType The type of the data on which is the change.
    * @param dataName The name of the data.
    * @param rowAtStartPoint The row at start point.
    * @return The new instance of a deletion change.
    * @throws NullPointerException If the name of the date is {@code null}.
    */
-  static Change createDeletionChange(String dataName, Row rowAtStartPoint) {
-    return new Change(dataName, ChangeType.DELETION, rowAtStartPoint, null);
+  static Change createDeletionChange(DataType dataType, String dataName, Row rowAtStartPoint) {
+    return new Change(dataType, dataName, ChangeType.DELETION, rowAtStartPoint, null);
   }
 
   /**
    * Constructor.
    * 
+   * @param dataType The type of the data on which is the change.
    * @param dataName The name of the data on which is the change.
    * @param changeType The type of the change.
    * @param rowAtStartPoint The row at start point.
    * @param rowAtEndPoint The row at end point.
-   * @throws NullPointerException If the name of the date is {@code null}.
+   * @throws NullPointerException If the type of the data is {@code null} or if the name of the data is {@code null}.
    */
-  private Change(String dataName, ChangeType changeType, Row rowAtStartPoint, Row rowAtEndPoint) {
+  private Change(DataType dataType, String dataName, ChangeType changeType, Row rowAtStartPoint, Row rowAtEndPoint) {
+    if (dataType == null) {
+      throw new NullPointerException("The type of the data must be not null");
+    }
     if (dataName == null) {
       throw new NullPointerException("The name of the data must be not null");
     }
+    this.dataType = dataType;
     this.dataName = dataName;
     if (rowAtStartPoint != null) {
       this.columnsNameList = rowAtStartPoint.getColumnsNameList();
@@ -99,6 +114,15 @@ public class Change {
     this.changeType = changeType;
     this.rowAtStartPoint = rowAtStartPoint;
     this.rowAtEndPoint = rowAtEndPoint;
+  }
+
+  /**
+   * Returns the type of the data on which is the change.
+   * 
+   * @return The type of the data on which is the change.
+   */
+  public DataType getDataType() {
+    return dataType;
   }
 
   /**

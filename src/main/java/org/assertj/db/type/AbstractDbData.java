@@ -46,6 +46,10 @@ import org.assertj.db.util.RowComparator;
 public abstract class AbstractDbData<D extends AbstractDbData<D>> extends AbstractDbElement<D> {
 
   /**
+   * The type of the date on which is the change.
+   */
+  private final DataType dataType;
+  /**
    * List of the column names.
    */
   private List<String> columnsNameList;
@@ -65,32 +69,47 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
   /**
    * Default constructor.
    * 
+   * @param dataType The type of the data on which is the change.
    * @param selfType Class of this element : a sub-class of {@code AbstractDbData}.
    */
-  AbstractDbData(Class<D> selfType) {
+  AbstractDbData(Class<D> selfType, DataType dataType) {
     super(selfType);
+    this.dataType = dataType;
   }
 
   /**
    * Constructor with a {@link Source}.
    * 
+   * @param dataType The type of the data on which is the change.
    * @param selfType Class of this element : a sub-class of {@code AbstractDbData}.
    * @param source The {@link Source} to connect to the database (must be not {@code null}).
    * @throws NullPointerException If {@code source} is {@code null}.
    */
-  AbstractDbData(Class<D> selfType, Source source) {
+  AbstractDbData(Class<D> selfType, DataType dataType, Source source) {
     super(selfType, source);
+    this.dataType = dataType;
   }
 
   /**
    * Constructor with a {@link DataSource}.
    * 
+   * @param dataType The type of the data on which is the change.
    * @param selfType Class of this element : a sub-class of {@code AbstractDbData}.
    * @param dataSource The {@link DataSource} (must be not {@code null}).
    * @throws NullPointerException If {@code dataSource} is {@code null}.
    */
-  AbstractDbData(Class<D> selfType, DataSource dataSource) {
+  AbstractDbData(Class<D> selfType, DataType dataType, DataSource dataSource) {
     super(selfType, dataSource);
+    this.dataType = dataType;
+  }
+
+  /**
+   * Returns the type of the data on which is the change.
+   * 
+   * @return The type of the data on which is the change.
+   */
+  public DataType getDataType() {
+    return dataType;
   }
 
   /**

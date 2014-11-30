@@ -29,12 +29,27 @@ import org.junit.Test;
 public class Change_Exception_Test extends AbstractTest {
 
   /**
+   * This method should fail because the data type must be not null.
+   */
+  @Test
+  public void should_fail_because_datatype_must_be_not_null() {
+    try {
+      getChange(null, "name", ChangeType.CREATION, getRow(Arrays.asList(""), Arrays.asList(""), Arrays.asList()),
+          getRow(Arrays.asList(""), Arrays.asList(""), Arrays.asList()));
+
+      fail("An exception must be raised");
+    } catch (Exception exception) {
+      assertThat(exception.getCause().getLocalizedMessage()).isEqualTo("The type of the data must be not null");
+    }
+  }
+
+  /**
    * This method should fail because the data name must be not null.
    */
   @Test
   public void should_fail_because_dataname_must_be_not_null() {
     try {
-      getChange(null, ChangeType.CREATION, getRow(Arrays.asList(""), Arrays.asList(""), Arrays.asList()),
+      getChange(DataType.TABLE, null, ChangeType.CREATION, getRow(Arrays.asList(""), Arrays.asList(""), Arrays.asList()),
           getRow(Arrays.asList(""), Arrays.asList(""), Arrays.asList()));
 
       fail("An exception must be raised");

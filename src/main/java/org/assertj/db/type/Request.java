@@ -77,7 +77,7 @@ public class Request extends AbstractDbData<Request> {
    * Default constructor.
    */
   public Request() {
-    super(Request.class);
+    super(Request.class, DataType.REQUEST);
   }
 
   /**
@@ -88,7 +88,7 @@ public class Request extends AbstractDbData<Request> {
    * @param parameters Parameters of the SQL request.
    */
   public Request(Source source, String request, Object... parameters) {
-    super(Request.class, source);
+    super(Request.class, DataType.REQUEST, source);
     setRequest(request);
     this.parameters = parameters;
   }
@@ -101,7 +101,7 @@ public class Request extends AbstractDbData<Request> {
    * @param parameters Parameters of the SQL request.
    */
   public Request(DataSource dataSource, String request, Object... parameters) {
-    super(Request.class, dataSource);
+    super(Request.class, DataType.REQUEST, dataSource);
     setRequest(request);
     this.parameters = parameters;
   }

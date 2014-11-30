@@ -34,6 +34,7 @@ import javax.sql.DataSource;
 import org.assertj.db.configuration.TestsConfiguration;
 import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
+import org.assertj.db.type.DataType;
 import org.assertj.db.type.Row;
 import org.assertj.db.type.Source;
 import org.junit.After;
@@ -178,6 +179,7 @@ public abstract class AbstractTest {
   /**
    * Returns an instance of a {@code Change}.
    * 
+   * @param dataType The type of the data on which is the change.
    * @param dataName The name of the data on which is the change.
    * @param changeType The type of the change.
    * @param rowAtStartPoint The row at start point.
@@ -185,11 +187,11 @@ public abstract class AbstractTest {
    * @return An instance.
    * @throws Exception Exception
    */
-  protected static Change getChange(String dataName, ChangeType changeType, Row rowAtStartPoint, Row rowAtEndPoint)
+  protected static Change getChange(DataType dataType, String dataName, ChangeType changeType, Row rowAtStartPoint, Row rowAtEndPoint)
       throws Exception {
-    Constructor<Change> constructor = Change.class.getDeclaredConstructor(String.class, ChangeType.class, Row.class, Row.class);
+    Constructor<Change> constructor = Change.class.getDeclaredConstructor(DataType.class, String.class, ChangeType.class, Row.class, Row.class);
     constructor.setAccessible(true);
-    return constructor.newInstance(dataName, changeType, rowAtStartPoint, rowAtEndPoint);
+    return constructor.newInstance(dataType, dataName, changeType, rowAtStartPoint, rowAtEndPoint);
   }
 
   /**
