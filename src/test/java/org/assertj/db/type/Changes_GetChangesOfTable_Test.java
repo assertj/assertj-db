@@ -43,18 +43,7 @@ public class Changes_GetChangesOfTable_Test extends AbstractTest {
 
     changesRequest.setStartPointNow();
     changesSource.setStartPointNow();
-
-    update("insert into movie values(4, 'Ghostbusters', 1984)");
-    update("insert into actor values(4, 'Murray', 'Bill', PARSEDATETIME('21/09/1950', 'dd/MM/yyyy'))");
-    update("insert into interpretation values(6, 4, 4, 'Dr Peter Venkman')");
-
-    update("delete from interpretation where id = 5");
-    update("delete from actor where id = 3");
-
-    update("update movie set title = 'The Avatar' where id = 3");
-    update("update actor set firstname = 'Susan Alexandra' where id = 1");
-    update("update interpretation set character = 'Doctor Grace Augustine' where id = 3");
-
+    updateChangesForTests();
     changesRequest.setEndPointNow();
     changesSource.setEndPointNow();
 

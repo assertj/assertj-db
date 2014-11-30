@@ -14,8 +14,11 @@ package org.assertj.db.api;
 
 import static org.assertj.db.error.ShouldHaveChangesSize.shouldHaveChangesSize;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.Changes;
@@ -37,6 +40,15 @@ public class ChangesAssert extends AbstractAssert<ChangesAssert> {
    * The original assert.
    */
   private final ChangesAssert original;
+
+  /**
+   * Index of the next change to get.
+   */
+  private int indexNextChange;
+  /**
+   * Map the change assert with their index in key (contains the change assert already generated).
+   */
+  private Map<Integer, ChangeAssert> changesAssertMap = new HashMap<Integer, ChangeAssert>();
 
   /**
    * Constructor.
@@ -317,5 +329,63 @@ public class ChangesAssert extends AbstractAssert<ChangesAssert> {
     }
     Changes changes = this.changes.getChangesOfTable(tableName);
     return new ChangesAssert(this, changes).as(info.descriptionText() + " (only on " + tableName + " table)");
+  }
+
+  /**
+   * Returns the change at the {@code index} in parameter.
+   * 
+   * @param index The index corresponding to the change.
+   * @return The change.
+   * @throws AssertJDBException If the {@code index} is out of the bounds.
+   */
+  private Change getChange(int index) {
+    List<Change> changesList = changes.getChangesList();
+    int size = changesList.size();
+    if (index < 0 || index >= size) {
+      throw new AssertJDBException("Index %s out of the limits [0, %s[", index, size);
+    }
+    Change change = changesList.get(index);
+    indexNextChange = index + 1;
+    return change;
+  }
+
+  /**
+   * Gets an instance of change assert corresponding to the index. If this instance is already instanced, the method
+   * returns it from the cache.
+   * 
+   * @param index Index of the change on which is the instance of change assert.
+   * @return The change assert implementation.
+   */
+  private ChangeAssert getChangeAssertInstance(int index) {
+    if (changesAssertMap.containsKey(index)) {
+      ChangeAssert changeAssert = changesAssertMap.get(index);
+      indexNextChange = index + 1;
+      return changeAssert;
+    }
+
+    ChangeAssert instance = new ChangeAssert(this, getChange(index));
+    changesAssertMap.put(index, instance);
+    return instance.as("Change at index " + index + " of " + info.descriptionText());
+  }
+
+  /**
+   * Returns assertion methods on the next change in the list of changes.
+   * 
+   * @return An object to make assertions on the next change.
+   * @throws AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public ChangeAssert change() {
+    return getChangeAssertInstance(indexNextChange);
+  }
+
+  /**
+   * Returns assertion methods on the change at the {@code index} in parameter.
+   * 
+   * @param index The index corresponding to the change.
+   * @return An object to make assertions on the change.
+   * @throws AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public ChangeAssert change(int index) {
+    return getChangeAssertInstance(index);
   }
 }

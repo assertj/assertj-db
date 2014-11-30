@@ -112,7 +112,7 @@ public class TableRowAssert_Value_Test extends AbstractTest {
   }
 
   /**
-   * This method tests the {@code row} method when using without parameter.
+   * This method tests the {@code value} method when using without parameter.
    * 
    * @throws IllegalAccessException
    * @throws IllegalArgumentException
@@ -141,7 +141,7 @@ public class TableRowAssert_Value_Test extends AbstractTest {
   }
 
   /**
-   * This method tests the {@code getRow} method when using with {@code index} parameter.
+   * This method tests the {@code value} method when using with {@code index} parameter.
    * 
    * @throws IllegalAccessException
    * @throws IllegalArgumentException

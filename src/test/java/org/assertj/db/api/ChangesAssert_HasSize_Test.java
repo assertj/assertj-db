@@ -40,18 +40,7 @@ public class ChangesAssert_HasSize_Test extends AbstractTest {
     Changes changes = new Changes(source);
 
     changes.setStartPointNow();
-
-    update("insert into movie values(4, 'Ghostbusters', 1984)");
-    update("insert into actor values(4, 'Murray', 'Bill', PARSEDATETIME('21/09/1950', 'dd/MM/yyyy'))");
-    update("insert into interpretation values(6, 4, 4, 'Dr Peter Venkman')");
-
-    update("delete from interpretation where id = 5");
-    update("delete from actor where id = 3");
-
-    update("update movie set title = 'The Avatar' where id = 3");
-    update("update actor set firstname = 'Susan Alexandra' where id = 1");
-    update("update interpretation set character = 'Doctor Grace Augustine' where id = 3");
-
+    updateChangesForTests();
     changes.setEndPointNow();
 
     assertThat(changes).hasSize(8);
@@ -66,18 +55,7 @@ public class ChangesAssert_HasSize_Test extends AbstractTest {
     Changes changes = new Changes(dataSource);
 
     changes.setStartPointNow();
-
-    update("insert into movie values(4, 'Ghostbusters', 1984)");
-    update("insert into actor values(4, 'Murray', 'Bill', PARSEDATETIME('21/09/1950', 'dd/MM/yyyy'))");
-    update("insert into interpretation values(6, 4, 4, 'Dr Peter Venkman')");
-
-    update("delete from interpretation where id = 5");
-    update("delete from actor where id = 3");
-
-    update("update movie set title = 'The Avatar' where id = 3");
-    update("update actor set firstname = 'Susan Alexandra' where id = 1");
-    update("update interpretation set character = 'Doctor Grace Augustine' where id = 3");
-
+    updateChangesForTests();
     changes.setEndPointNow();
 
     assertThat(changes).hasSize(8);
@@ -92,18 +70,7 @@ public class ChangesAssert_HasSize_Test extends AbstractTest {
     Changes changes = new Changes(new Table(source, "movie"));
 
     changes.setStartPointNow();
-
-    update("insert into movie values(4, 'Ghostbusters', 1984)");
-    update("insert into actor values(4, 'Murray', 'Bill', PARSEDATETIME('21/09/1950', 'dd/MM/yyyy'))");
-    update("insert into interpretation values(6, 4, 4, 'Dr Peter Venkman')");
-
-    update("delete from interpretation where id = 5");
-    update("delete from actor where id = 3");
-
-    update("update movie set title = 'The Avatar' where id = 3");
-    update("update actor set firstname = 'Susan Alexandra' where id = 1");
-    update("update interpretation set character = 'Doctor Grace Augustine' where id = 3");
-
+    updateChangesForTests();
     changes.setEndPointNow();
 
     assertThat(changes).hasSize(2);
@@ -118,18 +85,7 @@ public class ChangesAssert_HasSize_Test extends AbstractTest {
     Changes changes = new Changes(new Table(source, "movie"), new Table(source, "actor"));
 
     changes.setStartPointNow();
-
-    update("insert into movie values(4, 'Ghostbusters', 1984)");
-    update("insert into actor values(4, 'Murray', 'Bill', PARSEDATETIME('21/09/1950', 'dd/MM/yyyy'))");
-    update("insert into interpretation values(6, 4, 4, 'Dr Peter Venkman')");
-
-    update("delete from interpretation where id = 5");
-    update("delete from actor where id = 3");
-
-    update("update movie set title = 'The Avatar' where id = 3");
-    update("update actor set firstname = 'Susan Alexandra' where id = 1");
-    update("update interpretation set character = 'Doctor Grace Augustine' where id = 3");
-
+    updateChangesForTests();
     changes.setEndPointNow();
 
     assertThat(changes).hasSize(5);
@@ -147,18 +103,7 @@ public class ChangesAssert_HasSize_Test extends AbstractTest {
             + " and interpretation.id_actor = actor.id ").setPksName("id"));
 
     changes.setStartPointNow();
-
-    update("insert into movie values(4, 'Ghostbusters', 1984)");
-    update("insert into actor values(4, 'Murray', 'Bill', PARSEDATETIME('21/09/1950', 'dd/MM/yyyy'))");
-    update("insert into interpretation values(6, 4, 4, 'Dr Peter Venkman')");
-
-    update("delete from interpretation where id = 5");
-    update("delete from actor where id = 3");
-
-    update("update movie set title = 'The Avatar' where id = 3");
-    update("update actor set firstname = 'Susan Alexandra' where id = 1");
-    update("update interpretation set character = 'Doctor Grace Augustine' where id = 3");
-
+    updateChangesForTests();
     changes.setEndPointNow();
 
     assertThat(changes).hasSize(3);
@@ -174,18 +119,7 @@ public class ChangesAssert_HasSize_Test extends AbstractTest {
       Changes changes = new Changes(source);
 
       changes.setStartPointNow();
-
-      update("insert into movie values(4, 'Ghostbusters', 1984)");
-      update("insert into actor values(4, 'Murray', 'Bill', PARSEDATETIME('21/09/1950', 'dd/MM/yyyy'))");
-      update("insert into interpretation values(6, 4, 4, 'Dr Peter Venkman')");
-
-      update("delete from interpretation where id = 5");
-      update("delete from actor where id = 3");
-
-      update("update movie set title = 'The Avatar' where id = 3");
-      update("update actor set firstname = 'Susan Alexandra' where id = 1");
-      update("update interpretation set character = 'Doctor Grace Augustine' where id = 3");
-
+      updateChangesForTests();
       changes.setEndPointNow();
 
       assertThat(changes).hasSize(3);
@@ -211,18 +145,7 @@ public class ChangesAssert_HasSize_Test extends AbstractTest {
       Changes changes = new Changes(dataSource);
 
       changes.setStartPointNow();
-
-      update("insert into movie values(4, 'Ghostbusters', 1984)");
-      update("insert into actor values(4, 'Murray', 'Bill', PARSEDATETIME('21/09/1950', 'dd/MM/yyyy'))");
-      update("insert into interpretation values(6, 4, 4, 'Dr Peter Venkman')");
-
-      update("delete from interpretation where id = 5");
-      update("delete from actor where id = 3");
-
-      update("update movie set title = 'The Avatar' where id = 3");
-      update("update actor set firstname = 'Susan Alexandra' where id = 1");
-      update("update interpretation set character = 'Doctor Grace Augustine' where id = 3");
-
+      updateChangesForTests();
       changes.setEndPointNow();
 
       assertThat(changes).hasSize(3);
@@ -248,18 +171,7 @@ public class ChangesAssert_HasSize_Test extends AbstractTest {
       Changes changes = new Changes(new Table(source, "movie"));
 
       changes.setStartPointNow();
-
-      update("insert into movie values(4, 'Ghostbusters', 1984)");
-      update("insert into actor values(4, 'Murray', 'Bill', PARSEDATETIME('21/09/1950', 'dd/MM/yyyy'))");
-      update("insert into interpretation values(6, 4, 4, 'Dr Peter Venkman')");
-
-      update("delete from interpretation where id = 5");
-      update("delete from actor where id = 3");
-
-      update("update movie set title = 'The Avatar' where id = 3");
-      update("update actor set firstname = 'Susan Alexandra' where id = 1");
-      update("update interpretation set character = 'Doctor Grace Augustine' where id = 3");
-
+      updateChangesForTests();
       changes.setEndPointNow();
 
       assertThat(changes).hasSize(3);
@@ -285,18 +197,7 @@ public class ChangesAssert_HasSize_Test extends AbstractTest {
       Changes changes = new Changes(new Table(source, "movie"), new Table(source, "actor"));
 
       changes.setStartPointNow();
-
-      update("insert into movie values(4, 'Ghostbusters', 1984)");
-      update("insert into actor values(4, 'Murray', 'Bill', PARSEDATETIME('21/09/1950', 'dd/MM/yyyy'))");
-      update("insert into interpretation values(6, 4, 4, 'Dr Peter Venkman')");
-
-      update("delete from interpretation where id = 5");
-      update("delete from actor where id = 3");
-
-      update("update movie set title = 'The Avatar' where id = 3");
-      update("update actor set firstname = 'Susan Alexandra' where id = 1");
-      update("update interpretation set character = 'Doctor Grace Augustine' where id = 3");
-
+      updateChangesForTests();
       changes.setEndPointNow();
 
       assertThat(changes).hasSize(3);
@@ -325,18 +226,7 @@ public class ChangesAssert_HasSize_Test extends AbstractTest {
               + " and interpretation.id_actor = actor.id ").setPksName("id"));
 
       changes.setStartPointNow();
-
-      update("insert into movie values(4, 'Ghostbusters', 1984)");
-      update("insert into actor values(4, 'Murray', 'Bill', PARSEDATETIME('21/09/1950', 'dd/MM/yyyy'))");
-      update("insert into interpretation values(6, 4, 4, 'Dr Peter Venkman')");
-
-      update("delete from interpretation where id = 5");
-      update("delete from actor where id = 3");
-
-      update("update movie set title = 'The Avatar' where id = 3");
-      update("update actor set firstname = 'Susan Alexandra' where id = 1");
-      update("update interpretation set character = 'Doctor Grace Augustine' where id = 3");
-
+      updateChangesForTests();
       changes.setEndPointNow();
 
       assertThat(changes).hasSize(2);
