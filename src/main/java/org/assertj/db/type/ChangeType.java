@@ -12,9 +12,24 @@
  */
 package org.assertj.db.type;
 
+/**
+ * Enumeration of the different type of change that are possible in the database.
+ * 
+ * @author Régis Pouiller
+ * 
+ */
 public enum ChangeType {
 
+  /**
+   * The change is a creation of a row.
+   */
   CREATION,
+  /**
+   * The change is a modification of a row.
+   */
   MODIFICATION,
+  /**
+   * The change is a deletion of a row.
+   */
   DELETION,
 }
