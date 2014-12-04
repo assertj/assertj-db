@@ -145,7 +145,7 @@ public final class Assertions {
       List<Table> tablesList = changes.getTablesList();
       if (tablesList.size() == 1) {
         Table table = tablesList.get(0);
-        stringBuilder.append("Changes on " + table.getName() + " table");
+        stringBuilder.append("Changes on ").append(table.getName()).append(" table");
       } else {
         stringBuilder.append("Changes on tables");
       }
@@ -155,14 +155,14 @@ public final class Assertions {
       if (sql.length() > 30) {
         sql = sql.substring(0, 30) + "...";
       }
-      stringBuilder.append("Changes on '" + sql + "' request");
+      stringBuilder.append("Changes on '").append(sql).append("' request");
     }
     if (stringBuilder.length() == 0) {
       stringBuilder.append("Changes");
     }
     if (changes.getSource() != null) {
       Source source = changes.getSource();
-      stringBuilder.append(" of '" + source.getUser() + "/" + source.getUrl() + "' source");
+      stringBuilder.append(" of '").append(source.getUser()).append("/").append(source.getUrl()).append("' source");
     } else {
       stringBuilder.append(" of a data source");
     }
@@ -186,8 +186,7 @@ public final class Assertions {
         byteInt = inputStream.read();
       }
 
-      byte[] values = byteArrayOutputStream.toByteArray();
-      return values;
+      return byteArrayOutputStream.toByteArray();
     } catch (IOException e) {
       throw new AssertJDBException(e);
     }
