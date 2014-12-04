@@ -53,7 +53,7 @@ import org.assertj.db.type.Table;
  * 
  * <pre>
  * <code class='java'>
- * asserThat(table)
+ * assertThat(table)
  *     .row()
  *         .value("title")
  *             .isText()
