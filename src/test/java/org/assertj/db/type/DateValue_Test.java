@@ -12,13 +12,13 @@
  */
 package org.assertj.db.type;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.db.common.AbstractTest;
+import org.junit.Test;
 
 import java.sql.Date;
 import java.text.ParseException;
 
-import org.assertj.db.common.AbstractTest;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests on the date value.
@@ -112,7 +112,7 @@ public class DateValue_Test extends AbstractTest {
   public void test_from() throws ParseException {
     DateValue dateValue = DateValue.from(Date.valueOf("2002-07-26"));
     assertThat(dateValue.getDayOfTheMonth()).isEqualTo(26);
-    assertThat(dateValue.getMonth()).isEqualTo(07);
+    assertThat(dateValue.getMonth()).isEqualTo(7);
     assertThat(dateValue.getYear()).isEqualTo(2002);
   }
 
@@ -132,7 +132,7 @@ public class DateValue_Test extends AbstractTest {
   public void test_parse() throws ParseException {
     DateValue dateValue = DateValue.parse("2002-07-26");
     assertThat(dateValue.getDayOfTheMonth()).isEqualTo(26);
-    assertThat(dateValue.getMonth()).isEqualTo(07);
+    assertThat(dateValue.getMonth()).isEqualTo(7);
     assertThat(dateValue.getYear()).isEqualTo(2002);
   }
 
@@ -179,7 +179,7 @@ public class DateValue_Test extends AbstractTest {
   public void test_of() throws ParseException {
     DateValue dateValue = DateValue.of(2002, 7, 26);
     assertThat(dateValue.getDayOfTheMonth()).isEqualTo(26);
-    assertThat(dateValue.getMonth()).isEqualTo(07);
+    assertThat(dateValue.getMonth()).isEqualTo(7);
     assertThat(dateValue.getYear()).isEqualTo(2002);
   }
 

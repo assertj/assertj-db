@@ -12,21 +12,12 @@
  */
 package org.assertj.db.type;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.sql.Types;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.sql.DataSource;
-
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.util.RowComparator;
+
+import javax.sql.DataSource;
+import java.sql.*;
+import java.util.*;
 
 /**
  * This class represents data from the database.
@@ -347,7 +338,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    * database by calling the {@link #load()} private method.
    * </p>
    * 
-   * @param columnName The column name
+   * @param index The column index
    * @return The values
    * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
    * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.

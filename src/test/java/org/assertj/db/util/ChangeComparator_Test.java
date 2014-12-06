@@ -12,14 +12,14 @@
  */
 package org.assertj.db.util;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.Arrays;
-
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.DataType;
 import org.junit.Test;
+
+import java.util.Arrays;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests on the comparator for {@code Change}
@@ -38,7 +38,7 @@ public class ChangeComparator_Test extends AbstractTest {
   }
 
   /**
-   * Test the {@compareTo} method.
+   * Test the {@code compareTo} method.
    * 
    * @throws Exception Exception
    */

@@ -12,10 +12,10 @@
  */
 package org.assertj.db.type;
 
+import org.assertj.db.util.Values;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.assertj.db.util.Values;
 
 /**
  * Row in a <code>{@link AbstractDbData}</code>.
@@ -109,7 +109,7 @@ public class Row {
         pksValuesList.add(value);
       }
     }
-    return pksValuesList.toArray(new Object[0]);
+    return pksValuesList.toArray(new Object[pksValuesList.size()]);
   }
 
   /**

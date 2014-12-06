@@ -12,24 +12,17 @@
  */
 package org.assertj.db.type;
 
-import static org.assertj.db.type.Change.createCreationChange;
-import static org.assertj.db.type.Change.createDeletionChange;
-import static org.assertj.db.type.Change.createModificationChange;
+import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.util.ChangeComparator;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
-import javax.sql.DataSource;
-
-import org.assertj.db.exception.AssertJDBException;
-import org.assertj.db.util.ChangeComparator;
+import static org.assertj.db.type.Change.*;
 
 /**
  * Changes in the database.
@@ -244,13 +237,13 @@ public class Changes extends AbstractDbElement<Changes> {
     Request r = new Request();
     copyElement(request, r);
     return r.setRequest(request.getRequest()).setParameters(request.getParameters())
-        .setPksName(request.getPksNameList().toArray(new String[0]));
+        .setPksName(request.getPksNameList().toArray(new String[request.getPksNameList().size()]));
   }
 
   /**
    * Duplicate the {@link Table} in parameter and returns it.
    * 
-   * @param request The {@link Table} to duplicate
+   * @param table The {@link Table} to duplicate
    * @return The Duplication
    */
   private static Table getDuplicatedTable(Table table) {

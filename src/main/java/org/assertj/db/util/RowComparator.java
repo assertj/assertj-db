@@ -12,10 +12,10 @@
  */
 package org.assertj.db.util;
 
+import org.assertj.db.type.Row;
+
 import java.util.Comparator;
 import java.util.List;
-
-import org.assertj.db.type.Row;
 
 /**
  * Comparator for the {@code Row}.
@@ -72,8 +72,8 @@ public enum RowComparator implements Comparator<Row>{
     }
     List<Object> valuesList1 = row1.getValuesList();
     List<Object> valuesList2 = row2.getValuesList();
-    Object[] values1 = valuesList1.toArray(new Object[0]);
-    Object[] values2 = valuesList2.toArray(new Object[0]);
+    Object[] values1 = valuesList1.toArray(new Object[valuesList1.size()]);
+    Object[] values2 = valuesList2.toArray(new Object[valuesList1.size()]);
     return compare(values1, values2);
   }
 }
