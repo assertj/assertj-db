@@ -12,7 +12,10 @@
  */
 package org.assertj.db.type;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.db.api.Assertions;
+import org.assertj.db.common.AbstractTest;
+import org.assertj.db.common.NeedReload;
+import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -20,10 +23,7 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.sql.Timestamp;
 
-import org.assertj.db.api.Assertions;
-import org.assertj.db.common.AbstractTest;
-import org.assertj.db.common.NeedReload;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests on the list of changes on tables.
@@ -186,7 +186,7 @@ public class Changes_Table_GetChangesList_Test extends AbstractTest {
     assertThat(change.getChangeType()).isEqualTo(ChangeType.CREATION);
     assertThat(change.getColumnsNameList()).containsExactly("ID", "TITLE", "YEAR");
     assertThat(change.getRowAtStartPoint()).isNull();
-    ;
+
     assertThat(change.getRowAtEndPoint().getValuesList()).containsExactly(new BigDecimal(4), "Ghostbusters",
         new BigDecimal(1984));
   }
@@ -212,6 +212,5 @@ public class Changes_Table_GetChangesList_Test extends AbstractTest {
     assertThat(change.getRowAtStartPoint().getValuesList()).containsExactly(new BigDecimal(3), new BigDecimal(3),
         new BigDecimal(1), "Dr Grace Augustine");
     assertThat(change.getRowAtEndPoint()).isNull();
-    ;
   }
 }

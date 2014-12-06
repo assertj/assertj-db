@@ -12,31 +12,12 @@
  */
 package org.assertj.db.common;
 
-import static com.ninja_squad.dbsetup.Operations.deleteAllFrom;
-import static com.ninja_squad.dbsetup.Operations.insertInto;
-import static com.ninja_squad.dbsetup.Operations.sequenceOf;
-import static com.ninja_squad.dbsetup.Operations.sql;
-
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.util.List;
-import java.util.logging.Logger;
-
-import javax.sql.DataSource;
-
+import com.ninja_squad.dbsetup.DbSetup;
+import com.ninja_squad.dbsetup.DbSetupTracker;
+import com.ninja_squad.dbsetup.destination.DriverManagerDestination;
+import com.ninja_squad.dbsetup.operation.Operation;
 import org.assertj.db.configuration.TestsConfiguration;
-import org.assertj.db.type.Change;
-import org.assertj.db.type.ChangeType;
-import org.assertj.db.type.DataType;
-import org.assertj.db.type.Row;
-import org.assertj.db.type.Source;
+import org.assertj.db.type.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -47,10 +28,16 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ninja_squad.dbsetup.DbSetup;
-import com.ninja_squad.dbsetup.DbSetupTracker;
-import com.ninja_squad.dbsetup.destination.DriverManagerDestination;
-import com.ninja_squad.dbsetup.operation.Operation;
+import javax.sql.DataSource;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.sql.*;
+import java.util.List;
+import java.util.logging.Logger;
+
+import static com.ninja_squad.dbsetup.Operations.*;
 
 /**
  * Parent for all the tests. It contains the variables like a {@code DataSource} and a {@code Source}.
@@ -169,7 +156,7 @@ public abstract class AbstractTest {
    * @return An instance.
    * @throws Exception Exception
    */
-  protected static Row getRow(List<String> pksNameList, List<String> columnsNameList, List<? extends Object> valuesList)
+  protected static Row getRow(List<String> pksNameList, List<String> columnsNameList, List<?> valuesList)
       throws Exception {
     Constructor<Row> constructor = Row.class.getDeclaredConstructor(List.class, List.class, List.class);
     constructor.setAccessible(true);

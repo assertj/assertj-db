@@ -12,17 +12,11 @@
  */
 package org.assertj.db.type;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.sql.Statement;
+import javax.sql.DataSource;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import javax.sql.DataSource;
 
 /**
  * A table in the database to read to get the values.
@@ -274,8 +268,7 @@ public class Table extends AbstractDbData<Table> {
     }
     stringBuilder.append(" FROM ");
     stringBuilder.append(name);
-    String request = stringBuilder.toString();
-    return request;
+    return stringBuilder.toString();
   }
 
   /**
@@ -290,7 +283,7 @@ public class Table extends AbstractDbData<Table> {
    */
   private void collectColumnsNameFromResultSet(ResultSet resultSet) throws SQLException {
     ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
-    List<String> columnsNameList = new ArrayList<String>();
+    List<String> columnsNameList = new ArrayList<>();
     List<String> columnsToExcludeList = null;
     if (columnsToExclude != null) {
       columnsToExcludeList = Arrays.asList(columnsToExclude);
@@ -317,7 +310,7 @@ public class Table extends AbstractDbData<Table> {
    * @throws SQLException SQL Exception.
    */
   private void collectPrimaryKeyName(Connection connection) throws SQLException {
-    List<String> pksNameList = new ArrayList<String>();
+    List<String> pksNameList = new ArrayList<>();
     DatabaseMetaData metaData = connection.getMetaData();
 
     try (ResultSet resultSet = metaData.getPrimaryKeys(getCatalog(connection), getSchema(connection),

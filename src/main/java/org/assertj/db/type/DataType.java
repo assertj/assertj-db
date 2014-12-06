@@ -27,5 +27,5 @@ public enum DataType {
   /**
    * The data is a request.
    */
-  REQUEST;
+  REQUEST
 }
