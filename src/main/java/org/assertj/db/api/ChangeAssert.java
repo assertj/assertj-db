@@ -25,7 +25,7 @@ public class ChangeAssert extends AbstractAssert<ChangeAssert> {
   /**
    * The actual change on which the assertion is.
    */
-  private final Change actual;
+  private final Change change;
 
   /**
    * The original assert.
@@ -41,7 +41,7 @@ public class ChangeAssert extends AbstractAssert<ChangeAssert> {
   ChangeAssert(ChangesAssert originalAssert, Change change) {
     super(ChangeAssert.class);
     this.originalAssert = originalAssert;
-    this.actual = change;
+    this.change = change;
   }
 
   /**

@@ -182,6 +182,43 @@ public abstract class AbstractTest {
   }
 
   /**
+   * Returns an instance of a {@code Change} for creation on a table.
+   *
+   * @param dataName The name of the data on which is the change.
+   * @param rowAtEndPoint The row at end point.
+   * @return An instance.
+   * @throws Exception Exception
+   */
+  protected static Change getTableCreationChange(String dataName, Row rowAtEndPoint) throws Exception {
+    return getChange(DataType.TABLE, dataName, ChangeType.CREATION, null, rowAtEndPoint);
+  }
+
+  /**
+   * Returns an instance of a {@code Change} for creation on a table.
+   *
+   * @param dataName The name of the data on which is the change.
+   * @param rowAtStartPoint The row at start point.
+   * @param rowAtEndPoint The row at end point.
+   * @return An instance.
+   * @throws Exception Exception
+   */
+  protected static Change getTableModificationChange(String dataName, Row rowAtStartPoint, Row rowAtEndPoint) throws Exception {
+    return getChange(DataType.TABLE, dataName, ChangeType.MODIFICATION, rowAtStartPoint, rowAtEndPoint);
+  }
+
+  /**
+   * Returns an instance of a {@code Change} for deletion on a table.
+   *
+   * @param dataName The name of the data on which is the change.
+   * @param rowAtStartPoint The row at start point.
+   * @return An instance.
+   * @throws Exception Exception
+   */
+  protected static Change getTableDeletionChange(String dataName, Row rowAtStartPoint) throws Exception {
+    return getChange(DataType.TABLE, dataName, ChangeType.DELETION, rowAtStartPoint, null);
+  }
+
+  /**
    * Update the database.
    * 
    * @param request Request to update.

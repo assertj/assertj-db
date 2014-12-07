@@ -73,7 +73,7 @@ public enum RowComparator implements Comparator<Row>{
     List<Object> valuesList1 = row1.getValuesList();
     List<Object> valuesList2 = row2.getValuesList();
     Object[] values1 = valuesList1.toArray(new Object[valuesList1.size()]);
-    Object[] values2 = valuesList2.toArray(new Object[valuesList1.size()]);
+    Object[] values2 = valuesList2.toArray(new Object[valuesList2.size()]);
     return compare(values1, values2);
   }
 }
