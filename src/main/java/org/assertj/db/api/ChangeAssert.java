@@ -58,6 +58,24 @@ public class ChangeAssert extends AbstractAssert<ChangeAssert> {
   }
 
   /**
+   * Returns the assert on the row at start point.
+   *
+   * @return The assert on the row at start point.
+   */
+  public ChangeRowAssert rowAtStartPoint() {
+    return new ChangeRowAssert(this, change.getRowAtStartPoint());
+  }
+
+  /**
+   * Returns the assert on the row at end point.
+   *
+   * @return The assert on the row at end point.
+   */
+  public ChangeRowAssert rowAtEndPoint() {
+    return new ChangeRowAssert(this, change.getRowAtEndPoint());
+  }
+
+  /**
    * Returns assertion methods on the next change in the list of changes.
    *
    * @return An object to make assertions on the next change.
