@@ -12,6 +12,17 @@
  */
 package org.assertj.db.api;
 
+import org.assertj.core.internal.Objects;
+import org.assertj.db.error.ShouldBeValueTypeOfAny;
+import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.type.*;
+import org.assertj.db.util.Values;
+
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.ParseException;
+
 import static org.assertj.db.error.ShouldBeAfter.shouldBeAfter;
 import static org.assertj.db.error.ShouldBeAfterOrEqual.shouldBeAfterOrEqual;
 import static org.assertj.db.error.ShouldBeBefore.shouldBeBefore;
@@ -21,27 +32,10 @@ import static org.assertj.db.error.ShouldBeGreater.shouldBeGreater;
 import static org.assertj.db.error.ShouldBeGreaterOrEqual.shouldBeGreaterOrEqual;
 import static org.assertj.db.error.ShouldBeLess.shouldBeLess;
 import static org.assertj.db.error.ShouldBeLessOrEqual.shouldBeLessOrEqual;
-import static org.assertj.db.error.ShouldBeType.shouldBeType;
-import static org.assertj.db.error.ShouldBeTypeOfAny.shouldBeTypeOfAny;
+import static org.assertj.db.error.ShouldBeValueType.shouldBeValueType;
 import static org.assertj.db.error.ShouldNotBeEqual.shouldNotBeEqual;
 import static org.assertj.db.util.Values.areEqual;
 import static org.assertj.db.util.Values.compare;
-
-import java.sql.Date;
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.text.ParseException;
-
-import org.assertj.core.internal.Objects;
-import org.assertj.db.exception.AssertJDBException;
-import org.assertj.db.type.AbstractDbData;
-import org.assertj.db.type.Column;
-import org.assertj.db.type.DateTimeValue;
-import org.assertj.db.type.DateValue;
-import org.assertj.db.type.Row;
-import org.assertj.db.type.TimeValue;
-import org.assertj.db.type.ValueType;
-import org.assertj.db.util.Values;
 
 /**
  * Assertion methods about the value.
@@ -133,7 +127,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
   public V isOfType(ValueType expected) {
     ValueType type = getType();
     if (type != expected) {
-      throw failures.failure(info, shouldBeType(value, expected, type));
+      throw failures.failure(info, shouldBeValueType(value, expected, type));
     }
     return myself;
   }
@@ -162,7 +156,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
         return myself;
       }
     }
-    throw failures.failure(info, shouldBeTypeOfAny(value, type, expected));
+    throw failures.failure(info, ShouldBeValueTypeOfAny.shouldBeValueTypeOfAny(value, type, expected));
   }
 
   /**

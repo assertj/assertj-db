@@ -12,20 +12,20 @@
  */
 package org.assertj.db.api;
 
-import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
-import static org.assertj.db.error.ShouldBeTypeOfAny.shouldBeTypeOfAny;
-import static org.assertj.db.error.ShouldHaveColumnsSize.shouldHaveColumnsSize;
-import static org.assertj.db.util.Values.areEqual;
-
-import java.util.Arrays;
-import java.util.List;
-
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Row;
 import org.assertj.db.type.ValueType;
 import org.assertj.db.util.Values;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
+import static org.assertj.db.error.ShouldBeValueTypeOfAny.shouldBeValueTypeOfAny;
+import static org.assertj.db.error.ShouldHaveColumnsSize.shouldHaveColumnsSize;
+import static org.assertj.db.util.Values.areEqual;
 
 /**
  * Assertion methods about the data in a <code>{@link Row}</code>.
@@ -118,7 +118,7 @@ public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends A
       ValueType[] possibleTypes = ValueType.getPossibleTypesForComparison(expected[index]);
       ValueType type = ValueType.getType(value);
       if (!Arrays.asList(possibleTypes).contains(type)) {
-        throw failures.failure(info, shouldBeTypeOfAny(index, value, type, possibleTypes));
+        throw failures.failure(info, shouldBeValueTypeOfAny(index, value, type, possibleTypes));
       }
       if (!areEqual(value, expected[index])) {
         if (ValueType.getType(value) == ValueType.BYTES) {

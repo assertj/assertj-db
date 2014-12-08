@@ -12,13 +12,13 @@
  */
 package org.assertj.db.api;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  * Tests on the methods which verifies if a value is equal to zero.
@@ -47,7 +47,7 @@ public class ValueAssert_IsZero_Test extends AbstractTest {
    * This method should fail because the value is not equal to zero.
    */
   @Test
-  public void should_fail_because_value_is_not_zeo() {
+  public void should_fail_because_value_is_not_zero() {
     try {
       Table table = new Table(source, "test");
       assertThat(table)

@@ -17,12 +17,12 @@ import org.assertj.core.error.ErrorMessageFactory;
 import org.assertj.db.type.ValueType;
 
 /**
- * Creates an error message indicating that an assertion that verifies that a value is of any types.
+ * Creates an error message indicating that an assertion that verifies that a value is of a type.
  * 
  * @author Régis Pouiller
  * 
  */
-public class ShouldBeTypeOfAny extends BasicErrorMessageFactory {
+public class ShouldBeValueType extends BasicErrorMessageFactory {
 
   private static final String EXPECTED_MESSAGE = "\nExpecting:\n  <%s>\nto be of type\n"
       + "  <%s>\nbut was of type\n  <%s>";
@@ -30,38 +30,38 @@ public class ShouldBeTypeOfAny extends BasicErrorMessageFactory {
       + "  <%s>\nbut was of type\n  <%s>";
 
   /**
-   * Creates a new <code>{@link ShouldBeTypeOfAny}</code>.
+   * Creates a new <code>{@link ShouldBeValueType}</code>.
    * 
    * @param actual The actual value in the failed assertion.
+   * @param expected The expected type.
    * @param tested The tested type.
-   * @param expected The expected types.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBeTypeOfAny(Object actual, ValueType tested, ValueType... expected) {
-    return new ShouldBeTypeOfAny(actual, tested, expected);
+  public static ErrorMessageFactory shouldBeValueType(Object actual, ValueType expected, ValueType tested) {
+    return new ShouldBeValueType(actual, expected, tested);
   }
 
   /**
-   * Creates a new <code>{@link ShouldBeTypeOfAny}</code>.
+   * Creates a new <code>{@link ShouldBeValueType}</code>.
    * 
    * @param index The index of the value.
    * @param actual The actual value in the failed assertion.
+   * @param expected The expected type.
    * @param tested The tested type.
-   * @param expected The expected types.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBeTypeOfAny(int index, Object actual, ValueType tested, ValueType... expected) {
-    return new ShouldBeTypeOfAny(index, actual, tested, expected);
+  public static ErrorMessageFactory shouldBeValueType(int index, Object actual, ValueType expected, ValueType tested) {
+    return new ShouldBeValueType(index, actual, expected, tested);
   }
 
   /**
    * Constructor.
    * 
    * @param actual The actual value in the failed assertion.
+   * @param expected The expected type.
    * @param tested The tested type.
-   * @param expected The expected types.
    */
-  public ShouldBeTypeOfAny(Object actual, ValueType tested, ValueType... expected) {
+  public ShouldBeValueType(Object actual, ValueType expected, ValueType tested) {
     super(EXPECTED_MESSAGE, actual, expected, tested);
   }
 
@@ -70,11 +70,10 @@ public class ShouldBeTypeOfAny extends BasicErrorMessageFactory {
    * 
    * @param index The index of the value.
    * @param actual The actual value in the failed assertion.
+   * @param expected The expected type.
    * @param tested The tested type.
-   * @param expected The expected types.
    */
-  public ShouldBeTypeOfAny(int index, Object actual, ValueType tested, ValueType... expected) {
+  public ShouldBeValueType(int index, Object actual, ValueType expected, ValueType tested) {
     super(EXPECTED_MESSAGE_WITH_INDEX, index, actual, expected, tested);
   }
-
 }

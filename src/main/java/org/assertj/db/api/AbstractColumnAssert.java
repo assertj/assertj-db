@@ -12,24 +12,19 @@
  */
 package org.assertj.db.api;
 
+import org.assertj.core.api.WritableAssertionInfo;
+import org.assertj.db.error.ShouldBeValueType;
+import org.assertj.db.type.*;
+import org.assertj.db.util.Values;
+
+import java.util.List;
+
 import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
-import static org.assertj.db.error.ShouldBeType.shouldBeType;
-import static org.assertj.db.error.ShouldBeTypeOfAny.shouldBeTypeOfAny;
+import static org.assertj.db.error.ShouldBeValueTypeOfAny.shouldBeValueTypeOfAny;
 import static org.assertj.db.error.ShouldContainsOnlyNotNull.shouldContainsOnlyNotNull;
 import static org.assertj.db.error.ShouldContainsOnlyNull.shouldContainsOnlyNull;
 import static org.assertj.db.error.ShouldHaveRowsSize.shouldHaveRowsSize;
 import static org.assertj.db.util.Values.areEqual;
-
-import java.util.List;
-
-import org.assertj.core.api.WritableAssertionInfo;
-import org.assertj.db.type.AbstractDbData;
-import org.assertj.db.type.Column;
-import org.assertj.db.type.DateTimeValue;
-import org.assertj.db.type.DateValue;
-import org.assertj.db.type.TimeValue;
-import org.assertj.db.type.ValueType;
-import org.assertj.db.util.Values;
 
 /**
  * Assertion methods about the data in a <code>{@link Column}</code>.
@@ -113,7 +108,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
     for (Object value : getValuesList()) {
       ValueType type = ValueType.getType(value);
       if (type != expected) {
-        throw failures.failure(info, shouldBeType(index, value, expected, type));
+        throw failures.failure(info, ShouldBeValueType.shouldBeValueType(index, value, expected, type));
       }
       index++;
     }
@@ -145,7 +140,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
           continue loop;
         }
       }
-      throw failures.failure(info, shouldBeTypeOfAny(index, value, type, expected));
+      throw failures.failure(info, shouldBeValueTypeOfAny(index, value, type, expected));
     }
     return myself;
   }
