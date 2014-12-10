@@ -28,7 +28,7 @@ public class ChangeValueAssert extends AbstractAssert<ChangeValueAssert> {
   /**
    * The original assert.
    */
-  private final ChangeRowAssert originalAssert;
+  private final ChangeRowAssert original;
 
   /**
    * Constructor.
@@ -38,7 +38,16 @@ public class ChangeValueAssert extends AbstractAssert<ChangeValueAssert> {
    */
   ChangeValueAssert(ChangeRowAssert originalAssert, Object value) {
     super(ChangeValueAssert.class);
-    this.originalAssert = originalAssert;
+    this.original = originalAssert;
     this.value = value;
+  }
+
+  /**
+   * Returns the assert on the changes.
+   *
+   * @return The assert on the changes.
+   */
+  public ChangeRowAssert returnToOriginAssert() {
+    return original;
   }
 }

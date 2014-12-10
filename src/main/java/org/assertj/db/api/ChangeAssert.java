@@ -34,7 +34,7 @@ public class ChangeAssert extends AbstractAssert<ChangeAssert> {
   /**
    * The original assert.
    */
-  private final ChangesAssert originalAssert;
+  private final ChangesAssert original;
 
   /**
    * Constructor.
@@ -44,7 +44,7 @@ public class ChangeAssert extends AbstractAssert<ChangeAssert> {
    */
   ChangeAssert(ChangesAssert originalAssert, Change change) {
     super(ChangeAssert.class);
-    this.originalAssert = originalAssert;
+    this.original = originalAssert;
     this.change = change;
   }
 
@@ -54,7 +54,7 @@ public class ChangeAssert extends AbstractAssert<ChangeAssert> {
    * @return The assert on the changes.
    */
   public ChangesAssert returnToOriginAssert() {
-    return originalAssert;
+    return original;
   }
 
   /**
