@@ -63,7 +63,9 @@ public class ChangeAssert extends AbstractAssert<ChangeAssert> {
    * @return The assert on the row at start point.
    */
   public ChangeRowAssert rowAtStartPoint() {
-    return new ChangeRowAssert(this, change.getRowAtStartPoint());
+    StringBuilder stringBuilder = new StringBuilder("Row at start point of ");
+    stringBuilder.append(info.descriptionText());
+    return new ChangeRowAssert(this, change.getRowAtStartPoint()).as(stringBuilder.toString());
   }
 
   /**
@@ -72,7 +74,9 @@ public class ChangeAssert extends AbstractAssert<ChangeAssert> {
    * @return The assert on the row at end point.
    */
   public ChangeRowAssert rowAtEndPoint() {
-    return new ChangeRowAssert(this, change.getRowAtEndPoint());
+    StringBuilder stringBuilder = new StringBuilder("Row at end point of ");
+    stringBuilder.append(info.descriptionText());
+    return new ChangeRowAssert(this, change.getRowAtEndPoint()).as(stringBuilder.toString());
   }
 
   /**
