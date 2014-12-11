@@ -24,17 +24,12 @@ import static org.assertj.db.error.ShouldBeChangeType.shouldBeChangeType;
  * @author Régis Pouiller
  * 
  */
-public class ChangeAssert extends AbstractAssert<ChangeAssert> {
+public class ChangeAssert extends AbstractAssertWithOriginAssert<ChangeAssert, ChangesAssert> implements OriginAssert {
 
   /**
    * The actual change on which the assertion is.
    */
   private final Change change;
-
-  /**
-   * The original assert.
-   */
-  private final ChangesAssert original;
 
   /**
    * Constructor.
@@ -43,18 +38,8 @@ public class ChangeAssert extends AbstractAssert<ChangeAssert> {
    * @param change The {@link Change} on which are the assertions.
    */
   ChangeAssert(ChangesAssert originalAssert, Change change) {
-    super(ChangeAssert.class);
-    this.original = originalAssert;
+    super(ChangeAssert.class, originalAssert);
     this.change = change;
-  }
-
-  /**
-   * Returns the assert on the changes.
-   * 
-   * @return The assert on the changes.
-   */
-  public ChangesAssert returnToOriginAssert() {
-    return original;
   }
 
   /**

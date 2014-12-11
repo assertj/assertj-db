@@ -12,8 +12,6 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.db.type.AbstractDbData;
-
 /**
  * Abstract class that represents a assert with an origin assert.
  * 
@@ -23,14 +21,8 @@ import org.assertj.db.type.AbstractDbData;
  *          target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
  *          for more details.
  * @param <O> The class of the assert of origin
- * @param <D> The class of the actual value (an sub-class of {@link AbstractDbData}).
- * @param <A> The class of the original assert (an sub-class of {@link AbstractDbAssert}).
- * @param <C> The class of this assert (an sub-class of {@link AbstractColumnAssert}).
- * @param <CV> The class of this assertion on the value (an sub-class of {@link AbstractColumnValueAssert}).
- * @param <R> The class of the equivalent row assert (an sub-class of {@link AbstractRowAssert}).
- * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
-public abstract class AbstractAssertWithOriginAssert<E extends AbstractAssertWithOriginAssert<E, O, D, A, C, CV, R, RV>, O extends OriginAssert<D, A, C, CV, R, RV>, D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
+public abstract class AbstractAssertWithOriginAssert<E extends AbstractAssertWithOriginAssert<E, O>, O extends OriginAssert>
     extends AbstractAssert<E> {
 
   /**

@@ -24,17 +24,12 @@ import java.util.Map;
  * @author Régis Pouiller
  *
  */
-public class ChangeRowAssert extends AbstractAssert<ChangeRowAssert> {
+public class ChangeRowAssert extends AbstractAssertWithOriginAssert<ChangeRowAssert, ChangeAssert> implements OriginAssert {
 
   /**
    * The actual row on which the assertion is.
    */
   private final Row row;
-
-  /**
-   * The original assert.
-   */
-  private final ChangeAssert original;
 
   /**
    * Index of the next value to get.
@@ -52,18 +47,8 @@ public class ChangeRowAssert extends AbstractAssert<ChangeRowAssert> {
    * @param row The {@link Row} on which are the assertions.
    */
   ChangeRowAssert(ChangeAssert originalAssert, Row row) {
-    super(ChangeRowAssert.class);
-    this.original = originalAssert;
+    super(ChangeRowAssert.class, originalAssert);
     this.row = row;
-  }
-
-  /**
-   * Returns the assert on the changes.
-   *
-   * @return The assert on the changes.
-   */
-  public ChangeAssert returnToOriginAssert() {
-    return original;
   }
 
   /**

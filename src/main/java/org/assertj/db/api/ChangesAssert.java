@@ -12,16 +12,16 @@
  */
 package org.assertj.db.api;
 
-import static org.assertj.db.error.ShouldHaveChangesSize.shouldHaveChangesSize;
+import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.type.Change;
+import org.assertj.db.type.ChangeType;
+import org.assertj.db.type.Changes;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.assertj.db.exception.AssertJDBException;
-import org.assertj.db.type.Change;
-import org.assertj.db.type.ChangeType;
-import org.assertj.db.type.Changes;
+import static org.assertj.db.error.ShouldHaveChangesSize.shouldHaveChangesSize;
 
 /**
  * Assertion methods about the {@link Changes}.
@@ -29,7 +29,7 @@ import org.assertj.db.type.Changes;
  * @author Régis Pouiller
  * 
  */
-public class ChangesAssert extends AbstractAssert<ChangesAssert> {
+public class ChangesAssert extends AbstractAssert<ChangesAssert> implements OriginAssert {
 
   /**
    * The actual changes on which the assertion is.

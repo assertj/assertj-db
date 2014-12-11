@@ -18,17 +18,12 @@ package org.assertj.db.api;
  * @author Régis Pouiller
  *
  */
-public class ChangeValueAssert extends AbstractAssert<ChangeValueAssert> {
+public class ChangeValueAssert extends AbstractAssertWithOriginAssert<ChangeValueAssert, ChangeRowAssert> {
 
   /**
    * The actual value on which the assertion is.
    */
   private final Object value;
-
-  /**
-   * The original assert.
-   */
-  private final ChangeRowAssert original;
 
   /**
    * Constructor.
@@ -37,17 +32,7 @@ public class ChangeValueAssert extends AbstractAssert<ChangeValueAssert> {
    * @param value The value on which are the assertions.
    */
   ChangeValueAssert(ChangeRowAssert originalAssert, Object value) {
-    super(ChangeValueAssert.class);
-    this.original = originalAssert;
+    super(ChangeValueAssert.class, originalAssert);
     this.value = value;
-  }
-
-  /**
-   * Returns the assert on the changes.
-   *
-   * @return The assert on the changes.
-   */
-  public ChangeRowAssert returnToOriginAssert() {
-    return original;
   }
 }
