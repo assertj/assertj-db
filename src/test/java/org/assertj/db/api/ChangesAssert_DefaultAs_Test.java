@@ -12,17 +12,17 @@
  */
 package org.assertj.db.api;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.db.api.Assertions.assertThat;
-
-import java.lang.reflect.Field;
-
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Changes;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
 import org.junit.Test;
+
+import java.lang.reflect.Field;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.db.api.Assertions.assertThat;
 
 /**
  * Test on default description for {@code Changes}.
@@ -345,7 +345,7 @@ public class ChangesAssert_DefaultAs_Test extends AbstractTest {
     field.setAccessible(true);
     WritableAssertionInfo info = (WritableAssertionInfo) field.get(assertion);
 
-    assertThat(info.descriptionText()).isEqualTo("Changes on tables of a data source (only on movie table)");
+    assertThat(info.descriptionText()).isEqualTo("Changes on tables of a data source (only changes on movie table)");
   }
 
   /**

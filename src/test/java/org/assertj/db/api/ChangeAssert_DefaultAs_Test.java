@@ -97,12 +97,137 @@ public class ChangeAssert_DefaultAs_Test extends AbstractTest {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
-    ChangeAssert assertion = assertThat(changes).ofCreation().change();
+    ChangeAssert assertion = assertThat(changes).changeOfCreation();
 
     Field field = AbstractAssert.class.getDeclaredField("info");
     field.setAccessible(true);
     WritableAssertionInfo info = (WritableAssertionInfo) field.get(assertion);
 
     assertThat(info.descriptionText()).isEqualTo("Change at index 0 of Changes on tables of 'sa/jdbc:h2:mem:test' source (only creation changes)");
+  }
+
+  /**
+   * This method tests the description of change from modification changes.
+   *
+   * @throws IllegalAccessException
+   * @throws IllegalArgumentException
+   * @throws NoSuchFieldException
+   * @throws SecurityException
+   */
+  @Test
+  @NeedReload
+  public void test_default_description_of_change_from_modification() throws NoSuchFieldException, SecurityException,
+          IllegalArgumentException, IllegalAccessException {
+
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+    ChangeAssert assertion = assertThat(changes).changeOfModification();
+
+    Field field = AbstractAssert.class.getDeclaredField("info");
+    field.setAccessible(true);
+    WritableAssertionInfo info = (WritableAssertionInfo) field.get(assertion);
+
+    assertThat(info.descriptionText()).isEqualTo("Change at index 0 of Changes on tables of 'sa/jdbc:h2:mem:test' source (only modification changes)");
+  }
+
+  /**
+   * This method tests the description of change from deletion changes.
+   *
+   * @throws IllegalAccessException
+   * @throws IllegalArgumentException
+   * @throws NoSuchFieldException
+   * @throws SecurityException
+   */
+  @Test
+  @NeedReload
+  public void test_default_description_of_change_from_deletion() throws NoSuchFieldException, SecurityException,
+          IllegalArgumentException, IllegalAccessException {
+
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+    ChangeAssert assertion = assertThat(changes).changeOfDeletion();
+
+    Field field = AbstractAssert.class.getDeclaredField("info");
+    field.setAccessible(true);
+    WritableAssertionInfo info = (WritableAssertionInfo) field.get(assertion);
+
+    assertThat(info.descriptionText()).isEqualTo("Change at index 0 of Changes on tables of 'sa/jdbc:h2:mem:test' source (only deletion changes)");
+  }
+
+  /**
+   * This method tests the description of change from creation changes with index.
+   *
+   * @throws IllegalAccessException
+   * @throws IllegalArgumentException
+   * @throws NoSuchFieldException
+   * @throws SecurityException
+   */
+  @Test
+  @NeedReload
+  public void test_default_description_of_change_from_creation_with_index() throws NoSuchFieldException, SecurityException,
+          IllegalArgumentException, IllegalAccessException {
+
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+    ChangeAssert assertion = assertThat(changes).changeOfCreation(1);
+
+    Field field = AbstractAssert.class.getDeclaredField("info");
+    field.setAccessible(true);
+    WritableAssertionInfo info = (WritableAssertionInfo) field.get(assertion);
+
+    assertThat(info.descriptionText()).isEqualTo("Change at index 1 of Changes on tables of 'sa/jdbc:h2:mem:test' source (only creation changes)");
+  }
+
+  /**
+   * This method tests the description of change from modification changes with index.
+   *
+   * @throws IllegalAccessException
+   * @throws IllegalArgumentException
+   * @throws NoSuchFieldException
+   * @throws SecurityException
+   */
+  @Test
+  @NeedReload
+  public void test_default_description_of_change_from_modification_with_index() throws NoSuchFieldException, SecurityException,
+          IllegalArgumentException, IllegalAccessException {
+
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+    ChangeAssert assertion = assertThat(changes).changeOfModification(1);
+
+    Field field = AbstractAssert.class.getDeclaredField("info");
+    field.setAccessible(true);
+    WritableAssertionInfo info = (WritableAssertionInfo) field.get(assertion);
+
+    assertThat(info.descriptionText()).isEqualTo("Change at index 1 of Changes on tables of 'sa/jdbc:h2:mem:test' source (only modification changes)");
+  }
+
+  /**
+   * This method tests the description of change from deletion changes with index.
+   *
+   * @throws IllegalAccessException
+   * @throws IllegalArgumentException
+   * @throws NoSuchFieldException
+   * @throws SecurityException
+   */
+  @Test
+  @NeedReload
+  public void test_default_description_of_change_from_deletion_with_index() throws NoSuchFieldException, SecurityException,
+          IllegalArgumentException, IllegalAccessException {
+
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+    ChangeAssert assertion = assertThat(changes).changeOfDeletion(1);
+
+    Field field = AbstractAssert.class.getDeclaredField("info");
+    field.setAccessible(true);
+    WritableAssertionInfo info = (WritableAssertionInfo) field.get(assertion);
+
+    assertThat(info.descriptionText()).isEqualTo("Change at index 1 of Changes on tables of 'sa/jdbc:h2:mem:test' source (only deletion changes)");
   }
 }

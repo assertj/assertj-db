@@ -13,26 +13,9 @@
 package org.assertj.db.api;
 
 /**
- * Assertion methods about a value of a {@code Row} of a {@code Change}.
+ * Interface that represents a assert which is the origin assert of another assert and have changes.
  *
  * @author Régis Pouiller
- *
  */
-public class ChangeValueAssert extends AbstractAssertWithChanges<ChangeValueAssert, ChangeRowAssert> {
-
-  /**
-   * The actual value on which the assertion is.
-   */
-  private final Object value;
-
-  /**
-   * Constructor.
-   *
-   * @param originalAssert The original assert.
-   * @param value The value on which are the assertions.
-   */
-  ChangeValueAssert(ChangeRowAssert originalAssert, Object value) {
-    super(ChangeValueAssert.class, originalAssert);
-    this.value = value;
-  }
+public interface OriginAssertWithChanges extends AssertWithChanges, OriginAssert {
 }

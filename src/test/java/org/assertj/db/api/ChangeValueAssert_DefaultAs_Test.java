@@ -46,7 +46,7 @@ public class ChangeValueAssert_DefaultAs_Test extends AbstractTest {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
-    ChangeValueAssert assertion = assertThat(changes).ofDeletion().change().rowAtStartPoint().value();
+    ChangeValueAssert assertion = assertThat(changes).changeOfDeletion().rowAtStartPoint().value();
 
     Field field = AbstractAssert.class.getDeclaredField("info");
     field.setAccessible(true);

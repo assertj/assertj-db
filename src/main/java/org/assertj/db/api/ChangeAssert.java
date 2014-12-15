@@ -12,7 +12,6 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
 
@@ -24,7 +23,7 @@ import static org.assertj.db.error.ShouldBeChangeType.shouldBeChangeType;
  * @author Régis Pouiller
  * 
  */
-public class ChangeAssert extends AbstractAssertWithOriginAssert<ChangeAssert, ChangesAssert> implements OriginAssert {
+public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, ChangesAssert> {
 
   /**
    * The actual change on which the assertion is.
@@ -62,27 +61,6 @@ public class ChangeAssert extends AbstractAssertWithOriginAssert<ChangeAssert, C
     StringBuilder stringBuilder = new StringBuilder("Row at end point of ");
     stringBuilder.append(info.descriptionText());
     return new ChangeRowAssert(this, change.getRowAtEndPoint()).as(stringBuilder.toString());
-  }
-
-  /**
-   * Returns assertion methods on the next change in the list of changes.
-   *
-   * @return An object to make assertions on the next change.
-   * @throws AssertJDBException If the {@code index} is out of the bounds.
-   */
-  public ChangeAssert change() throws AssertJDBException {
-    return returnToOriginAssert().change();
-  }
-
-  /**
-   * Returns assertion methods on the change at the {@code index} in parameter.
-   *
-   * @param index The index corresponding to the change.
-   * @return An object to make assertions on the change.
-   * @throws AssertJDBException If the {@code index} is out of the bounds.
-   */
-  public ChangeAssert change(int index) throws AssertJDBException {
-    return returnToOriginAssert().change(index);
   }
 
   /**

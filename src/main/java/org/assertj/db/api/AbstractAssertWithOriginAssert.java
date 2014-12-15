@@ -28,12 +28,12 @@ public abstract class AbstractAssertWithOriginAssert<E extends AbstractAssertWit
   /**
    * The origin assert.
    */
-  private final O originAssert;
+  protected final O originAssert;
 
   /**
    * Constructor.
    * 
-   * @param selfType Class of this assert : a sub-class of {@code AbstractAssert}.
+   * @param selfType Class of this assert : a sub-class of {@code AbstractAssertWithOriginAssert}.
    * @param originAssert The assert of origin.
    */
   AbstractAssertWithOriginAssert(Class<E> selfType, O originAssert) {
