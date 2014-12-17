@@ -12,12 +12,13 @@
  */
 package org.assertj.db.api;
 
-import static org.assertj.db.api.Assertions.assertThat;
-
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.common.NeedReload;
 import org.assertj.db.type.Changes;
 import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.db.api.Assertions.assertThat;
 
 /**
  * Test on {@code ofCreation()}, {@code ofModification()}, {@code ofDeletion()}, {@code onTable()},
@@ -43,6 +44,138 @@ public class ChangesAssert_Of_Test extends AbstractTest {
     assertThat(changes).hasSize(8).ofCreation().hasSize(3).ofModification().hasSize(3).ofDeletion().hasSize(2)
         .onTable("movie").hasSize(2).onTable("actor").hasSize(3).ofCreationOnTable("movie").hasSize(1)
         .ofModificationOnTable("movie").hasSize(1).ofDeletionOnTable("movie").hasSize(0).ofCreation().hasSize(3);
+  }
+
+  /**
+   * This method test the {@code ofCreation()} of {@code Change}.
+   */
+  @Test
+  @NeedReload
+  public void test_ofCreation_methods() {
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+
+    ChangesAssert changesAssert = assertThat(changes);
+    ChangesAssert changesOfCreationAssert = changesAssert.ofCreation();
+    ChangeAssert changeAssert = changesAssert.change();
+
+    assertThat(changesAssert.ofCreation()).as("changesAssert.ofCreation()").isSameAs(changeAssert.ofCreation())
+                                   .isSameAs(changesOfCreationAssert.ofCreation());
+  }
+
+  /**
+   * This method test the {@code ofModification()} of {@code Change}.
+   */
+  @Test
+  @NeedReload
+  public void test_ofModification_methods() {
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+
+    ChangesAssert changesAssert = assertThat(changes);
+    ChangesAssert changesOfCreationAssert = changesAssert.ofCreation();
+    ChangeAssert changeAssert = changesAssert.change();
+
+    assertThat(changesAssert.ofModification()).as("changesAssert.ofModification()")
+                                   .isSameAs(changeAssert.ofModification())
+                                   .isSameAs(changesOfCreationAssert.ofModification());
+  }
+
+  /**
+   * This method test the {@code ofDeletion()} of {@code Change}.
+   */
+  @Test
+  @NeedReload
+  public void test_ofDeletion_methods() {
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+
+    ChangesAssert changesAssert = assertThat(changes);
+    ChangesAssert changesOfCreationAssert = changesAssert.ofCreation();
+    ChangeAssert changeAssert = changesAssert.change();
+
+    assertThat(changesAssert.ofDeletion()).as("changesAssert.ofDeletion()").isSameAs(changeAssert.ofDeletion())
+                                   .isSameAs(changesOfCreationAssert.ofDeletion());
+  }
+
+  /**
+   * This method test the {@code ofCreationOnTable()} of {@code Change}.
+   */
+  @Test
+  @NeedReload
+  public void test_ofCreationOnTable_methods() {
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+
+    ChangesAssert changesAssert = assertThat(changes);
+    ChangesAssert changesOfCreationAssert = changesAssert.ofCreation();
+    ChangeAssert changeAssert = changesAssert.change();
+
+    assertThat(changesAssert.ofCreationOnTable("actor")).as("changesAssert.ofCreationOnTable(\"actor\")")
+                                   .isSameAs(changeAssert.ofCreationOnTable("actor"))
+                                   .isSameAs(changesOfCreationAssert.ofCreationOnTable("actor"));
+  }
+
+  /**
+   * This method test the {@code ofModificationOnTable()} of {@code Change}.
+   */
+  @Test
+  @NeedReload
+  public void test_ofModificationOnTable_methods() {
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+
+    ChangesAssert changesAssert = assertThat(changes);
+    ChangesAssert changesOfCreationAssert = changesAssert.ofCreation();
+    ChangeAssert changeAssert = changesAssert.change();
+
+    assertThat(changesAssert.ofModificationOnTable("actor")).as("changesAssert.ofModificationOnTable(\"actor\")")
+                                   .isSameAs(changeAssert.ofModificationOnTable("actor"))
+                                   .isSameAs(changesOfCreationAssert
+                                                     .ofModificationOnTable("actor"));
+  }
+
+  /**
+   * This method test the {@code ofDeletionOnTable()} of {@code Change}.
+   */
+  @Test
+  @NeedReload
+  public void test_ofDeletionOnTable_methods() {
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+
+    ChangesAssert changesAssert = assertThat(changes);
+    ChangesAssert changesOfCreationAssert = changesAssert.ofCreation();
+    ChangeAssert changeAssert = changesAssert.change();
+
+    assertThat(changesAssert.ofDeletionOnTable("actor")).as("changesAssert.ofDeletionOnTable(\"actor\")")
+            .isSameAs(changeAssert.ofDeletionOnTable("actor"))
+            .isSameAs(changesOfCreationAssert.ofDeletionOnTable("actor"));
+  }
+
+  /**
+   * This method test the {@code onTable()} of {@code Change}.
+   */
+  @Test
+  @NeedReload
+  public void test_onTable_methods() {
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+
+    ChangesAssert changesAssert = assertThat(changes);
+    ChangesAssert changesOfCreationAssert = changesAssert.ofCreation();
+    ChangeAssert changeAssert = changesAssert.change();
+
+    assertThat(changesAssert.onTable("actor")).as("changesAssert.onTable(\"actor\")")
+                                              .isSameAs(changeAssert.onTable("actor"))
+                                              .isSameAs(changesOfCreationAssert.onTable("actor"));
   }
 
 }

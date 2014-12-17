@@ -427,7 +427,7 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
   @Override
   public ChangeAssert changeOfModification() {
     if (originAssert != null) {
-      return originAssert.changeOfCreation();
+      return originAssert.changeOfModification();
     }
     return getChangeAssertInstance(ChangeType.MODIFICATION, null, getIndexNextChange(ChangeType.MODIFICATION, null));
   }
@@ -438,7 +438,7 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
   @Override
   public ChangeAssert changeOfModification(int index) {
     if (originAssert != null) {
-      return originAssert.changeOfCreation(index);
+      return originAssert.changeOfModification(index);
     }
     return getChangeAssertInstance(ChangeType.MODIFICATION, null, index);
   }
@@ -449,7 +449,7 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
   @Override
   public ChangeAssert changeOfDeletion() {
     if (originAssert != null) {
-      return originAssert.changeOfCreation();
+      return originAssert.changeOfDeletion();
     }
     return getChangeAssertInstance(ChangeType.DELETION, null, getIndexNextChange(ChangeType.DELETION, null));
   }
@@ -460,7 +460,7 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
   @Override
   public ChangeAssert changeOfDeletion(int index) {
     if (originAssert != null) {
-      return originAssert.changeOfCreation(index);
+      return originAssert.changeOfDeletion(index);
     }
     return getChangeAssertInstance(ChangeType.DELETION, null, index);
   }
