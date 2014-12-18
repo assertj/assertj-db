@@ -153,4 +153,20 @@ public abstract class AbstractAssertWithChanges<E extends AbstractAssertWithChan
   public ChangeAssert changeOfDeletion(int index) {
     return originAssert.changeOfDeletion(index);
   }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public ChangeAssert changeOnTable(String tableName) {
+    return originAssert.changeOnTable(tableName);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public ChangeAssert changeOnTable(String tableName, int index) {
+    return originAssert.changeOnTable(tableName, index);
+  }
 }

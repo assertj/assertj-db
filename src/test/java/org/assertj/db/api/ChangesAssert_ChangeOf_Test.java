@@ -85,6 +85,26 @@ public class ChangesAssert_ChangeOf_Test extends AbstractTest {
   }
 
   /**
+   * This method test the {@code changeOnTable()} of {@code Change}.
+   */
+  @Test
+  @NeedReload
+  public void test_changeOnTable_methods() {
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+
+    ChangesAssert changesAssert = assertThat(changes);
+    ChangesAssert changesOfCreationAssert = changesAssert.ofCreation();
+    ChangeAssert changeAssert = changesAssert.change();
+
+    assertThat(changesAssert.changeOnTable("interpretation")).as("changesAssert.changeOnTable(\"interpretation\")")
+                                                             .isSameAs(changeAssert.changeOnTable("interpretation", 0))
+                                                             .isSameAs(changesOfCreationAssert
+                                                                               .changeOnTable("interpretation", 0));
+  }
+
+  /**
    * This method test the {@code changeOfCreation()} of {@code Change}.
    */
   @Test
@@ -133,6 +153,23 @@ public class ChangesAssert_ChangeOf_Test extends AbstractTest {
 
     assertThat(changesAssert.changeOfDeletion(0)).as("changesAssert.changeOfDeletion(0)")
                                                  .isSameAs(changeAssert.changeOfDeletion(0));
+  }
+
+  /**
+   * This method test the {@code changeOnTable()} of {@code Change}.
+   */
+  @Test
+  @NeedReload
+  public void test_changeOnTable_index_methods() {
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+
+    ChangesAssert changesAssert = assertThat(changes);
+    ChangeAssert changeAssert = changesAssert.change();
+
+    assertThat(changesAssert.changeOnTable("interpretation", 0)).as("changesAssert.changeOnTable(\"interpretation\", 0)")
+                                                             .isSameAs(changeAssert.changeOnTable("interpretation", 0));
   }
 
   /**
@@ -190,5 +227,25 @@ public class ChangesAssert_ChangeOf_Test extends AbstractTest {
     assertThat(changesOfCreationAssert.changeOfDeletion()).as("changesOfCreationAssert.changeOfDeletion()")
                                                           .isSameAs(changeAssert.changeOfDeletion(0))
                                                           .isSameAs(changesAssert.changeOfDeletion(0));
+  }
+
+  /**
+   * This method test the {@code changeOnTable()} of {@code Change}.
+   */
+  @Test
+  @NeedReload
+  public void test_changeOnTable_origin_methods() {
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+
+    ChangesAssert changesAssert = assertThat(changes);
+    ChangesAssert changesOfCreationAssert = changesAssert.ofCreation();
+    ChangeAssert changeAssert = changesAssert.change();
+
+    assertThat(changesOfCreationAssert.changeOnTable("interpretation")).as("changesAssert.changeOnTable(\"interpretation\")")
+                                                             .isSameAs(changeAssert.changeOnTable("interpretation", 0))
+                                                             .isSameAs(changesAssert
+                                                                               .changeOnTable("interpretation", 0));
   }
 }

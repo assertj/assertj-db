@@ -352,6 +352,12 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
             changeType, tableName));
   }
 
+  /**
+   * Returns the index of the next change of the type and the table in parameter.
+   * @param changeType Type of the change ({@code null} if there is no filter on the type of change)
+   * @param tableName Name of the table ({@code null} if there is no filter on the table)
+   * @return The index of the next change.
+   */
   private Integer getIndexNextChange(ChangeType changeType, String tableName) {
     Map<String, Integer> map = indexNextChangeMap.get(changeType);
     if (map != null) {
@@ -363,6 +369,12 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
     return 0;
   }
 
+  /**
+   * Sets the index of the next change of the type and the table in parameter.
+   * @param changeType Type of the change ({@code null} if there is no filter on the type of change)
+   * @param tableName Name of the table ({@code null} if there is no filter on the table)
+   * @param index The index of the next change.
+   */
   private void setIndexNextChange(ChangeType changeType, String tableName, int index) {
     Map<String, Integer> map = indexNextChangeMap.get(changeType);
     if (map == null) {
@@ -379,9 +391,6 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
    * @throws AssertJDBException If the {@code index} is out of the bounds.
    */
   public ChangeAssert change() {
-    if (originAssert != null) {
-      return originAssert.change();
-    }
     return getChangeAssertInstance(null, null, getIndexNextChange(null, null));
   }
 
@@ -393,9 +402,6 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
    * @throws AssertJDBException If the {@code index} is out of the bounds.
    */
   public ChangeAssert change(int index) {
-    if (originAssert != null) {
-      return originAssert.change(index);
-    }
     return getChangeAssertInstance(null, null, index);
   }
 
@@ -463,5 +469,27 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
       return originAssert.changeOfDeletion(index);
     }
     return getChangeAssertInstance(ChangeType.DELETION, null, index);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public ChangeAssert changeOnTable(String tableName) {
+    if (originAssert != null) {
+      return originAssert.changeOnTable(tableName);
+    }
+    return getChangeAssertInstance(null, tableName, getIndexNextChange(null, tableName));
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public ChangeAssert changeOnTable(String tableName, int index) {
+    if (originAssert != null) {
+      return originAssert.changeOnTable(tableName, index);
+    }
+    return getChangeAssertInstance(null, tableName, index);
   }
 }

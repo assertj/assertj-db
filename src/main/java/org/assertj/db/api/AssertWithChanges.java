@@ -12,9 +12,6 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.db.type.ChangeType;
-import org.assertj.db.type.Changes;
-
 /**
  * Interface that represents a assert with {@link org.assertj.db.type.Change}.
  *
@@ -282,4 +279,23 @@ public interface AssertWithChanges {
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
    */
   public ChangeAssert changeOfDeletion(int index);
+
+  /**
+   * Returns assertion methods on the next change on the table {@code tableName} in the list of changes.
+   *
+   * @param tableName The table name
+   * @return An object to make assertions on the next change of creation.
+   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public ChangeAssert changeOnTable(String tableName);
+
+  /**
+   * Returns assertion methods on the change on the table {@code tableName} at the {@code index} in parameter.
+   *
+   * @param tableName The table name
+   * @param index The index corresponding to the change of creation.
+   * @return An object to make assertions on the change of creation.
+   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public ChangeAssert changeOnTable(String tableName, int index);
 }
