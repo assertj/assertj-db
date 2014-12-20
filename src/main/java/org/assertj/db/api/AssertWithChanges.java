@@ -298,4 +298,61 @@ public interface AssertWithChanges {
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
    */
   public ChangeAssert changeOnTable(String tableName, int index);
+
+  /**
+   * Returns assertion methods on the next change of creation on the table {@code tableName} in the list of changes.
+   *
+   * @param tableName The table name
+   * @return An object to make assertions on the next change of creation.
+   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public ChangeAssert changeOfCreationOnTable(String tableName);
+
+  /**
+   * Returns assertion methods on the change of creation on the table {@code tableName} at the {@code index} in parameter.
+   *
+   * @param tableName The table name
+   * @param index The index corresponding to the change of creation.
+   * @return An object to make assertions on the change of creation.
+   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public ChangeAssert changeOfCreationOnTable(String tableName, int index);
+
+  /**
+   * Returns assertion methods on the next change of modification on the table {@code tableName} in the list of changes.
+   *
+   * @param tableName The table name
+   * @return An object to make assertions on the next change of modification.
+   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public ChangeAssert changeOfModificationOnTable(String tableName);
+
+  /**
+   * Returns assertion methods on the change of modification on the table {@code tableName} at the {@code index} in parameter.
+   *
+   * @param tableName The table name
+   * @param index The index corresponding to the change of modification.
+   * @return An object to make assertions on the change of modification.
+   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public ChangeAssert changeOfModificationOnTable(String tableName, int index);
+
+  /**
+   * Returns assertion methods on the next change of deletion on the table {@code tableName} in the list of changes.
+   *
+   * @param tableName The table name
+   * @return An object to make assertions on the next change of deletion.
+   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public ChangeAssert changeOfDeletionOnTable(String tableName);
+
+  /**
+   * Returns assertion methods on the change of deletion on the table {@code tableName} at the {@code index} in parameter.
+   *
+   * @param tableName The table name
+   * @param index The index corresponding to the change of deletion.
+   * @return An object to make assertions on the change of deletion.
+   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public ChangeAssert changeOfDeletionOnTable(String tableName, int index);
 }

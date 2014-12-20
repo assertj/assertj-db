@@ -348,8 +348,9 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
     ChangeAssert instance = new ChangeAssert(this, getChange(index, changeType, tableName));
     setAssertInCache(changeType, tableName, index, instance);
     setIndexNextChange(changeType, tableName, index + 1);
-    return instance.as("Change at index " + index + " of " + info.descriptionText() + getStringBuilderAboutChangeTypeAndTableName(
-            changeType, tableName));
+    return instance.as(
+            "Change at index " + index + " of " + info.descriptionText() + getStringBuilderAboutChangeTypeAndTableName(
+                    changeType, tableName));
   }
 
   /**
@@ -491,5 +492,71 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
       return originAssert.changeOnTable(tableName, index);
     }
     return getChangeAssertInstance(null, tableName, index);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public ChangeAssert changeOfCreationOnTable(String tableName) {
+    if (originAssert != null) {
+      return originAssert.changeOfCreationOnTable(tableName);
+    }
+    return getChangeAssertInstance(ChangeType.CREATION, tableName, getIndexNextChange(ChangeType.CREATION, tableName));
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public ChangeAssert changeOfCreationOnTable(String tableName, int index) {
+    if (originAssert != null) {
+      return originAssert.changeOfCreationOnTable(tableName, index);
+    }
+    return getChangeAssertInstance(ChangeType.CREATION, tableName, index);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public ChangeAssert changeOfModificationOnTable(String tableName) {
+    if (originAssert != null) {
+      return originAssert.changeOfModificationOnTable(tableName);
+    }
+    return getChangeAssertInstance(ChangeType.MODIFICATION, tableName, getIndexNextChange(ChangeType.MODIFICATION, tableName));
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public ChangeAssert changeOfModificationOnTable(String tableName, int index) {
+    if (originAssert != null) {
+      return originAssert.changeOfModificationOnTable(tableName, index);
+    }
+    return getChangeAssertInstance(ChangeType.MODIFICATION, tableName, index);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public ChangeAssert changeOfDeletionOnTable(String tableName) {
+    if (originAssert != null) {
+      return originAssert.changeOfDeletionOnTable(tableName);
+    }
+    return getChangeAssertInstance(ChangeType.DELETION, tableName, getIndexNextChange(ChangeType.DELETION, tableName));
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public ChangeAssert changeOfDeletionOnTable(String tableName, int index) {
+    if (originAssert != null) {
+      return originAssert.changeOfDeletionOnTable(tableName, index);
+    }
+    return getChangeAssertInstance(ChangeType.DELETION, tableName, index);
   }
 }

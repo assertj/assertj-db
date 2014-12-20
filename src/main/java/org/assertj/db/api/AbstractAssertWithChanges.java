@@ -169,4 +169,52 @@ public abstract class AbstractAssertWithChanges<E extends AbstractAssertWithChan
   public ChangeAssert changeOnTable(String tableName, int index) {
     return originAssert.changeOnTable(tableName, index);
   }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public ChangeAssert changeOfCreationOnTable(String tableName) {
+    return originAssert.changeOfCreationOnTable(tableName);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public ChangeAssert changeOfCreationOnTable(String tableName, int index) {
+    return originAssert.changeOfCreationOnTable(tableName, index);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public ChangeAssert changeOfModificationOnTable(String tableName) {
+    return originAssert.changeOfModificationOnTable(tableName);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public ChangeAssert changeOfModificationOnTable(String tableName, int index) {
+    return originAssert.changeOfModificationOnTable(tableName, index);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public ChangeAssert changeOfDeletionOnTable(String tableName) {
+    return originAssert.changeOfDeletionOnTable(tableName);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public ChangeAssert changeOfDeletionOnTable(String tableName, int index) {
+    return originAssert.changeOfDeletionOnTable(tableName, index);
+  }
 }
