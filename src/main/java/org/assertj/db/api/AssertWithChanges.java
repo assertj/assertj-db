@@ -20,6 +20,33 @@ package org.assertj.db.api;
 public interface AssertWithChanges {
 
   /**
+   * Returns an assertion of all the changes.
+   * <p>
+   * If the actual assertion is on all the changes, the new assertion is on the changes which are for creation. Example
+   * :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * // there are five changes in total.
+   * assertThat(changes).ofAll().hasSize(5);
+   * </code></pre>
+   * <p>
+   * But if the actual assertion is on a part of the the changes, the new assertion is on the changes of the original
+   * which are for all the changes. Example :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * // there are three changes of modification are there are always five changes in total
+   * assertThat(changes).ofModification().hasSize(3).ofAll().hasSize(5);
+   * </code></pre>
+   *
+   * @return The assertion.
+   */
+  public ChangesAssert ofAll();
+
+  /**
    * Returns an assertion of the changes of creation.
    * <p>
    * If the actual assertion is on all the changes, the new assertion is on the changes which are for creation. Example

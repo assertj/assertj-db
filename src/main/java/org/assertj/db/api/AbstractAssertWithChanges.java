@@ -38,6 +38,14 @@ public abstract class AbstractAssertWithChanges<E extends AbstractAssertWithChan
    * {@inheritDoc}
    */
   @Override
+  public ChangesAssert ofAll() {
+    return originAssert.ofAll();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public ChangesAssert ofCreation() {
     return originAssert.ofCreation();
   }

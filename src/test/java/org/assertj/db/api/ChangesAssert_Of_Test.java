@@ -1,13 +1,13 @@
 /**
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
- * 
+ *
  * Copyright 2012-2014 the original author or authors.
  */
 package org.assertj.db.api;
@@ -23,9 +23,8 @@ import static org.assertj.db.api.Assertions.assertThat;
 /**
  * Test on {@code ofCreation()}, {@code ofModification()}, {@code ofDeletion()}, {@code onTable()},
  * {@code ofCreationOnTable()}, {@code ofModificationOnTable()} and {@code ofDeletionOnTable()} methods.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class ChangesAssert_Of_Test extends AbstractTest {
 
@@ -42,8 +41,27 @@ public class ChangesAssert_Of_Test extends AbstractTest {
     changes.setEndPointNow();
 
     assertThat(changes).hasSize(8).ofCreation().hasSize(3).ofModification().hasSize(3).ofDeletion().hasSize(2)
-        .onTable("movie").hasSize(2).onTable("actor").hasSize(3).ofCreationOnTable("movie").hasSize(1)
-        .ofModificationOnTable("movie").hasSize(1).ofDeletionOnTable("movie").hasSize(0).ofCreation().hasSize(3);
+                       .onTable("movie").hasSize(2).onTable("actor").hasSize(3).ofCreationOnTable("movie").hasSize(1)
+                       .ofModificationOnTable("movie").hasSize(1).ofDeletionOnTable("movie").hasSize(0).ofCreation()
+                       .hasSize(3).ofAll().hasSize(8);
+  }
+
+  /**
+   * This method test the {@code ofAll()} of {@code Change}.
+   */
+  @Test
+  @NeedReload
+  public void test_ofAll_methods() {
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+
+    ChangesAssert changesAssert = assertThat(changes);
+    ChangesAssert changesOfCreationAssert = changesAssert.ofCreation();
+    ChangeAssert changeAssert = changesAssert.change();
+
+    assertThat(changesAssert.ofAll()).as("changesAssert.ofAll()").isSameAs(changeAssert.ofAll())
+                                     .isSameAs(changesOfCreationAssert.ofAll()).isSameAs(changesAssert);
   }
 
   /**
@@ -61,7 +79,7 @@ public class ChangesAssert_Of_Test extends AbstractTest {
     ChangeAssert changeAssert = changesAssert.change();
 
     assertThat(changesAssert.ofCreation()).as("changesAssert.ofCreation()").isSameAs(changeAssert.ofCreation())
-                                   .isSameAs(changesOfCreationAssert.ofCreation());
+                                          .isSameAs(changesOfCreationAssert.ofCreation());
   }
 
   /**
@@ -79,8 +97,8 @@ public class ChangesAssert_Of_Test extends AbstractTest {
     ChangeAssert changeAssert = changesAssert.change();
 
     assertThat(changesAssert.ofModification()).as("changesAssert.ofModification()")
-                                   .isSameAs(changeAssert.ofModification())
-                                   .isSameAs(changesOfCreationAssert.ofModification());
+                                              .isSameAs(changeAssert.ofModification())
+                                              .isSameAs(changesOfCreationAssert.ofModification());
   }
 
   /**
@@ -98,7 +116,7 @@ public class ChangesAssert_Of_Test extends AbstractTest {
     ChangeAssert changeAssert = changesAssert.change();
 
     assertThat(changesAssert.ofDeletion()).as("changesAssert.ofDeletion()").isSameAs(changeAssert.ofDeletion())
-                                   .isSameAs(changesOfCreationAssert.ofDeletion());
+                                          .isSameAs(changesOfCreationAssert.ofDeletion());
   }
 
   /**
@@ -116,8 +134,8 @@ public class ChangesAssert_Of_Test extends AbstractTest {
     ChangeAssert changeAssert = changesAssert.change();
 
     assertThat(changesAssert.ofCreationOnTable("actor")).as("changesAssert.ofCreationOnTable(\"actor\")")
-                                   .isSameAs(changeAssert.ofCreationOnTable("actor"))
-                                   .isSameAs(changesOfCreationAssert.ofCreationOnTable("actor"));
+                                                        .isSameAs(changeAssert.ofCreationOnTable("actor"))
+                                                        .isSameAs(changesOfCreationAssert.ofCreationOnTable("actor"));
   }
 
   /**
@@ -135,9 +153,9 @@ public class ChangesAssert_Of_Test extends AbstractTest {
     ChangeAssert changeAssert = changesAssert.change();
 
     assertThat(changesAssert.ofModificationOnTable("actor")).as("changesAssert.ofModificationOnTable(\"actor\")")
-                                   .isSameAs(changeAssert.ofModificationOnTable("actor"))
-                                   .isSameAs(changesOfCreationAssert
-                                                     .ofModificationOnTable("actor"));
+                                                            .isSameAs(changeAssert.ofModificationOnTable("actor"))
+                                                            .isSameAs(changesOfCreationAssert
+                                                                              .ofModificationOnTable("actor"));
   }
 
   /**
@@ -155,8 +173,8 @@ public class ChangesAssert_Of_Test extends AbstractTest {
     ChangeAssert changeAssert = changesAssert.change();
 
     assertThat(changesAssert.ofDeletionOnTable("actor")).as("changesAssert.ofDeletionOnTable(\"actor\")")
-            .isSameAs(changeAssert.ofDeletionOnTable("actor"))
-            .isSameAs(changesOfCreationAssert.ofDeletionOnTable("actor"));
+                                                        .isSameAs(changeAssert.ofDeletionOnTable("actor"))
+                                                        .isSameAs(changesOfCreationAssert.ofDeletionOnTable("actor"));
   }
 
   /**

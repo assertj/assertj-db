@@ -184,6 +184,17 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
    * {@inheritDoc}
    */
   @Override
+  public ChangesAssert ofAll() {
+    if (originAssert != null) {
+      return originAssert.ofAll();
+    }
+    return this;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public ChangesAssert ofCreation() {
     if (originAssert != null) {
       return originAssert.ofCreation();
