@@ -25,7 +25,7 @@ import static org.assertj.db.api.Assertions.assertThat;
  *
  * @author Régis Pouiller
  */
-public class ChangeAssert_changeOf_Test extends AbstractTest {
+public class ChangeAssert_ChangeOf_Test extends AbstractTest {
 
   /**
    * This method test the {@code changeOfCreation()} of {@code Change}.

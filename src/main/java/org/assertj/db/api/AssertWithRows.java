@@ -13,26 +13,23 @@
 package org.assertj.db.api;
 
 /**
- * Assertion methods about a value of a {@code Row} of a {@code Change}.
+ * Interface that represents a assert with {@link org.assertj.db.type.Change}.
  *
  * @author Régis Pouiller
- *
  */
-public class ChangeValueAssert extends AbstractAssertWithRows<ChangeValueAssert, ChangeRowAssert> {
+public interface AssertWithRows {
 
   /**
-   * The actual value on which the assertion is.
-   */
-  private final Object value;
-
-  /**
-   * Constructor.
+   * Returns the assert on the row at start point.
    *
-   * @param originalAssert The original assert.
-   * @param value The value on which are the assertions.
+   * @return The assert on the row at start point.
    */
-  ChangeValueAssert(ChangeRowAssert originalAssert, Object value) {
-    super(ChangeValueAssert.class, originalAssert);
-    this.value = value;
-  }
+  public ChangeRowAssert rowAtStartPoint();
+
+  /**
+   * Returns the assert on the row at end point.
+   *
+   * @return The assert on the row at end point.
+   */
+  public ChangeRowAssert rowAtEndPoint();
 }

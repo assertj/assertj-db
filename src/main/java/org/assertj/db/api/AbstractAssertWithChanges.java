@@ -13,7 +13,7 @@
 package org.assertj.db.api;
 
 /**
- * Abstract class that represents a assert with an origin assert.
+ * Abstract class that represents a assert with an origin assert and which is the origin assert of another assert and have changes.
  *
  * @param <E> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/anMa4g"
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;

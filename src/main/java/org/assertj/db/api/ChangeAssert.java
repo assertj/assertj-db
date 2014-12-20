@@ -19,11 +19,11 @@ import static org.assertj.db.error.ShouldBeChangeType.shouldBeChangeType;
 
 /**
  * Assertion methods about the {@link Change}.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
-public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, ChangesAssert> {
+public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, ChangesAssert>
+        implements OriginAssertWithRows {
 
   /**
    * The actual change on which the assertion is.
@@ -31,10 +31,19 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
   private final Change change;
 
   /**
+   * The assertion on the row at start point.
+   */
+  private ChangeRowAssert changeRowAssertAtStartPoint;
+  /**
+   * The assertion on the row at end point.
+   */
+  private ChangeRowAssert changeRowAssertAtEndPoint;
+
+  /**
    * Constructor.
-   * 
+   *
    * @param originalAssert The original assert.
-   * @param change The {@link Change} on which are the assertions.
+   * @param change         The {@link Change} on which are the assertions.
    */
   ChangeAssert(ChangesAssert originalAssert, Change change) {
     super(ChangeAssert.class, originalAssert);
@@ -47,9 +56,12 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * @return The assert on the row at start point.
    */
   public ChangeRowAssert rowAtStartPoint() {
-    StringBuilder stringBuilder = new StringBuilder("Row at start point of ");
-    stringBuilder.append(info.descriptionText());
-    return new ChangeRowAssert(this, change.getRowAtStartPoint()).as(stringBuilder.toString());
+    if (changeRowAssertAtStartPoint == null) {
+      StringBuilder stringBuilder = new StringBuilder("Row at start point of ");
+      stringBuilder.append(info.descriptionText());
+      changeRowAssertAtStartPoint = new ChangeRowAssert(this, change.getRowAtStartPoint()).as(stringBuilder.toString());
+    }
+    return changeRowAssertAtStartPoint;
   }
 
   /**
@@ -58,9 +70,12 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * @return The assert on the row at end point.
    */
   public ChangeRowAssert rowAtEndPoint() {
-    StringBuilder stringBuilder = new StringBuilder("Row at end point of ");
-    stringBuilder.append(info.descriptionText());
-    return new ChangeRowAssert(this, change.getRowAtEndPoint()).as(stringBuilder.toString());
+    if (changeRowAssertAtEndPoint == null) {
+      StringBuilder stringBuilder = new StringBuilder("Row at end point of ");
+      stringBuilder.append(info.descriptionText());
+      changeRowAssertAtEndPoint = new ChangeRowAssert(this, change.getRowAtEndPoint()).as(stringBuilder.toString());
+    }
+    return changeRowAssertAtEndPoint;
   }
 
   /**
@@ -68,7 +83,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * <p>
    * Example where the assertion verifies that the change is of type {@code CREATION} :
    * </p>
-   *
+   * <p/>
    * <pre>
    * <code class='java'>
    * assertThat(changes).change(1).isOfType(ChangeType.CREATION);
@@ -92,7 +107,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * <p>
    * Example where the assertion verifies that the change is a creation :
    * </p>
-   *
+   * <p/>
    * <pre>
    * <code class='java'>
    * assertThat(changes).change(1).isCreation();
@@ -111,7 +126,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * <p>
    * Example where the assertion verifies that the change is a modification :
    * </p>
-   *
+   * <p/>
    * <pre>
    * <code class='java'>
    * assertThat(changes).change(1).isModification();
@@ -130,7 +145,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * <p>
    * Example where the assertion verifies that the change is a deletion :
    * </p>
-   *
+   * <p/>
    * <pre>
    * <code class='java'>
    * assertThat(changes).change(1).isDeletion();

@@ -24,7 +24,7 @@ import java.util.Map;
  * @author Régis Pouiller
  *
  */
-public class ChangeRowAssert extends AbstractAssertWithChanges<ChangeRowAssert, ChangeAssert> {
+public class ChangeRowAssert extends AbstractAssertWithRows<ChangeRowAssert, ChangeAssert> {
 
   /**
    * The actual row on which the assertion is.

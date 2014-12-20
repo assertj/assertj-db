@@ -13,7 +13,7 @@
 package org.assertj.db.api;
 
 /**
- * Interface that represents a assert with {@link org.assertj.db.type.Change}.
+ * Interface that represents a assert with {@link org.assertj.db.type.Changes}.
  *
  * @author Régis Pouiller
  */
