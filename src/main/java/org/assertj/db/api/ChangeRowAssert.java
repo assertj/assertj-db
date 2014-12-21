@@ -22,9 +22,9 @@ import java.util.Map;
  * Assertion methods about a {@code Row} of a {@code Change}.
  *
  * @author Régis Pouiller
- *
  */
-public class ChangeRowAssert extends AbstractAssertWithRows<ChangeRowAssert, ChangeAssert> {
+public class ChangeRowAssert extends AbstractAssertWithRows<ChangeRowAssert, ChangeAssert>
+        implements OriginAssertWithValues {
 
   /**
    * The actual row on which the assertion is.
@@ -44,7 +44,7 @@ public class ChangeRowAssert extends AbstractAssertWithRows<ChangeRowAssert, Cha
    * Constructor.
    *
    * @param originalAssert The original assert.
-   * @param row The {@link Row} on which are the assertions.
+   * @param row            The {@link Row} on which are the assertions.
    */
   ChangeRowAssert(ChangeAssert originalAssert, Row row) {
     super(ChangeRowAssert.class, originalAssert);

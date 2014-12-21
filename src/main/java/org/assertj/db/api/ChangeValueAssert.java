@@ -18,7 +18,7 @@ package org.assertj.db.api;
  * @author Régis Pouiller
  *
  */
-public class ChangeValueAssert extends AbstractAssertWithRows<ChangeValueAssert, ChangeRowAssert> {
+public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAssert, ChangeRowAssert> {
 
   /**
    * The actual value on which the assertion is.

@@ -21,13 +21,13 @@ package org.assertj.db.api;
  * @param <O> The class of the assert of origin
  * @author Régis Pouiller
  */
-public class AbstractAssertWithRows<E extends AbstractAssertWithRows<E, O>, O extends OriginAssertWithRows>
+public abstract class AbstractAssertWithRows<E extends AbstractAssertWithRows<E, O>, O extends OriginAssertWithRows>
         extends AbstractAssertWithChanges<E, O> implements OriginAssertWithRows {
 
   /**
    * Constructor.
    *
-   * @param selfType     Class of this assert : a sub-class of {@code AbstractAssertWithChanges}.
+   * @param selfType     Class of this assert : a sub-class of {@code AbstractAssertWithRows}.
    * @param originAssert The assert of origin.
    */
   AbstractAssertWithRows(Class<E> selfType, O originAssert) {

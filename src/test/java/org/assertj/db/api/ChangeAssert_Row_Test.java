@@ -54,10 +54,12 @@ public class ChangeAssert_Row_Test extends AbstractTest {
     changeAssert0.isCreation();
     assertThat(field.get(changeAssert0.rowAtStartPoint())).isNull();
     assertThat(field.get(changeAssert0.rowAtEndPoint())).isSameAs(changes.getChangesList().get(0).getRowAtEndPoint());
+
     ChangeAssert changeAssert3 = assertion.change(3);
     assertThat(field.get(changeAssert3.rowAtStartPoint())).isSameAs(
             changes.getChangesList().get(3).getRowAtStartPoint());
     assertThat(field.get(changeAssert3.rowAtEndPoint())).isSameAs(changes.getChangesList().get(3).getRowAtEndPoint());
+
     ChangeAssert changeAssert7 = assertion.change(7);
     assertThat(field.get(changeAssert7.rowAtStartPoint())).isSameAs(
             changes.getChangesList().get(7).getRowAtStartPoint());

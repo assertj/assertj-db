@@ -13,23 +13,26 @@
 package org.assertj.db.api;
 
 /**
- * Interface that represents a assert with {@link org.assertj.db.type.Row}.
+ * Interface that represents a assert with values.
  *
  * @author Régis Pouiller
  */
-public interface AssertWithRows {
+public interface AssertWithValues {
 
   /**
-   * Returns the assert on the row at start point.
+   * Returns assertion methods on the next value in the list of values.
    *
-   * @return The assert on the row at start point.
+   * @return An object to make assertions on the next value.
+   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
    */
-  public ChangeRowAssert rowAtStartPoint();
+  public ChangeValueAssert value();
 
   /**
-   * Returns the assert on the row at end point.
+   * Returns assertion methods on the value at the {@code index} in parameter.
    *
-   * @return The assert on the row at end point.
+   * @param index The index corresponding to the value.
+   * @return An object to make assertions on the value.
+   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
    */
-  public ChangeRowAssert rowAtEndPoint();
+  public ChangeValueAssert value(int index);
 }
