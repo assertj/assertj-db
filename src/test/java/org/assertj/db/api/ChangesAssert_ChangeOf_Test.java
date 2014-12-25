@@ -41,9 +41,12 @@ public class ChangesAssert_ChangeOf_Test extends AbstractTest {
     ChangesAssert changesOfCreationAssert = changesAssert.ofCreation();
     ChangeAssert changeAssert = changesAssert.change();
 
-    assertThat(changesAssert.changeOfCreation()).as("changesAssert.changeOfCreation()")
+    assertThat(changesAssert.changeOfCreation()).as("changesAssert.changeOfCreation() - 1")
                                                 .isSameAs(changeAssert.changeOfCreation(0))
-                                                .isSameAs(changesOfCreationAssert.changeOfCreation(0));
+                                                .as("changesAssert.changeOfCreation() - 2")
+                                                .isSameAs(changesOfCreationAssert.changeOfCreation(0))
+                                                .as("changesAssert.changeOfCreation() - 3")
+                                                .isSameAs(changesAssert.change(0));
   }
 
   /**
@@ -60,9 +63,12 @@ public class ChangesAssert_ChangeOf_Test extends AbstractTest {
     ChangesAssert changesOfCreationAssert = changesAssert.ofCreation();
     ChangeAssert changeAssert = changesAssert.change();
 
-    assertThat(changesAssert.changeOfModification()).as("changesAssert.changeOfModification()")
+    assertThat(changesAssert.changeOfModification()).as("changesAssert.changeOfModification() - 1")
                                                     .isSameAs(changeAssert.changeOfModification(0))
-                                                    .isSameAs(changesOfCreationAssert.changeOfModification(0));
+                                                    .as("changesAssert.changeOfModification() - 2")
+                                                    .isSameAs(changesOfCreationAssert.changeOfModification(0))
+                                                    .as("changesAssert.changeOfModification() - 3")
+                                                    .isSameAs(changesAssert.change(3));
   }
 
   /**
@@ -79,9 +85,12 @@ public class ChangesAssert_ChangeOf_Test extends AbstractTest {
     ChangesAssert changesOfCreationAssert = changesAssert.ofCreation();
     ChangeAssert changeAssert = changesAssert.change();
 
-    assertThat(changesAssert.changeOfDeletion()).as("changesAssert.changeOfDeletion()")
+    assertThat(changesAssert.changeOfDeletion()).as("changesAssert.changeOfDeletion() - 1")
                                                 .isSameAs(changeAssert.changeOfDeletion(0))
-                                                .isSameAs(changesOfCreationAssert.changeOfDeletion(0));
+                                                .as("changesAssert.changeOfDeletion() - 2")
+                                                .isSameAs(changesOfCreationAssert.changeOfDeletion(0))
+                                                .as("changesAssert.changeOfDeletion() - 3")
+                                                .isSameAs(changesAssert.change(6));
   }
 
   /**

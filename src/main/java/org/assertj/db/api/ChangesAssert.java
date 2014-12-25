@@ -41,14 +41,14 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
   private Map<ChangeType, Map<String, Integer>> indexNextChangeMap = new HashMap<>();
 
   /**
-   * Map the change assert with their type of change, table name and index in key (contains the change assert already generated).
-   */
-  private Map<ChangeType, Map<String, Map<Integer, ChangeAssert>>> changeAssertMap = new HashMap<>();
-
-  /**
    * Map the change assert with their type of change and table name in key (contains the change assert already generated).
    */
   private Map<ChangeType, Map<String, ChangesAssert>> changesAssertMap = new HashMap<>();
+
+  /**
+   * Map the change assert with the change in key (contains the change assert already generated).
+   */
+  private Map<Change, ChangeAssert> changeMap = new HashMap<>();
 
   /**
    * Constructor.
@@ -116,7 +116,6 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
    * @param changeType   Type of the change on which is the instance of change assert.
    * @param tableName    Name of the table on which is the instance of change assert.
    * @param changesAssert Changes assert to add in the cache.
-   * @return The changes assert from the cache.
    */
   private void setAssertInCache(ChangeType changeType, String tableName, ChangesAssert changesAssert) {
     Map<String, ChangesAssert> mapWithTableName = changesAssertMap.get(changeType);
@@ -296,52 +295,6 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
   }
 
   /**
-   * Returns an instance of change assert from the cache.
-   *
-   * @param changeType Type of the change on which is the instance of change assert.
-   * @param tableName  Name of the table on which is the instance of change assert.
-   * @param index      Index of the change on which is the instance of change assert.
-   * @return The change assert from the cache.
-   */
-  private ChangeAssert getAssertFromCache(ChangeType changeType, String tableName, int index) {
-    Map<String, Map<Integer, ChangeAssert>> mapWithTableName = changeAssertMap.get(changeType);
-    if (mapWithTableName == null) {
-      return null;
-    }
-    Map<Integer, ChangeAssert> mapWithIndex = mapWithTableName.get(tableName);
-    if (mapWithIndex == null) {
-      return null;
-    }
-
-    ChangeAssert changeAssert = mapWithIndex.get(index);
-    setIndexNextChange(changeType, tableName, index + 1);
-    return changeAssert;
-  }
-
-  /**
-   * Sets an instance of change assert in the cache.
-   *
-   * @param changeType   Type of the change on which is the instance of change assert.
-   * @param tableName    Name of the table on which is the instance of change assert.
-   * @param index        Index of the change on which is the instance of change assert.
-   * @param changeAssert Change assert to add in the cache.
-   * @return The change assert from the cache.
-   */
-  private void setAssertInCache(ChangeType changeType, String tableName, int index, ChangeAssert changeAssert) {
-    Map<String, Map<Integer, ChangeAssert>> mapWithTableName = changeAssertMap.get(changeType);
-    if (mapWithTableName == null) {
-      mapWithTableName = new HashMap<>();
-      changeAssertMap.put(changeType, mapWithTableName);
-    }
-    Map<Integer, ChangeAssert> mapWithIndex = mapWithTableName.get(tableName);
-    if (mapWithIndex == null) {
-      mapWithIndex = new HashMap<>();
-      mapWithTableName.put(tableName, mapWithIndex);
-    }
-    mapWithIndex.put(index, changeAssert);
-  }
-
-  /**
    * Gets an instance of change assert corresponding to the index and the type of change. If this instance is already instanced, the method
    * returns it from the cache.
    *
@@ -351,13 +304,14 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
    * @return The change assert implementation.
    */
   private ChangeAssert getChangeAssertInstance(ChangeType changeType, String tableName, int index) {
-    ChangeAssert changeAssert = getAssertFromCache(changeType, tableName, index);
+    Change change = getChange(index, changeType, tableName);
+    ChangeAssert changeAssert = changeMap.get(change);
     if (changeAssert != null) {
       return changeAssert;
     }
 
-    ChangeAssert instance = new ChangeAssert(this, getChange(index, changeType, tableName));
-    setAssertInCache(changeType, tableName, index, instance);
+    ChangeAssert instance = new ChangeAssert(this, change);
+    changeMap.put(change, instance);
     setIndexNextChange(changeType, tableName, index + 1);
     return instance.as(
             "Change at index " + index + " of " + info.descriptionText() + getStringBuilderAboutChangeTypeAndTableName(
