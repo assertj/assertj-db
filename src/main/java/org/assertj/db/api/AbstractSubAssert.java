@@ -41,10 +41,6 @@ public abstract class AbstractSubAssert<D extends AbstractDbData<D>, A extends A
     extends AbstractAssertWithColumnsAndRows<S, A, D, A, C, CV, R, RV> implements OriginAssertWithColumnsAndRows<D, A, C, CV, R, RV> {
 
   /**
-   * The original assert. That could be a {@link RequestAssert} or a {@link TableAssert}.
-   */
-  private final A original;
-  /**
    * Class of the assert on the value (used to make instance).
    */
   private final Class<V> valueClass;
@@ -68,7 +64,6 @@ public abstract class AbstractSubAssert<D extends AbstractDbData<D>, A extends A
   AbstractSubAssert(A originalDbAssert, Class<S> selfType, Class<V> valueType) {
     super(selfType, originalDbAssert);
     valueClass = valueType;
-    original = originalDbAssert;
   }
 
   /**
@@ -77,15 +72,6 @@ public abstract class AbstractSubAssert<D extends AbstractDbData<D>, A extends A
   S initialize() {
     indexNextValue = 0;
     return myself;
-  }
-
-  /**
-   * Returns the original assertion (an instance of a sub-class of {@link AbstractDbAssert}.
-   * 
-   * @return The original assertion.
-   */
-  protected A returnToDbAssert() {
-    return original;
   }
 
   /**
