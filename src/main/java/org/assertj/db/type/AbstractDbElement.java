@@ -12,13 +12,12 @@
  */
 package org.assertj.db.type;
 
+import javax.sql.DataSource;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
-import javax.sql.DataSource;
 
 /**
  * This class represents element from the database (either a {@code AbstractDbData} or a {@code Change}).
@@ -28,7 +27,7 @@ import javax.sql.DataSource;
  * @param <D> Class of the subclass (an implementation of {@link AbstractDbElement}) : useful for the fluent methods
  *          (setters).
  */
-public class AbstractDbElement<D extends AbstractDbElement<D>> {
+public abstract class AbstractDbElement<D extends AbstractDbElement<D>> {
 
   /**
    * Class of the element.
