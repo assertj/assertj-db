@@ -83,7 +83,6 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * <p>
    * Example where the assertion verifies that the change is of type {@code CREATION} :
    * </p>
-   * <p/>
    * <pre>
    * <code class='java'>
    * assertThat(changes).change(1).isOfType(ChangeType.CREATION);
@@ -107,7 +106,6 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * <p>
    * Example where the assertion verifies that the change is a creation :
    * </p>
-   * <p/>
    * <pre>
    * <code class='java'>
    * assertThat(changes).change(1).isCreation();
@@ -126,7 +124,6 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * <p>
    * Example where the assertion verifies that the change is a modification :
    * </p>
-   * <p/>
    * <pre>
    * <code class='java'>
    * assertThat(changes).change(1).isModification();
@@ -145,7 +142,6 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * <p>
    * Example where the assertion verifies that the change is a deletion :
    * </p>
-   * <p/>
    * <pre>
    * <code class='java'>
    * assertThat(changes).change(1).isDeletion();
