@@ -16,7 +16,10 @@ import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Row;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import static org.assertj.db.error.ShouldHaveColumnsSize.shouldHaveColumnsSize;
 
 /**
  * Assertion methods about a {@code Row} of a {@code Change}.
@@ -106,5 +109,28 @@ public class ChangeRowAssert extends AbstractAssertWithRows<ChangeRowAssert, Cha
    */
   public ChangeValueAssert value(int index) {
     return getChangeValueAssertInstance(index);
+  }
+
+  /**
+   * Verifies that the size of a {@link Row} is equal to the number in parameter.
+   * <p>
+   * Example where the assertion verifies that the row at end point of the first change has 8 columns :
+   * </p>
+   *
+   * <pre><code class='java'>
+   * assertThat(changes).change().rowAtEndPoint().hasSize(8);
+   * </code></pre>
+   *
+   * @param expected The number to compare to the size.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the size is different to the number in parameter.
+   */
+  public ChangeRowAssert hasSize(int expected) {
+    List<String> columnsNameList = row.getColumnsNameList();
+    int size = columnsNameList.size();
+    if (size != expected) {
+      throw failures.failure(info, shouldHaveColumnsSize(size, expected));
+    }
+    return myself;
   }
 }
