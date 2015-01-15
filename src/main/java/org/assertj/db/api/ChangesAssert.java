@@ -75,7 +75,6 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
    * <p>
    * Example where the assertion verifies that there are 8 changes :
    * </p>
-   * <p/>
    * <pre>
    * <code class='java'>
    * assertThat(changes).hasSize(8);
