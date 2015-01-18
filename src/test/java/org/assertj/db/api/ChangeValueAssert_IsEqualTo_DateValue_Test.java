@@ -40,15 +40,7 @@ public class ChangeValueAssert_IsEqualTo_DateValue_Test extends AbstractTest {
   @NeedReload
   public void test_if_value_is_equal_to_date() throws ParseException {
     Changes changes = new Changes(source).setStartPointNow();
-    update("insert into test values (1, true, 2, 3, 4, 5.6, 7.8, PARSEDATETIME('09:46:30', 'HH:mm:ss'), "
-           + "PARSEDATETIME('24/05/2014', 'dd/MM/yyyy'), PARSEDATETIME('24/05/2014 09:46:30', 'dd/MM/yyyy HH:mm:ss'), "
-           + "FILE_READ('classpath:h2-logo-2.png'), 'text', 5, 7)");
-    update("insert into test values (10, false, 20, 30, 40, 50.6, 70.8, PARSEDATETIME('12:29:49', 'HH:mm:ss'), "
-           + "PARSEDATETIME('30/05/2014', 'dd/MM/yyyy'), PARSEDATETIME('30/05/2014 12:29:49', 'dd/MM/yyyy HH:mm:ss'), "
-           + "FILE_READ('classpath:logo-dev.jpg'), 'another text', 50, 70)");
-    update("insert into test values (100, false, 25, 300, 400, 500.6, 700.8, PARSEDATETIME('12:29:49', 'HH:mm:ss'), "
-           + "PARSEDATETIME('30/05/2014', 'dd/MM/yyyy'), PARSEDATETIME('30/05/2014', 'dd/MM/yyyy'), "
-           + "FILE_READ('classpath:logo-dev.jpg'), 'another text again', 500, 700)");
+    updateChangesForOtherTests();
     changes.setEndPointNow();
 
     assertThat(changes)
@@ -66,15 +58,7 @@ public class ChangeValueAssert_IsEqualTo_DateValue_Test extends AbstractTest {
   public void should_fail_because_value_is_not_equal() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
-      update("insert into test values (1, true, 2, 3, 4, 5.6, 7.8, PARSEDATETIME('09:46:30', 'HH:mm:ss'), "
-             + "PARSEDATETIME('24/05/2014', 'dd/MM/yyyy'), PARSEDATETIME('24/05/2014 09:46:30', 'dd/MM/yyyy HH:mm:ss'), "
-             + "FILE_READ('classpath:h2-logo-2.png'), 'text', 5, 7)");
-      update("insert into test values (10, false, 20, 30, 40, 50.6, 70.8, PARSEDATETIME('12:29:49', 'HH:mm:ss'), "
-             + "PARSEDATETIME('30/05/2014', 'dd/MM/yyyy'), PARSEDATETIME('30/05/2014 12:29:49', 'dd/MM/yyyy HH:mm:ss'), "
-             + "FILE_READ('classpath:logo-dev.jpg'), 'another text', 50, 70)");
-      update("insert into test values (100, false, 25, 300, 400, 500.6, 700.8, PARSEDATETIME('12:29:49', 'HH:mm:ss'), "
-             + "PARSEDATETIME('30/05/2014', 'dd/MM/yyyy'), PARSEDATETIME('30/05/2014', 'dd/MM/yyyy'), "
-             + "FILE_READ('classpath:logo-dev.jpg'), 'another text again', 500, 700)");
+      updateChangesForOtherTests();
       changes.setEndPointNow();
 
       assertThat(changes)
@@ -99,15 +83,7 @@ public class ChangeValueAssert_IsEqualTo_DateValue_Test extends AbstractTest {
   public void should_fail_because_value_is_not_a_date() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
-      update("insert into test values (1, true, 2, 3, 4, 5.6, 7.8, PARSEDATETIME('09:46:30', 'HH:mm:ss'), "
-             + "PARSEDATETIME('24/05/2014', 'dd/MM/yyyy'), PARSEDATETIME('24/05/2014 09:46:30', 'dd/MM/yyyy HH:mm:ss'), "
-             + "FILE_READ('classpath:h2-logo-2.png'), 'text', 5, 7)");
-      update("insert into test values (10, false, 20, 30, 40, 50.6, 70.8, PARSEDATETIME('12:29:49', 'HH:mm:ss'), "
-             + "PARSEDATETIME('30/05/2014', 'dd/MM/yyyy'), PARSEDATETIME('30/05/2014 12:29:49', 'dd/MM/yyyy HH:mm:ss'), "
-             + "FILE_READ('classpath:logo-dev.jpg'), 'another text', 50, 70)");
-      update("insert into test values (100, false, 25, 300, 400, 500.6, 700.8, PARSEDATETIME('12:29:49', 'HH:mm:ss'), "
-             + "PARSEDATETIME('30/05/2014', 'dd/MM/yyyy'), PARSEDATETIME('30/05/2014', 'dd/MM/yyyy'), "
-             + "FILE_READ('classpath:logo-dev.jpg'), 'another text again', 500, 700)");
+      updateChangesForOtherTests();
       changes.setEndPointNow();
 
       assertThat(changes)
@@ -134,15 +110,7 @@ public class ChangeValueAssert_IsEqualTo_DateValue_Test extends AbstractTest {
   @NeedReload
   public void test_if_datetime_value_is_equal_to_date() throws ParseException {
     Changes changes = new Changes(source).setStartPointNow();
-    update("insert into test values (1, true, 2, 3, 4, 5.6, 7.8, PARSEDATETIME('09:46:30', 'HH:mm:ss'), "
-           + "PARSEDATETIME('24/05/2014', 'dd/MM/yyyy'), PARSEDATETIME('24/05/2014 09:46:30', 'dd/MM/yyyy HH:mm:ss'), "
-           + "FILE_READ('classpath:h2-logo-2.png'), 'text', 5, 7)");
-    update("insert into test values (10, false, 20, 30, 40, 50.6, 70.8, PARSEDATETIME('12:29:49', 'HH:mm:ss'), "
-           + "PARSEDATETIME('30/05/2014', 'dd/MM/yyyy'), PARSEDATETIME('30/05/2014 12:29:49', 'dd/MM/yyyy HH:mm:ss'), "
-           + "FILE_READ('classpath:logo-dev.jpg'), 'another text', 50, 70)");
-    update("insert into test values (100, false, 25, 300, 400, 500.6, 700.8, PARSEDATETIME('12:29:49', 'HH:mm:ss'), "
-           + "PARSEDATETIME('30/05/2014', 'dd/MM/yyyy'), PARSEDATETIME('30/05/2014', 'dd/MM/yyyy'), "
-           + "FILE_READ('classpath:logo-dev.jpg'), 'another text again', 500, 700)");
+    updateChangesForOtherTests();
     changes.setEndPointNow();
 
     assertThat(changes)
@@ -159,15 +127,7 @@ public class ChangeValueAssert_IsEqualTo_DateValue_Test extends AbstractTest {
   public void should_fail_because_datetime_value_is_not_equal() throws ParseException {
     try {
       Changes changes = new Changes(source).setStartPointNow();
-      update("insert into test values (1, true, 2, 3, 4, 5.6, 7.8, PARSEDATETIME('09:46:30', 'HH:mm:ss'), "
-             + "PARSEDATETIME('24/05/2014', 'dd/MM/yyyy'), PARSEDATETIME('24/05/2014 09:46:30', 'dd/MM/yyyy HH:mm:ss'), "
-             + "FILE_READ('classpath:h2-logo-2.png'), 'text', 5, 7)");
-      update("insert into test values (10, false, 20, 30, 40, 50.6, 70.8, PARSEDATETIME('12:29:49', 'HH:mm:ss'), "
-             + "PARSEDATETIME('30/05/2014', 'dd/MM/yyyy'), PARSEDATETIME('30/05/2014 12:29:49', 'dd/MM/yyyy HH:mm:ss'), "
-             + "FILE_READ('classpath:logo-dev.jpg'), 'another text', 50, 70)");
-      update("insert into test values (100, false, 25, 300, 400, 500.6, 700.8, PARSEDATETIME('12:29:49', 'HH:mm:ss'), "
-             + "PARSEDATETIME('30/05/2014', 'dd/MM/yyyy'), PARSEDATETIME('30/05/2014', 'dd/MM/yyyy'), "
-             + "FILE_READ('classpath:logo-dev.jpg'), 'another text again', 500, 700)");
+      updateChangesForOtherTests();
       changes.setEndPointNow();
 
       assertThat(changes)
