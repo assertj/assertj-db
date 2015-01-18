@@ -112,6 +112,26 @@ public class ChangeRowAssert extends AbstractAssertWithRows<ChangeRowAssert, Cha
   }
 
   /**
+   * Returns assertion methods on the value corresponding to the column name in parameter.
+   *
+   * @param columnName The column name.
+   * @return An object to make assertions on the value.
+   * @throws NullPointerException If the column name in parameter is null.
+   * @throws AssertJDBException If there is no column with this name.
+   */
+  public ChangeValueAssert value(String columnName) {
+    if (columnName == null) {
+      throw new NullPointerException("Column name must be not null");
+    }
+    List<String> columnsNameList = row.getColumnsNameList();
+    int index = columnsNameList.indexOf(columnName.toUpperCase());
+    if (index == -1) {
+      throw new AssertJDBException("Column <%s> does not exist", columnName);
+    }
+    return getChangeValueAssertInstance(index);
+  }
+
+  /**
    * Verifies that the size of a {@link Row} is equal to the number in parameter.
    * <p>
    * Example where the assertion verifies that the row at end point of the first change has 8 columns :
