@@ -13,6 +13,7 @@
 package org.assertj.db.api;
 
 import org.assertj.db.common.AbstractTest;
+import org.assertj.db.common.NeedReload;
 import org.assertj.db.type.Changes;
 import org.junit.Test;
 
@@ -35,6 +36,7 @@ public class ChangeValueAssert_IsNotEqualTo_Number_Test extends AbstractTest {
    * This method tests that the value is not equal to a byte number.
    */
   @Test
+  @NeedReload
   public void test_if_value_is_not_equal_to_number_byte() {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForOtherTests();
@@ -60,6 +62,7 @@ public class ChangeValueAssert_IsNotEqualTo_Number_Test extends AbstractTest {
    * This method tests that the value is not equal to a short number.
    */
   @Test
+  @NeedReload
   public void test_if_value_is_not_equal_to_number_short() {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForOtherTests();
@@ -85,6 +88,7 @@ public class ChangeValueAssert_IsNotEqualTo_Number_Test extends AbstractTest {
    * This method tests that the value is not equal to a integer number.
    */
   @Test
+  @NeedReload
   public void test_if_value_is_not_equal_to_number_integer() {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForOtherTests();
@@ -110,6 +114,7 @@ public class ChangeValueAssert_IsNotEqualTo_Number_Test extends AbstractTest {
    * This method tests that the value is not equal to a long number.
    */
   @Test
+  @NeedReload
   public void test_if_value_is_not_equal_to_number_long() {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForOtherTests();
@@ -135,6 +140,7 @@ public class ChangeValueAssert_IsNotEqualTo_Number_Test extends AbstractTest {
    * This method tests that the value is not equal to an integer number.
    */
   @Test
+  @NeedReload
   public void test_if_value_is_not_equal_to_number_biginteger() {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForOtherTests();
@@ -156,6 +162,7 @@ public class ChangeValueAssert_IsNotEqualTo_Number_Test extends AbstractTest {
    * This method tests that the value is not equal to a float number.
    */
   @Test
+  @NeedReload
   public void test_if_value_is_not_equal_to_number_float() {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForOtherTests();
@@ -185,6 +192,7 @@ public class ChangeValueAssert_IsNotEqualTo_Number_Test extends AbstractTest {
    * This method tests that the value is not equal to a double number.
    */
   @Test
+  @NeedReload
   public void test_if_value_is_not_equal_to_number_double() {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForOtherTests();
@@ -214,6 +222,7 @@ public class ChangeValueAssert_IsNotEqualTo_Number_Test extends AbstractTest {
    * This method tests that the value is not equal to a big decimal number.
    */
   @Test
+  @NeedReload
   public void test_if_value_is_not_equal_to_number_bigdecimal() {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForOtherTests();
@@ -243,6 +252,7 @@ public class ChangeValueAssert_IsNotEqualTo_Number_Test extends AbstractTest {
    * This method should fail because the value is equal to the number in parameter.
    */
   @Test
+  @NeedReload
   public void should_fail_because_value_is_equal() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
@@ -266,6 +276,7 @@ public class ChangeValueAssert_IsNotEqualTo_Number_Test extends AbstractTest {
    * This method should fail because the value is not a number.
    */
   @Test
+  @NeedReload
   public void should_fail_because_value_is_not_a_number() {
     try {
       Changes changes = new Changes(source).setStartPointNow();

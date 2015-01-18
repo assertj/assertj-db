@@ -13,6 +13,7 @@
 package org.assertj.db.api;
 
 import org.assertj.db.common.AbstractTest;
+import org.assertj.db.common.NeedReload;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Changes;
 import org.junit.Test;
@@ -33,6 +34,7 @@ public class ChangeValueAssert_IsNotEqualTo_String_Test extends AbstractTest {
    * This method tests that the value is not equal to a string.
    */
   @Test
+  @NeedReload
   public void test_if_value_is_not_equal_to_string() {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForOtherTests();
@@ -87,6 +89,7 @@ public class ChangeValueAssert_IsNotEqualTo_String_Test extends AbstractTest {
    * This method should fail because the value is equal to the string.
    */
   @Test
+  @NeedReload
   public void should_fail_because_value_is_equal_to_string() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
@@ -109,6 +112,7 @@ public class ChangeValueAssert_IsNotEqualTo_String_Test extends AbstractTest {
    * This method should fail because the value is equal to the number.
    */
   @Test
+  @NeedReload
   public void should_fail_because_value_is_equal_to_number() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
@@ -131,6 +135,7 @@ public class ChangeValueAssert_IsNotEqualTo_String_Test extends AbstractTest {
    * This method should fail because the value is equal to the time.
    */
   @Test
+  @NeedReload
   public void should_fail_because_value_is_equal_to_time() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
@@ -157,6 +162,7 @@ public class ChangeValueAssert_IsNotEqualTo_String_Test extends AbstractTest {
    * </pre>
    */
   @Test(expected = AssertJDBException.class)
+  @NeedReload
   public void should_throw_AssertJDBException_because_the_time_is_not_parsable() {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForOtherTests();
@@ -169,6 +175,7 @@ public class ChangeValueAssert_IsNotEqualTo_String_Test extends AbstractTest {
    * This method should fail because the value is equal to the date.
    */
   @Test
+  @NeedReload
   public void should_fail_because_value_is_equal_to_date() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
@@ -195,6 +202,7 @@ public class ChangeValueAssert_IsNotEqualTo_String_Test extends AbstractTest {
    * </pre>
    */
   @Test(expected = AssertJDBException.class)
+  @NeedReload
   public void should_throw_AssertJDBException_because_the_date_is_not_parsable() {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForOtherTests();
@@ -207,6 +215,7 @@ public class ChangeValueAssert_IsNotEqualTo_String_Test extends AbstractTest {
    * This method should fail because the value is equal to the date/time.
    */
   @Test
+  @NeedReload
   public void should_fail_because_value_is_equal_to_datetime() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
@@ -233,6 +242,7 @@ public class ChangeValueAssert_IsNotEqualTo_String_Test extends AbstractTest {
    * </pre>
    */
   @Test(expected = AssertJDBException.class)
+  @NeedReload
   public void should_throw_AssertJDBException_because_the_datetime_is_not_parsable() {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForOtherTests();
@@ -245,6 +255,7 @@ public class ChangeValueAssert_IsNotEqualTo_String_Test extends AbstractTest {
    * This method should fail because it is not possible to compare.
    */
   @Test(expected = AssertJDBException.class)
+  @NeedReload
   public void should_fail_because_it_is_not_possible_to_compare() {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForOtherTests();
@@ -257,6 +268,7 @@ public class ChangeValueAssert_IsNotEqualTo_String_Test extends AbstractTest {
    * This method should fail because the value is not a text.
    */
   @Test
+  @NeedReload
   public void should_fail_because_value_is_not_a_text() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
