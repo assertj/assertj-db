@@ -160,4 +160,36 @@ public class ChangeRowAssert_Value_Test extends AbstractTest {
     assertThat(field1.get(assertion)).isEqualTo(3);
     assertThat(field2.get(assertion.value(3))).isSameAs(rowAtStartPoint.getValuesList().get(3));
   }
+
+  /**
+   * This method should throw a {@code NullPointerException}, because the column name in parameter is null.
+   */
+  @Test(expected = NullPointerException.class)
+  @NeedReload
+  public void should_throw_NullPointerException_because_column_name_is_null() {
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+    assertThat(changes).change().rowAtEndPoint().value(null);
+  }
+
+  /**
+   * This method should throw a {@code AssertJDBException}, because the column name in parameter don't exist in the list
+   * of columns.
+   * <p>
+   * Message :
+   * </p>
+   *
+   * <pre>
+   * Column &lt;notexist> does not exist
+   * </pre>
+   */
+  @Test(expected = AssertJDBException.class)
+  @NeedReload
+  public void should_throw_AssertJDBException_because_column_dont_exist() {
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+    assertThat(changes).change().rowAtEndPoint().value("notexist");
+  }
 }
