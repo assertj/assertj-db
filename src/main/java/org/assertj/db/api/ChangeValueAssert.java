@@ -16,7 +16,9 @@ import org.assertj.core.internal.Objects;
 import org.assertj.db.error.ShouldBeValueTypeOfAny;
 import org.assertj.db.type.ValueType;
 
+import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
 import static org.assertj.db.error.ShouldBeValueType.shouldBeValueType;
+import static org.assertj.db.util.Values.areEqual;
 
 /**
  * Assertion methods about a value of a {@code Row} of a {@code Change}.
@@ -288,5 +290,70 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
   public ChangeValueAssert isNotNull() {
     objects.assertNotNull(info, value);
     return myself;
+  }
+
+  /**
+   * Verifies that the value is equal to a boolean.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
+   * of the first {@code Change} is equal to true boolean :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change().rowAtEndPoint().value().isEqualTo(true);
+   * </code>
+   * </pre>
+   *
+   * @param expected The expected boolean value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the boolean in parameter.
+   */
+  public ChangeValueAssert isEqualTo(Boolean expected) {
+    isBoolean();
+    if (areEqual(value, expected)) {
+      return myself;
+    }
+    throw failures.failure(info, shouldBeEqual((Boolean) value, expected));
+  }
+
+  /**
+   * Verifies that the value is equal to true boolean.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
+   * of the first {@code Change} :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change().rowAtEndPoint().value().isTrue();
+   * </code>
+   * </pre>
+   *
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to true boolean.
+   */
+  public ChangeValueAssert isTrue() {
+    return isEqualTo(true);
+  }
+
+  /**
+   * Verifies that the value is equal to false boolean.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
+   * of the first {@code Change} :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change().rowAtEndPoint().value().isFalse();
+   * </code>
+   * </pre>
+   *
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to false boolean.
+   */
+  public ChangeValueAssert isFalse() {
+    return isEqualTo(false);
   }
 }
