@@ -13,6 +13,7 @@
 package org.assertj.db.api;
 
 import org.assertj.db.common.AbstractTest;
+import org.assertj.db.common.NeedReload;
 import org.assertj.db.type.Changes;
 import org.junit.Test;
 
@@ -32,6 +33,7 @@ public class ChangeValueAssert_IsNull_Test extends AbstractTest {
    * This method tests the verification of the null value is correct.
    */
   @Test
+  @NeedReload
   public void test_if_a_value_is_null() {
     Changes changes = new Changes(source).setStartPointNow();
     update("insert into test2 values (null, null, null, null, null, null, null, null, null, null, null, null, null, null, null)");
@@ -45,6 +47,7 @@ public class ChangeValueAssert_IsNull_Test extends AbstractTest {
    * This method should fail because the value is not null.
    */
   @Test
+  @NeedReload
   public void should_fail_because_value_is_not_null() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
@@ -67,6 +70,7 @@ public class ChangeValueAssert_IsNull_Test extends AbstractTest {
    * This method tests the verification of the not null value is correct.
    */
   @Test
+  @NeedReload
   public void test_if_a_value_is_not_null() {
     Changes changes = new Changes(source).setStartPointNow();
     update("insert into test2 values (1, true, 2, 3, 4, 5.6, 7.8, PARSEDATETIME('09:46:30', 'HH:mm:ss'),\n"
@@ -82,6 +86,7 @@ public class ChangeValueAssert_IsNull_Test extends AbstractTest {
    * This method should fail because the value is null.
    */
   @Test
+  @NeedReload
   public void should_fail_because_value_is_null() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
