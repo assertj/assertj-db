@@ -14,7 +14,15 @@ package org.assertj.db.api;
 
 import org.assertj.core.internal.Objects;
 import org.assertj.db.error.ShouldBeValueTypeOfAny;
+import org.assertj.db.type.DateTimeValue;
+import org.assertj.db.type.DateValue;
+import org.assertj.db.type.TimeValue;
 import org.assertj.db.type.ValueType;
+import org.assertj.db.util.Values;
+
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
 
 import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
 import static org.assertj.db.error.ShouldBeValueType.shouldBeValueType;
@@ -355,5 +363,163 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    */
   public ChangeValueAssert isFalse() {
     return isEqualTo(false);
+  }
+
+  /**
+   * Verifies that the value is equal to a number.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
+   * of the first {@code Change} is equal to number 3 :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change().rowAtEndPoint().value().isEqualTo(3);
+   * </code>
+   * </pre>
+   *
+   * @param expected The expected number value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the number in parameter.
+   */
+  public ChangeValueAssert isEqualTo(Number expected) {
+    isNumber();
+    if (areEqual(value, expected)) {
+      return myself;
+    }
+    throw failures.failure(info, shouldBeEqual((Number) value, expected));
+  }
+
+  /**
+   * Verifies that the value is equal to a array of bytes.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
+   * of the first {@code Change} is equal to a array of bytes loaded from a file in the classpath :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * byte[] bytes = bytesContentFromClassPathOf(&quot;file.png&quot;);
+   * assertThat(changes).change().rowAtEndPoint().value().isEqualTo(bytes);
+   * </code>
+   * </pre>
+   *
+   * @param expected The expected array of bytes value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the array of bytes in parameter.
+   */
+  public ChangeValueAssert isEqualTo(byte[] expected) {
+    isBytes();
+    if (areEqual(value, expected)) {
+      return myself;
+    }
+    throw failures.failure(info, shouldBeEqual());
+  }
+
+  /**
+   * Verifies that the value is equal to a text.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
+   * of the first {@code Change} is equal to a text :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change().rowAtEndPoint().value().isEqualTo(&quot;text&quot;);
+   * </code>
+   * </pre>
+   *
+   * @param expected The expected text value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the text in parameter.
+   */
+  public ChangeValueAssert isEqualTo(String expected) {
+    isOfAnyOfTypes(ValueType.TEXT, ValueType.NUMBER, ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME);
+    if (areEqual(value, expected)) {
+      return myself;
+    }
+    throw failures.failure(info,
+                           shouldBeEqual(Values.getRepresentationFromValueInFrontOfExpected(value, expected), expected));
+  }
+
+  /**
+   * Verifies that the value is equal to a date value.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
+   * of the first {@code Change} is equal to a date value :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change().rowAtEndPoint().value().isEqualTo(DateValue.of(2014, 7, 7));
+   * </code>
+   * </pre>
+   *
+   * @param expected The expected date value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the date value in parameter.
+   */
+  public ChangeValueAssert isEqualTo(DateValue expected) {
+    isOfAnyOfTypes(ValueType.DATE, ValueType.DATE_TIME);
+    if (areEqual(value, expected)) {
+      return myself;
+    }
+    if (getType() == ValueType.DATE) {
+      throw failures.failure(info, shouldBeEqual(DateValue.from((Date) value), expected));
+    }
+    throw failures.failure(info, shouldBeEqual(DateTimeValue.from((Timestamp) value), DateTimeValue.of(expected)));
+  }
+
+  /**
+   * Verifies that the value is equal to a time value.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
+   * of the first {@code Change} is equal to a time value :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change().rowAtEndPoint().value().isEqualTo(TimeValue.of(21, 29, 30));
+   * </code>
+   * </pre>
+   *
+   * @param expected The expected time value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the time value in parameter.
+   */
+  public ChangeValueAssert isEqualTo(TimeValue expected) {
+    isTime();
+    if (areEqual(value, expected)) {
+      return myself;
+    }
+    throw failures.failure(info, shouldBeEqual(TimeValue.from((Time) value), expected));
+  }
+
+  /**
+   * Verifies that the value is equal to a date/time value.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
+   * of the first {@code Change} is equal to a date/time value :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change().rowAtEndPoint().value().isEqualTo(DateTimeValue.of(DateValue.of(2014, 7, 7), TimeValue.of(21, 29)));
+   * </code>
+   * </pre>
+   *
+   * @param expected The expected date/time value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the date/time value in parameter.
+   */
+  public ChangeValueAssert isEqualTo(DateTimeValue expected) {
+    isOfAnyOfTypes(ValueType.DATE, ValueType.DATE_TIME);
+    if (areEqual(value, expected)) {
+      return myself;
+    }
+    if (getType() == ValueType.DATE) {
+      throw failures.failure(info, shouldBeEqual(DateTimeValue.of(DateValue.from((Date) value)), expected));
+    }
+    throw failures.failure(info, shouldBeEqual(DateTimeValue.from((Timestamp) value), expected));
   }
 }
