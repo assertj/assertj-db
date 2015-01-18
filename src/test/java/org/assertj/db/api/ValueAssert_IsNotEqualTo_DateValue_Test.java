@@ -12,17 +12,23 @@
  */
 package org.assertj.db.api;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
-import java.text.ParseException;
-
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
+import java.text.ParseException;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+/**
+ * Tests on the methods which verifies if a value is not equal to a date value.
+ *
+ * @author Régis Pouiller
+ *
+ */
 public class ValueAssert_IsNotEqualTo_DateValue_Test extends AbstractTest {
 
   /**
