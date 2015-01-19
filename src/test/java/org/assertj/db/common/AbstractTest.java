@@ -266,5 +266,8 @@ public abstract class AbstractTest {
     update("insert into test values (100, false, 25, 300, 400, 500.6, 700.8, PARSEDATETIME('12:29:49', 'HH:mm:ss'), "
            + "PARSEDATETIME('30/05/2014', 'dd/MM/yyyy'), PARSEDATETIME('30/05/2014', 'dd/MM/yyyy'), "
            + "FILE_READ('classpath:logo-dev.jpg'), 'another text again', 500, 700)");
+    update("insert into test values (1000, false, 0, 0, 0, 0, 0, PARSEDATETIME('12:29:49', 'HH:mm:ss'),"
+           + " PARSEDATETIME('30/05/2014', 'dd/MM/yyyy'), PARSEDATETIME('30/05/2014', 'dd/MM/yyyy'), "
+           + " FILE_READ('classpath:logo-dev.jpg'), 'another text again', 500, 700)");
   }
 }
