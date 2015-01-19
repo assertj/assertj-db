@@ -13,6 +13,7 @@
 package org.assertj.db.api;
 
 import org.assertj.db.common.AbstractTest;
+import org.assertj.db.common.NeedReload;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Changes;
 import org.junit.Test;
@@ -37,6 +38,7 @@ public class ChangeValueAssert_IsBeforeOrEqualTo_String_Test extends AbstractTes
    * @throws java.text.ParseException
    */
   @Test
+  @NeedReload
   public void test_if_value_is_before_or_equal_to_string() throws ParseException {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForOtherTests();
@@ -116,6 +118,7 @@ public class ChangeValueAssert_IsBeforeOrEqualTo_String_Test extends AbstractTes
    * This method should fail because the value is not before or equal to the string.
    */
   @Test
+  @NeedReload
   public void should_fail_because_time_value_is_not_before_or_equal_to_time() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
@@ -139,6 +142,7 @@ public class ChangeValueAssert_IsBeforeOrEqualTo_String_Test extends AbstractTes
    * This method should fail because the value is not before or equal to the string.
    */
   @Test
+  @NeedReload
   public void should_fail_because_date_value_is_not_before_or_equal_to_date() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
@@ -162,6 +166,7 @@ public class ChangeValueAssert_IsBeforeOrEqualTo_String_Test extends AbstractTes
    * This method should fail because the value is not before or equal to the string.
    */
   @Test
+  @NeedReload
   public void should_fail_because_date_value_is_not_before_or_equal_to_datetime() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
@@ -185,6 +190,7 @@ public class ChangeValueAssert_IsBeforeOrEqualTo_String_Test extends AbstractTes
    * This method should fail because the value is not before or equal to the string.
    */
   @Test
+  @NeedReload
   public void should_fail_because_datetime_value_is_not_before_or_equal_to_date() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
@@ -208,6 +214,7 @@ public class ChangeValueAssert_IsBeforeOrEqualTo_String_Test extends AbstractTes
    * This method should fail because the value is not before or equal to the string.
    */
   @Test
+  @NeedReload
   public void should_fail_because_datetime_value_is_not_before_or_equal_to_datetime() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
@@ -231,6 +238,7 @@ public class ChangeValueAssert_IsBeforeOrEqualTo_String_Test extends AbstractTes
    * This method should fail because the value is not a date/time.
    */
   @Test
+  @NeedReload
   public void should_fail_because_value_is_not_a_datetime() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
@@ -256,6 +264,7 @@ public class ChangeValueAssert_IsBeforeOrEqualTo_String_Test extends AbstractTes
    * This method should fail because the string is not correct to compare with date.
    */
   @Test(expected = AssertJDBException.class)
+  @NeedReload
   public void should_fail_because_string_is_not_correct_to_compare_with_date() {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForOtherTests();
@@ -269,6 +278,7 @@ public class ChangeValueAssert_IsBeforeOrEqualTo_String_Test extends AbstractTes
    * This method should fail because the string is not correct to compare with time.
    */
   @Test(expected = AssertJDBException.class)
+  @NeedReload
   public void should_fail_because_string_is_not_correct_to_compare_with_time() {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForOtherTests();
@@ -282,6 +292,7 @@ public class ChangeValueAssert_IsBeforeOrEqualTo_String_Test extends AbstractTes
    * This method should fail because the string is not correct to compare with date/time.
    */
   @Test(expected = AssertJDBException.class)
+  @NeedReload
   public void should_fail_because_string_is_not_correct_to_compare_with_datetime() {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForOtherTests();

@@ -13,6 +13,7 @@
 package org.assertj.db.api;
 
 import org.assertj.db.common.AbstractTest;
+import org.assertj.db.common.NeedReload;
 import org.assertj.db.type.Changes;
 import org.assertj.db.type.TimeValue;
 import org.junit.Test;
@@ -36,6 +37,7 @@ public class ChangeValueAssert_IsBeforeOrEqualTo_TimeValue_Test extends Abstract
    * @throws java.text.ParseException
    */
   @Test
+  @NeedReload
   public void test_if_value_is_before_or_equal_to_time() throws ParseException {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForOtherTests();
@@ -55,6 +57,7 @@ public class ChangeValueAssert_IsBeforeOrEqualTo_TimeValue_Test extends Abstract
    * This method should fail because the value is not before or equal to the time value.
    */
   @Test
+  @NeedReload
   public void should_fail_because_value_is_not_before_or_equal_to() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
@@ -78,6 +81,7 @@ public class ChangeValueAssert_IsBeforeOrEqualTo_TimeValue_Test extends Abstract
    * This method should fail because the value is not a time.
    */
   @Test
+  @NeedReload
   public void should_fail_because_value_is_not_a_date() {
     try {
       Changes changes = new Changes(source).setStartPointNow();

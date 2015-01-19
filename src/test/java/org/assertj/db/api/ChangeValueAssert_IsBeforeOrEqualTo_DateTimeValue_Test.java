@@ -13,6 +13,7 @@
 package org.assertj.db.api;
 
 import org.assertj.db.common.AbstractTest;
+import org.assertj.db.common.NeedReload;
 import org.assertj.db.type.Changes;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
@@ -39,6 +40,7 @@ public class ChangeValueAssert_IsBeforeOrEqualTo_DateTimeValue_Test extends Abst
    * @throws java.text.ParseException
    */
   @Test
+  @NeedReload
   public void test_if_value_is_before_or_equal_to_datetime() throws ParseException {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForOtherTests();
@@ -64,6 +66,7 @@ public class ChangeValueAssert_IsBeforeOrEqualTo_DateTimeValue_Test extends Abst
    * This method should fail because the value is not before or equal to the date/time.
    */
   @Test
+  @NeedReload
   public void should_fail_because_value_is_not_before_or_equal_to() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
@@ -88,6 +91,7 @@ public class ChangeValueAssert_IsBeforeOrEqualTo_DateTimeValue_Test extends Abst
    * This method should fail because the value is not a date/time.
    */
   @Test
+  @NeedReload
   public void should_fail_because_value_is_not_a_datetime() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
@@ -114,6 +118,7 @@ public class ChangeValueAssert_IsBeforeOrEqualTo_DateTimeValue_Test extends Abst
    * This method should fail because the value is not before or equal to a date.
    */
   @Test
+  @NeedReload
   public void should_fail_because_value_is_not_before_or_equal_to_a_date() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
