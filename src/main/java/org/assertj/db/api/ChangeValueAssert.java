@@ -31,9 +31,14 @@ import static org.assertj.db.error.ShouldBeAfterOrEqual.shouldBeAfterOrEqual;
 import static org.assertj.db.error.ShouldBeBefore.shouldBeBefore;
 import static org.assertj.db.error.ShouldBeBeforeOrEqual.shouldBeBeforeOrEqual;
 import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
+import static org.assertj.db.error.ShouldBeGreater.shouldBeGreater;
+import static org.assertj.db.error.ShouldBeGreaterOrEqual.shouldBeGreaterOrEqual;
+import static org.assertj.db.error.ShouldBeLess.shouldBeLess;
+import static org.assertj.db.error.ShouldBeLessOrEqual.shouldBeLessOrEqual;
 import static org.assertj.db.error.ShouldBeValueType.shouldBeValueType;
 import static org.assertj.db.error.ShouldNotBeEqual.shouldNotBeEqual;
 import static org.assertj.db.util.Values.areEqual;
+import static org.assertj.db.util.Values.compare;
 
 /**
  * Assertion methods about a value of a {@code Row} of a {@code Change}.
@@ -1331,5 +1336,105 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    */
   public ChangeValueAssert isNotZero() {
     return isNotEqualTo(0);
+  }
+
+  /**
+   * Verifies that the value is greater than a number.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
+   * of the first {@code Change} is greater than number 3 :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change().rowAtEndPoint().value().isGreaterThan(3);
+   * </code>
+   * </pre>
+   *
+   * @param expected The expected number value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is less than or equal to the number in parameter.
+   */
+  public ChangeValueAssert isGreaterThan(Number expected) {
+    isNumber();
+    if (compare(value, expected) > 0) {
+      return myself;
+    }
+    throw failures.failure(info, shouldBeGreater(value, expected));
+  }
+
+  /**
+   * Verifies that the value is less than a number.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
+   * of the first {@code Change} is less than number 3 :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change().rowAtEndPoint().value().isLessThan(3);
+   * </code>
+   * </pre>
+   *
+   * @param expected The expected number value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is greater than or equal to the number in parameter.
+   */
+  public ChangeValueAssert isLessThan(Number expected) {
+    isNumber();
+    if (compare(value, expected) < 0) {
+      return myself;
+    }
+    throw failures.failure(info, shouldBeLess(value, expected));
+  }
+
+  /**
+   * Verifies that the value is greater than or equal to a number.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
+   * of the first {@code Change} is greater than or equal to number 3 :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change().rowAtEndPoint().value().isGreaterThanOrEqual(3);
+   * </code>
+   * </pre>
+   *
+   * @param expected The expected number value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is less than the number in parameter.
+   */
+  public ChangeValueAssert isGreaterThanOrEqualTo(Number expected) {
+    isNumber();
+    if (compare(value, expected) >= 0) {
+      return myself;
+    }
+    throw failures.failure(info, shouldBeGreaterOrEqual(value, expected));
+  }
+
+  /**
+   * Verifies that the value is less than or equal to a number.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
+   * of the first {@code Change} is less than or equal to number 3 :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change().rowAtEndPoint().value().isLessThanOrEqual(3);
+   * </code>
+   * </pre>
+   *
+   * @param expected The expected number value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is greater than the number in parameter.
+   */
+  public ChangeValueAssert isLessThanOrEqualTo(Number expected) {
+    isNumber();
+    if (compare(value, expected) <= 0) {
+      return myself;
+    }
+    throw failures.failure(info, shouldBeLessOrEqual(value, expected));
   }
 }
