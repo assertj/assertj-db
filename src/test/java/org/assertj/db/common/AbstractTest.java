@@ -270,4 +270,15 @@ public abstract class AbstractTest {
            + " PARSEDATETIME('30/05/2014', 'dd/MM/yyyy'), PARSEDATETIME('30/05/2014', 'dd/MM/yyyy'), "
            + " FILE_READ('classpath:logo-dev.jpg'), 'another text again', 500, 700)");
   }
+
+  /**
+   * Update the database for other tests 2.
+   */
+  protected void updateChangesForOtherTests2() {
+    update("insert into test2 values (1, true, 2, 3, 4, 5.6, 7.8, PARSEDATETIME('09:46:30', 'HH:mm:ss'), "
+           + " PARSEDATETIME('24/05/2014', 'dd/MM/yyyy'), PARSEDATETIME('24/05/2014 09:46:30', 'dd/MM/yyyy HH:mm:ss'), "
+           + " FILE_READ('classpath:h2-logo-2.png'), 'text', 5, 7, null)");
+    update("insert into test2 values (null, null, null, null, null, null, null, null, null, null, "
+           + "null, null, null, null, null)");
+  }
 }

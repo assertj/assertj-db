@@ -14,12 +14,18 @@ package org.assertj.db.api;
 
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Row;
+import org.assertj.db.type.ValueType;
+import org.assertj.db.util.Values;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
+import static org.assertj.db.error.ShouldBeValueTypeOfAny.shouldBeValueTypeOfAny;
 import static org.assertj.db.error.ShouldHaveColumnsSize.shouldHaveColumnsSize;
+import static org.assertj.db.util.Values.areEqual;
 
 /**
  * Assertion methods about a {@code Row} of a {@code Change}.
@@ -150,6 +156,46 @@ public class ChangeRowAssert extends AbstractAssertWithRows<ChangeRowAssert, Cha
     int size = columnsNameList.size();
     if (size != expected) {
       throw failures.failure(info, shouldHaveColumnsSize(size, expected));
+    }
+    return myself;
+  }
+
+  /**
+   * Verifies that the values of a column are equal to values in parameter.
+   * <p>
+   * Example where the assertion verifies that the values of the row at end point of the first change are equal to the
+   * values in parameter :
+   * </p>
+   *
+   * <pre><code class='java'>
+   * assertThat(changes).change().rowAtEndPoint().hasValuesEqualTo(1, &quot;Text&quot;, TimeValue.of(9, 1));
+   * </code></pre>
+   *
+   * @param expected The expected values.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the values in parameter.
+   */
+  public ChangeRowAssert hasValuesEqualTo(Object... expected) {
+    hasSize(expected.length);
+    int index = 0;
+    for (Object value : row.getValuesList()) {
+      ValueType[] possibleTypes = ValueType.getPossibleTypesForComparison(expected[index]);
+      ValueType type = ValueType.getType(value);
+      if (!Arrays.asList(possibleTypes).contains(type)) {
+        throw failures.failure(info, shouldBeValueTypeOfAny(index, value, type, possibleTypes));
+      }
+      if (!areEqual(value, expected[index])) {
+        if (ValueType.getType(value) == ValueType.BYTES) {
+          throw failures.failure(info, shouldBeEqual(index));
+        } else {
+          throw failures
+                  .failure(
+                          info,
+                          shouldBeEqual(index, Values.getRepresentationFromValueInFrontOfExpected(value, expected[index]),
+                                        expected[index]));
+        }
+      }
+      index++;
     }
     return myself;
   }
