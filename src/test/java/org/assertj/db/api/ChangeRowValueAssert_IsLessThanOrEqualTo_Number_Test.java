@@ -29,7 +29,7 @@ import static org.junit.Assert.fail;
  * @author Régis Pouiller
  *
  */
-public class ChangeValueAssert_IsLessThanOrEqualTo_Number_Test extends AbstractTest {
+public class ChangeRowValueAssert_IsLessThanOrEqualTo_Number_Test extends AbstractTest {
 
   /**
    * This method tests that the value is less than or equal to a byte number.

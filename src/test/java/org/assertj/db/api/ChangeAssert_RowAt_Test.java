@@ -38,10 +38,10 @@ public class ChangeAssert_RowAt_Test extends AbstractTest {
     changes.setEndPointNow();
 
     ChangeAssert changeAssert = assertThat(changes).changeOfModification();
-    ChangeValueAssert changeValueAssert = changeAssert.rowAtStartPoint().value();
+    ChangeRowValueAssert changeRowValueAssert = changeAssert.rowAtStartPoint().value();
 
     assertThat(changeAssert.rowAtStartPoint()).as("changeAssert.rowAtStartPoint()")
-                                   .isSameAs(changeValueAssert.rowAtStartPoint());
+                                   .isSameAs(changeRowValueAssert.rowAtStartPoint());
   }
 
   /**
@@ -55,9 +55,9 @@ public class ChangeAssert_RowAt_Test extends AbstractTest {
     changes.setEndPointNow();
 
     ChangeAssert changeAssert = assertThat(changes).changeOfModification();
-    ChangeValueAssert changeValueAssert = changeAssert.rowAtStartPoint().value();
+    ChangeRowValueAssert changeRowValueAssert = changeAssert.rowAtStartPoint().value();
 
     assertThat(changeAssert.rowAtEndPoint()).as("changeAssert.rowAtEndPoint()")
-                                              .isSameAs(changeValueAssert.rowAtEndPoint());
+                                              .isSameAs(changeRowValueAssert.rowAtEndPoint());
   }
 }

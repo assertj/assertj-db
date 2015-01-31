@@ -113,7 +113,7 @@ public class ChangeRowAssert_Value_Test extends AbstractTest {
     Row rowAtStartPoint = changes.getChangesList().get(3).getRowAtStartPoint();
 
     Field field1 = ChangeRowAssert.class.getDeclaredField("indexNextValue");
-    Field field2 = ChangeValueAssert.class.getDeclaredField("value");
+    Field field2 = ChangeRowValueAssert.class.getDeclaredField("value");
     field1.setAccessible(true);
     field2.setAccessible(true);
 
@@ -147,7 +147,7 @@ public class ChangeRowAssert_Value_Test extends AbstractTest {
     Row rowAtStartPoint = changes.getChangesList().get(3).getRowAtStartPoint();
 
     Field field1 = ChangeRowAssert.class.getDeclaredField("indexNextValue");
-    Field field2 = ChangeValueAssert.class.getDeclaredField("value");
+    Field field2 = ChangeRowValueAssert.class.getDeclaredField("value");
     field1.setAccessible(true);
     field2.setAccessible(true);
 

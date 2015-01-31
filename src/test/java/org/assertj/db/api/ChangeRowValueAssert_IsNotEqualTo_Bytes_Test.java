@@ -28,7 +28,7 @@ import static org.junit.Assert.fail;
  * @author Régis Pouiller
  *
  */
-public class ChangeValueAssert_IsNotEqualTo_Bytes_Test extends AbstractTest {
+public class ChangeRowValueAssert_IsNotEqualTo_Bytes_Test extends AbstractTest {
 
   private byte[] bytesTest = bytesContentFromClassPathOf("test.txt");
   private byte[] bytesDev = bytesContentFromClassPathOf("logo-dev.jpg");

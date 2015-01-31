@@ -47,7 +47,7 @@ public class ChangeRowAssert extends AbstractAssertWithRows<ChangeRowAssert, Cha
   /**
    * Map the value assert with their index in key (contains the value assert already generated).
    */
-  private Map<Integer, ChangeValueAssert> changeValueAssertMap = new HashMap<Integer, ChangeValueAssert>();
+  private Map<Integer, ChangeRowValueAssert> changeValueAssertMap = new HashMap<Integer, ChangeRowValueAssert>();
 
   /**
    * Constructor.
@@ -84,14 +84,14 @@ public class ChangeRowAssert extends AbstractAssertWithRows<ChangeRowAssert, Cha
    * @param index Index of the change on which is the instance of change assert.
    * @return The change assert implementation.
    */
-  private ChangeValueAssert getChangeValueAssertInstance(int index) {
+  private ChangeRowValueAssert getChangeValueAssertInstance(int index) {
     if (changeValueAssertMap.containsKey(index)) {
-      ChangeValueAssert changeValueAssert = changeValueAssertMap.get(index);
+      ChangeRowValueAssert changeRowValueAssert = changeValueAssertMap.get(index);
       indexNextValue = index + 1;
-      return changeValueAssert;
+      return changeRowValueAssert;
     }
 
-    ChangeValueAssert instance = new ChangeValueAssert(this, getValue(index));
+    ChangeRowValueAssert instance = new ChangeRowValueAssert(this, getValue(index));
     changeValueAssertMap.put(index, instance);
     return instance.as("Value at index " + index + " of " + info.descriptionText());
   }
@@ -102,7 +102,7 @@ public class ChangeRowAssert extends AbstractAssertWithRows<ChangeRowAssert, Cha
    * @return An object to make assertions on the next value.
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
    */
-  public ChangeValueAssert value() {
+  public ChangeRowValueAssert value() {
     return getChangeValueAssertInstance(indexNextValue);
   }
 
@@ -113,7 +113,7 @@ public class ChangeRowAssert extends AbstractAssertWithRows<ChangeRowAssert, Cha
    * @return An object to make assertions on the value.
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
    */
-  public ChangeValueAssert value(int index) {
+  public ChangeRowValueAssert value(int index) {
     return getChangeValueAssertInstance(index);
   }
 
@@ -125,7 +125,7 @@ public class ChangeRowAssert extends AbstractAssertWithRows<ChangeRowAssert, Cha
    * @throws NullPointerException If the column name in parameter is null.
    * @throws AssertJDBException If there is no column with this name.
    */
-  public ChangeValueAssert value(String columnName) {
+  public ChangeRowValueAssert value(String columnName) {
     if (columnName == null) {
       throw new NullPointerException("Column name must be not null");
     }

@@ -38,9 +38,9 @@ public class ChangeValueAssert_Value_Test extends AbstractTest {
     changes.setEndPointNow();
 
     ChangeRowAssert changeRowAssert = assertThat(changes).changeOfModification().rowAtStartPoint();
-    ChangeValueAssert changeValueAssert = changeRowAssert.value();
+    ChangeRowValueAssert changeRowValueAssert = changeRowAssert.value();
 
-    assertThat(changeValueAssert.value()).as("changeValueAssert.value()")
+    assertThat(changeRowValueAssert.value()).as("changeValueAssert.value()")
                                    .isSameAs(changeRowAssert.value(1));
   }
 
@@ -55,9 +55,9 @@ public class ChangeValueAssert_Value_Test extends AbstractTest {
     changes.setEndPointNow();
 
     ChangeRowAssert changeRowAssert = assertThat(changes).changeOfModification().rowAtStartPoint();
-    ChangeValueAssert changeValueAssert = changeRowAssert.value();
+    ChangeRowValueAssert changeRowValueAssert = changeRowAssert.value();
 
-    assertThat(changeValueAssert.value(1)).as("changeValueAssert.value()")
+    assertThat(changeRowValueAssert.value(1)).as("changeValueAssert.value()")
                                          .isSameAs(changeRowAssert.value(1));
   }
 }

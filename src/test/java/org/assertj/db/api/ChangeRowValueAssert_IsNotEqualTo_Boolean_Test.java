@@ -17,84 +17,84 @@ import org.assertj.db.common.NeedReload;
 import org.assertj.db.type.Changes;
 import org.junit.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.api.Assertions.bytesContentFromClassPathOf;
 import static org.junit.Assert.fail;
 
 /**
- * Tests on the methods which verifies if a value is equal to a array of bytes.
+ * Tests on the methods which verifies if a value is not equal to a boolean.
  *
  * @author Régis Pouiller
  *
  */
-public class ChangeValueAssert_IsEqualTo_Bytes_Test extends AbstractTest {
-
-  private byte[] bytesTest = bytesContentFromClassPathOf("test.txt");
-  private byte[] bytesDev = bytesContentFromClassPathOf("logo-dev.jpg");
-  private byte[] bytesH2 = bytesContentFromClassPathOf("h2-logo-2.png");
+public class ChangeRowValueAssert_IsNotEqualTo_Boolean_Test extends AbstractTest {
 
   /**
-   * This method tests that the value is equal to a array of bytes.
+   * This method tests that the value is not equal to a boolean.
    */
   @Test
   @NeedReload
-  public void test_if_value_is_equal_to_bytes() {
+  public void test_if_value_is_not_equal_to_boolean() {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForOtherTests();
     changes.setEndPointNow();
 
-    assertThat(changes).change().rowAtEndPoint()
-                     .value("var11").isEqualTo(bytesH2)
-            .change().rowAtEndPoint()
-                     .value("var11").isEqualTo(bytesDev);
+    assertThat(changes).change().rowAtEndPoint().value("var2")
+                     .isNotEqualTo(false)
+                     .change().rowAtEndPoint().value("var2")
+                     .isNotEqualTo(true);
   }
 
   /**
-   * This method should fail because the value is not equal to the array of bytes.
+   * This method should fail because the value is equal to the boolean.
    */
   @Test
   @NeedReload
-  public void should_fail_because_value_is_not_equal() {
+  public void should_fail_because_value_is_equal() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
       updateChangesForOtherTests();
       changes.setEndPointNow();
 
-      assertThat(changes).change().rowAtEndPoint()
-                       .value("var11").isEqualTo(bytesTest);
+      assertThat(changes).change().rowAtEndPoint().value("var2")
+                       .isNotEqualTo(true);
 
       fail("An exception must be raised");
     }
     catch (AssertionError e) {
-      org.assertj.core.api.Assertions.assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 10 of Row at end point of Change at index 0 of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n" +
-                                                                                    "Expecting to be equal to the expected value but was not equal");
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 1 of Row at end point of Change at index 0 of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n" +
+                                                                                    "Expecting:\n" +
+                                                                                    "  <true>\n" +
+                                                                                    "not to be equal to: \n" +
+                                                                                    "  <true>");
     }
   }
 
   /**
-   * This method should fail because the value is not a array of bytes.
+   * This method should fail because the value is not a boolean.
    */
   @Test
   @NeedReload
-  public void should_fail_because_value_is_not_a_bytes() {
+  public void should_fail_because_value_is_not_a_boolean() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
       updateChangesForOtherTests();
       changes.setEndPointNow();
 
-      assertThat(changes).change().rowAtEndPoint()
-                         .value().as("var1").isEqualTo(bytesTest);
+      assertThat(changes).change().rowAtEndPoint().value("var1")
+                       .as("var1").isNotEqualTo(true);
 
       fail("An exception must be raised");
     }
     catch (AssertionError e) {
-      org.assertj.core.api.Assertions.assertThat(e.getLocalizedMessage()).isEqualTo("[var1] \n" +
+      assertThat(e.getLocalizedMessage()).isEqualTo("[var1] \n" +
                                                                                     "Expecting:\n" +
                                                                                     "  <1>\n" +
                                                                                     "to be of type\n" +
-                                                                                    "  <BYTES>\n" +
+                                                                                    "  <BOOLEAN>\n" +
                                                                                     "but was of type\n" +
                                                                                     "  <NUMBER>");
     }
   }
+
 }

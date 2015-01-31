@@ -28,7 +28,7 @@ import static org.junit.Assert.fail;
  * @author Régis Pouiller
  *
  */
-public class ChangeValueAssert_IsNotEqualTo_String_Test extends AbstractTest {
+public class ChangeRowValueAssert_IsNotEqualTo_String_Test extends AbstractTest {
 
   /**
    * This method tests that the value is not equal to a string.

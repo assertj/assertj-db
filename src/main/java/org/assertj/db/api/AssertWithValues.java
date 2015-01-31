@@ -12,10 +12,6 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.db.exception.AssertJDBException;
-
-import java.util.List;
-
 /**
  * Interface that represents a assert with values.
  *
@@ -29,7 +25,7 @@ public interface AssertWithValues {
    * @return An object to make assertions on the next value.
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
    */
-  public ChangeValueAssert value();
+  public ChangeRowValueAssert value();
 
   /**
    * Returns assertion methods on the value at the {@code index} in parameter.
@@ -38,7 +34,7 @@ public interface AssertWithValues {
    * @return An object to make assertions on the value.
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
    */
-  public ChangeValueAssert value(int index);
+  public ChangeRowValueAssert value(int index);
 
   /**
    * Returns assertion methods on the value corresponding to the column name in parameter.
@@ -48,5 +44,5 @@ public interface AssertWithValues {
    * @throws NullPointerException If the column name in parameter is null.
    * @throws org.assertj.db.exception.AssertJDBException If there is no column with this name.
    */
-  public ChangeValueAssert value(String columnName);
+  public ChangeRowValueAssert value(String columnName);
 }

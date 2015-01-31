@@ -27,7 +27,7 @@ import static org.junit.Assert.fail;
  * @author Régis Pouiller
  *
  */
-public class ChangeValueAssert_IsNull_Test extends AbstractTest {
+public class ChangeRowValueAssert_IsNull_Test extends AbstractTest {
 
   /**
    * This method tests the verification of the null value is correct.

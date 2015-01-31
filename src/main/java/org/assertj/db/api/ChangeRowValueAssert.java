@@ -46,7 +46,7 @@ import static org.assertj.db.util.Values.compare;
  * @author Régis Pouiller
  *
  */
-public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAssert, ChangeRowAssert> {
+public class ChangeRowValueAssert extends AbstractAssertWithValues<ChangeRowValueAssert, ChangeRowAssert> {
 
   /**
    * The actual value on which the assertion is.
@@ -64,8 +64,8 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @param originalAssert The original assert.
    * @param value The value on which are the assertions.
    */
-  ChangeValueAssert(ChangeRowAssert originalAssert, Object value) {
-    super(ChangeValueAssert.class, originalAssert);
+  ChangeRowValueAssert(ChangeRowAssert originalAssert, Object value) {
+    super(ChangeRowValueAssert.class, originalAssert);
     this.value = value;
   }
 
@@ -95,7 +95,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is different to the type in parameter.
    */
-  public ChangeValueAssert isOfType(ValueType expected) {
+  public ChangeRowValueAssert isOfType(ValueType expected) {
     ValueType type = getType();
     if (type != expected) {
       throw failures.failure(info, shouldBeValueType(value, expected, type));
@@ -120,7 +120,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is different to all the types in parameters.
    */
-  public ChangeValueAssert isOfAnyOfTypes(ValueType... expected) {
+  public ChangeRowValueAssert isOfAnyOfTypes(ValueType... expected) {
     ValueType type = getType();
     for (ValueType valueType : expected) {
       if (type == valueType) {
@@ -146,7 +146,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is not a number.
    */
-  public ChangeValueAssert isNumber() {
+  public ChangeRowValueAssert isNumber() {
     return isOfType(ValueType.NUMBER);
   }
 
@@ -166,7 +166,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is not a number.
    */
-  public ChangeValueAssert isBoolean() {
+  public ChangeRowValueAssert isBoolean() {
     return isOfType(ValueType.BOOLEAN);
   }
 
@@ -186,7 +186,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is not a number.
    */
-  public ChangeValueAssert isDate() {
+  public ChangeRowValueAssert isDate() {
     return isOfType(ValueType.DATE);
   }
 
@@ -206,7 +206,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is not a number.
    */
-  public ChangeValueAssert isTime() {
+  public ChangeRowValueAssert isTime() {
     return isOfType(ValueType.TIME);
   }
 
@@ -226,7 +226,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is not a number.
    */
-  public ChangeValueAssert isDateTime() {
+  public ChangeRowValueAssert isDateTime() {
     return isOfType(ValueType.DATE_TIME);
   }
 
@@ -246,7 +246,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is not a number.
    */
-  public ChangeValueAssert isBytes() {
+  public ChangeRowValueAssert isBytes() {
     return isOfType(ValueType.BYTES);
   }
 
@@ -266,7 +266,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is not a number.
    */
-  public ChangeValueAssert isText() {
+  public ChangeRowValueAssert isText() {
     return isOfType(ValueType.TEXT);
   }
 
@@ -286,7 +286,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is not {@code null}.
    */
-  public ChangeValueAssert isNull() {
+  public ChangeRowValueAssert isNull() {
     objects.assertNull(info, value);
     return myself;
   }
@@ -307,7 +307,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is {@code null}.
    */
-  public ChangeValueAssert isNotNull() {
+  public ChangeRowValueAssert isNotNull() {
     objects.assertNotNull(info, value);
     return myself;
   }
@@ -329,7 +329,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to the boolean in parameter.
    */
-  public ChangeValueAssert isEqualTo(Boolean expected) {
+  public ChangeRowValueAssert isEqualTo(Boolean expected) {
     isBoolean();
     if (areEqual(value, expected)) {
       return myself;
@@ -353,7 +353,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to true boolean.
    */
-  public ChangeValueAssert isTrue() {
+  public ChangeRowValueAssert isTrue() {
     return isEqualTo(true);
   }
 
@@ -373,7 +373,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to false boolean.
    */
-  public ChangeValueAssert isFalse() {
+  public ChangeRowValueAssert isFalse() {
     return isEqualTo(false);
   }
 
@@ -394,7 +394,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to the number in parameter.
    */
-  public ChangeValueAssert isEqualTo(Number expected) {
+  public ChangeRowValueAssert isEqualTo(Number expected) {
     isNumber();
     if (areEqual(value, expected)) {
       return myself;
@@ -420,7 +420,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to the array of bytes in parameter.
    */
-  public ChangeValueAssert isEqualTo(byte[] expected) {
+  public ChangeRowValueAssert isEqualTo(byte[] expected) {
     isBytes();
     if (areEqual(value, expected)) {
       return myself;
@@ -445,7 +445,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to the text in parameter.
    */
-  public ChangeValueAssert isEqualTo(String expected) {
+  public ChangeRowValueAssert isEqualTo(String expected) {
     isOfAnyOfTypes(ValueType.TEXT, ValueType.NUMBER, ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME);
     if (areEqual(value, expected)) {
       return myself;
@@ -471,7 +471,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to the date value in parameter.
    */
-  public ChangeValueAssert isEqualTo(DateValue expected) {
+  public ChangeRowValueAssert isEqualTo(DateValue expected) {
     isOfAnyOfTypes(ValueType.DATE, ValueType.DATE_TIME);
     if (areEqual(value, expected)) {
       return myself;
@@ -499,7 +499,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to the time value in parameter.
    */
-  public ChangeValueAssert isEqualTo(TimeValue expected) {
+  public ChangeRowValueAssert isEqualTo(TimeValue expected) {
     isTime();
     if (areEqual(value, expected)) {
       return myself;
@@ -524,7 +524,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to the date/time value in parameter.
    */
-  public ChangeValueAssert isEqualTo(DateTimeValue expected) {
+  public ChangeRowValueAssert isEqualTo(DateTimeValue expected) {
     isOfAnyOfTypes(ValueType.DATE, ValueType.DATE_TIME);
     if (areEqual(value, expected)) {
       return myself;
@@ -552,7 +552,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is equal to the boolean in parameter.
    */
-  public ChangeValueAssert isNotEqualTo(Boolean expected) {
+  public ChangeRowValueAssert isNotEqualTo(Boolean expected) {
     isBoolean();
     if (!areEqual(value, expected)) {
       return myself;
@@ -578,7 +578,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is equal to the array of bytes in parameter.
    */
-  public ChangeValueAssert isNotEqualTo(byte[] expected) {
+  public ChangeRowValueAssert isNotEqualTo(byte[] expected) {
     isBytes();
     if (!areEqual(value, expected)) {
       return myself;
@@ -603,7 +603,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is equal to the date/time value in parameter.
    */
-  public ChangeValueAssert isNotEqualTo(DateTimeValue expected) {
+  public ChangeRowValueAssert isNotEqualTo(DateTimeValue expected) {
     isOfAnyOfTypes(ValueType.DATE, ValueType.DATE_TIME);
     if (!areEqual(value, expected)) {
       return myself;
@@ -631,7 +631,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is equal to the date value in parameter.
    */
-  public ChangeValueAssert isNotEqualTo(DateValue expected) {
+  public ChangeRowValueAssert isNotEqualTo(DateValue expected) {
     isOfAnyOfTypes(ValueType.DATE, ValueType.DATE_TIME);
     if (!areEqual(value, expected)) {
       return myself;
@@ -659,7 +659,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is equal to the number in parameter.
    */
-  public ChangeValueAssert isNotEqualTo(Number expected) {
+  public ChangeRowValueAssert isNotEqualTo(Number expected) {
     isNumber();
     if (!areEqual(value, expected)) {
       return myself;
@@ -684,7 +684,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is equal to the text in parameter.
    */
-  public ChangeValueAssert isNotEqualTo(String expected) {
+  public ChangeRowValueAssert isNotEqualTo(String expected) {
     isOfAnyOfTypes(ValueType.TEXT, ValueType.NUMBER, ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME);
     if (!areEqual(value, expected)) {
       return myself;
@@ -710,7 +710,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is equal to the time value in parameter.
    */
-  public ChangeValueAssert isNotEqualTo(TimeValue expected) {
+  public ChangeRowValueAssert isNotEqualTo(TimeValue expected) {
     isTime();
     if (!areEqual(value, expected)) {
       return myself;
@@ -735,7 +735,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not before to the time value in parameter.
    */
-  public ChangeValueAssert isBefore(DateValue date) {
+  public ChangeRowValueAssert isBefore(DateValue date) {
     isOfAnyOfTypes(ValueType.DATE, ValueType.DATE_TIME);
     if (value instanceof Date) {
       if (DateValue.from((Date) value).isBefore(date)) {
@@ -768,7 +768,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not before to the time value in parameter.
    */
-  public ChangeValueAssert isBefore(TimeValue time) {
+  public ChangeRowValueAssert isBefore(TimeValue time) {
     isTime();
     if (TimeValue.from((Time) value).isBefore(time)) {
       return myself;
@@ -793,7 +793,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not before to the date/time value in parameter.
    */
-  public ChangeValueAssert isBefore(DateTimeValue dateTime) {
+  public ChangeRowValueAssert isBefore(DateTimeValue dateTime) {
     isOfAnyOfTypes(ValueType.DATE, ValueType.DATE_TIME);
     DateTimeValue dateTimeValue;
     if (value instanceof Date) {
@@ -824,7 +824,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not before the date, time or date/time represented in parameter.
    */
-  public ChangeValueAssert isBefore(String expected) {
+  public ChangeRowValueAssert isBefore(String expected) {
     isOfAnyOfTypes(ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME);
 
     // By considering the possible types, the class of the value is
@@ -880,7 +880,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not before or equal to the time value in parameter.
    */
-  public ChangeValueAssert isBeforeOrEqualTo(DateValue date) {
+  public ChangeRowValueAssert isBeforeOrEqualTo(DateValue date) {
     isOfAnyOfTypes(ValueType.DATE, ValueType.DATE_TIME);
     if (value instanceof Date) {
       if (DateValue.from((Date) value).isBefore(date) || areEqual(value, date)) {
@@ -913,7 +913,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not before or equal to the time value in parameter.
    */
-  public ChangeValueAssert isBeforeOrEqualTo(TimeValue time) {
+  public ChangeRowValueAssert isBeforeOrEqualTo(TimeValue time) {
     isTime();
     if (TimeValue.from((Time) value).isBefore(time) || areEqual(value, time)) {
       return myself;
@@ -938,7 +938,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not before or equal to the date/time value in parameter.
    */
-  public ChangeValueAssert isBeforeOrEqualTo(DateTimeValue dateTime) {
+  public ChangeRowValueAssert isBeforeOrEqualTo(DateTimeValue dateTime) {
     isOfAnyOfTypes(ValueType.DATE, ValueType.DATE_TIME);
     DateTimeValue dateTimeValue;
     if (value instanceof Date) {
@@ -969,7 +969,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not before or equal to the date, time or date/time represented in parameter.
    */
-  public ChangeValueAssert isBeforeOrEqualTo(String expected) {
+  public ChangeRowValueAssert isBeforeOrEqualTo(String expected) {
     isOfAnyOfTypes(ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME);
 
     // By considering the possible types, the class of the value is
@@ -1025,7 +1025,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not after to the time value in parameter.
    */
-  public ChangeValueAssert isAfter(DateValue date) {
+  public ChangeRowValueAssert isAfter(DateValue date) {
     isOfAnyOfTypes(ValueType.DATE, ValueType.DATE_TIME);
     if (value instanceof Date) {
       if (DateValue.from((Date) value).isAfter(date)) {
@@ -1058,7 +1058,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not after to the time value in parameter.
    */
-  public ChangeValueAssert isAfter(TimeValue time) {
+  public ChangeRowValueAssert isAfter(TimeValue time) {
     isTime();
     if (TimeValue.from((Time) value).isAfter(time)) {
       return myself;
@@ -1083,7 +1083,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not after to the date/time value in parameter.
    */
-  public ChangeValueAssert isAfter(DateTimeValue dateTime) {
+  public ChangeRowValueAssert isAfter(DateTimeValue dateTime) {
     isOfAnyOfTypes(ValueType.DATE, ValueType.DATE_TIME);
     DateTimeValue dateTimeValue;
     if (value instanceof Date) {
@@ -1114,7 +1114,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not after the date, time or date/time represented in parameter.
    */
-  public ChangeValueAssert isAfter(String expected) {
+  public ChangeRowValueAssert isAfter(String expected) {
     isOfAnyOfTypes(ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME);
 
     // By considering the possible types, the class of the value is
@@ -1170,7 +1170,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not after or equal to the time value in parameter.
    */
-  public ChangeValueAssert isAfterOrEqualTo(DateValue date) {
+  public ChangeRowValueAssert isAfterOrEqualTo(DateValue date) {
     isOfAnyOfTypes(ValueType.DATE, ValueType.DATE_TIME);
     if (value instanceof Date) {
       if (DateValue.from((Date) value).isAfter(date) || areEqual(value, date)) {
@@ -1203,7 +1203,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not after or equal to the time value in parameter.
    */
-  public ChangeValueAssert isAfterOrEqualTo(TimeValue time) {
+  public ChangeRowValueAssert isAfterOrEqualTo(TimeValue time) {
     isTime();
     if (TimeValue.from((Time) value).isAfter(time) || areEqual(value, time)) {
       return myself;
@@ -1228,7 +1228,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not after or equal to the date/time value in parameter.
    */
-  public ChangeValueAssert isAfterOrEqualTo(DateTimeValue dateTime) {
+  public ChangeRowValueAssert isAfterOrEqualTo(DateTimeValue dateTime) {
     isOfAnyOfTypes(ValueType.DATE, ValueType.DATE_TIME);
     DateTimeValue dateTimeValue;
     if (value instanceof Date) {
@@ -1259,7 +1259,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not after or equal to the date, time or date/time represented in parameter.
    */
-  public ChangeValueAssert isAfterOrEqualTo(String expected) {
+  public ChangeRowValueAssert isAfterOrEqualTo(String expected) {
     isOfAnyOfTypes(ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME);
 
     // By considering the possible types, the class of the value is
@@ -1314,7 +1314,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to zero.
    */
-  public ChangeValueAssert isZero() {
+  public ChangeRowValueAssert isZero() {
     return isEqualTo(0);
   }
 
@@ -1334,7 +1334,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is equal to zero.
    */
-  public ChangeValueAssert isNotZero() {
+  public ChangeRowValueAssert isNotZero() {
     return isNotEqualTo(0);
   }
 
@@ -1355,7 +1355,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is less than or equal to the number in parameter.
    */
-  public ChangeValueAssert isGreaterThan(Number expected) {
+  public ChangeRowValueAssert isGreaterThan(Number expected) {
     isNumber();
     if (compare(value, expected) > 0) {
       return myself;
@@ -1380,7 +1380,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is greater than or equal to the number in parameter.
    */
-  public ChangeValueAssert isLessThan(Number expected) {
+  public ChangeRowValueAssert isLessThan(Number expected) {
     isNumber();
     if (compare(value, expected) < 0) {
       return myself;
@@ -1405,7 +1405,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is less than the number in parameter.
    */
-  public ChangeValueAssert isGreaterThanOrEqualTo(Number expected) {
+  public ChangeRowValueAssert isGreaterThanOrEqualTo(Number expected) {
     isNumber();
     if (compare(value, expected) >= 0) {
       return myself;
@@ -1430,7 +1430,7 @@ public class ChangeValueAssert extends AbstractAssertWithValues<ChangeValueAsser
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is greater than the number in parameter.
    */
-  public ChangeValueAssert isLessThanOrEqualTo(Number expected) {
+  public ChangeRowValueAssert isLessThanOrEqualTo(Number expected) {
     isNumber();
     if (compare(value, expected) <= 0) {
       return myself;

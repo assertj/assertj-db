@@ -28,7 +28,7 @@ import static org.assertj.db.api.Assertions.assertThat;
  *
  * @author Régis Pouiller
  */
-public class ChangeValueAssert_DefaultAs_Test extends AbstractTest {
+public class ChangeRowValueAssert_DefaultAs_Test extends AbstractTest {
 
   /**
    * This method tests the description of value.
@@ -46,7 +46,7 @@ public class ChangeValueAssert_DefaultAs_Test extends AbstractTest {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
-    ChangeValueAssert assertion = assertThat(changes).changeOfDeletion().rowAtStartPoint().value();
+    ChangeRowValueAssert assertion = assertThat(changes).changeOfDeletion().rowAtStartPoint().value();
 
     Field field = AbstractAssert.class.getDeclaredField("info");
     field.setAccessible(true);
@@ -73,7 +73,7 @@ public class ChangeValueAssert_DefaultAs_Test extends AbstractTest {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
-    ChangeValueAssert assertion = assertThat(changes).change().rowAtEndPoint().value(2);
+    ChangeRowValueAssert assertion = assertThat(changes).change().rowAtEndPoint().value(2);
 
     Field field = AbstractAssert.class.getDeclaredField("info");
     field.setAccessible(true);

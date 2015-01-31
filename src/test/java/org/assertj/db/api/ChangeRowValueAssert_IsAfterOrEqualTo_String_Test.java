@@ -18,219 +18,216 @@ import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Changes;
 import org.junit.Test;
 
-import java.text.ParseException;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 /**
- * Tests on the methods which verifies if a value is before a string.
+ * Tests on the methods which verifies if a value is after a string.
  *
  * @author Régis Pouiller
  *
  */
-public class ChangeValueAssert_IsBeforeOrEqualTo_String_Test extends AbstractTest {
+public class ChangeRowValueAssert_IsAfterOrEqualTo_String_Test extends AbstractTest {
 
   /**
-   * This method tests that the value is before or equal to a string.
-   *
-   * @throws java.text.ParseException
+   * This method tests that the value is after or equal to a string.
    */
   @Test
   @NeedReload
-  public void test_if_value_is_before_or_equal_to_string() throws ParseException {
+  public void test_if_value_is_after_or_equal_to_string() {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForOtherTests();
     changes.setEndPointNow();
 
     assertThat(changes).change().rowAtEndPoint().value("var10")
-            .isBeforeOrEqualTo("2014-05-24T09:46:31")
+            .isAfterOrEqualTo("2014-05-24T09:46:29")
             .change().rowAtEndPoint().value("var10")
-            .isBeforeOrEqualTo("2014-05-30T12:29:50")
+            .isAfterOrEqualTo("2014-05-30T12:29:48")
             .change(0).rowAtEndPoint().value("var10")
-            .isBeforeOrEqualTo("2014-05-25")
+            .isAfterOrEqualTo("2014-05-24")
             .change().rowAtEndPoint().value("var10")
-            .isBeforeOrEqualTo("2014-05-31")
+            .isAfterOrEqualTo("2014-05-30")
             .change(0).rowAtEndPoint().value("var9")
-            .isBeforeOrEqualTo("2014-05-24T00:01")
+            .isAfterOrEqualTo("2014-05-23T23:59:59")
             .change().rowAtEndPoint().value("var9")
-            .isBeforeOrEqualTo("2014-05-30T00:01")
+            .isAfterOrEqualTo("2014-05-29T23:59:59")
             .change(0).rowAtEndPoint().value("var9")
-            .isBeforeOrEqualTo("2014-05-25")
+            .isAfterOrEqualTo("2014-05-23")
             .change().rowAtEndPoint().value("var9")
-            .isBeforeOrEqualTo("2014-05-31")
+            .isAfterOrEqualTo("2014-05-29")
             .change(0).rowAtEndPoint().value("var8")
-            .isBeforeOrEqualTo("09:46:31")
+            .isAfterOrEqualTo("09:46:29")
             .change().rowAtEndPoint().value("var8")
-            .isBeforeOrEqualTo("12:29:50")
+            .isAfterOrEqualTo("12:29:48")
             .change(0).rowAtEndPoint().value("var8")
-            .isBeforeOrEqualTo("09:46:30")
+            .isAfterOrEqualTo("09:46:30")
             .change().rowAtEndPoint().value("var8")
-            .isBeforeOrEqualTo("12:29:49")
+            .isAfterOrEqualTo("12:29:49")
             .change().rowAtEndPoint().value("var8")
-            .isBeforeOrEqualTo("12:29:49")
+            .isAfterOrEqualTo("12:29:49")
             .change(0).rowAtEndPoint().value("var9")
-            .isBeforeOrEqualTo("2014-05-24")
+            .isAfterOrEqualTo("2014-05-24")
             .change().rowAtEndPoint().value("var9")
-            .isBeforeOrEqualTo("2014-05-30")
+            .isAfterOrEqualTo("2014-05-30")
             .change().rowAtEndPoint().value("var9")
-            .isBeforeOrEqualTo("2014-05-30")
+            .isAfterOrEqualTo("2014-05-30")
             .change(0).rowAtEndPoint().value("var9")
-            .isBeforeOrEqualTo("2014-05-24T00:00")
+            .isAfterOrEqualTo("2014-05-24T00:00")
             .change().rowAtEndPoint().value("var9")
-            .isBeforeOrEqualTo("2014-05-30T00:00")
+            .isAfterOrEqualTo("2014-05-30T00:00")
             .change().rowAtEndPoint().value("var9")
-            .isBeforeOrEqualTo("2014-05-30T00:00")
+            .isAfterOrEqualTo("2014-05-30T00:00")
             .change(0).rowAtEndPoint().value("var9")
-            .isBeforeOrEqualTo("2014-05-24T00:00:00")
+            .isAfterOrEqualTo("2014-05-24T00:00:00")
             .change().rowAtEndPoint().value("var9")
-            .isBeforeOrEqualTo("2014-05-30T00:00:00")
+            .isAfterOrEqualTo("2014-05-30T00:00:00")
             .change().rowAtEndPoint().value("var9")
-            .isBeforeOrEqualTo("2014-05-30T00:00:00")
+            .isAfterOrEqualTo("2014-05-30T00:00:00")
             .change(0).rowAtEndPoint().value("var9")
-            .isBeforeOrEqualTo("2014-05-24T00:00:00.000000000")
+            .isAfterOrEqualTo("2014-05-24T00:00:00.000000000")
             .change().rowAtEndPoint().value("var9")
-            .isBeforeOrEqualTo("2014-05-30T00:00:00.000000000")
+            .isAfterOrEqualTo("2014-05-30T00:00:00.000000000")
             .change().rowAtEndPoint().value("var9")
-            .isBeforeOrEqualTo("2014-05-30T00:00:00.000000000")
+            .isAfterOrEqualTo("2014-05-30T00:00:00.000000000")
             .change(0).rowAtEndPoint().value("var10")
-            .isBeforeOrEqualTo("2014-05-24T09:46:30.000000000")
+            .isAfterOrEqualTo("2014-05-24T09:46:30.000000000")
             .change().rowAtEndPoint().value("var10")
-            .isBeforeOrEqualTo("2014-05-30T12:29:49.000000000")
+            .isAfterOrEqualTo("2014-05-30T12:29:49.000000000")
             .change().rowAtEndPoint().value("var10")
-            .isBeforeOrEqualTo("2014-05-30T00:00:00")
+            .isAfterOrEqualTo("2014-05-30T00:00:00")
             .change(0).rowAtEndPoint().value("var10")
-            .isBeforeOrEqualTo("2014-05-24T09:46:30")
+            .isAfterOrEqualTo("2014-05-24T09:46:30")
             .change().rowAtEndPoint().value("var10")
-            .isBeforeOrEqualTo("2014-05-30T12:29:49")
+            .isAfterOrEqualTo("2014-05-30T12:29:49")
             .change().rowAtEndPoint().value("var10")
-            .isBeforeOrEqualTo("2014-05-30")
+            .isAfterOrEqualTo("2014-05-30")
             .change(0).rowAtEndPoint().value("var10")
-            .isBeforeOrEqualTo("2014-05-24T09:46:30")
+            .isAfterOrEqualTo("2014-05-24T09:46:30")
             .change().rowAtEndPoint().value("var10")
-            .isBeforeOrEqualTo("2014-05-30T12:29:49")
+            .isAfterOrEqualTo("2014-05-30T12:29:49")
             .change().rowAtEndPoint().value("var10")
-            .isBeforeOrEqualTo("2014-05-30T00:00");
+            .isAfterOrEqualTo("2014-05-30T00:00");
+
   }
 
   /**
-   * This method should fail because the value is not before or equal to the string.
+   * This method should fail because the value is not after or equal to the string.
    */
   @Test
   @NeedReload
-  public void should_fail_because_time_value_is_not_before_or_equal_to_time() {
+  public void should_fail_because_time_value_is_not_after_or_equal_to_time() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
       updateChangesForOtherTests();
       changes.setEndPointNow();
 
       assertThat(changes).change().rowAtEndPoint().value("var8")
-                       .isBeforeOrEqualTo("09:46:29");
+                       .isAfterOrEqualTo("09:46:31");
 
       fail("An exception must be raised");
     } catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 7 of Row at end point of Change at index 0 of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n" +
                                                                                     "Expecting:\n" +
                                                                                     "  <09:46:30.000000000>\n" +
-                                                                                    "to be before or equal to \n" +
-                                                                                    "  <09:46:29.000000000>");
+                                                                                    "to be after or equal to \n" +
+                                                                                    "  <09:46:31.000000000>");
     }
   }
 
   /**
-   * This method should fail because the value is not before or equal to the string.
+   * This method should fail because the value is not after or equal to the string.
    */
   @Test
   @NeedReload
-  public void should_fail_because_date_value_is_not_before_or_equal_to_date() {
+  public void should_fail_because_date_value_is_not_after_or_equal_to_date() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
       updateChangesForOtherTests();
       changes.setEndPointNow();
 
       assertThat(changes).change().rowAtEndPoint().value("var9")
-                       .isBeforeOrEqualTo("2014-05-23");
+                       .isAfterOrEqualTo("2014-05-25");
 
       fail("An exception must be raised");
     } catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 8 of Row at end point of Change at index 0 of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n" +
                                                                                     "Expecting:\n" +
                                                                                     "  <2014-05-24T00:00:00.000000000>\n" +
-                                                                                    "to be before or equal to \n" +
-                                                                                    "  <2014-05-23T00:00:00.000000000>");
+                                                                                    "to be after or equal to \n" +
+                                                                                    "  <2014-05-25T00:00:00.000000000>");
     }
   }
 
   /**
-   * This method should fail because the value is not before or equal to the string.
+   * This method should fail because the value is not after or equal to the string.
    */
   @Test
   @NeedReload
-  public void should_fail_because_date_value_is_not_before_or_equal_to_datetime() {
+  public void should_fail_because_date_value_is_not_after_or_equal_to_datetime() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
       updateChangesForOtherTests();
       changes.setEndPointNow();
 
       assertThat(changes).change().rowAtEndPoint().value("var9")
-                       .isBeforeOrEqualTo("2014-05-23T00:00");
+                       .isAfterOrEqualTo("2014-05-25T00:00");
 
       fail("An exception must be raised");
     } catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 8 of Row at end point of Change at index 0 of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n" +
                                                                                     "Expecting:\n" +
                                                                                     "  <2014-05-24T00:00:00.000000000>\n" +
-                                                                                    "to be before or equal to \n" +
-                                                                                    "  <2014-05-23T00:00:00.000000000>");
+                                                                                    "to be after or equal to \n" +
+                                                                                    "  <2014-05-25T00:00:00.000000000>");
     }
   }
 
   /**
-   * This method should fail because the value is not before or equal to the string.
+   * This method should fail because the value is not after or equal to the string.
    */
   @Test
   @NeedReload
-  public void should_fail_because_datetime_value_is_not_before_or_equal_to_date() {
+  public void should_fail_because_datetime_value_is_not_after_or_equal_to_date() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
       updateChangesForOtherTests();
       changes.setEndPointNow();
 
       assertThat(changes).change(2).rowAtEndPoint().value("var10")
-                       .isBeforeOrEqualTo("2014-05-29");
+                       .isAfterOrEqualTo("2014-05-31");
 
       fail("An exception must be raised");
     } catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 9 of Row at end point of Change at index 2 of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n" +
                                                                                     "Expecting:\n" +
                                                                                     "  <2014-05-30T00:00:00.000000000>\n" +
-                                                                                    "to be before or equal to \n" +
-                                                                                    "  <2014-05-29T00:00:00.000000000>");
+                                                                                    "to be after or equal to \n" +
+                                                                                    "  <2014-05-31T00:00:00.000000000>");
     }
   }
 
   /**
-   * This method should fail because the value is not before or equal to the string.
+   * This method should fail because the value is not after or equal to the string.
    */
   @Test
   @NeedReload
-  public void should_fail_because_datetime_value_is_not_before_or_equal_to_datetime() {
+  public void should_fail_because_datetime_value_is_not_after_or_equal_to_datetime() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
       updateChangesForOtherTests();
       changes.setEndPointNow();
 
       assertThat(changes).change().rowAtEndPoint().value("var10")
-                       .isBeforeOrEqualTo("2014-05-24T09:46:29");
+                       .isAfterOrEqualTo("2014-05-24T09:46:31");
 
       fail("An exception must be raised");
     } catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 9 of Row at end point of Change at index 0 of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n" +
                                                                                     "Expecting:\n" +
                                                                                     "  <2014-05-24T09:46:30.000000000>\n" +
-                                                                                    "to be before or equal to \n" +
-                                                                                    "  <2014-05-24T09:46:29.000000000>");
+                                                                                    "to be after or equal to \n" +
+                                                                                    "  <2014-05-24T09:46:31.000000000>");
     }
   }
 
@@ -246,7 +243,7 @@ public class ChangeValueAssert_IsBeforeOrEqualTo_String_Test extends AbstractTes
       changes.setEndPointNow();
 
       assertThat(changes).change().rowAtEndPoint().value("var1").as("var1")
-                       .isBeforeOrEqualTo("2014-05-24T09:46:31");
+                       .isAfterOrEqualTo("2014-05-24T09:46:30");
 
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -271,7 +268,7 @@ public class ChangeValueAssert_IsBeforeOrEqualTo_String_Test extends AbstractTes
     changes.setEndPointNow();
 
     assertThat(changes).change().rowAtEndPoint().value("var9")
-            .isBeforeOrEqualTo("a014-05-25");
+            .isAfterOrEqualTo("a014-05-24");
   }
 
   /**
@@ -285,7 +282,7 @@ public class ChangeValueAssert_IsBeforeOrEqualTo_String_Test extends AbstractTes
     changes.setEndPointNow();
 
     assertThat(changes).change().rowAtEndPoint().value("var8")
-            .isBeforeOrEqualTo("a9:46:31");
+            .isAfterOrEqualTo("a9:46:29");
   }
 
   /**
@@ -299,6 +296,6 @@ public class ChangeValueAssert_IsBeforeOrEqualTo_String_Test extends AbstractTes
     changes.setEndPointNow();
 
     assertThat(changes).change().rowAtEndPoint().value("var10")
-            .isBeforeOrEqualTo("a014-05-24T09:46:31");
+            .isAfterOrEqualTo("a014-05-24T09:46:29");
   }
 }

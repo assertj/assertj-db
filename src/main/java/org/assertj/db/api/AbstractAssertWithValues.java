@@ -39,7 +39,7 @@ public abstract class AbstractAssertWithValues<E extends AbstractAssertWithValue
    * @return An object to make assertions on the next value.
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
    */
-  public ChangeValueAssert value() {
+  public ChangeRowValueAssert value() {
     return originAssert.value();
   }
 
@@ -50,7 +50,7 @@ public abstract class AbstractAssertWithValues<E extends AbstractAssertWithValue
    * @return An object to make assertions on the value.
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
    */
-  public ChangeValueAssert value(int index) {
+  public ChangeRowValueAssert value(int index) {
     return originAssert.value(index);
   }
 
@@ -62,7 +62,7 @@ public abstract class AbstractAssertWithValues<E extends AbstractAssertWithValue
    * @throws NullPointerException If the column name in parameter is null.
    * @throws org.assertj.db.exception.AssertJDBException If there is no column with this name.
    */
-  public ChangeValueAssert value(String columnName) {
+  public ChangeRowValueAssert value(String columnName) {
     return originAssert.value(columnName);
   }
 }
