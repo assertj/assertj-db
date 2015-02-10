@@ -49,7 +49,7 @@ import static org.assertj.db.util.Values.compare;
  * @param <O> The class of the assert of origin
  * @author Régis Pouiller
  */
-public class AbstractAssertWithValues <E extends AbstractAssertWithValues<E, O>, O extends OriginAssertWithValues>
+public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValues<E, O>, O extends OriginAssertWithValues>
         extends AbstractAssertWithColumnsAndRowsFromChange<E, O> implements OriginAssertWithValues {
 
   /**
