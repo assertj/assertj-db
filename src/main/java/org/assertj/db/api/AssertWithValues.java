@@ -18,31 +18,4 @@ package org.assertj.db.api;
  * @author Régis Pouiller
  */
 public interface AssertWithValues {
-
-  /**
-   * Returns assertion methods on the next value in the list of values.
-   *
-   * @return An object to make assertions on the next value.
-   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
-   */
-  public ChangeRowValueAssert value();
-
-  /**
-   * Returns assertion methods on the value at the {@code index} in parameter.
-   *
-   * @param index The index corresponding to the value.
-   * @return An object to make assertions on the value.
-   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
-   */
-  public ChangeRowValueAssert value(int index);
-
-  /**
-   * Returns assertion methods on the value corresponding to the column name in parameter.
-   *
-   * @param columnName The column name.
-   * @return An object to make assertions on the value.
-   * @throws NullPointerException If the column name in parameter is null.
-   * @throws org.assertj.db.exception.AssertJDBException If there is no column with this name.
-   */
-  public ChangeRowValueAssert value(String columnName);
 }

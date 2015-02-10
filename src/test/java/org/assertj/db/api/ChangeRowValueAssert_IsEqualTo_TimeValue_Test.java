@@ -13,7 +13,6 @@
 package org.assertj.db.api;
 
 import org.assertj.db.common.AbstractTest;
-import org.assertj.db.common.NeedReload;
 import org.assertj.db.type.Changes;
 import org.assertj.db.type.TimeValue;
 import org.junit.Test;
@@ -25,51 +24,51 @@ import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 /**
- * Tests on the methods which verifies if a value is after a time value.
+ * Tests on the methods which verifies if a value is equal to a time value.
  *
  * @author Régis Pouiller
  *
  */
-public class ChangeValueAssert_IsAfter_TimeValue_Test extends AbstractTest {
+public class ChangeRowValueAssert_IsEqualTo_TimeValue_Test extends AbstractTest {
 
   /**
-   * This method tests that the value is after a time.
+   * This method tests that the value is equal to a time.
    * @throws java.text.ParseException
    */
   @Test
-  @NeedReload
-  public void test_if_value_is_after_time() throws ParseException {
+  public void test_if_value_is_equal_to_time() throws ParseException {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForOtherTests();
     changes.setEndPointNow();
 
-    assertThat(changes).change().rowAtEndPoint().value("var8")
-                     .isAfter(TimeValue.of(9, 46, 29))
-                     .change().rowAtEndPoint().value("var8")
-                     .isAfter(TimeValue.parse("12:29:48"));
+    assertThat(changes)
+            .change().rowAtEndPoint().value("var8")
+                     .isEqualTo(TimeValue.of(9, 46, 30))
+            .change().rowAtEndPoint().value("var8")
+                     .isEqualTo(TimeValue.parse("12:29:49"));
   }
 
   /**
-   * This method should fail because the value is not after the time value.
+   * This method should fail because the value is not equal to the time value.
    */
   @Test
-  @NeedReload
-  public void should_fail_because_value_is_not_after() {
+  public void should_fail_because_value_is_not_equal() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
       updateChangesForOtherTests();
       changes.setEndPointNow();
 
       assertThat(changes).change().rowAtEndPoint().value("var8")
-                         .isAfter(TimeValue.of(9, 46, 30));
+                       .isEqualTo(TimeValue.of(9, 46, 31));
 
       fail("An exception must be raised");
-    } catch (AssertionError e) {
+    }
+    catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 7 of Row at end point of Change at index 0 of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n" +
                                                                                     "Expecting:\n" +
                                                                                     "  <09:46:30.000000000>\n" +
-                                                                                    "to be after \n" +
-                                                                                    "  <09:46:30.000000000>");
+                                                                                    "to be equal to: \n" +
+                                                                                    "  <09:46:31.000000000>");
     }
   }
 
@@ -77,7 +76,6 @@ public class ChangeValueAssert_IsAfter_TimeValue_Test extends AbstractTest {
    * This method should fail because the value is not a time.
    */
   @Test
-  @NeedReload
   public void should_fail_because_value_is_not_a_date() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
@@ -85,10 +83,11 @@ public class ChangeValueAssert_IsAfter_TimeValue_Test extends AbstractTest {
       changes.setEndPointNow();
 
       assertThat(changes).change().rowAtEndPoint().value("var1")
-                       .as("var1").isAfter(TimeValue.of(9, 46, 29));
+                       .as("var1").isEqualTo(TimeValue.of(9, 46, 30));
 
       fail("An exception must be raised");
-    } catch (AssertionError e) {
+    }
+    catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var1] \n" +
                                                                                     "Expecting:\n" +
                                                                                     "  <1>\n" +

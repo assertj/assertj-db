@@ -13,9 +13,10 @@
 package org.assertj.db.api;
 
 /**
- * Interface that represents a assert which is the origin assert of another assert and have values.
+ * Interface that represents a assert which is the origin assert of another assert and have rows.
  *
  * @author Régis Pouiller
  */
-public interface OriginAssertWithValues extends OriginAssertWithColumnsAndRowsFromChange, AssertWithValues {
+public interface OriginAssertWithColumnsAndRowsFromChange
+        extends AssertWithColumnsAndRowsFromChange, OriginAssertWithChanges {
 }

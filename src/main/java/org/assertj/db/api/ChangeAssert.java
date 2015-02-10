@@ -12,8 +12,14 @@
  */
 package org.assertj.db.api;
 
+import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
+import org.assertj.db.type.Row;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static org.assertj.db.error.ShouldBeChangeType.shouldBeChangeType;
 
@@ -23,7 +29,7 @@ import static org.assertj.db.error.ShouldBeChangeType.shouldBeChangeType;
  * @author Régis Pouiller
  */
 public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, ChangesAssert>
-        implements OriginAssertWithRows {
+        implements OriginAssertWithColumnsAndRowsFromChange {
 
   /**
    * The actual change on which the assertion is.
@@ -38,6 +44,15 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * The assertion on the row at end point.
    */
   private ChangeRowAssert changeRowAssertAtEndPoint;
+
+  /**
+   * Index of the next value to get.
+   */
+  private int indexNextColumn;
+  /**
+   * Map the columns assert with their index in key (contains the columns assert already generated).
+   */
+  private Map<Integer, ChangeColumnAssert> columnsAssertMap = new HashMap<>();
 
   /**
    * Constructor.
@@ -62,6 +77,77 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
       changeRowAssertAtStartPoint = new ChangeRowAssert(this, change.getRowAtStartPoint()).as(stringBuilder.toString());
     }
     return changeRowAssertAtStartPoint;
+  }
+
+  /**
+   * Gets an instance of value assert corresponding to the index. If this instance is already instanced, the method
+   * returns it from the cache.
+   *
+   * @param index Index of the value on which is the instance of value assert.
+   * @return The value assert implementation.
+   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
+   */
+  protected ChangeColumnAssert getChangeColumnAssertInstance(int index) {
+    if (columnsAssertMap.containsKey(index)) {
+      ChangeColumnAssert changeColumnAssert = columnsAssertMap.get(index);
+      indexNextColumn = index + 1;
+      return changeColumnAssert;
+    }
+
+    int size = change.getColumnsNameList().size();
+    if (index < 0 || index >= size) {
+      throw new AssertJDBException("Index %s out of the limits [0, %s[", index, size);
+    }
+    Row rowAtStartPoint = change.getRowAtStartPoint();
+    Row rowAtEndPoint = change.getRowAtEndPoint();
+    List<Object> valuesAtStartPoint = rowAtStartPoint.getValuesList();
+    List<Object> valuesAtEndPoint = rowAtEndPoint.getValuesList();
+    Object valueAtStartPoint = valuesAtStartPoint.get(index);
+    Object valueAtEndPoint = valuesAtEndPoint.get(index);
+    ChangeColumnAssert instance = new ChangeColumnAssert(this, valueAtStartPoint, valueAtEndPoint);
+    columnsAssertMap.put(index, instance);
+    return instance.as("Column at index " + index + " of " + info.descriptionText());
+  }
+
+  /**
+   * Returns assertion methods on the next {@link ChangeColumnAssert} in the list of {@link ChangeColumnAssert}.
+   *
+   * @return An object to make assertions on the next {@link ChangeColumnAssert}.
+   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public ChangeColumnAssert column() {
+    return getChangeColumnAssertInstance(indexNextColumn);
+  }
+
+  /**
+   * Returns assertion methods on the {@link ChangeColumnAssert} at the {@code index} in parameter.
+   *
+   * @param index The index corresponding to the {@link ChangeColumnAssert}.
+   * @return An object to make assertions on the {@link ChangeColumnAssert}.
+   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public ChangeColumnAssert column(int index) {
+    return getChangeColumnAssertInstance(index);
+  }
+
+  /**
+   * Returns assertion methods on the {@link ChangeColumnAssert} corresponding to the column name in parameter.
+   *
+   * @param columnName The column name.
+   * @return An object to make assertions on the {@link ChangeColumnAssert}.
+   * @throws NullPointerException If the column name in parameter is null.
+   * @throws org.assertj.db.exception.AssertJDBException If there is no column with this name.
+   */
+  public ChangeColumnAssert column(String columnName) {
+    if (columnName == null) {
+      throw new NullPointerException("Column name must be not null");
+    }
+    List<String> columnsNameList = change.getColumnsNameList();
+    int index = columnsNameList.indexOf(columnName.toUpperCase());
+    if (index == -1) {
+      throw new AssertJDBException("Column <%s> does not exist", columnName);
+    }
+    return getChangeColumnAssertInstance(index);
   }
 
   /**

@@ -13,23 +13,9 @@
 package org.assertj.db.api;
 
 /**
- * Interface that represents a assert with {@link org.assertj.db.type.Row}.
+ * Interface that represents a assert which is the origin assert of another assert and have values from a row.
  *
  * @author Régis Pouiller
  */
-public interface AssertWithRows {
-
-  /**
-   * Returns the assert on the row at start point.
-   *
-   * @return The assert on the row at start point.
-   */
-  public ChangeRowAssert rowAtStartPoint();
-
-  /**
-   * Returns the assert on the row at end point.
-   *
-   * @return The assert on the row at end point.
-   */
-  public ChangeRowAssert rowAtEndPoint();
+public interface OriginAssertWithValuesFromRow extends AssertWithValuesFromRow, OriginAssertWithValues {
 }

@@ -27,58 +27,57 @@ import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 /**
- * Tests on the methods which verifies if a value is before a date/time value.
+ * Tests on the methods which verifies if a value is equal to a date/time value.
  *
  * @author Régis Pouiller
  *
  */
-public class ChangeValueAssert_IsBefore_DateTimeValue_Test extends AbstractTest {
+public class ChangeRowValueAssert_IsEqualTo_DateTimeValue_Test extends AbstractTest {
 
   /**
-   * This method tests that the value is before a date/time.
+   * This method tests that the value is equal to a date/time.
    *
    * @throws java.text.ParseException
    */
   @Test
   @NeedReload
-  public void test_if_value_is_before_datetime() throws ParseException {
+  public void test_if_value_is_equal_to_date() throws ParseException {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForOtherTests();
     changes.setEndPointNow();
 
-    assertThat(changes).change().rowAtEndPoint().value("var10")
-            .isBefore(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 31)))
-            .change().rowAtEndPoint().value("var10")
-            .isBefore(DateTimeValue.parse("2014-05-30T12:29:50"))
-            .change().rowAtEndPoint().value("var10")
-            .isBefore(DateValue.of(2014, 5, 31))
-            .change(0).rowAtEndPoint().value("var9")
-            .isBefore(DateTimeValue.parse("2014-05-24T00:01"))
-            .change().rowAtEndPoint().value("var9")
-            .isBefore(DateTimeValue.of(DateValue.of(2014, 5, 30), TimeValue.of(0, 1)));
+    assertThat(changes)
+                    .change().rowAtEndPoint().value("var10")
+                      .isEqualTo(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)))
+                    .change().rowAtEndPoint().value("var10")
+                      .isEqualTo(DateTimeValue.parse("2014-05-30T12:29:49"))
+                    .change(0).rowAtEndPoint().value("var9")
+                      .isEqualTo(DateTimeValue.of(DateValue.of(2014, 5, 24)))
+                    .change().rowAtEndPoint().value("var9")
+                      .isEqualTo(DateTimeValue.parse("2014-05-30"));
   }
 
   /**
-   * This method should fail because the value is not before the date/time.
+   * This method should fail because the value is not equal to the date/time value.
    */
   @Test
   @NeedReload
-  public void should_fail_because_value_is_not_before() {
+  public void should_fail_because_value_is_not_equal() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
       updateChangesForOtherTests();
       changes.setEndPointNow();
 
       assertThat(changes).change().rowAtEndPoint().value("var10")
-                       .isBefore(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)));
+                       .isEqualTo(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 31)));
 
       fail("An exception must be raised");
     } catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 9 of Row at end point of Change at index 0 of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n" +
                                                                                     "Expecting:\n" +
                                                                                     "  <2014-05-24T09:46:30.000000000>\n" +
-                                                                                    "to be before \n" +
-                                                                                    "  <2014-05-24T09:46:30.000000000>");
+                                                                                    "to be equal to: \n" +
+                                                                                    "  <2014-05-24T09:46:31.000000000>");
     }
   }
 
@@ -87,14 +86,14 @@ public class ChangeValueAssert_IsBefore_DateTimeValue_Test extends AbstractTest 
    */
   @Test
   @NeedReload
-  public void should_fail_because_value_is_not_a_datetime() {
+  public void should_fail_because_value_is_not_a_date() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
       updateChangesForOtherTests();
       changes.setEndPointNow();
 
       assertThat(changes).change().rowAtEndPoint().value("var1").as("var1")
-                       .isBefore(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 31)));
+                       .isEqualTo(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)));
 
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -109,26 +108,26 @@ public class ChangeValueAssert_IsBefore_DateTimeValue_Test extends AbstractTest 
   }
 
   /**
-   * This method should fail because the value is not before the date.
+   * This method should fail because the value is not equal to the date value.
    */
   @Test
   @NeedReload
-  public void should_fail_because_value_is_not_before_date() {
+  public void should_fail_because_value_is_not_equal_to_date() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
       updateChangesForOtherTests();
       changes.setEndPointNow();
 
-      assertThat(changes).change(2).rowAtEndPoint().value("var10")
-                       .isBefore(DateValue.of(2014, 5, 30));
+      assertThat(changes).change(2).rowAtEndPoint().value("var9")
+                       .isEqualTo(DateTimeValue.of(DateValue.of(2014, 5, 25)));
 
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 9 of Row at end point of Change at index 2 of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n" +
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 8 of Row at end point of Change at index 2 of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n" +
                                                                                     "Expecting:\n" +
                                                                                     "  <2014-05-30T00:00:00.000000000>\n" +
-                                                                                    "to be before \n" +
-                                                                                    "  <2014-05-30T00:00:00.000000000>");
+                                                                                    "to be equal to: \n" +
+                                                                                    "  <2014-05-25T00:00:00.000000000>");
     }
   }
 }

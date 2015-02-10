@@ -32,8 +32,8 @@ import static org.assertj.db.util.Values.areEqual;
  *
  * @author Régis Pouiller
  */
-public class ChangeRowAssert extends AbstractAssertWithRows<ChangeRowAssert, ChangeAssert>
-        implements OriginAssertWithValues {
+public class ChangeRowAssert extends AbstractAssertWithColumnsAndRowsFromChange<ChangeRowAssert, ChangeAssert>
+        implements OriginAssertWithValuesFromRow {
 
   /**
    * The actual row on which the assertion is.

@@ -27,57 +27,57 @@ import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 /**
- * Tests on the methods which verifies if a value is after a date/time value.
+ * Tests on the methods which verifies if a value is before a date/time value.
  *
  * @author Régis Pouiller
  *
  */
-public class ChangeValueAssert_IsAfter_DateTimeValue_Test extends AbstractTest {
+public class ChangeRowValueAssert_IsBefore_DateTimeValue_Test extends AbstractTest {
 
   /**
-   * This method tests that the value is after a date/time.
+   * This method tests that the value is before a date/time.
    *
    * @throws java.text.ParseException
    */
   @Test
   @NeedReload
-  public void test_if_value_is_after_datetime() throws ParseException {
+  public void test_if_value_is_before_datetime() throws ParseException {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForOtherTests();
     changes.setEndPointNow();
 
     assertThat(changes).change().rowAtEndPoint().value("var10")
-            .isAfter(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 29)))
+            .isBefore(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 31)))
             .change().rowAtEndPoint().value("var10")
-            .isAfter(DateTimeValue.parse("2014-05-30T12:29:48"))
+            .isBefore(DateTimeValue.parse("2014-05-30T12:29:50"))
             .change().rowAtEndPoint().value("var10")
-            .isAfter(DateValue.parse("2014-05-29"))
+            .isBefore(DateValue.of(2014, 5, 31))
             .change(0).rowAtEndPoint().value("var9")
-            .isAfter(DateTimeValue.parse("2014-05-23T23:59:59"))
+            .isBefore(DateTimeValue.parse("2014-05-24T00:01"))
             .change().rowAtEndPoint().value("var9")
-            .isAfter(DateTimeValue.of(DateValue.of(2014, 5, 29), TimeValue.of(23, 59, 59)));
+            .isBefore(DateTimeValue.of(DateValue.of(2014, 5, 30), TimeValue.of(0, 1)));
   }
 
   /**
-   * This method should fail because the value is not after the date/time value.
+   * This method should fail because the value is not before the date/time.
    */
   @Test
   @NeedReload
-  public void should_fail_because_value_is_not_after() {
+  public void should_fail_because_value_is_not_before() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
       updateChangesForOtherTests();
       changes.setEndPointNow();
 
       assertThat(changes).change().rowAtEndPoint().value("var10")
-                       .isAfter(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)));
+                       .isBefore(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)));
 
       fail("An exception must be raised");
     } catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 9 of Row at end point of Change at index 0 of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n" +
                                                                                     "Expecting:\n" +
                                                                                     "  <2014-05-24T09:46:30.000000000>\n" +
-                                                                                    "to be after \n" +
+                                                                                    "to be before \n" +
                                                                                     "  <2014-05-24T09:46:30.000000000>");
     }
   }
@@ -94,7 +94,7 @@ public class ChangeValueAssert_IsAfter_DateTimeValue_Test extends AbstractTest {
       changes.setEndPointNow();
 
       assertThat(changes).change().rowAtEndPoint().value("var1").as("var1")
-                       .isAfter(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 29)));
+                       .isBefore(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 31)));
 
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -109,25 +109,25 @@ public class ChangeValueAssert_IsAfter_DateTimeValue_Test extends AbstractTest {
   }
 
   /**
-   * This method should fail because the value is not after the date value.
+   * This method should fail because the value is not before the date.
    */
   @Test
   @NeedReload
-  public void should_fail_because_value_is_not_after_date() {
+  public void should_fail_because_value_is_not_before_date() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
       updateChangesForOtherTests();
       changes.setEndPointNow();
 
-      assertThat(changes).change().rowAtEndPoint().value("var10")
-                       .isAfter(DateValue.of(2014, 5, 30));
+      assertThat(changes).change(2).rowAtEndPoint().value("var10")
+                       .isBefore(DateValue.of(2014, 5, 30));
 
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 9 of Row at end point of Change at index 0 of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n"+
-                                                                                    "Expecting:\n"+
-                                                                                    "  <2014-05-30T00:00:00.000000000>\n"+
-                                                                                    "to be after \n"+
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 9 of Row at end point of Change at index 2 of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n" +
+                                                                                    "Expecting:\n" +
+                                                                                    "  <2014-05-30T00:00:00.000000000>\n" +
+                                                                                    "to be before \n" +
                                                                                     "  <2014-05-30T00:00:00.000000000>");
     }
   }

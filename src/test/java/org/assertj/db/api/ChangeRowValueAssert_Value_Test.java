@@ -25,7 +25,7 @@ import static org.assertj.db.api.Assertions.assertThat;
  *
  * @author Régis Pouiller
  */
-public class ChangeValueAssert_Value_Test extends AbstractTest {
+public class ChangeRowValueAssert_Value_Test extends AbstractTest {
 
   /**
    * This method test the {@code rowAtStartPoint()} of {@code Change}.

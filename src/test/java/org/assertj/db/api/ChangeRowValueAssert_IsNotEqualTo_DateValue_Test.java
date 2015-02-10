@@ -15,9 +15,7 @@ package org.assertj.db.api;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.common.NeedReload;
 import org.assertj.db.type.Changes;
-import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
-import org.assertj.db.type.TimeValue;
 import org.junit.Test;
 
 import java.text.ParseException;
@@ -27,16 +25,15 @@ import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 /**
- * Tests on the methods which verifies if a value is not equal to a date/time value.
+ * Tests on the methods which verifies if a value is not equal to a date value.
  *
  * @author Régis Pouiller
  *
  */
-public class ChangeValueAssert_IsNotEqualTo_DateTimeValue_Test extends AbstractTest {
+public class ChangeRowValueAssert_IsNotEqualTo_DateValue_Test extends AbstractTest {
 
   /**
-   * This method tests that the value is not equal to a date/time.
-   *
+   * This method tests that the value is not equal to a date.
    * @throws java.text.ParseException
    */
   @Test
@@ -46,18 +43,14 @@ public class ChangeValueAssert_IsNotEqualTo_DateTimeValue_Test extends AbstractT
     updateChangesForOtherTests();
     changes.setEndPointNow();
 
-    assertThat(changes).change().rowAtEndPoint().value("var10")
-                     .isNotEqualTo(DateTimeValue.of(DateValue.of(2014, 5, 25), TimeValue.of(9, 46, 30)))
-                     .change().rowAtEndPoint().value("var10")
-                     .isNotEqualTo(DateTimeValue.parse("2014-05-30T12:29:50"))
-                     .change(0).rowAtEndPoint().value("var9")
-                     .isNotEqualTo(DateTimeValue.of(DateValue.of(2014, 5, 26)))
-                     .change().rowAtEndPoint().value("var9")
-                     .isNotEqualTo(DateTimeValue.parse("2014-05-30T00:00:50"));
+    assertThat(changes).change().rowAtEndPoint().value("var9")
+                     .isNotEqualTo(DateValue.of(2014, 5, 23))
+                 .change().rowAtEndPoint().value("var9")
+                     .isNotEqualTo(DateValue.parse("2014-05-31"));
   }
 
   /**
-   * This method should fail because the value is equal to the date/time value.
+   * This method should fail because the value is equal to the date value.
    */
   @Test
   @NeedReload
@@ -67,21 +60,21 @@ public class ChangeValueAssert_IsNotEqualTo_DateTimeValue_Test extends AbstractT
       updateChangesForOtherTests();
       changes.setEndPointNow();
 
-      assertThat(changes).change().rowAtEndPoint().value("var10")
-                       .isNotEqualTo(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)));
+      assertThat(changes).change().rowAtEndPoint().value("var9").isNotEqualTo(DateValue.of(2014, 5, 24));
 
       fail("An exception must be raised");
-    } catch (AssertionError e) {
-      assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 9 of Row at end point of Change at index 0 of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n" +
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 8 of Row at end point of Change at index 0 of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n" +
                                                                                     "Expecting:\n" +
-                                                                                    "  <2014-05-24T09:46:30.000000000>\n" +
+                                                                                    "  <2014-05-24>\n" +
                                                                                     "not to be equal to: \n" +
-                                                                                    "  <2014-05-24T09:46:30.000000000>");
+                                                                                    "  <2014-05-24>");
     }
   }
 
   /**
-   * This method should fail because the value is not a date/time.
+   * This method should fail because the value is not a date.
    */
   @Test
   @NeedReload
@@ -91,11 +84,12 @@ public class ChangeValueAssert_IsNotEqualTo_DateTimeValue_Test extends AbstractT
       updateChangesForOtherTests();
       changes.setEndPointNow();
 
-      assertThat(changes).change().rowAtEndPoint().value("var1").as("var1")
-                         .isNotEqualTo(DateTimeValue.of(DateValue.of(2014, 5, 24), TimeValue.of(9, 46, 30)));
+      assertThat(changes).change().rowAtEndPoint().value("var1")
+                       .as("var1").isNotEqualTo(DateValue.of(2014, 5, 23));
 
       fail("An exception must be raised");
-    } catch (AssertionError e) {
+    }
+    catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[var1] \n" +
                                                                                     "Expecting:\n" +
                                                                                     "  <1>\n" +
@@ -107,26 +101,42 @@ public class ChangeValueAssert_IsNotEqualTo_DateTimeValue_Test extends AbstractT
   }
 
   /**
-   * This method should fail because the value is equal to the date value.
+   * This method tests that the date/time value is not equal to a date.
+   * @throws ParseException
    */
   @Test
   @NeedReload
-  public void should_fail_because_value_is_equal_to_date() {
+  public void test_if_datetime_value_is_not_equal_to_date() throws ParseException {
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForOtherTests();
+    changes.setEndPointNow();
+
+    assertThat(changes).change(2).rowAtEndPoint().value("var10").isNotEqualTo(DateValue.parse("2014-05-31"));
+  }
+
+  /**
+   * This method should fail because the date/time value is equal to the date value.
+   * @throws ParseException
+   */
+  @Test
+  @NeedReload
+  public void should_fail_because_datetime_value_is_equal() throws ParseException {
     try {
       Changes changes = new Changes(source).setStartPointNow();
       updateChangesForOtherTests();
       changes.setEndPointNow();
 
-      assertThat(changes).change(2).rowAtEndPoint().value("var9")
-                       .isNotEqualTo(DateTimeValue.of(DateValue.of(2014, 5, 30)));
+      assertThat(changes).change(2).rowAtEndPoint().value("var10").isNotEqualTo(DateValue.parse("2014-05-30"));
 
       fail("An exception must be raised");
-    } catch (AssertionError e) {
-      assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 8 of Row at end point of Change at index 2 of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n" +
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Value at index 9 of Row at end point of Change at index 2 of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n" +
                                                                                     "Expecting:\n" +
                                                                                     "  <2014-05-30T00:00:00.000000000>\n" +
                                                                                     "not to be equal to: \n" +
                                                                                     "  <2014-05-30T00:00:00.000000000>");
     }
   }
+
 }
