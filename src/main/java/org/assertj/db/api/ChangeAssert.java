@@ -100,12 +100,19 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
     }
     Row rowAtStartPoint = change.getRowAtStartPoint();
     Row rowAtEndPoint = change.getRowAtEndPoint();
-    List<Object> valuesAtStartPoint = rowAtStartPoint.getValuesList();
-    List<Object> valuesAtEndPoint = rowAtEndPoint.getValuesList();
-    Object valueAtStartPoint = valuesAtStartPoint.get(index);
-    Object valueAtEndPoint = valuesAtEndPoint.get(index);
+    Object valueAtStartPoint = null;
+    Object valueAtEndPoint = null;
+    if (rowAtStartPoint != null) {
+      List<Object> valuesAtStartPoint = rowAtStartPoint.getValuesList();
+      valueAtStartPoint = valuesAtStartPoint.get(index);
+    }
+    if (rowAtEndPoint != null) {
+      List<Object> valuesAtEndPoint = rowAtEndPoint.getValuesList();
+      valueAtEndPoint = valuesAtEndPoint.get(index);
+    }
     ChangeColumnAssert instance = new ChangeColumnAssert(this, valueAtStartPoint, valueAtEndPoint);
     columnsAssertMap.put(index, instance);
+    indexNextColumn = index + 1;
     return instance.as("Column at index " + index + " of " + info.descriptionText());
   }
 
