@@ -17,11 +17,11 @@ import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.Row;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.assertj.db.error.ShouldBeChangeType.shouldBeChangeType;
+import static org.assertj.db.error.ShouldHaveModifications.shouldHaveModifications;
+import static org.assertj.db.error.ShouldHaveNumberOfModifications.shouldHaveNumberOfModifications;
 
 /**
  * Assertion methods about the {@link Change}.
@@ -246,5 +246,148 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    */
   public ChangeAssert isDeletion() {
     return isOfType(ChangeType.DELETION);
+  }
+
+  /**
+   * Returns the indexes of the modified columns.
+   * @return The indexes.
+   */
+  private Integer[] getIndexesOfModifiedColumns() {
+    List<Integer> indexesList = new ArrayList<>();
+    Row rowAtStartPoint = change.getRowAtStartPoint();
+    Row rowAtEndPoint = change.getRowAtEndPoint();
+    if (rowAtStartPoint != null && rowAtEndPoint != null) {
+      List<Object> valuesListAtStartPoint = rowAtStartPoint.getValuesList();
+      List<Object> valuesListAtEndPoint = rowAtEndPoint.getValuesList();
+      Iterator<Object> iteratorAtEndPoint = valuesListAtEndPoint.iterator();
+      int index = 0;
+      for (Object valueAtStartPoint : valuesListAtStartPoint) {
+        Object valueAtEndPoint  = iteratorAtEndPoint.next();
+
+        if ((valueAtStartPoint == null && valueAtEndPoint != null) ||
+            (valueAtStartPoint != null && !valueAtStartPoint.equals(valueAtEndPoint))) {
+
+          indexesList.add(index);
+        }
+        index++;
+      }
+    }
+    else if (rowAtStartPoint != null) {
+      List<Object> valuesListAtStartPoint = rowAtStartPoint.getValuesList();
+      int index = 0;
+      for (Object valueAtStartPoint : valuesListAtStartPoint) {
+        if (valueAtStartPoint != null) {
+          indexesList.add(index);
+        }
+        index++;
+      }
+    }
+    else if (rowAtEndPoint != null) {
+      List<Object> valuesListAtEndPoint = rowAtEndPoint.getValuesList();
+      int index = 0;
+      for (Object valueAtEndPoint : valuesListAtEndPoint) {
+        if (valueAtEndPoint != null) {
+          indexesList.add(index);
+        }
+        index++;
+      }
+    }
+
+    return indexesList.toArray(new Integer[indexesList.size()]);
+  }
+
+  /**
+   * Verifies that the number of columns with a modification in the values between the start point and the end point
+   * is equals to the number in parameter.
+   * <p>
+   * Example where the assertion verifies that there are 3 modified columns :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change(1).hasNumberOfModifiedColumns(3);
+   * </code>
+   * </pre>
+   *
+   * @param number The expected number of modified columns
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is different to the type in parameter.
+   */
+  public ChangeAssert hasNumberOfModifiedColumns(int number) {
+    Integer[] indexesOfModifiedColumns = getIndexesOfModifiedColumns();
+
+    if (number != indexesOfModifiedColumns.length) {
+      throw failures.failure(info, shouldHaveNumberOfModifications(indexesOfModifiedColumns.length, number));
+    }
+    return this;
+  }
+
+  /**
+   * Verifies that the indexes of columns with a modification in the values between the start point and the end point
+   * is equals to the parameters.
+   * <p>
+   * Example where the assertion verifies that indexes of modified columns are 3 and 5 :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change(1).hasModifiedColumns(3, 5);
+   * </code>
+   * </pre>
+   *
+   * @param indexes Indexes of the modified columns.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is different to the type in parameter.
+   */
+  public ChangeAssert hasModifiedColumns(Integer... indexes) {
+    List<Integer> indexesList = Arrays.asList(indexes);
+    Collections.sort(indexesList);
+    Integer[] indexesOfModifiedColumns = getIndexesOfModifiedColumns();
+    List<Integer> indexesOfModifiedList = Arrays.asList(indexesOfModifiedColumns);
+    Collections.sort(indexesOfModifiedList);
+
+    if (!indexesList.equals(indexesOfModifiedList)) {
+      throw failures.failure(info, shouldHaveModifications(indexesOfModifiedColumns, indexes));
+    }
+
+    return this;
+  }
+
+  /**
+   * Verifies that the names of columns with a modification in the values between the start point and the end point
+   * is equals to the parameters.
+   * <p>
+   * Example where the assertion verifies that names of modified columns are "name" and "birth" :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change(1).hasModifiedColumns("name", "birth");
+   * </code>
+   * </pre>
+   *
+   * @param names Names of the modified columns.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is different to the type in parameter.
+   */
+  public ChangeAssert hasModifiedColumns(String... names) {
+    Integer[] indexesOfModifiedColumns = getIndexesOfModifiedColumns();
+    String[] namesOfModifiedColumns = new String[names.length];
+    List<String> columnsNameList = change.getColumnsNameList();
+    for (int i = 0; i < indexesOfModifiedColumns.length; i++) {
+      namesOfModifiedColumns[i] = columnsNameList.get(indexesOfModifiedColumns[i]);
+    }
+
+    List<String> namesList = new ArrayList();
+    for (String name : names) {
+      namesList.add(name.toUpperCase());
+    }
+    Collections.sort(namesList);
+
+    List<String> namesOfModifiedList = Arrays.asList(namesOfModifiedColumns);
+    Collections.sort(namesOfModifiedList);
+
+    if (!namesList.equals(namesOfModifiedList)) {
+      throw failures.failure(info, shouldHaveModifications(namesOfModifiedColumns, names));
+    }
+
+    return this;
   }
 }

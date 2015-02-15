@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api;
 
+import static org.assertj.db.error.ShouldBeModified.shouldBeModified;
+import static org.assertj.db.error.ShouldNotBeModified.shouldNotBeModified;
+
 /**
  * Assertion methods about a {@code Column} of a {@code Change}.
  *
@@ -80,5 +83,51 @@ public class ChangeColumnAssert extends AbstractAssertWithColumnsAndRowsFromChan
               .as(stringBuilder.toString());
     }
     return changeColumnValueAssertAtEndPoint;
+  }
+
+  /**
+   * Verifies that the column is modified between the start point and the end point.
+   * <p>
+   * Example where the assertion verifies that :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change(1).column().isModified();
+   * </code>
+   * </pre>
+   *
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is different to the type in parameter.
+   */
+  public ChangeColumnAssert isModified() {
+    if ((valueAtStartPoint == null && valueAtEndPoint == null) ||
+        (valueAtStartPoint != null && valueAtStartPoint.equals(valueAtEndPoint))) {
+
+      throw failures.failure(info, shouldBeModified(valueAtStartPoint, valueAtEndPoint));
+    }
+    return this;
+  }
+
+  /**
+   * Verifies that the column is not modified between the start point and the end point.
+   * <p>
+   * Example where the assertion verifies that :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change(1).column().isNotModified();
+   * </code>
+   * </pre>
+   *
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is different to the type in parameter.
+   */
+  public ChangeColumnAssert isNotModified() {
+    if ((valueAtStartPoint == null && valueAtEndPoint != null) ||
+        (valueAtStartPoint != null && !valueAtStartPoint.equals(valueAtEndPoint))) {
+
+      throw failures.failure(info, shouldNotBeModified(valueAtStartPoint, valueAtEndPoint));
+    }
+    return this;
   }
 }
