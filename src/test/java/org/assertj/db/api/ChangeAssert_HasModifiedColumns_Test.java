@@ -48,6 +48,58 @@ public class ChangeAssert_HasModifiedColumns_Test extends AbstractTest {
   }
 
   /**
+   * This method should fail because the column index parameter is null.
+   */
+  @Test(expected=NullPointerException.class)
+  @NeedReload
+  public void should_fail_because_column_index_is_null() {
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+
+    assertThat(changes).change().hasModifiedColumns((Integer[]) null);
+  }
+
+  /**
+   * This method should fail because the column index parameter is null.
+   */
+  @Test(expected=NullPointerException.class)
+  @NeedReload
+  public void should_fail_because_a_column_index_is_null() {
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+
+    assertThat(changes).change().hasModifiedColumns(1, null);
+  }
+
+  /**
+   * This method should fail because the column name parameter is null.
+   */
+  @Test(expected=NullPointerException.class)
+  @NeedReload
+  public void should_fail_because_column_name_is_null() {
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+
+    assertThat(changes).change().hasModifiedColumns((String[]) null);
+  }
+
+  /**
+   * This method should fail because the column name parameter is null.
+   */
+  @Test(expected=NullPointerException.class)
+  @NeedReload
+  public void should_fail_because_a_column_name_is_null() {
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+
+    assertThat(changes).change().hasModifiedColumns("test", null);
+  }
+
+  /**
    * This method should fail because the modifications are different (with columns indexes).
    */
   @Test

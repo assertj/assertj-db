@@ -15,11 +15,14 @@ package org.assertj.db.api;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
+import org.assertj.db.type.DataType;
 import org.assertj.db.type.Row;
 
 import java.util.*;
 
 import static org.assertj.db.error.ShouldBeChangeType.shouldBeChangeType;
+import static org.assertj.db.error.ShouldBeDataType.shouldBeDataType;
+import static org.assertj.db.error.ShouldBeOnTable.shouldBeOnTable;
 import static org.assertj.db.error.ShouldHaveModifications.shouldHaveModifications;
 import static org.assertj.db.error.ShouldHaveNumberOfModifications.shouldHaveNumberOfModifications;
 
@@ -77,6 +80,20 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
       changeRowAssertAtStartPoint = new ChangeRowAssert(this, change.getRowAtStartPoint()).as(stringBuilder.toString());
     }
     return changeRowAssertAtStartPoint;
+  }
+
+  /**
+   * Returns the assert on the row at end point.
+   *
+   * @return The assert on the row at end point.
+   */
+  public ChangeRowAssert rowAtEndPoint() {
+    if (changeRowAssertAtEndPoint == null) {
+      StringBuilder stringBuilder = new StringBuilder("Row at end point of ");
+      stringBuilder.append(info.descriptionText());
+      changeRowAssertAtEndPoint = new ChangeRowAssert(this, change.getRowAtEndPoint()).as(stringBuilder.toString());
+    }
+    return changeRowAssertAtEndPoint;
   }
 
   /**
@@ -158,17 +175,135 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
   }
 
   /**
-   * Returns the assert on the row at end point.
+   * Verifies that the data type on which the change is equal to the type in parameter.
+   * <p>
+   * Example where the assertion verifies that the change is on data type {@code TABLE} :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change(1).isOnDataType(DataType.TABLE);
+   * </code>
+   * </pre>
    *
-   * @return The assert on the row at end point.
+   * @param expected The expected type to compare to.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is different to the type in parameter.
    */
-  public ChangeRowAssert rowAtEndPoint() {
-    if (changeRowAssertAtEndPoint == null) {
-      StringBuilder stringBuilder = new StringBuilder("Row at end point of ");
-      stringBuilder.append(info.descriptionText());
-      changeRowAssertAtEndPoint = new ChangeRowAssert(this, change.getRowAtEndPoint()).as(stringBuilder.toString());
+  public ChangeAssert isOnDataType(DataType expected) {
+    DataType type = change.getDataType();
+    if (type != expected) {
+      throw failures.failure(info, shouldBeDataType(expected, type));
     }
-    return changeRowAssertAtEndPoint;
+    return this;
+  }
+
+  /**
+   * Verifies that the data type on which the change is a table.
+   * <p>
+   * Example where the assertion verifies that the change is on data type {@code TABLE} :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change(1).isOnTable();
+   * </code>
+   * </pre>
+   *
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is different to the type in parameter.
+   */
+  public ChangeAssert isOnTable() {
+    return isOnDataType(DataType.TABLE);
+  }
+
+  /**
+   * Verifies that the data type on which the change is a request.
+   * <p>
+   * Example where the assertion verifies that the change is on data type {@code REQUEST} :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change(1).isOnRequest();
+   * </code>
+   * </pre>
+   *
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is different to the type in parameter.
+   */
+  public ChangeAssert isOnRequest() {
+    return isOnDataType(DataType.REQUEST);
+  }
+
+  /**
+   * Verifies that the change is a table with the name in parameter.
+   * <p>
+   * Example where the assertion verifies that the change is on {@code TABLE} called movie :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change(1).isOnTable("movie");
+   * </code>
+   * </pre>
+   *
+   * @param name The name of the table on which is the change.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is different to the type in parameter.
+   * @throws java.lang.NullPointerException If the name in parameter is {@code null}.
+   */
+  public ChangeAssert isOnTable(String name) {
+    if (name == null) {
+      throw new NullPointerException("Table name must be not null");
+    }
+    isOnTable();
+    String dataName = change.getDataName();
+    if (!dataName.equals(name.toUpperCase())) {
+      throw failures.failure(info, shouldBeOnTable(name, dataName));
+    }
+    return this;
+  }
+
+  /**
+   * Verifies that primary of the rows of the change is the same as the parameters.
+   * <p>
+   * Example where the assertion verifies that primary key is the column called id :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change(1).hasPksNames("id");
+   * </code>
+   * </pre>
+   *
+   * @param names The names of the primary key associated with the rows of the change.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is different to the type in parameter.
+   * @throws java.lang.NullPointerException If one of the names in parameters is {@code null}.
+   */
+  public ChangeAssert hasPksNames(String... names) {
+    if (names == null) {
+      throw new NullPointerException("Column name must be not null");
+    }
+
+    // Create a sorted list from the primary keys columns
+    List<String> pksNameList = change.getPksNameList();
+    List<String> pksList = new ArrayList(pksNameList);
+    Collections.sort(pksList);
+
+    // Create a sorted list from the parameters
+    List<String> namesList = new ArrayList();
+    for (String name : names) {
+      if (name == null) {
+        throw new NullPointerException("Column name must be not null");
+      }
+      namesList.add(name.toUpperCase());
+    }
+    Collections.sort(namesList);
+
+    // Compare each list
+    if (!namesList.equals(pksList)) {
+      String[] pksNames = pksNameList.toArray(new String[pksNameList.size()]);
+      throw failures.failure(info, shouldHaveModifications(pksNames, names));
+    }
+
+    return this;
   }
 
   /**
@@ -282,7 +417,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
         index++;
       }
     }
-    else if (rowAtEndPoint != null) {
+    else {
       List<Object> valuesListAtEndPoint = rowAtEndPoint.getValuesList();
       int index = 0;
       for (Object valueAtEndPoint : valuesListAtEndPoint) {
@@ -338,12 +473,26 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * @throws AssertionError If the type is different to the type in parameter.
    */
   public ChangeAssert hasModifiedColumns(Integer... indexes) {
-    List<Integer> indexesList = Arrays.asList(indexes);
-    Collections.sort(indexesList);
+    if (indexes == null) {
+      throw new NullPointerException("Column index must be not null");
+    }
+
+    // Create a sorted list from the modified columns
     Integer[] indexesOfModifiedColumns = getIndexesOfModifiedColumns();
     List<Integer> indexesOfModifiedList = Arrays.asList(indexesOfModifiedColumns);
     Collections.sort(indexesOfModifiedList);
 
+    // Create a sorted list from the parameters
+    List<Integer> indexesList = new ArrayList();
+    for (Integer index : indexes) {
+      if (index == null) {
+        throw new NullPointerException("Column index must be not null");
+      }
+      indexesList.add(index);
+    }
+    Collections.sort(indexesList);
+
+    // Compare each list
     if (!indexesList.equals(indexesOfModifiedList)) {
       throw failures.failure(info, shouldHaveModifications(indexesOfModifiedColumns, indexes));
     }
@@ -368,22 +517,31 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * @throws AssertionError If the type is different to the type in parameter.
    */
   public ChangeAssert hasModifiedColumns(String... names) {
+    if (names == null) {
+      throw new NullPointerException("Column name must be not null");
+    }
+
+    // Create a sorted list from the parameters
+    List<String> namesList = new ArrayList();
+    for (String name : names) {
+      if (name == null) {
+        throw new NullPointerException("Column name must be not null");
+      }
+      namesList.add(name.toUpperCase());
+    }
+    Collections.sort(namesList);
+
+    // Create a sorted list from the modified columns
     Integer[] indexesOfModifiedColumns = getIndexesOfModifiedColumns();
     String[] namesOfModifiedColumns = new String[names.length];
     List<String> columnsNameList = change.getColumnsNameList();
     for (int i = 0; i < indexesOfModifiedColumns.length; i++) {
       namesOfModifiedColumns[i] = columnsNameList.get(indexesOfModifiedColumns[i]);
     }
-
-    List<String> namesList = new ArrayList();
-    for (String name : names) {
-      namesList.add(name.toUpperCase());
-    }
-    Collections.sort(namesList);
-
     List<String> namesOfModifiedList = Arrays.asList(namesOfModifiedColumns);
     Collections.sort(namesOfModifiedList);
 
+    // Compare each list
     if (!namesList.equals(namesOfModifiedList)) {
       throw failures.failure(info, shouldHaveModifications(namesOfModifiedColumns, names));
     }

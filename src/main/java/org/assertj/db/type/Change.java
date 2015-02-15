@@ -31,6 +31,10 @@ public class Change {
    */
   private final String dataName;
   /**
+   * List of the primary key names.
+   */
+  private final List<String> pksNameList;
+  /**
    * The list of the column names.
    */
   private final List<String> columnsNameList;
@@ -107,8 +111,10 @@ public class Change {
     this.dataType = dataType;
     this.dataName = dataName;
     if (rowAtStartPoint != null) {
+      this.pksNameList = rowAtStartPoint.getPksNameList();
       this.columnsNameList = rowAtStartPoint.getColumnsNameList();
     } else {
+      this.pksNameList = rowAtEndPoint.getPksNameList();
       this.columnsNameList = rowAtEndPoint.getColumnsNameList();
     }
     this.changeType = changeType;
@@ -132,6 +138,15 @@ public class Change {
    */
   public String getDataName() {
     return dataName;
+  }
+
+  /**
+   * Return the list of the primary keys name.
+   *
+   * @return The list of the primary keys name.
+   */
+  public List<String> getPksNameList() {
+    return pksNameList;
   }
 
   /**

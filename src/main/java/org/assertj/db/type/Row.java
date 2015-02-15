@@ -70,7 +70,7 @@ public class Row {
 
   /**
    * Sets the list of the primary keys name.
-   * 
+   *
    * @param pksNameList The list of the primary keys name.
    */
   void setPksNameList(List<String> pksNameList) {
