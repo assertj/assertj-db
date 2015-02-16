@@ -37,14 +37,17 @@ public class ChangeAssert_HasNumberOfModifiedColumns_Test extends AbstractTest {
   public void test_number_of_modifications() {
     update("insert into movie(id, title) values(6, 'Test2')");
     update("insert into movie(id, title) values(7, 'Test3')");
+    update("insert into movie(id, title) values(8, 'Test4')");
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForTests();
     update("insert into movie(id, title) values(5, 'Test')");
     update("update movie set title='Test4', year=null where id=6");
     update("delete movie where id=7");
+    update("update movie set year='2015' where id=8");
     changes.setEndPointNow();
 
     assertThat(changes).changeOfModification().hasNumberOfModifiedColumns(1)
+            .changeOfModification().hasNumberOfModifiedColumns(1)
             .changeOfModification().hasNumberOfModifiedColumns(1)
             .changeOfModification().hasNumberOfModifiedColumns(1)
             .changeOfModification().hasNumberOfModifiedColumns(1)
