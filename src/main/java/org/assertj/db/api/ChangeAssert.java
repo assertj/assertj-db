@@ -325,7 +325,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * @throws AssertionError                 If the type is different to the type in parameter.
    */
   public ChangeAssert hasPksValues(Object... values) {
-    // Create a list from the primary keys columns
+    // Create a array from the primary keys columns
     Row rowAtStartPoint = change.getRowAtStartPoint();
     Row rowAtEndPoint = change.getRowAtEndPoint();
     List<Object> pksValuesList;
@@ -343,15 +343,12 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
       Object value = pksValuesList.get(index);
       pksList.add(value);
     }
+    Object[] pksValues = pksList.toArray(new Object[pksList.size()]);
 
-    if (values.length != pksList.size()) {
-      Object[] pksValues = new Object[pksList.size()];
-      int i = 0;
-      for (Object obj : pksList) {
-        pksValues[i] = Values.getRepresentationFromValueInFrontOfExpected(obj, values[i]);
-        i++;
-      }
-      throw failures.failure(info, shouldHavePksValues(pksValues, values));
+    // If the length of the values is different than the length of the expected values
+    if (values.length != pksValues.length) {
+      Object[] representationsValues = Values.getRepresentationsFromValuesInFrontOfExpected(pksValues, values);
+      throw failures.failure(info, shouldHavePksValues(representationsValues, values));
     }
 
     // Compare each list
@@ -359,13 +356,8 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
     for (Object pkValue : pksList) {
       Object value = values[index];
       if (!Values.areEqual(pkValue, value)) {
-        Object[] pksValues = new Object[pksList.size()];
-        int i = 0;
-        for (Object obj : pksList) {
-          pksValues[i] = Values.getRepresentationFromValueInFrontOfExpected(obj, values[i]);
-          i++;
-        }
-        throw failures.failure(info, shouldHavePksValues(pksValues, values));
+        Object[] representationsValues = Values.getRepresentationsFromValuesInFrontOfExpected(pksValues, values);
+        throw failures.failure(info, shouldHavePksValues(representationsValues, values));
       }
       index++;
     }

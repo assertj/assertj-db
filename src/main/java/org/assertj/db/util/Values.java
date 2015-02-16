@@ -12,18 +12,18 @@
  */
 package org.assertj.db.util;
 
+import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.type.DateTimeValue;
+import org.assertj.db.type.DateValue;
+import org.assertj.db.type.TimeValue;
+import org.assertj.db.type.ValueType;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.ParseException;
-
-import org.assertj.db.exception.AssertJDBException;
-import org.assertj.db.type.DateTimeValue;
-import org.assertj.db.type.DateValue;
-import org.assertj.db.type.TimeValue;
-import org.assertj.db.type.ValueType;
 
 /**
  * Utility methods related to values.
@@ -587,6 +587,29 @@ public class Values {
     }
 
     throw new AssertJDBException("Expected <%s> can not be compared to a Number (<%s>)", expected, value);
+  }
+
+  /**
+   * Returns a representation of the values (this representation is used for error message).
+   *
+   * @param values Values in the database.
+   * @param expected Expected values for comparison.
+   * @return A representation of the values.
+   * @throws org.assertj.db.exception.AssertJDBException If the length of the two arrays are different.
+   */
+  public static Object[] getRepresentationsFromValuesInFrontOfExpected(Object[] values, Object[] expected) {
+    Object[] representationsValues = new Object[values.length];
+    int i = 0;
+    for (Object obj : values) {
+      if (i > expected.length) {
+        representationsValues[i] = obj;
+      }
+      else {
+        representationsValues[i] = Values.getRepresentationFromValueInFrontOfExpected(obj, expected[i]);
+      }
+      i++;
+    }
+    return representationsValues;
   }
 
   /**
