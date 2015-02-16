@@ -17,6 +17,7 @@ import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.DataType;
 import org.assertj.db.type.Row;
+import org.assertj.db.util.Values;
 
 import java.util.*;
 
@@ -25,6 +26,8 @@ import static org.assertj.db.error.ShouldBeDataType.shouldBeDataType;
 import static org.assertj.db.error.ShouldBeOnTable.shouldBeOnTable;
 import static org.assertj.db.error.ShouldHaveModifications.shouldHaveModifications;
 import static org.assertj.db.error.ShouldHaveNumberOfModifications.shouldHaveNumberOfModifications;
+import static org.assertj.db.error.ShouldHavePksNames.shouldHavePksNames;
+import static org.assertj.db.error.ShouldHavePksValues.shouldHavePksValues;
 
 /**
  * Assertion methods about the {@link Change}.
@@ -159,7 +162,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    *
    * @param columnName The column name.
    * @return An object to make assertions on the {@link ChangeColumnAssert}.
-   * @throws NullPointerException If the column name in parameter is null.
+   * @throws NullPointerException                        If the column name in parameter is null.
    * @throws org.assertj.db.exception.AssertJDBException If there is no column with this name.
    */
   public ChangeColumnAssert column(String columnName) {
@@ -246,7 +249,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    *
    * @param name The name of the table on which is the change.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is different to the type in parameter.
+   * @throws AssertionError                 If the type is different to the type in parameter.
    * @throws java.lang.NullPointerException If the name in parameter is {@code null}.
    */
   public ChangeAssert isOnTable(String name) {
@@ -274,7 +277,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    *
    * @param names The names of the primary key associated with the rows of the change.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is different to the type in parameter.
+   * @throws AssertionError                 If the type is different to the type in parameter.
    * @throws java.lang.NullPointerException If one of the names in parameters is {@code null}.
    */
   public ChangeAssert hasPksNames(String... names) {
@@ -300,7 +303,71 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
     // Compare each list
     if (!namesList.equals(pksList)) {
       String[] pksNames = pksNameList.toArray(new String[pksNameList.size()]);
-      throw failures.failure(info, shouldHaveModifications(pksNames, names));
+      throw failures.failure(info, shouldHavePksNames(pksNames, names));
+    }
+
+    return this;
+  }
+
+  /**
+   * Verifies that the values primary of the rows of the change are the same as the parameters.
+   * <p>
+   * Example where the assertion verifies that primary key have the value 1 :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change(1).hasPksValues(1);
+   * </code>
+   * </pre>
+   *
+   * @param values The values of the primary key associated with the rows of the change.
+   * @return {@code this} assertion object.
+   * @throws AssertionError                 If the type is different to the type in parameter.
+   */
+  public ChangeAssert hasPksValues(Object... values) {
+    // Create a list from the primary keys columns
+    Row rowAtStartPoint = change.getRowAtStartPoint();
+    Row rowAtEndPoint = change.getRowAtEndPoint();
+    List<Object> pksValuesList;
+    if (rowAtStartPoint != null) {
+      pksValuesList = rowAtStartPoint.getValuesList();
+    }
+    else {
+      pksValuesList = rowAtEndPoint.getValuesList();
+    }
+    List<String> columnsNameList = change.getColumnsNameList();
+    List<String> pksNamesList = change.getPksNameList();
+    List<Object> pksList = new ArrayList();
+    for (String name : pksNamesList) {
+      int index = columnsNameList.indexOf(name);
+      Object value = pksValuesList.get(index);
+      pksList.add(value);
+    }
+
+    if (values.length != pksList.size()) {
+      Object[] pksValues = new Object[pksList.size()];
+      int i = 0;
+      for (Object obj : pksList) {
+        pksValues[i] = Values.getRepresentationFromValueInFrontOfExpected(obj, values[i]);
+        i++;
+      }
+      throw failures.failure(info, shouldHavePksValues(pksValues, values));
+    }
+
+    // Compare each list
+    int index = 0;
+    for (Object pkValue : pksList) {
+      Object value = values[index];
+      if (!Values.areEqual(pkValue, value)) {
+        Object[] pksValues = new Object[pksList.size()];
+        int i = 0;
+        for (Object obj : pksList) {
+          pksValues[i] = Values.getRepresentationFromValueInFrontOfExpected(obj, values[i]);
+          i++;
+        }
+        throw failures.failure(info, shouldHavePksValues(pksValues, values));
+      }
+      index++;
     }
 
     return this;

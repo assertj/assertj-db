@@ -119,7 +119,8 @@ public class ChangeAssert_HasPksNames_Test extends AbstractTest {
     } catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Change at index 0 of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n"
                                                     + "Expecting :\n" + "  [\"not_that\"]\n"
-                                                    + "as modified columns but was:\n" + "  [\"ID\"]");
+                                                    + "to be the name of the columns of the primary keys but was:\n"
+                                                    + "  [\"ID\"]");
     }
   }
 }
