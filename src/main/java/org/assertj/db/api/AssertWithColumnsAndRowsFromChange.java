@@ -59,4 +59,31 @@ public interface AssertWithColumnsAndRowsFromChange {
    * @throws org.assertj.db.exception.AssertJDBException If there is no column with this name.
    */
   public ChangeColumnAssert column(String columnName);
+
+  /**
+   * Returns assertion methods on the next {@link ChangeColumnAssert} in the list of the modified columns.
+   *
+   * @return An object to make assertions on the {@link ChangeColumnAssert}.
+   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public ChangeColumnAssert columnAmongTheModifiedOnes();
+
+  /**
+   * Returns assertion methods on the {@link ChangeColumnAssert} at the {@code index} in parameter among the modified columns.
+   *
+   * @param index The index corresponding to the {@link ChangeColumnAssert}.
+   * @return An object to make assertions on the {@link ChangeColumnAssert}.
+   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public ChangeColumnAssert columnAmongTheModifiedOnes(int index);
+
+  /**
+   * Returns assertion methods on the {@link ChangeColumnAssert} corresponding to the column name in parameter among the modified columns.
+   *
+   * @param columnName The column name.
+   * @return An object to make assertions on the {@link ChangeColumnAssert}.
+   * @throws NullPointerException                        If the column name in parameter is null.
+   * @throws org.assertj.db.exception.AssertJDBException If there is no column with this name.
+   */
+  public ChangeColumnAssert columnAmongTheModifiedOnes(String columnName);
 }

@@ -178,6 +178,62 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
   }
 
   /**
+   * Returns assertion methods on the next {@link ChangeColumnAssert} in the list of the modified columns.
+   *
+   * @return An object to make assertions on the {@link ChangeColumnAssert}.
+   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public ChangeColumnAssert columnAmongTheModifiedOnes() {
+    Integer[] indexesOfModifiedColumns = getIndexesOfModifiedColumns();
+    for (Integer indexModified : indexesOfModifiedColumns) {
+      if (indexModified >= indexNextColumn) {
+        return getChangeColumnAssertInstance(indexModified);
+      }
+    }
+    throw new AssertJDBException("No more modified columns");
+  }
+
+  /**
+   * Returns assertion methods on the {@link ChangeColumnAssert} at the {@code index} in parameter among the modified columns.
+   *
+   * @param index The index corresponding to the {@link ChangeColumnAssert}.
+   * @return An object to make assertions on the {@link ChangeColumnAssert}.
+   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public ChangeColumnAssert columnAmongTheModifiedOnes(int index) {
+    Integer[] indexesOfModifiedColumns = getIndexesOfModifiedColumns();
+    int size = indexesOfModifiedColumns.length;
+    if (index < 0 || index >= size) {
+      throw new AssertJDBException("Index %s out of the limits of the modified columns [0, %s[", index, size);
+    }
+    int indexModified = indexesOfModifiedColumns[index];
+    return getChangeColumnAssertInstance(indexModified);
+  }
+
+  /**
+   * Returns assertion methods on the {@link ChangeColumnAssert} corresponding to the column name in parameter among the modified columns.
+   *
+   * @param columnName The column name.
+   * @return An object to make assertions on the {@link ChangeColumnAssert}.
+   * @throws NullPointerException                        If the column name in parameter is null.
+   * @throws org.assertj.db.exception.AssertJDBException If there is no column with this name.
+   */
+  public ChangeColumnAssert columnAmongTheModifiedOnes(String columnName) {
+    if (columnName == null) {
+      throw new NullPointerException("Column name must be not null");
+    }
+    Integer[] indexesOfModifiedColumns = getIndexesOfModifiedColumns();
+    List<String> columnsNameList = change.getColumnsNameList();
+    for (Integer indexModified : indexesOfModifiedColumns) {
+      String modifiedColumnName = columnsNameList.get(indexModified);
+      if (modifiedColumnName.equalsIgnoreCase(columnName)) {
+        return getChangeColumnAssertInstance(indexModified);
+      }
+    }
+    throw new AssertJDBException("Column <%s> do not exist among the modified columns", columnName);
+  }
+
+  /**
    * Verifies that the data type on which the change is equal to the type in parameter.
    * <p>
    * Example where the assertion verifies that the change is on data type {@code TABLE} :
