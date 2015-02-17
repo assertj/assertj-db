@@ -13,6 +13,7 @@
 package org.assertj.db.api;
 
 import static org.assertj.db.error.ShouldBeModified.shouldBeModified;
+import static org.assertj.db.error.ShouldHaveName.shouldHaveName;
 import static org.assertj.db.error.ShouldNotBeModified.shouldNotBeModified;
 
 /**
@@ -23,6 +24,10 @@ import static org.assertj.db.error.ShouldNotBeModified.shouldNotBeModified;
 public class ChangeColumnAssert extends AbstractAssertWithColumnsAndRowsFromChange<ChangeColumnAssert, ChangeAssert>
         implements OriginAssertWithValuesFromColumn {
 
+  /**
+   * The name of the column.
+   */
+  private final String columnName;
   /**
    * The actual value at start point.
    */
@@ -45,12 +50,14 @@ public class ChangeColumnAssert extends AbstractAssertWithColumnsAndRowsFromChan
   /**
    * Constructor.
    *
+   * @param columnName        The column name.
    * @param originalAssert    The original assert.
    * @param valueAtStartPoint The value at start point.
    * @param valueAtEndPoint   The value at end point.
    */
-  ChangeColumnAssert(ChangeAssert originalAssert, Object valueAtStartPoint, Object valueAtEndPoint) {
+  ChangeColumnAssert(ChangeAssert originalAssert, String columnName, Object valueAtStartPoint, Object valueAtEndPoint) {
     super(ChangeColumnAssert.class, originalAssert);
+    this.columnName = columnName;
     this.valueAtStartPoint = valueAtStartPoint;
     this.valueAtEndPoint = valueAtEndPoint;
   }
@@ -127,6 +134,41 @@ public class ChangeColumnAssert extends AbstractAssertWithColumnsAndRowsFromChan
         (valueAtStartPoint != null && !valueAtStartPoint.equals(valueAtEndPoint))) {
 
       throw failures.failure(info, shouldNotBeModified(valueAtStartPoint, valueAtEndPoint));
+    }
+    return this;
+  }
+
+  public ChangeColumnAssert hasValuesEqualTo(Object expected) {
+    //TODO
+    return this;
+  }
+
+  public ChangeColumnAssert hasValuesEqualTo(Object expectedAtStartPoint, Object expectedAtEndPoint) {
+    //TODO
+    return this;
+  }
+
+  /**
+   * Verifies that the name of a column is equal to parameter.
+   * <p>
+   * Example where the assertion verifies that the column name of the first {@code Column} of the {@code Table} is equal to
+   * "title" :
+   * </p>
+   *
+   * <pre><code class='java'>
+   * assertThat(changes).change(1).column().hasColumnName("title");
+   * </code></pre>
+   *
+   * @param columnName The expected column name.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the column name is not equal to the parameter.
+   */
+  public ChangeColumnAssert hasColumnName(String columnName) {
+    if (columnName == null) {
+      throw new NullPointerException("Column name must be not null");
+    }
+    if (!columnName.equalsIgnoreCase(this.columnName)) {
+      throw failures.failure(info, shouldHaveName(this.columnName, columnName));
     }
     return this;
   }

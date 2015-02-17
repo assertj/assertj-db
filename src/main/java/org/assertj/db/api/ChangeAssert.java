@@ -130,7 +130,9 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
       List<Object> valuesAtEndPoint = rowAtEndPoint.getValuesList();
       valueAtEndPoint = valuesAtEndPoint.get(index);
     }
-    ChangeColumnAssert instance = new ChangeColumnAssert(this, valueAtStartPoint, valueAtEndPoint);
+    List<String> columnsNameList = change.getColumnsNameList();
+    String columnName = columnsNameList.get(index);
+    ChangeColumnAssert instance = new ChangeColumnAssert(this, columnName, valueAtStartPoint, valueAtEndPoint);
     columnsAssertMap.put(index, instance);
     indexNextColumn = index + 1;
     return instance.as("Column at index " + index + " of " + info.descriptionText());

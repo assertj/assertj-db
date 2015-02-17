@@ -546,7 +546,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
   }
 
   /**
-   * Verifies that the values of a column are equal to time values.
+   * Verifies that the name of a column is equal to parameter.
    * <p>
    * Example where the assertion verifies that the column name of the first {@code Column} of the {@code Table} is equal to
    * "title" :
