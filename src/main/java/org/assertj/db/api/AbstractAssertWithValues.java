@@ -318,6 +318,20 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
   }
 
   /**
+   * Verifies that the value is equal to another value in parameter.
+   *
+   * @param expected The expected value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the parameter.
+   */
+  void isEqualTo(Object expected) {
+    if (areEqual(value, expected)) {
+      return;
+    }
+    throw failures.failure(info, shouldBeEqual(value, expected));
+  }
+
+  /**
    * Verifies that the value is equal to a boolean.
    * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
@@ -339,7 +353,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
     if (areEqual(value, expected)) {
       return myself;
     }
-    throw failures.failure(info, shouldBeEqual((Boolean) value, expected));
+    throw failures.failure(info, shouldBeEqual(value, expected));
   }
 
   /**

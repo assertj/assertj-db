@@ -138,13 +138,46 @@ public class ChangeColumnAssert extends AbstractAssertWithColumnsAndRowsFromChan
     return this;
   }
 
+  /**
+   * Verifies that the values at the start point and the end point are equal to the parameter.
+   * <p>
+   * Example where the assertion verifies that the values of the first {@code Column} of the {@code Table} are equal to
+   * "Ellen Louise Ripley" :
+   * </p>
+   *
+   * <pre><code class='java'>
+   * assertThat(changes).change(1).column().hasValuesEqualTo("Ellen Louise Ripley");
+   * </code></pre>
+   *
+   * @param expected The expected value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the values are not equal to the parameter.
+   */
   public ChangeColumnAssert hasValuesEqualTo(Object expected) {
-    //TODO
+    valueAtStartPoint().isEqualTo(expected);
+    valueAtEndPoint().isEqualTo(expected);
     return this;
   }
 
+  /**
+   * Verifies that the values at the start point and the end point are equal to a parameter for start point and a parameter for end point.
+   * <p>
+   * Example where the assertion verifies that the values of the first {@code Column} of the {@code Table} are equal to
+   * "Sigourney" at start point and "Susan Alexandra" at end point :
+   * </p>
+   *
+   * <pre><code class='java'>
+   * assertThat(changes).change(1).column().hasValuesEqualTo("Sigourney", "Susan Alexandra");
+   * </code></pre>
+   *
+   * @param expectedAtStartPoint The expected value at start point.
+   * @param expectedAtEndPoint The expected value at end point.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the values are not equal to the parameters.
+   */
   public ChangeColumnAssert hasValuesEqualTo(Object expectedAtStartPoint, Object expectedAtEndPoint) {
-    //TODO
+    valueAtStartPoint().isEqualTo(expectedAtStartPoint);
+    valueAtEndPoint().isEqualTo(expectedAtEndPoint);
     return this;
   }
 
