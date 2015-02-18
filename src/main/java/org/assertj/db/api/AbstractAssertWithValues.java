@@ -218,10 +218,10 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * </pre>
    *
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is not a number.
+   * @throws AssertionError If the type is not a date/time.
    */
   public E isDateTime() {
-    return isOfType(ValueType.DATE_TIME);
+    return Assert.isDateTime(myself, info, value);
   }
 
   /**

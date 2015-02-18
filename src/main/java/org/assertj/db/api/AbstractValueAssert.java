@@ -242,10 +242,10 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * </pre>
    * 
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is not a number.
+   * @throws AssertionError If the type is not a date/time.
    */
   public V isDateTime() {
-    return isOfType(ValueType.DATE_TIME);
+    return Assert.isDateTime(myself, info, value);
   }
 
   /**
