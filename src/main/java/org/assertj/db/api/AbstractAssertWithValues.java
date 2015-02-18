@@ -141,7 +141,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the type is not a number.
    */
   public E isNumber() {
-    return isOfType(ValueType.NUMBER);
+    return Assert.isNumber(myself, info, value);
   }
 
   /**

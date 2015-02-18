@@ -87,4 +87,17 @@ public class Assert {
     }
     throw failures.failure(info, ShouldBeValueTypeOfAny.shouldBeValueTypeOfAny(value, type, expected));
   }
+
+  /**
+   * Verifies that the value is a number.
+   *
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param value     The value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is not a number.
+   */
+  public static <A extends AbstractAssert> A isNumber(A assertion, WritableAssertionInfo info, Object value) {
+    return isOfType(assertion, info, value, ValueType.NUMBER);
+  }
 }

@@ -165,7 +165,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the type is not a number.
    */
   public V isNumber() {
-    return isOfType(ValueType.NUMBER);
+    return Assert.isNumber(myself, info, value);
   }
 
   /**
