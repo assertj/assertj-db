@@ -19,7 +19,9 @@ import org.assertj.db.api.AbstractAssert;
 import org.assertj.db.error.ShouldBeValueTypeOfAny;
 import org.assertj.db.type.ValueType;
 
+import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
 import static org.assertj.db.error.ShouldBeValueType.shouldBeValueType;
+import static org.assertj.db.util.Values.areEqual;
 
 /**
  * Utility methods related to assert.
@@ -80,11 +82,12 @@ public class Assert {
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
    * @param value     The value.
-   * @param expected The expected types to compare to.
+   * @param expected  The expected types to compare to.
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is different to all the types in parameters.
    */
-  public static <A extends AbstractAssert> A isOfAnyOfTypes(A assertion, WritableAssertionInfo info, Object value, ValueType... expected) {
+  public static <A extends AbstractAssert> A isOfAnyOfTypes(A assertion, WritableAssertionInfo info, Object value,
+                                                            ValueType... expected) {
     ValueType type = getType(value);
     for (ValueType valueType : expected) {
       if (type == valueType) {
@@ -211,5 +214,24 @@ public class Assert {
   public static <A extends AbstractAssert> A isNotNull(A assertion, WritableAssertionInfo info, Object value) {
     objects.assertNotNull(info, value);
     return assertion;
+  }
+
+  /**
+   * Verifies that the value is equal to a boolean.
+   *
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param value     The value.
+   * @param expected  The expected boolean value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the boolean in parameter.
+   */
+  public static <A extends AbstractAssert> A isEqualTo(A assertion, WritableAssertionInfo info, Object value,
+                                                       Boolean expected) {
+    isBoolean(assertion, info, value);
+    if (areEqual(value, expected)) {
+      return assertion;
+    }
+    throw failures.failure(info, shouldBeEqual(value, expected));
   }
 }
