@@ -60,6 +60,7 @@ public class Assert {
   /**
    * Verifies that the type of a value is equal to the type in parameter.
    *
+   * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
    * @param value     The value.
@@ -79,6 +80,7 @@ public class Assert {
   /**
    * Verifies that the type of the value is equal to one of the types in parameters.
    *
+   * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
    * @param value     The value.
@@ -100,6 +102,7 @@ public class Assert {
   /**
    * Verifies that the value is a number.
    *
+   * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
    * @param value     The value.
@@ -113,6 +116,7 @@ public class Assert {
   /**
    * Verifies that the value is a boolean.
    *
+   * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
    * @param value     The value.
@@ -126,6 +130,7 @@ public class Assert {
   /**
    * Verifies that the value is a date.
    *
+   * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
    * @param value     The value.
@@ -139,6 +144,7 @@ public class Assert {
   /**
    * Verifies that the value is a time.
    *
+   * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
    * @param value     The value.
@@ -152,6 +158,7 @@ public class Assert {
   /**
    * Verifies that the value is a date/time.
    *
+   * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
    * @param value     The value.
@@ -165,6 +172,7 @@ public class Assert {
   /**
    * Verifies that the value is a array of bytes.
    *
+   * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
    * @param value     The value.
@@ -178,6 +186,7 @@ public class Assert {
   /**
    * Verifies that the value is a text.
    *
+   * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
    * @param value     The value.
@@ -191,6 +200,7 @@ public class Assert {
   /**
    * Verifies that the value is {@code null}.
    *
+   * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
    * @param value     The value.
@@ -205,6 +215,7 @@ public class Assert {
   /**
    * Verifies that the value is not {@code null}.
    *
+   * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
    * @param value     The value.
@@ -219,6 +230,7 @@ public class Assert {
   /**
    * Verifies that the value is equal to a boolean.
    *
+   * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
    * @param value     The value.
@@ -238,6 +250,7 @@ public class Assert {
   /**
    * Verifies that the value is equal to true boolean.
    *
+   * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
    * @param value     The value.
@@ -251,6 +264,7 @@ public class Assert {
   /**
    * Verifies that the value is equal to false boolean.
    *
+   * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
    * @param value     The value.
