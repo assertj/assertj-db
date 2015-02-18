@@ -1,3 +1,15 @@
+/**
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ *
+ * Copyright 2012-2014 the original author or authors.
+ */
 package org.assertj.db.api;
 
 import org.assertj.db.common.AbstractTest;
@@ -51,20 +63,39 @@ public class ChangeAssert_ColumnAmongTheModifiedOnes_Test extends AbstractTest {
     ChangeAssert changeAssert0 = assertion.change();
     changeAssert0.isCreation();
     ChangeColumnAssert changeColumnAssert0 = changeAssert0.columnAmongTheModifiedOnes();
+    ChangeColumnAssert changeColumnAssert0_1 = changeAssert0.columnAmongTheModifiedOnes(0);
+    ChangeColumnAssert changeColumnAssert0_2 = changeAssert0.columnAmongTheModifiedOnes("id");
     assertThat(field1.get(changeColumnAssert0)).isNull();
-    assertThat(field2.get(changeColumnAssert0)).isSameAs(change0.getRowAtEndPoint().getValuesList().get(0));
+    assertThat(field1.get(changeColumnAssert0_1)).isNull();
+    assertThat(field1.get(changeColumnAssert0_2)).isNull();
+    assertThat(field2.get(changeColumnAssert0))
+            .isSameAs(field2.get(changeColumnAssert0_1))
+            .isSameAs(field2.get(changeColumnAssert0_2))
+            .isSameAs(change0.getRowAtEndPoint().getValuesList().get(0));
 
     ChangeAssert changeAssert3 = assertion.change(3);
     ChangeColumnAssert changeColumnAssert3 = changeAssert3.columnAmongTheModifiedOnes();
+    ChangeColumnAssert changeColumnAssert3_1 = changeAssert3.columnAmongTheModifiedOnes(0);
+    ChangeColumnAssert changeColumnAssert3_2 = changeAssert3.columnAmongTheModifiedOnes("firstname");
     assertThat(field1.get(changeColumnAssert3)).isEqualTo("Sigourney")
+                                               .isSameAs(field1.get(changeColumnAssert3_1))
+                                               .isSameAs(field1.get(changeColumnAssert3_2))
                                                .isSameAs(change3.getRowAtStartPoint().getValuesList().get(2));
     assertThat(field2.get(changeColumnAssert3)).isEqualTo("Susan Alexandra")
+                                               .isSameAs(field2.get(changeColumnAssert3_1))
+                                               .isSameAs(field2.get(changeColumnAssert3_2))
                                                .isSameAs(change3.getRowAtEndPoint().getValuesList().get(2));
 
     ChangeAssert changeAssert7 = assertion.change(7);
     ChangeColumnAssert changeColumnAssert7 = changeAssert7.columnAmongTheModifiedOnes();
-    assertThat(field1.get(changeColumnAssert7)).isSameAs(change7.getRowAtStartPoint().getValuesList().get(0));
+    ChangeColumnAssert changeColumnAssert7_1 = changeAssert7.columnAmongTheModifiedOnes(0);
+    ChangeColumnAssert changeColumnAssert7_2 = changeAssert7.columnAmongTheModifiedOnes("id");
+    assertThat(field1.get(changeColumnAssert7)).isSameAs(field1.get(changeColumnAssert7_1))
+                                               .isSameAs(field1.get(changeColumnAssert7_2))
+                                               .isSameAs(change7.getRowAtStartPoint().getValuesList().get(0));
     assertThat(field2.get(changeColumnAssert7)).isNull();
+    assertThat(field2.get(changeColumnAssert7_1)).isNull();
+    assertThat(field2.get(changeColumnAssert7_2)).isNull();
   }
 
   /**
@@ -77,10 +108,13 @@ public class ChangeAssert_ColumnAmongTheModifiedOnes_Test extends AbstractTest {
     updateChangesForTests();
     changes.setEndPointNow();
     ChangeAssert assertion = assertThat(changes).change();
-    ChangeColumnAssert changeColumnAssert = assertion.column();
+    ChangeRowAssert changeRowAssert = assertion.rowAtStartPoint();
+    ChangeColumnAssert changeColumnAssert = changeRowAssert.columnAmongTheModifiedOnes();
 
-    assertThat(changeColumnAssert).isSameAs(assertion.columnAmongTheModifiedOnes(0)).isSameAs(changeColumnAssert.columnAmongTheModifiedOnes(
-            0));
+    assertThat(changeColumnAssert).isSameAs(assertion.columnAmongTheModifiedOnes(0))
+                                  .isSameAs(assertion.columnAmongTheModifiedOnes("id"))
+                                  .isSameAs(changeColumnAssert.columnAmongTheModifiedOnes(0))
+                                  .isSameAs(changeColumnAssert.columnAmongTheModifiedOnes("id"));
   }
 
   /**
