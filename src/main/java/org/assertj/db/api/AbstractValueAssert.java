@@ -305,8 +305,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the type is not {@code null}.
    */
   public V isNull() {
-    objects.assertNull(info, value);
-    return myself;
+    return Assert.isNull(myself, info, value);
   }
 
   /**

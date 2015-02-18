@@ -14,6 +14,7 @@ package org.assertj.db.util;
 
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
+import org.assertj.core.internal.Objects;
 import org.assertj.db.api.AbstractAssert;
 import org.assertj.db.error.ShouldBeValueTypeOfAny;
 import org.assertj.db.type.ValueType;
@@ -26,6 +27,11 @@ import static org.assertj.db.error.ShouldBeValueType.shouldBeValueType;
  * @author Régis Pouiller
  */
 public class Assert {
+
+  /**
+   * Assertions for {@code Object}s provided by assertj-core.
+   */
+  private static Objects objects = Objects.instance();
 
   /**
    * To notice failures in the assertion.
@@ -168,10 +174,28 @@ public class Assert {
 
   /**
    * Verifies that the value is a text.
-v   * @return {@code this} assertion object.
+   *
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param value     The value.
+   * @return {@code this} assertion object.
    * @throws AssertionError If the type is not a text.
    */
   public static <A extends AbstractAssert> A isText(A assertion, WritableAssertionInfo info, Object value) {
     return isOfType(assertion, info, value, ValueType.TEXT);
+  }
+
+  /**
+   * Verifies that the value is {@code null}.
+   *
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param value     The value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is not {@code null}.
+   */
+  public static <A extends AbstractAssert> A isNull(A assertion, WritableAssertionInfo info, Object value) {
+    objects.assertNull(info, value);
+    return assertion;
   }
 }

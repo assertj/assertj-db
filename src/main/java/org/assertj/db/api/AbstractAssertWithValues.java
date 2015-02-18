@@ -281,8 +281,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the type is not {@code null}.
    */
   public E isNull() {
-    objects.assertNull(info, value);
-    return myself;
+    return Assert.isNull(myself, info, value);
   }
 
   /**
