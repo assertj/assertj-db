@@ -165,4 +165,13 @@ public class Assert {
   public static <A extends AbstractAssert> A isBytes(A assertion, WritableAssertionInfo info, Object value) {
     return isOfType(assertion, info, value, ValueType.BYTES);
   }
+
+  /**
+   * Verifies that the value is a text.
+v   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is not a text.
+   */
+  public static <A extends AbstractAssert> A isText(A assertion, WritableAssertionInfo info, Object value) {
+    return isOfType(assertion, info, value, ValueType.TEXT);
+  }
 }

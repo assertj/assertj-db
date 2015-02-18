@@ -282,10 +282,10 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * </pre>
    * 
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is not a number.
+   * @throws AssertionError If the type is not a text.
    */
   public V isText() {
-    return isOfType(ValueType.TEXT);
+    return Assert.isText(myself, info, value);
   }
 
   /**

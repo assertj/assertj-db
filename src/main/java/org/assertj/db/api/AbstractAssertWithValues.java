@@ -258,10 +258,10 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * </pre>
    *
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is not a number.
+   * @throws AssertionError If the type is not a text.
    */
   public E isText() {
-    return isOfType(ValueType.TEXT);
+    return Assert.isText(myself, info, value);
   }
 
   /**
