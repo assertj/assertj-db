@@ -15,6 +15,7 @@ package org.assertj.db.util;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
+import org.assertj.db.error.ShouldBeValueTypeOfAny;
 import org.assertj.db.type.ValueType;
 
 import static org.assertj.db.error.ShouldBeValueType.shouldBeValueType;
@@ -67,4 +68,23 @@ public class Assert {
     return assertion;
   }
 
+  /**
+   * Verifies that the type of the value is equal to one of the types in parameters.
+   *
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param value     The value.
+   * @param expected The expected types to compare to.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is different to all the types in parameters.
+   */
+  public static <A extends AbstractAssert> A isOfAnyOfTypes(A assertion, WritableAssertionInfo info, Object value, ValueType... expected) {
+    ValueType type = getType(value);
+    for (ValueType valueType : expected) {
+      if (type == valueType) {
+        return assertion;
+      }
+    }
+    throw failures.failure(info, ShouldBeValueTypeOfAny.shouldBeValueTypeOfAny(value, type, expected));
+  }
 }

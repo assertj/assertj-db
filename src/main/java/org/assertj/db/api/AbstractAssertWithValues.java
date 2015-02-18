@@ -13,7 +13,6 @@
 package org.assertj.db.api;
 
 import org.assertj.core.internal.Objects;
-import org.assertj.db.error.ShouldBeValueTypeOfAny;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
@@ -122,13 +121,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the type is different to all the types in parameters.
    */
   public E isOfAnyOfTypes(ValueType... expected) {
-    ValueType type = getType();
-    for (ValueType valueType : expected) {
-      if (type == valueType) {
-        return myself;
-      }
-    }
-    throw failures.failure(info, ShouldBeValueTypeOfAny.shouldBeValueTypeOfAny(value, type, expected));
+    return Assert.isOfAnyOfTypes(myself, info, value, expected);
   }
 
   /**
