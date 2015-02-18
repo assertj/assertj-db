@@ -16,6 +16,7 @@ import org.assertj.core.internal.Objects;
 import org.assertj.db.error.ShouldBeValueTypeOfAny;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.*;
+import org.assertj.db.util.Assert;
 import org.assertj.db.util.Values;
 
 import java.sql.Date;
@@ -32,7 +33,6 @@ import static org.assertj.db.error.ShouldBeGreater.shouldBeGreater;
 import static org.assertj.db.error.ShouldBeGreaterOrEqual.shouldBeGreaterOrEqual;
 import static org.assertj.db.error.ShouldBeLess.shouldBeLess;
 import static org.assertj.db.error.ShouldBeLessOrEqual.shouldBeLessOrEqual;
-import static org.assertj.db.error.ShouldBeValueType.shouldBeValueType;
 import static org.assertj.db.error.ShouldNotBeEqual.shouldNotBeEqual;
 import static org.assertj.db.util.Values.areEqual;
 import static org.assertj.db.util.Values.compare;
@@ -125,11 +125,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the type is different to the type in parameter.
    */
   public V isOfType(ValueType expected) {
-    ValueType type = getType();
-    if (type != expected) {
-      throw failures.failure(info, shouldBeValueType(value, expected, type));
-    }
-    return myself;
+    return Assert.isOfType(myself, info, value, expected);
   }
 
   /**
