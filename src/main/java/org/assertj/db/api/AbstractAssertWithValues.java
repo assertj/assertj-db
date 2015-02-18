@@ -370,7 +370,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not equal to false boolean.
    */
   public E isFalse() {
-    return isEqualTo(false);
+    return Assert.isFalse(myself, info, value);
   }
 
   /**

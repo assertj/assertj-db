@@ -378,7 +378,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not equal to false boolean.
    */
   public V isFalse() {
-    return isEqualTo(false);
+    return Assert.isFalse(myself, info, value);
   }
 
   /**
