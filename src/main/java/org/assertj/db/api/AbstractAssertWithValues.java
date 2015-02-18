@@ -238,10 +238,10 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * </pre>
    *
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is not a number.
+   * @throws AssertionError If the type is not a array of bytes.
    */
   public E isBytes() {
-    return isOfType(ValueType.BYTES);
+    return Assert.isBytes(myself, info, value);
   }
 
   /**

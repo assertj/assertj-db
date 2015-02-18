@@ -152,4 +152,17 @@ public class Assert {
   public static <A extends AbstractAssert> A isDateTime(A assertion, WritableAssertionInfo info, Object value) {
     return isOfType(assertion, info, value, ValueType.DATE_TIME);
   }
+
+  /**
+   * Verifies that the value is a array of bytes.
+   *
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param value     The value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is not a array of bytes.
+   */
+  public static <A extends AbstractAssert> A isBytes(A assertion, WritableAssertionInfo info, Object value) {
+    return isOfType(assertion, info, value, ValueType.BYTES);
+  }
 }
