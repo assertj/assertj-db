@@ -113,4 +113,17 @@ public class Assert {
   public static <A extends AbstractAssert> A isBoolean(A assertion, WritableAssertionInfo info, Object value) {
     return isOfType(assertion, info, value, ValueType.BOOLEAN);
   }
+
+  /**
+   * Verifies that the value is a date.
+   *
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param value     The value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is not a date.
+   */
+  public static <A extends AbstractAssert> A isDate(A assertion, WritableAssertionInfo info, Object value) {
+    return isOfType(assertion, info, value, ValueType.DATE);
+  }
 }
