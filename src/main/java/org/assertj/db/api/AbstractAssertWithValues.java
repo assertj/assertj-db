@@ -158,10 +158,10 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * </pre>
    *
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is not a number.
+   * @throws AssertionError If the type is not a boolean.
    */
   public E isBoolean() {
-    return isOfType(ValueType.BOOLEAN);
+    return Assert.isBoolean(myself, info, value);
   }
 
   /**

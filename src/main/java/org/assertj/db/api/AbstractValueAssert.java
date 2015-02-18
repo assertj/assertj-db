@@ -182,10 +182,10 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * </pre>
    * 
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is not a number.
+   * @throws AssertionError If the type is not a boolean.
    */
   public V isBoolean() {
-    return isOfType(ValueType.BOOLEAN);
+    return Assert.isBoolean(myself, info, value);
   }
 
   /**
