@@ -198,4 +198,18 @@ public class Assert {
     objects.assertNull(info, value);
     return assertion;
   }
+
+  /**
+   * Verifies that the value is not {@code null}.
+   *
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param value     The value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is {@code null}.
+   */
+  public static <A extends AbstractAssert> A isNotNull(A assertion, WritableAssertionInfo info, Object value) {
+    objects.assertNotNull(info, value);
+    return assertion;
+  }
 }

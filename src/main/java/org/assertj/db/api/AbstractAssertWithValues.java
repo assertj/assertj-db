@@ -12,7 +12,6 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.core.internal.Objects;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
@@ -55,11 +54,6 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * The actual value on which the assertion is.
    */
   private final Object value;
-
-  /**
-   * Assertions for {@code Object}s provided by assertj-core.
-   */
-  private Objects objects = Objects.instance();
 
   /**
    * Constructor.
@@ -301,8 +295,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the type is {@code null}.
    */
   public E isNotNull() {
-    objects.assertNotNull(info, value);
-    return myself;
+    return Assert.isNotNull(myself, info, value);
   }
 
   /**
