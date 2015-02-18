@@ -234,4 +234,17 @@ public class Assert {
     }
     throw failures.failure(info, shouldBeEqual(value, expected));
   }
+
+  /**
+   * Verifies that the value is equal to true boolean.
+   *
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param value     The value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to true boolean.
+   */
+  public static <A extends AbstractAssert> A isTrue(A assertion, WritableAssertionInfo info, Object value) {
+    return isEqualTo(assertion, info, value, true);
+  }
 }
