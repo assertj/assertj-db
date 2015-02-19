@@ -15,7 +15,6 @@ package org.assertj.db.api;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.*;
 import org.assertj.db.util.Assert;
-import org.assertj.db.util.Values;
 
 import java.sql.Date;
 import java.sql.Time;
@@ -631,12 +630,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is equal to the text in parameter.
    */
   public V isNotEqualTo(String expected) {
-    isOfAnyOfTypes(ValueType.TEXT, ValueType.NUMBER, ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME);
-    if (!areEqual(value, expected)) {
-      return myself;
-    }
-    throw failures.failure(info,
-        shouldNotBeEqual(Values.getRepresentationFromValueInFrontOfExpected(value, expected), expected));
+    return Assert.isNotEqualTo(myself, info, value, expected);
   }
 
   /**

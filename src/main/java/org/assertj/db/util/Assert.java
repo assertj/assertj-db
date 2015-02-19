@@ -481,7 +481,7 @@ public class Assert {
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
    * @param value     The value.
-   * @param expected The expected date value.
+   * @param expected  The expected date value.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is equal to the date value in parameter.
    */
@@ -504,7 +504,7 @@ public class Assert {
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
    * @param value     The value.
-   * @param expected The expected number value.
+   * @param expected  The expected number value.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is equal to the number in parameter.
    */
@@ -515,6 +515,29 @@ public class Assert {
       return assertion;
     }
     throw failures.failure(info, shouldNotBeEqual(value, expected));
+  }
+
+  /**
+   * Verifies that the value is not equal to a text.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param value     The value.
+   * @param expected  The expected text value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is equal to the text in parameter.
+   */
+  public static <A extends AbstractAssert> A isNotEqualTo(A assertion, WritableAssertionInfo info, Object value,
+                                                          String expected) {
+
+    isOfAnyOfTypes(assertion, info, value, ValueType.TEXT, ValueType.NUMBER, ValueType.DATE, ValueType.TIME,
+                   ValueType.DATE_TIME);
+    if (!areEqual(value, expected)) {
+      return assertion;
+    }
+    throw failures.failure(info, shouldNotBeEqual(Values.getRepresentationFromValueInFrontOfExpected(value, expected),
+                                                  expected));
   }
 
 }

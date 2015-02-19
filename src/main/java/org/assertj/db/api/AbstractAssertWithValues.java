@@ -18,7 +18,6 @@ import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
 import org.assertj.db.type.ValueType;
 import org.assertj.db.util.Assert;
-import org.assertj.db.util.Values;
 
 import java.sql.Date;
 import java.sql.Time;
@@ -624,13 +623,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is equal to the text in parameter.
    */
   public E isNotEqualTo(String expected) {
-    isOfAnyOfTypes(ValueType.TEXT, ValueType.NUMBER, ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME);
-    if (!areEqual(value, expected)) {
-      return myself;
-    }
-    throw failures.failure(info,
-                           shouldNotBeEqual(Values.getRepresentationFromValueInFrontOfExpected(value, expected),
-                                            expected));
+    return Assert.isNotEqualTo(myself, info, value, expected);
   }
 
   /**
