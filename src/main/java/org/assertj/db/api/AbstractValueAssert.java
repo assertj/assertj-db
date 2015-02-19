@@ -26,7 +26,6 @@ import static org.assertj.db.error.ShouldBeAfter.shouldBeAfter;
 import static org.assertj.db.error.ShouldBeAfterOrEqual.shouldBeAfterOrEqual;
 import static org.assertj.db.error.ShouldBeBefore.shouldBeBefore;
 import static org.assertj.db.error.ShouldBeBeforeOrEqual.shouldBeBeforeOrEqual;
-import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
 import static org.assertj.db.error.ShouldBeGreater.shouldBeGreater;
 import static org.assertj.db.error.ShouldBeGreaterOrEqual.shouldBeGreaterOrEqual;
 import static org.assertj.db.error.ShouldBeLess.shouldBeLess;
@@ -505,14 +504,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not equal to the date/time value in parameter.
    */
   public V isEqualTo(DateTimeValue expected) {
-    isOfAnyOfTypes(ValueType.DATE, ValueType.DATE_TIME);
-    if (areEqual(value, expected)) {
-      return myself;
-    }
-    if (getType() == ValueType.DATE) {
-      throw failures.failure(info, shouldBeEqual(DateTimeValue.of(DateValue.from((Date) value)), expected));
-    }
-    throw failures.failure(info, shouldBeEqual(DateTimeValue.from((Timestamp) value), expected));
+    return Assert.isEqualTo(myself, info, value, expected);
   }
 
   /**

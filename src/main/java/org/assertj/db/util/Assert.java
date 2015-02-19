@@ -351,11 +351,12 @@ public class Assert {
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
    * @param value     The value.
-   * @param expected The expected date value.
+   * @param expected  The expected date value.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to the date value in parameter.
    */
-  public static <A extends AbstractAssert> A isEqualTo(A assertion, WritableAssertionInfo info, Object value, DateValue expected) {
+  public static <A extends AbstractAssert> A isEqualTo(A assertion, WritableAssertionInfo info, Object value,
+                                                       DateValue expected) {
     isOfAnyOfTypes(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
     if (areEqual(value, expected)) {
       return assertion;
@@ -373,16 +374,40 @@ public class Assert {
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
    * @param value     The value.
-   * @param expected The expected time value.
+   * @param expected  The expected time value.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to the time value in parameter.
    */
-  public static <A extends AbstractAssert> A isEqualTo(A assertion, WritableAssertionInfo info, Object value, TimeValue expected) {
+  public static <A extends AbstractAssert> A isEqualTo(A assertion, WritableAssertionInfo info, Object value,
+                                                       TimeValue expected) {
     isTime(assertion, info, value);
     if (areEqual(value, expected)) {
       return assertion;
     }
     throw failures.failure(info, shouldBeEqual(TimeValue.from((Time) value), expected));
+  }
+
+  /**
+   * Verifies that the value is equal to a date/time value.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param value     The value.
+   * @param expected  The expected date/time value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the date/time value in parameter.
+   */
+  public static <A extends AbstractAssert> A isEqualTo(A assertion, WritableAssertionInfo info, Object value,
+                                                       DateTimeValue expected) {
+    isOfAnyOfTypes(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
+    if (areEqual(value, expected)) {
+      return assertion;
+    }
+    if (getType(value) == ValueType.DATE) {
+      throw failures.failure(info, shouldBeEqual(DateTimeValue.of(DateValue.from((Date) value)), expected));
+    }
+    throw failures.failure(info, shouldBeEqual(DateTimeValue.from((Timestamp) value), expected));
   }
 
 }

@@ -497,14 +497,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not equal to the date/time value in parameter.
    */
   public E isEqualTo(DateTimeValue expected) {
-    isOfAnyOfTypes(ValueType.DATE, ValueType.DATE_TIME);
-    if (areEqual(value, expected)) {
-      return myself;
-    }
-    if (getType() == ValueType.DATE) {
-      throw failures.failure(info, shouldBeEqual(DateTimeValue.of(DateValue.from((Date) value)), expected));
-    }
-    throw failures.failure(info, shouldBeEqual(DateTimeValue.from((Timestamp) value), expected));
+    return Assert.isEqualTo(myself, info, value, expected);
   }
 
   /**
