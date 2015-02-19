@@ -17,7 +17,12 @@ import org.assertj.core.internal.Failures;
 import org.assertj.core.internal.Objects;
 import org.assertj.db.api.AbstractAssert;
 import org.assertj.db.error.ShouldBeValueTypeOfAny;
+import org.assertj.db.type.DateTimeValue;
+import org.assertj.db.type.DateValue;
 import org.assertj.db.type.ValueType;
+
+import java.sql.Date;
+import java.sql.Timestamp;
 
 import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
 import static org.assertj.db.error.ShouldBeValueType.shouldBeValueType;
@@ -335,6 +340,28 @@ public class Assert {
     }
     throw failures.failure(info, shouldBeEqual(Values.getRepresentationFromValueInFrontOfExpected(value, expected),
                                                expected));
+  }
+
+  /**
+   * Verifies that the value is equal to a date value.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param value     The value.
+   * @param expected The expected date value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the date value in parameter.
+   */
+  public static <A extends AbstractAssert> A isEqualTo(A assertion, WritableAssertionInfo info, Object value, DateValue expected) {
+    isOfAnyOfTypes(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
+    if (areEqual(value, expected)) {
+      return assertion;
+    }
+    if (getType(value) == ValueType.DATE) {
+      throw failures.failure(info, shouldBeEqual(DateValue.from((Date) value), expected));
+    }
+    throw failures.failure(info, shouldBeEqual(DateTimeValue.from((Timestamp) value), DateTimeValue.of(expected)));
   }
 
 }
