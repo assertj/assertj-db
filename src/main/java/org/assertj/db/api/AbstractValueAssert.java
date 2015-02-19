@@ -484,11 +484,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not equal to the time value in parameter.
    */
   public V isEqualTo(TimeValue expected) {
-    isTime();
-    if (areEqual(value, expected)) {
-      return myself;
-    }
-    throw failures.failure(info, shouldBeEqual(TimeValue.from((Time) value), expected));
+    return Assert.isEqualTo(myself, info, value, expected);
   }
 
   /**

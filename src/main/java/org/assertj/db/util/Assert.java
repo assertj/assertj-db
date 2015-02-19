@@ -19,9 +19,11 @@ import org.assertj.db.api.AbstractAssert;
 import org.assertj.db.error.ShouldBeValueTypeOfAny;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
+import org.assertj.db.type.TimeValue;
 import org.assertj.db.type.ValueType;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.sql.Timestamp;
 
 import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
@@ -362,6 +364,25 @@ public class Assert {
       throw failures.failure(info, shouldBeEqual(DateValue.from((Date) value), expected));
     }
     throw failures.failure(info, shouldBeEqual(DateTimeValue.from((Timestamp) value), DateTimeValue.of(expected)));
+  }
+
+  /**
+   * Verifies that the value is equal to a time value.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param value     The value.
+   * @param expected The expected time value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the time value in parameter.
+   */
+  public static <A extends AbstractAssert> A isEqualTo(A assertion, WritableAssertionInfo info, Object value, TimeValue expected) {
+    isTime(assertion, info, value);
+    if (areEqual(value, expected)) {
+      return assertion;
+    }
+    throw failures.failure(info, shouldBeEqual(TimeValue.from((Time) value), expected));
   }
 
 }

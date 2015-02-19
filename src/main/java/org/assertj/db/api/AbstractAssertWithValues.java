@@ -476,11 +476,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not equal to the time value in parameter.
    */
   public E isEqualTo(TimeValue expected) {
-    isTime();
-    if (areEqual(value, expected)) {
-      return myself;
-    }
-    throw failures.failure(info, shouldBeEqual(TimeValue.from((Time) value), expected));
+    return Assert.isEqualTo(myself, info, value, expected);
   }
 
   /**
