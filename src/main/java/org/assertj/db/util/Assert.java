@@ -29,6 +29,7 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 
 import static org.assertj.db.error.ShouldBeBefore.shouldBeBefore;
+import static org.assertj.db.error.ShouldBeBeforeOrEqual.shouldBeBeforeOrEqual;
 import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
 import static org.assertj.db.error.ShouldBeValueType.shouldBeValueType;
 import static org.assertj.db.error.ShouldNotBeEqual.shouldNotBeEqual;
@@ -681,6 +682,33 @@ public class Assert {
       throw failures.failure(info, shouldBeBefore(dateTimeValue, expectedDateTimeValue));
     } catch (ParseException e) {
       throw new AssertJDBException("Expected <%s> is not correct to compare to <%s>", expected, dateTimeValue);
+    }
+  }
+
+  /**
+   * Verifies that the value is before or equal to a date value.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param value     The value.
+   * @param date The date value to compare to.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not before or equal to the time value in parameter.
+   */
+  public static <A extends AbstractAssert> A isBeforeOrEqualTo(A assertion, WritableAssertionInfo info, Object value, DateValue date) {
+    isOfAnyOfTypes(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
+    if (value instanceof Date) {
+      if (DateValue.from((Date) value).isBefore(date) || areEqual(value, date)) {
+        return assertion;
+      }
+      throw failures.failure(info, shouldBeBeforeOrEqual(DateValue.from((Date) value), date));
+    } else {
+      DateTimeValue dateTimeValue = DateTimeValue.of(date);
+      if (DateTimeValue.from((Timestamp) value).isBefore(dateTimeValue) || areEqual(value, dateTimeValue)) {
+        return assertion;
+      }
+      throw failures.failure(info, shouldBeBeforeOrEqual(DateTimeValue.from((Timestamp) value), dateTimeValue));
     }
   }
 
