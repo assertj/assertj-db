@@ -713,17 +713,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not before to the date/time value in parameter.
    */
   public V isBefore(DateTimeValue dateTime) {
-    isOfAnyOfTypes(ValueType.DATE, ValueType.DATE_TIME);
-    DateTimeValue dateTimeValue;
-    if (value instanceof Date) {
-      dateTimeValue = DateTimeValue.of(DateValue.from((Date) value));
-    } else {
-      dateTimeValue = DateTimeValue.from((Timestamp) value);
-    }
-    if (dateTimeValue.isBefore(dateTime)) {
-      return myself;
-    }
-    throw failures.failure(info, shouldBeBefore(DateTimeValue.from((Timestamp) value), dateTime));
+    return Assert.isBefore(myself, info, value, dateTime);
   }
 
   /**
