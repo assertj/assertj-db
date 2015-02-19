@@ -574,7 +574,7 @@ public class Assert {
    * @param value     The value.
    * @param date      The date value to compare to.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the value is not before to the time value in parameter.
+   * @throws AssertionError If the value is not before to the date value in parameter.
    */
   public static <A extends AbstractAssert> A isBefore(A assertion, WritableAssertionInfo info, Object value,
                                                       DateValue date) {
@@ -699,7 +699,7 @@ public class Assert {
    * @param value     The value.
    * @param date      The date value to compare to.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the value is not before or equal to the time value in parameter.
+   * @throws AssertionError If the value is not before or equal to the date value in parameter.
    */
   public static <A extends AbstractAssert> A isBeforeOrEqualTo(A assertion, WritableAssertionInfo info, Object value,
                                                                DateValue date) {
@@ -841,6 +841,25 @@ public class Assert {
       }
       throw failures.failure(info, shouldBeAfter(dateTimeValue, dateTimeValue));
     }
+  }
+
+  /**
+   * Verifies that the value is after a time value.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param value     The value.
+   * @param time The time value to compare to.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not after to the time value in parameter.
+   */
+  public static <A extends AbstractAssert> A isAfter(A assertion, WritableAssertionInfo info, Object value, TimeValue time) {
+    isTime(assertion, info, value);
+    if (TimeValue.from((Time) value).isAfter(time)) {
+      return assertion;
+    }
+    throw failures.failure(info, shouldBeAfter(TimeValue.from((Time) value), time));
   }
 
 }

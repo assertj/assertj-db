@@ -657,7 +657,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * 
    * @param date The date value to compare to.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the value is not before to the time value in parameter.
+   * @throws AssertionError If the value is not before to the date value in parameter.
    */
   public V isBefore(DateValue date) {
     return Assert.isBefore(myself, info, value, date);
@@ -741,7 +741,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * 
    * @param date The date value to compare to.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the value is not before or equal to the time value in parameter.
+   * @throws AssertionError If the value is not before or equal to the date value in parameter.
    */
   public V isBeforeOrEqualTo(DateValue date) {
     return Assert.isBeforeOrEqualTo(myself, info, value, date);
@@ -849,11 +849,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not after to the time value in parameter.
    */
   public V isAfter(TimeValue time) {
-    isTime();
-    if (TimeValue.from((Time) value).isAfter(time)) {
-      return myself;
-    }
-    throw failures.failure(info, shouldBeAfter(TimeValue.from((Time) value), time));
+    return Assert.isAfter(myself, info, value, time);
   }
 
   /**
