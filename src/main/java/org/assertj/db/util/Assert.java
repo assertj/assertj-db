@@ -571,11 +571,12 @@ public class Assert {
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
    * @param value     The value.
-   * @param date The date value to compare to.
+   * @param date      The date value to compare to.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not before to the time value in parameter.
    */
-  public static <A extends AbstractAssert> A isBefore(A assertion, WritableAssertionInfo info, Object value, DateValue date) {
+  public static <A extends AbstractAssert> A isBefore(A assertion, WritableAssertionInfo info, Object value,
+                                                      DateValue date) {
     isOfAnyOfTypes(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
     if (value instanceof Date) {
       if (DateValue.from((Date) value).isBefore(date)) {
@@ -598,11 +599,12 @@ public class Assert {
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
    * @param value     The value.
-   * @param time The time value to compare to.
+   * @param time      The time value to compare to.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not before to the time value in parameter.
    */
-  public static <A extends AbstractAssert> A isBefore(A assertion, WritableAssertionInfo info, Object value, TimeValue time) {
+  public static <A extends AbstractAssert> A isBefore(A assertion, WritableAssertionInfo info, Object value,
+                                                      TimeValue time) {
     isTime(assertion, info, value);
     if (TimeValue.from((Time) value).isBefore(time)) {
       return assertion;
@@ -617,11 +619,12 @@ public class Assert {
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
    * @param value     The value.
-   * @param dateTime The date/time value to compare to.
+   * @param dateTime  The date/time value to compare to.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not before to the date/time value in parameter.
    */
-  public static <A extends AbstractAssert> A isBefore(A assertion, WritableAssertionInfo info, Object value, DateTimeValue dateTime) {
+  public static <A extends AbstractAssert> A isBefore(A assertion, WritableAssertionInfo info, Object value,
+                                                      DateTimeValue dateTime) {
     isOfAnyOfTypes(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
     DateTimeValue dateTimeValue;
     if (value instanceof Date) {
@@ -642,11 +645,12 @@ public class Assert {
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
    * @param value     The value.
-   * @param expected The {@code String} representing a date, time or date/time to compare to.
+   * @param expected  The {@code String} representing a date, time or date/time to compare to.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not before the date, time or date/time represented in parameter.
    */
-  public static <A extends AbstractAssert> A isBefore(A assertion, WritableAssertionInfo info, Object value, String expected) {
+  public static <A extends AbstractAssert> A isBefore(A assertion, WritableAssertionInfo info, Object value,
+                                                      String expected) {
     isOfAnyOfTypes(assertion, info, value, ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME);
 
     // By considering the possible types, the class of the value is
@@ -692,11 +696,12 @@ public class Assert {
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
    * @param value     The value.
-   * @param date The date value to compare to.
+   * @param date      The date value to compare to.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not before or equal to the time value in parameter.
    */
-  public static <A extends AbstractAssert> A isBeforeOrEqualTo(A assertion, WritableAssertionInfo info, Object value, DateValue date) {
+  public static <A extends AbstractAssert> A isBeforeOrEqualTo(A assertion, WritableAssertionInfo info, Object value,
+                                                               DateValue date) {
     isOfAnyOfTypes(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
     if (value instanceof Date) {
       if (DateValue.from((Date) value).isBefore(date) || areEqual(value, date)) {
@@ -710,6 +715,26 @@ public class Assert {
       }
       throw failures.failure(info, shouldBeBeforeOrEqual(DateTimeValue.from((Timestamp) value), dateTimeValue));
     }
+  }
+
+  /**
+   * Verifies that the value is before or equal to a time value.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param value     The value.
+   * @param time      The time value to compare to.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not before or equal to the time value in parameter.
+   */
+  public static <A extends AbstractAssert> A isBeforeOrEqualTo(A assertion, WritableAssertionInfo info, Object value,
+                                                               TimeValue time) {
+    isTime(assertion, info, value);
+    if (TimeValue.from((Time) value).isBefore(time) || areEqual(value, time)) {
+      return assertion;
+    }
+    throw failures.failure(info, shouldBeBeforeOrEqual(TimeValue.from((Time) value), time));
   }
 
 }

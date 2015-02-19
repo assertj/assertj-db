@@ -775,11 +775,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not before or equal to the time value in parameter.
    */
   public V isBeforeOrEqualTo(TimeValue time) {
-    isTime();
-    if (TimeValue.from((Time) value).isBefore(time) || areEqual(value, time)) {
-      return myself;
-    }
-    throw failures.failure(info, shouldBeBeforeOrEqual(TimeValue.from((Time) value), time));
+    return Assert.isBeforeOrEqualTo(myself, info, value, time);
   }
 
   /**

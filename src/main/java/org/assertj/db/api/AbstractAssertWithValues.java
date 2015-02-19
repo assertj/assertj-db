@@ -768,11 +768,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not before or equal to the time value in parameter.
    */
   public E isBeforeOrEqualTo(TimeValue time) {
-    isTime();
-    if (TimeValue.from((Time) value).isBefore(time) || areEqual(value, time)) {
-      return myself;
-    }
-    throw failures.failure(info, shouldBeBeforeOrEqual(TimeValue.from((Time) value), time));
+    return Assert.isBeforeOrEqualTo(myself, info, value, time);Move isBeforeOrEqualTo with date implementation to an utility class
   }
 
   /**
