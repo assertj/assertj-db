@@ -588,4 +588,23 @@ public class Assert {
     }
   }
 
+  /**
+   * Verifies that the value is before a time value.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param value     The value.
+   * @param time The time value to compare to.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not before to the time value in parameter.
+   */
+  public static <A extends AbstractAssert> A isBefore(A assertion, WritableAssertionInfo info, Object value, TimeValue time) {
+    isTime(assertion, info, value);
+    if (TimeValue.from((Time) value).isBefore(time)) {
+      return assertion;
+    }
+    throw failures.failure(info, shouldBeBefore(TimeValue.from((Time) value), time));
+  }
+
 }
