@@ -274,4 +274,23 @@ public class Assert {
   public static <A extends AbstractAssert> A isFalse(A assertion, WritableAssertionInfo info, Object value) {
     return isEqualTo(assertion, info, value, false);
   }
+
+  /**
+   * Verifies that the value is equal to a number.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param value     The value.
+   * @param expected The expected number value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the number in parameter.
+   */
+  public static <A extends AbstractAssert> A isEqualTo(A assertion, WritableAssertionInfo info, Object value, Number expected) {
+    isNumber(assertion, info, value);
+    if (areEqual(value, expected)) {
+      return assertion;
+    }
+    throw failures.failure(info, shouldBeEqual(value, expected));
+  }
 }

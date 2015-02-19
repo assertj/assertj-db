@@ -391,11 +391,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not equal to the number in parameter.
    */
   public E isEqualTo(Number expected) {
-    isNumber();
-    if (areEqual(value, expected)) {
-      return myself;
-    }
-    throw failures.failure(info, shouldBeEqual((Number) value, expected));
+    return Assert.isEqualTo(myself, info, value, expected);
   }
 
   /**
