@@ -64,15 +64,6 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
   }
 
   /**
-   * Returns the type of the value (text, boolean, number, date, ...).
-   *
-   * @return The type of the value.
-   */
-  protected ValueType getType() {
-    return ValueType.getType(value);
-  }
-
-  /**
    * Verifies that the type of the value is equal to the type in parameter.
    * <p>
    * Example where the assertion verifies that the value in the {@code Column} called "title" of the {@code Row} at end point
