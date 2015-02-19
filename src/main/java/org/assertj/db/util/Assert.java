@@ -889,4 +889,55 @@ public class Assert {
     throw failures.failure(info, shouldBeAfter(dateTimeValue, dateTime));
   }
 
+  /**
+   * Verifies that the value is after a date, time or date/time represented by a {@code String}.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param value     The value.
+   * @param expected  The {@code String} representing a date, time or date/time to compare to.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not after the date, time or date/time represented in parameter.
+   */
+  public static <A extends AbstractAssert> A isAfter(A assertion, WritableAssertionInfo info, Object value,
+                                                     String expected) {
+    isOfAnyOfTypes(assertion, info, value, ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME);
+
+    // By considering the possible types, the class of the value is
+    // java.sql.Date, java.sql.Time or java.sql.Timestamp
+
+    // If the class is java.sql.Time then comparison by using TimeValue
+    if (value instanceof Time) {
+      TimeValue timeValue = TimeValue.from((Time) value);
+      try {
+        TimeValue expectedTimeValue = TimeValue.parse(expected);
+        if (timeValue.isAfter(expectedTimeValue)) {
+          return assertion;
+        }
+        throw failures.failure(info, shouldBeAfter(timeValue, expectedTimeValue));
+      } catch (ParseException e) {
+        throw new AssertJDBException("Expected <%s> is not correct to compare to <%s>", expected, timeValue);
+      }
+    }
+
+    // In the other case then comparison by using DateTimeValue
+    DateTimeValue dateTimeValue;
+    if (value instanceof Date) {
+      dateTimeValue = DateTimeValue.of(DateValue.from((Date) value));
+    } else {
+      dateTimeValue = DateTimeValue.from((Timestamp) value);
+    }
+
+    try {
+      DateTimeValue expectedDateTimeValue = DateTimeValue.parse(expected);
+      if (dateTimeValue.isAfter(expectedDateTimeValue)) {
+        return assertion;
+      }
+      throw failures.failure(info, shouldBeAfter(dateTimeValue, expectedDateTimeValue));
+    } catch (ParseException e) {
+      throw new AssertJDBException("Expected <%s> is not correct to compare to <%s>", expected, dateTimeValue);
+    }
+  }
+
 }
