@@ -818,22 +818,10 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    *
    * @param date The date value to compare to.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the value is not after to the time value in parameter.
+   * @throws AssertionError If the value is not after to the date value in parameter.
    */
   public E isAfter(DateValue date) {
-    isOfAnyOfTypes(ValueType.DATE, ValueType.DATE_TIME);
-    if (value instanceof Date) {
-      if (DateValue.from((Date) value).isAfter(date)) {
-        return myself;
-      }
-      throw failures.failure(info, shouldBeAfter(DateValue.from((Date) value), date));
-    } else {
-      DateTimeValue dateTimeValue = DateTimeValue.of(date);
-      if (DateTimeValue.from((Timestamp) value).isAfter(dateTimeValue)) {
-        return myself;
-      }
-      throw failures.failure(info, shouldBeAfter(dateTimeValue, dateTimeValue));
-    }
+    return Assert.isAfter(myself, info, value, date);
   }
 
   /**
