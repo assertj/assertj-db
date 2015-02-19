@@ -282,11 +282,12 @@ public class Assert {
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
    * @param value     The value.
-   * @param expected The expected number value.
+   * @param expected  The expected number value.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to the number in parameter.
    */
-  public static <A extends AbstractAssert> A isEqualTo(A assertion, WritableAssertionInfo info, Object value, Number expected) {
+  public static <A extends AbstractAssert> A isEqualTo(A assertion, WritableAssertionInfo info, Object value,
+                                                       Number expected) {
     isNumber(assertion, info, value);
     if (areEqual(value, expected)) {
       return assertion;
@@ -301,16 +302,39 @@ public class Assert {
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
    * @param value     The value.
-   * @param expected The expected array of bytes value.
+   * @param expected  The expected array of bytes value.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to the array of bytes in parameter.
    */
-  public static <A extends AbstractAssert> A isEqualTo(A assertion, WritableAssertionInfo info, Object value, byte[] expected) {
+  public static <A extends AbstractAssert> A isEqualTo(A assertion, WritableAssertionInfo info, Object value,
+                                                       byte[] expected) {
     isBytes(assertion, info, value);
     if (areEqual(value, expected)) {
       return assertion;
     }
     throw failures.failure(info, shouldBeEqual());
+  }
+
+  /**
+   * Verifies that the value is equal to a text.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param value     The value.
+   * @param expected  The expected text value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the text in parameter.
+   */
+  public static <A extends AbstractAssert> A isEqualTo(A assertion, WritableAssertionInfo info, Object value,
+                                                       String expected) {
+    isOfAnyOfTypes(assertion, info, value, ValueType.TEXT, ValueType.NUMBER, ValueType.DATE, ValueType.TIME,
+                   ValueType.DATE_TIME);
+    if (areEqual(value, expected)) {
+      return assertion;
+    }
+    throw failures.failure(info, shouldBeEqual(Values.getRepresentationFromValueInFrontOfExpected(value, expected),
+                                               expected));
   }
 
 }

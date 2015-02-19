@@ -434,12 +434,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not equal to the text in parameter.
    */
   public E isEqualTo(String expected) {
-    isOfAnyOfTypes(ValueType.TEXT, ValueType.NUMBER, ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME);
-    if (areEqual(value, expected)) {
-      return myself;
-    }
-    throw failures.failure(info,
-                           shouldBeEqual(Values.getRepresentationFromValueInFrontOfExpected(value, expected), expected));
+    return Assert.isEqualTo(myself, info, value, expected);
   }
 
   /**
