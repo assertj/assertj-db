@@ -29,7 +29,6 @@ import static org.assertj.db.error.ShouldBeGreater.shouldBeGreater;
 import static org.assertj.db.error.ShouldBeGreaterOrEqual.shouldBeGreaterOrEqual;
 import static org.assertj.db.error.ShouldBeLess.shouldBeLess;
 import static org.assertj.db.error.ShouldBeLessOrEqual.shouldBeLessOrEqual;
-import static org.assertj.db.error.ShouldNotBeEqual.shouldNotBeEqual;
 import static org.assertj.db.util.Values.areEqual;
 import static org.assertj.db.util.Values.compare;
 
@@ -651,11 +650,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is equal to the time value in parameter.
    */
   public V isNotEqualTo(TimeValue expected) {
-    isTime();
-    if (!areEqual(value, expected)) {
-      return myself;
-    }
-    throw failures.failure(info, shouldNotBeEqual(TimeValue.from((Time) value), expected));
+    return Assert.isNotEqualTo(myself, info, value, expected);
   }
 
   /**
