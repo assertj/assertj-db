@@ -610,11 +610,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is equal to the number in parameter.
    */
   public V isNotEqualTo(Number expected) {
-    isNumber();
-    if (!areEqual(value, expected)) {
-      return myself;
-    }
-    throw failures.failure(info, shouldNotBeEqual((Number) value, expected));
+    return Assert.isNotEqualTo(myself, info, value, expected);
   }
 
   /**
