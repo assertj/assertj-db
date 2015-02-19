@@ -26,7 +26,6 @@ import java.text.ParseException;
 
 import static org.assertj.db.error.ShouldBeAfter.shouldBeAfter;
 import static org.assertj.db.error.ShouldBeAfterOrEqual.shouldBeAfterOrEqual;
-import static org.assertj.db.error.ShouldBeBefore.shouldBeBefore;
 import static org.assertj.db.error.ShouldBeBeforeOrEqual.shouldBeBeforeOrEqual;
 import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
 import static org.assertj.db.error.ShouldBeGreater.shouldBeGreater;
@@ -727,42 +726,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not before the date, time or date/time represented in parameter.
    */
   public E isBefore(String expected) {
-    isOfAnyOfTypes(ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME);
-
-    // By considering the possible types, the class of the value is
-    // java.sql.Date, java.sql.Time or java.sql.Timestamp
-
-    // If the class is java.sql.Time then comparison by using TimeValue
-    if (value instanceof Time) {
-      TimeValue timeValue = TimeValue.from((Time) value);
-      try {
-        TimeValue expectedTimeValue = TimeValue.parse(expected);
-        if (timeValue.isBefore(expectedTimeValue)) {
-          return myself;
-        }
-        throw failures.failure(info, shouldBeBefore(timeValue, expectedTimeValue));
-      } catch (ParseException e) {
-        throw new AssertJDBException("Expected <%s> is not correct to compare to <%s>", expected, timeValue);
-      }
-    }
-
-    // In the other case then comparison by using DateTimeValue
-    DateTimeValue dateTimeValue;
-    if (value instanceof Date) {
-      dateTimeValue = DateTimeValue.of(DateValue.from((Date) value));
-    } else {
-      dateTimeValue = DateTimeValue.from((Timestamp) value);
-    }
-
-    try {
-      DateTimeValue expectedDateTimeValue = DateTimeValue.parse(expected);
-      if (dateTimeValue.isBefore(expectedDateTimeValue)) {
-        return myself;
-      }
-      throw failures.failure(info, shouldBeBefore(dateTimeValue, expectedDateTimeValue));
-    } catch (ParseException e) {
-      throw new AssertJDBException("Expected <%s> is not correct to compare to <%s>", expected, dateTimeValue);
-    }
+    return Assert.isBefore(myself, info, value, expected);
   }
 
   /**
