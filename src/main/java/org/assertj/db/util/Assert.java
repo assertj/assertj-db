@@ -293,4 +293,24 @@ public class Assert {
     }
     throw failures.failure(info, shouldBeEqual(value, expected));
   }
+
+  /**
+   * Verifies that the value is equal to a array of bytes.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param value     The value.
+   * @param expected The expected array of bytes value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the array of bytes in parameter.
+   */
+  public static <A extends AbstractAssert> A isEqualTo(A assertion, WritableAssertionInfo info, Object value, byte[] expected) {
+    isBytes(assertion, info, value);
+    if (areEqual(value, expected)) {
+      return assertion;
+    }
+    throw failures.failure(info, shouldBeEqual());
+  }
+
 }

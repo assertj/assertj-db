@@ -421,11 +421,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not equal to the array of bytes in parameter.
    */
   public V isEqualTo(byte[] expected) {
-    isBytes();
-    if (areEqual(value, expected)) {
-      return myself;
-    }
-    throw failures.failure(info, shouldBeEqual());
+    return Assert.isEqualTo(myself, info, value, expected);
   }
 
   /**

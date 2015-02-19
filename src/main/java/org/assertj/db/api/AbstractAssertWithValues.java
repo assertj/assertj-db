@@ -413,11 +413,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not equal to the array of bytes in parameter.
    */
   public E isEqualTo(byte[] expected) {
-    isBytes();
-    if (areEqual(value, expected)) {
-      return myself;
-    }
-    throw failures.failure(info, shouldBeEqual());
+    return Assert.isEqualTo(myself, info, value, expected);
   }
 
   /**
