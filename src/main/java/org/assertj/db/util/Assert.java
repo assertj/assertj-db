@@ -28,6 +28,7 @@ import java.sql.Timestamp;
 
 import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
 import static org.assertj.db.error.ShouldBeValueType.shouldBeValueType;
+import static org.assertj.db.error.ShouldNotBeEqual.shouldNotBeEqual;
 import static org.assertj.db.util.Values.areEqual;
 
 /**
@@ -408,6 +409,26 @@ public class Assert {
       throw failures.failure(info, shouldBeEqual(DateTimeValue.of(DateValue.from((Date) value)), expected));
     }
     throw failures.failure(info, shouldBeEqual(DateTimeValue.from((Timestamp) value), expected));
+  }
+
+  /**
+   * Verifies that the value is not equal to a boolean.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param value     The value.
+   * @param expected  The expected boolean value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is equal to the boolean in parameter.
+   */
+  public static <A extends AbstractAssert> A isNotEqualTo(A assertion, WritableAssertionInfo info, Object value,
+                                                          Boolean expected) {
+    isBoolean(assertion, info, value);
+    if (!areEqual(value, expected)) {
+      return assertion;
+    }
+    throw failures.failure(info, shouldNotBeEqual(value, expected));
   }
 
 }

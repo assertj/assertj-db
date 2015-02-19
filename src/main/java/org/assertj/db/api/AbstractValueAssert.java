@@ -525,11 +525,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is equal to the boolean in parameter.
    */
   public V isNotEqualTo(Boolean expected) {
-    isBoolean();
-    if (!areEqual(value, expected)) {
-      return myself;
-    }
-    throw failures.failure(info, shouldNotBeEqual((Boolean) value, expected));
+    return Assert.isNotEqualTo(myself, info, value, expected);
   }
 
   /**
