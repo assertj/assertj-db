@@ -589,14 +589,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is equal to the date value in parameter.
    */
   public V isNotEqualTo(DateValue expected) {
-    isOfAnyOfTypes(ValueType.DATE, ValueType.DATE_TIME);
-    if (!areEqual(value, expected)) {
-      return myself;
-    }
-    if (getType() == ValueType.DATE) {
-      throw failures.failure(info, shouldNotBeEqual(DateValue.from((Date) value), expected));
-    }
-    throw failures.failure(info, shouldNotBeEqual(DateTimeValue.from((Timestamp) value), DateTimeValue.of(expected)));
+    return Assert.isNotEqualTo(myself, info, value, expected);
   }
 
   /**
