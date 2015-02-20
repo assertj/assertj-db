@@ -979,7 +979,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not equal to zero.
    */
   public E isZero() {
-    return isEqualTo(0);
+    return Assert.isEqualTo(myself, info, value, 0);
   }
 
   /**
@@ -999,7 +999,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is equal to zero.
    */
   public E isNotZero() {
-    return isNotEqualTo(0);
+    return Assert.isNotEqualTo(myself, info, value, 0);
   }
 
   /**

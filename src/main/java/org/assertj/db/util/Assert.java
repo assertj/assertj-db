@@ -1065,4 +1065,32 @@ public class Assert {
     }
   }
 
+  /**
+   * Verifies that the value is equal to zero.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param value     The value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to zero.
+   */
+  public static <A extends AbstractAssert> A isZero(A assertion, WritableAssertionInfo info, Object value) {
+    return isEqualTo(assertion, info, value, 0);
+  }
+
+  /**
+   * Verifies that the value is not equal to zero.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param value     The value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is equal to zero.
+   */
+  public static <A extends AbstractAssert> A isNotZero(A assertion, WritableAssertionInfo info, Object value) {
+    return isNotEqualTo(assertion, info, value, 0);
+  }
+
 }
