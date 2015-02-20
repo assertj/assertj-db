@@ -989,4 +989,30 @@ public class Assert {
     throw failures.failure(info, shouldBeAfterOrEqual(TimeValue.from((Time) value), time));
   }
 
+  /**
+   * Verifies that the value is after or equal to a date/time value.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param value     The value.
+   * @param dateTime  The date/time value to compare to.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not after or equal to the date/time value in parameter.
+   */
+  public static <A extends AbstractAssert> A isAfterOrEqualTo(A assertion, WritableAssertionInfo info, Object value,
+                                                              DateTimeValue dateTime) {
+    isOfAnyOfTypes(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
+    DateTimeValue dateTimeValue;
+    if (value instanceof Date) {
+      dateTimeValue = DateTimeValue.of(DateValue.from((Date) value));
+    } else {
+      dateTimeValue = DateTimeValue.from((Timestamp) value);
+    }
+    if (dateTimeValue.isAfter(dateTime) || areEqual(value, dateTime)) {
+      return assertion;
+    }
+    throw failures.failure(info, shouldBeAfterOrEqual(dateTimeValue, dateTime));
+  }
+
 }

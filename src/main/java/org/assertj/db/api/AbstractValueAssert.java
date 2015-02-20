@@ -953,17 +953,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not after or equal to the date/time value in parameter.
    */
   public V isAfterOrEqualTo(DateTimeValue dateTime) {
-    isOfAnyOfTypes(ValueType.DATE, ValueType.DATE_TIME);
-    DateTimeValue dateTimeValue;
-    if (value instanceof Date) {
-      dateTimeValue = DateTimeValue.of(DateValue.from((Date) value));
-    } else {
-      dateTimeValue = DateTimeValue.from((Timestamp) value);
-    }
-    if (dateTimeValue.isAfter(dateTime) || areEqual(value, dateTime)) {
-      return myself;
-    }
-    throw failures.failure(info, shouldBeAfterOrEqual(dateTimeValue, dateTime));
+    return Assert.isAfterOrEqualTo(myself, info, value, dateTime);
   }
 
   /**
