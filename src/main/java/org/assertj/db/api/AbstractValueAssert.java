@@ -16,17 +16,10 @@ import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.*;
 import org.assertj.db.util.Assert;
 
-import java.sql.Date;
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.text.ParseException;
-
-import static org.assertj.db.error.ShouldBeAfterOrEqual.shouldBeAfterOrEqual;
 import static org.assertj.db.error.ShouldBeGreater.shouldBeGreater;
 import static org.assertj.db.error.ShouldBeGreaterOrEqual.shouldBeGreaterOrEqual;
 import static org.assertj.db.error.ShouldBeLess.shouldBeLess;
 import static org.assertj.db.error.ShouldBeLessOrEqual.shouldBeLessOrEqual;
-import static org.assertj.db.util.Values.areEqual;
 import static org.assertj.db.util.Values.compare;
 
 /**
@@ -974,42 +967,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not after or equal to the date, time or date/time represented in parameter.
    */
   public V isAfterOrEqualTo(String expected) {
-    isOfAnyOfTypes(ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME);
-
-    // By considering the possible types, the class of the value is
-    // java.sql.Date, java.sql.Time or java.sql.Timestamp
-
-    // If the class is java.sql.Time then comparison by using TimeValue
-    if (value instanceof Time) {
-      TimeValue timeValue = TimeValue.from((Time) value);
-      try {
-        TimeValue expectedTimeValue = TimeValue.parse(expected);
-        if (timeValue.isAfter(expectedTimeValue) || areEqual(value, expected)) {
-          return myself;
-        }
-        throw failures.failure(info, shouldBeAfterOrEqual(timeValue, expectedTimeValue));
-      } catch (ParseException e) {
-        throw new AssertJDBException("Expected <%s> is not correct to compare to <%s>", expected, timeValue);
-      }
-    }
-
-    // In the other case then comparison by using DateTimeValue
-    DateTimeValue dateTimeValue;
-    if (value instanceof Date) {
-      dateTimeValue = DateTimeValue.of(DateValue.from((Date) value));
-    } else {
-      dateTimeValue = DateTimeValue.from((Timestamp) value);
-    }
-
-    try {
-      DateTimeValue expectedDateTimeValue = DateTimeValue.parse(expected);
-      if (dateTimeValue.isAfter(expectedDateTimeValue) || areEqual(value, expected)) {
-        return myself;
-      }
-      throw failures.failure(info, shouldBeAfterOrEqual(dateTimeValue, expectedDateTimeValue));
-    } catch (ParseException e) {
-      throw new AssertJDBException("Expected <%s> is not correct to compare to <%s>", expected, dateTimeValue);
-    }
+    return Assert.isAfterOrEqualTo(myself, info, value, expected);
   }
 
   /**
