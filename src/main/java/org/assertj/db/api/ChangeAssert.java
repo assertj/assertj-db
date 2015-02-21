@@ -22,7 +22,6 @@ import org.assertj.db.util.Values;
 
 import java.util.*;
 
-import static org.assertj.db.error.ShouldBeDataType.shouldBeDataType;
 import static org.assertj.db.error.ShouldBeOnTable.shouldBeOnTable;
 import static org.assertj.db.error.ShouldHaveModifications.shouldHaveModifications;
 import static org.assertj.db.error.ShouldHaveNumberOfModifications.shouldHaveNumberOfModifications;
@@ -252,10 +251,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    */
   public ChangeAssert isOnDataType(DataType expected) {
     DataType type = change.getDataType();
-    if (type != expected) {
-      throw failures.failure(info, shouldBeDataType(expected, type));
-    }
-    return this;
+    return AssertOnChange.isOnDataType(myself, info, type, expected);
   }
 
   /**

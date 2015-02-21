@@ -16,8 +16,10 @@ import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
 import org.assertj.db.type.ChangeType;
+import org.assertj.db.type.DataType;
 
 import static org.assertj.db.error.ShouldBeChangeType.shouldBeChangeType;
+import static org.assertj.db.error.ShouldBeDataType.shouldBeDataType;
 
 /**
  * Utility methods related to assert on change.
@@ -56,4 +58,24 @@ public class AssertOnChange {
     }
     return assertion;
   }
+
+  /**
+   * Verifies that the data type on which the change is equal to the type in parameter.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param dataType  The data type.
+   * @param expected  The expected type to compare to.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is different to the type in parameter.
+   */
+  public static <A extends AbstractAssert> A isOnDataType(A assertion, WritableAssertionInfo info, DataType dataType,
+                                                          DataType expected) {
+    if (dataType != expected) {
+      throw failures.failure(info, shouldBeDataType(expected, dataType));
+    }
+    return assertion;
+  }
+
 }
