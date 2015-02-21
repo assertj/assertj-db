@@ -43,7 +43,7 @@ import static org.assertj.db.util.Values.areEqual;
 import static org.assertj.db.util.Values.compare;
 
 /**
- * Utility methods related to assert on values.
+ * Utility methods related to assert on a value.
  *
  * @author Régis Pouiller
  */

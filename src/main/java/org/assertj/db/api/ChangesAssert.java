@@ -16,12 +16,11 @@ import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.Changes;
+import org.assertj.db.util.AssertOnChanges;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static org.assertj.db.error.ShouldHaveChangesSize.shouldHaveChangesSize;
 
 /**
  * Assertion methods about the {@link Changes}.
@@ -86,12 +85,7 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
    * @throws AssertionError If the size is different to the number in parameter.
    */
   public ChangesAssert hasSize(int expected) {
-    List<Change> changesList = changes.getChangesList();
-    int size = changesList.size();
-    if (size != expected) {
-      throw failures.failure(info, shouldHaveChangesSize(size, expected));
-    }
-    return myself;
+    return AssertOnChanges.hasSize(myself, info, changes, expected);
   }
 
   /**
