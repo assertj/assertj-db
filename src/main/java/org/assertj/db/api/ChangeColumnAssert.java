@@ -12,10 +12,8 @@
  */
 package org.assertj.db.api;
 
+import org.assertj.db.util.AssertOnChangeColumn;
 import org.assertj.db.util.AssertOnColumn;
-
-import static org.assertj.db.error.ShouldBeModified.shouldBeModified;
-import static org.assertj.db.error.ShouldNotBeModified.shouldNotBeModified;
 
 /**
  * Assertion methods about a {@code Column} of a {@code Change}.
@@ -108,12 +106,7 @@ public class ChangeColumnAssert extends AbstractAssertWithColumnsAndRowsFromChan
    * @throws AssertionError If the type is different to the type in parameter.
    */
   public ChangeColumnAssert isModified() {
-    if ((valueAtStartPoint == null && valueAtEndPoint == null) ||
-        (valueAtStartPoint != null && valueAtStartPoint.equals(valueAtEndPoint))) {
-
-      throw failures.failure(info, shouldBeModified(valueAtStartPoint, valueAtEndPoint));
-    }
-    return this;
+    return AssertOnChangeColumn.isModified(myself, info, valueAtStartPoint, valueAtEndPoint);
   }
 
   /**
@@ -131,12 +124,7 @@ public class ChangeColumnAssert extends AbstractAssertWithColumnsAndRowsFromChan
    * @throws AssertionError If the type is different to the type in parameter.
    */
   public ChangeColumnAssert isNotModified() {
-    if ((valueAtStartPoint == null && valueAtEndPoint != null) ||
-        (valueAtStartPoint != null && !valueAtStartPoint.equals(valueAtEndPoint))) {
-
-      throw failures.failure(info, shouldNotBeModified(valueAtStartPoint, valueAtEndPoint));
-    }
-    return this;
+    return AssertOnChangeColumn.isNotModified(myself, info, valueAtStartPoint, valueAtEndPoint);
   }
 
   /**
