@@ -21,9 +21,6 @@ import org.assertj.db.util.AssertOnChange;
 
 import java.util.*;
 
-import static org.assertj.db.error.ShouldHaveModifications.shouldHaveModifications;
-import static org.assertj.db.error.ShouldHaveNumberOfModifications.shouldHaveNumberOfModifications;
-
 /**
  * Assertion methods about the {@link Change}.
  *
@@ -482,12 +479,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * @throws AssertionError If the type is different to the type in parameter.
    */
   public ChangeAssert hasNumberOfModifiedColumns(int number) {
-    Integer[] indexesOfModifiedColumns = getIndexesOfModifiedColumns();
-
-    if (number != indexesOfModifiedColumns.length) {
-      throw failures.failure(info, shouldHaveNumberOfModifications(indexesOfModifiedColumns.length, number));
-    }
-    return this;
+    return AssertOnChange.hasNumberOfModifiedColumns(myself, info, change, number);
   }
 
   /**
@@ -507,31 +499,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * @throws AssertionError If the type is different to the type in parameter.
    */
   public ChangeAssert hasModifiedColumns(Integer... indexes) {
-    if (indexes == null) {
-      throw new NullPointerException("Column index must be not null");
-    }
-
-    // Create a sorted list from the modified columns
-    Integer[] indexesOfModifiedColumns = getIndexesOfModifiedColumns();
-    List<Integer> indexesOfModifiedList = Arrays.asList(indexesOfModifiedColumns);
-    Collections.sort(indexesOfModifiedList);
-
-    // Create a sorted list from the parameters
-    List<Integer> indexesList = new ArrayList();
-    for (Integer index : indexes) {
-      if (index == null) {
-        throw new NullPointerException("Column index must be not null");
-      }
-      indexesList.add(index);
-    }
-    Collections.sort(indexesList);
-
-    // Compare each list
-    if (!indexesList.equals(indexesOfModifiedList)) {
-      throw failures.failure(info, shouldHaveModifications(indexesOfModifiedColumns, indexes));
-    }
-
-    return this;
+    return AssertOnChange.hasModifiedColumns(myself, info, change, indexes);
   }
 
   /**
@@ -551,35 +519,6 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * @throws AssertionError If the type is different to the type in parameter.
    */
   public ChangeAssert hasModifiedColumns(String... names) {
-    if (names == null) {
-      throw new NullPointerException("Column name must be not null");
-    }
-
-    // Create a sorted list from the parameters
-    List<String> namesList = new ArrayList();
-    for (String name : names) {
-      if (name == null) {
-        throw new NullPointerException("Column name must be not null");
-      }
-      namesList.add(name.toUpperCase());
-    }
-    Collections.sort(namesList);
-
-    // Create a sorted list from the modified columns
-    Integer[] indexesOfModifiedColumns = getIndexesOfModifiedColumns();
-    String[] namesOfModifiedColumns = new String[names.length];
-    List<String> columnsNameList = change.getColumnsNameList();
-    for (int i = 0; i < indexesOfModifiedColumns.length; i++) {
-      namesOfModifiedColumns[i] = columnsNameList.get(indexesOfModifiedColumns[i]);
-    }
-    List<String> namesOfModifiedList = Arrays.asList(namesOfModifiedColumns);
-    Collections.sort(namesOfModifiedList);
-
-    // Compare each list
-    if (!namesList.equals(namesOfModifiedList)) {
-      throw failures.failure(info, shouldHaveModifications(namesOfModifiedColumns, names));
-    }
-
-    return this;
+    return AssertOnChange.hasModifiedColumns(myself, info, change, names);
   }
 }
