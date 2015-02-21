@@ -19,8 +19,6 @@ import org.assertj.db.util.Values;
 import java.util.List;
 
 import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
-import static org.assertj.db.error.ShouldContainsOnlyNotNull.shouldContainsOnlyNotNull;
-import static org.assertj.db.error.ShouldContainsOnlyNull.shouldContainsOnlyNull;
 import static org.assertj.db.util.Values.areEqual;
 
 /**
@@ -282,14 +280,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If at least one of the values of the column are not {@code null}.
    */
   public C hasOnlyNullValues() {
-    int index = 0;
-    for (Object value : getValuesList()) {
-      if (value != null) {
-        throw failures.failure(info, shouldContainsOnlyNull(index));
-      }
-      index++;
-    }
-    return myself;
+    return AssertOnColumn.hasOnlyNullValues(myself, info, getValuesList());
   }
 
   /**
@@ -307,14 +298,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If at least one of the values of the column are {@code null}.
    */
   public C hasOnlyNotNullValues() {
-    int index = 0;
-    for (Object value : getValuesList()) {
-      if (value == null) {
-        throw failures.failure(info, shouldContainsOnlyNotNull(index));
-      }
-      index++;
-    }
-    return myself;
+    return AssertOnColumn.hasOnlyNotNullValues(myself, info, getValuesList());
   }
 
   /**

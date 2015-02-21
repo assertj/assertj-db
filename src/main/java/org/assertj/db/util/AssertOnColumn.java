@@ -21,6 +21,8 @@ import org.assertj.db.type.ValueType;
 import java.util.List;
 
 import static org.assertj.db.error.ShouldBeValueTypeOfAny.shouldBeValueTypeOfAny;
+import static org.assertj.db.error.ShouldContainsOnlyNotNull.shouldContainsOnlyNotNull;
+import static org.assertj.db.error.ShouldContainsOnlyNull.shouldContainsOnlyNull;
 import static org.assertj.db.error.ShouldHaveName.shouldHaveName;
 import static org.assertj.db.error.ShouldHaveRowsSize.shouldHaveRowsSize;
 
@@ -90,13 +92,14 @@ public class AssertOnColumn {
    * @param assertion  The assertion which call this method.
    * @param info       Info on the object to assert.
    * @param valuesList The list of values.
-   * @param expected The expected type to compare to.
-   * @param lenient {@code true} if the test is lenient : if the type of a value is not identified (for example when the
-   *          value is {@code null}), it consider that it is ok.
+   * @param expected   The expected type to compare to.
+   * @param lenient    {@code true} if the test is lenient : if the type of a value is not identified (for example when the
+   *                   value is {@code null}), it consider that it is ok.
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is different to the type in parameter.
    */
-  public static <A extends AbstractAssert> A isOfType(A assertion, WritableAssertionInfo info, List<Object> valuesList, ValueType expected, boolean lenient) {
+  public static <A extends AbstractAssert> A isOfType(A assertion, WritableAssertionInfo info, List<Object> valuesList,
+                                                      ValueType expected, boolean lenient) {
     if (lenient) {
       return isOfAnyOfTypes(assertion, info, valuesList, expected, ValueType.NOT_IDENTIFIED);
     }
@@ -119,13 +122,15 @@ public class AssertOnColumn {
    * @param assertion  The assertion which call this method.
    * @param info       Info on the object to assert.
    * @param valuesList The list of values.
-   * @param expected The expected types to compare to.
+   * @param expected   The expected types to compare to.
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is different to all the types in parameters.
    */
-  public static <A extends AbstractAssert> A isOfAnyOfTypes(A assertion, WritableAssertionInfo info, List<Object> valuesList, ValueType... expected) {
+  public static <A extends AbstractAssert> A isOfAnyOfTypes(A assertion, WritableAssertionInfo info,
+                                                            List<Object> valuesList, ValueType... expected) {
     int index = 0;
-    loop: for (Object value : valuesList) {
+    loop:
+    for (Object value : valuesList) {
       ValueType type = ValueType.getType(value);
       for (ValueType valueType : expected) {
         if (type == valueType) {
@@ -134,6 +139,50 @@ public class AssertOnColumn {
         }
       }
       throw failures.failure(info, shouldBeValueTypeOfAny(index, value, type, expected));
+    }
+    return assertion;
+  }
+
+  /**
+   * Verifies that all the values of the column are {@code null}.
+   *
+   * @param <A>        The type of the assertion which call this method.
+   * @param assertion  The assertion which call this method.
+   * @param info       Info on the object to assert.
+   * @param valuesList The list of values.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If at least one of the values of the column are not {@code null}.
+   */
+  public static <A extends AbstractAssert> A hasOnlyNullValues(A assertion, WritableAssertionInfo info,
+                                                               List<Object> valuesList) {
+    int index = 0;
+    for (Object value : valuesList) {
+      if (value != null) {
+        throw failures.failure(info, shouldContainsOnlyNull(index));
+      }
+      index++;
+    }
+    return assertion;
+  }
+
+  /**
+   * Verifies that all the values of the column are not {@code null}.
+   *
+   * @param <A>        The type of the assertion which call this method.
+   * @param assertion  The assertion which call this method.
+   * @param info       Info on the object to assert.
+   * @param valuesList The list of values.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If at least one of the values of the column are {@code null}.
+   */
+  public static <A extends AbstractAssert> A hasOnlyNotNullValues(A assertion, WritableAssertionInfo info,
+                                                                  List<Object> valuesList) {
+    int index = 0;
+    for (Object value : valuesList) {
+      if (value == null) {
+        throw failures.failure(info, shouldContainsOnlyNotNull(index));
+      }
+      index++;
     }
     return assertion;
   }
