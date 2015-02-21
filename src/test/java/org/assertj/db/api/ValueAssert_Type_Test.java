@@ -12,46 +12,22 @@
  */
 package org.assertj.db.api;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.assertj.db.type.ValueType;
 import org.junit.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 /**
- * Test on the type methods ({@code getType}, {@code isOfType}, ...) on value.
+ * Test on the type methods ({@code isOfType}, ...) on value.
  * 
  * @author Régis Pouiller
  * 
  */
 public class ValueAssert_Type_Test extends AbstractTest {
-
-  /**
-   * This method tests the result of {@code getType} method.
-   */
-  @Test
-  public void test_the_result_when_getting_the_type() {
-    Table table = new Table(source, "test");
-    TableRowAssert tableAssert = assertThat(table).row();
-
-    assertThat(tableAssert.value().getType()).as("var1 type").isEqualTo(ValueType.NUMBER);
-    assertThat(tableAssert.value().getType()).as("var2 type").isEqualTo(ValueType.BOOLEAN);
-    assertThat(tableAssert.value().getType()).as("var3 type").isEqualTo(ValueType.NUMBER);
-    assertThat(tableAssert.value().getType()).as("var4 type").isEqualTo(ValueType.NUMBER);
-    assertThat(tableAssert.value().getType()).as("var5 type").isEqualTo(ValueType.NUMBER);
-    assertThat(tableAssert.value().getType()).as("var6 type").isEqualTo(ValueType.NUMBER);
-    assertThat(tableAssert.value().getType()).as("var7 type").isEqualTo(ValueType.NUMBER);
-    assertThat(tableAssert.value().getType()).as("var8 type").isEqualTo(ValueType.TIME);
-    assertThat(tableAssert.value().getType()).as("var9 type").isEqualTo(ValueType.DATE);
-    assertThat(tableAssert.value().getType()).as("var10 type").isEqualTo(ValueType.DATE_TIME);
-    assertThat(tableAssert.value().getType()).as("var11 type").isEqualTo(ValueType.BYTES);
-    assertThat(tableAssert.value().getType()).as("var12 type").isEqualTo(ValueType.TEXT);
-    assertThat(tableAssert.value().getType()).as("var13 type").isEqualTo(ValueType.NUMBER);
-    assertThat(tableAssert.value().getType()).as("var14 type").isEqualTo(ValueType.NUMBER);
-  }
 
   /**
    * This method tests the {@code isOfType} assertion method.

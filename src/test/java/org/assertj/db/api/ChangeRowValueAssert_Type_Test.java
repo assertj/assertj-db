@@ -23,30 +23,12 @@ import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 /**
- * Test on the type methods ({@code getType}, {@code isOfType}, ...) on value of a change.
+ * Test on the type methods ({@code isOfType}, ...) on value of a change.
  *
  * @author Régis Pouiller
  *
  */
 public class ChangeRowValueAssert_Type_Test extends AbstractTest {
-
-  /**
-   * This method tests the result of {@code getType} method.
-   */
-  @Test
-  @NeedReload
-  public void test_the_result_when_getting_the_type() {
-    Changes changes = new Changes(source).setStartPointNow();
-    updateChangesForTests();
-    changes.setEndPointNow();
-
-    ChangeRowAssert changeRowAssert = assertThat(changes).change().rowAtEndPoint();
-
-    assertThat(changeRowAssert.value().getType()).isEqualTo(ValueType.NUMBER);
-    assertThat(changeRowAssert.value().getType()).isEqualTo(ValueType.TEXT);
-    assertThat(changeRowAssert.value().getType()).isEqualTo(ValueType.TEXT);
-    assertThat(changeRowAssert.value().getType()).isEqualTo(ValueType.DATE);
-  }
 
   /**
    * This method tests the {@code isOfType} assertion method.
