@@ -22,7 +22,6 @@ import org.assertj.db.util.Values;
 
 import java.util.*;
 
-import static org.assertj.db.error.ShouldBeOnTable.shouldBeOnTable;
 import static org.assertj.db.error.ShouldHaveModifications.shouldHaveModifications;
 import static org.assertj.db.error.ShouldHaveNumberOfModifications.shouldHaveNumberOfModifications;
 import static org.assertj.db.error.ShouldHavePksNames.shouldHavePksNames;
@@ -250,8 +249,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * @throws AssertionError If the type is different to the type in parameter.
    */
   public ChangeAssert isOnDataType(DataType expected) {
-    DataType type = change.getDataType();
-    return AssertOnChange.isOnDataType(myself, info, type, expected);
+    return AssertOnChange.isOnDataType(myself, info, change, expected);
   }
 
   /**
@@ -269,7 +267,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * @throws AssertionError If the type is different to the type in parameter.
    */
   public ChangeAssert isOnTable() {
-    return isOnDataType(DataType.TABLE);
+    return AssertOnChange.isOnTable(myself, info, change);
   }
 
   /**
@@ -287,7 +285,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * @throws AssertionError If the type is different to the type in parameter.
    */
   public ChangeAssert isOnRequest() {
-    return isOnDataType(DataType.REQUEST);
+    return AssertOnChange.isOnRequest(myself, info, change);
   }
 
   /**
@@ -307,15 +305,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * @throws java.lang.NullPointerException If the name in parameter is {@code null}.
    */
   public ChangeAssert isOnTable(String name) {
-    if (name == null) {
-      throw new NullPointerException("Table name must be not null");
-    }
-    isOnTable();
-    String dataName = change.getDataName();
-    if (!dataName.equals(name.toUpperCase())) {
-      throw failures.failure(info, shouldBeOnTable(name, dataName));
-    }
-    return this;
+    return AssertOnChange.isOnTable(myself, info, change, name);
   }
 
   /**

@@ -15,11 +15,13 @@ package org.assertj.db.util;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
+import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.DataType;
 
 import static org.assertj.db.error.ShouldBeChangeType.shouldBeChangeType;
 import static org.assertj.db.error.ShouldBeDataType.shouldBeDataType;
+import static org.assertj.db.error.ShouldBeOnTable.shouldBeOnTable;
 
 /**
  * Utility methods related to assert on change.
@@ -65,15 +67,68 @@ public class AssertOnChange {
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
-   * @param dataType  The data type.
+   * @param change    The change.
    * @param expected  The expected type to compare to.
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is different to the type in parameter.
    */
-  public static <A extends AbstractAssert> A isOnDataType(A assertion, WritableAssertionInfo info, DataType dataType,
+  public static <A extends AbstractAssert> A isOnDataType(A assertion, WritableAssertionInfo info, Change change,
                                                           DataType expected) {
+    DataType dataType = change.getDataType();
     if (dataType != expected) {
       throw failures.failure(info, shouldBeDataType(expected, dataType));
+    }
+    return assertion;
+  }
+
+  /**
+   * Verifies that the data type on which the change is a table.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param change    The change.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is different to the type in parameter.
+   */
+  public static <A extends AbstractAssert> A isOnTable(A assertion, WritableAssertionInfo info, Change change) {
+    return isOnDataType(assertion, info, change, DataType.TABLE);
+  }
+
+  /**
+   * Verifies that the data type on which the change is a request.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param change    The change.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is different to the type in parameter.
+   */
+  public static <A extends AbstractAssert> A isOnRequest(A assertion, WritableAssertionInfo info, Change change) {
+    return isOnDataType(assertion, info, change, DataType.REQUEST);
+  }
+
+  /**
+   * Verifies that the change is a table with the name in parameter.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param change    The change.
+   * @param name The name of the table on which is the change.
+   * @return {@code this} assertion object.
+   * @throws AssertionError                 If the type is different to the type in parameter.
+   * @throws java.lang.NullPointerException If the name in parameter is {@code null}.
+   */
+  public static <A extends AbstractAssert> A isOnTable(A assertion, WritableAssertionInfo info, Change change, String name) {
+    if (name == null) {
+      throw new NullPointerException("Table name must be not null");
+    }
+    isOnTable(assertion, info, change);
+    String dataName = change.getDataName();
+    if (!dataName.equals(name.toUpperCase())) {
+      throw failures.failure(info, shouldBeOnTable(name, dataName));
     }
     return assertion;
   }
