@@ -12,20 +12,12 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Row;
-import org.assertj.db.type.ValueType;
-import org.assertj.db.util.Values;
+import org.assertj.db.util.AssertOnRow;
 
-import java.util.Arrays;
 import java.util.List;
-
-import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
-import static org.assertj.db.error.ShouldBeValueTypeOfAny.shouldBeValueTypeOfAny;
-import static org.assertj.db.error.ShouldHaveColumnsSize.shouldHaveColumnsSize;
-import static org.assertj.db.util.Values.areEqual;
 
 /**
  * Assertion methods about the data in a <code>{@link Row}</code>.
@@ -86,14 +78,22 @@ public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends A
     return getValueAssertInstance(index);
   }
 
-  /** {@inheritDoc} */
-  @Override
-  protected void assertHasSize(WritableAssertionInfo info, int expected) {
-    List<String> columnsNameList = row.getColumnsNameList();
-    int size = columnsNameList.size();
-    if (size != expected) {
-      throw failures.failure(info, shouldHaveColumnsSize(size, expected));
-    }
+  /**
+   * Verifies that the size of a {@link Row} is equal to the number in parameter.
+   * <p>
+   * Example where the assertion verifies that the first row of the table has 8 columns :
+   * </p>
+   *
+   * <pre><code class='java'>
+   * assertThat(table).row().hasSize(8);
+   * </code></pre>
+   *
+   * @param expected The number to compare to the size.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the size is different to the number in parameter.
+   */
+  public R hasSize(int expected) {
+    return AssertOnRow.hasSize(myself, info, getValuesList(), expected);
   }
 
   /**
@@ -112,27 +112,6 @@ public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends A
    * @throws AssertionError If the value is not equal to the values in parameter.
    */
   public R hasValuesEqualTo(Object... expected) {
-    hasSize(expected.length);
-    int index = 0;
-    for (Object value : getValuesList()) {
-      ValueType[] possibleTypes = ValueType.getPossibleTypesForComparison(expected[index]);
-      ValueType type = ValueType.getType(value);
-      if (!Arrays.asList(possibleTypes).contains(type)) {
-        throw failures.failure(info, shouldBeValueTypeOfAny(index, value, type, possibleTypes));
-      }
-      if (!areEqual(value, expected[index])) {
-        if (ValueType.getType(value) == ValueType.BYTES) {
-          throw failures.failure(info, shouldBeEqual(index));
-        } else {
-          throw failures
-              .failure(
-                  info,
-                  shouldBeEqual(index, Values.getRepresentationFromValueInFrontOfExpected(value, expected[index]),
-                      expected[index]));
-        }
-      }
-      index++;
-    }
-    return myself;
+    return AssertOnRow.hasValuesEqualTo(myself, info, getValuesList(), expected);
   }
 }

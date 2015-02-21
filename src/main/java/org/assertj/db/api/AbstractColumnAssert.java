@@ -12,9 +12,9 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.error.ShouldBeValueType;
 import org.assertj.db.type.*;
+import org.assertj.db.util.AssertOnColumn;
 import org.assertj.db.util.Values;
 
 import java.util.List;
@@ -24,7 +24,6 @@ import static org.assertj.db.error.ShouldBeValueTypeOfAny.shouldBeValueTypeOfAny
 import static org.assertj.db.error.ShouldContainsOnlyNotNull.shouldContainsOnlyNotNull;
 import static org.assertj.db.error.ShouldContainsOnlyNull.shouldContainsOnlyNull;
 import static org.assertj.db.error.ShouldHaveName.shouldHaveName;
-import static org.assertj.db.error.ShouldHaveRowsSize.shouldHaveRowsSize;
 import static org.assertj.db.util.Values.areEqual;
 
 /**
@@ -65,14 +64,22 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
     return column.getValuesList();
   }
 
-  /** {@inheritDoc} */
-  @Override
-  protected void assertHasSize(WritableAssertionInfo info, int expected) {
-    List<Object> valuesList = column.getValuesList();
-    int size = valuesList.size();
-    if (size != expected) {
-      throw failures.failure(info, shouldHaveRowsSize(size, expected));
-    }
+  /**
+   * Verifies that the size of a {@link Column} is equal to the number in parameter.
+   * <p>
+   * Example where the assertion verifies that the column with index 1 of the table has 5 rows :
+   * </p>
+   *
+   * <pre><code class='java'>
+   * assertThat(table).column(1).hasSize(5);
+   * </code></pre>
+   *
+   * @param expected The number to compare to the size.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the size is different to the number in parameter.
+   */
+  public C hasSize(int expected) {
+    return AssertOnColumn.hasSize(myself, info, column.getValuesList(), expected);
   }
 
   /**

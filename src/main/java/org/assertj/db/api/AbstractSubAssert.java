@@ -12,7 +12,6 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Column;
@@ -146,41 +145,4 @@ public abstract class AbstractSubAssert<D extends AbstractDbData<D>, A extends A
     indexNextValue = index + 1;
     return object;
   }
-
-  /**
-   * Verifies that the size of a {@link Row} or of a {@link Column} is equal to the number in parameter.
-   * <p>
-   * Example where the assertion verifies that the first row of the table has 8 columns :
-   * </p>
-   * 
-   * <pre><code class='java'>
-   * assertThat(table).row().hasSize(8);
-   * </code></pre>
-   * <p>
-   * Example where the assertion verifies that the column with index 1 of the table has 5 rows :
-   * </p>
-   * 
-   * <pre><code class='java'>
-   * assertThat(table).column(1).hasSize(5);
-   * </code></pre>
-   * 
-   * @param expected The number to compare to the size.
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the size is different to the number in parameter.
-   */
-  public S hasSize(int expected) {
-    assertHasSize(info, expected);
-    return myself;
-  }
-
-  /**
-   * Called by {@link AbstractSubAssert#hasSize(int)}, the sub-classes implement this method. This is a skeleton
-   * pattern. So for a {@link Row}, the implementation in {@link AbstractRowAssert} sub-class tests the number of
-   * columns and for a {@link Column}, the implementation in {@link AbstractColumnAssert} sub-class tests the number of
-   * rows.
-   * 
-   * @param info Info on the object to assert.
-   * @param expected The number to compare to the size.
-   */
-  protected abstract void assertHasSize(WritableAssertionInfo info, int expected);
 }
