@@ -17,11 +17,11 @@ import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.DataType;
 import org.assertj.db.type.Row;
+import org.assertj.db.util.AssertOnChange;
 import org.assertj.db.util.Values;
 
 import java.util.*;
 
-import static org.assertj.db.error.ShouldBeChangeType.shouldBeChangeType;
 import static org.assertj.db.error.ShouldBeDataType.shouldBeDataType;
 import static org.assertj.db.error.ShouldBeOnTable.shouldBeOnTable;
 import static org.assertj.db.error.ShouldHaveModifications.shouldHaveModifications;
@@ -440,10 +440,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    */
   public ChangeAssert isOfType(ChangeType expected) {
     ChangeType type = change.getChangeType();
-    if (type != expected) {
-      throw failures.failure(info, shouldBeChangeType(expected, type));
-    }
-    return this;
+    return AssertOnChange.isOfType(myself, info, type, expected);
   }
 
   /**
