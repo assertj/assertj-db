@@ -18,10 +18,17 @@ import org.assertj.db.api.AbstractAssert;
 import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.DataType;
+import org.assertj.db.type.Row;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import static org.assertj.db.error.ShouldBeChangeType.shouldBeChangeType;
 import static org.assertj.db.error.ShouldBeDataType.shouldBeDataType;
 import static org.assertj.db.error.ShouldBeOnTable.shouldBeOnTable;
+import static org.assertj.db.error.ShouldHavePksNames.shouldHavePksNames;
+import static org.assertj.db.error.ShouldHavePksValues.shouldHavePksValues;
 
 /**
  * Utility methods related to assert on change.
@@ -173,6 +180,99 @@ public class AssertOnChange {
     if (!dataName.equals(name.toUpperCase())) {
       throw failures.failure(info, shouldBeOnTable(name, dataName));
     }
+    return assertion;
+  }
+
+  /**
+   * Verifies that primary of the rows of the change is the same as the parameters.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param change    The change.
+   * @param names The names of the primary key associated with the rows of the change.
+   * @return {@code this} assertion object.
+   * @throws AssertionError                 If the type is different to the type in parameter.
+   * @throws java.lang.NullPointerException If one of the names in parameters is {@code null}.
+   */
+  public static <A extends AbstractAssert> A hasPksNames(A assertion, WritableAssertionInfo info, Change change, String... names) {
+    if (names == null) {
+      throw new NullPointerException("Column name must be not null");
+    }
+
+    // Create a sorted list from the primary keys columns
+    List<String> pksNameList = change.getPksNameList();
+    List<String> pksList = new ArrayList(pksNameList);
+    Collections.sort(pksList);
+
+    // Create a sorted list from the parameters
+    List<String> namesList = new ArrayList();
+    for (String name : names) {
+      if (name == null) {
+        throw new NullPointerException("Column name must be not null");
+      }
+      namesList.add(name.toUpperCase());
+    }
+    Collections.sort(namesList);
+
+    // Compare each list
+    if (!namesList.equals(pksList)) {
+      String[] pksNames = pksNameList.toArray(new String[pksNameList.size()]);
+      throw failures.failure(info, shouldHavePksNames(pksNames, names));
+    }
+
+    return assertion;
+  }
+
+  /**
+   * Verifies that the values primary of the rows of the change are the same as the parameters.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param change    The change.
+   * @param values The values of the primary key associated with the rows of the change.
+   * @return {@code this} assertion object.
+   * @throws AssertionError                 If the type is different to the type in parameter.
+   */
+  public static <A extends AbstractAssert> A hasPksValues(A assertion, WritableAssertionInfo info, Change change, Object... values) {
+    // Create a array from the primary keys columns
+    Row rowAtStartPoint = change.getRowAtStartPoint();
+    Row rowAtEndPoint = change.getRowAtEndPoint();
+    List<Object> pksValuesList;
+    if (rowAtStartPoint != null) {
+      pksValuesList = rowAtStartPoint.getValuesList();
+    }
+    else {
+      pksValuesList = rowAtEndPoint.getValuesList();
+    }
+    List<String> columnsNameList = change.getColumnsNameList();
+    List<String> pksNamesList = change.getPksNameList();
+    List<Object> pksList = new ArrayList();
+    for (String name : pksNamesList) {
+      int index = columnsNameList.indexOf(name);
+      Object value = pksValuesList.get(index);
+      pksList.add(value);
+    }
+    Object[] pksValues = pksList.toArray(new Object[pksList.size()]);
+
+    // If the length of the values is different than the length of the expected values
+    if (values.length != pksValues.length) {
+      Object[] representationsValues = Values.getRepresentationsFromValuesInFrontOfExpected(pksValues, values);
+      throw failures.failure(info, shouldHavePksValues(representationsValues, values));
+    }
+
+    // Compare each list
+    int index = 0;
+    for (Object pkValue : pksList) {
+      Object value = values[index];
+      if (!Values.areEqual(pkValue, value)) {
+        Object[] representationsValues = Values.getRepresentationsFromValuesInFrontOfExpected(pksValues, values);
+        throw failures.failure(info, shouldHavePksValues(representationsValues, values));
+      }
+      index++;
+    }
+
     return assertion;
   }
 

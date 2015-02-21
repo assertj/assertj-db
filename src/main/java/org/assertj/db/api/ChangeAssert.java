@@ -18,14 +18,11 @@ import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.DataType;
 import org.assertj.db.type.Row;
 import org.assertj.db.util.AssertOnChange;
-import org.assertj.db.util.Values;
 
 import java.util.*;
 
 import static org.assertj.db.error.ShouldHaveModifications.shouldHaveModifications;
 import static org.assertj.db.error.ShouldHaveNumberOfModifications.shouldHaveNumberOfModifications;
-import static org.assertj.db.error.ShouldHavePksNames.shouldHavePksNames;
-import static org.assertj.db.error.ShouldHavePksValues.shouldHavePksValues;
 
 /**
  * Assertion methods about the {@link Change}.
@@ -325,32 +322,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * @throws java.lang.NullPointerException If one of the names in parameters is {@code null}.
    */
   public ChangeAssert hasPksNames(String... names) {
-    if (names == null) {
-      throw new NullPointerException("Column name must be not null");
-    }
-
-    // Create a sorted list from the primary keys columns
-    List<String> pksNameList = change.getPksNameList();
-    List<String> pksList = new ArrayList(pksNameList);
-    Collections.sort(pksList);
-
-    // Create a sorted list from the parameters
-    List<String> namesList = new ArrayList();
-    for (String name : names) {
-      if (name == null) {
-        throw new NullPointerException("Column name must be not null");
-      }
-      namesList.add(name.toUpperCase());
-    }
-    Collections.sort(namesList);
-
-    // Compare each list
-    if (!namesList.equals(pksList)) {
-      String[] pksNames = pksNameList.toArray(new String[pksNameList.size()]);
-      throw failures.failure(info, shouldHavePksNames(pksNames, names));
-    }
-
-    return this;
+    return AssertOnChange.hasPksNames(myself, info, change, names);
   }
 
   /**
@@ -369,44 +341,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * @throws AssertionError                 If the type is different to the type in parameter.
    */
   public ChangeAssert hasPksValues(Object... values) {
-    // Create a array from the primary keys columns
-    Row rowAtStartPoint = change.getRowAtStartPoint();
-    Row rowAtEndPoint = change.getRowAtEndPoint();
-    List<Object> pksValuesList;
-    if (rowAtStartPoint != null) {
-      pksValuesList = rowAtStartPoint.getValuesList();
-    }
-    else {
-      pksValuesList = rowAtEndPoint.getValuesList();
-    }
-    List<String> columnsNameList = change.getColumnsNameList();
-    List<String> pksNamesList = change.getPksNameList();
-    List<Object> pksList = new ArrayList();
-    for (String name : pksNamesList) {
-      int index = columnsNameList.indexOf(name);
-      Object value = pksValuesList.get(index);
-      pksList.add(value);
-    }
-    Object[] pksValues = pksList.toArray(new Object[pksList.size()]);
-
-    // If the length of the values is different than the length of the expected values
-    if (values.length != pksValues.length) {
-      Object[] representationsValues = Values.getRepresentationsFromValuesInFrontOfExpected(pksValues, values);
-      throw failures.failure(info, shouldHavePksValues(representationsValues, values));
-    }
-
-    // Compare each list
-    int index = 0;
-    for (Object pkValue : pksList) {
-      Object value = values[index];
-      if (!Values.areEqual(pkValue, value)) {
-        Object[] representationsValues = Values.getRepresentationsFromValuesInFrontOfExpected(pksValues, values);
-        throw failures.failure(info, shouldHavePksValues(representationsValues, values));
-      }
-      index++;
-    }
-
-    return this;
+    return AssertOnChange.hasPksValues(myself, info, change, values);
   }
 
   /**
