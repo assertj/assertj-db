@@ -33,9 +33,11 @@ import static org.assertj.db.error.ShouldBeAfterOrEqual.shouldBeAfterOrEqual;
 import static org.assertj.db.error.ShouldBeBefore.shouldBeBefore;
 import static org.assertj.db.error.ShouldBeBeforeOrEqual.shouldBeBeforeOrEqual;
 import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
+import static org.assertj.db.error.ShouldBeGreater.shouldBeGreater;
 import static org.assertj.db.error.ShouldBeValueType.shouldBeValueType;
 import static org.assertj.db.error.ShouldNotBeEqual.shouldNotBeEqual;
 import static org.assertj.db.util.Values.areEqual;
+import static org.assertj.db.util.Values.compare;
 
 /**
  * Utility methods related to assert.
@@ -1091,6 +1093,25 @@ public class Assert {
    */
   public static <A extends AbstractAssert> A isNotZero(A assertion, WritableAssertionInfo info, Object value) {
     return isNotEqualTo(assertion, info, value, 0);
+  }
+
+  /**
+   * Verifies that the value is greater than a number.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param value     The value.
+   * @param expected The expected number value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is less than or equal to the number in parameter.
+   */
+  public static <A extends AbstractAssert> A isGreaterThan(A assertion, WritableAssertionInfo info, Object value, Number expected) {
+    isNumber(assertion, info, value);
+    if (compare(value, expected) > 0) {
+      return assertion;
+    }
+    throw failures.failure(info, shouldBeGreater(value, expected));
   }
 
 }
