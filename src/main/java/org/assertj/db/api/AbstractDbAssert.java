@@ -16,14 +16,13 @@ import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Column;
 import org.assertj.db.type.Row;
+import org.assertj.db.util.AssertOnColumn;
+import org.assertj.db.util.AssertOnRow;
 
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static org.assertj.db.error.ShouldHaveColumnsSize.shouldHaveColumnsSize;
-import static org.assertj.db.error.ShouldHaveRowsSize.shouldHaveRowsSize;
 
 /**
  * Assertion methods about the data in a {@code Table} or in a {@code Request}.
@@ -102,10 +101,7 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
   public A hasRowsSize(int expected) {
     List<Row> rowsList = actual.getRowsList();
     int size = rowsList.size();
-    if (size != expected) {
-      throw failures.failure(info, shouldHaveRowsSize(size, expected));
-    }
-    return myself;
+    return AssertOnColumn.hasSize(myself, info, size, expected);
   }
 
   /**
@@ -125,10 +121,7 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
   public A hasColumnsSize(int expected) {
     List<String> columnsNameList = actual.getColumnsNameList();
     int size = columnsNameList.size();
-    if (size != expected) {
-      throw failures.failure(info, shouldHaveColumnsSize(size, expected));
-    }
-    return myself;
+    return AssertOnRow.hasSize(myself, info, size, expected);
   }
 
   /**
