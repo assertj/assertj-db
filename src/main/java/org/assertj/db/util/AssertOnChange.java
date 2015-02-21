@@ -48,17 +48,60 @@ public class AssertOnChange {
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
-   * @param type      The type.
+   * @param change    The change.
    * @param expected  The expected type to compare to.
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is different to the type in parameter.
    */
-  public static <A extends AbstractAssert> A isOfType(A assertion, WritableAssertionInfo info, ChangeType type,
+  public static <A extends AbstractAssert> A isOfType(A assertion, WritableAssertionInfo info, Change change,
                                                       ChangeType expected) {
+    ChangeType type = change.getChangeType();
     if (type != expected) {
       throw failures.failure(info, shouldBeChangeType(expected, type));
     }
     return assertion;
+  }
+
+  /**
+   * Verifies that the type of the change is a creation.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param change    The change.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is different to the type in parameter.
+   */
+  public static <A extends AbstractAssert> A isCreation(A assertion, WritableAssertionInfo info, Change change) {
+    return isOfType(assertion, info, change, ChangeType.CREATION);
+  }
+
+  /**
+   * Verifies that the type of the change is a modification.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param change    The change.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is different to the type in parameter.
+   */
+  public static <A extends AbstractAssert> A isModification(A assertion, WritableAssertionInfo info, Change change) {
+    return isOfType(assertion, info, change, ChangeType.MODIFICATION);
+  }
+
+  /**
+   * Verifies that the type of the change is a deletion.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param change    The change.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is different to the type in parameter.
+   */
+  public static <A extends AbstractAssert> A isDeletion(A assertion, WritableAssertionInfo info, Change change) {
+    return isOfType(assertion, info, change, ChangeType.DELETION);
   }
 
   /**
