@@ -16,15 +16,20 @@ import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
 import org.assertj.db.error.ShouldBeValueType;
+import org.assertj.db.type.DateTimeValue;
+import org.assertj.db.type.DateValue;
+import org.assertj.db.type.TimeValue;
 import org.assertj.db.type.ValueType;
 
 import java.util.List;
 
+import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
 import static org.assertj.db.error.ShouldBeValueTypeOfAny.shouldBeValueTypeOfAny;
 import static org.assertj.db.error.ShouldContainsOnlyNotNull.shouldContainsOnlyNotNull;
 import static org.assertj.db.error.ShouldContainsOnlyNull.shouldContainsOnlyNull;
 import static org.assertj.db.error.ShouldHaveName.shouldHaveName;
 import static org.assertj.db.error.ShouldHaveRowsSize.shouldHaveRowsSize;
+import static org.assertj.db.util.Values.areEqual;
 
 /**
  * Utility methods related to assert on column.
@@ -300,6 +305,194 @@ public class AssertOnColumn {
     for (Object value : valuesList) {
       if (value == null) {
         throw failures.failure(info, shouldContainsOnlyNotNull(index));
+      }
+      index++;
+    }
+    return assertion;
+  }
+
+  /**
+   * Verifies that the values of a column are equal to booleans.
+   *
+   * @param <A>        The type of the assertion which call this method.
+   * @param assertion  The assertion which call this method.
+   * @param info       Info on the object to assert.
+   * @param valuesList The list of values.
+   * @param expected The expected boolean values.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the booleans in parameter.
+   */
+  public static <A extends AbstractAssert> A hasValuesEqualTo(A assertion, WritableAssertionInfo info,
+                                                              List<Object> valuesList, Boolean... expected) {
+    isBoolean(assertion, info, valuesList, true);
+    hasSize(assertion, info, valuesList.size(), expected.length);
+    int index = 0;
+    for (Object value : valuesList) {
+      Boolean val = (Boolean) value;
+      if (!areEqual(val, expected[index])) {
+        throw failures.failure(info, shouldBeEqual(index, val, expected[index]));
+      }
+      index++;
+    }
+    return assertion;
+  }
+
+  /**
+   * Verifies that the values of a column are equal to numbers.
+   *
+   * @param <A>        The type of the assertion which call this method.
+   * @param assertion  The assertion which call this method.
+   * @param info       Info on the object to assert.
+   * @param valuesList The list of values.
+   * @param expected The expected numbers values.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the numbers in parameter.
+   */
+  public static <A extends AbstractAssert> A hasValuesEqualTo(A assertion, WritableAssertionInfo info,
+                                                              List<Object> valuesList, Number... expected) {
+    isNumber(assertion, info, valuesList, true);
+    hasSize(assertion, info, valuesList.size(), expected.length);
+    int index = 0;
+    for (Object value : valuesList) {
+      Number val = (Number) value;
+      if (!areEqual(val, expected[index])) {
+        throw failures.failure(info,
+                               shouldBeEqual(index, Values.getRepresentationFromValueInFrontOfExpected(val, expected[index]), expected[index]));
+      }
+      index++;
+    }
+    return assertion;
+  }
+
+  /**
+   * Verifies that the values of a column are equal to bytes.
+   *
+   * @param <A>        The type of the assertion which call this method.
+   * @param assertion  The assertion which call this method.
+   * @param info       Info on the object to assert.
+   * @param valuesList The list of values.
+   * @param expected The expected bytes values.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the bytes in parameter.
+   */
+  public static <A extends AbstractAssert> A hasValuesEqualTo(A assertion, WritableAssertionInfo info,
+                                                              List<Object> valuesList, byte[]... expected) {
+    isBytes(assertion, info, valuesList, true);
+    hasSize(assertion, info, valuesList.size(), expected.length);
+    int index = 0;
+    for (Object value : valuesList) {
+      if (!areEqual((byte[]) value, expected[index])) {
+        throw failures.failure(info, shouldBeEqual(index));
+      }
+      index++;
+    }
+    return assertion;
+  }
+
+  /**
+   * Verifies that the values of a column are equal to texts.
+   *
+   * @param <A>        The type of the assertion which call this method.
+   * @param assertion  The assertion which call this method.
+   * @param info       Info on the object to assert.
+   * @param valuesList The list of values.
+   * @param expected The expected text values.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the texts in parameter.
+   */
+  public static <A extends AbstractAssert> A hasValuesEqualTo(A assertion, WritableAssertionInfo info,
+                                                              List<Object> valuesList, String... expected) {
+    isOfAnyOfTypes(assertion, info, valuesList, ValueType.TEXT, ValueType.NUMBER, ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME,
+                   ValueType.NOT_IDENTIFIED);
+    hasSize(assertion, info, valuesList.size(), expected.length);
+    int index = 0;
+    for (Object value : valuesList) {
+      if (!areEqual(value, expected[index])) {
+        throw failures.failure(info,
+                               shouldBeEqual(index, Values.getRepresentationFromValueInFrontOfExpected(value, expected[index]),
+                                             expected[index]));
+      }
+      index++;
+    }
+    return assertion;
+  }
+
+  /**
+   * Verifies that the values of a column are equal to date values.
+   *
+   * @param <A>        The type of the assertion which call this method.
+   * @param assertion  The assertion which call this method.
+   * @param info       Info on the object to assert.
+   * @param valuesList The list of values.
+   * @param expected The expected date values.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the date values in parameter.
+   */
+  public static <A extends AbstractAssert> A hasValuesEqualTo(A assertion, WritableAssertionInfo info,
+                                                              List<Object> valuesList, DateValue... expected) {
+    isOfAnyOfTypes(assertion, info, valuesList, ValueType.DATE, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
+    hasSize(assertion, info, valuesList.size(), expected.length);
+    int index = 0;
+    for (Object value : valuesList) {
+      if (!areEqual(value, expected[index])) {
+        throw failures.failure(info,
+                               shouldBeEqual(index, Values.getRepresentationFromValueInFrontOfExpected(value, expected[index]), expected[index]));
+      }
+      index++;
+    }
+    return assertion;
+  }
+
+  /**
+   * Verifies that the values of a column are equal to time values.
+   *
+   * @param <A>        The type of the assertion which call this method.
+   * @param assertion  The assertion which call this method.
+   * @param info       Info on the object to assert.
+   * @param valuesList The list of values.
+   * @param expected The expected time values.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the time values in parameter.
+   */
+  public static <A extends AbstractAssert> A hasValuesEqualTo(A assertion, WritableAssertionInfo info,
+                                                              List<Object> valuesList, TimeValue... expected) {
+    isOfAnyOfTypes(assertion, info, valuesList, ValueType.TIME, ValueType.NOT_IDENTIFIED);
+    hasSize(assertion, info, valuesList.size(), expected.length);
+    int index = 0;
+    for (Object value : valuesList) {
+      if (!areEqual(value, expected[index])) {
+        throw failures.failure(info,
+                               shouldBeEqual(index,
+                                             Values.getRepresentationFromValueInFrontOfExpected(value, expected[index]),
+                                             expected[index]));
+      }
+      index++;
+    }
+    return assertion;
+  }
+
+  /**
+   * Verifies that the values of a column are equal to date/time values.
+   *
+   * @param <A>        The type of the assertion which call this method.
+   * @param assertion  The assertion which call this method.
+   * @param info       Info on the object to assert.
+   * @param valuesList The list of values.
+   * @param expected The expected date/time values.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the date/time values in parameter.
+   */
+  public static <A extends AbstractAssert> A hasValuesEqualTo(A assertion, WritableAssertionInfo info,
+                                                              List<Object> valuesList, DateTimeValue... expected) {
+    isOfAnyOfTypes(assertion, info, valuesList, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
+    hasSize(assertion, info, valuesList.size(), expected.length);
+    int index = 0;
+    for (Object value : valuesList) {
+      if (!areEqual(value, expected[index])) {
+        throw failures.failure(info,
+                               shouldBeEqual(index,
+                                             Values.getRepresentationFromValueInFrontOfExpected(value, expected[index]),
+                                             expected[index]));
       }
       index++;
     }

@@ -14,12 +14,8 @@ package org.assertj.db.api;
 
 import org.assertj.db.type.*;
 import org.assertj.db.util.AssertOnColumn;
-import org.assertj.db.util.Values;
 
 import java.util.List;
-
-import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
-import static org.assertj.db.util.Values.areEqual;
 
 /**
  * Assertion methods about the data in a <code>{@link Column}</code>.
@@ -317,17 +313,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the value is not equal to the booleans in parameter.
    */
   public C hasValuesEqualTo(Boolean... expected) {
-    isBoolean(true);
-    hasSize(expected.length);
-    int index = 0;
-    for (Object value : getValuesList()) {
-      Boolean val = (Boolean) value;
-      if (!areEqual(val, expected[index])) {
-        throw failures.failure(info, shouldBeEqual(index, val, expected[index]));
-      }
-      index++;
-    }
-    return myself;
+    return AssertOnColumn.hasValuesEqualTo(myself, info, getValuesList(), expected);
   }
 
   /**
@@ -346,18 +332,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the value is not equal to the numbers in parameter.
    */
   public C hasValuesEqualTo(Number... expected) {
-    isNumber(true);
-    hasSize(expected.length);
-    int index = 0;
-    for (Object value : getValuesList()) {
-      Number val = (Number) value;
-      if (!areEqual(val, expected[index])) {
-        throw failures.failure(info,
-            shouldBeEqual(index, Values.getRepresentationFromValueInFrontOfExpected(val, expected[index]), expected[index]));
-      }
-      index++;
-    }
-    return myself;
+    return AssertOnColumn.hasValuesEqualTo(myself, info, getValuesList(), expected);
   }
 
   /**
@@ -378,16 +353,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the value is not equal to the bytes in parameter.
    */
   public C hasValuesEqualTo(byte[]... expected) {
-    isBytes(true);
-    hasSize(expected.length);
-    int index = 0;
-    for (Object value : getValuesList()) {
-      if (!areEqual((byte[]) value, expected[index])) {
-        throw failures.failure(info, shouldBeEqual(index));
-      }
-      index++;
-    }
-    return myself;
+    return AssertOnColumn.hasValuesEqualTo(myself, info, getValuesList(), expected);
   }
 
   /**
@@ -406,18 +372,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the value is not equal to the texts in parameter.
    */
   public C hasValuesEqualTo(String... expected) {
-    isOfAnyOfTypes(ValueType.TEXT, ValueType.NUMBER, ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME,
-        ValueType.NOT_IDENTIFIED);
-    hasSize(expected.length);
-    int index = 0;
-    for (Object value : getValuesList()) {
-      if (!areEqual(value, expected[index])) {
-        throw failures.failure(info,
-            shouldBeEqual(index, Values.getRepresentationFromValueInFrontOfExpected(value, expected[index]), expected[index]));
-      }
-      index++;
-    }
-    return myself;
+    return AssertOnColumn.hasValuesEqualTo(myself, info, getValuesList(), expected);
   }
 
   /**
@@ -437,17 +392,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the value is not equal to the date values in parameter.
    */
   public C hasValuesEqualTo(DateValue... expected) {
-    isOfAnyOfTypes(ValueType.DATE, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
-    hasSize(expected.length);
-    int index = 0;
-    for (Object value : getValuesList()) {
-      if (!areEqual(value, expected[index])) {
-        throw failures.failure(info,
-            shouldBeEqual(index, Values.getRepresentationFromValueInFrontOfExpected(value, expected[index]), expected[index]));
-      }
-      index++;
-    }
-    return myself;
+    return AssertOnColumn.hasValuesEqualTo(myself, info, getValuesList(), expected);
   }
 
   /**
@@ -466,17 +411,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the value is not equal to the time values in parameter.
    */
   public C hasValuesEqualTo(TimeValue... expected) {
-    isOfAnyOfTypes(ValueType.TIME, ValueType.NOT_IDENTIFIED);
-    hasSize(expected.length);
-    int index = 0;
-    for (Object value : getValuesList()) {
-      if (!areEqual(value, expected[index])) {
-        throw failures.failure(info,
-            shouldBeEqual(index, Values.getRepresentationFromValueInFrontOfExpected(value, expected[index]), expected[index]));
-      }
-      index++;
-    }
-    return myself;
+    return AssertOnColumn.hasValuesEqualTo(myself, info, getValuesList(), expected);
   }
 
   /**
@@ -497,17 +432,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the value is not equal to the date/time values in parameter.
    */
   public C hasValuesEqualTo(DateTimeValue... expected) {
-    isOfAnyOfTypes(ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
-    hasSize(expected.length);
-    int index = 0;
-    for (Object value : getValuesList()) {
-      if (!areEqual(value, expected[index])) {
-        throw failures.failure(info,
-            shouldBeEqual(index, Values.getRepresentationFromValueInFrontOfExpected(value, expected[index]), expected[index]));
-      }
-      index++;
-    }
-    return myself;
+    return AssertOnColumn.hasValuesEqualTo(myself, info, getValuesList(), expected);
   }
 
   /**
