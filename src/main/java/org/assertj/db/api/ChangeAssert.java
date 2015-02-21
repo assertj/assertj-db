@@ -443,7 +443,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * @throws AssertionError If the type is different to the type in parameter.
    */
   public ChangeAssert isCreation() {
-    return AssertOnChange.isOfType(myself, info, change, ChangeType.CREATION);
+    return AssertOnChange.isCreation(myself, info, change);
   }
 
   /**
@@ -461,7 +461,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * @throws AssertionError If the type is different to the type in parameter.
    */
   public ChangeAssert isModification() {
-    return AssertOnChange.isOfType(myself, info, change, ChangeType.MODIFICATION);
+    return AssertOnChange.isModification(myself, info, change);
   }
 
   /**
@@ -479,7 +479,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * @throws AssertionError If the type is different to the type in parameter.
    */
   public ChangeAssert isDeletion() {
-    return AssertOnChange.isOfType(myself, info, change, ChangeType.DELETION);
+    return AssertOnChange.isDeletion(myself, info, change);
   }
 
   /**
