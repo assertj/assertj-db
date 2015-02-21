@@ -34,6 +34,7 @@ import static org.assertj.db.error.ShouldBeBefore.shouldBeBefore;
 import static org.assertj.db.error.ShouldBeBeforeOrEqual.shouldBeBeforeOrEqual;
 import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
 import static org.assertj.db.error.ShouldBeGreater.shouldBeGreater;
+import static org.assertj.db.error.ShouldBeGreaterOrEqual.shouldBeGreaterOrEqual;
 import static org.assertj.db.error.ShouldBeLess.shouldBeLess;
 import static org.assertj.db.error.ShouldBeValueType.shouldBeValueType;
 import static org.assertj.db.error.ShouldNotBeEqual.shouldNotBeEqual;
@@ -1132,6 +1133,25 @@ public class Assert {
       return assertion;
     }
     throw failures.failure(info, shouldBeLess(value, expected));
+  }
+
+  /**
+   * Verifies that the value is greater than or equal to a number.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param value     The value.
+   * @param expected The expected number value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is less than the number in parameter.
+   */
+  public static <A extends AbstractAssert> A isGreaterThanOrEqualTo(A assertion, WritableAssertionInfo info, Object value, Number expected) {
+    isNumber(assertion, info, value);
+    if (compare(value, expected) >= 0) {
+      return assertion;
+    }
+    throw failures.failure(info, shouldBeGreaterOrEqual(value, expected));
   }
 
 }

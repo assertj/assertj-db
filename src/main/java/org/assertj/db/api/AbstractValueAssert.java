@@ -16,7 +16,6 @@ import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.*;
 import org.assertj.db.util.Assert;
 
-import static org.assertj.db.error.ShouldBeGreaterOrEqual.shouldBeGreaterOrEqual;
 import static org.assertj.db.error.ShouldBeLessOrEqual.shouldBeLessOrEqual;
 import static org.assertj.db.util.Values.compare;
 
@@ -1068,11 +1067,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is less than the number in parameter.
    */
   public V isGreaterThanOrEqualTo(Number expected) {
-    isNumber();
-    if (compare(value, expected) >= 0) {
-      return myself;
-    }
-    throw failures.failure(info, shouldBeGreaterOrEqual(value, expected));
+    return Assert.isGreaterThanOrEqualTo(myself, info, value, expected);
   }
 
   /**
