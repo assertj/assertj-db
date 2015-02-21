@@ -16,6 +16,7 @@ import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
 
+import static org.assertj.db.error.ShouldHaveName.shouldHaveName;
 import static org.assertj.db.error.ShouldHaveRowsSize.shouldHaveRowsSize;
 
 /**
@@ -51,6 +52,28 @@ public class AssertOnColumn {
   public static <A extends AbstractAssert> A hasSize(A assertion, WritableAssertionInfo info, int size, int expected) {
     if (size != expected) {
       throw failures.failure(info, shouldHaveRowsSize(size, expected));
+    }
+    return assertion;
+  }
+
+  /**
+   * Verifies that the name of a column is equal to parameter.
+   *
+   * @param <A>        The type of the assertion which call this method.
+   * @param assertion  The assertion which call this method.
+   * @param info       Info on the object to assert.
+   * @param columnName The column name.
+   * @param expected   The expected column name.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the column name is not equal to the parameter.
+   */
+  public static <A extends AbstractAssert> A hasColumnName(A assertion, WritableAssertionInfo info, String columnName,
+                                                           String expected) {
+    if (expected == null) {
+      throw new NullPointerException("Column name must be not null");
+    }
+    if (!expected.equalsIgnoreCase(columnName)) {
+      throw failures.failure(info, shouldHaveName(columnName, expected));
     }
     return assertion;
   }

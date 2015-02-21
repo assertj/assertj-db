@@ -12,8 +12,9 @@
  */
 package org.assertj.db.api;
 
+import org.assertj.db.util.AssertOnColumn;
+
 import static org.assertj.db.error.ShouldBeModified.shouldBeModified;
-import static org.assertj.db.error.ShouldHaveName.shouldHaveName;
 import static org.assertj.db.error.ShouldNotBeModified.shouldNotBeModified;
 
 /**
@@ -197,12 +198,6 @@ public class ChangeColumnAssert extends AbstractAssertWithColumnsAndRowsFromChan
    * @throws AssertionError If the column name is not equal to the parameter.
    */
   public ChangeColumnAssert hasColumnName(String columnName) {
-    if (columnName == null) {
-      throw new NullPointerException("Column name must be not null");
-    }
-    if (!columnName.equalsIgnoreCase(this.columnName)) {
-      throw failures.failure(info, shouldHaveName(this.columnName, columnName));
-    }
-    return this;
+    return AssertOnColumn.hasColumnName(myself, info, this.columnName, columnName);
   }
 }

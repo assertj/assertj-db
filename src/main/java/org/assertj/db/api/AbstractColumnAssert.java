@@ -23,7 +23,6 @@ import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
 import static org.assertj.db.error.ShouldBeValueTypeOfAny.shouldBeValueTypeOfAny;
 import static org.assertj.db.error.ShouldContainsOnlyNotNull.shouldContainsOnlyNotNull;
 import static org.assertj.db.error.ShouldContainsOnlyNull.shouldContainsOnlyNull;
-import static org.assertj.db.error.ShouldHaveName.shouldHaveName;
 import static org.assertj.db.util.Values.areEqual;
 
 /**
@@ -568,13 +567,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the column name is not equal to the parameter.
    */
   public C hasColumnName(String columnName) {
-    if (columnName == null) {
-      throw new NullPointerException("Column name must be not null");
-    }
     String name = column.getName();
-    if (!columnName.equalsIgnoreCase(name)) {
-      throw failures.failure(info, shouldHaveName(name, columnName));
-    }
-    return myself;
+    return AssertOnColumn.hasColumnName(myself, info, name, columnName);
   }
 }
