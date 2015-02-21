@@ -43,11 +43,11 @@ import static org.assertj.db.util.Values.areEqual;
 import static org.assertj.db.util.Values.compare;
 
 /**
- * Utility methods related to assert.
+ * Utility methods related to assert on values.
  *
  * @author Régis Pouiller
  */
-public class Assert {
+public class AssertOnValue {
 
   /**
    * Assertions for {@code Object}s provided by assertj-core.
@@ -62,7 +62,7 @@ public class Assert {
   /**
    * Private constructor.
    */
-  private Assert() {
+  private AssertOnValue() {
     // Empty
   }
 
