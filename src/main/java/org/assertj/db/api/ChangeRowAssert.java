@@ -14,18 +14,11 @@ package org.assertj.db.api;
 
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Row;
-import org.assertj.db.type.ValueType;
 import org.assertj.db.util.AssertOnRow;
-import org.assertj.db.util.Values;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
-import static org.assertj.db.error.ShouldBeValueTypeOfAny.shouldBeValueTypeOfAny;
-import static org.assertj.db.util.Values.areEqual;
 
 /**
  * Assertion methods about a {@code Row} of a {@code Change}.
@@ -173,27 +166,6 @@ public class ChangeRowAssert extends AbstractAssertWithColumnsAndRowsFromChange<
    * @throws AssertionError If the value is not equal to the values in parameter.
    */
   public ChangeRowAssert hasValuesEqualTo(Object... expected) {
-    hasSize(expected.length);
-    int index = 0;
-    for (Object value : row.getValuesList()) {
-      ValueType[] possibleTypes = ValueType.getPossibleTypesForComparison(expected[index]);
-      ValueType type = ValueType.getType(value);
-      if (!Arrays.asList(possibleTypes).contains(type)) {
-        throw failures.failure(info, shouldBeValueTypeOfAny(index, value, type, possibleTypes));
-      }
-      if (!areEqual(value, expected[index])) {
-        if (ValueType.getType(value) == ValueType.BYTES) {
-          throw failures.failure(info, shouldBeEqual(index));
-        } else {
-          throw failures
-                  .failure(
-                          info,
-                          shouldBeEqual(index, Values.getRepresentationFromValueInFrontOfExpected(value, expected[index]),
-                                        expected[index]));
-        }
-      }
-      index++;
-    }
-    return myself;
+    return AssertOnRow.hasValuesEqualTo(myself, info, row.getValuesList(), expected);
   }
 }
