@@ -12,7 +12,6 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.db.error.ShouldBeValueType;
 import org.assertj.db.type.*;
 import org.assertj.db.util.AssertOnColumn;
 import org.assertj.db.util.Values;
@@ -20,7 +19,6 @@ import org.assertj.db.util.Values;
 import java.util.List;
 
 import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
-import static org.assertj.db.error.ShouldBeValueTypeOfAny.shouldBeValueTypeOfAny;
 import static org.assertj.db.error.ShouldContainsOnlyNotNull.shouldContainsOnlyNotNull;
 import static org.assertj.db.error.ShouldContainsOnlyNull.shouldContainsOnlyNull;
 import static org.assertj.db.util.Values.areEqual;
@@ -107,19 +105,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the type is different to the type in parameter.
    */
   public C isOfType(ValueType expected, boolean lenient) {
-    if (lenient) {
-      return isOfAnyOfTypes(expected, ValueType.NOT_IDENTIFIED);
-    }
-
-    int index = 0;
-    for (Object value : getValuesList()) {
-      ValueType type = ValueType.getType(value);
-      if (type != expected) {
-        throw failures.failure(info, ShouldBeValueType.shouldBeValueType(index, value, expected, type));
-      }
-      index++;
-    }
-    return myself;
+    return AssertOnColumn.isOfType(myself, info, getValuesList(), expected, lenient);
   }
 
   /**
@@ -138,18 +124,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the type is different to all the types in parameters.
    */
   public C isOfAnyOfTypes(ValueType... expected) {
-    int index = 0;
-    loop: for (Object value : getValuesList()) {
-      ValueType type = ValueType.getType(value);
-      for (ValueType valueType : expected) {
-        if (type == valueType) {
-          index++;
-          continue loop;
-        }
-      }
-      throw failures.failure(info, shouldBeValueTypeOfAny(index, value, type, expected));
-    }
-    return myself;
+    return AssertOnColumn.isOfAnyOfTypes(myself, info, getValuesList(), expected);
   }
 
   /**

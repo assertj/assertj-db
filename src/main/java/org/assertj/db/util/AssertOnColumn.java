@@ -15,7 +15,12 @@ package org.assertj.db.util;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
+import org.assertj.db.error.ShouldBeValueType;
+import org.assertj.db.type.ValueType;
 
+import java.util.List;
+
+import static org.assertj.db.error.ShouldBeValueTypeOfAny.shouldBeValueTypeOfAny;
 import static org.assertj.db.error.ShouldHaveName.shouldHaveName;
 import static org.assertj.db.error.ShouldHaveRowsSize.shouldHaveRowsSize;
 
@@ -77,4 +82,60 @@ public class AssertOnColumn {
     }
     return assertion;
   }
+
+  /**
+   * Verifies that the type of the values of the column is equal to the type in parameter.
+   *
+   * @param <A>        The type of the assertion which call this method.
+   * @param assertion  The assertion which call this method.
+   * @param info       Info on the object to assert.
+   * @param valuesList The list of values.
+   * @param expected The expected type to compare to.
+   * @param lenient {@code true} if the test is lenient : if the type of a value is not identified (for example when the
+   *          value is {@code null}), it consider that it is ok.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is different to the type in parameter.
+   */
+  public static <A extends AbstractAssert> A isOfType(A assertion, WritableAssertionInfo info, List<Object> valuesList, ValueType expected, boolean lenient) {
+    if (lenient) {
+      return isOfAnyOfTypes(assertion, info, valuesList, expected, ValueType.NOT_IDENTIFIED);
+    }
+
+    int index = 0;
+    for (Object value : valuesList) {
+      ValueType type = ValueType.getType(value);
+      if (type != expected) {
+        throw failures.failure(info, ShouldBeValueType.shouldBeValueType(index, value, expected, type));
+      }
+      index++;
+    }
+    return assertion;
+  }
+
+  /**
+   * Verifies that the type of the column is equal to one of the types in parameters.
+   *
+   * @param <A>        The type of the assertion which call this method.
+   * @param assertion  The assertion which call this method.
+   * @param info       Info on the object to assert.
+   * @param valuesList The list of values.
+   * @param expected The expected types to compare to.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is different to all the types in parameters.
+   */
+  public static <A extends AbstractAssert> A isOfAnyOfTypes(A assertion, WritableAssertionInfo info, List<Object> valuesList, ValueType... expected) {
+    int index = 0;
+    loop: for (Object value : valuesList) {
+      ValueType type = ValueType.getType(value);
+      for (ValueType valueType : expected) {
+        if (type == valueType) {
+          index++;
+          continue loop;
+        }
+      }
+      throw failures.failure(info, shouldBeValueTypeOfAny(index, value, type, expected));
+    }
+    return assertion;
+  }
+
 }
