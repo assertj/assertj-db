@@ -47,17 +47,15 @@ public class AssertOnRow {
   /**
    * Verifies that the size of a {@link org.assertj.db.type.Row} is equal to the number in parameter.
    *
-   * @param <A>        The type of the assertion which call this method.
-   * @param assertion  The assertion which call this method.
-   * @param info       Info on the object to assert.
-   * @param valuesList The list of values.
-   * @param expected   The number to compare to the size.
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param size      The size of the row.
+   * @param expected  The number to compare to the size.
    * @return {@code this} assertion object.
    * @throws AssertionError If the size is different to the number in parameter.
    */
-  public static <A extends AbstractAssert> A hasSize(A assertion, WritableAssertionInfo info, List<Object> valuesList,
-                                                     int expected) {
-    int size = valuesList.size();
+  public static <A extends AbstractAssert> A hasSize(A assertion, WritableAssertionInfo info, int size, int expected) {
     if (size != expected) {
       throw failures.failure(info, shouldHaveColumnsSize(size, expected));
     }
@@ -77,7 +75,7 @@ public class AssertOnRow {
    */
   public static <A extends AbstractAssert> A hasValuesEqualTo(A assertion, WritableAssertionInfo info,
                                                               List<Object> valuesList, Object... expected) {
-    hasSize(assertion, info, valuesList, expected.length);
+    hasSize(assertion, info, valuesList.size(), expected.length);
     int index = 0;
     for (Object value : valuesList) {
       ValueType[] possibleTypes = ValueType.getPossibleTypesForComparison(expected[index]);

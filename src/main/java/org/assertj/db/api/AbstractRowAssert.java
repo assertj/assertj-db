@@ -93,7 +93,7 @@ public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends A
    * @throws AssertionError If the size is different to the number in parameter.
    */
   public R hasSize(int expected) {
-    return AssertOnRow.hasSize(myself, info, getValuesList(), expected);
+    return AssertOnRow.hasSize(myself, info, getValuesList().size(), expected);
   }
 
   /**

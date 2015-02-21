@@ -79,7 +79,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the size is different to the number in parameter.
    */
   public C hasSize(int expected) {
-    return AssertOnColumn.hasSize(myself, info, column.getValuesList(), expected);
+    return AssertOnColumn.hasSize(myself, info, column.getValuesList().size(), expected);
   }
 
   /**

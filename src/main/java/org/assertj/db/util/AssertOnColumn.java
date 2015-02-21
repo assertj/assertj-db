@@ -16,8 +16,6 @@ import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
 
-import java.util.List;
-
 import static org.assertj.db.error.ShouldHaveRowsSize.shouldHaveRowsSize;
 
 /**
@@ -42,17 +40,15 @@ public class AssertOnColumn {
   /**
    * Verifies that the size of a {@link org.assertj.db.type.Column} is equal to the number in parameter.
    *
-   * @param <A>        The type of the assertion which call this method.
-   * @param assertion  The assertion which call this method.
-   * @param info       Info on the object to assert.
-   * @param valuesList The list of values.
-   * @param expected   The number to compare to the size.
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Info on the object to assert.
+   * @param size      The size of the column.
+   * @param expected  The number to compare to the size.
    * @return {@code this} assertion object.
    * @throws AssertionError If the size is different to the number in parameter.
    */
-  public static <A extends AbstractAssert> A hasSize(A assertion, WritableAssertionInfo info, List<Object> valuesList,
-                                                     int expected) {
-    int size = valuesList.size();
+  public static <A extends AbstractAssert> A hasSize(A assertion, WritableAssertionInfo info, int size, int expected) {
     if (size != expected) {
       throw failures.failure(info, shouldHaveRowsSize(size, expected));
     }
