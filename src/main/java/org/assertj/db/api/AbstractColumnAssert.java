@@ -142,7 +142,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the type is not a number.
    */
   public C isNumber(boolean lenient) {
-    return isOfType(ValueType.NUMBER, lenient);
+    return AssertOnColumn.isOfType(myself, info, getValuesList(), ValueType.NUMBER, lenient);
   }
 
   /**
@@ -162,7 +162,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the type is not a number.
    */
   public C isBoolean(boolean lenient) {
-    return isOfType(ValueType.BOOLEAN, lenient);
+    return AssertOnColumn.isOfType(myself, info, getValuesList(), ValueType.BOOLEAN, lenient);
   }
 
   /**
@@ -182,7 +182,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the type is not a number.
    */
   public C isDate(boolean lenient) {
-    return isOfType(ValueType.DATE, lenient);
+    return AssertOnColumn.isOfType(myself, info, getValuesList(), ValueType.DATE, lenient);
   }
 
   /**
@@ -202,7 +202,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the type is not a number.
    */
   public C isTime(boolean lenient) {
-    return isOfType(ValueType.TIME, lenient);
+    return AssertOnColumn.isOfType(myself, info, getValuesList(), ValueType.TIME, lenient);
   }
 
   /**
@@ -222,7 +222,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the type is not a number.
    */
   public C isDateTime(boolean lenient) {
-    return isOfType(ValueType.DATE_TIME, lenient);
+    return AssertOnColumn.isOfType(myself, info, getValuesList(), ValueType.DATE_TIME, lenient);
   }
 
   /**
@@ -242,7 +242,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the type is not a number.
    */
   public C isBytes(boolean lenient) {
-    return isOfType(ValueType.BYTES, lenient);
+    return AssertOnColumn.isOfType(myself, info, getValuesList(), ValueType.BYTES, lenient);
   }
 
   /**
@@ -262,7 +262,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the type is not a number.
    */
   public C isText(boolean lenient) {
-    return isOfType(ValueType.TEXT, lenient);
+    return AssertOnColumn.isOfType(myself, info, getValuesList(), ValueType.TEXT, lenient);
   }
 
   /**

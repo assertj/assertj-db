@@ -144,6 +144,125 @@ public class AssertOnColumn {
   }
 
   /**
+   * Verifies that the type of the values of the column is a number.
+   *
+   * @param <A>        The type of the assertion which call this method.
+   * @param assertion  The assertion which call this method.
+   * @param info       Info on the object to assert.
+   * @param valuesList The list of values.
+   * @param lenient    {@code true} if the test is lenient : if the type of a value is not identified (for example when the
+   *                   value is {@code null}), it consider that it is ok.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is not a number.
+   */
+  public static <A extends AbstractAssert> A isNumber(A assertion, WritableAssertionInfo info, List<Object> valuesList,
+                                                      boolean lenient) {
+    return isOfType(assertion, info, valuesList, ValueType.NUMBER, lenient);
+  }
+
+  /**
+   * Verifies that the type of the values of the column is a boolean.
+   *
+   * @param <A>        The type of the assertion which call this method.
+   * @param assertion  The assertion which call this method.
+   * @param info       Info on the object to assert.
+   * @param valuesList The list of values.
+   * @param lenient    {@code true} if the test is lenient : if the type of a value is not identified (for example when the
+   *                   value is {@code null}), it consider that it is ok.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is not a number.
+   */
+  public static <A extends AbstractAssert> A isBoolean(A assertion, WritableAssertionInfo info, List<Object> valuesList,
+                                                       boolean lenient) {
+    return isOfType(assertion, info, valuesList, ValueType.BOOLEAN, lenient);
+  }
+
+  /**
+   * Verifies that the type of the values of the column is a date.
+   *
+   * @param <A>        The type of the assertion which call this method.
+   * @param assertion  The assertion which call this method.
+   * @param info       Info on the object to assert.
+   * @param valuesList The list of values.
+   * @param lenient    {@code true} if the test is lenient : if the type of a value is not identified (for example when the
+   *                   value is {@code null}), it consider that it is ok.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is not a number.
+   */
+  public static <A extends AbstractAssert> A isDate(A assertion, WritableAssertionInfo info, List<Object> valuesList,
+                                                    boolean lenient) {
+    return isOfType(assertion, info, valuesList, ValueType.DATE, lenient);
+  }
+
+  /**
+   * Verifies that the type of the values of the column is a time.
+   *
+   * @param <A>        The type of the assertion which call this method.
+   * @param assertion  The assertion which call this method.
+   * @param info       Info on the object to assert.
+   * @param valuesList The list of values.
+   * @param lenient    {@code true} if the test is lenient : if the type of a value is not identified (for example when the
+   *                   value is {@code null}), it consider that it is ok.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is not a number.
+   */
+  public static <A extends AbstractAssert> A isTime(A assertion, WritableAssertionInfo info, List<Object> valuesList,
+                                                    boolean lenient) {
+    return isOfType(assertion, info, valuesList, ValueType.TIME, lenient);
+  }
+
+  /**
+   * Verifies that the type of the values of the column is a date/time.
+   *
+   * @param <A>        The type of the assertion which call this method.
+   * @param assertion  The assertion which call this method.
+   * @param info       Info on the object to assert.
+   * @param valuesList The list of values.
+   * @param lenient    {@code true} if the test is lenient : if the type of a value is not identified (for example when the
+   *                   value is {@code null}), it consider that it is ok.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is not a number.
+   */
+  public static <A extends AbstractAssert> A isDateTime(A assertion, WritableAssertionInfo info,
+                                                        List<Object> valuesList, boolean lenient) {
+    return isOfType(assertion, info, valuesList, ValueType.DATE_TIME, lenient);
+  }
+
+  /**
+   * Verifies that the type of the values of the column is a array of bytes.
+   *
+   * @param <A>        The type of the assertion which call this method.
+   * @param assertion  The assertion which call this method.
+   * @param info       Info on the object to assert.
+   * @param valuesList The list of values.
+   * @param lenient    {@code true} if the test is lenient : if the type of a value is not identified (for example when the
+   *                   value is {@code null}), it consider that it is ok.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is not a number.
+   */
+  public static <A extends AbstractAssert> A isBytes(A assertion, WritableAssertionInfo info, List<Object> valuesList,
+                                                     boolean lenient) {
+    return isOfType(assertion, info, valuesList, ValueType.BYTES, lenient);
+  }
+
+  /**
+   * Verifies that the type of the values of the column is a text.
+   *
+   * @param <A>        The type of the assertion which call this method.
+   * @param assertion  The assertion which call this method.
+   * @param info       Info on the object to assert.
+   * @param valuesList The list of values.
+   * @param lenient    {@code true} if the test is lenient : if the type of a value is not identified (for example when the
+   *                   value is {@code null}), it consider that it is ok.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type is not a number.
+   */
+  public static <A extends AbstractAssert> A isText(A assertion, WritableAssertionInfo info, List<Object> valuesList,
+                                                    boolean lenient) {
+    return isOfType(assertion, info, valuesList, ValueType.TEXT, lenient);
+  }
+
+  /**
    * Verifies that all the values of the column are {@code null}.
    *
    * @param <A>        The type of the assertion which call this method.
