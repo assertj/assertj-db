@@ -133,7 +133,6 @@ public class ChangeColumnAssert extends AbstractAssertWithColumnsAndRowsFromChan
    * Example where the assertion verifies that the values of the first {@code Column} of the {@code Table} are equal to
    * "Ellen Louise Ripley" :
    * </p>
-   * <p/>
    * <pre><code class='java'>
    * assertThat(changes).change(1).column().hasValuesEqualTo("Ellen Louise Ripley");
    * </code></pre>
@@ -152,7 +151,6 @@ public class ChangeColumnAssert extends AbstractAssertWithColumnsAndRowsFromChan
    * Example where the assertion verifies that the values of the first {@code Column} of the {@code Table} are equal to
    * "Sigourney" at start point and "Susan Alexandra" at end point :
    * </p>
-   * <p/>
    * <pre><code class='java'>
    * assertThat(changes).change(1).column().hasValuesEqualTo("Sigourney", "Susan Alexandra");
    * </code></pre>
@@ -173,7 +171,6 @@ public class ChangeColumnAssert extends AbstractAssertWithColumnsAndRowsFromChan
    * Example where the assertion verifies that the column name of the first {@code Column} of the {@code Table} is equal to
    * "title" :
    * </p>
-   * <p/>
    * <pre><code class='java'>
    * assertThat(changes).change(1).column().hasColumnName("title");
    * </code></pre>
