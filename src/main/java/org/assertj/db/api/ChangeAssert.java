@@ -18,8 +18,11 @@ import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.DataType;
 import org.assertj.db.type.Row;
 import org.assertj.db.util.AssertOnChange;
+import org.assertj.db.util.Changes;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Assertion methods about the {@link Change}.
@@ -178,7 +181,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
    */
   public ChangeColumnAssert columnAmongTheModifiedOnes() {
-    Integer[] indexesOfModifiedColumns = getIndexesOfModifiedColumns();
+    Integer[] indexesOfModifiedColumns = Changes.getIndexesOfModifiedColumns(change);
     for (Integer indexModified : indexesOfModifiedColumns) {
       if (indexModified >= indexNextColumn) {
         return getChangeColumnAssertInstance(indexModified);
@@ -195,7 +198,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
    */
   public ChangeColumnAssert columnAmongTheModifiedOnes(int index) {
-    Integer[] indexesOfModifiedColumns = getIndexesOfModifiedColumns();
+    Integer[] indexesOfModifiedColumns = Changes.getIndexesOfModifiedColumns(change);
     int size = indexesOfModifiedColumns.length;
     if (index < 0 || index >= size) {
       throw new AssertJDBException("Index %s out of the limits of the modified columns [0, %s[", index, size);
@@ -216,7 +219,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
     if (columnName == null) {
       throw new NullPointerException("Column name must be not null");
     }
-    Integer[] indexesOfModifiedColumns = getIndexesOfModifiedColumns();
+    Integer[] indexesOfModifiedColumns = Changes.getIndexesOfModifiedColumns(change);
     List<String> columnsNameList = change.getColumnsNameList();
     for (Integer indexModified : indexesOfModifiedColumns) {
       String modifiedColumnName = columnsNameList.get(indexModified);
@@ -412,54 +415,6 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    */
   public ChangeAssert isDeletion() {
     return AssertOnChange.isDeletion(myself, info, change);
-  }
-
-  /**
-   * Returns the indexes of the modified columns.
-   * @return The indexes.
-   */
-  private Integer[] getIndexesOfModifiedColumns() {
-    List<Integer> indexesList = new ArrayList<>();
-    Row rowAtStartPoint = change.getRowAtStartPoint();
-    Row rowAtEndPoint = change.getRowAtEndPoint();
-    if (rowAtStartPoint != null && rowAtEndPoint != null) {
-      List<Object> valuesListAtStartPoint = rowAtStartPoint.getValuesList();
-      List<Object> valuesListAtEndPoint = rowAtEndPoint.getValuesList();
-      Iterator<Object> iteratorAtEndPoint = valuesListAtEndPoint.iterator();
-      int index = 0;
-      for (Object valueAtStartPoint : valuesListAtStartPoint) {
-        Object valueAtEndPoint  = iteratorAtEndPoint.next();
-
-        if ((valueAtStartPoint == null && valueAtEndPoint != null) ||
-            (valueAtStartPoint != null && !valueAtStartPoint.equals(valueAtEndPoint))) {
-
-          indexesList.add(index);
-        }
-        index++;
-      }
-    }
-    else if (rowAtStartPoint != null) {
-      List<Object> valuesListAtStartPoint = rowAtStartPoint.getValuesList();
-      int index = 0;
-      for (Object valueAtStartPoint : valuesListAtStartPoint) {
-        if (valueAtStartPoint != null) {
-          indexesList.add(index);
-        }
-        index++;
-      }
-    }
-    else {
-      List<Object> valuesListAtEndPoint = rowAtEndPoint.getValuesList();
-      int index = 0;
-      for (Object valueAtEndPoint : valuesListAtEndPoint) {
-        if (valueAtEndPoint != null) {
-          indexesList.add(index);
-        }
-        index++;
-      }
-    }
-
-    return indexesList.toArray(new Integer[indexesList.size()]);
   }
 
   /**
