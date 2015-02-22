@@ -47,7 +47,8 @@ public class Values {
    * @return {@code true} if the value is equal to the value in parameter, {@code false} otherwise.
    */
   public static boolean areEqual(Object value, Object expected) {
-    switch (ValueType.getType(value)) {
+    ValueType valueType = ValueType.getType(value);
+    switch (valueType) {
     case BOOLEAN:
       if (expected instanceof Boolean) {
         return areEqual(value, (Boolean) expected);
