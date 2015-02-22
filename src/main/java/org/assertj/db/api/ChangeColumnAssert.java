@@ -133,7 +133,7 @@ public class ChangeColumnAssert extends AbstractAssertWithColumnsAndRowsFromChan
    * Example where the assertion verifies that the values of the first {@code Column} of the {@code Table} are equal to
    * "Ellen Louise Ripley" :
    * </p>
-   *
+   * <p/>
    * <pre><code class='java'>
    * assertThat(changes).change(1).column().hasValuesEqualTo("Ellen Louise Ripley");
    * </code></pre>
@@ -143,9 +143,7 @@ public class ChangeColumnAssert extends AbstractAssertWithColumnsAndRowsFromChan
    * @throws AssertionError If the values are not equal to the parameter.
    */
   public ChangeColumnAssert hasValuesEqualTo(Object expected) {
-    valueAtStartPoint().isEqualTo(expected);
-    valueAtEndPoint().isEqualTo(expected);
-    return this;
+    return AssertOnChangeColumn.hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expected);
   }
 
   /**
@@ -154,20 +152,19 @@ public class ChangeColumnAssert extends AbstractAssertWithColumnsAndRowsFromChan
    * Example where the assertion verifies that the values of the first {@code Column} of the {@code Table} are equal to
    * "Sigourney" at start point and "Susan Alexandra" at end point :
    * </p>
-   *
+   * <p/>
    * <pre><code class='java'>
    * assertThat(changes).change(1).column().hasValuesEqualTo("Sigourney", "Susan Alexandra");
    * </code></pre>
    *
    * @param expectedAtStartPoint The expected value at start point.
-   * @param expectedAtEndPoint The expected value at end point.
+   * @param expectedAtEndPoint   The expected value at end point.
    * @return {@code this} assertion object.
    * @throws AssertionError If the values are not equal to the parameters.
    */
   public ChangeColumnAssert hasValuesEqualTo(Object expectedAtStartPoint, Object expectedAtEndPoint) {
-    valueAtStartPoint().isEqualTo(expectedAtStartPoint);
-    valueAtEndPoint().isEqualTo(expectedAtEndPoint);
-    return this;
+    return AssertOnChangeColumn.hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expectedAtStartPoint,
+                                                 expectedAtEndPoint);
   }
 
   /**
@@ -176,7 +173,7 @@ public class ChangeColumnAssert extends AbstractAssertWithColumnsAndRowsFromChan
    * Example where the assertion verifies that the column name of the first {@code Column} of the {@code Table} is equal to
    * "title" :
    * </p>
-   *
+   * <p/>
    * <pre><code class='java'>
    * assertThat(changes).change(1).column().hasColumnName("title");
    * </code></pre>

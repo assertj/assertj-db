@@ -60,9 +60,31 @@ public class ChangeColumnAssert_HasValuesEqualTo_Test extends AbstractTest {
       fail("An exception must be raised");
     }
     catch (AssertionError e) {
-      assertThat(e.getLocalizedMessage()).isEqualTo("[Value at end point of Column at index 1 of Change at index 2 of Changes on tables of 'sa/jdbc:h2:mem:test' source (only modification changes)] \n"
-                                                    + "Expecting:\n" + "  <\"The Avatar\">\n" + "to be equal to: \n"
-                                                    + "  <\"Avatar\">");
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 1 of Change at index 2 of Changes on tables of 'sa/jdbc:h2:mem:test' source (only modification changes)] \n"
+                                                    + "Expecting that end point:\n" + "  <\"The Avatar\">\n"
+                                                    + "to be equal to: \n" + "  <\"Avatar\">");
+    }
+  }
+
+  /**
+   * This test should fail because the value at start point is different.
+   */
+  @Test
+  @NeedReload
+  public void should_fail_because_the_value_at_start_point_is_different() {
+    try {
+      Changes changes = new Changes(source).setStartPointNow();
+      updateChangesForTests();
+      changes.setEndPointNow();
+
+      assertThat(changes).changeOfModification().column(2).hasValuesEqualTo("sigourney", "Susan Alexandra");
+
+      fail("An exception must be raised");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 2 of Change at index 0 of Changes on tables of 'sa/jdbc:h2:mem:test' source (only modification changes)] \n"
+                                                    + "Expecting that start point:\n" + "  <\"Sigourney\">\n"
+                                                    + "to be equal to: \n" + "  <\"sigourney\">");
     }
   }
 }

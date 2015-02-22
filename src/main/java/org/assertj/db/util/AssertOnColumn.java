@@ -357,7 +357,9 @@ public class AssertOnColumn {
       Number val = (Number) value;
       if (!areEqual(val, expected[index])) {
         throw failures.failure(info,
-                               shouldBeEqual(index, Values.getRepresentationFromValueInFrontOfExpected(val, expected[index]), expected[index]));
+                               shouldBeEqual(index,
+                                             Values.getRepresentationFromValueInFrontOfExpected(val, expected[index]),
+                                             expected[index]));
       }
       index++;
     }
@@ -402,8 +404,8 @@ public class AssertOnColumn {
    */
   public static <A extends AbstractAssert> A hasValuesEqualTo(A assertion, WritableAssertionInfo info,
                                                               List<Object> valuesList, String... expected) {
-    isOfAnyOfTypes(assertion, info, valuesList, ValueType.TEXT, ValueType.NUMBER, ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME,
-                   ValueType.NOT_IDENTIFIED);
+    isOfAnyOfTypes(assertion, info, valuesList, ValueType.TEXT, ValueType.NUMBER, ValueType.DATE, ValueType.TIME,
+                   ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
     hasSize(assertion, info, valuesList.size(), expected.length);
     int index = 0;
     for (Object value : valuesList) {

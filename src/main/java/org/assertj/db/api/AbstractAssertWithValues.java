@@ -18,9 +18,6 @@ import org.assertj.db.type.TimeValue;
 import org.assertj.db.type.ValueType;
 import org.assertj.db.util.AssertOnValue;
 
-import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
-import static org.assertj.db.util.Values.areEqual;
-
 /**
  * Abstract class that represents a assert with an origin assert and which is the origin assert of another assert and have value.
  *
@@ -270,19 +267,6 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    */
   public E isNotNull() {
     return AssertOnValue.isNotNull(myself, info, value);
-  }
-
-  /**
-   * Verifies that the value is equal to another value in parameter.
-   *
-   * @param expected The expected value.
-   * @throws AssertionError If the value is not equal to the parameter.
-   */
-  void isEqualTo(Object expected) {
-    if (areEqual(value, expected)) {
-      return;
-    }
-    throw failures.failure(info, shouldBeEqual(value, expected));
   }
 
   /**
