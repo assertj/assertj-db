@@ -85,46 +85,6 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
   }
 
   /**
-   * Verifies that the number of rows is equal to the number in parameter.
-   * <p>
-   * Example where the assertion verifies that the table has 2 rows :
-   * </p>
-   * 
-   * <pre><code class='java'>
-   * assertThat(table).hasRowsSize(2);
-   * </code></pre>
-   * 
-   * @param expected The number to compare to the number of rows.
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the number of rows is different to the number in parameter.
-   */
-  public A hasRowsSize(int expected) {
-    List<Row> rowsList = actual.getRowsList();
-    int size = rowsList.size();
-    return AssertOnColumn.hasSize(myself, info, size, expected);
-  }
-
-  /**
-   * Verifies that the number of columns is equal to the number in parameter.
-   * <p>
-   * Example where the assertion verifies that the table has 8 columns :
-   * </p>
-   * 
-   * <pre><code class='java'>
-   * assertThat(table).hasColumnsSize(8);
-   * </code></pre>
-   * 
-   * @param expected The number to compare to the number of columns.
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the number of columns is different to the number in parameter.
-   */
-  public A hasColumnsSize(int expected) {
-    List<String> columnsNameList = actual.getColumnsNameList();
-    int size = columnsNameList.size();
-    return AssertOnRow.hasSize(myself, info, size, expected);
-  }
-
-  /**
    * Returns the {@link Row} at the {@code index} in parameter.
    * 
    * @param index The index corresponding to the {@link Row}.
@@ -275,5 +235,45 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
       throw new AssertJDBException("Column <%s> does not exist", columnName);
     }
     return getColumnAssertInstance(index);
+  }
+
+  /**
+   * Verifies that the number of rows is equal to the number in parameter.
+   * <p>
+   * Example where the assertion verifies that the table has 2 rows :
+   * </p>
+   *
+   * <pre><code class='java'>
+   * assertThat(table).hasRowsSize(2);
+   * </code></pre>
+   *
+   * @param expected The number to compare to the number of rows.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the number of rows is different to the number in parameter.
+   */
+  public A hasRowsSize(int expected) {
+    List<Row> rowsList = actual.getRowsList();
+    int size = rowsList.size();
+    return AssertOnColumn.hasSize(myself, info, size, expected);
+  }
+
+  /**
+   * Verifies that the number of columns is equal to the number in parameter.
+   * <p>
+   * Example where the assertion verifies that the table has 8 columns :
+   * </p>
+   *
+   * <pre><code class='java'>
+   * assertThat(table).hasColumnsSize(8);
+   * </code></pre>
+   *
+   * @param expected The number to compare to the number of columns.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the number of columns is different to the number in parameter.
+   */
+  public A hasColumnsSize(int expected) {
+    List<String> columnsNameList = actual.getColumnsNameList();
+    int size = columnsNameList.size();
+    return AssertOnRow.hasSize(myself, info, size, expected);
   }
 }
