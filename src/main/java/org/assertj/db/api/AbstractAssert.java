@@ -15,7 +15,6 @@ package org.assertj.db.api;
 import org.assertj.core.api.Descriptable;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.description.Description;
-import org.assertj.core.internal.Failures;
 
 /**
  * Parent of all the assert class of assertj-db.
@@ -27,11 +26,6 @@ import org.assertj.core.internal.Failures;
  *          for more details.
  */
 public abstract class AbstractAssert<E extends AbstractAssert<E>> implements Descriptable<E> {
-
-  /**
-   * To notice failures in the assertion.
-   */
-  protected final static Failures failures = Failures.instance();
 
   /**
    * Info on the object to assert.
