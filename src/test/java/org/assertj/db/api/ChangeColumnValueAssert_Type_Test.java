@@ -48,6 +48,45 @@ public class ChangeColumnValueAssert_Type_Test extends AbstractTest {
   }
 
   /**
+   * This method tests the {@code isOfAnyOfTypes} assertion method.
+   */
+  @Test
+  @NeedReload
+  public void test_isOfAnyOfTypes_assertion() {
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+
+    assertThat(changes).change()
+                       .column().valueAtEndPoint().isOfAnyOfTypes(ValueType.NUMBER, ValueType.DATE)
+                       .column().valueAtEndPoint().isOfAnyOfTypes(ValueType.TEXT)
+                       .column().valueAtEndPoint().isOfAnyOfTypes(ValueType.TEXT, ValueType.TIME)
+                       .column().valueAtEndPoint().isOfAnyOfTypes(ValueType.DATE);
+  }
+
+  /**
+   * This method should fail because the type of the value is {@code ValueType.Number}.
+   */
+  @Test
+  @NeedReload
+  public void should_fail_isOfAnyOfTypes_assertion_because_value_is_number() {
+    try {
+      Changes changes = new Changes(source).setStartPointNow();
+      updateChangesForTests();
+      changes.setEndPointNow();
+
+      assertThat(changes).change().column().valueAtEndPoint().as("col1 type").isOfAnyOfTypes(ValueType.BOOLEAN,
+                                                                                             ValueType.DATE);
+
+      fail("An exception must be raised");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[col1 type] \n" + "Expecting:\n" + "  <4>\n" + "to be of type\n"
+                                                    + "  <[BOOLEAN, DATE]>\n" + "but was of type\n" + "  <NUMBER>");
+    }
+  }
+
+  /**
    * This method should fail because the type of the value is {@code ValueType.Number}.
    */
   @Test
@@ -64,12 +103,12 @@ public class ChangeColumnValueAssert_Type_Test extends AbstractTest {
     }
     catch (AssertionError e) {
       assertThat(e.getLocalizedMessage()).isEqualTo("[col1 type] \n" +
-                                                                                    "Expecting:\n" +
-                                                                                    "  <4>\n" +
-                                                                                    "to be of type\n" +
-                                                                                    "  <BOOLEAN>\n" +
-                                                                                    "but was of type\n" +
-                                                                                    "  <NUMBER>");
+                                                    "Expecting:\n" +
+                                                    "  <4>\n" +
+                                                    "to be of type\n" +
+                                                    "  <BOOLEAN>\n" +
+                                                    "but was of type\n" +
+                                                    "  <NUMBER>");
     }
   }
 

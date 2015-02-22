@@ -55,6 +55,31 @@ public class ValueAssert_Type_Test extends AbstractTest {
   }
 
   /**
+   * This method tests the {@code isOfAnyOfTypes} assertion method.
+   */
+  @Test
+  public void test_isOfAnyOfTypes_assertion() {
+    Table table = new Table(source, "test");
+
+    assertThat(table)
+            .row()
+            .value().as("var1").isOfAnyOfTypes(ValueType.NUMBER, ValueType.BOOLEAN).returnToRow()
+            .value().as("var2").isOfAnyOfTypes(ValueType.BOOLEAN).returnToRow()
+            .value().as("var3").isOfAnyOfTypes(ValueType.NUMBER).returnToRow()
+            .value().as("var4").isOfAnyOfTypes(ValueType.NUMBER).returnToRow()
+            .value().as("var5").isOfAnyOfTypes(ValueType.NUMBER).returnToRow()
+            .value().as("var6").isOfAnyOfTypes(ValueType.TIME, ValueType.NUMBER).returnToRow()
+            .value().as("var7").isOfAnyOfTypes(ValueType.NUMBER).returnToRow()
+            .value().as("var8").isOfAnyOfTypes(ValueType.TIME).returnToRow()
+            .value().as("var9").isOfAnyOfTypes(ValueType.DATE, ValueType.DATE_TIME, ValueType.TEXT).returnToRow()
+            .value().as("var10").isOfAnyOfTypes(ValueType.DATE_TIME).returnToRow()
+            .value().as("var11").isOfAnyOfTypes(ValueType.BYTES).returnToRow()
+            .value().as("var12").isOfAnyOfTypes(ValueType.TEXT).returnToRow()
+            .value().as("var13").isOfAnyOfTypes(ValueType.NUMBER).returnToRow()
+            .value().as("var14").isOfAnyOfTypes(ValueType.NUMBER);
+  }
+
+  /**
    * This method should fail because the type of the value is {@code ValueType.Number}.
    */
   @Test
@@ -76,6 +101,26 @@ public class ValueAssert_Type_Test extends AbstractTest {
           "  <BOOLEAN>\n" +
           "but was of type\n" +
           "  <NUMBER>");
+    }
+  }
+
+  /**
+   * This method should fail because the type of the value is {@code ValueType.Number}.
+   */
+  @Test
+  public void should_fail_isOfAnyOfTypes_assertion_because_value_is_number() {
+    try {
+      Table table = new Table(source, "test");
+
+      assertThat(table)
+              .row()
+              .value().as("var1 type").isOfAnyOfTypes(ValueType.BOOLEAN, ValueType.DATE);
+
+      fail("An exception must be raised");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[var1 type] \n" + "Expecting:\n" + "  <1>\n" + "to be of type\n"
+                                                    + "  <[BOOLEAN, DATE]>\n" + "but was of type\n" + "  <NUMBER>");
     }
   }
 

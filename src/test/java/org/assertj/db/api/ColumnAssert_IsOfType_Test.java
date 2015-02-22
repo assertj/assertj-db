@@ -85,9 +85,53 @@ public class ColumnAssert_IsOfType_Test extends AbstractTest {
         .column().as("var14").isOfType(ValueType.NUMBER, true);
   }
 
+
+  /**
+   * This method tests the {@code isOfAnyOfTypes} assertion method.
+   */
+  @Test
+  public void test_isOfAnyOfTypes_assertion() {
+    Table table = new Table(source, "test");
+
+    assertThat(table).column().as("var1").isOfAnyOfTypes(ValueType.NUMBER, ValueType.BOOLEAN)
+                     .column().as("var2").isOfAnyOfTypes(ValueType.BOOLEAN)
+                     .column().as("var3").isOfAnyOfTypes(ValueType.NUMBER)
+                     .column().as("var4").isOfAnyOfTypes(ValueType.NUMBER)
+                     .column().as("var5").isOfAnyOfTypes(ValueType.NUMBER)
+                     .column().as("var6").isOfAnyOfTypes(ValueType.NUMBER)
+                     .column().as("var7").isOfAnyOfTypes(ValueType.NUMBER)
+                     .column().as("var8").isOfAnyOfTypes(ValueType.TIME, ValueType.TEXT)
+                     .column().as("var9").isOfAnyOfTypes(ValueType.DATE)
+                     .column().as("var10").isOfAnyOfTypes(ValueType.DATE_TIME, ValueType.DATE)
+                     .column().as("var11").isOfAnyOfTypes(ValueType.BYTES)
+                     .column().as("var12").isOfAnyOfTypes(ValueType.TEXT)
+                     .column().as("var13").isOfAnyOfTypes(ValueType.NUMBER)
+                     .column().as("var14").isOfAnyOfTypes(ValueType.NUMBER);
+  }
+
   /**
    * This method should fail because the type of the column is {@code ValueType.Number}.
    */
+  @Test
+  public void should_fail_isOfAnyOfTypes_assertion_because_value_is_number() {
+    try {
+      Table table = new Table(source, "test");
+
+      assertThat(table)
+              .column().as("var1 type").isOfAnyOfTypes(ValueType.BOOLEAN, ValueType.DATE);
+
+      fail("An exception must be raised");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[var1 type] \n" + "Expecting that the value at index 0:\n"
+                                                    + "  <1>\n" + "to be of type\n" + "  <[BOOLEAN, DATE]>\n"
+                                                    + "but was of type\n" + "  <NUMBER>");
+    }
+  }
+
+    /**
+     * This method should fail because the type of the column is {@code ValueType.Number}.
+     */
   @Test
   public void should_fail_isOfType_assertion_because_value_is_number() {
     try {

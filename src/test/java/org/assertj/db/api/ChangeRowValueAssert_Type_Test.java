@@ -48,6 +48,45 @@ public class ChangeRowValueAssert_Type_Test extends AbstractTest {
   }
 
   /**
+   * This method tests the {@code isOfAnyOfTypes} assertion method.
+   */
+  @Test
+  @NeedReload
+  public void test_isOfAnyOfTypes_assertion() {
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+
+    assertThat(changes).change().rowAtEndPoint()
+                       .value().isOfAnyOfTypes(ValueType.NUMBER, ValueType.DATE)
+                       .value().isOfAnyOfTypes(ValueType.TEXT)
+                       .value().isOfAnyOfTypes(ValueType.TEXT, ValueType.TIME)
+                       .value().isOfAnyOfTypes(ValueType.DATE);
+  }
+
+  /**
+   * This method should fail because the type of the value is {@code ValueType.Number}.
+   */
+  @Test
+  @NeedReload
+  public void should_fail_isOfAnyOfTypes_assertion_because_value_is_number() {
+    try {
+      Changes changes = new Changes(source).setStartPointNow();
+      updateChangesForTests();
+      changes.setEndPointNow();
+
+      assertThat(changes).change().rowAtEndPoint()
+              .value().as("col1 type").isOfAnyOfTypes(ValueType.BOOLEAN, ValueType.DATE);
+
+      fail("An exception must be raised");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[col1 type] \n" + "Expecting:\n" + "  <4>\n" + "to be of type\n"
+                                                    + "  <[BOOLEAN, DATE]>\n" + "but was of type\n" + "  <NUMBER>");
+    }
+  }
+
+  /**
    * This method should fail because the type of the value is {@code ValueType.Number}.
    */
   @Test
@@ -59,7 +98,7 @@ public class ChangeRowValueAssert_Type_Test extends AbstractTest {
       changes.setEndPointNow();
 
       assertThat(changes).change().rowAtEndPoint()
-              .value().as("col1 type").isOfType(ValueType.BOOLEAN);
+                         .value().as("col1 type").isOfType(ValueType.BOOLEAN);
 
       fail("An exception must be raised");
     }
