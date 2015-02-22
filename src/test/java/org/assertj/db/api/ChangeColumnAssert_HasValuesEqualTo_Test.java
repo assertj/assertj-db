@@ -45,6 +45,28 @@ public class ChangeColumnAssert_HasValuesEqualTo_Test extends AbstractTest {
   }
 
   /**
+   * This test should fail because the value at start point is different.
+   */
+  @Test
+  @NeedReload
+  public void should_fail_because_the_value_at_start_point_is_different() {
+    try {
+      Changes changes = new Changes(source).setStartPointNow();
+      updateChangesForTests();
+      changes.setEndPointNow();
+
+      assertThat(changes).changeOfModification(2).column(1).hasValuesEqualTo("The Avatar");
+
+      fail("An exception must be raised");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 1 of Change at index 2 of Changes on tables of 'sa/jdbc:h2:mem:test' source (only modification changes)] \n"
+                                                    + "Expecting that start point:\n" + "  <\"Avatar\">\n"
+                                                    + "to be equal to: \n" + "  <\"The Avatar\">");
+    }
+  }
+
+  /**
    * This test should fail because the value at end point is different.
    */
   @Test
@@ -71,7 +93,7 @@ public class ChangeColumnAssert_HasValuesEqualTo_Test extends AbstractTest {
    */
   @Test
   @NeedReload
-  public void should_fail_because_the_value_at_start_point_is_different() {
+  public void should_fail_because_the_value_at_start_point_is_different_with_two_parameters() {
     try {
       Changes changes = new Changes(source).setStartPointNow();
       updateChangesForTests();
@@ -85,6 +107,28 @@ public class ChangeColumnAssert_HasValuesEqualTo_Test extends AbstractTest {
       assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 2 of Change at index 0 of Changes on tables of 'sa/jdbc:h2:mem:test' source (only modification changes)] \n"
                                                     + "Expecting that start point:\n" + "  <\"Sigourney\">\n"
                                                     + "to be equal to: \n" + "  <\"sigourney\">");
+    }
+  }
+
+  /**
+   * This test should fail because the value at end point is different.
+   */
+  @Test
+  @NeedReload
+  public void should_fail_because_the_value_at_end_point_is_different_with_two_parameters() {
+    try {
+      Changes changes = new Changes(source).setStartPointNow();
+      updateChangesForTests();
+      changes.setEndPointNow();
+
+      assertThat(changes).changeOfModification().column(2).hasValuesEqualTo("Sigourney", "susan Alexandra");
+
+      fail("An exception must be raised");
+    }
+    catch (AssertionError e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("[Column at index 2 of Change at index 0 of Changes on tables of 'sa/jdbc:h2:mem:test' source (only modification changes)] \n"
+                                                    + "Expecting that end point:\n" + "  <\"Susan Alexandra\">\n"
+                                                    + "to be equal to: \n" + "  <\"susan Alexandra\">");
     }
   }
 }

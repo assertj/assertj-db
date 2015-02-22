@@ -981,7 +981,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not equal to zero.
    */
   public V isZero() {
-    return AssertOnValue.isEqualTo(myself, info, value, 0);
+    return AssertOnValue.isZero(myself, info, value);
   }
 
   /**
@@ -1001,7 +1001,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is equal to zero.
    */
   public V isNotZero() {
-    return AssertOnValue.isNotEqualTo(myself, info, value, 0);
+    return AssertOnValue.isNotZero(myself, info, value);
   }
 
   /**
