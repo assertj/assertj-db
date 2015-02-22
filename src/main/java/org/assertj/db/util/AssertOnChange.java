@@ -169,12 +169,13 @@ public class AssertOnChange {
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
    * @param change    The change.
-   * @param name The name of the table on which is the change.
+   * @param name      The name of the table on which is the change.
    * @return {@code this} assertion object.
    * @throws AssertionError                 If the type is different to the type in parameter.
    * @throws java.lang.NullPointerException If the name in parameter is {@code null}.
    */
-  public static <A extends AbstractAssert> A isOnTable(A assertion, WritableAssertionInfo info, Change change, String name) {
+  public static <A extends AbstractAssert> A isOnTable(A assertion, WritableAssertionInfo info, Change change,
+                                                       String name) {
     if (name == null) {
       throw new NullPointerException("Table name must be not null");
     }
@@ -193,12 +194,13 @@ public class AssertOnChange {
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
    * @param change    The change.
-   * @param names The names of the primary key associated with the rows of the change.
+   * @param names     The names of the primary key associated with the rows of the change.
    * @return {@code this} assertion object.
    * @throws AssertionError                 If the type is different to the type in parameter.
    * @throws java.lang.NullPointerException If one of the names in parameters is {@code null}.
    */
-  public static <A extends AbstractAssert> A hasPksNames(A assertion, WritableAssertionInfo info, Change change, String... names) {
+  public static <A extends AbstractAssert> A hasPksNames(A assertion, WritableAssertionInfo info, Change change,
+                                                         String... names) {
     if (names == null) {
       throw new NullPointerException("Column name must be not null");
     }
@@ -234,19 +236,19 @@ public class AssertOnChange {
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
    * @param change    The change.
-   * @param values The values of the primary key associated with the rows of the change.
+   * @param values    The values of the primary key associated with the rows of the change.
    * @return {@code this} assertion object.
-   * @throws AssertionError                 If the type is different to the type in parameter.
+   * @throws AssertionError If the type is different to the type in parameter.
    */
-  public static <A extends AbstractAssert> A hasPksValues(A assertion, WritableAssertionInfo info, Change change, Object... values) {
+  public static <A extends AbstractAssert> A hasPksValues(A assertion, WritableAssertionInfo info, Change change,
+                                                          Object... values) {
     // Create a array from the primary keys columns
     Row rowAtStartPoint = change.getRowAtStartPoint();
     Row rowAtEndPoint = change.getRowAtEndPoint();
     List<Object> pksValuesList;
     if (rowAtStartPoint != null) {
       pksValuesList = rowAtStartPoint.getValuesList();
-    }
-    else {
+    } else {
       pksValuesList = rowAtEndPoint.getValuesList();
     }
     List<String> columnsNameList = change.getColumnsNameList();
@@ -287,11 +289,12 @@ public class AssertOnChange {
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
    * @param change    The change.
-   * @param number The expected number of modified columns
+   * @param number    The expected number of modified columns
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is different to the type in parameter.
    */
-  public static <A extends AbstractAssert> A hasNumberOfModifiedColumns(A assertion, WritableAssertionInfo info, Change change, int number) {
+  public static <A extends AbstractAssert> A hasNumberOfModifiedColumns(A assertion, WritableAssertionInfo info,
+                                                                        Change change, int number) {
     Integer[] indexesOfModifiedColumns = Changes.getIndexesOfModifiedColumns(change);
 
     if (number != indexesOfModifiedColumns.length) {
@@ -308,11 +311,12 @@ public class AssertOnChange {
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
    * @param change    The change.
-   * @param indexes Indexes of the modified columns.
+   * @param indexes   Indexes of the modified columns.
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is different to the type in parameter.
    */
-  public static <A extends AbstractAssert> A hasModifiedColumns(A assertion, WritableAssertionInfo info, Change change, Integer... indexes) {
+  public static <A extends AbstractAssert> A hasModifiedColumns(A assertion, WritableAssertionInfo info, Change change,
+                                                                Integer... indexes) {
     if (indexes == null) {
       throw new NullPointerException("Column index must be not null");
     }
@@ -348,10 +352,12 @@ public class AssertOnChange {
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
    * @param change    The change.
+   * @param names     The names of the modified columns.
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is different to the type in parameter.
    */
-  public static <A extends AbstractAssert> A hasModifiedColumns(A assertion, WritableAssertionInfo info, Change change, String... names) {
+  public static <A extends AbstractAssert> A hasModifiedColumns(A assertion, WritableAssertionInfo info, Change change,
+                                                                String... names) {
     if (names == null) {
       throw new NullPointerException("Column name must be not null");
     }
