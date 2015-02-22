@@ -70,25 +70,6 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
   }
 
   /**
-   * Verifies that the size (number) of {@link Changes} is equal to the number in parameter.
-   * <p>
-   * Example where the assertion verifies that there are 8 changes :
-   * </p>
-   * <pre>
-   * <code class='java'>
-   * assertThat(changes).hasSize(8);
-   * </code>
-   * </pre>
-   *
-   * @param expected The number to compare to the size.
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the size is different to the number in parameter.
-   */
-  public ChangesAssert hasSize(int expected) {
-    return AssertOnChanges.hasSize(myself, info, changes, expected);
-  }
-
-  /**
    * Returns an instance of changes assert from the cache.
    *
    * @param changeType Type of the change on which is the instance of change assert.
@@ -516,5 +497,24 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
       return originAssert.changeOfDeletionOnTable(tableName, index);
     }
     return getChangeAssertInstance(ChangeType.DELETION, tableName, index);
+  }
+
+  /**
+   * Verifies that the size (number) of {@link Changes} is equal to the number in parameter.
+   * <p>
+   * Example where the assertion verifies that there are 8 changes :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).hasSize(8);
+   * </code>
+   * </pre>
+   *
+   * @param expected The number to compare to the size.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the size is different to the number in parameter.
+   */
+  public ChangesAssert hasSize(int expected) {
+    return AssertOnChanges.hasSize(myself, info, changes, expected);
   }
 }
