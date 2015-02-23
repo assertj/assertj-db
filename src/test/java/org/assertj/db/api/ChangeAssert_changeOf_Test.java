@@ -14,11 +14,13 @@ package org.assertj.db.api;
 
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.common.NeedReload;
+import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Changes;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  * Test on {@code changeOfCreation()}, {@code changeOfModification()} and {@code changeOfDeletion()} methods.
@@ -43,7 +45,10 @@ public class ChangeAssert_ChangeOf_Test extends AbstractTest {
 
     assertThat(changeAssert.changeOfCreation()).as("changeAssert.changeOfCreation()")
                                                .isSameAs(changesOfCreationAssert.changeOfCreation(0))
-                                               .isSameAs(changesAssert.changeOfCreation(0));
+                                               .isSameAs(changesAssert.changeOfCreation(0))
+                                               .isSameAs(changesOfCreationAssert.changeOnTableWithPks("actor", 4))
+                                               .isSameAs(changesAssert.changeOnTableWithPks("actor", 4))
+                                               .isSameAs(changeAssert.changeOnTableWithPks("actor", 4));
   }
 
   /**
@@ -62,7 +67,10 @@ public class ChangeAssert_ChangeOf_Test extends AbstractTest {
 
     assertThat(changeAssert.changeOfModification()).as("changeAssert.changeOfModification()")
                                                    .isSameAs(changesOfCreationAssert.changeOfModification(0))
-                                                   .isSameAs(changesAssert.changeOfModification(0));
+                                                   .isSameAs(changesAssert.changeOfModification(0))
+                                                   .isSameAs(changesOfCreationAssert.changeOnTableWithPks("actor", 1))
+                                                   .isSameAs(changesAssert.changeOnTableWithPks("actor", 1))
+                                                   .isSameAs(changeAssert.changeOnTableWithPks("actor", 1));
   }
 
   /**
@@ -81,7 +89,10 @@ public class ChangeAssert_ChangeOf_Test extends AbstractTest {
 
     assertThat(changeAssert.changeOfDeletion()).as("changeAssert.changeOfDeletion()")
                                                .isSameAs(changesOfCreationAssert.changeOfDeletion(0))
-                                               .isSameAs(changesAssert.changeOfDeletion(0));
+                                               .isSameAs(changesAssert.changeOfDeletion(0))
+                                               .isSameAs(changesOfCreationAssert.changeOnTableWithPks("actor", 3))
+                                               .isSameAs(changesAssert.changeOnTableWithPks("actor", 3))
+                                               .isSameAs(changeAssert.changeOnTableWithPks("actor", 3));
   }
 
   /**
@@ -98,10 +109,13 @@ public class ChangeAssert_ChangeOf_Test extends AbstractTest {
     ChangesAssert changesOfCreationAssert = changesAssert.ofCreation();
     ChangeAssert changeAssert = changesAssert.change();
 
-    assertThat(changeAssert.changeOnTable("interpretation")).as("changeAssert.changeOnTable(\"interpretation\")()")
-                                                            .isSameAs(changesOfCreationAssert
-                                                                              .changeOnTable("interpretation", 0))
-                                                            .isSameAs(changesAssert.changeOnTable("interpretation", 0));
+    assertThat(changeAssert.changeOnTable("interpretation"))
+            .as("changeAssert.changeOnTable(\"interpretation\")()")
+            .isSameAs(changesOfCreationAssert.changeOnTable("interpretation", 0))
+            .isSameAs(changesAssert.changeOnTable("interpretation", 0))
+            .isSameAs(changesOfCreationAssert.changeOnTableWithPks("interpretation", 6))
+            .isSameAs(changesAssert.changeOnTableWithPks("interpretation", 6))
+            .isSameAs(changeAssert.changeOnTableWithPks("interpretation", 6));;
   }
 
   /**
@@ -121,7 +135,10 @@ public class ChangeAssert_ChangeOf_Test extends AbstractTest {
     assertThat(changeAssert.changeOfCreationOnTable("interpretation"))
             .as("changeAssert.changeOfCreationOnTable(\"interpretation\")()")
             .isSameAs(changesOfCreationAssert.changeOfCreationOnTable("interpretation", 0))
-            .isSameAs(changesAssert.changeOfCreationOnTable("interpretation", 0));
+            .isSameAs(changesAssert.changeOfCreationOnTable("interpretation", 0))
+            .isSameAs(changesOfCreationAssert.changeOnTableWithPks("interpretation", 6))
+            .isSameAs(changesAssert.changeOnTableWithPks("interpretation", 6))
+            .isSameAs(changeAssert.changeOnTableWithPks("interpretation", 6));;
   }
 
   /**
@@ -141,7 +158,10 @@ public class ChangeAssert_ChangeOf_Test extends AbstractTest {
     assertThat(changeAssert.changeOfModificationOnTable("interpretation"))
             .as("changeAssert.changeOfModificationOnTable(\"interpretation\")()")
             .isSameAs(changesOfCreationAssert.changeOfModificationOnTable("interpretation", 0))
-            .isSameAs(changesAssert.changeOfModificationOnTable("interpretation", 0));
+            .isSameAs(changesAssert.changeOfModificationOnTable("interpretation", 0))
+            .isSameAs(changesOfCreationAssert.changeOnTableWithPks("interpretation", 3))
+            .isSameAs(changesAssert.changeOnTableWithPks("interpretation", 3))
+            .isSameAs(changeAssert.changeOnTableWithPks("interpretation", 3));;
   }
 
   /**
@@ -161,6 +181,29 @@ public class ChangeAssert_ChangeOf_Test extends AbstractTest {
     assertThat(changeAssert.changeOfDeletionOnTable("interpretation"))
             .as("changeAssert.changeOfDeletionOnTable(\"interpretation\")()")
             .isSameAs(changesOfCreationAssert.changeOfDeletionOnTable("interpretation", 0))
-            .isSameAs(changesAssert.changeOfDeletionOnTable("interpretation", 0));
+            .isSameAs(changesAssert.changeOfDeletionOnTable("interpretation", 0))
+            .isSameAs(changesOfCreationAssert.changeOnTableWithPks("interpretation", 5))
+            .isSameAs(changesAssert.changeOnTableWithPks("interpretation", 5))
+            .isSameAs(changeAssert.changeOnTableWithPks("interpretation", 5));;
+  }
+
+  /**
+   * This method fail because the size of the primary keys is wrong.
+   */
+  @Test
+  @NeedReload
+  public void should_fail_because_primary_keys_size_is_wrong() {
+    try {
+      Changes changes = new Changes(source).setStartPointNow();
+      updateChangesForTests();
+      changes.setEndPointNow();
+      assertThat(changes).changeOnTableWithPks("actor", 1, 2);
+
+
+      fail("An exception must be raised");
+    }
+    catch (AssertJDBException e) {
+      assertThat(e.getLocalizedMessage()).isEqualTo("No change found for table actor and primary keys [1, 2]");
+    }
   }
 }
