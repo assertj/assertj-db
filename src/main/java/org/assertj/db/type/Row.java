@@ -69,6 +69,21 @@ public class Row {
   }
 
   /**
+   * Return the list of the primary keys value.
+   *
+   * @return The list of the primary keys value.
+   */
+  public List<Object> getPksValueList() {
+    List<Object> pksValueList = new ArrayList();
+    for (String name : pksNameList) {
+      int index = columnsNameList.indexOf(name);
+      Object value = valuesList.get(index);
+      pksValueList.add(value);
+    }
+    return pksValueList;
+  }
+
+  /**
    * Sets the list of the primary keys name.
    *
    * @param pksNameList The list of the primary keys name.

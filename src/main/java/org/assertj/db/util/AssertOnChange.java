@@ -18,7 +18,6 @@ import org.assertj.db.api.AbstractAssert;
 import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.DataType;
-import org.assertj.db.type.Row;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -243,23 +242,8 @@ public class AssertOnChange {
   public static <A extends AbstractAssert> A hasPksValues(A assertion, WritableAssertionInfo info, Change change,
                                                           Object... values) {
     // Create a array from the primary keys columns
-    Row rowAtStartPoint = change.getRowAtStartPoint();
-    Row rowAtEndPoint = change.getRowAtEndPoint();
-    List<Object> pksValuesList;
-    if (rowAtStartPoint != null) {
-      pksValuesList = rowAtStartPoint.getValuesList();
-    } else {
-      pksValuesList = rowAtEndPoint.getValuesList();
-    }
-    List<String> columnsNameList = change.getColumnsNameList();
-    List<String> pksNamesList = change.getPksNameList();
-    List<Object> pksList = new ArrayList();
-    for (String name : pksNamesList) {
-      int index = columnsNameList.indexOf(name);
-      Object value = pksValuesList.get(index);
-      pksList.add(value);
-    }
-    Object[] pksValues = pksList.toArray(new Object[pksList.size()]);
+    List<Object> pksValueList = change.getPksValueList();
+    Object[] pksValues = pksValueList.toArray(new Object[pksValueList.size()]);
 
     // If the length of the values is different than the length of the expected values
     if (values.length != pksValues.length) {
@@ -269,7 +253,7 @@ public class AssertOnChange {
 
     // Compare each list
     int index = 0;
-    for (Object pkValue : pksList) {
+    for (Object pkValue : pksValueList) {
       Object value = values[index];
       if (!Values.areEqual(pkValue, value)) {
         Object[] representationsValues = Values.getRepresentationsFromValuesInFrontOfExpected(pksValues, values);

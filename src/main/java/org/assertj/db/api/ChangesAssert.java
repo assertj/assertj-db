@@ -17,7 +17,9 @@ import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.Changes;
 import org.assertj.db.util.AssertOnChanges;
+import org.assertj.db.util.Values;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -431,6 +433,37 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
       return originAssert.changeOnTable(tableName, index);
     }
     return getChangeAssertInstance(null, tableName, index);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public ChangeAssert changeOnTableWithPks(String tableName, Object... pksValues) {
+    if (originAssert != null) {
+      return originAssert.changeOnTableWithPks(tableName, pksValues);
+    }
+    Changes changes = this.changes.getChangesOfTable(tableName);
+    List<Change> changesList = changes.getChangesList();
+    int index = 0;
+    for (Change change : changesList) {
+      List<Object> pksValueList = change.getPksValueList();
+      Object[] values = pksValueList.toArray(new Object[pksValueList.size()]);
+      boolean equal = false;
+      if (pksValues.length == values.length) {
+        equal = true;
+        for (int i = 0; i < pksValues.length; i++) {
+          if (!Values.areEqual(values[i], pksValues[i])) {
+            equal = false;
+          }
+        }
+      }
+      if (equal) {
+        return getChangeAssertInstance(null, tableName, index);
+      }
+      index++;
+    }
+    throw new AssertJDBException("No change found for table " + tableName + " and primary keys " + Arrays.asList(pksValues));
   }
 
   /**

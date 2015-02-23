@@ -150,6 +150,18 @@ public class Change {
   }
 
   /**
+   * Return the list of the primary keys value.
+   *
+   * @return The list of the primary keys value.
+   */
+  public List<Object> getPksValueList() {
+    if (rowAtStartPoint != null) {
+      return rowAtStartPoint.getPksValueList();
+    }
+    return rowAtEndPoint.getPksValueList();
+  }
+
+  /**
    * Returns the list of the column names.
    * 
    * @return The list of the column names.

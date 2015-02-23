@@ -182,6 +182,14 @@ public abstract class AbstractAssertWithChanges<E extends AbstractAssertWithChan
    * {@inheritDoc}
    */
   @Override
+  public ChangeAssert changeOnTableWithPks(String tableName, Object... pksValues) {
+    return originAssert.changeOnTableWithPks(tableName, pksValues);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public ChangeAssert changeOfCreationOnTable(String tableName) {
     return originAssert.changeOfCreationOnTable(tableName);
   }
