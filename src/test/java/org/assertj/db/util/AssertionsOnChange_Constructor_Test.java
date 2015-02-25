@@ -21,14 +21,14 @@ import java.lang.reflect.Modifier;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test on the utility class {@code AssertOnChanges} : the private constructor.
+ * Test on the utility class {@code AssertionsOnChange} : the private constructor.
  *
  * @author Régis Pouiller
  */
-public class AssertOnChanges_Constructor_Test {
+public class AssertionsOnChange_Constructor_Test {
 
   /**
-   * This method tests the private constructor of {@code AssertOnChanges} for the tests coverage..
+   * This method tests the private constructor of {@code AssertionsOnChange} for the tests coverage..
    *
    * @throws NoSuchMethodException
    * @throws SecurityException
@@ -42,7 +42,7 @@ public class AssertOnChanges_Constructor_Test {
           throws SecurityException, NoSuchMethodException, IllegalArgumentException, InstantiationException,
           IllegalAccessException, InvocationTargetException {
 
-    Constructor<AssertOnChanges> constructor = AssertOnChanges.class.getDeclaredConstructor();
+    Constructor<AssertionsOnChange> constructor = AssertionsOnChange.class.getDeclaredConstructor();
     assertThat(Modifier.isPrivate(constructor.getModifiers())).isTrue();
     constructor.setAccessible(true);
     constructor.newInstance();

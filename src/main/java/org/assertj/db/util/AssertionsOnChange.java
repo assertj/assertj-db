@@ -37,7 +37,7 @@ import static org.assertj.db.error.ShouldHavePksValues.shouldHavePksValues;
  *
  * @author Régis Pouiller
  */
-public class AssertOnChange {
+public class AssertionsOnChange {
 
   /**
    * To notice failures in the assertion.
@@ -47,7 +47,7 @@ public class AssertOnChange {
   /**
    * Private constructor.
    */
-  private AssertOnChange() {
+  private AssertionsOnChange() {
     // Empty
   }
 

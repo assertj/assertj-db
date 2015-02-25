@@ -30,7 +30,7 @@ import static org.assertj.db.util.Values.areEqual;
  *
  * @author Régis Pouiller
  */
-public class AssertOnRow {
+public class AssertionsOnRow {
 
   /**
    * To notice failures in the assertion.
@@ -40,7 +40,7 @@ public class AssertOnRow {
   /**
    * Private constructor.
    */
-  private AssertOnRow() {
+  private AssertionsOnRow() {
     // Empty
   }
 

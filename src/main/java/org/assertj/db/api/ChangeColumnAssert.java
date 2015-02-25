@@ -12,8 +12,8 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.db.util.AssertOnChangeColumn;
-import org.assertj.db.util.AssertOnColumn;
+import org.assertj.db.util.AssertionsOnChangeColumn;
+import org.assertj.db.util.AssertionsOnColumn;
 
 /**
  * Assertion methods about a {@code Column} of a {@code Change}.
@@ -106,7 +106,7 @@ public class ChangeColumnAssert extends AbstractAssertWithColumnsAndRowsFromChan
    * @throws AssertionError If the type is different to the type in parameter.
    */
   public ChangeColumnAssert isModified() {
-    return AssertOnChangeColumn.isModified(myself, info, valueAtStartPoint, valueAtEndPoint);
+    return AssertionsOnChangeColumn.isModified(myself, info, valueAtStartPoint, valueAtEndPoint);
   }
 
   /**
@@ -124,7 +124,7 @@ public class ChangeColumnAssert extends AbstractAssertWithColumnsAndRowsFromChan
    * @throws AssertionError If the type is different to the type in parameter.
    */
   public ChangeColumnAssert isNotModified() {
-    return AssertOnChangeColumn.isNotModified(myself, info, valueAtStartPoint, valueAtEndPoint);
+    return AssertionsOnChangeColumn.isNotModified(myself, info, valueAtStartPoint, valueAtEndPoint);
   }
 
   /**
@@ -142,7 +142,7 @@ public class ChangeColumnAssert extends AbstractAssertWithColumnsAndRowsFromChan
    * @throws AssertionError If the values are not equal to the parameter.
    */
   public ChangeColumnAssert hasValuesEqualTo(Object expected) {
-    return AssertOnChangeColumn.hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expected);
+    return AssertionsOnChangeColumn.hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expected);
   }
 
   /**
@@ -161,8 +161,9 @@ public class ChangeColumnAssert extends AbstractAssertWithColumnsAndRowsFromChan
    * @throws AssertionError If the values are not equal to the parameters.
    */
   public ChangeColumnAssert hasValuesEqualTo(Object expectedAtStartPoint, Object expectedAtEndPoint) {
-    return AssertOnChangeColumn.hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expectedAtStartPoint,
-                                                 expectedAtEndPoint);
+    return AssertionsOnChangeColumn
+            .hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expectedAtStartPoint,
+                              expectedAtEndPoint);
   }
 
   /**
@@ -180,6 +181,6 @@ public class ChangeColumnAssert extends AbstractAssertWithColumnsAndRowsFromChan
    * @throws AssertionError If the column name is not equal to the parameter.
    */
   public ChangeColumnAssert hasColumnName(String columnName) {
-    return AssertOnColumn.hasColumnName(myself, info, this.columnName, columnName);
+    return AssertionsOnColumn.hasColumnName(myself, info, this.columnName, columnName);
   }
 }

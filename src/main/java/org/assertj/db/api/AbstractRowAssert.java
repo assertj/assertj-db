@@ -15,7 +15,7 @@ package org.assertj.db.api;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Row;
-import org.assertj.db.util.AssertOnRow;
+import org.assertj.db.util.AssertionsOnRow;
 
 import java.util.List;
 
@@ -93,7 +93,7 @@ public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends A
    * @throws AssertionError If the size is different to the number in parameter.
    */
   public R hasSize(int expected) {
-    return AssertOnRow.hasSize(myself, info, getValuesList().size(), expected);
+    return AssertionsOnRow.hasSize(myself, info, getValuesList().size(), expected);
   }
 
   /**
@@ -112,6 +112,6 @@ public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends A
    * @throws AssertionError If the value is not equal to the values in parameter.
    */
   public R hasValuesEqualTo(Object... expected) {
-    return AssertOnRow.hasValuesEqualTo(myself, info, getValuesList(), expected);
+    return AssertionsOnRow.hasValuesEqualTo(myself, info, getValuesList(), expected);
   }
 }

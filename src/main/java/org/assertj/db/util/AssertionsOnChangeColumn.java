@@ -27,7 +27,7 @@ import static org.assertj.db.util.Values.areEqual;
  *
  * @author Régis Pouiller
  */
-public class AssertOnChangeColumn {
+public class AssertionsOnChangeColumn {
 
   /**
    * To notice failures in the assertion.
@@ -37,7 +37,7 @@ public class AssertOnChangeColumn {
   /**
    * Private constructor.
    */
-  private AssertOnChangeColumn() {
+  private AssertionsOnChangeColumn() {
     // Empty
   }
 

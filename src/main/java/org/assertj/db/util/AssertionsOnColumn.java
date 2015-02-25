@@ -36,7 +36,7 @@ import static org.assertj.db.util.Values.areEqual;
  *
  * @author Régis Pouiller
  */
-public class AssertOnColumn {
+public class AssertionsOnColumn {
 
   /**
    * To notice failures in the assertion.
@@ -46,7 +46,7 @@ public class AssertOnColumn {
   /**
    * Private constructor.
    */
-  private AssertOnColumn() {
+  private AssertionsOnColumn() {
     // Empty
   }
 

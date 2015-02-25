@@ -27,7 +27,7 @@ import static org.assertj.db.error.ShouldHaveChangesSize.shouldHaveChangesSize;
  *
  * @author Régis Pouiller
  */
-public class AssertOnChanges {
+public class AssertionsOnChanges {
 
   /**
    * To notice failures in the assertion.
@@ -37,7 +37,7 @@ public class AssertOnChanges {
   /**
    * Private constructor.
    */
-  private AssertOnChanges() {
+  private AssertionsOnChanges() {
     // Empty
   }
 

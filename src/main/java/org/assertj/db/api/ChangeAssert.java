@@ -17,7 +17,7 @@ import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.DataType;
 import org.assertj.db.type.Row;
-import org.assertj.db.util.AssertOnChange;
+import org.assertj.db.util.AssertionsOnChange;
 import org.assertj.db.util.Changes;
 
 import java.util.HashMap;
@@ -246,7 +246,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * @throws AssertionError If the type is different to the type in parameter.
    */
   public ChangeAssert isOnDataType(DataType expected) {
-    return AssertOnChange.isOnDataType(myself, info, change, expected);
+    return AssertionsOnChange.isOnDataType(myself, info, change, expected);
   }
 
   /**
@@ -264,7 +264,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * @throws AssertionError If the type is different to the type in parameter.
    */
   public ChangeAssert isOnTable() {
-    return AssertOnChange.isOnTable(myself, info, change);
+    return AssertionsOnChange.isOnTable(myself, info, change);
   }
 
   /**
@@ -282,7 +282,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * @throws AssertionError If the type is different to the type in parameter.
    */
   public ChangeAssert isOnRequest() {
-    return AssertOnChange.isOnRequest(myself, info, change);
+    return AssertionsOnChange.isOnRequest(myself, info, change);
   }
 
   /**
@@ -302,7 +302,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * @throws java.lang.NullPointerException If the name in parameter is {@code null}.
    */
   public ChangeAssert isOnTable(String name) {
-    return AssertOnChange.isOnTable(myself, info, change, name);
+    return AssertionsOnChange.isOnTable(myself, info, change, name);
   }
 
   /**
@@ -322,7 +322,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * @throws java.lang.NullPointerException If one of the names in parameters is {@code null}.
    */
   public ChangeAssert hasPksNames(String... names) {
-    return AssertOnChange.hasPksNames(myself, info, change, names);
+    return AssertionsOnChange.hasPksNames(myself, info, change, names);
   }
 
   /**
@@ -341,7 +341,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * @throws AssertionError                 If the type is different to the type in parameter.
    */
   public ChangeAssert hasPksValues(Object... values) {
-    return AssertOnChange.hasPksValues(myself, info, change, values);
+    return AssertionsOnChange.hasPksValues(myself, info, change, values);
   }
 
   /**
@@ -360,7 +360,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * @throws AssertionError If the type is different to the type in parameter.
    */
   public ChangeAssert isOfType(ChangeType expected) {
-    return AssertOnChange.isOfType(myself, info, change, expected);
+    return AssertionsOnChange.isOfType(myself, info, change, expected);
   }
 
   /**
@@ -378,7 +378,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * @throws AssertionError If the type is different to the type in parameter.
    */
   public ChangeAssert isCreation() {
-    return AssertOnChange.isCreation(myself, info, change);
+    return AssertionsOnChange.isCreation(myself, info, change);
   }
 
   /**
@@ -396,7 +396,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * @throws AssertionError If the type is different to the type in parameter.
    */
   public ChangeAssert isModification() {
-    return AssertOnChange.isModification(myself, info, change);
+    return AssertionsOnChange.isModification(myself, info, change);
   }
 
   /**
@@ -414,7 +414,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * @throws AssertionError If the type is different to the type in parameter.
    */
   public ChangeAssert isDeletion() {
-    return AssertOnChange.isDeletion(myself, info, change);
+    return AssertionsOnChange.isDeletion(myself, info, change);
   }
 
   /**
@@ -434,7 +434,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * @throws AssertionError If the type is different to the type in parameter.
    */
   public ChangeAssert hasNumberOfModifiedColumns(int number) {
-    return AssertOnChange.hasNumberOfModifiedColumns(myself, info, change, number);
+    return AssertionsOnChange.hasNumberOfModifiedColumns(myself, info, change, number);
   }
 
   /**
@@ -454,7 +454,7 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * @throws AssertionError If the type is different to the type in parameter.
    */
   public ChangeAssert hasModifiedColumns(Integer... indexes) {
-    return AssertOnChange.hasModifiedColumns(myself, info, change, indexes);
+    return AssertionsOnChange.hasModifiedColumns(myself, info, change, indexes);
   }
 
   /**
@@ -474,6 +474,6 @@ public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, Change
    * @throws AssertionError If the type is different to the type in parameter.
    */
   public ChangeAssert hasModifiedColumns(String... names) {
-    return AssertOnChange.hasModifiedColumns(myself, info, change, names);
+    return AssertionsOnChange.hasModifiedColumns(myself, info, change, names);
   }
 }

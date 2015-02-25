@@ -14,7 +14,7 @@ package org.assertj.db.api;
 
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.*;
-import org.assertj.db.util.AssertOnValue;
+import org.assertj.db.util.AssertionsOnValue;
 
 /**
  * Assertion methods about the value.
@@ -90,7 +90,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the type is different to the type in parameter.
    */
   public V isOfType(ValueType expected) {
-    return AssertOnValue.isOfType(myself, info, value, expected);
+    return AssertionsOnValue.isOfType(myself, info, value, expected);
   }
 
   /**
@@ -111,7 +111,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the type is different to all the types in parameters.
    */
   public V isOfAnyOfTypes(ValueType... expected) {
-    return AssertOnValue.isOfAnyOfTypes(myself, info, value, expected);
+    return AssertionsOnValue.isOfAnyOfTypes(myself, info, value, expected);
   }
 
   /**
@@ -131,7 +131,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the type is not a number.
    */
   public V isNumber() {
-    return AssertOnValue.isNumber(myself, info, value);
+    return AssertionsOnValue.isNumber(myself, info, value);
   }
 
   /**
@@ -151,7 +151,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the type is not a boolean.
    */
   public V isBoolean() {
-    return AssertOnValue.isBoolean(myself, info, value);
+    return AssertionsOnValue.isBoolean(myself, info, value);
   }
 
   /**
@@ -171,7 +171,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the type is not a date.
    */
   public V isDate() {
-    return AssertOnValue.isDate(myself, info, value);
+    return AssertionsOnValue.isDate(myself, info, value);
   }
 
   /**
@@ -191,7 +191,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the type is not a time.
    */
   public V isTime() {
-    return AssertOnValue.isTime(myself, info, value);
+    return AssertionsOnValue.isTime(myself, info, value);
   }
 
   /**
@@ -211,7 +211,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the type is not a date/time.
    */
   public V isDateTime() {
-    return AssertOnValue.isDateTime(myself, info, value);
+    return AssertionsOnValue.isDateTime(myself, info, value);
   }
 
   /**
@@ -231,7 +231,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the type is not a array of bytes.
    */
   public V isBytes() {
-    return AssertOnValue.isBytes(myself, info, value);
+    return AssertionsOnValue.isBytes(myself, info, value);
   }
 
   /**
@@ -251,7 +251,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the type is not a text.
    */
   public V isText() {
-    return AssertOnValue.isText(myself, info, value);
+    return AssertionsOnValue.isText(myself, info, value);
   }
 
   /**
@@ -271,7 +271,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the type is not {@code null}.
    */
   public V isNull() {
-    return AssertOnValue.isNull(myself, info, value);
+    return AssertionsOnValue.isNull(myself, info, value);
   }
 
   /**
@@ -291,7 +291,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the type is {@code null}.
    */
   public V isNotNull() {
-    return AssertOnValue.isNotNull(myself, info, value);
+    return AssertionsOnValue.isNotNull(myself, info, value);
   }
 
   /**
@@ -312,7 +312,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not equal to the boolean in parameter.
    */
   public V isEqualTo(Boolean expected) {
-    return AssertOnValue.isEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isEqualTo(myself, info, value, expected);
   }
 
   /**
@@ -331,7 +331,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not equal to true boolean.
    */
   public V isTrue() {
-    return AssertOnValue.isTrue(myself, info, value);
+    return AssertionsOnValue.isTrue(myself, info, value);
   }
 
   /**
@@ -350,7 +350,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not equal to false boolean.
    */
   public V isFalse() {
-    return AssertOnValue.isFalse(myself, info, value);
+    return AssertionsOnValue.isFalse(myself, info, value);
   }
 
   /**
@@ -371,7 +371,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not equal to the number in parameter.
    */
   public V isEqualTo(Number expected) {
-    return AssertOnValue.isEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isEqualTo(myself, info, value, expected);
   }
 
   /**
@@ -393,7 +393,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not equal to the array of bytes in parameter.
    */
   public V isEqualTo(byte[] expected) {
-    return AssertOnValue.isEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isEqualTo(myself, info, value, expected);
   }
 
   /**
@@ -414,7 +414,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not equal to the text in parameter.
    */
   public V isEqualTo(String expected) {
-    return AssertOnValue.isEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isEqualTo(myself, info, value, expected);
   }
 
   /**
@@ -435,7 +435,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not equal to the date value in parameter.
    */
   public V isEqualTo(DateValue expected) {
-    return AssertOnValue.isEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isEqualTo(myself, info, value, expected);
   }
 
   /**
@@ -456,7 +456,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not equal to the time value in parameter.
    */
   public V isEqualTo(TimeValue expected) {
-    return AssertOnValue.isEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isEqualTo(myself, info, value, expected);
   }
 
   /**
@@ -477,7 +477,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not equal to the date/time value in parameter.
    */
   public V isEqualTo(DateTimeValue expected) {
-    return AssertOnValue.isEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isEqualTo(myself, info, value, expected);
   }
 
   /**
@@ -498,7 +498,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is equal to the boolean in parameter.
    */
   public V isNotEqualTo(Boolean expected) {
-    return AssertOnValue.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isNotEqualTo(myself, info, value, expected);
   }
 
   /**
@@ -520,7 +520,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is equal to the array of bytes in parameter.
    */
   public V isNotEqualTo(byte[] expected) {
-    return AssertOnValue.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isNotEqualTo(myself, info, value, expected);
   }
 
   /**
@@ -541,7 +541,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is equal to the date/time value in parameter.
    */
   public V isNotEqualTo(DateTimeValue expected) {
-    return AssertOnValue.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isNotEqualTo(myself, info, value, expected);
   }
 
   /**
@@ -562,7 +562,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is equal to the date value in parameter.
    */
   public V isNotEqualTo(DateValue expected) {
-    return AssertOnValue.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isNotEqualTo(myself, info, value, expected);
   }
 
   /**
@@ -583,7 +583,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is equal to the number in parameter.
    */
   public V isNotEqualTo(Number expected) {
-    return AssertOnValue.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isNotEqualTo(myself, info, value, expected);
   }
 
   /**
@@ -604,7 +604,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is equal to the text in parameter.
    */
   public V isNotEqualTo(String expected) {
-    return AssertOnValue.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isNotEqualTo(myself, info, value, expected);
   }
 
   /**
@@ -625,7 +625,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is equal to the time value in parameter.
    */
   public V isNotEqualTo(TimeValue expected) {
-    return AssertOnValue.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isNotEqualTo(myself, info, value, expected);
   }
 
   /**
@@ -646,7 +646,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not before to the date value in parameter.
    */
   public V isBefore(DateValue date) {
-    return AssertOnValue.isBefore(myself, info, value, date);
+    return AssertionsOnValue.isBefore(myself, info, value, date);
   }
 
   /**
@@ -667,7 +667,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not before to the time value in parameter.
    */
   public V isBefore(TimeValue time) {
-    return AssertOnValue.isBefore(myself, info, value, time);
+    return AssertionsOnValue.isBefore(myself, info, value, time);
   }
 
   /**
@@ -688,7 +688,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not before to the date/time value in parameter.
    */
   public V isBefore(DateTimeValue dateTime) {
-    return AssertOnValue.isBefore(myself, info, value, dateTime);
+    return AssertionsOnValue.isBefore(myself, info, value, dateTime);
   }
 
   /**
@@ -709,7 +709,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not before the date, time or date/time represented in parameter.
    */
   public V isBefore(String expected) {
-    return AssertOnValue.isBefore(myself, info, value, expected);
+    return AssertionsOnValue.isBefore(myself, info, value, expected);
   }
 
   /**
@@ -730,7 +730,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not before or equal to the date value in parameter.
    */
   public V isBeforeOrEqualTo(DateValue date) {
-    return AssertOnValue.isBeforeOrEqualTo(myself, info, value, date);
+    return AssertionsOnValue.isBeforeOrEqualTo(myself, info, value, date);
   }
 
   /**
@@ -751,7 +751,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not before or equal to the time value in parameter.
    */
   public V isBeforeOrEqualTo(TimeValue time) {
-    return AssertOnValue.isBeforeOrEqualTo(myself, info, value, time);
+    return AssertionsOnValue.isBeforeOrEqualTo(myself, info, value, time);
   }
 
   /**
@@ -772,7 +772,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not before or equal to the date/time value in parameter.
    */
   public V isBeforeOrEqualTo(DateTimeValue dateTime) {
-    return AssertOnValue.isBeforeOrEqualTo(myself, info, value, dateTime);
+    return AssertionsOnValue.isBeforeOrEqualTo(myself, info, value, dateTime);
   }
 
   /**
@@ -793,7 +793,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not before or equal to the date, time or date/time represented in parameter.
    */
   public V isBeforeOrEqualTo(String expected) {
-    return AssertOnValue.isBeforeOrEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isBeforeOrEqualTo(myself, info, value, expected);
   }
 
   /**
@@ -814,7 +814,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not after to the date value in parameter.
    */
   public V isAfter(DateValue date) {
-    return AssertOnValue.isAfter(myself, info, value, date);
+    return AssertionsOnValue.isAfter(myself, info, value, date);
   }
 
   /**
@@ -835,7 +835,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not after to the time value in parameter.
    */
   public V isAfter(TimeValue time) {
-    return AssertOnValue.isAfter(myself, info, value, time);
+    return AssertionsOnValue.isAfter(myself, info, value, time);
   }
 
   /**
@@ -856,7 +856,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not after to the date/time value in parameter.
    */
   public V isAfter(DateTimeValue dateTime) {
-    return AssertOnValue.isAfter(myself, info, value, dateTime);
+    return AssertionsOnValue.isAfter(myself, info, value, dateTime);
   }
 
   /**
@@ -877,7 +877,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not after the date, time or date/time represented in parameter.
    */
   public V isAfter(String expected) {
-    return AssertOnValue.isAfter(myself, info, value, expected);
+    return AssertionsOnValue.isAfter(myself, info, value, expected);
   }
 
   /**
@@ -898,7 +898,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not after or equal to the time value in parameter.
    */
   public V isAfterOrEqualTo(DateValue date) {
-    return AssertOnValue.isAfterOrEqualTo(myself, info, value, date);
+    return AssertionsOnValue.isAfterOrEqualTo(myself, info, value, date);
   }
 
   /**
@@ -919,7 +919,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not after or equal to the time value in parameter.
    */
   public V isAfterOrEqualTo(TimeValue time) {
-    return AssertOnValue.isAfterOrEqualTo(myself, info, value, time);
+    return AssertionsOnValue.isAfterOrEqualTo(myself, info, value, time);
   }
 
   /**
@@ -940,7 +940,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not after or equal to the date/time value in parameter.
    */
   public V isAfterOrEqualTo(DateTimeValue dateTime) {
-    return AssertOnValue.isAfterOrEqualTo(myself, info, value, dateTime);
+    return AssertionsOnValue.isAfterOrEqualTo(myself, info, value, dateTime);
   }
 
   /**
@@ -961,7 +961,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not after or equal to the date, time or date/time represented in parameter.
    */
   public V isAfterOrEqualTo(String expected) {
-    return AssertOnValue.isAfterOrEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isAfterOrEqualTo(myself, info, value, expected);
   }
 
   /**
@@ -981,7 +981,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is not equal to zero.
    */
   public V isZero() {
-    return AssertOnValue.isZero(myself, info, value);
+    return AssertionsOnValue.isZero(myself, info, value);
   }
 
   /**
@@ -1001,7 +1001,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is equal to zero.
    */
   public V isNotZero() {
-    return AssertOnValue.isNotZero(myself, info, value);
+    return AssertionsOnValue.isNotZero(myself, info, value);
   }
 
   /**
@@ -1022,7 +1022,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is less than or equal to the number in parameter.
    */
   public V isGreaterThan(Number expected) {
-    return AssertOnValue.isGreaterThan(myself, info, value, expected);
+    return AssertionsOnValue.isGreaterThan(myself, info, value, expected);
   }
 
   /**
@@ -1043,7 +1043,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is greater than or equal to the number in parameter.
    */
   public V isLessThan(Number expected) {
-    return AssertOnValue.isLessThan(myself, info, value, expected);
+    return AssertionsOnValue.isLessThan(myself, info, value, expected);
   }
 
   /**
@@ -1064,7 +1064,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is less than the number in parameter.
    */
   public V isGreaterThanOrEqualTo(Number expected) {
-    return AssertOnValue.isGreaterThanOrEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isGreaterThanOrEqualTo(myself, info, value, expected);
   }
 
   /**
@@ -1085,6 +1085,6 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @throws AssertionError If the value is greater than the number in parameter.
    */
   public V isLessThanOrEqualTo(Number expected) {
-    return AssertOnValue.isLessThanOrEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isLessThanOrEqualTo(myself, info, value, expected);
   }
 }

@@ -16,7 +16,7 @@ import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.Changes;
-import org.assertj.db.util.AssertOnChanges;
+import org.assertj.db.util.AssertionsOnChanges;
 import org.assertj.db.util.Values;
 
 import java.util.Arrays;
@@ -548,6 +548,6 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
    * @throws AssertionError If the size is different to the number in parameter.
    */
   public ChangesAssert hasSize(int expected) {
-    return AssertOnChanges.hasSize(myself, info, changes, expected);
+    return AssertionsOnChanges.hasSize(myself, info, changes, expected);
   }
 }

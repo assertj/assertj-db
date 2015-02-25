@@ -13,7 +13,7 @@
 package org.assertj.db.api;
 
 import org.assertj.db.type.*;
-import org.assertj.db.util.AssertOnColumn;
+import org.assertj.db.util.AssertionsOnColumn;
 
 import java.util.List;
 
@@ -70,7 +70,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the size is different to the number in parameter.
    */
   public C hasSize(int expected) {
-    return AssertOnColumn.hasSize(myself, info, column.getValuesList().size(), expected);
+    return AssertionsOnColumn.hasSize(myself, info, column.getValuesList().size(), expected);
   }
 
   /**
@@ -99,7 +99,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the type is different to the type in parameter.
    */
   public C isOfType(ValueType expected, boolean lenient) {
-    return AssertOnColumn.isOfType(myself, info, getValuesList(), expected, lenient);
+    return AssertionsOnColumn.isOfType(myself, info, getValuesList(), expected, lenient);
   }
 
   /**
@@ -118,7 +118,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the type is different to all the types in parameters.
    */
   public C isOfAnyOfTypes(ValueType... expected) {
-    return AssertOnColumn.isOfAnyOfTypes(myself, info, getValuesList(), expected);
+    return AssertionsOnColumn.isOfAnyOfTypes(myself, info, getValuesList(), expected);
   }
 
   /**
@@ -138,7 +138,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the type is not a number.
    */
   public C isNumber(boolean lenient) {
-    return AssertOnColumn.isNumber(myself, info, getValuesList(), lenient);
+    return AssertionsOnColumn.isNumber(myself, info, getValuesList(), lenient);
   }
 
   /**
@@ -158,7 +158,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the type is not a number.
    */
   public C isBoolean(boolean lenient) {
-    return AssertOnColumn.isBoolean(myself, info, getValuesList(), lenient);
+    return AssertionsOnColumn.isBoolean(myself, info, getValuesList(), lenient);
   }
 
   /**
@@ -178,7 +178,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the type is not a number.
    */
   public C isDate(boolean lenient) {
-    return AssertOnColumn.isDate(myself, info, getValuesList(), lenient);
+    return AssertionsOnColumn.isDate(myself, info, getValuesList(), lenient);
   }
 
   /**
@@ -198,7 +198,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the type is not a number.
    */
   public C isTime(boolean lenient) {
-    return AssertOnColumn.isTime(myself, info, getValuesList(), lenient);
+    return AssertionsOnColumn.isTime(myself, info, getValuesList(), lenient);
   }
 
   /**
@@ -218,7 +218,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the type is not a number.
    */
   public C isDateTime(boolean lenient) {
-    return AssertOnColumn.isDateTime(myself, info, getValuesList(), lenient);
+    return AssertionsOnColumn.isDateTime(myself, info, getValuesList(), lenient);
   }
 
   /**
@@ -238,7 +238,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the type is not a number.
    */
   public C isBytes(boolean lenient) {
-    return AssertOnColumn.isBytes(myself, info, getValuesList(), lenient);
+    return AssertionsOnColumn.isBytes(myself, info, getValuesList(), lenient);
   }
 
   /**
@@ -258,7 +258,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the type is not a number.
    */
   public C isText(boolean lenient) {
-    return AssertOnColumn.isText(myself, info, getValuesList(), lenient);
+    return AssertionsOnColumn.isText(myself, info, getValuesList(), lenient);
   }
 
   /**
@@ -276,7 +276,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If at least one of the values of the column are not {@code null}.
    */
   public C hasOnlyNullValues() {
-    return AssertOnColumn.hasOnlyNullValues(myself, info, getValuesList());
+    return AssertionsOnColumn.hasOnlyNullValues(myself, info, getValuesList());
   }
 
   /**
@@ -294,7 +294,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If at least one of the values of the column are {@code null}.
    */
   public C hasOnlyNotNullValues() {
-    return AssertOnColumn.hasOnlyNotNullValues(myself, info, getValuesList());
+    return AssertionsOnColumn.hasOnlyNotNullValues(myself, info, getValuesList());
   }
 
   /**
@@ -313,7 +313,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the value is not equal to the booleans in parameter.
    */
   public C hasValuesEqualTo(Boolean... expected) {
-    return AssertOnColumn.hasValuesEqualTo(myself, info, getValuesList(), expected);
+    return AssertionsOnColumn.hasValuesEqualTo(myself, info, getValuesList(), expected);
   }
 
   /**
@@ -332,7 +332,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the value is not equal to the numbers in parameter.
    */
   public C hasValuesEqualTo(Number... expected) {
-    return AssertOnColumn.hasValuesEqualTo(myself, info, getValuesList(), expected);
+    return AssertionsOnColumn.hasValuesEqualTo(myself, info, getValuesList(), expected);
   }
 
   /**
@@ -353,7 +353,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the value is not equal to the bytes in parameter.
    */
   public C hasValuesEqualTo(byte[]... expected) {
-    return AssertOnColumn.hasValuesEqualTo(myself, info, getValuesList(), expected);
+    return AssertionsOnColumn.hasValuesEqualTo(myself, info, getValuesList(), expected);
   }
 
   /**
@@ -372,7 +372,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the value is not equal to the texts in parameter.
    */
   public C hasValuesEqualTo(String... expected) {
-    return AssertOnColumn.hasValuesEqualTo(myself, info, getValuesList(), expected);
+    return AssertionsOnColumn.hasValuesEqualTo(myself, info, getValuesList(), expected);
   }
 
   /**
@@ -392,7 +392,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the value is not equal to the date values in parameter.
    */
   public C hasValuesEqualTo(DateValue... expected) {
-    return AssertOnColumn.hasValuesEqualTo(myself, info, getValuesList(), expected);
+    return AssertionsOnColumn.hasValuesEqualTo(myself, info, getValuesList(), expected);
   }
 
   /**
@@ -411,7 +411,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the value is not equal to the time values in parameter.
    */
   public C hasValuesEqualTo(TimeValue... expected) {
-    return AssertOnColumn.hasValuesEqualTo(myself, info, getValuesList(), expected);
+    return AssertionsOnColumn.hasValuesEqualTo(myself, info, getValuesList(), expected);
   }
 
   /**
@@ -432,7 +432,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @throws AssertionError If the value is not equal to the date/time values in parameter.
    */
   public C hasValuesEqualTo(DateTimeValue... expected) {
-    return AssertOnColumn.hasValuesEqualTo(myself, info, getValuesList(), expected);
+    return AssertionsOnColumn.hasValuesEqualTo(myself, info, getValuesList(), expected);
   }
 
   /**
@@ -452,6 +452,6 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    */
   public C hasColumnName(String columnName) {
     String name = column.getName();
-    return AssertOnColumn.hasColumnName(myself, info, name, columnName);
+    return AssertionsOnColumn.hasColumnName(myself, info, name, columnName);
   }
 }

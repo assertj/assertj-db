@@ -47,7 +47,7 @@ import static org.assertj.db.util.Values.compare;
  *
  * @author Régis Pouiller
  */
-public class AssertOnValue {
+public class AssertionsOnValue {
 
   /**
    * Assertions for {@code Object}s provided by assertj-core.
@@ -62,7 +62,7 @@ public class AssertOnValue {
   /**
    * Private constructor.
    */
-  private AssertOnValue() {
+  private AssertionsOnValue() {
     // Empty
   }
 

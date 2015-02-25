@@ -16,7 +16,7 @@ import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
 import org.assertj.db.type.ValueType;
-import org.assertj.db.util.AssertOnValue;
+import org.assertj.db.util.AssertionsOnValue;
 
 /**
  * Abstract class that represents a assert with an origin assert and which is the origin assert of another assert and have value.
@@ -65,7 +65,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the type is different to the type in parameter.
    */
   public E isOfType(ValueType expected) {
-    return AssertOnValue.isOfType(myself, info, value, expected);
+    return AssertionsOnValue.isOfType(myself, info, value, expected);
   }
 
   /**
@@ -86,7 +86,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the type is different to all the types in parameters.
    */
   public E isOfAnyOfTypes(ValueType... expected) {
-    return AssertOnValue.isOfAnyOfTypes(myself, info, value, expected);
+    return AssertionsOnValue.isOfAnyOfTypes(myself, info, value, expected);
   }
 
   /**
@@ -106,7 +106,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the type is not a number.
    */
   public E isNumber() {
-    return AssertOnValue.isNumber(myself, info, value);
+    return AssertionsOnValue.isNumber(myself, info, value);
   }
 
   /**
@@ -126,7 +126,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the type is not a boolean.
    */
   public E isBoolean() {
-    return AssertOnValue.isBoolean(myself, info, value);
+    return AssertionsOnValue.isBoolean(myself, info, value);
   }
 
   /**
@@ -146,7 +146,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the type is not a date.
    */
   public E isDate() {
-    return AssertOnValue.isDate(myself, info, value);
+    return AssertionsOnValue.isDate(myself, info, value);
   }
 
   /**
@@ -166,7 +166,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the type is not a time.
    */
   public E isTime() {
-    return AssertOnValue.isTime(myself, info, value);
+    return AssertionsOnValue.isTime(myself, info, value);
   }
 
   /**
@@ -186,7 +186,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the type is not a date/time.
    */
   public E isDateTime() {
-    return AssertOnValue.isDateTime(myself, info, value);
+    return AssertionsOnValue.isDateTime(myself, info, value);
   }
 
   /**
@@ -206,7 +206,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the type is not a array of bytes.
    */
   public E isBytes() {
-    return AssertOnValue.isBytes(myself, info, value);
+    return AssertionsOnValue.isBytes(myself, info, value);
   }
 
   /**
@@ -226,7 +226,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the type is not a text.
    */
   public E isText() {
-    return AssertOnValue.isText(myself, info, value);
+    return AssertionsOnValue.isText(myself, info, value);
   }
 
   /**
@@ -246,7 +246,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the type is not {@code null}.
    */
   public E isNull() {
-    return AssertOnValue.isNull(myself, info, value);
+    return AssertionsOnValue.isNull(myself, info, value);
   }
 
   /**
@@ -266,7 +266,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the type is {@code null}.
    */
   public E isNotNull() {
-    return AssertOnValue.isNotNull(myself, info, value);
+    return AssertionsOnValue.isNotNull(myself, info, value);
   }
 
   /**
@@ -287,7 +287,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not equal to the boolean in parameter.
    */
   public E isEqualTo(Boolean expected) {
-    return AssertOnValue.isEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isEqualTo(myself, info, value, expected);
   }
 
   /**
@@ -307,7 +307,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not equal to true boolean.
    */
   public E isTrue() {
-    return AssertOnValue.isTrue(myself, info, value);
+    return AssertionsOnValue.isTrue(myself, info, value);
   }
 
   /**
@@ -327,7 +327,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not equal to false boolean.
    */
   public E isFalse() {
-    return AssertOnValue.isFalse(myself, info, value);
+    return AssertionsOnValue.isFalse(myself, info, value);
   }
 
   /**
@@ -348,7 +348,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not equal to the number in parameter.
    */
   public E isEqualTo(Number expected) {
-    return AssertOnValue.isEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isEqualTo(myself, info, value, expected);
   }
 
   /**
@@ -370,7 +370,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not equal to the array of bytes in parameter.
    */
   public E isEqualTo(byte[] expected) {
-    return AssertOnValue.isEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isEqualTo(myself, info, value, expected);
   }
 
   /**
@@ -391,7 +391,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not equal to the text in parameter.
    */
   public E isEqualTo(String expected) {
-    return AssertOnValue.isEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isEqualTo(myself, info, value, expected);
   }
 
   /**
@@ -412,7 +412,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not equal to the date value in parameter.
    */
   public E isEqualTo(DateValue expected) {
-    return AssertOnValue.isEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isEqualTo(myself, info, value, expected);
   }
 
   /**
@@ -433,7 +433,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not equal to the time value in parameter.
    */
   public E isEqualTo(TimeValue expected) {
-    return AssertOnValue.isEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isEqualTo(myself, info, value, expected);
   }
 
   /**
@@ -454,7 +454,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not equal to the date/time value in parameter.
    */
   public E isEqualTo(DateTimeValue expected) {
-    return AssertOnValue.isEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isEqualTo(myself, info, value, expected);
   }
 
   /**
@@ -475,7 +475,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is equal to the boolean in parameter.
    */
   public E isNotEqualTo(Boolean expected) {
-    return AssertOnValue.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isNotEqualTo(myself, info, value, expected);
   }
 
   /**
@@ -497,7 +497,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is equal to the array of bytes in parameter.
    */
   public E isNotEqualTo(byte[] expected) {
-    return AssertOnValue.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isNotEqualTo(myself, info, value, expected);
   }
 
   /**
@@ -518,7 +518,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is equal to the date/time value in parameter.
    */
   public E isNotEqualTo(DateTimeValue expected) {
-    return AssertOnValue.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isNotEqualTo(myself, info, value, expected);
   }
 
   /**
@@ -539,7 +539,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is equal to the date value in parameter.
    */
   public E isNotEqualTo(DateValue expected) {
-    return AssertOnValue.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isNotEqualTo(myself, info, value, expected);
   }
 
   /**
@@ -560,7 +560,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is equal to the number in parameter.
    */
   public E isNotEqualTo(Number expected) {
-    return AssertOnValue.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isNotEqualTo(myself, info, value, expected);
   }
 
   /**
@@ -581,7 +581,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is equal to the text in parameter.
    */
   public E isNotEqualTo(String expected) {
-    return AssertOnValue.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isNotEqualTo(myself, info, value, expected);
   }
 
   /**
@@ -602,7 +602,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is equal to the time value in parameter.
    */
   public E isNotEqualTo(TimeValue expected) {
-    return AssertOnValue.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isNotEqualTo(myself, info, value, expected);
   }
 
   /**
@@ -623,7 +623,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not before to the date value in parameter.
    */
   public E isBefore(DateValue date) {
-    return AssertOnValue.isBefore(myself, info, value, date);
+    return AssertionsOnValue.isBefore(myself, info, value, date);
   }
 
   /**
@@ -644,7 +644,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not before to the time value in parameter.
    */
   public E isBefore(TimeValue time) {
-    return AssertOnValue.isBefore(myself, info, value, time);
+    return AssertionsOnValue.isBefore(myself, info, value, time);
   }
 
   /**
@@ -665,7 +665,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not before to the date/time value in parameter.
    */
   public E isBefore(DateTimeValue dateTime) {
-    return AssertOnValue.isBefore(myself, info, value, dateTime);
+    return AssertionsOnValue.isBefore(myself, info, value, dateTime);
   }
 
   /**
@@ -686,7 +686,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not before the date, time or date/time represented in parameter.
    */
   public E isBefore(String expected) {
-    return AssertOnValue.isBefore(myself, info, value, expected);
+    return AssertionsOnValue.isBefore(myself, info, value, expected);
   }
 
   /**
@@ -707,7 +707,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not before or equal to the date value in parameter.
    */
   public E isBeforeOrEqualTo(DateValue date) {
-    return AssertOnValue.isBeforeOrEqualTo(myself, info, value, date);
+    return AssertionsOnValue.isBeforeOrEqualTo(myself, info, value, date);
   }
 
   /**
@@ -728,7 +728,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not before or equal to the time value in parameter.
    */
   public E isBeforeOrEqualTo(TimeValue time) {
-    return AssertOnValue.isBeforeOrEqualTo(myself, info, value, time);
+    return AssertionsOnValue.isBeforeOrEqualTo(myself, info, value, time);
   }
 
   /**
@@ -749,7 +749,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not before or equal to the date/time value in parameter.
    */
   public E isBeforeOrEqualTo(DateTimeValue dateTime) {
-    return AssertOnValue.isBeforeOrEqualTo(myself, info, value, dateTime);
+    return AssertionsOnValue.isBeforeOrEqualTo(myself, info, value, dateTime);
   }
 
   /**
@@ -770,7 +770,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not before or equal to the date, time or date/time represented in parameter.
    */
   public E isBeforeOrEqualTo(String expected) {
-    return AssertOnValue.isBeforeOrEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isBeforeOrEqualTo(myself, info, value, expected);
   }
 
   /**
@@ -791,7 +791,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not after to the date value in parameter.
    */
   public E isAfter(DateValue date) {
-    return AssertOnValue.isAfter(myself, info, value, date);
+    return AssertionsOnValue.isAfter(myself, info, value, date);
   }
 
   /**
@@ -812,7 +812,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not after to the time value in parameter.
    */
   public E isAfter(TimeValue time) {
-    return AssertOnValue.isAfter(myself, info, value, time);
+    return AssertionsOnValue.isAfter(myself, info, value, time);
   }
 
   /**
@@ -833,7 +833,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not after to the date/time value in parameter.
    */
   public E isAfter(DateTimeValue dateTime) {
-    return AssertOnValue.isAfter(myself, info, value, dateTime);
+    return AssertionsOnValue.isAfter(myself, info, value, dateTime);
   }
 
   /**
@@ -854,7 +854,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not after the date, time or date/time represented in parameter.
    */
   public E isAfter(String expected) {
-    return AssertOnValue.isAfter(myself, info, value, expected);
+    return AssertionsOnValue.isAfter(myself, info, value, expected);
   }
 
   /**
@@ -875,7 +875,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not after or equal to the time value in parameter.
    */
   public E isAfterOrEqualTo(DateValue date) {
-    return AssertOnValue.isAfterOrEqualTo(myself, info, value, date);
+    return AssertionsOnValue.isAfterOrEqualTo(myself, info, value, date);
   }
 
   /**
@@ -896,7 +896,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not after or equal to the time value in parameter.
    */
   public E isAfterOrEqualTo(TimeValue time) {
-    return AssertOnValue.isAfterOrEqualTo(myself, info, value, time);
+    return AssertionsOnValue.isAfterOrEqualTo(myself, info, value, time);
   }
 
   /**
@@ -917,7 +917,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not after or equal to the date/time value in parameter.
    */
   public E isAfterOrEqualTo(DateTimeValue dateTime) {
-    return AssertOnValue.isAfterOrEqualTo(myself, info, value, dateTime);
+    return AssertionsOnValue.isAfterOrEqualTo(myself, info, value, dateTime);
   }
 
   /**
@@ -938,7 +938,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not after or equal to the date, time or date/time represented in parameter.
    */
   public E isAfterOrEqualTo(String expected) {
-    return AssertOnValue.isAfterOrEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isAfterOrEqualTo(myself, info, value, expected);
   }
 
   /**
@@ -958,7 +958,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is not equal to zero.
    */
   public E isZero() {
-    return AssertOnValue.isZero(myself, info, value);
+    return AssertionsOnValue.isZero(myself, info, value);
   }
 
   /**
@@ -978,7 +978,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is equal to zero.
    */
   public E isNotZero() {
-    return AssertOnValue.isNotZero(myself, info, value);
+    return AssertionsOnValue.isNotZero(myself, info, value);
   }
 
   /**
@@ -999,7 +999,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is less than or equal to the number in parameter.
    */
   public E isGreaterThan(Number expected) {
-    return AssertOnValue.isGreaterThan(myself, info, value, expected);
+    return AssertionsOnValue.isGreaterThan(myself, info, value, expected);
   }
 
   /**
@@ -1020,7 +1020,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is greater than or equal to the number in parameter.
    */
   public E isLessThan(Number expected) {
-    return AssertOnValue.isLessThan(myself, info, value, expected);
+    return AssertionsOnValue.isLessThan(myself, info, value, expected);
   }
 
   /**
@@ -1041,7 +1041,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is less than the number in parameter.
    */
   public E isGreaterThanOrEqualTo(Number expected) {
-    return AssertOnValue.isGreaterThanOrEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isGreaterThanOrEqualTo(myself, info, value, expected);
   }
 
   /**
@@ -1062,7 +1062,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @throws AssertionError If the value is greater than the number in parameter.
    */
   public E isLessThanOrEqualTo(Number expected) {
-    return AssertOnValue.isLessThanOrEqualTo(myself, info, value, expected);
+    return AssertionsOnValue.isLessThanOrEqualTo(myself, info, value, expected);
   }
 
 }

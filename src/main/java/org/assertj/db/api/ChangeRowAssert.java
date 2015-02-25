@@ -14,7 +14,7 @@ package org.assertj.db.api;
 
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Row;
-import org.assertj.db.util.AssertOnRow;
+import org.assertj.db.util.AssertionsOnRow;
 
 import java.util.HashMap;
 import java.util.List;
@@ -147,7 +147,7 @@ public class ChangeRowAssert extends AbstractAssertWithColumnsAndRowsFromChange<
   public ChangeRowAssert hasSize(int expected) {
     List<String> columnsNameList = row.getColumnsNameList();
     int size = columnsNameList.size();
-    return AssertOnRow.hasSize(myself, info, size, expected);
+    return AssertionsOnRow.hasSize(myself, info, size, expected);
   }
 
   /**
@@ -166,6 +166,6 @@ public class ChangeRowAssert extends AbstractAssertWithColumnsAndRowsFromChange<
    * @throws AssertionError If the value is not equal to the values in parameter.
    */
   public ChangeRowAssert hasValuesEqualTo(Object... expected) {
-    return AssertOnRow.hasValuesEqualTo(myself, info, row.getValuesList(), expected);
+    return AssertionsOnRow.hasValuesEqualTo(myself, info, row.getValuesList(), expected);
   }
 }

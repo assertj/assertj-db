@@ -16,8 +16,8 @@ import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Column;
 import org.assertj.db.type.Row;
-import org.assertj.db.util.AssertOnColumn;
-import org.assertj.db.util.AssertOnRow;
+import org.assertj.db.util.AssertionsOnColumn;
+import org.assertj.db.util.AssertionsOnRow;
 
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
@@ -254,7 +254,7 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
   public A hasRowsSize(int expected) {
     List<Row> rowsList = actual.getRowsList();
     int size = rowsList.size();
-    return AssertOnColumn.hasSize(myself, info, size, expected);
+    return AssertionsOnColumn.hasSize(myself, info, size, expected);
   }
 
   /**
@@ -274,6 +274,6 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
   public A hasColumnsSize(int expected) {
     List<String> columnsNameList = actual.getColumnsNameList();
     int size = columnsNameList.size();
-    return AssertOnRow.hasSize(myself, info, size, expected);
+    return AssertionsOnRow.hasSize(myself, info, size, expected);
   }
 }
