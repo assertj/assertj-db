@@ -21,7 +21,7 @@ import org.assertj.db.util.AssertionsOnColumn;
  * @author Régis Pouiller
  */
 public class ChangeColumnAssert extends AbstractAssertWithColumnsAndRowsFromChange<ChangeColumnAssert, ChangeAssert>
-        implements OriginAssertWithValuesFromColumn {
+        implements OriginAssertWithValuesFromColumn, AssertOnColumnOfChange<ChangeColumnAssert> {
 
   /**
    * The name of the column.

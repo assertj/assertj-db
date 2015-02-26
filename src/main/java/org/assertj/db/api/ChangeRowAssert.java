@@ -26,7 +26,7 @@ import java.util.Map;
  * @author Régis Pouiller
  */
 public class ChangeRowAssert extends AbstractAssertWithColumnsAndRowsFromChange<ChangeRowAssert, ChangeAssert>
-        implements OriginAssertWithValuesFromRow {
+        implements OriginAssertWithValuesFromRow, AssertOnRow<ChangeRowAssert> {
 
   /**
    * The actual row on which the assertion is.

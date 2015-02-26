@@ -30,7 +30,7 @@ import java.util.Map;
  * @author Régis Pouiller
  */
 public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, ChangesAssert>
-        implements OriginAssertWithColumnsAndRowsFromChange {
+        implements OriginAssertWithColumnsAndRowsFromChange, AssertOnChange<ChangeAssert> {
 
   /**
    * The actual change on which the assertion is.

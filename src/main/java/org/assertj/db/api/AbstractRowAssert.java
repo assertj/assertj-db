@@ -33,7 +33,7 @@ import java.util.List;
  * @param <RV> The class of this assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
 public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
-    extends AbstractSubAssert<D, A, R, RV, C, CV, R, RV> {
+    extends AbstractSubAssert<D, A, R, RV, C, CV, R, RV> implements AssertOnRow<R> {
 
   /**
    * Row on which do the assertion.
