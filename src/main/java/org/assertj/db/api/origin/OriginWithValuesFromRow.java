@@ -12,11 +12,12 @@
  */
 package org.assertj.db.api.origin;
 
+import org.assertj.db.api.navigation.WithValuesFromRow;
+
 /**
- * Interface that represents a assert which is the origin assert of another assert.
- * 
+ * Interface that represents a assert which is the origin assert of another assert and have values from a row.
+ *
  * @author Régis Pouiller
  */
-public interface OriginAssert {
-
+public interface OriginWithValuesFromRow extends WithValuesFromRow, OriginWithValues {
 }

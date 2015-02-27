@@ -10,28 +10,14 @@
  *
  * Copyright 2012-2014 the original author or authors.
  */
-package org.assertj.db.api.navigation;
+package org.assertj.db.api.origin;
 
-import org.assertj.db.api.ChangeColumnValueAssert;
+import org.assertj.db.api.navigation.WithValuesFromColumn;
 
 /**
- * Interface that represents a assert with values from a column.
+ * Interface that represents a assert which is the origin assert of another assert and have values from a column.
  *
  * @author Régis Pouiller
  */
-public interface AssertWithValuesFromColumn extends AssertWithValues {
-
-  /**
-   * Returns assertion methods on the value at the start point.
-   *
-   * @return An object to make assertions on the next value.
-   */
-  public ChangeColumnValueAssert valueAtStartPoint();
-
-  /**
-   * Returns assertion methods on the value at the end point.
-   *
-   * @return An object to make assertions on the value.
-   */
-  public ChangeColumnValueAssert valueAtEndPoint();
+public interface OriginWithValuesFromColumn extends WithValuesFromColumn, OriginWithValues {
 }

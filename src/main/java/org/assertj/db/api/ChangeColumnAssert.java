@@ -13,7 +13,7 @@
 package org.assertj.db.api;
 
 import org.assertj.db.api.assertions.AssertOnColumnOfChange;
-import org.assertj.db.api.origin.OriginAssertWithValuesFromColumn;
+import org.assertj.db.api.origin.OriginWithValuesFromColumn;
 import org.assertj.db.util.AssertionsOnChangeColumn;
 import org.assertj.db.util.AssertionsOnColumn;
 
@@ -23,7 +23,7 @@ import org.assertj.db.util.AssertionsOnColumn;
  * @author Régis Pouiller
  */
 public class ChangeColumnAssert extends AbstractAssertWithColumnsAndRowsFromChange<ChangeColumnAssert, ChangeAssert>
-        implements OriginAssertWithValuesFromColumn, AssertOnColumnOfChange<ChangeColumnAssert> {
+        implements OriginWithValuesFromColumn, AssertOnColumnOfChange<ChangeColumnAssert> {
 
   /**
    * The name of the column.

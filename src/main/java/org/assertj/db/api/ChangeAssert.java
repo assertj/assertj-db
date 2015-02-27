@@ -13,7 +13,7 @@
 package org.assertj.db.api;
 
 import org.assertj.db.api.assertions.AssertOnChange;
-import org.assertj.db.api.origin.OriginAssertWithColumnsAndRowsFromChange;
+import org.assertj.db.api.origin.OriginWithColumnsAndRowsFromChange;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
@@ -32,7 +32,7 @@ import java.util.Map;
  * @author Régis Pouiller
  */
 public class ChangeAssert extends AbstractAssertWithChanges<ChangeAssert, ChangesAssert>
-        implements OriginAssertWithColumnsAndRowsFromChange, AssertOnChange<ChangeAssert> {
+        implements OriginWithColumnsAndRowsFromChange, AssertOnChange<ChangeAssert> {
 
   /**
    * The actual change on which the assertion is.

@@ -12,8 +12,8 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.db.api.navigation.AssertWithColumnsAndRows;
-import org.assertj.db.api.origin.OriginAssertWithColumnsAndRows;
+import org.assertj.db.api.navigation.WithColumnsAndRows;
+import org.assertj.db.api.origin.OriginWithColumnsAndRows;
 import org.assertj.db.type.AbstractDbData;
 
 /**
@@ -33,8 +33,8 @@ import org.assertj.db.type.AbstractDbData;
  * @param <R> The class of the equivalent row assert (an sub-class of {@link AbstractRowAssert}).
  * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
-public abstract class AbstractAssertWithColumnsAndRows<E extends AbstractAssertWithColumnsAndRows<E, O, D, A, C, CV, R, RV>, O extends OriginAssertWithColumnsAndRows<D, A, C, CV, R, RV>, D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
-  extends AbstractAssertWithOriginAssert<E, O> implements AssertWithColumnsAndRows<D, A, C, CV, R, RV> {
+public abstract class AbstractAssertWithColumnsAndRows<E extends AbstractAssertWithColumnsAndRows<E, O, D, A, C, CV, R, RV>, O extends OriginWithColumnsAndRows<D, A, C, CV, R, RV>, D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
+  extends AbstractAssertWithOriginAssert<E, O> implements WithColumnsAndRows<D, A, C, CV, R, RV> {
 
   /**
    * Constructor.

@@ -12,7 +12,7 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.db.api.origin.OriginAssertWithChanges;
+import org.assertj.db.api.origin.OriginWithChanges;
 
 /**
  * Abstract class that represents a assert with an origin assert and which is the origin assert of another assert and have changes.
@@ -23,8 +23,8 @@ import org.assertj.db.api.origin.OriginAssertWithChanges;
  * @param <O> The class of the assert of origin
  * @author Régis Pouiller
  */
-public abstract class AbstractAssertWithChanges<E extends AbstractAssertWithChanges<E, O>, O extends OriginAssertWithChanges>
-        extends AbstractAssertWithOriginAssert<E, O> implements OriginAssertWithChanges {
+public abstract class AbstractAssertWithChanges<E extends AbstractAssertWithChanges<E, O>, O extends OriginWithChanges>
+        extends AbstractAssertWithOriginAssert<E, O> implements OriginWithChanges {
 
   /**
    * Constructor.

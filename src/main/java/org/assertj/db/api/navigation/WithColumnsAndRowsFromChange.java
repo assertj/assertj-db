@@ -20,7 +20,7 @@ import org.assertj.db.api.ChangeRowAssert;
  *
  * @author Régis Pouiller
  */
-public interface AssertWithColumnsAndRowsFromChange {
+public interface WithColumnsAndRowsFromChange {
 
   /**
    * Returns the assert on the row at start point.

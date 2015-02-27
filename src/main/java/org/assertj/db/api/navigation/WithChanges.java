@@ -20,7 +20,7 @@ import org.assertj.db.api.ChangesAssert;
  *
  * @author Régis Pouiller
  */
-public interface AssertWithChanges {
+public interface WithChanges {
 
   /**
    * Returns an assertion of all the changes.

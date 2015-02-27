@@ -12,7 +12,7 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.db.api.origin.OriginAssertWithColumnsAndRowsFromChange;
+import org.assertj.db.api.origin.OriginWithColumnsAndRowsFromChange;
 
 /**
  * Abstract class that represents a assert with an origin assert and which is the origin assert of another assert and have rows.
@@ -23,8 +23,8 @@ import org.assertj.db.api.origin.OriginAssertWithColumnsAndRowsFromChange;
  * @param <O> The class of the assert of origin
  * @author Régis Pouiller
  */
-public abstract class AbstractAssertWithColumnsAndRowsFromChange<E extends AbstractAssertWithColumnsAndRowsFromChange<E, O>, O extends OriginAssertWithColumnsAndRowsFromChange>
-        extends AbstractAssertWithChanges<E, O> implements OriginAssertWithColumnsAndRowsFromChange {
+public abstract class AbstractAssertWithColumnsAndRowsFromChange<E extends AbstractAssertWithColumnsAndRowsFromChange<E, O>, O extends OriginWithColumnsAndRowsFromChange>
+        extends AbstractAssertWithChanges<E, O> implements OriginWithColumnsAndRowsFromChange {
 
   /**
    * Constructor.

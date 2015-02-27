@@ -12,7 +12,7 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.db.api.origin.OriginAssert;
+import org.assertj.db.api.origin.Origin;
 
 /**
  * Abstract class that represents a assert with an origin assert.
@@ -24,7 +24,7 @@ import org.assertj.db.api.origin.OriginAssert;
  *          for more details.
  * @param <O> The class of the assert of origin
  */
-public abstract class AbstractAssertWithOriginAssert<E extends AbstractAssertWithOriginAssert<E, O>, O extends OriginAssert>
+public abstract class AbstractAssertWithOriginAssert<E extends AbstractAssertWithOriginAssert<E, O>, O extends Origin>
     extends AbstractAssert<E> {
 
   /**

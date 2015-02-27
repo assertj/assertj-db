@@ -19,7 +19,7 @@ import org.assertj.db.api.ChangeRowValueAssert;
  *
  * @author Régis Pouiller
  */
-public interface AssertWithValuesFromRow extends AssertWithValues {
+public interface WithValuesFromRow extends WithValues {
 
   /**
    * Returns assertion methods on the next value in the list of values.
