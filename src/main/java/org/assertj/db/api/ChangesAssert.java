@@ -12,6 +12,7 @@
  */
 package org.assertj.db.api;
 
+import org.assertj.db.api.assertions.AssertOnChanges;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
@@ -29,7 +30,8 @@ import java.util.Map;
  *
  * @author Régis Pouiller
  */
-public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, ChangesAssert> {
+public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, ChangesAssert> implements
+        AssertOnChanges<ChangesAssert> {
 
   /**
    * The actual changes on which the assertion is.

@@ -13,7 +13,7 @@
 package org.assertj.db.api.assertions;
 
 /**
- * Interface that represents a assert on column of change.
+ * Interface that represents a assert on a column of a change.
  *
  * @param <T> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/anMa4g"
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
