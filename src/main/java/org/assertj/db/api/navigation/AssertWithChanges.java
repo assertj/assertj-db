@@ -10,7 +10,10 @@
  *
  * Copyright 2012-2014 the original author or authors.
  */
-package org.assertj.db.api;
+package org.assertj.db.api.navigation;
+
+import org.assertj.db.api.ChangeAssert;
+import org.assertj.db.api.ChangesAssert;
 
 /**
  * Interface that represents a assert with {@link org.assertj.db.type.Change}.

@@ -13,6 +13,7 @@
 package org.assertj.db.api.origin;
 
 import org.assertj.db.api.*;
+import org.assertj.db.api.navigation.AssertWithColumnsAndRows;
 import org.assertj.db.type.AbstractDbData;
 
 /**

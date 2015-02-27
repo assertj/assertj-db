@@ -10,7 +10,10 @@
  *
  * Copyright 2012-2014 the original author or authors.
  */
-package org.assertj.db.api;
+package org.assertj.db.api.navigation;
+
+import org.assertj.db.api.ChangeColumnAssert;
+import org.assertj.db.api.ChangeRowAssert;
 
 /**
  * Interface that represents a assert with {@link org.assertj.db.type.Row}.
@@ -34,9 +37,9 @@ public interface AssertWithColumnsAndRowsFromChange {
   public ChangeRowAssert rowAtEndPoint();
 
   /**
-   * Returns assertion methods on the next {@link ChangeColumnAssert} in the list of {@link ChangeColumnAssert}.
+   * Returns assertion methods on the next {@link org.assertj.db.api.ChangeColumnAssert} in the list of {@link org.assertj.db.api.ChangeColumnAssert}.
    *
-   * @return An object to make assertions on the next {@link ChangeColumnAssert}.
+   * @return An object to make assertions on the next {@link org.assertj.db.api.ChangeColumnAssert}.
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
    */
   public ChangeColumnAssert column();

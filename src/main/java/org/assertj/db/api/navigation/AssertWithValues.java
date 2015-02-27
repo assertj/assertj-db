@@ -10,7 +10,7 @@
  *
  * Copyright 2012-2014 the original author or authors.
  */
-package org.assertj.db.api;
+package org.assertj.db.api.navigation;
 
 /**
  * Interface that represents a assert with values.

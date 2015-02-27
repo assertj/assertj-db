@@ -12,7 +12,7 @@
  */
 package org.assertj.db.api.origin;
 
-import org.assertj.db.api.AssertWithValues;
+import org.assertj.db.api.navigation.AssertWithValues;
 
 /**
  * Interface that represents a assert which is the origin assert of another assert and have values.

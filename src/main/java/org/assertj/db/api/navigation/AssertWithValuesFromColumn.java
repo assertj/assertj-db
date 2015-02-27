@@ -10,7 +10,9 @@
  *
  * Copyright 2012-2014 the original author or authors.
  */
-package org.assertj.db.api;
+package org.assertj.db.api.navigation;
+
+import org.assertj.db.api.ChangeColumnValueAssert;
 
 /**
  * Interface that represents a assert with values from a column.
