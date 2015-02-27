@@ -10,7 +10,7 @@
  *
  * Copyright 2012-2014 the original author or authors.
  */
-package org.assertj.db.api;
+package org.assertj.db.api.assertions;
 
 /**
  * Interface that represents a assert on row.

@@ -12,6 +12,7 @@
  */
 package org.assertj.db.api;
 
+import org.assertj.db.api.assertions.AssertOnRow;
 import org.assertj.db.api.origin.OriginAssertWithValuesFromRow;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Row;
