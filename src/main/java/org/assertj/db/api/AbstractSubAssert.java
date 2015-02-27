@@ -12,6 +12,7 @@
  */
 package org.assertj.db.api;
 
+import org.assertj.db.api.origin.OriginAssertWithColumnsAndRows;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Column;
@@ -37,7 +38,8 @@ import java.util.Map;
  * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
 public abstract class AbstractSubAssert<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, S extends AbstractSubAssert<D, A, S, V, C, CV, R, RV>, V extends AbstractValueAssert<D, A, S, V, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
-    extends AbstractAssertWithColumnsAndRows<S, A, D, A, C, CV, R, RV> implements OriginAssertWithColumnsAndRows<D, A, C, CV, R, RV> {
+    extends AbstractAssertWithColumnsAndRows<S, A, D, A, C, CV, R, RV> implements
+        OriginAssertWithColumnsAndRows<D, A, C, CV, R, RV> {
 
   /**
    * Class of the assert on the value (used to make instance).

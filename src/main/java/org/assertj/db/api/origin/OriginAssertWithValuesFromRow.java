@@ -10,7 +10,9 @@
  *
  * Copyright 2012-2014 the original author or authors.
  */
-package org.assertj.db.api;
+package org.assertj.db.api.origin;
+
+import org.assertj.db.api.AssertWithValuesFromRow;
 
 /**
  * Interface that represents a assert which is the origin assert of another assert and have values from a row.

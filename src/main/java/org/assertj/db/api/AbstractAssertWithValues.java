@@ -12,6 +12,7 @@
  */
 package org.assertj.db.api;
 
+import org.assertj.db.api.origin.OriginAssertWithValues;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;

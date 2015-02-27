@@ -10,13 +10,14 @@
  *
  * Copyright 2012-2014 the original author or authors.
  */
-package org.assertj.db.api;
+package org.assertj.db.api.origin;
+
+import org.assertj.db.api.AssertWithValues;
 
 /**
- * Interface that represents a assert which is the origin assert of another assert.
- * 
+ * Interface that represents a assert which is the origin assert of another assert and have values.
+ *
  * @author Régis Pouiller
  */
-public interface OriginAssert {
-
+public interface OriginAssertWithValues extends OriginAssertWithColumnsAndRowsFromChange, AssertWithValues {
 }

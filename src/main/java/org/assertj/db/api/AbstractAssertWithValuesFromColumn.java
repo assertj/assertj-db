@@ -12,6 +12,8 @@
  */
 package org.assertj.db.api;
 
+import org.assertj.db.api.origin.OriginAssertWithValuesFromColumn;
+
 /**
  * Abstract class that represents a assert with an origin assert and which is the origin assert of another assert and have value from a column.
  *

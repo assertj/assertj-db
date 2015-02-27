@@ -10,8 +10,9 @@
  *
  * Copyright 2012-2014 the original author or authors.
  */
-package org.assertj.db.api;
+package org.assertj.db.api.origin;
 
+import org.assertj.db.api.*;
 import org.assertj.db.type.AbstractDbData;
 
 /**
@@ -20,11 +21,11 @@ import org.assertj.db.type.AbstractDbData;
  * @author Régis Pouiller
  *
  * @param <D> The class of the actual value (an sub-class of {@link org.assertj.db.type.AbstractDbData}).
- * @param <A> The class of the original assert (an sub-class of {@link AbstractDbAssert}).
- * @param <C> The class of this assert (an sub-class of {@link AbstractColumnAssert}).
- * @param <CV> The class of this assertion on the value (an sub-class of {@link AbstractColumnValueAssert}).
- * @param <R> The class of the equivalent row assert (an sub-class of {@link AbstractRowAssert}).
- * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
+ * @param <A> The class of the original assert (an sub-class of {@link org.assertj.db.api.AbstractDbAssert}).
+ * @param <C> The class of this assert (an sub-class of {@link org.assertj.db.api.AbstractColumnAssert}).
+ * @param <CV> The class of this assertion on the value (an sub-class of {@link org.assertj.db.api.AbstractColumnValueAssert}).
+ * @param <R> The class of the equivalent row assert (an sub-class of {@link org.assertj.db.api.AbstractRowAssert}).
+ * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link org.assertj.db.api.AbstractRowValueAssert}).
  */
 public interface OriginAssertWithColumnsAndRows<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
   extends AssertWithColumnsAndRows<D, A, C, CV, R, RV>, OriginAssert {

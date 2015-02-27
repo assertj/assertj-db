@@ -12,6 +12,7 @@
  */
 package org.assertj.db.api;
 
+import org.assertj.db.api.origin.OriginAssertWithValuesFromColumn;
 import org.assertj.db.util.AssertionsOnChangeColumn;
 import org.assertj.db.util.AssertionsOnColumn;
 
