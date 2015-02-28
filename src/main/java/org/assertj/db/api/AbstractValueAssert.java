@@ -12,6 +12,7 @@
  */
 package org.assertj.db.api;
 
+import org.assertj.db.api.assertions.AssertOnValueType;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.*;
 import org.assertj.db.util.AssertionsOnValue;
@@ -32,7 +33,7 @@ import org.assertj.db.util.AssertionsOnValue;
  * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
 public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, S extends AbstractSubAssert<D, A, S, V, C, CV, R, RV>, V extends AbstractValueAssert<D, A, S, V, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
-    extends AbstractAssertWithColumnsAndRows<V, S, D, A, C, CV, R, RV> {
+    extends AbstractAssertWithColumnsAndRows<V, S, D, A, C, CV, R, RV> implements AssertOnValueType<V> {
 
   /**
    * The actual value on which this assertion is.
@@ -72,23 +73,8 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
     return returnToOriginAssert().value(index);
   }
 
-  /**
-   * Verifies that the type of the value is equal to the type in parameter.
-   * <p>
-   * Example where the assertion verifies that the value in the {@code Column} called "title" of the second {@code Row}
-   * of the {@code Table} is of type {@code TEXT} :
-   * </p>
-   * 
-   * <pre>
-   * <code class='java'>
-   * assertThat(table).row(1).value(&quot;title&quot;).isOfType(ValueType.TEXT);
-   * </code>
-   * </pre>
-   * 
-   * @param expected The expected type to compare to.
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type is different to the type in parameter.
-   */
+  /** {@inheritDoc} */
+  @Override
   public V isOfType(ValueType expected) {
     return AssertionsOnValue.isOfType(myself, info, value, expected);
   }

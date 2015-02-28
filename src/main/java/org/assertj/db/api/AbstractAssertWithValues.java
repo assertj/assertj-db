@@ -13,6 +13,7 @@
 package org.assertj.db.api;
 
 import org.assertj.db.api.assertions.AssertOnValue;
+import org.assertj.db.api.assertions.AssertOnValueType;
 import org.assertj.db.api.origin.OriginWithValues;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
@@ -30,7 +31,8 @@ import org.assertj.db.util.AssertionsOnValue;
  * @author Régis Pouiller
  */
 public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValues<E, O>, O extends OriginWithValues>
-        extends AbstractAssertWithColumnsAndRowsFromChange<E, O> implements OriginWithValues, AssertOnValue<E> {
+        extends AbstractAssertWithColumnsAndRowsFromChange<E, O> implements OriginWithValues, AssertOnValue<E>,
+        AssertOnValueType<E> {
 
   /**
    * The actual value on which the assertion is.
@@ -49,23 +51,8 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
     this.value = value;
   }
 
-  /**
-   * Verifies that the type of the value is equal to the type in parameter.
-   * <p>
-   * Example where the assertion verifies that the value in the {@code Column} called "title" of the {@code Row} at end point
-   * of the first {@code Change} is of type {@code TEXT} :
-   * </p>
-   *
-   * <pre>
-   * <code class='java'>
-   * assertThat(changes).change().rowAtEndPoint().value(&quot;title&quot;).isOfType(ValueType.TEXT);
-   * </code>
-   * </pre>
-   *
-   * @param expected The expected type to compare to.
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type is different to the type in parameter.
-   */
+  /** {@inheritDoc} */
+  @Override
   public E isOfType(ValueType expected) {
     return AssertionsOnValue.isOfType(myself, info, value, expected);
   }
