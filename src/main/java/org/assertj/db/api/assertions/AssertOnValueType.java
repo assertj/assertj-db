@@ -149,6 +149,16 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
   /**
    * Verifies that the value is a date.
    * <p>
+   * Example where the assertion verifies that the value in the {@code Column} called "birth" of the first {@code Row}
+   * of the {@code Table} is a date :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value(&quot;birth&quot;).isDate();
+   * </code>
+   * </pre>
+   * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is a date :
    * </p>
@@ -161,6 +171,8 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    *
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is not a date.
+   * @see org.assertj.db.api.AbstractValueAssert#isDate()
+   * @see org.assertj.db.api.AbstractAssertWithValues#isDate()
    */
   public T isDate();
 

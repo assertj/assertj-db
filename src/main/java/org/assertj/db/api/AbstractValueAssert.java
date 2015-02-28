@@ -97,22 +97,8 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
     return AssertionsOnValue.isBoolean(myself, info, value);
   }
 
-  /**
-   * Verifies that the value is a date.
-   * <p>
-   * Example where the assertion verifies that the value in the {@code Column} called "birth" of the first {@code Row}
-   * of the {@code Table} is a date :
-   * </p>
-   * 
-   * <pre>
-   * <code class='java'>
-   * assertThat(table).row().value(&quot;birth&quot;).isDate();
-   * </code>
-   * </pre>
-   * 
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type is not a date.
-   */
+  /** {@inheritDoc} */
+  @Override
   public V isDate() {
     return AssertionsOnValue.isDate(myself, info, value);
   }
