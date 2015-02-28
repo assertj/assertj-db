@@ -91,22 +91,8 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
     return AssertionsOnValue.isNumber(myself, info, value);
   }
 
-  /**
-   * Verifies that the value is a boolean.
-   * <p>
-   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
-   * {@code Table} is a boolean :
-   * </p>
-   * 
-   * <pre>
-   * <code class='java'>
-   * assertThat(table).row().value().isBoolean();
-   * </code>
-   * </pre>
-   * 
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type is not a boolean.
-   */
+  /** {@inheritDoc} */
+  @Override
   public V isBoolean() {
     return AssertionsOnValue.isBoolean(myself, info, value);
   }

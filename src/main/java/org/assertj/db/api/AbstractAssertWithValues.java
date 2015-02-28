@@ -69,22 +69,8 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
     return AssertionsOnValue.isNumber(myself, info, value);
   }
 
-  /**
-   * Verifies that the value is a boolean.
-   * <p>
-   * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
-   * of the first {@code Change} is a boolean :
-   * </p>
-   *
-   * <pre>
-   * <code class='java'>
-   * assertThat(changes).change().rowAtEndPoint().value().isBoolean();
-   * </code>
-   * </pre>
-   *
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type is not a boolean.
-   */
+  /** {@inheritDoc} */
+  @Override
   public E isBoolean() {
     return AssertionsOnValue.isBoolean(myself, info, value);
   }

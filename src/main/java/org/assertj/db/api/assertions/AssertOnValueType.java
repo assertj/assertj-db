@@ -111,11 +111,23 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    *
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is not a number.
+   * @see org.assertj.db.api.AbstractValueAssert#isNumber()
+   * @see org.assertj.db.api.AbstractAssertWithValues#isNumber()
    */
   public T isNumber();
 
   /**
    * Verifies that the value is a boolean.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is a boolean :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isBoolean();
+   * </code>
+   * </pre>
    * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is a boolean :
@@ -129,6 +141,8 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    *
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is not a boolean.
+   * @see org.assertj.db.api.AbstractValueAssert#isBoolean()
+   * @see org.assertj.db.api.AbstractAssertWithValues#isBoolean()
    */
   public T isBoolean();
 
