@@ -541,7 +541,7 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
    * </p>
    * <pre>
    * <code class='java'>
-   * assertThat(changes).hasSize(8);
+   * assertThat(changes).hasNumberOfChanges(8);
    * </code>
    * </pre>
    *
@@ -549,7 +549,7 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
    * @return {@code this} assertion object.
    * @throws AssertionError If the size is different to the number in parameter.
    */
-  public ChangesAssert hasSize(int expected) {
+  public ChangesAssert hasNumberOfChanges(int expected) {
     return AssertionsOnChanges.hasSize(myself, info, changes, expected);
   }
 }

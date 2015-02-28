@@ -12,16 +12,16 @@
  */
 package org.assertj.db.api;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Request;
 import org.junit.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 /**
- * Tests on {@code hasRowsSize} and {@code hasColumnsSize} methods for assertion on {@code Request}.
+ * Tests on {@code hasRowsSize} and {@code hasNumberOfColumns} methods for assertion on {@code Request}.
  * 
  * @author Régis Pouiller
  * 
@@ -78,7 +78,7 @@ public class RequestAssert_HasSize_Test extends AbstractTest {
         + " AND interpretation.id_actor = actor.id"
         + " AND movie.year > ?"
         + " ORDER BY actor.name, movie.year", 2000);
-    assertThat(request).hasColumnsSize(4);
+    assertThat(request).hasNumberOfColumns(4);
   }
 
   /**
@@ -93,7 +93,7 @@ public class RequestAssert_HasSize_Test extends AbstractTest {
           + " AND interpretation.id_actor = actor.id"
           + " AND movie.year > ?"
           + " ORDER BY actor.name, movie.year", 2000);
-      assertThat(request).hasColumnsSize(3);
+      assertThat(request).hasNumberOfColumns(3);
       
       fail("An exception must be raised");
     }

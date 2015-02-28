@@ -40,10 +40,13 @@ public class ChangesAssert_Of_Test extends AbstractTest {
     updateChangesForTests();
     changes.setEndPointNow();
 
-    assertThat(changes).hasSize(8).ofCreation().hasSize(3).ofModification().hasSize(3).ofDeletion().hasSize(2)
-                       .onTable("movie").hasSize(2).onTable("actor").hasSize(3).ofCreationOnTable("movie").hasSize(1)
-                       .ofModificationOnTable("movie").hasSize(1).ofDeletionOnTable("movie").hasSize(0).ofCreation()
-                       .hasSize(3).ofAll().hasSize(8);
+    assertThat(changes).hasNumberOfChanges(8).ofCreation().hasNumberOfChanges(3).ofModification().hasNumberOfChanges(3).ofDeletion().hasNumberOfChanges(
+            2)
+                       .onTable("movie").hasNumberOfChanges(2).onTable("actor").hasNumberOfChanges(3).ofCreationOnTable("movie").hasNumberOfChanges(
+            1)
+                       .ofModificationOnTable("movie").hasNumberOfChanges(
+            1).ofDeletionOnTable("movie").hasNumberOfChanges(0).ofCreation()
+                       .hasNumberOfChanges(3).ofAll().hasNumberOfChanges(8);
   }
 
   /**

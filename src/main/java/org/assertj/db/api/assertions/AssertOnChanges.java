@@ -29,7 +29,7 @@ public interface AssertOnChanges <T extends AssertOnChanges<T>> {
    * </p>
    * <pre>
    * <code class='java'>
-   * assertThat(changes).hasSize(8);
+   * assertThat(changes).hasNumberOfChanges(8);
    * </code>
    * </pre>
    *
@@ -37,5 +37,5 @@ public interface AssertOnChanges <T extends AssertOnChanges<T>> {
    * @return {@code this} assertion object.
    * @throws AssertionError If the size is different to the number in parameter.
    */
-  public T hasSize(int expected);
+  public T hasNumberOfChanges(int expected);
 }

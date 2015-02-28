@@ -40,7 +40,7 @@ public class ChangeAssert_HasPksValues_Test extends AbstractTest {
     updateChangesForTests();
     changes.setEndPointNow();
 
-    assertThat(changes).hasSize(8)
+    assertThat(changes).hasNumberOfChanges(8)
                        .change().hasPksValues(4)
                        .change().hasPksValues(6)
                        .change().hasPksValues(4)

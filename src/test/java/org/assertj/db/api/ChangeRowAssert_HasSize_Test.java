@@ -22,7 +22,7 @@ import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 /**
- * Test on the {@code hasSize} assertion method {@code Row} of {@code Change}.
+ * Test on the {@code hasNumberOfColumns} assertion method {@code Row} of {@code Change}.
  *
  * @author Régis Pouiller
  *
@@ -39,7 +39,7 @@ public class ChangeRowAssert_HasSize_Test extends AbstractTest {
     updateChangesForTests();
     changes.setEndPointNow();
 
-    assertThat(changes).change().rowAtEndPoint().hasSize(4);
+    assertThat(changes).change().rowAtEndPoint().hasNumberOfColumns(4);
   }
 
   /**
@@ -53,7 +53,7 @@ public class ChangeRowAssert_HasSize_Test extends AbstractTest {
       updateChangesForTests();
       changes.setEndPointNow();
 
-      assertThat(changes).change().rowAtEndPoint().hasSize(3);
+      assertThat(changes).change().rowAtEndPoint().hasNumberOfColumns(3);
 
       fail("An exception must be raised");
     } catch (AssertionError e) {

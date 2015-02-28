@@ -40,7 +40,7 @@ public class ChangeAssert_HasPksNames_Test extends AbstractTest {
     updateChangesForTests();
     changes.setEndPointNow();
 
-    assertThat(changes).hasSize(8)
+    assertThat(changes).hasNumberOfChanges(8)
                        .change().hasPksNames("id")
                        .change().hasPksNames("id")
                        .change().hasPksNames("id")

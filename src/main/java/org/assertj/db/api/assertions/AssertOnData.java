@@ -45,12 +45,12 @@ public interface AssertOnData <T extends AssertOnData<T>> {
    * </p>
    *
    * <pre><code class='java'>
-   * assertThat(table).hasColumnsSize(8);
+   * assertThat(table).hasNumberOfColumns(8);
    * </code></pre>
    *
    * @param expected The number to compare to the number of columns.
    * @return {@code this} assertion object.
    * @throws AssertionError If the number of columns is different to the number in parameter.
    */
-  public T hasColumnsSize(int expected);
+  public T hasNumberOfColumns(int expected);
 }

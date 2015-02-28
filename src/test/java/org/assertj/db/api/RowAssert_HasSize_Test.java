@@ -12,17 +12,17 @@
  */
 package org.assertj.db.api;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 /**
- * Test on the {@code hasSize} assertion method on {@code Row}.
+ * Test on the {@code hasNumberOfColumns} assertion method on {@code Row}.
  * 
  * @author Régis Pouiller
  * 
@@ -35,7 +35,7 @@ public class RowAssert_HasSize_Test extends AbstractTest {
   @Test
   public void test_columns_size_of_row_table_assertion() {
     Table table = new Table(source, "movie");
-    assertThat(table).row().hasSize(3);
+    assertThat(table).row().hasNumberOfColumns(3);
   }
 
   /**
@@ -45,7 +45,7 @@ public class RowAssert_HasSize_Test extends AbstractTest {
   public void should_fail_beacause_columns_size_of_row_table_is_different() {
     try {
       Table table = new Table(source, "movie");
-      assertThat(table).row().hasSize(4);
+      assertThat(table).row().hasNumberOfColumns(4);
       
       fail("An exception must be raised");
     }
@@ -69,7 +69,7 @@ public class RowAssert_HasSize_Test extends AbstractTest {
         + " AND interpretation.id_actor = actor.id"
         + " AND movie.year > ?"
         + " ORDER BY actor.name, movie.year", 2000);
-    assertThat(request).row().hasSize(4);
+    assertThat(request).row().hasNumberOfColumns(4);
   }
 
   /**
@@ -84,7 +84,7 @@ public class RowAssert_HasSize_Test extends AbstractTest {
           + " AND interpretation.id_actor = actor.id"
           + " AND movie.year > ?"
           + " ORDER BY actor.name, movie.year", 2000);
-      assertThat(request).row().hasSize(3);
+      assertThat(request).row().hasNumberOfColumns(3);
       
       fail("An exception must be raised");
     }

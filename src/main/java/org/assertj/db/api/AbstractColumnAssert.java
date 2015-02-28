@@ -63,14 +63,14 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * </p>
    *
    * <pre><code class='java'>
-   * assertThat(table).column(1).hasSize(5);
+   * assertThat(table).column(1).hasNumberOfRows(5);
    * </code></pre>
    *
    * @param expected The number to compare to the size.
    * @return {@code this} assertion object.
    * @throws AssertionError If the size is different to the number in parameter.
    */
-  public C hasSize(int expected) {
+  public C hasNumberOfRows(int expected) {
     return AssertionsOnColumn.hasSize(myself, info, column.getValuesList().size(), expected);
   }
 

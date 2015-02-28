@@ -12,17 +12,17 @@
  */
 package org.assertj.db.api;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 /**
- * Test on the {@code hasSize} assertion method on {@code Column}.
+ * Test on the {@code hasNumberOfRows} assertion method on {@code Column}.
  * 
  * @author Régis Pouiller
  * 
@@ -35,7 +35,7 @@ public class ColumnAssert_HasSize_Test extends AbstractTest {
   @Test
   public void test_rows_size_of_column_table_assertion() {
     Table table = new Table(source, "movie");
-    assertThat(table).column().hasSize(3);
+    assertThat(table).column().hasNumberOfRows(3);
   }
 
   /**
@@ -45,7 +45,7 @@ public class ColumnAssert_HasSize_Test extends AbstractTest {
   public void should_fail_because_rows_size_of_column_table_is_different() {
     try {
       Table table = new Table(source, "movie");
-      assertThat(table).column().hasSize(4);
+      assertThat(table).column().hasNumberOfRows(4);
 
       fail("An exception must be raised");
     }
@@ -69,7 +69,7 @@ public class ColumnAssert_HasSize_Test extends AbstractTest {
         + " AND interpretation.id_actor = actor.id"
         + " AND movie.year > ?"
         + " ORDER BY actor.name, movie.year", 2000);
-    assertThat(request).column().hasSize(4);
+    assertThat(request).column().hasNumberOfRows(4);
   }
 
   /**
@@ -84,7 +84,7 @@ public class ColumnAssert_HasSize_Test extends AbstractTest {
           + " AND interpretation.id_actor = actor.id"
           + " AND movie.year > ?"
           + " ORDER BY actor.name, movie.year", 2000);
-      assertThat(request).column().hasSize(3);
+      assertThat(request).column().hasNumberOfRows(3);
 
       fail("An exception must be raised");
     }

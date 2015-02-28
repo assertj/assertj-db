@@ -139,14 +139,14 @@ public class ChangeRowAssert extends AbstractAssertWithColumnsAndRowsFromChange<
    * </p>
    *
    * <pre><code class='java'>
-   * assertThat(changes).change().rowAtEndPoint().hasSize(8);
+   * assertThat(changes).change().rowAtEndPoint().hasNumberOfColumns(8);
    * </code></pre>
    *
    * @param expected The number to compare to the size.
    * @return {@code this} assertion object.
    * @throws AssertionError If the size is different to the number in parameter.
    */
-  public ChangeRowAssert hasSize(int expected) {
+  public ChangeRowAssert hasNumberOfColumns(int expected) {
     List<String> columnsNameList = row.getColumnsNameList();
     int size = columnsNameList.size();
     return AssertionsOnRow.hasSize(myself, info, size, expected);

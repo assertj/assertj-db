@@ -34,14 +34,14 @@ public interface AssertOnColumn <T extends AssertOnColumn<T>> {
    * </p>
    *
    * <pre><code class='java'>
-   * assertThat(table).column(1).hasSize(5);
+   * assertThat(table).column(1).hasNumberOfRows(5);
    * </code></pre>
    *
    * @param expected The number to compare to the size.
    * @return {@code this} assertion object.
    * @throws AssertionError If the size is different to the number in parameter.
    */
-  public T hasSize(int expected);
+  public T hasNumberOfRows(int expected);
 
   /**
    * Verifies that the type of the values of the column is equal to the type in parameter.

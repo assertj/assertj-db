@@ -12,10 +12,6 @@
  */
 package org.assertj.db.api;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.common.NeedReload;
 import org.assertj.db.type.Changes;
@@ -23,8 +19,12 @@ import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 /**
- * Test on the {@code hasSize} assertion method on {@code Changes}.
+ * Test on the {@code hasNumberOfChanges} assertion method on {@code Changes}.
  * 
  * @author Régis Pouiller
  * 
@@ -43,7 +43,7 @@ public class ChangesAssert_HasSize_Test extends AbstractTest {
     updateChangesForTests();
     changes.setEndPointNow();
 
-    assertThat(changes).hasSize(8);
+    assertThat(changes).hasNumberOfChanges(8);
   }
 
   /**
@@ -58,7 +58,7 @@ public class ChangesAssert_HasSize_Test extends AbstractTest {
     updateChangesForTests();
     changes.setEndPointNow();
 
-    assertThat(changes).hasSize(8);
+    assertThat(changes).hasNumberOfChanges(8);
   }
 
   /**
@@ -73,7 +73,7 @@ public class ChangesAssert_HasSize_Test extends AbstractTest {
     updateChangesForTests();
     changes.setEndPointNow();
 
-    assertThat(changes).hasSize(2);
+    assertThat(changes).hasNumberOfChanges(2);
   }
 
   /**
@@ -88,7 +88,7 @@ public class ChangesAssert_HasSize_Test extends AbstractTest {
     updateChangesForTests();
     changes.setEndPointNow();
 
-    assertThat(changes).hasSize(5);
+    assertThat(changes).hasNumberOfChanges(5);
   }
 
   /**
@@ -106,7 +106,7 @@ public class ChangesAssert_HasSize_Test extends AbstractTest {
     updateChangesForTests();
     changes.setEndPointNow();
 
-    assertThat(changes).hasSize(3);
+    assertThat(changes).hasNumberOfChanges(3);
   }
 
   /**
@@ -122,7 +122,7 @@ public class ChangesAssert_HasSize_Test extends AbstractTest {
       updateChangesForTests();
       changes.setEndPointNow();
 
-      assertThat(changes).hasSize(3);
+      assertThat(changes).hasNumberOfChanges(3);
 
       fail("An exception must be raised");
     }
@@ -148,7 +148,7 @@ public class ChangesAssert_HasSize_Test extends AbstractTest {
       updateChangesForTests();
       changes.setEndPointNow();
 
-      assertThat(changes).hasSize(3);
+      assertThat(changes).hasNumberOfChanges(3);
 
       fail("An exception must be raised");
     }
@@ -174,7 +174,7 @@ public class ChangesAssert_HasSize_Test extends AbstractTest {
       updateChangesForTests();
       changes.setEndPointNow();
 
-      assertThat(changes).hasSize(3);
+      assertThat(changes).hasNumberOfChanges(3);
 
       fail("An exception must be raised");
     }
@@ -200,7 +200,7 @@ public class ChangesAssert_HasSize_Test extends AbstractTest {
       updateChangesForTests();
       changes.setEndPointNow();
 
-      assertThat(changes).hasSize(3);
+      assertThat(changes).hasNumberOfChanges(3);
 
       fail("An exception must be raised");
     }
@@ -229,7 +229,7 @@ public class ChangesAssert_HasSize_Test extends AbstractTest {
       updateChangesForTests();
       changes.setEndPointNow();
 
-      assertThat(changes).hasSize(2);
+      assertThat(changes).hasNumberOfChanges(2);
 
       fail("An exception must be raised");
     }

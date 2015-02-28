@@ -38,7 +38,7 @@ public class ChangeAssert_IsOfType_Test extends AbstractTest {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
-    assertThat(changes).hasSize(8)
+    assertThat(changes).hasNumberOfChanges(8)
                        .change().isOfType(ChangeType.CREATION).isCreation()
                        .change().isOfType(ChangeType.CREATION).isCreation()
                        .change().isOfType(ChangeType.CREATION).isCreation()

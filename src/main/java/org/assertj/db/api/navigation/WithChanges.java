@@ -32,7 +32,7 @@ public interface WithChanges {
    * <pre>
    * <code class='java'>
    * // there are five changes in total.
-   * assertThat(changes).ofAll().hasSize(5);
+   * assertThat(changes).ofAll().hasNumberOfChanges(5);
    * </code></pre>
    * <p>
    * But if the actual assertion is on a part of the the changes, the new assertion is on the changes of the original
@@ -42,7 +42,7 @@ public interface WithChanges {
    * <pre>
    * <code class='java'>
    * // there are three changes of modification are there are always five changes in total
-   * assertThat(changes).ofModification().hasSize(3).ofAll().hasSize(5);
+   * assertThat(changes).ofModification().hasNumberOfChanges(3).ofAll().hasNumberOfChanges(5);
    * </code></pre>
    *
    * @return The assertion.
@@ -59,7 +59,7 @@ public interface WithChanges {
    * <pre>
    * <code class='java'>
    * // there are two changes of creation
-   * assertThat(changes).ofCreation().hasSize(2);
+   * assertThat(changes).ofCreation().hasNumberOfChanges(2);
    * </code></pre>
    * <p>
    * But if the actual assertion is on a part of the the changes, the new assertion is on the changes of the original
@@ -69,7 +69,7 @@ public interface WithChanges {
    * <pre>
    * <code class='java'>
    * // there are three changes of modification are there are always two changes of creation
-   * assertThat(changes).ofModification().hasSize(3).ofCreation().hasSize(2);
+   * assertThat(changes).ofModification().hasNumberOfChanges(3).ofCreation().hasNumberOfChanges(2);
    * </code></pre>
    *
    * @return The assertion.
@@ -86,7 +86,7 @@ public interface WithChanges {
    * <pre>
    * <code class='java'>
    * // there are two changes of modification
-   * assertThat(changes).ofModification().hasSize(2);
+   * assertThat(changes).ofModification().hasNumberOfChanges(2);
    * </code></pre>
    * <p>
    * But if the actual assertion is on a part of the the changes, the new assertion is on the changes of the original
@@ -96,7 +96,7 @@ public interface WithChanges {
    * <pre>
    * <code class='java'>
    * // there are three changes of creation are there are always two changes of modification
-   * assertThat(changes).ofCreation().hasSize(3).ofModification().hasSize(2);
+   * assertThat(changes).ofCreation().hasNumberOfChanges(3).ofModification().hasNumberOfChanges(2);
    * </code></pre>
    *
    * @return The assertion.
@@ -113,7 +113,7 @@ public interface WithChanges {
    * <pre>
    * <code class='java'>
    * // there are two changes of deletion
-   * assertThat(changes).ofDeletion().hasSize(2);
+   * assertThat(changes).ofDeletion().hasNumberOfChanges(2);
    * </code></pre>
    * <p>
    * But if the actual assertion is on a part of the the changes, the new assertion is on the changes of the original
@@ -123,7 +123,7 @@ public interface WithChanges {
    * <pre>
    * <code class='java'>
    * // there are three changes of creation are there are always two changes of deletion
-   * assertThat(changes).ofCreation().hasSize(3).ofDeletion().hasSize(2);
+   * assertThat(changes).ofCreation().hasNumberOfChanges(3).ofDeletion().hasNumberOfChanges(2);
    * </code></pre>
    *
    * @return The assertion.
@@ -140,7 +140,7 @@ public interface WithChanges {
    * <pre>
    * <code class='java'>
    * // there are two changes of creation on 'movie' table
-   * assertThat(changes).ofCreation().hasSize(2);
+   * assertThat(changes).ofCreation().hasNumberOfChanges(2);
    * </code></pre>
    * <p>
    * But if the actual assertion is on a part of the the changes, the new assertion is on the changes of the original
@@ -150,7 +150,7 @@ public interface WithChanges {
    * <pre>
    * <code class='java'>
    * // there are three changes of modification are there are always two changes of creation on 'movie' table
-   * assertThat(changes).ofModification().hasSize(3).ofCreation().hasSize(2);
+   * assertThat(changes).ofModification().hasNumberOfChanges(3).ofCreation().hasNumberOfChanges(2);
    * </code></pre>
    *
    * @param tableName The table name
@@ -168,7 +168,7 @@ public interface WithChanges {
    * <pre>
    * <code class='java'>
    * // there are two changes of modification on 'movie' table
-   * assertThat(changes).ofModification().hasSize(2);
+   * assertThat(changes).ofModification().hasNumberOfChanges(2);
    * </code></pre>
    * <p>
    * But if the actual assertion is on a part of the changes, the new assertion is on the changes of the original
@@ -178,7 +178,7 @@ public interface WithChanges {
    * <pre>
    * <code class='java'>
    * // there are three changes of creation are there are always two changes of modification on 'movie' table
-   * assertThat(changes).ofCreation().hasSize(3).ofModificationOnTable("movie").hasSize(2);
+   * assertThat(changes).ofCreation().hasNumberOfChanges(3).ofModificationOnTable("movie").hasNumberOfChanges(2);
    * </code></pre>
    *
    * @param tableName The table name
@@ -196,7 +196,7 @@ public interface WithChanges {
    * <pre>
    * <code class='java'>
    * // there are two changes of deletion on 'movie' table
-   * assertThat(changes).ofDeletionOnTable("movie").hasSize(2);
+   * assertThat(changes).ofDeletionOnTable("movie").hasNumberOfChanges(2);
    * </code></pre>
    * <p>
    * But if the actual assertion is on a part of the changes, the new assertion is on the changes of the original
@@ -206,7 +206,7 @@ public interface WithChanges {
    * <pre>
    * <code class='java'>
    * // there are three changes of creation are there are always two changes of deletion on 'movie' table
-   * assertThat(changes).ofCreation().hasSize(3).ofDeletionOnTable("movie").hasSize(2);
+   * assertThat(changes).ofCreation().hasNumberOfChanges(3).ofDeletionOnTable("movie").hasNumberOfChanges(2);
    * </code></pre>
    *
    * @param tableName The table name
@@ -224,7 +224,7 @@ public interface WithChanges {
    * <pre>
    * <code class='java'>
    * // there are two changes on 'movie' table
-   * assertThat(changes).onTable("movie").hasSize(2);
+   * assertThat(changes).onTable("movie").hasNumberOfChanges(2);
    * </code></pre>
    * <p>
    * But if the actual assertion is on a part of the changes, the new assertion is on the changes of the original
@@ -234,7 +234,7 @@ public interface WithChanges {
    * <pre>
    * <code class='java'>
    * // there are three changes of creation are there are always two changes on 'movie' table
-   * assertThat(changes).ofCreation().hasSize(3).onTable("movie").hasSize(2);
+   * assertThat(changes).ofCreation().hasNumberOfChanges(3).onTable("movie").hasNumberOfChanges(2);
    * </code></pre>
    *
    * @param tableName The table name

@@ -12,16 +12,16 @@
  */
 package org.assertj.db.api;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 /**
- * Tests on {@code hasRowsSize} and {@code hasColumnsSize} methods for assertion on {@code Table}.
+ * Tests on {@code hasRowsSize} and {@code hasNumberOfColumns} methods for assertion on {@code Table}.
  * 
  * @author Régis Pouiller
  * 
@@ -63,7 +63,7 @@ public class TableAssert_HasSize_Test extends AbstractTest {
   @Test
   public void test_columns_size_assertion() {
     Table table = new Table(source, "movie");
-    assertThat(table).hasColumnsSize(3);
+    assertThat(table).hasNumberOfColumns(3);
   }
 
   /**
@@ -73,7 +73,7 @@ public class TableAssert_HasSize_Test extends AbstractTest {
   public void should_fail_beacause_columns_size_is_different() {
     try {
       Table table = new Table(source, "movie");
-      assertThat(table).hasColumnsSize(4);
+      assertThat(table).hasNumberOfColumns(4);
       
       fail("An exception must be raised");
     }
