@@ -63,22 +63,8 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
     return AssertionsOnValue.isOfAnyOfTypes(myself, info, value, expected);
   }
 
-  /**
-   * Verifies that the value is a number.
-   * <p>
-   * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
-   * of the first {@code Change} is a number :
-   * </p>
-   *
-   * <pre>
-   * <code class='java'>
-   * assertThat(changes).change().rowAtEndPoint().value().isNumber();
-   * </code>
-   * </pre>
-   *
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type is not a number.
-   */
+  /** {@inheritDoc} */
+  @Override
   public E isNumber() {
     return AssertionsOnValue.isNumber(myself, info, value);
   }

@@ -85,22 +85,8 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
     return AssertionsOnValue.isOfAnyOfTypes(myself, info, value, expected);
   }
 
-  /**
-   * Verifies that the value is a number.
-   * <p>
-   * Example where the assertion verifies that the value in the {@code Column} called "year" of the first {@code Row} of
-   * the {@code Table} is a number :
-   * </p>
-   * 
-   * <pre>
-   * <code class='java'>
-   * assertThat(table).row().value(&quot;year&quot;).isNumber();
-   * </code>
-   * </pre>
-   * 
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type is not a number.
-   */
+  /** {@inheritDoc} */
+  @Override
   public V isNumber() {
     return AssertionsOnValue.isNumber(myself, info, value);
   }
