@@ -57,23 +57,8 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
     return AssertionsOnValue.isOfType(myself, info, value, expected);
   }
 
-  /**
-   * Verifies that the type of the value is equal to one of the types in parameters.
-   * <p>
-   * Example where the assertion verifies that the value in the {@code Column} called "title" of the {@code Row} at end point
-   * of the first {@code Change} is of type {@code TEXT} or of type {@code NUMBER} :
-   * </p>
-   *
-   * <pre>
-   * <code class='java'>
-   * assertThat(changes).change().rowAtEndPoint().value(&quot;title&quot;).isOfType(ValueType.TEXT, ValueType.NUMBER);
-   * </code>
-   * </pre>
-   *
-   * @param expected The expected types to compare to.
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type is different to all the types in parameters.
-   */
+  /** {@inheritDoc} */
+  @Override
   public E isOfAnyOfTypes(ValueType... expected) {
     return AssertionsOnValue.isOfAnyOfTypes(myself, info, value, expected);
   }

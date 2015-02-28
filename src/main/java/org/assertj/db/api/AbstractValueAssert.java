@@ -79,23 +79,8 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
     return AssertionsOnValue.isOfType(myself, info, value, expected);
   }
 
-  /**
-   * Verifies that the type of the value is equal to one of the types in parameters.
-   * <p>
-   * Example where the assertion verifies that the value in the {@code Column} called "title" of the second {@code Row}
-   * of the {@code Table} is of type {@code TEXT} or of type {@code NUMBER} :
-   * </p>
-   * 
-   * <pre>
-   * <code class='java'>
-   * assertThat(table).row(1).value(&quot;title&quot;).isOfType(ValueType.TEXT, ValueType.NUMBER);
-   * </code>
-   * </pre>
-   * 
-   * @param expected The expected types to compare to.
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type is different to all the types in parameters.
-   */
+  /** {@inheritDoc} */
+  @Override
   public V isOfAnyOfTypes(ValueType... expected) {
     return AssertionsOnValue.isOfAnyOfTypes(myself, info, value, expected);
   }

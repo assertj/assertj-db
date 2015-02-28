@@ -46,6 +46,16 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
   /**
    * Verifies that the type of the value is equal to one of the types in parameters.
    * <p>
+   * Example where the assertion verifies that the value in the {@code Column} called "title" of the second {@code Row}
+   * of the {@code Table} is of type {@code TEXT} or of type {@code NUMBER} :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row(1).value(&quot;title&quot;).isOfType(ValueType.TEXT, ValueType.NUMBER);
+   * </code>
+   * </pre>
+   * <p>
    * Example where the assertion verifies that the value in the {@code Column} called "title" of the {@code Row} at end point
    * of the first {@code Change} is of type {@code TEXT} or of type {@code NUMBER} :
    * </p>
@@ -59,6 +69,8 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    * @param expected The expected types to compare to.
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is different to all the types in parameters.
+   * @see org.assertj.db.api.AbstractValueAssert#isOfAnyOfTypes(org.assertj.db.type.ValueType...)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isOfAnyOfTypes(org.assertj.db.type.ValueType...)
    */
   public T isOfAnyOfTypes(ValueType... expected);
 
