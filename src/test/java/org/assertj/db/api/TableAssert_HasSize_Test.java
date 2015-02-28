@@ -21,7 +21,7 @@ import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 /**
- * Tests on {@code hasRowsSize} and {@code hasNumberOfColumns} methods for assertion on {@code Table}.
+ * Tests on {@code hasNumberOfRows} and {@code hasNumberOfColumns} methods for assertion on {@code Table}.
  * 
  * @author Régis Pouiller
  * 
@@ -34,7 +34,7 @@ public class TableAssert_HasSize_Test extends AbstractTest {
   @Test
   public void test_rows_size_assertion() {
     Table table = new Table(source, "movie");
-    assertThat(table).hasRowsSize(3);
+    assertThat(table).hasNumberOfRows(3);
   }
 
   /**
@@ -44,7 +44,7 @@ public class TableAssert_HasSize_Test extends AbstractTest {
   public void should_fail_beacause_rows_size_is_different() {
     try {
       Table table = new Table(source, "movie");
-      assertThat(table).hasRowsSize(4);
+      assertThat(table).hasNumberOfRows(4);
       
       fail("An exception must be raised");
     }
