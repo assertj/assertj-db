@@ -209,6 +209,16 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
   /**
    * Verifies that the value is a date/time.
    * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is a date/time :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isDateTime();
+   * </code>
+   * </pre>
+   * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is a date/time :
    * </p>
@@ -221,6 +231,8 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    *
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is not a date/time.
+   * @see org.assertj.db.api.AbstractValueAssert#isDateTime()
+   * @see org.assertj.db.api.AbstractAssertWithValues#isDateTime()
    */
   public T isDateTime();
 
