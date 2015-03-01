@@ -239,6 +239,16 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
   /**
    * Verifies that the value is a array of bytes.
    * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is a array of bytes :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isBytes();
+   * </code>
+   * </pre>
+   * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is a array of bytes :
    * </p>
@@ -251,6 +261,8 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    *
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is not a array of bytes.
+   * @see org.assertj.db.api.AbstractValueAssert#isBytes()
+   * @see org.assertj.db.api.AbstractAssertWithValues#isBytes()
    */
   public T isBytes();
 

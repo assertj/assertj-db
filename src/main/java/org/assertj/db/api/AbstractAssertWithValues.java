@@ -93,22 +93,8 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
     return AssertionsOnValue.isDateTime(myself, info, value);
   }
 
-  /**
-   * Verifies that the value is a array of bytes.
-   * <p>
-   * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
-   * of the first {@code Change} is a array of bytes :
-   * </p>
-   *
-   * <pre>
-   * <code class='java'>
-   * assertThat(changes).change().rowAtEndPoint().value().isBytes();
-   * </code>
-   * </pre>
-   *
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type is not a array of bytes.
-   */
+  /** {@inheritDoc} */
+  @Override
   public E isBytes() {
     return AssertionsOnValue.isBytes(myself, info, value);
   }
