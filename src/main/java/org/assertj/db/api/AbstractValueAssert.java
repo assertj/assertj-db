@@ -103,22 +103,8 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
     return AssertionsOnValue.isDate(myself, info, value);
   }
 
-  /**
-   * Verifies that the value is a time.
-   * <p>
-   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
-   * {@code Table} is a time :
-   * </p>
-   * 
-   * <pre>
-   * <code class='java'>
-   * assertThat(table).row().value().isTime();
-   * </code>
-   * </pre>
-   * 
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type is not a time.
-   */
+  /** {@inheritDoc} */
+  @Override
   public V isTime() {
     return AssertionsOnValue.isTime(myself, info, value);
   }

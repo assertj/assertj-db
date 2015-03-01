@@ -81,22 +81,8 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
     return AssertionsOnValue.isDate(myself, info, value);
   }
 
-  /**
-   * Verifies that the value is a time.
-   * <p>
-   * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
-   * of the first {@code Change} is a time :
-   * </p>
-   *
-   * <pre>
-   * <code class='java'>
-   * assertThat(changes).change().rowAtEndPoint().value().isTime();
-   * </code>
-   * </pre>
-   *
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type is not a time.
-   */
+  /** {@inheritDoc} */
+  @Override
   public E isTime() {
     return AssertionsOnValue.isTime(myself, info, value);
   }
