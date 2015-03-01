@@ -269,6 +269,16 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
   /**
    * Verifies that the value is a text.
    * <p>
+   * Example where the assertion verifies that the value in the {@code Column} called "title" of the first {@code Row}
+   * of the {@code Table} is a text :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value(&quot;title&quot;).isText();
+   * </code>
+   * </pre>
+   * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is a text :
    * </p>
@@ -281,6 +291,8 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    *
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is not a text.
+   * @see org.assertj.db.api.AbstractValueAssert#isText()
+   * @see org.assertj.db.api.AbstractAssertWithValues#isText()
    */
   public T isText();
 }

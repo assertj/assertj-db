@@ -121,22 +121,8 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
     return AssertionsOnValue.isBytes(myself, info, value);
   }
 
-  /**
-   * Verifies that the value is a text.
-   * <p>
-   * Example where the assertion verifies that the value in the {@code Column} called "title" of the first {@code Row}
-   * of the {@code Table} is a text :
-   * </p>
-   * 
-   * <pre>
-   * <code class='java'>
-   * assertThat(table).row().value(&quot;title&quot;).isText();
-   * </code>
-   * </pre>
-   * 
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type is not a text.
-   */
+  /** {@inheritDoc} */
+  @Override
   public V isText() {
     return AssertionsOnValue.isText(myself, info, value);
   }

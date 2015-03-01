@@ -99,22 +99,8 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
     return AssertionsOnValue.isBytes(myself, info, value);
   }
 
-  /**
-   * Verifies that the value is a text.
-   * <p>
-   * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
-   * of the first {@code Change} is a text :
-   * </p>
-   *
-   * <pre>
-   * <code class='java'>
-   * assertThat(changes).change().rowAtEndPoint().value().isText();
-   * </code>
-   * </pre>
-   *
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type is not a text.
-   */
+  /** {@inheritDoc} */
+  @Override
   public E isText() {
     return AssertionsOnValue.isText(myself, info, value);
   }
