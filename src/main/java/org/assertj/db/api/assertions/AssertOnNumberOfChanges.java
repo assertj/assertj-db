@@ -13,17 +13,17 @@
 package org.assertj.db.api.assertions;
 
 /**
- * Interface that represents a assert on changes.
+ * Interface containing assertion method on the number of changes.
  *
  * @param <T> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/anMa4g"
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
  *            for more details.
  * @author Régis Pouiller
  */
-public interface AssertOnChanges <T extends AssertOnChanges<T>> {
+public interface AssertOnNumberOfChanges<T extends AssertOnNumberOfChanges<T>> {
 
   /**
-   * Verifies that the size (number) of {@link org.assertj.db.type.Changes} is equal to the number in parameter.
+   * Verifies that the number of {@link org.assertj.db.type.Changes} is equal to the number in parameter.
    * <p>
    * Example where the assertion verifies that there are 8 changes :
    * </p>
@@ -33,9 +33,9 @@ public interface AssertOnChanges <T extends AssertOnChanges<T>> {
    * </code>
    * </pre>
    *
-   * @param expected The number to compare to the size.
+   * @param expected The number to compare to.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the size is different to the number in parameter.
+   * @throws AssertionError If the number of changes is different to the number in parameter.
    */
   public T hasNumberOfChanges(int expected);
 }

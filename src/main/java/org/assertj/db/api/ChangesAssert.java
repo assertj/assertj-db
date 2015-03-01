@@ -12,7 +12,7 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.db.api.assertions.AssertOnChanges;
+import org.assertj.db.api.assertions.AssertOnNumberOfChanges;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
@@ -31,7 +31,7 @@ import java.util.Map;
  * @author Régis Pouiller
  */
 public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, ChangesAssert> implements
-        AssertOnChanges<ChangesAssert> {
+        AssertOnNumberOfChanges<ChangesAssert> {
 
   /**
    * The actual changes on which the assertion is.
@@ -534,21 +534,8 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
     return getChangeAssertInstance(ChangeType.DELETION, tableName, index);
   }
 
-  /**
-   * Verifies that the size (number) of {@link Changes} is equal to the number in parameter.
-   * <p>
-   * Example where the assertion verifies that there are 8 changes :
-   * </p>
-   * <pre>
-   * <code class='java'>
-   * assertThat(changes).hasNumberOfChanges(8);
-   * </code>
-   * </pre>
-   *
-   * @param expected The number to compare to the size.
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the size is different to the number in parameter.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangesAssert hasNumberOfChanges(int expected) {
     return AssertionsOnChanges.hasSize(myself, info, changes, expected);
   }
