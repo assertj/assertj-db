@@ -23,22 +23,6 @@ package org.assertj.db.api.assertions;
 public interface AssertOnRow <T extends AssertOnRow<T>> {
 
   /**
-   * Verifies that the size of a {@link org.assertj.db.type.Row} is equal to the number in parameter.
-   * <p>
-   * Example where the assertion verifies that the first row of the table has 8 columns :
-   * </p>
-   *
-   * <pre><code class='java'>
-   * assertThat(table).row().hasNumberOfColumns(8);
-   * </code></pre>
-   *
-   * @param expected The number to compare to the size.
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the size is different to the number in parameter.
-   */
-  public T hasNumberOfColumns(int expected);
-
-  /**
    * Verifies that the values of a column are equal to values in parameter.
    * <p>
    * Example where the assertion verifies that the values in the first {@code Row} of the {@code Table} are equal to the
