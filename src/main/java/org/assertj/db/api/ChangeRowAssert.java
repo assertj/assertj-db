@@ -13,7 +13,7 @@
 package org.assertj.db.api;
 
 import org.assertj.db.api.assertions.AssertOnNumberOfColumns;
-import org.assertj.db.api.assertions.AssertOnRow;
+import org.assertj.db.api.assertions.AssertOnRowEquality;
 import org.assertj.db.api.origin.OriginWithValuesFromRow;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Row;
@@ -29,7 +29,7 @@ import java.util.Map;
  * @author Régis Pouiller
  */
 public class ChangeRowAssert extends AbstractAssertWithColumnsAndRowsFromChange<ChangeRowAssert, ChangeAssert>
-        implements OriginWithValuesFromRow, AssertOnRow<ChangeRowAssert>, AssertOnNumberOfColumns<ChangeRowAssert> {
+        implements OriginWithValuesFromRow, AssertOnRowEquality<ChangeRowAssert>, AssertOnNumberOfColumns<ChangeRowAssert> {
 
   /**
    * The actual row on which the assertion is.
@@ -141,21 +141,8 @@ public class ChangeRowAssert extends AbstractAssertWithColumnsAndRowsFromChange<
     return AssertionsOnRow.hasSize(myself, info, size, expected);
   }
 
-  /**
-   * Verifies that the values of a column are equal to values in parameter.
-   * <p>
-   * Example where the assertion verifies that the values of the row at end point of the first change are equal to the
-   * values in parameter :
-   * </p>
-   *
-   * <pre><code class='java'>
-   * assertThat(changes).change().rowAtEndPoint().hasValuesEqualTo(1, &quot;Text&quot;, TimeValue.of(9, 1));
-   * </code></pre>
-   *
-   * @param expected The expected values.
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the value is not equal to the values in parameter.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeRowAssert hasValuesEqualTo(Object... expected) {
     return AssertionsOnRow.hasValuesEqualTo(myself, info, row.getValuesList(), expected);
   }

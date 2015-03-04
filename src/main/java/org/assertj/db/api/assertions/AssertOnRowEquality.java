@@ -13,17 +13,17 @@
 package org.assertj.db.api.assertions;
 
 /**
- * Interface that represents a assert on a row.
+ * Interface that represents an assert of equality for a row.
  *
  * @param <T> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/anMa4g"
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
  *            for more details.
  * @author Régis Pouiller
  */
-public interface AssertOnRow <T extends AssertOnRow<T>> {
+public interface AssertOnRowEquality<T extends AssertOnRowEquality<T>> {
 
   /**
-   * Verifies that the values of a column are equal to values in parameter.
+   * Verifies that the values of a row are equal to values in parameter.
    * <p>
    * Example where the assertion verifies that the values in the first {@code Row} of the {@code Table} are equal to the
    * values in parameter :
@@ -32,10 +32,18 @@ public interface AssertOnRow <T extends AssertOnRow<T>> {
    * <pre><code class='java'>
    * assertThat(table).row().hasValuesEqualTo(1, &quot;Text&quot;, TimeValue.of(9, 1));
    * </code></pre>
+   * <p>
+   * Example where the assertion verifies that the values of the row at end point of the first change are equal to the
+   * values in parameter :
+   * </p>
+   *
+   * <pre><code class='java'>
+   * assertThat(changes).change().rowAtEndPoint().hasValuesEqualTo(1, &quot;Text&quot;, TimeValue.of(9, 1));
+   * </code></pre>
    *
    * @param expected The expected values.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the value is not equal to the values in parameter.
+   * @throws AssertionError If the values are not equal to the values in parameters.
    */
   public T hasValuesEqualTo(Object... expected);
 }

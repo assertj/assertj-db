@@ -13,7 +13,7 @@
 package org.assertj.db.api;
 
 import org.assertj.db.api.assertions.AssertOnNumberOfColumns;
-import org.assertj.db.api.assertions.AssertOnRow;
+import org.assertj.db.api.assertions.AssertOnRowEquality;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Row;
@@ -35,7 +35,7 @@ import java.util.List;
  * @param <RV> The class of this assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
 public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
-    extends AbstractSubAssert<D, A, R, RV, C, CV, R, RV> implements AssertOnRow<R>,
+    extends AbstractSubAssert<D, A, R, RV, C, CV, R, RV> implements AssertOnRowEquality<R>,
         AssertOnNumberOfColumns<R> {
 
   /**
@@ -87,21 +87,8 @@ public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends A
     return AssertionsOnRow.hasSize(myself, info, getValuesList().size(), expected);
   }
 
-  /**
-   * Verifies that the values of a column are equal to values in parameter.
-   * <p>
-   * Example where the assertion verifies that the values in the first {@code Row} of the {@code Table} are equal to the
-   * values in parameter :
-   * </p>
-   * 
-   * <pre><code class='java'>
-   * assertThat(table).row().hasValuesEqualTo(1, &quot;Text&quot;, TimeValue.of(9, 1));
-   * </code></pre>
-   * 
-   * @param expected The expected values.
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the value is not equal to the values in parameter.
-   */
+  /** {@inheritDoc} */
+  @Override
   public R hasValuesEqualTo(Object... expected) {
     return AssertionsOnRow.hasValuesEqualTo(myself, info, getValuesList(), expected);
   }
