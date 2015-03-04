@@ -19,6 +19,13 @@ public interface AssertOnNumberOfRows<T extends AssertOnNumberOfRows<T>> {
    * <pre><code class='java'>
    * assertThat(table).hasNumberOfRows(2);
    * </code></pre>
+   * <p>
+   * Example where the assertion verifies that the column with index 1 of the table has 5 rows :
+   * </p>
+   *
+   * <pre><code class='java'>
+   * assertThat(table).column(1).hasNumberOfRows(5);
+   * </code></pre>
    *
    * @param expected The number to compare to the number of rows.
    * @return {@code this} assertion object.

@@ -13,6 +13,7 @@
 package org.assertj.db.api;
 
 import org.assertj.db.api.assertions.AssertOnColumn;
+import org.assertj.db.api.assertions.AssertOnNumberOfRows;
 import org.assertj.db.type.*;
 import org.assertj.db.util.AssertionsOnColumn;
 
@@ -31,7 +32,7 @@ import java.util.List;
  * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
 public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
-    extends AbstractSubAssert<D, A, C, CV, C, CV, R, RV> implements AssertOnColumn<C> {
+    extends AbstractSubAssert<D, A, C, CV, C, CV, R, RV> implements AssertOnColumn<C>, AssertOnNumberOfRows<C> {
 
   /**
    * Column on which do the assertion.
@@ -56,20 +57,8 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
     return column.getValuesList();
   }
 
-  /**
-   * Verifies that the size of a {@link Column} is equal to the number in parameter.
-   * <p>
-   * Example where the assertion verifies that the column with index 1 of the table has 5 rows :
-   * </p>
-   *
-   * <pre><code class='java'>
-   * assertThat(table).column(1).hasNumberOfRows(5);
-   * </code></pre>
-   *
-   * @param expected The number to compare to the size.
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the size is different to the number in parameter.
-   */
+  /** {@inheritDoc} */
+  @Override
   public C hasNumberOfRows(int expected) {
     return AssertionsOnColumn.hasSize(myself, info, column.getValuesList().size(), expected);
   }
