@@ -28,22 +28,6 @@ import org.assertj.db.type.ValueType;
 public interface AssertOnColumn <T extends AssertOnColumn<T>> {
 
   /**
-   * Verifies that the size of a {@link org.assertj.db.type.Column} is equal to the number in parameter.
-   * <p>
-   * Example where the assertion verifies that the column with index 1 of the table has 5 rows :
-   * </p>
-   *
-   * <pre><code class='java'>
-   * assertThat(table).column(1).hasNumberOfRows(5);
-   * </code></pre>
-   *
-   * @param expected The number to compare to the size.
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the size is different to the number in parameter.
-   */
-  public T hasNumberOfRows(int expected);
-
-  /**
    * Verifies that the type of the values of the column is equal to the type in parameter.
    * <p>
    * Example where the assertion verifies that all the values in the {@code Column} called "title" of the {@code Table}
