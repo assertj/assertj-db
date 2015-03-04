@@ -12,7 +12,8 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.db.api.assertions.AssertOnData;
+import org.assertj.db.api.assertions.AssertOnNumberOfColumns;
+import org.assertj.db.api.assertions.AssertOnNumberOfRows;
 import org.assertj.db.api.origin.OriginWithColumnsAndRows;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.AbstractDbData;
@@ -39,7 +40,8 @@ import java.util.Map;
  * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
 public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
-    extends AbstractAssert<A> implements OriginWithColumnsAndRows<D, A, C, CV, R, RV>, AssertOnData<A> {
+    extends AbstractAssert<A> implements OriginWithColumnsAndRows<D, A, C, CV, R, RV>, AssertOnNumberOfColumns<A>,
+        AssertOnNumberOfRows<A> {
 
   /**
    * The actual value on which the assertion is.
@@ -259,20 +261,8 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
     return AssertionsOnColumn.hasSize(myself, info, size, expected);
   }
 
-  /**
-   * Verifies that the number of columns is equal to the number in parameter.
-   * <p>
-   * Example where the assertion verifies that the table has 8 columns :
-   * </p>
-   *
-   * <pre><code class='java'>
-   * assertThat(table).hasNumberOfColumns(8);
-   * </code></pre>
-   *
-   * @param expected The number to compare to the number of columns.
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the number of columns is different to the number in parameter.
-   */
+  /** {@inheritDoc} */
+  @Override
   public A hasNumberOfColumns(int expected) {
     List<String> columnsNameList = actual.getColumnsNameList();
     int size = columnsNameList.size();
