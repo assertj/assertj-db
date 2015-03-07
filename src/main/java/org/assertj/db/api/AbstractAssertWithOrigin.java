@@ -24,23 +24,23 @@ import org.assertj.db.api.origin.Origin;
  *          for more details.
  * @param <O> The class of the assert of origin
  */
-public abstract class AbstractAssertWithOriginAssert<E extends AbstractAssertWithOriginAssert<E, O>, O extends Origin>
+public abstract class AbstractAssertWithOrigin<E extends AbstractAssertWithOrigin<E, O>, O extends Origin>
     extends AbstractAssert<E> {
 
   /**
    * The origin assert.
    */
-  protected final O originAssert;
+  protected final O origin;
 
   /**
    * Constructor.
    * 
-   * @param selfType Class of this assert : a sub-class of {@code AbstractAssertWithOriginAssert}.
-   * @param originAssert The assert of origin.
+   * @param selfType Class of this assert : a sub-class of {@code AbstractAssertWithOrigin}.
+   * @param origin The assert of origin.
    */
-  AbstractAssertWithOriginAssert(Class<E> selfType, O originAssert) {
+  AbstractAssertWithOrigin(Class<E> selfType, O origin) {
     super(selfType);
-    this.originAssert = originAssert;
+    this.origin = origin;
   }
 
   /**
@@ -48,7 +48,7 @@ public abstract class AbstractAssertWithOriginAssert<E extends AbstractAssertWit
    * 
    * @return The assert of origin.
    */
-  protected O returnToOriginAssert() {
-    return originAssert;
+  protected O returnToOrigin() {
+    return origin;
   }
 }

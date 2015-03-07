@@ -40,7 +40,7 @@ public class TableColumnValueAssert extends
    * @return a object of assertion methods on a {@link Column}.
    */
   public TableColumnAssert returnToColumn() {
-    return returnToOriginAssert();
+    return returnToOrigin();
   }
 
 }

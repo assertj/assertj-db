@@ -44,7 +44,7 @@ public abstract class AbstractAssertWithValuesFromRow<E extends AbstractAssertWi
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
    */
   public ChangeRowValueAssert value() {
-    return originAssert.value();
+    return origin.value();
   }
 
   /**
@@ -55,7 +55,7 @@ public abstract class AbstractAssertWithValuesFromRow<E extends AbstractAssertWi
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
    */
   public ChangeRowValueAssert value(int index) {
-    return originAssert.value(index);
+    return origin.value(index);
   }
 
   /**
@@ -67,6 +67,6 @@ public abstract class AbstractAssertWithValuesFromRow<E extends AbstractAssertWi
    * @throws org.assertj.db.exception.AssertJDBException If there is no column with this name.
    */
   public ChangeRowValueAssert value(String columnName) {
-    return originAssert.value(columnName);
+    return origin.value(columnName);
   }
 }

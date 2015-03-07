@@ -41,7 +41,7 @@ public abstract class AbstractAssertWithColumnsAndRowsFromChange<E extends Abstr
    */
   @Override
   public ChangeRowAssert rowAtStartPoint() {
-    return originAssert.rowAtStartPoint();
+    return origin.rowAtStartPoint();
   }
 
   /**
@@ -49,7 +49,7 @@ public abstract class AbstractAssertWithColumnsAndRowsFromChange<E extends Abstr
    */
   @Override
   public ChangeRowAssert rowAtEndPoint() {
-    return originAssert.rowAtEndPoint();
+    return origin.rowAtEndPoint();
   }
 
   /**
@@ -59,7 +59,7 @@ public abstract class AbstractAssertWithColumnsAndRowsFromChange<E extends Abstr
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
    */
   public ChangeColumnAssert column() {
-    return originAssert.column();
+    return origin.column();
   }
 
   /**
@@ -70,7 +70,7 @@ public abstract class AbstractAssertWithColumnsAndRowsFromChange<E extends Abstr
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
    */
   public ChangeColumnAssert column(int index) {
-    return originAssert.column(index);
+    return origin.column(index);
   }
 
   /**
@@ -82,7 +82,7 @@ public abstract class AbstractAssertWithColumnsAndRowsFromChange<E extends Abstr
    * @throws org.assertj.db.exception.AssertJDBException If there is no column with this name.
    */
   public ChangeColumnAssert column(String columnName) {
-    return originAssert.column(columnName);
+    return origin.column(columnName);
   }
 
   /**
@@ -92,7 +92,7 @@ public abstract class AbstractAssertWithColumnsAndRowsFromChange<E extends Abstr
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
    */
   public ChangeColumnAssert columnAmongTheModifiedOnes() {
-    return originAssert.columnAmongTheModifiedOnes();
+    return origin.columnAmongTheModifiedOnes();
   }
 
   /**
@@ -103,7 +103,7 @@ public abstract class AbstractAssertWithColumnsAndRowsFromChange<E extends Abstr
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
    */
   public ChangeColumnAssert columnAmongTheModifiedOnes(int index) {
-    return originAssert.columnAmongTheModifiedOnes(index);
+    return origin.columnAmongTheModifiedOnes(index);
   }
 
   /**
@@ -115,6 +115,6 @@ public abstract class AbstractAssertWithColumnsAndRowsFromChange<E extends Abstr
    * @throws org.assertj.db.exception.AssertJDBException If there is no column with this name.
    */
   public ChangeColumnAssert columnAmongTheModifiedOnes(String columnName) {
-    return originAssert.columnAmongTheModifiedOnes(columnName);
+    return origin.columnAmongTheModifiedOnes(columnName);
   }
 }

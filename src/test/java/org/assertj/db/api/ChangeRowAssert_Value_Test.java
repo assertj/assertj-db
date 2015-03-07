@@ -88,9 +88,9 @@ public class ChangeRowAssert_Value_Test extends AbstractTest {
     updateChangesForTests();
     changes.setEndPointNow();
     assertThat(changes).changeOfModification().rowAtStartPoint()
-                       .value().returnToOriginAssert()
-                       .value().returnToOriginAssert().value().returnToOriginAssert().value().returnToOriginAssert()
-                       .value().returnToOriginAssert();
+                       .value().returnToOrigin()
+                       .value().returnToOrigin().value().returnToOrigin().value().returnToOrigin()
+                       .value().returnToOrigin();
   }
 
   /**

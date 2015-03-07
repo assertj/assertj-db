@@ -12,22 +12,19 @@
  */
 package org.assertj.db.api.origin;
 
-import org.assertj.db.api.*;
-import org.assertj.db.api.navigation.WithColumnsAndRows;
-import org.assertj.db.type.AbstractDbData;
+import org.assertj.db.api.navigation.ColumnAssert;
+import org.assertj.db.api.navigation.RowAssert;
+import org.assertj.db.api.navigation.WithColumns;
+import org.assertj.db.api.navigation.WithRows;
 
 /**
  * Interface that represents a assert which is the origin assert of another assert and have columns and rows.
  *
  * @author Régis Pouiller
  *
- * @param <D> The class of the actual value (an sub-class of {@link org.assertj.db.type.AbstractDbData}).
- * @param <A> The class of the original assert (an sub-class of {@link org.assertj.db.api.AbstractDbAssert}).
- * @param <C> The class of this assert (an sub-class of {@link org.assertj.db.api.AbstractColumnAssert}).
- * @param <CV> The class of this assertion on the value (an sub-class of {@link org.assertj.db.api.AbstractColumnValueAssert}).
- * @param <R> The class of the equivalent row assert (an sub-class of {@link org.assertj.db.api.AbstractRowAssert}).
- * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link org.assertj.db.api.AbstractRowValueAssert}).
+ * @param <C> The class of a assert on column (an sub-class of {@link org.assertj.db.api.navigation.ColumnAssert}).
+ * @param <R> The class of the equivalent row assert (an sub-class of {@link org.assertj.db.api.navigation.RowAssert}).
  */
-public interface OriginWithColumnsAndRows<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
-  extends WithColumnsAndRows<D, A, C, CV, R, RV>, Origin {
+public interface OriginWithColumnsAndRows<C extends ColumnAssert, R extends RowAssert>
+  extends WithColumns<C>, WithRows<R>, Origin {
 }

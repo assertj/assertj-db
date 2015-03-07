@@ -43,7 +43,7 @@ public abstract class AbstractAssertWithValuesFromColumn <E extends AbstractAsse
    * @return An object to make assertions on the next value.
    */
   public ChangeColumnValueAssert valueAtStartPoint() {
-    return originAssert.valueAtStartPoint();
+    return origin.valueAtStartPoint();
   }
 
   /**
@@ -52,6 +52,6 @@ public abstract class AbstractAssertWithValuesFromColumn <E extends AbstractAsse
    * @return An object to make assertions on the value.
    */
   public ChangeColumnValueAssert valueAtEndPoint() {
-    return originAssert.valueAtEndPoint();
+    return origin.valueAtEndPoint();
   }
 }

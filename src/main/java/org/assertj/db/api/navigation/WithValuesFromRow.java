@@ -12,31 +12,13 @@
  */
 package org.assertj.db.api.navigation;
 
-import org.assertj.db.api.ChangeRowValueAssert;
-
 /**
  * Interface that represents a assert with values from a row.
  *
+ * @param <V> The class of a assert on value (an sub-class of {@link org.assertj.db.api.navigation.ValueAssert}).
  * @author Régis Pouiller
  */
-public interface WithValuesFromRow extends WithValues {
-
-  /**
-   * Returns assertion methods on the next value in the list of values.
-   *
-   * @return An object to make assertions on the next value.
-   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
-   */
-  public ChangeRowValueAssert value();
-
-  /**
-   * Returns assertion methods on the value at the {@code index} in parameter.
-   *
-   * @param index The index corresponding to the value.
-   * @return An object to make assertions on the value.
-   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
-   */
-  public ChangeRowValueAssert value(int index);
+public interface WithValuesFromRow<V extends ValueAssert> {
 
   /**
    * Returns assertion methods on the value corresponding to the column name in parameter.
@@ -46,5 +28,5 @@ public interface WithValuesFromRow extends WithValues {
    * @throws NullPointerException If the column name in parameter is null.
    * @throws org.assertj.db.exception.AssertJDBException If there is no column with this name.
    */
-  public ChangeRowValueAssert value(String columnName);
+  public V value(String columnName);
 }

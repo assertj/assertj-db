@@ -40,7 +40,7 @@ public class TableRowValueAssert extends
    * @return a object of assertion methods on a {@link Row}.
    */
   public TableRowAssert returnToRow() {
-    return returnToOriginAssert();
+    return returnToOrigin();
   }
 
 }

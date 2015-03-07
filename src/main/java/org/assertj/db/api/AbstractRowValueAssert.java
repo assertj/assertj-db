@@ -12,6 +12,7 @@
  */
 package org.assertj.db.api;
 
+import org.assertj.db.api.navigation.WithValuesFromRow;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Row;
@@ -30,7 +31,7 @@ import org.assertj.db.type.Row;
  * @param <RV> The class of this assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
 public abstract class AbstractRowValueAssert<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
-    extends AbstractValueAssert<D, A, R, RV, C, CV, R, RV> {
+    extends AbstractValueAssert<D, A, R, RV, C, CV, R, RV> implements WithValuesFromRow<RV> {
 
   /**
    * Constructor.
@@ -53,7 +54,7 @@ public abstract class AbstractRowValueAssert<D extends AbstractDbData<D>, A exte
    * @throws AssertJDBException If there is no column with this name.
    */
   public RV value(String columnName) {
-    return returnToOriginAssert().value(columnName);
+    return returnToOrigin().value(columnName);
   }
 
 }

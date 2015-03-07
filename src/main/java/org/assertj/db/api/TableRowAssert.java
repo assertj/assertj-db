@@ -39,7 +39,7 @@ public class TableRowAssert extends AbstractRowAssert<Table, TableAssert, TableC
    * @return a object of assertion methods on a {@link Table}.
    */
   public TableAssert returnToTable() {
-    return returnToOriginAssert();
+    return returnToOrigin();
   }
 
 }

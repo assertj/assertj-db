@@ -14,6 +14,8 @@ package org.assertj.db.api;
 
 import org.assertj.db.api.assertions.AssertOnNumberOfColumns;
 import org.assertj.db.api.assertions.AssertOnRowEquality;
+import org.assertj.db.api.navigation.RowAssert;
+import org.assertj.db.api.navigation.WithValuesFromRow;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Row;
@@ -36,7 +38,7 @@ import java.util.List;
  */
 public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
     extends AbstractSubAssert<D, A, R, RV, C, CV, R, RV> implements AssertOnRowEquality<R>,
-        AssertOnNumberOfColumns<R> {
+        AssertOnNumberOfColumns<R>, RowAssert, WithValuesFromRow<RV> {
 
   /**
    * Row on which do the assertion.

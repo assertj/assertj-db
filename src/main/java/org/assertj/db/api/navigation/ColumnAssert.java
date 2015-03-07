@@ -10,16 +10,12 @@
  *
  * Copyright 2012-2014 the original author or authors.
  */
-package org.assertj.db.api.origin;
-
-import org.assertj.db.api.ChangeRowValueAssert;
-import org.assertj.db.api.navigation.WithValues;
-import org.assertj.db.api.navigation.WithValuesFromRow;
+package org.assertj.db.api.navigation;
 
 /**
- * Interface that represents a assert which is the origin assert of another assert and have values from a row.
+ * Interface that represents a assert about column.
  *
  * @author Régis Pouiller
  */
-public interface OriginWithValuesFromRow extends WithValues<ChangeRowValueAssert>, WithValuesFromRow<ChangeRowValueAssert>, OriginWithValues {
+public interface ColumnAssert {
 }

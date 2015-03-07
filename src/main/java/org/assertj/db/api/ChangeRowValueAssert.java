@@ -12,13 +12,16 @@
  */
 package org.assertj.db.api;
 
+import org.assertj.db.api.navigation.ValueAssert;
+
 /**
  * Assertion methods about a value of a {@code Row} of a {@code Change}.
  *
  * @author Régis Pouiller
  *
  */
-public class ChangeRowValueAssert extends AbstractAssertWithValuesFromRow<ChangeRowValueAssert, ChangeRowAssert> {
+public class ChangeRowValueAssert extends AbstractAssertWithValuesFromRow<ChangeRowValueAssert, ChangeRowAssert>
+        implements ValueAssert {
 
   /**
    * Constructor.

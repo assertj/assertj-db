@@ -162,8 +162,8 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
    */
   @Override
   public ChangesAssert ofAll() {
-    if (originAssert != null) {
-      return originAssert.ofAll();
+    if (origin != null) {
+      return origin.ofAll();
     }
     return this;
   }
@@ -173,8 +173,8 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
    */
   @Override
   public ChangesAssert ofCreation() {
-    if (originAssert != null) {
-      return originAssert.ofCreation();
+    if (origin != null) {
+      return origin.ofCreation();
     }
     return getChangeAssertInstance(ChangeType.CREATION, null);
   }
@@ -184,8 +184,8 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
    */
   @Override
   public ChangesAssert ofModification() {
-    if (originAssert != null) {
-      return originAssert.ofModification();
+    if (origin != null) {
+      return origin.ofModification();
     }
     return getChangeAssertInstance(ChangeType.MODIFICATION, null);
   }
@@ -195,8 +195,8 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
    */
   @Override
   public ChangesAssert ofDeletion() {
-    if (originAssert != null) {
-      return originAssert.ofDeletion();
+    if (origin != null) {
+      return origin.ofDeletion();
     }
     return getChangeAssertInstance(ChangeType.DELETION, null);
   }
@@ -206,8 +206,8 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
    */
   @Override
   public ChangesAssert ofCreationOnTable(String tableName) {
-    if (originAssert != null) {
-      return originAssert.ofCreationOnTable(tableName);
+    if (origin != null) {
+      return origin.ofCreationOnTable(tableName);
     }
     return getChangeAssertInstance(ChangeType.CREATION, tableName);
   }
@@ -217,8 +217,8 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
    */
   @Override
   public ChangesAssert ofModificationOnTable(String tableName) {
-    if (originAssert != null) {
-      return originAssert.ofModificationOnTable(tableName);
+    if (origin != null) {
+      return origin.ofModificationOnTable(tableName);
     }
     return getChangeAssertInstance(ChangeType.MODIFICATION, tableName);
   }
@@ -228,8 +228,8 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
    */
   @Override
   public ChangesAssert ofDeletionOnTable(String tableName) {
-    if (originAssert != null) {
-      return originAssert.ofDeletionOnTable(tableName);
+    if (origin != null) {
+      return origin.ofDeletionOnTable(tableName);
     }
     return getChangeAssertInstance(ChangeType.DELETION, tableName);
   }
@@ -239,8 +239,8 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
    */
   @Override
   public ChangesAssert onTable(String tableName) {
-    if (originAssert != null) {
-      return originAssert.onTable(tableName);
+    if (origin != null) {
+      return origin.onTable(tableName);
     }
     return getChangeAssertInstance(null, tableName);
   }
@@ -354,8 +354,8 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
    */
   @Override
   public ChangeAssert changeOfCreation() {
-    if (originAssert != null) {
-      return originAssert.changeOfCreation();
+    if (origin != null) {
+      return origin.changeOfCreation();
     }
     return getChangeAssertInstance(ChangeType.CREATION, null, getIndexNextChange(ChangeType.CREATION, null));
   }
@@ -365,8 +365,8 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
    */
   @Override
   public ChangeAssert changeOfCreation(int index) {
-    if (originAssert != null) {
-      return originAssert.changeOfCreation(index);
+    if (origin != null) {
+      return origin.changeOfCreation(index);
     }
     return getChangeAssertInstance(ChangeType.CREATION, null, index);
   }
@@ -376,8 +376,8 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
    */
   @Override
   public ChangeAssert changeOfModification() {
-    if (originAssert != null) {
-      return originAssert.changeOfModification();
+    if (origin != null) {
+      return origin.changeOfModification();
     }
     return getChangeAssertInstance(ChangeType.MODIFICATION, null, getIndexNextChange(ChangeType.MODIFICATION, null));
   }
@@ -387,8 +387,8 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
    */
   @Override
   public ChangeAssert changeOfModification(int index) {
-    if (originAssert != null) {
-      return originAssert.changeOfModification(index);
+    if (origin != null) {
+      return origin.changeOfModification(index);
     }
     return getChangeAssertInstance(ChangeType.MODIFICATION, null, index);
   }
@@ -398,8 +398,8 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
    */
   @Override
   public ChangeAssert changeOfDeletion() {
-    if (originAssert != null) {
-      return originAssert.changeOfDeletion();
+    if (origin != null) {
+      return origin.changeOfDeletion();
     }
     return getChangeAssertInstance(ChangeType.DELETION, null, getIndexNextChange(ChangeType.DELETION, null));
   }
@@ -409,8 +409,8 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
    */
   @Override
   public ChangeAssert changeOfDeletion(int index) {
-    if (originAssert != null) {
-      return originAssert.changeOfDeletion(index);
+    if (origin != null) {
+      return origin.changeOfDeletion(index);
     }
     return getChangeAssertInstance(ChangeType.DELETION, null, index);
   }
@@ -420,8 +420,8 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
    */
   @Override
   public ChangeAssert changeOnTable(String tableName) {
-    if (originAssert != null) {
-      return originAssert.changeOnTable(tableName);
+    if (origin != null) {
+      return origin.changeOnTable(tableName);
     }
     return getChangeAssertInstance(null, tableName, getIndexNextChange(null, tableName));
   }
@@ -431,8 +431,8 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
    */
   @Override
   public ChangeAssert changeOnTable(String tableName, int index) {
-    if (originAssert != null) {
-      return originAssert.changeOnTable(tableName, index);
+    if (origin != null) {
+      return origin.changeOnTable(tableName, index);
     }
     return getChangeAssertInstance(null, tableName, index);
   }
@@ -442,8 +442,8 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
    */
   @Override
   public ChangeAssert changeOnTableWithPks(String tableName, Object... pksValues) {
-    if (originAssert != null) {
-      return originAssert.changeOnTableWithPks(tableName, pksValues);
+    if (origin != null) {
+      return origin.changeOnTableWithPks(tableName, pksValues);
     }
     Changes changes = this.changes.getChangesOfTable(tableName);
     List<Change> changesList = changes.getChangesList();
@@ -473,8 +473,8 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
    */
   @Override
   public ChangeAssert changeOfCreationOnTable(String tableName) {
-    if (originAssert != null) {
-      return originAssert.changeOfCreationOnTable(tableName);
+    if (origin != null) {
+      return origin.changeOfCreationOnTable(tableName);
     }
     return getChangeAssertInstance(ChangeType.CREATION, tableName, getIndexNextChange(ChangeType.CREATION, tableName));
   }
@@ -484,8 +484,8 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
    */
   @Override
   public ChangeAssert changeOfCreationOnTable(String tableName, int index) {
-    if (originAssert != null) {
-      return originAssert.changeOfCreationOnTable(tableName, index);
+    if (origin != null) {
+      return origin.changeOfCreationOnTable(tableName, index);
     }
     return getChangeAssertInstance(ChangeType.CREATION, tableName, index);
   }
@@ -495,8 +495,8 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
    */
   @Override
   public ChangeAssert changeOfModificationOnTable(String tableName) {
-    if (originAssert != null) {
-      return originAssert.changeOfModificationOnTable(tableName);
+    if (origin != null) {
+      return origin.changeOfModificationOnTable(tableName);
     }
     return getChangeAssertInstance(ChangeType.MODIFICATION, tableName, getIndexNextChange(ChangeType.MODIFICATION, tableName));
   }
@@ -506,8 +506,8 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
    */
   @Override
   public ChangeAssert changeOfModificationOnTable(String tableName, int index) {
-    if (originAssert != null) {
-      return originAssert.changeOfModificationOnTable(tableName, index);
+    if (origin != null) {
+      return origin.changeOfModificationOnTable(tableName, index);
     }
     return getChangeAssertInstance(ChangeType.MODIFICATION, tableName, index);
   }
@@ -517,8 +517,8 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
    */
   @Override
   public ChangeAssert changeOfDeletionOnTable(String tableName) {
-    if (originAssert != null) {
-      return originAssert.changeOfDeletionOnTable(tableName);
+    if (origin != null) {
+      return origin.changeOfDeletionOnTable(tableName);
     }
     return getChangeAssertInstance(ChangeType.DELETION, tableName, getIndexNextChange(ChangeType.DELETION, tableName));
   }
@@ -528,8 +528,8 @@ public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, Chan
    */
   @Override
   public ChangeAssert changeOfDeletionOnTable(String tableName, int index) {
-    if (originAssert != null) {
-      return originAssert.changeOfDeletionOnTable(tableName, index);
+    if (origin != null) {
+      return origin.changeOfDeletionOnTable(tableName, index);
     }
     return getChangeAssertInstance(ChangeType.DELETION, tableName, index);
   }

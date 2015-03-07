@@ -15,7 +15,25 @@ package org.assertj.db.api.navigation;
 /**
  * Interface that represents a assert with values.
  *
+ * @param <V> The class of a assert on value (an sub-class of {@link org.assertj.db.api.navigation.ValueAssert}).
  * @author Régis Pouiller
  */
-public interface WithValues {
+public interface WithValues<V extends ValueAssert> {
+
+  /**
+   * Returns assertion methods on the next value in the list of values.
+   *
+   * @return An object to make assertions on the next value.
+   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public V value();
+
+  /**
+   * Returns assertion methods on the value at the {@code index} in parameter.
+   *
+   * @param index The index corresponding to the value.
+   * @return An object to make assertions on the value.
+   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public V value(int index);
 }

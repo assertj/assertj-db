@@ -19,7 +19,7 @@ import org.assertj.db.api.ChangeColumnValueAssert;
  *
  * @author Régis Pouiller
  */
-public interface WithValuesFromColumn extends WithValues {
+public interface WithValuesFromColumn {
 
   /**
    * Returns assertion methods on the value at the start point.
