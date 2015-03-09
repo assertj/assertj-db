@@ -12,6 +12,7 @@
  */
 package org.assertj.db.api.origin;
 
+import org.assertj.db.api.ChangeColumnValueAssert;
 import org.assertj.db.api.navigation.WithValuesFromColumn;
 
 /**
@@ -19,5 +20,5 @@ import org.assertj.db.api.navigation.WithValuesFromColumn;
  *
  * @author Régis Pouiller
  */
-public interface OriginWithValuesFromColumn extends WithValuesFromColumn, OriginWithValues {
+public interface OriginWithValuesFromColumn extends WithValuesFromColumn<ChangeColumnValueAssert>, OriginWithColumnsAndRowsFromChange {
 }

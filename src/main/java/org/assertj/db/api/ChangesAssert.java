@@ -13,6 +13,7 @@
 package org.assertj.db.api;
 
 import org.assertj.db.api.assertions.AssertOnNumberOfChanges;
+import org.assertj.db.api.origin.OriginWithChanges;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
@@ -30,7 +31,8 @@ import java.util.Map;
  *
  * @author Régis Pouiller
  */
-public class ChangesAssert extends AbstractAssertWithChanges<ChangesAssert, ChangesAssert> implements
+public class ChangesAssert extends AbstractAssertWithOriginWithChanges<ChangesAssert, ChangesAssert> implements
+        OriginWithChanges,
         AssertOnNumberOfChanges<ChangesAssert> {
 
   /**

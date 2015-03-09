@@ -14,6 +14,7 @@ package org.assertj.db.api;
 
 import org.assertj.db.api.assertions.AssertOnNumberOfColumns;
 import org.assertj.db.api.assertions.AssertOnRowEquality;
+import org.assertj.db.api.navigation.RowAssert;
 import org.assertj.db.api.origin.OriginWithValuesFromRow;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Row;
@@ -28,8 +29,9 @@ import java.util.Map;
  *
  * @author Régis Pouiller
  */
-public class ChangeRowAssert extends AbstractAssertWithColumnsAndRowsFromChange<ChangeRowAssert, ChangeAssert>
-        implements OriginWithValuesFromRow, AssertOnRowEquality<ChangeRowAssert>, AssertOnNumberOfColumns<ChangeRowAssert> {
+public class ChangeRowAssert extends AbstractAssertWithOriginWithColumnsAndRowsFromChange<ChangeRowAssert, ChangeAssert>
+        implements OriginWithValuesFromRow, AssertOnRowEquality<ChangeRowAssert>, AssertOnNumberOfColumns<ChangeRowAssert>,
+        RowAssert {
 
   /**
    * The actual row on which the assertion is.

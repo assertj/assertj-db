@@ -17,21 +17,22 @@ import org.assertj.db.api.ChangeColumnValueAssert;
 /**
  * Interface that represents a assert with values from a column.
  *
+ * @param <V> The class of a assert on value (an sub-class of {@link org.assertj.db.api.navigation.ValueAssert}).
  * @author Régis Pouiller
  */
-public interface WithValuesFromColumn {
+public interface WithValuesFromColumn<V extends ValueAssert> {
 
   /**
    * Returns assertion methods on the value at the start point.
    *
    * @return An object to make assertions on the next value.
    */
-  public ChangeColumnValueAssert valueAtStartPoint();
+  public V valueAtStartPoint();
 
   /**
    * Returns assertion methods on the value at the end point.
    *
    * @return An object to make assertions on the value.
    */
-  public ChangeColumnValueAssert valueAtEndPoint();
+  public V valueAtEndPoint();
 }

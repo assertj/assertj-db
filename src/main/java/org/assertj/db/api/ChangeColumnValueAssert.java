@@ -12,14 +12,16 @@
  */
 package org.assertj.db.api;
 
+import org.assertj.db.api.navigation.WithValuesFromColumn;
+
 /**
  * Assertion methods about a value of a {@code Column} of a {@code Change}.
  *
  * @author Régis Pouiller
  *
  */
-public class ChangeColumnValueAssert extends
-        AbstractAssertWithValuesFromColumn<ChangeColumnValueAssert, ChangeColumnAssert> {
+public class ChangeColumnValueAssert extends AbstractAssertWithValues<ChangeColumnValueAssert, ChangeColumnAssert>
+        implements WithValuesFromColumn<ChangeColumnValueAssert> {
 
   /**
    * Constructor.
@@ -29,5 +31,23 @@ public class ChangeColumnValueAssert extends
    */
   ChangeColumnValueAssert(ChangeColumnAssert originalAssert, Object value) {
     super(ChangeColumnValueAssert.class, originalAssert, value);
+  }
+
+  /**
+   * Returns assertion methods on the value at the start point.
+   *
+   * @return An object to make assertions on the next value.
+   */
+  public ChangeColumnValueAssert valueAtStartPoint() {
+    return origin.valueAtStartPoint();
+  }
+
+  /**
+   * Returns assertion methods on the value at the end point.
+   *
+   * @return An object to make assertions on the value.
+   */
+  public ChangeColumnValueAssert valueAtEndPoint() {
+    return origin.valueAtEndPoint();
   }
 }

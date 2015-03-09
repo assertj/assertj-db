@@ -14,7 +14,8 @@ package org.assertj.db.api;
 
 import org.assertj.db.api.assertions.AssertOnValue;
 import org.assertj.db.api.assertions.AssertOnValueType;
-import org.assertj.db.api.origin.OriginWithValues;
+import org.assertj.db.api.navigation.ValueAssert;
+import org.assertj.db.api.origin.OriginWithColumnsAndRowsFromChange;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
@@ -30,8 +31,8 @@ import org.assertj.db.util.AssertionsOnValue;
  * @param <O> The class of the assert of origin
  * @author Régis Pouiller
  */
-public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValues<E, O>, O extends OriginWithValues>
-        extends AbstractAssertWithColumnsAndRowsFromChange<E, O> implements OriginWithValues, AssertOnValue<E>,
+public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValues<E, O>, O extends OriginWithColumnsAndRowsFromChange>
+        extends AbstractAssertWithOriginWithColumnsAndRowsFromChange<E, O> implements ValueAssert, OriginWithColumnsAndRowsFromChange, AssertOnValue<E>,
         AssertOnValueType<E> {
 
   /**

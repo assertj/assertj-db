@@ -21,5 +21,5 @@ import org.assertj.db.api.navigation.WithValuesFromRow;
  *
  * @author Régis Pouiller
  */
-public interface OriginWithValuesFromRow extends WithValues<ChangeRowValueAssert>, WithValuesFromRow<ChangeRowValueAssert>, OriginWithValues {
+public interface OriginWithValuesFromRow extends WithValues<ChangeRowValueAssert>, WithValuesFromRow<ChangeRowValueAssert>, OriginWithColumnsAndRowsFromChange {
 }

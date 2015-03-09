@@ -10,20 +10,31 @@
  *
  * Copyright 2012-2014 the original author or authors.
  */
-package org.assertj.db.api.origin;
+package org.assertj.db.api.navigation;
 
 import org.assertj.db.api.ChangeColumnAssert;
 import org.assertj.db.api.ChangeRowAssert;
-import org.assertj.db.api.navigation.WithColumns;
-import org.assertj.db.api.navigation.WithColumnsFromChange;
-import org.assertj.db.api.navigation.WithRowsFromChange;
 
 /**
- * Interface that represents a assert which is the origin assert of another assert and have rows.
+ * Interface that represents a assert with {@link org.assertj.db.type.Row}.
  *
  * @author Régis Pouiller
+ *
+ * @param <R> The class of the equivalent row assert (an sub-class of {@link org.assertj.db.api.navigation.RowAssert}).
  */
-public interface OriginWithColumnsAndRowsFromChange
-        extends OriginWithChanges, WithColumns<ChangeColumnAssert>, WithColumnsFromChange<ChangeColumnAssert>,
-        WithRowsFromChange<ChangeRowAssert> {
+public interface WithRowsFromChange<R extends RowAssert> {
+
+  /**
+   * Returns the assert on the row at start point.
+   *
+   * @return The assert on the row at start point.
+   */
+  public R rowAtStartPoint();
+
+  /**
+   * Returns the assert on the row at end point.
+   *
+   * @return The assert on the row at end point.
+   */
+  public R rowAtEndPoint();
 }
