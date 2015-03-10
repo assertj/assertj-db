@@ -31,7 +31,7 @@ import java.util.Map;
  *
  * @author Régis Pouiller
  */
-public class ChangesAssert extends AbstractAssertWithOriginWithChanges<ChangesAssert, ChangesAssert> implements
+public class ChangesAssert extends AbstractAssertWithOrigin<ChangesAssert, ChangesAssert> implements
         OriginWithChanges,
         AssertOnNumberOfChanges<ChangesAssert> {
 
