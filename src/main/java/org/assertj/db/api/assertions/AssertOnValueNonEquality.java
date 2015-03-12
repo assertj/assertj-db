@@ -17,6 +17,16 @@ public interface AssertOnValueNonEquality<T extends AssertOnValueNonEquality<T>>
   /**
    * Verifies that the value is not equal to a boolean.
    * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is not equal to true boolean :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isNotEqualTo(true);
+   * </code>
+   * </pre>
+   * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is not equal to true boolean :
    * </p>
@@ -35,6 +45,17 @@ public interface AssertOnValueNonEquality<T extends AssertOnValueNonEquality<T>>
 
   /**
    * Verifies that the value is not equal to a array of bytes.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is not equal to a array of bytes loaded from a file in the classpath :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * byte[] bytes = bytesContentFromClassPathOf(&quot;file.png&quot;);
+   * assertThat(table).row().value().isNotEqualTo(bytes);
+   * </code>
+   * </pre>
    * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is not equal to a array of bytes loaded from a file in the classpath :
@@ -56,6 +77,16 @@ public interface AssertOnValueNonEquality<T extends AssertOnValueNonEquality<T>>
   /**
    * Verifies that the value is not equal to a date/time value.
    * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is not equal to a date/time value :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isNotEqualTo(DateTimeValue.of(DateValue.of(2014, 7, 7), TimeValue.of(21, 29)));
+   * </code>
+   * </pre>
+   * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is not equal to a date/time value :
    * </p>
@@ -74,6 +105,16 @@ public interface AssertOnValueNonEquality<T extends AssertOnValueNonEquality<T>>
 
   /**
    * Verifies that the value is not equal to a date value.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is not equal to a date value :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isNotEqualTo(DateValue.of(2014, 7, 7));
+   * </code>
+   * </pre>
    * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is not equal to a date value :
@@ -94,6 +135,16 @@ public interface AssertOnValueNonEquality<T extends AssertOnValueNonEquality<T>>
   /**
    * Verifies that the value is not equal to a number.
    * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is not equal to number 3 :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isNotEqualTo(3);
+   * </code>
+   * </pre>
+   * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is not equal to number 3 :
    * </p>
@@ -112,6 +163,16 @@ public interface AssertOnValueNonEquality<T extends AssertOnValueNonEquality<T>>
 
   /**
    * Verifies that the value is not equal to a text.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is not equal to a text :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isNotEqualTo(&quot;text&quot;);
+   * </code>
+   * </pre>
    * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is not equal to a text :
@@ -132,6 +193,16 @@ public interface AssertOnValueNonEquality<T extends AssertOnValueNonEquality<T>>
   /**
    * Verifies that the value is not equal to a time value.
    * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is not equal to a time value :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isNotEqualTo(TimeValue.of(21, 29, 30));
+   * </code>
+   * </pre>
+   * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is not equal to a time value :
    * </p>
@@ -150,6 +221,16 @@ public interface AssertOnValueNonEquality<T extends AssertOnValueNonEquality<T>>
 
   /**
    * Verifies that the value is not equal to zero.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is not equal to zero :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isNotZero();
+   * </code>
+   * </pre>
    * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is not equal to zero :

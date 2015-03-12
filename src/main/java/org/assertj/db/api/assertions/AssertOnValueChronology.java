@@ -17,6 +17,16 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
   /**
    * Verifies that the value is before a date value.
    * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is before a date value :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isBefore(DateValue.of(2007, 12, 23));
+   * </code>
+   * </pre>
+   * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is before a date value :
    * </p>
@@ -35,6 +45,16 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
 
   /**
    * Verifies that the value is before a time value.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is before a time value :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isBefore(TimeValue.of(2007, 12, 23));
+   * </code>
+   * </pre>
    * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is before a time value :
@@ -55,6 +75,16 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
   /**
    * Verifies that the value is before a date/time value.
    * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is before a date/time value :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isBefore(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(21, 29)));
+   * </code>
+   * </pre>
+   * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is before a date/time value :
    * </p>
@@ -73,6 +103,16 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
 
   /**
    * Verifies that the value is before a date, time or date/time represented by a {@code String}.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is before a date represented by a {@code String} :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isBefore(&quot;2007-12-23&quot;);
+   * </code>
+   * </pre>
    * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is before a date represented by a {@code String} :
@@ -93,6 +133,16 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
   /**
    * Verifies that the value is before or equal to a date value.
    * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is before or equal to a date value :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isBeforeOrEqualTo(DateValue.of(2007, 12, 23));
+   * </code>
+   * </pre>
+   * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is before or equal to a date value :
    * </p>
@@ -111,6 +161,16 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
 
   /**
    * Verifies that the value is before or equal to a time value.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is before or equal to a time value :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isBeforeOrEqualTo(TimeValue.of(2007, 12, 23));
+   * </code>
+   * </pre>
    * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is before or equal to a time value :
@@ -131,6 +191,16 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
   /**
    * Verifies that the value is before or equal to a date/time value.
    * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is before or equal to a date/time value :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isBeforeOrEqualTo(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(21, 29)));
+   * </code>
+   * </pre>
+   * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is before or equal to a date/time value :
    * </p>
@@ -149,6 +219,16 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
 
   /**
    * Verifies that the value is before or equal to a date, time or date/time represented by a {@code String}.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is before or equal to a date represented by a {@code String} :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isBeforeOrEqualTo(&quot;2007-12-23&quot;);
+   * </code>
+   * </pre>
    * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is before or equal to a date represented by a {@code String} :
@@ -169,6 +249,16 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
   /**
    * Verifies that the value is after a date value.
    * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is after a date value :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isAfter(DateValue.of(2007, 12, 23));
+   * </code>
+   * </pre>
+   * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is after a date value :
    * </p>
@@ -187,6 +277,16 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
 
   /**
    * Verifies that the value is after a time value.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is after a time value :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isAfter(TimeValue.of(2007, 12, 23));
+   * </code>
+   * </pre>
    * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is after a time value :
@@ -207,6 +307,16 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
   /**
    * Verifies that the value is after a date/time value.
    * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is after a date/time value :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isAfter(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(21, 29)));
+   * </code>
+   * </pre>
+   * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is after a date/time value :
    * </p>
@@ -225,6 +335,16 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
 
   /**
    * Verifies that the value is after a date, time or date/time represented by a {@code String}.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is after a date represented by a {@code String} :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isAfter(&quot;2007-12-23&quot;);
+   * </code>
+   * </pre>
    * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is after a date represented by a {@code String} :
@@ -245,6 +365,16 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
   /**
    * Verifies that the value is after or equal to a date value.
    * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is after or equal to a date value :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isAfterOrEqualTo(DateValue.of(2007, 12, 23));
+   * </code>
+   * </pre>
+   * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is after or equal to a date value :
    * </p>
@@ -263,6 +393,16 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
 
   /**
    * Verifies that the value is after or equal to a time value.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is after or equal to a time value :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isAfterOrEqualTo(TimeValue.of(2007, 12, 23));
+   * </code>
+   * </pre>
    * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is after or equal to a time value :
@@ -283,6 +423,16 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
   /**
    * Verifies that the value is after or equal to a date/time value.
    * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is after or equal to a date/time value :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isAfterOrEqualTo(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(21, 29)));
+   * </code>
+   * </pre>
+   * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is after or equal to a date/time value :
    * </p>
@@ -301,6 +451,16 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
 
   /**
    * Verifies that the value is after or equal to a date, time or date/time represented by a {@code String}.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is after or equal to a date represented by a {@code String} :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isAfterOrEqualTo(&quot;2007-12-23&quot;);
+   * </code>
+   * </pre>
    * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is after or equal to a date represented by a {@code String} :

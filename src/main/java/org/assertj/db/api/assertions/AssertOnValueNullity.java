@@ -13,6 +13,16 @@ public interface AssertOnValueNullity<T extends AssertOnValueNullity<T>> {
   /**
    * Verifies that the value is {@code null}.
    * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is {@code null} :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isNull();
+   * </code>
+   * </pre>
+   * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is {@code null} :
    * </p>
@@ -30,6 +40,16 @@ public interface AssertOnValueNullity<T extends AssertOnValueNullity<T>> {
 
   /**
    * Verifies that the value is not {@code null}.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is not {@code null} :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isNotNull();
+   * </code>
+   * </pre>
    * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is not {@code null} :

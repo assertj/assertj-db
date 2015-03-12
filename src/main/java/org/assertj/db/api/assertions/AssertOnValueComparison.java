@@ -25,6 +25,16 @@ public interface AssertOnValueComparison<T extends AssertOnValueComparison<T>> {
   /**
    * Verifies that the value is greater than a number.
    * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is greater than number 3 :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isGreaterThan(3);
+   * </code>
+   * </pre>
+   * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is greater than number 3 :
    * </p>
@@ -43,6 +53,16 @@ public interface AssertOnValueComparison<T extends AssertOnValueComparison<T>> {
 
   /**
    * Verifies that the value is less than a number.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is less than number 3 :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isLessThan(3);
+   * </code>
+   * </pre>
    * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is less than number 3 :
@@ -63,6 +83,16 @@ public interface AssertOnValueComparison<T extends AssertOnValueComparison<T>> {
   /**
    * Verifies that the value is greater than or equal to a number.
    * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is greater than or equal to number 3 :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isGreaterThanOrEqual(3);
+   * </code>
+   * </pre>
+   * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is greater than or equal to number 3 :
    * </p>
@@ -81,6 +111,16 @@ public interface AssertOnValueComparison<T extends AssertOnValueComparison<T>> {
 
   /**
    * Verifies that the value is less than or equal to a number.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is less than or equal to number 3 :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isLessThanOrEqual(3);
+   * </code>
+   * </pre>
    * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
    * of the first {@code Change} is less than or equal to number 3 :
