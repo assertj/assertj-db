@@ -133,23 +133,14 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
     }
   }
 
-  /**
-   * Returns assertion methods on the next {@link Row} in the list of {@link Row}.
-   * 
-   * @return An object to make assertions on the next {@link Row}.
-   * @throws AssertJDBException If the {@code index} is out of the bounds.
-   */
+  /** {@inheritDoc} */
+  @Override
   public R row() {
     return getRowAssertInstance(indexNextRow);
   }
 
-  /**
-   * Returns assertion methods on the {@link Row} at the {@code index} in parameter.
-   * 
-   * @param index The index corresponding to the {@link Row}.
-   * @return An object to make assertions on the {@link Row}.
-   * @throws AssertJDBException If the {@code index} is out of the bounds.
-   */
+  /** {@inheritDoc} */
+  @Override
   public R row(int index) {
     return getRowAssertInstance(index);
   }
@@ -200,35 +191,20 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
     }
   }
 
-  /**
-   * Returns assertion methods on the next {@link Column} in the list of {@link Column}.
-   * 
-   * @return An object to make assertions on the next {@link Column}.
-   * @throws AssertJDBException If the {@code index} is out of the bounds.
-   */
+  /** {@inheritDoc} */
+  @Override
   public C column() {
     return getColumnAssertInstance(indexNextColumn);
   }
 
-  /**
-   * Returns assertion methods on the {@link Column} at the {@code index} in parameter.
-   * 
-   * @param index The index corresponding to the {@link Column}.
-   * @return An object to make assertions on the {@link Column}.
-   * @throws AssertJDBException If the {@code index} is out of the bounds.
-   */
+  /** {@inheritDoc} */
+  @Override
   public C column(int index) {
     return getColumnAssertInstance(index);
   }
 
-  /**
-   * Returns assertion methods on the {@link Column} corresponding to the column name in parameter.
-   * 
-   * @param columnName The column name.
-   * @return An object to make assertions on the {@link Column}.
-   * @throws NullPointerException If the column name in parameter is null.
-   * @throws AssertJDBException If there is no column with this name.
-   */
+  /** {@inheritDoc} */
+  @Override
   public C column(String columnName) {
     if (columnName == null) {
       throw new NullPointerException("Column name must be not null");

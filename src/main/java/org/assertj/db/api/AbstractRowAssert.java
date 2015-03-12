@@ -63,14 +63,8 @@ public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends A
     return row.getValuesList();
   }
 
-  /**
-   * Returns assertion methods on the value corresponding to the column name in parameter.
-   * 
-   * @param columnName The column name.
-   * @return An object to make assertions on the value.
-   * @throws NullPointerException If the column name in parameter is null.
-   * @throws AssertJDBException If there is no column with this name.
-   */
+  /** {@inheritDoc} */
+  @Override
   public RV value(String columnName) {
     if (columnName == null) {
       throw new NullPointerException("Column name must be not null");
