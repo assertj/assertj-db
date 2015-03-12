@@ -12,7 +12,10 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.db.api.assertions.AssertOnChange;
+import org.assertj.db.api.assertions.AssertOnChangeType;
+import org.assertj.db.api.assertions.AssertOnDataType;
+import org.assertj.db.api.assertions.AssertOnModifiedColumns;
+import org.assertj.db.api.assertions.AssertOnPrimaryKey;
 import org.assertj.db.api.origin.OriginWithColumnsAndRowsFromChange;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Change;
@@ -32,7 +35,8 @@ import java.util.Map;
  * @author Régis Pouiller
  */
 public class ChangeAssert extends AbstractAssertWithOriginWithChanges<ChangeAssert, ChangesAssert>
-        implements OriginWithColumnsAndRowsFromChange, AssertOnChange<ChangeAssert> {
+        implements OriginWithColumnsAndRowsFromChange, AssertOnDataType<ChangeAssert>, AssertOnPrimaryKey<ChangeAssert>,
+        AssertOnChangeType<ChangeAssert>, AssertOnModifiedColumns<ChangeAssert> {
 
   /**
    * The actual change on which the assertion is.
@@ -68,11 +72,8 @@ public class ChangeAssert extends AbstractAssertWithOriginWithChanges<ChangeAsse
     this.change = change;
   }
 
-  /**
-   * Returns the assert on the row at start point.
-   *
-   * @return The assert on the row at start point.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeRowAssert rowAtStartPoint() {
     if (changeRowAssertAtStartPoint == null) {
       StringBuilder stringBuilder = new StringBuilder("Row at start point of ");
@@ -82,11 +83,8 @@ public class ChangeAssert extends AbstractAssertWithOriginWithChanges<ChangeAsse
     return changeRowAssertAtStartPoint;
   }
 
-  /**
-   * Returns the assert on the row at end point.
-   *
-   * @return The assert on the row at end point.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeRowAssert rowAtEndPoint() {
     if (changeRowAssertAtEndPoint == null) {
       StringBuilder stringBuilder = new StringBuilder("Row at end point of ");
@@ -104,7 +102,7 @@ public class ChangeAssert extends AbstractAssertWithOriginWithChanges<ChangeAsse
    * @return The value assert implementation.
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
    */
-  protected ChangeColumnAssert getChangeColumnAssertInstance(int index) {
+  private ChangeColumnAssert getChangeColumnAssertInstance(int index) {
     if (columnsAssertMap.containsKey(index)) {
       ChangeColumnAssert changeColumnAssert = columnsAssertMap.get(index);
       indexNextColumn = index + 1;
@@ -135,35 +133,20 @@ public class ChangeAssert extends AbstractAssertWithOriginWithChanges<ChangeAsse
     return instance.as("Column at index " + index + " of " + info.descriptionText());
   }
 
-  /**
-   * Returns assertion methods on the next {@link ChangeColumnAssert} in the list of {@link ChangeColumnAssert}.
-   *
-   * @return An object to make assertions on the next {@link ChangeColumnAssert}.
-   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeColumnAssert column() {
     return getChangeColumnAssertInstance(indexNextColumn);
   }
 
-  /**
-   * Returns assertion methods on the {@link ChangeColumnAssert} at the {@code index} in parameter.
-   *
-   * @param index The index corresponding to the {@link ChangeColumnAssert}.
-   * @return An object to make assertions on the {@link ChangeColumnAssert}.
-   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeColumnAssert column(int index) {
     return getChangeColumnAssertInstance(index);
   }
 
-  /**
-   * Returns assertion methods on the {@link ChangeColumnAssert} corresponding to the column name in parameter.
-   *
-   * @param columnName The column name.
-   * @return An object to make assertions on the {@link ChangeColumnAssert}.
-   * @throws NullPointerException                        If the column name in parameter is null.
-   * @throws org.assertj.db.exception.AssertJDBException If there is no column with this name.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeColumnAssert column(String columnName) {
     if (columnName == null) {
       throw new NullPointerException("Column name must be not null");
@@ -176,12 +159,8 @@ public class ChangeAssert extends AbstractAssertWithOriginWithChanges<ChangeAsse
     return getChangeColumnAssertInstance(index);
   }
 
-  /**
-   * Returns assertion methods on the next {@link ChangeColumnAssert} in the list of the modified columns.
-   *
-   * @return An object to make assertions on the {@link ChangeColumnAssert}.
-   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeColumnAssert columnAmongTheModifiedOnes() {
     Integer[] indexesOfModifiedColumns = Changes.getIndexesOfModifiedColumns(change);
     for (Integer indexModified : indexesOfModifiedColumns) {
@@ -192,13 +171,8 @@ public class ChangeAssert extends AbstractAssertWithOriginWithChanges<ChangeAsse
     throw new AssertJDBException("No more modified columns");
   }
 
-  /**
-   * Returns assertion methods on the {@link ChangeColumnAssert} at the {@code index} in parameter among the modified columns.
-   *
-   * @param index The index corresponding to the {@link ChangeColumnAssert}.
-   * @return An object to make assertions on the {@link ChangeColumnAssert}.
-   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeColumnAssert columnAmongTheModifiedOnes(int index) {
     Integer[] indexesOfModifiedColumns = Changes.getIndexesOfModifiedColumns(change);
     int size = indexesOfModifiedColumns.length;
@@ -209,14 +183,8 @@ public class ChangeAssert extends AbstractAssertWithOriginWithChanges<ChangeAsse
     return getChangeColumnAssertInstance(indexModified);
   }
 
-  /**
-   * Returns assertion methods on the {@link ChangeColumnAssert} corresponding to the column name in parameter among the modified columns.
-   *
-   * @param columnName The column name.
-   * @return An object to make assertions on the {@link ChangeColumnAssert}.
-   * @throws NullPointerException                        If the column name in parameter is null.
-   * @throws org.assertj.db.exception.AssertJDBException If there is no column with this name.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeColumnAssert columnAmongTheModifiedOnes(String columnName) {
     if (columnName == null) {
       throw new NullPointerException("Column name must be not null");
@@ -232,249 +200,80 @@ public class ChangeAssert extends AbstractAssertWithOriginWithChanges<ChangeAsse
     throw new AssertJDBException("Column <%s> do not exist among the modified columns", columnName);
   }
 
-  /**
-   * Verifies that the data type on which the change is equal to the type in parameter.
-   * <p>
-   * Example where the assertion verifies that the change is on data type {@code TABLE} :
-   * </p>
-   * <pre>
-   * <code class='java'>
-   * assertThat(changes).change(1).isOnDataType(DataType.TABLE);
-   * </code>
-   * </pre>
-   *
-   * @param expected The expected type to compare to.
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type is different to the type in parameter.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeAssert isOnDataType(DataType expected) {
     return AssertionsOnChange.isOnDataType(myself, info, change, expected);
   }
 
-  /**
-   * Verifies that the data type on which the change is a table.
-   * <p>
-   * Example where the assertion verifies that the change is on data type {@code TABLE} :
-   * </p>
-   * <pre>
-   * <code class='java'>
-   * assertThat(changes).change(1).isOnTable();
-   * </code>
-   * </pre>
-   *
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type is different to the type in parameter.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeAssert isOnTable() {
     return AssertionsOnChange.isOnTable(myself, info, change);
   }
 
-  /**
-   * Verifies that the data type on which the change is a request.
-   * <p>
-   * Example where the assertion verifies that the change is on data type {@code REQUEST} :
-   * </p>
-   * <pre>
-   * <code class='java'>
-   * assertThat(changes).change(1).isOnRequest();
-   * </code>
-   * </pre>
-   *
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type is different to the type in parameter.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeAssert isOnRequest() {
     return AssertionsOnChange.isOnRequest(myself, info, change);
   }
 
-  /**
-   * Verifies that the change is a table with the name in parameter.
-   * <p>
-   * Example where the assertion verifies that the change is on {@code TABLE} called movie :
-   * </p>
-   * <pre>
-   * <code class='java'>
-   * assertThat(changes).change(1).isOnTable("movie");
-   * </code>
-   * </pre>
-   *
-   * @param name The name of the table on which is the change.
-   * @return {@code this} assertion object.
-   * @throws AssertionError                 If the type is different to the type in parameter.
-   * @throws java.lang.NullPointerException If the name in parameter is {@code null}.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeAssert isOnTable(String name) {
     return AssertionsOnChange.isOnTable(myself, info, change, name);
   }
 
-  /**
-   * Verifies that primary of the rows of the change is the same as the parameters.
-   * <p>
-   * Example where the assertion verifies that primary key is the column called id :
-   * </p>
-   * <pre>
-   * <code class='java'>
-   * assertThat(changes).change(1).hasPksNames("id");
-   * </code>
-   * </pre>
-   *
-   * @param names The names of the primary key associated with the rows of the change.
-   * @return {@code this} assertion object.
-   * @throws AssertionError                 If the type is different to the type in parameter.
-   * @throws java.lang.NullPointerException If one of the names in parameters is {@code null}.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeAssert hasPksNames(String... names) {
     return AssertionsOnChange.hasPksNames(myself, info, change, names);
   }
 
-  /**
-   * Verifies that the values primary of the rows of the change are the same as the parameters.
-   * <p>
-   * Example where the assertion verifies that primary key have the value 1 :
-   * </p>
-   * <pre>
-   * <code class='java'>
-   * assertThat(changes).change(1).hasPksValues(1);
-   * </code>
-   * </pre>
-   *
-   * @param values The values of the primary key associated with the rows of the change.
-   * @return {@code this} assertion object.
-   * @throws AssertionError                 If the type is different to the type in parameter.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeAssert hasPksValues(Object... values) {
     return AssertionsOnChange.hasPksValues(myself, info, change, values);
   }
 
-  /**
-   * Verifies that the type of the change is equal to the type in parameter.
-   * <p>
-   * Example where the assertion verifies that the change is of type {@code CREATION} :
-   * </p>
-   * <pre>
-   * <code class='java'>
-   * assertThat(changes).change(1).isOfType(ChangeType.CREATION);
-   * </code>
-   * </pre>
-   *
-   * @param expected The expected type to compare to.
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type is different to the type in parameter.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeAssert isOfType(ChangeType expected) {
     return AssertionsOnChange.isOfType(myself, info, change, expected);
   }
 
-  /**
-   * Verifies that the type of the change is a creation.
-   * <p>
-   * Example where the assertion verifies that the change is a creation :
-   * </p>
-   * <pre>
-   * <code class='java'>
-   * assertThat(changes).change(1).isCreation();
-   * </code>
-   * </pre>
-   *
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type is different to the type in parameter.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeAssert isCreation() {
     return AssertionsOnChange.isCreation(myself, info, change);
   }
 
-  /**
-   * Verifies that the type of the change is a modification.
-   * <p>
-   * Example where the assertion verifies that the change is a modification :
-   * </p>
-   * <pre>
-   * <code class='java'>
-   * assertThat(changes).change(1).isModification();
-   * </code>
-   * </pre>
-   *
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type is different to the type in parameter.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeAssert isModification() {
     return AssertionsOnChange.isModification(myself, info, change);
   }
 
-  /**
-   * Verifies that the type of the change is a deletion.
-   * <p>
-   * Example where the assertion verifies that the change is a deletion :
-   * </p>
-   * <pre>
-   * <code class='java'>
-   * assertThat(changes).change(1).isDeletion();
-   * </code>
-   * </pre>
-   *
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type is different to the type in parameter.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeAssert isDeletion() {
     return AssertionsOnChange.isDeletion(myself, info, change);
   }
 
-  /**
-   * Verifies that the number of columns with a modification in the values between the start point and the end point
-   * is equals to the number in parameter.
-   * <p>
-   * Example where the assertion verifies that there are 3 modified columns :
-   * </p>
-   * <pre>
-   * <code class='java'>
-   * assertThat(changes).change(1).hasNumberOfModifiedColumns(3);
-   * </code>
-   * </pre>
-   *
-   * @param number The expected number of modified columns
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type is different to the type in parameter.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeAssert hasNumberOfModifiedColumns(int number) {
     return AssertionsOnChange.hasNumberOfModifiedColumns(myself, info, change, number);
   }
 
-  /**
-   * Verifies that the indexes of columns with a modification in the values between the start point and the end point
-   * is equals to the parameters.
-   * <p>
-   * Example where the assertion verifies that indexes of modified columns are 3 and 5 :
-   * </p>
-   * <pre>
-   * <code class='java'>
-   * assertThat(changes).change(1).hasModifiedColumns(3, 5);
-   * </code>
-   * </pre>
-   *
-   * @param indexes Indexes of the modified columns.
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type is different to the type in parameter.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeAssert hasModifiedColumns(Integer... indexes) {
     return AssertionsOnChange.hasModifiedColumns(myself, info, change, indexes);
   }
 
-  /**
-   * Verifies that the names of columns with a modification in the values between the start point and the end point
-   * is equals to the parameters.
-   * <p>
-   * Example where the assertion verifies that names of modified columns are "name" and "birth" :
-   * </p>
-   * <pre>
-   * <code class='java'>
-   * assertThat(changes).change(1).hasModifiedColumns("name", "birth");
-   * </code>
-   * </pre>
-   *
-   * @param names Names of the modified columns.
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type is different to the type in parameter.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeAssert hasModifiedColumns(String... names) {
     return AssertionsOnChange.hasModifiedColumns(myself, info, change, names);
   }

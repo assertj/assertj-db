@@ -94,35 +94,20 @@ public class ChangeRowAssert extends AbstractAssertWithOriginWithColumnsAndRowsF
     return instance.as("Value at index " + index + " of " + info.descriptionText());
   }
 
-  /**
-   * Returns assertion methods on the next value in the list of values.
-   *
-   * @return An object to make assertions on the next value.
-   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeRowValueAssert value() {
     return getChangeValueAssertInstance(indexNextValue);
   }
 
-  /**
-   * Returns assertion methods on the value at the {@code index} in parameter.
-   *
-   * @param index The index corresponding to the value.
-   * @return An object to make assertions on the value.
-   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeRowValueAssert value(int index) {
     return getChangeValueAssertInstance(index);
   }
 
-  /**
-   * Returns assertion methods on the value corresponding to the column name in parameter.
-   *
-   * @param columnName The column name.
-   * @return An object to make assertions on the value.
-   * @throws NullPointerException If the column name in parameter is null.
-   * @throws AssertJDBException If there is no column with this name.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeRowValueAssert value(String columnName) {
     if (columnName == null) {
       throw new NullPointerException("Column name must be not null");
