@@ -13,7 +13,6 @@
 package org.assertj.db.api;
 
 import org.assertj.db.api.navigation.WithValuesFromRow;
-import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Row;
 
@@ -44,17 +43,9 @@ public abstract class AbstractRowValueAssert<D extends AbstractDbData<D>, A exte
     super(selfType, originAssert, actualValue);
   }
 
-  /**
-   * Returns assertion methods on the value corresponding to the column name in parameter in the list of value of the
-   * original assertion.
-   * 
-   * @param columnName The column name.
-   * @return An object to make assertions on the value.
-   * @throws NullPointerException If the column name in parameter is null.
-   * @throws AssertJDBException If there is no column with this name.
-   */
+  /** {@inheritDoc} */
+  @Override
   public RV value(String columnName) {
     return returnToOrigin().value(columnName);
   }
-
 }

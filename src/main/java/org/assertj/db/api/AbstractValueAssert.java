@@ -15,7 +15,6 @@ package org.assertj.db.api;
 import org.assertj.db.api.assertions.*;
 import org.assertj.db.api.navigation.ValueAssert;
 import org.assertj.db.api.navigation.WithValues;
-import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.*;
 import org.assertj.db.util.AssertionsOnValue;
 
@@ -55,24 +54,14 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
     this.value = actualValue;
   }
 
-  /**
-   * Returns assertion methods on the next value in the list of value of the original assertion.
-   * 
-   * @return An object to make assertions on the next value.
-   * @throws AssertJDBException If the {@code index} is out of the bounds.
-   */
+  /** {@inheritDoc} */
+  @Override
   public V value() {
     return returnToOrigin().value();
   }
 
-  /**
-   * Returns assertion methods on the value at the {@code index} in parameter in the list of value of the original
-   * assertion.
-   * 
-   * @param index The index corresponding to the value.
-   * @return An object to make assertions on the value.
-   * @throws AssertJDBException If the {@code index} is out of the bounds.
-   */
+  /** {@inheritDoc} */
+  @Override
   public V value(int index) {
     return returnToOrigin().value(index);
   }

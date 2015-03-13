@@ -33,20 +33,14 @@ public class ChangeColumnValueAssert extends AbstractAssertWithValues<ChangeColu
     super(ChangeColumnValueAssert.class, originalAssert, value);
   }
 
-  /**
-   * Returns assertion methods on the value at the start point.
-   *
-   * @return An object to make assertions on the next value.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeColumnValueAssert valueAtStartPoint() {
     return origin.valueAtStartPoint();
   }
 
-  /**
-   * Returns assertion methods on the value at the end point.
-   *
-   * @return An object to make assertions on the value.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeColumnValueAssert valueAtEndPoint() {
     return origin.valueAtEndPoint();
   }

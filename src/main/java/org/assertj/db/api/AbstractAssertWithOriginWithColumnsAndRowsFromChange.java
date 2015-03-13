@@ -56,68 +56,38 @@ public abstract class AbstractAssertWithOriginWithColumnsAndRowsFromChange<E ext
     return origin.rowAtEndPoint();
   }
 
-  /**
-   * Returns assertion methods on the next {@link ChangeColumnAssert} in the list of {@link ChangeColumnAssert}.
-   *
-   * @return An object to make assertions on the next {@link ChangeColumnAssert}.
-   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeColumnAssert column() {
     return origin.column();
   }
 
-  /**
-   * Returns assertion methods on the {@link ChangeColumnAssert} at the {@code index} in parameter.
-   *
-   * @param index The index corresponding to the {@link ChangeColumnAssert}.
-   * @return An object to make assertions on the {@link ChangeColumnAssert}.
-   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeColumnAssert column(int index) {
     return origin.column(index);
   }
 
-  /**
-   * Returns assertion methods on the {@link ChangeColumnAssert} corresponding to the column name in parameter.
-   *
-   * @param columnName The column name.
-   * @return An object to make assertions on the {@link ChangeColumnAssert}.
-   * @throws NullPointerException If the column name in parameter is null.
-   * @throws org.assertj.db.exception.AssertJDBException If there is no column with this name.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeColumnAssert column(String columnName) {
     return origin.column(columnName);
   }
 
-  /**
-   * Returns assertion methods on the next {@link ChangeColumnAssert} in the list of the modified columns.
-   *
-   * @return An object to make assertions on the {@link ChangeColumnAssert}.
-   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeColumnAssert columnAmongTheModifiedOnes() {
     return origin.columnAmongTheModifiedOnes();
   }
 
-  /**
-   * Returns assertion methods on the {@link ChangeColumnAssert} at the {@code index} in parameter among the modified columns.
-   *
-   * @param index The index corresponding to the {@link ChangeColumnAssert}.
-   * @return An object to make assertions on the {@link ChangeColumnAssert}.
-   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeColumnAssert columnAmongTheModifiedOnes(int index) {
     return origin.columnAmongTheModifiedOnes(index);
   }
 
-  /**
-   * Returns assertion methods on the {@link ChangeColumnAssert} corresponding to the column name in parameter among the modified columns.
-   *
-   * @param columnName The column name.
-   * @return An object to make assertions on the {@link ChangeColumnAssert}.
-   * @throws NullPointerException                        If the column name in parameter is null.
-   * @throws org.assertj.db.exception.AssertJDBException If there is no column with this name.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeColumnAssert columnAmongTheModifiedOnes(String columnName) {
     return origin.columnAmongTheModifiedOnes(columnName);
   }

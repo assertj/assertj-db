@@ -159,9 +159,7 @@ public class ChangesAssert extends AbstractAssertWithOrigin<ChangesAssert, Chang
     return changesAssert;
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public ChangesAssert ofAll() {
     if (origin != null) {
@@ -170,9 +168,7 @@ public class ChangesAssert extends AbstractAssertWithOrigin<ChangesAssert, Chang
     return this;
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public ChangesAssert ofCreation() {
     if (origin != null) {
@@ -181,9 +177,7 @@ public class ChangesAssert extends AbstractAssertWithOrigin<ChangesAssert, Chang
     return getChangeAssertInstance(ChangeType.CREATION, null);
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public ChangesAssert ofModification() {
     if (origin != null) {
@@ -192,9 +186,7 @@ public class ChangesAssert extends AbstractAssertWithOrigin<ChangesAssert, Chang
     return getChangeAssertInstance(ChangeType.MODIFICATION, null);
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public ChangesAssert ofDeletion() {
     if (origin != null) {
@@ -203,9 +195,7 @@ public class ChangesAssert extends AbstractAssertWithOrigin<ChangesAssert, Chang
     return getChangeAssertInstance(ChangeType.DELETION, null);
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public ChangesAssert ofCreationOnTable(String tableName) {
     if (origin != null) {
@@ -214,9 +204,7 @@ public class ChangesAssert extends AbstractAssertWithOrigin<ChangesAssert, Chang
     return getChangeAssertInstance(ChangeType.CREATION, tableName);
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public ChangesAssert ofModificationOnTable(String tableName) {
     if (origin != null) {
@@ -225,9 +213,7 @@ public class ChangesAssert extends AbstractAssertWithOrigin<ChangesAssert, Chang
     return getChangeAssertInstance(ChangeType.MODIFICATION, tableName);
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public ChangesAssert ofDeletionOnTable(String tableName) {
     if (origin != null) {
@@ -236,9 +222,7 @@ public class ChangesAssert extends AbstractAssertWithOrigin<ChangesAssert, Chang
     return getChangeAssertInstance(ChangeType.DELETION, tableName);
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public ChangesAssert onTable(String tableName) {
     if (origin != null) {
@@ -330,30 +314,19 @@ public class ChangesAssert extends AbstractAssertWithOrigin<ChangesAssert, Chang
     map.put(tableName, index);
   }
 
-  /**
-   * Returns assertion methods on the next change in the list of changes.
-   *
-   * @return An object to make assertions on the next change.
-   * @throws AssertJDBException If the {@code index} is out of the bounds.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeAssert change() {
     return getChangeAssertInstance(null, null, getIndexNextChange(null, null));
   }
 
-  /**
-   * Returns assertion methods on the change at the {@code index} in parameter.
-   *
-   * @param index The index corresponding to the change.
-   * @return An object to make assertions on the change.
-   * @throws AssertJDBException If the {@code index} is out of the bounds.
-   */
+  /** {@inheritDoc} */
+  @Override
   public ChangeAssert change(int index) {
     return getChangeAssertInstance(null, null, index);
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public ChangeAssert changeOfCreation() {
     if (origin != null) {
@@ -362,9 +335,7 @@ public class ChangesAssert extends AbstractAssertWithOrigin<ChangesAssert, Chang
     return getChangeAssertInstance(ChangeType.CREATION, null, getIndexNextChange(ChangeType.CREATION, null));
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public ChangeAssert changeOfCreation(int index) {
     if (origin != null) {
@@ -373,9 +344,7 @@ public class ChangesAssert extends AbstractAssertWithOrigin<ChangesAssert, Chang
     return getChangeAssertInstance(ChangeType.CREATION, null, index);
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public ChangeAssert changeOfModification() {
     if (origin != null) {
@@ -384,9 +353,7 @@ public class ChangesAssert extends AbstractAssertWithOrigin<ChangesAssert, Chang
     return getChangeAssertInstance(ChangeType.MODIFICATION, null, getIndexNextChange(ChangeType.MODIFICATION, null));
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public ChangeAssert changeOfModification(int index) {
     if (origin != null) {
@@ -395,9 +362,7 @@ public class ChangesAssert extends AbstractAssertWithOrigin<ChangesAssert, Chang
     return getChangeAssertInstance(ChangeType.MODIFICATION, null, index);
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public ChangeAssert changeOfDeletion() {
     if (origin != null) {
@@ -406,9 +371,7 @@ public class ChangesAssert extends AbstractAssertWithOrigin<ChangesAssert, Chang
     return getChangeAssertInstance(ChangeType.DELETION, null, getIndexNextChange(ChangeType.DELETION, null));
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public ChangeAssert changeOfDeletion(int index) {
     if (origin != null) {
@@ -417,9 +380,7 @@ public class ChangesAssert extends AbstractAssertWithOrigin<ChangesAssert, Chang
     return getChangeAssertInstance(ChangeType.DELETION, null, index);
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public ChangeAssert changeOnTable(String tableName) {
     if (origin != null) {
@@ -428,9 +389,7 @@ public class ChangesAssert extends AbstractAssertWithOrigin<ChangesAssert, Chang
     return getChangeAssertInstance(null, tableName, getIndexNextChange(null, tableName));
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public ChangeAssert changeOnTable(String tableName, int index) {
     if (origin != null) {
@@ -439,9 +398,7 @@ public class ChangesAssert extends AbstractAssertWithOrigin<ChangesAssert, Chang
     return getChangeAssertInstance(null, tableName, index);
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public ChangeAssert changeOnTableWithPks(String tableName, Object... pksValues) {
     if (origin != null) {
@@ -470,9 +427,7 @@ public class ChangesAssert extends AbstractAssertWithOrigin<ChangesAssert, Chang
     throw new AssertJDBException("No change found for table " + tableName + " and primary keys " + Arrays.asList(pksValues));
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public ChangeAssert changeOfCreationOnTable(String tableName) {
     if (origin != null) {
@@ -481,9 +436,7 @@ public class ChangesAssert extends AbstractAssertWithOrigin<ChangesAssert, Chang
     return getChangeAssertInstance(ChangeType.CREATION, tableName, getIndexNextChange(ChangeType.CREATION, tableName));
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public ChangeAssert changeOfCreationOnTable(String tableName, int index) {
     if (origin != null) {
@@ -492,9 +445,7 @@ public class ChangesAssert extends AbstractAssertWithOrigin<ChangesAssert, Chang
     return getChangeAssertInstance(ChangeType.CREATION, tableName, index);
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public ChangeAssert changeOfModificationOnTable(String tableName) {
     if (origin != null) {
@@ -503,9 +454,7 @@ public class ChangesAssert extends AbstractAssertWithOrigin<ChangesAssert, Chang
     return getChangeAssertInstance(ChangeType.MODIFICATION, tableName, getIndexNextChange(ChangeType.MODIFICATION, tableName));
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public ChangeAssert changeOfModificationOnTable(String tableName, int index) {
     if (origin != null) {
@@ -514,9 +463,7 @@ public class ChangesAssert extends AbstractAssertWithOrigin<ChangesAssert, Chang
     return getChangeAssertInstance(ChangeType.MODIFICATION, tableName, index);
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public ChangeAssert changeOfDeletionOnTable(String tableName) {
     if (origin != null) {
@@ -525,9 +472,7 @@ public class ChangesAssert extends AbstractAssertWithOrigin<ChangesAssert, Chang
     return getChangeAssertInstance(ChangeType.DELETION, tableName, getIndexNextChange(ChangeType.DELETION, tableName));
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public ChangeAssert changeOfDeletionOnTable(String tableName, int index) {
     if (origin != null) {
