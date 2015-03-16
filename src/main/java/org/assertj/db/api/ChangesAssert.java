@@ -18,7 +18,7 @@ import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.Changes;
-import org.assertj.db.util.AssertionsOnChanges;
+import org.assertj.db.api.assertions.impl.AssertionsOnNumberOfChanges;
 import org.assertj.db.util.Values;
 
 import java.util.Arrays;
@@ -484,6 +484,6 @@ public class ChangesAssert extends AbstractAssertWithOrigin<ChangesAssert, Chang
   /** {@inheritDoc} */
   @Override
   public ChangesAssert hasNumberOfChanges(int expected) {
-    return AssertionsOnChanges.hasSize(myself, info, changes, expected);
+    return AssertionsOnNumberOfChanges.hasNumberOfChanges(myself, info, changes, expected);
   }
 }

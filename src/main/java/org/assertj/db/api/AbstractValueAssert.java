@@ -13,10 +13,10 @@
 package org.assertj.db.api;
 
 import org.assertj.db.api.assertions.*;
+import org.assertj.db.api.assertions.impl.*;
 import org.assertj.db.api.navigation.ValueAssert;
 import org.assertj.db.api.navigation.WithValues;
 import org.assertj.db.type.*;
-import org.assertj.db.util.AssertionsOnValue;
 
 /**
  * Assertion methods about the value.
@@ -69,294 +69,294 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
   /** {@inheritDoc} */
   @Override
   public V isOfType(ValueType expected) {
-    return AssertionsOnValue.isOfType(myself, info, value, expected);
+    return AssertionsOnValueType.isOfType(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isOfAnyOfTypes(ValueType... expected) {
-    return AssertionsOnValue.isOfAnyOfTypes(myself, info, value, expected);
+    return AssertionsOnValueType.isOfAnyOfTypes(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isNumber() {
-    return AssertionsOnValue.isNumber(myself, info, value);
+    return AssertionsOnValueType.isNumber(myself, info, value);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isBoolean() {
-    return AssertionsOnValue.isBoolean(myself, info, value);
+    return AssertionsOnValueType.isBoolean(myself, info, value);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isDate() {
-    return AssertionsOnValue.isDate(myself, info, value);
+    return AssertionsOnValueType.isDate(myself, info, value);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isTime() {
-    return AssertionsOnValue.isTime(myself, info, value);
+    return AssertionsOnValueType.isTime(myself, info, value);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isDateTime() {
-    return AssertionsOnValue.isDateTime(myself, info, value);
+    return AssertionsOnValueType.isDateTime(myself, info, value);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isBytes() {
-    return AssertionsOnValue.isBytes(myself, info, value);
+    return AssertionsOnValueType.isBytes(myself, info, value);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isText() {
-    return AssertionsOnValue.isText(myself, info, value);
+    return AssertionsOnValueType.isText(myself, info, value);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isNull() {
-    return AssertionsOnValue.isNull(myself, info, value);
+    return AssertionsOnValueNullity.isNull(myself, info, value);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isNotNull() {
-    return AssertionsOnValue.isNotNull(myself, info, value);
+    return AssertionsOnValueNullity.isNotNull(myself, info, value);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isEqualTo(Boolean expected) {
-    return AssertionsOnValue.isEqualTo(myself, info, value, expected);
+    return AssertionsOnValueEquality.isEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isTrue() {
-    return AssertionsOnValue.isTrue(myself, info, value);
+    return AssertionsOnValueEquality.isTrue(myself, info, value);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isFalse() {
-    return AssertionsOnValue.isFalse(myself, info, value);
+    return AssertionsOnValueEquality.isFalse(myself, info, value);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isEqualTo(Number expected) {
-    return AssertionsOnValue.isEqualTo(myself, info, value, expected);
+    return AssertionsOnValueEquality.isEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isEqualTo(byte[] expected) {
-    return AssertionsOnValue.isEqualTo(myself, info, value, expected);
+    return AssertionsOnValueEquality.isEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isEqualTo(String expected) {
-    return AssertionsOnValue.isEqualTo(myself, info, value, expected);
+    return AssertionsOnValueEquality.isEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isEqualTo(DateValue expected) {
-    return AssertionsOnValue.isEqualTo(myself, info, value, expected);
+    return AssertionsOnValueEquality.isEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isEqualTo(TimeValue expected) {
-    return AssertionsOnValue.isEqualTo(myself, info, value, expected);
+    return AssertionsOnValueEquality.isEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isEqualTo(DateTimeValue expected) {
-    return AssertionsOnValue.isEqualTo(myself, info, value, expected);
+    return AssertionsOnValueEquality.isEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isNotEqualTo(Boolean expected) {
-    return AssertionsOnValue.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValueNonEquality.isNotEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isNotEqualTo(byte[] expected) {
-    return AssertionsOnValue.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValueNonEquality.isNotEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isNotEqualTo(DateTimeValue expected) {
-    return AssertionsOnValue.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValueNonEquality.isNotEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isNotEqualTo(DateValue expected) {
-    return AssertionsOnValue.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValueNonEquality.isNotEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isNotEqualTo(Number expected) {
-    return AssertionsOnValue.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValueNonEquality.isNotEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isNotEqualTo(String expected) {
-    return AssertionsOnValue.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValueNonEquality.isNotEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isNotEqualTo(TimeValue expected) {
-    return AssertionsOnValue.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValueNonEquality.isNotEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isBefore(DateValue date) {
-    return AssertionsOnValue.isBefore(myself, info, value, date);
+    return AssertionsOnValueChronology.isBefore(myself, info, value, date);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isBefore(TimeValue time) {
-    return AssertionsOnValue.isBefore(myself, info, value, time);
+    return AssertionsOnValueChronology.isBefore(myself, info, value, time);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isBefore(DateTimeValue dateTime) {
-    return AssertionsOnValue.isBefore(myself, info, value, dateTime);
+    return AssertionsOnValueChronology.isBefore(myself, info, value, dateTime);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isBefore(String expected) {
-    return AssertionsOnValue.isBefore(myself, info, value, expected);
+    return AssertionsOnValueChronology.isBefore(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isBeforeOrEqualTo(DateValue date) {
-    return AssertionsOnValue.isBeforeOrEqualTo(myself, info, value, date);
+    return AssertionsOnValueChronology.isBeforeOrEqualTo(myself, info, value, date);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isBeforeOrEqualTo(TimeValue time) {
-    return AssertionsOnValue.isBeforeOrEqualTo(myself, info, value, time);
+    return AssertionsOnValueChronology.isBeforeOrEqualTo(myself, info, value, time);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isBeforeOrEqualTo(DateTimeValue dateTime) {
-    return AssertionsOnValue.isBeforeOrEqualTo(myself, info, value, dateTime);
+    return AssertionsOnValueChronology.isBeforeOrEqualTo(myself, info, value, dateTime);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isBeforeOrEqualTo(String expected) {
-    return AssertionsOnValue.isBeforeOrEqualTo(myself, info, value, expected);
+    return AssertionsOnValueChronology.isBeforeOrEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isAfter(DateValue date) {
-    return AssertionsOnValue.isAfter(myself, info, value, date);
+    return AssertionsOnValueChronology.isAfter(myself, info, value, date);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isAfter(TimeValue time) {
-    return AssertionsOnValue.isAfter(myself, info, value, time);
+    return AssertionsOnValueChronology.isAfter(myself, info, value, time);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isAfter(DateTimeValue dateTime) {
-    return AssertionsOnValue.isAfter(myself, info, value, dateTime);
+    return AssertionsOnValueChronology.isAfter(myself, info, value, dateTime);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isAfter(String expected) {
-    return AssertionsOnValue.isAfter(myself, info, value, expected);
+    return AssertionsOnValueChronology.isAfter(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isAfterOrEqualTo(DateValue date) {
-    return AssertionsOnValue.isAfterOrEqualTo(myself, info, value, date);
+    return AssertionsOnValueChronology.isAfterOrEqualTo(myself, info, value, date);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isAfterOrEqualTo(TimeValue time) {
-    return AssertionsOnValue.isAfterOrEqualTo(myself, info, value, time);
+    return AssertionsOnValueChronology.isAfterOrEqualTo(myself, info, value, time);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isAfterOrEqualTo(DateTimeValue dateTime) {
-    return AssertionsOnValue.isAfterOrEqualTo(myself, info, value, dateTime);
+    return AssertionsOnValueChronology.isAfterOrEqualTo(myself, info, value, dateTime);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isAfterOrEqualTo(String expected) {
-    return AssertionsOnValue.isAfterOrEqualTo(myself, info, value, expected);
+    return AssertionsOnValueChronology.isAfterOrEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isZero() {
-    return AssertionsOnValue.isZero(myself, info, value);
+    return AssertionsOnValueEquality.isZero(myself, info, value);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isNotZero() {
-    return AssertionsOnValue.isNotZero(myself, info, value);
+    return AssertionsOnValueNonEquality.isNotZero(myself, info, value);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isGreaterThan(Number expected) {
-    return AssertionsOnValue.isGreaterThan(myself, info, value, expected);
+    return AssertionsOnValueComparison.isGreaterThan(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isLessThan(Number expected) {
-    return AssertionsOnValue.isLessThan(myself, info, value, expected);
+    return AssertionsOnValueComparison.isLessThan(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isGreaterThanOrEqualTo(Number expected) {
-    return AssertionsOnValue.isGreaterThanOrEqualTo(myself, info, value, expected);
+    return AssertionsOnValueComparison.isGreaterThanOrEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isLessThanOrEqualTo(Number expected) {
-    return AssertionsOnValue.isLessThanOrEqualTo(myself, info, value, expected);
+    return AssertionsOnValueComparison.isLessThanOrEqualTo(myself, info, value, expected);
   }
 }

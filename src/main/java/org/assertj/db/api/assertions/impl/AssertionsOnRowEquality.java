@@ -10,27 +10,28 @@
  *
  * Copyright 2012-2014 the original author or authors.
  */
-package org.assertj.db.util;
+package org.assertj.db.api.assertions.impl;
 
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
 import org.assertj.db.type.ValueType;
+import org.assertj.db.util.Values;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
 import static org.assertj.db.error.ShouldBeValueTypeOfAny.shouldBeValueTypeOfAny;
-import static org.assertj.db.error.ShouldHaveColumnsSize.shouldHaveColumnsSize;
 import static org.assertj.db.util.Values.areEqual;
 
 /**
- * Utility methods related to assert on row.
+ * Implements the assertion method on the equality of a row.
  *
  * @author Régis Pouiller
+ * @see org.assertj.db.api.assertions.AssertOnRowEquality
  */
-public class AssertionsOnRow {
+public class AssertionsOnRowEquality {
 
   /**
    * To notice failures in the assertion.
@@ -40,26 +41,8 @@ public class AssertionsOnRow {
   /**
    * Private constructor.
    */
-  private AssertionsOnRow() {
+  private AssertionsOnRowEquality() {
     // Empty
-  }
-
-  /**
-   * Verifies that the size of a {@link org.assertj.db.type.Row} is equal to the number in parameter.
-   *
-   * @param <A>       The type of the assertion which call this method.
-   * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
-   * @param size      The size of the row.
-   * @param expected  The number to compare to the size.
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the size is different to the number in parameter.
-   */
-  public static <A extends AbstractAssert> A hasSize(A assertion, WritableAssertionInfo info, int size, int expected) {
-    if (size != expected) {
-      throw failures.failure(info, shouldHaveColumnsSize(size, expected));
-    }
-    return assertion;
   }
 
   /**
@@ -75,7 +58,7 @@ public class AssertionsOnRow {
    */
   public static <A extends AbstractAssert> A hasValuesEqualTo(A assertion, WritableAssertionInfo info,
                                                               List<Object> valuesList, Object... expected) {
-    hasSize(assertion, info, valuesList.size(), expected.length);
+    AssertionsOnNumberOfColumns.hasNumberOfColumns(assertion, info, valuesList.size(), expected.length);
     int index = 0;
     for (Object value : valuesList) {
       ValueType[] possibleTypes = ValueType.getPossibleTypesForComparison(expected[index]);

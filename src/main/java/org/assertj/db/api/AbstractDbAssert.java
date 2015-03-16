@@ -14,13 +14,13 @@ package org.assertj.db.api;
 
 import org.assertj.db.api.assertions.AssertOnNumberOfColumns;
 import org.assertj.db.api.assertions.AssertOnNumberOfRows;
+import org.assertj.db.api.assertions.impl.AssertionsOnNumberOfColumns;
+import org.assertj.db.api.assertions.impl.AssertionsOnNumberOfRows;
 import org.assertj.db.api.origin.OriginWithColumnsAndRows;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Column;
 import org.assertj.db.type.Row;
-import org.assertj.db.util.AssertionsOnColumn;
-import org.assertj.db.util.AssertionsOnRow;
 
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
@@ -222,7 +222,7 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
   public A hasNumberOfRows(int expected) {
     List<Row> rowsList = actual.getRowsList();
     int size = rowsList.size();
-    return AssertionsOnColumn.hasSize(myself, info, size, expected);
+    return AssertionsOnNumberOfRows.hasNumberOfRows(myself, info, size, expected);
   }
 
   /** {@inheritDoc} */
@@ -230,6 +230,6 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
   public A hasNumberOfColumns(int expected) {
     List<String> columnsNameList = actual.getColumnsNameList();
     int size = columnsNameList.size();
-    return AssertionsOnRow.hasSize(myself, info, size, expected);
+    return AssertionsOnNumberOfColumns.hasNumberOfColumns(myself, info, size, expected);
   }
 }

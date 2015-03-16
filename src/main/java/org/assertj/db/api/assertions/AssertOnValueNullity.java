@@ -47,6 +47,8 @@ public interface AssertOnValueNullity<T extends AssertOnValueNullity<T>> {
    *
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not {@code null}.
+   * @see org.assertj.db.api.AbstractValueAssert#isNull()
+   * @see org.assertj.db.api.AbstractAssertWithValues#isNull()
    */
   public T isNull();
 
@@ -75,6 +77,8 @@ public interface AssertOnValueNullity<T extends AssertOnValueNullity<T>> {
    *
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is {@code null}.
+   * @see org.assertj.db.api.AbstractValueAssert#isNotNull()
+   * @see org.assertj.db.api.AbstractAssertWithValues#isNotNull()
    */
   public T isNotNull();
 }

@@ -12,6 +12,7 @@
  */
 package org.assertj.db.util;
 
+import org.assertj.db.api.assertions.impl.AssertionsOnNumberOfChanges;
 import org.junit.Test;
 
 import java.lang.reflect.Constructor;
@@ -42,7 +43,7 @@ public class AssertionsOnChanges_Constructor_Test {
           throws SecurityException, NoSuchMethodException, IllegalArgumentException, InstantiationException,
           IllegalAccessException, InvocationTargetException {
 
-    Constructor<AssertionsOnChanges> constructor = AssertionsOnChanges.class.getDeclaredConstructor();
+    Constructor<AssertionsOnNumberOfChanges> constructor = AssertionsOnNumberOfChanges.class.getDeclaredConstructor();
     assertThat(Modifier.isPrivate(constructor.getModifiers())).isTrue();
     constructor.setAccessible(true);
     constructor.newInstance();

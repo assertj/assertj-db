@@ -14,11 +14,12 @@ package org.assertj.db.api;
 
 import org.assertj.db.api.assertions.AssertOnNumberOfColumns;
 import org.assertj.db.api.assertions.AssertOnRowEquality;
+import org.assertj.db.api.assertions.impl.AssertionsOnNumberOfColumns;
 import org.assertj.db.api.navigation.RowAssert;
 import org.assertj.db.api.origin.OriginWithValuesFromRow;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Row;
-import org.assertj.db.util.AssertionsOnRow;
+import org.assertj.db.api.assertions.impl.AssertionsOnRowEquality;
 
 import java.util.HashMap;
 import java.util.List;
@@ -125,12 +126,12 @@ public class ChangeRowAssert extends AbstractAssertWithOriginWithColumnsAndRowsF
   public ChangeRowAssert hasNumberOfColumns(int expected) {
     List<String> columnsNameList = row.getColumnsNameList();
     int size = columnsNameList.size();
-    return AssertionsOnRow.hasSize(myself, info, size, expected);
+    return AssertionsOnNumberOfColumns.hasNumberOfColumns(myself, info, size, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeRowAssert hasValuesEqualTo(Object... expected) {
-    return AssertionsOnRow.hasValuesEqualTo(myself, info, row.getValuesList(), expected);
+    return AssertionsOnRowEquality.hasValuesEqualTo(myself, info, row.getValuesList(), expected);
   }
 }

@@ -13,9 +13,9 @@
 package org.assertj.db.api;
 
 import org.assertj.db.api.assertions.*;
+import org.assertj.db.api.assertions.impl.*;
 import org.assertj.db.api.navigation.ColumnAssert;
 import org.assertj.db.type.*;
-import org.assertj.db.util.AssertionsOnColumn;
 
 import java.util.List;
 
@@ -62,121 +62,121 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
   /** {@inheritDoc} */
   @Override
   public C hasNumberOfRows(int expected) {
-    return AssertionsOnColumn.hasSize(myself, info, column.getValuesList().size(), expected);
+    return AssertionsOnNumberOfRows.hasNumberOfRows(myself, info, column.getValuesList().size(), expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public C isOfType(ValueType expected, boolean lenient) {
-    return AssertionsOnColumn.isOfType(myself, info, getValuesList(), expected, lenient);
+    return AssertionsOnColumnType.isOfType(myself, info, getValuesList(), expected, lenient);
   }
 
   /** {@inheritDoc} */
   @Override
   public C isOfAnyOfTypes(ValueType... expected) {
-    return AssertionsOnColumn.isOfAnyOfTypes(myself, info, getValuesList(), expected);
+    return AssertionsOnColumnType.isOfAnyOfTypes(myself, info, getValuesList(), expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public C isNumber(boolean lenient) {
-    return AssertionsOnColumn.isNumber(myself, info, getValuesList(), lenient);
+    return AssertionsOnColumnType.isNumber(myself, info, getValuesList(), lenient);
   }
 
   /** {@inheritDoc} */
   @Override
   public C isBoolean(boolean lenient) {
-    return AssertionsOnColumn.isBoolean(myself, info, getValuesList(), lenient);
+    return AssertionsOnColumnType.isBoolean(myself, info, getValuesList(), lenient);
   }
 
   /** {@inheritDoc} */
   @Override
   public C isDate(boolean lenient) {
-    return AssertionsOnColumn.isDate(myself, info, getValuesList(), lenient);
+    return AssertionsOnColumnType.isDate(myself, info, getValuesList(), lenient);
   }
 
   /** {@inheritDoc} */
   @Override
   public C isTime(boolean lenient) {
-    return AssertionsOnColumn.isTime(myself, info, getValuesList(), lenient);
+    return AssertionsOnColumnType.isTime(myself, info, getValuesList(), lenient);
   }
 
   /** {@inheritDoc} */
   @Override
   public C isDateTime(boolean lenient) {
-    return AssertionsOnColumn.isDateTime(myself, info, getValuesList(), lenient);
+    return AssertionsOnColumnType.isDateTime(myself, info, getValuesList(), lenient);
   }
 
   /** {@inheritDoc} */
   @Override
   public C isBytes(boolean lenient) {
-    return AssertionsOnColumn.isBytes(myself, info, getValuesList(), lenient);
+    return AssertionsOnColumnType.isBytes(myself, info, getValuesList(), lenient);
   }
 
   /** {@inheritDoc} */
   @Override
   public C isText(boolean lenient) {
-    return AssertionsOnColumn.isText(myself, info, getValuesList(), lenient);
+    return AssertionsOnColumnType.isText(myself, info, getValuesList(), lenient);
   }
 
   /** {@inheritDoc} */
   @Override
   public C hasOnlyNullValues() {
-    return AssertionsOnColumn.hasOnlyNullValues(myself, info, getValuesList());
+    return AssertionsOnColumnNullity.hasOnlyNullValues(myself, info, getValuesList());
   }
 
   /** {@inheritDoc} */
   @Override
   public C hasOnlyNotNullValues() {
-    return AssertionsOnColumn.hasOnlyNotNullValues(myself, info, getValuesList());
+    return AssertionsOnColumnNullity.hasOnlyNotNullValues(myself, info, getValuesList());
   }
 
   /** {@inheritDoc} */
   @Override
   public C hasValuesEqualTo(Boolean... expected) {
-    return AssertionsOnColumn.hasValuesEqualTo(myself, info, getValuesList(), expected);
+    return AssertionsOnColumnEquality.hasValuesEqualTo(myself, info, getValuesList(), expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public C hasValuesEqualTo(Number... expected) {
-    return AssertionsOnColumn.hasValuesEqualTo(myself, info, getValuesList(), expected);
+    return AssertionsOnColumnEquality.hasValuesEqualTo(myself, info, getValuesList(), expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public C hasValuesEqualTo(byte[]... expected) {
-    return AssertionsOnColumn.hasValuesEqualTo(myself, info, getValuesList(), expected);
+    return AssertionsOnColumnEquality.hasValuesEqualTo(myself, info, getValuesList(), expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public C hasValuesEqualTo(String... expected) {
-    return AssertionsOnColumn.hasValuesEqualTo(myself, info, getValuesList(), expected);
+    return AssertionsOnColumnEquality.hasValuesEqualTo(myself, info, getValuesList(), expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public C hasValuesEqualTo(DateValue... expected) {
-    return AssertionsOnColumn.hasValuesEqualTo(myself, info, getValuesList(), expected);
+    return AssertionsOnColumnEquality.hasValuesEqualTo(myself, info, getValuesList(), expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public C hasValuesEqualTo(TimeValue... expected) {
-    return AssertionsOnColumn.hasValuesEqualTo(myself, info, getValuesList(), expected);
+    return AssertionsOnColumnEquality.hasValuesEqualTo(myself, info, getValuesList(), expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public C hasValuesEqualTo(DateTimeValue... expected) {
-    return AssertionsOnColumn.hasValuesEqualTo(myself, info, getValuesList(), expected);
+    return AssertionsOnColumnEquality.hasValuesEqualTo(myself, info, getValuesList(), expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public C hasColumnName(String columnName) {
     String name = column.getName();
-    return AssertionsOnColumn.hasColumnName(myself, info, name, columnName);
+    return AssertionsOnColumnName.hasColumnName(myself, info, name, columnName);
   }
 }

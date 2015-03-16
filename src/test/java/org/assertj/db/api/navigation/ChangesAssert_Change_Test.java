@@ -91,9 +91,9 @@ public class ChangesAssert_Change_Test extends AbstractTest {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
-    assertThat(changes).change().returnToOrigin().change().returnToOrigin().change().returnToOrigin()
-                       .change().returnToOrigin().change().returnToOrigin().change().returnToOrigin()
-                       .change().returnToOrigin().change().returnToOrigin().change();
+    assertThat(changes).change().change().change()
+                       .change().change().change()
+                       .change().change().change();
   }
 
   /**

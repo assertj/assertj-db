@@ -13,14 +13,13 @@
 package org.assertj.db.api;
 
 import org.assertj.db.api.assertions.*;
+import org.assertj.db.api.assertions.impl.*;
 import org.assertj.db.api.origin.OriginWithColumnsAndRowsFromChange;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.DataType;
 import org.assertj.db.type.Row;
-import org.assertj.db.util.AssertionsOnChange;
-import org.assertj.db.util.AssertionsOnRow;
 import org.assertj.db.util.Changes;
 
 import java.util.HashMap;
@@ -201,84 +200,84 @@ public class ChangeAssert extends AbstractAssertWithOriginWithChanges<ChangeAsse
   /** {@inheritDoc} */
   @Override
   public ChangeAssert isOnDataType(DataType expected) {
-    return AssertionsOnChange.isOnDataType(myself, info, change, expected);
+    return AssertionsOnDataType.isOnDataType(myself, info, change, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeAssert isOnTable() {
-    return AssertionsOnChange.isOnTable(myself, info, change);
+    return AssertionsOnDataType.isOnTable(myself, info, change);
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeAssert isOnRequest() {
-    return AssertionsOnChange.isOnRequest(myself, info, change);
+    return AssertionsOnDataType.isOnRequest(myself, info, change);
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeAssert isOnTable(String name) {
-    return AssertionsOnChange.isOnTable(myself, info, change, name);
+    return AssertionsOnDataType.isOnTable(myself, info, change, name);
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeAssert hasPksNames(String... names) {
-    return AssertionsOnChange.hasPksNames(myself, info, change, names);
+    return AssertionsOnPrimaryKey.hasPksNames(myself, info, change, names);
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeAssert hasPksValues(Object... values) {
-    return AssertionsOnChange.hasPksValues(myself, info, change, values);
+    return AssertionsOnPrimaryKey.hasPksValues(myself, info, change, values);
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeAssert isOfType(ChangeType expected) {
-    return AssertionsOnChange.isOfType(myself, info, change, expected);
+    return AssertionsOnChangeType.isOfType(myself, info, change, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeAssert isCreation() {
-    return AssertionsOnChange.isCreation(myself, info, change);
+    return AssertionsOnChangeType.isCreation(myself, info, change);
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeAssert isModification() {
-    return AssertionsOnChange.isModification(myself, info, change);
+    return AssertionsOnChangeType.isModification(myself, info, change);
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeAssert isDeletion() {
-    return AssertionsOnChange.isDeletion(myself, info, change);
+    return AssertionsOnChangeType.isDeletion(myself, info, change);
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeAssert hasNumberOfModifiedColumns(int number) {
-    return AssertionsOnChange.hasNumberOfModifiedColumns(myself, info, change, number);
+    return AssertionsOnModifiedColumns.hasNumberOfModifiedColumns(myself, info, change, number);
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeAssert hasModifiedColumns(Integer... indexes) {
-    return AssertionsOnChange.hasModifiedColumns(myself, info, change, indexes);
+    return AssertionsOnModifiedColumns.hasModifiedColumns(myself, info, change, indexes);
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeAssert hasModifiedColumns(String... names) {
-    return AssertionsOnChange.hasModifiedColumns(myself, info, change, names);
+    return AssertionsOnModifiedColumns.hasModifiedColumns(myself, info, change, names);
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeAssert hasNumberOfColumns(int expected) {
-    return AssertionsOnRow.hasSize(myself, info, change.getColumnsNameList().size(), expected);
+    return AssertionsOnNumberOfColumns.hasNumberOfColumns(myself, info, change.getColumnsNameList().size(), expected);
   }
 }

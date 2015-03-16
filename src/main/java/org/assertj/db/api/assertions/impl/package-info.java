@@ -10,28 +10,9 @@
  *
  * Copyright 2012-2014 the original author or authors.
  */
-package org.assertj.db.type;
-
 /**
- * Enumeration of the different types of change that are possible in the database (creation, modification or deletion of a row).
+ * This package contains utility classes that implements the different assertions methods.
  *
  * @author Régis Pouiller
  */
-public enum ChangeType {
-
-  /**
-   * The change is a creation of a row.
-   * <p>At the start point the row do not exist and at the end point it is created.</p>
-   */
-  CREATION,
-  /**
-   * The change is a modification of a row.
-   * <p>The row is modified between the start point and at the end point.</p>
-   */
-  MODIFICATION,
-  /**
-   * The change is a deletion of a row.
-   * <p>At the start point the row exists but anymore at the end point.</p>
-   */
-  DELETION,
-}
+package org.assertj.db.api.assertions.impl;

@@ -10,7 +10,7 @@
  *
  * Copyright 2012-2014 the original author or authors.
  */
-package org.assertj.db.util;
+package org.assertj.db.api.assertions.impl;
 
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
@@ -18,16 +18,15 @@ import org.assertj.db.api.AbstractAssert;
 
 import static org.assertj.db.error.ShouldBeEqualWithEndPoint.shouldBeEqualWithEndPoint;
 import static org.assertj.db.error.ShouldBeEqualWithStartPoint.shouldBeEqualWithStartPoint;
-import static org.assertj.db.error.ShouldBeModified.shouldBeModified;
-import static org.assertj.db.error.ShouldNotBeModified.shouldNotBeModified;
 import static org.assertj.db.util.Values.areEqual;
 
 /**
- * Utility methods related to assert on column of a change.
+ * Implements the assertion methods on the equality of a column of a change.
  *
  * @author Régis Pouiller
+ * @see org.assertj.db.api.assertions.AssertOnColumnOfChangeEquality
  */
-public class AssertionsOnChangeColumn {
+public class AssertionsOnColumnOfChangeEquality {
 
   /**
    * To notice failures in the assertion.
@@ -37,50 +36,8 @@ public class AssertionsOnChangeColumn {
   /**
    * Private constructor.
    */
-  private AssertionsOnChangeColumn() {
+  private AssertionsOnColumnOfChangeEquality() {
     // Empty
-  }
-
-  /**
-   * Verifies that the column is modified between the start point and the end point.
-   *
-   * @param <A>               The type of the assertion which call this method.
-   * @param assertion         The assertion which call this method.
-   * @param info              Info on the object to assert.
-   * @param valueAtStartPoint The value at start point.
-   * @param valueAtEndPoint   The value at end point.
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type is different to the type in parameter.
-   */
-  public static <A extends AbstractAssert> A isModified(A assertion, WritableAssertionInfo info,
-                                                        Object valueAtStartPoint, Object valueAtEndPoint) {
-    if ((valueAtStartPoint == null && valueAtEndPoint == null) || (valueAtStartPoint != null && valueAtStartPoint
-            .equals(valueAtEndPoint))) {
-
-      throw failures.failure(info, shouldBeModified(valueAtStartPoint, valueAtEndPoint));
-    }
-    return assertion;
-  }
-
-  /**
-   * Verifies that the column is not modified between the start point and the end point.
-   *
-   * @param <A>               The type of the assertion which call this method.
-   * @param assertion         The assertion which call this method.
-   * @param info              Info on the object to assert.
-   * @param valueAtStartPoint The value at start point.
-   * @param valueAtEndPoint   The value at end point.
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type is different to the type in parameter.
-   */
-  public static <A extends AbstractAssert> A isNotModified(A assertion, WritableAssertionInfo info,
-                                                           Object valueAtStartPoint, Object valueAtEndPoint) {
-    if ((valueAtStartPoint == null && valueAtEndPoint != null) || (valueAtStartPoint != null && !valueAtStartPoint
-            .equals(valueAtEndPoint))) {
-
-      throw failures.failure(info, shouldNotBeModified(valueAtStartPoint, valueAtEndPoint));
-    }
-    return assertion;
   }
 
   /**
@@ -93,7 +50,7 @@ public class AssertionsOnChangeColumn {
    * @param valueAtEndPoint   The value at end point.
    * @param expected          The expected value.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the values are not equal to the parameter.
+   * @throws AssertionError If the values at start point and at end point are not equal to the parameter.
    */
   public static <A extends AbstractAssert> A hasValuesEqualTo(A assertion, WritableAssertionInfo info,
                                                               Object valueAtStartPoint, Object valueAtEndPoint,
@@ -118,7 +75,7 @@ public class AssertionsOnChangeColumn {
    * @param expectedAtStartPoint The expected value at start point.
    * @param expectedAtEndPoint   The expected value at end point.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the values are not equal to the parameters.
+   * @throws AssertionError If the values at start point and at end point are not equal to the corresponding parameters.
    */
   public static <A extends AbstractAssert> A hasValuesEqualTo(A assertion, WritableAssertionInfo info,
                                                               Object valueAtStartPoint, Object valueAtEndPoint,

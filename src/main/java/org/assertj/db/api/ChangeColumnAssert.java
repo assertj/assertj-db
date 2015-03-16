@@ -15,10 +15,11 @@ package org.assertj.db.api;
 import org.assertj.db.api.assertions.AssertOnColumnName;
 import org.assertj.db.api.assertions.AssertOnColumnOfChangeEquality;
 import org.assertj.db.api.assertions.AssertOnModifiedColumn;
+import org.assertj.db.api.assertions.impl.AssertionsOnColumnName;
+import org.assertj.db.api.assertions.impl.AssertionsOnModifiedColumn;
 import org.assertj.db.api.navigation.ColumnAssert;
 import org.assertj.db.api.origin.OriginWithValuesFromColumn;
-import org.assertj.db.util.AssertionsOnChangeColumn;
-import org.assertj.db.util.AssertionsOnColumn;
+import org.assertj.db.api.assertions.impl.AssertionsOnColumnOfChangeEquality;
 
 /**
  * Assertion methods about a {@code Column} of a {@code Change}.
@@ -94,25 +95,26 @@ public class ChangeColumnAssert extends AbstractAssertWithOriginWithColumnsAndRo
   /** {@inheritDoc} */
   @Override
   public ChangeColumnAssert isModified() {
-    return AssertionsOnChangeColumn.isModified(myself, info, valueAtStartPoint, valueAtEndPoint);
+    return AssertionsOnModifiedColumn.isModified(myself, info, valueAtStartPoint, valueAtEndPoint);
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeColumnAssert isNotModified() {
-    return AssertionsOnChangeColumn.isNotModified(myself, info, valueAtStartPoint, valueAtEndPoint);
+    return AssertionsOnModifiedColumn.isNotModified(myself, info, valueAtStartPoint, valueAtEndPoint);
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeColumnAssert hasValuesEqualTo(Object expected) {
-    return AssertionsOnChangeColumn.hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expected);
+    return AssertionsOnColumnOfChangeEquality
+            .hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeColumnAssert hasValuesEqualTo(Object expectedAtStartPoint, Object expectedAtEndPoint) {
-    return AssertionsOnChangeColumn
+    return AssertionsOnColumnOfChangeEquality
             .hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expectedAtStartPoint,
                               expectedAtEndPoint);
   }
@@ -120,6 +122,6 @@ public class ChangeColumnAssert extends AbstractAssertWithOriginWithColumnsAndRo
   /** {@inheritDoc} */
   @Override
   public ChangeColumnAssert hasColumnName(String columnName) {
-    return AssertionsOnColumn.hasColumnName(myself, info, this.columnName, columnName);
+    return AssertionsOnColumnName.hasColumnName(myself, info, this.columnName, columnName);
   }
 }

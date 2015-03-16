@@ -12,6 +12,7 @@
  */
 package org.assertj.db.util;
 
+import org.assertj.db.api.assertions.impl.AssertionsOnValueComparison;
 import org.junit.Test;
 
 import java.lang.reflect.Constructor;
@@ -42,7 +43,7 @@ public class AssertionsOnValue_Constructor_Test {
           throws SecurityException, NoSuchMethodException, IllegalArgumentException, InstantiationException,
           IllegalAccessException, InvocationTargetException {
 
-    Constructor<AssertionsOnValue> constructor = AssertionsOnValue.class.getDeclaredConstructor();
+    Constructor<AssertionsOnValueComparison> constructor = AssertionsOnValueComparison.class.getDeclaredConstructor();
     assertThat(Modifier.isPrivate(constructor.getModifiers())).isTrue();
     constructor.setAccessible(true);
     constructor.newInstance();

@@ -12,6 +12,7 @@
  */
 package org.assertj.db.util;
 
+import org.assertj.db.api.assertions.impl.AssertionsOnRowEquality;
 import org.junit.Test;
 
 import java.lang.reflect.Constructor;
@@ -42,7 +43,7 @@ public class AssertionsOnRow_Constructor_Test {
           throws SecurityException, NoSuchMethodException, IllegalArgumentException, InstantiationException,
           IllegalAccessException, InvocationTargetException {
 
-    Constructor<AssertionsOnRow> constructor = AssertionsOnRow.class.getDeclaredConstructor();
+    Constructor<AssertionsOnRowEquality> constructor = AssertionsOnRowEquality.class.getDeclaredConstructor();
     assertThat(Modifier.isPrivate(constructor.getModifiers())).isTrue();
     constructor.setAccessible(true);
     constructor.newInstance();

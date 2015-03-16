@@ -14,12 +14,13 @@ package org.assertj.db.api;
 
 import org.assertj.db.api.assertions.AssertOnNumberOfColumns;
 import org.assertj.db.api.assertions.AssertOnRowEquality;
+import org.assertj.db.api.assertions.impl.AssertionsOnNumberOfColumns;
+import org.assertj.db.api.assertions.impl.AssertionsOnRowEquality;
 import org.assertj.db.api.navigation.RowAssert;
 import org.assertj.db.api.navigation.WithValuesFromRow;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Row;
-import org.assertj.db.util.AssertionsOnRow;
 
 import java.util.List;
 
@@ -80,12 +81,12 @@ public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends A
   /** {@inheritDoc} */
   @Override
   public R hasNumberOfColumns(int expected) {
-    return AssertionsOnRow.hasSize(myself, info, getValuesList().size(), expected);
+    return AssertionsOnNumberOfColumns.hasNumberOfColumns(myself, info, getValuesList().size(), expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public R hasValuesEqualTo(Object... expected) {
-    return AssertionsOnRow.hasValuesEqualTo(myself, info, getValuesList(), expected);
+    return AssertionsOnRowEquality.hasValuesEqualTo(myself, info, getValuesList(), expected);
   }
 }

@@ -10,24 +10,21 @@
  *
  * Copyright 2012-2014 the original author or authors.
  */
-package org.assertj.db.util;
+package org.assertj.db.api.assertions.impl;
 
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
-import org.assertj.db.type.Change;
-import org.assertj.db.type.Changes;
 
-import java.util.List;
-
-import static org.assertj.db.error.ShouldHaveChangesSize.shouldHaveChangesSize;
+import static org.assertj.db.error.ShouldHaveColumnsSize.shouldHaveColumnsSize;
 
 /**
- * Utility methods related to assert on changes.
+ * Implements the assertion method on the number of columns.
  *
  * @author Régis Pouiller
+ * @see org.assertj.db.api.assertions.AssertOnNumberOfColumns
  */
-public class AssertionsOnChanges {
+public class AssertionsOnNumberOfColumns {
 
   /**
    * To notice failures in the assertion.
@@ -37,27 +34,25 @@ public class AssertionsOnChanges {
   /**
    * Private constructor.
    */
-  private AssertionsOnChanges() {
+  private AssertionsOnNumberOfColumns() {
     // Empty
   }
 
   /**
-   * Verifies that the size (number) of {@link org.assertj.db.type.Changes} is equal to the number in parameter.
+   * Verifies that the number of columns is equal to the number in parameter.
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
    * @param info      Info on the object to assert.
-   * @param changes   The changes.
+   * @param size      The size of the row.
    * @param expected  The number to compare to the size.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the size is different to the number in parameter.
+   * @throws AssertionError If the number of columns is different to the number in parameter.
    */
-  public static <A extends AbstractAssert> A hasSize(A assertion, WritableAssertionInfo info, Changes changes,
-                                                     int expected) {
-    List<Change> changesList = changes.getChangesList();
-    int size = changesList.size();
+  public static <A extends AbstractAssert> A hasNumberOfColumns(A assertion, WritableAssertionInfo info, int size,
+                                                                int expected) {
     if (size != expected) {
-      throw failures.failure(info, shouldHaveChangesSize(size, expected));
+      throw failures.failure(info, shouldHaveColumnsSize(size, expected));
     }
     return assertion;
   }
