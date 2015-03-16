@@ -12,10 +12,7 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.db.api.assertions.AssertOnChangeType;
-import org.assertj.db.api.assertions.AssertOnDataType;
-import org.assertj.db.api.assertions.AssertOnModifiedColumns;
-import org.assertj.db.api.assertions.AssertOnPrimaryKey;
+import org.assertj.db.api.assertions.*;
 import org.assertj.db.api.origin.OriginWithColumnsAndRowsFromChange;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Change;
@@ -23,6 +20,7 @@ import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.DataType;
 import org.assertj.db.type.Row;
 import org.assertj.db.util.AssertionsOnChange;
+import org.assertj.db.util.AssertionsOnRow;
 import org.assertj.db.util.Changes;
 
 import java.util.HashMap;
@@ -36,7 +34,7 @@ import java.util.Map;
  */
 public class ChangeAssert extends AbstractAssertWithOriginWithChanges<ChangeAssert, ChangesAssert>
         implements OriginWithColumnsAndRowsFromChange, AssertOnDataType<ChangeAssert>, AssertOnPrimaryKey<ChangeAssert>,
-        AssertOnChangeType<ChangeAssert>, AssertOnModifiedColumns<ChangeAssert> {
+        AssertOnChangeType<ChangeAssert>, AssertOnModifiedColumns<ChangeAssert>, AssertOnNumberOfColumns<ChangeAssert> {
 
   /**
    * The actual change on which the assertion is.
@@ -276,5 +274,11 @@ public class ChangeAssert extends AbstractAssertWithOriginWithChanges<ChangeAsse
   @Override
   public ChangeAssert hasModifiedColumns(String... names) {
     return AssertionsOnChange.hasModifiedColumns(myself, info, change, names);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeAssert hasNumberOfColumns(int expected) {
+    return AssertionsOnRow.hasSize(myself, info, change.getColumnsNameList().size(), expected);
   }
 }
