@@ -13,7 +13,7 @@
 package org.assertj.db.api.assertions;
 
 /**
- * Interface that represents a assert on a change.
+ * Defines the assertion methods on modified columns.
  *
  * @param <T> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/anMa4g"
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
@@ -36,7 +36,8 @@ public interface AssertOnModifiedColumns<T extends AssertOnModifiedColumns<T>> {
    *
    * @param number The expected number of modified columns
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is different to the type in parameter.
+   * @throws AssertionError If the number of modified columns is different to the number in parameter.
+   * @see org.assertj.db.api.ChangeAssert#hasNumberOfModifiedColumns(int)
    */
   public T hasNumberOfModifiedColumns(int number);
 
@@ -54,7 +55,8 @@ public interface AssertOnModifiedColumns<T extends AssertOnModifiedColumns<T>> {
    *
    * @param indexes Indexes of the modified columns.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is different to the type in parameter.
+   * @throws AssertionError If the indexes of the modified columns are different to the indexes in parameters.
+   * @see org.assertj.db.api.ChangeAssert#hasModifiedColumns(Integer...)
    */
   public T hasModifiedColumns(Integer... indexes);
 
@@ -72,7 +74,8 @@ public interface AssertOnModifiedColumns<T extends AssertOnModifiedColumns<T>> {
    *
    * @param names Names of the modified columns.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is different to the type in parameter.
+   * @throws AssertionError If the names of the modified columns are different to the names in parameters.
+   * @see org.assertj.db.api.ChangeAssert#hasModifiedColumns(String...)
    */
   public T hasModifiedColumns(String... names);
 

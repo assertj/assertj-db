@@ -17,7 +17,7 @@ import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
 
 /**
- * Interface that represents a assert on the equality of a value.
+ * Defines the assertion methods on the equality of a value.
  *
  * @param <T> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/anMa4g"
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
@@ -52,6 +52,8 @@ public interface AssertOnValueEquality<T extends AssertOnValueEquality<T>> {
    * @param expected The expected boolean value.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to the boolean in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isEqualTo(Boolean)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isEqualTo(Boolean)
    */
   public T isEqualTo(Boolean expected);
 
@@ -79,6 +81,8 @@ public interface AssertOnValueEquality<T extends AssertOnValueEquality<T>> {
    *
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to true boolean.
+   * @see org.assertj.db.api.AbstractValueAssert#isTrue()
+   * @see org.assertj.db.api.AbstractAssertWithValues#isTrue()
    */
   public T isTrue();
 
@@ -106,6 +110,8 @@ public interface AssertOnValueEquality<T extends AssertOnValueEquality<T>> {
    *
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to false boolean.
+   * @see org.assertj.db.api.AbstractValueAssert#isFalse()
+   * @see org.assertj.db.api.AbstractAssertWithValues#isFalse()
    */
   public T isFalse();
 
@@ -135,6 +141,8 @@ public interface AssertOnValueEquality<T extends AssertOnValueEquality<T>> {
    * @param expected The expected number value.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to the number in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isEqualTo(Number)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isEqualTo(Number)
    */
   public T isEqualTo(Number expected);
 
@@ -166,6 +174,8 @@ public interface AssertOnValueEquality<T extends AssertOnValueEquality<T>> {
    * @param expected The expected array of bytes value.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to the array of bytes in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isEqualTo(byte[])
+   * @see org.assertj.db.api.AbstractAssertWithValues#isEqualTo(byte[])
    */
   public T isEqualTo(byte[] expected);
 
@@ -195,6 +205,8 @@ public interface AssertOnValueEquality<T extends AssertOnValueEquality<T>> {
    * @param expected The expected text value.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to the text in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isEqualTo(String)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isEqualTo(String)
    */
   public T isEqualTo(String expected);
 
@@ -224,6 +236,8 @@ public interface AssertOnValueEquality<T extends AssertOnValueEquality<T>> {
    * @param expected The expected date value.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to the date value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isEqualTo(DateValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isEqualTo(DateValue)
    */
   public T isEqualTo(DateValue expected);
 
@@ -253,6 +267,8 @@ public interface AssertOnValueEquality<T extends AssertOnValueEquality<T>> {
    * @param expected The expected time value.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to the time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isEqualTo(TimeValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isEqualTo(TimeValue)
    */
   public T isEqualTo(TimeValue expected);
 
@@ -282,6 +298,8 @@ public interface AssertOnValueEquality<T extends AssertOnValueEquality<T>> {
    * @param expected The expected date/time value.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to the date/time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isEqualTo(DateTimeValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isEqualTo(DateTimeValue)
    */
   public T isEqualTo(DateTimeValue expected);
 
@@ -310,6 +328,8 @@ public interface AssertOnValueEquality<T extends AssertOnValueEquality<T>> {
    *
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to zero.
+   * @see org.assertj.db.api.AbstractValueAssert#isZero()
+   * @see org.assertj.db.api.AbstractAssertWithValues#isZero()
    */
   public T isZero();
 }

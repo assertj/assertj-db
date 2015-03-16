@@ -13,7 +13,7 @@
 package org.assertj.db.api.assertions;
 
 /**
- * Interface that represents a assert on the comparison of a value.
+ * Defines the assertion methods on comparisons with a value.
  *
  * @param <T> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/anMa4g"
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
@@ -48,6 +48,8 @@ public interface AssertOnValueComparison<T extends AssertOnValueComparison<T>> {
    * @param expected The expected number value.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is less than or equal to the number in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isGreaterThan(Number)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isGreaterThan(Number)
    */
   public T isGreaterThan(Number expected);
 
@@ -77,6 +79,8 @@ public interface AssertOnValueComparison<T extends AssertOnValueComparison<T>> {
    * @param expected The expected number value.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is greater than or equal to the number in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isLessThan(Number)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isLessThan(Number)
    */
   public T isLessThan(Number expected);
 
@@ -106,6 +110,8 @@ public interface AssertOnValueComparison<T extends AssertOnValueComparison<T>> {
    * @param expected The expected number value.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is less than the number in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isGreaterThanOrEqualTo(Number)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isGreaterThanOrEqualTo(Number)
    */
   public T isGreaterThanOrEqualTo(Number expected);
 
@@ -135,7 +141,8 @@ public interface AssertOnValueComparison<T extends AssertOnValueComparison<T>> {
    * @param expected The expected number value.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is greater than the number in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isLessThanOrEqualTo(Number)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isLessThanOrEqualTo(Number)
    */
   public T isLessThanOrEqualTo(Number expected);
-
 }

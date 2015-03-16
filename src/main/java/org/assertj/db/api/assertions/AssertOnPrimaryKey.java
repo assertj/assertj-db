@@ -13,7 +13,7 @@
 package org.assertj.db.api.assertions;
 
 /**
- * Interface that represents a assert on a primary key.
+ * Defines the assertion methods on a primary key.
  *
  * @param <T> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/anMa4g"
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
@@ -23,7 +23,7 @@ package org.assertj.db.api.assertions;
 public interface AssertOnPrimaryKey<T extends AssertOnPrimaryKey<T>> {
 
   /**
-   * Verifies that primary of the rows of the change is the same as the parameters.
+   * Verifies that the columns og the primary key of the rows of the change is the same as the parameters.
    * <p>
    * Example where the assertion verifies that primary key is the column called id :
    * </p>
@@ -35,13 +35,14 @@ public interface AssertOnPrimaryKey<T extends AssertOnPrimaryKey<T>> {
    *
    * @param names The names of the primary key associated with the rows of the change.
    * @return {@code this} assertion object.
-   * @throws AssertionError                 If the type is different to the type in parameter.
+   * @throws AssertionError                 If the columns of the primary key are different to the names in parameters.
    * @throws java.lang.NullPointerException If one of the names in parameters is {@code null}.
+   * @see org.assertj.db.api.ChangeAssert#hasPksNames(String...)
    */
   public T hasPksNames(String... names);
 
   /**
-   * Verifies that the values primary of the rows of the change are the same as the parameters.
+   * Verifies that the values of the primary key of the rows of the change are the same as the parameters.
    * <p>
    * Example where the assertion verifies that primary key have the value 1 :
    * </p>
@@ -53,7 +54,8 @@ public interface AssertOnPrimaryKey<T extends AssertOnPrimaryKey<T>> {
    *
    * @param values The values of the primary key associated with the rows of the change.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is different to the type in parameter.
+   * @throws AssertionError If the values of the primary key are different to the values in parameters.
+   * @see org.assertj.db.api.ChangeAssert#hasPksValues(Object...)
    */
   public T hasPksValues(Object... values);
 }

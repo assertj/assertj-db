@@ -15,7 +15,8 @@ package org.assertj.db.api.assertions;
 import org.assertj.db.type.ValueType;
 
 /**
- * Interface containing assertion methods on type of value.
+ * Defines the assertion methods on the type of a value.
+ * <p>The different type of values are enumerated in {@link org.assertj.db.type.ValueType}.</p>
  *
  * @param <T> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/anMa4g"
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
@@ -49,7 +50,7 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    *
    * @param expected The expected type to compare to.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is different to the type in parameter.
+   * @throws AssertionError If the type of the value is different to the type in parameter.
    * @see org.assertj.db.api.AbstractValueAssert#isOfType(org.assertj.db.type.ValueType)
    * @see org.assertj.db.api.AbstractAssertWithValues#isOfType(org.assertj.db.type.ValueType)
    */
@@ -80,7 +81,7 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    *
    * @param expected The expected types to compare to.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is different to all the types in parameters.
+   * @throws AssertionError If the type of the value is different to all the types in parameters.
    * @see org.assertj.db.api.AbstractValueAssert#isOfAnyOfTypes(org.assertj.db.type.ValueType...)
    * @see org.assertj.db.api.AbstractAssertWithValues#isOfAnyOfTypes(org.assertj.db.type.ValueType...)
    */
@@ -108,9 +109,18 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    * assertThat(changes).change().rowAtEndPoint().value().isNumber();
    * </code>
    * </pre>
+   * <p>
+   * This assertion method is equivalent to :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * xxxxx.isOfType(ValueType.NUMBER);
+   * </code>
+   * </pre>
    *
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is not a number.
+   * @throws AssertionError If the type of the value is not number.
+   * @see org.assertj.db.type.ValueType#NUMBER
    * @see org.assertj.db.api.AbstractValueAssert#isNumber()
    * @see org.assertj.db.api.AbstractAssertWithValues#isNumber()
    */
@@ -138,9 +148,18 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    * assertThat(changes).change().rowAtEndPoint().value().isBoolean();
    * </code>
    * </pre>
+   * <p>
+   * This assertion method is equivalent to :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * xxxxx.isOfType(ValueType.BOOLEAN);
+   * </code>
+   * </pre>
    *
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is not a boolean.
+   * @throws AssertionError If the type of the value is not boolean.
+   * @see org.assertj.db.type.ValueType#BOOLEAN
    * @see org.assertj.db.api.AbstractValueAssert#isBoolean()
    * @see org.assertj.db.api.AbstractAssertWithValues#isBoolean()
    */
@@ -168,9 +187,18 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    * assertThat(changes).change().rowAtEndPoint().value().isDate();
    * </code>
    * </pre>
+   * <p>
+   * This assertion method is equivalent to :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * xxxxx.isOfType(ValueType.DATE);
+   * </code>
+   * </pre>
    *
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is not a date.
+   * @throws AssertionError If the type of the value is not date.
+   * @see org.assertj.db.type.ValueType#DATE
    * @see org.assertj.db.api.AbstractValueAssert#isDate()
    * @see org.assertj.db.api.AbstractAssertWithValues#isDate()
    */
@@ -198,9 +226,18 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    * assertThat(changes).change().rowAtEndPoint().value().isTime();
    * </code>
    * </pre>
+   * <p>
+   * This assertion method is equivalent to :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * xxxxx.isOfType(ValueType.TIME);
+   * </code>
+   * </pre>
    *
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is not a time.
+   * @throws AssertionError If the type of the value is not time.
+   * @see org.assertj.db.type.ValueType#TIME
    * @see org.assertj.db.api.AbstractValueAssert#isTime()
    * @see org.assertj.db.api.AbstractAssertWithValues#isTime()
    */
@@ -228,9 +265,18 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    * assertThat(changes).change().rowAtEndPoint().value().isDateTime();
    * </code>
    * </pre>
+   * <p>
+   * This assertion method is equivalent to :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * xxxxx.isOfType(ValueType.DATE_TIME);
+   * </code>
+   * </pre>
    *
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is not a date/time.
+   * @throws AssertionError If the type of the value is not date/time.
+   * @see org.assertj.db.type.ValueType#DATE_TIME
    * @see org.assertj.db.api.AbstractValueAssert#isDateTime()
    * @see org.assertj.db.api.AbstractAssertWithValues#isDateTime()
    */
@@ -258,9 +304,18 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    * assertThat(changes).change().rowAtEndPoint().value().isBytes();
    * </code>
    * </pre>
+   * <p>
+   * This assertion method is equivalent to :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * xxxxx.isOfType(ValueType.BYTES);
+   * </code>
+   * </pre>
    *
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is not a array of bytes.
+   * @throws AssertionError If the type of the value is not array of bytes.
+   * @see org.assertj.db.type.ValueType#BYTES
    * @see org.assertj.db.api.AbstractValueAssert#isBytes()
    * @see org.assertj.db.api.AbstractAssertWithValues#isBytes()
    */
@@ -288,9 +343,18 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    * assertThat(changes).change().rowAtEndPoint().value().isText();
    * </code>
    * </pre>
+   * <p>
+   * This assertion method is equivalent to :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * xxxxx.isOfType(ValueType.TEXT);
+   * </code>
+   * </pre>
    *
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is not a text.
+   * @throws AssertionError If the type of the value is not text.
+   * @see org.assertj.db.type.ValueType#TEXT
    * @see org.assertj.db.api.AbstractValueAssert#isText()
    * @see org.assertj.db.api.AbstractAssertWithValues#isText()
    */

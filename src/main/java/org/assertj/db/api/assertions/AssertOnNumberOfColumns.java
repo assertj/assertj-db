@@ -13,7 +13,7 @@
 package org.assertj.db.api.assertions;
 
 /**
- * Interface containing assertion method on the number of columns.
+ * Defines the assertion method on the number of columns.
  *
  * @param <T> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/anMa4g"
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
@@ -49,6 +49,9 @@ public interface AssertOnNumberOfColumns<T extends AssertOnNumberOfColumns<T>> {
    * @param expected The number to compare to the number of columns.
    * @return {@code this} assertion object.
    * @throws AssertionError If the number of columns is different to the number in parameter.
+   * @see org.assertj.db.api.AbstractDbAssert#hasNumberOfColumns(int)
+   * @see org.assertj.db.api.AbstractRowAssert#hasNumberOfColumns(int)
+   * @see org.assertj.db.api.ChangeRowAssert#hasNumberOfColumns(int)
    */
   public T hasNumberOfColumns(int expected);
 }

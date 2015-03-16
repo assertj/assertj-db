@@ -13,7 +13,7 @@
 package org.assertj.db.api.assertions;
 
 /**
- * Interface that represents a assert on a modified column.
+ * Defines the assertion methods on a modified column.
  *
  * @param <T> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/anMa4g"
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
@@ -34,7 +34,8 @@ public interface AssertOnModifiedColumn<T extends AssertOnModifiedColumn<T>> {
    * </pre>
    *
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is different to the type in parameter.
+   * @throws AssertionError If the column is not modified between the start point and the end point.
+   * @see org.assertj.db.api.ChangeColumnAssert#isModified()
    */
   public T isModified();
 
@@ -50,7 +51,8 @@ public interface AssertOnModifiedColumn<T extends AssertOnModifiedColumn<T>> {
    * </pre>
    *
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is different to the type in parameter.
+   * @throws AssertionError If the column is modified between the start point and the end point.
+   * @see org.assertj.db.api.ChangeColumnAssert#isNotModified()
    */
   public T isNotModified();
 }

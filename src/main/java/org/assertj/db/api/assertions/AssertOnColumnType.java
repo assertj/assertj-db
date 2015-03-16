@@ -15,7 +15,8 @@ package org.assertj.db.api.assertions;
 import org.assertj.db.type.ValueType;
 
 /**
- * Interface that represents a assert on the type of a column.
+ * Defines the assertion methods on the type of a column.
+ * <p>The different type of values are enumerated in {@link org.assertj.db.type.ValueType}.</p>
  *
  * @param <T> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/anMa4g"
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
@@ -47,7 +48,8 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * @param lenient {@code true} if the test is lenient : if the type of a value is not identified (for example when the
    *          value is {@code null}), it consider that it is ok.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is different to the type in parameter.
+   * @throws AssertionError If the type of the column is different to the type in parameter.
+   * @see org.assertj.db.api.AbstractColumnAssert#isOfType(org.assertj.db.type.ValueType, boolean)
    */
   public T isOfType(ValueType expected, boolean lenient);
 
@@ -64,12 +66,13 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    *
    * @param expected The expected types to compare to.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is different to all the types in parameters.
+   * @throws AssertionError If the type of the column is different to all the types in parameters.
+   * @see org.assertj.db.api.AbstractColumnAssert#isOfAnyOfTypes(org.assertj.db.type.ValueType...)
    */
   public T isOfAnyOfTypes(ValueType... expected);
 
   /**
-   * Verifies that the type of the values of the column is a number.
+   * Verifies that the type of the values of the column is number.
    * <p>
    * Example where the assertion verifies that all the values in the {@code Column} called "year"
    * of the {@code Table} is a number :
@@ -78,16 +81,26 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * <pre><code class='java'>
    * assertThat(table).column(&quot;year&quot;).isNumber(true);
    * </code></pre>
+   * <p>
+   * This assertion method is equivalent to :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * xxxxx.isOfType(ValueType.NUMBER, lenient);
+   * </code>
+   * </pre>
    *
    * @param lenient {@code true} if the test is lenient : if the type of a value is not identified (for example when the
    *          value is {@code null}), it consider that it is ok.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is not a number.
+   * @throws AssertionError If the type of the column is not number.
+   * @see org.assertj.db.type.ValueType#NUMBER
+   * @see org.assertj.db.api.AbstractColumnAssert#isNumber(boolean)
    */
   public T isNumber(boolean lenient);
 
   /**
-   * Verifies that the type of the values of the column is a boolean.
+   * Verifies that the type of the values of the column is boolean.
    * <p>
    * Example where the assertion verifies that all the values in the first {@code Column} of
    * the {@code Table} is a boolean :
@@ -96,16 +109,26 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * <pre><code class='java'>
    * assertThat(table).column().isBoolean(false);
    * </code></pre>
+   * <p>
+   * This assertion method is equivalent to :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * xxxxx.isOfType(ValueType.BOOLEAN, lenient);
+   * </code>
+   * </pre>
    *
    * @param lenient {@code true} if the test is lenient : if the type of a value is not identified (for example when the
    *          value is {@code null}), it consider that it is ok.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is not a number.
+   * @throws AssertionError If the type of the column is not boolean.
+   * @see org.assertj.db.type.ValueType#BOOLEAN
+   * @see org.assertj.db.api.AbstractColumnAssert#isBoolean(boolean)
    */
   public T isBoolean(boolean lenient);
 
   /**
-   * Verifies that the type of the values of the column is a date.
+   * Verifies that the type of the values of the column is date.
    * <p>
    * Example where the assertion verifies that all the values in the {@code Column} called "birth"
    * of the {@code Table} is a date :
@@ -114,16 +137,26 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * <pre><code class='java'>
    * assertThat(table).column(&quot;birth&quot;).isDate(false);
    * </code></pre>
+   * <p>
+   * This assertion method is equivalent to :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * xxxxx.isOfType(ValueType.DATE, lenient);
+   * </code>
+   * </pre>
    *
    * @param lenient {@code true} if the test is lenient : if the type of a value is not identified (for example when the
    *          value is {@code null}), it consider that it is ok.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is not a number.
+   * @throws AssertionError If the type of the column is not date.
+   * @see org.assertj.db.type.ValueType#DATE
+   * @see org.assertj.db.api.AbstractColumnAssert#isDate(boolean)
    */
   public T isDate(boolean lenient);
 
   /**
-   * Verifies that the type of the values of the column is a time.
+   * Verifies that the type of the values of the column is time.
    * <p>
    * Example where the assertion verifies that all the values in the first {@code Column} of
    * the {@code Table} is a time :
@@ -132,16 +165,26 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * <pre><code class='java'>
    * assertThat(table).column().isTime(false);
    * </code></pre>
+   * <p>
+   * This assertion method is equivalent to :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * xxxxx.isOfType(ValueType.TIME, lenient);
+   * </code>
+   * </pre>
    *
    * @param lenient {@code true} if the test is lenient : if the type of a value is not identified (for example when the
    *          value is {@code null}), it consider that it is ok.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is not a number.
+   * @throws AssertionError If the type of the column is not time.
+   * @see org.assertj.db.type.ValueType#TIME
+   * @see org.assertj.db.api.AbstractColumnAssert#isTime(boolean)
    */
   public T isTime(boolean lenient);
 
   /**
-   * Verifies that the type of the values of the column is a date/time.
+   * Verifies that the type of the values of the column is date/time.
    * <p>
    * Example where the assertion verifies that all the values in the first {@code Column} of
    * the {@code Table} is a date/time :
@@ -150,16 +193,26 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * <pre><code class='java'>
    * assertThat(table).column().isDateTime(false);
    * </code></pre>
+   * <p>
+   * This assertion method is equivalent to :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * xxxxx.isOfType(ValueType.DATE_TIME, lenient);
+   * </code>
+   * </pre>
    *
    * @param lenient {@code true} if the test is lenient : if the type of a value is not identified (for example when the
    *          value is {@code null}), it consider that it is ok.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is not a number.
+   * @throws AssertionError If the type of the column is not date/time.
+   * @see org.assertj.db.type.ValueType#DATE_TIME
+   * @see org.assertj.db.api.AbstractColumnAssert#isDateTime(boolean)
    */
   public T isDateTime(boolean lenient);
 
   /**
-   * Verifies that the type of the values of the column is a array of bytes.
+   * Verifies that the type of the values of the column is array of bytes.
    * <p>
    * Example where the assertion verifies that all the values in the first {@code Column} of
    * the {@code Table} is a array of bytes :
@@ -168,16 +221,26 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * <pre><code class='java'>
    * assertThat(table).column().isBytes(false);
    * </code></pre>
+   * <p>
+   * This assertion method is equivalent to :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * xxxxx.isOfType(ValueType.BYTES, lenient);
+   * </code>
+   * </pre>
    *
    * @param lenient {@code true} if the test is lenient : if the type of a value is not identified (for example when the
    *          value is {@code null}), it consider that it is ok.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is not a number.
+   * @throws AssertionError If the type of the column is not array of bytes.
+   * @see org.assertj.db.type.ValueType#BYTES
+   * @see org.assertj.db.api.AbstractColumnAssert#isBytes(boolean)
    */
   public T isBytes(boolean lenient);
 
   /**
-   * Verifies that the type of the values of the column is a text.
+   * Verifies that the type of the values of the column is text.
    * <p>
    * Example where the assertion verifies that all the values in the {@code Column} called "title"
    * of the {@code Table} is a text :
@@ -186,11 +249,21 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * <pre><code class='java'>
    * assertThat(table).column(&quot;title&quot;).isText(false);
    * </code></pre>
+   * <p>
+   * This assertion method is equivalent to :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * xxxxx.isOfType(ValueType.TEXT, lenient);
+   * </code>
+   * </pre>
    *
    * @param lenient {@code true} if the test is lenient : if the type of a value is not identified (for example when the
    *          value is {@code null}), it consider that it is ok.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is not a number.
+   * @throws AssertionError If the type of the column is not text.
+   * @see org.assertj.db.type.ValueType#TEXT
+   * @see org.assertj.db.api.AbstractColumnAssert#isText(boolean)
    */
   public T isText(boolean lenient);
 }

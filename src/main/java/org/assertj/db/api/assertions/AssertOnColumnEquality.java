@@ -17,7 +17,7 @@ import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
 
 /**
- * Interface that represents a assert on a column.
+ * Defines the assertion methods on the equality of a column.
  *
  * @param <T> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/anMa4g"
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
@@ -39,7 +39,8 @@ public interface AssertOnColumnEquality<T extends AssertOnColumnEquality<T>> {
    *
    * @param expected The expected boolean values.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the value is not equal to the booleans in parameter.
+   * @throws AssertionError If the values of the column are not equal to the booleans in parameter.
+   * @see org.assertj.db.api.AbstractColumnAssert#hasValuesEqualTo(Boolean...)
    */
   public T hasValuesEqualTo(Boolean... expected);
 
@@ -56,7 +57,8 @@ public interface AssertOnColumnEquality<T extends AssertOnColumnEquality<T>> {
    *
    * @param expected The expected numbers values.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the value is not equal to the numbers in parameter.
+   * @throws AssertionError If the values of the column are not equal to the numbers in parameter.
+   * @see org.assertj.db.api.AbstractColumnAssert#hasValuesEqualTo(Number...)
    */
   public T hasValuesEqualTo(Number... expected);
 
@@ -75,7 +77,8 @@ public interface AssertOnColumnEquality<T extends AssertOnColumnEquality<T>> {
    *
    * @param expected The expected bytes values.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the value is not equal to the bytes in parameter.
+   * @throws AssertionError If the values of the column are not equal to the bytes in parameter.
+   * @see org.assertj.db.api.AbstractColumnAssert#hasValuesEqualTo(byte[]...)
    */
   public T hasValuesEqualTo(byte[]... expected);
 
@@ -92,7 +95,8 @@ public interface AssertOnColumnEquality<T extends AssertOnColumnEquality<T>> {
    *
    * @param expected The expected text values.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the value is not equal to the texts in parameter.
+   * @throws AssertionError If the values of the column are not equal to the texts in parameter.
+   * @see org.assertj.db.api.AbstractColumnAssert#hasValuesEqualTo(String...)
    */
   public T hasValuesEqualTo(String... expected);
 
@@ -110,7 +114,8 @@ public interface AssertOnColumnEquality<T extends AssertOnColumnEquality<T>> {
    *
    * @param expected The expected date values.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the value is not equal to the date values in parameter.
+   * @throws AssertionError If the values of the column are not equal to the date values in parameter.
+   * @see org.assertj.db.api.AbstractColumnAssert#hasValuesEqualTo(DateValue...)
    */
   public T hasValuesEqualTo(DateValue... expected);
 
@@ -127,7 +132,8 @@ public interface AssertOnColumnEquality<T extends AssertOnColumnEquality<T>> {
    *
    * @param expected The expected time values.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the value is not equal to the time values in parameter.
+   * @throws AssertionError If the values of the column are not equal to the time values in parameter.
+   * @see org.assertj.db.api.AbstractColumnAssert#hasValuesEqualTo(TimeValue...)
    */
   public T hasValuesEqualTo(TimeValue... expected);
 
@@ -146,7 +152,8 @@ public interface AssertOnColumnEquality<T extends AssertOnColumnEquality<T>> {
    *
    * @param expected The expected date/time values.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the value is not equal to the date/time values in parameter.
+   * @throws AssertionError If the values of the column are not equal to the date/time values in parameter.
+   * @see org.assertj.db.api.AbstractColumnAssert#hasValuesEqualTo(DateTimeValue...)
    */
   public T hasValuesEqualTo(DateTimeValue... expected);
 }

@@ -13,7 +13,7 @@
 package org.assertj.db.api.assertions;
 
 /**
- * Interface containing assertion method on the number of rows.
+ * Defines the assertion method on the number of rows.
  *
  * @param <T> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/anMa4g"
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
@@ -42,6 +42,8 @@ public interface AssertOnNumberOfRows<T extends AssertOnNumberOfRows<T>> {
    * @param expected The number to compare to the number of rows.
    * @return {@code this} assertion object.
    * @throws AssertionError If the number of rows is different to the number in parameter.
+   * @see org.assertj.db.api.AbstractDbAssert#hasNumberOfRows(int)
+   * @see org.assertj.db.api.AbstractColumnAssert#hasNumberOfRows(int)
    */
   public T hasNumberOfRows(int expected);
 }

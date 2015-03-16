@@ -17,7 +17,7 @@ import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
 
 /**
- * Interface that represents a assert on the chronology of a value.
+ * Defines the assertion methods on the chronology of a value.
  *
  * @param <T> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/anMa4g"
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
@@ -52,6 +52,8 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
    * @param date The date value to compare to.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not before to the date value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isBefore(org.assertj.db.type.DateValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isBefore(org.assertj.db.type.DateValue)
    */
   public T isBefore(DateValue date);
 
@@ -81,6 +83,8 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
    * @param time The time value to compare to.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not before to the time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isBefore(org.assertj.db.type.TimeValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isBefore(org.assertj.db.type.TimeValue)
    */
   public T isBefore(TimeValue time);
 
@@ -110,6 +114,8 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
    * @param dateTime The date/time value to compare to.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not before to the date/time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isBefore(org.assertj.db.type.DateTimeValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isBefore(org.assertj.db.type.DateTimeValue)
    */
   public T isBefore(DateTimeValue dateTime);
 
@@ -139,6 +145,8 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
    * @param expected The {@code String} representing a date, time or date/time to compare to.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not before the date, time or date/time represented in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isBefore(String)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isBefore(String)
    */
   public T isBefore(String expected);
 
@@ -168,6 +176,8 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
    * @param date The date value to compare to.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not before or equal to the date value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isBeforeOrEqualTo(org.assertj.db.type.DateValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isBeforeOrEqualTo(org.assertj.db.type.DateValue)
    */
   public T isBeforeOrEqualTo(DateValue date);
 
@@ -197,6 +207,8 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
    * @param time The time value to compare to.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not before or equal to the time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isBeforeOrEqualTo(org.assertj.db.type.TimeValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isBeforeOrEqualTo(org.assertj.db.type.TimeValue)
    */
   public T isBeforeOrEqualTo(TimeValue time);
 
@@ -226,6 +238,8 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
    * @param dateTime The date/time value to compare to.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not before or equal to the date/time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isBeforeOrEqualTo(org.assertj.db.type.DateTimeValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isBeforeOrEqualTo(org.assertj.db.type.DateTimeValue)
    */
   public T isBeforeOrEqualTo(DateTimeValue dateTime);
 
@@ -255,6 +269,8 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
    * @param expected The {@code String} representing a date, time or date/time to compare to.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not before or equal to the date, time or date/time represented in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isBeforeOrEqualTo(String)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isBeforeOrEqualTo(String)
    */
   public T isBeforeOrEqualTo(String expected);
 
@@ -284,6 +300,8 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
    * @param date The date value to compare to.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not after to the date value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isAfter(org.assertj.db.type.DateValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isAfter(org.assertj.db.type.DateValue)
    */
   public T isAfter(DateValue date);
 
@@ -313,6 +331,8 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
    * @param time The time value to compare to.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not after to the time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isAfter(org.assertj.db.type.TimeValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isAfter(org.assertj.db.type.TimeValue)
    */
   public T isAfter(TimeValue time);
 
@@ -342,6 +362,8 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
    * @param dateTime The date/time value to compare to.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not after to the date/time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isAfter(org.assertj.db.type.DateTimeValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isAfter(org.assertj.db.type.DateTimeValue)
    */
   public T isAfter(DateTimeValue dateTime);
 
@@ -371,6 +393,8 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
    * @param expected The {@code String} representing a date, time or date/time to compare to.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not after the date, time or date/time represented in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isAfter(String)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isAfter(String)
    */
   public T isAfter(String expected);
 
@@ -400,6 +424,8 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
    * @param date The date value to compare to.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not after or equal to the time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isAfterOrEqualTo(org.assertj.db.type.DateValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isAfterOrEqualTo(org.assertj.db.type.DateValue)
    */
   public T isAfterOrEqualTo(DateValue date);
 
@@ -429,6 +455,8 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
    * @param time The time value to compare to.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not after or equal to the time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isAfterOrEqualTo(org.assertj.db.type.TimeValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isAfterOrEqualTo(org.assertj.db.type.TimeValue)
    */
   public T isAfterOrEqualTo(TimeValue time);
 
@@ -458,6 +486,8 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
    * @param dateTime The date/time value to compare to.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not after or equal to the date/time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isAfterOrEqualTo(org.assertj.db.type.DateTimeValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isAfterOrEqualTo(org.assertj.db.type.DateTimeValue)
    */
   public T isAfterOrEqualTo(DateTimeValue dateTime);
 
@@ -487,6 +517,8 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
    * @param expected The {@code String} representing a date, time or date/time to compare to.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not after or equal to the date, time or date/time represented in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isAfterOrEqualTo(String)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isAfterOrEqualTo(String)
    */
   public T isAfterOrEqualTo(String expected);
 }

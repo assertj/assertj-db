@@ -13,7 +13,7 @@
 package org.assertj.db.api.assertions;
 
 /**
- * Interface that represents an assert of equality for a row.
+ * Defines the assertion method on the equality of a row.
  *
  * @param <T> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/anMa4g"
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
@@ -43,7 +43,9 @@ public interface AssertOnRowEquality<T extends AssertOnRowEquality<T>> {
    *
    * @param expected The expected values.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the values are not equal to the values in parameters.
+   * @throws AssertionError If the values of the row are not equal to the values in parameters.
+   * @see org.assertj.db.api.AbstractRowAssert#hasValuesEqualTo(Object...)
+   * @see org.assertj.db.api.ChangeRowAssert#hasValuesEqualTo(Object...)
    */
   public T hasValuesEqualTo(Object... expected);
 }

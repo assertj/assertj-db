@@ -15,7 +15,8 @@ package org.assertj.db.api.assertions;
 import org.assertj.db.type.ChangeType;
 
 /**
- * Interface that represents a assert on a change.
+ * Defines the assertion methods on the type of a change (creation, modification or deletion of a row).
+ * <p>The different type of changes are enumerated in {@link org.assertj.db.type.ChangeType}.</p>
  *
  * @param <T> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/anMa4g"
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
@@ -38,6 +39,10 @@ public interface AssertOnChangeType<T extends AssertOnChangeType<T>> {
    * @param expected The expected type to compare to.
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is different to the type in parameter.
+   * @see #isCreation()
+   * @see #isModification()
+   * @see #isDeletion()
+   * @see org.assertj.db.api.ChangeAssert#isOfType(org.assertj.db.type.ChangeType)
    */
   public T isOfType(ChangeType expected);
 
@@ -51,9 +56,19 @@ public interface AssertOnChangeType<T extends AssertOnChangeType<T>> {
    * assertThat(changes).change(1).isCreation();
    * </code>
    * </pre>
+   * <p>
+   * This assertion method is equivalent to :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * xxxxx.isOfType(ChangeType.CREATION);
+   * </code>
+   * </pre>
    *
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is different to the type in parameter.
+   * @throws AssertionError If the type of the change is not a creation.
+   * @see org.assertj.db.type.ChangeType#CREATION
+   * @see org.assertj.db.api.ChangeAssert#isCreation()
    */
   public T isCreation();
 
@@ -67,9 +82,19 @@ public interface AssertOnChangeType<T extends AssertOnChangeType<T>> {
    * assertThat(changes).change(1).isModification();
    * </code>
    * </pre>
+   * <p>
+   * This assertion method is equivalent to :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * xxxxx.isOfType(ChangeType.MODIFICATION);
+   * </code>
+   * </pre>
    *
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is different to the type in parameter.
+   * @throws AssertionError If the type of the change is not a modification.
+   * @see org.assertj.db.type.ChangeType#MODIFICATION
+   * @see org.assertj.db.api.ChangeAssert#isModification()
    */
   public T isModification();
 
@@ -83,9 +108,19 @@ public interface AssertOnChangeType<T extends AssertOnChangeType<T>> {
    * assertThat(changes).change(1).isDeletion();
    * </code>
    * </pre>
+   * <p>
+   * This assertion method is equivalent to :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * xxxxx.isOfType(ChangeType.DELETION);
+   * </code>
+   * </pre>
    *
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type is different to the type in parameter.
+   * @throws AssertionError If the type of the change is not a deletion.
+   * @see org.assertj.db.type.ChangeType#DELETION
+   * @see org.assertj.db.api.ChangeAssert#isDeletion()
    */
   public T isDeletion();
 }

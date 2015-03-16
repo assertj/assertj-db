@@ -13,7 +13,7 @@
 package org.assertj.db.api.assertions;
 
 /**
- * Interface that represents a assert on a column name.
+ * Defines the assertion method on the name of a column.
  *
  * @param <T> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/anMa4g"
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
@@ -23,7 +23,7 @@ package org.assertj.db.api.assertions;
 public interface AssertOnColumnName<T extends AssertOnColumnName<T>> {
 
   /**
-   * Verifies that the name of a column is equal to parameter.
+   * Verifies that the name of a column is equal to the parameter.
    * <p>
    * Example where the assertion verifies that the column name of the first {@code Column} of the {@code Table} is equal to
    * "title" :
@@ -44,6 +44,8 @@ public interface AssertOnColumnName<T extends AssertOnColumnName<T>> {
    * @param columnName The expected column name.
    * @return {@code this} assertion object.
    * @throws AssertionError If the column name is not equal to the parameter.
+   * @see org.assertj.db.api.AbstractColumnAssert#hasColumnName(String)
+   * @see org.assertj.db.api.ChangeColumnAssert#hasColumnName(String)
    */
   public T hasColumnName(String columnName);
 }

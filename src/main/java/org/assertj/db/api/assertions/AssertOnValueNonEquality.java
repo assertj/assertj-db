@@ -17,7 +17,7 @@ import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
 
 /**
- * Interface that represents a assert on the non equality of a value.
+ * Defines the assertion methods on the non equality of a value.
  *
  * @param <T> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/anMa4g"
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
@@ -52,6 +52,8 @@ public interface AssertOnValueNonEquality<T extends AssertOnValueNonEquality<T>>
    * @param expected The expected boolean value.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is equal to the boolean in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isNotEqualTo(Boolean)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isNotEqualTo(Boolean)
    */
   public T isNotEqualTo(Boolean expected);
 
@@ -83,6 +85,8 @@ public interface AssertOnValueNonEquality<T extends AssertOnValueNonEquality<T>>
    * @param expected The expected array of bytes value.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is equal to the array of bytes in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isNotEqualTo(byte[])
+   * @see org.assertj.db.api.AbstractAssertWithValues#isNotEqualTo(byte[])
    */
   public T isNotEqualTo(byte[] expected);
 
@@ -112,6 +116,8 @@ public interface AssertOnValueNonEquality<T extends AssertOnValueNonEquality<T>>
    * @param expected The expected date/time value.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is equal to the date/time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isNotEqualTo(DateTimeValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isNotEqualTo(DateTimeValue)
    */
   public T isNotEqualTo(DateTimeValue expected);
 
@@ -141,6 +147,8 @@ public interface AssertOnValueNonEquality<T extends AssertOnValueNonEquality<T>>
    * @param expected The expected date value.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is equal to the date value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isNotEqualTo(DateValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isNotEqualTo(DateValue)
    */
   public T isNotEqualTo(DateValue expected);
 
@@ -170,6 +178,8 @@ public interface AssertOnValueNonEquality<T extends AssertOnValueNonEquality<T>>
    * @param expected The expected number value.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is equal to the number in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isNotEqualTo(Number)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isNotEqualTo(Number)
    */
   public T isNotEqualTo(Number expected);
 
@@ -199,6 +209,8 @@ public interface AssertOnValueNonEquality<T extends AssertOnValueNonEquality<T>>
    * @param expected The expected text value.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is equal to the text in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isNotEqualTo(String)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isNotEqualTo(String)
    */
   public T isNotEqualTo(String expected);
 
@@ -228,6 +240,8 @@ public interface AssertOnValueNonEquality<T extends AssertOnValueNonEquality<T>>
    * @param expected The expected time value.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is equal to the time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isNotEqualTo(TimeValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isNotEqualTo(TimeValue)
    */
   public T isNotEqualTo(TimeValue expected);
 
@@ -256,6 +270,8 @@ public interface AssertOnValueNonEquality<T extends AssertOnValueNonEquality<T>>
    *
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is equal to zero.
+   * @see org.assertj.db.api.AbstractValueAssert#isNotZero()
+   * @see org.assertj.db.api.AbstractAssertWithValues#isNotZero()
    */
   public T isNotZero();
 }

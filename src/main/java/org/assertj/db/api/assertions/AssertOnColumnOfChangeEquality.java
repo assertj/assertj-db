@@ -13,7 +13,7 @@
 package org.assertj.db.api.assertions;
 
 /**
- * Interface that represents a assert on a equality on a column of a change.
+ * Defines the assertion methods on the equality of a column of a change.
  *
  * @param <T> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/anMa4g"
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
@@ -34,7 +34,8 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    *
    * @param expected The expected value.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the values are not equal to the parameter.
+   * @throws AssertionError If the values at start point and at end point are not equal to the parameter.
+   * @see org.assertj.db.api.ChangeColumnAssert#hasValuesEqualTo(Object)
    */
   public T hasValuesEqualTo(Object expected);
 
@@ -51,7 +52,8 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * @param expectedAtStartPoint The expected value at start point.
    * @param expectedAtEndPoint   The expected value at end point.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the values are not equal to the parameters.
+   * @throws AssertionError If the values at start point and at end point are not equal to the corresponding parameters.
+   * @see org.assertj.db.api.ChangeColumnAssert#hasValuesEqualTo(Object, Object)
    */
   public T hasValuesEqualTo(Object expectedAtStartPoint, Object expectedAtEndPoint);
 }
