@@ -47,7 +47,8 @@ public interface ToValueFromRow<V extends ValueAssert> {
    *
    * <p>
    * Example when getting an assertion on the value of the column &quot;title&quot; from a row
-   * ({@link ToRowFromChange#rowAtEndPoint()}) of a change ({@link ToChanges#change()})
+   * ({@link org.assertj.db.api.navigation.ToRowFromChange#rowAtEndPoint()})
+   * of a change ({@link org.assertj.db.api.navigation.ToChange#change()})
    * of changes ({@link org.assertj.db.api.Assertions#assertThat(org.assertj.db.type.Changes)}) :
    * </p>
    * <pre>
