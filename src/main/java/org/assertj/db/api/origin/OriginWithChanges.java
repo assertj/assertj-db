@@ -12,12 +12,13 @@
  */
 package org.assertj.db.api.origin;
 
-import org.assertj.db.api.navigation.WithChanges;
+import org.assertj.db.api.navigation.ToChange;
+import org.assertj.db.api.navigation.ToChanges;
 
 /**
  * Interface that represents a assert which is the origin assert of another assert and have changes.
  *
  * @author Régis Pouiller
  */
-public interface OriginWithChanges extends WithChanges, Origin {
+public interface OriginWithChanges extends ToChanges, ToChange, Origin {
 }

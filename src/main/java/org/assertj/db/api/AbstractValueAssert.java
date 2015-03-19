@@ -15,7 +15,7 @@ package org.assertj.db.api;
 import org.assertj.db.api.assertions.*;
 import org.assertj.db.api.assertions.impl.*;
 import org.assertj.db.api.navigation.ValueAssert;
-import org.assertj.db.api.navigation.WithValues;
+import org.assertj.db.api.navigation.ToValue;
 import org.assertj.db.type.*;
 
 /**
@@ -36,7 +36,7 @@ import org.assertj.db.type.*;
 public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, S extends AbstractSubAssert<D, A, S, V, C, CV, R, RV>, V extends AbstractValueAssert<D, A, S, V, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
     extends AbstractAssertWithOriginWithColumnsAndRows<V, S, D, A, C, CV, R, RV> implements AssertOnValueType<V>,
         AssertOnValueNullity<V>, AssertOnValueEquality<V>, AssertOnValueNonEquality<V>, AssertOnValueChronology<V>, AssertOnValueComparison<V>,
-        ValueAssert, WithValues<V> {
+        ValueAssert, ToValue<V> {
 
   /**
    * The actual value on which this assertion is.

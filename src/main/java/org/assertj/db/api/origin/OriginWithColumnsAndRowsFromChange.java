@@ -14,9 +14,9 @@ package org.assertj.db.api.origin;
 
 import org.assertj.db.api.ChangeColumnAssert;
 import org.assertj.db.api.ChangeRowAssert;
-import org.assertj.db.api.navigation.WithColumns;
-import org.assertj.db.api.navigation.WithColumnsFromChange;
-import org.assertj.db.api.navigation.WithRowsFromChange;
+import org.assertj.db.api.navigation.ToColumn;
+import org.assertj.db.api.navigation.ToColumnFromChange;
+import org.assertj.db.api.navigation.ToRowFromChange;
 
 /**
  * Interface that represents a assert which is the origin assert of another assert and have rows.
@@ -24,6 +24,6 @@ import org.assertj.db.api.navigation.WithRowsFromChange;
  * @author Régis Pouiller
  */
 public interface OriginWithColumnsAndRowsFromChange
-        extends OriginWithChanges, WithColumns<ChangeColumnAssert>, WithColumnsFromChange<ChangeColumnAssert>,
-        WithRowsFromChange<ChangeRowAssert> {
+        extends OriginWithChanges, ToColumn<ChangeColumnAssert>, ToColumnFromChange<ChangeColumnAssert>,
+        ToRowFromChange<ChangeRowAssert> {
 }

@@ -14,6 +14,10 @@ package org.assertj.db.api.navigation;
 
 /**
  * Interface that represents a assert about value.
+ * <p>It can be a value of a table, of the result of a request or a change.</p>
+ * <p>This interface is used by the interfaces {@link ToValue},
+ * {@link ToValueFromColumn}
+ * and {@link ToValueFromRow}.</p>
  *
  * @author Régis Pouiller
  */

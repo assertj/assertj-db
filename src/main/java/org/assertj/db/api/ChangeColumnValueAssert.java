@@ -12,7 +12,7 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.db.api.navigation.WithValuesFromColumn;
+import org.assertj.db.api.navigation.ToValueFromColumn;
 
 /**
  * Assertion methods about a value of a {@code Column} of a {@code Change}.
@@ -21,7 +21,7 @@ import org.assertj.db.api.navigation.WithValuesFromColumn;
  *
  */
 public class ChangeColumnValueAssert extends AbstractAssertWithValues<ChangeColumnValueAssert, ChangeColumnAssert>
-        implements WithValuesFromColumn<ChangeColumnValueAssert> {
+        implements ToValueFromColumn<ChangeColumnValueAssert> {
 
   /**
    * Constructor.

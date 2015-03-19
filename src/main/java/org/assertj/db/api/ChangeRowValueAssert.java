@@ -12,8 +12,8 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.db.api.navigation.WithValues;
-import org.assertj.db.api.navigation.WithValuesFromRow;
+import org.assertj.db.api.navigation.ToValue;
+import org.assertj.db.api.navigation.ToValueFromRow;
 
 /**
  * Assertion methods about a value of a {@code Row} of a {@code Change}.
@@ -22,7 +22,7 @@ import org.assertj.db.api.navigation.WithValuesFromRow;
  *
  */
 public class ChangeRowValueAssert extends AbstractAssertWithValues<ChangeRowValueAssert, ChangeRowAssert>
-        implements WithValues<ChangeRowValueAssert>, WithValuesFromRow<ChangeRowValueAssert> {
+        implements ToValue<ChangeRowValueAssert>, ToValueFromRow<ChangeRowValueAssert> {
 
   /**
    * Constructor.

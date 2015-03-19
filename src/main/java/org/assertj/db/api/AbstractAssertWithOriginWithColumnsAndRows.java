@@ -12,8 +12,8 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.db.api.navigation.WithColumns;
-import org.assertj.db.api.navigation.WithRows;
+import org.assertj.db.api.navigation.ToColumn;
+import org.assertj.db.api.navigation.ToRow;
 import org.assertj.db.api.origin.OriginWithColumnsAndRows;
 import org.assertj.db.type.AbstractDbData;
 
@@ -34,7 +34,7 @@ import org.assertj.db.type.AbstractDbData;
  * @author Régis Pouiller
  */
 public abstract class AbstractAssertWithOriginWithColumnsAndRows<E extends AbstractAssertWithOriginWithColumnsAndRows<E, O, D, A, C, CV, R, RV>, O extends OriginWithColumnsAndRows<C, R>, D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
-        extends AbstractAssertWithOrigin<E, O> implements WithColumns<C>, WithRows<R> {
+        extends AbstractAssertWithOrigin<E, O> implements ToColumn<C>, ToRow<R> {
 
   /**
    * Constructor.

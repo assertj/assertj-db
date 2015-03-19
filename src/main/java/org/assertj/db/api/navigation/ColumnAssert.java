@@ -14,6 +14,9 @@ package org.assertj.db.api.navigation;
 
 /**
  * Interface that represents a assert about column.
+ * <p>It can be a column of a table, of the result of a request or a change.</p>
+ * <p>This interface is used by the interfaces {@link ToColumn}
+ * and {@link ToColumnFromChange}.</p>
  *
  * @author Régis Pouiller
  */

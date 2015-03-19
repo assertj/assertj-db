@@ -12,9 +12,9 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.db.api.navigation.WithColumns;
-import org.assertj.db.api.navigation.WithColumnsFromChange;
-import org.assertj.db.api.navigation.WithRowsFromChange;
+import org.assertj.db.api.navigation.ToColumn;
+import org.assertj.db.api.navigation.ToColumnFromChange;
+import org.assertj.db.api.navigation.ToRowFromChange;
 import org.assertj.db.api.origin.OriginWithColumnsAndRowsFromChange;
 
 /**
@@ -27,8 +27,9 @@ import org.assertj.db.api.origin.OriginWithColumnsAndRowsFromChange;
  * @author Régis Pouiller
  */
 public abstract class AbstractAssertWithOriginWithColumnsAndRowsFromChange<E extends AbstractAssertWithOriginWithColumnsAndRowsFromChange<E, O>, O extends OriginWithColumnsAndRowsFromChange>
-        extends AbstractAssertWithOriginWithChanges<E, O> implements WithColumns<ChangeColumnAssert>, WithColumnsFromChange<ChangeColumnAssert>,
-        WithRowsFromChange<ChangeRowAssert> {
+        extends AbstractAssertWithOriginWithChanges<E, O> implements ToColumn<ChangeColumnAssert>,
+        ToColumnFromChange<ChangeColumnAssert>,
+        ToRowFromChange<ChangeRowAssert> {
 
   /**
    * Constructor.

@@ -12,7 +12,7 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.db.api.navigation.WithValuesFromRow;
+import org.assertj.db.api.navigation.ToValueFromRow;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Row;
 
@@ -30,7 +30,7 @@ import org.assertj.db.type.Row;
  * @param <RV> The class of this assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
 public abstract class AbstractRowValueAssert<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
-    extends AbstractValueAssert<D, A, R, RV, C, CV, R, RV> implements WithValuesFromRow<RV> {
+    extends AbstractValueAssert<D, A, R, RV, C, CV, R, RV> implements ToValueFromRow<RV> {
 
   /**
    * Constructor.

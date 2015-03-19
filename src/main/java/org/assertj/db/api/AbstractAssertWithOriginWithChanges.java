@@ -12,7 +12,8 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.db.api.navigation.WithChanges;
+import org.assertj.db.api.navigation.ToChange;
+import org.assertj.db.api.navigation.ToChanges;
 import org.assertj.db.api.origin.OriginWithChanges;
 
 /**
@@ -25,7 +26,7 @@ import org.assertj.db.api.origin.OriginWithChanges;
  * @author Régis Pouiller
  */
 public abstract class AbstractAssertWithOriginWithChanges<E extends AbstractAssertWithOriginWithChanges<E, O>, O extends OriginWithChanges>
-        extends AbstractAssertWithOrigin<E, O> implements WithChanges {
+        extends AbstractAssertWithOrigin<E, O> implements ToChanges, ToChange {
 
   /**
    * Constructor.

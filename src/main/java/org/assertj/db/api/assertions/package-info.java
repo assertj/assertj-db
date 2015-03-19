@@ -15,13 +15,11 @@
  * <p>These assertion methods defined in the interfaces are implemented in the assertions classes.</p>
  * <p>This diagram shows the part on the tables and requests :</p>
  * <p>
- * <img src="https://github.com/joel-costigliola/assertj-db/raw/master/doc/diagramOfPartOnTableAndRequestWithAssertions.png" height="80%" width="80%" >
- * </img
+ * <img src="https://raw.githubusercontent.com/joel-costigliola/assertj-db/master/doc/table_and_request/assertions/diagramOfPartOnTableAndRequestWithAssertions.png" alt="diagram with assertions on table and request" height="80%" width="80%" >
  * </p>
  * <p>This diagram shows the part on the changes :</p>
  * <p>
- * <img src="https://github.com/joel-costigliola/assertj-db/raw/master/doc/diagramOfPartOnChangesWithAssertions.png" height="80%" width="80%" >
- * </img
+ * <img src="https://raw.githubusercontent.com/joel-costigliola/assertj-db/master/doc/changes/assertions/diagramOfPartOnChangesWithAssertions.png" alt="diagram with assertions on changes" height="80%" width="80%" >
  * </p>
  *
  * @author Régis Pouiller
