@@ -18,7 +18,7 @@ import org.assertj.db.api.ChangeAssert;
  * Defines methods to navigate to a {@link org.assertj.db.type.Change}.
  * <p>The different methods return an assertion on one change {@link org.assertj.db.api.ChangeAssert}.</p>
  * <p>
- * <img src="https://raw.githubusercontent.com/joel-costigliola/assertj-db/master/doc/changes/navigation/diagramOnNavigationWithChanges_Change.png" alt="diagram with navigation to change" height="80%" width="80%" >
+ * <img src="https://raw.githubusercontent.com/joel-costigliola/assertj-db/master/doc/changes/navigation/diagramOnNavigationWithChanges_ToChange.png" alt="diagram with navigation to change" height="50%" width="50%" >
  * </p>
 
  * @author Régis Pouiller

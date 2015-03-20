@@ -20,7 +20,7 @@ import org.assertj.db.api.ChangesAssert;
  * <p>The different methods return an assertion on changes {@link org.assertj.db.api.ChangesAssert}
  * or assertion on one change {@link org.assertj.db.api.ChangeAssert}.</p>
  * <p>
- * <img src="https://raw.githubusercontent.com/joel-costigliola/assertj-db/master/doc/changes/navigation/diagramOnNavigationWithChanges_Changes.png" alt="diagram with navigation to changes" height="80%" width="80%" >
+ * <img src="https://raw.githubusercontent.com/joel-costigliola/assertj-db/master/doc/changes/navigation/diagramOnNavigationWithChanges_ToChanges.png" alt="diagram with navigation to changes" height="50%" width="50%" >
  * </p>
 
  * @author Régis Pouiller
