@@ -27,7 +27,7 @@ public class AssertionsOnValueNullity {
   /**
    * Assertions for {@code Object}s provided by assertj-core.
    */
-  private static Objects objects = Objects.instance();
+  private static final Objects objects = Objects.instance();
 
   /**
    * Private constructor.

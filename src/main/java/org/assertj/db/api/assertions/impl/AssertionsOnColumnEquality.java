@@ -118,7 +118,7 @@ public class AssertionsOnColumnEquality {
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
     int index = 0;
     for (Object value : valuesList) {
-      if (!areEqual((byte[]) value, expected[index])) {
+      if (!areEqual(value, expected[index])) {
         throw failures.failure(info, shouldBeEqual(index));
       }
       index++;

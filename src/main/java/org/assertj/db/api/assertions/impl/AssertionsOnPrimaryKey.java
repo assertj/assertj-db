@@ -65,11 +65,11 @@ public class AssertionsOnPrimaryKey {
 
     // Create a sorted list from the primary keys columns
     List<String> pksNameList = change.getPksNameList();
-    List<String> pksList = new ArrayList(pksNameList);
+    List<String> pksList = new ArrayList<String>(pksNameList);
     Collections.sort(pksList);
 
     // Create a sorted list from the parameters
-    List<String> namesList = new ArrayList();
+    List<String> namesList = new ArrayList<String>();
     for (String name : names) {
       if (name == null) {
         throw new NullPointerException("Column name must be not null");

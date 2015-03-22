@@ -67,10 +67,11 @@ public class AssertionsOnValueChronology {
                                                       DateValue date) {
     AssertionsOnValueType.isOfAnyOfTypes(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
     if (value instanceof Date) {
-      if (DateValue.from((Date) value).isBefore(date)) {
+      DateValue dateValue = DateValue.from((Date) value);
+      if (dateValue.isBefore(date)) {
         return assertion;
       }
-      throw failures.failure(info, shouldBeBefore(DateValue.from((Date) value), date));
+      throw failures.failure(info, shouldBeBefore(dateValue, date));
     } else {
       DateTimeValue dateTimeValue = DateTimeValue.of(date);
       if (DateTimeValue.from((Timestamp) value).isBefore(dateTimeValue)) {
@@ -123,7 +124,7 @@ public class AssertionsOnValueChronology {
     if (dateTimeValue.isBefore(dateTime)) {
       return assertion;
     }
-    throw failures.failure(info, shouldBeBefore(DateTimeValue.from((Timestamp) value), dateTime));
+    throw failures.failure(info, shouldBeBefore(dateTimeValue, dateTime));
   }
 
   /**
@@ -248,7 +249,7 @@ public class AssertionsOnValueChronology {
     if (dateTimeValue.isBefore(dateTime) || areEqual(value, dateTime)) {
       return assertion;
     }
-    throw failures.failure(info, shouldBeBeforeOrEqual(DateTimeValue.from((Timestamp) value), dateTime));
+    throw failures.failure(info, shouldBeBeforeOrEqual(dateTimeValue, dateTime));
   }
 
   /**
@@ -451,7 +452,7 @@ public class AssertionsOnValueChronology {
       if (DateTimeValue.from((Timestamp) value).isAfter(dateTimeValue) || areEqual(value, date)) {
         return assertion;
       }
-      throw failures.failure(info, shouldBeAfterOrEqual(dateTimeValue, dateTimeValue));
+      throw failures.failure(info, shouldBeAfterOrEqual(dateTimeValue, date));
     }
   }
 
