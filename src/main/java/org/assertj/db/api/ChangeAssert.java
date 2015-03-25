@@ -56,7 +56,7 @@ public class ChangeAssert extends AbstractAssertWithOriginWithChanges<ChangeAsse
   /**
    * Map the columns assert with their index in key (contains the columns assert already generated).
    */
-  private Map<Integer, ChangeColumnAssert> columnsAssertMap = new HashMap<>();
+  private Map<Integer, ChangeColumnAssert> columnsAssertMap = new HashMap<Integer, ChangeColumnAssert>();
 
   /**
    * Constructor.

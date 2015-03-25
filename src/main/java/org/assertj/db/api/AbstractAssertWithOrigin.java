@@ -15,7 +15,7 @@ package org.assertj.db.api;
 import org.assertj.db.api.origin.Origin;
 
 /**
- * Abstract class that represents a assert with an origin assert.
+ * Abstract class that represents a assert class with an origin assert class.
  * 
  * @author Régis Pouiller
  * 

@@ -68,7 +68,7 @@ public interface ToValueFromRow<V extends ValueAssert> {
    *
    * @param columnName The column name.
    * @return An object to make assertions on the value.
-   * @throws NullPointerException If the column name in parameter is null.
+   * @throws NullPointerException If the column name in parameter is {@code null}.
    * @throws org.assertj.db.exception.AssertJDBException If there is no column with this name.
    * @see org.assertj.db.api.AbstractRowAssert#value(String)
    * @see org.assertj.db.api.AbstractRowValueAssert#value(String)

@@ -13,12 +13,41 @@
 package org.assertj.db.api.navigation;
 
 import org.assertj.db.exception.AssertJDBException;
-import org.assertj.db.type.Column;
 import org.assertj.db.type.Row;
 
 /**
  * Defines methods to navigate to a {@link org.assertj.db.type.Row}.
  * <p>The different methods return an assertion on one row {@link org.assertj.db.api.navigation.RowAssert}.</p>
+ * <p>These methods exists when navigating from a {@link org.assertj.db.type.Table} of from a {@link org.assertj.db.type.Request}.</p>
+ * <p>As shown in the diagram below, it is possible to call the method to navigate to a {@link org.assertj.db.api.navigation.RowAssert} from :</p>
+ * <ul>
+ *     <li>a table ({@link org.assertj.db.api.TableAssert})</li>
+ *     <li>a request ({@link org.assertj.db.api.RequestAssert})</li>
+ *     <li>a column ({@link org.assertj.db.api.AbstractColumnAssert})</li>
+ *     <li>a value of a column ({@link org.assertj.db.api.AbstractColumnValueAssert})</li>
+ *     <li>a row ({@link org.assertj.db.api.AbstractRowAssert})</li>
+ *     <li>a value of a row ({@link org.assertj.db.api.AbstractRowValueAssert})</li>
+ * </ul>
+ * <p>
+ * <img src="https://raw.githubusercontent.com/joel-costigliola/assertj-db/master/doc/table_and_request/navigation/diagramOnNavigationWithTableOrRequest_ToRow.png" alt="diagram with navigation to row" height="45%" width="45%" >
+ * </p>
+ * <p>It is important to keep in mind that the methods are executed from the point of view of the last instance with assertion methods on a table ({@link org.assertj.db.api.TableAssert}) on a request ({@link org.assertj.db.api.RequestAssert}).<br>
+ * So all the lines of code below are equivalent : they point on the row at index 1 (as usual, the list start at index 0).
+ * </p>
+ * <pre>
+ * <code class='java'>
+ * assertThat(table_or_request).row(1)......;                             // Point directly on the row at index 1
+ * assertThat(table_or_request).row().returnToOrigin().row()......;       // Use the returnToOrigin() method of AbstractAssertWithOrigin
+ *                                                                        // to return on the table or request and access to the next/second row of the list
+ * assertThat(table_or_request).row().row()......;                        // Same as precedent but returnToOrigin() is implicit
+ * assertThat(table_or_request).row().row(1)......;                       // The method with the index can be call too
+ * assertThat(table_or_request).row(2).row(0).row(1)......;               // Idem
+ * assertThat(table_or_request).row().value().row()......;
+ * assertThat(table_or_request).row().value().row(1)......;
+ * // Equivalent to the precedent but with the use of the returnToOrigin() method of AbstractAssertWithOrigin
+ * assertThat(table_or_request).row().value().returnToOrigin().returnToOrigin().row(1)......;
+ * </code>
+ * </pre>
  *
  * @author Régis Pouiller
  *
@@ -27,18 +56,18 @@ import org.assertj.db.type.Row;
 public interface ToRow<R extends RowAssert> {
 
   /**
-   * Returns assertion methods on the next {@link Row} in the list of {@link Row}.
+   * Returns assertion methods on the next {@link org.assertj.db.type.Row} in the list of {@link org.assertj.db.type.Row}.
    * 
    * @return An object to make assertions on the next {@link Row}.
-   * @throws AssertJDBException If the {@code index} is out of the bounds.
+   * @throws AssertJDBException If there are no more {@link org.assertj.db.type.Row} in the list of {@link org.assertj.db.type.Row}s.
    */
   public R row();
 
   /**
-   * Returns assertion methods on the {@link Row} at the {@code index} in parameter.
+   * Returns assertion methods on the {@link org.assertj.db.type.Row} at the {@code index} in parameter.
    * 
-   * @param index The index corresponding to the {@link Row}.
-   * @return An object to make assertions on the {@link Row}.
+   * @param index The index corresponding to the {@link org.assertj.db.type.Row}.
+   * @return An object to make assertions on the {@link org.assertj.db.type.Row}.
    * @throws AssertJDBException If the {@code index} is out of the bounds.
    */
   public R row(int index);
