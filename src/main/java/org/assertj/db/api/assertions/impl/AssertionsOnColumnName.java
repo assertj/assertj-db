@@ -43,7 +43,7 @@ public class AssertionsOnColumnName {
    *
    * @param <A>        The type of the assertion which call this method.
    * @param assertion  The assertion which call this method.
-   * @param info       Info on the object to assert.
+   * @param info       Writable information about an assertion.
    * @param columnName The column name.
    * @param expected   The expected column name.
    * @return {@code this} assertion object.

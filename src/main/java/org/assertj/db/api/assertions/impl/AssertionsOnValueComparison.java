@@ -47,7 +47,7 @@ public class AssertionsOnValueComparison {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param value     The value.
    * @param expected The expected number value.
    * @return {@code this} assertion object.
@@ -66,7 +66,7 @@ public class AssertionsOnValueComparison {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param value     The value.
    * @param expected The expected number value.
    * @return {@code this} assertion object.
@@ -85,7 +85,7 @@ public class AssertionsOnValueComparison {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param value     The value.
    * @param expected The expected number value.
    * @return {@code this} assertion object.
@@ -104,7 +104,7 @@ public class AssertionsOnValueComparison {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param value     The value.
    * @param expected The expected number value.
    * @return {@code this} assertion object.

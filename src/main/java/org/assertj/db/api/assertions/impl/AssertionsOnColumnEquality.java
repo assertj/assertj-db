@@ -51,7 +51,7 @@ public class AssertionsOnColumnEquality {
    *
    * @param <A>        The type of the assertion which call this method.
    * @param assertion  The assertion which call this method.
-   * @param info       Info on the object to assert.
+   * @param info       Writable information about an assertion.
    * @param valuesList The list of values.
    * @param expected The expected boolean values.
    * @return {@code this} assertion object.
@@ -77,7 +77,7 @@ public class AssertionsOnColumnEquality {
    *
    * @param <A>        The type of the assertion which call this method.
    * @param assertion  The assertion which call this method.
-   * @param info       Info on the object to assert.
+   * @param info       Writable information about an assertion.
    * @param valuesList The list of values.
    * @param expected The expected numbers values.
    * @return {@code this} assertion object.
@@ -106,7 +106,7 @@ public class AssertionsOnColumnEquality {
    *
    * @param <A>        The type of the assertion which call this method.
    * @param assertion  The assertion which call this method.
-   * @param info       Info on the object to assert.
+   * @param info       Writable information about an assertion.
    * @param valuesList The list of values.
    * @param expected The expected bytes values.
    * @return {@code this} assertion object.
@@ -131,7 +131,7 @@ public class AssertionsOnColumnEquality {
    *
    * @param <A>        The type of the assertion which call this method.
    * @param assertion  The assertion which call this method.
-   * @param info       Info on the object to assert.
+   * @param info       Writable information about an assertion.
    * @param valuesList The list of values.
    * @param expected The expected text values.
    * @return {@code this} assertion object.
@@ -159,7 +159,7 @@ public class AssertionsOnColumnEquality {
    *
    * @param <A>        The type of the assertion which call this method.
    * @param assertion  The assertion which call this method.
-   * @param info       Info on the object to assert.
+   * @param info       Writable information about an assertion.
    * @param valuesList The list of values.
    * @param expected The expected date values.
    * @return {@code this} assertion object.
@@ -186,7 +186,7 @@ public class AssertionsOnColumnEquality {
    *
    * @param <A>        The type of the assertion which call this method.
    * @param assertion  The assertion which call this method.
-   * @param info       Info on the object to assert.
+   * @param info       Writable information about an assertion.
    * @param valuesList The list of values.
    * @param expected The expected time values.
    * @return {@code this} assertion object.
@@ -214,7 +214,7 @@ public class AssertionsOnColumnEquality {
    *
    * @param <A>        The type of the assertion which call this method.
    * @param assertion  The assertion which call this method.
-   * @param info       Info on the object to assert.
+   * @param info       Writable information about an assertion.
    * @param valuesList The list of values.
    * @param expected The expected date/time values.
    * @return {@code this} assertion object.

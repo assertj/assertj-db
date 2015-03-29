@@ -49,7 +49,7 @@ public class AssertionsOnColumnType {
    *
    * @param <A>        The type of the assertion which call this method.
    * @param assertion  The assertion which call this method.
-   * @param info       Info on the object to assert.
+   * @param info       Writable information about an assertion.
    * @param valuesList The list of values.
    * @param expected   The expected type to compare to.
    * @param lenient    {@code true} if the test is lenient : if the type of a value is not identified (for example when the
@@ -80,7 +80,7 @@ public class AssertionsOnColumnType {
    *
    * @param <A>        The type of the assertion which call this method.
    * @param assertion  The assertion which call this method.
-   * @param info       Info on the object to assert.
+   * @param info       Writable information about an assertion.
    * @param valuesList The list of values.
    * @param expected   The expected types to compare to.
    * @return {@code this} assertion object.
@@ -108,7 +108,7 @@ public class AssertionsOnColumnType {
    *
    * @param <A>        The type of the assertion which call this method.
    * @param assertion  The assertion which call this method.
-   * @param info       Info on the object to assert.
+   * @param info       Writable information about an assertion.
    * @param valuesList The list of values.
    * @param lenient    {@code true} if the test is lenient : if the type of a value is not identified (for example when the
    *                   value is {@code null}), it consider that it is ok.
@@ -125,7 +125,7 @@ public class AssertionsOnColumnType {
    *
    * @param <A>        The type of the assertion which call this method.
    * @param assertion  The assertion which call this method.
-   * @param info       Info on the object to assert.
+   * @param info       Writable information about an assertion.
    * @param valuesList The list of values.
    * @param lenient    {@code true} if the test is lenient : if the type of a value is not identified (for example when the
    *                   value is {@code null}), it consider that it is ok.
@@ -142,7 +142,7 @@ public class AssertionsOnColumnType {
    *
    * @param <A>        The type of the assertion which call this method.
    * @param assertion  The assertion which call this method.
-   * @param info       Info on the object to assert.
+   * @param info       Writable information about an assertion.
    * @param valuesList The list of values.
    * @param lenient    {@code true} if the test is lenient : if the type of a value is not identified (for example when the
    *                   value is {@code null}), it consider that it is ok.
@@ -159,7 +159,7 @@ public class AssertionsOnColumnType {
    *
    * @param <A>        The type of the assertion which call this method.
    * @param assertion  The assertion which call this method.
-   * @param info       Info on the object to assert.
+   * @param info       Writable information about an assertion.
    * @param valuesList The list of values.
    * @param lenient    {@code true} if the test is lenient : if the type of a value is not identified (for example when the
    *                   value is {@code null}), it consider that it is ok.
@@ -176,7 +176,7 @@ public class AssertionsOnColumnType {
    *
    * @param <A>        The type of the assertion which call this method.
    * @param assertion  The assertion which call this method.
-   * @param info       Info on the object to assert.
+   * @param info       Writable information about an assertion.
    * @param valuesList The list of values.
    * @param lenient    {@code true} if the test is lenient : if the type of a value is not identified (for example when the
    *                   value is {@code null}), it consider that it is ok.
@@ -193,7 +193,7 @@ public class AssertionsOnColumnType {
    *
    * @param <A>        The type of the assertion which call this method.
    * @param assertion  The assertion which call this method.
-   * @param info       Info on the object to assert.
+   * @param info       Writable information about an assertion.
    * @param valuesList The list of values.
    * @param lenient    {@code true} if the test is lenient : if the type of a value is not identified (for example when the
    *                   value is {@code null}), it consider that it is ok.
@@ -210,7 +210,7 @@ public class AssertionsOnColumnType {
    *
    * @param <A>        The type of the assertion which call this method.
    * @param assertion  The assertion which call this method.
-   * @param info       Info on the object to assert.
+   * @param info       Writable information about an assertion.
    * @param valuesList The list of values.
    * @param lenient    {@code true} if the test is lenient : if the type of a value is not identified (for example when the
    *                   value is {@code null}), it consider that it is ok.

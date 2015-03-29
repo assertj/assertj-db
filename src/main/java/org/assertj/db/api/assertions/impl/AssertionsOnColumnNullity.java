@@ -46,7 +46,7 @@ public class AssertionsOnColumnNullity {
    *
    * @param <A>        The type of the assertion which call this method.
    * @param assertion  The assertion which call this method.
-   * @param info       Info on the object to assert.
+   * @param info       Writable information about an assertion.
    * @param valuesList The list of values.
    * @return {@code this} assertion object.
    * @throws AssertionError If at least one of the values of the column are not {@code null}.
@@ -68,7 +68,7 @@ public class AssertionsOnColumnNullity {
    *
    * @param <A>        The type of the assertion which call this method.
    * @param assertion  The assertion which call this method.
-   * @param info       Info on the object to assert.
+   * @param info       Writable information about an assertion.
    * @param valuesList The list of values.
    * @return {@code this} assertion object.
    * @throws AssertionError If at least one of the values of the column are {@code null}.

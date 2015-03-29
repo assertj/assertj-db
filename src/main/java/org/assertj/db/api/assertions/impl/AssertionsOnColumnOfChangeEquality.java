@@ -45,7 +45,7 @@ public class AssertionsOnColumnOfChangeEquality {
    *
    * @param <A>               The type of the assertion which call this method.
    * @param assertion         The assertion which call this method.
-   * @param info              Info on the object to assert.
+   * @param info              Writable information about an assertion.
    * @param valueAtStartPoint The value at start point.
    * @param valueAtEndPoint   The value at end point.
    * @param expected          The expected value.
@@ -69,7 +69,7 @@ public class AssertionsOnColumnOfChangeEquality {
    *
    * @param <A>                  The type of the assertion which call this method.
    * @param assertion            The assertion which call this method.
-   * @param info                 Info on the object to assert.
+   * @param info                 Writable information about an assertion.
    * @param valueAtStartPoint    The value at start point.
    * @param valueAtEndPoint      The value at end point.
    * @param expectedAtStartPoint The expected value at start point.

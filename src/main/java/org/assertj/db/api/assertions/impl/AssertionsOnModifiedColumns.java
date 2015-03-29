@@ -52,7 +52,7 @@ public class AssertionsOnModifiedColumns {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param change    The change.
    * @param number    The expected number of modified columns
    * @return {@code this} assertion object.
@@ -74,7 +74,7 @@ public class AssertionsOnModifiedColumns {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param change    The change.
    * @param indexes   Indexes of the modified columns.
    * @return {@code this} assertion object.
@@ -115,7 +115,7 @@ public class AssertionsOnModifiedColumns {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param change    The change.
    * @param names     The names of the modified columns.
    * @return {@code this} assertion object.

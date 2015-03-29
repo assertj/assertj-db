@@ -57,7 +57,7 @@ public class AssertionsOnValueChronology {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param value     The value.
    * @param date      The date value to compare to.
    * @return {@code this} assertion object.
@@ -86,7 +86,7 @@ public class AssertionsOnValueChronology {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param value     The value.
    * @param time      The time value to compare to.
    * @return {@code this} assertion object.
@@ -106,7 +106,7 @@ public class AssertionsOnValueChronology {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param value     The value.
    * @param dateTime  The date/time value to compare to.
    * @return {@code this} assertion object.
@@ -132,7 +132,7 @@ public class AssertionsOnValueChronology {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param value     The value.
    * @param expected  The {@code String} representing a date, time or date/time to compare to.
    * @return {@code this} assertion object.
@@ -183,7 +183,7 @@ public class AssertionsOnValueChronology {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param value     The value.
    * @param date      The date value to compare to.
    * @return {@code this} assertion object.
@@ -211,7 +211,7 @@ public class AssertionsOnValueChronology {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param value     The value.
    * @param time      The time value to compare to.
    * @return {@code this} assertion object.
@@ -231,7 +231,7 @@ public class AssertionsOnValueChronology {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param value     The value.
    * @param dateTime  The date/time value to compare to.
    * @return {@code this} assertion object.
@@ -257,7 +257,7 @@ public class AssertionsOnValueChronology {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param value     The value.
    * @param expected  The {@code String} representing a date, time or date/time to compare to.
    * @return {@code this} assertion object.
@@ -308,7 +308,7 @@ public class AssertionsOnValueChronology {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param value     The value.
    * @param date      The date value to compare to.
    * @return {@code this} assertion object.
@@ -336,7 +336,7 @@ public class AssertionsOnValueChronology {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param value     The value.
    * @param time      The time value to compare to.
    * @return {@code this} assertion object.
@@ -356,7 +356,7 @@ public class AssertionsOnValueChronology {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param value     The value.
    * @param dateTime  The date/time value to compare to.
    * @return {@code this} assertion object.
@@ -382,7 +382,7 @@ public class AssertionsOnValueChronology {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param value     The value.
    * @param expected  The {@code String} representing a date, time or date/time to compare to.
    * @return {@code this} assertion object.
@@ -433,7 +433,7 @@ public class AssertionsOnValueChronology {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param value     The value.
    * @param date      The date value to compare to.
    * @return {@code this} assertion object.
@@ -461,7 +461,7 @@ public class AssertionsOnValueChronology {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param value     The value.
    * @param time      The time value to compare to.
    * @return {@code this} assertion object.
@@ -481,7 +481,7 @@ public class AssertionsOnValueChronology {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param value     The value.
    * @param dateTime  The date/time value to compare to.
    * @return {@code this} assertion object.
@@ -507,7 +507,7 @@ public class AssertionsOnValueChronology {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param value     The value.
    * @param expected The {@code String} representing a date, time or date/time to compare to.
    * @return {@code this} assertion object.

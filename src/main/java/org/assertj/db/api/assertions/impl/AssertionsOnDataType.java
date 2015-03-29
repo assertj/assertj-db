@@ -47,7 +47,7 @@ public class AssertionsOnDataType {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param change    The change.
    * @param expected  The expected type to compare to.
    * @return {@code this} assertion object.
@@ -67,7 +67,7 @@ public class AssertionsOnDataType {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param change    The change.
    * @return {@code this} assertion object.
    * @throws AssertionError If the type of data is not table.
@@ -81,7 +81,7 @@ public class AssertionsOnDataType {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param change    The change.
    * @return {@code this} assertion object.
    * @throws AssertionError If the type of data is not request.
@@ -95,7 +95,7 @@ public class AssertionsOnDataType {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param change    The change.
    * @param name      The name of the table on which is the change.
    * @return {@code this} assertion object.

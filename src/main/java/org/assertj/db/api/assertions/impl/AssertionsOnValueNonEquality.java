@@ -53,7 +53,7 @@ public class AssertionsOnValueNonEquality {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param value     The value.
    * @param expected  The expected boolean value.
    * @return {@code this} assertion object.
@@ -73,7 +73,7 @@ public class AssertionsOnValueNonEquality {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param value     The value.
    * @param expected  The expected array of bytes value.
    * @return {@code this} assertion object.
@@ -93,7 +93,7 @@ public class AssertionsOnValueNonEquality {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param value     The value.
    * @param expected  The expected date/time value.
    * @return {@code this} assertion object.
@@ -116,7 +116,7 @@ public class AssertionsOnValueNonEquality {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param value     The value.
    * @param expected  The expected date value.
    * @return {@code this} assertion object.
@@ -139,7 +139,7 @@ public class AssertionsOnValueNonEquality {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param value     The value.
    * @param expected  The expected number value.
    * @return {@code this} assertion object.
@@ -159,7 +159,7 @@ public class AssertionsOnValueNonEquality {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param value     The value.
    * @param expected  The expected text value.
    * @return {@code this} assertion object.
@@ -184,7 +184,7 @@ public class AssertionsOnValueNonEquality {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param value     The value.
    * @param expected  The expected time value.
    * @return {@code this} assertion object.
@@ -204,7 +204,7 @@ public class AssertionsOnValueNonEquality {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param value     The value.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is equal to zero.

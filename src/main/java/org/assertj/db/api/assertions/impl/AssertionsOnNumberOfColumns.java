@@ -43,7 +43,7 @@ public class AssertionsOnNumberOfColumns {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param size      The size of the row.
    * @param expected  The number to compare to the size.
    * @return {@code this} assertion object.

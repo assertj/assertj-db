@@ -50,7 +50,7 @@ public class AssertionsOnRowEquality {
    *
    * @param <A>        The type of the assertion which call this method.
    * @param assertion  The assertion which call this method.
-   * @param info       Info on the object to assert.
+   * @param info       Writable information about an assertion.
    * @param valuesList The list of values.
    * @param expected   The expected values.
    * @return {@code this} assertion object.

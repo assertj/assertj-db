@@ -50,7 +50,7 @@ public class AssertionsOnPrimaryKey {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param change    The change.
    * @param names     The names of the primary key associated with the rows of the change.
    * @return {@code this} assertion object.
@@ -92,7 +92,7 @@ public class AssertionsOnPrimaryKey {
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.
-   * @param info      Info on the object to assert.
+   * @param info      Writable information about an assertion.
    * @param change    The change.
    * @param values    The values of the primary key associated with the rows of the change.
    * @return {@code this} assertion object.
