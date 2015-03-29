@@ -33,17 +33,18 @@ import java.util.Map;
  * @param <A> The class of the original assertion (an sub-class of {@link AbstractDbAssert}).
  * @param <S> The class of this assertion (an sub-class of {@link AbstractSubAssert}).
  * @param <V> The class of this assertion on the value (an sub-class of {@link AbstractValueAssert}).
- * @param <C> The class of this assert (an sub-class of {@link AbstractColumnAssert}).
+ * @param <C> The class of this assertion (an sub-class of {@link AbstractColumnAssert}).
  * @param <CV> The class of this assertion on the value (an sub-class of {@link AbstractColumnValueAssert}).
- * @param <R> The class of the equivalent row assert (an sub-class of {@link AbstractRowAssert}).
+ * @param <R> The class of the equivalent row assertion (an sub-class of {@link AbstractRowAssert}).
  * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
 public abstract class AbstractSubAssert<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, S extends AbstractSubAssert<D, A, S, V, C, CV, R, RV>, V extends AbstractValueAssert<D, A, S, V, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
-    extends AbstractAssertWithOriginWithColumnsAndRows<S, A, D, A, C, CV, R, RV> implements
-        OriginWithColumnsAndRows<C, R>, ToValue<V> {
+        extends AbstractAssertWithOriginWithColumnsAndRows<S, A, D, A, C, CV, R, RV>
+        implements OriginWithColumnsAndRows<C, R>,
+                   ToValue<V> {
 
   /**
-   * Class of the assert on the value (used to make instance).
+   * Class of the assertion on the value (used to make instance).
    */
   private final Class<V> valueClass;
 
@@ -52,7 +53,7 @@ public abstract class AbstractSubAssert<D extends AbstractDbData<D>, A extends A
    */
   private int indexNextValue;
   /**
-   * Map the values assert with their index in key (contains the values assert already generated).
+   * Map the values assertion with their index in key (contains the values assertion already generated).
    */
   private Map<Integer, V> valuesAssertMap = new HashMap<Integer, V>();
 
@@ -60,8 +61,8 @@ public abstract class AbstractSubAssert<D extends AbstractDbData<D>, A extends A
    * Constructor.
    * 
    * @param originalDbAssert The original assert. That could be a {@link RequestAssert} or a {@link TableAssert}.
-   * @param selfType Class of this assert (the sub assert) : a sub-class of {@code AbstractSubAssert}.
-   * @param valueType Class of the assert on the value : a sub-class of {@code AbstractValueAssert}.
+   * @param selfType Type of this assertion class : a sub-class of {@code AbstractSubAssert}.
+   * @param valueType Class of the assertion on the value : a sub-class of {@code AbstractValueAssert}.
    */
   AbstractSubAssert(A originalDbAssert, Class<S> selfType, Class<V> valueType) {
     super(selfType, originalDbAssert);

@@ -20,13 +20,13 @@ import java.sql.*;
 import java.util.*;
 
 /**
- * This class represents data from the database.
+ * This class represents data from the database (either a {@link Table} or a {@link Request}).
  * <p>
  * That could be data from a {@link Table} or from a {@link Request}.<br>
- * So this class contains : the way to access the database with {@link #getSource()} and {@link #getDataSource()} (one
- * of them need to be set before loading the data).<br>
- * There are also the list of columns name ({@link #getColumnsNameList()}) and the list of the rows (
- * {@link #getRowsList()}). The first call to one of these methods triggers a loading from the database.
+ * So this class contains the list of columns name ({@link #getColumnsNameList()}),
+ * the list of primary keys name ({@link #getPksNameList()})
+ * and the list of the rows ({@link #getRowsList()}).
+ * The first call to one of these methods triggers a loading from the database.
  * </p>
  * 
  * @author Régis Pouiller

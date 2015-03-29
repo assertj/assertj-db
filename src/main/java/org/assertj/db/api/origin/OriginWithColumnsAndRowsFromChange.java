@@ -19,7 +19,8 @@ import org.assertj.db.api.navigation.ToColumnFromChange;
 import org.assertj.db.api.navigation.ToRowFromChange;
 
 /**
- * Defines a class which is the origin of another and have columns and rows from a change.
+ * Defines a class which is the {@link org.assertj.db.api.origin.Origin} of another
+ * and have {@link org.assertj.db.type.Column}s and {@link org.assertj.db.type.Row}s from a {@link org.assertj.db.type.Change}.
  *
  * @author Régis Pouiller
  */

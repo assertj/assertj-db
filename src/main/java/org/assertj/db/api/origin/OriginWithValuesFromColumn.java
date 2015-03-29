@@ -16,7 +16,8 @@ import org.assertj.db.api.ChangeColumnValueAssert;
 import org.assertj.db.api.navigation.ToValueFromColumn;
 
 /**
- * Defines a class which is the origin of another and have values from a column of a change.
+ * Defines a class which is the {@link org.assertj.db.api.origin.Origin} of another
+ * and have values from a {@link org.assertj.db.type.Column} of a {@link org.assertj.db.type.Change}.
  *
  * @author Régis Pouiller
  */

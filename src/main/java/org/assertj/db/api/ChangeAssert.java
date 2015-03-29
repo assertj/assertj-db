@@ -27,13 +27,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Assertion methods about the {@link Change}.
+ * Assertion methods for a {@link Change}.
  *
  * @author Régis Pouiller
  */
-public class ChangeAssert extends AbstractAssertWithOriginWithChanges<ChangeAssert, ChangesAssert>
-        implements OriginWithColumnsAndRowsFromChange, AssertOnDataType<ChangeAssert>, AssertOnPrimaryKey<ChangeAssert>,
-        AssertOnChangeType<ChangeAssert>, AssertOnModifiedColumns<ChangeAssert>, AssertOnNumberOfColumns<ChangeAssert> {
+public class ChangeAssert
+        extends AbstractAssertWithOriginWithChanges<ChangeAssert, ChangesAssert>
+        implements OriginWithColumnsAndRowsFromChange,
+                   AssertOnDataType<ChangeAssert>,
+                   AssertOnPrimaryKey<ChangeAssert>,
+                   AssertOnChangeType<ChangeAssert>,
+                   AssertOnModifiedColumns<ChangeAssert>,
+                   AssertOnNumberOfColumns<ChangeAssert> {
 
   /**
    * The actual change on which the assertion is.
@@ -61,11 +66,11 @@ public class ChangeAssert extends AbstractAssertWithOriginWithChanges<ChangeAsse
   /**
    * Constructor.
    *
-   * @param originalAssert The original assert.
-   * @param change         The {@link Change} on which are the assertions.
+   * @param origin The assertion of {@link org.assertj.db.api.origin.Origin}.
+   * @param change The {@link Change} on which are the assertions.
    */
-  ChangeAssert(ChangesAssert originalAssert, Change change) {
-    super(ChangeAssert.class, originalAssert);
+  ChangeAssert(ChangesAssert origin, Change change) {
+    super(ChangeAssert.class, origin);
     this.change = change;
   }
 

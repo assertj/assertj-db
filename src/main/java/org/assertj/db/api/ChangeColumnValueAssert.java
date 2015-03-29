@@ -15,22 +15,23 @@ package org.assertj.db.api;
 import org.assertj.db.api.navigation.ToValueFromColumn;
 
 /**
- * Assertion methods about a value of a {@code Column} of a {@code Change}.
+ * Assertion methods for a value of a {@code Column} of a {@code Change}.
  *
  * @author Régis Pouiller
  *
  */
-public class ChangeColumnValueAssert extends AbstractAssertWithValues<ChangeColumnValueAssert, ChangeColumnAssert>
+public class ChangeColumnValueAssert
+        extends AbstractAssertWithValues<ChangeColumnValueAssert, ChangeColumnAssert>
         implements ToValueFromColumn<ChangeColumnValueAssert> {
 
   /**
    * Constructor.
    *
-   * @param originalAssert The original assert.
+   * @param origin The assertion of {@link org.assertj.db.api.origin.Origin}.
    * @param value The value on which are the assertions.
    */
-  ChangeColumnValueAssert(ChangeColumnAssert originalAssert, Object value) {
-    super(ChangeColumnValueAssert.class, originalAssert, value);
+  ChangeColumnValueAssert(ChangeColumnAssert origin, Object value) {
+    super(ChangeColumnValueAssert.class, origin, value);
   }
 
   /** {@inheritDoc} */

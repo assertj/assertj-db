@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Row in a <code>{@link AbstractDbData}</code>.
+ * Row in a {@link AbstractDbData}.
  * <p>
  * A row can have many columns with a value in front of this column.
  * </p>

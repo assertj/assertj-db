@@ -17,7 +17,7 @@ import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.description.Description;
 
 /**
- * Parent of all the assert class of assertj-db.
+ * Base class for all assertions of assertj-db.
  * 
  * @author Régis Pouiller
  * 
@@ -25,10 +25,11 @@ import org.assertj.core.description.Description;
  *          target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
  *          for more details.
  */
-public abstract class AbstractAssert<E extends AbstractAssert<E>> implements Descriptable<E> {
+public abstract class AbstractAssert<E extends AbstractAssert<E>>
+        implements Descriptable<E> {
 
   /**
-   * Info on the object to assert.
+   * Writable information about an assertion.
    */
   protected final WritableAssertionInfo info;
 
@@ -40,7 +41,7 @@ public abstract class AbstractAssert<E extends AbstractAssert<E>> implements Des
   /**
    * Constructor.
    * 
-   * @param selfType Class of this assert : a sub-class of {@code AbstractAssert}.
+   * @param selfType Class of this assertion class : a sub-class of {@code AbstractAssert}.
    */
   AbstractAssert(Class<E> selfType) {
     myself = selfType.cast(this);

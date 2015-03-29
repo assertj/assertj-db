@@ -15,7 +15,7 @@ package org.assertj.db.type;
 import java.util.List;
 
 /**
- * Column in a <code>{@link AbstractDbData}</code>.
+ * Column in a {@link AbstractDbData}.
  * <p>
  * A column can have many rows with a value for each row.
  * </p>

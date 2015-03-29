@@ -13,7 +13,7 @@
 package org.assertj.db.type;
 
 /**
- * This interface indicates container of <code>{@link DateValue}</code>.
+ * This interface indicates container of {@link DateValue}.
  * 
  * @author Régis Pouiller
  * 

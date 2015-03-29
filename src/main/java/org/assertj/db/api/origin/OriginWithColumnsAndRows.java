@@ -18,7 +18,8 @@ import org.assertj.db.api.navigation.ToColumn;
 import org.assertj.db.api.navigation.ToRow;
 
 /**
- * Defines a class which is the origin of another and have columns and rows.
+ * Defines a class which is the {@link org.assertj.db.api.origin.Origin} of another
+ * and have {@link org.assertj.db.type.Column}s and {@link org.assertj.db.type.Row}s.
  *
  * @author Régis Pouiller
  *

@@ -16,7 +16,8 @@ import org.assertj.db.api.navigation.ToChange;
 import org.assertj.db.api.navigation.ToChanges;
 
 /**
- * Defines a class which is the origin of another and have changes.
+ * Defines a class which is the {@link org.assertj.db.api.origin.Origin} of another
+ * and have {@link org.assertj.db.type.Changes}.
  *
  * @author Régis Pouiller
  */

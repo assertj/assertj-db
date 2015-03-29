@@ -18,27 +18,29 @@ import org.assertj.db.api.navigation.ToRowFromChange;
 import org.assertj.db.api.origin.OriginWithColumnsAndRowsFromChange;
 
 /**
- * Abstract class that represents a assert with an origin assert and which is the origin assert of another assert and have rows.
+ * Base class for all assertions with an {@link org.assertj.db.api.origin.Origin}
+ * and have {@link org.assertj.db.type.Column}s and {@link org.assertj.db.type.Row}s from a {@link org.assertj.db.type.Change}.
  *
  * @param <E> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/anMa4g"
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
  *            for more details.
- * @param <O> The class of the assert of origin
+ * @param <O> The type of the assertion class of {@link org.assertj.db.api.origin.Origin}.
  * @author Régis Pouiller
  */
 public abstract class AbstractAssertWithOriginWithColumnsAndRowsFromChange<E extends AbstractAssertWithOriginWithColumnsAndRowsFromChange<E, O>, O extends OriginWithColumnsAndRowsFromChange>
-        extends AbstractAssertWithOriginWithChanges<E, O> implements ToColumn<ChangeColumnAssert>,
-        ToColumnFromChange<ChangeColumnAssert>,
-        ToRowFromChange<ChangeRowAssert> {
+        extends AbstractAssertWithOriginWithChanges<E, O>
+        implements ToColumn<ChangeColumnAssert>,
+                   ToColumnFromChange<ChangeColumnAssert>,
+                   ToRowFromChange<ChangeRowAssert> {
 
   /**
    * Constructor.
    *
-   * @param selfType     Class of this assert : a sub-class of {@code AbstractAssertWithOriginWithColumnsAndRowsFromChange}.
-   * @param originAssert The assert of origin.
+   * @param selfType Type of this assertion class : a sub-class of {@code AbstractAssertWithOriginWithColumnsAndRowsFromChange}.
+   * @param origin The assertion of {@link org.assertj.db.api.origin.Origin}.
    */
-  AbstractAssertWithOriginWithColumnsAndRowsFromChange(Class<E> selfType, O originAssert) {
-    super(selfType, originAssert);
+  AbstractAssertWithOriginWithColumnsAndRowsFromChange(Class<E> selfType, O origin) {
+    super(selfType, origin);
   }
 
   /**

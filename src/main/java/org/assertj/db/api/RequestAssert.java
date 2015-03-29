@@ -15,12 +15,13 @@ package org.assertj.db.api;
 import org.assertj.db.type.Request;
 
 /**
- * Assertion methods about the result of a <code>{@link Request}</code>.
+ * Assertion methods for a {@link Request}.
  * 
  * @author Régis Pouiller
  * 
  */
-public class RequestAssert extends AbstractDbAssert<Request, RequestAssert, RequestColumnAssert, RequestColumnValueAssert, RequestRowAssert, RequestRowValueAssert> {
+public class RequestAssert
+        extends AbstractDbAssert<Request, RequestAssert, RequestColumnAssert, RequestColumnValueAssert, RequestRowAssert, RequestRowValueAssert> {
 
   /**
    * Constructor.

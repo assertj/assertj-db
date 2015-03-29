@@ -324,7 +324,7 @@ public class Changes extends AbstractDbElement<Changes> {
   }
 
   /**
-   * Returns the list of changes for the data when there are primary keys.
+   * Returns the list of changes for the data when there have primary keys.
    * 
    * @param dataName The name of the data.
    * @param dataAtStartPoint The data at start point.

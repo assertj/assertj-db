@@ -12,21 +12,16 @@
  */
 package org.assertj.db.type;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
+import javax.sql.DataSource;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.sql.DataSource;
-
 /**
- * A table in the database to read to get the values.
+ * A request in the database to get values.
  * <p>
- * The different informations of the table are connection or data source, the SQL request and optionally the parameters
+ * The different informations of the request are connection or data source, the SQL request and optionally the parameters
  * of the SQL request.
  * </p>
  * <p>

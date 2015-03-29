@@ -25,21 +25,24 @@ import org.assertj.db.type.Row;
 import java.util.List;
 
 /**
- * Assertion methods about the data in a <code>{@link Row}</code>.
- * 
+ * Base class for all {@link Row}s assertions.
+ *
  * @author Régis Pouiller
  * 
  * @param <D> The class of the actual value (an sub-class of {@link AbstractDbData}).
- * @param <A> The class of the original assert (an sub-class of {@link AbstractDbAssert}).
- * @param <C> The class of the equivalent row assert (an sub-class of {@link AbstractColumnAssert}).
- * @param <CV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractColumnValueAssert}
+ * @param <A> The class of the original assertion (an sub-class of {@link AbstractDbAssert}).
+ * @param <C> The class of the equivalent column assertion (an sub-class of {@link AbstractColumnAssert}).
+ * @param <CV> The class of the equivalent column assertion on the value (an sub-class of {@link AbstractColumnValueAssert}
  *          ).
- * @param <R> The class of this assert (an sub-class of {@link AbstractRowAssert}).
+ * @param <R> The class of this assertion (an sub-class of {@link AbstractRowAssert}).
  * @param <RV> The class of this assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
 public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
-    extends AbstractSubAssert<D, A, R, RV, C, CV, R, RV> implements AssertOnRowEquality<R>,
-        AssertOnNumberOfColumns<R>, RowAssert, ToValueFromRow<RV> {
+        extends AbstractSubAssert<D, A, R, RV, C, CV, R, RV>
+        implements RowAssert,
+                   ToValueFromRow<RV>,
+                   AssertOnRowEquality<R>,
+                   AssertOnNumberOfColumns<R> {
 
   /**
    * Row on which do the assertion.
@@ -50,7 +53,7 @@ public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends A
    * Constructor.
    * 
    * @param originalDbAssert The original assert. That could be a {@link RequestAssert} or a {@link TableAssert}.
-   * @param selfType Class of this assert (the sub assert) : a sub-class of {@code AbstractRowAssert}.
+   * @param selfType Type of this assertion class : a sub-class of {@code AbstractRowAssert}.
    * @param valueType Class of the assert on the value : a sub-class of {@code AbstractRowValueAssert}.
    */
   AbstractRowAssert(A originalDbAssert, Class<R> selfType, Class<RV> valueType, Row row) {

@@ -15,24 +15,27 @@ package org.assertj.db.api;
 import org.assertj.db.api.assertions.AssertOnNumberOfColumns;
 import org.assertj.db.api.assertions.AssertOnRowEquality;
 import org.assertj.db.api.assertions.impl.AssertionsOnNumberOfColumns;
+import org.assertj.db.api.assertions.impl.AssertionsOnRowEquality;
 import org.assertj.db.api.navigation.RowAssert;
 import org.assertj.db.api.origin.OriginWithValuesFromRow;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Row;
-import org.assertj.db.api.assertions.impl.AssertionsOnRowEquality;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Assertion methods about a {@code Row} of a {@code Change}.
+ * Assertion methods for a {@code Row} of a {@code Change}.
  *
  * @author Régis Pouiller
  */
-public class ChangeRowAssert extends AbstractAssertWithOriginWithColumnsAndRowsFromChange<ChangeRowAssert, ChangeAssert>
-        implements OriginWithValuesFromRow, AssertOnRowEquality<ChangeRowAssert>, AssertOnNumberOfColumns<ChangeRowAssert>,
-        RowAssert {
+public class ChangeRowAssert
+        extends AbstractAssertWithOriginWithColumnsAndRowsFromChange<ChangeRowAssert, ChangeAssert>
+        implements RowAssert,
+                   OriginWithValuesFromRow,
+                   AssertOnRowEquality<ChangeRowAssert>,
+                   AssertOnNumberOfColumns<ChangeRowAssert> {
 
   /**
    * The actual row on which the assertion is.
@@ -51,11 +54,11 @@ public class ChangeRowAssert extends AbstractAssertWithOriginWithColumnsAndRowsF
   /**
    * Constructor.
    *
-   * @param originalAssert The original assert.
-   * @param row            The {@link Row} on which are the assertions.
+   * @param origin The assertion of {@link org.assertj.db.api.origin.Origin}.
+   * @param row The {@link Row} on which are the assertions.
    */
-  ChangeRowAssert(ChangeAssert originalAssert, Row row) {
-    super(ChangeRowAssert.class, originalAssert);
+  ChangeRowAssert(ChangeAssert origin, Row row) {
+    super(ChangeRowAssert.class, origin);
     this.row = row;
   }
 

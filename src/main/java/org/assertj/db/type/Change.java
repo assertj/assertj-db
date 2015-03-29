@@ -16,7 +16,13 @@ import java.util.List;
 
 /**
  * Change in the database.
- * 
+ * <p>
+ * Note : you never instantiate directly this class. You will get an object of this class from a {@link Changes}
+ * with the list by using {@link org.assertj.db.type.Changes#getChangesList()},
+ * {@link org.assertj.db.type.Changes#getChangesOfTable(String)}
+ * or {@link org.assertj.db.type.Changes#getChangesOfType(ChangeType)}.
+ * </p>
+ *
  * @author Régis Pouiller.
  * 
  */

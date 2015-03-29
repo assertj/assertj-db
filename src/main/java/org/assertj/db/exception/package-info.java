@@ -10,20 +10,12 @@
  *
  * Copyright 2012-2014 the original author or authors.
  */
-package org.assertj.db.api.origin;
-
-import org.assertj.db.api.ChangeRowValueAssert;
-import org.assertj.db.api.navigation.ToValue;
-import org.assertj.db.api.navigation.ToValueFromRow;
-
 /**
- * Defines a class which is the {@link org.assertj.db.api.origin.Origin} of another
- * and have values from a {@link org.assertj.db.type.Row}.
+ * This package contains the different exception thrown when there is an unexpected situation.
+ * <p>
+ * In general a wrong use of assertj-db like a navigation to a column which do not exist or a problem with the assess to the database.
+ * </p>
  *
  * @author Régis Pouiller
  */
-public interface OriginWithValuesFromRow
-        extends OriginWithColumnsAndRowsFromChange,
-                ToValue<ChangeRowValueAssert>,
-                ToValueFromRow<ChangeRowValueAssert> {
-}
+package org.assertj.db.exception;

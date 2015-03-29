@@ -20,8 +20,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * This class represents element from the database (either a {@code AbstractDbData} or a {@code Change}).
- * 
+ * This class represents element from the database (either a {@link AbstractDbData} or a {@link Change}).
+ * So this class contains : the way to access the database with {@link #getSource()} and {@link #getDataSource()} (one
+ * of them need to be set before loading the data).<br>
+ *
  * @author Régis Pouiller
  *
  * @param <D> Class of the subclass (an implementation of {@link AbstractDbElement}) : useful for the fluent methods

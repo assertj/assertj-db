@@ -28,8 +28,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Assertion methods about the data in a {@code Table} or in a {@code Request}.
- * 
+ * Base class for all data ({@code Table} or {@code Request}) assertions.
+ *
  * @author Régis Pouiller
  * 
  * @param <D> The class of the actual value (an sub-class of {@link AbstractDbData}).
@@ -40,8 +40,10 @@ import java.util.Map;
  * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
 public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
-    extends AbstractAssert<A> implements OriginWithColumnsAndRows<C, R>, AssertOnNumberOfColumns<A>,
-        AssertOnNumberOfRows<A> {
+        extends AbstractAssert<A>
+        implements OriginWithColumnsAndRows<C, R>,
+                   AssertOnNumberOfColumns<A>,
+                   AssertOnNumberOfRows<A> {
 
   /**
    * The actual value on which the assertion is.
@@ -53,11 +55,11 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
    */
   private int indexNextRow;
   /**
-   * Class of the assert on the row (used to make instance).
+   * Class of the assertion on the row (used to make instance).
    */
   private final Class<R> rowAssertClass;
   /**
-   * Class of the assert on the column (used to make instance).
+   * Class of the assertion on the column (used to make instance).
    */
   private final Class<C> columnAssertClass;
   /**
@@ -65,11 +67,11 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
    */
   private int indexNextColumn;
   /**
-   * Map the rows assert with their index in key (contains the rows assert already generated).
+   * Map the rows assertion with their index in key (contains the rows assertion already generated).
    */
   private Map<Integer, R> rowsAssertMap = new HashMap<Integer, R>();
   /**
-   * Map the columns assert with their index in key (contains the columns assert already generated).
+   * Map the columns assertion with their index in key (contains the columns assertion already generated).
    */
   private Map<Integer, C> columnsAssertMap = new HashMap<Integer, C>();
 
@@ -77,7 +79,7 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
    * Constructor of the database assertions.
    * 
    * @param actualValue The actual value on which the assertion is.
-   * @param selfType Class of the assertion.
+   * @param selfType Type of this assertion class.
    * @param columnAssertType Class of the assertion on the column.
    * @param rowAssertType Class of the assertion on the row.
    */

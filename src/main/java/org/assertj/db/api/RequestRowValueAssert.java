@@ -16,22 +16,22 @@ import org.assertj.db.type.Request;
 import org.assertj.db.type.Row;
 
 /**
- * Assertion methods about a value in a {@link Row} of a {@link Request}.
+ * Assertion methods for a value in a {@link Row} of a {@link Request}.
  * 
  * @author Régis Pouiller
  * 
  */
-public class RequestRowValueAssert extends
-    AbstractRowValueAssert<Request, RequestAssert, RequestColumnAssert, RequestColumnValueAssert, RequestRowAssert, RequestRowValueAssert> {
+public class RequestRowValueAssert
+        extends AbstractRowValueAssert<Request, RequestAssert, RequestColumnAssert, RequestColumnValueAssert, RequestRowAssert, RequestRowValueAssert> {
 
   /**
    * Constructor.
    * 
-   * @param originAssert The assert of origin.
+   * @param origin The assertion of {@link org.assertj.db.api.origin.Origin}.
    * @param value The value to assert.
    */
-  RequestRowValueAssert(RequestRowAssert originAssert, Object value) {
-    super(RequestRowValueAssert.class, originAssert, value);
+  RequestRowValueAssert(RequestRowAssert origin, Object value) {
+    super(RequestRowValueAssert.class, origin, value);
   }
 
   /**

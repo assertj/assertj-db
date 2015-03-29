@@ -21,10 +21,10 @@ import org.assertj.db.type.Column;
  * @author Régis Pouiller
  * 
  * @param <D> The class of the actual value (an sub-class of {@link AbstractDbData}).
- * @param <A> The class of the original assert (an sub-class of {@link AbstractDbAssert}).
- * @param <C> The class of this assert (an sub-class of {@link AbstractColumnAssert}).
+ * @param <A> The class of the original assertion (an sub-class of {@link AbstractDbAssert}).
+ * @param <C> The class of this assertion (an sub-class of {@link AbstractColumnAssert}).
  * @param <CV> The class of this assertion on the value (an sub-class of {@link AbstractColumnValueAssert}).
- * @param <R> The class of the equivalent row assert (an sub-class of {@link AbstractRowAssert}).
+ * @param <R> The class of the equivalent row assertion (an sub-class of {@link AbstractRowAssert}).
  * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
 public abstract class AbstractColumnValueAssert<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
@@ -33,12 +33,12 @@ public abstract class AbstractColumnValueAssert<D extends AbstractDbData<D>, A e
   /**
    * Constructor.
    * 
-   * @param selfType Class of this assert (the value assert) : a sub-class of {@code AbstractValueAssert}.
-   * @param originAssert The assert of origin.
-   * @param actualValue The value to assert.
+   * @param selfType Type of this assertion class : a sub-class of {@code AbstractColumnValueAssert}.
+   * @param origin The assertion of {@link org.assertj.db.api.origin.Origin}.
+   * @param actualValue The value on which are the assertion methods.
    */
-  AbstractColumnValueAssert(Class<CV> selfType, C originAssert, Object actualValue) {
-    super(selfType, originAssert, actualValue);
+  AbstractColumnValueAssert(Class<CV> selfType, C origin, Object actualValue) {
+    super(selfType, origin, actualValue);
   }
 
 }

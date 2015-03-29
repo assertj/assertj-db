@@ -16,19 +16,23 @@ import org.assertj.db.api.assertions.AssertOnColumnName;
 import org.assertj.db.api.assertions.AssertOnColumnOfChangeEquality;
 import org.assertj.db.api.assertions.AssertOnModifiedColumn;
 import org.assertj.db.api.assertions.impl.AssertionsOnColumnName;
+import org.assertj.db.api.assertions.impl.AssertionsOnColumnOfChangeEquality;
 import org.assertj.db.api.assertions.impl.AssertionsOnModifiedColumn;
 import org.assertj.db.api.navigation.ColumnAssert;
 import org.assertj.db.api.origin.OriginWithValuesFromColumn;
-import org.assertj.db.api.assertions.impl.AssertionsOnColumnOfChangeEquality;
 
 /**
- * Assertion methods about a {@code Column} of a {@code Change}.
+ * Assertion methods for a {@code Column} of a {@code Change}.
  *
  * @author Régis Pouiller
  */
-public class ChangeColumnAssert extends AbstractAssertWithOriginWithColumnsAndRowsFromChange<ChangeColumnAssert, ChangeAssert>
-        implements OriginWithValuesFromColumn, AssertOnColumnOfChangeEquality<ChangeColumnAssert>,
-        AssertOnModifiedColumn<ChangeColumnAssert>, AssertOnColumnName<ChangeColumnAssert>, ColumnAssert {
+public class ChangeColumnAssert
+        extends AbstractAssertWithOriginWithColumnsAndRowsFromChange<ChangeColumnAssert, ChangeAssert>
+        implements ColumnAssert,
+                   OriginWithValuesFromColumn,
+                   AssertOnColumnOfChangeEquality<ChangeColumnAssert>,
+                   AssertOnModifiedColumn<ChangeColumnAssert>,
+                   AssertOnColumnName<ChangeColumnAssert> {
 
   /**
    * The name of the column.
@@ -56,13 +60,13 @@ public class ChangeColumnAssert extends AbstractAssertWithOriginWithColumnsAndRo
   /**
    * Constructor.
    *
-   * @param columnName        The column name.
-   * @param originalAssert    The original assert.
+   * @param columnName The column name.
+   * @param origin The assertion of {@link org.assertj.db.api.origin.Origin}.
    * @param valueAtStartPoint The value at start point.
-   * @param valueAtEndPoint   The value at end point.
+   * @param valueAtEndPoint The value at end point.
    */
-  ChangeColumnAssert(ChangeAssert originalAssert, String columnName, Object valueAtStartPoint, Object valueAtEndPoint) {
-    super(ChangeColumnAssert.class, originalAssert);
+  ChangeColumnAssert(ChangeAssert origin, String columnName, Object valueAtStartPoint, Object valueAtEndPoint) {
+    super(ChangeColumnAssert.class, origin);
     this.columnName = columnName;
     this.valueAtStartPoint = valueAtStartPoint;
     this.valueAtEndPoint = valueAtEndPoint;

@@ -14,29 +14,35 @@ package org.assertj.db.api;
 
 import org.assertj.db.api.assertions.*;
 import org.assertj.db.api.assertions.impl.*;
-import org.assertj.db.api.navigation.ValueAssert;
 import org.assertj.db.api.navigation.ToValue;
+import org.assertj.db.api.navigation.ValueAssert;
 import org.assertj.db.type.*;
 
 /**
- * Assertion methods about the value.
- * 
+ * Base class for all values assertions.
+ *
  * @author Régis Pouiller
  * 
  * @param <D> The class of the actual value (an sub-class of {@link AbstractDbData}).
- * @param <A> The class of the original assert (an sub-class of {@link AbstractDbAssert}).
+ * @param <A> The class of the original assertion (an sub-class of {@link AbstractDbAssert}).
  * @param <S> The class of which contains assertion methods about {@link Column} or {@link Row} (an sub-class of
  *          {@link AbstractSubAssert}).
- * @param <V> The class of this assert (an sub-class of {@link AbstractValueAssert}).
- * @param <C> The class of this assert (an sub-class of {@link AbstractColumnAssert}).
+ * @param <V> The class of this assertion (an sub-class of {@link AbstractValueAssert}).
+ * @param <C> The class of this assertion (an sub-class of {@link AbstractColumnAssert}).
  * @param <CV> The class of this assertion on the value (an sub-class of {@link AbstractColumnValueAssert}).
- * @param <R> The class of the equivalent row assert (an sub-class of {@link AbstractRowAssert}).
+ * @param <R> The class of the equivalent row assertion (an sub-class of {@link AbstractRowAssert}).
  * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
 public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, S extends AbstractSubAssert<D, A, S, V, C, CV, R, RV>, V extends AbstractValueAssert<D, A, S, V, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
-    extends AbstractAssertWithOriginWithColumnsAndRows<V, S, D, A, C, CV, R, RV> implements AssertOnValueType<V>,
-        AssertOnValueNullity<V>, AssertOnValueEquality<V>, AssertOnValueNonEquality<V>, AssertOnValueChronology<V>, AssertOnValueComparison<V>,
-        ValueAssert, ToValue<V> {
+        extends AbstractAssertWithOriginWithColumnsAndRows<V, S, D, A, C, CV, R, RV>
+        implements ValueAssert,
+                   ToValue<V>,
+                   AssertOnValueType<V>,
+                   AssertOnValueNullity<V>,
+                   AssertOnValueEquality<V>,
+                   AssertOnValueNonEquality<V>,
+                   AssertOnValueChronology<V>,
+                   AssertOnValueComparison<V> {
 
   /**
    * The actual value on which this assertion is.
@@ -45,13 +51,13 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
 
   /**
    * Constructor.
-   * @param selfType Class of this assert (the value assert) : a sub-class of {@code AbstractValueAssert}.
-   * @param originAssert The assert of origin.
-   * @param actualValue The value to assert.
+   * @param selfType Type of this assertion class : a sub-class of {@code AbstractValueAssert}.
+   * @param origin The assertion of {@link org.assertj.db.api.origin.Origin}.
+   * @param value The value on which are the assertion methods.
    */
-  AbstractValueAssert(Class<V> selfType, S originAssert, Object actualValue) {
-    super(selfType, originAssert);
-    this.value = actualValue;
+  AbstractValueAssert(Class<V> selfType, S origin, Object value) {
+    super(selfType, origin);
+    this.value = value;
   }
 
   /** {@inheritDoc} */

@@ -16,22 +16,24 @@ import org.assertj.db.api.navigation.ToValue;
 import org.assertj.db.api.navigation.ToValueFromRow;
 
 /**
- * Assertion methods about a value of a {@code Row} of a {@code Change}.
+ * Assertion methods for a value of a {@code Row} of a {@code Change}.
  *
  * @author Régis Pouiller
  *
  */
-public class ChangeRowValueAssert extends AbstractAssertWithValues<ChangeRowValueAssert, ChangeRowAssert>
-        implements ToValue<ChangeRowValueAssert>, ToValueFromRow<ChangeRowValueAssert> {
+public class ChangeRowValueAssert
+        extends AbstractAssertWithValues<ChangeRowValueAssert, ChangeRowAssert>
+        implements ToValue<ChangeRowValueAssert>,
+                   ToValueFromRow<ChangeRowValueAssert> {
 
   /**
    * Constructor.
    *
-   * @param originalAssert The original assert.
+   * @param origin The assertion of {@link org.assertj.db.api.origin.Origin}.
    * @param value The value on which are the assertions.
    */
-  ChangeRowValueAssert(ChangeRowAssert originalAssert, Object value) {
-    super(ChangeRowValueAssert.class, originalAssert, value);
+  ChangeRowValueAssert(ChangeRowAssert origin, Object value) {
+    super(ChangeRowValueAssert.class, origin, value);
   }
 
   /** {@inheritDoc} */

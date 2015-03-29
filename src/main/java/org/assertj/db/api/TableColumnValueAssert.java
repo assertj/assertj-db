@@ -16,22 +16,22 @@ import org.assertj.db.type.Column;
 import org.assertj.db.type.Table;
 
 /**
- * Assertion methods about a value in a {@link Column} of a {@link Table}.
+ * Assertion methods for a value in a {@link Column} of a {@link Table}.
  * 
  * @author Régis Pouiller
  * 
  */
-public class TableColumnValueAssert extends
-    AbstractColumnValueAssert<Table, TableAssert, TableColumnAssert, TableColumnValueAssert, TableRowAssert, TableRowValueAssert> {
+public class TableColumnValueAssert
+        extends AbstractColumnValueAssert<Table, TableAssert, TableColumnAssert, TableColumnValueAssert, TableRowAssert, TableRowValueAssert> {
 
   /**
    * Constructor.
    * 
-   * @param originAssert The assert of origin.
+   * @param origin The assertion of {@link org.assertj.db.api.origin.Origin}.
    * @param value The value to assert.
    */
-  TableColumnValueAssert(TableColumnAssert originAssert, Object value) {
-    super(TableColumnValueAssert.class, originAssert, value);
+  TableColumnValueAssert(TableColumnAssert origin, Object value) {
+    super(TableColumnValueAssert.class, origin, value);
   }
 
   /**

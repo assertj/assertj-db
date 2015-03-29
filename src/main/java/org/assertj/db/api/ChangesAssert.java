@@ -13,12 +13,12 @@
 package org.assertj.db.api;
 
 import org.assertj.db.api.assertions.AssertOnNumberOfChanges;
+import org.assertj.db.api.assertions.impl.AssertionsOnNumberOfChanges;
 import org.assertj.db.api.origin.OriginWithChanges;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.Changes;
-import org.assertj.db.api.assertions.impl.AssertionsOnNumberOfChanges;
 import org.assertj.db.util.Values;
 
 import java.util.Arrays;
@@ -27,12 +27,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Assertion methods about the {@link Changes}.
+ * Assertion methods for {@link Changes}.
  *
  * @author Régis Pouiller
  */
-public class ChangesAssert extends AbstractAssertWithOrigin<ChangesAssert, ChangesAssert> implements
-        OriginWithChanges,
+public class ChangesAssert
+        extends AbstractAssertWithOrigin<ChangesAssert, ChangesAssert>
+        implements OriginWithChanges,
         AssertOnNumberOfChanges<ChangesAssert> {
 
   /**
@@ -67,11 +68,11 @@ public class ChangesAssert extends AbstractAssertWithOrigin<ChangesAssert, Chang
   /**
    * Constructor.
    *
-   * @param originalAssert The original assert.
-   * @param changes        The {@link Changes} on which are the assertions.
+   * @param origin The assertion of {@link org.assertj.db.api.origin.Origin}.
+   * @param changes The {@link Changes} on which are the assertions.
    */
-  private ChangesAssert(ChangesAssert originalAssert, Changes changes) {
-    super(ChangesAssert.class, originalAssert);
+  private ChangesAssert(ChangesAssert origin, Changes changes) {
+    super(ChangesAssert.class, origin);
     this.changes = changes;
   }
 

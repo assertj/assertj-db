@@ -10,20 +10,13 @@
  *
  * Copyright 2012-2014 the original author or authors.
  */
-package org.assertj.db.api.origin;
-
-import org.assertj.db.api.ChangeRowValueAssert;
-import org.assertj.db.api.navigation.ToValue;
-import org.assertj.db.api.navigation.ToValueFromRow;
-
 /**
- * Defines a class which is the {@link org.assertj.db.api.origin.Origin} of another
- * and have values from a {@link org.assertj.db.type.Row}.
+ * This package contains the classes that defines the different types used in assertj-db.
+ * <p>This diagram shows these different types :</p>
+ * <p>
+ * <img src="https://raw.githubusercontent.com/joel-costigliola/assertj-db/master/doc/type/diagramOfTypeClasses.png" alt="diagram with navigation on changes" height="45%" width="45%" >
+ * </p>
  *
  * @author Régis Pouiller
  */
-public interface OriginWithValuesFromRow
-        extends OriginWithColumnsAndRowsFromChange,
-                ToValue<ChangeRowValueAssert>,
-                ToValueFromRow<ChangeRowValueAssert> {
-}
+package org.assertj.db.type;

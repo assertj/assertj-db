@@ -22,18 +22,23 @@ import org.assertj.db.type.TimeValue;
 import org.assertj.db.type.ValueType;
 
 /**
- * Abstract class that represents a assert with an origin assert and which is the origin assert of another assert and have value.
+ * Base class for all values from a {@link org.assertj.db.type.Change} assertions.
  *
  * @param <E> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/anMa4g"
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
  *            for more details.
- * @param <O> The class of the assert of origin
+ * @param <O> The type of the assertion class of {@link org.assertj.db.api.origin.Origin}.
  * @author Régis Pouiller
  */
 public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValues<E, O>, O extends OriginWithColumnsAndRowsFromChange>
-        extends AbstractAssertWithOriginWithColumnsAndRowsFromChange<E, O> implements ValueAssert, OriginWithColumnsAndRowsFromChange,
-        AssertOnValueComparison<E>,
-        AssertOnValueType<E>, AssertOnValueNullity<E>, AssertOnValueEquality<E>, AssertOnValueNonEquality<E>, AssertOnValueChronology<E> {
+        extends AbstractAssertWithOriginWithColumnsAndRowsFromChange<E, O>
+        implements ValueAssert,
+                   AssertOnValueType<E>,
+                   AssertOnValueNullity<E>,
+                   AssertOnValueEquality<E>,
+                   AssertOnValueNonEquality<E>,
+                   AssertOnValueComparison<E>,
+                   AssertOnValueChronology<E> {
 
   /**
    * The actual value on which the assertion is.
@@ -43,12 +48,12 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
   /**
    * Constructor.
    *
-   * @param selfType     Class of this assert : a sub-class of {@code AbstractAssertWithValues}.
-   * @param originAssert The assert of origin.
-   * @param value The value on which are the assertions.
+   * @param selfType Type of this assertion class : a sub-class of {@code AbstractAssertWithValues}.
+   * @param origin The assertion of {@link org.assertj.db.api.origin.Origin}.
+   * @param value The value on which are the assertion methods.
    */
-  AbstractAssertWithValues(Class<E> selfType, O originAssert, Object value) {
-    super(selfType, originAssert);
+  AbstractAssertWithValues(Class<E> selfType, O origin, Object value) {
+    super(selfType, origin);
     this.value = value;
   }
 
