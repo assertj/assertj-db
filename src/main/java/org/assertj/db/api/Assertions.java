@@ -12,24 +12,23 @@
  */
 package org.assertj.db.api;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Changes;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Source;
 import org.assertj.db.type.Table;
 
+import java.io.*;
+import java.util.List;
+
 /**
  * Entry point of all the assertions.
- * 
  * <p>
- * Example with a {@code Source} and a {@code Table} with test on the content on the first row of the {@code movie}
+ *   The navigation methods are defined in <a href="navigation/package-summary.html">navigation package</a>.<br>
+ *   The assertion methods are defined in <a href="assertions/package-summary.html">assertions package</a>.
+ * </p>
+ * <p>
+ * Example with a {@link Source} and a {@link Table} with test on the content on the first row of the {@code movie}
  * table that the {@code title} column contains "Alien" like text and the next column contains 1979 like number :
  * </p>
  * 
@@ -110,7 +109,7 @@ public final class Assertions {
   }
 
   /**
-   * Creates a new instance of <code>{@link TableAssert}</code>.
+   * Creates a new instance of {@link TableAssert}.
    * 
    * @param table The table to assert on.
    * @return The created assertion object.
@@ -120,7 +119,7 @@ public final class Assertions {
   }
 
   /**
-   * Creates a new instance of <code>{@link RequestAssert}</code>.
+   * Creates a new instance of {@link RequestAssert}.
    * 
    * @param request The request to assert on.
    * @return The created assertion object.
@@ -134,7 +133,7 @@ public final class Assertions {
   }
 
   /**
-   * Creates a new instance of <code>{@link ChangesAssert}</code>.
+   * Creates a new instance of {@link ChangesAssert}.
    * 
    * @param changes The changes to assert on.
    * @return The created assertion object.
