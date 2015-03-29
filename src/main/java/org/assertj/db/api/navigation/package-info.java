@@ -13,11 +13,11 @@
 /**
  * This package contains interfaces that defines the different navigation methods.
  * <p>These navigation methods defined in the interfaces are implemented in the api classes.</p>
- * <p>This diagram shows the part on the tables and requests :</p>
+ * <p>This diagram shows the part on the tables and requests (the navigation interfaces are in green and the interfaces used by the navigation are in orange) :</p>
  * <p>
  * <img src="https://raw.githubusercontent.com/joel-costigliola/assertj-db/master/doc/table_and_request/navigation/diagramOfPartOnTableAndRequestWithNavigation.png" alt="diagram with navigation on table and request" height="80%" width="80%" >
  * </p>
- * <p>This diagram shows the part on the changes :</p>
+ * <p>This diagram shows the part on the changes (the navigation interfaces are in green and the interfaces used by the navigation are in orange) :</p>
  * <p>
  * <img src="https://raw.githubusercontent.com/joel-costigliola/assertj-db/master/doc/changes/navigation/diagramOfPartOnChangesWithNavigation.png" alt="diagram with navigation on changes" height="80%" width="80%" >
  * </p>

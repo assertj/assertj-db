@@ -18,7 +18,7 @@ import org.assertj.db.api.navigation.ToColumn;
 import org.assertj.db.api.navigation.ToRow;
 
 /**
- * Interface that represents a assert which is the origin assert of another assert and have columns and rows.
+ * Defines a class which is the origin of another and have columns and rows.
  *
  * @author Régis Pouiller
  *
@@ -26,5 +26,7 @@ import org.assertj.db.api.navigation.ToRow;
  * @param <R> The class of the equivalent row assert (an sub-class of {@link org.assertj.db.api.navigation.RowAssert}).
  */
 public interface OriginWithColumnsAndRows<C extends ColumnAssert, R extends RowAssert>
-  extends ToColumn<C>, ToRow<R>, Origin {
+        extends Origin,
+                ToColumn<C>,
+                ToRow<R> {
 }

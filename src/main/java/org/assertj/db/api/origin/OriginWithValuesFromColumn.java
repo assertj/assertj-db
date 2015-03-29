@@ -16,9 +16,11 @@ import org.assertj.db.api.ChangeColumnValueAssert;
 import org.assertj.db.api.navigation.ToValueFromColumn;
 
 /**
- * Interface that represents a assert which is the origin assert of another assert and have values from a column.
+ * Defines a class which is the origin of another and have values from a column of a change.
  *
  * @author Régis Pouiller
  */
-public interface OriginWithValuesFromColumn extends ToValueFromColumn<ChangeColumnValueAssert>, OriginWithColumnsAndRowsFromChange {
+public interface OriginWithValuesFromColumn
+        extends OriginWithColumnsAndRowsFromChange,
+                ToValueFromColumn<ChangeColumnValueAssert> {
 }

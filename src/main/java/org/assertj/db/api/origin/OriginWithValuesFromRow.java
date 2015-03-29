@@ -17,9 +17,12 @@ import org.assertj.db.api.navigation.ToValue;
 import org.assertj.db.api.navigation.ToValueFromRow;
 
 /**
- * Interface that represents a assert which is the origin assert of another assert and have values from a row.
+ * Defines a class which is the origin of another and have values from a row.
  *
  * @author Régis Pouiller
  */
-public interface OriginWithValuesFromRow extends ToValue<ChangeRowValueAssert>, ToValueFromRow<ChangeRowValueAssert>, OriginWithColumnsAndRowsFromChange {
+public interface OriginWithValuesFromRow
+        extends OriginWithColumnsAndRowsFromChange,
+                ToValue<ChangeRowValueAssert>,
+                ToValueFromRow<ChangeRowValueAssert> {
 }

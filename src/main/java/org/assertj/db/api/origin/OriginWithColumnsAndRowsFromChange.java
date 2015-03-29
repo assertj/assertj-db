@@ -19,11 +19,13 @@ import org.assertj.db.api.navigation.ToColumnFromChange;
 import org.assertj.db.api.navigation.ToRowFromChange;
 
 /**
- * Interface that represents a assert which is the origin assert of another assert and have rows.
+ * Defines a class which is the origin of another and have columns and rows from a change.
  *
  * @author Régis Pouiller
  */
 public interface OriginWithColumnsAndRowsFromChange
-        extends OriginWithChanges, ToColumn<ChangeColumnAssert>, ToColumnFromChange<ChangeColumnAssert>,
-        ToRowFromChange<ChangeRowAssert> {
+        extends OriginWithChanges,
+                ToColumn<ChangeColumnAssert>,
+                ToColumnFromChange<ChangeColumnAssert>,
+                ToRowFromChange<ChangeRowAssert> {
 }

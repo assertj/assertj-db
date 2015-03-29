@@ -13,7 +13,7 @@
 package org.assertj.db.api.origin;
 
 /**
- * Interface that represents a assert which is the origin assert of another assert.
+ * Defines a class which is the origin of another.
  * 
  * @author Régis Pouiller
  */
