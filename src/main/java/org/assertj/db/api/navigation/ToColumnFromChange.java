@@ -15,7 +15,7 @@ package org.assertj.db.api.navigation;
 /**
  * Defines methods to navigate to a modified {@link org.assertj.db.type.Column} from a {@link org.assertj.db.type.Change}.
  * <p>The different methods return an assertion on one column {@link org.assertj.db.api.navigation.ColumnAssert}.</p>
- * <p>These methods exists when navigating from changes.</p>
+ * <p>These methods exists when navigating (at the beginning {@code assertThat()}) from changes.</p>
  * <p>The difference with {@link org.assertj.db.api.navigation.ToColumn} is that {@link org.assertj.db.api.navigation.ToColumn}
  * allows to navigate in all the columns of a {@link org.assertj.db.type.Change} and the methods
  * of {@link org.assertj.db.api.navigation.ToColumnFromChange} count only the columns
@@ -61,6 +61,11 @@ public interface ToColumnFromChange<C extends ColumnAssert> {
    *
    * @return An object to make assertions on the {@link org.assertj.db.type.Column}.
    * @throws org.assertj.db.exception.AssertJDBException If there are no more {@link org.assertj.db.type.Column} among the list of modified {@link org.assertj.db.type.Column}s.
+   * @see org.assertj.db.api.ChangeAssert#columnAmongTheModifiedOnes(String)
+   * @see org.assertj.db.api.ChangeColumnAssert#columnAmongTheModifiedOnes(String)
+   * @see org.assertj.db.api.ChangeColumnValueAssert#columnAmongTheModifiedOnes(String)
+   * @see org.assertj.db.api.ChangeRowAssert#columnAmongTheModifiedOnes(String)
+   * @see org.assertj.db.api.ChangeRowValueAssert#columnAmongTheModifiedOnes(String)
    */
   public C columnAmongTheModifiedOnes();
 
@@ -70,6 +75,11 @@ public interface ToColumnFromChange<C extends ColumnAssert> {
    * @param index The index corresponding to the {@link org.assertj.db.type.Column} among the list of modified {@link org.assertj.db.type.Column}s..
    * @return An object to make assertions on the {@link org.assertj.db.type.Column}.
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
+   * @see org.assertj.db.api.ChangeAssert#columnAmongTheModifiedOnes(int)
+   * @see org.assertj.db.api.ChangeColumnAssert#columnAmongTheModifiedOnes(int)
+   * @see org.assertj.db.api.ChangeColumnValueAssert#columnAmongTheModifiedOnes(int)
+   * @see org.assertj.db.api.ChangeRowAssert#columnAmongTheModifiedOnes(int)
+   * @see org.assertj.db.api.ChangeRowValueAssert#columnAmongTheModifiedOnes(int)
    */
   public C columnAmongTheModifiedOnes(int index);
 
@@ -80,6 +90,11 @@ public interface ToColumnFromChange<C extends ColumnAssert> {
    * @return An object to make assertions on the {@link org.assertj.db.type.Column}.
    * @throws NullPointerException                        If the column name in parameter is {@code null}.
    * @throws org.assertj.db.exception.AssertJDBException If there is no column with this name  among the list of modified {@link org.assertj.db.type.Column}s.
+   * @see org.assertj.db.api.ChangeAssert#columnAmongTheModifiedOnes(String)
+   * @see org.assertj.db.api.ChangeColumnAssert#columnAmongTheModifiedOnes(String)
+   * @see org.assertj.db.api.ChangeColumnValueAssert#columnAmongTheModifiedOnes(String)
+   * @see org.assertj.db.api.ChangeRowAssert#columnAmongTheModifiedOnes(String)
+   * @see org.assertj.db.api.ChangeRowValueAssert#columnAmongTheModifiedOnes(String)
    */
   public C columnAmongTheModifiedOnes(String columnName);
 }

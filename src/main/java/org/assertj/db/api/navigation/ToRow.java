@@ -18,7 +18,7 @@ import org.assertj.db.type.Row;
 /**
  * Defines methods to navigate to a {@link org.assertj.db.type.Row}.
  * <p>The different methods return an assertion on one row {@link org.assertj.db.api.navigation.RowAssert}.</p>
- * <p>These methods exists when navigating from a {@link org.assertj.db.type.Table} of from a {@link org.assertj.db.type.Request}.</p>
+ * <p>These methods exists when navigating (at the beginning {@code assertThat()}) from a {@link org.assertj.db.type.Table} or from a {@link org.assertj.db.type.Request}.</p>
  * <p>As shown in the diagram below, it is possible to call the method to navigate to a {@link org.assertj.db.api.navigation.RowAssert} from :</p>
  * <ul>
  *     <li>a table ({@link org.assertj.db.api.TableAssert})</li>
@@ -31,7 +31,7 @@ import org.assertj.db.type.Row;
  * <p>
  * <img src="https://raw.githubusercontent.com/joel-costigliola/assertj-db/master/doc/table_and_request/navigation/diagramOnNavigationWithTableOrRequest_ToRow.png" alt="diagram with navigation to row" height="45%" width="45%" >
  * </p>
- * <p>It is important to keep in mind that the methods are executed from the point of view of the last instance with assertion methods on a table ({@link org.assertj.db.api.TableAssert}) on a request ({@link org.assertj.db.api.RequestAssert}).<br>
+ * <p>It is important to keep in mind that the methods are executed from the point of view of the last instance with assertion methods on a table ({@link org.assertj.db.api.TableAssert}) or on a request ({@link org.assertj.db.api.RequestAssert}).<br>
  * So all the lines of code below are equivalent : they point on the row at index 1 (as usual, the list start at index 0).
  * </p>
  * <pre>
@@ -60,6 +60,12 @@ public interface ToRow<R extends RowAssert> {
    * 
    * @return An object to make assertions on the next {@link Row}.
    * @throws AssertJDBException If there are no more {@link org.assertj.db.type.Row} in the list of {@link org.assertj.db.type.Row}s.
+   * @see org.assertj.db.api.TableAssert#row()
+   * @see org.assertj.db.api.RequestAssert#row()
+   * @see org.assertj.db.api.AbstractColumnAssert#row()
+   * @see org.assertj.db.api.AbstractColumnValueAssert#row()
+   * @see org.assertj.db.api.AbstractRowAssert#row()
+   * @see org.assertj.db.api.AbstractRowValueAssert#row()
    */
   public R row();
 
@@ -69,6 +75,12 @@ public interface ToRow<R extends RowAssert> {
    * @param index The index corresponding to the {@link org.assertj.db.type.Row}.
    * @return An object to make assertions on the {@link org.assertj.db.type.Row}.
    * @throws AssertJDBException If the {@code index} is out of the bounds.
+   * @see org.assertj.db.api.TableAssert#row(int)
+   * @see org.assertj.db.api.RequestAssert#row(int)
+   * @see org.assertj.db.api.AbstractColumnAssert#row(int)
+   * @see org.assertj.db.api.AbstractColumnValueAssert#row(int)
+   * @see org.assertj.db.api.AbstractRowAssert#row(int)
+   * @see org.assertj.db.api.AbstractRowValueAssert#row(int)
    */
   public R row(int index);
 }

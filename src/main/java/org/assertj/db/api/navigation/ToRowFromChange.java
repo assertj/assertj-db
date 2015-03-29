@@ -15,7 +15,7 @@ package org.assertj.db.api.navigation;
 /**
  * Defines methods to navigate to a {@link org.assertj.db.type.Row} from a {@link org.assertj.db.type.Change}.
  * <p>The different methods return an assertion on one row {@link org.assertj.db.api.navigation.RowAssert}.</p>
- * <p>These methods exists when navigating from changes.</p>
+ * <p>These methods exists when navigating (at the beginning {@code assertThat()}) from changes.</p>
  * <p>As shown in the diagram below, it is possible to call the method to navigate to a {@link org.assertj.db.api.navigation.RowAssert} from :</p>
  * <ul>
  *     <li>a change ({@link org.assertj.db.api.ChangeAssert})</li>
@@ -54,6 +54,11 @@ public interface ToRowFromChange<R extends RowAssert> {
    * Returns assertion methods on the {@link org.assertj.db.type.Row} at start point.
    *
    * @return An object to make assertions on the {@link org.assertj.db.type.Row} at start point.
+   * @see org.assertj.db.api.ChangeAssert#rowAtStartPoint()
+   * @see org.assertj.db.api.ChangeColumnAssert#rowAtStartPoint()
+   * @see org.assertj.db.api.ChangeColumnValueAssert#rowAtStartPoint()
+   * @see org.assertj.db.api.ChangeRowAssert#rowAtStartPoint()
+   * @see org.assertj.db.api.ChangeRowValueAssert#rowAtStartPoint()
    */
   public R rowAtStartPoint();
 
@@ -61,6 +66,11 @@ public interface ToRowFromChange<R extends RowAssert> {
    * Returns assertion methods on the {@link org.assertj.db.type.Row} at end point.
    *
    * @return An object to make assertions on the {@link org.assertj.db.type.Row} at end point.
+   * @see org.assertj.db.api.ChangeAssert#rowAtEndPoint()
+   * @see org.assertj.db.api.ChangeColumnAssert#rowAtEndPoint()
+   * @see org.assertj.db.api.ChangeColumnValueAssert#rowAtEndPoint()
+   * @see org.assertj.db.api.ChangeRowAssert#rowAtEndPoint()
+   * @see org.assertj.db.api.ChangeRowValueAssert#rowAtEndPoint()
    */
   public R rowAtEndPoint();
 }

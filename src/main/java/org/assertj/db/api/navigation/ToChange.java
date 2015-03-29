@@ -17,7 +17,7 @@ import org.assertj.db.api.ChangeAssert;
 /**
  * Defines methods to navigate to an instance with assertion methods on a {@link org.assertj.db.type.Change}.
  * <p>The different methods return an instance with assertion methods on one change ({@link org.assertj.db.api.ChangeAssert}).</p>
- * <p>These methods exists when navigating from changes.</p>
+ * <p>These methods exists when navigating (at the beginning {@code assertThat()}) from changes.</p>
  * <p>As shown in the diagram below, it is possible to call the method to navigate to a change from :</p>
  * <ul>
  *     <li>changes ({@link org.assertj.db.api.ChangesAssert})</li>
@@ -59,6 +59,12 @@ public interface ToChange {
    *
    * @return An object to make assertions on the next {@link org.assertj.db.type.Change}.
    * @throws org.assertj.db.exception.AssertJDBException If there are no more {@link org.assertj.db.type.Change} in the list of changes.
+   * @see org.assertj.db.api.ChangesAssert#change()
+   * @see org.assertj.db.api.ChangeAssert#change()
+   * @see org.assertj.db.api.ChangeColumnAssert#change()
+   * @see org.assertj.db.api.ChangeColumnValueAssert#change()
+   * @see org.assertj.db.api.ChangeRowAssert#change()
+   * @see org.assertj.db.api.ChangeRowValueAssert#change()
    */
   public ChangeAssert change();
 
@@ -68,6 +74,12 @@ public interface ToChange {
    * @param index The index corresponding to the {@link org.assertj.db.type.Change}.
    * @return An object to make assertions on the {@link org.assertj.db.type.Change}.
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
+   * @see org.assertj.db.api.ChangesAssert#change(int)
+   * @see org.assertj.db.api.ChangeAssert#change(int)
+   * @see org.assertj.db.api.ChangeColumnAssert#change(int)
+   * @see org.assertj.db.api.ChangeColumnValueAssert#change(int)
+   * @see org.assertj.db.api.ChangeRowAssert#change(int)
+   * @see org.assertj.db.api.ChangeRowValueAssert#change(int)
    */
   public ChangeAssert change(int index);
 
@@ -76,6 +88,12 @@ public interface ToChange {
    *
    * @return An object to make assertions on the next {@link org.assertj.db.type.Change} of creation ({@link org.assertj.db.type.ChangeType#CREATION}).
    * @throws org.assertj.db.exception.AssertJDBException If there are no more {@link org.assertj.db.type.Change} of creation ({@link org.assertj.db.type.ChangeType#CREATION}) in the list of changes.
+   * @see org.assertj.db.api.ChangesAssert#changeOfCreation()
+   * @see org.assertj.db.api.ChangeAssert#changeOfCreation()
+   * @see org.assertj.db.api.ChangeColumnAssert#changeOfCreation()
+   * @see org.assertj.db.api.ChangeColumnValueAssert#changeOfCreation()
+   * @see org.assertj.db.api.ChangeRowAssert#changeOfCreation()
+   * @see org.assertj.db.api.ChangeRowValueAssert#changeOfCreation()
    */
   public ChangeAssert changeOfCreation();
 
@@ -85,6 +103,12 @@ public interface ToChange {
    * @param index The index corresponding to the {@link org.assertj.db.type.Change} of creation ({@link org.assertj.db.type.ChangeType#CREATION}).
    * @return An object to make assertions on the {@link org.assertj.db.type.Change} of creation ({@link org.assertj.db.type.ChangeType#CREATION}).
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
+   * @see org.assertj.db.api.ChangesAssert#changeOfCreation(int)
+   * @see org.assertj.db.api.ChangeAssert#changeOfCreation(int)
+   * @see org.assertj.db.api.ChangeColumnAssert#changeOfCreation(int)
+   * @see org.assertj.db.api.ChangeColumnValueAssert#changeOfCreation(int)
+   * @see org.assertj.db.api.ChangeRowAssert#changeOfCreation(int)
+   * @see org.assertj.db.api.ChangeRowValueAssert#changeOfCreation(int)
    */
   public ChangeAssert changeOfCreation(int index);
 
@@ -93,6 +117,12 @@ public interface ToChange {
    *
    * @return An object to make assertions on the next {@link org.assertj.db.type.Change} of modification ({@link org.assertj.db.type.ChangeType#MODIFICATION}).
    * @throws org.assertj.db.exception.AssertJDBException If there are no more {@link org.assertj.db.type.Change} of modification ({@link org.assertj.db.type.ChangeType#MODIFICATION}) in the list of changes.
+   * @see org.assertj.db.api.ChangesAssert#changeOfModification()
+   * @see org.assertj.db.api.ChangeAssert#changeOfModification()
+   * @see org.assertj.db.api.ChangeColumnAssert#changeOfModification()
+   * @see org.assertj.db.api.ChangeColumnValueAssert#changeOfModification()
+   * @see org.assertj.db.api.ChangeRowAssert#changeOfModification()
+   * @see org.assertj.db.api.ChangeRowValueAssert#changeOfModification()
    */
   public ChangeAssert changeOfModification();
 
@@ -102,6 +132,12 @@ public interface ToChange {
    * @param index The index corresponding to the {@link org.assertj.db.type.Change} of modification ({@link org.assertj.db.type.ChangeType#MODIFICATION}).
    * @return An object to make assertions on the {@link org.assertj.db.type.Change} of modification ({@link org.assertj.db.type.ChangeType#MODIFICATION}).
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
+   * @see org.assertj.db.api.ChangesAssert#changeOfModification(int)
+   * @see org.assertj.db.api.ChangeAssert#changeOfModification(int)
+   * @see org.assertj.db.api.ChangeColumnAssert#changeOfModification(int)
+   * @see org.assertj.db.api.ChangeColumnValueAssert#changeOfModification(int)
+   * @see org.assertj.db.api.ChangeRowAssert#changeOfModification(int)
+   * @see org.assertj.db.api.ChangeRowValueAssert#changeOfModification(int)
    */
   public ChangeAssert changeOfModification(int index);
 
@@ -110,6 +146,12 @@ public interface ToChange {
    *
    * @return An object to make assertions on the next {@link org.assertj.db.type.Change} of deletion ({@link org.assertj.db.type.ChangeType#DELETION}).
    * @throws org.assertj.db.exception.AssertJDBException If there are no more {@link org.assertj.db.type.Change} of deletion in the list of changes.
+   * @see org.assertj.db.api.ChangesAssert#changeOfDeletion()
+   * @see org.assertj.db.api.ChangeAssert#changeOfDeletion()
+   * @see org.assertj.db.api.ChangeColumnAssert#changeOfDeletion()
+   * @see org.assertj.db.api.ChangeColumnValueAssert#changeOfDeletion()
+   * @see org.assertj.db.api.ChangeRowAssert#changeOfDeletion()
+   * @see org.assertj.db.api.ChangeRowValueAssert#changeOfDeletion()
    */
   public ChangeAssert changeOfDeletion();
 
@@ -119,6 +161,12 @@ public interface ToChange {
    * @param index The index corresponding to the {@link org.assertj.db.type.Change} of deletion ({@link org.assertj.db.type.ChangeType#DELETION}).
    * @return An object to make assertions on the {@link org.assertj.db.type.Change} of deletion ({@link org.assertj.db.type.ChangeType#DELETION}).
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
+   * @see org.assertj.db.api.ChangesAssert#changeOfDeletion(int)
+   * @see org.assertj.db.api.ChangeAssert#changeOfDeletion(int)
+   * @see org.assertj.db.api.ChangeColumnAssert#changeOfDeletion(int)
+   * @see org.assertj.db.api.ChangeColumnValueAssert#changeOfDeletion(int)
+   * @see org.assertj.db.api.ChangeRowAssert#changeOfDeletion(int)
+   * @see org.assertj.db.api.ChangeRowValueAssert#changeOfDeletion(int)
    */
   public ChangeAssert changeOfDeletion(int index);
 
@@ -128,6 +176,12 @@ public interface ToChange {
    * @param tableName The table name
    * @return An object to make assertions on the next {@link org.assertj.db.type.Change}.
    * @throws org.assertj.db.exception.AssertJDBException If there are no more {@link org.assertj.db.type.Change} on the table in the list of changes.
+   * @see org.assertj.db.api.ChangesAssert#changeOnTable(String)
+   * @see org.assertj.db.api.ChangeAssert#changeOnTable(String)
+   * @see org.assertj.db.api.ChangeColumnAssert#changeOnTable(String)
+   * @see org.assertj.db.api.ChangeColumnValueAssert#changeOnTable(String)
+   * @see org.assertj.db.api.ChangeRowAssert#changeOnTable(String)
+   * @see org.assertj.db.api.ChangeRowValueAssert#changeOnTable(String)
    */
   public ChangeAssert changeOnTable(String tableName);
 
@@ -138,6 +192,12 @@ public interface ToChange {
    * @param index The index corresponding to the {@link org.assertj.db.type.Change}.
    * @return An object to make assertions on the {@link org.assertj.db.type.Change}.
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
+   * @see org.assertj.db.api.ChangesAssert#changeOnTable(String, int)
+   * @see org.assertj.db.api.ChangeAssert#changeOnTable(String, int)
+   * @see org.assertj.db.api.ChangeColumnAssert#changeOnTable(String, int)
+   * @see org.assertj.db.api.ChangeColumnValueAssert#changeOnTable(String, int)
+   * @see org.assertj.db.api.ChangeRowAssert#changeOnTable(String, int)
+   * @see org.assertj.db.api.ChangeRowValueAssert#changeOnTable(String, int)
    */
   public ChangeAssert changeOnTable(String tableName, int index);
 
@@ -148,6 +208,12 @@ public interface ToChange {
    * @param pksValues The values of the primary key corresponding to the {@link org.assertj.db.type.Change}.
    * @return An object to make assertions on the {@link org.assertj.db.type.Change}.
    * @throws org.assertj.db.exception.AssertJDBException If the {@code pksValues} is not found.
+   * @see org.assertj.db.api.ChangesAssert#changeOnTableWithPks(String, Object...)
+   * @see org.assertj.db.api.ChangeAssert#changeOnTableWithPks(String, Object...)
+   * @see org.assertj.db.api.ChangeColumnAssert#changeOnTableWithPks(String, Object...)
+   * @see org.assertj.db.api.ChangeColumnValueAssert#changeOnTableWithPks(String, Object...)
+   * @see org.assertj.db.api.ChangeRowAssert#changeOnTableWithPks(String, Object...)
+   * @see org.assertj.db.api.ChangeRowValueAssert#changeOnTableWithPks(String, Object...)
    */
   public ChangeAssert changeOnTableWithPks(String tableName, Object... pksValues);
 
@@ -157,6 +223,12 @@ public interface ToChange {
    * @param tableName The table name
    * @return An object to make assertions on the next {@link org.assertj.db.type.Change} of creation ({@link org.assertj.db.type.ChangeType#CREATION}).
    * @throws org.assertj.db.exception.AssertJDBException If there are no more {@link org.assertj.db.type.Change} of creation ({@link org.assertj.db.type.ChangeType#CREATION}) on the table in the list of changes.
+   * @see org.assertj.db.api.ChangesAssert#changeOfCreationOnTable(String)
+   * @see org.assertj.db.api.ChangeAssert#changeOfCreationOnTable(String)
+   * @see org.assertj.db.api.ChangeColumnAssert#changeOfCreationOnTable(String)
+   * @see org.assertj.db.api.ChangeColumnValueAssert#changeOfCreationOnTable(String)
+   * @see org.assertj.db.api.ChangeRowAssert#changeOfCreationOnTable(String)
+   * @see org.assertj.db.api.ChangeRowValueAssert#changeOfCreationOnTable(String)
    */
   public ChangeAssert changeOfCreationOnTable(String tableName);
 
@@ -167,6 +239,12 @@ public interface ToChange {
    * @param index The index corresponding to the {@link org.assertj.db.type.Change} of creation ({@link org.assertj.db.type.ChangeType#CREATION}).
    * @return An object to make assertions on the {@link org.assertj.db.type.Change} of creation ({@link org.assertj.db.type.ChangeType#CREATION}).
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
+   * @see org.assertj.db.api.ChangesAssert#changeOfCreationOnTable(String, int)
+   * @see org.assertj.db.api.ChangeAssert#changeOfCreationOnTable(String, int)
+   * @see org.assertj.db.api.ChangeColumnAssert#changeOfCreationOnTable(String, int)
+   * @see org.assertj.db.api.ChangeColumnValueAssert#changeOfCreationOnTable(String, int)
+   * @see org.assertj.db.api.ChangeRowAssert#changeOfCreationOnTable(String, int)
+   * @see org.assertj.db.api.ChangeRowValueAssert#changeOfCreationOnTable(String, int)
    */
   public ChangeAssert changeOfCreationOnTable(String tableName, int index);
 
@@ -176,6 +254,12 @@ public interface ToChange {
    * @param tableName The table name
    * @return An object to make assertions on the next {@link org.assertj.db.type.Change} of modification ({@link org.assertj.db.type.ChangeType#MODIFICATION}).
    * @throws org.assertj.db.exception.AssertJDBException If there are no more {@link org.assertj.db.type.Change} of modification ({@link org.assertj.db.type.ChangeType#MODIFICATION}) on the table in the list of changes.
+   * @see org.assertj.db.api.ChangesAssert#changeOfModificationOnTable(String)
+   * @see org.assertj.db.api.ChangeAssert#changeOfModificationOnTable(String)
+   * @see org.assertj.db.api.ChangeColumnAssert#changeOfModificationOnTable(String)
+   * @see org.assertj.db.api.ChangeColumnValueAssert#changeOfModificationOnTable(String)
+   * @see org.assertj.db.api.ChangeRowAssert#changeOfModificationOnTable(String)
+   * @see org.assertj.db.api.ChangeRowValueAssert#changeOfModificationOnTable(String)
    */
   public ChangeAssert changeOfModificationOnTable(String tableName);
 
@@ -186,6 +270,12 @@ public interface ToChange {
    * @param index The index corresponding to the {@link org.assertj.db.type.Change} of modification ({@link org.assertj.db.type.ChangeType#MODIFICATION}).
    * @return An object to make assertions on the {@link org.assertj.db.type.Change} of modification ({@link org.assertj.db.type.ChangeType#MODIFICATION}).
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
+   * @see org.assertj.db.api.ChangesAssert#changeOfModificationOnTable(String, int)
+   * @see org.assertj.db.api.ChangeAssert#changeOfModificationOnTable(String, int)
+   * @see org.assertj.db.api.ChangeColumnAssert#changeOfModificationOnTable(String, int)
+   * @see org.assertj.db.api.ChangeColumnValueAssert#changeOfModificationOnTable(String, int)
+   * @see org.assertj.db.api.ChangeRowAssert#changeOfModificationOnTable(String, int)
+   * @see org.assertj.db.api.ChangeRowValueAssert#changeOfModificationOnTable(String, int)
    */
   public ChangeAssert changeOfModificationOnTable(String tableName, int index);
 
@@ -195,6 +285,12 @@ public interface ToChange {
    * @param tableName The table name
    * @return An object to make assertions on the next {@link org.assertj.db.type.Change} of deletion ({@link org.assertj.db.type.ChangeType#DELETION}).
    * @throws org.assertj.db.exception.AssertJDBException If there are no more {@link org.assertj.db.type.Change} of deletion ({@link org.assertj.db.type.ChangeType#DELETION}) on the table in the list of changes.
+   * @see org.assertj.db.api.ChangesAssert#changeOfDeletionOnTable(String)
+   * @see org.assertj.db.api.ChangeAssert#changeOfDeletionOnTable(String)
+   * @see org.assertj.db.api.ChangeColumnAssert#changeOfDeletionOnTable(String)
+   * @see org.assertj.db.api.ChangeColumnValueAssert#changeOfDeletionOnTable(String)
+   * @see org.assertj.db.api.ChangeRowAssert#changeOfDeletionOnTable(String)
+   * @see org.assertj.db.api.ChangeRowValueAssert#changeOfDeletionOnTable(String)
    */
   public ChangeAssert changeOfDeletionOnTable(String tableName);
 
@@ -205,6 +301,12 @@ public interface ToChange {
    * @param index The index corresponding to the {@link org.assertj.db.type.Change} of deletion ({@link org.assertj.db.type.ChangeType#DELETION}).
    * @return An object to make assertions on the {@link org.assertj.db.type.Change} of deletion ({@link org.assertj.db.type.ChangeType#DELETION}).
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
+   * @see org.assertj.db.api.ChangesAssert#changeOfDeletionOnTable(String, int)
+   * @see org.assertj.db.api.ChangeAssert#changeOfDeletionOnTable(String, int)
+   * @see org.assertj.db.api.ChangeColumnAssert#changeOfDeletionOnTable(String, int)
+   * @see org.assertj.db.api.ChangeColumnValueAssert#changeOfDeletionOnTable(String, int)
+   * @see org.assertj.db.api.ChangeRowAssert#changeOfDeletionOnTable(String, int)
+   * @see org.assertj.db.api.ChangeRowValueAssert#changeOfDeletionOnTable(String, int)
    */
   public ChangeAssert changeOfDeletionOnTable(String tableName, int index);
 }
