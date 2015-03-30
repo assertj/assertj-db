@@ -2,7 +2,6 @@ package org.assertj.db.api.assertions.impl;
 
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
-import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
@@ -21,18 +20,18 @@ import static org.junit.Assert.fail;
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnColumnEquality_HasValuesEqualTo_Boolean_Test extends AbstractTest {
+public class AssertionsOnColumnEquality_HasValuesEqualTo_Boolean_Test {
 
   /**
-   * This method tests the {@code isCreation} assertion method.
+   * This method tests the {@code hasValuesEqualTo} assertion method.
    */
   @Test
   public void test_have_values_equal_to() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Object> list = new ArrayList<Object>(Arrays.asList(true, false));
-    TableAssert tableAssert2 = AssertionsOnColumnEquality.hasValuesEqualTo(tableAssert, info, list, Boolean.TRUE, Boolean.FALSE);
+    List<Object> list = new ArrayList<Object>(Arrays.asList(true, false, null));
+    TableAssert tableAssert2 = AssertionsOnColumnEquality.hasValuesEqualTo(tableAssert, info, list, Boolean.TRUE, Boolean.FALSE, null);
     assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
