@@ -12,7 +12,7 @@ import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link AssertionsOnChangeType} class :
- * {@link AssertionsOnChangeType#isOfType(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Change, org.assertj.db.type.ChangeType)}} method.
+ * {@link AssertionsOnChangeType#isOfType(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Change, org.assertj.db.type.ChangeType)} method.
  *
  * @author Régis Pouiller
  *
