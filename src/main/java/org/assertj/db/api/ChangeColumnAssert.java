@@ -14,12 +14,18 @@ package org.assertj.db.api;
 
 import org.assertj.db.api.assertions.AssertOnColumnName;
 import org.assertj.db.api.assertions.AssertOnColumnOfChangeEquality;
+import org.assertj.db.api.assertions.AssertOnColumnType;
 import org.assertj.db.api.assertions.AssertOnModifiedColumn;
 import org.assertj.db.api.assertions.impl.AssertionsOnColumnName;
 import org.assertj.db.api.assertions.impl.AssertionsOnColumnOfChangeEquality;
+import org.assertj.db.api.assertions.impl.AssertionsOnColumnOfChangeType;
 import org.assertj.db.api.assertions.impl.AssertionsOnModifiedColumn;
 import org.assertj.db.api.navigation.ColumnAssert;
 import org.assertj.db.api.origin.OriginWithValuesFromColumn;
+import org.assertj.db.type.DateTimeValue;
+import org.assertj.db.type.DateValue;
+import org.assertj.db.type.TimeValue;
+import org.assertj.db.type.ValueType;
 
 /**
  * Assertion methods for a {@code Column} of a {@code Change}.
@@ -32,7 +38,8 @@ public class ChangeColumnAssert
                    OriginWithValuesFromColumn,
                    AssertOnColumnOfChangeEquality<ChangeColumnAssert>,
                    AssertOnModifiedColumn<ChangeColumnAssert>,
-                   AssertOnColumnName<ChangeColumnAssert> {
+                   AssertOnColumnName<ChangeColumnAssert>,
+                   AssertOnColumnType<ChangeColumnAssert> {
 
   /**
    * The name of the column.
@@ -110,14 +117,104 @@ public class ChangeColumnAssert
 
   /** {@inheritDoc} */
   @Override
-  public ChangeColumnAssert hasValuesEqualTo(Object expected) {
+  public ChangeColumnAssert hasValuesEqualTo(Boolean expected) {
     return AssertionsOnColumnOfChangeEquality
             .hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expected);
   }
 
   /** {@inheritDoc} */
   @Override
-  public ChangeColumnAssert hasValuesEqualTo(Object expectedAtStartPoint, Object expectedAtEndPoint) {
+  public ChangeColumnAssert hasValuesEqualTo(Boolean expectedAtStartPoint, Boolean expectedAtEndPoint) {
+    return AssertionsOnColumnOfChangeEquality
+            .hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expectedAtStartPoint,
+                              expectedAtEndPoint);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeColumnAssert hasValuesEqualTo(Number expected) {
+    return AssertionsOnColumnOfChangeEquality
+            .hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeColumnAssert hasValuesEqualTo(Number expectedAtStartPoint, Number expectedAtEndPoint) {
+    return AssertionsOnColumnOfChangeEquality
+            .hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expectedAtStartPoint,
+                              expectedAtEndPoint);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeColumnAssert hasValuesEqualTo(byte[] expected) {
+    return AssertionsOnColumnOfChangeEquality
+            .hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeColumnAssert hasValuesEqualTo(byte[] expectedAtStartPoint, byte[] expectedAtEndPoint) {
+    return AssertionsOnColumnOfChangeEquality
+            .hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expectedAtStartPoint,
+                              expectedAtEndPoint);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeColumnAssert hasValuesEqualTo(String expected) {
+    return AssertionsOnColumnOfChangeEquality
+            .hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeColumnAssert hasValuesEqualTo(String expectedAtStartPoint, String expectedAtEndPoint) {
+    return AssertionsOnColumnOfChangeEquality
+            .hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expectedAtStartPoint,
+                              expectedAtEndPoint);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeColumnAssert hasValuesEqualTo(DateValue expected) {
+    return AssertionsOnColumnOfChangeEquality
+            .hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeColumnAssert hasValuesEqualTo(DateValue expectedAtStartPoint, DateValue expectedAtEndPoint) {
+    return AssertionsOnColumnOfChangeEquality
+            .hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expectedAtStartPoint,
+                              expectedAtEndPoint);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeColumnAssert hasValuesEqualTo(TimeValue expected) {
+    return AssertionsOnColumnOfChangeEquality
+            .hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeColumnAssert hasValuesEqualTo(TimeValue expectedAtStartPoint, TimeValue expectedAtEndPoint) {
+    return AssertionsOnColumnOfChangeEquality
+            .hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expectedAtStartPoint,
+                              expectedAtEndPoint);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeColumnAssert hasValuesEqualTo(DateTimeValue expected) {
+    return AssertionsOnColumnOfChangeEquality
+            .hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeColumnAssert hasValuesEqualTo(DateTimeValue expectedAtStartPoint, DateTimeValue expectedAtEndPoint) {
     return AssertionsOnColumnOfChangeEquality
             .hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expectedAtStartPoint,
                               expectedAtEndPoint);
@@ -127,5 +224,55 @@ public class ChangeColumnAssert
   @Override
   public ChangeColumnAssert hasColumnName(String columnName) {
     return AssertionsOnColumnName.hasColumnName(myself, info, this.columnName, columnName);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeColumnAssert isOfType(ValueType expected, boolean lenient) {
+    return AssertionsOnColumnOfChangeType.isOfType(myself, info, valueAtStartPoint, valueAtEndPoint, expected, lenient);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeColumnAssert isOfAnyOfTypes(ValueType... expected) {
+    return AssertionsOnColumnOfChangeType.isOfAnyOfTypes(myself, info, valueAtStartPoint, valueAtEndPoint, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeColumnAssert isNumber(boolean lenient) {
+    return AssertionsOnColumnOfChangeType.isNumber(myself, info, valueAtStartPoint, valueAtEndPoint, lenient);
+  }
+  /** {@inheritDoc} */
+  @Override
+  public ChangeColumnAssert isBoolean(boolean lenient) {
+    return AssertionsOnColumnOfChangeType.isBoolean(myself, info, valueAtStartPoint, valueAtEndPoint, lenient);
+  }
+  /** {@inheritDoc} */
+  @Override
+  public ChangeColumnAssert isDate(boolean lenient) {
+    return AssertionsOnColumnOfChangeType.isDate(myself, info, valueAtStartPoint, valueAtEndPoint, lenient);
+  }
+  /** {@inheritDoc} */
+  @Override
+  public ChangeColumnAssert isTime(boolean lenient) {
+    return AssertionsOnColumnOfChangeType.isTime(myself, info, valueAtStartPoint, valueAtEndPoint, lenient);
+  }
+  /** {@inheritDoc} */
+  @Override
+  public ChangeColumnAssert isDateTime(boolean lenient) {
+    return AssertionsOnColumnOfChangeType.isDateTime(myself, info, valueAtStartPoint, valueAtEndPoint, lenient);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeColumnAssert isBytes(boolean lenient) {
+    return AssertionsOnColumnOfChangeType.isBytes(myself, info, valueAtStartPoint, valueAtEndPoint, lenient);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeColumnAssert isText(boolean lenient) {
+    return AssertionsOnColumnOfChangeType.isText(myself, info, valueAtStartPoint, valueAtEndPoint, lenient);
   }
 }
