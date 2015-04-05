@@ -30,10 +30,10 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * Verifies that the values at the start point and the end point are equal to a boolean.
    * <p>
    * Example where the assertion verifies that the values of the first {@code Column} of the {@code Table} are equal to
-   * "Ellen Louise Ripley" :
+   * {@code true} :
    * </p>
    * <pre><code class='java'>
-   * assertThat(changes).change(1).column().hasValuesEqualTo("Ellen Louise Ripley");
+   * assertThat(changes).change(1).column().hasValuesEqualTo(true);
    * </code></pre>
    *
    * @param expected The expected boolean value.
@@ -47,10 +47,10 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * Verifies that the values at the start point and the end point are equal to a boolean for start point and another boolean for end point.
    * <p>
    * Example where the assertion verifies that the values of the first {@code Column} of the {@code Table} are equal to
-   * "Sigourney" at start point and "Susan Alexandra" at end point :
+   * {@code true} at start point and {@code false} at end point :
    * </p>
    * <pre><code class='java'>
-   * assertThat(changes).change(1).column().hasValuesEqualTo("Sigourney", "Susan Alexandra");
+   * assertThat(changes).change(1).column().hasValuesEqualTo(true, false);
    * </code></pre>
    *
    * @param expectedAtStartPoint The expected boolean at start point.
@@ -65,10 +65,10 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * Verifies that the values at the start point and the end point are equal to a number.
    * <p>
    * Example where the assertion verifies that the values of the first {@code Column} of the {@code Table} are equal to
-   * "Ellen Louise Ripley" :
+   * {@code 1} :
    * </p>
    * <pre><code class='java'>
-   * assertThat(changes).change(1).column().hasValuesEqualTo("Ellen Louise Ripley");
+   * assertThat(changes).change(1).column().hasValuesEqualTo(1);
    * </code></pre>
    *
    * @param expected The expected number value.
@@ -82,10 +82,10 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * Verifies that the values at the start point and the end point are equal to a number for start point and another number for end point.
    * <p>
    * Example where the assertion verifies that the values of the first {@code Column} of the {@code Table} are equal to
-   * "Sigourney" at start point and "Susan Alexandra" at end point :
+   * {@code 1} at start point and {@code 2} at end point :
    * </p>
    * <pre><code class='java'>
-   * assertThat(changes).change(1).column().hasValuesEqualTo("Sigourney", "Susan Alexandra");
+   * assertThat(changes).change(1).column().hasValuesEqualTo(1, 2);
    * </code></pre>
    *
    * @param expectedAtStartPoint The expected number at start point.
@@ -100,10 +100,11 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * Verifies that the values at the start point and the end point are equal to bytes.
    * <p>
    * Example where the assertion verifies that the values of the first {@code Column} of the {@code Table} are equal to
-   * "Ellen Louise Ripley" :
+   * a array of bytes loaded from a file in the classpath :
    * </p>
    * <pre><code class='java'>
-   * assertThat(changes).change(1).column().hasValuesEqualTo("Ellen Louise Ripley");
+   * byte[] bytes = bytesContentFromClassPathOf(&quot;file.png&quot;);
+   * assertThat(changes).change(1).column().hasValuesEqualTo(bytes);
    * </code></pre>
    *
    * @param expected The expected bytes value.
@@ -117,10 +118,12 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * Verifies that the values at the start point and the end point are equal to bytes for start point and other bytes for end point.
    * <p>
    * Example where the assertion verifies that the values of the first {@code Column} of the {@code Table} are equal to
-   * "Sigourney" at start point and "Susan Alexandra" at end point :
+   * a array of bytes loaded from a file in the classpath at start point and another array at end point :
    * </p>
    * <pre><code class='java'>
-   * assertThat(changes).change(1).column().hasValuesEqualTo("Sigourney", "Susan Alexandra");
+   * byte[] bytes = bytesContentFromClassPathOf(&quot;file.png&quot;);
+   * byte[] bytes2 = bytesContentFromClassPathOf(&quot;file2.png&quot;);
+   * assertThat(changes).change(1).column().hasValuesEqualTo(bytes, bytes2);
    * </code></pre>
    *
    * @param expectedAtStartPoint The expected bytes at start point.
@@ -170,10 +173,10 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * Verifies that the values at the start point and the end point are equal to a date.
    * <p>
    * Example where the assertion verifies that the values of the first {@code Column} of the {@code Table} are equal to
-   * "Ellen Louise Ripley" :
+   * 12/23/2007 :
    * </p>
    * <pre><code class='java'>
-   * assertThat(changes).change(1).column().hasValuesEqualTo("Ellen Louise Ripley");
+   * assertThat(changes).change(1).column().hasValuesEqualTo(DateValue.of(2007, 12, 23));
    * </code></pre>
    *
    * @param expected The expected date value.
@@ -187,10 +190,10 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * Verifies that the values at the start point and the end point are equal to a date for start point and another date for end point.
    * <p>
    * Example where the assertion verifies that the values of the first {@code Column} of the {@code Table} are equal to
-   * "Sigourney" at start point and "Susan Alexandra" at end point :
+   * 12/23/2007 at start point and 07/25/2002 at end point :
    * </p>
    * <pre><code class='java'>
-   * assertThat(changes).change(1).column().hasValuesEqualTo("Sigourney", "Susan Alexandra");
+   * assertThat(changes).change(1).column().hasValuesEqualTo(DateValue.of(2007, 12, 23), DateValue.of(2002, 7, 25));
    * </code></pre>
    *
    * @param expectedAtStartPoint The expected date at start point.
@@ -205,10 +208,10 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * Verifies that the values at the start point and the end point are equal to a time.
    * <p>
    * Example where the assertion verifies that the values of the first {@code Column} of the {@code Table} are equal to
-   * "Ellen Louise Ripley" :
+   * 09:01AM :
    * </p>
    * <pre><code class='java'>
-   * assertThat(changes).change(1).column().hasValuesEqualTo("Ellen Louise Ripley");
+   * assertThat(changes).change(1).column().hasValuesEqualTo(TimeValue.of(9, 1));
    * </code></pre>
    *
    * @param expected The expected time value.
@@ -222,10 +225,10 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * Verifies that the values at the start point and the end point are equal to a time for start point and another time for end point.
    * <p>
    * Example where the assertion verifies that the values of the first {@code Column} of the {@code Table} are equal to
-   * "Sigourney" at start point and "Susan Alexandra" at end point :
+   * 09:01AM at start point and 03:30AM at end point :
    * </p>
    * <pre><code class='java'>
-   * assertThat(changes).change(1).column().hasValuesEqualTo("Sigourney", "Susan Alexandra");
+   * assertThat(changes).change(1).column().hasValuesEqualTo(TimeValue.of(9, 1), TimeValue.of(3, 30));
    * </code></pre>
    *
    * @param expectedAtStartPoint The expected time at start point.
@@ -240,10 +243,10 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * Verifies that the values at the start point and the end point are equal to a date/time.
    * <p>
    * Example where the assertion verifies that the values of the first {@code Column} of the {@code Table} are equal to
-   * "Ellen Louise Ripley" :
+   * 12/23/2007 09:01AM :
    * </p>
    * <pre><code class='java'>
-   * assertThat(changes).change(1).column().hasValuesEqualTo("Ellen Louise Ripley");
+   * assertThat(changes).change(1).column().hasValuesEqualTo(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1)));
    * </code></pre>
    *
    * @param expected The expected date/time value.
@@ -257,10 +260,10 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * Verifies that the values at the start point and the end point are equal to a date/time for start point and another date/time for end point.
    * <p>
    * Example where the assertion verifies that the values of the first {@code Column} of the {@code Table} are equal to
-   * "Sigourney" at start point and "Susan Alexandra" at end point :
+   * 12/23/2007 09:01AM at start point and 07/25/2002 00:00AM at end point :
    * </p>
    * <pre><code class='java'>
-   * assertThat(changes).change(1).column().hasValuesEqualTo("Sigourney", "Susan Alexandra");
+   * assertThat(changes).change(1).column().hasValuesEqualTo(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1)), DateTimeValue.of(DateValue.of(2002, 7, 25)));
    * </code></pre>
    *
    * @param expectedAtStartPoint The expected date/time at start point.
