@@ -65,7 +65,7 @@ public class AssertionsOnChangeType_IsDeletion_Test extends AbstractTest {
       Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
                                                       + "Expecting:\n"
                                                       + "to be of type\n"
-                                                      + "  <MODIFICATION>\n"
+                                                      + "  <DELETION>\n"
                                                       + "but was of type\n"
                                                       + "  <CREATION>");
     }

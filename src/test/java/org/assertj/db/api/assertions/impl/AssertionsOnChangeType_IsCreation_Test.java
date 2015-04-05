@@ -65,9 +65,9 @@ public class AssertionsOnChangeType_IsCreation_Test extends AbstractTest {
       Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
                                                       + "Expecting:\n"
                                                       + "to be of type\n"
-                                                      + "  <MODIFICATION>\n"
+                                                      + "  <CREATION>\n"
                                                       + "but was of type\n"
-                                                      + "  <CREATION>");
+                                                      + "  <MODIFICATION>");
     }
   }
 }
