@@ -15,10 +15,8 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
-import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.Table;
-import org.assertj.db.type.TimeValue;
 import org.junit.Test;
 
 import java.sql.Date;
@@ -50,10 +48,10 @@ public class AssertionsOnColumnEquality_HasValuesEqualTo_DateValue_Test {
     List<Object> list = new ArrayList<Object>(Arrays.asList(Date.valueOf("2007-12-23"), Date.valueOf("2002-07-25"), null));
     TableAssert tableAssert2 = AssertionsOnColumnEquality.hasValuesEqualTo(tableAssert, info, list, DateValue.of(2007, 12, 23), DateValue.of(2002, 7, 25), null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    list = new ArrayList<Object>(Arrays.asList(Timestamp.valueOf("2007-12-23 09:01:00"), Timestamp.valueOf("2002-07-25 03:30:05"), null));
+    list = new ArrayList<Object>(Arrays.asList(Timestamp.valueOf("2007-12-23 00:00:00"), Timestamp.valueOf("2002-07-25 00:00:00"), null));
     tableAssert2 = AssertionsOnColumnEquality.hasValuesEqualTo(tableAssert, info, list,
-                                                               DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1)),
-                                                               DateTimeValue.of(DateValue.of(2002, 7, 25), TimeValue.of(3, 30, 5)), null);
+                                                               DateValue.of(2007, 12, 23),
+                                                               DateValue.of(2002, 7, 25), null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
