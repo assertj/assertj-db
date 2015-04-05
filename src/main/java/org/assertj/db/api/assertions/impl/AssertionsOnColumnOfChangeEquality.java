@@ -18,6 +18,8 @@ import org.assertj.db.api.AbstractAssert;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
+import org.assertj.db.type.ValueType;
+import org.assertj.db.util.Values;
 
 import static org.assertj.db.error.ShouldBeEqualWithEndPoint.shouldBeEqualWithEndPoint;
 import static org.assertj.db.error.ShouldBeEqualWithStartPoint.shouldBeEqualWithStartPoint;
@@ -114,10 +116,12 @@ public class AssertionsOnColumnOfChangeEquality {
 
     AssertionsOnColumnOfChangeType.isNumber(assertion, info, valueAtStartPoint, valueAtEndPoint, true);
     if (!areEqual(valueAtStartPoint, expected)) {
-      throw failures.failure(info, shouldBeEqualWithStartPoint(valueAtStartPoint, expected));
+      throw failures.failure(info, shouldBeEqualWithStartPoint(
+              Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expected), expected));
     }
     if (!areEqual(valueAtEndPoint, expected)) {
-      throw failures.failure(info, shouldBeEqualWithEndPoint(valueAtEndPoint, expected));
+      throw failures.failure(info, shouldBeEqualWithEndPoint(
+              Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expected), expected));
     }
     return assertion;
   }
@@ -141,10 +145,12 @@ public class AssertionsOnColumnOfChangeEquality {
 
     AssertionsOnColumnOfChangeType.isNumber(assertion, info, valueAtStartPoint, valueAtEndPoint, true);
     if (!areEqual(valueAtStartPoint, expectedAtStartPoint)) {
-      throw failures.failure(info, shouldBeEqualWithStartPoint(valueAtStartPoint, expectedAtStartPoint));
+      throw failures.failure(info, shouldBeEqualWithStartPoint(
+              Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expectedAtStartPoint), expectedAtStartPoint));
     }
     if (!areEqual(valueAtEndPoint, expectedAtEndPoint)) {
-      throw failures.failure(info, shouldBeEqualWithEndPoint(valueAtEndPoint, expectedAtEndPoint));
+      throw failures.failure(info, shouldBeEqualWithEndPoint(
+              Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expectedAtEndPoint), expectedAtEndPoint));
     }
     return assertion;
   }
@@ -218,12 +224,16 @@ public class AssertionsOnColumnOfChangeEquality {
                                                               Object valueAtStartPoint, Object valueAtEndPoint,
                                                               String expected) {
 
-    AssertionsOnColumnOfChangeType.isText(assertion, info, valueAtStartPoint, valueAtEndPoint, true);
+    AssertionsOnColumnOfChangeType.isOfAnyOfTypes(assertion, info, valueAtStartPoint, valueAtEndPoint,
+                                                  ValueType.TEXT, ValueType.NUMBER, ValueType.DATE,
+                                                  ValueType.TIME, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
     if (!areEqual(valueAtStartPoint, expected)) {
-      throw failures.failure(info, shouldBeEqualWithStartPoint(valueAtStartPoint, expected));
+      throw failures.failure(info, shouldBeEqualWithStartPoint(
+              Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expected), expected));
     }
     if (!areEqual(valueAtEndPoint, expected)) {
-      throw failures.failure(info, shouldBeEqualWithEndPoint(valueAtEndPoint, expected));
+      throw failures.failure(info, shouldBeEqualWithEndPoint(
+              Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expected), expected));
     }
     return assertion;
   }
@@ -245,12 +255,16 @@ public class AssertionsOnColumnOfChangeEquality {
                                                               Object valueAtStartPoint, Object valueAtEndPoint,
                                                               String expectedAtStartPoint, String expectedAtEndPoint) {
 
-    AssertionsOnColumnOfChangeType.isText(assertion, info, valueAtStartPoint, valueAtEndPoint, true);
+    AssertionsOnColumnOfChangeType.isOfAnyOfTypes(assertion, info, valueAtStartPoint, valueAtEndPoint,
+                                                  ValueType.TEXT, ValueType.NUMBER, ValueType.DATE,
+                                                  ValueType.TIME, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
     if (!areEqual(valueAtStartPoint, expectedAtStartPoint)) {
-      throw failures.failure(info, shouldBeEqualWithStartPoint(valueAtStartPoint, expectedAtStartPoint));
+      throw failures.failure(info, shouldBeEqualWithStartPoint(
+              Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expectedAtStartPoint), expectedAtStartPoint));
     }
     if (!areEqual(valueAtEndPoint, expectedAtEndPoint)) {
-      throw failures.failure(info, shouldBeEqualWithEndPoint(valueAtEndPoint, expectedAtEndPoint));
+      throw failures.failure(info, shouldBeEqualWithEndPoint(
+              Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expectedAtEndPoint), expectedAtEndPoint));
     }
     return assertion;
   }
@@ -271,12 +285,15 @@ public class AssertionsOnColumnOfChangeEquality {
                                                               Object valueAtStartPoint, Object valueAtEndPoint,
                                                               DateValue expected) {
 
-    AssertionsOnColumnOfChangeType.isDate(assertion, info, valueAtStartPoint, valueAtEndPoint, true);
+    AssertionsOnColumnOfChangeType.isOfAnyOfTypes(assertion, info, valueAtStartPoint, valueAtEndPoint, ValueType.DATE,
+                                                  ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
     if (!areEqual(valueAtStartPoint, expected)) {
-      throw failures.failure(info, shouldBeEqualWithStartPoint(valueAtStartPoint, expected));
+      throw failures.failure(info, shouldBeEqualWithStartPoint(
+              Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expected), expected));
     }
     if (!areEqual(valueAtEndPoint, expected)) {
-      throw failures.failure(info, shouldBeEqualWithEndPoint(valueAtEndPoint, expected));
+      throw failures.failure(info, shouldBeEqualWithEndPoint(
+              Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expected), expected));
     }
     return assertion;
   }
@@ -298,12 +315,15 @@ public class AssertionsOnColumnOfChangeEquality {
                                                               Object valueAtStartPoint, Object valueAtEndPoint,
                                                               DateValue expectedAtStartPoint, DateValue expectedAtEndPoint) {
 
-    AssertionsOnColumnOfChangeType.isDate(assertion, info, valueAtStartPoint, valueAtEndPoint, true);
+    AssertionsOnColumnOfChangeType.isOfAnyOfTypes(assertion, info, valueAtStartPoint, valueAtEndPoint, ValueType.DATE,
+                                                  ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
     if (!areEqual(valueAtStartPoint, expectedAtStartPoint)) {
-      throw failures.failure(info, shouldBeEqualWithStartPoint(valueAtStartPoint, expectedAtStartPoint));
+      throw failures.failure(info, shouldBeEqualWithStartPoint(
+              Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expectedAtStartPoint), expectedAtStartPoint));
     }
     if (!areEqual(valueAtEndPoint, expectedAtEndPoint)) {
-      throw failures.failure(info, shouldBeEqualWithEndPoint(valueAtEndPoint, expectedAtEndPoint));
+      throw failures.failure(info, shouldBeEqualWithEndPoint(
+              Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expectedAtEndPoint), expectedAtEndPoint));
     }
     return assertion;
   }
@@ -324,12 +344,15 @@ public class AssertionsOnColumnOfChangeEquality {
                                                               Object valueAtStartPoint, Object valueAtEndPoint,
                                                               TimeValue expected) {
 
-    AssertionsOnColumnOfChangeType.isTime(assertion, info, valueAtStartPoint, valueAtEndPoint, true);
+    AssertionsOnColumnOfChangeType.isOfAnyOfTypes(assertion, info, valueAtStartPoint, valueAtEndPoint, ValueType.TIME,
+                                                  ValueType.NOT_IDENTIFIED);
     if (!areEqual(valueAtStartPoint, expected)) {
-      throw failures.failure(info, shouldBeEqualWithStartPoint(valueAtStartPoint, expected));
+      throw failures.failure(info, shouldBeEqualWithStartPoint(
+              Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expected), expected));
     }
     if (!areEqual(valueAtEndPoint, expected)) {
-      throw failures.failure(info, shouldBeEqualWithEndPoint(valueAtEndPoint, expected));
+      throw failures.failure(info, shouldBeEqualWithEndPoint(
+              Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expected), expected));
     }
     return assertion;
   }
@@ -351,12 +374,15 @@ public class AssertionsOnColumnOfChangeEquality {
                                                               Object valueAtStartPoint, Object valueAtEndPoint,
                                                               TimeValue expectedAtStartPoint, TimeValue expectedAtEndPoint) {
 
-    AssertionsOnColumnOfChangeType.isTime(assertion, info, valueAtStartPoint, valueAtEndPoint, true);
+    AssertionsOnColumnOfChangeType.isOfAnyOfTypes(assertion, info, valueAtStartPoint, valueAtEndPoint, ValueType.TIME,
+                                                  ValueType.NOT_IDENTIFIED);
     if (!areEqual(valueAtStartPoint, expectedAtStartPoint)) {
-      throw failures.failure(info, shouldBeEqualWithStartPoint(valueAtStartPoint, expectedAtStartPoint));
+      throw failures.failure(info, shouldBeEqualWithStartPoint(
+              Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expectedAtStartPoint), expectedAtStartPoint));
     }
     if (!areEqual(valueAtEndPoint, expectedAtEndPoint)) {
-      throw failures.failure(info, shouldBeEqualWithEndPoint(valueAtEndPoint, expectedAtEndPoint));
+      throw failures.failure(info, shouldBeEqualWithEndPoint(
+              Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expectedAtEndPoint), expectedAtEndPoint));
     }
     return assertion;
   }
@@ -377,12 +403,15 @@ public class AssertionsOnColumnOfChangeEquality {
                                                               Object valueAtStartPoint, Object valueAtEndPoint,
                                                               DateTimeValue expected) {
 
-    AssertionsOnColumnOfChangeType.isDateTime(assertion, info, valueAtStartPoint, valueAtEndPoint, true);
+    AssertionsOnColumnOfChangeType.isOfAnyOfTypes(assertion, info, valueAtStartPoint, valueAtEndPoint,
+                                                  ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
     if (!areEqual(valueAtStartPoint, expected)) {
-      throw failures.failure(info, shouldBeEqualWithStartPoint(valueAtStartPoint, expected));
+      throw failures.failure(info, shouldBeEqualWithStartPoint(
+              Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expected), expected));
     }
     if (!areEqual(valueAtEndPoint, expected)) {
-      throw failures.failure(info, shouldBeEqualWithEndPoint(valueAtEndPoint, expected));
+      throw failures.failure(info, shouldBeEqualWithEndPoint(
+              Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expected), expected));
     }
     return assertion;
   }
@@ -404,14 +433,16 @@ public class AssertionsOnColumnOfChangeEquality {
                                                               Object valueAtStartPoint, Object valueAtEndPoint,
                                                               DateTimeValue expectedAtStartPoint, DateTimeValue expectedAtEndPoint) {
 
-    AssertionsOnColumnOfChangeType.isDateTime(assertion, info, valueAtStartPoint, valueAtEndPoint, true);
+    AssertionsOnColumnOfChangeType.isOfAnyOfTypes(assertion, info, valueAtStartPoint, valueAtEndPoint,
+                                                  ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
     if (!areEqual(valueAtStartPoint, expectedAtStartPoint)) {
-      throw failures.failure(info, shouldBeEqualWithStartPoint(valueAtStartPoint, expectedAtStartPoint));
+      throw failures.failure(info, shouldBeEqualWithStartPoint(
+              Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expectedAtStartPoint), expectedAtStartPoint));
     }
     if (!areEqual(valueAtEndPoint, expectedAtEndPoint)) {
-      throw failures.failure(info, shouldBeEqualWithEndPoint(valueAtEndPoint, expectedAtEndPoint));
+      throw failures.failure(info, shouldBeEqualWithEndPoint(
+              Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expectedAtEndPoint), expectedAtEndPoint));
     }
     return assertion;
   }
-
 }
