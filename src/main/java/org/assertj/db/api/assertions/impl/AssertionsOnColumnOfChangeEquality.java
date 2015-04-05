@@ -167,10 +167,10 @@ public class AssertionsOnColumnOfChangeEquality {
 
     AssertionsOnColumnOfChangeType.isBytes(assertion, info, valueAtStartPoint, valueAtEndPoint, true);
     if (!areEqual(valueAtStartPoint, expected)) {
-      throw failures.failure(info, shouldBeEqualWithStartPoint(valueAtStartPoint, expected));
+      throw failures.failure(info, shouldBeEqualWithStartPoint());
     }
     if (!areEqual(valueAtEndPoint, expected)) {
-      throw failures.failure(info, shouldBeEqualWithEndPoint(valueAtEndPoint, expected));
+      throw failures.failure(info, shouldBeEqualWithEndPoint());
     }
     return assertion;
   }
@@ -194,10 +194,10 @@ public class AssertionsOnColumnOfChangeEquality {
 
     AssertionsOnColumnOfChangeType.isBytes(assertion, info, valueAtStartPoint, valueAtEndPoint, true);
     if (!areEqual(valueAtStartPoint, expectedAtStartPoint)) {
-      throw failures.failure(info, shouldBeEqualWithStartPoint(valueAtStartPoint, expectedAtStartPoint));
+      throw failures.failure(info, shouldBeEqualWithStartPoint());
     }
     if (!areEqual(valueAtEndPoint, expectedAtEndPoint)) {
-      throw failures.failure(info, shouldBeEqualWithEndPoint(valueAtEndPoint, expectedAtEndPoint));
+      throw failures.failure(info, shouldBeEqualWithEndPoint());
     }
     return assertion;
   }
