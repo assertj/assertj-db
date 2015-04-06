@@ -94,4 +94,24 @@ public class AssertionsOnDataType_IsOnTable_Name_Test extends AbstractTest {
                                                       + "  <\"test\">");
     }
   }
+
+  /**
+   * This method should fail because the expected table name is {@code null}.
+   */
+  @Test
+  public void should_fail_because_expected_table_name_is_null() throws Exception {
+    WritableAssertionInfo info = new WritableAssertionInfo();
+    info.description("description");
+    Table table = new Table();
+    TableAssert tableAssert = assertThat(table);
+    Row rowAtStartPoint = getRow(null, null, null);
+    Row rowAtEndPoint = getRow(null, null, null);
+    Change change = getChange(DataType.TABLE, "test", ChangeType.CREATION, rowAtStartPoint, rowAtEndPoint);
+    try {
+      AssertionsOnDataType.isOnTable(tableAssert, info, change, null);
+      fail("An exception must be raised");
+    } catch (NullPointerException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Table name must be not null");
+    }
+  }
 }
