@@ -80,4 +80,52 @@ public class AssertionsOnPrimaryKey_HasPksNames_Test extends AbstractTest {
                                                       + "  [\"ID\", \"ID2\"]");
     }
   }
+
+  /**
+   * This method should fail because the expected name must be not {@code null}.
+   */
+  @Test
+  public void should_fail_because_expected_name_must_be_not_null() throws Exception {
+    WritableAssertionInfo info = new WritableAssertionInfo();
+    info.description("description");
+    Table table = new Table();
+    TableAssert tableAssert = assertThat(table);
+    Row rowAtStartPoint = getRow(Arrays.asList("ID", "ID2"),
+                                 Arrays.asList("ID", "NAME", "FIRSTNAME", "BIRTH"),
+                                 Arrays.asList(1, "Weaver", "Sigourney", Date.valueOf("1949-10-08")));
+    Row rowAtEndPoint = getRow(Arrays.asList("ID", "ID2"),
+                               Arrays.asList("ID", "NAME", "FIRSTNAME", "BIRTH"),
+                               Arrays.asList(1, "Weaverr", "Sigourneyy", Date.valueOf("1949-10-08")));
+    Change change = getChange(DataType.TABLE, "test", ChangeType.CREATION, rowAtStartPoint, rowAtEndPoint);
+    try {
+      AssertionsOnPrimaryKey.hasPksNames(tableAssert, info, change, "NAME", null);
+      fail("An exception must be raised");
+    } catch (NullPointerException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Column name must be not null");
+    }
+  }
+
+  /**
+   * This method should fail because the expected names must be not {@code null}.
+   */
+  @Test
+  public void should_fail_because_expected_names_must_be_not_null() throws Exception {
+    WritableAssertionInfo info = new WritableAssertionInfo();
+    info.description("description");
+    Table table = new Table();
+    TableAssert tableAssert = assertThat(table);
+    Row rowAtStartPoint = getRow(Arrays.asList("ID", "ID2"),
+                                 Arrays.asList("ID", "NAME", "FIRSTNAME", "BIRTH"),
+                                 Arrays.asList(1, "Weaver", "Sigourney", Date.valueOf("1949-10-08")));
+    Row rowAtEndPoint = getRow(Arrays.asList("ID", "ID2"),
+                               Arrays.asList("ID", "NAME", "FIRSTNAME", "BIRTH"),
+                               Arrays.asList(1, "Weaverr", "Sigourneyy", Date.valueOf("1949-10-08")));
+    Change change = getChange(DataType.TABLE, "test", ChangeType.CREATION, rowAtStartPoint, rowAtEndPoint);
+    try {
+      AssertionsOnPrimaryKey.hasPksNames(tableAssert, info, change, (String[]) null);
+      fail("An exception must be raised");
+    } catch (NullPointerException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Columns names must be not null");
+    }
+  }
 }
