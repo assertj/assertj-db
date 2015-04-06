@@ -327,7 +327,7 @@ public class AssertionsOnValueChronology {
       if (DateTimeValue.from((Timestamp) value).isAfter(dateTimeValue)) {
         return assertion;
       }
-      throw failures.failure(info, shouldBeAfter(dateTimeValue, dateTimeValue));
+      throw failures.failure(info, shouldBeAfter(DateTimeValue.from((Timestamp) value), dateTimeValue));
     }
   }
 
