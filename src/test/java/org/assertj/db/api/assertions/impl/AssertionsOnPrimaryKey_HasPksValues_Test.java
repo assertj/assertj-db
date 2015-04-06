@@ -80,4 +80,32 @@ public class AssertionsOnPrimaryKey_HasPksValues_Test extends AbstractTest {
                                                       + "  [1, \"Weaver\"]");
     }
   }
+
+  /**
+   * This method should fail because the number of primary keys values are different.
+   */
+  @Test
+  public void should_fail_because_number_of_pks_values_are_different() throws Exception {
+    WritableAssertionInfo info = new WritableAssertionInfo();
+    info.description("description");
+    Table table = new Table();
+    TableAssert tableAssert = assertThat(table);
+    Row rowAtStartPoint = getRow(Arrays.asList("ID", "NAME"),
+                                 Arrays.asList("ID", "NAME", "FIRSTNAME", "BIRTH"),
+                                 Arrays.asList(1, "Weaver", "Sigourney", Date.valueOf("1949-10-08")));
+    Row rowAtEndPoint = getRow(Arrays.asList("ID", "NAME"),
+                               Arrays.asList("ID", "NAME", "FIRSTNAME", "BIRTH"),
+                               Arrays.asList(1, "Weaver", "Sigourneyy", Date.valueOf("1949-10-08")));
+    Change change = getChange(DataType.TABLE, "test", ChangeType.CREATION, rowAtStartPoint, rowAtEndPoint);
+    try {
+      AssertionsOnPrimaryKey.hasPksValues(tableAssert, info, change, 1, "Weaverr", "Sigourney");
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
+                                                      + "Expecting :\n"
+                                                      + "  [1, \"Weaverr\", \"Sigourney\"]\n"
+                                                      + "to be the values of the columns of the primary keys but was:\n"
+                                                      + "  [1, \"Weaver\"]");
+    }
+  }
 }

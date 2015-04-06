@@ -82,6 +82,34 @@ public class AssertionsOnPrimaryKey_HasPksNames_Test extends AbstractTest {
   }
 
   /**
+   * This method should fail because the number of primary keys names are different.
+   */
+  @Test
+  public void should_fail_because_number_of_pks_names_are_different() throws Exception {
+    WritableAssertionInfo info = new WritableAssertionInfo();
+    info.description("description");
+    Table table = new Table();
+    TableAssert tableAssert = assertThat(table);
+    Row rowAtStartPoint = getRow(Arrays.asList("ID", "ID2"),
+                                 Arrays.asList("ID", "NAME", "FIRSTNAME", "BIRTH"),
+                                 Arrays.asList(1, "Weaver", "Sigourney", Date.valueOf("1949-10-08")));
+    Row rowAtEndPoint = getRow(Arrays.asList("ID", "ID2"),
+                               Arrays.asList("ID", "NAME", "FIRSTNAME", "BIRTH"),
+                               Arrays.asList(1, "Weaverr", "Sigourneyy", Date.valueOf("1949-10-08")));
+    Change change = getChange(DataType.TABLE, "test", ChangeType.CREATION, rowAtStartPoint, rowAtEndPoint);
+    try {
+      AssertionsOnPrimaryKey.hasPksNames(tableAssert, info, change, "ID", "ID2", "ID3");
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
+                                                      + "Expecting :\n"
+                                                      + "  [\"ID\", \"ID2\", \"ID3\"]\n"
+                                                      + "to be the name of the columns of the primary keys but was:\n"
+                                                      + "  [\"ID\", \"ID2\"]");
+    }
+  }
+
+  /**
    * This method should fail because the expected name must be not {@code null}.
    */
   @Test
