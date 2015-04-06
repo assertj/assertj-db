@@ -36,7 +36,7 @@ public class AssertionsOnColumnOfChangeType_IsTime_Test {
    * This method tests the {@code isTime} assertion method.
    */
   @Test
-  public void test_is_boolean() {
+  public void test_is_time() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
