@@ -452,7 +452,7 @@ public class AssertionsOnValueChronology {
       if (DateTimeValue.from((Timestamp) value).isAfter(dateTimeValue) || areEqual(value, date)) {
         return assertion;
       }
-      throw failures.failure(info, shouldBeAfterOrEqual(DateTimeValue.from((Timestamp) value), date));
+      throw failures.failure(info, shouldBeAfterOrEqual(DateTimeValue.from((Timestamp) value), dateTimeValue));
     }
   }
 
