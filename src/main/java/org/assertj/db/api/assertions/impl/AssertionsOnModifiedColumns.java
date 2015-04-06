@@ -83,7 +83,7 @@ public class AssertionsOnModifiedColumns {
   public static <A extends AbstractAssert> A hasModifiedColumns(A assertion, WritableAssertionInfo info, Change change,
                                                                 Integer... indexes) {
     if (indexes == null) {
-      throw new NullPointerException("Column index must be not null");
+      throw new NullPointerException("Columns indexes must be not null");
     }
 
     // Create a sorted list from the modified columns
@@ -124,7 +124,7 @@ public class AssertionsOnModifiedColumns {
   public static <A extends AbstractAssert> A hasModifiedColumns(A assertion, WritableAssertionInfo info, Change change,
                                                                 String... names) {
     if (names == null) {
-      throw new NullPointerException("Column name must be not null");
+      throw new NullPointerException("Columns names must be not null");
     }
 
     // Create a sorted list from the parameters
