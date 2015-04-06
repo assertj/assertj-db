@@ -34,7 +34,7 @@ public class AssertionsOnNumberOfColumns_HasNumberOfColumns_Test {
    * This method tests the {@code hasNumberOfColumns} assertion method.
    */
   @Test
-  public void test_has_number_of_columns() throws Exception {
+  public void test_has_number_of_columns() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
@@ -46,7 +46,7 @@ public class AssertionsOnNumberOfColumns_HasNumberOfColumns_Test {
    * This method should fail because the number of columns is different.
    */
   @Test
-  public void should_fail_because_number_of_columns_is_different() throws Exception {
+  public void should_fail_because_number_of_columns_is_different() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();

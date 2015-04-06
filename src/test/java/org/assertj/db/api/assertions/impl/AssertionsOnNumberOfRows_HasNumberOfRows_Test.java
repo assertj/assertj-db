@@ -34,7 +34,7 @@ public class AssertionsOnNumberOfRows_HasNumberOfRows_Test {
    * This method tests the {@code hasNumberOfRows} assertion method.
    */
   @Test
-  public void test_has_number_of_rows() throws Exception {
+  public void test_has_number_of_rows() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
@@ -46,7 +46,7 @@ public class AssertionsOnNumberOfRows_HasNumberOfRows_Test {
    * This method should fail because the number of rows is different.
    */
   @Test
-  public void should_fail_because_number_of_rows_is_different() throws Exception {
+  public void should_fail_because_number_of_rows_is_different() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();

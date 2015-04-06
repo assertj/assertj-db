@@ -34,7 +34,7 @@ public class AssertionsOnModifiedColumn_IsNotModified_Test {
    * This method tests the {@code isOnTable} assertion method.
    */
   @Test
-  public void test_is_not_modified() throws Exception {
+  public void test_is_not_modified() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
@@ -48,7 +48,7 @@ public class AssertionsOnModifiedColumn_IsNotModified_Test {
    * This method should fail because the column is not modified.
    */
   @Test
-  public void should_fail_because_column_is_not_modified() throws Exception {
+  public void should_fail_because_column_is_not_modified() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();

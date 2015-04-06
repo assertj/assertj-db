@@ -38,7 +38,7 @@ public class AssertionsOnColumnNullity_HasOnlyNullValues_Test {
    * This method tests the {@code hasOnlyNullValues} assertion method.
    */
   @Test
-  public void test_has_only_null_values() throws Exception {
+  public void test_has_only_null_values() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
@@ -51,7 +51,7 @@ public class AssertionsOnColumnNullity_HasOnlyNullValues_Test {
    * This method should fail because the column contains not null values.
    */
   @Test
-  public void should_fail_because_column_contains_not_null_values() throws Exception {
+  public void should_fail_because_column_contains_not_null_values() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();

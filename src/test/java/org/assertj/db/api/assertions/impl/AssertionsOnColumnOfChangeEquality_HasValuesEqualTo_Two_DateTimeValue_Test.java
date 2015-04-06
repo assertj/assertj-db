@@ -39,7 +39,7 @@ public class AssertionsOnColumnOfChangeEquality_HasValuesEqualTo_Two_DateTimeVal
    * This method tests the {@code hasValuesEqualTo} assertion method.
    */
   @Test
-  public void test_have_values_equal_to() throws Exception {
+  public void test_have_values_equal_to() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
@@ -54,7 +54,7 @@ public class AssertionsOnColumnOfChangeEquality_HasValuesEqualTo_Two_DateTimeVal
    * This method should fail because the value at start point is different.
    */
   @Test
-  public void should_fail_because_value_at_start_point_is_different() throws Exception {
+  public void should_fail_because_value_at_start_point_is_different() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
@@ -79,7 +79,7 @@ public class AssertionsOnColumnOfChangeEquality_HasValuesEqualTo_Two_DateTimeVal
    * This method should fail because the value at end point is different.
    */
   @Test
-  public void should_fail_because_value_at_end_point_is_different() throws Exception {
+  public void should_fail_because_value_at_end_point_is_different() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
@@ -104,7 +104,7 @@ public class AssertionsOnColumnOfChangeEquality_HasValuesEqualTo_Two_DateTimeVal
    * This method should fail because one of the values is not a date/time.
    */
   @Test
-  public void should_fail_because_one_value_is_not_a_date_time() throws Exception {
+  public void should_fail_because_one_value_is_not_a_date_time() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();

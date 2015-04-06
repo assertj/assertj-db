@@ -39,7 +39,7 @@ public class AssertionsOnRowEquality_HasValuesEqualTo_Test {
    * This method tests the {@code hasValuesEqualTo} assertion method.
    */
   @Test
-  public void test_has_values_equal_to() throws Exception {
+  public void test_has_values_equal_to() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
@@ -52,7 +52,7 @@ public class AssertionsOnRowEquality_HasValuesEqualTo_Test {
    * This method should fail because the values are different.
    */
   @Test
-  public void should_fail_because_values_are_different() throws Exception {
+  public void should_fail_because_values_are_different() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();

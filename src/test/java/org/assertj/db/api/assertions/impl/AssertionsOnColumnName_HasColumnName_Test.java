@@ -34,7 +34,7 @@ public class AssertionsOnColumnName_HasColumnName_Test {
    * This method tests the {@code hasColumnName} assertion method.
    */
   @Test
-  public void test_has_column_name() throws Exception {
+  public void test_has_column_name() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
@@ -46,7 +46,7 @@ public class AssertionsOnColumnName_HasColumnName_Test {
    * This method should fail because the column name is different.
    */
   @Test
-  public void should_fail_because_column_name_is_different() throws Exception {
+  public void should_fail_because_column_name_is_different() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
@@ -67,7 +67,7 @@ public class AssertionsOnColumnName_HasColumnName_Test {
    * This method should fail because the column name is null.
    */
   @Test
-  public void should_fail_because_column_name_is_null() throws Exception {
+  public void should_fail_because_column_name_is_null() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();

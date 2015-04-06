@@ -34,7 +34,7 @@ public class AssertionsOnColumnOfChangeType_IsBoolean_Test {
    * This method tests the {@code isBoolean} assertion method.
    */
   @Test
-  public void test_is_boolean() throws Exception {
+  public void test_is_boolean() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
@@ -50,7 +50,7 @@ public class AssertionsOnColumnOfChangeType_IsBoolean_Test {
    * This method should fail because the value at start point have different type.
    */
   @Test
-  public void should_fail_because_value_at_start_point_have_different_type() throws Exception {
+  public void should_fail_because_value_at_start_point_have_different_type() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
@@ -74,7 +74,7 @@ public class AssertionsOnColumnOfChangeType_IsBoolean_Test {
    * This method should fail because the value at end point have different type.
    */
   @Test
-  public void should_fail_because_value_at_end_point_have_different_type() throws Exception {
+  public void should_fail_because_value_at_end_point_have_different_type() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();

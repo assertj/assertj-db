@@ -38,7 +38,7 @@ public class AssertionsOnColumnEquality_HasValuesEqualTo_Boolean_Test {
    * This method tests the {@code hasValuesEqualTo} assertion method.
    */
   @Test
-  public void test_have_values_equal_to() throws Exception {
+  public void test_have_values_equal_to() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
@@ -51,7 +51,7 @@ public class AssertionsOnColumnEquality_HasValuesEqualTo_Boolean_Test {
    * This method should fail because the values are different.
    */
   @Test
-  public void should_fail_because_values_are_different() throws Exception {
+  public void should_fail_because_values_are_different() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
@@ -73,7 +73,7 @@ public class AssertionsOnColumnEquality_HasValuesEqualTo_Boolean_Test {
    * This method should fail because one of the values is not a boolean.
    */
   @Test
-  public void should_fail_because_one_value_is_not_a_boolean() throws Exception {
+  public void should_fail_because_one_value_is_not_a_boolean() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
@@ -97,7 +97,7 @@ public class AssertionsOnColumnEquality_HasValuesEqualTo_Boolean_Test {
    * This method should fail because the number of values is different.
    */
   @Test
-  public void should_fail_because_the_number_of_values_is_different() throws Exception {
+  public void should_fail_because_the_number_of_values_is_different() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
