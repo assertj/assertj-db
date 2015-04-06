@@ -164,6 +164,23 @@ public abstract class AbstractTest {
   }
 
   /**
+   * Returns an instance of a {@code Changes}.
+   *
+   * @param changesList The list of changes.
+   * @return An instance.
+   * @throws Exception Exception
+   */
+  protected static Changes getChanges(List<Change> changesList) throws Exception {
+    Constructor<Changes> constructor = Changes.class.getDeclaredConstructor();
+    constructor.setAccessible(true);
+    Changes changes = constructor.newInstance();
+    Field field = Changes.class.getDeclaredField("changesList");
+    field.setAccessible(true);
+    field.set(changes, changesList);
+    return changes;
+  }
+
+  /**
    * Returns an instance of a {@code Change}.
    * 
    * @param dataType The type of the data on which is the change.
