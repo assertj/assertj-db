@@ -109,7 +109,7 @@ public class AssertionsOnDataType {
     }
     isOnTable(assertion, info, change);
     String dataName = change.getDataName();
-    if (!dataName.equals(name.toUpperCase())) {
+    if (!dataName.toUpperCase().equals(name.toUpperCase())) {
       throw failures.failure(info, shouldBeOnTable(name, dataName));
     }
     return assertion;
