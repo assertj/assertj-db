@@ -25,7 +25,7 @@ import org.assertj.core.error.ErrorMessageFactory;
 public class ShouldNotBeEqual extends BasicErrorMessageFactory {
 
   private static final String EXPECTED_MESSAGE = "\nExpecting:\n  <%s>\nnot to be equal to: \n  <%s>";
-  private static final String EXPECTED_MESSAGE_BUT_NOT = "\nExpecting to be not equal to value but was equal";
+  private static final String EXPECTED_MESSAGE_BUT_NOT = "\nExpecting to be not equal to the value but was equal";
 
   /**
    * Creates a new <code>{@link ShouldNotBeEqual}</code>.
