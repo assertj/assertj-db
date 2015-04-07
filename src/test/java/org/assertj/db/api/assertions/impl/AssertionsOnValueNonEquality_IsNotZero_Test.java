@@ -23,7 +23,7 @@ import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link AssertionsOnValueNonEquality} class :
- * {@link AssertionsOnValueNonEquality#isZero(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, Object)} method.
+ * {@link AssertionsOnValueNonEquality#isNotZero(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, Object)} method.
  *
  * @author Régis Pouiller
  *
