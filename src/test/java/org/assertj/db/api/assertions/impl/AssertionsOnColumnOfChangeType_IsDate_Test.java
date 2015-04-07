@@ -33,7 +33,7 @@ import static org.junit.Assert.fail;
 public class AssertionsOnColumnOfChangeType_IsDate_Test {
 
   /**
-   * This method tests the {@code isBoolean} assertion method.
+   * This method tests the {@code isDate} assertion method.
    */
   @Test
   public void test_is_date() {
