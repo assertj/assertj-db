@@ -36,10 +36,10 @@ import static org.junit.Assert.fail;
 public class AssertionsOnColumnType_IsDateTime_Test {
 
   /**
-   * This method tests the {@code isBoolean} assertion method.
+   * This method tests the {@code isDateTime} assertion method.
    */
   @Test
-  public void test_is_boolean() {
+  public void test_is_date_time() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
