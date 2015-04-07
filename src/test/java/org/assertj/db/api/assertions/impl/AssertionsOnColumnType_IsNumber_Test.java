@@ -54,10 +54,10 @@ public class AssertionsOnColumnType_IsNumber_Test {
   }
 
   /**
-   * This method should fail because the value at start point have different type.
+   * This method should fail because the value is not a number.
    */
   @Test
-  public void should_fail_because_value_at_start_point_have_different_type() {
+  public void should_fail_because_value_is_not_a_number() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
@@ -78,10 +78,10 @@ public class AssertionsOnColumnType_IsNumber_Test {
   }
 
   /**
-   * This method should fail because the value at end point have different type.
+   * This method should fail because the value is not a number (with lenience).
    */
   @Test
-  public void should_fail_because_value_at_end_point_have_different_type() {
+  public void should_fail_because_value_is_not_a_number_with_lenience() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
