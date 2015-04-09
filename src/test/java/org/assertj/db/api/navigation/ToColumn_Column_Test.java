@@ -18,6 +18,7 @@ import org.assertj.db.common.NeedReload;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Changes;
 import org.assertj.db.type.Column;
+import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
@@ -171,6 +172,76 @@ public class ToColumn_Column_Test extends AbstractTest {
     Column columnIdBis1 = (Column) fieldColumn.get(tableColumnAssertBis1);
     Column columnIdBis2 = (Column) fieldColumn.get(tableColumnAssertBis2);
     Column columnIdBis3 = (Column) fieldColumn.get(tableColumnAssertBis3);
+
+    assertThat(columnId0.getName()).isEqualTo(columnIdBis0.getName()).isEqualTo("ID");
+    assertThat(columnId1.getName()).isEqualTo(columnIdBis1.getName()).isEqualTo("NAME");
+    assertThat(columnId2.getName()).isEqualTo(columnIdBis2.getName()).isEqualTo("FIRSTNAME");
+    assertThat(columnId3.getName()).isEqualTo(columnIdBis3.getName()).isEqualTo("BIRTH");
+
+    assertThat(columnId0.getValuesList()).isEqualTo(columnIdBis0.getValuesList()).containsExactly(new BigDecimal("1"),
+                                                                                                  new BigDecimal("2"),
+                                                                                                  new BigDecimal("3"));
+    assertThat(columnId1.getValuesList()).isEqualTo(columnIdBis1.getValuesList()).containsExactly("Weaver", "Phoenix",
+                                                                                                  "Worthington");
+    assertThat(columnId2.getValuesList()).isEqualTo(columnIdBis2.getValuesList()).containsExactly("Sigourney",
+                                                                                                  "Joaquim", "Sam");
+    assertThat(columnId3.getValuesList()).isEqualTo(columnIdBis3.getValuesList()).containsExactly(
+            Date.valueOf("1949-10-08"), Date.valueOf("1974-10-28"), Date.valueOf("1976-08-02"));
+  }
+
+  /**
+   * This method tests the {@code column} navigation method.
+   */
+  @Test
+  public void test_column_from_request() throws Exception {
+    Field fieldIndex = AbstractDbAssert.class.getDeclaredField("indexNextColumn");
+    fieldIndex.setAccessible(true);
+    Field fieldColumn = AbstractColumnAssert.class.getDeclaredField("column");
+    fieldColumn.setAccessible(true);
+
+    Request request = new Request(source, "select * from actor");
+    RequestAssert requestAssert = assertThat(request);
+    assertThat(fieldIndex.get(requestAssert)).isEqualTo(0);
+    RequestColumnAssert requestColumnAssert0 = requestAssert.column();
+    assertThat(fieldIndex.get(requestAssert)).isEqualTo(1);
+    RequestColumnAssert requestColumnAssert1 = requestAssert.column();
+    assertThat(fieldIndex.get(requestAssert)).isEqualTo(2);
+    RequestColumnAssert requestColumnAssert2 = requestAssert.column();
+    assertThat(fieldIndex.get(requestAssert)).isEqualTo(3);
+    RequestColumnAssert requestColumnAssert3 = requestAssert.column();
+    assertThat(fieldIndex.get(requestAssert)).isEqualTo(4);
+    try {
+      requestAssert.column();
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      assertThat(e.getMessage()).isEqualTo("Index 4 out of the limits [0, 4[");
+    }
+
+    RequestAssert requestAssertBis = assertThat(request);
+    assertThat(fieldIndex.get(requestAssertBis)).isEqualTo(0);
+    RequestColumnAssert requestColumnAssertBis0 = requestAssertBis.column();
+    assertThat(fieldIndex.get(requestAssertBis)).isEqualTo(1);
+    RequestColumnAssert requestColumnAssertBis1 = requestColumnAssertBis0.column();
+    assertThat(fieldIndex.get(requestAssertBis)).isEqualTo(2);
+    RequestColumnAssert requestColumnAssertBis2 = requestColumnAssertBis1.column();
+    assertThat(fieldIndex.get(requestAssertBis)).isEqualTo(3);
+    RequestColumnAssert requestColumnAssertBis3 = requestColumnAssertBis2.column();
+    assertThat(fieldIndex.get(requestAssertBis)).isEqualTo(4);
+    try {
+      requestColumnAssertBis3.column();
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      assertThat(e.getMessage()).isEqualTo("Index 4 out of the limits [0, 4[");
+    }
+
+    Column columnId0 = (Column) fieldColumn.get(requestColumnAssert0);
+    Column columnId1 = (Column) fieldColumn.get(requestColumnAssert1);
+    Column columnId2 = (Column) fieldColumn.get(requestColumnAssert2);
+    Column columnId3 = (Column) fieldColumn.get(requestColumnAssert3);
+    Column columnIdBis0 = (Column) fieldColumn.get(requestColumnAssertBis0);
+    Column columnIdBis1 = (Column) fieldColumn.get(requestColumnAssertBis1);
+    Column columnIdBis2 = (Column) fieldColumn.get(requestColumnAssertBis2);
+    Column columnIdBis3 = (Column) fieldColumn.get(requestColumnAssertBis3);
 
     assertThat(columnId0.getName()).isEqualTo(columnIdBis0.getName()).isEqualTo("ID");
     assertThat(columnId1.getName()).isEqualTo(columnIdBis1.getName()).isEqualTo("NAME");
