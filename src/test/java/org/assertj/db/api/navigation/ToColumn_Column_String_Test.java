@@ -43,7 +43,7 @@ public class ToColumn_Column_String_Test extends AbstractTest {
    */
   @Test
   @NeedReload
-  public void test_column_from_change() throws Exception {
+  public void test_column_with_column_name_from_change() throws Exception {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
@@ -134,7 +134,7 @@ public class ToColumn_Column_String_Test extends AbstractTest {
    * This method tests the {@code column} navigation method.
    */
   @Test
-  public void test_column_from_table() throws Exception {
+  public void test_column_with_column_name_from_table() throws Exception {
     Field fieldIndex = AbstractDbAssert.class.getDeclaredField("indexNextColumn");
     fieldIndex.setAccessible(true);
     Field fieldColumn = AbstractColumnAssert.class.getDeclaredField("column");
