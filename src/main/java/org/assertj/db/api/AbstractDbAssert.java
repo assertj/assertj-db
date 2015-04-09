@@ -121,9 +121,10 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
       return rowAssert;
     }
 
+    Row row = getRow(index);
     try {
       Constructor<R> constructor = rowAssertClass.getDeclaredConstructor(myself.getClass(), Row.class);
-      R instance = constructor.newInstance(this, getRow(index));
+      R instance = constructor.newInstance(this, row);
       rowsAssertMap.put(index, instance);
       return instance.as("Row at index " + index + " of " + info.descriptionText());
     } catch (Exception e) {
@@ -179,9 +180,10 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
       return columnAssert;
     }
 
+    Column column = getColumn(index);
     try {
       Constructor<C> constructor = columnAssertClass.getDeclaredConstructor(myself.getClass(), Column.class);
-      C instance = constructor.newInstance(this, getColumn(index));
+      C instance = constructor.newInstance(this, column);
       columnsAssertMap.put(index, instance);
       return instance.as("Column at index " + index + " of " + info.descriptionText());
     } catch (Exception e) {
