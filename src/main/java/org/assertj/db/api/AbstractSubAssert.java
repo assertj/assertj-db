@@ -91,9 +91,10 @@ public abstract class AbstractSubAssert<D extends AbstractDbData<D>, A extends A
       return valueAssert;
     }
 
+    Object value = getValue(index);
     try {
-      Constructor<V> constructor = (Constructor<V>) valueClass.getDeclaredConstructor(myself.getClass(), Object.class);
-      V instance = constructor.newInstance(this, getValue(index));
+      Constructor<V> constructor = valueClass.getDeclaredConstructor(myself.getClass(), Object.class);
+      V instance = constructor.newInstance(this, value);
       valuesAssertMap.put(index, instance);
       return instance.as("Value at index " + index + " of " + info.descriptionText());
     } catch (Exception e) {
