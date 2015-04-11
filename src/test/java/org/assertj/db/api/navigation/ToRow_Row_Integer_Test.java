@@ -85,7 +85,7 @@ public class ToRow_Row_Integer_Test extends AbstractTest {
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 3[");
     }
-    TableRowAssert tableRowAssertBisAgain0 = tableAssertBis.row(0);
+    TableRowAssert tableRowAssertBisAgain0 = tableRowAssertBis2.row(0);
     Assertions.assertThat(tableRowAssertBis0).isSameAs(tableRowAssertBisAgain0);
 
     Row rowId0 = (Row) fieldRow.get(tableRowAssert0);
@@ -157,7 +157,7 @@ public class ToRow_Row_Integer_Test extends AbstractTest {
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 3[");
     }
-    RequestRowAssert requestRowAssertBisAgain0 = requestAssertBis.row(0);
+    RequestRowAssert requestRowAssertBisAgain0 = requestRowAssertBis2.row(0);
     Assertions.assertThat(requestRowAssertBis0).isSameAs(requestRowAssertBisAgain0);
 
     Row rowId0 = (Row) fieldRow.get(requestRowAssert0);

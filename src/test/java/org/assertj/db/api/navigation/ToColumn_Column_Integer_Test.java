@@ -107,7 +107,7 @@ public class ToColumn_Column_Integer_Test extends AbstractTest {
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 4[");
     }
-    ChangeColumnAssert changeColumnAssertBisAgain0 = changeAssertBis.column(0);
+    ChangeColumnAssert changeColumnAssertBisAgain0 = changeColumnAssertBis3.column(0);
     Assertions.assertThat(changeColumnAssertBis0).isSameAs(changeColumnAssertBisAgain0);
 
     Assertions.assertThat(fieldColumnName.get(changeColumnAssert0)).isEqualTo(fieldColumnName.get(changeColumnAssertBis0)).isEqualTo(
@@ -194,7 +194,7 @@ public class ToColumn_Column_Integer_Test extends AbstractTest {
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 4[");
     }
-    TableColumnAssert tableColumnAssertBisAgain0 = tableAssertBis.column(0);
+    TableColumnAssert tableColumnAssertBisAgain0 = tableColumnAssertBis3.column(0);
     Assertions.assertThat(tableColumnAssertBis0).isSameAs(tableColumnAssertBisAgain0);
 
     Column columnId0 = (Column) fieldColumn.get(tableColumnAssert0);
@@ -282,7 +282,7 @@ public class ToColumn_Column_Integer_Test extends AbstractTest {
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 4[");
     }
-    RequestColumnAssert requestColumnAssertBisAgain0 = requestAssertBis.column(0);
+    RequestColumnAssert requestColumnAssertBisAgain0 = requestColumnAssertBis3.column(0);
     Assertions.assertThat(requestColumnAssertBis0).isSameAs(requestColumnAssertBisAgain0);
 
     Column columnId0 = (Column) fieldColumn.get(requestColumnAssert0);

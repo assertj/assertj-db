@@ -115,6 +115,14 @@ public class ToChange_ChangeOfModificationOnTable_Integer_Test extends AbstractT
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index 4 out of the limits [0, 1[");
     }
+    try {
+      changeAssertBis2.changeOfModificationOnTable("interpretation", -1);
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 1[");
+    }
+    ChangeAssert changeAssertBisAgain0 = changeAssertBis2.changeOfModificationOnTable("actor", 0);
+    assertThat(changeAssertBis0).isSameAs(changeAssertBisAgain0);
 
     List<Changes> changesList = (List<Changes>) fieldList.get(changes);
     assertThat(fieldChange.get(changeAssert0)).isSameAs(fieldChange.get(changeAssertBis0)).isSameAs(changesList.get(3));

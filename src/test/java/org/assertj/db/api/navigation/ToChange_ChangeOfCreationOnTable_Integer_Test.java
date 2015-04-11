@@ -115,6 +115,14 @@ public class ToChange_ChangeOfCreationOnTable_Integer_Test extends AbstractTest 
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index 3 out of the limits [0, 1[");
     }
+    try {
+      changeAssertBis2.changeOfCreationOnTable("interpretation", -1);
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 1[");
+    }
+    ChangeAssert changeAssertBisAgain0 = changeAssertBis2.changeOfCreationOnTable("actor", 0);
+    assertThat(changeAssertBis0).isSameAs(changeAssertBisAgain0);
 
     List<Changes> changesList = (List<Changes>) fieldList.get(changes);
     assertThat(fieldChange.get(changeAssert0)).isSameAs(fieldChange.get(changeAssertBis0)).isSameAs(changesList.get(0));

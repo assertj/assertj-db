@@ -76,6 +76,8 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 4[");
     }
+    ChangeRowValueAssert changeRowValueAssertAgain0 = changeRowAssert.value(0);
+    Assertions.assertThat(changeRowValueAssert0).isSameAs(changeRowValueAssertAgain0);
 
     ChangesAssert changesAssertBis = assertThat(changes);
     ChangeAssert changeAssertBis = changesAssertBis.change();
@@ -100,6 +102,8 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 4[");
     }
+    ChangeRowValueAssert changeRowValueAssertBisAgain0 = changeRowValueAssertBis3.value(0);
+    Assertions.assertThat(changeRowValueAssertBis0).isSameAs(changeRowValueAssertBisAgain0);
 
     Assertions.assertThat(fieldValue.get(changeRowValueAssert0)).isSameAs(fieldValue.get(changeRowValueAssertBis0)).isEqualTo(new BigDecimal("4"));
     Assertions.assertThat(fieldValue.get(changeRowValueAssert1)).isSameAs(fieldValue.get(changeRowValueAssertBis1)).isEqualTo("Murray");
@@ -140,6 +144,8 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 3[");
     }
+    TableColumnValueAssert tableColumnValueAssertAgain0 = tableColumnAssert.value(0);
+    Assertions.assertThat(tableColumnValueAssert0).isSameAs(tableColumnValueAssertAgain0);
 
     TableAssert tableAssertBis = assertThat(table);
     TableColumnAssert tableColumnAssertBis = tableAssertBis.column();
@@ -162,6 +168,8 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 3[");
     }
+    TableColumnValueAssert tableColumnValueAssertBisAgain0 = tableColumnValueAssertBis2.value(0);
+    Assertions.assertThat(tableColumnValueAssertBis0).isSameAs(tableColumnValueAssertBisAgain0);
 
     Assertions.assertThat(fieldValue.get(tableColumnValueAssert0)).isSameAs(fieldValue.get(tableColumnValueAssertBis0)).isEqualTo(new BigDecimal("1"));
     Assertions.assertThat(fieldValue.get(tableColumnValueAssert1)).isSameAs(fieldValue.get(tableColumnValueAssertBis1)).isEqualTo(new BigDecimal("2"));
@@ -202,6 +210,8 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 4[");
     }
+    TableRowValueAssert tableRowValueAssertAgain0 = tableRowAssert.value(0);
+    Assertions.assertThat(tableRowValueAssert0).isSameAs(tableRowValueAssertAgain0);
 
     TableAssert tableAssertBis = assertThat(table);
     TableRowAssert tableRowAssertBis = tableAssertBis.row();
@@ -226,6 +236,8 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 4[");
     }
+    TableRowValueAssert tableRowValueAssertBisAgain0 = tableRowValueAssertBis3.value(0);
+    Assertions.assertThat(tableRowValueAssertBis0).isSameAs(tableRowValueAssertBisAgain0);
 
     Assertions.assertThat(fieldValue.get(tableRowValueAssert0)).isSameAs(fieldValue.get(tableRowValueAssertBis0)).isEqualTo(new BigDecimal("1"));
     Assertions.assertThat(fieldValue.get(tableRowValueAssert1)).isSameAs(fieldValue.get(tableRowValueAssertBis1)).isEqualTo("Weaver");
@@ -265,6 +277,8 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 3[");
     }
+    RequestColumnValueAssert requestColumnValueAssertAgain0 = requestColumnAssert.value(0);
+    Assertions.assertThat(requestColumnValueAssert0).isSameAs(requestColumnValueAssertAgain0);
 
     RequestAssert requestAssertBis = assertThat(request);
     RequestColumnAssert requestColumnAssertBis = requestAssertBis.column();
@@ -287,6 +301,8 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 3[");
     }
+    RequestColumnValueAssert requestColumnValueAssertBisAgain0 = requestColumnValueAssertBis2.value(0);
+    Assertions.assertThat(requestColumnValueAssertBis0).isSameAs(requestColumnValueAssertBisAgain0);
 
     Assertions.assertThat(fieldValue.get(requestColumnValueAssert0)).isSameAs(fieldValue.get(requestColumnValueAssertBis0)).isEqualTo(new BigDecimal("1"));
     Assertions.assertThat(fieldValue.get(requestColumnValueAssert1)).isSameAs(fieldValue.get(requestColumnValueAssertBis1)).isEqualTo(new BigDecimal("2"));
@@ -327,6 +343,8 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 4[");
     }
+    RequestRowValueAssert requestRowValueAssertAgain0 = requestRowAssert.value(0);
+    Assertions.assertThat(requestRowValueAssert0).isSameAs(requestRowValueAssertAgain0);
 
     RequestAssert requestAssertBis = assertThat(request);
     RequestRowAssert requestRowAssertBis = requestAssertBis.row();
@@ -351,6 +369,8 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 4[");
     }
+    RequestRowValueAssert requestRowValueAssertBisAgain0 = requestRowValueAssertBis3.value(0);
+    Assertions.assertThat(requestRowValueAssertBis0).isSameAs(requestRowValueAssertBisAgain0);
 
     Assertions.assertThat(fieldValue.get(requestRowValueAssert0)).isSameAs(fieldValue.get(requestRowValueAssertBis0)).isEqualTo(new BigDecimal("1"));
     Assertions.assertThat(fieldValue.get(requestRowValueAssert1)).isSameAs(fieldValue.get(requestRowValueAssertBis1)).isEqualTo("Weaver");

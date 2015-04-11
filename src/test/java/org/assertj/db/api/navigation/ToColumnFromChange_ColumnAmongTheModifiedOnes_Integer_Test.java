@@ -106,7 +106,7 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_Integer_Test extends 
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits of the modified columns [0, 4[");
     }
-    ChangeColumnAssert changeColumnAssertBisAgain0 = changeAssertBis.column(0);
+    ChangeColumnAssert changeColumnAssertBisAgain0 = changeColumnAssertBis3.column(0);
     Assertions.assertThat(changeColumnAssertBis0).isSameAs(changeColumnAssertBisAgain0);
 
     Assertions.assertThat(fieldColumnName.get(changeColumnAssert0)).isEqualTo(fieldColumnName.get(changeColumnAssertBis0)).isEqualTo(
