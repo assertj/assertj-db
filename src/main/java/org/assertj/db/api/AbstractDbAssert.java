@@ -181,11 +181,13 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
     }
 
     Column column = getColumn(index);
+    List<String> columnsNameList = actual.getColumnsNameList();
+    String columnName = columnsNameList.get(index);
     try {
       Constructor<C> constructor = columnAssertClass.getDeclaredConstructor(myself.getClass(), Column.class);
       C instance = constructor.newInstance(this, column);
       columnsAssertMap.put(index, instance);
-      return instance.as("Column at index " + index + " of " + info.descriptionText());
+      return instance.as("Column at index " + index + " (column name : " + columnName + ") of " + info.descriptionText());
     } catch (Exception e) {
       throw new AssertJDBException("There is an exception '" + e.getMessage()
           + "'\n\t in the instantiation of the assertion " + columnAssertClass.getName() + "\n\t on the column with "
