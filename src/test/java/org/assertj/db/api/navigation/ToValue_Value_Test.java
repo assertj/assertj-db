@@ -70,6 +70,12 @@ public class ToValue_Value_Test extends AbstractTest {
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index 4 out of the limits [0, 4[");
     }
+    try {
+      changeAssert.rowAtStartPoint().value();
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Row do not exist");
+    }
 
     ChangesAssert changesAssertBis = assertThat(changes);
     ChangeAssert changeAssertBis = changesAssertBis.change();
@@ -87,6 +93,12 @@ public class ToValue_Value_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index 4 out of the limits [0, 4[");
+    }
+    try {
+      changeAssertBis.rowAtStartPoint().value();
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Row do not exist");
     }
 
     Assertions.assertThat(fieldValue.get(changeRowValueAssert0)).isSameAs(fieldValue.get(changeRowValueAssertBis0)).isEqualTo(new BigDecimal("4"));

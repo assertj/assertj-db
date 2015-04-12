@@ -76,6 +76,12 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 4[");
     }
+    try {
+      changeAssert.rowAtStartPoint().value(0);
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Row do not exist");
+    }
     ChangeRowValueAssert changeRowValueAssertAgain0 = changeRowAssert.value(0);
     Assertions.assertThat(changeRowValueAssert0).isSameAs(changeRowValueAssertAgain0);
 
@@ -101,6 +107,12 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 4[");
+    }
+    try {
+      changeAssertBis.rowAtStartPoint().value(0);
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Row do not exist");
     }
     ChangeRowValueAssert changeRowValueAssertBisAgain0 = changeRowValueAssertBis3.value(0);
     Assertions.assertThat(changeRowValueAssertBis0).isSameAs(changeRowValueAssertBisAgain0);
