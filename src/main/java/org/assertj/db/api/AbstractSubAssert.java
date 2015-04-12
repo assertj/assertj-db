@@ -45,7 +45,7 @@ public abstract class AbstractSubAssert<D extends AbstractDbData<D>, A extends A
   /**
    * Class of the assertion on the value (used to make instance).
    */
-  private final Class<V> valueClass;
+  private final Class<V> valueAssertClass;
 
   /**
    * Index of the next value to get.
@@ -61,11 +61,11 @@ public abstract class AbstractSubAssert<D extends AbstractDbData<D>, A extends A
    * 
    * @param originalDbAssert The original assert. That could be a {@link RequestAssert} or a {@link TableAssert}.
    * @param selfType Type of this assertion class : a sub-class of {@code AbstractSubAssert}.
-   * @param valueType Class of the assertion on the value : a sub-class of {@code AbstractValueAssert}.
+   * @param valueAssertType Class of the assertion on the value : a sub-class of {@code AbstractValueAssert}.
    */
-  AbstractSubAssert(A originalDbAssert, Class<S> selfType, Class<V> valueType) {
+  AbstractSubAssert(A originalDbAssert, Class<S> selfType, Class<V> valueAssertType) {
     super(selfType, originalDbAssert);
-    valueClass = valueType;
+    valueAssertClass = valueAssertType;
   }
 
   /**
@@ -92,12 +92,12 @@ public abstract class AbstractSubAssert<D extends AbstractDbData<D>, A extends A
 
     Object value = getValue(index);
     try {
-      V instance = getValueAssertInstance(valueClass, index, value);
+      V instance = getValueAssertInstance(valueAssertClass, index, value);
       valuesAssertMap.put(index, instance);
       return instance;
     } catch (Exception e) {
       throw new AssertJDBException("There is an exception '" + e.getMessage()
-          + "'\n\t in the instantiation of the assertion " + valueClass.getName() + "\n\t on the value with "
+          + "'\n\t in the instantiation of the assertion " + valueAssertClass.getName() + "\n\t on the value with "
           + myself.getClass() + ".\n "
           + "It is normally impossible.\n That means there is a big mistake in the development of AssertJDB.\n "
           + "Please write an issue for that if you meet this problem.");
@@ -107,13 +107,13 @@ public abstract class AbstractSubAssert<D extends AbstractDbData<D>, A extends A
   /**
    * Gets an instance of value assert corresponding to the index and the value.
    *
-   * @param valueType Class of the assertion on the value : a sub-class of {@code AbstractValueAssert}.
+   * @param valueAssertType Class of the assertion on the value : a sub-class of {@code AbstractValueAssert}.
    * @param index Index of the value on which is the instance of value assert.
    * @param value Value on which is the instance of value assert.
    * @return The value assert implementation.
    * @throws Exception Exception during the instantiation.
    */
-  protected abstract V getValueAssertInstance(Class<V> valueType, int index, Object value) throws Exception;
+  protected abstract V getValueAssertInstance(Class<V> valueAssertType, int index, Object value) throws Exception;
 
   /** {@inheritDoc} */
   @Override

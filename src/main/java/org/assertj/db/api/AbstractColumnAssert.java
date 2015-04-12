@@ -60,8 +60,8 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
 
   /** {@inheritDoc} */
   @Override
-  protected CV getValueAssertInstance(Class<CV> valueType, int index, Object value) throws Exception {
-    Constructor<CV> constructor = valueType.getDeclaredConstructor(myself.getClass(), Object.class);
+  protected CV getValueAssertInstance(Class<CV> valueAssertType, int index, Object value) throws Exception {
+    Constructor<CV> constructor = valueAssertType.getDeclaredConstructor(myself.getClass(), Object.class);
     CV instance = constructor.newInstance(this, value);
     return instance.as("Value at index " + index + " of " + info.descriptionText());
   }

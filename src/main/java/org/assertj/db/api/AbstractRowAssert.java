@@ -64,10 +64,10 @@ public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends A
 
   /** {@inheritDoc} */
   @Override
-  protected RV getValueAssertInstance(Class<RV> valueType, int index, Object value) throws Exception {
+  protected RV getValueAssertInstance(Class<RV> valueAssertType, int index, Object value) throws Exception {
     List<String> columnsNameList = row.getColumnsNameList();
     String columnName = columnsNameList.get(index);
-    Constructor<RV> constructor = valueType.getDeclaredConstructor(myself.getClass(), String.class, Object.class);
+    Constructor<RV> constructor = valueAssertType.getDeclaredConstructor(myself.getClass(), String.class, Object.class);
     RV instance = constructor.newInstance(this, columnName, value);
     return instance.as("Value at index " + index + " (column name : " + columnName + ") of " + info.descriptionText());
   }
