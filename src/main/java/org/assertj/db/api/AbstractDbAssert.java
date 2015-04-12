@@ -129,7 +129,7 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
       return instance.as("Row at index " + index + " of " + info.descriptionText());
     } catch (Exception e) {
       throw new AssertJDBException("There is an exception '" + e.getMessage()
-          + "'\n\t in the instanciation of the assertion " + rowAssertClass.getName() + "\n\t on the row with "
+          + "'\n\t in the instantiation of the assertion " + rowAssertClass.getName() + "\n\t on the row with "
           + myself.getClass() + ".\n "
           + "It is normally impossible.\n That means there is a big mistake in the development of AssertJDB.\n "
           + "Please write an issue for that if you meet this problem.");
@@ -188,7 +188,7 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
       return instance.as("Column at index " + index + " of " + info.descriptionText());
     } catch (Exception e) {
       throw new AssertJDBException("There is an exception '" + e.getMessage()
-          + "'\n\t in the instanciation of the assertion " + columnAssertClass.getName() + "\n\t on the column with "
+          + "'\n\t in the instantiation of the assertion " + columnAssertClass.getName() + "\n\t on the column with "
           + myself.getClass() + ".\n "
           + "It is normally impossible.\n That means there is a big mistake in the development of AssertJDB.\n "
           + "Please write an issue for that if you meet this problem.");
