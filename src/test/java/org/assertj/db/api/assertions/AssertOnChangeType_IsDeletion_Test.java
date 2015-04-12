@@ -60,7 +60,7 @@ public class AssertOnChangeType_IsDeletion_Test extends AbstractTest {
       assertThat(changes).change(3).isDeletion();
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Change at index 3 of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n"
+      Assertions.assertThat(e.getMessage()).isEqualTo("[Change at index 3 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n"
                                                       + "Expecting:\n"
                                                       + "to be of type\n"
                                                       + "  <DELETION>\n"

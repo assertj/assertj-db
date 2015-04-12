@@ -60,7 +60,7 @@ public class AssertOnChangeType_IsModification_Test extends AbstractTest {
       assertThat(changes).change().isModification();
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Change at index 0 of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n"
+      Assertions.assertThat(e.getMessage()).isEqualTo("[Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n"
                                                       + "Expecting:\n"
                                                       + "to be of type\n"
                                                       + "  <MODIFICATION>\n"
