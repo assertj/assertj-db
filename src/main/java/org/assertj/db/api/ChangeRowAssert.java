@@ -154,7 +154,7 @@ public class ChangeRowAssert
 
   /** {@inheritDoc} */
   @Override
-  public ChangeRowAssert doNotExist() {
-    return AssertionsOnRowOfChangeExistence.doNotExist(myself, info, row);
+  public ChangeRowAssert doesNotExist() {
+    return AssertionsOnRowOfChangeExistence.doesNotExist(myself, info, row);
   }
 }
