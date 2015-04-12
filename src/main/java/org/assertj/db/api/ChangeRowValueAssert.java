@@ -12,6 +12,8 @@
  */
 package org.assertj.db.api;
 
+import org.assertj.db.api.assertions.AssertOnColumnName;
+import org.assertj.db.api.assertions.impl.AssertionsOnColumnName;
 import org.assertj.db.api.navigation.ToValue;
 import org.assertj.db.api.navigation.ToValueFromRow;
 
@@ -24,16 +26,24 @@ import org.assertj.db.api.navigation.ToValueFromRow;
 public class ChangeRowValueAssert
         extends AbstractAssertWithValues<ChangeRowValueAssert, ChangeRowAssert>
         implements ToValue<ChangeRowValueAssert>,
-                   ToValueFromRow<ChangeRowValueAssert> {
+                   ToValueFromRow<ChangeRowValueAssert>,
+                   AssertOnColumnName<ChangeRowValueAssert> {
+
+  /**
+   * The name of the column.
+   */
+  private final String columnName;
 
   /**
    * Constructor.
    *
    * @param origin The assertion of {@link org.assertj.db.api.origin.Origin}.
+   * @param columnName The column name.
    * @param value The value on which are the assertions.
    */
-  ChangeRowValueAssert(ChangeRowAssert origin, Object value) {
+  ChangeRowValueAssert(ChangeRowAssert origin, String columnName, Object value) {
     super(ChangeRowValueAssert.class, origin, value);
+    this.columnName = columnName;
   }
 
   /** {@inheritDoc} */
@@ -52,5 +62,11 @@ public class ChangeRowValueAssert
   @Override
   public ChangeRowValueAssert value(String columnName) {
     return origin.value(columnName);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeRowValueAssert hasColumnName(String columnName) {
+    return AssertionsOnColumnName.hasColumnName(myself, info, this.columnName, columnName);
   }
 }
