@@ -19,7 +19,6 @@ import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Column;
 import org.assertj.db.type.Row;
 
-import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,18 +92,28 @@ public abstract class AbstractSubAssert<D extends AbstractDbData<D>, A extends A
 
     Object value = getValue(index);
     try {
-      Constructor<V> constructor = valueClass.getDeclaredConstructor(myself.getClass(), Object.class);
-      V instance = constructor.newInstance(this, value);
+      V instance = getValueAssertInstance(valueClass, index, value);
       valuesAssertMap.put(index, instance);
-      return instance.as("Value at index " + index + " of " + info.descriptionText());
+      return instance;
     } catch (Exception e) {
       throw new AssertJDBException("There is an exception '" + e.getMessage()
-          + "'\n\t in the instanciation of the assertion " + valueClass.getName() + "\n\t on the value with "
+          + "'\n\t in the instantiation of the assertion " + valueClass.getName() + "\n\t on the value with "
           + myself.getClass() + ".\n "
           + "It is normally impossible.\n That means there is a big mistake in the development of AssertJDB.\n "
           + "Please write an issue for that if you meet this problem.");
     }
   }
+
+  /**
+   * Gets an instance of value assert corresponding to the index and the value.
+   *
+   * @param valueType Class of the assertion on the value : a sub-class of {@code AbstractValueAssert}.
+   * @param index Index of the value on which is the instance of value assert.
+   * @param value Value on which is the instance of value assert.
+   * @return The value assert implementation.
+   * @throws Exception Exception during the instantiation.
+   */
+  protected abstract V getValueAssertInstance(Class<V> valueType, int index, Object value) throws Exception;
 
   /** {@inheritDoc} */
   @Override

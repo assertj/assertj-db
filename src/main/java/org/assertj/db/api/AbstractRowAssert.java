@@ -22,6 +22,7 @@ import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Row;
 
+import java.lang.reflect.Constructor;
 import java.util.List;
 
 /**
@@ -59,6 +60,16 @@ public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends A
   AbstractRowAssert(A originalDbAssert, Class<R> selfType, Class<RV> valueType, Row row) {
     super(originalDbAssert, selfType, valueType);
     this.row = row;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  protected RV getValueAssertInstance(Class<RV> valueType, int index, Object value) throws Exception {
+    List<String> columnsNameList = row.getColumnsNameList();
+    String columnName = columnsNameList.get(index);
+    Constructor<RV> constructor = valueType.getDeclaredConstructor(myself.getClass(), String.class, Object.class);
+    RV instance = constructor.newInstance(this, columnName, value);
+    return instance.as("Value at index " + index + " (column name : " + columnName + ") of " + info.descriptionText());
   }
 
   /** {@inheritDoc} */

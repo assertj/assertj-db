@@ -17,6 +17,7 @@ import org.assertj.db.api.assertions.impl.*;
 import org.assertj.db.api.navigation.ColumnAssert;
 import org.assertj.db.type.*;
 
+import java.lang.reflect.Constructor;
 import java.util.List;
 
 /**
@@ -55,6 +56,14 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
   AbstractColumnAssert(A originalDbAssert, Class<C> selfType, Class<CV> valueType, Column column) {
     super(originalDbAssert, selfType, valueType);
     this.column = column;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  protected CV getValueAssertInstance(Class<CV> valueType, int index, Object value) throws Exception {
+    Constructor<CV> constructor = valueType.getDeclaredConstructor(myself.getClass(), Object.class);
+    CV instance = constructor.newInstance(this, value);
+    return instance.as("Value at index " + index + " of " + info.descriptionText());
   }
 
   /** {@inheritDoc} */
