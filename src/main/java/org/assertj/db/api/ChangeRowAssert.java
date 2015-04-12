@@ -14,8 +14,10 @@ package org.assertj.db.api;
 
 import org.assertj.db.api.assertions.AssertOnNumberOfColumns;
 import org.assertj.db.api.assertions.AssertOnRowEquality;
+import org.assertj.db.api.assertions.AssertOnRowOfChangeExistence;
 import org.assertj.db.api.assertions.impl.AssertionsOnNumberOfColumns;
 import org.assertj.db.api.assertions.impl.AssertionsOnRowEquality;
+import org.assertj.db.api.assertions.impl.AssertionsOnRowOfChangeExistence;
 import org.assertj.db.api.navigation.RowAssert;
 import org.assertj.db.api.origin.OriginWithValuesFromRow;
 import org.assertj.db.exception.AssertJDBException;
@@ -35,7 +37,8 @@ public class ChangeRowAssert
         implements RowAssert,
                    OriginWithValuesFromRow,
                    AssertOnRowEquality<ChangeRowAssert>,
-                   AssertOnNumberOfColumns<ChangeRowAssert> {
+                   AssertOnNumberOfColumns<ChangeRowAssert>,
+                   AssertOnRowOfChangeExistence<ChangeRowAssert> {
 
   /**
    * The actual row on which the assertion is.
@@ -70,6 +73,9 @@ public class ChangeRowAssert
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
    */
   private Object getValue(int index) {
+    if (row == null) {
+      throw new AssertJDBException("Row do not exist");
+    }
     int size = row.getValuesList().size();
     if (index < 0 || index >= size) {
       throw new AssertJDBException("Index %s out of the limits [0, %s[", index, size);
@@ -93,9 +99,11 @@ public class ChangeRowAssert
       return changeRowValueAssert;
     }
 
-    ChangeRowValueAssert instance = new ChangeRowValueAssert(this, getValue(index));
+    List<String> columnsNameList = row.getColumnsNameList();
+    String columnName = columnsNameList.get(index);
+    ChangeRowValueAssert instance = new ChangeRowValueAssert(this, columnName, getValue(index));
     changeValueAssertMap.put(index, instance);
-    return instance.as("Value at index " + index + " of " + info.descriptionText());
+    return instance.as("Value at index " + index + " (column name : " + columnName + ") of " + info.descriptionText());
   }
 
   /** {@inheritDoc} */
@@ -136,5 +144,17 @@ public class ChangeRowAssert
   @Override
   public ChangeRowAssert hasValuesEqualTo(Object... expected) {
     return AssertionsOnRowEquality.hasValuesEqualTo(myself, info, row.getValuesList(), expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeRowAssert exists() {
+    return AssertionsOnRowOfChangeExistence.exists(myself, info, row);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeRowAssert doNotExist() {
+    return AssertionsOnRowOfChangeExistence.doNotExist(myself, info, row);
   }
 }
