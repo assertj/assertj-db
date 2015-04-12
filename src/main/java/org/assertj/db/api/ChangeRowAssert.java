@@ -99,9 +99,10 @@ public class ChangeRowAssert
       return changeRowValueAssert;
     }
 
+    Object value = getValue(index);
     List<String> columnsNameList = row.getColumnsNameList();
     String columnName = columnsNameList.get(index);
-    ChangeRowValueAssert instance = new ChangeRowValueAssert(this, columnName, getValue(index));
+    ChangeRowValueAssert instance = new ChangeRowValueAssert(this, columnName, value);
     changeValueAssertMap.put(index, instance);
     return instance.as("Value at index " + index + " (column name : " + columnName + ") of " + info.descriptionText());
   }
