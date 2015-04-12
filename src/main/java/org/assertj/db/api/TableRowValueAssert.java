@@ -28,10 +28,11 @@ public class TableRowValueAssert
    * Constructor.
    * 
    * @param origin The assertion of {@link org.assertj.db.api.origin.Origin}.
+   * @param columnName The column name.
    * @param value The value to assert.
    */
-  TableRowValueAssert(TableRowAssert origin, Object value) {
-    super(TableRowValueAssert.class, origin, value);
+  TableRowValueAssert(TableRowAssert origin, String columnName, Object value) {
+    super(TableRowValueAssert.class, origin, columnName, value);
   }
 
   /**

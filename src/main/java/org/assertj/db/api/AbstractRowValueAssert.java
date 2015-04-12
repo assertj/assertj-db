@@ -12,6 +12,8 @@
  */
 package org.assertj.db.api;
 
+import org.assertj.db.api.assertions.AssertOnColumnName;
+import org.assertj.db.api.assertions.impl.AssertionsOnColumnName;
 import org.assertj.db.api.navigation.ToValueFromRow;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Row;
@@ -30,22 +32,37 @@ import org.assertj.db.type.Row;
  * @param <RV> The class of this assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
 public abstract class AbstractRowValueAssert<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
-    extends AbstractValueAssert<D, A, R, RV, C, CV, R, RV> implements ToValueFromRow<RV> {
+        extends AbstractValueAssert<D, A, R, RV, C, CV, R, RV>
+        implements ToValueFromRow<RV>,
+                   AssertOnColumnName<RV> {
+
+  /**
+   * The name of the column.
+   */
+  private final String columnName;
 
   /**
    * Constructor.
    * 
    * @param selfType Type of this assertion class : a sub-class of {@code AbstractValueAssert}.
    * @param origin The assertion of {@link org.assertj.db.api.origin.Origin}.
+   * @param columnName The column name.
    * @param actualValue The value on which are the assertion methods.
    */
-  AbstractRowValueAssert(Class<RV> selfType, R origin, Object actualValue) {
+  AbstractRowValueAssert(Class<RV> selfType, R origin, String columnName, Object actualValue) {
     super(selfType, origin, actualValue);
+    this.columnName = columnName;
   }
 
   /** {@inheritDoc} */
   @Override
   public RV value(String columnName) {
     return returnToOrigin().value(columnName);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public RV hasColumnName(String columnName) {
+    return AssertionsOnColumnName.hasColumnName(myself, info, this.columnName, columnName);
   }
 }
