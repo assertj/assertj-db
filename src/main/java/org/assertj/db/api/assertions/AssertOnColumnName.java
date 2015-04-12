@@ -45,7 +45,9 @@ public interface AssertOnColumnName<T extends AssertOnColumnName<T>> {
    * @return {@code this} assertion object.
    * @throws AssertionError If the column name is not equal to the parameter.
    * @see org.assertj.db.api.AbstractColumnAssert#hasColumnName(String)
+   * @see org.assertj.db.api.AbstractRowValueAssert#hasColumnName(String)
    * @see org.assertj.db.api.ChangeColumnAssert#hasColumnName(String)
+   * @see org.assertj.db.api.ChangeRowValueAssert#hasColumnName(String)
    */
   public T hasColumnName(String columnName);
 }
