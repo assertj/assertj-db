@@ -132,7 +132,7 @@ public class ChangeAssert
     ChangeColumnAssert instance = new ChangeColumnAssert(this, columnName, valueAtStartPoint, valueAtEndPoint);
     columnsAssertMap.put(index, instance);
     indexNextColumn = index + 1;
-    return instance.as("Column at index " + index + " of " + info.descriptionText());
+    return instance.as("Column at index " + index + " (column name : " + columnName + ") of " + info.descriptionText());
   }
 
   /** {@inheritDoc} */
