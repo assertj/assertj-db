@@ -222,7 +222,7 @@ public class AssertionsOnColumnEquality {
    */
   public static <A extends AbstractAssert> A hasValuesEqualTo(A assertion, WritableAssertionInfo info,
                                                               List<Object> valuesList, DateTimeValue... expected) {
-    AssertionsOnColumnType.isOfAnyOfTypes(assertion, info, valuesList, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
+    AssertionsOnColumnType.isOfAnyOfTypes(assertion, info, valuesList, ValueType.DATE, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
     int index = 0;
     for (Object value : valuesList) {

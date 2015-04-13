@@ -21,6 +21,7 @@ import org.assertj.db.type.Table;
 import org.assertj.db.type.TimeValue;
 import org.junit.Test;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,10 +49,15 @@ public class AssertionsOnColumnEquality_HasValuesEqualTo_DateTimeValue_Test {
     TableAssert tableAssert = assertThat(table);
     List<Object> list = new ArrayList<Object>(Arrays.asList(Timestamp.valueOf("2007-12-23 09:01:00"), Timestamp.valueOf("2002-07-25 03:30:05"), null));
     TableAssert tableAssert2 = AssertionsOnColumnEquality.hasValuesEqualTo(tableAssert, info, list,
-                                                               DateTimeValue.of(DateValue.of(2007, 12, 23),
-                                                                                TimeValue.of(9, 1)),
-                                                               DateTimeValue.of(DateValue.of(2002, 7, 25), TimeValue.of(3, 30, 5)), null);
+                                                                           DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1)),
+                                                                           DateTimeValue.of(DateValue.of(2002, 7, 25), TimeValue.of(3, 30, 5)),
+                                                                           null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
+    list = new ArrayList<Object>(Arrays.asList(Date.valueOf("2007-12-23"), Date.valueOf("2002-07-25"), null));
+    TableAssert tableAssert3 = AssertionsOnColumnEquality.hasValuesEqualTo(tableAssert, info, list,
+                                                                           DateTimeValue.of(DateValue.of(2007, 12, 23)),
+                                                                           DateTimeValue.of(DateValue.of(2002, 7, 25)), null);
+    Assertions.assertThat(tableAssert3).isSameAs(tableAssert);
   }
 
   /**
@@ -64,14 +70,29 @@ public class AssertionsOnColumnEquality_HasValuesEqualTo_DateTimeValue_Test {
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      List<Object> list = new ArrayList<Object>(Arrays.asList(Timestamp.valueOf("2007-12-23 09:01:00"), Timestamp.valueOf("2002-07-25 03:30:05")));
-      AssertionsOnColumnEquality.hasValuesEqualTo(tableAssert, info, list, DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1)),
+      List<Object> list = new ArrayList<Object>(Arrays.asList(Timestamp.valueOf("2007-12-23 09:01:00"),
+                                                              Timestamp.valueOf("2002-07-25 03:30:05")));
+      AssertionsOnColumnEquality.hasValuesEqualTo(tableAssert, info, list,
+                                                  DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1)),
                                                   DateTimeValue.of(DateValue.of(2002, 7, 25), TimeValue.of(3, 30, 6)));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
                                                       + "Expecting that the value at index 1:\n"
                                                       + "  <2002-07-25T03:30:05.000000000>\n"
+                                                      + "to be equal to: \n"
+                                                      + "  <2002-07-25T03:30:06.000000000>");
+    }
+    try {
+      List<Object> list = new ArrayList<Object>(Arrays.asList(Date.valueOf("2007-12-23"), Date.valueOf("2002-07-25")));
+      AssertionsOnColumnEquality.hasValuesEqualTo(tableAssert, info, list,
+                                                  DateTimeValue.of(DateValue.of(2007, 12, 23)),
+                                                  DateTimeValue.of(DateValue.of(2002, 7, 25), TimeValue.of(3, 30, 6)));
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
+                                                      + "Expecting that the value at index 1:\n"
+                                                      + "  <2002-07-25T00:00:00.000000000>\n"
                                                       + "to be equal to: \n"
                                                       + "  <2002-07-25T03:30:06.000000000>");
     }
@@ -88,7 +109,8 @@ public class AssertionsOnColumnEquality_HasValuesEqualTo_DateTimeValue_Test {
     TableAssert tableAssert = assertThat(table);
     List<Object> list = new ArrayList<Object>(Arrays.asList(false, Timestamp.valueOf("2002-07-25 03:30:05")));
     try {
-      AssertionsOnColumnEquality.hasValuesEqualTo(tableAssert, info, list, DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1)),
+      AssertionsOnColumnEquality.hasValuesEqualTo(tableAssert, info, list,
+                                                  DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1)),
                                                   DateTimeValue.of(DateValue.of(2002, 7, 25), TimeValue.of(3, 30, 6)));
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -96,7 +118,7 @@ public class AssertionsOnColumnEquality_HasValuesEqualTo_DateTimeValue_Test {
                                                       + "Expecting that the value at index 0:\n"
                                                       + "  <false>\n"
                                                       + "to be of type\n"
-                                                      + "  <[DATE_TIME, NOT_IDENTIFIED]>\n"
+                                                      + "  <[DATE, DATE_TIME, NOT_IDENTIFIED]>\n"
                                                       + "but was of type\n"
                                                       + "  <BOOLEAN>");
     }
@@ -113,8 +135,10 @@ public class AssertionsOnColumnEquality_HasValuesEqualTo_DateTimeValue_Test {
     TableAssert tableAssert = assertThat(table);
     List<Object> list = new ArrayList<Object>(Arrays.asList(Timestamp.valueOf("2007-12-23 09:01:00"), Timestamp.valueOf("2002-07-25 03:30:05")));
     try {
-      AssertionsOnColumnEquality.hasValuesEqualTo(tableAssert, info, list, DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1)),
-                                                  DateTimeValue.of(DateValue.of(2002, 7, 25), TimeValue.of(3, 30, 6)), DateTimeValue.of(DateValue.of(2015, 3, 30), TimeValue.of(22, 34)));
+      AssertionsOnColumnEquality.hasValuesEqualTo(tableAssert, info, list,
+                                                  DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1)),
+                                                  DateTimeValue.of(DateValue.of(2002, 7, 25), TimeValue.of(3, 30, 6)),
+                                                  DateTimeValue.of(DateValue.of(2015, 3, 30), TimeValue.of(22, 34)));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"

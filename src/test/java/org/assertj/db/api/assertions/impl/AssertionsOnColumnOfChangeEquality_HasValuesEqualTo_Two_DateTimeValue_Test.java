@@ -21,6 +21,7 @@ import org.assertj.db.type.Table;
 import org.assertj.db.type.TimeValue;
 import org.junit.Test;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 import static org.assertj.db.api.Assertions.assertThat;
@@ -44,10 +45,17 @@ public class AssertionsOnColumnOfChangeEquality_HasValuesEqualTo_Two_DateTimeVal
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnColumnOfChangeEquality.hasValuesEqualTo(tableAssert, info,
-            Timestamp.valueOf("2007-12-23 09:01:00"), Timestamp.valueOf("2002-07-25 03:30:05"),
-            DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1)),
-            DateTimeValue.of(DateValue.of(2002, 7, 25), TimeValue.of(3, 30, 5)));
+                                                                                   Timestamp.valueOf("2007-12-23 09:01:00"),
+                                                                                   Timestamp.valueOf("2002-07-25 03:30:05"),
+                                                                                   DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1)),
+                                                                                   DateTimeValue.of(DateValue.of(2002, 7, 25), TimeValue.of(3, 30, 5)));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
+    TableAssert tableAssert3 = AssertionsOnColumnOfChangeEquality.hasValuesEqualTo(tableAssert, info,
+                                                                                   Date.valueOf("2007-12-23"),
+                                                                                   Date.valueOf("2002-07-25"),
+                                                                                   DateTimeValue.of(DateValue.of(2007, 12, 23)),
+                                                                                   DateTimeValue.of(DateValue.of(2002, 7, 25)));
+    Assertions.assertThat(tableAssert3).isSameAs(tableAssert);
   }
 
   /**
@@ -61,10 +69,10 @@ public class AssertionsOnColumnOfChangeEquality_HasValuesEqualTo_Two_DateTimeVal
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeEquality.hasValuesEqualTo(tableAssert, info,
-              Timestamp.valueOf("2007-12-23 09:01:05"),
-              Timestamp.valueOf("2002-07-25 03:30:05"),
-              DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1)),
-              DateTimeValue.of(DateValue.of(2002, 7, 25), TimeValue.of(3, 30, 5)));
+                                                          Timestamp.valueOf("2007-12-23 09:01:05"),
+                                                          Timestamp.valueOf("2002-07-25 03:30:05"),
+                                                          DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1)),
+                                                          DateTimeValue.of(DateValue.of(2002, 7, 25), TimeValue.of(3, 30, 5)));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
@@ -72,6 +80,20 @@ public class AssertionsOnColumnOfChangeEquality_HasValuesEqualTo_Two_DateTimeVal
                                                       + "  <2007-12-23T09:01:05.000000000>\n"
                                                       + "to be equal to: \n"
                                                       + "  <2007-12-23T09:01:00.000000000>");
+    }
+    try {
+      AssertionsOnColumnOfChangeEquality.hasValuesEqualTo(tableAssert, info,
+                                                          Date.valueOf("2007-12-23"),
+                                                          Date.valueOf("2002-07-25"),
+                                                          DateTimeValue.of(DateValue.of(2007, 12, 23)),
+                                                          DateTimeValue.of(DateValue.of(2002, 7, 24)));
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
+                                                      + "Expecting that end point:\n"
+                                                      + "  <2002-07-25T00:00:00.000000000>\n"
+                                                      + "to be equal to: \n"
+                                                      + "  <2002-07-24T00:00:00.000000000>");
     }
   }
 
@@ -86,10 +108,10 @@ public class AssertionsOnColumnOfChangeEquality_HasValuesEqualTo_Two_DateTimeVal
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeEquality.hasValuesEqualTo(tableAssert, info,
-                Timestamp.valueOf("2007-12-23 09:01:00"),
-                Timestamp.valueOf("2002-07-25 03:30:00"),
-                DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1)),
-                DateTimeValue.of(DateValue.of(2002, 7, 25), TimeValue.of(3, 30, 5)));
+                                                          Timestamp.valueOf("2007-12-23 09:01:00"),
+                                                          Timestamp.valueOf("2002-07-25 03:30:00"),
+                                                          DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1)),
+                                                          DateTimeValue.of(DateValue.of(2002, 7, 25), TimeValue.of(3, 30, 5)));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
@@ -97,6 +119,20 @@ public class AssertionsOnColumnOfChangeEquality_HasValuesEqualTo_Two_DateTimeVal
                                                       + "  <2002-07-25T03:30:00.000000000>\n"
                                                       + "to be equal to: \n"
                                                       + "  <2002-07-25T03:30:05.000000000>");
+    }
+    try {
+      AssertionsOnColumnOfChangeEquality.hasValuesEqualTo(tableAssert, info,
+                                                          Date.valueOf("2007-12-23"),
+                                                          Date.valueOf("2002-07-26"),
+                                                          DateTimeValue.of(DateValue.of(2007, 12, 23)),
+                                                          DateTimeValue.of(DateValue.of(2002, 7, 25)));
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
+                                                      + "Expecting that end point:\n"
+                                                      + "  <2002-07-26T00:00:00.000000000>\n"
+                                                      + "to be equal to: \n"
+                                                      + "  <2002-07-25T00:00:00.000000000>");
     }
   }
 
@@ -111,17 +147,17 @@ public class AssertionsOnColumnOfChangeEquality_HasValuesEqualTo_Two_DateTimeVal
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeEquality.hasValuesEqualTo(tableAssert, info,
-              "other",
-              Timestamp.valueOf("2002-07-25 03:30:05"),
-              DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1)),
-              DateTimeValue.of(DateValue.of(2002, 7, 25), TimeValue.of(3, 30, 5)));
+                                                          "other",
+                                                          Timestamp.valueOf("2002-07-25 03:30:05"),
+                                                          DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1)),
+                                                          DateTimeValue.of(DateValue.of(2002, 7, 25), TimeValue.of(3, 30, 5)));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
                                                       + "Expecting that the value at start point:\n"
                                                       + "  <\"other\">\n"
                                                       + "to be of type\n"
-                                                      + "  <[DATE_TIME, NOT_IDENTIFIED]>\n"
+                                                      + "  <[DATE, DATE_TIME, NOT_IDENTIFIED]>\n"
                                                       + "but was of type\n"
                                                       + "  <TEXT>");
     }
