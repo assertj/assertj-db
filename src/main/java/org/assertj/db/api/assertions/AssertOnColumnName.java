@@ -33,12 +33,28 @@ public interface AssertOnColumnName<T extends AssertOnColumnName<T>> {
    * assertThat(table).column().hasColumnName("title");
    * </code></pre>
    * <p>
+   * Example where the assertion verifies that the first value of the first {@code Row} of the {@code Table} is equal to
+   * "title" :
+   * </p>
+   *
+   * <pre><code class='java'>
+   * assertThat(table).row().value().hasColumnName("title");
+   * </code></pre>
+   * <p>
    * Example where the assertion verifies that the column name of the first {@code Column} of the {@code Table} is equal to
    * "title" :
    * </p>
    *
    * <pre><code class='java'>
    * assertThat(changes).change(1).column().hasColumnName("title");
+   * </code></pre>
+   * <p>
+   * Example where the assertion verifies that the first value of the first {@code Row} of the {@code Table} is equal to
+   * "title" :
+   * </p>
+   *
+   * <pre><code class='java'>
+   * assertThat(changes).change(1).row().value().hasColumnName("title");
    * </code></pre>
    *
    * @param columnName The expected column name.
