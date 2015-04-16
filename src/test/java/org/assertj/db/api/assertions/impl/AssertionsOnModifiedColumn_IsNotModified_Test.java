@@ -31,7 +31,7 @@ import static org.junit.Assert.fail;
 public class AssertionsOnModifiedColumn_IsNotModified_Test {
 
   /**
-   * This method tests the {@code isOnTable} assertion method.
+   * This method tests the {@code isNotModified} assertion method.
    */
   @Test
   public void test_is_not_modified() {

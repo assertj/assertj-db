@@ -31,7 +31,7 @@ import static org.junit.Assert.fail;
 public class AssertionsOnModifiedColumn_IsModified_Test {
 
   /**
-   * This method tests the {@code isOnTable} assertion method.
+   * This method tests the {@code isModified} assertion method.
    */
   @Test
   public void test_is_modified() {
