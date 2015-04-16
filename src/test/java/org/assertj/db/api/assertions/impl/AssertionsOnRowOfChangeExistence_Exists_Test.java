@@ -63,7 +63,7 @@ public class AssertionsOnRowOfChangeExistence_Exists_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting exist");
+                                                      + "Expecting exist but do not exist");
     }
   }
 }
