@@ -45,10 +45,10 @@ public class AssertionsOnModifiedColumn_IsNotModified_Test {
   }
 
   /**
-   * This method should fail because the column is not modified.
+   * This method should fail because the column is modified.
    */
   @Test
-  public void should_fail_because_column_is_not_modified() {
+  public void should_fail_because_column_is__modified() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
