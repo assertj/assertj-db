@@ -412,7 +412,7 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Request requestFromSource = new Request(source, "select * from actor").setPksName("ID");
+    Request requestFromSource = new Request(source, "select id, name, firstname, birth from actor where id = 1").setPksName("ID");
     Request requestFromDataSource = new Request(dataSource, "select * from actor").setPksName("ID");
     Changes changesFromSource = new Changes(requestFromSource).setStartPointNow();
     Changes changesFromDataSource = new Changes(requestFromDataSource).setStartPointNow();
@@ -426,7 +426,7 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on 'select * from actor' request of 'sa/jdbc:h2:mem:test' source");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [1]) of Changes on 'select id, name, firstname, bi...' request of 'sa/jdbc:h2:mem:test' source");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
     assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 2 (with primary key : [3]) of Changes on 'select * from actor' request of a data source");
@@ -1215,7 +1215,7 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Request requestFromSource = new Request(source, "select * from actor").setPksName("ID");
+    Request requestFromSource = new Request(source, "select id, name, firstname, birth from actor where id = 1").setPksName("ID");
     Request requestFromDataSource = new Request(dataSource, "select * from actor").setPksName("ID");
 
 
@@ -1224,7 +1224,7 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("'select * from actor' request");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("'select id, name, firstname, bi...' request");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
     assertThat(infoFromDataSource.descriptionText()).isEqualTo("'select * from actor' request");

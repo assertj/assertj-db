@@ -148,16 +148,13 @@ public final class Assertions {
       } else {
         stringBuilder.append("Changes on tables");
       }
-    } else if (changes.getRequest() != null) {
+    } else {
       Request request = changes.getRequest();
       String sql = request.getRequest();
       if (sql.length() > 30) {
         sql = sql.substring(0, 30) + "...";
       }
       stringBuilder.append("Changes on '").append(sql).append("' request");
-    }
-    if (stringBuilder.length() == 0) {
-      stringBuilder.append("Changes");
     }
     if (changes.getSource() != null) {
       Source source = changes.getSource();
