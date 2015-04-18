@@ -12,20 +12,16 @@
  */
 package org.assertj.db.api;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.db.api.Assertions.bytesContentFromClassPathOf;
-import static org.assertj.db.api.Assertions.bytesContentOf;
+import org.assertj.db.exception.AssertJDBException;
+import org.junit.Test;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import org.assertj.db.exception.AssertJDBException;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.db.api.Assertions.bytesContentFromClassPathOf;
+import static org.assertj.db.api.Assertions.bytesContentOf;
 
 /**
  * Tests on {@code bytesContentOf} and {@code bytesContentFromClassPathOf} methods of {@code Assertions}.
