@@ -31,7 +31,7 @@ import static org.junit.Assert.fail;
 public class AssertionsOnValueComparison_IsGreaterThanOrEqualTo_Test {
 
   /**
-   * This method tests the {@code isLessThan} assertion method.
+   * This method tests the {@code isGreaterThanOrEqualTo} assertion method.
    */
   @Test
   public void test_is_less_than_or_equal_to() {
@@ -45,10 +45,10 @@ public class AssertionsOnValueComparison_IsGreaterThanOrEqualTo_Test {
   }
 
   /**
-   * This method should fail because the value is greater than.
+   * This method should fail because the value is less than.
    */
   @Test
-  public void should_fail_because_value_is_greater_than() {
+  public void should_fail_because_value_is_less_than() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
