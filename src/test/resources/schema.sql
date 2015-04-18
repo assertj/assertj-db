@@ -22,7 +22,7 @@ create table interpretation(
 );
 
 create table test(
-    var1 int,
+    var1 int primary key,
     var2 boolean,
     var3 tinyint,
     var4 smallint,
