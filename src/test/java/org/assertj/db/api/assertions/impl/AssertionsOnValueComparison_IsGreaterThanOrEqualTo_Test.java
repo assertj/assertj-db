@@ -34,7 +34,7 @@ public class AssertionsOnValueComparison_IsGreaterThanOrEqualTo_Test {
    * This method tests the {@code isGreaterThanOrEqualTo} assertion method.
    */
   @Test
-  public void test_is_less_than_or_equal_to() {
+  public void test_is_greater_than_or_equal_to() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
