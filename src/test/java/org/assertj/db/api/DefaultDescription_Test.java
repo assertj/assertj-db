@@ -34,6 +34,38 @@ import static org.assertj.db.api.Assertions.assertThat;
 public class DefaultDescription_Test extends AbstractTest {
 
   /**
+   * This method tests the description of change with different informations.
+   */
+  @Test
+  @NeedReload
+  public void test_default_description_for_change_with_different_informations() throws Exception {
+    Field field = AbstractAssert.class.getDeclaredField("info");
+    field.setAccessible(true);
+
+
+    Table actorTable = new Table(dataSource, "actor");
+    Request request = new Request(dataSource, "select * from actor");
+    Changes changes = new Changes(dataSource).setStartPointNow();
+    Changes changesOnActorTable = new Changes(actorTable).setStartPointNow();
+    Changes changesOnRequest = new Changes(request).setStartPointNow();
+    updateChangesForTests();
+    update("delete from test2 where var1 = 1");
+    changes.setEndPointNow();
+    changesOnActorTable.setEndPointNow();
+    changesOnRequest.setEndPointNow();
+
+
+    WritableAssertionInfo info = (WritableAssertionInfo) field.get(assertThat(changes).change());
+    WritableAssertionInfo infoOnActorTable = (WritableAssertionInfo) field.get(assertThat(changesOnActorTable).change());
+    WritableAssertionInfo infoOnTestTable = (WritableAssertionInfo) field.get(assertThat(changes).change(8));
+    WritableAssertionInfo infoOnRequest = (WritableAssertionInfo) field.get(assertThat(changesOnRequest).change());
+    assertThat(info.descriptionText()).isEqualTo("Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of a data source");
+    assertThat(infoOnActorTable.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on actor table of a data source");
+    assertThat(infoOnTestTable.descriptionText()).isEqualTo("Change at index 8 (on table : TEST2) of Changes on tables of a data source");
+    assertThat(infoOnRequest.descriptionText()).isEqualTo("Change at index 0 of Changes on 'select * from actor' request of a data source");
+  }
+
+  /**
    * This method tests the description of changes.
    */
   @Test

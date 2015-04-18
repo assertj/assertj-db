@@ -19,7 +19,6 @@ import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.Changes;
-import org.assertj.db.type.DataType;
 import org.assertj.db.util.Values;
 
 import java.util.Arrays;
@@ -281,22 +280,22 @@ public class ChangesAssert
     setIndexNextChange(changeType, tableName, index + 1);
     StringBuilder stringBuilder = new StringBuilder("Change at index " + index);
     List<Object> pksValueList = change.getPksValueList();
-    boolean isAChangeOnATableAmongOtherTables = changes.getTablesList() != null && changes.getTablesList().size() > 1 && change.getDataType() == DataType.TABLE;
-    boolean havePksValues = pksValueList != null && pksValueList.size() > 0;
+    boolean isAChangeOnATableAmongOtherTables = changes.getTablesList() != null && changes.getTablesList().size() > 1;
+    boolean havePksValues = pksValueList.size() > 0;
     if (isAChangeOnATableAmongOtherTables || havePksValues) {
       stringBuilder.append(" (");
       if (isAChangeOnATableAmongOtherTables) {
-        stringBuilder.append("on table : " + change.getDataName());
+        stringBuilder.append("on table : ").append(change.getDataName());
       }
       if (isAChangeOnATableAmongOtherTables && havePksValues) {
         stringBuilder.append(" and ");
       }
       if (havePksValues) {
-        stringBuilder.append("with primary key : " + pksValueList);
+        stringBuilder.append("with primary key : ").append(pksValueList);
       }
       stringBuilder.append(")");
     }
-    stringBuilder.append(" of " + info.descriptionText());
+    stringBuilder.append(" of ").append(info.descriptionText());
     stringBuilder.append(getStringBuilderAboutChangeTypeAndTableName(changeType, tableName));
     return instance.as(stringBuilder.toString());
   }
