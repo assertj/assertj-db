@@ -12,12 +12,12 @@
  */
 package org.assertj.db.util;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.db.exception.AssertJDBException;
+import org.junit.Test;
 
 import java.sql.Date;
 
-import org.assertj.db.exception.AssertJDBException;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class Values_AreEqual_Date_And_String_Test {
 

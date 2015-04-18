@@ -12,16 +12,16 @@
  */
 package org.assertj.db.util;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.db.type.DateTimeValue;
+import org.assertj.db.type.DateValue;
+import org.assertj.db.type.TimeValue;
+import org.junit.Test;
 
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 
-import org.assertj.db.type.DateTimeValue;
-import org.assertj.db.type.DateValue;
-import org.assertj.db.type.TimeValue;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
 * Tests on {@code getRepresentationFromValueInFrontOfExpected} method from utility class {@code Values}.

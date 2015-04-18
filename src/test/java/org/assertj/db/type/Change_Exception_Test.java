@@ -12,13 +12,13 @@
  */
 package org.assertj.db.type;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import org.assertj.db.common.AbstractTest;
+import org.junit.Test;
 
 import java.util.Arrays;
 
-import org.assertj.db.common.AbstractTest;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  * Tests on the exceptions of Change

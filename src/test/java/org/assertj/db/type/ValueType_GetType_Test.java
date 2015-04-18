@@ -12,16 +12,15 @@
  */
 package org.assertj.db.type;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.db.common.AbstractTest;
+import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 
-import org.assertj.db.common.AbstractTest;
-import org.assertj.db.type.ValueType;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test on the type got from {@code getType} method from {@code ValueType} enum.

@@ -12,11 +12,11 @@
  */
 package org.assertj.db.util;
 
-import java.util.Comparator;
-
 import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.Row;
+
+import java.util.Comparator;
 
 /**
  * Comparator for the {@code Change}.

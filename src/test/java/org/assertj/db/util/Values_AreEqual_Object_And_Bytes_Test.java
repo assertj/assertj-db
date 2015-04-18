@@ -12,10 +12,10 @@
  */
 package org.assertj.db.util;
 
+import org.junit.Test;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.db.api.Assertions.bytesContentFromClassPathOf;
-
-import org.junit.Test;
 
 /**
  * Tests on {@code areEqual} method for arrays of {@code byte}s.

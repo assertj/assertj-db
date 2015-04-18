@@ -12,12 +12,12 @@
  */
 package org.assertj.db.type;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.db.common.AbstractTest;
+import org.junit.Test;
 
 import java.math.BigDecimal;
 
-import org.assertj.db.common.AbstractTest;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests on the {@code Row} of {@code Table}.

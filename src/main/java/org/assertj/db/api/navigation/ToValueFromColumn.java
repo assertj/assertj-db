@@ -12,8 +12,6 @@
  */
 package org.assertj.db.api.navigation;
 
-import org.assertj.db.api.ChangeColumnValueAssert;
-
 /**
  * Defines methods to navigate to a value from a {@link org.assertj.db.type.Column}
  * (a column from a {@link org.assertj.db.type.Change}}.

@@ -12,11 +12,11 @@
  */
 package org.assertj.db.type;
 
-import javax.sql.DataSource;
-
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.exception.AssertJDBException;
 import org.junit.Test;
+
+import javax.sql.DataSource;
 
 /**
  * Tests on the instantiation of {@code Request}.

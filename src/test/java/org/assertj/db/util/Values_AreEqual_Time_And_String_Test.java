@@ -12,12 +12,12 @@
  */
 package org.assertj.db.util;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.db.exception.AssertJDBException;
+import org.junit.Test;
 
 import java.sql.Time;
 
-import org.assertj.db.exception.AssertJDBException;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests on {@code areEqual} method for {@code Time}s and {@code String}s.

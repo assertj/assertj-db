@@ -12,13 +12,13 @@
  */
 package org.assertj.db.util;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.db.type.DateValue;
+import org.junit.Test;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 
-import org.assertj.db.type.DateValue;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests on {@code areEqual} method for {@code DateValue}s.
