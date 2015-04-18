@@ -46,7 +46,7 @@ public class ShouldBeValueTypeWithStartPoint extends BasicErrorMessageFactory {
    * @param expected The expected type.
    * @param tested The tested type.
    */
-  public ShouldBeValueTypeWithStartPoint(Object actual, ValueType expected, ValueType tested) {
+  private ShouldBeValueTypeWithStartPoint(Object actual, ValueType expected, ValueType tested) {
     super(EXPECTED_MESSAGE, actual, expected, tested);
   }
 }

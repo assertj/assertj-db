@@ -42,7 +42,7 @@ public class AssertionsOnColumnNullity_HasOnlyNullValues_Test {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Object> list = new ArrayList<Object>(Arrays.asList(null, null));
+    List<Object> list = new ArrayList<>(Arrays.asList(null, null));
     TableAssert tableAssert2 = AssertionsOnColumnNullity.hasOnlyNullValues(tableAssert, info, list);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }

@@ -69,11 +69,11 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
   /**
    * Map the rows assertion with their index in key (contains the rows assertion already generated).
    */
-  private Map<Integer, R> rowsAssertMap = new HashMap<Integer, R>();
+  private final Map<Integer, R> rowsAssertMap = new HashMap<>();
   /**
    * Map the columns assertion with their index in key (contains the columns assertion already generated).
    */
-  private Map<Integer, C> columnsAssertMap = new HashMap<Integer, C>();
+  private final Map<Integer, C> columnsAssertMap = new HashMap<>();
 
   /**
    * Constructor of the database assertions.

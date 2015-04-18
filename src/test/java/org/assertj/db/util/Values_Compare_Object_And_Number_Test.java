@@ -201,18 +201,18 @@ public class Values_Compare_Object_And_Number_Test {
    */
   @Test
   public void test_compare_for_other_and_integer() {
-    assertThat(Values.compare((int) 1, 1)).isEqualTo(0);
-    assertThat(Values.compare((int) 1, 2)).isEqualTo(-1);
-    assertThat(Values.compare((int) 2, 1)).isEqualTo(1);
-    assertThat(Values.compare((int) 1, 1L)).isEqualTo(0);
-    assertThat(Values.compare((int) 1, 2L)).isEqualTo(-1);
-    assertThat(Values.compare((int) 2, 1L)).isEqualTo(1);
-    assertThat(Values.compare((int) 1, 1F)).isEqualTo(0);
-    assertThat(Values.compare((int) 1, 2F)).isEqualTo(-1);
-    assertThat(Values.compare((int) 2, 1F)).isEqualTo(1);
-    assertThat(Values.compare((int) 1, 1D)).isEqualTo(0);
-    assertThat(Values.compare((int) 1, 2D)).isEqualTo(-1);
-    assertThat(Values.compare((int) 2, 1D)).isEqualTo(1);
+    assertThat(Values.compare(1, 1)).isEqualTo(0);
+    assertThat(Values.compare(1, 2)).isEqualTo(-1);
+    assertThat(Values.compare(2, 1)).isEqualTo(1);
+    assertThat(Values.compare(1, 1L)).isEqualTo(0);
+    assertThat(Values.compare(1, 2L)).isEqualTo(-1);
+    assertThat(Values.compare(2, 1L)).isEqualTo(1);
+    assertThat(Values.compare(1, 1F)).isEqualTo(0);
+    assertThat(Values.compare(1, 2F)).isEqualTo(-1);
+    assertThat(Values.compare(2, 1F)).isEqualTo(1);
+    assertThat(Values.compare(1, 1D)).isEqualTo(0);
+    assertThat(Values.compare(1, 2D)).isEqualTo(-1);
+    assertThat(Values.compare(2, 1D)).isEqualTo(1);
   }
 
   /**

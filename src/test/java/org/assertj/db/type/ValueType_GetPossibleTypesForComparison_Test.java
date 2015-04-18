@@ -47,7 +47,7 @@ public class ValueType_GetPossibleTypesForComparison_Test extends AbstractTest {
         .isEqualTo(new ValueType[] { ValueType.DATE_TIME });
     assertThat(ValueType.getPossibleTypesForComparison((byte) 10)).isEqualTo(new ValueType[] { ValueType.NUMBER });
     assertThat(ValueType.getPossibleTypesForComparison((short) 10)).isEqualTo(new ValueType[] { ValueType.NUMBER });
-    assertThat(ValueType.getPossibleTypesForComparison((int) 10)).isEqualTo(new ValueType[] { ValueType.NUMBER });
+    assertThat(ValueType.getPossibleTypesForComparison(10)).isEqualTo(new ValueType[] { ValueType.NUMBER });
     assertThat(ValueType.getPossibleTypesForComparison((long) 10)).isEqualTo(new ValueType[] { ValueType.NUMBER });
     assertThat(ValueType.getPossibleTypesForComparison(10.5f)).isEqualTo(new ValueType[] { ValueType.NUMBER });
     assertThat(ValueType.getPossibleTypesForComparison(10.5d)).isEqualTo(new ValueType[] { ValueType.NUMBER });

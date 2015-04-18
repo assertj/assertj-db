@@ -118,7 +118,7 @@ public class Changes extends AbstractDbElement<Changes> {
     request = null;
     requestAtStartPoint = null;
     requestAtEndPoint = null;
-    tablesList = new ArrayList<Table>();
+    tablesList = new ArrayList<>();
     tablesAtStartPointList = null;
     tablesAtEndPointList = null;
     changesList = null;
@@ -261,7 +261,7 @@ public class Changes extends AbstractDbElement<Changes> {
   public Changes setStartPointNow() {
     if (request == null && tablesList == null) {
       try (Connection connection = getConnection()) {
-        tablesList = new LinkedList<Table>();
+        tablesList = new LinkedList<>();
         DatabaseMetaData metaData = connection.getMetaData();
         ResultSet resultSet = metaData.getTables(getCatalog(connection), getSchema(connection), null,
             new String[] { "TABLE" });
@@ -282,7 +282,7 @@ public class Changes extends AbstractDbElement<Changes> {
       requestAtStartPoint.getRowsList();
     } else {
       requestAtStartPoint = null;
-      tablesAtStartPointList = new LinkedList<Table>();
+      tablesAtStartPointList = new LinkedList<>();
       for (Table table : tablesList) {
         Table t = getDuplicatedTable(table);
         t.getRowsList();
@@ -311,7 +311,7 @@ public class Changes extends AbstractDbElement<Changes> {
       requestAtEndPoint = getDuplicatedRequest(request);
       requestAtEndPoint.getRowsList();
     } else {
-      tablesAtEndPointList = new LinkedList<Table>();
+      tablesAtEndPointList = new LinkedList<>();
       for (Table table : tablesList) {
         Table t = getDuplicatedTable(table);
         t.getRowsList();
@@ -334,7 +334,7 @@ public class Changes extends AbstractDbElement<Changes> {
   private List<Change> getChangesListWithPks(String dataName, AbstractDbData<?> dataAtStartPoint,
       AbstractDbData<?> dataAtEndPoint) {
 
-    List<Change> changesList = new ArrayList<Change>();
+    List<Change> changesList = new ArrayList<>();
 
     // List the created rows : the row is not present at the start point
     for (Row row : dataAtEndPoint.getRowsList()) {
@@ -374,10 +374,10 @@ public class Changes extends AbstractDbElement<Changes> {
   private List<Change> getChangesListWithoutPks(String dataName, AbstractDbData<?> dataAtStartPoint,
       AbstractDbData<?> dataAtEndPoint) {
 
-    List<Change> changesList = new ArrayList<Change>();
+    List<Change> changesList = new ArrayList<>();
 
     // List the created rows : the row is not present at the start point
-    List<Row> rowsAtStartPointList = new ArrayList<Row>(dataAtStartPoint.getRowsList());
+    List<Row> rowsAtStartPointList = new ArrayList<>(dataAtStartPoint.getRowsList());
     for (Row rowAtEndPoint : dataAtEndPoint.getRowsList()) {
       int index = -1;
       int index1 = 0;
@@ -396,7 +396,7 @@ public class Changes extends AbstractDbElement<Changes> {
       }
     }
     // List the deleted rows : the row is not present at the end point
-    List<Row> rowsAtEndPointList = new ArrayList<Row>(dataAtEndPoint.getRowsList());
+    List<Row> rowsAtEndPointList = new ArrayList<>(dataAtEndPoint.getRowsList());
     for (Row rowAtStartPoint : dataAtStartPoint.getRowsList()) {
       int index = -1;
       int index1 = 0;
@@ -452,7 +452,7 @@ public class Changes extends AbstractDbElement<Changes> {
       if (requestAtEndPoint != null) {
         changesList = getChangesList(requestAtStartPoint.getRequest(), requestAtStartPoint, requestAtEndPoint);
       } else {
-        changesList = new ArrayList<Change>();
+        changesList = new ArrayList<>();
         Iterator<Table> iteratorAtStartPoint = tablesAtStartPointList.iterator();
         Iterator<Table> iteratorAtEndPoint = tablesAtEndPointList.iterator();
         while (iteratorAtStartPoint.hasNext()) {
@@ -517,12 +517,12 @@ public class Changes extends AbstractDbElement<Changes> {
       changes.request = getDuplicatedRequest(request);
     }
     if (tablesList != null) {
-      changes.tablesList = new ArrayList<Table>(); 
+      changes.tablesList = new ArrayList<>();
       for (Table table : tablesList) {
         changes.tablesList.add(getDuplicatedTable(table));
       }
     }
-    changes.changesList = new ArrayList<Change>();
+    changes.changesList = new ArrayList<>();
     return changes;
   }
 }

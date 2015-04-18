@@ -59,7 +59,7 @@ public class ShouldBeEqualWithStartPoint extends BasicErrorMessageFactory {
   /**
    * Constructor.
    */
-  public ShouldBeEqualWithStartPoint() {
+  private ShouldBeEqualWithStartPoint() {
     super(EXPECTED_MESSAGE_WITHOUT_VALUES);
   }
 }

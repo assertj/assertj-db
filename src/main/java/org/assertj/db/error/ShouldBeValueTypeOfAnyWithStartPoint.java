@@ -47,7 +47,7 @@ public class ShouldBeValueTypeOfAnyWithStartPoint extends BasicErrorMessageFacto
    * @param tested The tested type.
    * @param expected The expected types.
    */
-  public ShouldBeValueTypeOfAnyWithStartPoint(Object actual, ValueType tested, ValueType... expected) {
+  private ShouldBeValueTypeOfAnyWithStartPoint(Object actual, ValueType tested, ValueType... expected) {
     super(EXPECTED_MESSAGE, actual, expected, tested);
   }
 

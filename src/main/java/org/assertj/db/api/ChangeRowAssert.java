@@ -52,7 +52,7 @@ public class ChangeRowAssert
   /**
    * Map the value assert with their index in key (contains the value assert already generated).
    */
-  private Map<Integer, ChangeRowValueAssert> changeValueAssertMap = new HashMap<Integer, ChangeRowValueAssert>();
+  private final Map<Integer, ChangeRowValueAssert> changeValueAssertMap = new HashMap<>();
 
   /**
    * Constructor.

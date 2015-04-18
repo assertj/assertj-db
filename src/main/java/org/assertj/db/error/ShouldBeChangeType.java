@@ -43,7 +43,7 @@ public class ShouldBeChangeType extends BasicErrorMessageFactory {
    * @param expected The expected type.
    * @param tested   The tested type.
    */
-  public ShouldBeChangeType(ChangeType expected, ChangeType tested) {
+  private ShouldBeChangeType(ChangeType expected, ChangeType tested) {
     super(EXPECTED_MESSAGE, expected, tested);
   }
 }

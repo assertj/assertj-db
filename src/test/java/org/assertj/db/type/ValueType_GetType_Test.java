@@ -42,7 +42,7 @@ public class ValueType_GetType_Test extends AbstractTest {
     assertThat(ValueType.getType(new Time(10))).isEqualTo(ValueType.TIME);
     assertThat(ValueType.getType(new Timestamp(10))).isEqualTo(ValueType.DATE_TIME);
     assertThat(ValueType.getType((short) 10)).isEqualTo(ValueType.NUMBER);
-    assertThat(ValueType.getType((int) 10)).isEqualTo(ValueType.NUMBER);
+    assertThat(ValueType.getType(10)).isEqualTo(ValueType.NUMBER);
     assertThat(ValueType.getType((long) 10)).isEqualTo(ValueType.NUMBER);
     assertThat(ValueType.getType(10.5f)).isEqualTo(ValueType.NUMBER);
     assertThat(ValueType.getType(new BigDecimal(10.5f))).isEqualTo(ValueType.NUMBER);

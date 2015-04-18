@@ -44,17 +44,17 @@ public class ChangesAssert
   /**
    * Index of the next change to get per type of change.
    */
-  private Map<ChangeType, Map<String, Integer>> indexNextChangeMap = new HashMap<>();
+  private final Map<ChangeType, Map<String, Integer>> indexNextChangeMap = new HashMap<>();
 
   /**
    * Map the change assert with their type of change and table name in key (contains the change assert already generated).
    */
-  private Map<ChangeType, Map<String, ChangesAssert>> changesAssertMap = new HashMap<>();
+  private final Map<ChangeType, Map<String, ChangesAssert>> changesAssertMap = new HashMap<>();
 
   /**
    * Map the change assert with the change in key (contains the change assert already generated).
    */
-  private Map<Change, ChangeAssert> changeMap = new HashMap<>();
+  private final Map<Change, ChangeAssert> changeMap = new HashMap<>();
 
   /**
    * Constructor.

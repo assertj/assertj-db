@@ -19,9 +19,6 @@ import org.assertj.db.type.Table;
 import org.junit.Test;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
@@ -57,7 +54,6 @@ public class AssertionsOnValueType_IsDate_Test {
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      List<Object> list = new ArrayList<Object>(Arrays.asList("test", Date.valueOf("2002-07-25")));
       AssertionsOnValueType.isDate(tableAssert, info, "test");
       fail("An exception must be raised");
     } catch (AssertionError e) {

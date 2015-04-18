@@ -62,7 +62,7 @@ public class ShouldBeValueTypeOfAny extends BasicErrorMessageFactory {
    * @param tested The tested type.
    * @param expected The expected types.
    */
-  public ShouldBeValueTypeOfAny(Object actual, ValueType tested, ValueType... expected) {
+  private ShouldBeValueTypeOfAny(Object actual, ValueType tested, ValueType... expected) {
     super(EXPECTED_MESSAGE, actual, expected, tested);
   }
 
@@ -74,7 +74,7 @@ public class ShouldBeValueTypeOfAny extends BasicErrorMessageFactory {
    * @param tested The tested type.
    * @param expected The expected types.
    */
-  public ShouldBeValueTypeOfAny(int index, Object actual, ValueType tested, ValueType... expected) {
+  private ShouldBeValueTypeOfAny(int index, Object actual, ValueType tested, ValueType... expected) {
     super(EXPECTED_MESSAGE_WITH_INDEX, index, actual, expected, tested);
   }
 

@@ -94,8 +94,8 @@ public class Values_AreEqual_Number_And_String_Test {
    */
   @Test
   public void test_are_equal_for_int_and_string() {
-    assertThat(Values.areEqual((int) 1, "1")).isTrue();
-    assertThat(Values.areEqual((int) 2, "1")).isFalse();
+    assertThat(Values.areEqual(1, "1")).isTrue();
+    assertThat(Values.areEqual(2, "1")).isFalse();
   }
 
   /**
@@ -161,7 +161,7 @@ public class Values_AreEqual_Number_And_String_Test {
    */
   @Test
   public void should_fail_because_string_is_null_with_int() {
-    assertThat(Values.areEqual((int) 1, (String) null)).isFalse();
+    assertThat(Values.areEqual(1, (String) null)).isFalse();
   }
 
   /**

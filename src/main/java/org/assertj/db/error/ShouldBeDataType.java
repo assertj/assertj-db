@@ -43,7 +43,7 @@ public class ShouldBeDataType extends BasicErrorMessageFactory {
    * @param expected The expected type.
    * @param tested   The tested type.
    */
-  public ShouldBeDataType(DataType expected, DataType tested) {
+  private ShouldBeDataType(DataType expected, DataType tested) {
     super(EXPECTED_MESSAGE, expected, tested);
   }
 }

@@ -47,7 +47,7 @@ public class ShouldBeValueTypeOfAnyWithEndPoint extends BasicErrorMessageFactory
    * @param tested The tested type.
    * @param expected The expected types.
    */
-  public ShouldBeValueTypeOfAnyWithEndPoint(Object actual, ValueType tested, ValueType... expected) {
+  private ShouldBeValueTypeOfAnyWithEndPoint(Object actual, ValueType tested, ValueType... expected) {
     super(EXPECTED_MESSAGE, actual, expected, tested);
   }
 

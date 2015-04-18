@@ -40,7 +40,7 @@ public class ShouldBeBeforeOrEqual extends BasicErrorMessageFactory {
    * @param actual The actual value in the failed assertion.
    * @param expected The expected value to compare to.
    */
-  public ShouldBeBeforeOrEqual(Object actual, Object expected) {
+  private ShouldBeBeforeOrEqual(Object actual, Object expected) {
     super("\nExpecting:\n  <%s>\nto be before or equal to \n  <%s>", actual, expected);
   }
 }

@@ -83,10 +83,8 @@ public class ChangeColumnAssert
   @Override
   public ChangeColumnValueAssert valueAtStartPoint() {
     if (changeColumnValueAssertAtStartPoint == null) {
-      StringBuilder stringBuilder = new StringBuilder("Value at start point of ");
-      stringBuilder.append(info.descriptionText());
-      changeColumnValueAssertAtStartPoint = new ChangeColumnValueAssert(this, valueAtStartPoint)
-              .as(stringBuilder.toString());
+      String string = "Value at start point of " + info.descriptionText();
+      changeColumnValueAssertAtStartPoint = new ChangeColumnValueAssert(this, valueAtStartPoint).as(string);
     }
     return changeColumnValueAssertAtStartPoint;
   }
@@ -95,10 +93,8 @@ public class ChangeColumnAssert
   @Override
   public ChangeColumnValueAssert valueAtEndPoint() {
     if (changeColumnValueAssertAtEndPoint == null) {
-      StringBuilder stringBuilder = new StringBuilder("Value at end point of ");
-      stringBuilder.append(info.descriptionText());
-      changeColumnValueAssertAtEndPoint = new ChangeColumnValueAssert(this, valueAtEndPoint)
-              .as(stringBuilder.toString());
+      String string = "Value at end point of " + info.descriptionText();
+      changeColumnValueAssertAtEndPoint = new ChangeColumnValueAssert(this, valueAtEndPoint).as(string);
     }
     return changeColumnValueAssertAtEndPoint;
   }

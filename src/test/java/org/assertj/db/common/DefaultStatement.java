@@ -120,7 +120,7 @@ public class DefaultStatement implements Statement {
 
   @Override
   public int getFetchDirection() throws SQLException {
-    return 0;
+    return ResultSet.FETCH_UNKNOWN;
   }
 
   @Override
@@ -134,12 +134,12 @@ public class DefaultStatement implements Statement {
 
   @Override
   public int getResultSetConcurrency() throws SQLException {
-    return 0;
+    return ResultSet.CONCUR_READ_ONLY;
   }
 
   @Override
   public int getResultSetType() throws SQLException {
-    return 0;
+    return ResultSet.TYPE_FORWARD_ONLY;
   }
 
   @Override

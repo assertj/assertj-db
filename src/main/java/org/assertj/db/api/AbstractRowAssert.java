@@ -48,7 +48,7 @@ public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends A
   /**
    * Row on which do the assertion.
    */
-  private Row row;
+  private final Row row;
 
   /**
    * Constructor.

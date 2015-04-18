@@ -50,7 +50,7 @@ import static com.ninja_squad.dbsetup.Operations.*;
 @Transactional
 public abstract class AbstractTest {
 
-  protected static Logger LOG = Logger.getLogger("Test");
+  protected static final Logger LOG = Logger.getLogger("Test");
 
   @Rule
   public TestName testNameRule = new TestName();
@@ -58,9 +58,9 @@ public abstract class AbstractTest {
   @Autowired(required = true)
   protected DataSource dataSource;
 
-  protected Source source = new Source("jdbc:h2:mem:test", "sa", "");
+  protected final Source source = new Source("jdbc:h2:mem:test", "sa", "");
 
-  private static DbSetupTracker dbSetupTracker = new DbSetupTracker();
+  private static final DbSetupTracker dbSetupTracker = new DbSetupTracker();
 
   private static final Operation DELETE_ALL = deleteAllFrom("test2", "test", "interpretation", "actor", "movie");
 
@@ -112,7 +112,7 @@ public abstract class AbstractTest {
   private static final Operation OPERATIONS = sequenceOf(DELETE_ALL, INSERT_MOVIE, INSERT_ACTOR, INSERT_INTERPRETATION,
       INSERT_TEST, INSERT_TEST2, SQL);
 
-  private static DbSetup DB_SETUP = new DbSetup(new DriverManagerDestination("jdbc:h2:mem:test", "SA", ""), OPERATIONS);
+  private static final DbSetup DB_SETUP = new DbSetup(new DriverManagerDestination("jdbc:h2:mem:test", "SA", ""), OPERATIONS);
 
   @Before
   public void initiate() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException,
@@ -268,34 +268,5 @@ public abstract class AbstractTest {
     update("update movie set title = 'The Avatar' where id = 3");
     update("update actor set firstname = 'Susan Alexandra' where id = 1");
     update("update interpretation set character = 'Doctor Grace Augustine' where id = 3");
-  }
-
-  /**
-   * Update the database for other tests.
-   */
-  protected void updateChangesForOtherTests() {
-    update("insert into test values (1, true, 2, 3, 4, 5.6, 7.8, PARSEDATETIME('09:46:30', 'HH:mm:ss'), "
-           + "PARSEDATETIME('24/05/2014', 'dd/MM/yyyy'), PARSEDATETIME('24/05/2014 09:46:30', 'dd/MM/yyyy HH:mm:ss'), "
-           + "FILE_READ('classpath:h2-logo-2.png'), 'text', 5, 7)");
-    update("insert into test values (10, false, 20, 30, 40, 50.6, 70.8, PARSEDATETIME('12:29:49', 'HH:mm:ss'), "
-           + "PARSEDATETIME('30/05/2014', 'dd/MM/yyyy'), PARSEDATETIME('30/05/2014 12:29:49', 'dd/MM/yyyy HH:mm:ss'), "
-           + "FILE_READ('classpath:logo-dev.jpg'), 'another text', 50, 70)");
-    update("insert into test values (100, false, 25, 300, 400, 500.6, 700.8, PARSEDATETIME('12:29:49', 'HH:mm:ss'), "
-           + "PARSEDATETIME('30/05/2014', 'dd/MM/yyyy'), PARSEDATETIME('30/05/2014', 'dd/MM/yyyy'), "
-           + "FILE_READ('classpath:logo-dev.jpg'), 'another text again', 500, 700)");
-    update("insert into test values (1000, false, 0, 0, 0, 0, 0, PARSEDATETIME('12:29:49', 'HH:mm:ss'),"
-           + " PARSEDATETIME('30/05/2014', 'dd/MM/yyyy'), PARSEDATETIME('30/05/2014', 'dd/MM/yyyy'), "
-           + " FILE_READ('classpath:logo-dev.jpg'), 'another text again', 500, 700)");
-  }
-
-  /**
-   * Update the database for other tests 2.
-   */
-  protected void updateChangesForOtherTests2() {
-    update("insert into test2 values (1, true, 2, 3, 4, 5.6, 7.8, PARSEDATETIME('09:46:30', 'HH:mm:ss'), "
-           + " PARSEDATETIME('24/05/2014', 'dd/MM/yyyy'), PARSEDATETIME('24/05/2014 09:46:30', 'dd/MM/yyyy HH:mm:ss'), "
-           + " FILE_READ('classpath:h2-logo-2.png'), 'text', 5, 7, null)");
-    update("insert into test2 values (null, null, null, null, null, null, null, null, null, null, "
-           + "null, null, null, null, null)");
   }
 }

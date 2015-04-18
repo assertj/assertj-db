@@ -32,11 +32,11 @@ public class Column {
   /**
    * The name of the column.
    */
-  private String name;
+  private final String name;
   /**
    * The values of the column.
    */
-  private List<Object> valuesList;
+  private final List<Object> valuesList;
 
   /**
    * Constructor of the column with visibility in the package.

@@ -144,7 +144,7 @@ public class Changes_Exception_Test extends AbstractTest {
    */
   @Test(expected = NullPointerException.class)
   public void should_fail_because_request_is_null() {
-    new Changes().setRequest((Request) null);
+    new Changes().setRequest(null);
   }
 
   /**

@@ -40,7 +40,7 @@ public class ShouldBeModified extends BasicErrorMessageFactory {
    * @param valueAtStartPoint The value at start point.
    * @param valueAtEndPoint The value at end point.
    */
-  public ShouldBeModified(Object valueAtStartPoint, Object valueAtEndPoint) {
+  private ShouldBeModified(Object valueAtStartPoint, Object valueAtEndPoint) {
     super("\nExpecting :\n  <%s>\nis modified but is still:\n  <%s>", valueAtStartPoint, valueAtEndPoint);
   }
 }

@@ -177,14 +177,14 @@ public class Values_AreEqual_Object_And_Number_Test {
    */
   @Test
   public void test_are_equal_for_other_and_integer() {
-    assertThat(Values.areEqual((int) 1, 1)).isTrue();
-    assertThat(Values.areEqual((int) 2, 1)).isFalse();
-    assertThat(Values.areEqual((int) 1, 1L)).isTrue();
-    assertThat(Values.areEqual((int) 2, 1L)).isFalse();
-    assertThat(Values.areEqual((int) 1, 1F)).isTrue();
-    assertThat(Values.areEqual((int) 2, 1F)).isFalse();
-    assertThat(Values.areEqual((int) 1, 1D)).isTrue();
-    assertThat(Values.areEqual((int) 2, 1D)).isFalse();
+    assertThat(Values.areEqual(1, 1)).isTrue();
+    assertThat(Values.areEqual(2, 1)).isFalse();
+    assertThat(Values.areEqual(1, 1L)).isTrue();
+    assertThat(Values.areEqual(2, 1L)).isFalse();
+    assertThat(Values.areEqual(1, 1F)).isTrue();
+    assertThat(Values.areEqual(2, 1F)).isFalse();
+    assertThat(Values.areEqual(1, 1D)).isTrue();
+    assertThat(Values.areEqual(2, 1D)).isFalse();
   }
 
   /**

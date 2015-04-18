@@ -42,7 +42,7 @@ public class ShouldBeOnTable extends BasicErrorMessageFactory {
    * @param expected The expected table.
    * @param tested   The tested table.
    */
-  public ShouldBeOnTable(String expected, String tested) {
+  private ShouldBeOnTable(String expected, String tested) {
     super(EXPECTED_MESSAGE, expected, tested);
   }
 }

@@ -153,7 +153,7 @@ public class DateTimeValue_Test extends AbstractTest {
    */
   @Test(expected = NullPointerException.class)
   public void should_constructor_with_datevalue_fail_if_date_is_null() throws ParseException {
-    new DateTimeValue((DateValue) null, TimeValue.of(9, 1));
+    new DateTimeValue(null, TimeValue.of(9, 1));
   }
 
   /**

@@ -154,14 +154,14 @@ public class Values_AreEqual_Object_And_Object_Test {
    */
   @Test
   public void test_are_equal_for_other_and_integer() {
-    assertThat(Values.areEqual((int) 1, (Object) 1)).isTrue();
-    assertThat(Values.areEqual((int) 2, (Object) 1)).isFalse();
-    assertThat(Values.areEqual((int) 1, (Object) 1L)).isTrue();
-    assertThat(Values.areEqual((int) 2, (Object) 1L)).isFalse();
-    assertThat(Values.areEqual((int) 1, (Object) 1F)).isTrue();
-    assertThat(Values.areEqual((int) 2, (Object) 1F)).isFalse();
-    assertThat(Values.areEqual((int) 1, (Object) 1D)).isTrue();
-    assertThat(Values.areEqual((int) 2, (Object) 1D)).isFalse();
+    assertThat(Values.areEqual(1, (Object) 1)).isTrue();
+    assertThat(Values.areEqual(2, (Object) 1)).isFalse();
+    assertThat(Values.areEqual(1, (Object) 1L)).isTrue();
+    assertThat(Values.areEqual(2, (Object) 1L)).isFalse();
+    assertThat(Values.areEqual(1, (Object) 1F)).isTrue();
+    assertThat(Values.areEqual(2, (Object) 1F)).isFalse();
+    assertThat(Values.areEqual(1, (Object) 1D)).isTrue();
+    assertThat(Values.areEqual(2, (Object) 1D)).isFalse();
   }
 
   /**
@@ -185,8 +185,8 @@ public class Values_AreEqual_Object_And_Object_Test {
   @Test
   public void test_are_equal_for_bytes() {
     byte[] bytes = bytesContentFromClassPathOf("test.txt");
-    Object goodBytes = (Object) new byte[] { 'T', 'e', 'x', 't', ' ', 'f', 'o', 'r', ' ', 't', 'e', 's', 't', 's' };
-    Object badBytes = (Object) new byte[] { 'T', 'e', 'x', 't', ' ', 'f', 'o', 'r', ' ', ' ', 'e', 's', 't', 's' };
+    Object goodBytes = new byte[] { 'T', 'e', 'x', 't', ' ', 'f', 'o', 'r', ' ', 't', 'e', 's', 't', 's' };
+    Object badBytes = new byte[] { 'T', 'e', 'x', 't', ' ', 'f', 'o', 'r', ' ', ' ', 'e', 's', 't', 's' };
     assertThat(Values.areEqual(bytes, goodBytes)).isTrue();
     assertThat(Values.areEqual(bytes, badBytes)).isFalse();
     assertThat(Values.areEqual(bytes, (Object) "")).isFalse();
@@ -329,8 +329,8 @@ public class Values_AreEqual_Object_And_Object_Test {
    */
   @Test
   public void test_are_equal_for_int_and_string() {
-    assertThat(Values.areEqual((int) 1, (Object) "1")).isTrue();
-    assertThat(Values.areEqual((int) 2, (Object) "1")).isFalse();
+    assertThat(Values.areEqual(1, (Object) "1")).isTrue();
+    assertThat(Values.areEqual(2, (Object) "1")).isFalse();
   }
 
   /**

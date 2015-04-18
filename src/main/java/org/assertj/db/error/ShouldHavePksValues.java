@@ -40,7 +40,7 @@ public class ShouldHavePksValues extends BasicErrorMessageFactory {
    * @param values The values of the columns.
    * @param expectedValues The expected values of the columns.
    */
-  public ShouldHavePksValues(Object[] values, Object[] expectedValues) {
+  private ShouldHavePksValues(Object[] values, Object[] expectedValues) {
     super("\nExpecting :\n  %s\nto be the values of the columns of the primary keys but was:\n  %s", expectedValues, values);
   }
 }

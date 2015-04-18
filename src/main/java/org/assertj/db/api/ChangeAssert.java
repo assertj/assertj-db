@@ -61,7 +61,7 @@ public class ChangeAssert
   /**
    * Map the columns assert with their index in key (contains the columns assert already generated).
    */
-  private Map<Integer, ChangeColumnAssert> columnsAssertMap = new HashMap<Integer, ChangeColumnAssert>();
+  private final Map<Integer, ChangeColumnAssert> columnsAssertMap = new HashMap<>();
 
   /**
    * Constructor.
@@ -78,9 +78,8 @@ public class ChangeAssert
   @Override
   public ChangeRowAssert rowAtStartPoint() {
     if (changeRowAssertAtStartPoint == null) {
-      StringBuilder stringBuilder = new StringBuilder("Row at start point of ");
-      stringBuilder.append(info.descriptionText());
-      changeRowAssertAtStartPoint = new ChangeRowAssert(this, change.getRowAtStartPoint()).as(stringBuilder.toString());
+      String string = "Row at start point of " + info.descriptionText();
+      changeRowAssertAtStartPoint = new ChangeRowAssert(this, change.getRowAtStartPoint()).as(string);
     }
     return changeRowAssertAtStartPoint;
   }
@@ -89,9 +88,8 @@ public class ChangeAssert
   @Override
   public ChangeRowAssert rowAtEndPoint() {
     if (changeRowAssertAtEndPoint == null) {
-      StringBuilder stringBuilder = new StringBuilder("Row at end point of ");
-      stringBuilder.append(info.descriptionText());
-      changeRowAssertAtEndPoint = new ChangeRowAssert(this, change.getRowAtEndPoint()).as(stringBuilder.toString());
+      String string = "Row at end point of " + info.descriptionText();
+      changeRowAssertAtEndPoint = new ChangeRowAssert(this, change.getRowAtEndPoint()).as(string);
     }
     return changeRowAssertAtEndPoint;
   }

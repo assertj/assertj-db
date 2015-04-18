@@ -53,14 +53,14 @@ public class ShouldNotBeEqual extends BasicErrorMessageFactory {
    * @param actual The actual value in the failed assertion.
    * @param expected The expected value to compare to.
    */
-  public ShouldNotBeEqual(Object actual, Object expected) {
+  private ShouldNotBeEqual(Object actual, Object expected) {
     super(EXPECTED_MESSAGE, actual, expected);
   }
 
   /**
    * Constructor.
    */
-  public ShouldNotBeEqual() {
+  private ShouldNotBeEqual() {
     super(EXPECTED_MESSAGE_BUT_NOT);
   }
 }

@@ -74,7 +74,7 @@ public class Row {
    * @return The list of the primary keys value.
    */
   public List<Object> getPksValueList() {
-    List<Object> pksValueList = new ArrayList();
+    List<Object> pksValueList = new ArrayList<>();
     for (String name : pksNameList) {
       int index = columnsNameList.indexOf(name);
       Object value = valuesList.get(index);
@@ -116,7 +116,7 @@ public class Row {
    * @return The primary keys value.
    */
   public Object[] getPksValues() {
-    List<Object> pksValuesList = new ArrayList<Object>();
+    List<Object> pksValuesList = new ArrayList<>();
     if (pksNameList != null) {
       for (String pkName : pksNameList) {
         int index = columnsNameList.indexOf(pkName);

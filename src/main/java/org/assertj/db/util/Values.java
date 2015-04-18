@@ -137,7 +137,7 @@ public class Values {
     // If parameter is a BigInteger,
     // change the actual in BigInteger to compare
     if (expected instanceof BigInteger) {
-      BigInteger bi = null;
+      BigInteger bi;
 
       if (value instanceof BigInteger) {
         bi = (BigInteger) value;
@@ -156,7 +156,7 @@ public class Values {
     // If parameter is a BigDecimal,
     // change the value in BigDecimal to compare
     else if (expected instanceof BigDecimal) {
-      BigDecimal bd = null;
+      BigDecimal bd;
 
       if (value instanceof BigDecimal) {
         bd = (BigDecimal) value;
@@ -332,11 +332,11 @@ public class Values {
   private static boolean areEqual(Number number, String expected) {
     try {
       if (number instanceof Float) {
-        if (((Float) number).floatValue() == Float.parseFloat(expected)) {
+        if (number.floatValue() == Float.parseFloat(expected)) {
           return true;
         }
       } else if (number instanceof Double) {
-        if (((Double) number).doubleValue() == Double.parseDouble(expected)) {
+        if (number.doubleValue() == Double.parseDouble(expected)) {
           return true;
         }
       } else if (number instanceof BigInteger) {
@@ -352,12 +352,8 @@ public class Values {
       } else {
         Long actual = null;
 
-        if (number instanceof Byte) {
-          actual = ((Byte) number).longValue();
-        } else if (number instanceof Short) {
-          actual = ((Short) number).longValue();
-        } else if (number instanceof Integer) {
-          actual = ((Integer) number).longValue();
+        if (number instanceof Byte || number instanceof Short || number instanceof Integer) {
+          actual = number.longValue();
         } else if (number instanceof Long) {
           actual = (Long) number;
         }
@@ -480,7 +476,7 @@ public class Values {
     // If parameter is a BigInteger,
     // change the actual in BigInteger to compare
     if (expected instanceof BigInteger) {
-      BigInteger bi = null;
+      BigInteger bi;
 
       if (value instanceof BigInteger) {
         bi = (BigInteger) value;
@@ -497,7 +493,7 @@ public class Values {
     // If parameter is a BigDecimal,
     // change the value in BigDecimal to compare
     else if (expected instanceof BigDecimal) {
-      BigDecimal bd = null;
+      BigDecimal bd;
 
       if (value instanceof BigDecimal) {
         bd = (BigDecimal) value;
@@ -520,7 +516,7 @@ public class Values {
       Long actualValue = null;
 
       if (value instanceof Float) {
-        float f = ((Float) value).floatValue();
+        float f = (Float) value;
         float expectedF = expected.floatValue();
         if (f > expectedF) {
           return 1;
@@ -530,7 +526,7 @@ public class Values {
           return 0;
         }
       } else if (value instanceof Double) {
-        double d = ((Double) value).doubleValue();
+        double d = (Double) value;
         double expectedD = expected.doubleValue();
         if (d > expectedD) {
           return 1;

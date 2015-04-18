@@ -30,7 +30,7 @@ public class Values_AreEqual_Date_And_String_Test {
     assertThat(Values.areEqual(Date.valueOf("2007-12-23"), "2007-12-23T00:00")).isTrue();
     assertThat(Values.areEqual(Date.valueOf("2007-12-23"), "2007-12-23T00:00:00")).isTrue();
     assertThat(Values.areEqual(Date.valueOf("2007-12-23"), "2007-12-23T00:00:00.000000000")).isTrue();
-    assertThat(Values.areEqual((Date) null, (String) null)).isTrue();
+    assertThat(Values.areEqual(null, (String) null)).isTrue();
 
     assertThat(Values.areEqual(Date.valueOf("2007-12-23"), "2007-12-24")).isFalse();
     assertThat(Values.areEqual(Date.valueOf("2007-12-23"), "2007-01-23")).isFalse();

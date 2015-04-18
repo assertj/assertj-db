@@ -156,7 +156,7 @@ public class Request extends AbstractDbData<Request> {
    * @return {@code this} instance.
    */
   public Request setPksName(String... pksName) {
-    List<String> pksNameList = new ArrayList<String>();
+    List<String> pksNameList = new ArrayList<>();
     pksNameList.addAll(Arrays.asList(pksName));
     super.setPksNameList(pksNameList);
     return this;
@@ -174,7 +174,7 @@ public class Request extends AbstractDbData<Request> {
    */
   private void collectColumnsNameFromResultSet(ResultSet resultSet) throws SQLException {
     ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
-    List<String> columnsNameList = new ArrayList<String>();
+    List<String> columnsNameList = new ArrayList<>();
     for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++) {
       String columnName = resultSetMetaData.getColumnName(i);
       columnsNameList.add(columnName.toUpperCase());

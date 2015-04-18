@@ -37,7 +37,7 @@ public class ShouldExist extends BasicErrorMessageFactory {
   /**
    * Constructor.
    */
-  public ShouldExist() {
+  private ShouldExist() {
     super(EXPECTED_MESSAGE);
   }
 }

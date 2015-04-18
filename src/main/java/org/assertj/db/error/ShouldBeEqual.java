@@ -76,14 +76,14 @@ public class ShouldBeEqual extends BasicErrorMessageFactory {
    * @param actual The actual value in the failed assertion.
    * @param expected The expected value to compare to.
    */
-  public ShouldBeEqual(Object actual, Object expected) {
+  private ShouldBeEqual(Object actual, Object expected) {
     super(EXPECTED_MESSAGE, actual, expected);
   }
 
   /**
    * Constructor.
    */
-  public ShouldBeEqual() {
+  private ShouldBeEqual() {
     super(EXPECTED_MESSAGE_BUT_NOT);
   }
 
@@ -94,7 +94,7 @@ public class ShouldBeEqual extends BasicErrorMessageFactory {
    * @param actual The actual value in the failed assertion.
    * @param expected The expected value to compare to.
    */
-  public ShouldBeEqual(int index, Object actual, Object expected) {
+  private ShouldBeEqual(int index, Object actual, Object expected) {
     super(EXPECTED_MESSAGE_WITH_INDEX, index, actual, expected);
   }
 
@@ -103,7 +103,7 @@ public class ShouldBeEqual extends BasicErrorMessageFactory {
    * 
    * @param index The index of the value.
    */
-  public ShouldBeEqual(int index) {
+  private ShouldBeEqual(int index) {
     super(EXPECTED_MESSAGE_BUT_NOT_WITH_INDEX, index);
   }
 }

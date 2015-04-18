@@ -54,7 +54,7 @@ public abstract class AbstractSubAssert<D extends AbstractDbData<D>, A extends A
   /**
    * Map the values assertion with their index in key (contains the values assertion already generated).
    */
-  private Map<Integer, V> valuesAssertMap = new HashMap<Integer, V>();
+  private final Map<Integer, V> valuesAssertMap = new HashMap<>();
 
   /**
    * Constructor.

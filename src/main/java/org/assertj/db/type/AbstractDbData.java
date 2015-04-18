@@ -55,7 +55,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
   /**
    * Map the columns with their index in key (contains the columns already generated).
    */
-  private Map<Integer, Column> columnsMap = new HashMap<Integer, Column>();
+  private final Map<Integer, Column> columnsMap = new HashMap<>();
 
   /**
    * Default constructor.
@@ -128,7 +128,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
       loadImpl(connection);
       Collections.sort(rowsList, RowComparator.INSTANCE);
       if (pksNameList == null) {
-        pksNameList = new ArrayList<String>();
+        pksNameList = new ArrayList<>();
       }
     } catch (SQLException e) {
       throw new AssertJDBException(e);
@@ -162,9 +162,9 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    */
   protected void collectRowsFromResultSet(ResultSet resultSet) throws SQLException {
     ResultSetMetaData metaData = resultSet.getMetaData();
-    rowsList = new ArrayList<Row>();
+    rowsList = new ArrayList<>();
     while (resultSet.next()) {
-      List<Object> objectsList = new ArrayList<Object>();
+      List<Object> objectsList = new ArrayList<>();
       for (String columnName : columnsNameList) {
         // TODO Improve the check of the type
         int index = columnsNameList.indexOf(columnName);
@@ -257,7 +257,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    * @throws AssertJDBException If one the primary keys do not exist in the columns name, the exception is triggered.
    */
   protected void setPksNameList(List<String> pksNameList) {
-    this.pksNameList = new ArrayList<String>();
+    this.pksNameList = new ArrayList<>();
     for (String pkName : pksNameList) {
       String pkNameUp = pkName.toUpperCase();
       this.pksNameList.add(pkNameUp);
@@ -344,7 +344,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
    */
   private List<Object> getValuesList(int index) {
-    List<Object> valuesList = new ArrayList<Object>();
+    List<Object> valuesList = new ArrayList<>();
     for (Row row : getRowsList()) {
       valuesList.add(row.getColumnValue(index));
     }

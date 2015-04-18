@@ -44,7 +44,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
   /**
    * Column on which do the assertion.
    */
-  private Column column;
+  private final Column column;
 
   /**
    * Constructor.

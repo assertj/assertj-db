@@ -31,7 +31,7 @@ public class Values_AreEqual_DateTime_And_String_Test {
     assertThat(Values.areEqual(Timestamp.valueOf("2007-12-23 00:00:00"), "2007-12-23T00:00:00")).isTrue();
     assertThat(Values.areEqual(Timestamp.valueOf("2007-12-23 00:00:00"), "2007-12-23T00:00")).isTrue();
     assertThat(Values.areEqual(Timestamp.valueOf("2007-12-23 00:00:00"), "2007-12-23")).isTrue();
-    assertThat(Values.areEqual((Timestamp) null, (String) null)).isTrue();
+    assertThat(Values.areEqual(null, (String) null)).isTrue();
 
     assertThat(Values.areEqual(Timestamp.valueOf("2007-12-23 09:01:06.000000003"), "2007-12-23T09:01:06.000000004")).isFalse();
     assertThat(Values.areEqual(Timestamp.valueOf("2007-12-23 09:01:06.000000003"), "2007-12-23T09:01:07.000000003")).isFalse();

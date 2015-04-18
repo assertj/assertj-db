@@ -40,7 +40,7 @@ public class ShouldBeAfterOrEqual extends BasicErrorMessageFactory {
    * @param actual The actual value in the failed assertion.
    * @param expected The expected value to compare to.
    */
-  public ShouldBeAfterOrEqual(Object actual, Object expected) {
+  private ShouldBeAfterOrEqual(Object actual, Object expected) {
     super("\nExpecting:\n  <%s>\nto be after or equal to \n  <%s>", actual, expected);
   }
 }

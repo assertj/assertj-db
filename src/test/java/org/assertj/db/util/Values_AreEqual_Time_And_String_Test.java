@@ -35,7 +35,7 @@ public class Values_AreEqual_Time_And_String_Test {
     assertThat(Values.areEqual(Time.valueOf("09:01:06"), "09:01:06")).isTrue();
     assertThat(Values.areEqual(Time.valueOf("09:01:00"), "09:01:00")).isTrue();
     assertThat(Values.areEqual(Time.valueOf("09:01:00"), "09:01")).isTrue();
-    assertThat(Values.areEqual((Time) null, (String) null)).isTrue();
+    assertThat(Values.areEqual(null, (String) null)).isTrue();
 
     assertThat(Values.areEqual(Time.valueOf("09:01:06"), "09:01:05")).isFalse();
     assertThat(Values.areEqual(Time.valueOf("09:01:06"), "09:02:06")).isFalse();

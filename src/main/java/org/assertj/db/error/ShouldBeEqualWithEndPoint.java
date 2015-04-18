@@ -52,14 +52,14 @@ public class ShouldBeEqualWithEndPoint extends BasicErrorMessageFactory {
    * @param actual The actual value in the failed assertion.
    * @param expected The expected value to compare to.
    */
-  public ShouldBeEqualWithEndPoint(Object actual, Object expected) {
+  private ShouldBeEqualWithEndPoint(Object actual, Object expected) {
     super(EXPECTED_MESSAGE, actual, expected);
   }
 
   /**
    * Constructor.
    */
-  public ShouldBeEqualWithEndPoint() {
+  private ShouldBeEqualWithEndPoint() {
     super(EXPECTED_MESSAGE_WITHOUT_VALUES);
   }
 }

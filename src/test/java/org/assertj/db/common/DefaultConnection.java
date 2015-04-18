@@ -171,7 +171,7 @@ public class DefaultConnection implements Connection {
 
   @Override
   public int getTransactionIsolation() throws SQLException {
-    return 0;
+    return Connection.TRANSACTION_NONE;
   }
 
   @Override
