@@ -283,4 +283,13 @@ public class ChangeAssert
   public ChangeAssert hasNumberOfColumns(int expected) {
     return AssertionsOnNumberOfColumns.hasNumberOfColumns(myself, info, change.getColumnsNameList().size(), expected);
   }
+
+  /**
+   * Returns to level of assertion methods on {@link Changes}.
+   *
+   * @return a object of assertion methods on {@link Changes}.
+   */
+  public ChangesAssert returnToChanges() {
+    return returnToOrigin();
+  }
 }

@@ -271,4 +271,13 @@ public class ChangeColumnAssert
   public ChangeColumnAssert isText(boolean lenient) {
     return AssertionsOnColumnOfChangeType.isText(myself, info, valueAtStartPoint, valueAtEndPoint, lenient);
   }
+
+  /**
+   * Returns to level of assertion methods on a {@link org.assertj.db.type.Change}.
+   *
+   * @return a object of assertion methods on a {@link org.assertj.db.type.Change}.
+   */
+  public ChangeAssert returnToChange() {
+    return returnToOrigin();
+  }
 }

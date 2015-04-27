@@ -45,4 +45,13 @@ public class ChangeColumnValueAssert
   public ChangeColumnValueAssert valueAtEndPoint() {
     return origin.valueAtEndPoint();
   }
+
+  /**
+   * Returns to level of assertion methods on a {@link org.assertj.db.type.Column}.
+   *
+   * @return a object of assertion methods on a {@link org.assertj.db.type.Column}.
+   */
+  public ChangeColumnAssert returnToColumn() {
+    return returnToOrigin();
+  }
 }

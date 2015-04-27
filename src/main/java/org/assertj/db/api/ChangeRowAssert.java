@@ -158,4 +158,13 @@ public class ChangeRowAssert
   public ChangeRowAssert doesNotExist() {
     return AssertionsOnRowOfChangeExistence.doesNotExist(myself, info, row);
   }
+
+  /**
+   * Returns to level of assertion methods on a {@link org.assertj.db.type.Change}.
+   *
+   * @return a object of assertion methods on a {@link org.assertj.db.type.Change}.
+   */
+  public ChangeAssert returnToChange() {
+    return returnToOrigin();
+  }
 }
