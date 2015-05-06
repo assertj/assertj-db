@@ -23,7 +23,7 @@ import org.assertj.db.type.DataType;
  *            for more details.
  * @author Régis Pouiller
  */
-public interface AssertOnDataType<T extends AssertOnModifiedColumns<T>> {
+public interface AssertOnDataType<T extends AssertOnDataType<T>> {
 
   /**
    * Verifies that the data type on which is the change is equal to the type in parameter.
