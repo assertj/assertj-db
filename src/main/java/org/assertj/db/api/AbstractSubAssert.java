@@ -69,14 +69,6 @@ public abstract class AbstractSubAssert<D extends AbstractDbData<D>, A extends A
   }
 
   /**
-   * To initialize the object when getting from cache.
-   */
-  S initialize() {
-    indexNextValue = 0;
-    return myself;
-  }
-
-  /**
    * Gets an instance of value assert corresponding to the index. If this instance is already instanced, the method
    * returns it from the cache.
    * 

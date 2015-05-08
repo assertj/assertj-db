@@ -116,7 +116,7 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
    */
   private R getRowAssertInstance(int index) {
     if (rowsAssertMap.containsKey(index)) {
-      R rowAssert = rowsAssertMap.get(index).initialize();
+      R rowAssert = rowsAssertMap.get(index);
       indexNextRow = index + 1;
       return rowAssert;
     }
@@ -175,7 +175,7 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
    */
   private C getColumnAssertInstance(int index) {
     if (columnsAssertMap.containsKey(index)) {
-      C columnAssert = columnsAssertMap.get(index).initialize();
+      C columnAssert = columnsAssertMap.get(index);
       indexNextColumn = index + 1;
       return columnAssert;
     }
