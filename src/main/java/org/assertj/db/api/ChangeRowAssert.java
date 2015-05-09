@@ -136,7 +136,6 @@ public class ChangeRowAssert
   /** {@inheritDoc} */
   @Override
   public ChangeRowAssert hasNumberOfColumns(int expected) {
-    exists();
     List<String> columnsNameList = row.getColumnsNameList();
     int size = columnsNameList.size();
     return AssertionsOnNumberOfColumns.hasNumberOfColumns(myself, info, size, expected);
@@ -145,7 +144,6 @@ public class ChangeRowAssert
   /** {@inheritDoc} */
   @Override
   public ChangeRowAssert hasValuesEqualTo(Object... expected) {
-    exists();
     return AssertionsOnRowEquality.hasValuesEqualTo(myself, info, row.getValuesList(), expected);
   }
 
