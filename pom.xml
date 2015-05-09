@@ -3,7 +3,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>assertj-db</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.0m1-SNAPSHOT</version>
 	<packaging>bundle</packaging>
 	<name>AssertJ-DB - Assertions for database</name>
 	<description>AssertJ-DB - Rich and fluent assertions for testing with database</description>
@@ -128,7 +128,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.10.1</version>
 				<configuration>
 					<!-- (1) CSS file location -->
 					<stylesheetfile>src/main/javadoc/assertj-javadoc-code.css</stylesheetfile>
