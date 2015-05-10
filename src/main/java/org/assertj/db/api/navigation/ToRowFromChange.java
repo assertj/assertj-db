@@ -33,14 +33,14 @@ package org.assertj.db.api.navigation;
  * <pre>
  * <code class='java'>
  * assertThat(changes).change().rowAtEndPoint()......;                                                    // Point directly on the row at end point
- * // Use the returnToOrigin() method of AbstractAssertWithOrigin to return on the change and access to the row at end point
- * assertThat(changes).change().rowAtStartPoint().returnToOrigin().rowAtEndPoint()......;
- * assertThat(changes).change().rowAtStartPoint().rowAtEndPoint()......;                                  // Same as precedent but returnToOrigin() is implicit
+ * // Use the returnToChange() method to return on the change and access to the row at end point
+ * assertThat(changes).change().rowAtStartPoint().returnToChange().rowAtEndPoint()......;
+ * assertThat(changes).change().rowAtStartPoint().rowAtEndPoint()......;                                  // Same as precedent but returnToChange() is implicit
  * assertThat(changes).change().column().rowAtEndPoint()......;                                           // The method can be call from a column
  * assertThat(changes).change().column().value().rowAtEndPoint()......;
  * assertThat(changes).change().column(1).value().rowAtEndPoint()......;
- * // Equivalent to the precedent but with the use of the returnToOrigin() method of AbstractAssertWithOrigin
- * assertThat(changes).change().column(1).value().returnToOrigin().returnToOrigin().rowAtEndPoint()......;
+ * // Equivalent to the precedent but with the use of the methods to return to origin
+ * assertThat(changes).change().column(1).value().returnToColumn().returnToChange().rowAtEndPoint()......;
  * </code>
  * </pre>
  *

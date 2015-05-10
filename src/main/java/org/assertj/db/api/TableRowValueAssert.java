@@ -43,5 +43,4 @@ public class TableRowValueAssert
   public TableRowAssert returnToRow() {
     return returnToOrigin();
   }
-
 }

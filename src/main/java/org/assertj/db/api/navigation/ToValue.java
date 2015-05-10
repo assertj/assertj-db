@@ -32,14 +32,15 @@ package org.assertj.db.api.navigation;
  * <pre>
  * <code class='java'>
  * assertThat(table_or_request).column().value(1)......;                                  // Point directly on the value at index 1
- * assertThat(table_or_request).column().value().returnToOrigin().value()......;          // Use the returnToOrigin() method of AbstractAssertWithOrigin
- *                                                                                        // to return on the table or request and access to the next/second value of the list
- * assertThat(table_or_request).column().value().value()......;                           // Same as precedent but returnToOrigin() is implicit
+ * assertThat(table_or_request).column().value().returnToColumn().value()......;          // Use the returnToColumn() method to return to origin
+ *                                                                                        // to return on the column and access to the next/second value of the list
+ * assertThat(table_or_request).column().value().value()......;                           // Same as precedent but returnToColumn() is implicit
  * assertThat(table_or_request).column().value().value(1)......;                          // The method with the index can be call too
  * assertThat(table_or_request).column().value(2).value(0).value(1)......;                // Idem
  * assertThat(table_or_request).column().value().column().value(1)......;
- * // Equivalent to the precedent but with the use of the returnToOrigin() method of AbstractAssertWithOrigin
- * assertThat(table_or_request).column().value().returnToOrigin().returnToOrigin().column().value(1)......;
+ * // Equivalent to the precedent but with the use of the methods to return to origin
+ * assertThat(table).column().value().returnToColumn().returnToTable().column().value(1)......;
+ * assertThat(request).column().value().returnToColumn().returnToRequest().column().value(1)......;
  * </code>
  * </pre>
  * <p>As shown in the diagram below, if navigating from changes, it is possible to call the method to navigate to a {@link org.assertj.db.api.navigation.ValueAssert} from :</p>
@@ -56,14 +57,14 @@ package org.assertj.db.api.navigation;
  * <pre>
  * <code class='java'>
  * assertThat(changes).change().row().value(1)......;                                   // Point directly on the value at index 1
- * // Use the returnToOrigin() method of AbstractAssertWithOrigin to return on the row and access to the next/second value of the list
- * assertThat(changes).change().row().value().returnToOrigin().value()......;
- * assertThat(changes).change().row().value().value()......;                            // Same as precedent but returnToOrigin() is implicit
+ * // Use the returnToRow() method return on the row and access to the next/second value of the list
+ * assertThat(changes).change().row().value().returnToRow().value()......;
+ * assertThat(changes).change().row().value().value()......;                            // Same as precedent but returnToRow() is implicit
  * assertThat(changes).change().row().value().value(1)......;                           // The method with the index can be call too
  * assertThat(changes).change().row().value(2).value(0).value(1)......;                 // Idem
  * assertThat(changes).change().row().value().change(0).row().value(1)......;
- * // Equivalent to the precedent but with the use of the returnToOrigin() method of AbstractAssertWithOrigin
- * assertThat(changes).change().row().value().returnToOrigin().returnToOrigin().returnToOrigin().change(0).row().value(1)......;
+ * // Equivalent to the precedent but with the use of the methods to return to origin
+ * assertThat(changes).change().row().value().returnToRow().returnToChange().returnToChanges().change(0).row().value(1)......;
  * </code>
  * </pre>
  *

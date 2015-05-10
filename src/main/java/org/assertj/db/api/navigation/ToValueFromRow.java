@@ -30,13 +30,14 @@ package org.assertj.db.api.navigation;
  * <pre>
  * <code class='java'>
  * assertThat(table_or_request).row().value("name")......;                                // Point directly on the value called "name"
- * assertThat(table_or_request).row().value().returnToOrigin().value("name")......;       // Use the returnToOrigin() method of AbstractAssertWithOrigin
- *                                                                                        // to return on the table or request and access to the value called "name"
- * assertThat(table_or_request).row().value().value("name")......;                        // Same as precedent but returnToOrigin() is implicit
+ * assertThat(table_or_request).row().value().returnToRow().value("name")......;          // Use the returnToRow() method
+ *                                                                                        // to return on the row and access to the value called "name"
+ * assertThat(table_or_request).row().value().value("name")......;                        // Same as precedent but returnToRow() is implicit
  * assertThat(table_or_request).row().value(2).value(0).value("name")......;              // Idem
  * assertThat(table_or_request).row().value().row().value("name")......;
- * // Equivalent to the precedent but with the use of the returnToOrigin() method of AbstractAssertWithOrigin
- * assertThat(table_or_request).row().value().returnToOrigin().returnToOrigin().row().value("name")......;
+ * // Equivalent to the precedent but with the use of the methods to return to origin
+ * assertThat(table).row().value().returnToRow().returnToTable().row().value("name")......;
+ * assertThat(request).row().value().returnToRow().returnToRequest().row().value("name")......;
  * </code>
  * </pre>
  * <p>As shown in the diagram below, if navigating from changes, it is possible to call the method to navigate to a {@link org.assertj.db.api.navigation.ValueAssert} from :</p>
@@ -53,13 +54,13 @@ package org.assertj.db.api.navigation;
  * <pre>
  * <code class='java'>
  * assertThat(changes).change().row().value("name")......;                                 // Point directly on the value called "name"
- * // Use the returnToOrigin() method of AbstractAssertWithOrigin to return on the row and access to the value called "name"
- * assertThat(changes).change().row().value().returnToOrigin().value("name")......;
- * assertThat(changes).change().row().value().value("name")......;                         // Same as precedent but returnToOrigin() is implicit
+ * // Use the returnToRow() method to return on the row and access to the value called "name"
+ * assertThat(changes).change().row().value().returnToRow().value("name")......;
+ * assertThat(changes).change().row().value().value("name")......;                         // Same as precedent but returnToRow() is implicit
  * assertThat(changes).change().row().value(2).value(0).value("name")......;               // Idem
  * assertThat(changes).change().row().value().change(0).row().value("name")......;
- * // Equivalent to the precedent but with the use of the returnToOrigin() method of AbstractAssertWithOrigin
- * assertThat(changes).change().row().value().returnToOrigin().returnToOrigin().returnToOrigin().change(0).row().value("name")......;
+ * // Equivalent to the precedent but with the use of the methods to return to origin
+ * assertThat(changes).change().row().value().returnToRow().returnToChange().returnToChanges().change(0).row().value("name")......;
  * </code>
  * </pre>
  *

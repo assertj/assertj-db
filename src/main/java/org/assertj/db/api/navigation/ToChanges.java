@@ -37,15 +37,15 @@ import org.assertj.db.api.ChangesAssert;
  * <code class='java'>
  * assertThat(changes)......;                                               // Point on all the changes
  * assertThat(changes).ofAll()......;                                       // Idem
- * assertThat(changes).change().returnToOrigin().ofAll()......;             // Use the returnToOrigin() of AbstractAssertWithOrigin
+ * assertThat(changes).change().returnToChanges().ofAll()......;             // Use the returnToChanges() to return to origin
  *                                                                          // to return on the changes and access to the next/second change of the list
- * assertThat(changes).change().ofAll()......;                              // Same as precedent but returnToOrigin() is implicit
+ * assertThat(changes).change().ofAll()......;                              // Same as precedent but returnToChanges() is implicit
  * assertThat(changes).change().column().ofAll()......;
  * assertThat(changes).change().rowAtEndPoint().ofAll()......;
  * assertThat(changes).change().column().value().ofAll()......;
  * assertThat(changes).change().rowAtEndPoint().value().ofAll()......;
- * // Equivalent to the precedent but with the use of the returnToOrigin() method of AbstractAssertWithOrigin
- * assertThat(changes).change().rowAtEndPoint().value().returnToOrigin().returnToOrigin().returnToOrigin().ofAll()......;
+ * // Equivalent to the precedent but with the use of the methods to return to origin
+ * assertThat(changes).change().rowAtEndPoint().value().returnToRow().returnToChange().returnToChanges().ofAll()......;
  * </code>
  * </pre>
  * @author Régis Pouiller

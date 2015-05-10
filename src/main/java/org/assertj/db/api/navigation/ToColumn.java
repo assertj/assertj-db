@@ -34,15 +34,15 @@ package org.assertj.db.api.navigation;
  * <pre>
  * <code class='java'>
  * assertThat(table_or_request).column(1)......;                                   // Point directly on the column at index 1
- * assertThat(table_or_request).column().returnToOrigin().column()......;          // Use the returnToOrigin() method of AbstractAssertWithOrigin
+ * assertThat(table_or_request).column().returnToColumn().column()......;          // Use the returnToColumn() method to return to origin
  *                                                                                 // to return on the table or request and access to the next/second column of the list
- * assertThat(table_or_request).column().column()......;                           // Same as precedent but returnToOrigin() is implicit
+ * assertThat(table_or_request).column().column()......;                           // Same as precedent but returnToColumn() is implicit
  * assertThat(table_or_request).column().column(1)......;                          // The method with the index can be call too
  * assertThat(table_or_request).column(2).column(0).column(1)......;               // Idem
  * assertThat(table_or_request).column().value().column()......;
  * assertThat(table_or_request).column().value().column(1)......;
- * // Equivalent to the precedent but with the use of the returnToOrigin() method of AbstractAssertWithOrigin
- * assertThat(table_or_request).column().value().returnToOrigin().returnToOrigin().column(1)......;
+ * // Equivalent to the precedent but with the use of the methods to return to origin
+ * assertThat(table_or_request).column().value().returnToColumn().returnToChange().column(1)......;
  * </code>
  * </pre>
  * <p>As shown in the diagram below, if navigating from changes, it is possible to call the method to navigate to a {@link org.assertj.db.api.navigation.ColumnAssert} from :</p>
@@ -62,15 +62,15 @@ package org.assertj.db.api.navigation;
  * <pre>
  * <code class='java'>
  * assertThat(changes).change().column(1)......;                                   // Point directly on the column at index 1
- * // Use the returnToOrigin() method of AbstractAssertWithOrigin to return on the change and access to the next/second column of the list
- * assertThat(changes).change().column().returnToOrigin().column()......;
- * assertThat(changes).change().column().column()......;                           // Same as precedent but returnToOrigin() is implicit
+ * // Use the returnToChange() method to return on the change and access to the next/second column of the list
+ * assertThat(changes).change().column().returnToChange().column()......;
+ * assertThat(changes).change().column().column()......;                           // Same as precedent but returnToChange() is implicit
  * assertThat(changes).change().column().column(1)......;                          // The method with the index can be call too
  * assertThat(changes).change().column(2).column(0).column(1)......;               // Idem
  * assertThat(changes).change().column().value().column()......;
  * assertThat(changes).change().column().value().column(1)......;
- * // Equivalent to the precedent but with the use of the returnToOrigin() method of AbstractAssertWithOrigin
- * assertThat(changes).change().column().value().returnToOrigin().returnToOrigin().column(1)......;
+ * // Equivalent to the precedent but with the use of the methods to return to origin
+ * assertThat(changes).change().column().value().returnToColumn().returnToChange().column(1)......;
  * </code>
  * </pre>
  *

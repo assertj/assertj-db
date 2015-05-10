@@ -37,15 +37,18 @@ import org.assertj.db.type.Row;
  * <pre>
  * <code class='java'>
  * assertThat(table_or_request).row(1)......;                             // Point directly on the row at index 1
- * assertThat(table_or_request).row().returnToOrigin().row()......;       // Use the returnToOrigin() method of AbstractAssertWithOrigin
- *                                                                        // to return on the table or request and access to the next/second row of the list
- * assertThat(table_or_request).row().row()......;                        // Same as precedent but returnToOrigin() is implicit
+ * assertThat(table).row().returnToTable().row()......;                   // Use the returnToTable() method to return on the table
+ *                                                                        // and access to the next/second row of the list
+ * assertThat(request).row().returnToRequest().row()......;               // Use the returnToRequest() method to return on the request
+ *                                                                        // and access to the next/second row of the list
+ * assertThat(table_or_request).row().row()......;                        // Same as two precedent but returnToTable() or returnToRequest() is implicit
  * assertThat(table_or_request).row().row(1)......;                       // The method with the index can be call too
  * assertThat(table_or_request).row(2).row(0).row(1)......;               // Idem
  * assertThat(table_or_request).row().value().row()......;
  * assertThat(table_or_request).row().value().row(1)......;
- * // Equivalent to the precedent but with the use of the returnToOrigin() method of AbstractAssertWithOrigin
- * assertThat(table_or_request).row().value().returnToOrigin().returnToOrigin().row(1)......;
+ * // Equivalent to the precedent but with the use of the methods to return to origin
+ * assertThat(table).row().value().returnToRow().returnToTable().row(1)......;
+ * assertThat(request).row().value().returnToRow().returnToRequest().row(1)......;
  * </code>
  * </pre>
  *

@@ -38,15 +38,15 @@ package org.assertj.db.api.navigation;
  * <pre>
  * <code class='java'>
  * assertThat(changes).change().columnAmongTheModifiedOnes(1)......;                                                    // Point directly on the column at index 1
- * // Use the returnToOrigin() method of AbstractAssertWithOrigin to return on the change and access to the next/second column of the list
- * assertThat(changes).change().columnAmongTheModifiedOnes().returnToOrigin().columnAmongTheModifiedOnes()......;
- * assertThat(changes).change().columnAmongTheModifiedOnes().columnAmongTheModifiedOnes()......;                        // Same as precedent but returnToOrigin() is implicit
+ * // Use the returnToChange() method to return on the change and access to the next/second column of the list
+ * assertThat(changes).change().columnAmongTheModifiedOnes().returnToChange().columnAmongTheModifiedOnes()......;
+ * assertThat(changes).change().columnAmongTheModifiedOnes().columnAmongTheModifiedOnes()......;                        // Same as precedent but returnToChange() is implicit
  * assertThat(changes).change().column().columnAmongTheModifiedOnes(1)......;                                           // The method with the index can be call too
  * assertThat(changes).change().columnAmongTheModifiedOnes(2).column(0).columnAmongTheModifiedOnes(1)......;            // Idem
  * assertThat(changes).change().columnAmongTheModifiedOnes().value().columnAmongTheModifiedOnes()......;
  * assertThat(changes).change().column().value().columnAmongTheModifiedOnes(1)......;
- * // Equivalent to the precedent but with the use of the returnToOrigin() method of AbstractAssertWithOrigin
- * assertThat(changes).change().columnAmongTheModifiedOnes().value().returnToOrigin().returnToOrigin().columnAmongTheModifiedOnes(1)......;
+ * // Equivalent to the precedent but with the use of the methods to return to origin
+ * assertThat(changes).change().columnAmongTheModifiedOnes().value().returnToColumn().returnToChange().columnAmongTheModifiedOnes(1)......;
  * </code>
  * </pre>
  *
