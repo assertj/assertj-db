@@ -152,7 +152,7 @@ public class Row {
    * @param row The {@code Row} to compare with.
    * @return If the values are equal.
    */
-  public boolean hasValuesEqualTo(Row row) {
+  public boolean hasValues(Row row) {
     List<Object> valuesList = getValuesList();
     List<Object> rowValuesList = row.getValuesList();
     for (int index = 0; index < valuesList.size(); index++) {

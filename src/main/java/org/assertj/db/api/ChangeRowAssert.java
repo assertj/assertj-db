@@ -144,9 +144,9 @@ public class ChangeRowAssert
 
   /** {@inheritDoc} */
   @Override
-  public ChangeRowAssert hasValuesEqualTo(Object... expected) {
+  public ChangeRowAssert hasValues(Object... expected) {
     exists();
-    return AssertionsOnRowEquality.hasValuesEqualTo(myself, info, row.getValuesList(), expected);
+    return AssertionsOnRowEquality.hasValues(myself, info, row.getValuesList(), expected);
   }
 
   /** {@inheritDoc} */

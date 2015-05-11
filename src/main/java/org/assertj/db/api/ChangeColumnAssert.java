@@ -113,107 +113,107 @@ public class ChangeColumnAssert
 
   /** {@inheritDoc} */
   @Override
-  public ChangeColumnAssert hasValuesEqualTo(Boolean expected) {
+  public ChangeColumnAssert hasValues(Boolean expected) {
     return AssertionsOnColumnOfChangeEquality
-            .hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expected);
+            .hasValues(myself, info, valueAtStartPoint, valueAtEndPoint, expected);
   }
 
   /** {@inheritDoc} */
   @Override
-  public ChangeColumnAssert hasValuesEqualTo(Boolean expectedAtStartPoint, Boolean expectedAtEndPoint) {
+  public ChangeColumnAssert hasValues(Boolean expectedAtStartPoint, Boolean expectedAtEndPoint) {
     return AssertionsOnColumnOfChangeEquality
-            .hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expectedAtStartPoint,
-                              expectedAtEndPoint);
+            .hasValues(myself, info, valueAtStartPoint, valueAtEndPoint, expectedAtStartPoint,
+                       expectedAtEndPoint);
   }
 
   /** {@inheritDoc} */
   @Override
-  public ChangeColumnAssert hasValuesEqualTo(Number expected) {
+  public ChangeColumnAssert hasValues(Number expected) {
     return AssertionsOnColumnOfChangeEquality
-            .hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expected);
+            .hasValues(myself, info, valueAtStartPoint, valueAtEndPoint, expected);
   }
 
   /** {@inheritDoc} */
   @Override
-  public ChangeColumnAssert hasValuesEqualTo(Number expectedAtStartPoint, Number expectedAtEndPoint) {
+  public ChangeColumnAssert hasValues(Number expectedAtStartPoint, Number expectedAtEndPoint) {
     return AssertionsOnColumnOfChangeEquality
-            .hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expectedAtStartPoint,
-                              expectedAtEndPoint);
+            .hasValues(myself, info, valueAtStartPoint, valueAtEndPoint, expectedAtStartPoint,
+                       expectedAtEndPoint);
   }
 
   /** {@inheritDoc} */
   @Override
-  public ChangeColumnAssert hasValuesEqualTo(byte[] expected) {
+  public ChangeColumnAssert hasValues(byte[] expected) {
     return AssertionsOnColumnOfChangeEquality
-            .hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expected);
+            .hasValues(myself, info, valueAtStartPoint, valueAtEndPoint, expected);
   }
 
   /** {@inheritDoc} */
   @Override
-  public ChangeColumnAssert hasValuesEqualTo(byte[] expectedAtStartPoint, byte[] expectedAtEndPoint) {
+  public ChangeColumnAssert hasValues(byte[] expectedAtStartPoint, byte[] expectedAtEndPoint) {
     return AssertionsOnColumnOfChangeEquality
-            .hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expectedAtStartPoint,
-                              expectedAtEndPoint);
+            .hasValues(myself, info, valueAtStartPoint, valueAtEndPoint, expectedAtStartPoint,
+                       expectedAtEndPoint);
   }
 
   /** {@inheritDoc} */
   @Override
-  public ChangeColumnAssert hasValuesEqualTo(String expected) {
+  public ChangeColumnAssert hasValues(String expected) {
     return AssertionsOnColumnOfChangeEquality
-            .hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expected);
+            .hasValues(myself, info, valueAtStartPoint, valueAtEndPoint, expected);
   }
 
   /** {@inheritDoc} */
   @Override
-  public ChangeColumnAssert hasValuesEqualTo(String expectedAtStartPoint, String expectedAtEndPoint) {
+  public ChangeColumnAssert hasValues(String expectedAtStartPoint, String expectedAtEndPoint) {
     return AssertionsOnColumnOfChangeEquality
-            .hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expectedAtStartPoint,
-                              expectedAtEndPoint);
+            .hasValues(myself, info, valueAtStartPoint, valueAtEndPoint, expectedAtStartPoint,
+                       expectedAtEndPoint);
   }
 
   /** {@inheritDoc} */
   @Override
-  public ChangeColumnAssert hasValuesEqualTo(DateValue expected) {
+  public ChangeColumnAssert hasValues(DateValue expected) {
     return AssertionsOnColumnOfChangeEquality
-            .hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expected);
+            .hasValues(myself, info, valueAtStartPoint, valueAtEndPoint, expected);
   }
 
   /** {@inheritDoc} */
   @Override
-  public ChangeColumnAssert hasValuesEqualTo(DateValue expectedAtStartPoint, DateValue expectedAtEndPoint) {
+  public ChangeColumnAssert hasValues(DateValue expectedAtStartPoint, DateValue expectedAtEndPoint) {
     return AssertionsOnColumnOfChangeEquality
-            .hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expectedAtStartPoint,
-                              expectedAtEndPoint);
+            .hasValues(myself, info, valueAtStartPoint, valueAtEndPoint, expectedAtStartPoint,
+                       expectedAtEndPoint);
   }
 
   /** {@inheritDoc} */
   @Override
-  public ChangeColumnAssert hasValuesEqualTo(TimeValue expected) {
+  public ChangeColumnAssert hasValues(TimeValue expected) {
     return AssertionsOnColumnOfChangeEquality
-            .hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expected);
+            .hasValues(myself, info, valueAtStartPoint, valueAtEndPoint, expected);
   }
 
   /** {@inheritDoc} */
   @Override
-  public ChangeColumnAssert hasValuesEqualTo(TimeValue expectedAtStartPoint, TimeValue expectedAtEndPoint) {
+  public ChangeColumnAssert hasValues(TimeValue expectedAtStartPoint, TimeValue expectedAtEndPoint) {
     return AssertionsOnColumnOfChangeEquality
-            .hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expectedAtStartPoint,
-                              expectedAtEndPoint);
+            .hasValues(myself, info, valueAtStartPoint, valueAtEndPoint, expectedAtStartPoint,
+                       expectedAtEndPoint);
   }
 
   /** {@inheritDoc} */
   @Override
-  public ChangeColumnAssert hasValuesEqualTo(DateTimeValue expected) {
+  public ChangeColumnAssert hasValues(DateTimeValue expected) {
     return AssertionsOnColumnOfChangeEquality
-            .hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expected);
+            .hasValues(myself, info, valueAtStartPoint, valueAtEndPoint, expected);
   }
 
   /** {@inheritDoc} */
   @Override
-  public ChangeColumnAssert hasValuesEqualTo(DateTimeValue expectedAtStartPoint, DateTimeValue expectedAtEndPoint) {
+  public ChangeColumnAssert hasValues(DateTimeValue expectedAtStartPoint, DateTimeValue expectedAtEndPoint) {
     return AssertionsOnColumnOfChangeEquality
-            .hasValuesEqualTo(myself, info, valueAtStartPoint, valueAtEndPoint, expectedAtStartPoint,
-                              expectedAtEndPoint);
+            .hasValues(myself, info, valueAtStartPoint, valueAtEndPoint, expectedAtStartPoint,
+                       expectedAtEndPoint);
   }
 
   /** {@inheritDoc} */

@@ -146,44 +146,44 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
 
   /** {@inheritDoc} */
   @Override
-  public C hasValuesEqualTo(Boolean... expected) {
-    return AssertionsOnColumnEquality.hasValuesEqualTo(myself, info, getValuesList(), expected);
+  public C hasValues(Boolean... expected) {
+    return AssertionsOnColumnEquality.hasValues(myself, info, getValuesList(), expected);
   }
 
   /** {@inheritDoc} */
   @Override
-  public C hasValuesEqualTo(Number... expected) {
-    return AssertionsOnColumnEquality.hasValuesEqualTo(myself, info, getValuesList(), expected);
+  public C hasValues(Number... expected) {
+    return AssertionsOnColumnEquality.hasValues(myself, info, getValuesList(), expected);
   }
 
   /** {@inheritDoc} */
   @Override
-  public C hasValuesEqualTo(byte[]... expected) {
-    return AssertionsOnColumnEquality.hasValuesEqualTo(myself, info, getValuesList(), expected);
+  public C hasValues(byte[]... expected) {
+    return AssertionsOnColumnEquality.hasValues(myself, info, getValuesList(), expected);
   }
 
   /** {@inheritDoc} */
   @Override
-  public C hasValuesEqualTo(String... expected) {
-    return AssertionsOnColumnEquality.hasValuesEqualTo(myself, info, getValuesList(), expected);
+  public C hasValues(String... expected) {
+    return AssertionsOnColumnEquality.hasValues(myself, info, getValuesList(), expected);
   }
 
   /** {@inheritDoc} */
   @Override
-  public C hasValuesEqualTo(DateValue... expected) {
-    return AssertionsOnColumnEquality.hasValuesEqualTo(myself, info, getValuesList(), expected);
+  public C hasValues(DateValue... expected) {
+    return AssertionsOnColumnEquality.hasValues(myself, info, getValuesList(), expected);
   }
 
   /** {@inheritDoc} */
   @Override
-  public C hasValuesEqualTo(TimeValue... expected) {
-    return AssertionsOnColumnEquality.hasValuesEqualTo(myself, info, getValuesList(), expected);
+  public C hasValues(TimeValue... expected) {
+    return AssertionsOnColumnEquality.hasValues(myself, info, getValuesList(), expected);
   }
 
   /** {@inheritDoc} */
   @Override
-  public C hasValuesEqualTo(DateTimeValue... expected) {
-    return AssertionsOnColumnEquality.hasValuesEqualTo(myself, info, getValuesList(), expected);
+  public C hasValues(DateTimeValue... expected) {
+    return AssertionsOnColumnEquality.hasValues(myself, info, getValuesList(), expected);
   }
 
   /** {@inheritDoc} */

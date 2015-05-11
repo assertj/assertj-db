@@ -30,7 +30,7 @@ public interface AssertOnRowEquality<T extends AssertOnRowEquality<T>> {
    * </p>
    *
    * <pre><code class='java'>
-   * assertThat(table).row().hasValuesEqualTo(1, &quot;Text&quot;, TimeValue.of(9, 1));
+   * assertThat(table).row().hasValues(1, &quot;Text&quot;, TimeValue.of(9, 1));
    * </code></pre>
    * <p>
    * Example where the assertion verifies that the values of the row at end point of the first change are equal to the
@@ -38,14 +38,14 @@ public interface AssertOnRowEquality<T extends AssertOnRowEquality<T>> {
    * </p>
    *
    * <pre><code class='java'>
-   * assertThat(changes).change().rowAtEndPoint().hasValuesEqualTo(1, &quot;Text&quot;, TimeValue.of(9, 1));
+   * assertThat(changes).change().rowAtEndPoint().hasValues(1, &quot;Text&quot;, TimeValue.of(9, 1));
    * </code></pre>
    *
    * @param expected The expected values.
    * @return {@code this} assertion object.
    * @throws AssertionError If the values of the row are not equal to the values in parameters.
-   * @see org.assertj.db.api.AbstractRowAssert#hasValuesEqualTo(Object...)
-   * @see org.assertj.db.api.ChangeRowAssert#hasValuesEqualTo(Object...)
+   * @see org.assertj.db.api.AbstractRowAssert#hasValues(Object...)
+   * @see org.assertj.db.api.ChangeRowAssert#hasValues(Object...)
    */
-  public T hasValuesEqualTo(Object... expected);
+  public T hasValues(Object... expected);
 }

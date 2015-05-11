@@ -100,7 +100,7 @@ public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends A
 
   /** {@inheritDoc} */
   @Override
-  public R hasValuesEqualTo(Object... expected) {
-    return AssertionsOnRowEquality.hasValuesEqualTo(myself, info, getValuesList(), expected);
+  public R hasValues(Object... expected) {
+    return AssertionsOnRowEquality.hasValues(myself, info, getValuesList(), expected);
   }
 }

@@ -34,15 +34,15 @@ public interface AssertOnColumnEquality<T extends AssertOnColumnEquality<T>> {
    * </p>
    *
    * <pre><code class='java'>
-   * assertThat(table).column().hasValuesEqualTo(true, false, true);
+   * assertThat(table).column().hasValues(true, false, true);
    * </code></pre>
    *
    * @param expected The expected boolean values.
    * @return {@code this} assertion object.
    * @throws AssertionError If the values of the column are not equal to the booleans in parameter.
-   * @see org.assertj.db.api.AbstractColumnAssert#hasValuesEqualTo(Boolean...)
+   * @see org.assertj.db.api.AbstractColumnAssert#hasValues(Boolean...)
    */
-  public T hasValuesEqualTo(Boolean... expected);
+  public T hasValues(Boolean... expected);
 
   /**
    * Verifies that the values of a column are equal to numbers.
@@ -52,15 +52,15 @@ public interface AssertOnColumnEquality<T extends AssertOnColumnEquality<T>> {
    * </p>
    *
    * <pre><code class='java'>
-   * assertThat(table).column().hasValuesEqualTo(5, 10.5, 6);
+   * assertThat(table).column().hasValues(5, 10.5, 6);
    * </code></pre>
    *
    * @param expected The expected numbers values.
    * @return {@code this} assertion object.
    * @throws AssertionError If the values of the column are not equal to the numbers in parameter.
-   * @see org.assertj.db.api.AbstractColumnAssert#hasValuesEqualTo(Number...)
+   * @see org.assertj.db.api.AbstractColumnAssert#hasValues(Number...)
    */
-  public T hasValuesEqualTo(Number... expected);
+  public T hasValues(Number... expected);
 
   /**
    * Verifies that the values of a column are equal to bytes.
@@ -72,15 +72,15 @@ public interface AssertOnColumnEquality<T extends AssertOnColumnEquality<T>> {
    * <pre><code class='java'>
    * byte[] bytes1 = bytesContentFromClassPathOf(&quot;file1.png&quot;);
    * byte[] bytes2 = bytesContentFromClassPathOf(&quot;file2.png&quot;);
-   * assertThat(table).column().hasValuesEqualTo(bytes1, bytes2);
+   * assertThat(table).column().hasValues(bytes1, bytes2);
    * </code></pre>
    *
    * @param expected The expected bytes values.
    * @return {@code this} assertion object.
    * @throws AssertionError If the values of the column are not equal to the bytes in parameter.
-   * @see org.assertj.db.api.AbstractColumnAssert#hasValuesEqualTo(byte[]...)
+   * @see org.assertj.db.api.AbstractColumnAssert#hasValues(byte[]...)
    */
-  public T hasValuesEqualTo(byte[]... expected);
+  public T hasValues(byte[]... expected);
 
   /**
    * Verifies that the values of a column are equal to texts.
@@ -90,15 +90,15 @@ public interface AssertOnColumnEquality<T extends AssertOnColumnEquality<T>> {
    * </p>
    *
    * <pre><code class='java'>
-   * assertThat(table).column().hasValuesEqualTo(&quot;text&quot;, &quot;text2&quot;, &quot;text3&quot;);
+   * assertThat(table).column().hasValues(&quot;text&quot;, &quot;text2&quot;, &quot;text3&quot;);
    * </code></pre>
    *
    * @param expected The expected text values.
    * @return {@code this} assertion object.
    * @throws AssertionError If the values of the column are not equal to the texts in parameter.
-   * @see org.assertj.db.api.AbstractColumnAssert#hasValuesEqualTo(String...)
+   * @see org.assertj.db.api.AbstractColumnAssert#hasValues(String...)
    */
-  public T hasValuesEqualTo(String... expected);
+  public T hasValues(String... expected);
 
   /**
    * Verifies that the values of a column are equal to date values.
@@ -108,16 +108,16 @@ public interface AssertOnColumnEquality<T extends AssertOnColumnEquality<T>> {
    * </p>
    *
    * <pre><code class='java'>
-   * assertThat(table).column().hasValuesEqualTo(DateValue.of(2014, 7, 7), DateValue.of(2014, 10, 3),
+   * assertThat(table).column().hasValues(DateValue.of(2014, 7, 7), DateValue.of(2014, 10, 3),
    *     DateValue.of(2014, 12, 23));
    * </code></pre>
    *
    * @param expected The expected date values.
    * @return {@code this} assertion object.
    * @throws AssertionError If the values of the column are not equal to the date values in parameter.
-   * @see org.assertj.db.api.AbstractColumnAssert#hasValuesEqualTo(DateValue...)
+   * @see org.assertj.db.api.AbstractColumnAssert#hasValues(DateValue...)
    */
-  public T hasValuesEqualTo(DateValue... expected);
+  public T hasValues(DateValue... expected);
 
   /**
    * Verifies that the values of a column are equal to time values.
@@ -127,15 +127,15 @@ public interface AssertOnColumnEquality<T extends AssertOnColumnEquality<T>> {
    * </p>
    *
    * <pre><code class='java'>
-   * assertThat(table).column().hasValuesEqualTo(TimeValue.of(21, 29, 30), TimeValue.of(10, 1, 25), TimeValue.of(9, 1));
+   * assertThat(table).column().hasValues(TimeValue.of(21, 29, 30), TimeValue.of(10, 1, 25), TimeValue.of(9, 1));
    * </code></pre>
    *
    * @param expected The expected time values.
    * @return {@code this} assertion object.
    * @throws AssertionError If the values of the column are not equal to the time values in parameter.
-   * @see org.assertj.db.api.AbstractColumnAssert#hasValuesEqualTo(TimeValue...)
+   * @see org.assertj.db.api.AbstractColumnAssert#hasValues(TimeValue...)
    */
-  public T hasValuesEqualTo(TimeValue... expected);
+  public T hasValues(TimeValue... expected);
 
   /**
    * Verifies that the values of a column are equal to date/time values.
@@ -145,7 +145,7 @@ public interface AssertOnColumnEquality<T extends AssertOnColumnEquality<T>> {
    * </p>
    *
    * <pre><code class='java'>
-   * assertThat(table).column().hasValuesEqualTo(DateTimeValue.of(DateValue.of(2014, 7, 7), TimeValue.of(21, 29)),
+   * assertThat(table).column().hasValues(DateTimeValue.of(DateValue.of(2014, 7, 7), TimeValue.of(21, 29)),
    *     DateTimeValue.of(DateValue.of(2014, 7, 7), TimeValue.of(10, 1, 25)),
    *     DateTimeValue.of(DateValue.of(2014, 7, 7), TimeValue.of(9, 1)));
    * </code></pre>
@@ -153,7 +153,7 @@ public interface AssertOnColumnEquality<T extends AssertOnColumnEquality<T>> {
    * @param expected The expected date/time values.
    * @return {@code this} assertion object.
    * @throws AssertionError If the values of the column are not equal to the date/time values in parameter.
-   * @see org.assertj.db.api.AbstractColumnAssert#hasValuesEqualTo(DateTimeValue...)
+   * @see org.assertj.db.api.AbstractColumnAssert#hasValues(DateTimeValue...)
    */
-  public T hasValuesEqualTo(DateTimeValue... expected);
+  public T hasValues(DateTimeValue... expected);
 }
