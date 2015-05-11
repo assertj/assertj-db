@@ -86,8 +86,8 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
 
   /** {@inheritDoc} */
   @Override
-  public C isOfAnyOfTypes(ValueType... expected) {
-    return AssertionsOnColumnType.isOfAnyOfTypes(myself, info, getValuesList(), expected);
+  public C isOfAnyTypeIn(ValueType... expected) {
+    return AssertionsOnColumnType.isOfAnyTypeIn(myself, info, getValuesList(), expected);
   }
 
   /** {@inheritDoc} */

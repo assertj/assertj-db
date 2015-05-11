@@ -24,7 +24,7 @@ import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link org.assertj.db.api.assertions.impl.AssertionsOnColumnOfChangeType} class :
- * {@link org.assertj.db.api.assertions.impl.AssertionsOnColumnOfChangeType#isOfAnyOfTypes(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, Object, Object, org.assertj.db.type.ValueType...)} method.
+ * {@link org.assertj.db.api.assertions.impl.AssertionsOnColumnOfChangeType#isOfAnyTypeIn(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, Object, Object, org.assertj.db.type.ValueType...)} method.
  *
  * @author Régis Pouiller
  *
@@ -32,20 +32,21 @@ import static org.junit.Assert.fail;
 public class AssertionsOnColumnOfChangeType_IsOfAnyOfTypes_Test {
 
   /**
-   * This method tests the {@code isOfAnyOfTypes} assertion method.
+   * This method tests the {@code isOfAnyTypeIn} assertion method.
    */
   @Test
   public void test_is_of_any_of_types() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    TableAssert tableAssert2 = AssertionsOnColumnOfChangeType.isOfAnyOfTypes(tableAssert, info, "test", "test",
-                                                                             ValueType.TEXT);
+    TableAssert tableAssert2 = AssertionsOnColumnOfChangeType.isOfAnyTypeIn(tableAssert, info, "test", "test",
+                                                                            ValueType.TEXT);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnColumnOfChangeType.isOfAnyOfTypes(tableAssert, info, "test", "test", ValueType.TEXT,
-                                                                 ValueType.NUMBER);
+    tableAssert2 = AssertionsOnColumnOfChangeType.isOfAnyTypeIn(tableAssert, info, "test", "test", ValueType.TEXT,
+                                                                ValueType.NUMBER);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnColumnOfChangeType.isOfAnyOfTypes(tableAssert, info, null, "test", ValueType.TEXT, ValueType.NOT_IDENTIFIED);
+    tableAssert2 = AssertionsOnColumnOfChangeType.isOfAnyTypeIn(tableAssert, info, null, "test", ValueType.TEXT,
+                                                                ValueType.NOT_IDENTIFIED);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -59,8 +60,8 @@ public class AssertionsOnColumnOfChangeType_IsOfAnyOfTypes_Test {
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnColumnOfChangeType.isOfAnyOfTypes(tableAssert, info,
-                                                    8, "test", ValueType.TEXT, ValueType.DATE);
+      AssertionsOnColumnOfChangeType.isOfAnyTypeIn(tableAssert, info,
+                                                   8, "test", ValueType.TEXT, ValueType.DATE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
@@ -83,8 +84,8 @@ public class AssertionsOnColumnOfChangeType_IsOfAnyOfTypes_Test {
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnColumnOfChangeType.isOfAnyOfTypes(tableAssert, info,
-                                                    "test", 8, ValueType.TEXT, ValueType.DATE);
+      AssertionsOnColumnOfChangeType.isOfAnyTypeIn(tableAssert, info,
+                                                   "test", 8, ValueType.TEXT, ValueType.DATE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"

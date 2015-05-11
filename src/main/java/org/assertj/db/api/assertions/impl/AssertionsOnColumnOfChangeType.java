@@ -62,7 +62,7 @@ public class AssertionsOnColumnOfChangeType {
                                                       Object valueAtStartPoint, Object valueAtEndPoint,
                                                       ValueType expected, boolean lenient) {
     if (lenient) {
-      return isOfAnyOfTypes(assertion, info, valueAtStartPoint, valueAtEndPoint, expected, ValueType.NOT_IDENTIFIED);
+      return isOfAnyTypeIn(assertion, info, valueAtStartPoint, valueAtEndPoint, expected, ValueType.NOT_IDENTIFIED);
     }
 
     ValueType typeAtStartPoint = ValueType.getType(valueAtStartPoint);
@@ -89,9 +89,9 @@ public class AssertionsOnColumnOfChangeType {
    * @return {@code this} assertion object.
    * @throws AssertionError If the type of the column is different to all the types in parameters.
    */
-  public static <A extends AbstractAssert> A isOfAnyOfTypes(A assertion, WritableAssertionInfo info,
-                                                            Object valueAtStartPoint, Object valueAtEndPoint,
-                                                            ValueType... expected) {
+  public static <A extends AbstractAssert> A isOfAnyTypeIn(A assertion, WritableAssertionInfo info,
+                                                           Object valueAtStartPoint, Object valueAtEndPoint,
+                                                           ValueType... expected) {
     ValueType typeAtStartPoint = ValueType.getType(valueAtStartPoint);
     boolean matched = false;
     for (ValueType valueType : expected) {

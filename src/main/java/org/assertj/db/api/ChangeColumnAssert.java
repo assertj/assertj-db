@@ -230,8 +230,8 @@ public class ChangeColumnAssert
 
   /** {@inheritDoc} */
   @Override
-  public ChangeColumnAssert isOfAnyOfTypes(ValueType... expected) {
-    return AssertionsOnColumnOfChangeType.isOfAnyOfTypes(myself, info, valueAtStartPoint, valueAtEndPoint, expected);
+  public ChangeColumnAssert isOfAnyTypeIn(ValueType... expected) {
+    return AssertionsOnColumnOfChangeType.isOfAnyTypeIn(myself, info, valueAtStartPoint, valueAtEndPoint, expected);
   }
 
   /** {@inheritDoc} */

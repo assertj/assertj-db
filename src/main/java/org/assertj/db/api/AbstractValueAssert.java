@@ -80,8 +80,8 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
 
   /** {@inheritDoc} */
   @Override
-  public V isOfAnyOfTypes(ValueType... expected) {
-    return AssertionsOnValueType.isOfAnyOfTypes(myself, info, value, expected);
+  public V isOfAnyTypeIn(ValueType... expected) {
+    return AssertionsOnValueType.isOfAnyTypeIn(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */

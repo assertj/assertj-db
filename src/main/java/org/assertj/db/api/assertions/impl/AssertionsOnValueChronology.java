@@ -65,7 +65,7 @@ public class AssertionsOnValueChronology {
    */
   public static <A extends AbstractAssert> A isBefore(A assertion, WritableAssertionInfo info, Object value,
                                                       DateValue date) {
-    AssertionsOnValueType.isOfAnyOfTypes(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
+    AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
     if (value instanceof Date) {
       DateValue dateValue = DateValue.from((Date) value);
       if (dateValue.isBefore(date)) {
@@ -114,7 +114,7 @@ public class AssertionsOnValueChronology {
    */
   public static <A extends AbstractAssert> A isBefore(A assertion, WritableAssertionInfo info, Object value,
                                                       DateTimeValue dateTime) {
-    AssertionsOnValueType.isOfAnyOfTypes(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
+    AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
     DateTimeValue dateTimeValue;
     if (value instanceof Date) {
       dateTimeValue = DateTimeValue.of(DateValue.from((Date) value));
@@ -140,7 +140,7 @@ public class AssertionsOnValueChronology {
    */
   public static <A extends AbstractAssert> A isBefore(A assertion, WritableAssertionInfo info, Object value,
                                                       String expected) {
-    AssertionsOnValueType.isOfAnyOfTypes(assertion, info, value, ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME);
+    AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME);
 
     // By considering the possible types, the class of the value is
     // java.sql.Date, java.sql.Time or java.sql.Timestamp
@@ -191,7 +191,7 @@ public class AssertionsOnValueChronology {
    */
   public static <A extends AbstractAssert> A isBeforeOrEqualTo(A assertion, WritableAssertionInfo info, Object value,
                                                                DateValue date) {
-    AssertionsOnValueType.isOfAnyOfTypes(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
+    AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
     if (value instanceof Date) {
       if (DateValue.from((Date) value).isBefore(date) || areEqual(value, date)) {
         return assertion;
@@ -239,7 +239,7 @@ public class AssertionsOnValueChronology {
    */
   public static <A extends AbstractAssert> A isBeforeOrEqualTo(A assertion, WritableAssertionInfo info, Object value,
                                                                DateTimeValue dateTime) {
-    AssertionsOnValueType.isOfAnyOfTypes(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
+    AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
     DateTimeValue dateTimeValue;
     if (value instanceof Date) {
       dateTimeValue = DateTimeValue.of(DateValue.from((Date) value));
@@ -265,7 +265,7 @@ public class AssertionsOnValueChronology {
    */
   public static <A extends AbstractAssert> A isBeforeOrEqualTo(A assertion, WritableAssertionInfo info, Object value,
                                                                String expected) {
-    AssertionsOnValueType.isOfAnyOfTypes(assertion, info, value, ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME);
+    AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME);
 
     // By considering the possible types, the class of the value is
     // java.sql.Date, java.sql.Time or java.sql.Timestamp
@@ -316,7 +316,7 @@ public class AssertionsOnValueChronology {
    */
   public static <A extends AbstractAssert> A isAfter(A assertion, WritableAssertionInfo info, Object value,
                                                      DateValue date) {
-    AssertionsOnValueType.isOfAnyOfTypes(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
+    AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
     if (value instanceof Date) {
       if (DateValue.from((Date) value).isAfter(date)) {
         return assertion;
@@ -364,7 +364,7 @@ public class AssertionsOnValueChronology {
    */
   public static <A extends AbstractAssert> A isAfter(A assertion, WritableAssertionInfo info, Object value,
                                                      DateTimeValue dateTime) {
-    AssertionsOnValueType.isOfAnyOfTypes(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
+    AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
     DateTimeValue dateTimeValue;
     if (value instanceof Date) {
       dateTimeValue = DateTimeValue.of(DateValue.from((Date) value));
@@ -390,7 +390,7 @@ public class AssertionsOnValueChronology {
    */
   public static <A extends AbstractAssert> A isAfter(A assertion, WritableAssertionInfo info, Object value,
                                                      String expected) {
-    AssertionsOnValueType.isOfAnyOfTypes(assertion, info, value, ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME);
+    AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME);
 
     // By considering the possible types, the class of the value is
     // java.sql.Date, java.sql.Time or java.sql.Timestamp
@@ -441,7 +441,7 @@ public class AssertionsOnValueChronology {
    */
   public static <A extends AbstractAssert> A isAfterOrEqualTo(A assertion, WritableAssertionInfo info, Object value,
                                                               DateValue date) {
-    AssertionsOnValueType.isOfAnyOfTypes(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
+    AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
     if (value instanceof Date) {
       if (DateValue.from((Date) value).isAfter(date) || areEqual(value, date)) {
         return assertion;
@@ -489,7 +489,7 @@ public class AssertionsOnValueChronology {
    */
   public static <A extends AbstractAssert> A isAfterOrEqualTo(A assertion, WritableAssertionInfo info, Object value,
                                                               DateTimeValue dateTime) {
-    AssertionsOnValueType.isOfAnyOfTypes(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
+    AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
     DateTimeValue dateTimeValue;
     if (value instanceof Date) {
       dateTimeValue = DateTimeValue.of(DateValue.from((Date) value));
@@ -514,7 +514,7 @@ public class AssertionsOnValueChronology {
    * @throws AssertionError If the value is not after or equal to the date, time or date/time represented in parameter.
    */
   public static <A extends AbstractAssert> A isAfterOrEqualTo(A assertion, WritableAssertionInfo info, Object value, String expected) {
-    AssertionsOnValueType.isOfAnyOfTypes(assertion, info, value, ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME);
+    AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME);
 
     // By considering the possible types, the class of the value is
     // java.sql.Date, java.sql.Time or java.sql.Timestamp

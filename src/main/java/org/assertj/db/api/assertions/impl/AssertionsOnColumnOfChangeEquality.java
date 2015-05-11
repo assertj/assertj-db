@@ -224,9 +224,9 @@ public class AssertionsOnColumnOfChangeEquality {
                                                        Object valueAtStartPoint, Object valueAtEndPoint,
                                                        String expected) {
 
-    AssertionsOnColumnOfChangeType.isOfAnyOfTypes(assertion, info, valueAtStartPoint, valueAtEndPoint,
-                                                  ValueType.TEXT, ValueType.NUMBER, ValueType.DATE,
-                                                  ValueType.TIME, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
+    AssertionsOnColumnOfChangeType.isOfAnyTypeIn(assertion, info, valueAtStartPoint, valueAtEndPoint,
+                                                 ValueType.TEXT, ValueType.NUMBER, ValueType.DATE,
+                                                 ValueType.TIME, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
     if (!areEqual(valueAtStartPoint, expected)) {
       throw failures.failure(info, shouldBeEqualWithStartPoint(
               Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expected), expected));
@@ -255,9 +255,9 @@ public class AssertionsOnColumnOfChangeEquality {
                                                        Object valueAtStartPoint, Object valueAtEndPoint,
                                                        String expectedAtStartPoint, String expectedAtEndPoint) {
 
-    AssertionsOnColumnOfChangeType.isOfAnyOfTypes(assertion, info, valueAtStartPoint, valueAtEndPoint,
-                                                  ValueType.TEXT, ValueType.NUMBER, ValueType.DATE,
-                                                  ValueType.TIME, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
+    AssertionsOnColumnOfChangeType.isOfAnyTypeIn(assertion, info, valueAtStartPoint, valueAtEndPoint,
+                                                 ValueType.TEXT, ValueType.NUMBER, ValueType.DATE,
+                                                 ValueType.TIME, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
     if (!areEqual(valueAtStartPoint, expectedAtStartPoint)) {
       throw failures.failure(info, shouldBeEqualWithStartPoint(
               Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expectedAtStartPoint), expectedAtStartPoint));
@@ -285,8 +285,8 @@ public class AssertionsOnColumnOfChangeEquality {
                                                        Object valueAtStartPoint, Object valueAtEndPoint,
                                                        DateValue expected) {
 
-    AssertionsOnColumnOfChangeType.isOfAnyOfTypes(assertion, info, valueAtStartPoint, valueAtEndPoint, ValueType.DATE,
-                                                  ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
+    AssertionsOnColumnOfChangeType.isOfAnyTypeIn(assertion, info, valueAtStartPoint, valueAtEndPoint, ValueType.DATE,
+                                                 ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
     if (!areEqual(valueAtStartPoint, expected)) {
       throw failures.failure(info, shouldBeEqualWithStartPoint(
               Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expected), expected));
@@ -315,8 +315,8 @@ public class AssertionsOnColumnOfChangeEquality {
                                                        Object valueAtStartPoint, Object valueAtEndPoint,
                                                        DateValue expectedAtStartPoint, DateValue expectedAtEndPoint) {
 
-    AssertionsOnColumnOfChangeType.isOfAnyOfTypes(assertion, info, valueAtStartPoint, valueAtEndPoint, ValueType.DATE,
-                                                  ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
+    AssertionsOnColumnOfChangeType.isOfAnyTypeIn(assertion, info, valueAtStartPoint, valueAtEndPoint, ValueType.DATE,
+                                                 ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
     if (!areEqual(valueAtStartPoint, expectedAtStartPoint)) {
       throw failures.failure(info, shouldBeEqualWithStartPoint(
               Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expectedAtStartPoint), expectedAtStartPoint));
@@ -344,8 +344,8 @@ public class AssertionsOnColumnOfChangeEquality {
                                                        Object valueAtStartPoint, Object valueAtEndPoint,
                                                        TimeValue expected) {
 
-    AssertionsOnColumnOfChangeType.isOfAnyOfTypes(assertion, info, valueAtStartPoint, valueAtEndPoint, ValueType.TIME,
-                                                  ValueType.NOT_IDENTIFIED);
+    AssertionsOnColumnOfChangeType.isOfAnyTypeIn(assertion, info, valueAtStartPoint, valueAtEndPoint, ValueType.TIME,
+                                                 ValueType.NOT_IDENTIFIED);
     if (!areEqual(valueAtStartPoint, expected)) {
       throw failures.failure(info, shouldBeEqualWithStartPoint(
               Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expected), expected));
@@ -374,8 +374,8 @@ public class AssertionsOnColumnOfChangeEquality {
                                                        Object valueAtStartPoint, Object valueAtEndPoint,
                                                        TimeValue expectedAtStartPoint, TimeValue expectedAtEndPoint) {
 
-    AssertionsOnColumnOfChangeType.isOfAnyOfTypes(assertion, info, valueAtStartPoint, valueAtEndPoint, ValueType.TIME,
-                                                  ValueType.NOT_IDENTIFIED);
+    AssertionsOnColumnOfChangeType.isOfAnyTypeIn(assertion, info, valueAtStartPoint, valueAtEndPoint, ValueType.TIME,
+                                                 ValueType.NOT_IDENTIFIED);
     if (!areEqual(valueAtStartPoint, expectedAtStartPoint)) {
       throw failures.failure(info, shouldBeEqualWithStartPoint(
               Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expectedAtStartPoint), expectedAtStartPoint));
@@ -403,8 +403,8 @@ public class AssertionsOnColumnOfChangeEquality {
                                                        Object valueAtStartPoint, Object valueAtEndPoint,
                                                        DateTimeValue expected) {
 
-    AssertionsOnColumnOfChangeType.isOfAnyOfTypes(assertion, info, valueAtStartPoint, valueAtEndPoint,
-                                                  ValueType.DATE, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
+    AssertionsOnColumnOfChangeType.isOfAnyTypeIn(assertion, info, valueAtStartPoint, valueAtEndPoint,
+                                                 ValueType.DATE, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
     if (!areEqual(valueAtStartPoint, expected)) {
       throw failures.failure(info, shouldBeEqualWithStartPoint(
               Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expected), expected));
@@ -434,8 +434,8 @@ public class AssertionsOnColumnOfChangeEquality {
                                                        DateTimeValue expectedAtStartPoint,
                                                        DateTimeValue expectedAtEndPoint) {
 
-    AssertionsOnColumnOfChangeType.isOfAnyOfTypes(assertion, info, valueAtStartPoint, valueAtEndPoint,
-                                                  ValueType.DATE, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
+    AssertionsOnColumnOfChangeType.isOfAnyTypeIn(assertion, info, valueAtStartPoint, valueAtEndPoint,
+                                                 ValueType.DATE, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
     if (!areEqual(valueAtStartPoint, expectedAtStartPoint)) {
       throw failures.failure(info, shouldBeEqualWithStartPoint(
               Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expectedAtStartPoint), expectedAtStartPoint));

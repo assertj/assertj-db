@@ -27,15 +27,15 @@ import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link org.assertj.db.api.assertions.AssertOnColumnType} class :
- * {@link org.assertj.db.api.assertions.AssertOnColumnType#isOfAnyOfTypes(org.assertj.db.type.ValueType...)} method.
+ * {@link org.assertj.db.api.assertions.AssertOnColumnType#isOfAnyTypeIn(org.assertj.db.type.ValueType...)} method.
  *
  * @author Régis Pouiller
  *
  */
-public class AssertOnColumnType_IsOfAnyOfTypes_Test extends AbstractTest {
+public class AssertOnColumnType_IsOfAnyTypeIn_Test extends AbstractTest {
 
   /**
-   * This method tests the {@code isOfAnyOfTypes} assertion method.
+   * This method tests the {@code isOfAnyTypeIn} assertion method.
    */
   @Test
   @NeedReload
@@ -48,16 +48,18 @@ public class AssertOnColumnType_IsOfAnyOfTypes_Test extends AbstractTest {
     Table table2 = new Table(source, "test2");
 
     ChangeColumnAssert changeColumnAssert1 = assertThat(changes).change().column("var2");
-    ChangeColumnAssert changeColumnAssertReturn1 = changeColumnAssert1.isOfAnyOfTypes(ValueType.BOOLEAN, ValueType.NOT_IDENTIFIED);
+    ChangeColumnAssert changeColumnAssertReturn1 = changeColumnAssert1.isOfAnyTypeIn(ValueType.BOOLEAN,
+                                                                                     ValueType.NOT_IDENTIFIED);
     Assertions.assertThat(changeColumnAssert1).isSameAs(changeColumnAssertReturn1);
     ChangeColumnAssert changeColumnAssert2 = assertThat(changes).change(1).column("var2");
-    ChangeColumnAssert changeColumnAssertReturn2 = changeColumnAssert2.isOfAnyOfTypes(ValueType.BOOLEAN, ValueType.TEXT);
+    ChangeColumnAssert changeColumnAssertReturn2 = changeColumnAssert2.isOfAnyTypeIn(ValueType.BOOLEAN, ValueType.TEXT);
     Assertions.assertThat(changeColumnAssert2).isSameAs(changeColumnAssertReturn2);
     TableColumnAssert tableColumnAssert1 = assertThat(table).column("var2");
-    TableColumnAssert tableColumnAssertReturn1 = tableColumnAssert1.isOfAnyOfTypes(ValueType.BOOLEAN, ValueType.TEXT);
+    TableColumnAssert tableColumnAssertReturn1 = tableColumnAssert1.isOfAnyTypeIn(ValueType.BOOLEAN, ValueType.TEXT);
     Assertions.assertThat(tableColumnAssert1).isSameAs(tableColumnAssertReturn1);
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var2");
-    TableColumnAssert tableColumnAssertReturn2 = tableColumnAssert2.isOfAnyOfTypes(ValueType.BOOLEAN, ValueType.NOT_IDENTIFIED);
+    TableColumnAssert tableColumnAssertReturn2 = tableColumnAssert2.isOfAnyTypeIn(ValueType.BOOLEAN,
+                                                                                  ValueType.NOT_IDENTIFIED);
     Assertions.assertThat(tableColumnAssert2).isSameAs(tableColumnAssertReturn2);
   }
 
@@ -75,7 +77,7 @@ public class AssertOnColumnType_IsOfAnyOfTypes_Test extends AbstractTest {
     Table table2 = new Table(source, "test2");
 
     try {
-      assertThat(changes).change().column("var2").isOfAnyOfTypes(ValueType.BOOLEAN, ValueType.TEXT);
+      assertThat(changes).change().column("var2").isOfAnyTypeIn(ValueType.BOOLEAN, ValueType.TEXT);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("[Column at index 1 (column name : VAR2) of Change at index 0 (on table : TEST and with primary key : [5]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n"
@@ -87,7 +89,8 @@ public class AssertOnColumnType_IsOfAnyOfTypes_Test extends AbstractTest {
                                                       + "  <NOT_IDENTIFIED>");
     }
     try {
-      assertThat(changes).change(1).column("var1").isOfAnyOfTypes(ValueType.BOOLEAN, ValueType.TEXT, ValueType.NOT_IDENTIFIED);
+      assertThat(changes).change(1).column("var1").isOfAnyTypeIn(ValueType.BOOLEAN, ValueType.TEXT,
+                                                                 ValueType.NOT_IDENTIFIED);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("[Column at index 0 (column name : VAR1) of Change at index 1 (on table : TEST and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n"
@@ -99,7 +102,7 @@ public class AssertOnColumnType_IsOfAnyOfTypes_Test extends AbstractTest {
                                                       + "  <NUMBER>");
     }
     try {
-      assertThat(table).column("var1").isOfAnyOfTypes(ValueType.BOOLEAN, ValueType.TEXT, ValueType.NOT_IDENTIFIED);
+      assertThat(table).column("var1").isOfAnyTypeIn(ValueType.BOOLEAN, ValueType.TEXT, ValueType.NOT_IDENTIFIED);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("[Column at index 0 (column name : VAR1) of test table] \n"
@@ -111,7 +114,7 @@ public class AssertOnColumnType_IsOfAnyOfTypes_Test extends AbstractTest {
                                                       + "  <NUMBER>");
     }
     try {
-      assertThat(table2).column("var2").isOfAnyOfTypes(ValueType.BOOLEAN, ValueType.TEXT);
+      assertThat(table2).column("var2").isOfAnyTypeIn(ValueType.BOOLEAN, ValueType.TEXT);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("[Column at index 1 (column name : VAR2) of test2 table] \n"

@@ -60,7 +60,7 @@ public class AssertionsOnColumnType {
   public static <A extends AbstractAssert> A isOfType(A assertion, WritableAssertionInfo info, List<Object> valuesList,
                                                       ValueType expected, boolean lenient) {
     if (lenient) {
-      return isOfAnyOfTypes(assertion, info, valuesList, expected, ValueType.NOT_IDENTIFIED);
+      return isOfAnyTypeIn(assertion, info, valuesList, expected, ValueType.NOT_IDENTIFIED);
     }
 
     int index = 0;
@@ -86,8 +86,8 @@ public class AssertionsOnColumnType {
    * @return {@code this} assertion object.
    * @throws AssertionError If the type of the column is different to all the types in parameters.
    */
-  public static <A extends AbstractAssert> A isOfAnyOfTypes(A assertion, WritableAssertionInfo info,
-                                                            List<Object> valuesList, ValueType... expected) {
+  public static <A extends AbstractAssert> A isOfAnyTypeIn(A assertion, WritableAssertionInfo info,
+                                                           List<Object> valuesList, ValueType... expected) {
     int index = 0;
     loop:
     for (Object value : valuesList) {

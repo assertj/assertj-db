@@ -61,15 +61,15 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * </p>
    *
    * <pre><code class='java'>
-   * assertThat(table).column(&quot;title&quot;).isOfAnyOfTypes(ValueType.TEXT, ValueType.NUMBER);
+   * assertThat(table).column(&quot;title&quot;).isOfAnyTypeIn(ValueType.TEXT, ValueType.NUMBER);
    * </code></pre>
    *
    * @param expected The expected types to compare to.
    * @return {@code this} assertion object.
    * @throws AssertionError If the type of the column is different to all the types in parameters.
-   * @see org.assertj.db.api.AbstractColumnAssert#isOfAnyOfTypes(org.assertj.db.type.ValueType...)
+   * @see org.assertj.db.api.AbstractColumnAssert#isOfAnyTypeIn(org.assertj.db.type.ValueType...)
    */
-  public T isOfAnyOfTypes(ValueType... expected);
+  public T isOfAnyTypeIn(ValueType... expected);
 
   /**
    * Verifies that the type of the values of the column is number.

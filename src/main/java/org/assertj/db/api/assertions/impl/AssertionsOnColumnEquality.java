@@ -139,8 +139,8 @@ public class AssertionsOnColumnEquality {
    */
   public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
                                                        List<Object> valuesList, String... expected) {
-    AssertionsOnColumnType.isOfAnyOfTypes(assertion, info, valuesList, ValueType.TEXT, ValueType.NUMBER, ValueType.DATE,
-                                          ValueType.TIME, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
+    AssertionsOnColumnType.isOfAnyTypeIn(assertion, info, valuesList, ValueType.TEXT, ValueType.NUMBER, ValueType.DATE,
+                                         ValueType.TIME, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
     int index = 0;
     for (Object value : valuesList) {
@@ -168,7 +168,7 @@ public class AssertionsOnColumnEquality {
   public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
                                                        List<Object> valuesList, DateValue... expected) {
     AssertionsOnColumnType
-            .isOfAnyOfTypes(assertion, info, valuesList, ValueType.DATE, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
+            .isOfAnyTypeIn(assertion, info, valuesList, ValueType.DATE, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
     int index = 0;
     for (Object value : valuesList) {
@@ -194,7 +194,7 @@ public class AssertionsOnColumnEquality {
    */
   public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
                                                        List<Object> valuesList, TimeValue... expected) {
-    AssertionsOnColumnType.isOfAnyOfTypes(assertion, info, valuesList, ValueType.TIME, ValueType.NOT_IDENTIFIED);
+    AssertionsOnColumnType.isOfAnyTypeIn(assertion, info, valuesList, ValueType.TIME, ValueType.NOT_IDENTIFIED);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
     int index = 0;
     for (Object value : valuesList) {
@@ -222,7 +222,8 @@ public class AssertionsOnColumnEquality {
    */
   public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
                                                        List<Object> valuesList, DateTimeValue... expected) {
-    AssertionsOnColumnType.isOfAnyOfTypes(assertion, info, valuesList, ValueType.DATE, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
+    AssertionsOnColumnType.isOfAnyTypeIn(assertion, info, valuesList, ValueType.DATE, ValueType.DATE_TIME,
+                                         ValueType.NOT_IDENTIFIED);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
     int index = 0;
     for (Object value : valuesList) {

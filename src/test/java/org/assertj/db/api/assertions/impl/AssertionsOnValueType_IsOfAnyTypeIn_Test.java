@@ -24,25 +24,25 @@ import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link AssertionsOnValueType} class :
- * {@link AssertionsOnValueType#isOfAnyOfTypes(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, Object, org.assertj.db.type.ValueType...)} method.
+ * {@link AssertionsOnValueType#isOfAnyTypeIn(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, Object, org.assertj.db.type.ValueType...)} method.
  *
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnValueType_IsOfAnyOfTypes_Test {
+public class AssertionsOnValueType_IsOfAnyTypeIn_Test {
 
   /**
-   * This method tests the {@code isOfAnyOfTypes} assertion method.
+   * This method tests the {@code isOfAnyTypeIn} assertion method.
    */
   @Test
   public void test_is_of_any_of_types() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    TableAssert tableAssert2 = AssertionsOnValueType.isOfAnyOfTypes(tableAssert, info, "test",
-                                                                     ValueType.TEXT);
+    TableAssert tableAssert2 = AssertionsOnValueType.isOfAnyTypeIn(tableAssert, info, "test",
+                                                                   ValueType.TEXT);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnValueType.isOfAnyOfTypes(tableAssert, info, "test", ValueType.TEXT, ValueType.NUMBER);
+    tableAssert2 = AssertionsOnValueType.isOfAnyTypeIn(tableAssert, info, "test", ValueType.TEXT, ValueType.NUMBER);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -56,7 +56,7 @@ public class AssertionsOnValueType_IsOfAnyOfTypes_Test {
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnValueType.isOfAnyOfTypes(tableAssert, info, 8, ValueType.TEXT, ValueType.DATE);
+      AssertionsOnValueType.isOfAnyTypeIn(tableAssert, info, 8, ValueType.TEXT, ValueType.DATE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"

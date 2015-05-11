@@ -72,8 +72,8 @@ public class AssertionsOnValueType {
    * @return {@code this} assertion object.
    * @throws AssertionError If the type of the value is different to all the types in parameters.
    */
-  public static <A extends AbstractAssert> A isOfAnyOfTypes(A assertion, WritableAssertionInfo info, Object value,
-                                                            ValueType... expected) {
+  public static <A extends AbstractAssert> A isOfAnyTypeIn(A assertion, WritableAssertionInfo info, Object value,
+                                                           ValueType... expected) {
     ValueType type = ValueType.getType(value);
     for (ValueType valueType : expected) {
       if (type == valueType) {

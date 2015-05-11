@@ -27,15 +27,15 @@ import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link org.assertj.db.api.assertions.AssertOnValueType} class :
- * {@link org.assertj.db.api.assertions.AssertOnValueType#isOfAnyOfTypes(org.assertj.db.type.ValueType...)} method.
+ * {@link org.assertj.db.api.assertions.AssertOnValueType#isOfAnyTypeIn(org.assertj.db.type.ValueType...)} method.
  *
  * @author Régis Pouiller
  *
  */
-public class AssertOnValueType_IsOfAnyOfTypes_Test extends AbstractTest {
+public class AssertOnValueType_IsOfAnyTypeIn_Test extends AbstractTest {
 
   /**
-   * This method tests the {@code isOfAnyOfTypes} assertion method.
+   * This method tests the {@code isOfAnyTypeIn} assertion method.
    */
   @Test
   @NeedReload
@@ -46,11 +46,11 @@ public class AssertOnValueType_IsOfAnyOfTypes_Test extends AbstractTest {
     changes.setEndPointNow();
 
     ChangeColumnValueAssert changeColumnValueAssert = assertThat(changes).change().column("var2").valueAtEndPoint();
-    ChangeColumnValueAssert changeColumnValueAssert2 = changeColumnValueAssert.isOfAnyOfTypes(ValueType.BOOLEAN);
+    ChangeColumnValueAssert changeColumnValueAssert2 = changeColumnValueAssert.isOfAnyTypeIn(ValueType.BOOLEAN);
     Assertions.assertThat(changeColumnValueAssert).isSameAs(changeColumnValueAssert2);
 
     TableColumnValueAssert tableColumnValueAssert = assertThat(table).column("var2").value();
-    TableColumnValueAssert tableColumnValueAssert2 = tableColumnValueAssert.isOfAnyOfTypes(ValueType.BOOLEAN);
+    TableColumnValueAssert tableColumnValueAssert2 = tableColumnValueAssert.isOfAnyTypeIn(ValueType.BOOLEAN);
     Assertions.assertThat(tableColumnValueAssert).isSameAs(tableColumnValueAssert2);
   }
 
@@ -66,7 +66,7 @@ public class AssertOnValueType_IsOfAnyOfTypes_Test extends AbstractTest {
     changes.setEndPointNow();
 
     try {
-      assertThat(changes).change().column("var1").valueAtEndPoint().isOfAnyOfTypes(ValueType.BOOLEAN);
+      assertThat(changes).change().column("var1").valueAtEndPoint().isOfAnyTypeIn(ValueType.BOOLEAN);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("[Value at end point of Column at index 0 (column name : VAR1) of Change at index 0 (with primary key : [1]) of Changes on test table of 'sa/jdbc:h2:mem:test' source] \n"
@@ -78,7 +78,7 @@ public class AssertOnValueType_IsOfAnyOfTypes_Test extends AbstractTest {
                                                       + "  <NUMBER>");
     }
     try {
-      assertThat(table).column("var1").value().isOfAnyOfTypes(ValueType.BOOLEAN);
+      assertThat(table).column("var1").value().isOfAnyTypeIn(ValueType.BOOLEAN);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("[Value at index 0 of Column at index 0 (column name : VAR1) of test table] \n"

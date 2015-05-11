@@ -28,15 +28,15 @@ import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link AssertionsOnColumnType} class :
- * {@link AssertionsOnColumnType#isOfAnyOfTypes(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, java.util.List, org.assertj.db.type.ValueType...)} method.
+ * {@link AssertionsOnColumnType#isOfAnyTypeIn(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, java.util.List, org.assertj.db.type.ValueType...)} method.
  *
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnColumnType_IsOfAnyOfTypes_Test {
+public class AssertionsOnColumnType_IsOfAnyTypeIn_Test {
 
   /**
-   * This method tests the {@code isOfAnyOfTypes} assertion method.
+   * This method tests the {@code isOfAnyTypeIn} assertion method.
    */
   @Test
   public void test_is_of_any_of_types() {
@@ -44,14 +44,15 @@ public class AssertionsOnColumnType_IsOfAnyOfTypes_Test {
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     List<Object> list = new ArrayList<Object>(Arrays.asList("test", "test"));
-    TableAssert tableAssert2 = AssertionsOnColumnType.isOfAnyOfTypes(tableAssert, info, list,
-                                                                             ValueType.TEXT);
+    TableAssert tableAssert2 = AssertionsOnColumnType.isOfAnyTypeIn(tableAssert, info, list,
+                                                                    ValueType.TEXT);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     list = new ArrayList<Object>(Arrays.asList("test", "test"));
-    tableAssert2 = AssertionsOnColumnType.isOfAnyOfTypes(tableAssert, info, list, ValueType.TEXT, ValueType.NUMBER);
+    tableAssert2 = AssertionsOnColumnType.isOfAnyTypeIn(tableAssert, info, list, ValueType.TEXT, ValueType.NUMBER);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     list = new ArrayList<Object>(Arrays.asList(null, "test"));
-    tableAssert2 = AssertionsOnColumnType.isOfAnyOfTypes(tableAssert, info, list, ValueType.TEXT, ValueType.NOT_IDENTIFIED);
+    tableAssert2 = AssertionsOnColumnType.isOfAnyTypeIn(tableAssert, info, list, ValueType.TEXT,
+                                                        ValueType.NOT_IDENTIFIED);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -66,7 +67,7 @@ public class AssertionsOnColumnType_IsOfAnyOfTypes_Test {
     TableAssert tableAssert = assertThat(table);
     try {
       List<Object> list = new ArrayList<Object>(Arrays.asList(8, "test"));
-      AssertionsOnColumnType.isOfAnyOfTypes(tableAssert, info, list, ValueType.TEXT, ValueType.DATE);
+      AssertionsOnColumnType.isOfAnyTypeIn(tableAssert, info, list, ValueType.TEXT, ValueType.DATE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
@@ -90,7 +91,7 @@ public class AssertionsOnColumnType_IsOfAnyOfTypes_Test {
     TableAssert tableAssert = assertThat(table);
     try {
       List<Object> list = new ArrayList<Object>(Arrays.asList("test", 8));
-      AssertionsOnColumnType.isOfAnyOfTypes(tableAssert, info, list, ValueType.TEXT, ValueType.DATE);
+      AssertionsOnColumnType.isOfAnyTypeIn(tableAssert, info, list, ValueType.TEXT, ValueType.DATE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"

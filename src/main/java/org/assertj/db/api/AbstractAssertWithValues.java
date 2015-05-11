@@ -65,8 +65,8 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
 
   /** {@inheritDoc} */
   @Override
-  public E isOfAnyOfTypes(ValueType... expected) {
-    return AssertionsOnValueType.isOfAnyOfTypes(myself, info, value, expected);
+  public E isOfAnyTypeIn(ValueType... expected) {
+    return AssertionsOnValueType.isOfAnyTypeIn(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */

@@ -82,10 +82,10 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    * @param expected The expected types to compare to.
    * @return {@code this} assertion object.
    * @throws AssertionError If the type of the value is different to all the types in parameters.
-   * @see org.assertj.db.api.AbstractValueAssert#isOfAnyOfTypes(org.assertj.db.type.ValueType...)
-   * @see org.assertj.db.api.AbstractAssertWithValues#isOfAnyOfTypes(org.assertj.db.type.ValueType...)
+   * @see org.assertj.db.api.AbstractValueAssert#isOfAnyTypeIn(org.assertj.db.type.ValueType...)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isOfAnyTypeIn(org.assertj.db.type.ValueType...)
    */
-  public T isOfAnyOfTypes(ValueType... expected);
+  public T isOfAnyTypeIn(ValueType... expected);
 
   /**
    * Verifies that the value is a number.

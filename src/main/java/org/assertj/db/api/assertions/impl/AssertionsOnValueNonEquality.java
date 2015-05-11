@@ -101,7 +101,7 @@ public class AssertionsOnValueNonEquality {
    */
   public static <A extends AbstractAssert> A isNotEqualTo(A assertion, WritableAssertionInfo info, Object value,
                                                           DateTimeValue expected) {
-    AssertionsOnValueType.isOfAnyOfTypes(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
+    AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
     if (!areEqual(value, expected)) {
       return assertion;
     }
@@ -124,7 +124,7 @@ public class AssertionsOnValueNonEquality {
    */
   public static <A extends AbstractAssert> A isNotEqualTo(A assertion, WritableAssertionInfo info, Object value,
                                                           DateValue expected) {
-    AssertionsOnValueType.isOfAnyOfTypes(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
+    AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
     if (!areEqual(value, expected)) {
       return assertion;
     }
@@ -169,8 +169,8 @@ public class AssertionsOnValueNonEquality {
                                                           String expected) {
 
     AssertionsOnValueType
-            .isOfAnyOfTypes(assertion, info, value, ValueType.TEXT, ValueType.NUMBER, ValueType.DATE, ValueType.TIME,
-                            ValueType.DATE_TIME);
+            .isOfAnyTypeIn(assertion, info, value, ValueType.TEXT, ValueType.NUMBER, ValueType.DATE, ValueType.TIME,
+                           ValueType.DATE_TIME);
     if (!areEqual(value, expected)) {
       return assertion;
     }
