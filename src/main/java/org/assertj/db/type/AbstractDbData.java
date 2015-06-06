@@ -167,7 +167,12 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
       List<Object> objectsList = new ArrayList<>();
       for (String columnName : columnsNameList) {
         // TODO Improve the check of the type
-        int index = columnsNameList.indexOf(columnName);
+        int index = -1;
+        for (int i = 1; i <= metaData.getColumnCount(); i++) {
+          if (columnName.equalsIgnoreCase(metaData.getColumnName(i))) {
+            index = i;
+          }
+        }
         int type = metaData.getColumnType(index + 1);
         switch (type) {
           case Types.DATE:
