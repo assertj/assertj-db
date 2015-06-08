@@ -290,7 +290,7 @@ public class Table extends AbstractDbData<Table> {
     }
 
     for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++) {
-      String columnName = resultSetMetaData.getColumnName(i).toUpperCase();
+      String columnName = resultSetMetaData.getColumnLabel(i).toUpperCase();
       if (columnsToExcludeList == null || !columnsToExcludeList.contains(columnName)) {
 
         columnsNameList.add(columnName);

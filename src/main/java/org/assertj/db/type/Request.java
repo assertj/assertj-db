@@ -176,7 +176,7 @@ public class Request extends AbstractDbData<Request> {
     ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
     List<String> columnsNameList = new ArrayList<>();
     for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++) {
-      String columnName = resultSetMetaData.getColumnName(i);
+      String columnName = resultSetMetaData.getColumnLabel(i);
       columnsNameList.add(columnName.toUpperCase());
     }
     setColumnsNameList(columnsNameList);

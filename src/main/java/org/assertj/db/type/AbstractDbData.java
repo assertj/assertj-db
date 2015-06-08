@@ -169,11 +169,12 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
         // TODO Improve the check of the type
         int index = -1;
         for (int i = 1; i <= metaData.getColumnCount(); i++) {
-          if (columnName.equalsIgnoreCase(metaData.getColumnName(i))) {
+          if (columnName.equalsIgnoreCase(metaData.getColumnLabel(i))) {
             index = i;
+            break;
           }
         }
-        int type = metaData.getColumnType(index + 1);
+        int type = metaData.getColumnType(index);
         switch (type) {
           case Types.DATE:
             objectsList.add(resultSet.getDate(columnName));
