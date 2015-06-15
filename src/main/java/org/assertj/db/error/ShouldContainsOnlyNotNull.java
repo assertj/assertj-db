@@ -39,6 +39,6 @@ public class ShouldContainsOnlyNotNull extends BasicErrorMessageFactory {
    * @param index The index of value in the failed assertion.
    */
   private ShouldContainsOnlyNotNull(int index) {
-    super("\nExpecting to contain only not null:\nbut contains null at index: %s", index);
+    super("%nExpecting to contain only not null:%nbut contains null at index: %s", index);
   }
 }

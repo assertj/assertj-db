@@ -61,11 +61,11 @@ public class AssertionsOnColumnEquality_HasValues_Number_Test {
       AssertionsOnColumnEquality.hasValues(tableAssert, info, list, 7, 8);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that the value at index 0:\n"
-                                                      + "  <8>\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <7>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that the value at index 0:%n"
+                                                      + "  <8>%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <7>"));
     }
   }
 
@@ -83,13 +83,13 @@ public class AssertionsOnColumnEquality_HasValues_Number_Test {
       AssertionsOnColumnEquality.hasValues(tableAssert, info, list, 7, 8);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that the value at index 0:\n"
-                                                      + "  <\"other\">\n"
-                                                      + "to be of type\n"
-                                                      + "  <[NUMBER, NOT_IDENTIFIED]>\n"
-                                                      + "but was of type\n"
-                                                      + "  <TEXT>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that the value at index 0:%n"
+                                                      + "  <\"other\">%n"
+                                                      + "to be of type%n"
+                                                      + "  <[NUMBER, NOT_IDENTIFIED]>%n"
+                                                      + "but was of type%n"
+                                                      + "  <TEXT>"));
     }
   }
 
@@ -107,11 +107,11 @@ public class AssertionsOnColumnEquality_HasValues_Number_Test {
       AssertionsOnColumnEquality.hasValues(tableAssert, info, list, 7, 8, 8);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting size (number of rows) to be equal to :\n"
-                                                      + "   <3>\n"
-                                                      + "but was:\n"
-                                                      + "   <2>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting size (number of rows) to be equal to :%n"
+                                                      + "   <3>%n"
+                                                      + "but was:%n"
+                                                      + "   <2>"));
     }
   }
 }

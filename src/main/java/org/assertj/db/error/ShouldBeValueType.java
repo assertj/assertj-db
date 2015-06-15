@@ -24,10 +24,10 @@ import org.assertj.db.type.ValueType;
  */
 public class ShouldBeValueType extends BasicErrorMessageFactory {
 
-  private static final String EXPECTED_MESSAGE = "\nExpecting:\n  <%s>\nto be of type\n"
-      + "  <%s>\nbut was of type\n  <%s>";
-  private static final String EXPECTED_MESSAGE_WITH_INDEX = "\nExpecting that the value at index %s:\n  <%s>\nto be of type\n"
-      + "  <%s>\nbut was of type\n  <%s>";
+  private static final String EXPECTED_MESSAGE = "%nExpecting:%n  <%s>%nto be of type%n"
+      + "  <%s>%nbut was of type%n  <%s>";
+  private static final String EXPECTED_MESSAGE_WITH_INDEX = "%nExpecting that the value at index %s:%n  <%s>%nto be of type%n"
+      + "  <%s>%nbut was of type%n  <%s>";
 
   /**
    * Creates a new <code>{@link ShouldBeValueType}</code>.

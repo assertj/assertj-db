@@ -57,11 +57,11 @@ public class AssertionsOnValueComparison_IsGreaterThanOrEqualTo_Test {
       AssertionsOnValueComparison.isGreaterThanOrEqualTo(tableAssert, info, 8, 9);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <8>\n"
-                                                      + "to be greater than or equal to \n"
-                                                      + "  <9>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <8>%n"
+                                                      + "to be greater than or equal to %n"
+                                                      + "  <9>"));
     }
   }
 
@@ -78,13 +78,13 @@ public class AssertionsOnValueComparison_IsGreaterThanOrEqualTo_Test {
       AssertionsOnValueComparison.isGreaterThanOrEqualTo(tableAssert, info, "8", 8);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <\"8\">\n"
-                                                      + "to be of type\n"
-                                                      + "  <NUMBER>\n"
-                                                      + "but was of type\n"
-                                                      + "  <TEXT>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <\"8\">%n"
+                                                      + "to be of type%n"
+                                                      + "  <NUMBER>%n"
+                                                      + "but was of type%n"
+                                                      + "  <TEXT>"));
     }
   }
 }

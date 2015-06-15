@@ -62,8 +62,8 @@ public class AssertionsOnRowOfChangeExistence_DoesNotExist_Test extends Abstract
       AssertionsOnRowOfChangeExistence.doesNotExist(tableAssert, info, row);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting not exist but exists");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting not exist but exists"));
     }
   }
 }

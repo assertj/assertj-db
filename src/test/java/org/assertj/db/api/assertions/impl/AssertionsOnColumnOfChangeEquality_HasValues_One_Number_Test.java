@@ -56,11 +56,11 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_One_Number_Test {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info, 0, 1, 1);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that start point:\n"
-                                                      + "  <0>\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <1>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that start point:%n"
+                                                      + "  <0>%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <1>"));
     }
   }
 
@@ -77,11 +77,11 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_One_Number_Test {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info, 1, 2, 1);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that end point:\n"
-                                                      + "  <2>\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <1>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that end point:%n"
+                                                      + "  <2>%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <1>"));
     }
   }
 
@@ -98,13 +98,13 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_One_Number_Test {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info, "other", 1, 1);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that the value at start point:\n"
-                                                      + "  <\"other\">\n"
-                                                      + "to be of type\n"
-                                                      + "  <[NUMBER, NOT_IDENTIFIED]>\n"
-                                                      + "but was of type\n"
-                                                      + "  <TEXT>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that the value at start point:%n"
+                                                      + "  <\"other\">%n"
+                                                      + "to be of type%n"
+                                                      + "  <[NUMBER, NOT_IDENTIFIED]>%n"
+                                                      + "but was of type%n"
+                                                      + "  <TEXT>"));
     }
   }
 }

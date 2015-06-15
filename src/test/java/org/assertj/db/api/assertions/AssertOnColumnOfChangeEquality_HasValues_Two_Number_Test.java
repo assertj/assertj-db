@@ -62,11 +62,11 @@ public class AssertOnColumnOfChangeEquality_HasValues_Two_Number_Test extends Ab
       assertThat(changes).change().column("var3").hasValues(3, 3);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Column at index 2 (column name : VAR3) of Change at index 0 (on table : TEST and with primary key : [5]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n"
-                                                      + "Expecting that start point:\n"
-                                                      + "  <null>\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <3>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 2 (column name : VAR3) of Change at index 0 (on table : TEST and with primary key : [5]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
+                                                      + "Expecting that start point:%n"
+                                                      + "  <null>%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <3>"));
     }
   }
 
@@ -84,11 +84,11 @@ public class AssertOnColumnOfChangeEquality_HasValues_Two_Number_Test extends Ab
       assertThat(changes).change().column("var3").hasValues(2, 2);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Column at index 2 (column name : VAR3) of Change at index 0 (on table : TEST and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n"
-                                                      + "Expecting that end point:\n"
-                                                      + "  <null>\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <2>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 2 (column name : VAR3) of Change at index 0 (on table : TEST and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
+                                                      + "Expecting that end point:%n"
+                                                      + "  <null>%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <2>"));
     }
   }
 }

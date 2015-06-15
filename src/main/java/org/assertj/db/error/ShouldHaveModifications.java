@@ -52,7 +52,7 @@ public class ShouldHaveModifications extends BasicErrorMessageFactory {
    * @param expectedModifications The expected modifications.
    */
   private ShouldHaveModifications(Integer[] modifications, Integer[] expectedModifications) {
-    super("\nExpecting :\n  %s\nas indexes of modified columns but was:\n  %s", expectedModifications, modifications);
+    super("%nExpecting :%n  %s%nas indexes of modified columns but was:%n  %s", expectedModifications, modifications);
   }
 
   /**
@@ -62,6 +62,6 @@ public class ShouldHaveModifications extends BasicErrorMessageFactory {
    * @param expectedModifications The expected modifications.
    */
   private ShouldHaveModifications(String[] modifications, String[] expectedModifications) {
-    super("\nExpecting :\n  %s\nas modified columns but was:\n  %s", expectedModifications, modifications);
+    super("%nExpecting :%n  %s%nas modified columns but was:%n  %s", expectedModifications, modifications);
   }
 }

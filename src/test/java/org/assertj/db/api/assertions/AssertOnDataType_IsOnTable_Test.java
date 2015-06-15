@@ -64,12 +64,12 @@ public class AssertOnDataType_IsOnTable_Test extends AbstractTest {
       assertThat(changes).change().isOnTable();
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Change at index 0 of Changes on 'select * from actor' request of 'sa/jdbc:h2:mem:test' source] \n"
-                                                      + "Expecting:\n"
-                                                      + "to be on data type\n"
-                                                      + "  <TABLE>\n"
-                                                      + "but was on data type\n"
-                                                      + "  <REQUEST>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 of Changes on 'select * from actor' request of 'sa/jdbc:h2:mem:test' source] %n"
+                                                      + "Expecting:%n"
+                                                      + "to be on data type%n"
+                                                      + "  <TABLE>%n"
+                                                      + "but was on data type%n"
+                                                      + "  <REQUEST>"));
     }
   }
 }

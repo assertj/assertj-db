@@ -62,12 +62,12 @@ public class AssertionsOnDataType_IsOnTable_Name_Test extends AbstractTest {
       AssertionsOnDataType.isOnTable(tableAssert, info, change, "test");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting:\n"
-                                                      + "to be on data type\n"
-                                                      + "  <TABLE>\n"
-                                                      + "but was on data type\n"
-                                                      + "  <REQUEST>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting:%n"
+                                                      + "to be on data type%n"
+                                                      + "  <TABLE>%n"
+                                                      + "but was on data type%n"
+                                                      + "  <REQUEST>"));
     }
   }
 
@@ -87,11 +87,11 @@ public class AssertionsOnDataType_IsOnTable_Name_Test extends AbstractTest {
       AssertionsOnDataType.isOnTable(tableAssert, info, change, "test2");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting to be on the table:\n"
-                                                      + "  <\"test2\">\n"
-                                                      + "but was on the table:\n"
-                                                      + "  <\"test\">");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting to be on the table:%n"
+                                                      + "  <\"test2\">%n"
+                                                      + "but was on the table:%n"
+                                                      + "  <\"test\">"));
     }
   }
 
@@ -111,7 +111,7 @@ public class AssertionsOnDataType_IsOnTable_Name_Test extends AbstractTest {
       AssertionsOnDataType.isOnTable(tableAssert, info, change, null);
       fail("An exception must be raised");
     } catch (NullPointerException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Table name must be not null");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Table name must be not null"));
     }
   }
 }

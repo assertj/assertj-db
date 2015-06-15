@@ -64,11 +64,11 @@ public class AssertOnColumnOfChangeEquality_HasValues_Two_TimeValue_Test extends
       assertThat(changes).change().column("var8").hasValues(TimeValue.of(9, 46, 30), TimeValue.of(9, 46, 30));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Column at index 7 (column name : VAR8) of Change at index 0 (on table : TEST and with primary key : [5]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n"
-                                                      + "Expecting that start point:\n"
-                                                      + "  <null>\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <09:46:30.000000000>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 7 (column name : VAR8) of Change at index 0 (on table : TEST and with primary key : [5]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
+                                                      + "Expecting that start point:%n"
+                                                      + "  <null>%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <09:46:30.000000000>"));
     }
   }
 
@@ -86,11 +86,11 @@ public class AssertOnColumnOfChangeEquality_HasValues_Two_TimeValue_Test extends
       assertThat(changes).change().column("var8").hasValues(TimeValue.of(9, 46, 30), TimeValue.of(9, 46, 30));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Column at index 7 (column name : VAR8) of Change at index 0 (on table : TEST and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n"
-                                                      + "Expecting that end point:\n"
-                                                      + "  <null>\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <09:46:30.000000000>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 7 (column name : VAR8) of Change at index 0 (on table : TEST and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
+                                                      + "Expecting that end point:%n"
+                                                      + "  <null>%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <09:46:30.000000000>"));
     }
   }
 }

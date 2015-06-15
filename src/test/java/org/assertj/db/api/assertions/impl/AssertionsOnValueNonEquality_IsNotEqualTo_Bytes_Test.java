@@ -55,8 +55,8 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_Bytes_Test {
       AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, new byte[] {0, 1}, new byte[] {0, 1});
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting to be not equal to the value but was equal");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting to be not equal to the value but was equal"));
     }
   }
 
@@ -73,13 +73,13 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_Bytes_Test {
       AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, 8, new byte[] { 0, 1});
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <8>\n"
-                                                      + "to be of type\n"
-                                                      + "  <BYTES>\n"
-                                                      + "but was of type\n"
-                                                      + "  <NUMBER>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <8>%n"
+                                                      + "to be of type%n"
+                                                      + "  <BYTES>%n"
+                                                      + "but was of type%n"
+                                                      + "  <NUMBER>"));
     }
   }
 }

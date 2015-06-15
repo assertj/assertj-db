@@ -73,11 +73,11 @@ public class AssertOnColumnEquality_HasValues_DateValue_Test extends AbstractTes
                                   DateValue.of(2014, 5, 30));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Column at index 8 (column name : VAR9) of test table] \n"
-                                                      + "Expecting that the value at index 1:\n"
-                                                      + "  <2014-05-30>\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <2014-05-29>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 8 (column name : VAR9) of test table] %n"
+                                                      + "Expecting that the value at index 1:%n"
+                                                      + "  <2014-05-30>%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <2014-05-29>"));
     }
     Table table2 = new Table(source, "test2");
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var9");
@@ -86,11 +86,11 @@ public class AssertOnColumnEquality_HasValues_DateValue_Test extends AbstractTes
                                    DateValue.of(2014, 5, 24));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Column at index 8 (column name : VAR9) of test2 table] \n"
-                                                      + "Expecting that the value at index 1:\n"
-                                                      + "  <null>\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <2014-05-24>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 8 (column name : VAR9) of test2 table] %n"
+                                                      + "Expecting that the value at index 1:%n"
+                                                      + "  <null>%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <2014-05-24>"));
     }
     TableColumnAssert tableColumnAssert3 = assertThat(table2).column("var10");
     try {
@@ -98,11 +98,11 @@ public class AssertOnColumnEquality_HasValues_DateValue_Test extends AbstractTes
                                    null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Column at index 9 (column name : VAR10) of test2 table] \n"
-                                                      + "Expecting that the value at index 0:\n"
-                                                      + "  <2014-05-24T09:46:30.000000000>\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <2014-05-23>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 9 (column name : VAR10) of test2 table] %n"
+                                                      + "Expecting that the value at index 0:%n"
+                                                      + "  <2014-05-24T09:46:30.000000000>%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <2014-05-23>"));
     }
   }
 }

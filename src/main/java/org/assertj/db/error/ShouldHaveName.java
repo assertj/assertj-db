@@ -41,6 +41,6 @@ public class ShouldHaveName extends BasicErrorMessageFactory {
    * @param expectedName The expected name of the column.
    */
   private ShouldHaveName(String name, String expectedName) {
-    super("\nExpecting :\n  %s\nto be the name of the column but was:\n  %s", expectedName, name);
+    super("%nExpecting :%n  %s%nto be the name of the column but was:%n  %s", expectedName, name);
   }
 }

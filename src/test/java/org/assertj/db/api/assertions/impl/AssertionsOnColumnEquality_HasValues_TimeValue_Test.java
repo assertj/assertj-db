@@ -64,11 +64,11 @@ public class AssertionsOnColumnEquality_HasValues_TimeValue_Test {
       AssertionsOnColumnEquality.hasValues(tableAssert, info, list, TimeValue.of(9, 1), TimeValue.of(3, 30, 6));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that the value at index 1:\n"
-                                                      + "  <03:30:05.000000000>\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <03:30:06.000000000>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that the value at index 1:%n"
+                                                      + "  <03:30:05.000000000>%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <03:30:06.000000000>"));
     }
   }
 
@@ -86,13 +86,13 @@ public class AssertionsOnColumnEquality_HasValues_TimeValue_Test {
       AssertionsOnColumnEquality.hasValues(tableAssert, info, list, TimeValue.of(9, 1), TimeValue.of(3, 30, 5));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that the value at index 0:\n"
-                                                      + "  <false>\n"
-                                                      + "to be of type\n"
-                                                      + "  <[TIME, NOT_IDENTIFIED]>\n"
-                                                      + "but was of type\n"
-                                                      + "  <BOOLEAN>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that the value at index 0:%n"
+                                                      + "  <false>%n"
+                                                      + "to be of type%n"
+                                                      + "  <[TIME, NOT_IDENTIFIED]>%n"
+                                                      + "but was of type%n"
+                                                      + "  <BOOLEAN>"));
     }
   }
 
@@ -111,11 +111,11 @@ public class AssertionsOnColumnEquality_HasValues_TimeValue_Test {
                                            TimeValue.of(22, 27));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting size (number of rows) to be equal to :\n"
-                                                      + "   <3>\n"
-                                                      + "but was:\n"
-                                                      + "   <2>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting size (number of rows) to be equal to :%n"
+                                                      + "   <3>%n"
+                                                      + "but was:%n"
+                                                      + "   <2>"));
     }
   }
 }

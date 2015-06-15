@@ -60,11 +60,11 @@ public class AssertOnModifiedColumns_HasModifiedColumns_Integer_Test extends Abs
       assertThat(changes).change(3).hasModifiedColumns(1);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Change at index 3 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n"
-                                                      + "Expecting :\n"
-                                                      + "  [1]\n"
-                                                      + "as indexes of modified columns but was:\n"
-                                                      + "  [2]");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 3 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
+                                                      + "Expecting :%n"
+                                                      + "  [1]%n"
+                                                      + "as indexes of modified columns but was:%n"
+                                                      + "  [2]"));
     }
   }
 }

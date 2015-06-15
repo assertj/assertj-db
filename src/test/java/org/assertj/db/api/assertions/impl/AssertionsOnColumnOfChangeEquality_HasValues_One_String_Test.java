@@ -80,11 +80,11 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_One_String_Test {
                                                    "test2");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that start point:\n"
-                                                      + "  <\"test1\">\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <\"test2\">");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that start point:%n"
+                                                      + "  <\"test1\">%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <\"test2\">"));
     }
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
@@ -92,11 +92,11 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_One_String_Test {
                                                    "9");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that start point:\n"
-                                                      + "  <\"8\">\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <\"9\">");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that start point:%n"
+                                                      + "  <\"8\">%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <\"9\">"));
     }
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
@@ -104,11 +104,11 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_One_String_Test {
                                                    "2002-07-25");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that start point:\n"
-                                                      + "  <\"2007-12-23\">\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <\"2002-07-25\">");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that start point:%n"
+                                                      + "  <\"2007-12-23\">%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <\"2002-07-25\">"));
     }
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
@@ -116,11 +116,11 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_One_String_Test {
                                                    "03:30:05");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that start point:\n"
-                                                      + "  <\"09:01:00.000000000\">\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <\"03:30:05\">");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that start point:%n"
+                                                      + "  <\"09:01:00.000000000\">%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <\"03:30:05\">"));
     }
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
@@ -129,11 +129,11 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_One_String_Test {
                                                    "2002-07-25T03:30:05");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that start point:\n"
-                                                      + "  <\"2007-12-23T09:01:00.000000000\">\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <\"2002-07-25T03:30:05\">");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that start point:%n"
+                                                      + "  <\"2007-12-23T09:01:00.000000000\">%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <\"2002-07-25T03:30:05\">"));
     }
   }
 
@@ -152,11 +152,11 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_One_String_Test {
                                                    "test1");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that end point:\n"
-                                                      + "  <\"test2\">\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <\"test1\">");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that end point:%n"
+                                                      + "  <\"test2\">%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <\"test1\">"));
     }
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
@@ -164,11 +164,11 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_One_String_Test {
                                                    "8");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that end point:\n"
-                                                      + "  <\"9\">\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <\"8\">");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that end point:%n"
+                                                      + "  <\"9\">%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <\"8\">"));
     }
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
@@ -176,11 +176,11 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_One_String_Test {
                                                    "2007-12-23");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that end point:\n"
-                                                      + "  <\"2002-07-25\">\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <\"2007-12-23\">");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that end point:%n"
+                                                      + "  <\"2002-07-25\">%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <\"2007-12-23\">"));
     }
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
@@ -188,11 +188,11 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_One_String_Test {
                                                    "09:01");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that end point:\n"
-                                                      + "  <\"03:30:05.000000000\">\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <\"09:01\">");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that end point:%n"
+                                                      + "  <\"03:30:05.000000000\">%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <\"09:01\">"));
     }
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
@@ -201,11 +201,11 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_One_String_Test {
                                                    "2007-12-23T09:01");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that end point:\n"
-                                                      + "  <\"2002-07-25T03:30:05.000000000\">\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <\"2007-12-23T09:01\">");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that end point:%n"
+                                                      + "  <\"2002-07-25T03:30:05.000000000\">%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <\"2007-12-23T09:01\">"));
     }
   }
 
@@ -224,13 +224,13 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_One_String_Test {
                                                    "test2");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that the value at start point:\n"
-                                                      + "  <false>\n"
-                                                      + "to be of type\n"
-                                                      + "  <[TEXT, NUMBER, DATE, TIME, DATE_TIME, NOT_IDENTIFIED]>\n"
-                                                      + "but was of type\n"
-                                                      + "  <BOOLEAN>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that the value at start point:%n"
+                                                      + "  <false>%n"
+                                                      + "to be of type%n"
+                                                      + "  <[TEXT, NUMBER, DATE, TIME, DATE_TIME, NOT_IDENTIFIED]>%n"
+                                                      + "but was of type%n"
+                                                      + "  <BOOLEAN>"));
     }
   }
 }

@@ -55,7 +55,7 @@ public class AssertionsOnValueNullity_IsNull_Test {
       AssertionsOnValueNullity.isNull(tableAssert, info, 0);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] expected:<null> but was:<0>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] expected:<null> but was:<0>"));
     }
   }
 }

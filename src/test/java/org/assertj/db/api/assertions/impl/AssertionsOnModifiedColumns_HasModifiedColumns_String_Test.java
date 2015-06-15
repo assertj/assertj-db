@@ -75,11 +75,11 @@ public class AssertionsOnModifiedColumns_HasModifiedColumns_String_Test extends 
       AssertionsOnModifiedColumns.hasModifiedColumns(tableAssert, info, change, "NAME", "BIRTH");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting :\n"
-                                                      + "  [\"NAME\", \"BIRTH\"]\n"
-                                                      + "as modified columns but was:\n"
-                                                      + "  [\"FIRSTNAME\", \"NAME\"]");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting :%n"
+                                                      + "  [\"NAME\", \"BIRTH\"]%n"
+                                                      + "as modified columns but was:%n"
+                                                      + "  [\"FIRSTNAME\", \"NAME\"]"));
     }
   }
 
@@ -103,7 +103,7 @@ public class AssertionsOnModifiedColumns_HasModifiedColumns_String_Test extends 
       AssertionsOnModifiedColumns.hasModifiedColumns(tableAssert, info, change, "NAME", null);
       fail("An exception must be raised");
     } catch (NullPointerException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Column name must be not null");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column name must be not null"));
     }
   }
 
@@ -127,7 +127,7 @@ public class AssertionsOnModifiedColumns_HasModifiedColumns_String_Test extends 
       AssertionsOnModifiedColumns.hasModifiedColumns(tableAssert, info, change, (String[]) null);
       fail("An exception must be raised");
     } catch (NullPointerException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Columns names must be not null");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Columns names must be not null"));
     }
   }
 }

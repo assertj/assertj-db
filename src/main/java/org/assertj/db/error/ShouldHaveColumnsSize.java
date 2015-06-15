@@ -41,6 +41,6 @@ public class ShouldHaveColumnsSize extends BasicErrorMessageFactory {
    * @param expectedSize the expected size.
    */
   private ShouldHaveColumnsSize(int actualSize, int expectedSize) {
-    super("\nExpecting size (number of columns) to be equal to :\n   <%s>\nbut was:\n   <%s>", expectedSize, actualSize);
+    super("%nExpecting size (number of columns) to be equal to :%n   <%s>%nbut was:%n   <%s>", expectedSize, actualSize);
   }
 }

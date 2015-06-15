@@ -41,6 +41,6 @@ public class ShouldHaveNumberOfModifications extends BasicErrorMessageFactory {
    * @param expectedNumber The expected number of modifications.
    */
   private ShouldHaveNumberOfModifications(int numberOfModifications, int expectedNumber) {
-    super("\nExpecting :\n  %s modifications\nbut was:\n  %s", expectedNumber, numberOfModifications);
+    super("%nExpecting :%n  %s modifications%nbut was:%n  %s", expectedNumber, numberOfModifications);
   }
 }

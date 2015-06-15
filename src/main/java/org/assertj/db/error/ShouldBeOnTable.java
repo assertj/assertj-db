@@ -23,7 +23,7 @@ import org.assertj.core.error.ErrorMessageFactory;
 public class ShouldBeOnTable extends BasicErrorMessageFactory {
 
   private static final String EXPECTED_MESSAGE =
-          "\nExpecting to be on the table:\n" + "  <%s>\nbut was on the table:\n  <%s>";
+          "%nExpecting to be on the table:%n" + "  <%s>%nbut was on the table:%n  <%s>";
 
   /**
    * Creates a new <code>{@link ShouldBeOnTable}</code>.

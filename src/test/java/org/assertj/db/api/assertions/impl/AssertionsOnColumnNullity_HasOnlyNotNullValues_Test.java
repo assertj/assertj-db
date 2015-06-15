@@ -61,9 +61,9 @@ public class AssertionsOnColumnNullity_HasOnlyNotNullValues_Test {
       AssertionsOnColumnNullity.hasOnlyNotNullValues(tableAssert, info, list);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting to contain only not null:\n"
-                                                      + "but contains null at index: 0");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting to contain only not null:%n"
+                                                      + "but contains null at index: 0"));
     }
   }
 }

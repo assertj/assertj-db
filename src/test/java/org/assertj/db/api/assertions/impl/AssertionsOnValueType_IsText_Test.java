@@ -55,13 +55,13 @@ public class AssertionsOnValueType_IsText_Test {
       AssertionsOnValueType.isText(tableAssert, info, true);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <true>\n"
-                                                      + "to be of type\n"
-                                                      + "  <TEXT>\n"
-                                                      + "but was of type\n"
-                                                      + "  <BOOLEAN>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <true>%n"
+                                                      + "to be of type%n"
+                                                      + "  <TEXT>%n"
+                                                      + "but was of type%n"
+                                                      + "  <BOOLEAN>"));
     }
   }
 }

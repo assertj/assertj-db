@@ -73,11 +73,11 @@ public class AssertionsOnModifiedColumns_HasNumberOfModifiedColumns_Test extends
       AssertionsOnModifiedColumns.hasNumberOfModifiedColumns(tableAssert, info, change, 3);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting :\n"
-                                                      + "  3 modifications\n"
-                                                      + "but was:\n"
-                                                      + "  2");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting :%n"
+                                                      + "  3 modifications%n"
+                                                      + "but was:%n"
+                                                      + "  2"));
     }
   }
 }

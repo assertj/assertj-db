@@ -60,11 +60,11 @@ public class AssertOnPrimaryKey_HasPksNames_Test extends AbstractTest {
       assertThat(changes).change().hasPksNames("ID2");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n"
-                                                      + "Expecting :\n"
-                                                      + "  [\"ID2\"]\n"
-                                                      + "to be the name of the columns of the primary keys but was:\n"
-                                                      + "  [\"ID\"]");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
+                                                      + "Expecting :%n"
+                                                      + "  [\"ID2\"]%n"
+                                                      + "to be the name of the columns of the primary keys but was:%n"
+                                                      + "  [\"ID\"]"));
     }
   }
 
@@ -82,11 +82,11 @@ public class AssertOnPrimaryKey_HasPksNames_Test extends AbstractTest {
       assertThat(changes).change().hasPksNames("ID", "ID2");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n"
-                                                      + "Expecting :\n"
-                                                      + "  [\"ID\", \"ID2\"]\n"
-                                                      + "to be the name of the columns of the primary keys but was:\n"
-                                                      + "  [\"ID\"]");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
+                                                      + "Expecting :%n"
+                                                      + "  [\"ID\", \"ID2\"]%n"
+                                                      + "to be the name of the columns of the primary keys but was:%n"
+                                                      + "  [\"ID\"]"));
     }
   }
 }

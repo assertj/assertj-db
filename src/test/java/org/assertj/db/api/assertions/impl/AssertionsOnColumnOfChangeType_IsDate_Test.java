@@ -64,13 +64,13 @@ public class AssertionsOnColumnOfChangeType_IsDate_Test {
                                             "test", Date.valueOf("2007-12-23"), false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that the value at start point:\n"
-                                                      + "  <\"test\">\n"
-                                                      + "to be of type\n"
-                                                      + "  <DATE>\n"
-                                                      + "but was of type\n"
-                                                      + "  <TEXT>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that the value at start point:%n"
+                                                      + "  <\"test\">%n"
+                                                      + "to be of type%n"
+                                                      + "  <DATE>%n"
+                                                      + "but was of type%n"
+                                                      + "  <TEXT>"));
     }
   }
 
@@ -88,13 +88,13 @@ public class AssertionsOnColumnOfChangeType_IsDate_Test {
                                             Date.valueOf("2007-12-23"), "test", false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that the value at end point:\n"
-                                                      + "  <\"test\">\n"
-                                                      + "to be of type\n"
-                                                      + "  <DATE>\n"
-                                                      + "but was of type\n"
-                                                      + "  <TEXT>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that the value at end point:%n"
+                                                      + "  <\"test\">%n"
+                                                      + "to be of type%n"
+                                                      + "  <DATE>%n"
+                                                      + "but was of type%n"
+                                                      + "  <TEXT>"));
     }
   }
 }

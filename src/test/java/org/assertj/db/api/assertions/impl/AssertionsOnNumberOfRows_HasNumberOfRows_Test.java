@@ -55,11 +55,11 @@ public class AssertionsOnNumberOfRows_HasNumberOfRows_Test {
       AssertionsOnNumberOfRows.hasNumberOfRows(tableAssert, info, 8, 9);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting size (number of rows) to be equal to :\n"
-                                                      + "   <9>\n"
-                                                      + "but was:\n"
-                                                      + "   <8>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting size (number of rows) to be equal to :%n"
+                                                      + "   <9>%n"
+                                                      + "but was:%n"
+                                                      + "   <8>"));
     }
   }
 }

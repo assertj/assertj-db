@@ -69,21 +69,21 @@ public class AssertOnValueEquality_IsEqualTo_TimeValue_Test extends AbstractTest
       assertThat(changes).change().column("var8").valueAtEndPoint().isEqualTo(TimeValue.of(9, 46, 31));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Value at end point of Column at index 7 (column name : VAR8) of Change at index 0 (with primary key : [1]) of Changes on test table of 'sa/jdbc:h2:mem:test' source] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <09:46:30.000000000>\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <09:46:31.000000000>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 7 (column name : VAR8) of Change at index 0 (with primary key : [1]) of Changes on test table of 'sa/jdbc:h2:mem:test' source] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <09:46:30.000000000>%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <09:46:31.000000000>"));
     }
     try {
       assertThat(table).column("var8").value().isEqualTo(TimeValue.of(9, 46, 31));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Value at index 0 of Column at index 7 (column name : VAR8) of test table] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <09:46:30.000000000>\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <09:46:31.000000000>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 0 of Column at index 7 (column name : VAR8) of test table] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <09:46:30.000000000>%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <09:46:31.000000000>"));
     }
   }
 }

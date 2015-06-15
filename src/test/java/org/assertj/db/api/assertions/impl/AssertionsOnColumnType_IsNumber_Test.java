@@ -67,13 +67,13 @@ public class AssertionsOnColumnType_IsNumber_Test {
       AssertionsOnColumnType.isNumber(tableAssert, info, list, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that the value at index 0:\n"
-                                                      + "  <\"test\">\n"
-                                                      + "to be of type\n"
-                                                      + "  <NUMBER>\n"
-                                                      + "but was of type\n"
-                                                      + "  <TEXT>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that the value at index 0:%n"
+                                                      + "  <\"test\">%n"
+                                                      + "to be of type%n"
+                                                      + "  <NUMBER>%n"
+                                                      + "but was of type%n"
+                                                      + "  <TEXT>"));
     }
   }
 
@@ -91,13 +91,13 @@ public class AssertionsOnColumnType_IsNumber_Test {
       AssertionsOnColumnType.isNumber(tableAssert, info, list, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that the value at index 1:\n"
-                                                      + "  <\"test\">\n"
-                                                      + "to be of type\n"
-                                                      + "  <NUMBER>\n"
-                                                      + "but was of type\n"
-                                                      + "  <TEXT>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that the value at index 1:%n"
+                                                      + "  <\"test\">%n"
+                                                      + "to be of type%n"
+                                                      + "  <NUMBER>%n"
+                                                      + "but was of type%n"
+                                                      + "  <TEXT>"));
     }
   }
 }

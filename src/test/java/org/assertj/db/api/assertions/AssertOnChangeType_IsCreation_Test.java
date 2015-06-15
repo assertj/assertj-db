@@ -60,12 +60,12 @@ public class AssertOnChangeType_IsCreation_Test extends AbstractTest {
       assertThat(changes).change(3).isCreation();
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Change at index 3 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n"
-                                                      + "Expecting:\n"
-                                                      + "to be of type\n"
-                                                      + "  <CREATION>\n"
-                                                      + "but was of type\n"
-                                                      + "  <MODIFICATION>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 3 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
+                                                      + "Expecting:%n"
+                                                      + "to be of type%n"
+                                                      + "  <CREATION>%n"
+                                                      + "but was of type%n"
+                                                      + "  <MODIFICATION>"));
     }
   }
 }

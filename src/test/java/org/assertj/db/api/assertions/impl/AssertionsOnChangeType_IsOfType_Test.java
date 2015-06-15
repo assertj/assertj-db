@@ -62,12 +62,12 @@ public class AssertionsOnChangeType_IsOfType_Test extends AbstractTest {
       AssertionsOnChangeType.isOfType(tableAssert, info, change, ChangeType.MODIFICATION);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                           + "Expecting:\n"
-                                           + "to be of type\n"
-                                           + "  <MODIFICATION>\n"
-                                           + "but was of type\n"
-                                           + "  <CREATION>");
+      assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                           + "Expecting:%n"
+                                           + "to be of type%n"
+                                           + "  <MODIFICATION>%n"
+                                           + "but was of type%n"
+                                           + "  <CREATION>"));
     }
   }
 }

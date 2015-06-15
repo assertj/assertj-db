@@ -77,49 +77,49 @@ public class AssertOnColumnType_IsTime_Test extends AbstractTest {
       assertThat(changes).change().column("var8").isTime(false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Column at index 7 (column name : VAR8) of Change at index 0 (on table : TEST and with primary key : [5]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n"
-                                                      + "Expecting that the value at start point:\n"
-                                                      + "  <null>\n"
-                                                      + "to be of type\n"
-                                                      + "  <TIME>\n"
-                                                      + "but was of type\n"
-                                                      + "  <NOT_IDENTIFIED>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 7 (column name : VAR8) of Change at index 0 (on table : TEST and with primary key : [5]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
+                                                      + "Expecting that the value at start point:%n"
+                                                      + "  <null>%n"
+                                                      + "to be of type%n"
+                                                      + "  <TIME>%n"
+                                                      + "but was of type%n"
+                                                      + "  <NOT_IDENTIFIED>"));
     }
     try {
       assertThat(changes).change(1).column("var1").isTime(true);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Column at index 0 (column name : VAR1) of Change at index 1 (on table : TEST and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n"
-                                                      + "Expecting that the value at start point:\n"
-                                                      + "  <1>\n"
-                                                      + "to be of type\n"
-                                                      + "  <[TIME, NOT_IDENTIFIED]>\n"
-                                                      + "but was of type\n"
-                                                      + "  <NUMBER>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 0 (column name : VAR1) of Change at index 1 (on table : TEST and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
+                                                      + "Expecting that the value at start point:%n"
+                                                      + "  <1>%n"
+                                                      + "to be of type%n"
+                                                      + "  <[TIME, NOT_IDENTIFIED]>%n"
+                                                      + "but was of type%n"
+                                                      + "  <NUMBER>"));
     }
     try {
       assertThat(table).column("var1").isTime(true);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Column at index 0 (column name : VAR1) of test table] \n"
-                                                      + "Expecting that the value at index 0:\n"
-                                                      + "  <1>\n"
-                                                      + "to be of type\n"
-                                                      + "  <[TIME, NOT_IDENTIFIED]>\n"
-                                                      + "but was of type\n"
-                                                      + "  <NUMBER>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 0 (column name : VAR1) of test table] %n"
+                                                      + "Expecting that the value at index 0:%n"
+                                                      + "  <1>%n"
+                                                      + "to be of type%n"
+                                                      + "  <[TIME, NOT_IDENTIFIED]>%n"
+                                                      + "but was of type%n"
+                                                      + "  <NUMBER>"));
     }
     try {
       assertThat(table2).column("var8").isTime(false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Column at index 7 (column name : VAR8) of test2 table] \n"
-                                                      + "Expecting that the value at index 1:\n"
-                                                      + "  <null>\n"
-                                                      + "to be of type\n"
-                                                      + "  <TIME>\n"
-                                                      + "but was of type\n"
-                                                      + "  <NOT_IDENTIFIED>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 7 (column name : VAR8) of test2 table] %n"
+                                                      + "Expecting that the value at index 1:%n"
+                                                      + "  <null>%n"
+                                                      + "to be of type%n"
+                                                      + "  <TIME>%n"
+                                                      + "but was of type%n"
+                                                      + "  <NOT_IDENTIFIED>"));
     }
   }
 }

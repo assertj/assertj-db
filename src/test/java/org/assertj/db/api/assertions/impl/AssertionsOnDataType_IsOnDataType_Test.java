@@ -62,12 +62,12 @@ public class AssertionsOnDataType_IsOnDataType_Test extends AbstractTest {
       AssertionsOnDataType.isOnDataType(tableAssert, info, change, DataType.REQUEST);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting:\n"
-                                                      + "to be on data type\n"
-                                                      + "  <REQUEST>\n"
-                                                      + "but was on data type\n"
-                                                      + "  <TABLE>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting:%n"
+                                                      + "to be on data type%n"
+                                                      + "  <REQUEST>%n"
+                                                      + "but was on data type%n"
+                                                      + "  <TABLE>"));
     }
   }
 }

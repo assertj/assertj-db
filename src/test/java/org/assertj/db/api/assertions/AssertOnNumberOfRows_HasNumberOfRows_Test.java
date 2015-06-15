@@ -56,21 +56,21 @@ public class AssertOnNumberOfRows_HasNumberOfRows_Test extends AbstractTest {
       assertThat(request).hasNumberOfRows(9);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("['select * from actor' request] \n"
-                                                      + "Expecting size (number of rows) to be equal to :\n"
-                                                      + "   <9>\n"
-                                                      + "but was:\n"
-                                                      + "   <3>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("['select * from actor' request] %n"
+                                                      + "Expecting size (number of rows) to be equal to :%n"
+                                                      + "   <9>%n"
+                                                      + "but was:%n"
+                                                      + "   <3>"));
     }
     try {
       assertThat(request).column().hasNumberOfRows(9);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Column at index 0 (column name : ID) of 'select * from actor' request] \n"
-                                                      + "Expecting size (number of rows) to be equal to :\n"
-                                                      + "   <9>\n"
-                                                      + "but was:\n"
-                                                      + "   <3>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 0 (column name : ID) of 'select * from actor' request] %n"
+                                                      + "Expecting size (number of rows) to be equal to :%n"
+                                                      + "   <9>%n"
+                                                      + "but was:%n"
+                                                      + "   <3>"));
     }
   }
 }

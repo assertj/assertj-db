@@ -58,8 +58,8 @@ public class AssertOnRowOfChangeExistence_Exists_Test extends AbstractTest {
     try {
       assertThat(changes).change().rowAtStartPoint().exists();
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Row at start point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n"
-                                                      + "Expecting exist but do not exist");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Row at start point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
+                                                      + "Expecting exist but do not exist"));
     }
   }
 }

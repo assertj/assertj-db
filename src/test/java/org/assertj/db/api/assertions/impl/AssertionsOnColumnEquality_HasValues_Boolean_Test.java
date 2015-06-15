@@ -62,11 +62,11 @@ public class AssertionsOnColumnEquality_HasValues_Boolean_Test {
       AssertionsOnColumnEquality.hasValues(tableAssert, info, list, Boolean.TRUE, Boolean.FALSE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                           + "Expecting that the value at index 0:\n"
-                                           + "  <false>\n"
-                                           + "to be equal to: \n"
-                                           + "  <true>");
+      assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                           + "Expecting that the value at index 0:%n"
+                                           + "  <false>%n"
+                                           + "to be equal to: %n"
+                                           + "  <true>"));
     }
   }
 
@@ -84,13 +84,13 @@ public class AssertionsOnColumnEquality_HasValues_Boolean_Test {
       AssertionsOnColumnEquality.hasValues(tableAssert, info, list, Boolean.TRUE, Boolean.FALSE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                           + "Expecting that the value at index 0:\n"
-                                           + "  <\"other\">\n"
-                                           + "to be of type\n"
-                                           + "  <[BOOLEAN, NOT_IDENTIFIED]>\n"
-                                           + "but was of type\n"
-                                           + "  <TEXT>");
+      assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                           + "Expecting that the value at index 0:%n"
+                                           + "  <\"other\">%n"
+                                           + "to be of type%n"
+                                           + "  <[BOOLEAN, NOT_IDENTIFIED]>%n"
+                                           + "but was of type%n"
+                                           + "  <TEXT>"));
     }
   }
 
@@ -108,11 +108,11 @@ public class AssertionsOnColumnEquality_HasValues_Boolean_Test {
       AssertionsOnColumnEquality.hasValues(tableAssert, info, list, Boolean.TRUE, Boolean.FALSE, Boolean.FALSE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                           + "Expecting size (number of rows) to be equal to :\n"
-                                           + "   <3>\n"
-                                           + "but was:\n"
-                                           + "   <2>");
+      assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                           + "Expecting size (number of rows) to be equal to :%n"
+                                           + "   <3>%n"
+                                           + "but was:%n"
+                                           + "   <2>"));
     }
   }
 }

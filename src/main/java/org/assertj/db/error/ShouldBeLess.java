@@ -41,6 +41,6 @@ public class ShouldBeLess extends BasicErrorMessageFactory {
    * @param expected The expected value to compare to.
    */
   private ShouldBeLess(Object actual, Object expected) {
-    super("\nExpecting:\n  <%s>\nto be less than \n  <%s>", actual, expected);
+    super("%nExpecting:%n  <%s>%nto be less than %n  <%s>", actual, expected);
   }
 }

@@ -24,8 +24,8 @@ import org.assertj.db.type.ValueType;
  */
 public class ShouldBeValueTypeOfAnyWithStartPoint extends BasicErrorMessageFactory {
 
-  private static final String EXPECTED_MESSAGE = "\nExpecting that the value at start point:\n  <%s>\nto be of type\n"
-      + "  <%s>\nbut was of type\n  <%s>";
+  private static final String EXPECTED_MESSAGE = "%nExpecting that the value at start point:%n  <%s>%nto be of type%n"
+      + "  <%s>%nbut was of type%n  <%s>";
 
   /**
    * Creates a new <code>{@link org.assertj.db.error.ShouldBeValueTypeOfAnyWithStartPoint}</code>.

@@ -62,11 +62,11 @@ public class AssertionsOnValueChronology_IsBefore_TimeValue_Test {
                                            TimeValue.of(9, 1, 5));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <09:01:05.000000000>\n"
-                                                      + "to be before \n"
-                                                      + "  <09:01:05.000000000>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <09:01:05.000000000>%n"
+                                                      + "to be before %n"
+                                                      + "  <09:01:05.000000000>"));
     }
     try {
       AssertionsOnValueChronology.isBefore(tableAssert, info,
@@ -74,11 +74,11 @@ public class AssertionsOnValueChronology_IsBefore_TimeValue_Test {
                                            TimeValue.of(9, 1, 0));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <09:01:05.000000000>\n"
-                                                      + "to be before \n"
-                                                      + "  <09:01:00.000000000>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <09:01:05.000000000>%n"
+                                                      + "to be before %n"
+                                                      + "  <09:01:00.000000000>"));
     }
   }
 
@@ -97,13 +97,13 @@ public class AssertionsOnValueChronology_IsBefore_TimeValue_Test {
                                            TimeValue.of(9, 1, 6));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <\"test\">\n"
-                                                      + "to be of type\n"
-                                                      + "  <TIME>\n"
-                                                      + "but was of type\n"
-                                                      + "  <TEXT>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <\"test\">%n"
+                                                      + "to be of type%n"
+                                                      + "  <TIME>%n"
+                                                      + "but was of type%n"
+                                                      + "  <TEXT>"));
     }
   }
 }

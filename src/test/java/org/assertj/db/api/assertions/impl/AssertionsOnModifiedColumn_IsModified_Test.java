@@ -59,21 +59,21 @@ public class AssertionsOnModifiedColumn_IsModified_Test {
       AssertionsOnModifiedColumn.isModified(tableAssert, info, null, null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting :\n"
-                                                      + "  <null>\n"
-                                                      + "is modified but is still:\n"
-                                                      + "  <null>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting :%n"
+                                                      + "  <null>%n"
+                                                      + "is modified but is still:%n"
+                                                      + "  <null>"));
     }
     try {
       AssertionsOnModifiedColumn.isModified(tableAssert, info, "test", "test");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting :\n"
-                                                      + "  <\"test\">\n"
-                                                      + "is modified but is still:\n"
-                                                      + "  <\"test\">");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting :%n"
+                                                      + "  <\"test\">%n"
+                                                      + "is modified but is still:%n"
+                                                      + "  <\"test\">"));
     }
   }
 }

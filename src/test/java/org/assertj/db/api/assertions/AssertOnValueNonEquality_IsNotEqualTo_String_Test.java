@@ -68,21 +68,21 @@ public class AssertOnValueNonEquality_IsNotEqualTo_String_Test extends AbstractT
       assertThat(changes).change().column("var12").valueAtEndPoint().isNotEqualTo("text");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Value at end point of Column at index 11 (column name : VAR12) of Change at index 0 (with primary key : [1]) of Changes on test table of 'sa/jdbc:h2:mem:test' source] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <\"text\">\n"
-                                                      + "not to be equal to: \n"
-                                                      + "  <\"text\">");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 11 (column name : VAR12) of Change at index 0 (with primary key : [1]) of Changes on test table of 'sa/jdbc:h2:mem:test' source] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <\"text\">%n"
+                                                      + "not to be equal to: %n"
+                                                      + "  <\"text\">"));
     }
     try {
       assertThat(table).column("var12").value().isNotEqualTo("text");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Value at index 0 of Column at index 11 (column name : VAR12) of test table] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <\"text\">\n"
-                                                      + "not to be equal to: \n"
-                                                      + "  <\"text\">");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 0 of Column at index 11 (column name : VAR12) of test table] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <\"text\">%n"
+                                                      + "not to be equal to: %n"
+                                                      + "  <\"text\">"));
     }
   }
 }

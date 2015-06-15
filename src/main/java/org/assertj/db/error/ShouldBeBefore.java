@@ -41,6 +41,6 @@ public class ShouldBeBefore extends BasicErrorMessageFactory {
    * @param expected The expected value to compare to.
    */
   private ShouldBeBefore(Object actual, Object expected) {
-    super("\nExpecting:\n  <%s>\nto be before \n  <%s>", actual, expected);
+    super("%nExpecting:%n  <%s>%nto be before %n  <%s>", actual, expected);
   }
 }

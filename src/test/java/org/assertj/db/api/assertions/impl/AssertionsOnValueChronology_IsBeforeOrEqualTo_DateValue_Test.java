@@ -75,11 +75,11 @@ public class AssertionsOnValueChronology_IsBeforeOrEqualTo_DateValue_Test {
                                                     DateValue.of(2007, 12, 23));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <2007-12-23T09:01:05.000000000>\n"
-                                                      + "to be before or equal to \n"
-                                                      + "  <2007-12-23T00:00:00.000000000>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <2007-12-23T09:01:05.000000000>%n"
+                                                      + "to be before or equal to %n"
+                                                      + "  <2007-12-23T00:00:00.000000000>"));
     }
     try {
       AssertionsOnValueChronology.isBeforeOrEqualTo(tableAssert, info,
@@ -87,11 +87,11 @@ public class AssertionsOnValueChronology_IsBeforeOrEqualTo_DateValue_Test {
                                                     DateValue.of(2007, 12, 23));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <2007-12-24>\n"
-                                                      + "to be before or equal to \n"
-                                                      + "  <2007-12-23>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <2007-12-24>%n"
+                                                      + "to be before or equal to %n"
+                                                      + "  <2007-12-23>"));
     }
   }
 
@@ -110,13 +110,13 @@ public class AssertionsOnValueChronology_IsBeforeOrEqualTo_DateValue_Test {
                                                     DateValue.of(2007, 12, 23));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <\"test\">\n"
-                                                      + "to be of type\n"
-                                                      + "  <[DATE, DATE_TIME]>\n"
-                                                      + "but was of type\n"
-                                                      + "  <TEXT>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <\"test\">%n"
+                                                      + "to be of type%n"
+                                                      + "  <[DATE, DATE_TIME]>%n"
+                                                      + "but was of type%n"
+                                                      + "  <TEXT>"));
     }
   }
 }

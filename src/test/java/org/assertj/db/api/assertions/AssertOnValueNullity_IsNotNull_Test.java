@@ -38,7 +38,7 @@ public class AssertOnValueNullity_IsNotNull_Test extends AbstractTest {
    */
   @Test
   @NeedReload
-  public void test_is_null() {
+  public void test_is_not_null() {
     Table table = new Table(source, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update("update test set var14 = 1 where var1 = 1");
@@ -68,15 +68,15 @@ public class AssertOnValueNullity_IsNotNull_Test extends AbstractTest {
       assertThat(changes).change().column("var3").valueAtEndPoint().isNotNull();
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Value at end point of Column at index 2 (column name : VAR3) of Change at index 0 of Changes on test2 table of 'sa/jdbc:h2:mem:test' source] \n"
-                                                      + "Expecting actual not to be null");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 2 (column name : VAR3) of Change at index 0 of Changes on test2 table of 'sa/jdbc:h2:mem:test' source] %n"
+                                                      + "Expecting actual not to be null"));
     }
     try {
       assertThat(table).column("var3").value(1).isNotNull();
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Value at index 1 of Column at index 2 (column name : VAR3) of test2 table] \n"
-                                                      + "Expecting actual not to be null");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 1 of Column at index 2 (column name : VAR3) of test2 table] %n"
+                                                      + "Expecting actual not to be null"));
     }
   }
 }

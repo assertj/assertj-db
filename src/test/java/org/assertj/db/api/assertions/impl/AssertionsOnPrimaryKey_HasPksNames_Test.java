@@ -73,11 +73,11 @@ public class AssertionsOnPrimaryKey_HasPksNames_Test extends AbstractTest {
       AssertionsOnPrimaryKey.hasPksNames(tableAssert, info, change, "ID1", "ID2");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting :\n"
-                                                      + "  [\"ID1\", \"ID2\"]\n"
-                                                      + "to be the name of the columns of the primary keys but was:\n"
-                                                      + "  [\"ID\", \"ID2\"]");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting :%n"
+                                                      + "  [\"ID1\", \"ID2\"]%n"
+                                                      + "to be the name of the columns of the primary keys but was:%n"
+                                                      + "  [\"ID\", \"ID2\"]"));
     }
   }
 
@@ -101,11 +101,11 @@ public class AssertionsOnPrimaryKey_HasPksNames_Test extends AbstractTest {
       AssertionsOnPrimaryKey.hasPksNames(tableAssert, info, change, "ID", "ID2", "ID3");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting :\n"
-                                                      + "  [\"ID\", \"ID2\", \"ID3\"]\n"
-                                                      + "to be the name of the columns of the primary keys but was:\n"
-                                                      + "  [\"ID\", \"ID2\"]");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting :%n"
+                                                      + "  [\"ID\", \"ID2\", \"ID3\"]%n"
+                                                      + "to be the name of the columns of the primary keys but was:%n"
+                                                      + "  [\"ID\", \"ID2\"]"));
     }
   }
 
@@ -129,7 +129,7 @@ public class AssertionsOnPrimaryKey_HasPksNames_Test extends AbstractTest {
       AssertionsOnPrimaryKey.hasPksNames(tableAssert, info, change, "NAME", null);
       fail("An exception must be raised");
     } catch (NullPointerException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Column name must be not null");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column name must be not null"));
     }
   }
 
@@ -153,7 +153,7 @@ public class AssertionsOnPrimaryKey_HasPksNames_Test extends AbstractTest {
       AssertionsOnPrimaryKey.hasPksNames(tableAssert, info, change, (String[]) null);
       fail("An exception must be raised");
     } catch (NullPointerException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Columns names must be not null");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Columns names must be not null"));
     }
   }
 }

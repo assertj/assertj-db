@@ -77,55 +77,55 @@ public class AssertionsOnColumnEquality_HasValues_String_Test {
       AssertionsOnColumnEquality.hasValues(tableAssert, info, list, "test1", "test2");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that the value at index 0:\n"
-                                                      + "  <\"test\">\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <\"test1\">");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that the value at index 0:%n"
+                                                      + "  <\"test\">%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <\"test1\">"));
     }
     try {
       List<Object> list = new ArrayList<Object>(Arrays.asList(8, 9));
       AssertionsOnColumnEquality.hasValues(tableAssert, info, list, "7", "9");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that the value at index 0:\n"
-                                                      + "  <\"8\">\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <\"7\">");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that the value at index 0:%n"
+                                                      + "  <\"8\">%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <\"7\">"));
     }
     try {
       List<Object> list = new ArrayList<Object>(Arrays.asList(Date.valueOf("2007-12-23"), Date.valueOf("2002-07-25")));
       AssertionsOnColumnEquality.hasValues(tableAssert, info, list, "2007-12-23", "2002-07-26");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that the value at index 1:\n"
-                                                      + "  <\"2002-07-25\">\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <\"2002-07-26\">");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that the value at index 1:%n"
+                                                      + "  <\"2002-07-25\">%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <\"2002-07-26\">"));
     }
     try {
       List<Object> list = new ArrayList<Object>(Arrays.asList(Time.valueOf("09:01:00"), Time.valueOf("03:30:05")));
       AssertionsOnColumnEquality.hasValues(tableAssert, info, list, "09:01", "03:30:06");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that the value at index 1:\n"
-                                                      + "  <\"03:30:05.000000000\">\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <\"03:30:06\">");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that the value at index 1:%n"
+                                                      + "  <\"03:30:05.000000000\">%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <\"03:30:06\">"));
     }
     try {
       List<Object> list = new ArrayList<Object>(Arrays.asList(Timestamp.valueOf("2007-12-23 09:01:00"), Timestamp.valueOf("2002-07-25 03:30:05")));
       AssertionsOnColumnEquality.hasValues(tableAssert, info, list, "2007-12-23T09:01", "2002-07-25T03:30:06");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that the value at index 1:\n"
-                                                      + "  <\"2002-07-25T03:30:05.000000000\">\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <\"2002-07-25T03:30:06\">");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that the value at index 1:%n"
+                                                      + "  <\"2002-07-25T03:30:05.000000000\">%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <\"2002-07-25T03:30:06\">"));
     }
   }
 
@@ -143,13 +143,13 @@ public class AssertionsOnColumnEquality_HasValues_String_Test {
       AssertionsOnColumnEquality.hasValues(tableAssert, info, list, "test1", "test2");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that the value at index 0:\n"
-                                                      + "  <false>\n"
-                                                      + "to be of type\n"
-                                                      + "  <[TEXT, NUMBER, DATE, TIME, DATE_TIME, NOT_IDENTIFIED]>\n"
-                                                      + "but was of type\n"
-                                                      + "  <BOOLEAN>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that the value at index 0:%n"
+                                                      + "  <false>%n"
+                                                      + "to be of type%n"
+                                                      + "  <[TEXT, NUMBER, DATE, TIME, DATE_TIME, NOT_IDENTIFIED]>%n"
+                                                      + "but was of type%n"
+                                                      + "  <BOOLEAN>"));
     }
   }
 
@@ -167,11 +167,11 @@ public class AssertionsOnColumnEquality_HasValues_String_Test {
       AssertionsOnColumnEquality.hasValues(tableAssert, info, list, "test1", "test2", "test3");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting size (number of rows) to be equal to :\n"
-                                                      + "   <3>\n"
-                                                      + "but was:\n"
-                                                      + "   <2>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting size (number of rows) to be equal to :%n"
+                                                      + "   <3>%n"
+                                                      + "but was:%n"
+                                                      + "   <2>"));
     }
   }
 }

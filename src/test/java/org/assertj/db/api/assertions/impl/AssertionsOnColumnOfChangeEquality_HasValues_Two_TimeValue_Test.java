@@ -63,11 +63,11 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_TimeValue_Test {
                                                    TimeValue.of(9, 1), TimeValue.of(3, 30, 5));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that start point:\n"
-                                                      + "  <09:01:05.000000000>\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <09:01:00.000000000>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that start point:%n"
+                                                      + "  <09:01:05.000000000>%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <09:01:00.000000000>"));
     }
   }
 
@@ -86,11 +86,11 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_TimeValue_Test {
                                                    TimeValue.of(9, 1), TimeValue.of(3, 30, 5));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that end point:\n"
-                                                      + "  <03:30:00.000000000>\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <03:30:05.000000000>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that end point:%n"
+                                                      + "  <03:30:00.000000000>%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <03:30:05.000000000>"));
     }
   }
 
@@ -109,13 +109,13 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_TimeValue_Test {
                                                    TimeValue.of(9, 1), TimeValue.of(3, 30, 5));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that the value at start point:\n"
-                                                      + "  <\"other\">\n"
-                                                      + "to be of type\n"
-                                                      + "  <[TIME, NOT_IDENTIFIED]>\n"
-                                                      + "but was of type\n"
-                                                      + "  <TEXT>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that the value at start point:%n"
+                                                      + "  <\"other\">%n"
+                                                      + "to be of type%n"
+                                                      + "  <[TIME, NOT_IDENTIFIED]>%n"
+                                                      + "but was of type%n"
+                                                      + "  <TEXT>"));
     }
   }
 }

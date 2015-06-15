@@ -23,7 +23,7 @@ import org.assertj.core.error.ErrorMessageFactory;
  */
 public class ShouldNotExist extends BasicErrorMessageFactory {
 
-  private static final String EXPECTED_MESSAGE = "\nExpecting not exist but exists";
+  private static final String EXPECTED_MESSAGE = "%nExpecting not exist but exists";
 
   /**
    * Creates a new <code>{@link org.assertj.db.error.ShouldNotExist}</code>.

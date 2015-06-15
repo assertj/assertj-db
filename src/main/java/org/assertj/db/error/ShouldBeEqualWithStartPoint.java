@@ -23,8 +23,8 @@ import org.assertj.core.error.ErrorMessageFactory;
  */
 public class ShouldBeEqualWithStartPoint extends BasicErrorMessageFactory {
 
-  private static final String EXPECTED_MESSAGE = "\nExpecting that start point:\n  <%s>\nto be equal to: \n  <%s>";
-  private static final String EXPECTED_MESSAGE_WITHOUT_VALUES = "\nExpecting that start point to be equal to the expected value but was not equal";
+  private static final String EXPECTED_MESSAGE = "%nExpecting that start point:%n  <%s>%nto be equal to: %n  <%s>";
+  private static final String EXPECTED_MESSAGE_WITHOUT_VALUES = "%nExpecting that start point to be equal to the expected value but was not equal";
 
   /**
    * Creates a new <code>{@link org.assertj.db.error.ShouldBeEqualWithStartPoint}</code>.

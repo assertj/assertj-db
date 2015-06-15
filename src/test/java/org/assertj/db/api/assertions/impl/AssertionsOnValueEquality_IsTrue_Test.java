@@ -55,11 +55,11 @@ public class AssertionsOnValueEquality_IsTrue_Test {
       AssertionsOnValueEquality.isTrue(tableAssert, info, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <false>\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <true>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <false>%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <true>"));
     }
   }
 
@@ -76,13 +76,13 @@ public class AssertionsOnValueEquality_IsTrue_Test {
       AssertionsOnValueEquality.isTrue(tableAssert, info, 8);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <8>\n"
-                                                      + "to be of type\n"
-                                                      + "  <BOOLEAN>\n"
-                                                      + "but was of type\n"
-                                                      + "  <NUMBER>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <8>%n"
+                                                      + "to be of type%n"
+                                                      + "  <BOOLEAN>%n"
+                                                      + "but was of type%n"
+                                                      + "  <NUMBER>"));
     }
   }
 }

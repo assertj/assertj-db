@@ -24,7 +24,7 @@ import org.assertj.db.type.ChangeType;
 public class ShouldBeChangeType extends BasicErrorMessageFactory {
 
   private static final String EXPECTED_MESSAGE =
-          "\nExpecting:\nto be of type\n" + "  <%s>\nbut was of type\n  <%s>";
+          "%nExpecting:%nto be of type%n" + "  <%s>%nbut was of type%n  <%s>";
 
   /**
    * Creates a new <code>{@link ShouldBeChangeType}</code>.

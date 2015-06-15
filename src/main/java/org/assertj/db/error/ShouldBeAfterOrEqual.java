@@ -41,6 +41,6 @@ public class ShouldBeAfterOrEqual extends BasicErrorMessageFactory {
    * @param expected The expected value to compare to.
    */
   private ShouldBeAfterOrEqual(Object actual, Object expected) {
-    super("\nExpecting:\n  <%s>\nto be after or equal to \n  <%s>", actual, expected);
+    super("%nExpecting:%n  <%s>%nto be after or equal to %n  <%s>", actual, expected);
   }
 }

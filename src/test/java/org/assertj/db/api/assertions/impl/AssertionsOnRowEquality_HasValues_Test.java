@@ -63,11 +63,11 @@ public class AssertionsOnRowEquality_HasValues_Test {
       AssertionsOnRowEquality.hasValues(tableAssert, info, list, 1, "Weaverr", "Sigourney", "1949-10-08");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that the value at index 1:\n"
-                                                      + "  <\"Weaver\">\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <\"Weaverr\">");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that the value at index 1:%n"
+                                                      + "  <\"Weaver\">%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <\"Weaverr\">"));
     }
   }
 
@@ -85,13 +85,13 @@ public class AssertionsOnRowEquality_HasValues_Test {
       AssertionsOnRowEquality.hasValues(tableAssert, info, list, 1, true, "Sigourney", "1949-10-08");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that the value at index 1:\n"
-                                                      + "  <\"Weaver\">\n"
-                                                      + "to be of type\n"
-                                                      + "  <[BOOLEAN]>\n"
-                                                      + "but was of type\n"
-                                                      + "  <TEXT>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that the value at index 1:%n"
+                                                      + "  <\"Weaver\">%n"
+                                                      + "to be of type%n"
+                                                      + "  <[BOOLEAN]>%n"
+                                                      + "but was of type%n"
+                                                      + "  <TEXT>"));
     }
   }
 
@@ -109,8 +109,8 @@ public class AssertionsOnRowEquality_HasValues_Test {
       AssertionsOnRowEquality.hasValues(tableAssert, info, list, 1, new byte[] { 2, 3 }, "Sigourney", "1949-10-08");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that the value at index 1 to be equal to the expected value but was not equal");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that the value at index 1 to be equal to the expected value but was not equal"));
     }
   }
 }

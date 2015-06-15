@@ -63,8 +63,8 @@ public class AssertOnColumnEquality_HasValues_Bytes_Test extends AbstractTest {
       tableColumnAssert.hasValues(bytesH2, bytesH2, bytesH2, bytesH2);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Column at index 10 (column name : VAR11) of test table] \n"
-                                                      + "Expecting that the value at index 1 to be equal to the expected value but was not equal");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 10 (column name : VAR11) of test table] %n"
+                                                      + "Expecting that the value at index 1 to be equal to the expected value but was not equal"));
     }
 
     Table table2 = new Table(source, "test2");
@@ -73,8 +73,8 @@ public class AssertOnColumnEquality_HasValues_Bytes_Test extends AbstractTest {
       tableColumnAssert2.hasValues(bytesH2, bytesH2);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Column at index 10 (column name : VAR11) of test2 table] \n"
-                                                      + "Expecting that the value at index 1 to be equal to the expected value but was not equal");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 10 (column name : VAR11) of test2 table] %n"
+                                                      + "Expecting that the value at index 1 to be equal to the expected value but was not equal"));
     }
   }
 }

@@ -57,31 +57,31 @@ public class AssertionsOnModifiedColumn_IsNotModified_Test {
       AssertionsOnModifiedColumn.isNotModified(tableAssert, info, null, "test");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting :\n"
-                                                      + "  <null>\n"
-                                                      + "is not modified but is :\n"
-                                                      + "  <\"test\">");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting :%n"
+                                                      + "  <null>%n"
+                                                      + "is not modified but is :%n"
+                                                      + "  <\"test\">"));
     }
     try {
       AssertionsOnModifiedColumn.isNotModified(tableAssert, info, "test", null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting :\n"
-                                                      + "  <\"test\">\n"
-                                                      + "is not modified but is :\n"
-                                                      + "  <null>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting :%n"
+                                                      + "  <\"test\">%n"
+                                                      + "is not modified but is :%n"
+                                                      + "  <null>"));
     }
     try {
       AssertionsOnModifiedColumn.isNotModified(tableAssert, info, "test", "test1");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting :\n"
-                                                      + "  <\"test\">\n"
-                                                      + "is not modified but is :\n"
-                                                      + "  <\"test1\">");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting :%n"
+                                                      + "  <\"test\">%n"
+                                                      + "is not modified but is :%n"
+                                                      + "  <\"test1\">"));
     }
   }
 }

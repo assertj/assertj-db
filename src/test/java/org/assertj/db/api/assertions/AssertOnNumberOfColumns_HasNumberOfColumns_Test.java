@@ -79,41 +79,41 @@ public class AssertOnNumberOfColumns_HasNumberOfColumns_Test extends AbstractTes
       assertThat(changes).change().hasNumberOfColumns(9);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Change at index 0 of Changes on 'select * from actor' request of 'sa/jdbc:h2:mem:test' source] \n"
-                                                      + "Expecting size (number of columns) to be equal to :\n"
-                                                      + "   <9>\n"
-                                                      + "but was:\n"
-                                                      + "   <4>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 of Changes on 'select * from actor' request of 'sa/jdbc:h2:mem:test' source] %n"
+                                                      + "Expecting size (number of columns) to be equal to :%n"
+                                                      + "   <9>%n"
+                                                      + "but was:%n"
+                                                      + "   <4>"));
     }
     try {
       assertThat(changes).change().rowAtEndPoint().hasNumberOfColumns(9);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Row at end point of Change at index 0 of Changes on 'select * from actor' request of 'sa/jdbc:h2:mem:test' source] \n"
-                                                      + "Expecting size (number of columns) to be equal to :\n"
-                                                      + "   <9>\n"
-                                                      + "but was:\n"
-                                                      + "   <4>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Row at end point of Change at index 0 of Changes on 'select * from actor' request of 'sa/jdbc:h2:mem:test' source] %n"
+                                                      + "Expecting size (number of columns) to be equal to :%n"
+                                                      + "   <9>%n"
+                                                      + "but was:%n"
+                                                      + "   <4>"));
     }
     try {
       assertThat(request).hasNumberOfColumns(9);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("['select * from actor' request] \n"
-                                                      + "Expecting size (number of columns) to be equal to :\n"
-                                                      + "   <9>\n"
-                                                      + "but was:\n"
-                                                      + "   <4>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("['select * from actor' request] %n"
+                                                      + "Expecting size (number of columns) to be equal to :%n"
+                                                      + "   <9>%n"
+                                                      + "but was:%n"
+                                                      + "   <4>"));
     }
     try {
       assertThat(request).row().hasNumberOfColumns(9);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Row at index 0 of 'select * from actor' request] \n"
-                                                      + "Expecting size (number of columns) to be equal to :\n"
-                                                      + "   <9>\n"
-                                                      + "but was:\n"
-                                                      + "   <4>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Row at index 0 of 'select * from actor' request] %n"
+                                                      + "Expecting size (number of columns) to be equal to :%n"
+                                                      + "   <9>%n"
+                                                      + "but was:%n"
+                                                      + "   <4>"));
     }
   }
 }

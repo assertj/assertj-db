@@ -42,6 +42,6 @@ public class ShouldBeGreaterOrEqual extends BasicErrorMessageFactory {
    * @param expected The expected value to compare to.
    */
   private ShouldBeGreaterOrEqual(Object actual, Object expected) {
-    super("\nExpecting:\n  <%s>\nto be greater than or equal to \n  <%s>", actual, expected);
+    super("%nExpecting:%n  <%s>%nto be greater than or equal to %n  <%s>", actual, expected);
   }
 }

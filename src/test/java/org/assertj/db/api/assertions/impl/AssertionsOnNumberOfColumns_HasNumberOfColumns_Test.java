@@ -55,11 +55,11 @@ public class AssertionsOnNumberOfColumns_HasNumberOfColumns_Test {
       AssertionsOnNumberOfColumns.hasNumberOfColumns(tableAssert, info, 3, 4);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting size (number of columns) to be equal to :\n"
-                                                      + "   <4>\n"
-                                                      + "but was:\n"
-                                                      + "   <3>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting size (number of columns) to be equal to :%n"
+                                                      + "   <4>%n"
+                                                      + "but was:%n"
+                                                      + "   <3>"));
     }
   }
 }

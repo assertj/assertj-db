@@ -78,11 +78,11 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_DateTimeValue_Test
                                                    DateTimeValue.of(DateValue.of(2002, 7, 25), TimeValue.of(3, 30, 5)));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that start point:\n"
-                                                      + "  <2007-12-23T09:01:05.000000000>\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <2007-12-23T09:01:00.000000000>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that start point:%n"
+                                                      + "  <2007-12-23T09:01:05.000000000>%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <2007-12-23T09:01:00.000000000>"));
     }
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
@@ -92,11 +92,11 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_DateTimeValue_Test
                                                    DateTimeValue.of(DateValue.of(2002, 7, 24)));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that end point:\n"
-                                                      + "  <2002-07-25T00:00:00.000000000>\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <2002-07-24T00:00:00.000000000>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that end point:%n"
+                                                      + "  <2002-07-25T00:00:00.000000000>%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <2002-07-24T00:00:00.000000000>"));
     }
   }
 
@@ -117,11 +117,11 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_DateTimeValue_Test
                                                    DateTimeValue.of(DateValue.of(2002, 7, 25), TimeValue.of(3, 30, 5)));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that end point:\n"
-                                                      + "  <2002-07-25T03:30:00.000000000>\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <2002-07-25T03:30:05.000000000>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that end point:%n"
+                                                      + "  <2002-07-25T03:30:00.000000000>%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <2002-07-25T03:30:05.000000000>"));
     }
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
@@ -131,11 +131,11 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_DateTimeValue_Test
                                                    DateTimeValue.of(DateValue.of(2002, 7, 25)));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that end point:\n"
-                                                      + "  <2002-07-26T00:00:00.000000000>\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <2002-07-25T00:00:00.000000000>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that end point:%n"
+                                                      + "  <2002-07-26T00:00:00.000000000>%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <2002-07-25T00:00:00.000000000>"));
     }
   }
 
@@ -156,13 +156,13 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_DateTimeValue_Test
                                                    DateTimeValue.of(DateValue.of(2002, 7, 25), TimeValue.of(3, 30, 5)));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that the value at start point:\n"
-                                                      + "  <\"other\">\n"
-                                                      + "to be of type\n"
-                                                      + "  <[DATE, DATE_TIME, NOT_IDENTIFIED]>\n"
-                                                      + "but was of type\n"
-                                                      + "  <TEXT>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that the value at start point:%n"
+                                                      + "  <\"other\">%n"
+                                                      + "to be of type%n"
+                                                      + "  <[DATE, DATE_TIME, NOT_IDENTIFIED]>%n"
+                                                      + "but was of type%n"
+                                                      + "  <TEXT>"));
     }
   }
 }

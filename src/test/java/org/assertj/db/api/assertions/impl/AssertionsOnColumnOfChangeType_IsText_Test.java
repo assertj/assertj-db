@@ -60,13 +60,13 @@ public class AssertionsOnColumnOfChangeType_IsText_Test {
                                             true, "test", false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that the value at start point:\n"
-                                                      + "  <true>\n"
-                                                      + "to be of type\n"
-                                                      + "  <TEXT>\n"
-                                                      + "but was of type\n"
-                                                      + "  <BOOLEAN>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that the value at start point:%n"
+                                                      + "  <true>%n"
+                                                      + "to be of type%n"
+                                                      + "  <TEXT>%n"
+                                                      + "but was of type%n"
+                                                      + "  <BOOLEAN>"));
     }
   }
 
@@ -84,13 +84,13 @@ public class AssertionsOnColumnOfChangeType_IsText_Test {
                                             "test", false, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that the value at end point:\n"
-                                                      + "  <false>\n"
-                                                      + "to be of type\n"
-                                                      + "  <TEXT>\n"
-                                                      + "but was of type\n"
-                                                      + "  <BOOLEAN>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that the value at end point:%n"
+                                                      + "  <false>%n"
+                                                      + "to be of type%n"
+                                                      + "  <TEXT>%n"
+                                                      + "but was of type%n"
+                                                      + "  <BOOLEAN>"));
     }
   }
 }

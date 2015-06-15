@@ -24,7 +24,7 @@ import org.assertj.db.type.DataType;
 public class ShouldBeDataType extends BasicErrorMessageFactory {
 
   private static final String EXPECTED_MESSAGE =
-          "\nExpecting:\nto be on data type\n" + "  <%s>\nbut was on data type\n  <%s>";
+          "%nExpecting:%nto be on data type%n" + "  <%s>%nbut was on data type%n  <%s>";
 
   /**
    * Creates a new <code>{@link ShouldBeDataType}</code>.

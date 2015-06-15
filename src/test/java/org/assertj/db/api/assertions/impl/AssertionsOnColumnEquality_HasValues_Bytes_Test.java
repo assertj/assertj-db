@@ -62,8 +62,8 @@ public class AssertionsOnColumnEquality_HasValues_Bytes_Test {
       AssertionsOnColumnEquality.hasValues(tableAssert, info, list, new byte[] { 0, 1 }, new byte[] { 1, 3 }, null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that the value at index 1 to be equal to the expected value but was not equal");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that the value at index 1 to be equal to the expected value but was not equal"));
     }
   }
 
@@ -81,13 +81,13 @@ public class AssertionsOnColumnEquality_HasValues_Bytes_Test {
       AssertionsOnColumnEquality.hasValues(tableAssert, info, list, new byte[] { 0, 1 }, new byte[] { 2, 3 });
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that the value at index 0:\n"
-                                                      + "  <\"other\">\n"
-                                                      + "to be of type\n"
-                                                      + "  <[BYTES, NOT_IDENTIFIED]>\n"
-                                                      + "but was of type\n"
-                                                      + "  <TEXT>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that the value at index 0:%n"
+                                                      + "  <\"other\">%n"
+                                                      + "to be of type%n"
+                                                      + "  <[BYTES, NOT_IDENTIFIED]>%n"
+                                                      + "but was of type%n"
+                                                      + "  <TEXT>"));
     }
   }
 
@@ -106,11 +106,11 @@ public class AssertionsOnColumnEquality_HasValues_Bytes_Test {
                                            new byte[] { 4, 5 });
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting size (number of rows) to be equal to :\n"
-                                                      + "   <3>\n"
-                                                      + "but was:\n"
-                                                      + "   <2>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting size (number of rows) to be equal to :%n"
+                                                      + "   <3>%n"
+                                                      + "but was:%n"
+                                                      + "   <2>"));
     }
   }
 }

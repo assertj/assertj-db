@@ -61,21 +61,21 @@ public class AssertionsOnValueEquality_IsEqualTo_DateValue_Test {
       AssertionsOnValueEquality.isEqualTo(tableAssert, info, Date.valueOf("2007-12-24"), DateValue.of(2007, 12, 23));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <2007-12-24>\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <2007-12-23>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <2007-12-24>%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <2007-12-23>"));
     }
     try {
       AssertionsOnValueEquality.isEqualTo(tableAssert, info, Timestamp.valueOf("2007-12-24 00:00:00"), DateValue.of(2007, 12, 23));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <2007-12-24T00:00:00.000000000>\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <2007-12-23T00:00:00.000000000>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <2007-12-24T00:00:00.000000000>%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <2007-12-23T00:00:00.000000000>"));
     }
   }
 
@@ -92,13 +92,13 @@ public class AssertionsOnValueEquality_IsEqualTo_DateValue_Test {
       AssertionsOnValueEquality.isEqualTo(tableAssert, info, 8, DateValue.of(2007, 12, 23));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <8>\n"
-                                                      + "to be of type\n"
-                                                      + "  <[DATE, DATE_TIME]>\n"
-                                                      + "but was of type\n"
-                                                      + "  <NUMBER>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <8>%n"
+                                                      + "to be of type%n"
+                                                      + "  <[DATE, DATE_TIME]>%n"
+                                                      + "but was of type%n"
+                                                      + "  <NUMBER>"));
     }
   }
 }

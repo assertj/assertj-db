@@ -100,11 +100,11 @@ public class AssertionsOnValueChronology_IsAfterOrEqualTo_String_Test {
                                                    "2007-12-23T09:01:06");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <2007-12-23T09:01:05.000000000>\n"
-                                                      + "to be after or equal to \n"
-                                                      + "  <2007-12-23T09:01:06.000000000>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <2007-12-23T09:01:05.000000000>%n"
+                                                      + "to be after or equal to %n"
+                                                      + "  <2007-12-23T09:01:06.000000000>"));
     }
     try {
       AssertionsOnValueChronology.isAfterOrEqualTo(tableAssert, info,
@@ -112,11 +112,11 @@ public class AssertionsOnValueChronology_IsAfterOrEqualTo_String_Test {
                                            "2007-12-23T09:01:05");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <2007-12-23T00:00:00.000000000>\n"
-                                                      + "to be after or equal to \n"
-                                                      + "  <2007-12-23T09:01:05.000000000>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <2007-12-23T00:00:00.000000000>%n"
+                                                      + "to be after or equal to %n"
+                                                      + "  <2007-12-23T09:01:05.000000000>"));
     }
     try {
       AssertionsOnValueChronology.isAfterOrEqualTo(tableAssert, info,
@@ -124,11 +124,11 @@ public class AssertionsOnValueChronology_IsAfterOrEqualTo_String_Test {
                                                    "2007-12-24");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <2007-12-23T09:01:05.000000000>\n"
-                                                      + "to be after or equal to \n"
-                                                      + "  <2007-12-24T00:00:00.000000000>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <2007-12-23T09:01:05.000000000>%n"
+                                                      + "to be after or equal to %n"
+                                                      + "  <2007-12-24T00:00:00.000000000>"));
     }
     try {
       AssertionsOnValueChronology.isAfterOrEqualTo(tableAssert, info,
@@ -136,11 +136,11 @@ public class AssertionsOnValueChronology_IsAfterOrEqualTo_String_Test {
                                                    "2007-12-24");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <2007-12-23T00:00:00.000000000>\n"
-                                                      + "to be after or equal to \n"
-                                                      + "  <2007-12-24T00:00:00.000000000>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <2007-12-23T00:00:00.000000000>%n"
+                                                      + "to be after or equal to %n"
+                                                      + "  <2007-12-24T00:00:00.000000000>"));
     }
     try {
       AssertionsOnValueChronology.isAfterOrEqualTo(tableAssert, info,
@@ -148,11 +148,11 @@ public class AssertionsOnValueChronology_IsAfterOrEqualTo_String_Test {
                                                    "09:01:06");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <09:01:05.000000000>\n"
-                                                      + "to be after or equal to \n"
-                                                      + "  <09:01:06.000000000>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <09:01:05.000000000>%n"
+                                                      + "to be after or equal to %n"
+                                                      + "  <09:01:06.000000000>"));
     }
   }
 
@@ -171,13 +171,13 @@ public class AssertionsOnValueChronology_IsAfterOrEqualTo_String_Test {
                                                    "2007-12-23T09:01:05");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <\"test\">\n"
-                                                      + "to be of type\n"
-                                                      + "  <[DATE, TIME, DATE_TIME]>\n"
-                                                      + "but was of type\n"
-                                                      + "  <TEXT>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <\"test\">%n"
+                                                      + "to be of type%n"
+                                                      + "  <[DATE, TIME, DATE_TIME]>%n"
+                                                      + "but was of type%n"
+                                                      + "  <TEXT>"));
     }
   }
 
@@ -196,7 +196,7 @@ public class AssertionsOnValueChronology_IsAfterOrEqualTo_String_Test {
                                                    "09_01:00");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Expected <09_01:00> is not correct to compare to <09:01:05.000000000>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Expected <09_01:00> is not correct to compare to <09:01:05.000000000>"));
     }
   }
 
@@ -215,7 +215,7 @@ public class AssertionsOnValueChronology_IsAfterOrEqualTo_String_Test {
                                                    "2007_12-23T09:01:00");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Expected <2007_12-23T09:01:00> is not correct to compare to <2007-12-23T00:00:00.000000000>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Expected <2007_12-23T09:01:00> is not correct to compare to <2007-12-23T00:00:00.000000000>"));
     }
   }
 }

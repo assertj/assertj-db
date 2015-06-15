@@ -71,15 +71,15 @@ public class AssertOnValueEquality_IsEqualTo_Bytes_Test extends AbstractTest {
       assertThat(changes).change().column("var11").valueAtEndPoint().isEqualTo(new byte[0]);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Value at end point of Column at index 10 (column name : VAR11) of Change at index 0 (with primary key : [1]) of Changes on test table of 'sa/jdbc:h2:mem:test' source] \n"
-                                                      + "Expecting to be equal to the expected value but was not equal");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 10 (column name : VAR11) of Change at index 0 (with primary key : [1]) of Changes on test table of 'sa/jdbc:h2:mem:test' source] %n"
+                                                      + "Expecting to be equal to the expected value but was not equal"));
     }
     try {
       assertThat(table).column("var11").value().isEqualTo(new byte[0]);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Value at index 0 of Column at index 10 (column name : VAR11) of test table] \n"
-                                                      + "Expecting to be equal to the expected value but was not equal");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 0 of Column at index 10 (column name : VAR11) of test table] %n"
+                                                      + "Expecting to be equal to the expected value but was not equal"));
     }
   }
 }

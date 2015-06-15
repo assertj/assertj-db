@@ -68,25 +68,25 @@ public class AssertOnValueType_IsNumber_Test extends AbstractTest {
       assertThat(changes).change().column("var2").valueAtEndPoint().isNumber();
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Value at end point of Column at index 1 (column name : VAR2) of Change at index 0 (with primary key : [1]) of Changes on test table of 'sa/jdbc:h2:mem:test' source] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <true>\n"
-                                                      + "to be of type\n"
-                                                      + "  <NUMBER>\n"
-                                                      + "but was of type\n"
-                                                      + "  <BOOLEAN>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 1 (column name : VAR2) of Change at index 0 (with primary key : [1]) of Changes on test table of 'sa/jdbc:h2:mem:test' source] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <true>%n"
+                                                      + "to be of type%n"
+                                                      + "  <NUMBER>%n"
+                                                      + "but was of type%n"
+                                                      + "  <BOOLEAN>"));
     }
     try {
       assertThat(table).column("var2").value().isNumber();
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Value at index 0 of Column at index 1 (column name : VAR2) of test table] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <true>\n"
-                                                      + "to be of type\n"
-                                                      + "  <NUMBER>\n"
-                                                      + "but was of type\n"
-                                                      + "  <BOOLEAN>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 0 of Column at index 1 (column name : VAR2) of test table] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <true>%n"
+                                                      + "to be of type%n"
+                                                      + "  <NUMBER>%n"
+                                                      + "but was of type%n"
+                                                      + "  <BOOLEAN>"));
     }
   }
 }

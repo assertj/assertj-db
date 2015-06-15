@@ -71,71 +71,71 @@ public class AssertionsOnValueEquality_IsEqualTo_String_Test {
       AssertionsOnValueEquality.isEqualTo(tableAssert, info, "test1", "test");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <\"test1\">\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <\"test\">");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <\"test1\">%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <\"test\">"));
     }
     try {
       AssertionsOnValueEquality.isEqualTo(tableAssert, info, 9, "8");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <\"9\">\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <\"8\">");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <\"9\">%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <\"8\">"));
     }
     try {
       AssertionsOnValueEquality.isEqualTo(tableAssert, info, Date.valueOf("2007-12-24"), "2007-12-23");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <\"2007-12-24\">\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <\"2007-12-23\">");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <\"2007-12-24\">%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <\"2007-12-23\">"));
     }
     try {
       AssertionsOnValueEquality.isEqualTo(tableAssert, info, Timestamp.valueOf("2007-12-24 00:00:00"), "2007-12-23");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <\"2007-12-24T00:00:00.000000000\">\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <\"2007-12-23\">");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <\"2007-12-24T00:00:00.000000000\">%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <\"2007-12-23\">"));
     }
     try {
       AssertionsOnValueEquality.isEqualTo(tableAssert, info, Time.valueOf("09:01:05"), "09:01");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <\"09:01:05.000000000\">\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <\"09:01\">");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <\"09:01:05.000000000\">%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <\"09:01\">"));
     }
     try {
       AssertionsOnValueEquality.isEqualTo(tableAssert, info, Date.valueOf("2007-12-24"), "2007-12-23T00:00:00");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <\"2007-12-24T00:00:00.000000000\">\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <\"2007-12-23T00:00:00\">");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <\"2007-12-24T00:00:00.000000000\">%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <\"2007-12-23T00:00:00\">"));
     }
     try {
       AssertionsOnValueEquality.isEqualTo(tableAssert, info, Timestamp.valueOf("2007-12-23 09:01:05"), "2007-12-23T09:01");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <\"2007-12-23T09:01:05.000000000\">\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <\"2007-12-23T09:01\">");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <\"2007-12-23T09:01:05.000000000\">%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <\"2007-12-23T09:01\">"));
     }
   }
 
@@ -152,13 +152,13 @@ public class AssertionsOnValueEquality_IsEqualTo_String_Test {
       AssertionsOnValueEquality.isEqualTo(tableAssert, info, false, "test");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <false>\n"
-                                                      + "to be of type\n"
-                                                      + "  <[TEXT, NUMBER, DATE, TIME, DATE_TIME]>\n"
-                                                      + "but was of type\n"
-                                                      + "  <BOOLEAN>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <false>%n"
+                                                      + "to be of type%n"
+                                                      + "  <[TEXT, NUMBER, DATE, TIME, DATE_TIME]>%n"
+                                                      + "but was of type%n"
+                                                      + "  <BOOLEAN>"));
     }
   }
 }

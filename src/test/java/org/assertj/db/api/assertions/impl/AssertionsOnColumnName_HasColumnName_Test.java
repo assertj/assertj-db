@@ -55,11 +55,11 @@ public class AssertionsOnColumnName_HasColumnName_Test {
       AssertionsOnColumnName.hasColumnName(tableAssert, info, "test1", "test");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting :\n"
-                                                      + "  \"test\"\n"
-                                                      + "to be the name of the column but was:\n"
-                                                      + "  \"test1\"");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting :%n"
+                                                      + "  \"test\"%n"
+                                                      + "to be the name of the column but was:%n"
+                                                      + "  \"test1\""));
     }
   }
 
@@ -76,7 +76,7 @@ public class AssertionsOnColumnName_HasColumnName_Test {
       AssertionsOnColumnName.hasColumnName(tableAssert, info, "test", null);
       fail("An exception must be raised");
     } catch (NullPointerException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Column name must be not null");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column name must be not null"));
     }
   }
 }

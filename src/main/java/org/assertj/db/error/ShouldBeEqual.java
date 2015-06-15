@@ -23,10 +23,10 @@ import org.assertj.core.error.ErrorMessageFactory;
  */
 public class ShouldBeEqual extends BasicErrorMessageFactory {
 
-  private static final String EXPECTED_MESSAGE = "\nExpecting:\n  <%s>\nto be equal to: \n  <%s>";
-  private static final String EXPECTED_MESSAGE_BUT_NOT = "\nExpecting to be equal to the expected value but was not equal";
-  private static final String EXPECTED_MESSAGE_WITH_INDEX = "\nExpecting that the value at index %s:\n  <%s>\nto be equal to: \n  <%s>";
-  private static final String EXPECTED_MESSAGE_BUT_NOT_WITH_INDEX = "\nExpecting that the value at index %s to be equal to the expected value but was not equal";
+  private static final String EXPECTED_MESSAGE = "%nExpecting:%n  <%s>%nto be equal to: %n  <%s>";
+  private static final String EXPECTED_MESSAGE_BUT_NOT = "%nExpecting to be equal to the expected value but was not equal";
+  private static final String EXPECTED_MESSAGE_WITH_INDEX = "%nExpecting that the value at index %s:%n  <%s>%nto be equal to: %n  <%s>";
+  private static final String EXPECTED_MESSAGE_BUT_NOT_WITH_INDEX = "%nExpecting that the value at index %s to be equal to the expected value but was not equal";
 
   /**
    * Creates a new <code>{@link ShouldBeEqual}</code>.

@@ -41,6 +41,6 @@ public class ShouldHaveRowsSize extends BasicErrorMessageFactory {
    * @param expectedSize the expected size.
    */
   private ShouldHaveRowsSize(int actualSize, int expectedSize) {
-    super("\nExpecting size (number of rows) to be equal to :\n   <%s>\nbut was:\n   <%s>", expectedSize, actualSize);
+    super("%nExpecting size (number of rows) to be equal to :%n   <%s>%nbut was:%n   <%s>", expectedSize, actualSize);
   }
 }

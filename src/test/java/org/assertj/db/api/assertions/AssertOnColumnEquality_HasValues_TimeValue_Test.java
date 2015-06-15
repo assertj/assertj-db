@@ -64,11 +64,11 @@ public class AssertOnColumnEquality_HasValues_TimeValue_Test extends AbstractTes
                                   TimeValue.of(12, 29, 49));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Column at index 7 (column name : VAR8) of test table] \n"
-                                                      + "Expecting that the value at index 0:\n"
-                                                      + "  <09:46:30.000000000>\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <12:29:49.000000000>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 7 (column name : VAR8) of test table] %n"
+                                                      + "Expecting that the value at index 0:%n"
+                                                      + "  <09:46:30.000000000>%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <12:29:49.000000000>"));
     }
     Table table2 = new Table(source, "test2");
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var8");
@@ -77,11 +77,11 @@ public class AssertOnColumnEquality_HasValues_TimeValue_Test extends AbstractTes
                                    TimeValue.of(12, 29, 49));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Column at index 7 (column name : VAR8) of test2 table] \n"
-                                                      + "Expecting that the value at index 1:\n"
-                                                      + "  <null>\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <12:29:49.000000000>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 7 (column name : VAR8) of test2 table] %n"
+                                                      + "Expecting that the value at index 1:%n"
+                                                      + "  <null>%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <12:29:49.000000000>"));
     }
   }
 }

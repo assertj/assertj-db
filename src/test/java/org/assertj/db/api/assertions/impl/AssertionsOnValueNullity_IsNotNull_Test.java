@@ -34,7 +34,7 @@ public class AssertionsOnValueNullity_IsNotNull_Test {
    * This method tests the {@code isNotNull} assertion method.
    */
   @Test
-  public void test_is_null() {
+  public void test_is_not_null() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
@@ -55,8 +55,8 @@ public class AssertionsOnValueNullity_IsNotNull_Test {
       AssertionsOnValueNullity.isNotNull(tableAssert, info, null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting actual not to be null");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format(String.format("[description] %n"
+                                                      + "Expecting actual not to be null")));
     }
   }
 }

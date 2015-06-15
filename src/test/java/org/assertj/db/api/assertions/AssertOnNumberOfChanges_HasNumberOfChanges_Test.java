@@ -64,11 +64,11 @@ public class AssertOnNumberOfChanges_HasNumberOfChanges_Test extends AbstractTes
       assertThat(changes).hasNumberOfChanges(9);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Changes on 'select * from actor' request of 'sa/jdbc:h2:mem:test' source] \n"
-                                                      + "Expecting size (number of changes) to be equal to :\n"
-                                                      + "   <9>\n"
-                                                      + "but was:\n"
-                                                      + "   <4>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Changes on 'select * from actor' request of 'sa/jdbc:h2:mem:test' source] %n"
+                                                      + "Expecting size (number of changes) to be equal to :%n"
+                                                      + "   <9>%n"
+                                                      + "but was:%n"
+                                                      + "   <4>"));
     }
   }
 }

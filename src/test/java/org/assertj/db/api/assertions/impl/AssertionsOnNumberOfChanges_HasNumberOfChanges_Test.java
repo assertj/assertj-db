@@ -75,11 +75,11 @@ public class AssertionsOnNumberOfChanges_HasNumberOfChanges_Test extends Abstrac
       AssertionsOnNumberOfChanges.hasNumberOfChanges(tableAssert, info, changes, 3);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting size (number of changes) to be equal to :\n"
-                                                      + "   <3>\n"
-                                                      + "but was:\n"
-                                                      + "   <2>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting size (number of changes) to be equal to :%n"
+                                                      + "   <3>%n"
+                                                      + "but was:%n"
+                                                      + "   <2>"));
     }
   }
 }

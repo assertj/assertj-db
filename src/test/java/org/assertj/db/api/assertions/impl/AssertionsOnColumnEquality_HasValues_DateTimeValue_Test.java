@@ -79,11 +79,11 @@ public class AssertionsOnColumnEquality_HasValues_DateTimeValue_Test {
                                            DateTimeValue.of(DateValue.of(2002, 7, 25), TimeValue.of(3, 30, 6)));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that the value at index 1:\n"
-                                                      + "  <2002-07-25T03:30:05.000000000>\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <2002-07-25T03:30:06.000000000>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that the value at index 1:%n"
+                                                      + "  <2002-07-25T03:30:05.000000000>%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <2002-07-25T03:30:06.000000000>"));
     }
     try {
       List<Object> list = new ArrayList<Object>(Arrays.asList(Date.valueOf("2007-12-23"), Date.valueOf("2002-07-25")));
@@ -92,11 +92,11 @@ public class AssertionsOnColumnEquality_HasValues_DateTimeValue_Test {
                                            DateTimeValue.of(DateValue.of(2002, 7, 25), TimeValue.of(3, 30, 6)));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that the value at index 1:\n"
-                                                      + "  <2002-07-25T00:00:00.000000000>\n"
-                                                      + "to be equal to: \n"
-                                                      + "  <2002-07-25T03:30:06.000000000>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that the value at index 1:%n"
+                                                      + "  <2002-07-25T00:00:00.000000000>%n"
+                                                      + "to be equal to: %n"
+                                                      + "  <2002-07-25T03:30:06.000000000>"));
     }
   }
 
@@ -116,13 +116,13 @@ public class AssertionsOnColumnEquality_HasValues_DateTimeValue_Test {
                                            DateTimeValue.of(DateValue.of(2002, 7, 25), TimeValue.of(3, 30, 6)));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that the value at index 0:\n"
-                                                      + "  <false>\n"
-                                                      + "to be of type\n"
-                                                      + "  <[DATE, DATE_TIME, NOT_IDENTIFIED]>\n"
-                                                      + "but was of type\n"
-                                                      + "  <BOOLEAN>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that the value at index 0:%n"
+                                                      + "  <false>%n"
+                                                      + "to be of type%n"
+                                                      + "  <[DATE, DATE_TIME, NOT_IDENTIFIED]>%n"
+                                                      + "but was of type%n"
+                                                      + "  <BOOLEAN>"));
     }
   }
 
@@ -143,11 +143,11 @@ public class AssertionsOnColumnEquality_HasValues_DateTimeValue_Test {
                                            DateTimeValue.of(DateValue.of(2015, 3, 30), TimeValue.of(22, 34)));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting size (number of rows) to be equal to :\n"
-                                                      + "   <3>\n"
-                                                      + "but was:\n"
-                                                      + "   <2>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting size (number of rows) to be equal to :%n"
+                                                      + "   <3>%n"
+                                                      + "but was:%n"
+                                                      + "   <2>"));
     }
   }
 }

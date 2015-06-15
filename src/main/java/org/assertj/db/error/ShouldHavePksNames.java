@@ -41,6 +41,6 @@ public class ShouldHavePksNames extends BasicErrorMessageFactory {
    * @param expectedNames The expected names of the columns.
    */
   private ShouldHavePksNames(String[] names, String[] expectedNames) {
-    super("\nExpecting :\n  %s\nto be the name of the columns of the primary keys but was:\n  %s", expectedNames, names);
+    super("%nExpecting :%n  %s%nto be the name of the columns of the primary keys but was:%n  %s", expectedNames, names);
   }
 }

@@ -75,11 +75,11 @@ public class AssertionsOnModifiedColumns_HasModifiedColumns_Integer_Test extends
       AssertionsOnModifiedColumns.hasModifiedColumns(tableAssert, info, change, 2, 3);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting :\n"
-                                                      + "  [2, 3]\n"
-                                                      + "as indexes of modified columns but was:\n"
-                                                      + "  [1, 2]");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting :%n"
+                                                      + "  [2, 3]%n"
+                                                      + "as indexes of modified columns but was:%n"
+                                                      + "  [1, 2]"));
     }
   }
 
@@ -103,7 +103,7 @@ public class AssertionsOnModifiedColumns_HasModifiedColumns_Integer_Test extends
       AssertionsOnModifiedColumns.hasModifiedColumns(tableAssert, info, change, 1, null);
       fail("An exception must be raised");
     } catch (NullPointerException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Column index must be not null");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column index must be not null"));
     }
   }
 
@@ -127,7 +127,7 @@ public class AssertionsOnModifiedColumns_HasModifiedColumns_Integer_Test extends
       AssertionsOnModifiedColumns.hasModifiedColumns(tableAssert, info, change, (Integer[]) null);
       fail("An exception must be raised");
     } catch (NullPointerException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Columns indexes must be not null");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Columns indexes must be not null"));
     }
   }
 }

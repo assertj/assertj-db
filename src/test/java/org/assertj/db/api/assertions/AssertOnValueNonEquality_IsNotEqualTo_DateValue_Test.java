@@ -69,21 +69,21 @@ public class AssertOnValueNonEquality_IsNotEqualTo_DateValue_Test extends Abstra
       assertThat(changes).change().column("var9").valueAtEndPoint().isNotEqualTo(DateValue.of(2014, 5, 24));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Value at end point of Column at index 8 (column name : VAR9) of Change at index 0 (with primary key : [1]) of Changes on test table of 'sa/jdbc:h2:mem:test' source] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <2014-05-24>\n"
-                                                      + "not to be equal to: \n"
-                                                      + "  <2014-05-24>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 8 (column name : VAR9) of Change at index 0 (with primary key : [1]) of Changes on test table of 'sa/jdbc:h2:mem:test' source] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <2014-05-24>%n"
+                                                      + "not to be equal to: %n"
+                                                      + "  <2014-05-24>"));
     }
     try {
       assertThat(table).column("var9").value().isNotEqualTo(DateValue.of(2014, 5, 24));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Value at index 0 of Column at index 8 (column name : VAR9) of test table] \n"
-                                                      + "Expecting:\n"
-                                                      + "  <2014-05-24>\n"
-                                                      + "not to be equal to: \n"
-                                                      + "  <2014-05-24>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 0 of Column at index 8 (column name : VAR9) of test table] %n"
+                                                      + "Expecting:%n"
+                                                      + "  <2014-05-24>%n"
+                                                      + "not to be equal to: %n"
+                                                      + "  <2014-05-24>"));
     }
   }
 }

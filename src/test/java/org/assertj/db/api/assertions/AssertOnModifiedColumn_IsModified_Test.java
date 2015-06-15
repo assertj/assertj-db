@@ -60,11 +60,11 @@ public class AssertOnModifiedColumn_IsModified_Test extends AbstractTest {
       assertThat(changes).change(3).column().isModified();
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[Column at index 0 (column name : ID) of Change at index 3 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] \n"
-                                                      + "Expecting :\n"
-                                                      + "  <1>\n"
-                                                      + "is modified but is still:\n"
-                                                      + "  <1>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 0 (column name : ID) of Change at index 3 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
+                                                      + "Expecting :%n"
+                                                      + "  <1>%n"
+                                                      + "is modified but is still:%n"
+                                                      + "  <1>"));
     }
   }
 }

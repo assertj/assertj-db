@@ -73,11 +73,11 @@ public class AssertionsOnPrimaryKey_HasPksValues_Test extends AbstractTest {
       AssertionsOnPrimaryKey.hasPksValues(tableAssert, info, change, 1, "Weaverr");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting :\n"
-                                                      + "  [1, \"Weaverr\"]\n"
-                                                      + "to be the values of the columns of the primary keys but was:\n"
-                                                      + "  [1, \"Weaver\"]");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting :%n"
+                                                      + "  [1, \"Weaverr\"]%n"
+                                                      + "to be the values of the columns of the primary keys but was:%n"
+                                                      + "  [1, \"Weaver\"]"));
     }
   }
 
@@ -101,11 +101,11 @@ public class AssertionsOnPrimaryKey_HasPksValues_Test extends AbstractTest {
       AssertionsOnPrimaryKey.hasPksValues(tableAssert, info, change, 1, "Weaverr", "Sigourney");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting :\n"
-                                                      + "  [1, \"Weaverr\", \"Sigourney\"]\n"
-                                                      + "to be the values of the columns of the primary keys but was:\n"
-                                                      + "  [1, \"Weaver\"]");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting :%n"
+                                                      + "  [1, \"Weaverr\", \"Sigourney\"]%n"
+                                                      + "to be the values of the columns of the primary keys but was:%n"
+                                                      + "  [1, \"Weaver\"]"));
     }
   }
 }

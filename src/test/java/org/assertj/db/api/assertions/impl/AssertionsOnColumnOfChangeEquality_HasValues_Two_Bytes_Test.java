@@ -58,8 +58,8 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Bytes_Test {
                                                    new byte[] { 0, 0 }, new byte[] { 2, 3 });
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that start point to be equal to the expected value but was not equal");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that start point to be equal to the expected value but was not equal"));
     }
   }
 
@@ -77,8 +77,8 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Bytes_Test {
                                                    new byte[] { 0, 1 }, new byte[] { 2, 2 });
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that end point to be equal to the expected value but was not equal");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that end point to be equal to the expected value but was not equal"));
     }
   }
 
@@ -96,13 +96,13 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Bytes_Test {
                                                    new byte[] { 2, 3 });
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("[description] \n"
-                                                      + "Expecting that the value at start point:\n"
-                                                      + "  <\"other\">\n"
-                                                      + "to be of type\n"
-                                                      + "  <[BYTES, NOT_IDENTIFIED]>\n"
-                                                      + "but was of type\n"
-                                                      + "  <TEXT>");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that the value at start point:%n"
+                                                      + "  <\"other\">%n"
+                                                      + "to be of type%n"
+                                                      + "  <[BYTES, NOT_IDENTIFIED]>%n"
+                                                      + "but was of type%n"
+                                                      + "  <TEXT>"));
     }
   }
 }
