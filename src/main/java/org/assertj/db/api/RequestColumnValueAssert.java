@@ -33,14 +33,4 @@ public class RequestColumnValueAssert
   RequestColumnValueAssert(RequestColumnAssert origin, Object value) {
     super(RequestColumnValueAssert.class, origin, value);
   }
-
-  /**
-   * Returns to level of assertion methods on a {@link Column}.
-   * 
-   * @return a object of assertion methods on a {@link Column}.
-   */
-  public RequestColumnAssert returnToColumn() {
-    return returnToOrigin();
-  }
-
 }

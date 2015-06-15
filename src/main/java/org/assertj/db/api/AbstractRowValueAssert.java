@@ -65,4 +65,13 @@ public abstract class AbstractRowValueAssert<D extends AbstractDbData<D>, A exte
   public RV hasColumnName(String columnName) {
     return AssertionsOnColumnName.hasColumnName(myself, info, this.columnName, columnName);
   }
+
+  /**
+   * Returns to level of assertion methods on a {@link Row}.
+   *
+   * @return a object of assertion methods on a {@link Row}.
+   */
+  public R returnToRow() {
+    return returnToOrigin();
+  }
 }

@@ -33,14 +33,4 @@ public class TableColumnValueAssert
   TableColumnValueAssert(TableColumnAssert origin, Object value) {
     super(TableColumnValueAssert.class, origin, value);
   }
-
-  /**
-   * Returns to level of assertion methods on a {@link Column}.
-   * 
-   * @return a object of assertion methods on a {@link Column}.
-   */
-  public TableColumnAssert returnToColumn() {
-    return returnToOrigin();
-  }
-
 }

@@ -34,13 +34,4 @@ public class TableRowValueAssert
   TableRowValueAssert(TableRowAssert origin, String columnName, Object value) {
     super(TableRowValueAssert.class, origin, columnName, value);
   }
-
-  /**
-   * Returns to level of assertion methods on a {@link Row}.
-   * 
-   * @return a object of assertion methods on a {@link Row}.
-   */
-  public TableRowAssert returnToRow() {
-    return returnToOrigin();
-  }
 }

@@ -40,4 +40,13 @@ public abstract class AbstractColumnValueAssert<D extends AbstractDbData<D>, A e
   AbstractColumnValueAssert(Class<CV> selfType, C origin, Object actualValue) {
     super(selfType, origin, actualValue);
   }
+
+  /**
+   * Returns to level of assertion methods on a {@link Column}.
+   *
+   * @return a object of assertion methods on a {@link Column}.
+   */
+  public C returnToColumn() {
+    return returnToOrigin();
+  }
 }

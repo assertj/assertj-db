@@ -34,14 +34,4 @@ public class RequestRowValueAssert
   RequestRowValueAssert(RequestRowAssert origin, String columnName, Object value) {
     super(RequestRowValueAssert.class, origin, columnName, value);
   }
-
-  /**
-   * Returns to level of assertion methods on a {@link Row}.
-   * 
-   * @return a object of assertion methods on a {@link Row}.
-   */
-  public RequestRowAssert returnToRow() {
-    return returnToOrigin();
-  }
-
 }
