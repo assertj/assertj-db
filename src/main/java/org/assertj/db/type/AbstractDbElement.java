@@ -154,17 +154,15 @@ public abstract class AbstractDbElement<D extends AbstractDbElement<D>> {
    * @throws SQLException SQL Exception
    */
   protected static String getCatalog(Connection connection) throws SQLException {
-    Class<? extends Connection> connectionClass = connection.getClass();
-    Method[] methods = connectionClass.getMethods();
-    for (Method method : methods) {
-      if ("getCatalog".equals(method.getName())) {
-        int modifiers = method.getModifiers();
-        if (Modifier.isAbstract(modifiers)) {
-          return null;
-        }
-      }
+    try {
+      return connection.getCatalog();
     }
-    return connection.getCatalog();
+    catch (SQLException exception) {
+      throw exception;
+    }
+    catch (Throwable throwable) {
+      return null;
+    }
   }
 
   /**
@@ -174,16 +172,14 @@ public abstract class AbstractDbElement<D extends AbstractDbElement<D>> {
    * @throws SQLException SQL Exception
    */
   protected static String getSchema(Connection connection) throws SQLException {
-    Class<? extends Connection> connectionClass = connection.getClass();
-    Method[] methods = connectionClass.getMethods();
-    for (Method method : methods) {
-      if ("getSchema".equals(method.getName())) {
-        int modifiers = method.getModifiers();
-        if (Modifier.isAbstract(modifiers)) {
-          return null;
-        }
-      }
+    try {
+      return connection.getSchema();
     }
-    return connection.getSchema();
+    catch (SQLException exception) {
+      throw exception;
+    }
+    catch (Throwable throwable) {
+      return null;
+    }
   }
 }
