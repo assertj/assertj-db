@@ -18,7 +18,7 @@ import org.assertj.db.type.DataType;
  * Defines the assertion methods on the type of data (from a table or from a request).
  * <p>The different type of data are enumerated in {@link org.assertj.db.type.DataType}.</p>
  *
- * @param <T> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/anMa4g"
+ * @param <T> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/1IZIRcY"
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
  *            for more details.
  * @author Régis Pouiller
