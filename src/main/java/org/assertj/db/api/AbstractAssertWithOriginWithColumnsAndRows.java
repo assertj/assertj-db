@@ -21,7 +21,7 @@ import org.assertj.db.type.AbstractDbData;
  * Base class for all assertions with an {@link org.assertj.db.api.origin.Origin}
  * and have {@link org.assertj.db.type.Column}s and {@link org.assertj.db.type.Row}s.
  *
- * @param <E>  The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/anMa4g"
+ * @param <E>  The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/1IZIRcY"
  *             target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
  *             for more details.
  * @param <O>  The type of the assertion class of {@link org.assertj.db.api.origin.Origin}.
