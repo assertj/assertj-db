@@ -17,6 +17,7 @@ import org.junit.Test;
 
 import java.sql.Time;
 import java.text.ParseException;
+import java.util.Calendar;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -97,6 +98,20 @@ public class TimeValue_Test extends AbstractTest {
   @Test(expected = ParseException.class)
   public void should_constructor_with_string_fail_if_date_has_bad_character_on_separator() throws ParseException {
     new TimeValue("09a01");
+  }
+
+  /**
+   * This method tests the constructor with a {@code Calendar}.
+   */
+  @Test
+  public void test_contructor_with_calendar() throws ParseException {
+    Calendar calendar = Calendar.getInstance();
+    calendar.set(2007, Calendar.DECEMBER, 23, 9, 1, 6);
+    TimeValue timeValue = new TimeValue(calendar);
+    assertThat(timeValue.getHour()).isEqualTo(9);
+    assertThat(timeValue.getMinutes()).isEqualTo(1);
+    assertThat(timeValue.getSeconds()).isEqualTo(6);
+    assertThat(timeValue.getNanoSeconds()).isEqualTo(0);
   }
 
   /**
@@ -229,6 +244,37 @@ public class TimeValue_Test extends AbstractTest {
   }
 
   /**
+   * This method tests the {@code now} static method.
+   */
+  @Test
+  public void test_now() throws ParseException {
+    Calendar calendarFirst = Calendar.getInstance();
+    TimeValue timeValue = TimeValue.now();
+    Calendar calendarSecond = Calendar.getInstance();
+    assertThat(timeValue.getHour()).isBetween(calendarFirst.get(Calendar.HOUR_OF_DAY),
+                                                       calendarSecond.get(Calendar.HOUR_OF_DAY));
+    assertThat(timeValue.getMinutes()).isBetween(calendarFirst.get(Calendar.MINUTE),
+                                               calendarSecond.get(Calendar.MINUTE));
+    assertThat(timeValue.getSeconds()).isBetween(calendarFirst.get(Calendar.SECOND),
+                                              calendarSecond.get(Calendar.SECOND));
+    assertThat(timeValue.getNanoSeconds()).isEqualTo(0);
+  }
+
+  /**
+   * This method tests the constructor with a {@code Calendar}.
+   */
+  @Test
+  public void test_from_calendar() throws ParseException {
+    Calendar calendar = Calendar.getInstance();
+    calendar.set(2007, Calendar.DECEMBER, 23, 9, 1, 6);
+    TimeValue timeValue = TimeValue.from(calendar);
+    assertThat(timeValue.getHour()).isEqualTo(9);
+    assertThat(timeValue.getMinutes()).isEqualTo(1);
+    assertThat(timeValue.getSeconds()).isEqualTo(6);
+    assertThat(timeValue.getNanoSeconds()).isEqualTo(0);
+  }
+
+  /**
    * This method tests the {@code from} method containing seconds.
    */
   @Test
@@ -246,7 +292,16 @@ public class TimeValue_Test extends AbstractTest {
    */
   @Test(expected = NullPointerException.class)
   public void should_from_fail_if_date_is_null() throws ParseException {
-    TimeValue.from(null);
+    TimeValue.from((Time) null);
+  }
+
+  /**
+   * This method should throw a {@code NullPointerException} because passing a {@code null} parameter to {@code from}
+   * method.
+   */
+  @Test(expected = NullPointerException.class)
+  public void should_from_fail_if_calendar_is_null() throws ParseException {
+    TimeValue.from((Calendar) null);
   }
 
   /**

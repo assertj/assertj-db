@@ -17,6 +17,7 @@ import org.junit.Test;
 
 import java.sql.Date;
 import java.text.ParseException;
+import java.util.Calendar;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -29,11 +30,24 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class DateValue_Test extends AbstractTest {
 
   /**
-   * This method tests the constructor with a {@code String}.
+   * This method tests the constructor with a {@code Date}.
    */
   @Test
   public void test_contructor_with_date() throws ParseException {
     DateValue dateValue = new DateValue(Date.valueOf("2007-12-23"));
+    assertThat(dateValue.getDayOfTheMonth()).isEqualTo(23);
+    assertThat(dateValue.getMonth()).isEqualTo(12);
+    assertThat(dateValue.getYear()).isEqualTo(2007);
+  }
+
+  /**
+   * This method tests the constructor with a {@code Calendar}.
+   */
+  @Test
+  public void test_contructor_with_calendar() throws ParseException {
+    Calendar calendar = Calendar.getInstance();
+    calendar.set(2007, Calendar.DECEMBER, 23);
+    DateValue dateValue = new DateValue(calendar);
     assertThat(dateValue.getDayOfTheMonth()).isEqualTo(23);
     assertThat(dateValue.getMonth()).isEqualTo(12);
     assertThat(dateValue.getYear()).isEqualTo(2007);
@@ -106,6 +120,35 @@ public class DateValue_Test extends AbstractTest {
   }
 
   /**
+   * This method tests the {@code now} static method.
+   */
+  @Test
+  public void test_now() throws ParseException {
+    Calendar calendarFirst = Calendar.getInstance();
+    DateValue dateValue = DateValue.now();
+    Calendar calendarSecond = Calendar.getInstance();
+    assertThat(dateValue.getDayOfTheMonth()).isBetween(calendarFirst.get(Calendar.DAY_OF_MONTH),
+                                                       calendarSecond.get(Calendar.DAY_OF_MONTH));
+    assertThat(dateValue.getMonth()).isBetween(calendarFirst.get(Calendar.MONTH) + 1,
+                                               calendarSecond.get(Calendar.MONTH) + 1);
+    assertThat(dateValue.getYear()).isBetween(calendarFirst.get(Calendar.YEAR),
+                                              calendarSecond.get(Calendar.YEAR));
+  }
+
+  /**
+   * This method tests the constructor with a {@code Calendar}.
+   */
+  @Test
+  public void test_from_calendar() throws ParseException {
+    Calendar calendar = Calendar.getInstance();
+    calendar.set(2007, Calendar.DECEMBER, 23);
+    DateValue dateValue = DateValue.from(calendar);
+    assertThat(dateValue.getDayOfTheMonth()).isEqualTo(23);
+    assertThat(dateValue.getMonth()).isEqualTo(12);
+    assertThat(dateValue.getYear()).isEqualTo(2007);
+  }
+
+  /**
    * This method tests the {@code from} static method.
    */
   @Test
@@ -122,7 +165,16 @@ public class DateValue_Test extends AbstractTest {
    */
   @Test(expected = NullPointerException.class)
   public void should_from_fail_if_date_is_null() throws ParseException {
-    DateValue.from(null);
+    DateValue.from((Date) null);
+  }
+
+  /**
+   * This method should throw a {@code NullPointerException} because passing a {@code null} parameter to the
+   * {@code from} static method.
+   */
+  @Test(expected = NullPointerException.class)
+  public void should_from_fail_if_calendar_is_null() throws ParseException {
+    DateValue.from((Calendar) null);
   }
 
   /**

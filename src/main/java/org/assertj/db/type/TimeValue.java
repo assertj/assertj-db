@@ -117,6 +117,26 @@ public class TimeValue implements Comparable<TimeValue> {
   }
 
   /**
+   * Makes an instance of time value from a {@link Calendar}.
+   *
+   * @param calendar Calendar.
+   * @throws NullPointerException If {@code calendar} is {@code null}.
+   * @return An instance of time value.
+   */
+  public static TimeValue from(Calendar calendar) {
+    return new TimeValue(calendar);
+  }
+
+  /**
+   * Makes an instance of the time value corresponding to now.
+   *
+   * @return An instance of time value.
+   */
+  public static TimeValue now() {
+    return from(Calendar.getInstance());
+  }
+
+  /**
    * Constructor.
    * 
    * @param hour Hour.
@@ -198,6 +218,23 @@ public class TimeValue implements Comparable<TimeValue> {
 
     Calendar calendar = Calendar.getInstance();
     calendar.setTimeInMillis(time.getTime());
+
+    hour = calendar.get(Calendar.HOUR_OF_DAY);
+    minutes = calendar.get(Calendar.MINUTE);
+    seconds = calendar.get(Calendar.SECOND);
+    nanoSeconds = 0;
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param calendar Calendar.
+   * @throws NullPointerException If {@code calendar} is {@code null}.
+   */
+  public TimeValue(Calendar calendar) {
+    if (calendar == null) {
+      throw new NullPointerException("time should be not null");
+    }
 
     hour = calendar.get(Calendar.HOUR_OF_DAY);
     minutes = calendar.get(Calendar.MINUTE);

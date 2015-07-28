@@ -98,6 +98,26 @@ public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContai
   }
 
   /**
+   * Makes an instance of date/time value from a {@link Calendar}.
+   *
+   * @param calendar Calendar.
+   * @throws NullPointerException If {@code calendar} is {@code null}.
+   * @return An instance of date/time value.
+   */
+  public static DateTimeValue from(Calendar calendar) {
+    return new DateTimeValue(calendar);
+  }
+
+  /**
+   * Makes an instance of the date/time value corresponding to now.
+   *
+   * @return An instance of date/time value.
+   */
+  public static DateTimeValue now() {
+    return from(Calendar.getInstance());
+  }
+
+  /**
    * Constructor.
    * 
    * @param date The date.
@@ -161,6 +181,21 @@ public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContai
         calendar.get(Calendar.DAY_OF_MONTH));
     time = TimeValue.of(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),
         calendar.get(Calendar.SECOND), timestamp.getNanos());
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param calendar Calendar.
+   * @throws NullPointerException If {@code calendar} is {@code null}.
+   */
+  public DateTimeValue(Calendar calendar) {
+    if (calendar == null) {
+      throw new NullPointerException("date/time should be not null");
+    }
+
+    date = DateValue.from(calendar);
+    time = TimeValue.from(calendar);
   }
 
   /** {@inheritDoc} */

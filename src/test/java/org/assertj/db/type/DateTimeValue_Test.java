@@ -17,6 +17,7 @@ import org.junit.Test;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
+import java.util.Calendar;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -121,6 +122,23 @@ public class DateTimeValue_Test extends AbstractTest {
   @Test(expected = ParseException.class)
   public void should_constructor_with_string_fail_if_date_has_bad_character_on_separator() throws ParseException {
     new DateTimeValue("2007a12-23");
+  }
+
+  /**
+   * This method tests the constructor with a {@code Calendar}.
+   */
+  @Test
+  public void test_contructor_with_calendar() throws ParseException {
+    Calendar calendar = Calendar.getInstance();
+    calendar.set(2007, Calendar.DECEMBER, 23, 9, 1, 6);
+    DateTimeValue dateTimeValue = new DateTimeValue(calendar);
+    assertThat(dateTimeValue.getDate().getDayOfTheMonth()).isEqualTo(23);
+    assertThat(dateTimeValue.getDate().getMonth()).isEqualTo(12);
+    assertThat(dateTimeValue.getDate().getYear()).isEqualTo(2007);
+    assertThat(dateTimeValue.getTime().getHour()).isEqualTo(9);
+    assertThat(dateTimeValue.getTime().getMinutes()).isEqualTo(1);
+    assertThat(dateTimeValue.getTime().getSeconds()).isEqualTo(6);
+    assertThat(dateTimeValue.getTime().getNanoSeconds()).isEqualTo(0);
   }
 
   /**
@@ -279,6 +297,46 @@ public class DateTimeValue_Test extends AbstractTest {
   }
 
   /**
+   * This method tests the {@code now} static method.
+   */
+  @Test
+  public void test_now() throws ParseException {
+    Calendar calendarFirst = Calendar.getInstance();
+    DateTimeValue dateTimeValue = DateTimeValue.now();
+    Calendar calendarSecond = Calendar.getInstance();
+    assertThat(dateTimeValue.getDate().getDayOfTheMonth()).isBetween(calendarFirst.get(Calendar.DAY_OF_MONTH),
+                                                       calendarSecond.get(Calendar.DAY_OF_MONTH));
+    assertThat(dateTimeValue.getDate().getMonth()).isBetween(calendarFirst.get(Calendar.MONTH) + 1,
+                                               calendarSecond.get(Calendar.MONTH) + 1);
+    assertThat(dateTimeValue.getDate().getYear()).isBetween(calendarFirst.get(Calendar.YEAR),
+                                              calendarSecond.get(Calendar.YEAR));
+    assertThat(dateTimeValue.getTime().getHour()).isBetween(calendarFirst.get(Calendar.HOUR_OF_DAY),
+                                              calendarSecond.get(Calendar.HOUR_OF_DAY));
+    assertThat(dateTimeValue.getTime().getMinutes()).isBetween(calendarFirst.get(Calendar.MINUTE),
+                                                 calendarSecond.get(Calendar.MINUTE));
+    assertThat(dateTimeValue.getTime().getSeconds()).isBetween(calendarFirst.get(Calendar.SECOND),
+                                                 calendarSecond.get(Calendar.SECOND));
+    assertThat(dateTimeValue.getTime().getNanoSeconds()).isEqualTo(0);
+  }
+
+  /**
+   * This method tests the constructor with a {@code Calendar}.
+   */
+  @Test
+  public void test_from_calendar() throws ParseException {
+    Calendar calendar = Calendar.getInstance();
+    calendar.set(2007, Calendar.DECEMBER, 23, 9, 1, 6);
+    DateTimeValue dateTimeValue = DateTimeValue.from(calendar);
+    assertThat(dateTimeValue.getDate().getDayOfTheMonth()).isEqualTo(23);
+    assertThat(dateTimeValue.getDate().getMonth()).isEqualTo(12);
+    assertThat(dateTimeValue.getDate().getYear()).isEqualTo(2007);
+    assertThat(dateTimeValue.getTime().getHour()).isEqualTo(9);
+    assertThat(dateTimeValue.getTime().getMinutes()).isEqualTo(1);
+    assertThat(dateTimeValue.getTime().getSeconds()).isEqualTo(6);
+    assertThat(dateTimeValue.getTime().getNanoSeconds()).isEqualTo(0);
+  }
+
+  /**
    * This method tests the {@code from} method containing seconds.
    */
   @Test
@@ -299,7 +357,16 @@ public class DateTimeValue_Test extends AbstractTest {
    */
   @Test(expected = NullPointerException.class)
   public void should_from_fail_if_date_is_null() throws ParseException {
-    DateTimeValue.from(null);
+    DateTimeValue.from((Timestamp) null);
+  }
+
+  /**
+   * This method should throw a {@code NullPointerException} because passing a {@code null} parameter to {@code from}
+   * method.
+   */
+  @Test(expected = NullPointerException.class)
+  public void should_from_fail_if_calendar_is_null() throws ParseException {
+    DateTimeValue.from((Calendar) null);
   }
 
   /**

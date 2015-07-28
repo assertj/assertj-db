@@ -77,6 +77,26 @@ public class DateValue implements Comparable<DateValue>, DateValueContainer {
   }
 
   /**
+   * Makes an instance of date value from a {@link Calendar}.
+   *
+   * @param calendar Calendar.
+   * @throws NullPointerException If {@code calendar} is {@code null}.
+   * @return An instance of date value.
+   */
+  public static DateValue from(Calendar calendar) {
+    return new DateValue(calendar);
+  }
+
+  /**
+   * Makes an instance of the date value corresponding to now.
+   *
+   * @return An instance of date value.
+   */
+  public static DateValue now() {
+    return from(Calendar.getInstance());
+  }
+
+  /**
    * Constructor.
    * 
    * @param year Year.
@@ -123,6 +143,22 @@ public class DateValue implements Comparable<DateValue>, DateValueContainer {
 
     Calendar calendar = Calendar.getInstance();
     calendar.setTimeInMillis(date.getTime());
+
+    dayOfTheMonth = calendar.get(Calendar.DAY_OF_MONTH);
+    month = calendar.get(Calendar.MONTH) + 1;
+    year = calendar.get(Calendar.YEAR);
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param calendar Calendar.
+   * @throws NullPointerException If {@code calendar} is {@code null}.
+   */
+  public DateValue(Calendar calendar) {
+    if (calendar == null) {
+      throw new NullPointerException("date should be not null");
+    }
 
     dayOfTheMonth = calendar.get(Calendar.DAY_OF_MONTH);
     month = calendar.get(Calendar.MONTH) + 1;
