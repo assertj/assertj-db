@@ -2,7 +2,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>assertj-db</artifactId>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.0.1</version>
 	<packaging>bundle</packaging>
 	<name>AssertJ-DB - Assertions for database</name>
 	<description>AssertJ-DB - Rich and fluent assertions for testing with database</description>
