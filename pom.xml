@@ -14,8 +14,8 @@
 	</parent>
 
 	<scm>
-		<developerConnection>scm:git:git@github.com:joel-costigliola/assertj-db.git</developerConnection>
-		<connection>scm:git:git@github.com:joel-costigliola/assertj-db.git</connection>
+		<developerConnection>scm:git:ssh@github.com:joel-costigliola/assertj-db.git</developerConnection>
+		<connection>scm:git:ssh@github.com:joel-costigliola/assertj-db.git</connection>
 		<url>git@github.com:joel-costigliola/assertj-db</url>
 		<tag>HEAD</tag>
 	</scm>
