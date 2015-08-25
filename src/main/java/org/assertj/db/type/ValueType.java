@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.UUID;
 
 /**
  * Enumeration of the different type of value that are in the database.
@@ -54,6 +55,10 @@ public enum ValueType {
    */
   NUMBER,
   /**
+   * UUID type.
+   */
+  UUID,
+  /**
    * Not identified type : null value for example.
    */
   NOT_IDENTIFIED;
@@ -82,6 +87,9 @@ public enum ValueType {
     }
     if (value instanceof Timestamp) {
       return DATE_TIME;
+    }
+    if (value instanceof java.util.UUID) {
+      return UUID;
     }
     if (value instanceof Byte
         || value instanceof Short
@@ -122,6 +130,9 @@ public enum ValueType {
     }
     if (expected instanceof Number) {
       return new ValueType[] { NUMBER };
+    }
+    if (expected instanceof UUID) {
+      return new ValueType[] { UUID };
     }
     return new ValueType[] { NOT_IDENTIFIED };
   }

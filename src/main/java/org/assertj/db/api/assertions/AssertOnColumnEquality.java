@@ -16,6 +16,8 @@ import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
 
+import java.util.UUID;
+
 /**
  * Defines the assertion methods on the equality of a column.
  *
@@ -99,6 +101,26 @@ public interface AssertOnColumnEquality<T extends AssertOnColumnEquality<T>> {
    * @see org.assertj.db.api.AbstractColumnAssert#hasValues(String...)
    */
   public T hasValues(String... expected);
+
+
+  /**
+   * Verifies that the values of a column are equal to UUIDs.
+   * <p>
+   * Example where the assertion verifies that the values in the first {@code Column} of the {@code Table} are equal to
+   * the UUIDs in parameter :
+   * </p>
+   *
+   * <pre><code class='java'>
+   * assertThat(table).column().hasValues(UUID.fromString(&quot;30B443AE-C0C9-4790-9BEC-CE1380808435&quot;),
+   * &quot;16319617-AE95-4087-9264-D3D21BF611B6&quot;, &quot;D735221B-5DE5-4112-AA1E-49090CB75ADA&quot;);
+   * </code></pre>
+   *
+   * @param expected The expected UUID values.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the values of the column are not equal to the UUIDs in parameter.
+   * @see org.assertj.db.api.AbstractColumnAssert#hasValues(UUID...)
+   */
+  public T hasValues(UUID... expected);
 
   /**
    * Verifies that the values of a column are equal to date values.

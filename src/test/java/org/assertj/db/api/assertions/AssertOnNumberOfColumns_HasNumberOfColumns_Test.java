@@ -48,19 +48,19 @@ public class AssertOnNumberOfColumns_HasNumberOfColumns_Test extends AbstractTes
     changes.setEndPointNow();
 
     ChangeAssert changeAssert = assertThat(changes).change();
-    ChangeAssert changeAssert2 = changeAssert.hasNumberOfColumns(4);
+    ChangeAssert changeAssert2 = changeAssert.hasNumberOfColumns(5);
     Assertions.assertThat(changeAssert).isSameAs(changeAssert2);
 
     ChangeRowAssert changeRowAssert = assertThat(changes).change().rowAtEndPoint();
-    ChangeRowAssert changeRowAssert2 = changeRowAssert.hasNumberOfColumns(4);
+    ChangeRowAssert changeRowAssert2 = changeRowAssert.hasNumberOfColumns(5);
     Assertions.assertThat(changeRowAssert).isSameAs(changeRowAssert2);
 
     TableAssert tableAssert = assertThat(table);
-    TableAssert tableAssert2 = tableAssert.hasNumberOfColumns(4);
+    TableAssert tableAssert2 = tableAssert.hasNumberOfColumns(5);
     Assertions.assertThat(tableAssert).isSameAs(tableAssert2);
 
     TableRowAssert tableRowAssert = assertThat(table).row();
-    TableRowAssert tableRowAssert2 = tableRowAssert.hasNumberOfColumns(4);
+    TableRowAssert tableRowAssert2 = tableRowAssert.hasNumberOfColumns(5);
     Assertions.assertThat(tableRowAssert).isSameAs(tableRowAssert2);
   }
 
@@ -83,7 +83,7 @@ public class AssertOnNumberOfColumns_HasNumberOfColumns_Test extends AbstractTes
                                                       + "Expecting size (number of columns) to be equal to :%n"
                                                       + "   <9>%n"
                                                       + "but was:%n"
-                                                      + "   <4>"));
+                                                      + "   <5>"));
     }
     try {
       assertThat(changes).change().rowAtEndPoint().hasNumberOfColumns(9);
@@ -93,7 +93,7 @@ public class AssertOnNumberOfColumns_HasNumberOfColumns_Test extends AbstractTes
                                                       + "Expecting size (number of columns) to be equal to :%n"
                                                       + "   <9>%n"
                                                       + "but was:%n"
-                                                      + "   <4>"));
+                                                      + "   <5>"));
     }
     try {
       assertThat(request).hasNumberOfColumns(9);
@@ -103,7 +103,7 @@ public class AssertOnNumberOfColumns_HasNumberOfColumns_Test extends AbstractTes
                                                       + "Expecting size (number of columns) to be equal to :%n"
                                                       + "   <9>%n"
                                                       + "but was:%n"
-                                                      + "   <4>"));
+                                                      + "   <5>"));
     }
     try {
       assertThat(request).row().hasNumberOfColumns(9);
@@ -113,7 +113,7 @@ public class AssertOnNumberOfColumns_HasNumberOfColumns_Test extends AbstractTes
                                                       + "Expecting size (number of columns) to be equal to :%n"
                                                       + "   <9>%n"
                                                       + "but was:%n"
-                                                      + "   <4>"));
+                                                      + "   <5>"));
     }
   }
 }

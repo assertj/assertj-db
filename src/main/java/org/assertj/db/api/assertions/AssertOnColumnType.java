@@ -266,4 +266,35 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * @see org.assertj.db.api.AbstractColumnAssert#isText(boolean)
    */
   public T isText(boolean lenient);
+
+
+
+  /**
+   * Verifies that the type of the values of the column is UUID.
+   * <p>
+   * Example where the assertion verifies that all the values in the {@code Column} called "id"
+   * of the {@code Table} is a UUID :
+   * </p>
+   *
+   * <pre><code class='java'>
+   * assertThat(table).column(&quot;id&quot;).isUUID(false);
+   * </code></pre>
+   * <p>
+   * This assertion method is equivalent to :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * xxxxx.isOfType(ValueType.UUID, lenient);
+   * </code>
+   * </pre>
+   *
+   * @param lenient {@code true} if the test is lenient : if the type of a value is not identified (for example when the
+   *          value is {@code null}), it consider that it is ok.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type of the column is not UUID.
+   * @see org.assertj.db.type.ValueType#UUID
+   * @see org.assertj.db.api.AbstractColumnAssert#isUUID(boolean)
+   */
+  public T isUUID(boolean lenient);
+
 }

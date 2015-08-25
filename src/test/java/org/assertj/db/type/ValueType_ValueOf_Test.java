@@ -37,6 +37,7 @@ public class ValueType_ValueOf_Test extends AbstractTest {
     assertThat(ValueType.valueOf("TIME")).isEqualTo(ValueType.TIME);
     assertThat(ValueType.valueOf("DATE_TIME")).isEqualTo(ValueType.DATE_TIME);
     assertThat(ValueType.valueOf("NUMBER")).isEqualTo(ValueType.NUMBER);
+    assertThat(ValueType.valueOf("UUID")).isEqualTo(ValueType.UUID);
     assertThat(ValueType.valueOf("NOT_IDENTIFIED")).isEqualTo(ValueType.NOT_IDENTIFIED);
   }
 }

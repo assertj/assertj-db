@@ -19,6 +19,7 @@ import org.assertj.db.type.*;
 
 import java.lang.reflect.Constructor;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Base class for all {@link Column}s assertions.
@@ -134,6 +135,12 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
 
   /** {@inheritDoc} */
   @Override
+  public C isUUID(boolean lenient) {
+    return AssertionsOnColumnType.isUUID(myself, info, getValuesList(), lenient);
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public C hasOnlyNullValues() {
     return AssertionsOnColumnNullity.hasOnlyNullValues(myself, info, getValuesList());
   }
@@ -165,6 +172,12 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
   /** {@inheritDoc} */
   @Override
   public C hasValues(String... expected) {
+    return AssertionsOnColumnEquality.hasValues(myself, info, getValuesList(), expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public C hasValues(UUID... expected) {
     return AssertionsOnColumnEquality.hasValues(myself, info, getValuesList(), expected);
   }
 

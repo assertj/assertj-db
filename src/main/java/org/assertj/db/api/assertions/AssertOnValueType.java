@@ -34,7 +34,7 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    *
    * <pre>
    * <code class='java'>
-   * assertThat(table).row(1).value(&quot;title&quot;).isOfType(ValueType.TEXT);
+   * assertThat(table).row(1).column(&quot;title&quot;).value().isOfType(ValueType.TEXT);
    * </code>
    * </pre>
    * <p>
@@ -65,7 +65,7 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    *
    * <pre>
    * <code class='java'>
-   * assertThat(table).row(1).value(&quot;title&quot;).isOfType(ValueType.TEXT, ValueType.NUMBER);
+   * assertThat(table).row(1).column(&quot;title&quot;).value().isOfType(ValueType.TEXT, ValueType.NUMBER);
    * </code>
    * </pre>
    * <p>
@@ -96,7 +96,7 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    *
    * <pre>
    * <code class='java'>
-   * assertThat(table).row().value(&quot;year&quot;).isNumber();
+   * assertThat(table).row().column(&quot;year&quot;).value().isNumber();
    * </code>
    * </pre>
    * <p>
@@ -174,7 +174,7 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    *
    * <pre>
    * <code class='java'>
-   * assertThat(table).row().value(&quot;birth&quot;).isDate();
+   * assertThat(table).row().column(&quot;birth&quot;).value().isDate();
    * </code>
    * </pre>
    * <p>
@@ -330,7 +330,7 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    *
    * <pre>
    * <code class='java'>
-   * assertThat(table).row().value(&quot;title&quot;).isText();
+   * assertThat(table).row().column(&quot;title&quot;).value().isText();
    * </code>
    * </pre>
    * <p>
@@ -359,4 +359,44 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    * @see org.assertj.db.api.AbstractAssertWithValues#isText()
    */
   public T isText();
+
+
+  /**
+   * Verifies that the value is a UUID.
+   * <p>
+   * Example where the assertion verifies that the value in the {@code Column} called id of the first {@code Row}
+   * of the {@code Table} is a UUID :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().column(&quot;id&quot;).value().isUUID();
+   * </code>
+   * </pre>
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
+   * of the first {@code Change} is a UUID :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change().rowAtEndPoint().value().isUUID();
+   * </code>
+   * </pre>
+   * <p>
+   * This assertion method is equivalent to :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * xxxxx.isOfType(ValueType.UUID);
+   * </code>
+   * </pre>
+   *
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type of the value is not UUID.
+   * @see org.assertj.db.type.ValueType#UUID
+   * @see org.assertj.db.api.AbstractValueAssert#isUUID()
+   * @see org.assertj.db.api.AbstractAssertWithValues#isUUID()
+   */
+  public T isUUID();
 }

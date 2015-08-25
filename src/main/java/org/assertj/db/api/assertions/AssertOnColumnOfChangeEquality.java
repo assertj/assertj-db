@@ -16,6 +16,8 @@ import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
 
+import java.util.UUID;
+
 /**
  * Defines the assertion methods on the equality of a column of a change.
  *
@@ -168,6 +170,44 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * @see org.assertj.db.api.ChangeColumnAssert#hasValues(String, String)
    */
   public T hasValues(String expectedAtStartPoint, String expectedAtEndPoint);
+
+
+
+  /**
+   * Verifies that the values at the start point and the end point are equal to a UUID.
+   * <p>
+   * Example where the assertion verifies that the values of the first {@code Column} of the {@code Table} are equal to
+   * 30B443AE-C0C9-4790-9BEC-CE1380808435 :
+   * </p>
+   * <pre><code class='java'>
+   * assertThat(changes).change(1).column().hasValues(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
+   * </code></pre>
+   *
+   * @param expected The expected text value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the values at start point and at end point are not equal to the UUID.
+   * @see org.assertj.db.api.ChangeColumnAssert#hasValues(String)
+   */
+  public T hasValues(UUID expected);
+
+  /**
+   * Verifies that the values at the start point and the end point are equal to a UUID for start point and another UUID for end point.
+   * <p>
+   * Example where the assertion verifies that the values of the first {@code Column} of the {@code Table} are equal to
+   * 30B443AE-C0C9-4790-9BEC-CE1380808435 at start point and 16319617-AE95-4087-9264-D3D21BF611B6 at end point :
+   * </p>
+   * <pre><code class='java'>
+   * assertThat(changes).change(1).column().hasValues(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"), UUID.fromString("16319617-AE95-4087-9264-D3D21BF611B6"));
+   * </code></pre>
+   *
+   * @param expectedAtStartPoint The expected UUID at start point.
+   * @param expectedAtEndPoint   The expected UUID at end point.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the values at start point and at end point are not equal to the corresponding UUIDs.
+   * @see org.assertj.db.api.ChangeColumnAssert#hasValues(UUID, UUID)
+   */
+  public T hasValues(UUID expectedAtStartPoint, UUID expectedAtEndPoint);
+
 
   /**
    * Verifies that the values at the start point and the end point are equal to a date.

@@ -24,6 +24,7 @@ import org.assertj.db.util.Values;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.UUID;
 
 import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
 import static org.assertj.db.util.Values.areEqual;
@@ -151,13 +152,36 @@ public class AssertionsOnValueEquality {
                                                        String expected) {
     AssertionsOnValueType
             .isOfAnyTypeIn(assertion, info, value, ValueType.TEXT, ValueType.NUMBER, ValueType.DATE, ValueType.TIME,
-                           ValueType.DATE_TIME);
+                    ValueType.DATE_TIME);
     if (areEqual(value, expected)) {
       return assertion;
     }
     throw failures.failure(info, shouldBeEqual(
             Values.getRepresentationFromValueInFrontOfExpected(value, expected),
                                                expected));
+  }
+
+  /**
+   * Verifies that the value is equal to a UUID.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Writable information about an assertion.
+   * @param value     The value.
+   * @param expected  The expected UUID value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the UUID in parameter.
+   */
+  public static <A extends AbstractAssert> A isEqualTo(A assertion, WritableAssertionInfo info, Object value,
+                                                       UUID expected) {
+    AssertionsOnValueType
+            .isOfAnyTypeIn(assertion, info, value, ValueType.UUID);
+    if (areEqual(value, expected)) {
+      return assertion;
+    }
+    throw failures.failure(info, shouldBeEqual(
+            Values.getRepresentationFromValueInFrontOfExpected(value, expected),
+            expected));
   }
 
   /**

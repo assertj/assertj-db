@@ -24,6 +24,7 @@ import org.junit.Test;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.UUID;
 
 import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
@@ -86,11 +87,11 @@ public class ToRow_Row_Test extends AbstractTest {
     Row rowIdBis2 = (Row) fieldRow.get(tableRowAssertBis2);
 
     Assertions.assertThat(rowId0.getValuesList()).isEqualTo(rowIdBis0.getValuesList())
-              .containsExactly(new BigDecimal("1"), "Weaver", "Sigourney", Date.valueOf("1949-10-08"));
+              .containsExactly(new BigDecimal("1"), "Weaver", "Sigourney", Date.valueOf("1949-10-08"), UUID.fromString("30b443ae-c0c9-4790-9bec-ce1380808435"));
     Assertions.assertThat(rowId1.getValuesList()).isEqualTo(rowIdBis1.getValuesList())
-              .containsExactly(new BigDecimal("2"), "Phoenix", "Joaquim", Date.valueOf("1974-10-28"));
+              .containsExactly(new BigDecimal("2"), "Phoenix", "Joaquim", Date.valueOf("1974-10-28"), UUID.fromString("16319617-AE95-4087-9264-D3D21BF611B6"));
     Assertions.assertThat(rowId2.getValuesList()).isEqualTo(rowIdBis2.getValuesList())
-              .containsExactly(new BigDecimal("3"), "Worthington", "Sam", Date.valueOf("1976-08-02"));
+              .containsExactly(new BigDecimal("3"), "Worthington", "Sam", Date.valueOf("1976-08-02"), UUID.fromString("D735221B-5DE5-4112-AA1E-49090CB75ADA"));
   }
 
   /**
@@ -142,10 +143,10 @@ public class ToRow_Row_Test extends AbstractTest {
     Row rowIdBis2 = (Row) fieldRow.get(requestRowAssertBis2);
 
     Assertions.assertThat(rowId0.getValuesList()).isEqualTo(rowIdBis0.getValuesList())
-              .containsExactly(new BigDecimal("1"), "Weaver", "Sigourney", Date.valueOf("1949-10-08"));
+              .containsExactly(new BigDecimal("1"), "Weaver", "Sigourney", Date.valueOf("1949-10-08"), UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
     Assertions.assertThat(rowId1.getValuesList()).isEqualTo(rowIdBis1.getValuesList())
-              .containsExactly(new BigDecimal("2"), "Phoenix", "Joaquim", Date.valueOf("1974-10-28"));
+              .containsExactly(new BigDecimal("2"), "Phoenix", "Joaquim", Date.valueOf("1974-10-28"), UUID.fromString("16319617-AE95-4087-9264-D3D21BF611B6"));
     Assertions.assertThat(rowId2.getValuesList()).isEqualTo(rowIdBis2.getValuesList())
-              .containsExactly(new BigDecimal("3"), "Worthington", "Sam", Date.valueOf("1976-08-02"));
+              .containsExactly(new BigDecimal("3"), "Worthington", "Sam", Date.valueOf("1976-08-02"), UUID.fromString("D735221B-5DE5-4112-AA1E-49090CB75ADA"));
   }
 }

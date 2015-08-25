@@ -17,6 +17,7 @@ import org.assertj.db.common.NeedReload;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -47,10 +48,10 @@ public class Changes_GetChanges_Test extends AbstractTest {
     assertThat(changesMovieCreation.getChangesList()).hasSize(1);
     assertThat(changesMovieCreation.getChangesList().get(0).getDataName()).isEqualTo("MOVIE");
     assertThat(changesMovieCreation.getChangesList().get(0).getChangeType()).isEqualTo(ChangeType.CREATION);
-    assertThat(changesMovieCreation.getChangesList().get(0).getColumnsNameList()).containsExactly("ID", "TITLE", "YEAR");
+    assertThat(changesMovieCreation.getChangesList().get(0).getColumnsNameList()).containsExactly("ID", "TITLE", "YEAR", "MOVIE_IMDB");
     assertThat(changesMovieCreation.getChangesList().get(0).getRowAtStartPoint()).isNull();
     assertThat(changesMovieCreation.getChangesList().get(0).getRowAtEndPoint().getValuesList()).containsExactly(
-        new BigDecimal(4), "Ghostbusters", new BigDecimal(1984));
+        new BigDecimal(4), "Ghostbusters", new BigDecimal(1984), UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
   }
 
   /**
@@ -72,9 +73,9 @@ public class Changes_GetChanges_Test extends AbstractTest {
     assertThat(changesCreationMovie.getChangesList()).hasSize(1);
     assertThat(changesCreationMovie.getChangesList().get(0).getDataName()).isEqualTo("MOVIE");
     assertThat(changesCreationMovie.getChangesList().get(0).getChangeType()).isEqualTo(ChangeType.CREATION);
-    assertThat(changesCreationMovie.getChangesList().get(0).getColumnsNameList()).containsExactly("ID", "TITLE", "YEAR");
+    assertThat(changesCreationMovie.getChangesList().get(0).getColumnsNameList()).containsExactly("ID", "TITLE", "YEAR", "MOVIE_IMDB");
     assertThat(changesCreationMovie.getChangesList().get(0).getRowAtStartPoint()).isNull();
     assertThat(changesCreationMovie.getChangesList().get(0).getRowAtEndPoint().getValuesList()).containsExactly(
-        new BigDecimal(4), "Ghostbusters", new BigDecimal(1984));
+        new BigDecimal(4), "Ghostbusters", new BigDecimal(1984), UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
   }
 }

@@ -1,14 +1,16 @@
 create table movie(
     id number primary key,
     title varchar not null,
-    year number
+    year number,
+    movie_imdb UUID
 );
 
 create table actor(
     id number primary key,
     name varchar not null,
     firstname varchar not null,
-    birth date
+    birth date,
+    actor_imdb UUID
 );
 
 create table interpretation(
@@ -35,7 +37,8 @@ create table test(
     var11 binary,
     var12 varchar,
     var13 decimal(20,2),
-    var14 real
+    var14 real,
+    var15 UUID
 );
 
 create table test2(
@@ -53,5 +56,6 @@ create table test2(
     var12 varchar,
     var13 decimal(20,2),
     var14 real,
-    var15 tinyint
+    var15 tinyint,
+    var16 UUID
 );

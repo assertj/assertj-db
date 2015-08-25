@@ -21,6 +21,8 @@ import org.assertj.db.type.Changes;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
+import java.util.UUID;
+
 import static org.assertj.db.api.Assertions.assertThat;
 
 /**
@@ -44,11 +46,11 @@ public class AssertOnRowEquality_HasValues_Test extends AbstractTest {
     changes.setEndPointNow();
 
     ChangeRowAssert changeRowAssert = assertThat(changes).change().rowAtEndPoint();
-    ChangeRowAssert changeRowAssert2 = changeRowAssert.hasValues(4, "Murray", "Bill", "1950-09-21");
+    ChangeRowAssert changeRowAssert2 = changeRowAssert.hasValues(4, "Murray", "Bill", "1950-09-21", UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
     Assertions.assertThat(changeRowAssert).isSameAs(changeRowAssert2);
 
     TableRowAssert tableRowAssert = assertThat(table).row();
-    TableRowAssert tableRowAssert2 = tableRowAssert.hasValues(1, "Weaver", "Susan Alexandra", "1949-10-08");
+    TableRowAssert tableRowAssert2 = tableRowAssert.hasValues(1, "Weaver", "Susan Alexandra", "1949-10-08", UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
     Assertions.assertThat(tableRowAssert).isSameAs(tableRowAssert2);
   }
 
@@ -64,7 +66,7 @@ public class AssertOnRowEquality_HasValues_Test extends AbstractTest {
     changes.setEndPointNow();
 
     try {
-      assertThat(changes).change().rowAtEndPoint().hasValues(4, "Murray", "Billy", "1950-09-21");
+      assertThat(changes).change().rowAtEndPoint().hasValues(4, "Murray", "Billy", "1950-09-21", UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Row at end point of Change at index 0 (with primary key : [4]) of Changes on actor table of 'sa/jdbc:h2:mem:test' source] %n"
                                                       + "Expecting that the value at index 2:%n"
@@ -73,7 +75,7 @@ public class AssertOnRowEquality_HasValues_Test extends AbstractTest {
                                                       + "  <\"Billy\">"));
     }
     try {
-      assertThat(table).row().hasValues(1, "Weaver", "Sigourney", "1949-10-08");
+      assertThat(table).row().hasValues(1, "Weaver", "Sigourney", "1949-10-08", UUID.fromString("648DFAC8-14AC-47F7-95CF-3475525A3BE3"));
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Row at index 0 of actor table] %n"
                                                       + "Expecting that the value at index 2:%n"

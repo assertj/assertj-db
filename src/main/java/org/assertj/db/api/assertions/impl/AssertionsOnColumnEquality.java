@@ -22,6 +22,7 @@ import org.assertj.db.type.ValueType;
 import org.assertj.db.util.Values;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
 import static org.assertj.db.util.Values.areEqual;
@@ -140,7 +141,7 @@ public class AssertionsOnColumnEquality {
   public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
                                                        List<Object> valuesList, String... expected) {
     AssertionsOnColumnType.isOfAnyTypeIn(assertion, info, valuesList, ValueType.TEXT, ValueType.NUMBER, ValueType.DATE,
-                                         ValueType.TIME, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
+            ValueType.TIME, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
     int index = 0;
     for (Object value : valuesList) {
@@ -148,6 +149,33 @@ public class AssertionsOnColumnEquality {
         throw failures.failure(info,
                                shouldBeEqual(index, Values.getRepresentationFromValueInFrontOfExpected(value, expected[index]),
                                              expected[index]));
+      }
+      index++;
+    }
+    return assertion;
+  }
+
+  /**
+   * Verifies that the values of a column are equal to UUIDs.
+   *
+   * @param <A>        The type of the assertion which call this method.
+   * @param assertion  The assertion which call this method.
+   * @param info       Writable information about an assertion.
+   * @param valuesList The list of values.
+   * @param expected The expected UUIDs values.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the values of the column are not equal to the UUIDs in parameter.
+   */
+  public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
+                                                       List<Object> valuesList, UUID... expected) {
+    AssertionsOnColumnType.isOfAnyTypeIn(assertion, info, valuesList, ValueType.UUID, ValueType.NOT_IDENTIFIED);
+    AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
+    int index = 0;
+    for (Object value : valuesList) {
+      if (!areEqual(value, expected[index])) {
+        throw failures.failure(info,
+                shouldBeEqual(index, Values.getRepresentationFromValueInFrontOfExpected(value, expected[index]),
+                        expected[index]));
       }
       index++;
     }

@@ -36,8 +36,8 @@ public class Table_Columns_Name_Test extends AbstractTest {
   public void test_columns_name_with_source_set() {
     Table table = new Table(source, "movie");
 
-    assertThat(table.getColumnsNameList()).as("Columns of MOVIE table").hasSize(3)
-        .containsExactly("ID", "TITLE", "YEAR");
+    assertThat(table.getColumnsNameList()).as("Columns of MOVIE table").hasSize(4)
+        .containsExactly("ID", "TITLE", "YEAR", "MOVIE_IMDB");
   }
 
   /**
@@ -47,8 +47,8 @@ public class Table_Columns_Name_Test extends AbstractTest {
   public void test_columns_name_with_datasource_set() {
     Table table = new Table(dataSource, "movie");
 
-    assertThat(table.getColumnsNameList()).as("Columns of MOVIE table").hasSize(3)
-        .containsExactly("ID", "TITLE", "YEAR");
+    assertThat(table.getColumnsNameList()).as("Columns of MOVIE table").hasSize(4)
+        .containsExactly("ID", "TITLE", "YEAR", "MOVIE_IMDB");
   }
 
   /**

@@ -180,4 +180,19 @@ public class AssertionsOnValueType {
   public static <A extends AbstractAssert> A isText(A assertion, WritableAssertionInfo info, Object value) {
     return isOfType(assertion, info, value, ValueType.TEXT);
   }
+
+
+  /**
+   * Verifies that the value is a UUID.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Writable information about an assertion.
+   * @param value     The value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type of the value is not text.
+   */
+  public static <A extends AbstractAssert> A isUUID(A assertion, WritableAssertionInfo info, Object value) {
+    return isOfType(assertion, info, value, ValueType.UUID);
+  }
 }

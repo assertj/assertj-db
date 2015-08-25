@@ -21,6 +21,8 @@ import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
 import org.assertj.db.type.ValueType;
 
+import java.util.UUID;
+
 /**
  * Base class for all values from a {@link org.assertj.db.type.Change} assertions.
  *
@@ -111,6 +113,12 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
     return AssertionsOnValueType.isText(myself, info, value);
   }
 
+
+  /** {@inheritDoc} */
+  @Override
+  public E isUUID() {
+    return AssertionsOnValueType.isUUID(myself, info, value);
+  }
   /** {@inheritDoc} */
   @Override
   public E isNull() {
@@ -156,6 +164,12 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
   /** {@inheritDoc} */
   @Override
   public E isEqualTo(String expected) {
+    return AssertionsOnValueEquality.isEqualTo(myself, info, value, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E isEqualTo(UUID expected) {
     return AssertionsOnValueEquality.isEqualTo(myself, info, value, expected);
   }
 
@@ -210,6 +224,12 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
   /** {@inheritDoc} */
   @Override
   public E isNotEqualTo(String expected) {
+    return AssertionsOnValueNonEquality.isNotEqualTo(myself, info, value, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E isNotEqualTo(UUID expected) {
     return AssertionsOnValueNonEquality.isNotEqualTo(myself, info, value, expected);
   }
 

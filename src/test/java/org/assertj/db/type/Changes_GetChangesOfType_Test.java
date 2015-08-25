@@ -18,6 +18,7 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -54,33 +55,33 @@ public class Changes_GetChangesOfType_Test extends AbstractTest {
       assertThat(changesCreation.getChangesList().get(0).getDataName()).isEqualTo("ACTOR");
       assertThat(changesCreation.getChangesList().get(0).getChangeType()).isEqualTo(ChangeType.CREATION);
       assertThat(changesCreation.getChangesList().get(0).getColumnsNameList()).containsExactly("ID", "NAME", "FIRSTNAME",
-          "BIRTH");
+              "BIRTH", "ACTOR_IMDB");
       assertThat(changesCreation.getChangesList().get(0).getRowAtStartPoint()).isNull();
       assertThat(changesCreation.getChangesList().get(0).getRowAtEndPoint().getValuesList()).containsExactly(
-          new BigDecimal(4), "Murray", "Bill", Date.valueOf("1950-09-21"));
+              new BigDecimal(4), "Murray", "Bill", Date.valueOf("1950-09-21"), UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
       assertThat(changesCreation.getChangesList().get(1).getDataName()).isEqualTo("INTERPRETATION");
       assertThat(changesCreation.getChangesList().get(1).getChangeType()).isEqualTo(ChangeType.CREATION);
       assertThat(changesCreation.getChangesList().get(1).getColumnsNameList()).containsExactly("ID", "ID_MOVIE", "ID_ACTOR", "CHARACTER");
       assertThat(changesCreation.getChangesList().get(1).getRowAtStartPoint()).isNull();
       assertThat(changesCreation.getChangesList().get(1).getRowAtEndPoint().getValuesList()).containsExactly(
-          new BigDecimal(6), new BigDecimal(4), new BigDecimal(4), "Dr Peter Venkman");
+              new BigDecimal(6), new BigDecimal(4), new BigDecimal(4), "Dr Peter Venkman");
       assertThat(changesCreation.getChangesList().get(2).getDataName()).isEqualTo("MOVIE");
       assertThat(changesCreation.getChangesList().get(2).getChangeType()).isEqualTo(ChangeType.CREATION);
-      assertThat(changesCreation.getChangesList().get(2).getColumnsNameList()).containsExactly("ID", "TITLE", "YEAR");
+      assertThat(changesCreation.getChangesList().get(2).getColumnsNameList()).containsExactly("ID", "TITLE", "YEAR", "MOVIE_IMDB");
       assertThat(changesCreation.getChangesList().get(2).getRowAtStartPoint()).isNull();
       assertThat(changesCreation.getChangesList().get(2).getRowAtEndPoint().getValuesList()).containsExactly(
-          new BigDecimal(4), "Ghostbusters", new BigDecimal(1984));
+              new BigDecimal(4), "Ghostbusters", new BigDecimal(1984), UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
 
       Changes changesModification = changesSource.getChangesOfType(ChangeType.MODIFICATION);
       assertThat(changesModification.getChangesList()).hasSize(3);
       assertThat(changesModification.getChangesList().get(0).getDataName()).isEqualTo("ACTOR");
       assertThat(changesModification.getChangesList().get(0).getChangeType()).isEqualTo(ChangeType.MODIFICATION);
       assertThat(changesModification.getChangesList().get(0).getColumnsNameList()).containsExactly("ID", "NAME", "FIRSTNAME",
-          "BIRTH");
+              "BIRTH", "ACTOR_IMDB");
       assertThat(changesModification.getChangesList().get(0).getRowAtStartPoint().getValuesList()).containsExactly(
-          new BigDecimal(1), "Weaver", "Sigourney", Date.valueOf("1949-10-08"));
+          new BigDecimal(1), "Weaver", "Sigourney", Date.valueOf("1949-10-08"), UUID.fromString("30b443ae-c0c9-4790-9bec-ce1380808435"));
       assertThat(changesModification.getChangesList().get(0).getRowAtEndPoint().getValuesList()).containsExactly(
-          new BigDecimal(1), "Weaver", "Susan Alexandra", Date.valueOf("1949-10-08"));
+          new BigDecimal(1), "Weaver", "Susan Alexandra", Date.valueOf("1949-10-08"), UUID.fromString("30b443ae-c0c9-4790-9bec-ce1380808435"));
       assertThat(changesModification.getChangesList().get(1).getDataName()).isEqualTo("INTERPRETATION");
       assertThat(changesModification.getChangesList().get(1).getChangeType()).isEqualTo(ChangeType.MODIFICATION);
       assertThat(changesModification.getChangesList().get(1).getColumnsNameList()).containsExactly("ID", "ID_MOVIE", "ID_ACTOR", "CHARACTER");
@@ -90,20 +91,20 @@ public class Changes_GetChangesOfType_Test extends AbstractTest {
           new BigDecimal(3), new BigDecimal(3), new BigDecimal(1), "Doctor Grace Augustine");
       assertThat(changesModification.getChangesList().get(2).getDataName()).isEqualTo("MOVIE");
       assertThat(changesModification.getChangesList().get(2).getChangeType()).isEqualTo(ChangeType.MODIFICATION);
-      assertThat(changesModification.getChangesList().get(2).getColumnsNameList()).containsExactly("ID", "TITLE", "YEAR");
+      assertThat(changesModification.getChangesList().get(2).getColumnsNameList()).containsExactly("ID", "TITLE", "YEAR", "MOVIE_IMDB");
       assertThat(changesModification.getChangesList().get(2).getRowAtStartPoint().getValuesList()).containsExactly(
-          new BigDecimal(3), "Avatar", new BigDecimal(2009));
+          new BigDecimal(3), "Avatar", new BigDecimal(2009), UUID.fromString("D735221B-5DE5-4112-AA1E-49090CB75ADA"));
       assertThat(changesModification.getChangesList().get(2).getRowAtEndPoint().getValuesList()).containsExactly(
-          new BigDecimal(3), "The Avatar", new BigDecimal(2009));
+          new BigDecimal(3), "The Avatar", new BigDecimal(2009), UUID.fromString("D735221B-5DE5-4112-AA1E-49090CB75ADA"));
 
       Changes changesDeletion = changesSource.getChangesOfType(ChangeType.DELETION);
       assertThat(changesDeletion.getChangesList()).hasSize(2);
       assertThat(changesDeletion.getChangesList().get(0).getDataName()).isEqualTo("ACTOR");
       assertThat(changesDeletion.getChangesList().get(0).getChangeType()).isEqualTo(ChangeType.DELETION);
       assertThat(changesDeletion.getChangesList().get(0).getColumnsNameList()).containsExactly("ID", "NAME", "FIRSTNAME",
-          "BIRTH");
+          "BIRTH", "ACTOR_IMDB");
       assertThat(changesDeletion.getChangesList().get(0).getRowAtStartPoint().getValuesList()).containsExactly(
-          new BigDecimal(3), "Worthington", "Sam", Date.valueOf("1976-08-02"));
+          new BigDecimal(3), "Worthington", "Sam", Date.valueOf("1976-08-02"), UUID.fromString("d735221b-5de5-4112-aa1e-49090cb75ada"));
       assertThat(changesDeletion.getChangesList().get(0).getRowAtEndPoint()).isNull();
        assertThat(changesDeletion.getChangesList().get(1).getDataName()).isEqualTo("INTERPRETATION");
        assertThat(changesDeletion.getChangesList().get(1).getChangeType()).isEqualTo(ChangeType.DELETION);

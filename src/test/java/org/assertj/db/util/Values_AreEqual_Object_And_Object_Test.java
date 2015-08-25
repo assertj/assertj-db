@@ -23,6 +23,7 @@ import java.math.BigInteger;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -203,6 +204,19 @@ public class Values_AreEqual_Object_And_Object_Test {
   }
 
   /**
+   * This method tests the {@code areEqual} method for {@code UUID}s.
+   */
+  @Test
+  public void test_are_equal_for_UUID() {
+    assertThat(Values.areEqual(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"),
+            (Object) UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"))).isTrue();
+    assertThat(Values.areEqual(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"),
+            (Object) UUID.fromString("16319617-AE95-4087-9264-D3D21BF611B6"))).isFalse();
+    assertThat(Values.areEqual(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"),
+            (Object) 1)).isFalse();
+  }
+
+  /**
    * This method tests the {@code areEqual} method for {@code DateValue}s.
    */
   @Test
@@ -358,6 +372,8 @@ public class Values_AreEqual_Object_And_Object_Test {
   public void should_fail_because_string_is_not_parseable() {
     Values.areEqual(1, (Object) "***");
   }
+
+
 
   /**
    * This method tests the {@code areEqual} method for {@code TimeValue}s.
