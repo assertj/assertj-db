@@ -1,13 +1,13 @@
 /**
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
- *
+ * <p>
  * Copyright 2012-2015 the original author or authors.
  */
 package org.assertj.db.api.assertions;
@@ -22,63 +22,63 @@ package org.assertj.db.api.assertions;
  */
 public interface AssertOnValueNullity<T extends AssertOnValueNullity<T>> {
 
-  /**
-   * Verifies that the value is {@code null}.
-   * <p>
-   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
-   * {@code Table} is {@code null} :
-   * </p>
-   *
-   * <pre>
-   * <code class='java'>
-   * assertThat(table).row().value().isNull();
-   * </code>
-   * </pre>
-   * <p>
-   * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
-   * of the first {@code Change} is {@code null} :
-   * </p>
-   *
-   * <pre>
-   * <code class='java'>
-   * assertThat(changes).change().rowAtEndPoint().value().isNull();
-   * </code>
-   * </pre>
-   *
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the value is not {@code null}.
-   * @see org.assertj.db.api.AbstractValueAssert#isNull()
-   * @see org.assertj.db.api.AbstractAssertWithValues#isNull()
-   */
-  public T isNull();
+    /**
+     * Verifies that the value is {@code null}.
+     * <p>
+     * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+     * {@code Table} is {@code null} :
+     * </p>
+     *
+     * <pre>
+     * <code class='java'>
+     * assertThat(table).row().value().isNull();
+     * </code>
+     * </pre>
+     * <p>
+     * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
+     * of the first {@code Change} is {@code null} :
+     * </p>
+     *
+     * <pre>
+     * <code class='java'>
+     * assertThat(changes).change().rowAtEndPoint().value().isNull();
+     * </code>
+     * </pre>
+     *
+     * @return {@code this} assertion object.
+     * @throws AssertionError If the value is not {@code null}.
+     * @see org.assertj.db.api.AbstractValueAssert#isNull()
+     * @see org.assertj.db.api.AbstractAssertWithValues#isNull()
+     */
+    public T isNull();
 
-  /**
-   * Verifies that the value is not {@code null}.
-   * <p>
-   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
-   * {@code Table} is not {@code null} :
-   * </p>
-   *
-   * <pre>
-   * <code class='java'>
-   * assertThat(table).row().value().isNotNull();
-   * </code>
-   * </pre>
-   * <p>
-   * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
-   * of the first {@code Change} is not {@code null} :
-   * </p>
-   *
-   * <pre>
-   * <code class='java'>
-   * assertThat(changes).change().rowAtEndPoint().value().isNotNull();
-   * </code>
-   * </pre>
-   *
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the value is {@code null}.
-   * @see org.assertj.db.api.AbstractValueAssert#isNotNull()
-   * @see org.assertj.db.api.AbstractAssertWithValues#isNotNull()
-   */
-  public T isNotNull();
+    /**
+     * Verifies that the value is not {@code null}.
+     * <p>
+     * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+     * {@code Table} is not {@code null} :
+     * </p>
+     *
+     * <pre>
+     * <code class='java'>
+     * assertThat(table).row().value().isNotNull();
+     * </code>
+     * </pre>
+     * <p>
+     * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
+     * of the first {@code Change} is not {@code null} :
+     * </p>
+     *
+     * <pre>
+     * <code class='java'>
+     * assertThat(changes).change().rowAtEndPoint().value().isNotNull();
+     * </code>
+     * </pre>
+     *
+     * @return {@code this} assertion object.
+     * @throws AssertionError If the value is {@code null}.
+     * @see org.assertj.db.api.AbstractValueAssert#isNotNull()
+     * @see org.assertj.db.api.AbstractAssertWithValues#isNotNull()
+     */
+    public T isNotNull();
 }

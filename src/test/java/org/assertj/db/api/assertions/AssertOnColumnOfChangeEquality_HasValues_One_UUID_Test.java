@@ -14,7 +14,7 @@ import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 /**
- *  * Tests on {@link org.assertj.db.api.assertions.AssertOnColumnOfChangeEquality} class :
+ * * Tests on {@link org.assertj.db.api.assertions.AssertOnColumnOfChangeEquality} class :
  * {@link org.assertj.db.api.assertions.AssertOnColumnOfChangeEquality#hasValues(UUID)} method.
  *
  * @author Otoniel Isidoro (otoniel.isidoro@sofist.com.br)
@@ -33,7 +33,8 @@ public class AssertOnColumnOfChangeEquality_HasValues_One_UUID_Test extends Abst
 
         ChangeAssert changeAssert = assertThat(changes).change();
         ChangeColumnAssert changeColumnAssert = changeAssert.column("var15");
-        ChangeColumnAssert changeColumnAssert2 = changeColumnAssert.hasValues(UUID.fromString("30b443ae-c0c9-4790-9bec-ce1380808435"));
+        ChangeColumnAssert changeColumnAssert2 = changeColumnAssert
+            .hasValues(UUID.fromString("30b443ae-c0c9-4790-9bec-ce1380808435"));
         Assertions.assertThat(changeColumnAssert).isSameAs(changeColumnAssert2);
     }
 
@@ -48,14 +49,16 @@ public class AssertOnColumnOfChangeEquality_HasValues_One_UUID_Test extends Abst
         changes.setEndPointNow();
 
         try {
-            assertThat(changes).change().column("var15").hasValues(UUID.fromString("f96ec595-ce91-47cc-9152-ccc8ac48aad6"));
+            assertThat(changes).change().column("var15")
+                               .hasValues(UUID.fromString("f96ec595-ce91-47cc-9152-ccc8ac48aad6"));
             fail("An exception must be raised");
         } catch (AssertionError e) {
-            Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 14 (column name : VAR15) of Change at index 0 (on table : TEST and with primary key : [5]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
-                    + "Expecting that start point:%n"
-                    + "  <null>%n"
-                    + "to be equal to: %n"
-                    + "  <f96ec595-ce91-47cc-9152-ccc8ac48aad6>"));
+            Assertions.assertThat(e.getMessage()).isEqualTo(String.format(
+                "[Column at index 14 (column name : VAR15) of Change at index 0 (on table : TEST and with primary key : [5]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
+                + "Expecting that start point:%n"
+                + "  <null>%n"
+                + "to be equal to: %n"
+                + "  <f96ec595-ce91-47cc-9152-ccc8ac48aad6>"));
         }
     }
 
@@ -70,14 +73,16 @@ public class AssertOnColumnOfChangeEquality_HasValues_One_UUID_Test extends Abst
         changes.setEndPointNow();
 
         try {
-            assertThat(changes).change().column("var15").hasValues(UUID.fromString("30b443ae-c0c9-4790-9bec-ce1380808435"));
+            assertThat(changes).change().column("var15")
+                               .hasValues(UUID.fromString("30b443ae-c0c9-4790-9bec-ce1380808435"));
             fail("An exception must be raised");
         } catch (AssertionError e) {
-            Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 14 (column name : VAR15) of Change at index 0 (on table : TEST and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
-                    + "Expecting that end point:%n"
-                    + "  <null>%n"
-                    + "to be equal to: %n"
-                    + "  <30b443ae-c0c9-4790-9bec-ce1380808435>"));
+            Assertions.assertThat(e.getMessage()).isEqualTo(String.format(
+                "[Column at index 14 (column name : VAR15) of Change at index 0 (on table : TEST and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
+                + "Expecting that end point:%n"
+                + "  <null>%n"
+                + "to be equal to: %n"
+                + "  <30b443ae-c0c9-4790-9bec-ce1380808435>"));
         }
     }
 }

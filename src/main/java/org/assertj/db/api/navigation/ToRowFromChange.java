@@ -1,13 +1,13 @@
 /**
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
- *
+ * <p>
  * Copyright 2012-2015 the original author or authors.
  */
 package org.assertj.db.api.navigation;
@@ -50,27 +50,27 @@ package org.assertj.db.api.navigation;
  */
 public interface ToRowFromChange<R extends RowAssert> {
 
-  /**
-   * Returns assertion methods on the {@link org.assertj.db.type.Row} at start point.
-   *
-   * @return An object to make assertions on the {@link org.assertj.db.type.Row} at start point.
-   * @see org.assertj.db.api.ChangeAssert#rowAtStartPoint()
-   * @see org.assertj.db.api.ChangeColumnAssert#rowAtStartPoint()
-   * @see org.assertj.db.api.ChangeColumnValueAssert#rowAtStartPoint()
-   * @see org.assertj.db.api.ChangeRowAssert#rowAtStartPoint()
-   * @see org.assertj.db.api.ChangeRowValueAssert#rowAtStartPoint()
-   */
-  public R rowAtStartPoint();
+    /**
+     * Returns assertion methods on the {@link org.assertj.db.type.Row} at start point.
+     *
+     * @return An object to make assertions on the {@link org.assertj.db.type.Row} at start point.
+     * @see org.assertj.db.api.ChangeAssert#rowAtStartPoint()
+     * @see org.assertj.db.api.ChangeColumnAssert#rowAtStartPoint()
+     * @see org.assertj.db.api.ChangeColumnValueAssert#rowAtStartPoint()
+     * @see org.assertj.db.api.ChangeRowAssert#rowAtStartPoint()
+     * @see org.assertj.db.api.ChangeRowValueAssert#rowAtStartPoint()
+     */
+    public R rowAtStartPoint();
 
-  /**
-   * Returns assertion methods on the {@link org.assertj.db.type.Row} at end point.
-   *
-   * @return An object to make assertions on the {@link org.assertj.db.type.Row} at end point.
-   * @see org.assertj.db.api.ChangeAssert#rowAtEndPoint()
-   * @see org.assertj.db.api.ChangeColumnAssert#rowAtEndPoint()
-   * @see org.assertj.db.api.ChangeColumnValueAssert#rowAtEndPoint()
-   * @see org.assertj.db.api.ChangeRowAssert#rowAtEndPoint()
-   * @see org.assertj.db.api.ChangeRowValueAssert#rowAtEndPoint()
-   */
-  public R rowAtEndPoint();
+    /**
+     * Returns assertion methods on the {@link org.assertj.db.type.Row} at end point.
+     *
+     * @return An object to make assertions on the {@link org.assertj.db.type.Row} at end point.
+     * @see org.assertj.db.api.ChangeAssert#rowAtEndPoint()
+     * @see org.assertj.db.api.ChangeColumnAssert#rowAtEndPoint()
+     * @see org.assertj.db.api.ChangeColumnValueAssert#rowAtEndPoint()
+     * @see org.assertj.db.api.ChangeRowAssert#rowAtEndPoint()
+     * @see org.assertj.db.api.ChangeRowValueAssert#rowAtEndPoint()
+     */
+    public R rowAtEndPoint();
 }

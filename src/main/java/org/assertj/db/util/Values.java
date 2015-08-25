@@ -50,66 +50,66 @@ public class Values {
     public static boolean areEqual(Object value, Object expected) {
         ValueType valueType = ValueType.getType(value);
         switch (valueType) {
-            case BOOLEAN:
-                if (expected instanceof Boolean) {
-                    return areEqual(value, (Boolean) expected);
-                }
-                break;
-            case NUMBER:
-                if (expected instanceof Number) {
-                    return areEqual(value, (Number) expected);
-                } else if (expected instanceof String) {
-                    return areEqual(value, (String) expected);
-                }
-                break;
-            case BYTES:
-                if (expected instanceof byte[]) {
-                    return areEqual(value, (byte[]) expected);
-                }
-                break;
-            case TEXT:
-                if (expected instanceof String) {
-                    return areEqual(value, (String) expected);
-                }
-                break;
-            case UUID:
-                if (expected instanceof UUID) {
-                    return areEqual(value, (UUID) expected);
-                }
-                break;
-            case DATE:
-                if (expected instanceof DateValue) {
-                    return areEqual(value, (DateValue) expected);
-                } else if (expected instanceof String) {
-                    return areEqual(value, (String) expected);
-                } else if (expected instanceof Date) {
-                    return areEqual(value, DateValue.from((Date) expected));
-                }
-                break;
-            case TIME:
-                if (expected instanceof TimeValue) {
-                    return areEqual(value, (TimeValue) expected);
-                } else if (expected instanceof String) {
-                    return areEqual(value, (String) expected);
-                } else if (expected instanceof Time) {
-                    return areEqual(value, TimeValue.from((Time) expected));
-                }
-                break;
-            case DATE_TIME:
-                if (expected instanceof DateTimeValue) {
-                    return areEqual(value, (DateTimeValue) expected);
-                } else if (expected instanceof DateValue) {
-                    return areEqual(value, (DateValue) expected);
-                } else if (expected instanceof String) {
-                    return areEqual(value, (String) expected);
-                } else if (expected instanceof Timestamp) {
-                    return areEqual(value, DateTimeValue.from((Timestamp) expected));
-                }
-                break;
-            default:
-                if (expected == null && value == null) {
-                    return true;
-                }
+        case BOOLEAN:
+            if (expected instanceof Boolean) {
+                return areEqual(value, (Boolean) expected);
+            }
+            break;
+        case NUMBER:
+            if (expected instanceof Number) {
+                return areEqual(value, (Number) expected);
+            } else if (expected instanceof String) {
+                return areEqual(value, (String) expected);
+            }
+            break;
+        case BYTES:
+            if (expected instanceof byte[]) {
+                return areEqual(value, (byte[]) expected);
+            }
+            break;
+        case TEXT:
+            if (expected instanceof String) {
+                return areEqual(value, (String) expected);
+            }
+            break;
+        case UUID:
+            if (expected instanceof UUID) {
+                return areEqual(value, (UUID) expected);
+            }
+            break;
+        case DATE:
+            if (expected instanceof DateValue) {
+                return areEqual(value, (DateValue) expected);
+            } else if (expected instanceof String) {
+                return areEqual(value, (String) expected);
+            } else if (expected instanceof Date) {
+                return areEqual(value, DateValue.from((Date) expected));
+            }
+            break;
+        case TIME:
+            if (expected instanceof TimeValue) {
+                return areEqual(value, (TimeValue) expected);
+            } else if (expected instanceof String) {
+                return areEqual(value, (String) expected);
+            } else if (expected instanceof Time) {
+                return areEqual(value, TimeValue.from((Time) expected));
+            }
+            break;
+        case DATE_TIME:
+            if (expected instanceof DateTimeValue) {
+                return areEqual(value, (DateTimeValue) expected);
+            } else if (expected instanceof DateValue) {
+                return areEqual(value, (DateValue) expected);
+            } else if (expected instanceof String) {
+                return areEqual(value, (String) expected);
+            } else if (expected instanceof Timestamp) {
+                return areEqual(value, DateTimeValue.from((Timestamp) expected));
+            }
+            break;
+        default:
+            if (expected == null && value == null) {
+                return true;
+            }
         }
         return false;
     }
@@ -151,7 +151,8 @@ public class Values {
                 try {
                     bi = new BigInteger("" + value);
                 } catch (NumberFormatException e) {
-                    throw new AssertJDBException("Expected <%s> can not be compared to a BigInteger (<%s>)", expected, value);
+                    throw new AssertJDBException("Expected <%s> can not be compared to a BigInteger (<%s>)", expected,
+                                                 value);
                 }
             }
 
@@ -170,7 +171,8 @@ public class Values {
                 try {
                     bd = new BigDecimal("" + value);
                 } catch (NumberFormatException e) {
-                    throw new AssertJDBException("Expected <%s> can not be compared to a BigDecimal (<%s>)", expected, value);
+                    throw new AssertJDBException("Expected <%s> can not be compared to a BigDecimal (<%s>)", expected,
+                                                 value);
                 }
             }
 
@@ -401,7 +403,6 @@ public class Values {
         return expected.equals(value);
     }
 
-
     /**
      * Returns if the value is equal to the {@code UUID} in parameter.
      *
@@ -418,7 +419,6 @@ public class Values {
         }
         return expected.equals(value);
     }
-
 
     /**
      * Returns if the value is equal to the {@link DateValue} in parameter.
@@ -509,7 +509,8 @@ public class Values {
                 try {
                     bi = new BigInteger("" + value);
                 } catch (NumberFormatException e) {
-                    throw new AssertJDBException("Expected <%s> can not be compared to a BigInteger (<%s>)", expected, value);
+                    throw new AssertJDBException("Expected <%s> can not be compared to a BigInteger (<%s>)", expected,
+                                                 value);
                 }
             }
 
@@ -526,7 +527,8 @@ public class Values {
                 try {
                     bd = new BigDecimal("" + value);
                 } catch (NumberFormatException e) {
-                    throw new AssertJDBException("Expected <%s> can not be compared to a BigDecimal (<%s>)", expected, value);
+                    throw new AssertJDBException("Expected <%s> can not be compared to a BigDecimal (<%s>)", expected,
+                                                 value);
                 }
             }
 
@@ -642,44 +644,44 @@ public class Values {
      */
     public static Object getRepresentationFromValueInFrontOfExpected(Object value, Object expected) {
         switch (ValueType.getType(value)) {
-            case DATE:
-                if (expected instanceof DateValue) {
-                    return DateValue.from((Date) value);
-                } else if (expected instanceof DateTimeValue) {
-                    return DateTimeValue.of(DateValue.from((Date) value));
-                } else if (expected instanceof String) {
-                    if (((String) expected).contains("T")) {
-                        return DateTimeValue.of(DateValue.from((Date) value)).toString();
-                    } else {
-                        return DateValue.from((Date) value).toString();
-                    }
+        case DATE:
+            if (expected instanceof DateValue) {
+                return DateValue.from((Date) value);
+            } else if (expected instanceof DateTimeValue) {
+                return DateTimeValue.of(DateValue.from((Date) value));
+            } else if (expected instanceof String) {
+                if (((String) expected).contains("T")) {
+                    return DateTimeValue.of(DateValue.from((Date) value)).toString();
+                } else {
+                    return DateValue.from((Date) value).toString();
                 }
+            }
+            return value;
+        case TIME:
+            if (expected instanceof String) {
+                return TimeValue.from((Time) value).toString();
+            } else {
+                return TimeValue.from((Time) value);
+            }
+        case DATE_TIME:
+            if (expected instanceof String) {
+                return DateTimeValue.from((Timestamp) value).toString();
+            } else {
+                return DateTimeValue.from((Timestamp) value);
+            }
+        case NUMBER:
+            if (expected instanceof String) {
+                return value.toString();
+            } else {
                 return value;
-            case TIME:
-                if (expected instanceof String) {
-                    return TimeValue.from((Time) value).toString();
-                } else {
-                    return TimeValue.from((Time) value);
-                }
-            case DATE_TIME:
-                if (expected instanceof String) {
-                    return DateTimeValue.from((Timestamp) value).toString();
-                } else {
-                    return DateTimeValue.from((Timestamp) value);
-                }
-            case NUMBER:
-                if (expected instanceof String) {
-                    return value.toString();
-                } else {
-                    return value;
-                }
+            }
 
-            case BYTES:
-            case TEXT:
-            case BOOLEAN:
-            case UUID:
-            default:
-                return value;
+        case BYTES:
+        case TEXT:
+        case BOOLEAN:
+        case UUID:
+        default:
+            return value;
         }
     }
 }

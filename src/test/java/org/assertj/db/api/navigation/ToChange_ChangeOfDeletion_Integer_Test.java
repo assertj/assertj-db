@@ -1,13 +1,13 @@
 /**
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
- *
+ * <p>
  * Copyright 2012-2015 the original author or authors.
  */
 package org.assertj.db.api.navigation;
@@ -39,83 +39,86 @@ import static org.junit.Assert.fail;
  */
 public class ToChange_ChangeOfDeletion_Integer_Test extends AbstractTest {
 
-  /**
-   * This method tests the {@code changeOfDeletion} with index navigation method.
-   */
-  @Test
-  @NeedReload
-  public void test_change_of_deletion_with_index() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
-    updateChangesForTests();
-    changes.setEndPointNow();
+    /**
+     * This method tests the {@code changeOfDeletion} with index navigation method.
+     */
+    @Test
+    @NeedReload
+    public void test_change_of_deletion_with_index() throws Exception {
+        Changes changes = new Changes(source).setStartPointNow();
+        updateChangesForTests();
+        changes.setEndPointNow();
 
-    Field fieldList = Changes.class.getDeclaredField("changesList");
-    fieldList.setAccessible(true);
-    Field fieldIndex = ChangesAssert.class.getDeclaredField("indexNextChangeMap");
-    fieldIndex.setAccessible(true);
-    Field fieldChange = ChangeAssert.class.getDeclaredField("change");
-    fieldChange.setAccessible(true);
+        Field fieldList = Changes.class.getDeclaredField("changesList");
+        fieldList.setAccessible(true);
+        Field fieldIndex = ChangesAssert.class.getDeclaredField("indexNextChangeMap");
+        fieldIndex.setAccessible(true);
+        Field fieldChange = ChangeAssert.class.getDeclaredField("change");
+        fieldChange.setAccessible(true);
 
-    ChangesAssert changesAssert = assertThat(changes);
-    Map<ChangeType, Map<String, Integer>> map = (Map<ChangeType, Map<String, Integer>>)fieldIndex.get(changesAssert);
-    assertThat(map).hasSize(0);
-    assertThat(map.get(null)).isNull();
-    ChangeAssert changeAssert0 = changesAssert.changeOfDeletion(0);
-    assertThat(map).hasSize(1);
-    assertThat(map.get(null)).isNull();
-    assertThat(map.get(ChangeType.DELETION)).hasSize(1);
-    assertThat(map.get(ChangeType.DELETION).get(null)).isEqualTo(1);
-    ChangeAssert changeAssert1 = changesAssert.changeOfDeletion(1);
-    assertThat(map).hasSize(1);
-    assertThat(map.get(null)).isNull();
-    assertThat(map.get(ChangeType.DELETION)).hasSize(1);
-    assertThat(map.get(ChangeType.DELETION).get(null)).isEqualTo(2);
-    try {
-      changesAssert.changeOfDeletion(2);
-      fail("An exception must be raised");
-    } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Index 2 out of the limits [0, 2[");
-    }
-    try {
-      changesAssert.changeOfDeletion(-1);
-      fail("An exception must be raised");
-    } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 2[");
-    }
-    ChangeAssert changeAssertAgain0 = changesAssert.changeOfDeletion(0);
-    assertThat(changeAssert0).isSameAs(changeAssertAgain0);
+        ChangesAssert changesAssert = assertThat(changes);
+        Map<ChangeType, Map<String, Integer>> map = (Map<ChangeType, Map<String, Integer>>) fieldIndex
+            .get(changesAssert);
+        assertThat(map).hasSize(0);
+        assertThat(map.get(null)).isNull();
+        ChangeAssert changeAssert0 = changesAssert.changeOfDeletion(0);
+        assertThat(map).hasSize(1);
+        assertThat(map.get(null)).isNull();
+        assertThat(map.get(ChangeType.DELETION)).hasSize(1);
+        assertThat(map.get(ChangeType.DELETION).get(null)).isEqualTo(1);
+        ChangeAssert changeAssert1 = changesAssert.changeOfDeletion(1);
+        assertThat(map).hasSize(1);
+        assertThat(map.get(null)).isNull();
+        assertThat(map.get(ChangeType.DELETION)).hasSize(1);
+        assertThat(map.get(ChangeType.DELETION).get(null)).isEqualTo(2);
+        try {
+            changesAssert.changeOfDeletion(2);
+            fail("An exception must be raised");
+        } catch (AssertJDBException e) {
+            Assertions.assertThat(e.getMessage()).isEqualTo("Index 2 out of the limits [0, 2[");
+        }
+        try {
+            changesAssert.changeOfDeletion(-1);
+            fail("An exception must be raised");
+        } catch (AssertJDBException e) {
+            Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 2[");
+        }
+        ChangeAssert changeAssertAgain0 = changesAssert.changeOfDeletion(0);
+        assertThat(changeAssert0).isSameAs(changeAssertAgain0);
 
-    ChangesAssert changesAssertBis = assertThat(changes);
-    map = (Map<ChangeType, Map<String, Integer>>)fieldIndex.get(changesAssertBis);
-    assertThat(map).hasSize(0);
-    assertThat(map.get(null)).isNull();
-    ChangeAssert changeAssertBis0 = changesAssertBis.changeOfDeletion(0);
-    assertThat(map).hasSize(1);
-    assertThat(map.get(null)).isNull();
-    assertThat(map.get(ChangeType.DELETION)).hasSize(1);
-    assertThat(map.get(ChangeType.DELETION).get(null)).isEqualTo(1);
-    ChangeAssert changeAssertBis1 = changeAssertBis0.changeOfDeletion(1);
-    assertThat(map).hasSize(1);
-    assertThat(map.get(null)).isNull();
-    assertThat(map.get(ChangeType.DELETION)).hasSize(1);
-    assertThat(map.get(ChangeType.DELETION).get(null)).isEqualTo(2);
-    try {
-      changeAssertBis1.changeOfDeletion(2);
-      fail("An exception must be raised");
-    } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Index 2 out of the limits [0, 2[");
-    }
-    try {
-      changeAssertBis1.changeOfDeletion(-1);
-      fail("An exception must be raised");
-    } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 2[");
-    }
-    ChangeAssert changeAssertBisAgain0 = changeAssertBis1.changeOfDeletion(0);
-    assertThat(changeAssertBis0).isSameAs(changeAssertBisAgain0);
+        ChangesAssert changesAssertBis = assertThat(changes);
+        map = (Map<ChangeType, Map<String, Integer>>) fieldIndex.get(changesAssertBis);
+        assertThat(map).hasSize(0);
+        assertThat(map.get(null)).isNull();
+        ChangeAssert changeAssertBis0 = changesAssertBis.changeOfDeletion(0);
+        assertThat(map).hasSize(1);
+        assertThat(map.get(null)).isNull();
+        assertThat(map.get(ChangeType.DELETION)).hasSize(1);
+        assertThat(map.get(ChangeType.DELETION).get(null)).isEqualTo(1);
+        ChangeAssert changeAssertBis1 = changeAssertBis0.changeOfDeletion(1);
+        assertThat(map).hasSize(1);
+        assertThat(map.get(null)).isNull();
+        assertThat(map.get(ChangeType.DELETION)).hasSize(1);
+        assertThat(map.get(ChangeType.DELETION).get(null)).isEqualTo(2);
+        try {
+            changeAssertBis1.changeOfDeletion(2);
+            fail("An exception must be raised");
+        } catch (AssertJDBException e) {
+            Assertions.assertThat(e.getMessage()).isEqualTo("Index 2 out of the limits [0, 2[");
+        }
+        try {
+            changeAssertBis1.changeOfDeletion(-1);
+            fail("An exception must be raised");
+        } catch (AssertJDBException e) {
+            Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 2[");
+        }
+        ChangeAssert changeAssertBisAgain0 = changeAssertBis1.changeOfDeletion(0);
+        assertThat(changeAssertBis0).isSameAs(changeAssertBisAgain0);
 
-    List<Changes> changesList = (List<Changes>) fieldList.get(changes);
-    assertThat(fieldChange.get(changeAssert0)).isSameAs(fieldChange.get(changeAssertBis0)).isSameAs(changesList.get(6));
-    assertThat(fieldChange.get(changeAssert1)).isSameAs(fieldChange.get(changeAssertBis1)).isSameAs(changesList.get(7));
-  }
+        List<Changes> changesList = (List<Changes>) fieldList.get(changes);
+        assertThat(fieldChange.get(changeAssert0)).isSameAs(fieldChange.get(changeAssertBis0))
+                                                  .isSameAs(changesList.get(6));
+        assertThat(fieldChange.get(changeAssert1)).isSameAs(fieldChange.get(changeAssertBis1))
+                                                  .isSameAs(changesList.get(7));
+    }
 }

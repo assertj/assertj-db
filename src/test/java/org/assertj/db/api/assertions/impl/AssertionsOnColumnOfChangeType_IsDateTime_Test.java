@@ -1,13 +1,13 @@
 /**
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
- *
+ * <p>
  * Copyright 2012-2015 the original author or authors.
  */
 package org.assertj.db.api.assertions.impl;
@@ -32,68 +32,71 @@ import static org.junit.Assert.fail;
  */
 public class AssertionsOnColumnOfChangeType_IsDateTime_Test {
 
-  /**
-   * This method tests the {@code isDateTime} assertion method.
-   */
-  @Test
-  public void test_is_date_time() {
-    WritableAssertionInfo info = new WritableAssertionInfo();
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
-    TableAssert tableAssert2 = AssertionsOnColumnOfChangeType.isDateTime(tableAssert, info, Timestamp
+    /**
+     * This method tests the {@code isDateTime} assertion method.
+     */
+    @Test
+    public void test_is_date_time() {
+        WritableAssertionInfo info = new WritableAssertionInfo();
+        Table table = new Table();
+        TableAssert tableAssert = assertThat(table);
+        TableAssert tableAssert2 = AssertionsOnColumnOfChangeType.isDateTime(tableAssert, info, Timestamp
             .valueOf("2007-12-23 09:01:00"), Timestamp.valueOf("2002-07-25 03:30:05"), false);
-    Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnColumnOfChangeType.isDateTime(tableAssert, info, Timestamp.valueOf("2007-12-23 09:01:00"), Timestamp.valueOf("2002-07-25 03:30:05"), true);
-    Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnColumnOfChangeType.isDateTime(tableAssert, info, null, Timestamp.valueOf("2007-12-23 09:01:00"), true);
-    Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-  }
-
-  /**
-   * This method should fail because the value at start point have different type.
-   */
-  @Test
-  public void should_fail_because_value_at_start_point_have_different_type() {
-    WritableAssertionInfo info = new WritableAssertionInfo();
-    info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
-    try {
-      AssertionsOnColumnOfChangeType.isDateTime(tableAssert, info,
-                                                "test", Timestamp.valueOf("2007-12-23 09:01:00"), false);
-      fail("An exception must be raised");
-    } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that the value at start point:%n"
-                                                      + "  <\"test\">%n"
-                                                      + "to be of type%n"
-                                                      + "  <DATE_TIME>%n"
-                                                      + "but was of type%n"
-                                                      + "  <TEXT>"));
+        Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
+        tableAssert2 = AssertionsOnColumnOfChangeType
+            .isDateTime(tableAssert, info, Timestamp.valueOf("2007-12-23 09:01:00"),
+                        Timestamp.valueOf("2002-07-25 03:30:05"), true);
+        Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
+        tableAssert2 = AssertionsOnColumnOfChangeType
+            .isDateTime(tableAssert, info, null, Timestamp.valueOf("2007-12-23 09:01:00"), true);
+        Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     }
-  }
 
-  /**
-   * This method should fail because the value at end point have different type.
-   */
-  @Test
-  public void should_fail_because_value_at_end_point_have_different_type() {
-    WritableAssertionInfo info = new WritableAssertionInfo();
-    info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
-    try {
-      AssertionsOnColumnOfChangeType.isDateTime(tableAssert, info,
-                                                Timestamp.valueOf("2007-12-23 09:01:00"), "test", false);
-      fail("An exception must be raised");
-    } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that the value at end point:%n"
-                                                      + "  <\"test\">%n"
-                                                      + "to be of type%n"
-                                                      + "  <DATE_TIME>%n"
-                                                      + "but was of type%n"
-                                                      + "  <TEXT>"));
+    /**
+     * This method should fail because the value at start point have different type.
+     */
+    @Test
+    public void should_fail_because_value_at_start_point_have_different_type() {
+        WritableAssertionInfo info = new WritableAssertionInfo();
+        info.description("description");
+        Table table = new Table();
+        TableAssert tableAssert = assertThat(table);
+        try {
+            AssertionsOnColumnOfChangeType.isDateTime(tableAssert, info,
+                                                      "test", Timestamp.valueOf("2007-12-23 09:01:00"), false);
+            fail("An exception must be raised");
+        } catch (AssertionError e) {
+            Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                                          + "Expecting that the value at start point:%n"
+                                                                          + "  <\"test\">%n"
+                                                                          + "to be of type%n"
+                                                                          + "  <DATE_TIME>%n"
+                                                                          + "but was of type%n"
+                                                                          + "  <TEXT>"));
+        }
     }
-  }
+
+    /**
+     * This method should fail because the value at end point have different type.
+     */
+    @Test
+    public void should_fail_because_value_at_end_point_have_different_type() {
+        WritableAssertionInfo info = new WritableAssertionInfo();
+        info.description("description");
+        Table table = new Table();
+        TableAssert tableAssert = assertThat(table);
+        try {
+            AssertionsOnColumnOfChangeType.isDateTime(tableAssert, info,
+                                                      Timestamp.valueOf("2007-12-23 09:01:00"), "test", false);
+            fail("An exception must be raised");
+        } catch (AssertionError e) {
+            Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                                          + "Expecting that the value at end point:%n"
+                                                                          + "  <\"test\">%n"
+                                                                          + "to be of type%n"
+                                                                          + "  <DATE_TIME>%n"
+                                                                          + "but was of type%n"
+                                                                          + "  <TEXT>"));
+        }
+    }
 }

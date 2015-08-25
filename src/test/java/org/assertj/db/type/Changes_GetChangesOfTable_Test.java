@@ -1,13 +1,13 @@
 /**
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
- *
+ * <p>
  * Copyright 2012-2015 the original author or authors.
  */
 package org.assertj.db.type;
@@ -24,97 +24,110 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests on the {@code getChangesOfTable} method.
- * 
+ *
  * @author Régis Pouiller.
- * 
+ *
  */
 public class Changes_GetChangesOfTable_Test extends AbstractTest {
 
-  /**
-   * This method test when getting changes of table.
-   */
-  @Test
-  @NeedReload
-  public void test_getChangesOfTable() {
-    Changes changesSource = new Changes(source);
-    Changes changesRequest = new Changes(new Request(source,
-        "select interpretation.id, character, movie.title, actor.name "
-            + " from interpretation, movie, actor " + " where interpretation.id_movie = movie.id "
-            + " and interpretation.id_actor = actor.id ").setPksName("id"));
+    /**
+     * This method test when getting changes of table.
+     */
+    @Test
+    @NeedReload
+    public void test_getChangesOfTable() {
+        Changes changesSource = new Changes(source);
+        Changes changesRequest = new Changes(new Request(source,
+                                                         "select interpretation.id, character, movie.title, actor.name "
+                                                         + " from interpretation, movie, actor "
+                                                         + " where interpretation.id_movie = movie.id "
+                                                         + " and interpretation.id_actor = actor.id ")
+                                                 .setPksName("id"));
 
-    changesRequest.setStartPointNow();
-    changesSource.setStartPointNow();
-    updateChangesForTests();
-    changesRequest.setEndPointNow();
-    changesSource.setEndPointNow();
+        changesRequest.setStartPointNow();
+        changesSource.setStartPointNow();
+        updateChangesForTests();
+        changesRequest.setEndPointNow();
+        changesSource.setEndPointNow();
 
-    assertThat(changesSource.getChangesList()).hasSize(8);
+        assertThat(changesSource.getChangesList()).hasSize(8);
 
-    Changes changesMovie = changesSource.getChangesOfTable("movie");
+        Changes changesMovie = changesSource.getChangesOfTable("movie");
 
-    assertThat(changesMovie.getChangesList()).hasSize(2);
-    assertThat(changesMovie.getChangesList().get(0).getDataName()).isEqualTo("MOVIE");
-    assertThat(changesMovie.getChangesList().get(0).getChangeType()).isEqualTo(ChangeType.CREATION);
-    assertThat(changesMovie.getChangesList().get(0).getColumnsNameList()).containsExactly("ID", "TITLE", "YEAR", "MOVIE_IMDB");
-    assertThat(changesMovie.getChangesList().get(0).getRowAtStartPoint()).isNull();
-    assertThat(changesMovie.getChangesList().get(0).getRowAtEndPoint().getValuesList()).containsExactly(
-            new BigDecimal(4), "Ghostbusters", new BigDecimal(1984), UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
-    assertThat(changesMovie.getChangesList().get(1).getDataName()).isEqualTo("MOVIE");
-    assertThat(changesMovie.getChangesList().get(1).getChangeType()).isEqualTo(ChangeType.MODIFICATION);
-    assertThat(changesMovie.getChangesList().get(1).getColumnsNameList()).containsExactly("ID", "TITLE", "YEAR", "MOVIE_IMDB");
-    assertThat(changesMovie.getChangesList().get(1).getRowAtStartPoint().getValuesList()).containsExactly(
+        assertThat(changesMovie.getChangesList()).hasSize(2);
+        assertThat(changesMovie.getChangesList().get(0).getDataName()).isEqualTo("MOVIE");
+        assertThat(changesMovie.getChangesList().get(0).getChangeType()).isEqualTo(ChangeType.CREATION);
+        assertThat(changesMovie.getChangesList().get(0).getColumnsNameList())
+            .containsExactly("ID", "TITLE", "YEAR", "MOVIE_IMDB");
+        assertThat(changesMovie.getChangesList().get(0).getRowAtStartPoint()).isNull();
+        assertThat(changesMovie.getChangesList().get(0).getRowAtEndPoint().getValuesList()).containsExactly(
+            new BigDecimal(4), "Ghostbusters", new BigDecimal(1984),
+            UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
+        assertThat(changesMovie.getChangesList().get(1).getDataName()).isEqualTo("MOVIE");
+        assertThat(changesMovie.getChangesList().get(1).getChangeType()).isEqualTo(ChangeType.MODIFICATION);
+        assertThat(changesMovie.getChangesList().get(1).getColumnsNameList())
+            .containsExactly("ID", "TITLE", "YEAR", "MOVIE_IMDB");
+        assertThat(changesMovie.getChangesList().get(1).getRowAtStartPoint().getValuesList()).containsExactly(
             new BigDecimal(3), "Avatar", new BigDecimal(2009), UUID.fromString("D735221B-5DE5-4112-AA1E-49090CB75ADA"));
-    assertThat(changesMovie.getChangesList().get(1).getRowAtEndPoint().getValuesList()).containsExactly(
-            new BigDecimal(3), "The Avatar", new BigDecimal(2009), UUID.fromString("D735221B-5DE5-4112-AA1E-49090CB75ADA"));
+        assertThat(changesMovie.getChangesList().get(1).getRowAtEndPoint().getValuesList()).containsExactly(
+            new BigDecimal(3), "The Avatar", new BigDecimal(2009),
+            UUID.fromString("D735221B-5DE5-4112-AA1E-49090CB75ADA"));
 
-    Changes changesActor = changesSource.getChangesOfTable("actor");
-    assertThat(changesActor.getChangesList()).hasSize(3);
-    assertThat(changesActor.getChangesList().get(0).getDataName()).isEqualTo("ACTOR");
-    assertThat(changesActor.getChangesList().get(0).getChangeType()).isEqualTo(ChangeType.CREATION);
-    assertThat(changesActor.getChangesList().get(0).getColumnsNameList()).containsExactly("ID", "NAME", "FIRSTNAME",
-            "BIRTH", "ACTOR_IMDB");
-    assertThat(changesActor.getChangesList().get(0).getRowAtStartPoint()).isNull();
-    assertThat(changesActor.getChangesList().get(0).getRowAtEndPoint().getValuesList()).containsExactly(
-            new BigDecimal(4), "Murray", "Bill", Date.valueOf("1950-09-21"), UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
-    assertThat(changesActor.getChangesList().get(1).getDataName()).isEqualTo("ACTOR");
-    assertThat(changesActor.getChangesList().get(1).getChangeType()).isEqualTo(ChangeType.MODIFICATION);
-    assertThat(changesActor.getChangesList().get(1).getColumnsNameList()).containsExactly("ID", "NAME", "FIRSTNAME",
-            "BIRTH", "ACTOR_IMDB");
-    assertThat(changesActor.getChangesList().get(1).getRowAtStartPoint().getValuesList()).containsExactly(
-        new BigDecimal(1), "Weaver", "Sigourney", Date.valueOf("1949-10-08"), UUID.fromString("30b443ae-c0c9-4790-9bec-ce1380808435"));
-    assertThat(changesActor.getChangesList().get(1).getRowAtEndPoint().getValuesList()).containsExactly(
-        new BigDecimal(1), "Weaver", "Susan Alexandra", Date.valueOf("1949-10-08"), UUID.fromString("30b443ae-c0c9-4790-9bec-ce1380808435"));
-    assertThat(changesActor.getChangesList().get(2).getDataName()).isEqualTo("ACTOR");
-    assertThat(changesActor.getChangesList().get(2).getChangeType()).isEqualTo(ChangeType.DELETION);
-    assertThat(changesActor.getChangesList().get(2).getColumnsNameList()).containsExactly("ID", "NAME", "FIRSTNAME",
-            "BIRTH", "ACTOR_IMDB");
-    assertThat(changesActor.getChangesList().get(2).getRowAtStartPoint().getValuesList()).containsExactly(
-        new BigDecimal(3), "Worthington", "Sam", Date.valueOf("1976-08-02"), UUID.fromString("d735221b-5de5-4112-aa1e-49090cb75ada"));
-    assertThat(changesActor.getChangesList().get(2).getRowAtEndPoint()).isNull();
+        Changes changesActor = changesSource.getChangesOfTable("actor");
+        assertThat(changesActor.getChangesList()).hasSize(3);
+        assertThat(changesActor.getChangesList().get(0).getDataName()).isEqualTo("ACTOR");
+        assertThat(changesActor.getChangesList().get(0).getChangeType()).isEqualTo(ChangeType.CREATION);
+        assertThat(changesActor.getChangesList().get(0).getColumnsNameList()).containsExactly("ID", "NAME", "FIRSTNAME",
+                                                                                              "BIRTH", "ACTOR_IMDB");
+        assertThat(changesActor.getChangesList().get(0).getRowAtStartPoint()).isNull();
+        assertThat(changesActor.getChangesList().get(0).getRowAtEndPoint().getValuesList()).containsExactly(
+            new BigDecimal(4), "Murray", "Bill", Date.valueOf("1950-09-21"),
+            UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
+        assertThat(changesActor.getChangesList().get(1).getDataName()).isEqualTo("ACTOR");
+        assertThat(changesActor.getChangesList().get(1).getChangeType()).isEqualTo(ChangeType.MODIFICATION);
+        assertThat(changesActor.getChangesList().get(1).getColumnsNameList()).containsExactly("ID", "NAME", "FIRSTNAME",
+                                                                                              "BIRTH", "ACTOR_IMDB");
+        assertThat(changesActor.getChangesList().get(1).getRowAtStartPoint().getValuesList()).containsExactly(
+            new BigDecimal(1), "Weaver", "Sigourney", Date.valueOf("1949-10-08"),
+            UUID.fromString("30b443ae-c0c9-4790-9bec-ce1380808435"));
+        assertThat(changesActor.getChangesList().get(1).getRowAtEndPoint().getValuesList()).containsExactly(
+            new BigDecimal(1), "Weaver", "Susan Alexandra", Date.valueOf("1949-10-08"),
+            UUID.fromString("30b443ae-c0c9-4790-9bec-ce1380808435"));
+        assertThat(changesActor.getChangesList().get(2).getDataName()).isEqualTo("ACTOR");
+        assertThat(changesActor.getChangesList().get(2).getChangeType()).isEqualTo(ChangeType.DELETION);
+        assertThat(changesActor.getChangesList().get(2).getColumnsNameList()).containsExactly("ID", "NAME", "FIRSTNAME",
+                                                                                              "BIRTH", "ACTOR_IMDB");
+        assertThat(changesActor.getChangesList().get(2).getRowAtStartPoint().getValuesList()).containsExactly(
+            new BigDecimal(3), "Worthington", "Sam", Date.valueOf("1976-08-02"),
+            UUID.fromString("d735221b-5de5-4112-aa1e-49090cb75ada"));
+        assertThat(changesActor.getChangesList().get(2).getRowAtEndPoint()).isNull();
 
-     Changes changesInterpretation = changesSource.getChangesOfTable("interpretation");
-     assertThat(changesInterpretation.getChangesList()).hasSize(3);
-     assertThat(changesInterpretation.getChangesList().get(0).getDataName()).isEqualTo("INTERPRETATION");
-     assertThat(changesInterpretation.getChangesList().get(0).getChangeType()).isEqualTo(ChangeType.CREATION);
-     assertThat(changesInterpretation.getChangesList().get(0).getColumnsNameList()).containsExactly("ID", "ID_MOVIE", "ID_ACTOR", "CHARACTER");
-     assertThat(changesInterpretation.getChangesList().get(0).getRowAtStartPoint()).isNull();
-     assertThat(changesInterpretation.getChangesList().get(0).getRowAtEndPoint().getValuesList()).containsExactly(
-         new BigDecimal(6), new BigDecimal(4), new BigDecimal(4), "Dr Peter Venkman");
-     assertThat(changesInterpretation.getChangesList().get(1).getDataName()).isEqualTo("INTERPRETATION");
-     assertThat(changesInterpretation.getChangesList().get(1).getChangeType()).isEqualTo(ChangeType.MODIFICATION);
-     assertThat(changesInterpretation.getChangesList().get(1).getColumnsNameList()).containsExactly("ID", "ID_MOVIE", "ID_ACTOR", "CHARACTER");
-     assertThat(changesInterpretation.getChangesList().get(1).getRowAtStartPoint().getValuesList()).containsExactly(
-         new BigDecimal(3), new BigDecimal(3), new BigDecimal(1), "Dr Grace Augustine");
-     assertThat(changesInterpretation.getChangesList().get(1).getRowAtEndPoint().getValuesList()).containsExactly(
-         new BigDecimal(3), new BigDecimal(3), new BigDecimal(1), "Doctor Grace Augustine");
-     assertThat(changesInterpretation.getChangesList().get(2).getDataName()).isEqualTo("INTERPRETATION");
-     assertThat(changesInterpretation.getChangesList().get(2).getChangeType()).isEqualTo(ChangeType.DELETION);
-     assertThat(changesInterpretation.getChangesList().get(2).getColumnsNameList()).containsExactly("ID", "ID_MOVIE", "ID_ACTOR", "CHARACTER");
-     assertThat(changesInterpretation.getChangesList().get(2).getRowAtStartPoint().getValuesList()).containsExactly(
-         new BigDecimal(5), new BigDecimal(3), new BigDecimal(3), "Jake Sully");
-     assertThat(changesInterpretation.getChangesList().get(2).getRowAtEndPoint()).isNull();
+        Changes changesInterpretation = changesSource.getChangesOfTable("interpretation");
+        assertThat(changesInterpretation.getChangesList()).hasSize(3);
+        assertThat(changesInterpretation.getChangesList().get(0).getDataName()).isEqualTo("INTERPRETATION");
+        assertThat(changesInterpretation.getChangesList().get(0).getChangeType()).isEqualTo(ChangeType.CREATION);
+        assertThat(changesInterpretation.getChangesList().get(0).getColumnsNameList())
+            .containsExactly("ID", "ID_MOVIE", "ID_ACTOR", "CHARACTER");
+        assertThat(changesInterpretation.getChangesList().get(0).getRowAtStartPoint()).isNull();
+        assertThat(changesInterpretation.getChangesList().get(0).getRowAtEndPoint().getValuesList()).containsExactly(
+            new BigDecimal(6), new BigDecimal(4), new BigDecimal(4), "Dr Peter Venkman");
+        assertThat(changesInterpretation.getChangesList().get(1).getDataName()).isEqualTo("INTERPRETATION");
+        assertThat(changesInterpretation.getChangesList().get(1).getChangeType()).isEqualTo(ChangeType.MODIFICATION);
+        assertThat(changesInterpretation.getChangesList().get(1).getColumnsNameList())
+            .containsExactly("ID", "ID_MOVIE", "ID_ACTOR", "CHARACTER");
+        assertThat(changesInterpretation.getChangesList().get(1).getRowAtStartPoint().getValuesList()).containsExactly(
+            new BigDecimal(3), new BigDecimal(3), new BigDecimal(1), "Dr Grace Augustine");
+        assertThat(changesInterpretation.getChangesList().get(1).getRowAtEndPoint().getValuesList()).containsExactly(
+            new BigDecimal(3), new BigDecimal(3), new BigDecimal(1), "Doctor Grace Augustine");
+        assertThat(changesInterpretation.getChangesList().get(2).getDataName()).isEqualTo("INTERPRETATION");
+        assertThat(changesInterpretation.getChangesList().get(2).getChangeType()).isEqualTo(ChangeType.DELETION);
+        assertThat(changesInterpretation.getChangesList().get(2).getColumnsNameList())
+            .containsExactly("ID", "ID_MOVIE", "ID_ACTOR", "CHARACTER");
+        assertThat(changesInterpretation.getChangesList().get(2).getRowAtStartPoint().getValuesList()).containsExactly(
+            new BigDecimal(5), new BigDecimal(3), new BigDecimal(3), "Jake Sully");
+        assertThat(changesInterpretation.getChangesList().get(2).getRowAtEndPoint()).isNull();
 
-    assertThat(changesRequest.getChangesOfTable("movie").getChangesList()).hasSize(0);
-  }
+        assertThat(changesRequest.getChangesOfTable("movie").getChangesList()).hasSize(0);
+    }
 
 }

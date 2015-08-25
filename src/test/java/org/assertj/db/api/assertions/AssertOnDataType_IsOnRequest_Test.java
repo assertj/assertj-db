@@ -1,13 +1,13 @@
 /**
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
- *
+ * <p>
  * Copyright 2012-2015 the original author or authors.
  */
 package org.assertj.db.api.assertions;
@@ -33,43 +33,44 @@ import static org.junit.Assert.fail;
  */
 public class AssertOnDataType_IsOnRequest_Test extends AbstractTest {
 
-  /**
-   * This method tests the {@code isOnRequest} assertion method.
-   */
-  @Test
-  @NeedReload
-  public void test_is_on_request() throws Exception {
-    Request request = new Request(source, "select * from actor");
-    Changes changes = new Changes(request).setStartPointNow();
-    updateChangesForTests();
-    changes.setEndPointNow();
+    /**
+     * This method tests the {@code isOnRequest} assertion method.
+     */
+    @Test
+    @NeedReload
+    public void test_is_on_request() throws Exception {
+        Request request = new Request(source, "select * from actor");
+        Changes changes = new Changes(request).setStartPointNow();
+        updateChangesForTests();
+        changes.setEndPointNow();
 
-    ChangeAssert changeAssert = assertThat(changes).change();
-    ChangeAssert changeAssert2 = changeAssert.isOnRequest();
-    Assertions.assertThat(changeAssert).isSameAs(changeAssert2);
-  }
-
-  /**
-   * This method should fail because the data type is different.
-   */
-  @Test
-  @NeedReload
-  public void should_fail_because_data_type_is_different() throws Exception {
-    Table table = new Table(source, "actor");
-    Changes changes = new Changes(table).setStartPointNow();
-    updateChangesForTests();
-    changes.setEndPointNow();
-
-    try {
-      assertThat(changes).change().isOnRequest();
-      fail("An exception must be raised");
-    } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 (with primary key : [4]) of Changes on actor table of 'sa/jdbc:h2:mem:test' source] %n"
-                                                      + "Expecting:%n"
-                                                      + "to be on data type%n"
-                                                      + "  <REQUEST>%n"
-                                                      + "but was on data type%n"
-                                                      + "  <TABLE>"));
+        ChangeAssert changeAssert = assertThat(changes).change();
+        ChangeAssert changeAssert2 = changeAssert.isOnRequest();
+        Assertions.assertThat(changeAssert).isSameAs(changeAssert2);
     }
-  }
+
+    /**
+     * This method should fail because the data type is different.
+     */
+    @Test
+    @NeedReload
+    public void should_fail_because_data_type_is_different() throws Exception {
+        Table table = new Table(source, "actor");
+        Changes changes = new Changes(table).setStartPointNow();
+        updateChangesForTests();
+        changes.setEndPointNow();
+
+        try {
+            assertThat(changes).change().isOnRequest();
+            fail("An exception must be raised");
+        } catch (AssertionError e) {
+            Assertions.assertThat(e.getMessage()).isEqualTo(String.format(
+                "[Change at index 0 (with primary key : [4]) of Changes on actor table of 'sa/jdbc:h2:mem:test' source] %n"
+                + "Expecting:%n"
+                + "to be on data type%n"
+                + "  <REQUEST>%n"
+                + "but was on data type%n"
+                + "  <TABLE>"));
+        }
+    }
 }
