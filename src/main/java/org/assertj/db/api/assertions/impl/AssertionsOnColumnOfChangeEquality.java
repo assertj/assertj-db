@@ -228,7 +228,7 @@ public class AssertionsOnColumnOfChangeEquality {
 
     AssertionsOnColumnOfChangeType.isOfAnyTypeIn(assertion, info, valueAtStartPoint, valueAtEndPoint,
                                                  ValueType.TEXT, ValueType.NUMBER, ValueType.DATE,
-                                                 ValueType.TIME, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
+                                                 ValueType.TIME, ValueType.DATE_TIME, ValueType.UUID, ValueType.NOT_IDENTIFIED);
     if (!areEqual(valueAtStartPoint, expected)) {
       throw failures.failure(info, shouldBeEqualWithStartPoint(
               Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expected), expected));
@@ -259,7 +259,7 @@ public class AssertionsOnColumnOfChangeEquality {
 
     AssertionsOnColumnOfChangeType.isOfAnyTypeIn(assertion, info, valueAtStartPoint, valueAtEndPoint,
                                                  ValueType.TEXT, ValueType.NUMBER, ValueType.DATE,
-                                                 ValueType.TIME, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
+                                                 ValueType.TIME, ValueType.DATE_TIME, ValueType.UUID, ValueType.NOT_IDENTIFIED);
     if (!areEqual(valueAtStartPoint, expectedAtStartPoint)) {
       throw failures.failure(info, shouldBeEqualWithStartPoint(
               Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expectedAtStartPoint), expectedAtStartPoint));

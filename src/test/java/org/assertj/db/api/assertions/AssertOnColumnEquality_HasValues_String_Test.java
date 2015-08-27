@@ -160,6 +160,11 @@ public class AssertOnColumnEquality_HasValues_String_Test extends AbstractTest {
     TableColumnAssert tableColumnAssertReturn19 = tableColumnAssert19.hasValues("2014-05-24",
                                                                                 null);
     Assertions.assertThat(tableColumnAssert19).isSameAs(tableColumnAssertReturn19);
+
+    TableColumnAssert tableColumnAssert99 = assertThat(table2).column("var16");
+    TableColumnAssert tableColumnAssertReturn99 = tableColumnAssert99.hasValues("30b443ae-c0c9-4790-9bec-ce1380808435",
+                                                                                null);
+    Assertions.assertThat(tableColumnAssert99).isSameAs(tableColumnAssertReturn99);
   }
 
   /**
@@ -474,6 +479,32 @@ public class AssertOnColumnEquality_HasValues_String_Test extends AbstractTest {
                                                       + "  <null>%n"
                                                       + "to be equal to: %n"
                                                       + "  <\"2014-05-24T00:00:00\">"));
+    }
+
+    TableColumnAssert tableColumnAssert26 = assertThat(table2).column("var16");
+    try {
+      tableColumnAssert26.hasValues("30B443AE-C0C9-4790-9BEC-CE1380808435",
+                                    "30B443AE-C0C9-4790-9BEC-CE1380808435");
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 15 (column name : VAR16) of test2 table] %n"
+                                                                    + "Expecting that the value at index 1:%n"
+                                                                    + "  <null>%n"
+                                                                    + "to be equal to: %n"
+                                                                    + "  <\"30B443AE-C0C9-4790-9BEC-CE1380808435\">"));
+    }
+
+    TableColumnAssert tableColumnAssert27 = assertThat(table2).column("var16");
+    try {
+      tableColumnAssert27.hasValues("88838129-291E-40A9-A94C-A15BE36CF7C3",
+                                    "30B443AE-C0C9-4790-9BEC-CE1380808435");
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 15 (column name : VAR16) of test2 table] %n"
+                                                                    + "Expecting that the value at index 0:%n"
+                                                                    + "  <30b443ae-c0c9-4790-9bec-ce1380808435>%n"
+                                                                    + "to be equal to: %n"
+                                                                    + "  <\"88838129-291E-40A9-A94C-A15BE36CF7C3\">"));
     }
   }
 }

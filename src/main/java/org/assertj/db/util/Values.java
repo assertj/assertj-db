@@ -75,6 +75,8 @@ public class Values {
             case UUID:
                 if (expected instanceof UUID) {
                     return areEqual(value, (UUID) expected);
+                } else if (expected instanceof String) {
+                    return areEqual(value, (String) expected);
                 }
                 break;
             case DATE:
@@ -397,6 +399,8 @@ public class Values {
             return areEqual((Time) value, expected);
         } else if (value instanceof Timestamp) {
             return areEqual((Timestamp) value, expected);
+        } else if (value instanceof UUID) {
+            return areEqual((UUID) value, expected);
         }
         return expected.equals(value);
     }
@@ -413,6 +417,26 @@ public class Values {
             return value == null;
         }
         return expected.equals(value);
+    }
+
+    /**
+     * Returns if the {@code UUID} value is equal to the {@code String} in parameter.
+     *
+     * @param value    The {@code UUID} value.
+     * @param expected The {@code String} to compare.
+     * @return {@code true} if the {@code UUID} value is equal to the {@code String} parameter, {@code false} otherwise.
+     * @throws AssertJDBException If it is not possible to compare {@code UUID} to {@code expected}.
+     */
+    public static boolean areEqual(UUID value, String expected) {
+        if (expected == null) {
+            return value == null;
+        }
+        try {
+            return UUID.fromString(expected).equals(value);
+        } catch (IllegalArgumentException e) {
+            throw new AssertJDBException("Expected <%s> is not correct to compare to <%s>", expected, value);
+        }
+
     }
 
     /**

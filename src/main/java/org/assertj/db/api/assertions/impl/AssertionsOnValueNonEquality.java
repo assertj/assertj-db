@@ -171,7 +171,7 @@ public class AssertionsOnValueNonEquality {
 
     AssertionsOnValueType
             .isOfAnyTypeIn(assertion, info, value, ValueType.TEXT, ValueType.NUMBER, ValueType.DATE, ValueType.TIME,
-                    ValueType.DATE_TIME);
+                    ValueType.DATE_TIME, ValueType.UUID);
     if (!areEqual(value, expected)) {
       return assertion;
     }
