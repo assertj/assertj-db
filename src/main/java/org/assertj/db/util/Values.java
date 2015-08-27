@@ -401,16 +401,12 @@ public class Values {
         return expected.equals(value);
     }
 
-
     /**
      * Returns if the value is equal to the {@code UUID} in parameter.
      *
      * @param value    The value.
      * @param expected The {@code UUID} to compare.
-     * @return {@code true} if the value is equal to the {@code String} parameter, {@code false} otherwise.
-     * @throws NullPointerException if {@code expected} is {@code null}.
-     * @throws AssertJDBException   If {@code value} is a {@code Number} and it is not possible to compare to
-     *                              {@code expected}.
+     * @return {@code true} if the value is equal to the {@code UUID} parameter, {@code false} otherwise.
      */
     public static boolean areEqual(Object value, UUID expected) {
         if (expected == null) {
@@ -418,7 +414,6 @@ public class Values {
         }
         return expected.equals(value);
     }
-
 
     /**
      * Returns if the value is equal to the {@link DateValue} in parameter.
@@ -625,7 +620,8 @@ public class Values {
         for (Object obj : values) {
             if (i > expected.length) {
                 representationsValues[i] = obj;
-            } else {
+            }
+            else {
                 representationsValues[i] = Values.getRepresentationFromValueInFrontOfExpected(obj, expected[i]);
             }
             i++;

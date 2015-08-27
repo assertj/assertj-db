@@ -44,7 +44,6 @@ public class AssertionsOnColumnOfChangeType {
     }
 
     /**
-     /**
      * Verifies that the type of the values of the column is equal to the type in parameter.
      *
      * @param <A>        The type of the assertion which call this method.
@@ -250,8 +249,6 @@ public class AssertionsOnColumnOfChangeType {
         return isOfType(assertion, info, valueAtStartPoint, valueAtEndPoint, ValueType.TEXT, lenient);
     }
 
-
-
     /**
      * Verifies that the type of the values of the column is UUID.
      *
@@ -270,4 +267,5 @@ public class AssertionsOnColumnOfChangeType {
                                                       boolean lenient) {
         return isOfType(assertion, info, valueAtStartPoint, valueAtEndPoint, ValueType.UUID, lenient);
     }
+
 }

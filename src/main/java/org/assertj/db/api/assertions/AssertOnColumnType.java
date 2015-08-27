@@ -267,13 +267,11 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    */
   public T isText(boolean lenient);
 
-
-
   /**
    * Verifies that the type of the values of the column is UUID.
    * <p>
    * Example where the assertion verifies that all the values in the {@code Column} called "id"
-   * of the {@code Table} is a UUID :
+   * of the {@code Table} is UUID :
    * </p>
    *
    * <pre><code class='java'>

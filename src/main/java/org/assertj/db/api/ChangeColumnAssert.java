@@ -188,7 +188,6 @@ public class ChangeColumnAssert
                     expectedAtEndPoint);
   }
 
-
   /** {@inheritDoc} */
   @Override
   public ChangeColumnAssert hasValues(DateValue expected) {

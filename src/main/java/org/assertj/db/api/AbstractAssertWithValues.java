@@ -20,7 +20,6 @@ import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
 import org.assertj.db.type.ValueType;
-
 import java.util.UUID;
 
 /**
@@ -113,12 +112,12 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
     return AssertionsOnValueType.isText(myself, info, value);
   }
 
-
   /** {@inheritDoc} */
   @Override
   public E isUUID() {
     return AssertionsOnValueType.isUUID(myself, info, value);
   }
+
   /** {@inheritDoc} */
   @Override
   public E isNull() {

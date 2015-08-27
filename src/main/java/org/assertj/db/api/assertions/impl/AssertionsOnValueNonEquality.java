@@ -180,9 +180,8 @@ public class AssertionsOnValueNonEquality {
                                                   expected));
   }
 
-
   /**
-   * Verifies that the value is not equal to a UUID.
+   * Verifies that the value is not equal to an UUID.
    *
    * @param <A>       The type of the assertion which call this method.
    * @param assertion The assertion which call this method.

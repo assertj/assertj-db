@@ -222,7 +222,6 @@ public class AssertionsOnColumnType {
     return isOfType(assertion, info, valuesList, ValueType.TEXT, lenient);
   }
 
-
   /**
    * Verifies that the type of the values of the column is UUID.
    *
@@ -239,4 +238,5 @@ public class AssertionsOnColumnType {
                                                     boolean lenient) {
     return isOfType(assertion, info, valuesList, ValueType.UUID, lenient);
   }
+
 }

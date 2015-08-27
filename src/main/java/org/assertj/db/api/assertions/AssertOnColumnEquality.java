@@ -15,7 +15,6 @@ package org.assertj.db.api.assertions;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
-
 import java.util.UUID;
 
 /**
@@ -102,7 +101,6 @@ public interface AssertOnColumnEquality<T extends AssertOnColumnEquality<T>> {
    */
   public T hasValues(String... expected);
 
-
   /**
    * Verifies that the values of a column are equal to UUIDs.
    * <p>
@@ -112,7 +110,7 @@ public interface AssertOnColumnEquality<T extends AssertOnColumnEquality<T>> {
    *
    * <pre><code class='java'>
    * assertThat(table).column().hasValues(UUID.fromString(&quot;30B443AE-C0C9-4790-9BEC-CE1380808435&quot;),
-   * &quot;16319617-AE95-4087-9264-D3D21BF611B6&quot;, &quot;D735221B-5DE5-4112-AA1E-49090CB75ADA&quot;);
+   * UUID.fromString(&quot;16319617-AE95-4087-9264-D3D21BF611B6&quot;), UUID.fromString(&quot;D735221B-5DE5-4112-AA1E-49090CB75ADA&quot;));
    * </code></pre>
    *
    * @param expected The expected UUID values.

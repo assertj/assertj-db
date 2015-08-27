@@ -15,7 +15,6 @@ package org.assertj.db.api.assertions;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
-
 import java.util.UUID;
 
 /**
@@ -213,10 +212,10 @@ public interface AssertOnValueEquality<T extends AssertOnValueEquality<T>> {
   public T isEqualTo(String expected);
 
   /**
-   * Verifies that the value is equal to a UUID.
+   * Verifies that the value is equal to an UUID.
    * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
-   * {@code Table} is equal to a UUID :
+   * {@code Table} is equal to an UUID :
    * </p>
    *
    * <pre>
@@ -226,7 +225,7 @@ public interface AssertOnValueEquality<T extends AssertOnValueEquality<T>> {
    * </pre>
    * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
-   * of the first {@code Change} is equal to a UUID :
+   * of the first {@code Change} is equal to an UUID :
    * </p>
    *
    * <pre>
