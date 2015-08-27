@@ -156,7 +156,7 @@ public class AssertionsOnValueEquality_IsEqualTo_String_Test {
                                                       + "Expecting:%n"
                                                       + "  <false>%n"
                                                       + "to be of type%n"
-                                                      + "  <[TEXT, NUMBER, DATE, TIME, DATE_TIME]>%n"
+                                                      + "  <[TEXT, NUMBER, DATE, TIME, DATE_TIME, UUID]>%n"
                                                       + "but was of type%n"
                                                       + "  <BOOLEAN>"));
     }
