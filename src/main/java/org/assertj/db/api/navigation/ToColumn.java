@@ -1,13 +1,13 @@
 /**
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * <p>
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
- * <p>
+ *
  * Copyright 2012-2015 the original author or authors.
  */
 package org.assertj.db.api.navigation;
@@ -80,63 +80,63 @@ package org.assertj.db.api.navigation;
  */
 public interface ToColumn<C extends ColumnAssert> {
 
-    /**
-     * Returns assertion methods on the next {@link org.assertj.db.type.Column} in the list of {@link org.assertj.db.type.Column}s.
-     *
-     * @return An object to make assertions on the next {@link org.assertj.db.type.Column}.
-     * @throws org.assertj.db.exception.AssertJDBException If there are no more {@link org.assertj.db.type.Column} in the list of {@link org.assertj.db.type.Column}s.
-     * @see org.assertj.db.api.TableAssert#column()
-     * @see org.assertj.db.api.RequestAssert#column()
-     * @see org.assertj.db.api.AbstractColumnAssert#column()
-     * @see org.assertj.db.api.AbstractColumnValueAssert#column()
-     * @see org.assertj.db.api.AbstractRowAssert#column()
-     * @see org.assertj.db.api.AbstractRowValueAssert#column()
-     * @see org.assertj.db.api.ChangeAssert#column()
-     * @see org.assertj.db.api.ChangeColumnAssert#column()
-     * @see org.assertj.db.api.ChangeColumnValueAssert#column()
-     * @see org.assertj.db.api.ChangeRowAssert#column()
-     * @see org.assertj.db.api.ChangeRowValueAssert#column()
-     */
-    public C column();
+  /**
+   * Returns assertion methods on the next {@link org.assertj.db.type.Column} in the list of {@link org.assertj.db.type.Column}s.
+   *
+   * @return An object to make assertions on the next {@link org.assertj.db.type.Column}.
+   * @throws org.assertj.db.exception.AssertJDBException If there are no more {@link org.assertj.db.type.Column} in the list of {@link org.assertj.db.type.Column}s.
+   * @see org.assertj.db.api.TableAssert#column()
+   * @see org.assertj.db.api.RequestAssert#column()
+   * @see org.assertj.db.api.AbstractColumnAssert#column()
+   * @see org.assertj.db.api.AbstractColumnValueAssert#column()
+   * @see org.assertj.db.api.AbstractRowAssert#column()
+   * @see org.assertj.db.api.AbstractRowValueAssert#column()
+   * @see org.assertj.db.api.ChangeAssert#column()
+   * @see org.assertj.db.api.ChangeColumnAssert#column()
+   * @see org.assertj.db.api.ChangeColumnValueAssert#column()
+   * @see org.assertj.db.api.ChangeRowAssert#column()
+   * @see org.assertj.db.api.ChangeRowValueAssert#column()
+   */
+  public C column();
 
-    /**
-     * Returns assertion methods on the {@link org.assertj.db.type.Column} at the {@code index} in parameter.
-     *
-     * @param index The index corresponding to the {@link org.assertj.db.type.Column}.
-     * @return An object to make assertions on the {@link org.assertj.db.type.Column}.
-     * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
-     * @see org.assertj.db.api.TableAssert#column(int)
-     * @see org.assertj.db.api.RequestAssert#column(int)
-     * @see org.assertj.db.api.AbstractColumnAssert#column(int)
-     * @see org.assertj.db.api.AbstractColumnValueAssert#column(int)
-     * @see org.assertj.db.api.AbstractRowAssert#column(int)
-     * @see org.assertj.db.api.AbstractRowValueAssert#column(int)
-     * @see org.assertj.db.api.ChangeAssert#column(int)
-     * @see org.assertj.db.api.ChangeColumnAssert#column(int)
-     * @see org.assertj.db.api.ChangeColumnValueAssert#column(int)
-     * @see org.assertj.db.api.ChangeRowAssert#column(int)
-     * @see org.assertj.db.api.ChangeRowValueAssert#column(int)
-     */
-    public C column(int index);
+  /**
+   * Returns assertion methods on the {@link org.assertj.db.type.Column} at the {@code index} in parameter.
+   *
+   * @param index The index corresponding to the {@link org.assertj.db.type.Column}.
+   * @return An object to make assertions on the {@link org.assertj.db.type.Column}.
+   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
+   * @see org.assertj.db.api.TableAssert#column(int)
+   * @see org.assertj.db.api.RequestAssert#column(int)
+   * @see org.assertj.db.api.AbstractColumnAssert#column(int)
+   * @see org.assertj.db.api.AbstractColumnValueAssert#column(int)
+   * @see org.assertj.db.api.AbstractRowAssert#column(int)
+   * @see org.assertj.db.api.AbstractRowValueAssert#column(int)
+   * @see org.assertj.db.api.ChangeAssert#column(int)
+   * @see org.assertj.db.api.ChangeColumnAssert#column(int)
+   * @see org.assertj.db.api.ChangeColumnValueAssert#column(int)
+   * @see org.assertj.db.api.ChangeRowAssert#column(int)
+   * @see org.assertj.db.api.ChangeRowValueAssert#column(int)
+   */
+  public C column(int index);
 
-    /**
-     * Returns assertion methods on the {@link org.assertj.db.type.Column} corresponding to the column name in parameter.
-     *
-     * @param columnName The column name.
-     * @return An object to make assertions on the {@link org.assertj.db.type.Column}.
-     * @throws NullPointerException If the column name in parameter is {@code null}.
-     * @throws org.assertj.db.exception.AssertJDBException If there is no {@link org.assertj.db.type.Column} with this name.
-     * @see org.assertj.db.api.TableAssert#column(String)
-     * @see org.assertj.db.api.RequestAssert#column(String)
-     * @see org.assertj.db.api.AbstractColumnAssert#column(String)
-     * @see org.assertj.db.api.AbstractColumnValueAssert#column(String)
-     * @see org.assertj.db.api.AbstractRowAssert#column(String)
-     * @see org.assertj.db.api.AbstractRowValueAssert#column(String)
-     * @see org.assertj.db.api.ChangeAssert#column(String)
-     * @see org.assertj.db.api.ChangeColumnAssert#column(String)
-     * @see org.assertj.db.api.ChangeColumnValueAssert#column(String)
-     * @see org.assertj.db.api.ChangeRowAssert#column(String)
-     * @see org.assertj.db.api.ChangeRowValueAssert#column(String)
-     */
-    public C column(String columnName);
+  /**
+   * Returns assertion methods on the {@link org.assertj.db.type.Column} corresponding to the column name in parameter.
+   *
+   * @param columnName The column name.
+   * @return An object to make assertions on the {@link org.assertj.db.type.Column}.
+   * @throws NullPointerException If the column name in parameter is {@code null}.
+   * @throws org.assertj.db.exception.AssertJDBException If there is no {@link org.assertj.db.type.Column} with this name.
+   * @see org.assertj.db.api.TableAssert#column(String)
+   * @see org.assertj.db.api.RequestAssert#column(String)
+   * @see org.assertj.db.api.AbstractColumnAssert#column(String)
+   * @see org.assertj.db.api.AbstractColumnValueAssert#column(String)
+   * @see org.assertj.db.api.AbstractRowAssert#column(String)
+   * @see org.assertj.db.api.AbstractRowValueAssert#column(String)
+   * @see org.assertj.db.api.ChangeAssert#column(String)
+   * @see org.assertj.db.api.ChangeColumnAssert#column(String)
+   * @see org.assertj.db.api.ChangeColumnValueAssert#column(String)
+   * @see org.assertj.db.api.ChangeRowAssert#column(String)
+   * @see org.assertj.db.api.ChangeRowValueAssert#column(String)
+   */
+  public C column(String columnName);
 }

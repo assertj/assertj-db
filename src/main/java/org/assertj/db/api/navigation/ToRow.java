@@ -1,13 +1,13 @@
 /**
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * <p>
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
- * <p>
+ *
  * Copyright 2012-2015 the original author or authors.
  */
 package org.assertj.db.api.navigation;
@@ -58,32 +58,32 @@ import org.assertj.db.type.Row;
  */
 public interface ToRow<R extends RowAssert> {
 
-    /**
-     * Returns assertion methods on the next {@link org.assertj.db.type.Row} in the list of {@link org.assertj.db.type.Row}.
-     *
-     * @return An object to make assertions on the next {@link Row}.
-     * @throws AssertJDBException If there are no more {@link org.assertj.db.type.Row} in the list of {@link org.assertj.db.type.Row}s.
-     * @see org.assertj.db.api.TableAssert#row()
-     * @see org.assertj.db.api.RequestAssert#row()
-     * @see org.assertj.db.api.AbstractColumnAssert#row()
-     * @see org.assertj.db.api.AbstractColumnValueAssert#row()
-     * @see org.assertj.db.api.AbstractRowAssert#row()
-     * @see org.assertj.db.api.AbstractRowValueAssert#row()
-     */
-    public R row();
+  /**
+   * Returns assertion methods on the next {@link org.assertj.db.type.Row} in the list of {@link org.assertj.db.type.Row}.
+   * 
+   * @return An object to make assertions on the next {@link Row}.
+   * @throws AssertJDBException If there are no more {@link org.assertj.db.type.Row} in the list of {@link org.assertj.db.type.Row}s.
+   * @see org.assertj.db.api.TableAssert#row()
+   * @see org.assertj.db.api.RequestAssert#row()
+   * @see org.assertj.db.api.AbstractColumnAssert#row()
+   * @see org.assertj.db.api.AbstractColumnValueAssert#row()
+   * @see org.assertj.db.api.AbstractRowAssert#row()
+   * @see org.assertj.db.api.AbstractRowValueAssert#row()
+   */
+  public R row();
 
-    /**
-     * Returns assertion methods on the {@link org.assertj.db.type.Row} at the {@code index} in parameter.
-     *
-     * @param index The index corresponding to the {@link org.assertj.db.type.Row}.
-     * @return An object to make assertions on the {@link org.assertj.db.type.Row}.
-     * @throws AssertJDBException If the {@code index} is out of the bounds.
-     * @see org.assertj.db.api.TableAssert#row(int)
-     * @see org.assertj.db.api.RequestAssert#row(int)
-     * @see org.assertj.db.api.AbstractColumnAssert#row(int)
-     * @see org.assertj.db.api.AbstractColumnValueAssert#row(int)
-     * @see org.assertj.db.api.AbstractRowAssert#row(int)
-     * @see org.assertj.db.api.AbstractRowValueAssert#row(int)
-     */
-    public R row(int index);
+  /**
+   * Returns assertion methods on the {@link org.assertj.db.type.Row} at the {@code index} in parameter.
+   * 
+   * @param index The index corresponding to the {@link org.assertj.db.type.Row}.
+   * @return An object to make assertions on the {@link org.assertj.db.type.Row}.
+   * @throws AssertJDBException If the {@code index} is out of the bounds.
+   * @see org.assertj.db.api.TableAssert#row(int)
+   * @see org.assertj.db.api.RequestAssert#row(int)
+   * @see org.assertj.db.api.AbstractColumnAssert#row(int)
+   * @see org.assertj.db.api.AbstractColumnValueAssert#row(int)
+   * @see org.assertj.db.api.AbstractRowAssert#row(int)
+   * @see org.assertj.db.api.AbstractRowValueAssert#row(int)
+   */
+  public R row(int index);
 }

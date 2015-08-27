@@ -1,13 +1,13 @@
 /**
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * <p>
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
- * <p>
+ *
  * Copyright 2012-2015 the original author or authors.
  */
 package org.assertj.db.api.assertions;
@@ -36,87 +36,84 @@ import static org.junit.Assert.fail;
  */
 public class AssertOnNumberOfColumns_HasNumberOfColumns_Test extends AbstractTest {
 
-    /**
-     * This method tests the {@code hasNumberOfColumns} assertion method.
-     */
-    @Test
-    @NeedReload
-    public void test_has_number_of_columns() {
-        Table table = new Table(source, "actor");
-        Changes changes = new Changes(table).setStartPointNow();
-        updateChangesForTests();
-        changes.setEndPointNow();
+  /**
+   * This method tests the {@code hasNumberOfColumns} assertion method.
+   */
+  @Test
+  @NeedReload
+  public void test_has_number_of_columns() {
+    Table table = new Table(source, "actor");
+    Changes changes = new Changes(table).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
 
-        ChangeAssert changeAssert = assertThat(changes).change();
-        ChangeAssert changeAssert2 = changeAssert.hasNumberOfColumns(5);
-        Assertions.assertThat(changeAssert).isSameAs(changeAssert2);
+    ChangeAssert changeAssert = assertThat(changes).change();
+    ChangeAssert changeAssert2 = changeAssert.hasNumberOfColumns(5);
+    Assertions.assertThat(changeAssert).isSameAs(changeAssert2);
 
-        ChangeRowAssert changeRowAssert = assertThat(changes).change().rowAtEndPoint();
-        ChangeRowAssert changeRowAssert2 = changeRowAssert.hasNumberOfColumns(5);
-        Assertions.assertThat(changeRowAssert).isSameAs(changeRowAssert2);
+    ChangeRowAssert changeRowAssert = assertThat(changes).change().rowAtEndPoint();
+    ChangeRowAssert changeRowAssert2 = changeRowAssert.hasNumberOfColumns(5);
+    Assertions.assertThat(changeRowAssert).isSameAs(changeRowAssert2);
 
-        TableAssert tableAssert = assertThat(table);
-        TableAssert tableAssert2 = tableAssert.hasNumberOfColumns(5);
-        Assertions.assertThat(tableAssert).isSameAs(tableAssert2);
+    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert2 = tableAssert.hasNumberOfColumns(5);
+    Assertions.assertThat(tableAssert).isSameAs(tableAssert2);
 
-        TableRowAssert tableRowAssert = assertThat(table).row();
-        TableRowAssert tableRowAssert2 = tableRowAssert.hasNumberOfColumns(5);
-        Assertions.assertThat(tableRowAssert).isSameAs(tableRowAssert2);
+    TableRowAssert tableRowAssert = assertThat(table).row();
+    TableRowAssert tableRowAssert2 = tableRowAssert.hasNumberOfColumns(5);
+    Assertions.assertThat(tableRowAssert).isSameAs(tableRowAssert2);
+  }
+
+  /**
+   * This method should fail because the number of columns is different.
+   */
+  @Test
+  @NeedReload
+  public void should_fail_because_number_of_columns_is_different() {
+    Request request = new Request(source, "select * from actor");
+    Changes changes = new Changes(request).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+
+    try {
+      assertThat(changes).change().hasNumberOfColumns(9);
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 of Changes on 'select * from actor' request of 'sa/jdbc:h2:mem:test' source] %n"
+                                                      + "Expecting size (number of columns) to be equal to :%n"
+                                                      + "   <9>%n"
+                                                      + "but was:%n"
+                                                      + "   <5>"));
     }
-
-    /**
-     * This method should fail because the number of columns is different.
-     */
-    @Test
-    @NeedReload
-    public void should_fail_because_number_of_columns_is_different() {
-        Request request = new Request(source, "select * from actor");
-        Changes changes = new Changes(request).setStartPointNow();
-        updateChangesForTests();
-        changes.setEndPointNow();
-
-        try {
-            assertThat(changes).change().hasNumberOfColumns(9);
-            fail("An exception must be raised");
-        } catch (AssertionError e) {
-            Assertions.assertThat(e.getMessage()).isEqualTo(String.format(
-                "[Change at index 0 of Changes on 'select * from actor' request of 'sa/jdbc:h2:mem:test' source] %n"
-                + "Expecting size (number of columns) to be equal to :%n"
-                + "   <9>%n"
-                + "but was:%n"
-                + "   <5>"));
-        }
-        try {
-            assertThat(changes).change().rowAtEndPoint().hasNumberOfColumns(9);
-            fail("An exception must be raised");
-        } catch (AssertionError e) {
-            Assertions.assertThat(e.getMessage()).isEqualTo(String.format(
-                "[Row at end point of Change at index 0 of Changes on 'select * from actor' request of 'sa/jdbc:h2:mem:test' source] %n"
-                + "Expecting size (number of columns) to be equal to :%n"
-                + "   <9>%n"
-                + "but was:%n"
-                + "   <5>"));
-        }
-        try {
-            assertThat(request).hasNumberOfColumns(9);
-            fail("An exception must be raised");
-        } catch (AssertionError e) {
-            Assertions.assertThat(e.getMessage()).isEqualTo(String.format("['select * from actor' request] %n"
-                                                                          + "Expecting size (number of columns) to be equal to :%n"
-                                                                          + "   <9>%n"
-                                                                          + "but was:%n"
-                                                                          + "   <5>"));
-        }
-        try {
-            assertThat(request).row().hasNumberOfColumns(9);
-            fail("An exception must be raised");
-        } catch (AssertionError e) {
-            Assertions.assertThat(e.getMessage())
-                      .isEqualTo(String.format("[Row at index 0 of 'select * from actor' request] %n"
-                                               + "Expecting size (number of columns) to be equal to :%n"
-                                               + "   <9>%n"
-                                               + "but was:%n"
-                                               + "   <5>"));
-        }
+    try {
+      assertThat(changes).change().rowAtEndPoint().hasNumberOfColumns(9);
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Row at end point of Change at index 0 of Changes on 'select * from actor' request of 'sa/jdbc:h2:mem:test' source] %n"
+                                                      + "Expecting size (number of columns) to be equal to :%n"
+                                                      + "   <9>%n"
+                                                      + "but was:%n"
+                                                      + "   <5>"));
     }
+    try {
+      assertThat(request).hasNumberOfColumns(9);
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("['select * from actor' request] %n"
+                                                      + "Expecting size (number of columns) to be equal to :%n"
+                                                      + "   <9>%n"
+                                                      + "but was:%n"
+                                                      + "   <5>"));
+    }
+    try {
+      assertThat(request).row().hasNumberOfColumns(9);
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Row at index 0 of 'select * from actor' request] %n"
+                                                      + "Expecting size (number of columns) to be equal to :%n"
+                                                      + "   <9>%n"
+                                                      + "but was:%n"
+                                                      + "   <5>"));
+    }
+  }
 }

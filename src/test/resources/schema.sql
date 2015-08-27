@@ -1,61 +1,61 @@
-CREATE TABLE movie (
-  id         NUMBER PRIMARY KEY,
-  title      VARCHAR NOT NULL,
-  year       NUMBER,
-  movie_imdb UUID
+create table movie(
+    id number primary key,
+    title varchar not null,
+    year number,
+    movie_imdb UUID
 );
 
-CREATE TABLE actor (
-  id         NUMBER PRIMARY KEY,
-  name       VARCHAR NOT NULL,
-  firstname  VARCHAR NOT NULL,
-  birth      DATE,
-  actor_imdb UUID
+create table actor(
+    id number primary key,
+    name varchar not null,
+    firstname varchar not null,
+    birth date,
+    actor_imdb UUID
 );
 
-CREATE TABLE interpretation (
-  id        NUMBER PRIMARY KEY,
-  id_movie  NUMBER,
-  id_actor  NUMBER,
-  character VARCHAR,
+create table interpretation(
+    id number primary key,
+    id_movie number,
+    id_actor number,
+    character varchar,
 
-  FOREIGN KEY (id_movie) REFERENCES movie (id),
-  FOREIGN KEY (id_actor) REFERENCES actor (id)
+    foreign key (id_movie) references movie(id),
+    foreign key (id_actor) references actor(id)
 );
 
-CREATE TABLE test (
-  var1  INT PRIMARY KEY,
-  var2  BOOLEAN,
-  var3  TINYINT,
-  var4  SMALLINT,
-  var5  BIGINT,
-  var6  DECIMAL(20, 2),
-  var7  REAL,
-  var8  TIME,
-  var9  DATE,
-  var10 TIMESTAMP,
-  var11 BINARY,
-  var12 VARCHAR,
-  var13 DECIMAL(20, 2),
-  var14 REAL,
-  var15 UUID
+create table test(
+    var1 int primary key,
+    var2 boolean,
+    var3 tinyint,
+    var4 smallint,
+    var5 bigint,
+    var6 decimal(20,2),
+    var7 real,
+    var8 time,
+    var9 date,
+    var10 timestamp,
+    var11 binary,
+    var12 varchar,
+    var13 decimal(20,2),
+    var14 real,
+    var15 UUID
 );
 
-CREATE TABLE test2 (
-  var1  INT,
-  var2  BOOLEAN,
-  var3  TINYINT,
-  var4  SMALLINT,
-  var5  BIGINT,
-  var6  DECIMAL(20, 2),
-  var7  REAL,
-  var8  TIME,
-  var9  DATE,
-  var10 TIMESTAMP,
-  var11 BINARY,
-  var12 VARCHAR,
-  var13 DECIMAL(20, 2),
-  var14 REAL,
-  var15 TINYINT,
-  var16 UUID
+create table test2(
+    var1 int,
+    var2 boolean,
+    var3 tinyint,
+    var4 smallint,
+    var5 bigint,
+    var6 decimal(20,2),
+    var7 real,
+    var8 time,
+    var9 date,
+    var10 timestamp,
+    var11 binary,
+    var12 varchar,
+    var13 decimal(20,2),
+    var14 real,
+    var15 tinyint,
+    var16 UUID
 );

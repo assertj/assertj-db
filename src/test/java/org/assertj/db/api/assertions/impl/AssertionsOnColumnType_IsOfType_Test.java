@@ -1,13 +1,13 @@
 /**
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * <p>
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
- * <p>
+ *
  * Copyright 2012-2015 the original author or authors.
  */
 package org.assertj.db.api.assertions.impl;
@@ -35,70 +35,70 @@ import static org.junit.Assert.fail;
  */
 public class AssertionsOnColumnType_IsOfType_Test {
 
-    /**
-     * This method tests the {@code isOfType} assertion method.
-     */
-    @Test
-    public void test_is_of_type() {
-        WritableAssertionInfo info = new WritableAssertionInfo();
-        Table table = new Table();
-        TableAssert tableAssert = assertThat(table);
-        List<Object> list = new ArrayList<Object>(Arrays.asList("test", "test"));
-        TableAssert tableAssert2 = AssertionsOnColumnType.isOfType(tableAssert, info, list, ValueType.TEXT, false);
-        Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-        list = new ArrayList<Object>(Arrays.asList("test", "test"));
-        tableAssert2 = AssertionsOnColumnType.isOfType(tableAssert, info, list, ValueType.TEXT, true);
-        Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-        list = new ArrayList<Object>(Arrays.asList(null, "test"));
-        tableAssert2 = AssertionsOnColumnType.isOfType(tableAssert, info, list, ValueType.TEXT, true);
-        Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    }
+  /**
+   * This method tests the {@code isOfType} assertion method.
+   */
+  @Test
+  public void test_is_of_type() {
+    WritableAssertionInfo info = new WritableAssertionInfo();
+    Table table = new Table();
+    TableAssert tableAssert = assertThat(table);
+    List<Object> list = new ArrayList<Object>(Arrays.asList("test", "test"));
+    TableAssert tableAssert2 = AssertionsOnColumnType.isOfType(tableAssert, info, list, ValueType.TEXT, false);
+    Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
+    list = new ArrayList<Object>(Arrays.asList("test", "test"));
+    tableAssert2 = AssertionsOnColumnType.isOfType(tableAssert, info, list, ValueType.TEXT, true);
+    Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
+    list = new ArrayList<Object>(Arrays.asList(null, "test"));
+    tableAssert2 = AssertionsOnColumnType.isOfType(tableAssert, info, list, ValueType.TEXT, true);
+    Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
+  }
 
-    /**
-     * This method should fail because the value is not of type.
-     */
-    @Test
-    public void should_fail_because_value_is_not_of_type() {
-        WritableAssertionInfo info = new WritableAssertionInfo();
-        info.description("description");
-        Table table = new Table();
-        TableAssert tableAssert = assertThat(table);
-        try {
-            List<Object> list = new ArrayList<Object>(Arrays.asList(8, "test"));
-            AssertionsOnColumnType.isOfType(tableAssert, info, list, ValueType.TEXT, false);
-            fail("An exception must be raised");
-        } catch (AssertionError e) {
-            Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                          + "Expecting that the value at index 0:%n"
-                                                                          + "  <8>%n"
-                                                                          + "to be of type%n"
-                                                                          + "  <TEXT>%n"
-                                                                          + "but was of type%n"
-                                                                          + "  <NUMBER>"));
-        }
+  /**
+   * This method should fail because the value is not of type.
+   */
+  @Test
+  public void should_fail_because_value_is_not_of_type() {
+    WritableAssertionInfo info = new WritableAssertionInfo();
+    info.description("description");
+    Table table = new Table();
+    TableAssert tableAssert = assertThat(table);
+    try {
+      List<Object> list = new ArrayList<Object>(Arrays.asList(8, "test"));
+      AssertionsOnColumnType.isOfType(tableAssert, info, list, ValueType.TEXT, false);
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that the value at index 0:%n"
+                                                      + "  <8>%n"
+                                                      + "to be of type%n"
+                                                      + "  <TEXT>%n"
+                                                      + "but was of type%n"
+                                                      + "  <NUMBER>"));
     }
+  }
 
-    /**
-     * This method should fail because the value is not of type (with lenience).
-     */
-    @Test
-    public void should_fail_because_value_is_not_of_type_with_lenience() {
-        WritableAssertionInfo info = new WritableAssertionInfo();
-        info.description("description");
-        Table table = new Table();
-        TableAssert tableAssert = assertThat(table);
-        try {
-            List<Object> list = new ArrayList<Object>(Arrays.asList("test", 8));
-            AssertionsOnColumnType.isOfType(tableAssert, info, list, ValueType.TEXT, false);
-            fail("An exception must be raised");
-        } catch (AssertionError e) {
-            Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                          + "Expecting that the value at index 1:%n"
-                                                                          + "  <8>%n"
-                                                                          + "to be of type%n"
-                                                                          + "  <TEXT>%n"
-                                                                          + "but was of type%n"
-                                                                          + "  <NUMBER>"));
-        }
+  /**
+   * This method should fail because the value is not of type (with lenience).
+   */
+  @Test
+  public void should_fail_because_value_is_not_of_type_with_lenience() {
+    WritableAssertionInfo info = new WritableAssertionInfo();
+    info.description("description");
+    Table table = new Table();
+    TableAssert tableAssert = assertThat(table);
+    try {
+      List<Object> list = new ArrayList<Object>(Arrays.asList("test", 8));
+      AssertionsOnColumnType.isOfType(tableAssert, info, list, ValueType.TEXT, false);
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting that the value at index 1:%n"
+                                                      + "  <8>%n"
+                                                      + "to be of type%n"
+                                                      + "  <TEXT>%n"
+                                                      + "but was of type%n"
+                                                      + "  <NUMBER>"));
     }
+  }
 }

@@ -1,13 +1,13 @@
 /**
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * <p>
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
- * <p>
+ *
  * Copyright 2012-2015 the original author or authors.
  */
 package org.assertj.db.api.navigation;
@@ -52,111 +52,111 @@ import org.assertj.db.api.ChangesAssert;
  */
 public interface ToChanges {
 
-    /**
-     * Returns an assertion of all the changes.
-     *
-     * @return An object to make assertions on all the changes.
-     * @see org.assertj.db.api.ChangesAssert#ofAll()
-     * @see org.assertj.db.api.ChangeAssert#ofAll()
-     * @see org.assertj.db.api.ChangeColumnAssert#ofAll()
-     * @see org.assertj.db.api.ChangeColumnValueAssert#ofAll()
-     * @see org.assertj.db.api.ChangeRowAssert#ofAll()
-     * @see org.assertj.db.api.ChangeRowValueAssert#ofAll()
-     */
-    public ChangesAssert ofAll();
+  /**
+   * Returns an assertion of all the changes.
+   *
+   * @return An object to make assertions on all the changes.
+   * @see org.assertj.db.api.ChangesAssert#ofAll()
+   * @see org.assertj.db.api.ChangeAssert#ofAll()
+   * @see org.assertj.db.api.ChangeColumnAssert#ofAll()
+   * @see org.assertj.db.api.ChangeColumnValueAssert#ofAll()
+   * @see org.assertj.db.api.ChangeRowAssert#ofAll()
+   * @see org.assertj.db.api.ChangeRowValueAssert#ofAll()
+   */
+  public ChangesAssert ofAll();
 
-    /**
-     * Returns an assertion of the changes of creation ({@link org.assertj.db.type.ChangeType#CREATION}).
-     *
-     * @return An object to make assertions on the changes of creation ({@link org.assertj.db.type.ChangeType#CREATION}).
-     * @see org.assertj.db.api.ChangesAssert#ofCreation()
-     * @see org.assertj.db.api.ChangeAssert#ofCreation()
-     * @see org.assertj.db.api.ChangeColumnAssert#ofCreation()
-     * @see org.assertj.db.api.ChangeColumnValueAssert#ofCreation()
-     * @see org.assertj.db.api.ChangeRowAssert#ofCreation()
-     * @see org.assertj.db.api.ChangeRowValueAssert#ofCreation()
-     */
-    public ChangesAssert ofCreation();
+  /**
+   * Returns an assertion of the changes of creation ({@link org.assertj.db.type.ChangeType#CREATION}).
+   *
+   * @return An object to make assertions on the changes of creation ({@link org.assertj.db.type.ChangeType#CREATION}).
+   * @see org.assertj.db.api.ChangesAssert#ofCreation()
+   * @see org.assertj.db.api.ChangeAssert#ofCreation()
+   * @see org.assertj.db.api.ChangeColumnAssert#ofCreation()
+   * @see org.assertj.db.api.ChangeColumnValueAssert#ofCreation()
+   * @see org.assertj.db.api.ChangeRowAssert#ofCreation()
+   * @see org.assertj.db.api.ChangeRowValueAssert#ofCreation()
+   */
+  public ChangesAssert ofCreation();
 
-    /**
-     * Returns an assertion of the changes of modification ({@link org.assertj.db.type.ChangeType#MODIFICATION}).
-     *
-     * @return An object to make assertions on the changes of modification ({@link org.assertj.db.type.ChangeType#MODIFICATION}).
-     * @see org.assertj.db.api.ChangesAssert#ofModification()
-     * @see org.assertj.db.api.ChangeAssert#ofModification()
-     * @see org.assertj.db.api.ChangeColumnAssert#ofModification()
-     * @see org.assertj.db.api.ChangeColumnValueAssert#ofModification()
-     * @see org.assertj.db.api.ChangeRowAssert#ofModification()
-     * @see org.assertj.db.api.ChangeRowValueAssert#ofModification()
-     */
-    public ChangesAssert ofModification();
+  /**
+   * Returns an assertion of the changes of modification ({@link org.assertj.db.type.ChangeType#MODIFICATION}).
+   *
+   * @return An object to make assertions on the changes of modification ({@link org.assertj.db.type.ChangeType#MODIFICATION}).
+   * @see org.assertj.db.api.ChangesAssert#ofModification()
+   * @see org.assertj.db.api.ChangeAssert#ofModification()
+   * @see org.assertj.db.api.ChangeColumnAssert#ofModification()
+   * @see org.assertj.db.api.ChangeColumnValueAssert#ofModification()
+   * @see org.assertj.db.api.ChangeRowAssert#ofModification()
+   * @see org.assertj.db.api.ChangeRowValueAssert#ofModification()
+   */
+  public ChangesAssert ofModification();
 
-    /**
-     * Returns an assertion of the changes of deletion ({@link org.assertj.db.type.ChangeType#DELETION}).
-     *
-     * @return An object to make assertions on the changes of deletion ({@link org.assertj.db.type.ChangeType#DELETION}).
-     * @see org.assertj.db.api.ChangesAssert#ofDeletion()
-     * @see org.assertj.db.api.ChangeAssert#ofDeletion()
-     * @see org.assertj.db.api.ChangeColumnAssert#ofDeletion()
-     * @see org.assertj.db.api.ChangeColumnValueAssert#ofDeletion()
-     * @see org.assertj.db.api.ChangeRowAssert#ofDeletion()
-     * @see org.assertj.db.api.ChangeRowValueAssert#ofDeletion()
-     */
-    public ChangesAssert ofDeletion();
+  /**
+   * Returns an assertion of the changes of deletion ({@link org.assertj.db.type.ChangeType#DELETION}).
+   *
+   * @return An object to make assertions on the changes of deletion ({@link org.assertj.db.type.ChangeType#DELETION}).
+   * @see org.assertj.db.api.ChangesAssert#ofDeletion()
+   * @see org.assertj.db.api.ChangeAssert#ofDeletion()
+   * @see org.assertj.db.api.ChangeColumnAssert#ofDeletion()
+   * @see org.assertj.db.api.ChangeColumnValueAssert#ofDeletion()
+   * @see org.assertj.db.api.ChangeRowAssert#ofDeletion()
+   * @see org.assertj.db.api.ChangeRowValueAssert#ofDeletion()
+   */
+  public ChangesAssert ofDeletion();
 
-    /**
-     * Returns an assertion of the changes of creation ({@link org.assertj.db.type.ChangeType#CREATION}) on a table.
-     *
-     * @param tableName The table name
-     * @return An object to make assertions on the changes of creation ({@link org.assertj.db.type.ChangeType#CREATION}) on the table.
-     * @see org.assertj.db.api.ChangesAssert#ofCreationOnTable(String)
-     * @see org.assertj.db.api.ChangeAssert#ofCreationOnTable(String)
-     * @see org.assertj.db.api.ChangeColumnAssert#ofCreationOnTable(String)
-     * @see org.assertj.db.api.ChangeColumnValueAssert#ofCreationOnTable(String)
-     * @see org.assertj.db.api.ChangeRowAssert#ofCreationOnTable(String)
-     * @see org.assertj.db.api.ChangeRowValueAssert#ofCreationOnTable(String)
-     */
-    public ChangesAssert ofCreationOnTable(String tableName);
+  /**
+   * Returns an assertion of the changes of creation ({@link org.assertj.db.type.ChangeType#CREATION}) on a table.
+   *
+   * @param tableName The table name
+   * @return An object to make assertions on the changes of creation ({@link org.assertj.db.type.ChangeType#CREATION}) on the table.
+   * @see org.assertj.db.api.ChangesAssert#ofCreationOnTable(String)
+   * @see org.assertj.db.api.ChangeAssert#ofCreationOnTable(String)
+   * @see org.assertj.db.api.ChangeColumnAssert#ofCreationOnTable(String)
+   * @see org.assertj.db.api.ChangeColumnValueAssert#ofCreationOnTable(String)
+   * @see org.assertj.db.api.ChangeRowAssert#ofCreationOnTable(String)
+   * @see org.assertj.db.api.ChangeRowValueAssert#ofCreationOnTable(String)
+   */
+  public ChangesAssert ofCreationOnTable(String tableName);
 
-    /**
-     * Returns an assertion of the changes of modification ({@link org.assertj.db.type.ChangeType#MODIFICATION}) on a table.
-     *
-     * @param tableName The table name
-     * @return An object to make assertions on the changes of modification ({@link org.assertj.db.type.ChangeType#MODIFICATION}) on the table.
-     * @see org.assertj.db.api.ChangesAssert#ofModificationOnTable(String)
-     * @see org.assertj.db.api.ChangeAssert#ofModificationOnTable(String)
-     * @see org.assertj.db.api.ChangeColumnAssert#ofModificationOnTable(String)
-     * @see org.assertj.db.api.ChangeColumnValueAssert#ofModificationOnTable(String)
-     * @see org.assertj.db.api.ChangeRowAssert#ofModificationOnTable(String)
-     * @see org.assertj.db.api.ChangeRowValueAssert#ofModificationOnTable(String)
-     */
-    public ChangesAssert ofModificationOnTable(String tableName);
+  /**
+   * Returns an assertion of the changes of modification ({@link org.assertj.db.type.ChangeType#MODIFICATION}) on a table.
+   *
+   * @param tableName The table name
+   * @return An object to make assertions on the changes of modification ({@link org.assertj.db.type.ChangeType#MODIFICATION}) on the table.
+   * @see org.assertj.db.api.ChangesAssert#ofModificationOnTable(String)
+   * @see org.assertj.db.api.ChangeAssert#ofModificationOnTable(String)
+   * @see org.assertj.db.api.ChangeColumnAssert#ofModificationOnTable(String)
+   * @see org.assertj.db.api.ChangeColumnValueAssert#ofModificationOnTable(String)
+   * @see org.assertj.db.api.ChangeRowAssert#ofModificationOnTable(String)
+   * @see org.assertj.db.api.ChangeRowValueAssert#ofModificationOnTable(String)
+   */
+  public ChangesAssert ofModificationOnTable(String tableName);
 
-    /**
-     * Returns an assertion of the changes of deletion ({@link org.assertj.db.type.ChangeType#DELETION}) on a table.
-     *
-     * @param tableName The table name
-     * @return An object to make assertions on the changes of deletion ({@link org.assertj.db.type.ChangeType#DELETION}) on the table.
-     * @see org.assertj.db.api.ChangesAssert#ofDeletionOnTable(String)
-     * @see org.assertj.db.api.ChangeAssert#ofDeletionOnTable(String)
-     * @see org.assertj.db.api.ChangeColumnAssert#ofDeletionOnTable(String)
-     * @see org.assertj.db.api.ChangeColumnValueAssert#ofDeletionOnTable(String)
-     * @see org.assertj.db.api.ChangeRowAssert#ofDeletionOnTable(String)
-     * @see org.assertj.db.api.ChangeRowValueAssert#ofDeletionOnTable(String)
-     */
-    public ChangesAssert ofDeletionOnTable(String tableName);
+  /**
+   * Returns an assertion of the changes of deletion ({@link org.assertj.db.type.ChangeType#DELETION}) on a table.
+   *
+   * @param tableName The table name
+   * @return An object to make assertions on the changes of deletion ({@link org.assertj.db.type.ChangeType#DELETION}) on the table.
+   * @see org.assertj.db.api.ChangesAssert#ofDeletionOnTable(String)
+   * @see org.assertj.db.api.ChangeAssert#ofDeletionOnTable(String)
+   * @see org.assertj.db.api.ChangeColumnAssert#ofDeletionOnTable(String)
+   * @see org.assertj.db.api.ChangeColumnValueAssert#ofDeletionOnTable(String)
+   * @see org.assertj.db.api.ChangeRowAssert#ofDeletionOnTable(String)
+   * @see org.assertj.db.api.ChangeRowValueAssert#ofDeletionOnTable(String)
+   */
+  public ChangesAssert ofDeletionOnTable(String tableName);
 
-    /**
-     * Returns an assertion of the changes on a table.
-     *
-     * @param tableName The table name
-     * @return An object to make assertions on the changes on the table.
-     * @see org.assertj.db.api.ChangesAssert#onTable(String)
-     * @see org.assertj.db.api.ChangeAssert#onTable(String)
-     * @see org.assertj.db.api.ChangeColumnAssert#onTable(String)
-     * @see org.assertj.db.api.ChangeColumnValueAssert#onTable(String)
-     * @see org.assertj.db.api.ChangeRowAssert#onTable(String)
-     * @see org.assertj.db.api.ChangeRowValueAssert#onTable(String)
-     */
-    public ChangesAssert onTable(String tableName);
+  /**
+   * Returns an assertion of the changes on a table.
+   *
+   * @param tableName The table name
+   * @return An object to make assertions on the changes on the table.
+   * @see org.assertj.db.api.ChangesAssert#onTable(String)
+   * @see org.assertj.db.api.ChangeAssert#onTable(String)
+   * @see org.assertj.db.api.ChangeColumnAssert#onTable(String)
+   * @see org.assertj.db.api.ChangeColumnValueAssert#onTable(String)
+   * @see org.assertj.db.api.ChangeRowAssert#onTable(String)
+   * @see org.assertj.db.api.ChangeRowValueAssert#onTable(String)
+   */
+  public ChangesAssert onTable(String tableName);
 }
