@@ -22,6 +22,7 @@ import org.assertj.db.type.ValueType;
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
  *            for more details.
  * @author Régis Pouiller
+ * @author Otoniel Isidoro
  */
 public interface AssertOnValueType<T extends AssertOnValueType<T>> {
 
@@ -359,4 +360,45 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    * @see org.assertj.db.api.AbstractAssertWithValues#isText()
    */
   public T isText();
+
+  /**
+   * Verifies that the value is an UUID.
+   * <p>
+   * Example where the assertion verifies that the value in the {@code Column} called id of the first {@code Row}
+   * of the {@code Table} is an UUID :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value(&quot;id&quot;).isUUID();
+   * </code>
+   * </pre>
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
+   * of the first {@code Change} is an UUID :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change().rowAtEndPoint().value().isUUID();
+   * </code>
+   * </pre>
+   * <p>
+   * This assertion method is equivalent to :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * xxxxx.isOfType(ValueType.UUID);
+   * </code>
+   * </pre>
+   *
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type of the value is not UUID.
+   * @see org.assertj.db.type.ValueType#UUID
+   * @see org.assertj.db.api.AbstractValueAssert#isUUID()
+   * @see org.assertj.db.api.AbstractAssertWithValues#isUUID()
+   * @since 1.1.0
+   */
+  public T isUUID();
+
 }

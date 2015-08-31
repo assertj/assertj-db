@@ -20,6 +20,7 @@ import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
 import org.assertj.db.type.ValueType;
+import java.util.UUID;
 
 /**
  * Base class for all values from a {@link org.assertj.db.type.Change} assertions.
@@ -29,6 +30,7 @@ import org.assertj.db.type.ValueType;
  *            for more details.
  * @param <O> The type of the assertion class of {@link org.assertj.db.api.origin.Origin}.
  * @author Régis Pouiller
+ * @author Otoniel Isidoro
  */
 public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValues<E, O>, O extends OriginWithColumnsAndRowsFromChange>
         extends AbstractAssertWithOriginWithColumnsAndRowsFromChange<E, O>
@@ -113,6 +115,12 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
 
   /** {@inheritDoc} */
   @Override
+  public E isUUID() {
+    return AssertionsOnValueType.isUUID(myself, info, value);
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public E isNull() {
     return AssertionsOnValueNullity.isNull(myself, info, value);
   }
@@ -156,6 +164,12 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
   /** {@inheritDoc} */
   @Override
   public E isEqualTo(String expected) {
+    return AssertionsOnValueEquality.isEqualTo(myself, info, value, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E isEqualTo(UUID expected) {
     return AssertionsOnValueEquality.isEqualTo(myself, info, value, expected);
   }
 
@@ -210,6 +224,12 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
   /** {@inheritDoc} */
   @Override
   public E isNotEqualTo(String expected) {
+    return AssertionsOnValueNonEquality.isNotEqualTo(myself, info, value, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E isNotEqualTo(UUID expected) {
     return AssertionsOnValueNonEquality.isNotEqualTo(myself, info, value, expected);
   }
 

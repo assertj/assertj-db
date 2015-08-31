@@ -228,7 +228,7 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_One_String_Test {
                                                       + "Expecting that the value at start point:%n"
                                                       + "  <false>%n"
                                                       + "to be of type%n"
-                                                      + "  <[TEXT, NUMBER, DATE, TIME, DATE_TIME, NOT_IDENTIFIED]>%n"
+                                                      + "  <[TEXT, NUMBER, DATE, TIME, DATE_TIME, UUID, NOT_IDENTIFIED]>%n"
                                                       + "but was of type%n"
                                                       + "  <BOOLEAN>"));
     }

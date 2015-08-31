@@ -25,6 +25,7 @@ import static org.assertj.db.error.ShouldBeValueType.shouldBeValueType;
  * <p>The different type of values are enumerated in {@link org.assertj.db.type.ValueType}.</p>
  *
  * @author Régis Pouiller
+ * @author Otoniel Isidoro
  * @see org.assertj.db.api.assertions.AssertOnValueType
  */
 public class AssertionsOnValueType {
@@ -180,4 +181,20 @@ public class AssertionsOnValueType {
   public static <A extends AbstractAssert> A isText(A assertion, WritableAssertionInfo info, Object value) {
     return isOfType(assertion, info, value, ValueType.TEXT);
   }
+
+  /**
+   * Verifies that the value is an UUID.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Writable information about an assertion.
+   * @param value     The value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type of the value is not UUID.
+   * @since 1.1.0
+   */
+  public static <A extends AbstractAssert> A isUUID(A assertion, WritableAssertionInfo info, Object value) {
+    return isOfType(assertion, info, value, ValueType.UUID);
+  }
+
 }

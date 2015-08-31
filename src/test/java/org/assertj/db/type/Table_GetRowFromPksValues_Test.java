@@ -16,6 +16,7 @@ import org.assertj.db.common.AbstractTest;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -46,9 +47,9 @@ public class Table_GetRowFromPksValues_Test extends AbstractTest {
     Table table = new Table(source, "movie");
 
     assertThat(table.getRowFromPksValues(3).getValuesList()).containsExactly(new BigDecimal(3), "Avatar",
-        new BigDecimal(2009));
+        new BigDecimal(2009), UUID.fromString("D735221B-5DE5-4112-AA1E-49090CB75ADA"));
     assertThat(table.getRowFromPksValues(1L).getValuesList()).containsExactly(new BigDecimal(1), "Alien",
-        new BigDecimal(1979));
+        new BigDecimal(1979), UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
   }
 
 }

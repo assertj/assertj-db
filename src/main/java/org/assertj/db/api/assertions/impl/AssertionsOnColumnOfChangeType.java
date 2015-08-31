@@ -1,13 +1,13 @@
 /**
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
- *
+ * <p>
  * Copyright 2012-2015 the original author or authors.
  */
 package org.assertj.db.api.assertions.impl;
@@ -27,6 +27,7 @@ import static org.assertj.db.error.ShouldBeValueTypeWithStartPoint.shouldBeValue
  * <p>The different type of values are enumerated in {@link org.assertj.db.type.ValueType}.</p>
  *
  * @author Régis Pouiller
+ * @author Otoniel Isidoro
  * @see org.assertj.db.api.assertions.AssertOnColumnType
  */
 public class AssertionsOnColumnOfChangeType {
@@ -44,7 +45,6 @@ public class AssertionsOnColumnOfChangeType {
   }
 
   /**
-   /**
    * Verifies that the type of the values of the column is equal to the type in parameter.
    *
    * @param <A>        The type of the assertion which call this method.
@@ -249,4 +249,25 @@ public class AssertionsOnColumnOfChangeType {
                                                     boolean lenient) {
     return isOfType(assertion, info, valueAtStartPoint, valueAtEndPoint, ValueType.TEXT, lenient);
   }
+
+  /**
+   * Verifies that the type of the values of the column is UUID.
+   *
+   * @param <A>        The type of the assertion which call this method.
+   * @param assertion  The assertion which call this method.
+   * @param info       Writable information about an assertion.
+   * @param valueAtStartPoint The value at start point.
+   * @param valueAtEndPoint   The value at end point.
+   * @param lenient    {@code true} if the test is lenient : if the type of a value is not identified (for example when the
+   *                   value is {@code null}), it consider that it is ok.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type of the column is not UUID.
+   * @since 1.1.0
+   */
+  public static <A extends AbstractAssert> A isUUID(A assertion, WritableAssertionInfo info,
+                                                    Object valueAtStartPoint, Object valueAtEndPoint,
+                                                    boolean lenient) {
+    return isOfType(assertion, info, valueAtStartPoint, valueAtEndPoint, ValueType.UUID, lenient);
+  }
+
 }

@@ -19,6 +19,7 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -46,6 +47,7 @@ public class ValueType_GetType_Test extends AbstractTest {
     assertThat(ValueType.getType((long) 10)).isEqualTo(ValueType.NUMBER);
     assertThat(ValueType.getType(10.5f)).isEqualTo(ValueType.NUMBER);
     assertThat(ValueType.getType(new BigDecimal(10.5f))).isEqualTo(ValueType.NUMBER);
+    assertThat(ValueType.getType(UUID.randomUUID())).isEqualTo(ValueType.UUID);
     assertThat(ValueType.getType(null)).isEqualTo(ValueType.NOT_IDENTIFIED);
   }
 }

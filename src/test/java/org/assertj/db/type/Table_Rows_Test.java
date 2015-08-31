@@ -16,6 +16,7 @@ import org.assertj.db.common.AbstractTest;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -39,16 +40,16 @@ public class Table_Rows_Test extends AbstractTest {
 
     assertThat(table.getRowsList()).as("Values of MOVIE table").hasSize(3);
 
-    assertThat(table.getRow(0).getColumnsNameList()).containsExactly("ID", "TITLE", "YEAR");
+    assertThat(table.getRow(0).getColumnsNameList()).containsExactly("ID", "TITLE", "YEAR", "MOVIE_IMDB");
     assertThat(table.getRow(0).getColumnValue(0)).isEqualTo(new BigDecimal(1));
     assertThat(table.getRow(0).getColumnValue("title")).isEqualTo("Alien");
 
     assertThat(table.getRow(0).getValuesList()).as("Row 1 of MOVIE table")
-        .containsExactly(new BigDecimal(1), "Alien", new BigDecimal(1979));
+        .containsExactly(new BigDecimal(1), "Alien", new BigDecimal(1979), UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
     assertThat(table.getRow(1).getValuesList()).as("Row 2 of MOVIE table")
-        .containsExactly(new BigDecimal(2), "The Village", new BigDecimal(2004));
+            .containsExactly(new BigDecimal(2), "The Village", new BigDecimal(2004), UUID.fromString("16319617-AE95-4087-9264-D3D21BF611B6"));
     assertThat(table.getRow(2).getValuesList()).as("Row 3 of MOVIE table")
-        .containsExactly(new BigDecimal(3), "Avatar", new BigDecimal(2009));
+        .containsExactly(new BigDecimal(3), "Avatar", new BigDecimal(2009), UUID.fromString("D735221B-5DE5-4112-AA1E-49090CB75ADA"));
   }
 
   /**
@@ -61,11 +62,11 @@ public class Table_Rows_Test extends AbstractTest {
     assertThat(table.getRowsList()).as("Values of MOVIE table").hasSize(3);
 
     assertThat(table.getRow(0).getValuesList()).as("Row 1 of MOVIE table")
-        .containsExactly(new BigDecimal(1), "Alien", new BigDecimal(1979));
+        .containsExactly(new BigDecimal(1), "Alien", new BigDecimal(1979), UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
     assertThat(table.getRow(1).getValuesList()).as("Row 2 of MOVIE table")
-        .containsExactly(new BigDecimal(2), "The Village", new BigDecimal(2004));
+        .containsExactly(new BigDecimal(2), "The Village", new BigDecimal(2004), UUID.fromString("16319617-AE95-4087-9264-D3D21BF611B6"));
     assertThat(table.getRow(2).getValuesList()).as("Row 3 of MOVIE table")
-        .containsExactly(new BigDecimal(3), "Avatar", new BigDecimal(2009));
+        .containsExactly(new BigDecimal(3), "Avatar", new BigDecimal(2009), UUID.fromString("D735221B-5DE5-4112-AA1E-49090CB75ADA"));
   }
 
   /**

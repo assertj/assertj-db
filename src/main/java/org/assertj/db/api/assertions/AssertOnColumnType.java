@@ -22,6 +22,7 @@ import org.assertj.db.type.ValueType;
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
  *            for more details.
  * @author Régis Pouiller
+ * @author Otoniel Isidoro
  */
 public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
 
@@ -266,4 +267,34 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * @see org.assertj.db.api.AbstractColumnAssert#isText(boolean)
    */
   public T isText(boolean lenient);
+
+  /**
+   * Verifies that the type of the values of the column is UUID.
+   * <p>
+   * Example where the assertion verifies that all the values in the {@code Column} called "id"
+   * of the {@code Table} is UUID :
+   * </p>
+   *
+   * <pre><code class='java'>
+   * assertThat(table).column(&quot;id&quot;).isUUID(false);
+   * </code></pre>
+   * <p>
+   * This assertion method is equivalent to :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * xxxxx.isOfType(ValueType.UUID, lenient);
+   * </code>
+   * </pre>
+   *
+   * @param lenient {@code true} if the test is lenient : if the type of a value is not identified (for example when the
+   *          value is {@code null}), it consider that it is ok.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type of the column is not UUID.
+   * @see org.assertj.db.type.ValueType#UUID
+   * @see org.assertj.db.api.AbstractColumnAssert#isUUID(boolean)
+   * @since 1.1.0
+   */
+  public T isUUID(boolean lenient);
+
 }

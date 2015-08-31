@@ -27,6 +27,7 @@ import static org.assertj.db.error.ShouldBeValueTypeOfAny.shouldBeValueTypeOfAny
  * <p>The different type of values are enumerated in {@link org.assertj.db.type.ValueType}.</p>
  *
  * @author Régis Pouiller
+ * @author Otoniel Isidoro
  * @see org.assertj.db.api.assertions.AssertOnColumnType
  */
 public class AssertionsOnColumnType {
@@ -221,4 +222,23 @@ public class AssertionsOnColumnType {
                                                     boolean lenient) {
     return isOfType(assertion, info, valuesList, ValueType.TEXT, lenient);
   }
+
+  /**
+   * Verifies that the type of the values of the column is UUID.
+   *
+   * @param <A>        The type of the assertion which call this method.
+   * @param assertion  The assertion which call this method.
+   * @param info       Writable information about an assertion.
+   * @param valuesList The list of values.
+   * @param lenient    {@code true} if the test is lenient : if the type of a value is not identified (for example when the
+   *                   value is {@code null}), it consider that it is ok.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type of the column is not UUID.
+   * @since 1.1.0
+   */
+  public static <A extends AbstractAssert> A isUUID(A assertion, WritableAssertionInfo info, List<Object> valuesList,
+                                                    boolean lenient) {
+    return isOfType(assertion, info, valuesList, ValueType.UUID, lenient);
+  }
+
 }

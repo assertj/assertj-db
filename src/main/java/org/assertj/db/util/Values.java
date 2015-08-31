@@ -1,13 +1,13 @@
 /**
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
- *
+ * <p>
  * Copyright 2012-2015 the original author or authors.
  */
 package org.assertj.db.util;
@@ -24,11 +24,13 @@ import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.ParseException;
+import java.util.UUID;
 
 /**
  * Utility methods related to values.
- * 
+ *
  * @author Régis Pouiller
+ * @author Otoniel Isidoro
  */
 public class Values {
 
@@ -41,8 +43,8 @@ public class Values {
 
   /**
    * Returns if the value is equal to another value in parameter.
-   * 
-   * @param value The value.
+   *
+   * @param value    The value.
    * @param expected The other value to compare.
    * @return {@code true} if the value is equal to the value in parameter, {@code false} otherwise.
    */
@@ -68,6 +70,13 @@ public class Values {
       break;
     case TEXT:
       if (expected instanceof String) {
+        return areEqual(value, (String) expected);
+      }
+      break;
+    case UUID:
+      if (expected instanceof UUID) {
+        return areEqual(value, (UUID) expected);
+      } else if (expected instanceof String) {
         return areEqual(value, (String) expected);
       }
       break;
@@ -110,8 +119,8 @@ public class Values {
 
   /**
    * Returns if the value is equal to the {@code Boolean} in parameter.
-   * 
-   * @param value The value.
+   *
+   * @param value    The value.
    * @param expected The {@code Boolean} to compare.
    * @return {@code true} if the value is equal to the {@code Boolean} parameter, {@code false} otherwise.
    */
@@ -124,8 +133,8 @@ public class Values {
 
   /**
    * Returns if the value is equal to the {@code Number} in parameter.
-   * 
-   * @param value The value.
+   *
+   * @param value    The value.
    * @param expected The {@code Number} to compare.
    * @return {@code true} if the value is equal to the {@code Number} parameter, {@code false} otherwise.
    */
@@ -230,8 +239,8 @@ public class Values {
 
   /**
    * Returns if the value is equal to the array of {@code byte} in parameter.
-   * 
-   * @param value The value.
+   *
+   * @param value    The value.
    * @param expected The array of {@code byte} to compare.
    * @return {@code true} if the value is equal to the array of {@code byte} parameter, {@code false} otherwise.
    */
@@ -257,8 +266,8 @@ public class Values {
 
   /**
    * Returns if the date is equal to the {@code String} representation in parameter.
-   * 
-   * @param date The date.
+   *
+   * @param date     The date.
    * @param expected The {@code String} representation to compare.
    * @return {@code true} if the date is equal to the {@code String} representation parameter, {@code false} otherwise.
    * @throws AssertJDBException If it is not possible to compare {@code date} to {@code expected}.
@@ -278,8 +287,8 @@ public class Values {
 
   /**
    * Returns if the time is equal to the {@code String} representation in parameter.
-   * 
-   * @param time The time.
+   *
+   * @param time     The time.
    * @param expected The {@code String} representation to compare.
    * @return {@code true} if the time is equal to the {@code String} representation parameter, {@code false} otherwise.
    * @throws AssertJDBException If it is not possible to compare {@code time} to {@code expected}.
@@ -299,11 +308,11 @@ public class Values {
 
   /**
    * Returns if the timestamp is equal to the {@code String} representation in parameter.
-   * 
+   *
    * @param timestamp The timestamp.
-   * @param expected The {@code String} representation to compare.
+   * @param expected  The {@code String} representation to compare.
    * @return {@code true} if the timestamp is equal to the {@code String} representation parameter, {@code false}
-   *         otherwise.
+   * otherwise.
    * @throws AssertJDBException If it is not possible to compare {@code timestamp} to {@code expected}.
    */
   private static boolean areEqual(Timestamp timestamp, String expected) {
@@ -321,13 +330,13 @@ public class Values {
 
   /**
    * Returns if the number is equal to the {@code String} representation in parameter.
-   * 
-   * @param number The number.
+   *
+   * @param number   The number.
    * @param expected The {@code String} representation to compare.
    * @return {@code true} if the number is equal to the {@code String} representation parameter, {@code false}
-   *         otherwise.
+   * otherwise.
    * @throws NullPointerException if {@code expected} is {@code null}.
-   * @throws AssertJDBException If it is not possible to compare {@code number} to {@code expected}.
+   * @throws AssertJDBException   If it is not possible to compare {@code number} to {@code expected}.
    */
   private static boolean areEqual(Number number, String expected) {
     try {
@@ -370,13 +379,13 @@ public class Values {
 
   /**
    * Returns if the value is equal to the {@code String} in parameter.
-   * 
-   * @param value The value.
+   *
+   * @param value    The value.
    * @param expected The {@code String} to compare.
    * @return {@code true} if the value is equal to the {@code String} parameter, {@code false} otherwise.
    * @throws NullPointerException if {@code expected} is {@code null}.
-   * @throws AssertJDBException If {@code value} is a {@code Number} and it is not possible to compare to
-   *           {@code expected}.
+   * @throws AssertJDBException   If {@code value} is a {@code Number} and it is not possible to compare to
+   *                              {@code expected}.
    */
   public static boolean areEqual(Object value, String expected) {
     if (expected == null) {
@@ -391,14 +400,52 @@ public class Values {
       return areEqual((Time) value, expected);
     } else if (value instanceof Timestamp) {
       return areEqual((Timestamp) value, expected);
+    } else if (value instanceof UUID) {
+      return areEqual((UUID) value, expected);
     }
     return expected.equals(value);
   }
 
   /**
+   * Returns if the value is equal to the {@code UUID} in parameter.
+   *
+   * @param value    The value.
+   * @param expected The {@code UUID} to compare.
+   * @return {@code true} if the value is equal to the {@code UUID} parameter, {@code false} otherwise.
+   * @since 1.1.0
+   */
+  public static boolean areEqual(Object value, UUID expected) {
+    if (expected == null) {
+      return value == null;
+    }
+    return expected.equals(value);
+  }
+
+  /**
+   * Returns if the {@code UUID} value is equal to the {@code String} in parameter.
+   *
+   * @param value    The {@code UUID} value.
+   * @param expected The {@code String} to compare.
+   * @return {@code true} if the {@code UUID} value is equal to the {@code String} parameter, {@code false} otherwise.
+   * @throws AssertJDBException If it is not possible to compare {@code UUID} to {@code expected}.
+   * @since 1.1.0
+   */
+  public static boolean areEqual(UUID value, String expected) {
+    if (expected == null) {
+      return value == null;
+    }
+    try {
+      return UUID.fromString(expected).equals(value);
+    } catch (IllegalArgumentException e) {
+      throw new AssertJDBException("Expected <%s> is not correct to compare to <%s>", expected, value);
+    }
+
+  }
+
+  /**
    * Returns if the value is equal to the {@link DateValue} in parameter.
-   * 
-   * @param value The value.
+   *
+   * @param value    The value.
    * @param expected The {@link DateValue} to compare.
    * @return {@code true} if the value is equal to the {@link DateValue} parameter, {@code false} otherwise.
    */
@@ -421,8 +468,8 @@ public class Values {
 
   /**
    * Returns if the value is equal to the {@link TimeValue} in parameter.
-   * 
-   * @param value The value.
+   *
+   * @param value    The value.
    * @param expected The {@link TimeValue} to compare.
    * @return {@code true} if the value is equal to the {@link TimeValue} parameter, {@code false} otherwise.
    */
@@ -441,8 +488,8 @@ public class Values {
 
   /**
    * Returns if the value is equal to the {@link DateTimeValue} in parameter.
-   * 
-   * @param value The value.
+   *
+   * @param value    The value.
    * @param expected The {@link DateTimeValue} to compare.
    * @return {@code true} if the value is equal to the {@link DateTimeValue} parameter, {@code false} otherwise.
    */
@@ -466,11 +513,11 @@ public class Values {
 
   /**
    * Returns the result of the comparison between the value and the {@code Number} in parameter.
-   * 
-   * @param value The value.
+   *
+   * @param value    The value.
    * @param expected The {@code Number} to compare.
    * @return {@code 0} if the value is equal to the {@code Number} parameter, {@code -1} if value is less than the
-   *         {@code Number} parameter and {@code 1} if value is greater than the {@code Number} parameter.
+   * {@code Number} parameter and {@code 1} if value is greater than the {@code Number} parameter.
    */
   public static int compare(Object value, Number expected) {
     // If parameter is a BigInteger,
@@ -589,7 +636,7 @@ public class Values {
   /**
    * Returns a representation of the values (this representation is used for error message).
    *
-   * @param values Values in the database.
+   * @param values   Values in the database.
    * @param expected Expected values for comparison.
    * @return A representation of the values.
    * @throws org.assertj.db.exception.AssertJDBException If the length of the two arrays are different.
@@ -600,8 +647,7 @@ public class Values {
     for (Object obj : values) {
       if (i > expected.length) {
         representationsValues[i] = obj;
-      }
-      else {
+      } else {
         representationsValues[i] = Values.getRepresentationFromValueInFrontOfExpected(obj, expected[i]);
       }
       i++;
@@ -611,50 +657,51 @@ public class Values {
 
   /**
    * Returns a representation of the value (this representation is used for error message).
-   * 
-   * @param value Value in the database.
+   *
+   * @param value    Value in the database.
    * @param expected Expected value for comparison.
    * @return A representation of the value.
    */
   public static Object getRepresentationFromValueInFrontOfExpected(Object value, Object expected) {
     switch (ValueType.getType(value)) {
-      case DATE:
-        if (expected instanceof DateValue) {
-          return DateValue.from((Date) value);
-        } else if (expected instanceof DateTimeValue) {
-          return DateTimeValue.of(DateValue.from((Date) value));
-        } else if (expected instanceof String) {
-          if (((String) expected).contains("T")) {
-            return DateTimeValue.of(DateValue.from((Date) value)).toString();
-          } else {
-            return DateValue.from((Date) value).toString();
-          }
+    case DATE:
+      if (expected instanceof DateValue) {
+        return DateValue.from((Date) value);
+      } else if (expected instanceof DateTimeValue) {
+        return DateTimeValue.of(DateValue.from((Date) value));
+      } else if (expected instanceof String) {
+        if (((String) expected).contains("T")) {
+          return DateTimeValue.of(DateValue.from((Date) value)).toString();
+        } else {
+          return DateValue.from((Date) value).toString();
         }
+      }
+      return value;
+    case TIME:
+      if (expected instanceof String) {
+        return TimeValue.from((Time) value).toString();
+      } else {
+        return TimeValue.from((Time) value);
+      }
+    case DATE_TIME:
+      if (expected instanceof String) {
+        return DateTimeValue.from((Timestamp) value).toString();
+      } else {
+        return DateTimeValue.from((Timestamp) value);
+      }
+    case NUMBER:
+      if (expected instanceof String) {
+        return value.toString();
+      } else {
         return value;
-      case TIME:
-        if (expected instanceof String) {
-          return TimeValue.from((Time) value).toString();
-        } else {
-          return TimeValue.from((Time) value);
-        }
-      case DATE_TIME:
-        if (expected instanceof String) {
-          return DateTimeValue.from((Timestamp) value).toString();
-        } else {
-          return DateTimeValue.from((Timestamp) value);
-        }
-      case NUMBER:
-        if (expected instanceof String) {
-          return value.toString();
-        } else {
-          return value;
-        }
-  
-      case BYTES:
-      case TEXT:
-      case BOOLEAN:
-      default:
-        return value;
+      }
+
+    case BYTES:
+    case TEXT:
+    case BOOLEAN:
+    case UUID:
+    default:
+      return value;
     }
   }
 }

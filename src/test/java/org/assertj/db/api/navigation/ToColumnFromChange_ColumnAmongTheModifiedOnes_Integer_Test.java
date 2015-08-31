@@ -25,6 +25,7 @@ import org.junit.Test;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.UUID;
 
 import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
@@ -68,17 +69,19 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_Integer_Test extends 
     Assertions.assertThat(fieldIndex.get(changeAssert)).isEqualTo(3);
     ChangeColumnAssert changeColumnAssert3 = changeAssert.columnAmongTheModifiedOnes(3);
     Assertions.assertThat(fieldIndex.get(changeAssert)).isEqualTo(4);
+    ChangeColumnAssert changeColumnAssert4 = changeAssert.columnAmongTheModifiedOnes(4);
+    Assertions.assertThat(fieldIndex.get(changeAssert)).isEqualTo(5);
     try {
-      changeAssert.columnAmongTheModifiedOnes(4);
+      changeAssert.columnAmongTheModifiedOnes(5);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Index 4 out of the limits of the modified columns [0, 4[");
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index 5 out of the limits of the modified columns [0, 5[");
     }
     try {
       changeAssert.columnAmongTheModifiedOnes(-1);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits of the modified columns [0, 4[");
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits of the modified columns [0, 5[");
     }
     ChangeColumnAssert changeColumnAssertAgain0 = changeAssert.column(0);
     Assertions.assertThat(changeColumnAssert0).isSameAs(changeColumnAssertAgain0);
@@ -94,19 +97,21 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_Integer_Test extends 
     Assertions.assertThat(fieldIndex.get(changeAssertBis)).isEqualTo(3);
     ChangeColumnAssert changeColumnAssertBis3 = changeColumnAssertBis2.columnAmongTheModifiedOnes(3);
     Assertions.assertThat(fieldIndex.get(changeAssertBis)).isEqualTo(4);
+    ChangeColumnAssert changeColumnAssertBis4 = changeColumnAssertBis3.columnAmongTheModifiedOnes(4);
+    Assertions.assertThat(fieldIndex.get(changeAssertBis)).isEqualTo(5);
     try {
-      changeColumnAssertBis3.columnAmongTheModifiedOnes(4);
+      changeColumnAssertBis4.columnAmongTheModifiedOnes(5);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Index 4 out of the limits of the modified columns [0, 4[");
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index 5 out of the limits of the modified columns [0, 5[");
     }
     try {
-      changeColumnAssertBis3.columnAmongTheModifiedOnes(-1);
+      changeColumnAssertBis4.columnAmongTheModifiedOnes(-1);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits of the modified columns [0, 4[");
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits of the modified columns [0, 5[");
     }
-    ChangeColumnAssert changeColumnAssertBisAgain0 = changeColumnAssertBis3.column(0);
+    ChangeColumnAssert changeColumnAssertBisAgain0 = changeColumnAssertBis4.column(0);
     Assertions.assertThat(changeColumnAssertBis0).isSameAs(changeColumnAssertBisAgain0);
 
     Assertions.assertThat(fieldColumnName.get(changeColumnAssert0)).isEqualTo(fieldColumnName.get(changeColumnAssertBis0)).isEqualTo(
@@ -118,21 +123,29 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_Integer_Test extends 
     Assertions.assertThat(fieldColumnName.get(changeColumnAssert3)).isEqualTo(
             fieldColumnName.get(changeColumnAssertBis3)).isEqualTo(
             "BIRTH");
+    Assertions.assertThat(fieldColumnName.get(changeColumnAssert4)).isEqualTo(
+            fieldColumnName.get(changeColumnAssertBis4)).isEqualTo(
+            "ACTOR_IMDB");
 
     Assertions.assertThat(fieldValueAtStartPoint.get(changeColumnAssert0)).isEqualTo(fieldValueAtStartPoint.get(changeColumnAssertBis0)).isEqualTo(new BigDecimal("3"));
     Assertions.assertThat(fieldValueAtStartPoint.get(changeColumnAssert1)).isEqualTo(fieldValueAtStartPoint.get(changeColumnAssertBis1)).isEqualTo("Worthington");
     Assertions.assertThat(fieldValueAtStartPoint.get(changeColumnAssert2)).isEqualTo(fieldValueAtStartPoint.get(changeColumnAssertBis2)).isEqualTo("Sam");
     Assertions.assertThat(fieldValueAtStartPoint.get(changeColumnAssert3)).isEqualTo(fieldValueAtStartPoint.get(changeColumnAssertBis3)).isEqualTo(
             Date.valueOf("1976-08-02"));
+    Assertions.assertThat(fieldValueAtStartPoint.get(changeColumnAssert4)).isEqualTo(fieldValueAtStartPoint.get(changeColumnAssertBis4)).isEqualTo(
+            UUID.fromString("D735221B-5DE5-4112-AA1E-49090CB75ADA"));
+
 
     Assertions.assertThat(fieldValueAtEndPoint.get(changeColumnAssert0)).isNull();
     Assertions.assertThat(fieldValueAtEndPoint.get(changeColumnAssert1)).isNull();
     Assertions.assertThat(fieldValueAtEndPoint.get(changeColumnAssert2)).isNull();
     Assertions.assertThat(fieldValueAtEndPoint.get(changeColumnAssert3)).isNull();
+    Assertions.assertThat(fieldValueAtEndPoint.get(changeColumnAssert4)).isNull();
     Assertions.assertThat(fieldValueAtEndPoint.get(changeColumnAssertBis0)).isNull();
     Assertions.assertThat(fieldValueAtEndPoint.get(changeColumnAssertBis1)).isNull();
     Assertions.assertThat(fieldValueAtEndPoint.get(changeColumnAssertBis2)).isNull();
     Assertions.assertThat(fieldValueAtEndPoint.get(changeColumnAssertBis3)).isNull();
+    Assertions.assertThat(fieldValueAtEndPoint.get(changeColumnAssertBis4)).isNull();
 
     ChangeColumnAssert changeColumnAssert = assertThat(changes).change(3).columnAmongTheModifiedOnes(0);
     try {

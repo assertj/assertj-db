@@ -18,10 +18,13 @@ import org.assertj.db.api.navigation.ToValue;
 import org.assertj.db.api.navigation.ValueAssert;
 import org.assertj.db.type.*;
 
+import java.util.UUID;
+
 /**
  * Base class for all values assertions.
  *
  * @author Régis Pouiller
+ * @author Otoniel Isidoro
  * 
  * @param <D> The class of the actual value (an sub-class of {@link AbstractDbData}).
  * @param <A> The class of the original assertion (an sub-class of {@link AbstractDbAssert}).
@@ -128,6 +131,12 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
 
   /** {@inheritDoc} */
   @Override
+  public V isUUID() {
+    return AssertionsOnValueType.isUUID(myself, info, value);
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public V isNull() {
     return AssertionsOnValueNullity.isNull(myself, info, value);
   }
@@ -171,6 +180,12 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
   /** {@inheritDoc} */
   @Override
   public V isEqualTo(String expected) {
+    return AssertionsOnValueEquality.isEqualTo(myself, info, value, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public V isEqualTo(UUID expected) {
     return AssertionsOnValueEquality.isEqualTo(myself, info, value, expected);
   }
 
@@ -225,6 +240,12 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
   /** {@inheritDoc} */
   @Override
   public V isNotEqualTo(String expected) {
+    return AssertionsOnValueNonEquality.isNotEqualTo(myself, info, value, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public V isNotEqualTo(UUID expected) {
     return AssertionsOnValueNonEquality.isNotEqualTo(myself, info, value, expected);
   }
 

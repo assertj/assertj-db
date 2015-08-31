@@ -15,6 +15,7 @@ package org.assertj.db.api.assertions;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
+import java.util.UUID;
 
 /**
  * Defines the assertion methods on the equality of a value.
@@ -23,6 +24,7 @@ import org.assertj.db.type.TimeValue;
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
  *            for more details.
  * @author Régis Pouiller
+ * @author Otoniel Isidoro
  */
 public interface AssertOnValueEquality<T extends AssertOnValueEquality<T>> {
 
@@ -209,6 +211,38 @@ public interface AssertOnValueEquality<T extends AssertOnValueEquality<T>> {
    * @see org.assertj.db.api.AbstractAssertWithValues#isEqualTo(String)
    */
   public T isEqualTo(String expected);
+
+  /**
+   * Verifies that the value is equal to an UUID.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is equal to an UUID :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isEqualTo(UUID.fromString(&quot;30B443AE-C0C9-4790-9BEC-CE1380808435&quot;));
+   * </code>
+   * </pre>
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
+   * of the first {@code Change} is equal to an UUID :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change().rowAtEndPoint().value().isEqualTo(UUID.fromString(&quot;30B443AE-C0C9-4790-9BEC-CE1380808435&quot;));
+   * </code>
+   * </pre>
+   *
+   * @param expected The expected UUID value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the UUID in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isEqualTo(UUID)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isEqualTo(UUID)
+   * @since 1.1.0
+   */
+  public T isEqualTo(UUID expected);
 
   /**
    * Verifies that the value is equal to a date value.

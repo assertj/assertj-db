@@ -22,6 +22,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -77,9 +78,9 @@ public class Changes_Request_GetChangesList_Test extends AbstractTest {
     assertThat(change.getDataName()).isEqualTo("select * from test2");
     assertThat(change.getChangeType()).isEqualTo(ChangeType.DELETION);
     assertThat(change.getColumnsNameList()).containsExactly("VAR1", "VAR2", "VAR3", "VAR4", "VAR5", "VAR6", "VAR7",
-        "VAR8", "VAR9", "VAR10", "VAR11", "VAR12", "VAR13", "VAR14", "VAR15");
+            "VAR8", "VAR9", "VAR10", "VAR11", "VAR12", "VAR13", "VAR14", "VAR15", "VAR16");
     assertThat(change.getRowAtStartPoint().getValuesList()).containsExactly(null, null, null, null, null, null, null,
-        null, null, null, null, null, null, null, null);
+        null, null, null, null, null, null, null, null, null);
     assertThat(change.getRowAtEndPoint()).isNull();
   }
 
@@ -101,10 +102,10 @@ public class Changes_Request_GetChangesList_Test extends AbstractTest {
     assertThat(change.getDataName()).isEqualTo("select * from test2");
     assertThat(change.getChangeType()).isEqualTo(ChangeType.CREATION);
     assertThat(change.getColumnsNameList()).containsExactly("VAR1", "VAR2", "VAR3", "VAR4", "VAR5", "VAR6", "VAR7",
-        "VAR8", "VAR9", "VAR10", "VAR11", "VAR12", "VAR13", "VAR14", "VAR15");
+        "VAR8", "VAR9", "VAR10", "VAR11", "VAR12", "VAR13", "VAR14", "VAR15", "VAR16");
     assertThat(change.getRowAtStartPoint()).isNull();
     assertThat(change.getRowAtEndPoint().getValuesList()).containsExactly(200, null, null, null, null, null, null,
-        null, null, null, null, null, null, null, null);
+        null, null, null, null, null, null, null, null, null);
   }
 
   /**
@@ -125,21 +126,21 @@ public class Changes_Request_GetChangesList_Test extends AbstractTest {
     assertThat(change.getDataName()).isEqualTo("select * from test2");
     assertThat(change.getChangeType()).isEqualTo(ChangeType.CREATION);
     assertThat(change.getColumnsNameList()).containsExactly("VAR1", "VAR2", "VAR3", "VAR4", "VAR5", "VAR6", "VAR7",
-        "VAR8", "VAR9", "VAR10", "VAR11", "VAR12", "VAR13", "VAR14", "VAR15");
+            "VAR8", "VAR9", "VAR10", "VAR11", "VAR12", "VAR13", "VAR14", "VAR15", "VAR16");
     assertThat(change.getRowAtStartPoint()).isNull();
     assertThat(change.getRowAtEndPoint().getValuesList()).containsExactly(1, true, (byte) 2, (short) 3, 4L,
-        new BigDecimal("5.60"), 7.8f, Time.valueOf("09:46:30"), Date.valueOf("2014-05-24"),
-        Timestamp.valueOf("2014-05-24 09:46:30"), Assertions.bytesContentFromClassPathOf("h2-logo-2.png"),
-        "modification", new BigDecimal("5.00"), 7f, null);
+            new BigDecimal("5.60"), 7.8f, Time.valueOf("09:46:30"), Date.valueOf("2014-05-24"),
+            Timestamp.valueOf("2014-05-24 09:46:30"), Assertions.bytesContentFromClassPathOf("h2-logo-2.png"),
+            "modification", new BigDecimal("5.00"), 7f, null, UUID.fromString("30b443ae-c0c9-4790-9bec-ce1380808435"));
     Change change1 = changes.getChangesList().get(1);
     assertThat(change1.getDataName()).isEqualTo("select * from test2");
     assertThat(change1.getChangeType()).isEqualTo(ChangeType.DELETION);
     assertThat(change1.getColumnsNameList()).containsExactly("VAR1", "VAR2", "VAR3", "VAR4", "VAR5", "VAR6", "VAR7",
-        "VAR8", "VAR9", "VAR10", "VAR11", "VAR12", "VAR13", "VAR14", "VAR15");
+            "VAR8", "VAR9", "VAR10", "VAR11", "VAR12", "VAR13", "VAR14", "VAR15", "VAR16");
     assertThat(change1.getRowAtStartPoint().getValuesList()).containsExactly(1, true, (byte) 2, (short) 3, 4L,
         new BigDecimal("5.60"), 7.8f, Time.valueOf("09:46:30"), Date.valueOf("2014-05-24"),
         Timestamp.valueOf("2014-05-24 09:46:30"), Assertions.bytesContentFromClassPathOf("h2-logo-2.png"), "text",
-        new BigDecimal("5.00"), 7f, null);
+        new BigDecimal("5.00"), 7f, null, UUID.fromString("30b443ae-c0c9-4790-9bec-ce1380808435"));
     assertThat(change1.getRowAtEndPoint()).isNull();
   }
 
@@ -177,18 +178,18 @@ public class Changes_Request_GetChangesList_Test extends AbstractTest {
   public void test_when_there_is_creation_change_with_primary_key() throws SQLException {
     Changes changes = new Changes(new Request(dataSource, "select * from movie").setPksName("id"));
     changes.setStartPointNow();
-    update("insert into movie values(4, 'Ghostbusters', 1984)");
+    update("insert into movie values(4, 'Ghostbusters', 1984, '16319617-AE95-4087-9264-D3D21BF611B6')");
     changes.setEndPointNow();
 
     assertThat(changes.getChangesList()).hasSize(1);
     Change change = changes.getChangesList().get(0);
     assertThat(change.getDataName()).isEqualTo("select * from movie");
     assertThat(change.getChangeType()).isEqualTo(ChangeType.CREATION);
-    assertThat(change.getColumnsNameList()).containsExactly("ID", "TITLE", "YEAR");
+    assertThat(change.getColumnsNameList()).containsExactly("ID", "TITLE", "YEAR", "MOVIE_IMDB");
     assertThat(change.getRowAtStartPoint()).isNull();
 
     assertThat(change.getRowAtEndPoint().getValuesList()).containsExactly(new BigDecimal(4), "Ghostbusters",
-        new BigDecimal(1984));
+        new BigDecimal(1984), UUID.fromString("16319617-AE95-4087-9264-D3D21BF611B6"));
   }
 
   /**

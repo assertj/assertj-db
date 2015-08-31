@@ -25,6 +25,7 @@ import org.junit.Test;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.UUID;
 
 import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
@@ -64,17 +65,19 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     ChangeRowValueAssert changeRowValueAssert2 = changeRowAssert.value(2);
     Assertions.assertThat(fieldIndex.get(changeRowAssert)).isEqualTo(3);
     ChangeRowValueAssert changeRowValueAssert3 = changeRowAssert.value(3);
+    Assertions.assertThat(fieldIndex.get(changeRowAssert)).isEqualTo(4);
+    ChangeRowValueAssert changeRowValueAssert4 = changeRowAssert.value(4);
     try {
       changeRowAssert.value(6);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Index 6 out of the limits [0, 4[");
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index 6 out of the limits [0, 5[");
     }
     try {
       changeRowAssert.value(-1);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 4[");
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 5[");
     }
     try {
       changeAssert.rowAtStartPoint().value(0);
@@ -96,17 +99,19 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     ChangeRowValueAssert changeRowValueAssertBis2 = changeRowValueAssertBis1.value(2);
     Assertions.assertThat(fieldIndex.get(changeRowAssertBis)).isEqualTo(3);
     ChangeRowValueAssert changeRowValueAssertBis3 = changeRowValueAssertBis2.value(3);
+    Assertions.assertThat(fieldIndex.get(changeRowAssertBis)).isEqualTo(4);
+    ChangeRowValueAssert changeRowValueAssertBis4 = changeRowValueAssertBis3.value(4);
     try {
-      changeRowValueAssertBis3.value(6);
+      changeRowValueAssertBis4.value(6);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Index 6 out of the limits [0, 4[");
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index 6 out of the limits [0, 5[");
     }
     try {
-      changeRowValueAssertBis3.value(-1);
+      changeRowValueAssertBis4.value(-1);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 4[");
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 5[");
     }
     try {
       changeAssertBis.rowAtStartPoint().value(0);
@@ -114,7 +119,7 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Row do not exist");
     }
-    ChangeRowValueAssert changeRowValueAssertBisAgain0 = changeRowValueAssertBis3.value(0);
+    ChangeRowValueAssert changeRowValueAssertBisAgain0 = changeRowValueAssertBis4.value(0);
     Assertions.assertThat(changeRowValueAssertBis0).isSameAs(changeRowValueAssertBisAgain0);
 
     Assertions.assertThat(fieldValue.get(changeRowValueAssert0)).isSameAs(fieldValue.get(changeRowValueAssertBis0)).isEqualTo(new BigDecimal("4"));
@@ -122,6 +127,8 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     Assertions.assertThat(fieldValue.get(changeRowValueAssert2)).isSameAs(fieldValue.get(changeRowValueAssertBis2)).isEqualTo("Bill");
     Assertions.assertThat(fieldValue.get(changeRowValueAssert3)).isSameAs(fieldValue.get(changeRowValueAssertBis3)).isEqualTo(
             Date.valueOf("1950-09-21"));
+    Assertions.assertThat(fieldValue.get(changeRowValueAssert4)).isSameAs(fieldValue.get(changeRowValueAssertBis4)).isEqualTo(
+            UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
   }
 
   /**
@@ -210,17 +217,19 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     Assertions.assertThat(fieldIndex.get(tableRowAssert)).isEqualTo(3);
     TableRowValueAssert tableRowValueAssert3 = tableRowAssert.value(3);
     Assertions.assertThat(fieldIndex.get(tableRowAssert)).isEqualTo(4);
+    TableRowValueAssert tableRowValueAssert4 = tableRowAssert.value(4);
+    Assertions.assertThat(fieldIndex.get(tableRowAssert)).isEqualTo(5);
     try {
       tableRowAssert.value(7);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Index 7 out of the limits [0, 4[");
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index 7 out of the limits [0, 5[");
     }
     try {
       tableRowAssert.value(-1);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 4[");
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 5[");
     }
     TableRowValueAssert tableRowValueAssertAgain0 = tableRowAssert.value(0);
     Assertions.assertThat(tableRowValueAssert0).isSameAs(tableRowValueAssertAgain0);
@@ -236,25 +245,28 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     Assertions.assertThat(fieldIndex.get(tableRowAssertBis)).isEqualTo(3);
     TableRowValueAssert tableRowValueAssertBis3 = tableRowValueAssertBis2.value(3);
     Assertions.assertThat(fieldIndex.get(tableRowAssertBis)).isEqualTo(4);
+    TableRowValueAssert tableRowValueAssertBis4 = tableRowValueAssertBis3.value(4);
+    Assertions.assertThat(fieldIndex.get(tableRowAssertBis)).isEqualTo(5);
     try {
-      tableRowValueAssertBis3.value(7);
+      tableRowValueAssertBis4.value(7);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Index 7 out of the limits [0, 4[");
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index 7 out of the limits [0, 5[");
     }
     try {
-      tableRowValueAssertBis3.value(-1);
+      tableRowValueAssertBis4.value(-1);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 4[");
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 5[");
     }
-    TableRowValueAssert tableRowValueAssertBisAgain0 = tableRowValueAssertBis3.value(0);
+    TableRowValueAssert tableRowValueAssertBisAgain0 = tableRowValueAssertBis4.value(0);
     Assertions.assertThat(tableRowValueAssertBis0).isSameAs(tableRowValueAssertBisAgain0);
 
     Assertions.assertThat(fieldValue.get(tableRowValueAssert0)).isSameAs(fieldValue.get(tableRowValueAssertBis0)).isEqualTo(new BigDecimal("1"));
     Assertions.assertThat(fieldValue.get(tableRowValueAssert1)).isSameAs(fieldValue.get(tableRowValueAssertBis1)).isEqualTo("Weaver");
     Assertions.assertThat(fieldValue.get(tableRowValueAssert2)).isSameAs(fieldValue.get(tableRowValueAssertBis2)).isEqualTo("Sigourney");
     Assertions.assertThat(fieldValue.get(tableRowValueAssert3)).isSameAs(fieldValue.get(tableRowValueAssertBis3)).isEqualTo(Date.valueOf("1949-10-08"));
+    Assertions.assertThat(fieldValue.get(tableRowValueAssert4)).isSameAs(fieldValue.get(tableRowValueAssertBis4)).isEqualTo(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
   }
 
   /**
@@ -343,17 +355,19 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     Assertions.assertThat(fieldIndex.get(requestRowAssert)).isEqualTo(3);
     RequestRowValueAssert requestRowValueAssert3 = requestRowAssert.value(3);
     Assertions.assertThat(fieldIndex.get(requestRowAssert)).isEqualTo(4);
+    RequestRowValueAssert requestRowValueAssert4 = requestRowAssert.value(4);
+    Assertions.assertThat(fieldIndex.get(requestRowAssert)).isEqualTo(5);
     try {
       requestRowAssert.value(9);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Index 9 out of the limits [0, 4[");
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index 9 out of the limits [0, 5[");
     }
     try {
       requestRowAssert.value(-1);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 4[");
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 5[");
     }
     RequestRowValueAssert requestRowValueAssertAgain0 = requestRowAssert.value(0);
     Assertions.assertThat(requestRowValueAssert0).isSameAs(requestRowValueAssertAgain0);
@@ -369,24 +383,27 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     Assertions.assertThat(fieldIndex.get(requestRowAssertBis)).isEqualTo(3);
     RequestRowValueAssert requestRowValueAssertBis3 = requestRowValueAssertBis2.value(3);
     Assertions.assertThat(fieldIndex.get(requestRowAssertBis)).isEqualTo(4);
+    RequestRowValueAssert requestRowValueAssertBis4 = requestRowValueAssertBis3.value(4);
+    Assertions.assertThat(fieldIndex.get(requestRowAssertBis)).isEqualTo(5);
     try {
-      requestRowValueAssertBis3.value(9);
+      requestRowValueAssertBis4.value(9);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Index 9 out of the limits [0, 4[");
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index 9 out of the limits [0, 5[");
     }
     try {
-      requestRowValueAssertBis3.value(-1);
+      requestRowValueAssertBis4.value(-1);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 4[");
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 5[");
     }
-    RequestRowValueAssert requestRowValueAssertBisAgain0 = requestRowValueAssertBis3.value(0);
+    RequestRowValueAssert requestRowValueAssertBisAgain0 = requestRowValueAssertBis4.value(0);
     Assertions.assertThat(requestRowValueAssertBis0).isSameAs(requestRowValueAssertBisAgain0);
 
     Assertions.assertThat(fieldValue.get(requestRowValueAssert0)).isSameAs(fieldValue.get(requestRowValueAssertBis0)).isEqualTo(new BigDecimal("1"));
     Assertions.assertThat(fieldValue.get(requestRowValueAssert1)).isSameAs(fieldValue.get(requestRowValueAssertBis1)).isEqualTo("Weaver");
     Assertions.assertThat(fieldValue.get(requestRowValueAssert2)).isSameAs(fieldValue.get(requestRowValueAssertBis2)).isEqualTo("Sigourney");
     Assertions.assertThat(fieldValue.get(requestRowValueAssert3)).isSameAs(fieldValue.get(requestRowValueAssertBis3)).isEqualTo(Date.valueOf("1949-10-08"));
+    Assertions.assertThat(fieldValue.get(requestRowValueAssert4)).isSameAs(fieldValue.get(requestRowValueAssertBis4)).isEqualTo(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
   }
 }

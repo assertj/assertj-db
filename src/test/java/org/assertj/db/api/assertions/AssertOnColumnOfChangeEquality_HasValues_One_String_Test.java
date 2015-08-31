@@ -46,6 +46,9 @@ public class AssertOnColumnOfChangeEquality_HasValues_One_String_Test extends Ab
     ChangeColumnAssert changeColumnAssert = changeAssert.column("var12");
     ChangeColumnAssert changeColumnAssert2 = changeColumnAssert.hasValues("text");
     Assertions.assertThat(changeColumnAssert).isSameAs(changeColumnAssert2);
+    ChangeColumnAssert changeColumnAssert3 = changeAssert.column("var15");
+    ChangeColumnAssert changeColumnAssert4 = changeColumnAssert3.hasValues("30B443AE-C0C9-4790-9BEC-CE1380808435");
+    Assertions.assertThat(changeColumnAssert3).isSameAs(changeColumnAssert4);
   }
 
   /**
@@ -55,7 +58,7 @@ public class AssertOnColumnOfChangeEquality_HasValues_One_String_Test extends Ab
   @NeedReload
   public void should_fail_because_value_at_start_point_is_different() {
     Changes changes = new Changes(source).setStartPointNow();
-    update("insert into test(var1, var12) values(5, 'test')");
+    update("insert into test(var1, var12, var15) values(5, 'test', '88838129-291E-40A9-A94C-A15BE36CF7C3')");
     changes.setEndPointNow();
 
     try {
@@ -63,10 +66,20 @@ public class AssertOnColumnOfChangeEquality_HasValues_One_String_Test extends Ab
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 11 (column name : VAR12) of Change at index 0 (on table : TEST and with primary key : [5]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
-                                                      + "Expecting that start point:%n"
-                                                      + "  <null>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"test\">"));
+                                                                    + "Expecting that start point:%n"
+                                                                    + "  <null>%n"
+                                                                    + "to be equal to: %n"
+                                                                    + "  <\"test\">"));
+    }
+    try {
+      assertThat(changes).change().column("var15").hasValues("88838129-291E-40A9-A94C-A15BE36CF7C3");
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 14 (column name : VAR15) of Change at index 0 (on table : TEST and with primary key : [5]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
+                                                                    + "Expecting that start point:%n"
+                                                                    + "  <null>%n"
+                                                                    + "to be equal to: %n"
+                                                                    + "  <\"88838129-291E-40A9-A94C-A15BE36CF7C3\">"));
     }
   }
 
@@ -89,6 +102,16 @@ public class AssertOnColumnOfChangeEquality_HasValues_One_String_Test extends Ab
                                                       + "  <null>%n"
                                                       + "to be equal to: %n"
                                                       + "  <\"text\">"));
+    }
+    try {
+      assertThat(changes).change().column("var15").hasValues("30B443AE-C0C9-4790-9BEC-CE1380808435");
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 14 (column name : VAR15) of Change at index 0 (on table : TEST and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
+                                                                    + "Expecting that end point:%n"
+                                                                    + "  <null>%n"
+                                                                    + "to be equal to: %n"
+                                                                    + "  <\"30B443AE-C0C9-4790-9BEC-CE1380808435\">"));
     }
   }
 }

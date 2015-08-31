@@ -21,6 +21,8 @@ import org.assertj.db.type.TimeValue;
 import org.assertj.db.type.ValueType;
 import org.assertj.db.util.Values;
 
+import java.util.UUID;
+
 import static org.assertj.db.error.ShouldBeEqualWithEndPoint.shouldBeEqualWithEndPoint;
 import static org.assertj.db.error.ShouldBeEqualWithStartPoint.shouldBeEqualWithStartPoint;
 import static org.assertj.db.util.Values.areEqual;
@@ -29,6 +31,7 @@ import static org.assertj.db.util.Values.areEqual;
  * Implements the assertion methods on the equality of a column of a change.
  *
  * @author Régis Pouiller
+ * @author Otoniel Isidoro
  * @see org.assertj.db.api.assertions.AssertOnColumnOfChangeEquality
  */
 public class AssertionsOnColumnOfChangeEquality {
@@ -226,7 +229,7 @@ public class AssertionsOnColumnOfChangeEquality {
 
     AssertionsOnColumnOfChangeType.isOfAnyTypeIn(assertion, info, valueAtStartPoint, valueAtEndPoint,
                                                  ValueType.TEXT, ValueType.NUMBER, ValueType.DATE,
-                                                 ValueType.TIME, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
+                                                 ValueType.TIME, ValueType.DATE_TIME, ValueType.UUID, ValueType.NOT_IDENTIFIED);
     if (!areEqual(valueAtStartPoint, expected)) {
       throw failures.failure(info, shouldBeEqualWithStartPoint(
               Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expected), expected));
@@ -257,7 +260,7 @@ public class AssertionsOnColumnOfChangeEquality {
 
     AssertionsOnColumnOfChangeType.isOfAnyTypeIn(assertion, info, valueAtStartPoint, valueAtEndPoint,
                                                  ValueType.TEXT, ValueType.NUMBER, ValueType.DATE,
-                                                 ValueType.TIME, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
+                                                 ValueType.TIME, ValueType.DATE_TIME, ValueType.UUID, ValueType.NOT_IDENTIFIED);
     if (!areEqual(valueAtStartPoint, expectedAtStartPoint)) {
       throw failures.failure(info, shouldBeEqualWithStartPoint(
               Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expectedAtStartPoint), expectedAtStartPoint));
@@ -284,16 +287,16 @@ public class AssertionsOnColumnOfChangeEquality {
   public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
                                                        Object valueAtStartPoint, Object valueAtEndPoint,
                                                        DateValue expected) {
-
-    AssertionsOnColumnOfChangeType.isOfAnyTypeIn(assertion, info, valueAtStartPoint, valueAtEndPoint, ValueType.DATE,
-                                                 ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
+    AssertionsOnColumnOfChangeType
+        .isOfAnyTypeIn(assertion, info, valueAtStartPoint, valueAtEndPoint, ValueType.DATE,
+                       ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
     if (!areEqual(valueAtStartPoint, expected)) {
       throw failures.failure(info, shouldBeEqualWithStartPoint(
-              Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expected), expected));
+          Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expected), expected));
     }
     if (!areEqual(valueAtEndPoint, expected)) {
       throw failures.failure(info, shouldBeEqualWithEndPoint(
-              Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expected), expected));
+          Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expected), expected));
     }
     return assertion;
   }
@@ -446,4 +449,67 @@ public class AssertionsOnColumnOfChangeEquality {
     }
     return assertion;
   }
+
+  /**
+   * Verifies that the values at the start point and the end point are equal to an UUID.
+   *
+   * @param <A>               The type of the assertion which call this method.
+   * @param assertion         The assertion which call this method.
+   * @param info              Writable information about an assertion.
+   * @param valueAtStartPoint The value at start point.
+   * @param valueAtEndPoint   The value at end point.
+   * @param expected          The UUID value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the values at start point and at end point are not equal to the UUID.
+   * @since 1.1.0
+   */
+  public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
+                                                       Object valueAtStartPoint, Object valueAtEndPoint,
+                                                       UUID expected) {
+
+    AssertionsOnColumnOfChangeType.isOfAnyTypeIn(assertion, info, valueAtStartPoint, valueAtEndPoint,
+                                                 ValueType.UUID, ValueType.NOT_IDENTIFIED);
+    if (!areEqual(valueAtStartPoint, expected)) {
+      throw failures.failure(info, shouldBeEqualWithStartPoint(
+          Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expected), expected));
+    }
+    if (!areEqual(valueAtEndPoint, expected)) {
+      throw failures.failure(info, shouldBeEqualWithEndPoint(
+          Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expected), expected));
+    }
+    return assertion;
+  }
+
+  /**
+   * Verifies that the values at the start point and the end point are equal to an UUID for start point and another UUID for end point.
+   *
+   * @param <A>                  The type of the assertion which call this method.
+   * @param assertion            The assertion which call this method.
+   * @param info                 Writable information about an assertion.
+   * @param valueAtStartPoint    The value at start point.
+   * @param valueAtEndPoint      The value at end point.
+   * @param expectedAtStartPoint The expected UUID at start point.
+   * @param expectedAtEndPoint   The expected UUID at end point.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the values at start point and at end point are not equal to the corresponding UUIDs.
+   * @since 1.1.0
+   */
+  public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
+                                                       Object valueAtStartPoint, Object valueAtEndPoint,
+                                                       UUID expectedAtStartPoint, UUID expectedAtEndPoint) {
+
+    AssertionsOnColumnOfChangeType.isOfAnyTypeIn(assertion, info, valueAtStartPoint, valueAtEndPoint,
+                                                 ValueType.UUID, ValueType.NOT_IDENTIFIED);
+    if (!areEqual(valueAtStartPoint, expectedAtStartPoint)) {
+      throw failures.failure(info, shouldBeEqualWithStartPoint(
+          Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expectedAtStartPoint),
+          expectedAtStartPoint));
+    }
+    if (!areEqual(valueAtEndPoint, expectedAtEndPoint)) {
+      throw failures.failure(info, shouldBeEqualWithEndPoint(
+          Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expectedAtEndPoint), expectedAtEndPoint));
+    }
+    return assertion;
+  }
 }
+

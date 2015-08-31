@@ -20,6 +20,7 @@ import org.junit.Test;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -78,6 +79,14 @@ public class Values_GetRepresentationFromValueInFrontOfExpected_Test {
   @Test
   public void test_getRepresentationFromValueInFrontOfExpected_for_text() {
     assertThat(Values.getRepresentationFromValueInFrontOfExpected("text", null)).isEqualTo("text");
+  }
+
+  /**
+   * This method tests the {@code getRepresentationFromValueInFrontOfExpected} method for {@code UUID}s.
+   */
+  @Test
+  public void test_getRepresentationFromValueInFrontOfExpected_for_UUID() {
+    assertThat(Values.getRepresentationFromValueInFrontOfExpected(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"), null)).isEqualTo(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
   }
 
   /**

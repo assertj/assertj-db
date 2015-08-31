@@ -15,6 +15,7 @@ package org.assertj.db.api.assertions;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
+import java.util.UUID;
 
 /**
  * Defines the assertion methods on the non equality of a value.
@@ -23,6 +24,7 @@ import org.assertj.db.type.TimeValue;
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
  *            for more details.
  * @author Régis Pouiller
+ * @author Otoniel Isidoro
  */
 public interface AssertOnValueNonEquality<T extends AssertOnValueNonEquality<T>> {
 
@@ -213,6 +215,38 @@ public interface AssertOnValueNonEquality<T extends AssertOnValueNonEquality<T>>
    * @see org.assertj.db.api.AbstractAssertWithValues#isNotEqualTo(String)
    */
   public T isNotEqualTo(String expected);
+
+  /**
+   * Verifies that the value is not equal to an UUID.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is not equal to an UUID :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isNotEqualTo(UUID.fromString(&quot;30B443AE-C0C9-4790-9BEC-CE1380808435&quot;));
+   * </code>
+   * </pre>
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
+   * of the first {@code Change} is not equal to an UUID :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change().rowAtEndPoint().value().isNotEqualTo(UUID.fromString(&quot;30B443AE-C0C9-4790-9BEC-CE1380808435&quot;));
+   * </code>
+   * </pre>
+   *
+   * @param expected The expected UUID value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is equal to the UUID in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isNotEqualTo(UUID)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isNotEqualTo(UUID)
+   * @since 1.1.0
+   */
+  public T isNotEqualTo(UUID expected);
 
   /**
    * Verifies that the value is not equal to a time value.

@@ -27,10 +27,13 @@ import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
 import org.assertj.db.type.ValueType;
 
+import java.util.UUID;
+
 /**
  * Assertion methods for a {@code Column} of a {@code Change}.
  *
  * @author Régis Pouiller
+ * @author Otoniel Isidoro
  */
 public class ChangeColumnAssert
         extends AbstractAssertWithOriginWithColumnsAndRowsFromChange<ChangeColumnAssert, ChangeAssert>
@@ -123,7 +126,7 @@ public class ChangeColumnAssert
   public ChangeColumnAssert hasValues(Boolean expectedAtStartPoint, Boolean expectedAtEndPoint) {
     return AssertionsOnColumnOfChangeEquality
             .hasValues(myself, info, valueAtStartPoint, valueAtEndPoint, expectedAtStartPoint,
-                       expectedAtEndPoint);
+                    expectedAtEndPoint);
   }
 
   /** {@inheritDoc} */
@@ -169,6 +172,21 @@ public class ChangeColumnAssert
     return AssertionsOnColumnOfChangeEquality
             .hasValues(myself, info, valueAtStartPoint, valueAtEndPoint, expectedAtStartPoint,
                        expectedAtEndPoint);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeColumnAssert hasValues(UUID expected) {
+    return AssertionsOnColumnOfChangeEquality
+            .hasValues(myself, info, valueAtStartPoint, valueAtEndPoint, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeColumnAssert hasValues(UUID expectedAtStartPoint, UUID expectedAtEndPoint) {
+    return AssertionsOnColumnOfChangeEquality
+            .hasValues(myself, info, valueAtStartPoint, valueAtEndPoint, expectedAtStartPoint,
+                    expectedAtEndPoint);
   }
 
   /** {@inheritDoc} */
@@ -270,6 +288,12 @@ public class ChangeColumnAssert
   @Override
   public ChangeColumnAssert isText(boolean lenient) {
     return AssertionsOnColumnOfChangeType.isText(myself, info, valueAtStartPoint, valueAtEndPoint, lenient);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeColumnAssert isUUID(boolean lenient) {
+    return AssertionsOnColumnOfChangeType.isUUID(myself, info, valueAtStartPoint, valueAtEndPoint, lenient);
   }
 
   /**
