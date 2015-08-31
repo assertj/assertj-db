@@ -42,7 +42,7 @@ public class Changes_Constructor_Test extends AbstractTest {
     assertThat(changes.getRequestAtStartPoint()).isNull();
     assertThat(changes.getRequestAtEndPoint()).isNull();
     assertThat(changes.getTablesAtStartPointList()).isNotNull();
-    assertThat(changes.getTablesAtStartPointList().size()).isEqualTo(5);
+    assertThat(changes.getTablesAtStartPointList().size()).isEqualTo(6);
     assertThat(changes.getTablesAtStartPointList().get(0).getSource()).isSameAs(source);
     assertThat(changes.getTablesAtStartPointList().get(0).getDataSource()).isNull();
     assertThat(changes.getTablesAtStartPointList().get(0).getName()).isEqualTo("ACTOR");
@@ -70,7 +70,7 @@ public class Changes_Constructor_Test extends AbstractTest {
     assertThat(changes.getRequestAtStartPoint()).isNull();
     assertThat(changes.getRequestAtEndPoint()).isNull();
     assertThat(changes.getTablesAtStartPointList()).isNotNull();
-    assertThat(changes.getTablesAtStartPointList().size()).isEqualTo(5);
+    assertThat(changes.getTablesAtStartPointList().size()).isEqualTo(6);
     assertThat(changes.getTablesAtStartPointList().get(0).getSource()).isSameAs(source);
     assertThat(changes.getTablesAtStartPointList().get(0).getDataSource()).isNull();
     assertThat(changes.getTablesAtStartPointList().get(0).getName()).isEqualTo("ACTOR");
@@ -92,7 +92,7 @@ public class Changes_Constructor_Test extends AbstractTest {
     assertThat(changes.getTablesAtStartPointList().get(4).getName()).isEqualTo("TEST2");
     assertThat(changes.getTablesAtStartPointList().get(4).getRequest()).isEqualTo("SELECT * FROM TEST2");
     assertThat(changes.getTablesAtEndPointList()).isNotNull();
-    assertThat(changes.getTablesAtEndPointList().size()).isEqualTo(5);
+    assertThat(changes.getTablesAtEndPointList().size()).isEqualTo(6);
     assertThat(changes.getTablesAtEndPointList().get(0).getSource()).isSameAs(source);
     assertThat(changes.getTablesAtEndPointList().get(0).getDataSource()).isNull();
     assertThat(changes.getTablesAtEndPointList().get(0).getName()).isEqualTo("ACTOR");
@@ -132,7 +132,7 @@ public class Changes_Constructor_Test extends AbstractTest {
     assertThat(changes.getRequestAtStartPoint()).isNull();
     assertThat(changes.getRequestAtEndPoint()).isNull();
     assertThat(changes.getTablesAtStartPointList()).isNotNull();
-    assertThat(changes.getTablesAtStartPointList().size()).isEqualTo(5);
+    assertThat(changes.getTablesAtStartPointList().size()).isEqualTo(6);
     assertThat(changes.getTablesAtStartPointList().get(0).getSource()).isNull();
     assertThat(changes.getTablesAtStartPointList().get(0).getDataSource()).isSameAs(dataSource);
     assertThat(changes.getTablesAtStartPointList().get(0).getName()).isEqualTo("ACTOR");
@@ -160,7 +160,7 @@ public class Changes_Constructor_Test extends AbstractTest {
     assertThat(changes.getRequestAtStartPoint()).isNull();
     assertThat(changes.getRequestAtEndPoint()).isNull();
     assertThat(changes.getTablesAtStartPointList()).isNotNull();
-    assertThat(changes.getTablesAtStartPointList().size()).isEqualTo(5);
+    assertThat(changes.getTablesAtStartPointList().size()).isEqualTo(6);
     assertThat(changes.getTablesAtStartPointList().get(0).getSource()).isNull();
     assertThat(changes.getTablesAtStartPointList().get(0).getDataSource()).isSameAs(dataSource);
     assertThat(changes.getTablesAtStartPointList().get(0).getName()).isEqualTo("ACTOR");
@@ -182,7 +182,7 @@ public class Changes_Constructor_Test extends AbstractTest {
     assertThat(changes.getTablesAtStartPointList().get(4).getName()).isEqualTo("TEST2");
     assertThat(changes.getTablesAtStartPointList().get(4).getRequest()).isEqualTo("SELECT * FROM TEST2");
     assertThat(changes.getTablesAtEndPointList()).isNotNull();
-    assertThat(changes.getTablesAtEndPointList().size()).isEqualTo(5);
+    assertThat(changes.getTablesAtEndPointList().size()).isEqualTo(6);
     assertThat(changes.getTablesAtEndPointList().get(0).getSource()).isNull();
     assertThat(changes.getTablesAtEndPointList().get(0).getDataSource()).isSameAs(dataSource);
     assertThat(changes.getTablesAtEndPointList().get(0).getName()).isEqualTo("ACTOR");

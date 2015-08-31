@@ -36,7 +36,7 @@ public enum ValueType {
    */
   BOOLEAN,
   /**
-   * Text type (CHAR or VARCHAR column).
+   * Text type (CLOB, NCLOB, TEXT, CHAR or VARCHAR column).
    */
   TEXT,
   /**
