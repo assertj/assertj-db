@@ -22,6 +22,7 @@ import org.assertj.db.type.ValueType;
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
  *            for more details.
  * @author Régis Pouiller
+ * @author Otoniel Isidoro
  */
 public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
 
@@ -292,6 +293,7 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * @throws AssertionError If the type of the column is not UUID.
    * @see org.assertj.db.type.ValueType#UUID
    * @see org.assertj.db.api.AbstractColumnAssert#isUUID(boolean)
+   * @since 1.1.0
    */
   public T isUUID(boolean lenient);
 

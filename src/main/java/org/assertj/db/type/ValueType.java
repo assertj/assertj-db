@@ -22,6 +22,7 @@ import java.util.UUID;
  * Enumeration of the different type of value that are in the database.
  * 
  * @author Régis Pouiller
+ * @author Otoniel Isidoro
  * 
  */
 public enum ValueType {

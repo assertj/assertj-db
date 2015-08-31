@@ -31,6 +31,7 @@ import static org.assertj.db.util.Values.areEqual;
  * Implements the assertion methods on the equality of a column of a change.
  *
  * @author Régis Pouiller
+ * @author Otoniel Isidoro
  * @see org.assertj.db.api.assertions.AssertOnColumnOfChangeEquality
  */
 public class AssertionsOnColumnOfChangeEquality {
@@ -460,6 +461,7 @@ public class AssertionsOnColumnOfChangeEquality {
    * @param expected          The UUID value.
    * @return {@code this} assertion object.
    * @throws AssertionError If the values at start point and at end point are not equal to the UUID.
+   * @since 1.1.0
    */
   public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
                                                        Object valueAtStartPoint, Object valueAtEndPoint,
@@ -490,6 +492,7 @@ public class AssertionsOnColumnOfChangeEquality {
    * @param expectedAtEndPoint   The expected UUID at end point.
    * @return {@code this} assertion object.
    * @throws AssertionError If the values at start point and at end point are not equal to the corresponding UUIDs.
+   * @since 1.1.0
    */
   public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
                                                        Object valueAtStartPoint, Object valueAtEndPoint,

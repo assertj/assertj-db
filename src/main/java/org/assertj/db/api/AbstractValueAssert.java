@@ -24,6 +24,7 @@ import java.util.UUID;
  * Base class for all values assertions.
  *
  * @author Régis Pouiller
+ * @author Otoniel Isidoro
  * 
  * @param <D> The class of the actual value (an sub-class of {@link AbstractDbData}).
  * @param <A> The class of the original assertion (an sub-class of {@link AbstractDbAssert}).
