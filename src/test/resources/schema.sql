@@ -59,3 +59,9 @@ create table test2(
     var15 tinyint,
     var16 UUID
 );
+
+
+create table test3(
+    var1 TEXT
+);
+
