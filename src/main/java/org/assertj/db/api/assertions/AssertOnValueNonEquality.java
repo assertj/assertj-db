@@ -24,6 +24,7 @@ import java.util.UUID;
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
  *            for more details.
  * @author Régis Pouiller
+ * @author Otoniel Isidoro
  */
 public interface AssertOnValueNonEquality<T extends AssertOnValueNonEquality<T>> {
 
@@ -243,6 +244,7 @@ public interface AssertOnValueNonEquality<T extends AssertOnValueNonEquality<T>>
    * @throws AssertionError If the value is equal to the UUID in parameter.
    * @see org.assertj.db.api.AbstractValueAssert#isNotEqualTo(UUID)
    * @see org.assertj.db.api.AbstractAssertWithValues#isNotEqualTo(UUID)
+   * @since 1.1.0
    */
   public T isNotEqualTo(UUID expected);
 

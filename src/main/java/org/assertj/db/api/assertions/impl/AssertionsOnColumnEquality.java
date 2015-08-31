@@ -31,6 +31,7 @@ import static org.assertj.db.util.Values.areEqual;
  * Implements the assertion methods on the equality of a column.
  *
  * @author Régis Pouiller
+ * @author Otoniel Isidoro
  * @see org.assertj.db.api.assertions.AssertOnColumnEquality
  */
 public class AssertionsOnColumnEquality {
@@ -165,6 +166,7 @@ public class AssertionsOnColumnEquality {
    * @param expected The expected UUIDs values.
    * @return {@code this} assertion object.
    * @throws AssertionError If the values of the column are not equal to the UUIDs in parameter.
+   * @since 1.1.0
    */
   public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
                                                        List<Object> valuesList, UUID... expected) {

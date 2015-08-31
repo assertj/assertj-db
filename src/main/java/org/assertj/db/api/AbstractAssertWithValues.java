@@ -30,6 +30,7 @@ import java.util.UUID;
  *            for more details.
  * @param <O> The type of the assertion class of {@link org.assertj.db.api.origin.Origin}.
  * @author Régis Pouiller
+ * @author Otoniel Isidoro
  */
 public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValues<E, O>, O extends OriginWithColumnsAndRowsFromChange>
         extends AbstractAssertWithOriginWithColumnsAndRowsFromChange<E, O>

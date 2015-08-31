@@ -22,6 +22,7 @@ import org.assertj.db.type.ValueType;
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
  *            for more details.
  * @author Régis Pouiller
+ * @author Otoniel Isidoro
  */
 public interface AssertOnValueType<T extends AssertOnValueType<T>> {
 
@@ -396,6 +397,7 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    * @see org.assertj.db.type.ValueType#UUID
    * @see org.assertj.db.api.AbstractValueAssert#isUUID()
    * @see org.assertj.db.api.AbstractAssertWithValues#isUUID()
+   * @since 1.1.0
    */
   public T isUUID();
 

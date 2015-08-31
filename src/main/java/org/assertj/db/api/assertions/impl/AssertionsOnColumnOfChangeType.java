@@ -27,6 +27,7 @@ import static org.assertj.db.error.ShouldBeValueTypeWithStartPoint.shouldBeValue
  * <p>The different type of values are enumerated in {@link org.assertj.db.type.ValueType}.</p>
  *
  * @author Régis Pouiller
+ * @author Otoniel Isidoro
  * @see org.assertj.db.api.assertions.AssertOnColumnType
  */
 public class AssertionsOnColumnOfChangeType {
@@ -261,6 +262,7 @@ public class AssertionsOnColumnOfChangeType {
    *                   value is {@code null}), it consider that it is ok.
    * @return {@code this} assertion object.
    * @throws AssertionError If the type of the column is not UUID.
+   * @since 1.1.0
    */
   public static <A extends AbstractAssert> A isUUID(A assertion, WritableAssertionInfo info,
                                                     Object valueAtStartPoint, Object valueAtEndPoint,

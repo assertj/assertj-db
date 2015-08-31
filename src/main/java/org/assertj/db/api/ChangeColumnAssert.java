@@ -33,6 +33,7 @@ import java.util.UUID;
  * Assertion methods for a {@code Column} of a {@code Change}.
  *
  * @author Régis Pouiller
+ * @author Otoniel Isidoro
  */
 public class ChangeColumnAssert
         extends AbstractAssertWithOriginWithColumnsAndRowsFromChange<ChangeColumnAssert, ChangeAssert>

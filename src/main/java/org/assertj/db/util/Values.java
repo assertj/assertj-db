@@ -30,6 +30,7 @@ import java.util.UUID;
  * Utility methods related to values.
  *
  * @author Régis Pouiller
+ * @author Otoniel Isidoro
  */
 public class Values {
 
@@ -411,6 +412,7 @@ public class Values {
    * @param value    The value.
    * @param expected The {@code UUID} to compare.
    * @return {@code true} if the value is equal to the {@code UUID} parameter, {@code false} otherwise.
+   * @since 1.1.0
    */
   public static boolean areEqual(Object value, UUID expected) {
     if (expected == null) {
@@ -426,6 +428,7 @@ public class Values {
    * @param expected The {@code String} to compare.
    * @return {@code true} if the {@code UUID} value is equal to the {@code String} parameter, {@code false} otherwise.
    * @throws AssertJDBException If it is not possible to compare {@code UUID} to {@code expected}.
+   * @since 1.1.0
    */
   public static boolean areEqual(UUID value, String expected) {
     if (expected == null) {

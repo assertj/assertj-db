@@ -24,6 +24,7 @@ import java.util.UUID;
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
  *            for more details.
  * @author Régis Pouiller
+ * @author Otoniel Isidoro
  */
 public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChangeEquality<T>> {
 
@@ -184,6 +185,7 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * @return {@code this} assertion object.
    * @throws AssertionError If the values at start point and at end point are not equal to the UUID.
    * @see org.assertj.db.api.ChangeColumnAssert#hasValues(UUID)
+   * @since 1.1.0
    */
   public T hasValues(UUID expected);
 
@@ -202,6 +204,7 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * @return {@code this} assertion object.
    * @throws AssertionError If the values at start point and at end point are not equal to the corresponding UUIDs.
    * @see org.assertj.db.api.ChangeColumnAssert#hasValues(UUID, UUID)
+   * @since 1.1.0
    */
   public T hasValues(UUID expectedAtStartPoint, UUID expectedAtEndPoint);
 

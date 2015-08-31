@@ -33,6 +33,7 @@ import static org.assertj.db.util.Values.areEqual;
  * Implements the assertion methods on the non equality of a value.
  *
  * @author Régis Pouiller
+ * @author Otoniel Isidoro
  * @see org.assertj.db.api.assertions.AssertOnValueNonEquality
  */
 public class AssertionsOnValueNonEquality {
@@ -190,6 +191,7 @@ public class AssertionsOnValueNonEquality {
    * @param expected  The expected UUID value.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is equal to the UUID in parameter.
+   * @since 1.1.0
    */
   public static <A extends AbstractAssert> A isNotEqualTo(A assertion, WritableAssertionInfo info, Object value,
                                                           UUID expected) {
