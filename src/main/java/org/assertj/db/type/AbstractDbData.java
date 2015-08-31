@@ -30,7 +30,7 @@ import java.util.*;
  * </p>
  *
  * @author Régis Pouiller
- *
+ * @author Otoniel Isidoro
  * @param <D> Class of the subclass (an implementation of {@link AbstractDbData}) : useful for the fluent methods
  *          (setters).
  */
