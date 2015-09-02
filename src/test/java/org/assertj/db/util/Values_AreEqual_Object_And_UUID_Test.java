@@ -19,6 +19,8 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * Tests on {@code areEqual} method for {@code UUID}s.
+ *
  * @author Otoniel Isidoro
  */
 public class Values_AreEqual_Object_And_UUID_Test {

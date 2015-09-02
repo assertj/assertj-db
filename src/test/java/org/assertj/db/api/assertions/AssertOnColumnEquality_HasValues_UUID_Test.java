@@ -24,6 +24,9 @@ import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 /**
+ * Tests on {@link AssertOnColumnEquality} class :
+ * {@link org.assertj.db.api.assertions.AssertOnColumnEquality#hasValues(java.util.UUID...)} method.
+ *
  * @author Otoniel Isidoro (otoniel.isidoro@sofist.com.br)
  */
 public class AssertOnColumnEquality_HasValues_UUID_Test extends AbstractTest {
