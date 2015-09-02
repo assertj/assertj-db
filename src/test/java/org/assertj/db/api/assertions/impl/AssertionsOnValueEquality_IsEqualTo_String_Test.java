@@ -59,7 +59,7 @@ public class AssertionsOnValueEquality_IsEqualTo_String_Test {
   }
 
   /**
-   * This method should fail because the value is greater than or equal to.
+   * This method should fail because the value is not equal to.
    */
   @Test
   public void should_fail_because_value_is_not_equal_to() {
