@@ -15,6 +15,7 @@ package org.assertj.db.api.assertions;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
+
 import java.util.UUID;
 
 /**
@@ -181,7 +182,7 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * assertThat(changes).change(1).column().hasValues(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
    * </code></pre>
    *
-   * @param expected The expected text value.
+   * @param expected The expected UUID value.
    * @return {@code this} assertion object.
    * @throws AssertionError If the values at start point and at end point are not equal to the UUID.
    * @see org.assertj.db.api.ChangeColumnAssert#hasValues(UUID)
