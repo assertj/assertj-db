@@ -177,8 +177,7 @@ public class AssertionsOnValueEquality {
    */
   public static <A extends AbstractAssert> A isEqualTo(A assertion, WritableAssertionInfo info, Object value,
                                                        UUID expected) {
-    AssertionsOnValueType
-            .isOfAnyTypeIn(assertion, info, value, ValueType.UUID);
+    AssertionsOnValueType.isUUID(assertion, info, value);
     if (areEqual(value, expected)) {
       return assertion;
     }
