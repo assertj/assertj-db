@@ -53,7 +53,7 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_DateTimeValue_Test {
   }
 
   /**
-   * This method should fail because the value is greater than or equal to.
+   * This method should fail because the value is equal to.
    */
   @Test
   public void should_fail_because_value_is_equal_to() {
