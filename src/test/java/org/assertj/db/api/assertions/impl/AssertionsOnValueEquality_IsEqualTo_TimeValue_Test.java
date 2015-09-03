@@ -43,6 +43,8 @@ public class AssertionsOnValueEquality_IsEqualTo_TimeValue_Test {
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnValueEquality.isEqualTo(tableAssert, info, Time.valueOf("09:01:00"), TimeValue.of(9, 1));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
+    tableAssert2 = AssertionsOnValueEquality.isEqualTo(tableAssert, info, null, (TimeValue) null);
+    Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
   /**
@@ -63,6 +65,16 @@ public class AssertionsOnValueEquality_IsEqualTo_TimeValue_Test {
                                                       + "  <09:01:05.000000000>%n"
                                                       + "to be equal to: %n"
                                                       + "  <09:01:00.000000000>"));
+    }
+    try {
+      AssertionsOnValueEquality.isEqualTo(tableAssert, info, Time.valueOf("09:01:05"), (TimeValue) null);
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                                    + "Expecting:%n"
+                                                                    + "  <09:01:05.000000000>%n"
+                                                                    + "to be equal to: %n"
+                                                                    + "  <null>"));
     }
   }
 

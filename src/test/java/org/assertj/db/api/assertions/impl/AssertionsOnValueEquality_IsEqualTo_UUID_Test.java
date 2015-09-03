@@ -43,6 +43,10 @@ public class AssertionsOnValueEquality_IsEqualTo_UUID_Test {
             UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"),
             UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
+    tableAssert2 = AssertionsOnValueEquality.isEqualTo(tableAssert, info,
+                                                       null,
+                                                       (UUID) null);
+    Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
   /**
@@ -65,6 +69,18 @@ public class AssertionsOnValueEquality_IsEqualTo_UUID_Test {
                                                                     + "  <30b443ae-c0c9-4790-9bec-ce1380808435>%n"
                                                                     + "to be equal to: %n"
                                                                     + "  <0e2a1269-eff0-4233-b87b-b53e8b6f164d>"));
+    }
+    try {
+      AssertionsOnValueEquality.isEqualTo(tableAssert, info,
+                                          UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"),
+                                          (UUID) null);
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                                    + "Expecting:%n"
+                                                                    + "  <30b443ae-c0c9-4790-9bec-ce1380808435>%n"
+                                                                    + "to be equal to: %n"
+                                                                    + "  <null>"));
     }
   }
 

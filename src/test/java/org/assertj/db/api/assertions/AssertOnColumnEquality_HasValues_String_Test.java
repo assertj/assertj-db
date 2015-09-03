@@ -502,7 +502,7 @@ public class AssertOnColumnEquality_HasValues_String_Test extends AbstractTest {
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 15 (column name : VAR16) of test2 table] %n"
                                                                     + "Expecting that the value at index 0:%n"
-                                                                    + "  <30b443ae-c0c9-4790-9bec-ce1380808435>%n"
+                                                                    + "  <\"30b443ae-c0c9-4790-9bec-ce1380808435\">%n"
                                                                     + "to be equal to: %n"
                                                                     + "  <\"88838129-291E-40A9-A94C-A15BE36CF7C3\">"));
     }

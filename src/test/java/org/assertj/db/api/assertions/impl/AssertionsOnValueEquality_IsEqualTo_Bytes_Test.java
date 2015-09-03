@@ -40,6 +40,8 @@ public class AssertionsOnValueEquality_IsEqualTo_Bytes_Test {
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnValueEquality.isEqualTo(tableAssert, info, new byte[]{0, 1}, new byte[]{0, 1});
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
+    tableAssert2 = AssertionsOnValueEquality.isEqualTo(tableAssert, info, null, (byte[]) null);
+    Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
   /**
@@ -57,6 +59,13 @@ public class AssertionsOnValueEquality_IsEqualTo_Bytes_Test {
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
                                                       + "Expecting to be equal to the expected value but was not equal"));
+    }
+    try {
+      AssertionsOnValueEquality.isEqualTo(tableAssert, info, new byte[]{2, 3}, (byte[]) null);
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                                    + "Expecting to be equal to the expected value but was not equal"));
     }
   }
 

@@ -49,6 +49,8 @@ public class AssertionsOnValueEquality_IsEqualTo_DateTimeValue_Test {
     tableAssert2 = AssertionsOnValueEquality.isEqualTo(tableAssert, info, Timestamp.valueOf("2007-12-23 09:01:00"), DateTimeValue.of(
             DateValue.of(2007, 12, 23), TimeValue.of(9, 1)));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
+    tableAssert2 = AssertionsOnValueEquality.isEqualTo(tableAssert, info, null, (DateTimeValue) null);
+    Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
   /**
@@ -80,6 +82,27 @@ public class AssertionsOnValueEquality_IsEqualTo_DateTimeValue_Test {
                                                       + "  <2007-12-23T09:01:05.000000000>%n"
                                                       + "to be equal to: %n"
                                                       + "  <2007-12-23T09:01:00.000000000>"));
+    }
+    try {
+      AssertionsOnValueEquality.isEqualTo(tableAssert, info, Date.valueOf("2007-12-24"), (DateTimeValue) null);
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                                    + "Expecting:%n"
+                                                                    + "  <2007-12-24T00:00:00.000000000>%n"
+                                                                    + "to be equal to: %n"
+                                                                    + "  <null>"));
+    }
+    try {
+      AssertionsOnValueEquality.isEqualTo(tableAssert, info, Timestamp.valueOf("2007-12-23 09:01:05"),
+                                          (DateTimeValue) null);
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                                    + "Expecting:%n"
+                                                                    + "  <2007-12-23T09:01:05.000000000>%n"
+                                                                    + "to be equal to: %n"
+                                                                    + "  <null>"));
     }
   }
 

@@ -40,6 +40,8 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_Boolean_Test {
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, true, false);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
+    tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, true, (Boolean) null);
+    Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
   /**
@@ -60,6 +62,16 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_Boolean_Test {
                                                       + "  <true>%n"
                                                       + "not to be equal to: %n"
                                                       + "  <true>"));
+    }
+    try {
+      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, null, (Boolean) null);
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                                    + "Expecting:%n"
+                                                                    + "  <null>%n"
+                                                                    + "not to be equal to: %n"
+                                                                    + "  <null>"));
     }
   }
 

@@ -45,6 +45,11 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_UUID_Test {
                                                                          UUID.fromString(
                                                                                  "0E2A1269-EFF0-4233-B87B-B53E8B6F164D"));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
+    tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
+                                                             UUID.fromString(
+                                                                     "30B443AE-C0C9-4790-9BEC-CE1380808435"),
+                                                             (UUID) null);
+    Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
   /**
@@ -67,6 +72,18 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_UUID_Test {
                                                                     + "  <30b443ae-c0c9-4790-9bec-ce1380808435>%n"
                                                                     + "not to be equal to: %n"
                                                                     + "  <30b443ae-c0c9-4790-9bec-ce1380808435>"));
+    }
+    try {
+      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
+                                                null,
+                                                (UUID) null);
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                                    + "Expecting:%n"
+                                                                    + "  <null>%n"
+                                                                    + "not to be equal to: %n"
+                                                                    + "  <null>"));
     }
   }
 
