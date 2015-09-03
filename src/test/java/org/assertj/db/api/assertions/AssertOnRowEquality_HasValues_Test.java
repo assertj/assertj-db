@@ -46,11 +46,14 @@ public class AssertOnRowEquality_HasValues_Test extends AbstractTest {
     changes.setEndPointNow();
 
     ChangeRowAssert changeRowAssert = assertThat(changes).change().rowAtEndPoint();
-    ChangeRowAssert changeRowAssert2 = changeRowAssert.hasValues(4, "Murray", "Bill", "1950-09-21", UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
+    ChangeRowAssert changeRowAssert2 = changeRowAssert.hasValues(4, "Murray", "Bill", "1950-09-21", "30B443AE-C0C9-4790-9BEC-CE1380808435")
+                                                      .hasValues(4, "Murray", "Bill", "1950-09-21", UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
     Assertions.assertThat(changeRowAssert).isSameAs(changeRowAssert2);
 
     TableRowAssert tableRowAssert = assertThat(table).row();
-    TableRowAssert tableRowAssert2 = tableRowAssert.hasValues(1, "Weaver", "Susan Alexandra", "1949-10-08", UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
+    TableRowAssert tableRowAssert2 = tableRowAssert.hasValues(1, "Weaver", "Susan Alexandra", "1949-10-08", "30B443AE-C0C9-4790-9BEC-CE1380808435")
+                                                   .hasValues(1, "Weaver", "Susan Alexandra", "1949-10-08",
+                                                              UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
     Assertions.assertThat(tableRowAssert).isSameAs(tableRowAssert2);
   }
 

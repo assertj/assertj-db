@@ -118,7 +118,8 @@ public enum ValueType {
       return new ValueType[] { BOOLEAN };
     }
     if (expected instanceof String) {
-      return new ValueType[] { ValueType.TEXT, ValueType.NUMBER, ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME };
+      return new ValueType[] { ValueType.TEXT, ValueType.NUMBER, ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME,
+              ValueType.UUID };
     }
     if (expected instanceof DateValue) {
       return new ValueType[] { ValueType.DATE, ValueType.DATE_TIME };

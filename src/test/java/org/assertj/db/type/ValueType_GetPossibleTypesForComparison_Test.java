@@ -38,7 +38,7 @@ public class ValueType_GetPossibleTypesForComparison_Test extends AbstractTest {
                 .isEqualTo(new ValueType[]{ValueType.BYTES});
         assertThat(ValueType.getPossibleTypesForComparison(true)).isEqualTo(new ValueType[]{ValueType.BOOLEAN});
         assertThat(ValueType.getPossibleTypesForComparison("")).isEqualTo(
-                new ValueType[]{ValueType.TEXT, ValueType.NUMBER, ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME});
+                new ValueType[]{ValueType.TEXT, ValueType.NUMBER, ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME, ValueType.UUID});
         assertThat(ValueType.getPossibleTypesForComparison(DateValue.of(2014, 10, 10))).isEqualTo(
                 new ValueType[]{ValueType.DATE, ValueType.DATE_TIME});
         assertThat(ValueType.getPossibleTypesForComparison(TimeValue.of(10, 10))).isEqualTo(
