@@ -21,6 +21,7 @@ import org.junit.Test;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.UUID;
 
 import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
@@ -60,6 +61,10 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_String_Test {
     tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
                                                              Timestamp.valueOf("2007-12-23 09:01:05"),
                                                              "2007-12-23T09:01");
+    Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
+    tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
+                                                             UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"),
+                                                             "0E2A1269-EFF0-4233-B87B-B53E8B6F164D");
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -143,6 +148,18 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_String_Test {
                                                       + "  <\"2007-12-23T09:01:00.000000000\">%n"
                                                       + "not to be equal to: %n"
                                                       + "  <\"2007-12-23T09:01\">"));
+    }
+    try {
+      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
+                                                UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"),
+                                                "30B443AE-C0C9-4790-9BEC-CE1380808435");
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                                    + "Expecting:%n"
+                                                                    + "  <\"30b443ae-c0c9-4790-9bec-ce1380808435\">%n"
+                                                                    + "not to be equal to: %n"
+                                                                    + "  <\"30B443AE-C0C9-4790-9BEC-CE1380808435\">"));
     }
   }
 

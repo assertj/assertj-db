@@ -21,6 +21,7 @@ import org.junit.Test;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.UUID;
 
 import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
@@ -55,6 +56,9 @@ public class AssertionsOnValueEquality_IsEqualTo_String_Test {
     tableAssert2 = AssertionsOnValueEquality.isEqualTo(tableAssert, info, Date.valueOf("2007-12-23"), "2007-12-23T00:00:00");
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnValueEquality.isEqualTo(tableAssert, info, Timestamp.valueOf("2007-12-23 09:01:00"), "2007-12-23T09:01");
+    Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
+    tableAssert2 = AssertionsOnValueEquality.isEqualTo(tableAssert, info,
+                                                       UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"), "30B443AE-C0C9-4790-9BEC-CE1380808435");
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -136,6 +140,17 @@ public class AssertionsOnValueEquality_IsEqualTo_String_Test {
                                                       + "  <\"2007-12-23T09:01:05.000000000\">%n"
                                                       + "to be equal to: %n"
                                                       + "  <\"2007-12-23T09:01\">"));
+    }
+    try {
+      AssertionsOnValueEquality.isEqualTo(tableAssert, info,
+                                          UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"), "0E2A1269-EFF0-4233-B87B-B53E8B6F164D");
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                                    + "Expecting:%n"
+                                                                    + "  <\"30b443ae-c0c9-4790-9bec-ce1380808435\">%n"
+                                                                    + "to be equal to: %n"
+                                                                    + "  <\"0E2A1269-EFF0-4233-B87B-B53E8B6F164D\">"));
     }
   }
 
