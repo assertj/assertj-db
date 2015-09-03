@@ -86,6 +86,7 @@ public class Values_GetRepresentationFromValueInFrontOfExpected_Test {
    */
   @Test
   public void test_getRepresentationFromValueInFrontOfExpected_for_UUID() {
+    assertThat(Values.getRepresentationFromValueInFrontOfExpected(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"), "30B443AE-C0C9-4790-9BEC-CE1380808435")).isEqualTo("30b443ae-c0c9-4790-9bec-ce1380808435");
     assertThat(Values.getRepresentationFromValueInFrontOfExpected(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"), null)).isEqualTo(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
   }
 

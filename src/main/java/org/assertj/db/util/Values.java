@@ -690,6 +690,7 @@ public class Values {
         return DateTimeValue.from((Timestamp) value);
       }
     case NUMBER:
+    case UUID:
       if (expected instanceof String) {
         return value.toString();
       } else {
@@ -699,7 +700,6 @@ public class Values {
     case BYTES:
     case TEXT:
     case BOOLEAN:
-    case UUID:
     default:
       return value;
     }
