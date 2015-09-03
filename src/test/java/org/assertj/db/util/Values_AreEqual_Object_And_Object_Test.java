@@ -214,6 +214,12 @@ public class Values_AreEqual_Object_And_Object_Test {
             (Object) UUID.fromString("16319617-AE95-4087-9264-D3D21BF611B6"))).isFalse();
     assertThat(Values.areEqual(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"),
             (Object) 1)).isFalse();
+    assertThat(Values.areEqual(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"),
+                               (Object) null)).isFalse();
+    assertThat(Values.areEqual(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"),
+                               (Object) "30B443AE-C0C9-4790-9BEC-CE1380808435")).isTrue();
+    assertThat(Values.areEqual(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"),
+                               (Object) "30B443AE-C0C9-4790-9BED-CE1380808435")).isFalse();
   }
 
   /**
