@@ -45,6 +45,7 @@ public class ValueType_GetType_Test extends AbstractTest {
     assertThat(ValueType.getType((short) 10)).isEqualTo(ValueType.NUMBER);
     assertThat(ValueType.getType(10)).isEqualTo(ValueType.NUMBER);
     assertThat(ValueType.getType((long) 10)).isEqualTo(ValueType.NUMBER);
+    assertThat(ValueType.getType(10.5d)).isEqualTo(ValueType.NUMBER);
     assertThat(ValueType.getType(10.5f)).isEqualTo(ValueType.NUMBER);
     assertThat(ValueType.getType(new BigDecimal(10.5f))).isEqualTo(ValueType.NUMBER);
     assertThat(ValueType.getType(UUID.randomUUID())).isEqualTo(ValueType.UUID);

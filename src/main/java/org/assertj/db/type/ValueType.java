@@ -97,6 +97,7 @@ public enum ValueType {
         || value instanceof Integer
         || value instanceof Long
         || value instanceof Float
+        || value instanceof Double
         || value instanceof BigDecimal) {
 
       return NUMBER;

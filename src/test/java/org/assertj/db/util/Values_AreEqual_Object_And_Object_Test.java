@@ -101,6 +101,25 @@ public class Values_AreEqual_Object_And_Object_Test {
   }
 
   /**
+   * This method tests the {@code areEqual} method for another type of value and {@code Double}s.
+   */
+  @Test
+  public void test_are_equal_for_other_and_double() {
+    assertThat(Values.areEqual(1D, (Object) 1)).isTrue();
+    assertThat(Values.areEqual(2D, (Object) 1)).isFalse();
+    assertThat(Values.areEqual(1D, (Object) 1L)).isTrue();
+    assertThat(Values.areEqual(2D, (Object) 1L)).isFalse();
+    assertThat(Values.areEqual(1D, (Object) 1F)).isTrue();
+    assertThat(Values.areEqual(2D, (Object) 1F)).isFalse();
+    assertThat(Values.areEqual(1D, (Object) 1D)).isTrue();
+    assertThat(Values.areEqual(2D, (Object) 1D)).isFalse();
+    assertThat(Values.areEqual(1.5D, (Object) 1.5F)).isTrue();
+    assertThat(Values.areEqual(2.5D, (Object) 1.5F)).isFalse();
+    assertThat(Values.areEqual(1.5D, (Object) 1.5D)).isTrue();
+    assertThat(Values.areEqual(2.5D, (Object) 1.5D)).isFalse();
+  }
+
+  /**
    * This method tests the {@code areEqual} method for another type of value and {@code BigDecimal}s.
    */
   @Test
@@ -304,9 +323,9 @@ public class Values_AreEqual_Object_And_Object_Test {
    */
   @Test
   public void test_are_equal_for_double_and_string() {
-    assertThat(Values.areEqual(1D, (Object) "1")).isFalse();
+    assertThat(Values.areEqual(1D, (Object) "1")).isTrue();
     assertThat(Values.areEqual(2D, (Object) "1")).isFalse();
-    assertThat(Values.areEqual(1.5D, (Object) "1.5")).isFalse();
+    assertThat(Values.areEqual(1.5D, (Object) "1.5")).isTrue();
     assertThat(Values.areEqual(2.5D, (Object) "1.5")).isFalse();
   }
 
