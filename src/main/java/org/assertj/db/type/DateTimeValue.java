@@ -103,6 +103,7 @@ public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContai
    * @param calendar Calendar.
    * @throws NullPointerException If {@code calendar} is {@code null}.
    * @return An instance of date/time value.
+   * @since 1.1.0
    */
   public static DateTimeValue from(Calendar calendar) {
     return new DateTimeValue(calendar);
@@ -112,6 +113,7 @@ public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContai
    * Makes an instance of the date/time value corresponding to now.
    *
    * @return An instance of date/time value.
+   * @since 1.1.0
    */
   public static DateTimeValue now() {
     return from(Calendar.getInstance());

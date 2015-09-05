@@ -122,6 +122,7 @@ public class TimeValue implements Comparable<TimeValue> {
    * @param calendar Calendar.
    * @throws NullPointerException If {@code calendar} is {@code null}.
    * @return An instance of time value.
+   * @since 1.1.0
    */
   public static TimeValue from(Calendar calendar) {
     return new TimeValue(calendar);
@@ -131,6 +132,7 @@ public class TimeValue implements Comparable<TimeValue> {
    * Makes an instance of the time value corresponding to now.
    *
    * @return An instance of time value.
+   * @since 1.1.0
    */
   public static TimeValue now() {
     return from(Calendar.getInstance());

@@ -82,6 +82,7 @@ public class DateValue implements Comparable<DateValue>, DateValueContainer {
    * @param calendar Calendar.
    * @throws NullPointerException If {@code calendar} is {@code null}.
    * @return An instance of date value.
+   * @since 1.1.0
    */
   public static DateValue from(Calendar calendar) {
     return new DateValue(calendar);
@@ -91,6 +92,7 @@ public class DateValue implements Comparable<DateValue>, DateValueContainer {
    * Makes an instance of the date value corresponding to now.
    *
    * @return An instance of date value.
+   * @since 1.1.0
    */
   public static DateValue now() {
     return from(Calendar.getInstance());
