@@ -56,12 +56,35 @@ public class AssertionsOnValueType_IsBoolean_Test {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <\"text\">%n"
-                                                      + "to be of type%n"
-                                                      + "  <BOOLEAN>%n"
-                                                      + "but was of type%n"
-                                                      + "  <TEXT>"));
+                                                                    + "Expecting:%n"
+                                                                    + "  <\"text\">%n"
+                                                                    + "to be of type%n"
+                                                                    + "  <BOOLEAN>%n"
+                                                                    + "but was of type%n"
+                                                                    + "  <TEXT>"));
+    }
+  }
+
+  /**
+   * This method should fail because the value is a stringbuilder.
+   */
+  @Test
+  public void should_fail_because_value_is_a_stringbuilder() {
+    WritableAssertionInfo info = new WritableAssertionInfo();
+    info.description("description");
+    Table table = new Table();
+    TableAssert tableAssert = assertThat(table);
+    try {
+      AssertionsOnValueType.isBoolean(tableAssert, info, new StringBuilder("text"));
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                                    + "Expecting:%n"
+                                                                    + "  <text>%n"
+                                                                    + "to be of type%n"
+                                                                    + "  <BOOLEAN>%n"
+                                                                    + "but was of type%n"
+                                                                    + "  <NOT_IDENTIFIED> (java.lang.StringBuilder)"));
     }
   }
 }

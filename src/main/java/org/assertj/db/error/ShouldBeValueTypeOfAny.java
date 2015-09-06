@@ -24,10 +24,14 @@ import org.assertj.db.type.ValueType;
  */
 public class ShouldBeValueTypeOfAny extends BasicErrorMessageFactory {
 
-  private static final String EXPECTED_MESSAGE = "%nExpecting:%n  <%s>%nto be of type%n"
-      + "  <%s>%nbut was of type%n  <%s>";
-  private static final String EXPECTED_MESSAGE_WITH_INDEX = "%nExpecting that the value at index %s:%n  <%s>%nto be of type%n"
-      + "  <%s>%nbut was of type%n  <%s>";
+  private static final String EXPECTED_MESSAGE =
+          "%nExpecting:%n  <%s>%nto be of type%n  <%s>%nbut was of type%n  <%s>";
+  private static final String EXPECTED_MESSAGE_WITH_INDEX =
+          "%nExpecting that the value at index %s:%n  <%s>%nto be of type%n  <%s>%nbut was of type%n  <%s>";
+  private static final String EXPECTED_MESSAGE_NOT_IDENTIFIED =
+          "%nExpecting:%n  <%s>%nto be of type%n  <%s>%nbut was of type%n  <%s> (%s)";
+  private static final String EXPECTED_MESSAGE_NOT_IDENTIFIED_WITH_INDEX =
+          "%nExpecting that the value at index %s:%n  <%s>%nto be of type%n  <%s>%nbut was of type%n  <%s> (%s)";
 
   /**
    * Creates a new <code>{@link ShouldBeValueTypeOfAny}</code>.
@@ -38,6 +42,9 @@ public class ShouldBeValueTypeOfAny extends BasicErrorMessageFactory {
    * @return the created {@code ErrorMessageFactory}.
    */
   public static ErrorMessageFactory shouldBeValueTypeOfAny(Object actual, ValueType tested, ValueType... expected) {
+    if (actual != null && tested == ValueType.NOT_IDENTIFIED) {
+      return  new ShouldBeValueTypeOfAny(actual, actual.getClass(), tested, expected);
+    }
     return new ShouldBeValueTypeOfAny(actual, tested, expected);
   }
 
@@ -52,6 +59,9 @@ public class ShouldBeValueTypeOfAny extends BasicErrorMessageFactory {
    */
   public static ErrorMessageFactory shouldBeValueTypeOfAny(int index, Object actual, ValueType tested,
                                                            ValueType... expected) {
+    if (actual != null && tested == ValueType.NOT_IDENTIFIED) {
+      return  new ShouldBeValueTypeOfAny(index, actual, actual.getClass(), tested, expected);
+    }
     return new ShouldBeValueTypeOfAny(index, actual, tested, expected);
   }
 
@@ -78,4 +88,28 @@ public class ShouldBeValueTypeOfAny extends BasicErrorMessageFactory {
     super(EXPECTED_MESSAGE_WITH_INDEX, index, actual, expected, tested);
   }
 
+  /**
+   * Constructor.
+   *
+   * @param actual The actual value in the failed assertion.
+   * @param classOfActual Class of the actual value (for not identified type).
+   * @param tested The tested type.
+   * @param expected The expected types.
+   */
+  private ShouldBeValueTypeOfAny(Object actual, Class classOfActual, ValueType tested, ValueType... expected) {
+    super(EXPECTED_MESSAGE_NOT_IDENTIFIED, actual, expected, tested, classOfActual);
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param index The index of the value.
+   * @param actual The actual value in the failed assertion.
+   * @param classOfActual Class of the actual value (for not identified type).
+   * @param tested The tested type.
+   * @param expected The expected types.
+   */
+  private ShouldBeValueTypeOfAny(int index, Object actual, Class classOfActual, ValueType tested, ValueType... expected) {
+    super(EXPECTED_MESSAGE_NOT_IDENTIFIED_WITH_INDEX, index, actual, expected, tested, classOfActual);
+  }
 }

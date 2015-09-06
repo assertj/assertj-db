@@ -93,4 +93,52 @@ public class AssertionsOnColumnOfChangeType_IsBoolean_Test {
                                                       + "  <TEXT>"));
     }
   }
+
+  /**
+   * This method should fail because the value at start point is a stringbuilder.
+   */
+  @Test
+  public void should_fail_because_value_at_start_point_is_a_stringbuilder() {
+    WritableAssertionInfo info = new WritableAssertionInfo();
+    info.description("description");
+    Table table = new Table();
+    TableAssert tableAssert = assertThat(table);
+    try {
+      AssertionsOnColumnOfChangeType.isBoolean(tableAssert, info,
+                                               new StringBuilder("test"), true, false);
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                                    + "Expecting that the value at start point:%n"
+                                                                    + "  <test>%n"
+                                                                    + "to be of type%n"
+                                                                    + "  <BOOLEAN>%n"
+                                                                    + "but was of type%n"
+                                                                    + "  <NOT_IDENTIFIED> (java.lang.StringBuilder)"));
+    }
+  }
+
+  /**
+   * This method should fail because the value at end point is a stringbuilder.
+   */
+  @Test
+  public void should_fail_because_value_at_end_point_is_a_stringbuilder() {
+    WritableAssertionInfo info = new WritableAssertionInfo();
+    info.description("description");
+    Table table = new Table();
+    TableAssert tableAssert = assertThat(table);
+    try {
+      AssertionsOnColumnOfChangeType.isBoolean(tableAssert, info,
+                                               false, new StringBuilder("test"), false);
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                                    + "Expecting that the value at end point:%n"
+                                                                    + "  <test>%n"
+                                                                    + "to be of type%n"
+                                                                    + "  <BOOLEAN>%n"
+                                                                    + "but was of type%n"
+                                                                    + "  <NOT_IDENTIFIED> (java.lang.StringBuilder)"));
+    }
+  }
 }

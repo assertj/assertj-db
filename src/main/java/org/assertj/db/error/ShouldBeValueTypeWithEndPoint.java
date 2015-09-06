@@ -24,29 +24,46 @@ import org.assertj.db.type.ValueType;
  */
 public class ShouldBeValueTypeWithEndPoint extends BasicErrorMessageFactory {
 
-  private static final String EXPECTED_MESSAGE = "%nExpecting that the value at end point:%n  <%s>%nto be of type%n"
-      + "  <%s>%nbut was of type%n  <%s>";
+  private static final String EXPECTED_MESSAGE =
+          "%nExpecting that the value at end point:%n  <%s>%nto be of type%n  <%s>%nbut was of type%n  <%s>";
+  private static final String EXPECTED_MESSAGE_NOT_IDENTIFIED =
+          "%nExpecting that the value at end point:%n  <%s>%nto be of type%n  <%s>%nbut was of type%n  <%s> (%s)";
 
   /**
    * Creates a new <code>{@link org.assertj.db.error.ShouldBeValueTypeWithEndPoint}</code>.
    *
    * @param actual The actual value in the failed assertion.
-   * @param expected The expected type.
    * @param tested The tested type.
+   * @param expected The expected type.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBeValueTypeWithEndPoint(Object actual, ValueType expected, ValueType tested) {
-    return new ShouldBeValueTypeWithEndPoint(actual, expected, tested);
+  public static ErrorMessageFactory shouldBeValueTypeWithEndPoint(Object actual, ValueType tested, ValueType expected) {
+    if (actual != null && tested == ValueType.NOT_IDENTIFIED) {
+      return  new ShouldBeValueTypeWithEndPoint(actual, actual.getClass(), tested, expected);
+    }
+    return new ShouldBeValueTypeWithEndPoint(actual, tested, expected);
   }
 
   /**
    * Constructor.
    *
    * @param actual The actual value in the failed assertion.
-   * @param expected The expected type.
    * @param tested The tested type.
+   * @param expected The expected type.
    */
-  private ShouldBeValueTypeWithEndPoint(Object actual, ValueType expected, ValueType tested) {
+  private ShouldBeValueTypeWithEndPoint(Object actual, ValueType tested, ValueType expected) {
     super(EXPECTED_MESSAGE, actual, expected, tested);
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param actual The actual value in the failed assertion.
+   * @param classOfActual Class of the actual value (for not identified type).
+   * @param tested The tested type.
+   * @param expected The expected type.
+   */
+  private ShouldBeValueTypeWithEndPoint(Object actual, Class classOfActual, ValueType tested, ValueType expected) {
+    super(EXPECTED_MESSAGE_NOT_IDENTIFIED, actual, expected, tested, classOfActual);
   }
 }

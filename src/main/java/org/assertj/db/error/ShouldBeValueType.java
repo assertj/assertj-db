@@ -24,21 +24,28 @@ import org.assertj.db.type.ValueType;
  */
 public class ShouldBeValueType extends BasicErrorMessageFactory {
 
-  private static final String EXPECTED_MESSAGE = "%nExpecting:%n  <%s>%nto be of type%n"
-      + "  <%s>%nbut was of type%n  <%s>";
-  private static final String EXPECTED_MESSAGE_WITH_INDEX = "%nExpecting that the value at index %s:%n  <%s>%nto be of type%n"
-      + "  <%s>%nbut was of type%n  <%s>";
+  private static final String EXPECTED_MESSAGE =
+          "%nExpecting:%n  <%s>%nto be of type%n  <%s>%nbut was of type%n  <%s>";
+  private static final String EXPECTED_MESSAGE_WITH_INDEX =
+          "%nExpecting that the value at index %s:%n  <%s>%nto be of type%n  <%s>%nbut was of type%n  <%s>";
+  private static final String EXPECTED_MESSAGE_NOT_IDENTIFIED =
+          "%nExpecting:%n  <%s>%nto be of type%n  <%s>%nbut was of type%n  <%s> (%s)";
+  private static final String EXPECTED_MESSAGE_NOT_IDENTIFIED_WITH_INDEX =
+          "%nExpecting that the value at index %s:%n  <%s>%nto be of type%n  <%s>%nbut was of type%n  <%s> (%s)";
 
   /**
    * Creates a new <code>{@link ShouldBeValueType}</code>.
    * 
    * @param actual The actual value in the failed assertion.
-   * @param expected The expected type.
    * @param tested The tested type.
+   * @param expected The expected type.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBeValueType(Object actual, ValueType expected, ValueType tested) {
-    return new ShouldBeValueType(actual, expected, tested);
+  public static ErrorMessageFactory shouldBeValueType(Object actual, ValueType tested, ValueType expected) {
+    if (actual != null && tested == ValueType.NOT_IDENTIFIED) {
+      return  new ShouldBeValueType(actual, actual.getClass(), tested, expected);
+    }
+    return new ShouldBeValueType(actual, tested, expected);
   }
 
   /**
@@ -46,22 +53,25 @@ public class ShouldBeValueType extends BasicErrorMessageFactory {
    * 
    * @param index The index of the value.
    * @param actual The actual value in the failed assertion.
-   * @param expected The expected type.
    * @param tested The tested type.
+   * @param expected The expected type.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBeValueType(int index, Object actual, ValueType expected, ValueType tested) {
-    return new ShouldBeValueType(index, actual, expected, tested);
+  public static ErrorMessageFactory shouldBeValueType(int index, Object actual, ValueType tested, ValueType expected) {
+    if (actual != null && tested == ValueType.NOT_IDENTIFIED) {
+      return  new ShouldBeValueType(index, actual, actual.getClass(), tested, expected);
+    }
+    return new ShouldBeValueType(index, actual, tested, expected);
   }
 
   /**
    * Constructor.
    * 
    * @param actual The actual value in the failed assertion.
-   * @param expected The expected type.
    * @param tested The tested type.
+   * @param expected The expected type.
    */
-  private ShouldBeValueType(Object actual, ValueType expected, ValueType tested) {
+  private ShouldBeValueType(Object actual, ValueType tested, ValueType expected) {
     super(EXPECTED_MESSAGE, actual, expected, tested);
   }
 
@@ -70,10 +80,35 @@ public class ShouldBeValueType extends BasicErrorMessageFactory {
    * 
    * @param index The index of the value.
    * @param actual The actual value in the failed assertion.
-   * @param expected The expected type.
    * @param tested The tested type.
+   * @param expected The expected type.
    */
-  private ShouldBeValueType(int index, Object actual, ValueType expected, ValueType tested) {
+  private ShouldBeValueType(int index, Object actual, ValueType tested, ValueType expected) {
     super(EXPECTED_MESSAGE_WITH_INDEX, index, actual, expected, tested);
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param actual The actual value in the failed assertion.
+   * @param classOfActual Class of the actual value (for not identified type).
+   * @param tested The tested type.
+   * @param expected The expected type.
+   */
+  private ShouldBeValueType(Object actual, Class classOfActual, ValueType tested, ValueType expected) {
+    super(EXPECTED_MESSAGE_NOT_IDENTIFIED, actual, expected, tested, classOfActual);
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param index The index of the value.
+   * @param actual The actual value in the failed assertion.
+   * @param classOfActual Class of the actual value (for not identified type).
+   * @param tested The tested type.
+   * @param expected The expected type.
+   */
+  private ShouldBeValueType(int index, Object actual, Class classOfActual, ValueType tested, ValueType expected) {
+    super(EXPECTED_MESSAGE_NOT_IDENTIFIED_WITH_INDEX, index, actual, expected, tested, classOfActual);
   }
 }

@@ -57,7 +57,7 @@ public class AssertionsOnValueType {
                                                       ValueType expected) {
     ValueType type = ValueType.getType(value);
     if (type != expected) {
-      throw failures.failure(info, shouldBeValueType(value, expected, type));
+      throw failures.failure(info, shouldBeValueType(value, type, expected));
     }
     return assertion;
   }

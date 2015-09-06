@@ -67,11 +67,11 @@ public class AssertionsOnColumnOfChangeType {
 
     ValueType typeAtStartPoint = ValueType.getType(valueAtStartPoint);
     if (typeAtStartPoint != expected) {
-      throw failures.failure(info, shouldBeValueTypeWithStartPoint(valueAtStartPoint, expected, typeAtStartPoint));
+      throw failures.failure(info, shouldBeValueTypeWithStartPoint(valueAtStartPoint, typeAtStartPoint, expected));
     }
     ValueType typeAtEndPoint = ValueType.getType(valueAtEndPoint);
     if (typeAtEndPoint != expected) {
-      throw failures.failure(info, shouldBeValueTypeWithEndPoint(valueAtEndPoint, expected, typeAtEndPoint));
+      throw failures.failure(info, shouldBeValueTypeWithEndPoint(valueAtEndPoint, typeAtEndPoint, expected));
     }
 
     return assertion;

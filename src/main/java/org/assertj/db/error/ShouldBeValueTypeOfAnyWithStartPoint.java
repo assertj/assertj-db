@@ -24,8 +24,10 @@ import org.assertj.db.type.ValueType;
  */
 public class ShouldBeValueTypeOfAnyWithStartPoint extends BasicErrorMessageFactory {
 
-  private static final String EXPECTED_MESSAGE = "%nExpecting that the value at start point:%n  <%s>%nto be of type%n"
-      + "  <%s>%nbut was of type%n  <%s>";
+  private static final String EXPECTED_MESSAGE =
+          "%nExpecting that the value at start point:%n  <%s>%nto be of type%n  <%s>%nbut was of type%n  <%s>";
+  private static final String EXPECTED_MESSAGE_NOT_IDENTIFIED =
+          "%nExpecting that the value at start point:%n  <%s>%nto be of type%n  <%s>%nbut was of type%n  <%s> (%s)";
 
   /**
    * Creates a new <code>{@link org.assertj.db.error.ShouldBeValueTypeOfAnyWithStartPoint}</code>.
@@ -37,6 +39,9 @@ public class ShouldBeValueTypeOfAnyWithStartPoint extends BasicErrorMessageFacto
    */
   public static ErrorMessageFactory shouldBeValueTypeOfAnyWithStartPoint(Object actual, ValueType tested,
                                                                        ValueType... expected) {
+    if (actual != null && tested == ValueType.NOT_IDENTIFIED) {
+      return  new ShouldBeValueTypeOfAnyWithStartPoint(actual, actual.getClass(), tested, expected);
+    }
     return new ShouldBeValueTypeOfAnyWithStartPoint(actual, tested, expected);
   }
 
@@ -51,4 +56,15 @@ public class ShouldBeValueTypeOfAnyWithStartPoint extends BasicErrorMessageFacto
     super(EXPECTED_MESSAGE, actual, expected, tested);
   }
 
+  /**
+   * Constructor.
+   *
+   * @param actual The actual value in the failed assertion.
+   * @param classOfActual Class of the actual value (for not identified type).
+   * @param tested The tested type.
+   * @param expected The expected types.
+   */
+  private ShouldBeValueTypeOfAnyWithStartPoint(Object actual, Class classOfActual, ValueType tested, ValueType... expected) {
+    super(EXPECTED_MESSAGE_NOT_IDENTIFIED, actual, expected, tested, classOfActual);
+  }
 }

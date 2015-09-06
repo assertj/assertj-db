@@ -69,7 +69,7 @@ public class AssertionsOnColumnType {
       ValueType type = ValueType.getType(value);
       if (type != expected) {
         throw failures.failure(info, ShouldBeValueType
-                .shouldBeValueType(index, value, expected, type));
+                .shouldBeValueType(index, value, type, expected));
       }
       index++;
     }
