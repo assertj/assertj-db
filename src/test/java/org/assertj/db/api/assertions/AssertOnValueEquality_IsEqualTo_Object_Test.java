@@ -26,30 +26,30 @@ import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link  org.assertj.db.api.assertions.AssertOnValueEquality} class :
- * {@link  org.assertj.db.api.assertions.AssertOnValueEquality#isEqualTo(Number)} method.
+ * {@link  org.assertj.db.api.assertions.AssertOnValueEquality#isEqualTo(Object)} method.
  *
  * @author Régis Pouiller
  *
  */
-public class AssertOnValueEquality_IsEqualTo_Number_Test extends AbstractTest {
+public class AssertOnValueEquality_IsEqualTo_Object_Test extends AbstractTest {
 
   /**
    * This method tests the {@code isEqualTo} assertion method.
    */
   @Test
   @NeedReload
-  public void test_is_equal_to() {
-    Table table = new Table(source, "test");
+  public void test_is_null() {
+    Table table = new Table(source, "test2");
     Changes changes = new Changes(table).setStartPointNow();
-    update("update test set var14 = 1 where var1 = 1");
+    update("update test2 set var14 = 1 where var1 is null");
     changes.setEndPointNow();
 
-    ChangeColumnValueAssert changeColumnValueAssert = assertThat(changes).change().column("var3").valueAtEndPoint();
-    ChangeColumnValueAssert changeColumnValueAssert2 = changeColumnValueAssert.isEqualTo(2);
+    ChangeColumnValueAssert changeColumnValueAssert = assertThat(changes).change().column("var10").valueAtEndPoint();
+    ChangeColumnValueAssert changeColumnValueAssert2 = changeColumnValueAssert.isEqualTo((Object) null);
     Assertions.assertThat(changeColumnValueAssert).isSameAs(changeColumnValueAssert2);
 
-    TableColumnValueAssert tableColumnValueAssert = assertThat(table).column("var3").value();
-    TableColumnValueAssert tableColumnValueAssert2 = tableColumnValueAssert.isEqualTo(2);
+    TableColumnValueAssert tableColumnValueAssert = assertThat(table).column("var10").value(1);
+    TableColumnValueAssert tableColumnValueAssert2 = tableColumnValueAssert.isEqualTo((Object) null);
     Assertions.assertThat(tableColumnValueAssert).isSameAs(tableColumnValueAssert2);
   }
 
@@ -58,31 +58,31 @@ public class AssertOnValueEquality_IsEqualTo_Number_Test extends AbstractTest {
    */
   @Test
   @NeedReload
-  public void should_fail_because_value_is_not_equal_to() {
+  public void should_fail_because_value_is_not_null() {
     Table table = new Table(source, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update("update test set var14 = 1 where var1 = 1");
     changes.setEndPointNow();
 
     try {
-      assertThat(changes).change().column("var3").valueAtEndPoint().isEqualTo(3);
+      assertThat(changes).change().column("var3").valueAtEndPoint().isEqualTo((Object) null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 2 (column name : VAR3) of Change at index 0 (with primary key : [1]) of Changes on test table of 'sa/jdbc:h2:mem:test' source] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <2>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <3>"));
+                                                                    + "Expecting:%n"
+                                                                    + "  <2>%n"
+                                                                    + "to be equal to: %n"
+                                                                    + "  <null>"));
     }
     try {
-      assertThat(table).column("var3").value().isEqualTo(3);
+      assertThat(table).column("var3").value().isEqualTo((Object) null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 0 of Column at index 2 (column name : VAR3) of test table] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <2>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <3>"));
+                                                                    + "Expecting:%n"
+                                                                    + "  <2>%n"
+                                                                    + "to be equal to: %n"
+                                                                    + "  <null>"));
     }
   }
 }

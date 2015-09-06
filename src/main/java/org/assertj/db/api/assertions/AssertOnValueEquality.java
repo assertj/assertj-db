@@ -15,6 +15,7 @@ package org.assertj.db.api.assertions;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
+
 import java.util.UUID;
 
 /**
@@ -27,6 +28,37 @@ import java.util.UUID;
  * @author Otoniel Isidoro
  */
 public interface AssertOnValueEquality<T extends AssertOnValueEquality<T>> {
+
+  /**
+   * Verifies that the value is equal to a boolean.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is equal to french Locale :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isEqualTo(Locale.FRENCH);
+   * </code>
+   * </pre>
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
+   * of the first {@code Change} is equal to french Locale :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change().rowAtEndPoint().value().isEqualTo(Locale.FRENCH);
+   * </code>
+   * </pre>
+   *
+   * @param expected The expected object value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the object in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isEqualTo(Object)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isEqualTo(Object)
+   */
+  public T isEqualTo(Object expected);
 
   /**
    * Verifies that the value is equal to a boolean.

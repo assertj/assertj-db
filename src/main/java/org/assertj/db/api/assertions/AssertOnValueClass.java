@@ -29,7 +29,7 @@ public interface AssertOnValueClass<T extends AssertOnValueClass<T>> {
    * Example where the assertion verifies that the value in the {@code Column} called "title" of the second {@code Row}
    * of the {@code Table} is of class {@code String} :
    * </p>
-   * <p/>
+   *
    * <pre>
    * <code class='java'>
    * assertThat(table).row(1).value(&quot;title&quot;).isOfClass(String.class);
@@ -39,7 +39,7 @@ public interface AssertOnValueClass<T extends AssertOnValueClass<T>> {
    * Example where the assertion verifies that the value in the {@code Column} called "title" of the {@code Row} at end point
    * of the first {@code Change} is of class {@code String} :
    * </p>
-   * <p/>
+   *
    * <pre>
    * <code class='java'>
    * assertThat(changes).change().rowAtEndPoint().value(&quot;title&quot;).isOfClass(String.class);

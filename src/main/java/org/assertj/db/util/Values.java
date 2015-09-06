@@ -113,6 +113,9 @@ public class Values {
       if (expected == null && value == null) {
         return true;
       }
+      if (value != null) {
+        return value.equals(expected);
+      }
     }
     return false;
   }

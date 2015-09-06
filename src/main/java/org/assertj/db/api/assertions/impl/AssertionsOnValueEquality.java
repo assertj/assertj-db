@@ -51,6 +51,29 @@ public class AssertionsOnValueEquality {
   }
 
   /**
+   * Verifies that the value is equal to a object.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Writable information about an assertion.
+   * @param value     The value.
+   * @param expected  The expected object value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the boolean in parameter.
+   * @since 1.1.0
+   */
+  public static <A extends AbstractAssert> A isEqualTo(A assertion, WritableAssertionInfo info, Object value,
+                                                       Object expected) {
+    if (value != null && expected != null) {
+      AssertionsOnValueClass.isOfClass(assertion, info, value, expected.getClass());
+    }
+    if (areEqual(value, expected)) {
+      return assertion;
+    }
+    throw failures.failure(info, shouldBeEqual(value, expected));
+  }
+
+  /**
    * Verifies that the value is equal to a boolean.
    *
    * @param <A>       The type of the assertion which call this method.
