@@ -25,7 +25,7 @@ import java.util.UUID;
  *
  * @author Régis Pouiller
  * @author Otoniel Isidoro
- * 
+ *
  * @param <D> The class of the actual value (an sub-class of {@link AbstractDbData}).
  * @param <A> The class of the original assertion (an sub-class of {@link AbstractDbAssert}).
  * @param <S> The class of which contains assertion methods about {@link Column} or {@link Row} (an sub-class of
@@ -40,6 +40,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
         extends AbstractAssertWithOriginWithColumnsAndRows<V, S, D, A, C, CV, R, RV>
         implements ValueAssert,
                    ToValue<V>,
+                   AssertOnValueClass<V>,
                    AssertOnValueType<V>,
                    AssertOnValueNullity<V>,
                    AssertOnValueEquality<V>,
@@ -73,6 +74,12 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
   @Override
   public V value(int index) {
     return returnToOrigin().value(index);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public V isOfClass(Class expected) {
+    return AssertionsOnValueClass.isOfClass(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
