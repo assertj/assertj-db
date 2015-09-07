@@ -43,6 +43,9 @@ public class H2Database_Test extends AbstractH2Test {
   //    * column from table, request and change
   // - ...
 
+  // From Régis to Otoniel : note that org.h2.jdbc.JdbcClob extends java.sql.Clob
+  // and org.h2.jdbc.JdbcBlob extends java.sql.Blob
+
   @Test
   @NeedReload
   public void test_is_equal_to() {
@@ -108,8 +111,8 @@ public class H2Database_Test extends AbstractH2Test {
                      .value("var57")//.isEqualTo("37")  // CLOB (org.h2.jdbc.JdbcClob) is not implemented
                      .value("var58")//.isEqualTo("38")  // CLOB (org.h2.jdbc.JdbcClob) is not implemented
                      .value("var59").isEqualTo(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"))
-                     .value("var60")  // ARRAY is not implemented
-                     .value("var61")  // GEOMETRY is not implemented
+                     .value("var60")  // ARRAY is not implemented (no idea of the goal so wait a issue from user)
+                     .value("var61")  // GEOMETRY is not implemented (no idea of the goal so wait a issue from user)
     ;
   }
 
@@ -177,8 +180,8 @@ public class H2Database_Test extends AbstractH2Test {
             .column("var57")//.hasValues("37")  // CLOB (org.h2.jdbc.JdbcClob) is not implemented
             .column("var58")//.hasValues("38")  // CLOB (org.h2.jdbc.JdbcClob) is not implemented
             .column("var59").hasValues(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"))
-            .column("var60")  // ARRAY is not implemented
-            .column("var61")  // GEOMETRY is not implemented
+            .column("var60")  // ARRAY is not implemented (no idea of the goal so wait a issue from user)
+            .column("var61")  // GEOMETRY is not implemented (no idea of the goal so wait a issue from user)
     ;
   }
 }
