@@ -51,6 +51,7 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * @return {@code this} assertion object.
    * @throws AssertionError If the type of the column is different to the type in parameter.
    * @see org.assertj.db.api.AbstractColumnAssert#isOfType(org.assertj.db.type.ValueType, boolean)
+   * @see org.assertj.db.api.ChangeColumnAssert#isOfType(org.assertj.db.type.ValueType, boolean)
    */
   public T isOfType(ValueType expected, boolean lenient);
 
@@ -69,6 +70,7 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * @return {@code this} assertion object.
    * @throws AssertionError If the type of the column is different to all the types in parameters.
    * @see org.assertj.db.api.AbstractColumnAssert#isOfAnyTypeIn(org.assertj.db.type.ValueType...)
+   * @see org.assertj.db.api.ChangeColumnAssert#isOfAnyTypeIn(org.assertj.db.type.ValueType...)
    */
   public T isOfAnyTypeIn(ValueType... expected);
 
@@ -97,6 +99,7 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * @throws AssertionError If the type of the column is not number.
    * @see org.assertj.db.type.ValueType#NUMBER
    * @see org.assertj.db.api.AbstractColumnAssert#isNumber(boolean)
+   * @see org.assertj.db.api.ChangeColumnAssert#isNumber(boolean)
    */
   public T isNumber(boolean lenient);
 
@@ -125,6 +128,7 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * @throws AssertionError If the type of the column is not boolean.
    * @see org.assertj.db.type.ValueType#BOOLEAN
    * @see org.assertj.db.api.AbstractColumnAssert#isBoolean(boolean)
+   * @see org.assertj.db.api.ChangeColumnAssert#isBoolean(boolean)
    */
   public T isBoolean(boolean lenient);
 
@@ -153,6 +157,7 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * @throws AssertionError If the type of the column is not date.
    * @see org.assertj.db.type.ValueType#DATE
    * @see org.assertj.db.api.AbstractColumnAssert#isDate(boolean)
+   * @see org.assertj.db.api.ChangeColumnAssert#isDate(boolean)
    */
   public T isDate(boolean lenient);
 
@@ -181,6 +186,7 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * @throws AssertionError If the type of the column is not time.
    * @see org.assertj.db.type.ValueType#TIME
    * @see org.assertj.db.api.AbstractColumnAssert#isTime(boolean)
+   * @see org.assertj.db.api.ChangeColumnAssert#isTime(boolean)
    */
   public T isTime(boolean lenient);
 
@@ -209,6 +215,7 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * @throws AssertionError If the type of the column is not date/time.
    * @see org.assertj.db.type.ValueType#DATE_TIME
    * @see org.assertj.db.api.AbstractColumnAssert#isDateTime(boolean)
+   * @see org.assertj.db.api.ChangeColumnAssert#isDateTime(boolean)
    */
   public T isDateTime(boolean lenient);
 
@@ -237,6 +244,7 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * @throws AssertionError If the type of the column is not array of bytes.
    * @see org.assertj.db.type.ValueType#BYTES
    * @see org.assertj.db.api.AbstractColumnAssert#isBytes(boolean)
+   * @see org.assertj.db.api.ChangeColumnAssert#isBytes(boolean)
    */
   public T isBytes(boolean lenient);
 
@@ -265,6 +273,7 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * @throws AssertionError If the type of the column is not text.
    * @see org.assertj.db.type.ValueType#TEXT
    * @see org.assertj.db.api.AbstractColumnAssert#isText(boolean)
+   * @see org.assertj.db.api.ChangeColumnAssert#isText(boolean)
    */
   public T isText(boolean lenient);
 
@@ -293,6 +302,7 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * @throws AssertionError If the type of the column is not UUID.
    * @see org.assertj.db.type.ValueType#UUID
    * @see org.assertj.db.api.AbstractColumnAssert#isUUID(boolean)
+   * @see org.assertj.db.api.ChangeColumnAssert#isUUID(boolean)
    * @since 1.1.0
    */
   public T isUUID(boolean lenient);
