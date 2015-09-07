@@ -28,7 +28,7 @@ import java.util.logging.Logger;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-public class AbstractDatabaseTest {
+public abstract class AbstractDatabaseTest {
 
   protected static final Logger LOG = Logger.getLogger("Test");
 

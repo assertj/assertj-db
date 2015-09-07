@@ -30,6 +30,41 @@ import java.util.UUID;
 public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChangeEquality<T>> {
 
   /**
+   * Verifies that the values at the start point and the end point are equal to a object.
+   * <p>
+   * Example where the assertion verifies that the values of the first {@code Column} of the {@code Table} are equal to
+   * {@code Locale.FRENCH} :
+   * </p>
+   * <pre><code class='java'>
+   * assertThat(changes).change(1).column().hasValues(Locale.FRENCH);
+   * </code></pre>
+   *
+   * @param expected The expected object value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the values at start point and at end point are not equal to the object.
+   * @see org.assertj.db.api.ChangeColumnAssert#hasValues(Object)
+   */
+  public T hasValues(Object expected);
+
+  /**
+   * Verifies that the values at the start point and the end point are equal to a object for start point and another object for end point.
+   * <p>
+   * Example where the assertion verifies that the values of the first {@code Column} of the {@code Table} are equal to
+   * {@code Locale.FRENCH} at start point and {@code Locale.ENGLISH} at end point :
+   * </p>
+   * <pre><code class='java'>
+   * assertThat(changes).change(1).column().hasValues(Locale.FRENCH, Locale.ENGLISH);
+   * </code></pre>
+   *
+   * @param expectedAtStartPoint The expected object at start point.
+   * @param expectedAtEndPoint   The expected object at end point.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the values at start point and at end point are not equal to the corresponding objects.
+   * @see org.assertj.db.api.ChangeColumnAssert#hasValues(Object, Object)
+   */
+  public T hasValues(Object expectedAtStartPoint, Object expectedAtEndPoint);
+
+  /**
    * Verifies that the values at the start point and the end point are equal to a boolean.
    * <p>
    * Example where the assertion verifies that the values of the first {@code Column} of the {@code Table} are equal to

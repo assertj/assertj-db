@@ -49,6 +49,33 @@ public class AssertionsOnColumnEquality {
   }
 
   /**
+   * Verifies that the values of a column are equal to objects.
+   *
+   * @param <A>        The type of the assertion which call this method.
+   * @param assertion  The assertion which call this method.
+   * @param info       Writable information about an assertion.
+   * @param valuesList The list of values.
+   * @param expected The expected object values.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the values of the column are not equal to the objects in parameter.
+   */
+  public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
+                                                       List<Object> valuesList, Object... expected) {
+    AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
+    int index = 0;
+    for (Object value : valuesList) {
+      if (value != null && expected[index] != null) {
+        AssertionsOnValueClass.isOfClass(assertion, info, value, expected[index].getClass());
+      }
+      if (!areEqual(value, expected[index])) {
+        throw failures.failure(info, shouldBeEqual(index, value, expected[index]));
+      }
+      index++;
+    }
+    return assertion;
+  }
+
+  /**
    * Verifies that the values of a column are equal to booleans.
    *
    * @param <A>        The type of the assertion which call this method.

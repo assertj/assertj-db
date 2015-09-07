@@ -49,6 +49,66 @@ public class AssertionsOnColumnOfChangeEquality {
   }
 
   /**
+   * Verifies that the values at the start point and the end point are equal to a object.
+   *
+   * @param <A>               The type of the assertion which call this method.
+   * @param assertion         The assertion which call this method.
+   * @param info              Writable information about an assertion.
+   * @param valueAtStartPoint The value at start point.
+   * @param valueAtEndPoint   The value at end point.
+   * @param expected          The object value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the values at start point and at end point are not equal to the object.
+   */
+  public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
+                                                       Object valueAtStartPoint, Object valueAtEndPoint,
+                                                       Object expected) {
+
+    if (expected != null) {
+      AssertionsOnColumnOfChangeClass.isOfClass(assertion, info, valueAtStartPoint, valueAtEndPoint, expected.getClass(), true);
+    }
+    if (!areEqual(valueAtStartPoint, expected)) {
+      throw failures.failure(info, shouldBeEqualWithStartPoint(valueAtStartPoint, expected));
+    }
+    if (!areEqual(valueAtEndPoint, expected)) {
+      throw failures.failure(info, shouldBeEqualWithEndPoint(valueAtEndPoint, expected));
+    }
+    return assertion;
+  }
+
+  /**
+   * Verifies that the values at the start point and the end point are equal to a boolean for start point and another object for end point.
+   *
+   * @param <A>                  The type of the assertion which call this method.
+   * @param assertion            The assertion which call this method.
+   * @param info                 Writable information about an assertion.
+   * @param valueAtStartPoint    The value at start point.
+   * @param valueAtEndPoint      The value at end point.
+   * @param expectedAtStartPoint The expected object at start point.
+   * @param expectedAtEndPoint   The expected object at end point.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the values at start point and at end point are not equal to the corresponding objects.
+   */
+  public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
+                                                       Object valueAtStartPoint, Object valueAtEndPoint,
+                                                       Object expectedAtStartPoint, Object expectedAtEndPoint) {
+
+    if (expectedAtStartPoint != null) {
+      AssertionsOnColumnOfChangeClass.isOfClass(assertion, info, valueAtStartPoint, null, expectedAtStartPoint.getClass(), true);
+    }
+    if (expectedAtEndPoint != null) {
+      AssertionsOnColumnOfChangeClass.isOfClass(assertion, info, null, valueAtEndPoint, expectedAtEndPoint.getClass(), true);
+    }
+    if (!areEqual(valueAtStartPoint, expectedAtStartPoint)) {
+      throw failures.failure(info, shouldBeEqualWithStartPoint(valueAtStartPoint, expectedAtStartPoint));
+    }
+    if (!areEqual(valueAtEndPoint, expectedAtEndPoint)) {
+      throw failures.failure(info, shouldBeEqualWithEndPoint(valueAtEndPoint, expectedAtEndPoint));
+    }
+    return assertion;
+  }
+
+  /**
    * Verifies that the values at the start point and the end point are equal to a boolean.
    *
    * @param <A>               The type of the assertion which call this method.

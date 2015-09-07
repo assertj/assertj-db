@@ -111,6 +111,21 @@ public class ChangeColumnAssert
 
   /** {@inheritDoc} */
   @Override
+  public ChangeColumnAssert hasValues(Object expected) {
+    return AssertionsOnColumnOfChangeEquality
+            .hasValues(myself, info, valueAtStartPoint, valueAtEndPoint, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeColumnAssert hasValues(Object expectedAtStartPoint, Object expectedAtEndPoint) {
+    return AssertionsOnColumnOfChangeEquality
+            .hasValues(myself, info, valueAtStartPoint, valueAtEndPoint, expectedAtStartPoint,
+                       expectedAtEndPoint);
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public ChangeColumnAssert hasValues(Boolean expected) {
     return AssertionsOnColumnOfChangeEquality
             .hasValues(myself, info, valueAtStartPoint, valueAtEndPoint, expected);

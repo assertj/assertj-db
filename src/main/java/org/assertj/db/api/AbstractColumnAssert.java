@@ -161,6 +161,12 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
 
   /** {@inheritDoc} */
   @Override
+  public C hasValues(Object... expected) {
+    return AssertionsOnColumnEquality.hasValues(myself, info, getValuesList(), expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public C hasValues(Boolean... expected) {
     return AssertionsOnColumnEquality.hasValues(myself, info, getValuesList(), expected);
   }

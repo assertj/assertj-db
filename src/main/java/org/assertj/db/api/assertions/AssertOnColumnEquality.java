@@ -15,6 +15,7 @@ package org.assertj.db.api.assertions;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
+
 import java.util.UUID;
 
 /**
@@ -27,6 +28,24 @@ import java.util.UUID;
  * @author Otoniel Isidoro
  */
 public interface AssertOnColumnEquality<T extends AssertOnColumnEquality<T>> {
+
+  /**
+   * Verifies that the values of a column are equal to objects.
+   * <p>
+   * Example where the assertion verifies that the values in the first {@code Column} of the {@code Table} are equal to
+   * the objects in parameter :
+   * </p>
+   *
+   * <pre><code class='java'>
+   * assertThat(table).column().hasValues(Locale.FRENCH, Locale.ENGLISH, Locale.FRENCH);
+   * </code></pre>
+   *
+   * @param expected The expected object values.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the values of the column are not equal to the objects in parameter.
+   * @see org.assertj.db.api.AbstractColumnAssert#hasValues(Object...)
+   */
+  public T hasValues(Object... expected);
 
   /**
    * Verifies that the values of a column are equal to booleans.
