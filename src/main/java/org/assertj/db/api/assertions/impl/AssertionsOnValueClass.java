@@ -53,7 +53,7 @@ public class AssertionsOnValueClass {
    * @since 1.1.0
    */
   public static <A extends AbstractAssert> A isOfClass(A assertion, WritableAssertionInfo info, Object value,
-                                                       Class classOfValue) {
+                                                       Class<?> classOfValue) {
 
     AssertionsOnValueNullity.isNotNull(assertion, info, value);
     if (classOfValue == null) {
@@ -61,7 +61,7 @@ public class AssertionsOnValueClass {
     }
     Class testedClass = value.getClass();
     if (!classOfValue.isAssignableFrom(testedClass)) {
-      throw failures.failure(info, shouldBeValueClass(value, testedClass, classOfValue));
+      throw failures.failure(info, shouldBeValueClass(value, classOfValue));
     }
     return assertion;
   }

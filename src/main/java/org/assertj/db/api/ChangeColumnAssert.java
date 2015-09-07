@@ -12,14 +12,8 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.db.api.assertions.AssertOnColumnName;
-import org.assertj.db.api.assertions.AssertOnColumnOfChangeEquality;
-import org.assertj.db.api.assertions.AssertOnColumnType;
-import org.assertj.db.api.assertions.AssertOnModifiedColumn;
-import org.assertj.db.api.assertions.impl.AssertionsOnColumnName;
-import org.assertj.db.api.assertions.impl.AssertionsOnColumnOfChangeEquality;
-import org.assertj.db.api.assertions.impl.AssertionsOnColumnOfChangeType;
-import org.assertj.db.api.assertions.impl.AssertionsOnModifiedColumn;
+import org.assertj.db.api.assertions.*;
+import org.assertj.db.api.assertions.impl.*;
 import org.assertj.db.api.navigation.ColumnAssert;
 import org.assertj.db.api.origin.OriginWithValuesFromColumn;
 import org.assertj.db.type.DateTimeValue;
@@ -39,6 +33,7 @@ public class ChangeColumnAssert
         extends AbstractAssertWithOriginWithColumnsAndRowsFromChange<ChangeColumnAssert, ChangeAssert>
         implements ColumnAssert,
                    OriginWithValuesFromColumn,
+                   AssertOnColumnClass<ChangeColumnAssert>,
                    AssertOnColumnOfChangeEquality<ChangeColumnAssert>,
                    AssertOnModifiedColumn<ChangeColumnAssert>,
                    AssertOnColumnName<ChangeColumnAssert>,
@@ -238,6 +233,12 @@ public class ChangeColumnAssert
   @Override
   public ChangeColumnAssert hasColumnName(String columnName) {
     return AssertionsOnColumnName.hasColumnName(myself, info, this.columnName, columnName);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeColumnAssert isOfClass(Class expected, boolean lenient) {
+    return AssertionsOnColumnOfChangeClass.isOfClass(myself, info, valueAtStartPoint, valueAtEndPoint, expected, lenient);
   }
 
   /** {@inheritDoc} */

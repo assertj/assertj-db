@@ -37,6 +37,7 @@ import java.util.UUID;
 public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
         extends AbstractSubAssert<D, A, C, CV, C, CV, R, RV>
         implements ColumnAssert,
+                   AssertOnColumnClass<C>,
                    AssertOnColumnEquality<C>,
                    AssertOnNumberOfRows<C>,
                    AssertOnColumnName<C>,
@@ -78,6 +79,12 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
   @Override
   public C hasNumberOfRows(int expected) {
     return AssertionsOnNumberOfRows.hasNumberOfRows(myself, info, column.getValuesList().size(), expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public C isOfClass(Class expected, boolean lenient) {
+    return AssertionsOnColumnClass.isOfClass(myself, info, getValuesList(), expected, lenient);
   }
 
   /** {@inheritDoc} */
