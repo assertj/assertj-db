@@ -185,6 +185,12 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
           case Types.TIMESTAMP:
             objectsList.add(resultSet.getTimestamp(columnName));
             break;
+          case Types.BLOB:
+            objectsList.add(resultSet.getBytes(columnName));
+            break;
+          case Types.CLOB:
+            objectsList.add(resultSet.getString(columnName));
+            break;
 
           default:
             objectsList.add(resultSet.getObject(columnName));
