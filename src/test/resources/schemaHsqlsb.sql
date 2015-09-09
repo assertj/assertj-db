@@ -1,0 +1,30 @@
+create table TEST (
+    var1 INTEGER primary key,
+    var2 INT,
+    var3 DOUBLE,
+    var4 FLOAT,
+    var5 VARCHAR(50),
+    var6 VARCHAR_IGNORECASE,
+    var7 CHAR,
+    var8 CHARACTER,
+    var9 LONGVARCHAR,
+    var10 DATE,
+    var11 TIME,
+    var12 TIMESTAMP,
+    var13 DATETIME,
+    var14 DECIMAL,
+    var15 NUMERIC,
+    var16 BOOLEAN,
+    var17 BIT,
+    var18 TINYINT,
+    var19 SMALLINT,
+    var20 BIGINT,
+    var21 REAL,
+    var22 BINARY(4810),
+    var23 VARBINARY(5000),
+    var24 LONGVARBINARY(5000),
+    var25 OTHER,
+    var26 OBJECT
+);
+
+commit;
