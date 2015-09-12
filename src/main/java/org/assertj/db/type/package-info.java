@@ -14,7 +14,7 @@
  * This package contains the classes that defines the different types used in assertj-db.
  * <p>This diagram shows these different types :</p>
  * <p>
- * <img src="https://raw.githubusercontent.com/joel-costigliola/assertj-db/master/doc/type/diagramOfTypeClasses.png" alt="diagram with navigation on changes" height="45%" width="45%" >
+ * <img src="../../../../../images/type/diagramOfTypeClasses.png" alt="diagram with navigation on changes" height="45%" width="45%" >
  * </p>
  *
  * @author Régis Pouiller

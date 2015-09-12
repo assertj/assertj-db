@@ -29,7 +29,7 @@ import org.assertj.db.type.Row;
  *     <li>a value of a row ({@link org.assertj.db.api.AbstractRowValueAssert})</li>
  * </ul>
  * <p>
- * <img src="https://raw.githubusercontent.com/joel-costigliola/assertj-db/master/doc/table_and_request/navigation/diagramOnNavigationWithTableOrRequest_ToRow.png" alt="diagram with navigation to row" height="45%" width="45%" >
+ * <img src="../../../../../../images/table_and_request/navigation/diagramOnNavigationWithTableOrRequest_ToRow.png" alt="diagram with navigation to row" height="45%" width="45%" >
  * </p>
  * <p>It is important to keep in mind that the methods are executed from the point of view of the last instance with assertion methods on a table ({@link org.assertj.db.api.TableAssert}) or on a request ({@link org.assertj.db.api.RequestAssert}).<br>
  * So all the lines of code below are equivalent : they point on the row at index 1 (as usual, the list start at index 0).

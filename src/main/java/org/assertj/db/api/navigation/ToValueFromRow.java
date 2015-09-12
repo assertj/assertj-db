@@ -22,7 +22,7 @@ package org.assertj.db.api.navigation;
  *     <li>a value of a row ({@link org.assertj.db.api.AbstractRowValueAssert})</li>
  * </ul>
  * <p>
- * <img src="https://raw.githubusercontent.com/joel-costigliola/assertj-db/master/doc/table_and_request/navigation/diagramOnNavigationWithTableOrRequest_ToValue_FromRow.png" alt="diagram with navigation to column" height="45%" width="45%" >
+ * <img src="../../../../../../images/table_and_request/navigation/diagramOnNavigationWithTableOrRequest_ToValue_FromRow.png" alt="diagram with navigation to column" height="45%" width="45%" >
  * </p>
  * <p>If navigating from table or request, it is important to keep in mind that the methods are executed from the point of view of the last instance with assertion methods on a row ({@link org.assertj.db.api.AbstractRowAssert}).<br>
  * So all the lines of code below are equivalent : they point on the value called "name" of first column.
@@ -46,7 +46,7 @@ package org.assertj.db.api.navigation;
  *     <li>a value of a row of a change ({@link org.assertj.db.api.ChangeRowValueAssert})</li>
  * </ul>
  * <p>
- * <img src="https://raw.githubusercontent.com/joel-costigliola/assertj-db/master/doc/changes/navigation/diagramOnNavigationWithChanges_ToValue_FromRow.png" alt="diagram with navigation to column" height="55%" width="55%" >
+ * <img src="../../../../../../images/changes/navigation/diagramOnNavigationWithChanges_ToValue_FromRow.png" alt="diagram with navigation to column" height="55%" width="55%" >
  * </p>
  * <p>If navigating from changes, it is important to keep in mind that the methods are executed from the point of view of the last instance with assertion methods on a row of a change ({@link org.assertj.db.api.ChangeRowAssert}).<br>
  * So all the lines of code below are equivalent : they point on the value called "name" of first row.
