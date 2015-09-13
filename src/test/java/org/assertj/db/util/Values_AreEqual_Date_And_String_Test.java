@@ -19,6 +19,12 @@ import java.sql.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * Tests on {@code areEqual} method for {@code DateValue}s and {@code String}s.
+ *
+ * @author Régis Pouiller
+ *
+ */
 public class Values_AreEqual_Date_And_String_Test {
 
   /**

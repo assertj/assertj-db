@@ -19,6 +19,12 @@ import java.sql.Timestamp;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * Tests on {@code areEqual} method for {@code DateTimeValue}s and {@code String}s.
+ *
+ * @author Régis Pouiller
+ *
+ */
 public class Values_AreEqual_DateTime_And_String_Test {
 
   /**
