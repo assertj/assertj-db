@@ -21,30 +21,34 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 /**
- * Tests on {@link AssertionsOnColumnEquality} class :
- * {@link AssertionsOnColumnEquality#hasValues(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, java.util.List, Object...)} method.
+ * Tests on {@link org.assertj.db.api.assertions.impl.AssertionsOnColumnContent} class :
+ * {@link org.assertj.db.api.assertions.impl.AssertionsOnColumnContent#containsValues(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, java.util.List, byte[]...)} method.
  *
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnColumnEquality_HasValues_Object_Test {
+public class AssertionsOnColumnContent_ContainsValues_Bytes {
 
   /**
-   * This method tests the {@code hasValues} assertion method.
+   * This method tests the {@code containsValues} assertion method.
    */
   @Test
-  public void test_has_values() {
+  public void test_contains_values() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Object> list = new ArrayList<Object>(Arrays.asList(Locale.FRENCH, Locale.ENGLISH, null));
-    TableAssert tableAssert2 = AssertionsOnColumnEquality.hasValues(tableAssert, info, list, Locale.FRENCH, Locale.ENGLISH, null);
+    List<Object> list = new ArrayList<Object>(Arrays.asList(new byte[] {0, 1}, new byte[] {2, 3}));
+    TableAssert tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list, new byte[] {0, 1}, new byte[] {2, 3});
+    Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
+    tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list, new byte[] {2, 3}, new byte[] {0, 1});
+    Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
+    list = new ArrayList<Object>(Arrays.asList(new byte[] {0, 1}, new byte[] {2, 3}, null, new byte[] {2, 3}));
+    tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list, null, new byte[] {2, 3}, new byte[] {0, 1}, new byte[] {2, 3});
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -57,40 +61,38 @@ public class AssertionsOnColumnEquality_HasValues_Object_Test {
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Object> list = new ArrayList<Object>(Arrays.asList(Locale.ENGLISH, Locale.ENGLISH));
+    List<Object> list = new ArrayList<Object>(Arrays.asList(new byte[] {0, 1}, new byte[] {2, 3}, null, new byte[] {2, 3}));
     try {
-      AssertionsOnColumnEquality.hasValues(tableAssert, info, list, Locale.FRENCH, Locale.ENGLISH);
+      AssertionsOnColumnContent.containsValues(tableAssert, info, list, null, new byte[] {2, 3}, null, new byte[] {2, 3});
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at index 0:%n"
-                                                                    + "  <en>%n"
-                                                                    + "to be equal to: %n"
-                                                                    + "  <fr>"));
+                                                                    + "Expecting to contain values but not%n"
+                                                                    + " (parameter at index 2 is not found)"));
     }
   }
 
   /**
-   * This method should fail because one of the values is not of class.
+   * This method should fail because one of the values is not a bytes.
    */
   @Test
-  public void should_fail_because_one_value_is_not_of_class() {
+  public void should_fail_because_one_value_is_not_a_bytes() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Object> list = new ArrayList<Object>(Arrays.asList("other", Locale.ENGLISH));
+    List<Object> list = new ArrayList<Object>(Arrays.asList("other", new byte[] {2, 3}));
     try {
-      AssertionsOnColumnEquality.hasValues(tableAssert, info, list, Locale.FRENCH, Locale.ENGLISH);
+      AssertionsOnColumnContent.containsValues(tableAssert, info, list, new byte[] {0, 1}, new byte[] {2, 3});
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
+                                                                    + "Expecting that the value at index 0:%n"
                                                                     + "  <\"other\">%n"
-                                                                    + "to be of class%n"
-                                                                    + "  <java.util.Locale>%n"
-                                                                    + "but was of class%n"
-                                                                    + "  <java.lang.String>"));
+                                                                    + "to be of type%n"
+                                                                    + "  <[BYTES, NOT_IDENTIFIED]>%n"
+                                                                    + "but was of type%n"
+                                                                    + "  <TEXT>"));
     }
   }
 
@@ -103,9 +105,9 @@ public class AssertionsOnColumnEquality_HasValues_Object_Test {
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Object> list = new ArrayList<Object>(Arrays.asList(Locale.FRENCH, Locale.ENGLISH));
+    List<Object> list = new ArrayList<Object>(Arrays.asList(new byte[] {0, 1}, new byte[] {2, 3}));
     try {
-      AssertionsOnColumnEquality.hasValues(tableAssert, info, list, Locale.FRENCH, Locale.ENGLISH, Locale.ENGLISH);
+      AssertionsOnColumnContent.containsValues(tableAssert, info, list, new byte[] {0, 1}, new byte[] {2, 3}, new byte[] {2, 3});
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"

@@ -24,11 +24,11 @@
  * </p>
  * <p>This diagram shows the part on the tables and requests (the origin interfaces are in blue) :</p>
  * <p>
- * <img src="https://raw.githubusercontent.com/joel-costigliola/assertj-db/master/doc/table_and_request/navigation/diagramOfPartOnTableAndRequestWithNavigation.png" alt="diagram with navigation on table and request" height="80%" width="80%" >
+ * <img src="../../../../../../images/table_and_request/navigation/diagramOfPartOnTableAndRequestWithNavigation.png" alt="diagram with navigation on table and request" height="80%" width="80%" >
  * </p>
  * <p>This diagram shows the part on the changes (the origin interfaces are in blue) :</p>
  * <p>
- * <img src="https://raw.githubusercontent.com/joel-costigliola/assertj-db/master/doc/changes/navigation/diagramOfPartOnChangesWithNavigation.png" alt="diagram with navigation on changes" height="80%" width="80%" >
+ * <img src="../../../../../../images/changes/navigation/diagramOfPartOnChangesWithNavigation.png" alt="diagram with navigation on changes" height="80%" width="80%" >
  * </p>
  *
  * @author Régis Pouiller

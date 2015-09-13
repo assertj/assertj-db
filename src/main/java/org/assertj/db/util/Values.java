@@ -193,11 +193,11 @@ public class Values {
       Long actualValue = null;
 
       if (value instanceof Float) {
-        if (((Float) value).floatValue() == expected.floatValue()) {
+        if (((Float) value) == expected.floatValue()) {
           return true;
         }
       } else if (value instanceof Double) {
-        if (((Double) value).doubleValue() == expected.doubleValue()) {
+        if (((Double) value) == expected.doubleValue()) {
           return true;
         }
       } else if (value instanceof BigInteger) {
@@ -370,7 +370,7 @@ public class Values {
           actual = (Long) number;
         }
 
-        if (actual != null && actual.longValue() == Long.parseLong(expected)) {
+        if (actual != null && actual == Long.parseLong(expected)) {
           return true;
         }
       }
@@ -668,33 +668,58 @@ public class Values {
   public static Object getRepresentationFromValueInFrontOfExpected(Object value, Object expected) {
     switch (ValueType.getType(value)) {
     case DATE:
-      if (expected instanceof DateValue) {
-        return DateValue.from((Date) value);
-      } else if (expected instanceof DateTimeValue) {
-        return DateTimeValue.of(DateValue.from((Date) value));
-      } else if (expected instanceof String) {
+      if (expected instanceof String) {
         if (((String) expected).contains("T")) {
           return DateTimeValue.of(DateValue.from((Date) value)).toString();
         } else {
           return DateValue.from((Date) value).toString();
         }
       }
+    case TIME:
+    case DATE_TIME:
+    case NUMBER:
+    case UUID:
+    case BYTES:
+    case TEXT:
+    case BOOLEAN:
+    default:
+      return getRepresentationFromValueInFrontOfClass(value, expected == null ? null : expected.getClass());
+    }
+  }
+
+  /**
+   * Returns a representation of the value (this representation is used for error message).
+   *
+   * @param value    Value in the database.
+   * @param clazz    Class for comparison.
+   * @return A representation of the value.
+   */
+  public static Object getRepresentationFromValueInFrontOfClass(Object value, Class clazz) {
+    switch (ValueType.getType(value)) {
+    case DATE:
+      if (clazz == DateValue.class) {
+        return DateValue.from((Date) value);
+      } else if (clazz == DateTimeValue.class) {
+        return DateTimeValue.of(DateValue.from((Date) value));
+      } else if (clazz == String.class) {
+        return DateTimeValue.of(DateValue.from((Date) value)).toString();
+      }
       return value;
     case TIME:
-      if (expected instanceof String) {
+      if (clazz == String.class) {
         return TimeValue.from((Time) value).toString();
       } else {
         return TimeValue.from((Time) value);
       }
     case DATE_TIME:
-      if (expected instanceof String) {
+      if (clazz == String.class) {
         return DateTimeValue.from((Timestamp) value).toString();
       } else {
         return DateTimeValue.from((Timestamp) value);
       }
     case NUMBER:
     case UUID:
-      if (expected instanceof String) {
+      if (clazz == String.class) {
         return value.toString();
       } else {
         return value;

@@ -39,6 +39,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
         implements ColumnAssert,
                    AssertOnColumnClass<C>,
                    AssertOnColumnEquality<C>,
+                   AssertOnColumnContent<C>,
                    AssertOnNumberOfRows<C>,
                    AssertOnColumnName<C>,
                    AssertOnColumnType<C>,
@@ -211,6 +212,60 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
   @Override
   public C hasValues(DateTimeValue... expected) {
     return AssertionsOnColumnEquality.hasValues(myself, info, getValuesList(), expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public C containsValues(Object... expected) {
+    return AssertionsOnColumnContent.containsValues(myself, info, getValuesList(), expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public C containsValues(Boolean... expected) {
+    return AssertionsOnColumnContent.containsValues(myself, info, getValuesList(), expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public C containsValues(Number... expected) {
+    return AssertionsOnColumnContent.containsValues(myself, info, getValuesList(), expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public C containsValues(byte[]... expected) {
+    return AssertionsOnColumnContent.containsValues(myself, info, getValuesList(), expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public C containsValues(String... expected) {
+    return AssertionsOnColumnContent.containsValues(myself, info, getValuesList(), expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public C containsValues(UUID... expected) {
+    return AssertionsOnColumnContent.containsValues(myself, info, getValuesList(), expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public C containsValues(DateValue... expected) {
+    return AssertionsOnColumnContent.containsValues(myself, info, getValuesList(), expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public C containsValues(TimeValue... expected) {
+    return AssertionsOnColumnContent.containsValues(myself, info, getValuesList(), expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public C containsValues(DateTimeValue... expected) {
+    return AssertionsOnColumnContent.containsValues(myself, info, getValuesList(), expected);
   }
 
   /** {@inheritDoc} */
