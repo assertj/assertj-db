@@ -25,6 +25,8 @@ import org.assertj.db.type.Row;
 import java.lang.reflect.Constructor;
 import java.util.List;
 
+import static org.assertj.db.util.Descriptions.getRowValueDescription;
+
 /**
  * Base class for all {@link Row}s assertions.
  *
@@ -69,7 +71,7 @@ public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends A
     String columnName = columnsNameList.get(index);
     Constructor<RV> constructor = valueAssertType.getDeclaredConstructor(myself.getClass(), String.class, Object.class);
     RV instance = constructor.newInstance(this, columnName, value);
-    return instance.as("Value at index " + index + " (column name : " + columnName + ") of " + info.descriptionText());
+    return instance.as(getRowValueDescription(info, index, columnName));
   }
 
   /** {@inheritDoc} */

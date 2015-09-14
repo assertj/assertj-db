@@ -23,6 +23,9 @@ import org.assertj.db.type.ValueType;
 
 import java.util.UUID;
 
+import static org.assertj.db.util.Descriptions.getColumnValueAtEndPointDescription;
+import static org.assertj.db.util.Descriptions.getColumnValueAtStartPointDescription;
+
 /**
  * Assertion methods for a {@code Column} of a {@code Change}.
  *
@@ -81,8 +84,8 @@ public class ChangeColumnAssert
   @Override
   public ChangeColumnValueAssert valueAtStartPoint() {
     if (changeColumnValueAssertAtStartPoint == null) {
-      String string = "Value at start point of " + info.descriptionText();
-      changeColumnValueAssertAtStartPoint = new ChangeColumnValueAssert(this, valueAtStartPoint).as(string);
+      changeColumnValueAssertAtStartPoint = new ChangeColumnValueAssert(this, valueAtStartPoint)
+              .as(getColumnValueAtStartPointDescription(info));
     }
     return changeColumnValueAssertAtStartPoint;
   }
@@ -91,8 +94,8 @@ public class ChangeColumnAssert
   @Override
   public ChangeColumnValueAssert valueAtEndPoint() {
     if (changeColumnValueAssertAtEndPoint == null) {
-      String string = "Value at end point of " + info.descriptionText();
-      changeColumnValueAssertAtEndPoint = new ChangeColumnValueAssert(this, valueAtEndPoint).as(string);
+      changeColumnValueAssertAtEndPoint = new ChangeColumnValueAssert(this, valueAtEndPoint)
+              .as(getColumnValueAtEndPointDescription(info));
     }
     return changeColumnValueAssertAtEndPoint;
   }

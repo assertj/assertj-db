@@ -19,7 +19,8 @@ import org.assertj.db.type.Source;
 import org.assertj.db.type.Table;
 
 import java.io.*;
-import java.util.List;
+
+import static org.assertj.db.util.Descriptions.getDescription;
 
 /**
  * Entry point of all the assertions.
@@ -115,7 +116,7 @@ public final class Assertions {
    * @return The created assertion object.
    */
   public static TableAssert assertThat(Table table) {
-    return new TableAssert(table).as(table.getName() + " table");
+    return new TableAssert(table).as(getDescription(table));
   }
 
   /**
@@ -125,11 +126,7 @@ public final class Assertions {
    * @return The created assertion object.
    */
   public static RequestAssert assertThat(Request request) {
-    String sql = request.getRequest();
-    if (sql.length() > 30) {
-      sql = sql.substring(0, 30) + "...";
-    }
-    return new RequestAssert(request).as("'" + sql + "' request");
+    return new RequestAssert(request).as(getDescription(request));
   }
 
   /**
@@ -139,30 +136,7 @@ public final class Assertions {
    * @return The created assertion object.
    */
   public static ChangesAssert assertThat(Changes changes) {
-    StringBuilder stringBuilder = new StringBuilder();
-    if (changes.getTablesList() != null) {
-      List<Table> tablesList = changes.getTablesList();
-      if (tablesList.size() == 1) {
-        Table table = tablesList.get(0);
-        stringBuilder.append("Changes on ").append(table.getName()).append(" table");
-      } else {
-        stringBuilder.append("Changes on tables");
-      }
-    } else {
-      Request request = changes.getRequest();
-      String sql = request.getRequest();
-      if (sql.length() > 30) {
-        sql = sql.substring(0, 30) + "...";
-      }
-      stringBuilder.append("Changes on '").append(sql).append("' request");
-    }
-    if (changes.getSource() != null) {
-      Source source = changes.getSource();
-      stringBuilder.append(" of '").append(source.getUser()).append("/").append(source.getUrl()).append("' source");
-    } else {
-      stringBuilder.append(" of a data source");
-    }
-    return new ChangesAssert(changes).as(stringBuilder.toString());
+    return new ChangesAssert(changes).as(getDescription(changes));
   }
 
   /**

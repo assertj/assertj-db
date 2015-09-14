@@ -27,6 +27,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.assertj.db.util.Descriptions.getColumnDescription;
+import static org.assertj.db.util.Descriptions.getRowDescription;
+
 /**
  * Base class for all data ({@code Table} or {@code Request}) assertions.
  *
@@ -126,7 +129,7 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
       Constructor<R> constructor = rowAssertClass.getDeclaredConstructor(myself.getClass(), Row.class);
       R instance = constructor.newInstance(this, row);
       rowsAssertMap.put(index, instance);
-      return instance.as("Row at index " + index + " of " + info.descriptionText());
+      return instance.as(getRowDescription(info, index));
     } catch (Exception e) {
       throw new AssertJDBException("There is an exception '" + e.getMessage()
           + "'\n\t in the instantiation of the assertion " + rowAssertClass.getName() + "\n\t on the row with "
@@ -187,7 +190,7 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
       Constructor<C> constructor = columnAssertClass.getDeclaredConstructor(myself.getClass(), Column.class);
       C instance = constructor.newInstance(this, column);
       columnsAssertMap.put(index, instance);
-      return instance.as("Column at index " + index + " (column name : " + columnName + ") of " + info.descriptionText());
+      return instance.as(getColumnDescription(info, index, columnName));
     } catch (Exception e) {
       throw new AssertJDBException("There is an exception '" + e.getMessage()
           + "'\n\t in the instantiation of the assertion " + columnAssertClass.getName() + "\n\t on the column with "

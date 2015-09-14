@@ -27,6 +27,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.assertj.db.util.Descriptions.getRowValueDescription;
+
 /**
  * Assertion methods for a {@code Row} of a {@code Change}.
  *
@@ -104,7 +106,7 @@ public class ChangeRowAssert
     String columnName = columnsNameList.get(index);
     ChangeRowValueAssert instance = new ChangeRowValueAssert(this, columnName, value);
     changeValueAssertMap.put(index, instance);
-    return instance.as("Value at index " + index + " (column name : " + columnName + ") of " + info.descriptionText());
+    return instance.as(getRowValueDescription(info, index, columnName));
   }
 
   /** {@inheritDoc} */

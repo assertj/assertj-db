@@ -26,6 +26,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.assertj.db.util.Descriptions.*;
+
 /**
  * Assertion methods for a {@link Change}.
  *
@@ -78,8 +80,8 @@ public class ChangeAssert
   @Override
   public ChangeRowAssert rowAtStartPoint() {
     if (changeRowAssertAtStartPoint == null) {
-      String string = "Row at start point of " + info.descriptionText();
-      changeRowAssertAtStartPoint = new ChangeRowAssert(this, change.getRowAtStartPoint()).as(string);
+      changeRowAssertAtStartPoint = new ChangeRowAssert(this, change.getRowAtStartPoint())
+              .as(getRowAtStartPointDescription(info));
     }
     return changeRowAssertAtStartPoint;
   }
@@ -88,8 +90,8 @@ public class ChangeAssert
   @Override
   public ChangeRowAssert rowAtEndPoint() {
     if (changeRowAssertAtEndPoint == null) {
-      String string = "Row at end point of " + info.descriptionText();
-      changeRowAssertAtEndPoint = new ChangeRowAssert(this, change.getRowAtEndPoint()).as(string);
+      changeRowAssertAtEndPoint = new ChangeRowAssert(this, change.getRowAtEndPoint())
+              .as(getRowAtEndPointDescription(info));
     }
     return changeRowAssertAtEndPoint;
   }
@@ -130,7 +132,7 @@ public class ChangeAssert
     ChangeColumnAssert instance = new ChangeColumnAssert(this, columnName, valueAtStartPoint, valueAtEndPoint);
     columnsAssertMap.put(index, instance);
     indexNextColumn = index + 1;
-    return instance.as("Column at index " + index + " (column name : " + columnName + ") of " + info.descriptionText());
+    return instance.as(getColumnDescription(info, index, columnName));
   }
 
   /** {@inheritDoc} */

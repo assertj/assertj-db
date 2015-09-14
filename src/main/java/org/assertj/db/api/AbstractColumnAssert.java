@@ -21,6 +21,8 @@ import java.lang.reflect.Constructor;
 import java.util.List;
 import java.util.UUID;
 
+import static org.assertj.db.util.Descriptions.getColumnValueDescription;
+
 /**
  * Base class for all {@link Column}s assertions.
  *
@@ -67,7 +69,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
   protected CV getValueAssertInstance(Class<CV> valueAssertType, int index, Object value) throws Exception {
     Constructor<CV> constructor = valueAssertType.getDeclaredConstructor(myself.getClass(), Object.class);
     CV instance = constructor.newInstance(this, value);
-    return instance.as("Value at index " + index + " of " + info.descriptionText());
+    return instance.as(getColumnValueDescription(info, index));
   }
 
   /** {@inheritDoc} */

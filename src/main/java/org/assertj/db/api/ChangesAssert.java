@@ -26,6 +26,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.assertj.db.util.Descriptions.getChangeDescription;
+import static org.assertj.db.util.Descriptions.getChangesDescription;
+
 /**
  * Assertion methods for {@link Changes}.
  *
@@ -108,33 +111,6 @@ public class ChangesAssert
   }
 
   /**
-   * Gets a StringBuilder about the type of change and the table name.
-   *
-   * @param changeType Type of the change on which is the instance of change assert.
-   * @param tableName  Name of the table on which is the instance of change assert.
-   * @return The changes assert implementation.
-   */
-  private StringBuilder getStringBuilderAboutChangeTypeAndTableName(ChangeType changeType, String tableName) {
-    StringBuilder stringBuilder = new StringBuilder();
-    if (changeType != null || tableName != null) {
-      stringBuilder.append(" (only");
-      if (changeType != null) {
-        stringBuilder.append(" ");
-        stringBuilder.append(changeType.name().toLowerCase());
-      }
-      stringBuilder.append(" ");
-      stringBuilder.append("changes");
-      if (tableName != null) {
-        stringBuilder.append(" on ");
-        stringBuilder.append(tableName);
-        stringBuilder.append(" table");
-      }
-      stringBuilder.append(")");
-    }
-    return stringBuilder;
-  }
-
-  /**
    * Gets an instance of changes assert corresponding to the index and the type of change. If this instance is already instanced, the method
    * returns it from the cache.
    *
@@ -154,8 +130,7 @@ public class ChangesAssert
     if (tableName != null) {
       changes = changes.getChangesOfTable(tableName);
     }
-    changesAssert = new ChangesAssert(this, changes).as(info.descriptionText() + getStringBuilderAboutChangeTypeAndTableName(
-            changeType, tableName));
+    changesAssert = new ChangesAssert(this, changes).as(getChangesDescription(info, changeType, tableName));
     setAssertInCache(changeType, tableName, changesAssert);
     return changesAssert;
   }
@@ -278,26 +253,7 @@ public class ChangesAssert
     ChangeAssert instance = new ChangeAssert(this, change);
     changeMap.put(change, instance);
     setIndexNextChange(changeType, tableName, index + 1);
-    StringBuilder stringBuilder = new StringBuilder("Change at index " + index);
-    List<Object> pksValueList = change.getPksValueList();
-    boolean isAChangeOnATableAmongOtherTables = changes.getTablesList() != null && changes.getTablesList().size() > 1;
-    boolean havePksValues = pksValueList.size() > 0;
-    if (isAChangeOnATableAmongOtherTables || havePksValues) {
-      stringBuilder.append(" (");
-      if (isAChangeOnATableAmongOtherTables) {
-        stringBuilder.append("on table : ").append(change.getDataName());
-      }
-      if (isAChangeOnATableAmongOtherTables && havePksValues) {
-        stringBuilder.append(" and ");
-      }
-      if (havePksValues) {
-        stringBuilder.append("with primary key : ").append(pksValueList);
-      }
-      stringBuilder.append(")");
-    }
-    stringBuilder.append(" of ").append(info.descriptionText());
-    stringBuilder.append(getStringBuilderAboutChangeTypeAndTableName(changeType, tableName));
-    return instance.as(stringBuilder.toString());
+    return instance.as(getChangeDescription(info, changes, change, index, changeType, tableName));
   }
 
   /**
