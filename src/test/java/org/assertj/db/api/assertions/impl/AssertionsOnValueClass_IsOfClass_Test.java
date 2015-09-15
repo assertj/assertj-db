@@ -68,23 +68,15 @@ public class AssertionsOnValueClass_IsOfClass_Test {
                                                                     + "but was of class%n"
                                                                     + "  <java.lang.Integer>"));
     }
-  }
-
-  /**
-   * This method should fail because the value is null.
-   */
-  @Test
-  public void should_fail_because_value_is_null() {
-    WritableAssertionInfo info = new WritableAssertionInfo();
-    info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnValueClass.isOfClass(tableAssert, info, null, String.class);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting actual not to be null"));
+                                                                    + "Expecting:%n"
+                                                                    + "  <null>%n"
+                                                                    + "to be of class%n"
+                                                                    + "  <java.lang.String>"));
     }
   }
 

@@ -168,6 +168,44 @@ public class HsqldbDatabase_Test extends AbstractHsqlsbTest {
 
   @Test
   @NeedReload
+  public void test_ColumnEquality_containsValues() {
+    Table table = new Table(source, "test");
+    Changes changes = new Changes(table).setStartPointNow();
+    update("update test set var2=20");
+    changes.setEndPointNow();
+
+    assertThat(table)
+            .column("var1").containsValues(1)
+            .column("var2").containsValues(20)
+            .column("var3").containsValues(3.3)
+            .column("var4").containsValues(4.4)
+            .column("var5").containsValues("5")
+            .column("var6").containsValues("6")
+            .column("var7").containsValues("7")
+            .column("var8").containsValues("8")
+            .column("var9").containsValues("9")
+            .column("var10").containsValues(DateValue.of(2007, 12, 23))
+            .column("var11").containsValues(TimeValue.of(9, 1))
+            .column("var12").containsValues(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1)))
+            .column("var13").containsValues(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1)))
+            .column("var14").containsValues(10)
+            .column("var15").containsValues(11)
+            .column("var16").containsValues(true)
+            .column("var17").containsValues(false)
+            .column("var18").containsValues(12)
+            .column("var19").containsValues(13)
+            .column("var20").containsValues(14)
+            .column("var21").containsValues(15)
+            .column("var22").containsValues(bytesContentFromClassPathOf("h2-logo-2.png"))
+            .column("var23").containsValues(bytesContentFromClassPathOf("h2-logo-2.png"))
+            .column("var24").containsValues(bytesContentFromClassPathOf("h2-logo-2.png"))
+            .column("var25").containsValues(Locale.FRENCH)
+            .column("var26").containsValues(Locale.FRENCH)
+    ;
+  }
+
+  @Test
+  @NeedReload
   public void test_ColumnType_isOfType() {
     Table table = new Table(source, "test");
     Changes changes = new Changes(table).setStartPointNow();

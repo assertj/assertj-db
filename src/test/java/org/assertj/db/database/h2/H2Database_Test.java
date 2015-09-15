@@ -308,6 +308,78 @@ public class H2Database_Test extends AbstractH2Test {
 
   @Test
   @NeedReload
+  public void test_ColumnEquality_containsValues() {
+    Table table = new Table(source, "test");
+    Changes changes = new Changes(table).setStartPointNow();
+    update("update test set var2=20");
+    changes.setEndPointNow();
+
+    assertThat(table).column("var1").containsValues(1)
+                     .column("var2").containsValues(20)
+                     .column("var3").containsValues(3)
+                     .column("var4").containsValues(4)
+                     .column("var5").containsValues(5)
+                     .column("var6").containsValues(6)
+                     .column("var7").containsValues(true)
+                     .column("var8").containsValues(false)
+                     .column("var9").containsValues(true)
+                     .column("var10").containsValues(7)
+                     .column("var11").containsValues(8)
+                     .column("var12").containsValues(9)
+                     .column("var13").containsValues(10)
+                     .column("var14").containsValues(11)
+                     .column("var15").containsValues(12)
+                     .column("var16").containsValues(13.13)
+                     .column("var17").containsValues(14.14)
+                     .column("var18").containsValues(15.15)
+                     .column("var19").containsValues(16.16)
+                     .column("var20").containsValues(17.17)
+                     .column("var21").containsValues(18.18)
+                     .column("var22").containsValues(19.19)
+                     .column("var23").containsValues(20.20)
+                     .column("var24").containsValues(21.21)
+                     .column("var25").containsValues(TimeValue.of(9, 1))
+                     .column("var26").containsValues(DateValue.of(2007, 12, 23))
+                     .column("var27").containsValues(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1)))
+                     .column("var28").containsValues(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1)))
+                     .column("var29").containsValues(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1)))
+                     .column("var30").containsValues(bytesContentFromClassPathOf("h2-logo-2.png"))
+                     .column("var31").containsValues(bytesContentFromClassPathOf("h2-logo-2.png"))
+                     .column("var32").containsValues(bytesContentFromClassPathOf("h2-logo-2.png"))
+                     .column("var33").containsValues(bytesContentFromClassPathOf("h2-logo-2.png"))
+                     .column("var34").containsValues(bytesContentFromClassPathOf("h2-logo-2.png"))
+                     .column("var35").containsValues(Locale.FRENCH)
+                     .column("var36").containsValues("22")
+                     .column("var37").containsValues("23")
+                     .column("var38").containsValues("24")
+                     .column("var39").containsValues("25")
+                     .column("var40").containsValues("26")
+                     .column("var41").containsValues("27")
+                     .column("var42").containsValues("28")
+                     .column("var43").containsValues("29")
+                     .column("var44").containsValues("30")
+                     .column("var45").containsValues("31")
+                     .column("var46").containsValues(bytesContentFromClassPathOf("h2-logo-2.png"))
+                     .column("var47").containsValues(bytesContentFromClassPathOf("h2-logo-2.png"))
+                     .column("var48").containsValues(bytesContentFromClassPathOf("h2-logo-2.png"))
+                     .column("var49").containsValues(bytesContentFromClassPathOf("h2-logo-2.png"))
+                     .column("var50").containsValues(bytesContentFromClassPathOf("h2-logo-2.png"))
+                     .column("var51").containsValues(bytesContentFromClassPathOf("h2-logo-2.png"))
+                     .column("var52").containsValues("32")
+                     .column("var53").containsValues("33")
+                     .column("var54").containsValues("34")
+                     .column("var55").containsValues("35")
+                     .column("var56").containsValues("36")
+                     .column("var57").containsValues("37")
+                     .column("var58").containsValues("38")
+                     .column("var59").containsValues(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"))
+            .column("var60")  // ARRAY is not implemented (no idea of the goal so wait a issue from user)
+            .column("var61")  // GEOMETRY is not implemented (no idea of the goal so wait a issue from user)
+    ;
+  }
+
+  @Test
+  @NeedReload
   public void test_ColumnType_isOfType() {
     Table table = new Table(source, "test");
     Changes changes = new Changes(table).setStartPointNow();

@@ -648,7 +648,7 @@ public class Values {
     Object[] representationsValues = new Object[values.length];
     int i = 0;
     for (Object obj : values) {
-      if (i > expected.length) {
+      if (i >= expected.length) {
         representationsValues[i] = obj;
       } else {
         representationsValues[i] = Values.getRepresentationFromValueInFrontOfExpected(obj, expected[i]);

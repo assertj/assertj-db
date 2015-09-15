@@ -1,0 +1,136 @@
+/**
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ *
+ * Copyright 2012-2015 the original author or authors.
+ */
+package org.assertj.db.util;
+
+import org.assertj.db.type.DateTimeValue;
+import org.assertj.db.type.DateValue;
+import org.assertj.db.type.TimeValue;
+import org.junit.Test;
+
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.util.UUID;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+/**
+* Tests on {@code getRepresentationsFromValuesInFrontOfExpected} method from utility class {@code Values}.
+*
+* @author Régis Pouiller
+*
+*/
+public class Values_GetRepresentationsFromValuesInFrontOfExpected_Test {
+
+  /**
+   * This method tests the {@code getRepresentationsFromValuesInFrontOfExpected} method for {@code Date}s.
+   */
+  @Test
+  public void test_getRepresentationsFromValuesInFrontOfExpected_for_dates() {
+    Date date = Date.valueOf("2007-12-23");
+    assertThat(Values.getRepresentationsFromValuesInFrontOfExpected(new Date[] { date, date },
+                                                                    new DateValue[] { DateValue.of(2007, 12, 23) }))
+            .isEqualTo(new Object[] { DateValue.from(date), date });
+    assertThat(Values.getRepresentationsFromValuesInFrontOfExpected(new Date[] { date, date },
+                                                                    new DateTimeValue[] { DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1)) }))
+            .isEqualTo(new Object[] { DateTimeValue.of(DateValue.from(date)), date });
+    assertThat(Values.getRepresentationsFromValuesInFrontOfExpected(new Date[] { date, date },
+                                                                    new String[] { "" }))
+            .isEqualTo(new Object[] { "2007-12-23", date });
+    assertThat(Values.getRepresentationsFromValuesInFrontOfExpected(new Date[] { date, date },
+                                                                    new String[] { "T" }))
+            .isEqualTo(new Object[] { "2007-12-23T00:00:00.000000000", date });
+    assertThat(Values.getRepresentationsFromValuesInFrontOfExpected(new Date[] { date, date },
+                                                                    new Object[] { null }))
+            .isEqualTo(new Object[] { date, date });
+  }
+
+  /**
+   * This method tests the {@code getRepresentationsFromValuesInFrontOfExpected} method for {@code Time}s.
+   */
+  @Test
+  public void test_getRepresentationsFromValuesInFrontOfExpected_for_times() {
+    Time time = Time.valueOf("09:01:06");
+    assertThat(Values.getRepresentationsFromValuesInFrontOfExpected(new Time[] { time, time },
+                                                                    new Object[] { null }))
+            .isEqualTo(new Object[] { TimeValue.from(time), time });
+    assertThat(Values.getRepresentationsFromValuesInFrontOfExpected(new Time[] { time, time },
+                                                                    new String[] { "" }))
+            .isEqualTo(new Object[] { "09:01:06.000000000", time });
+  }
+
+  /**
+   * This method tests the {@code getRepresentationsFromValuesInFrontOfExpected} method for {@code Timestamp}s.
+   */
+  @Test
+  public void test_getRepresentationsFromValuesInFrontOfExpected_for_datetime() {
+    Timestamp timestamp = Timestamp.valueOf("2007-12-23 09:01:06.000000003");
+    assertThat(Values.getRepresentationsFromValuesInFrontOfExpected(new Timestamp[] { timestamp, timestamp },
+                                                                    new Object[] { null }))
+            .isEqualTo(new Object[] { DateTimeValue.from(timestamp), timestamp });
+    assertThat(Values.getRepresentationsFromValuesInFrontOfExpected(new Timestamp[] { timestamp, timestamp },
+                                                                    new String[] { "" }))
+            .isEqualTo(new Object[] { "2007-12-23T09:01:06.000000003", timestamp });
+  }
+
+  /**
+   * This method tests the {@code getRepresentationsFromValuesInFrontOfExpected} method for array of {@code byte}.
+   */
+  @Test
+  public void test_getRepresentationsFromValuesInFrontOfExpected_for_bytes() {
+    assertThat(Values.getRepresentationsFromValuesInFrontOfExpected(new byte[][] { new byte[] { 1, 2 }, new byte[] { 1, 2 } },
+                                                                    new Object[] { null }))
+            .isEqualTo(new byte[][] { new byte[] { 1, 2 }, new byte[] { 1, 2 } });
+  }
+
+  /**
+   * This method tests the {@code getRepresentationsFromValuesInFrontOfExpected} method for {@code String}s.
+   */
+  @Test
+  public void test_getRepresentationsFromValuesInFrontOfExpected_for_text() {
+    assertThat(Values.getRepresentationsFromValuesInFrontOfExpected(new String[] {"text", "text1"}, new Object[] { null }))
+            .isEqualTo(new String[] {"text", "text1"});
+  }
+
+  /**
+   * This method tests the {@code getRepresentationsFromValuesInFrontOfExpected} method for {@code UUID}s.
+   */
+  @Test
+  public void test_getRepresentationsFromValuesInFrontOfExpected_for_UUID() {
+    assertThat(Values.getRepresentationsFromValuesInFrontOfExpected(
+            new UUID[] { UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"), UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435") }, new String[] {"30B443AE-C0C9-4790-9BEC-CE1380808435"}))
+            .isEqualTo(new Object[] {"30b443ae-c0c9-4790-9bec-ce1380808435", UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435") });
+    assertThat(Values.getRepresentationsFromValuesInFrontOfExpected(
+            new UUID[] { UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"), UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435") }, new Object[] { null }))
+            .isEqualTo(new UUID[] { UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"), UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435") });
+  }
+
+  /**
+   * This method tests the {@code getRepresentationsFromValuesInFrontOfExpected} method for {@code Boolean}s.
+   */
+  @Test
+  public void test_getRepresentationsFromValuesInFrontOfExpected_for_boolean() {
+    assertThat(Values.getRepresentationsFromValuesInFrontOfExpected(new Boolean[]{ true, false }, new Object[] { null }))
+            .isEqualTo(new Boolean[] { true, false });
+  }
+
+  /**
+   * This method tests the {@code getRepresentationsFromValuesInFrontOfExpected} method for {@code null}.
+   */
+  @Test
+  public void test_getRepresentationsFromValuesInFrontOfExpected_for_null() {
+    assertThat(Values.getRepresentationsFromValuesInFrontOfExpected(new Object[] { null, null }, new Object[] { null }))
+            .isEqualTo(new Boolean[] { null, null });
+  }
+
+}

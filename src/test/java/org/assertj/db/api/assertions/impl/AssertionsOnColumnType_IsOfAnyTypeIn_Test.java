@@ -22,6 +22,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
@@ -77,6 +78,32 @@ public class AssertionsOnColumnType_IsOfAnyTypeIn_Test {
                                                       + "  <[TEXT, DATE]>%n"
                                                       + "but was of type%n"
                                                       + "  <NUMBER>"));
+    }
+    try {
+      List<Object> list = new ArrayList<Object>(Arrays.asList(null, "test"));
+      AssertionsOnColumnType.isOfAnyTypeIn(tableAssert, info, list, ValueType.TEXT, ValueType.DATE);
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                                    + "Expecting that the value at index 0:%n"
+                                                                    + "  <null>%n"
+                                                                    + "to be of type%n"
+                                                                    + "  <[TEXT, DATE]>%n"
+                                                                    + "but was of type%n"
+                                                                    + "  <NOT_IDENTIFIED>"));
+    }
+    try {
+      List<Object> list = new ArrayList<Object>(Arrays.asList(Locale.FRENCH, "test"));
+      AssertionsOnColumnType.isOfAnyTypeIn(tableAssert, info, list, ValueType.TEXT, ValueType.DATE);
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                                    + "Expecting that the value at index 0:%n"
+                                                                    + "  <fr>%n"
+                                                                    + "to be of type%n"
+                                                                    + "  <[TEXT, DATE]>%n"
+                                                                    + "but was of type%n"
+                                                                    + "  <NOT_IDENTIFIED> (java.util.Locale)"));
     }
   }
 

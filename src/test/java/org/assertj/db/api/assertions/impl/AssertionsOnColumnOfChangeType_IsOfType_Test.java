@@ -19,6 +19,8 @@ import org.assertj.db.type.Table;
 import org.assertj.db.type.ValueType;
 import org.junit.Test;
 
+import java.util.Locale;
+
 import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
@@ -69,6 +71,32 @@ public class AssertionsOnColumnOfChangeType_IsOfType_Test {
                                                       + "but was of type%n"
                                                       + "  <NUMBER>"));
     }
+    try {
+      AssertionsOnColumnOfChangeType.isOfType(tableAssert, info,
+                                              null, "test", ValueType.TEXT, false);
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                                    + "Expecting that the value at start point:%n"
+                                                                    + "  <null>%n"
+                                                                    + "to be of type%n"
+                                                                    + "  <TEXT>%n"
+                                                                    + "but was of type%n"
+                                                                    + "  <NOT_IDENTIFIED>"));
+    }
+    try {
+      AssertionsOnColumnOfChangeType.isOfType(tableAssert, info,
+                                              Locale.FRENCH, "test", ValueType.TEXT, false);
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                                    + "Expecting that the value at start point:%n"
+                                                                    + "  <fr>%n"
+                                                                    + "to be of type%n"
+                                                                    + "  <TEXT>%n"
+                                                                    + "but was of type%n"
+                                                                    + "  <NOT_IDENTIFIED> (java.util.Locale)"));
+    }
   }
 
   /**
@@ -92,6 +120,32 @@ public class AssertionsOnColumnOfChangeType_IsOfType_Test {
                                                       + "  <TEXT>%n"
                                                       + "but was of type%n"
                                                       + "  <NUMBER>"));
+    }
+    try {
+      AssertionsOnColumnOfChangeType.isOfType(tableAssert, info,
+                                              "test", null, ValueType.TEXT, false);
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                                    + "Expecting that the value at end point:%n"
+                                                                    + "  <null>%n"
+                                                                    + "to be of type%n"
+                                                                    + "  <TEXT>%n"
+                                                                    + "but was of type%n"
+                                                                    + "  <NOT_IDENTIFIED>"));
+    }
+    try {
+      AssertionsOnColumnOfChangeType.isOfType(tableAssert, info,
+                                              "test", Locale.FRENCH, ValueType.TEXT, false);
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                                    + "Expecting that the value at end point:%n"
+                                                                    + "  <fr>%n"
+                                                                    + "to be of type%n"
+                                                                    + "  <TEXT>%n"
+                                                                    + "but was of type%n"
+                                                                    + "  <NOT_IDENTIFIED> (java.util.Locale)"));
     }
   }
 

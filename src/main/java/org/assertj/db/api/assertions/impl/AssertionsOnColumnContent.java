@@ -68,14 +68,11 @@ public class AssertionsOnColumnContent {
       boolean found = false;
       List<Object> newList = new ArrayList<>();
       for (Object obj : list) {
-        if (found) {
+        if (found || !Values.areEqual(obj, val)) {
           newList.add(obj);
-        }
-        else if (Values.areEqual(obj, val)) {
-          found = true;
         }
         else {
-          newList.add(obj);
+          found = true;
         }
       }
       if (!found) {
@@ -112,14 +109,11 @@ public class AssertionsOnColumnContent {
       boolean found = false;
       List<Object> newList = new ArrayList<>();
       for (Object obj : list) {
-        if (found) {
+        if (found || !Values.areEqual(obj, val)) {
           newList.add(obj);
-        }
-        else if (Values.areEqual(obj, val)) {
-          found = true;
         }
         else {
-          newList.add(obj);
+          found = true;
         }
       }
       if (!found) {
@@ -156,14 +150,11 @@ public class AssertionsOnColumnContent {
       boolean found = false;
       List<Object> newList = new ArrayList<>();
       for (Object obj : list) {
-        if (found) {
+        if (found || !Values.areEqual(obj, val)) {
           newList.add(obj);
-        }
-        else if (Values.areEqual(obj, val)) {
-          found = true;
         }
         else {
-          newList.add(obj);
+          found = true;
         }
       }
       if (!found) {
@@ -200,14 +191,11 @@ public class AssertionsOnColumnContent {
       boolean found = false;
       List<Object> newList = new ArrayList<>();
       for (Object obj : list) {
-        if (found) {
+        if (found || !Values.areEqual(obj, val)) {
           newList.add(obj);
-        }
-        else if (Values.areEqual(obj, val)) {
-          found = true;
         }
         else {
-          newList.add(obj);
+          found = true;
         }
       }
       if (!found) {
@@ -245,14 +233,11 @@ public class AssertionsOnColumnContent {
       boolean found = false;
       List<Object> newList = new ArrayList<>();
       for (Object obj : list) {
-        if (found) {
+        if (found || !Values.areEqual(obj, val)) {
           newList.add(obj);
-        }
-        else if (Values.areEqual(obj, val)) {
-          found = true;
         }
         else {
-          newList.add(obj);
+          found = true;
         }
       }
       if (!found) {
@@ -289,14 +274,11 @@ public class AssertionsOnColumnContent {
       boolean found = false;
       List<Object> newList = new ArrayList<>();
       for (Object obj : list) {
-        if (found) {
+        if (found || !Values.areEqual(obj, val)) {
           newList.add(obj);
-        }
-        else if (Values.areEqual(obj, val)) {
-          found = true;
         }
         else {
-          newList.add(obj);
+          found = true;
         }
       }
       if (!found) {
@@ -334,14 +316,11 @@ public class AssertionsOnColumnContent {
       boolean found = false;
       List<Object> newList = new ArrayList<>();
       for (Object obj : list) {
-        if (found) {
+        if (found || !Values.areEqual(obj, val)) {
           newList.add(obj);
-        }
-        else if (Values.areEqual(obj, val)) {
-          found = true;
         }
         else {
-          newList.add(obj);
+          found = true;
         }
       }
       if (!found) {
@@ -378,14 +357,11 @@ public class AssertionsOnColumnContent {
       boolean found = false;
       List<Object> newList = new ArrayList<>();
       for (Object obj : list) {
-        if (found) {
+        if (found || !Values.areEqual(obj, val)) {
           newList.add(obj);
-        }
-        else if (Values.areEqual(obj, val)) {
-          found = true;
         }
         else {
-          newList.add(obj);
+          found = true;
         }
       }
       if (!found) {
@@ -423,14 +399,11 @@ public class AssertionsOnColumnContent {
       boolean found = false;
       List<Object> newList = new ArrayList<>();
       for (Object obj : list) {
-        if (found) {
+        if (found || !Values.areEqual(obj, val)) {
           newList.add(obj);
-        }
-        else if (Values.areEqual(obj, val)) {
-          found = true;
         }
         else {
-          newList.add(obj);
+          found = true;
         }
       }
       if (!found) {

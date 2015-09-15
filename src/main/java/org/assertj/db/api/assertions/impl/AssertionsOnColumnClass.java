@@ -48,11 +48,12 @@ public class AssertionsOnColumnClass {
    * @param assertion  The assertion which call this method.
    * @param info       Writable information about an assertion.
    * @param valuesList The list of values.
-   * @param expected The expected class to compare to.
-   * @param lenient {@code true} if the test is lenient : if the class of a value is not identified (for example when the
-   *          value is {@code null}), it consider that it is ok.
+   * @param expected   The expected class to compare to.
+   * @param lenient    {@code true} if the test is lenient : if the class of a value is not identified (for example when the
+   *                   value is {@code null}), it consider that it is ok.
    * @return {@code this} assertion object.
-   * @throws AssertionError If the class of the column is different to the class in parameter.
+   * @throws AssertionError     If the class of the column is different to the class in parameter.
+   * @throws AssertJDBException If the class is {@code null}.
    * @since 1.1.0
    */
   public static <A extends AbstractAssert> A isOfClass(A assertion, WritableAssertionInfo info, List<Object> valuesList,
