@@ -16,7 +16,6 @@ import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.type.Table;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -98,7 +97,6 @@ public class AssertionsOnColumnContent_ContainsValues_Object {
    * This method should fail because one of the values is not of class.
    */
   @Test
-  @Ignore
   public void should_fail_because_one_value_is_not_of_class() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
