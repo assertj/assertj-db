@@ -30,8 +30,8 @@ import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 /**
- * Tests on {@link ToRow} class :
- * {@link ToRow#row()} method.
+ * Tests on {@link org.assertj.db.navigation.ToRow} class :
+ * {@link org.assertj.db.navigation.ToRow#row()} method.
  *
  * @author Régis Pouiller
  *

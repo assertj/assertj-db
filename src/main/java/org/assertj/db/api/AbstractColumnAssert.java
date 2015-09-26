@@ -14,7 +14,7 @@ package org.assertj.db.api;
 
 import org.assertj.db.api.assertions.*;
 import org.assertj.db.api.assertions.impl.*;
-import org.assertj.db.api.navigation.ColumnAssert;
+import org.assertj.db.navigation.element.ColumnElement;
 import org.assertj.db.type.*;
 
 import java.lang.reflect.Constructor;
@@ -38,7 +38,7 @@ import static org.assertj.db.util.Descriptions.getColumnValueDescription;
  */
 public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
         extends AbstractSubAssert<D, A, C, CV, C, CV, R, RV>
-        implements ColumnAssert,
+        implements ColumnElement,
                    AssertOnColumnClass<C>,
                    AssertOnColumnEquality<C>,
                    AssertOnColumnContent<C>,

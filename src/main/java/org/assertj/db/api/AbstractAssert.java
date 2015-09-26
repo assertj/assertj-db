@@ -12,9 +12,7 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.core.api.Descriptable;
-import org.assertj.core.api.WritableAssertionInfo;
-import org.assertj.core.description.Description;
+import org.assertj.db.global.AbstractElement;
 
 /**
  * Base class for all assertions of assertj-db.
@@ -26,51 +24,14 @@ import org.assertj.core.description.Description;
  *          for more details.
  */
 public abstract class AbstractAssert<E extends AbstractAssert<E>>
-        implements Descriptable<E> {
-
-  /**
-   * Writable information about an assertion.
-   */
-  protected final WritableAssertionInfo info;
-
-  /**
-   * Class of the assertion.
-   */
-  protected final E myself;
+        extends AbstractElement<E> {
 
   /**
    * Constructor.
-   * 
-   * @param selfType Class of this assertion class : a sub-class of {@code AbstractAssert}.
+   *
+   * @param selfType Class of this assertion class : a sub-class of {@code AbstractElement}.
    */
   AbstractAssert(Class<E> selfType) {
-    myself = selfType.cast(this);
-    info = new WritableAssertionInfo();
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public E as(String description, Object... args) {
-    return describedAs(description, args);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public E as(Description description) {
-    return describedAs(description);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public E describedAs(String description, Object... args) {
-    info.description(description, args);
-    return myself;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public E describedAs(Description description) {
-    info.description(description);
-    return myself;
+    super(selfType);
   }
 }

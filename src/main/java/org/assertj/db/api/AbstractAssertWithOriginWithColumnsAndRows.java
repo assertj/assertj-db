@@ -12,19 +12,19 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.db.api.navigation.ToColumn;
-import org.assertj.db.api.navigation.ToRow;
-import org.assertj.db.api.origin.OriginWithColumnsAndRows;
+import org.assertj.db.navigation.ToColumn;
+import org.assertj.db.navigation.ToRow;
+import org.assertj.db.navigation.origin.OriginWithColumnsAndRows;
 import org.assertj.db.type.AbstractDbData;
 
 /**
- * Base class for all assertions with an {@link org.assertj.db.api.origin.Origin}
+ * Base class for all assertions with an {@link org.assertj.db.navigation.origin.Origin}
  * and have {@link org.assertj.db.type.Column}s and {@link org.assertj.db.type.Row}s.
  *
  * @param <E>  The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/1IZIRcY"
  *             target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
  *             for more details.
- * @param <O>  The type of the assertion class of {@link org.assertj.db.api.origin.Origin}.
+ * @param <O>  The type of the assertion class of {@link org.assertj.db.navigation.origin.Origin}.
  * @param <D>  The class of the actual value (an sub-class of {@link AbstractDbData}).
  * @param <A>  The class of the original assert (an sub-class of {@link AbstractDbAssert}).
  * @param <C>  The class of this assertion (an sub-class of {@link AbstractColumnAssert}).
@@ -42,7 +42,7 @@ public abstract class AbstractAssertWithOriginWithColumnsAndRows<E extends Abstr
    * Constructor.
    *
    * @param selfType Type of this assertion class : a sub-class of {@code AbstractAssertWithOriginWithColumnsAndRows}.
-   * @param origin The assertion of {@link org.assertj.db.api.origin.Origin}.
+   * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    */
   AbstractAssertWithOriginWithColumnsAndRows(Class<E> selfType, O origin) {
     super(selfType, origin);

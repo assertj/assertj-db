@@ -34,7 +34,7 @@ public abstract class AbstractColumnValueAssert<D extends AbstractDbData<D>, A e
    * Constructor.
    *
    * @param selfType    Type of this assertion class : a sub-class of {@code AbstractColumnValueAssert}.
-   * @param origin      The assertion of {@link org.assertj.db.api.origin.Origin}.
+   * @param origin      The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    * @param actualValue The value on which are the assertion methods.
    */
   AbstractColumnValueAssert(Class<CV> selfType, C origin, Object actualValue) {

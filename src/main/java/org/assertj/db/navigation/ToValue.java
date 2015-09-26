@@ -10,13 +10,15 @@
  *
  * Copyright 2012-2015 the original author or authors.
  */
-package org.assertj.db.api.navigation;
+package org.assertj.db.navigation;
+
+import org.assertj.db.navigation.element.ValueElement;
 
 /**
  * Defines methods to navigate to a value.
- * <p>The different methods return an assertion on one value {@link org.assertj.db.api.navigation.ValueAssert}.</p>
+ * <p>The different methods return an assertion on one value {@link org.assertj.db.navigation.element.ValueElement}.</p>
  * <p>These methods exists when navigating (at the beginning {@code assertThat()}) from changes, from a {@link org.assertj.db.type.Table} or from a {@link org.assertj.db.type.Request}.</p>
- * <p>As shown in the diagram below, if navigating from table or request, it is possible to call the method to navigate to a {@link org.assertj.db.api.navigation.ValueAssert} from :</p>
+ * <p>As shown in the diagram below, if navigating from table or request, it is possible to call the method to navigate to a {@link org.assertj.db.navigation.element.ValueElement} from :</p>
  * <ul>
  *     <li>a column ({@link org.assertj.db.api.AbstractColumnAssert})</li>
  *     <li>a value of a column ({@link org.assertj.db.api.AbstractColumnValueAssert})</li>
@@ -24,7 +26,7 @@ package org.assertj.db.api.navigation;
  *     <li>a value of a row ({@link org.assertj.db.api.AbstractRowValueAssert})</li>
  * </ul>
  * <p>
- * <img src="../../../../../../images/table_and_request/navigation/diagramOnNavigationWithTableOrRequest_ToValue.png" alt="diagram with navigation to column" height="45%" width="45%" >
+ * <img src="../../../../../images/table_and_request/navigation/diagramOnNavigationWithTableOrRequest_ToValue.png" alt="diagram with navigation to column" height="45%" width="45%" >
  * </p>
  * <p>If navigating from table or request, it is important to keep in mind that the methods are executed from the point of view of the last instance with assertion methods on a column ({@link org.assertj.db.api.AbstractColumnAssert}) or on a row ({@link org.assertj.db.api.AbstractRowAssert}).<br>
  * So all the lines of code below are equivalent : they point on the value at index 1 (as usual, the list start at index 0) of first column.
@@ -43,13 +45,13 @@ package org.assertj.db.api.navigation;
  * assertThat(request).column().value().returnToColumn().returnToRequest().column().value(1)......;
  * </code>
  * </pre>
- * <p>As shown in the diagram below, if navigating from changes, it is possible to call the method to navigate to a {@link org.assertj.db.api.navigation.ValueAssert} from :</p>
+ * <p>As shown in the diagram below, if navigating from changes, it is possible to call the method to navigate to a {@link org.assertj.db.navigation.element.ValueElement} from :</p>
  * <ul>
  *     <li>a row of a change ({@link org.assertj.db.api.ChangeRowAssert})</li>
  *     <li>a value of a row of a change ({@link org.assertj.db.api.ChangeRowValueAssert})</li>
  * </ul>
  * <p>
- * <img src="../../../../../../images/changes/navigation/diagramOnNavigationWithChanges_ToValue.png" alt="diagram with navigation to column" height="55%" width="55%" >
+ * <img src="../../../../../images/changes/navigation/diagramOnNavigationWithChanges_ToValue.png" alt="diagram with navigation to column" height="55%" width="55%" >
  * </p>
  * <p>If navigating from changes, it is important to keep in mind that the methods are executed from the point of view of the last instance with assertion methods on a row of a change ({@link org.assertj.db.api.ChangeRowAssert}).<br>
  * So all the lines of code below are equivalent : they point on the value at index 1 (as usual, the list start at index 0) of first row.
@@ -70,9 +72,9 @@ package org.assertj.db.api.navigation;
  *
  * @author Régis Pouiller
  *
- * @param <V> The class of a assertion on a value (an sub-class of {@link org.assertj.db.api.navigation.ValueAssert}).
+ * @param <V> The class of a assertion on a value (an sub-class of {@link org.assertj.db.navigation.element.ValueElement}).
  */
-public interface ToValue<V extends ValueAssert> {
+public interface ToValue<V extends ValueElement> {
 
   /**
    * Returns assertion methods on the next value in the list of values.

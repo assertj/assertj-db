@@ -10,19 +10,14 @@
  *
  * Copyright 2012-2015 the original author or authors.
  */
-package org.assertj.db.api.origin;
-
-import org.assertj.db.api.navigation.ToChange;
-import org.assertj.db.api.navigation.ToChanges;
+package org.assertj.db.navigation.element;
 
 /**
- * Defines a class which is the {@link org.assertj.db.api.origin.Origin} of another
- * and have {@link org.assertj.db.type.Changes}.
+ * Interface that represents a element of navigation about changes.
+ * <p>It can be changes on a table, a request or in database.</p>
+ * <p>This interface is used by the interface {@link org.assertj.db.navigation.ToChanges}.</p>
  *
  * @author Régis Pouiller
  */
-public interface OriginWithChanges
-        extends Origin,
-                ToChanges,
-                ToChange {
+public interface ChangesElement {
 }

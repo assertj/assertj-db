@@ -10,15 +10,16 @@
  *
  * Copyright 2012-2015 the original author or authors.
  */
-package org.assertj.db.api.navigation;
+package org.assertj.db.navigation.element;
 
 /**
- * Interface that represents a assert about row.
- * <p>It can be a row of a table, of the result of a request or a change.</p>
- * <p>This interface is used by the interfaces {@link ToRow}
- * and {@link ToRowFromChange}.</p>
+ * Interface that represents a element of navigation about value.
+ * <p>It can be a value of a table, of the result of a request or a change.</p>
+ * <p>This interface is used by the interfaces {@link org.assertj.db.navigation.ToValue},
+ * {@link org.assertj.db.navigation.ToValueFromColumn}
+ * and {@link org.assertj.db.navigation.ToValueFromRow}.</p>
  *
  * @author Régis Pouiller
  */
-public interface RowAssert {
+public interface ValueElement {
 }

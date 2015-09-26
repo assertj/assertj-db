@@ -10,15 +10,14 @@
  *
  * Copyright 2012-2015 the original author or authors.
  */
-package org.assertj.db.api.navigation;
+package org.assertj.db.navigation.element;
 
 /**
- * Interface that represents a assert about column.
- * <p>It can be a column of a table, of the result of a request or a change.</p>
- * <p>This interface is used by the interfaces {@link ToColumn}
- * and {@link ToColumnFromChange}.</p>
+ * Interface that represents a element of navigation about change.
+ * <p>It can be a changes on a table or a request.</p>
+ * <p>This interface is used by the interface {@link org.assertj.db.navigation.ToChange}.</p>
  *
  * @author Régis Pouiller
  */
-public interface ColumnAssert {
+public interface ChangeElement {
 }

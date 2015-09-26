@@ -10,20 +10,13 @@
  *
  * Copyright 2012-2015 the original author or authors.
  */
-package org.assertj.db.api.origin;
-
-import org.assertj.db.api.ChangeRowValueAssert;
-import org.assertj.db.api.navigation.ToValue;
-import org.assertj.db.api.navigation.ToValueFromRow;
+package org.assertj.db.navigation.origin;
 
 /**
- * Defines a class which is the {@link org.assertj.db.api.origin.Origin} of another
- * and have values from a {@link org.assertj.db.type.Row}.
- *
+ * Defines a class which is the origin of another.
+ * 
  * @author Régis Pouiller
  */
-public interface OriginWithValuesFromRow
-        extends OriginWithColumnsAndRowsFromChange,
-                ToValue<ChangeRowValueAssert>,
-                ToValueFromRow<ChangeRowValueAssert> {
+public interface Origin {
+
 }

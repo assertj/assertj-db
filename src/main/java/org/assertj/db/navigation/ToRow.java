@@ -10,16 +10,17 @@
  *
  * Copyright 2012-2015 the original author or authors.
  */
-package org.assertj.db.api.navigation;
+package org.assertj.db.navigation;
 
 import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.navigation.element.RowElement;
 import org.assertj.db.type.Row;
 
 /**
  * Defines methods to navigate to a {@link org.assertj.db.type.Row}.
- * <p>The different methods return an assertion on one row {@link org.assertj.db.api.navigation.RowAssert}.</p>
+ * <p>The different methods return an assertion on one row {@link org.assertj.db.navigation.element.RowElement}.</p>
  * <p>These methods exists when navigating (at the beginning {@code assertThat()}) from a {@link org.assertj.db.type.Table} or from a {@link org.assertj.db.type.Request}.</p>
- * <p>As shown in the diagram below, it is possible to call the method to navigate to a {@link org.assertj.db.api.navigation.RowAssert} from :</p>
+ * <p>As shown in the diagram below, it is possible to call the method to navigate to a {@link org.assertj.db.navigation.element.RowElement} from :</p>
  * <ul>
  *     <li>a table ({@link org.assertj.db.api.TableAssert})</li>
  *     <li>a request ({@link org.assertj.db.api.RequestAssert})</li>
@@ -29,7 +30,7 @@ import org.assertj.db.type.Row;
  *     <li>a value of a row ({@link org.assertj.db.api.AbstractRowValueAssert})</li>
  * </ul>
  * <p>
- * <img src="../../../../../../images/table_and_request/navigation/diagramOnNavigationWithTableOrRequest_ToRow.png" alt="diagram with navigation to row" height="45%" width="45%" >
+ * <img src="../../../../../images/table_and_request/navigation/diagramOnNavigationWithTableOrRequest_ToRow.png" alt="diagram with navigation to row" height="45%" width="45%" >
  * </p>
  * <p>It is important to keep in mind that the methods are executed from the point of view of the last instance with assertion methods on a table ({@link org.assertj.db.api.TableAssert}) or on a request ({@link org.assertj.db.api.RequestAssert}).<br>
  * So all the lines of code below are equivalent : they point on the row at index 1 (as usual, the list start at index 0).
@@ -54,9 +55,9 @@ import org.assertj.db.type.Row;
  *
  * @author Régis Pouiller
  *
- * @param <R> The class of a assertion on a row (an sub-class of {@link org.assertj.db.api.navigation.RowAssert}).
+ * @param <R> The class of a assertion on a row (an sub-class of {@link org.assertj.db.navigation.element.RowElement}).
  */
-public interface ToRow<R extends RowAssert> {
+public interface ToRow<R extends RowElement> {
 
   /**
    * Returns assertion methods on the next {@link org.assertj.db.type.Row} in the list of {@link org.assertj.db.type.Row}.

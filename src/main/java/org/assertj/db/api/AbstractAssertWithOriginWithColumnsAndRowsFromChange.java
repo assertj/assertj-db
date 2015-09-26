@@ -12,22 +12,22 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.db.api.navigation.ToColumn;
-import org.assertj.db.api.navigation.ToColumnFromChange;
-import org.assertj.db.api.navigation.ToRowFromChange;
-import org.assertj.db.api.origin.OriginWithColumnsAndRowsFromChange;
+import org.assertj.db.navigation.ToColumn;
+import org.assertj.db.navigation.ToColumnFromChange;
+import org.assertj.db.navigation.ToRowFromChange;
+import org.assertj.db.navigation.origin.OriginWithColumnsAndRowsFromChange;
 
 /**
- * Base class for all assertions with an {@link org.assertj.db.api.origin.Origin}
+ * Base class for all assertions with an {@link org.assertj.db.navigation.origin.Origin}
  * and have {@link org.assertj.db.type.Column}s and {@link org.assertj.db.type.Row}s from a {@link org.assertj.db.type.Change}.
  *
  * @param <E> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/1IZIRcY"
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
  *            for more details.
- * @param <O> The type of the assertion class of {@link org.assertj.db.api.origin.Origin}.
+ * @param <O> The type of the assertion class of {@link org.assertj.db.navigation.origin.Origin}.
  * @author Régis Pouiller
  */
-public abstract class AbstractAssertWithOriginWithColumnsAndRowsFromChange<E extends AbstractAssertWithOriginWithColumnsAndRowsFromChange<E, O>, O extends OriginWithColumnsAndRowsFromChange>
+public abstract class AbstractAssertWithOriginWithColumnsAndRowsFromChange<E extends AbstractAssertWithOriginWithColumnsAndRowsFromChange<E, O>, O extends OriginWithColumnsAndRowsFromChange<ChangesAssert, ChangeAssert, ChangeColumnAssert, ChangeRowAssert>>
         extends AbstractAssertWithOriginWithChanges<E, O>
         implements ToColumn<ChangeColumnAssert>,
                    ToColumnFromChange<ChangeColumnAssert>,
@@ -37,7 +37,7 @@ public abstract class AbstractAssertWithOriginWithColumnsAndRowsFromChange<E ext
    * Constructor.
    *
    * @param selfType Type of this assertion class : a sub-class of {@code AbstractAssertWithOriginWithColumnsAndRowsFromChange}.
-   * @param origin The assertion of {@link org.assertj.db.api.origin.Origin}.
+   * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    */
   AbstractAssertWithOriginWithColumnsAndRowsFromChange(Class<E> selfType, O origin) {
     super(selfType, origin);

@@ -12,7 +12,7 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.db.api.navigation.ToValueFromColumn;
+import org.assertj.db.navigation.ToValueFromColumn;
 
 /**
  * Assertion methods for a value of a {@code Column} of a {@code Change}.
@@ -27,7 +27,7 @@ public class ChangeColumnValueAssert
   /**
    * Constructor.
    *
-   * @param origin The assertion of {@link org.assertj.db.api.origin.Origin}.
+   * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    * @param value The value on which are the assertions.
    */
   ChangeColumnValueAssert(ChangeColumnAssert origin, Object value) {

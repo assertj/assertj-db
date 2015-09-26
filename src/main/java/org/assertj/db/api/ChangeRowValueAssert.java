@@ -14,8 +14,8 @@ package org.assertj.db.api;
 
 import org.assertj.db.api.assertions.AssertOnColumnName;
 import org.assertj.db.api.assertions.impl.AssertionsOnColumnName;
-import org.assertj.db.api.navigation.ToValue;
-import org.assertj.db.api.navigation.ToValueFromRow;
+import org.assertj.db.navigation.ToValue;
+import org.assertj.db.navigation.ToValueFromRow;
 
 /**
  * Assertion methods for a value of a {@code Row} of a {@code Change}.
@@ -37,7 +37,7 @@ public class ChangeRowValueAssert
   /**
    * Constructor.
    *
-   * @param origin The assertion of {@link org.assertj.db.api.origin.Origin}.
+   * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    * @param columnName The column name.
    * @param value The value on which are the assertions.
    */

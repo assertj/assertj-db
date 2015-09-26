@@ -10,20 +10,22 @@
  *
  * Copyright 2012-2015 the original author or authors.
  */
-package org.assertj.db.api.navigation;
+package org.assertj.db.navigation;
+
+import org.assertj.db.navigation.element.ValueElement;
 
 /**
  * Defines methods to navigate to a value from a {@link org.assertj.db.type.Column}
  * (a column from a {@link org.assertj.db.type.Change}}.
- * <p>The different methods return an assertion on one value {@link org.assertj.db.api.navigation.ValueAssert}.</p>
+ * <p>The different methods return an assertion on one value {@link org.assertj.db.navigation.element.ValueElement}.</p>
  * <p>These methods exists when navigating (at the beginning {@code assertThat()}) from changes.</p>
- * <p>As shown in the diagram below, if navigating from changes, it is possible to call the method to navigate to a {@link org.assertj.db.api.navigation.ColumnAssert} from :</p>
+ * <p>As shown in the diagram below, if navigating from changes, it is possible to call the method to navigate to a {@link org.assertj.db.navigation.element.ColumnElement} from :</p>
  * <ul>
  *     <li>a column of a change ({@link org.assertj.db.api.ChangeColumnAssert})</li>
  *     <li>a value of a column of a change ({@link org.assertj.db.api.ChangeColumnValueAssert})</li>
  * </ul>
  * <p>
- * <img src="../../../../../../images/changes/navigation/diagramOnNavigationWithChanges_ToValue_FromColumn.png" alt="diagram with navigation to column" height="55%" width="55%" >
+ * <img src="../../../../../images/changes/navigation/diagramOnNavigationWithChanges_ToValue_FromColumn.png" alt="diagram with navigation to column" height="55%" width="55%" >
  * </p>
  * <p>It is important to keep in mind that the methods are executed from the point of view of the last instance with assertion methods on a column of a change ({@link org.assertj.db.api.ChangeAssert}).<br>
  * So all the lines of code below are equivalent : they point on the value at end point of first column.
@@ -42,9 +44,9 @@ package org.assertj.db.api.navigation;
  *
  * @author Régis Pouiller
  *
- * @param <V> The class of a assertion on a value (an sub-class of {@link org.assertj.db.api.navigation.ValueAssert}).
+ * @param <V> The class of a assertion on a value (an sub-class of {@link org.assertj.db.navigation.element.ValueElement}).
  */
-public interface ToValueFromColumn<V extends ValueAssert> {
+public interface ToValueFromColumn<V extends ValueElement> {
 
   /**
    * Returns assertion methods on the value at the start point.

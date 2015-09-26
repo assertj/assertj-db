@@ -14,7 +14,7 @@ package org.assertj.db.api;
 
 import org.assertj.db.api.assertions.AssertOnColumnName;
 import org.assertj.db.api.assertions.impl.AssertionsOnColumnName;
-import org.assertj.db.api.navigation.ToValueFromRow;
+import org.assertj.db.navigation.ToValueFromRow;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Row;
 
@@ -45,7 +45,7 @@ public abstract class AbstractRowValueAssert<D extends AbstractDbData<D>, A exte
    * Constructor.
    * 
    * @param selfType Type of this assertion class : a sub-class of {@code AbstractValueAssert}.
-   * @param origin The assertion of {@link org.assertj.db.api.origin.Origin}.
+   * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    * @param columnName The column name.
    * @param actualValue The value on which are the assertion methods.
    */

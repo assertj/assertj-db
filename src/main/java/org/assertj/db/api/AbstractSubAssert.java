@@ -12,9 +12,9 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.db.api.navigation.ToValue;
-import org.assertj.db.api.origin.OriginWithColumnsAndRows;
 import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.navigation.ToValue;
+import org.assertj.db.navigation.origin.OriginWithColumnsAndRows;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Column;
 import org.assertj.db.type.Row;

@@ -15,6 +15,7 @@ package org.assertj.db.api;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.common.NeedReload;
+import org.assertj.db.global.AbstractElement;
 import org.assertj.db.type.Changes;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
@@ -39,7 +40,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_for_change_with_different_informations() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -71,7 +72,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_of_changes() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -99,7 +100,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_of_all_changes() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -127,7 +128,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_of_creation_changes() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -155,7 +156,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_of_modification_changes() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -183,7 +184,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_of_deletion_changes() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -211,7 +212,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_of_creation_on_table_changes() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -239,7 +240,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_of_modification_on_table_changes() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -267,7 +268,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_of_deletion_on_table_changes() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -295,7 +296,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_on_table_changes() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -323,7 +324,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_of_changes_on_table() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -353,7 +354,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_of_changes_on_request() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -383,7 +384,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_of_change_of_changes() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -411,7 +412,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_of_change_of_changes_on_table() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -440,7 +441,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_of_change_of_changes_on_request() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -470,7 +471,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_of_creation_change_of_changes() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -498,7 +499,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_of_creation_change_of_changes_on_table() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -528,7 +529,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_of_creation_change_of_changes_on_request() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -558,7 +559,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_of_modification_change_of_changes() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -586,7 +587,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_of_modification_change_of_changes_on_table() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -616,7 +617,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_of_modification_change_of_changes_on_request() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -645,7 +646,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_of_deletion_change_of_changes() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -673,7 +674,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_of_deletion_change_of_changes_on_table() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -703,7 +704,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_of_deletion_change_of_changes_on_request() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -733,7 +734,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_of_creation_change_on_table_of_changes() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -761,7 +762,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_of_creation_change_on_table_of_changes_on_table() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -791,7 +792,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_of_modification_change_on_table_of_changes() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -819,7 +820,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_of_modification_change_on_table_of_changes_on_table() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -849,7 +850,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_of_deletion_change_on_table_of_changes() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -877,7 +878,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_of_deletion_change_on_table_of_changes_on_table() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -907,7 +908,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_of_change_on_table_of_changes() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -934,7 +935,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_of_change_on_table_of_changes_on_table() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -964,7 +965,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_of_change_on_table_with_pks_of_changes() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -992,7 +993,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_of_change_on_table_with_pks_of_changes_on_table() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -1022,7 +1023,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_column_of_change_of_changes() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -1050,7 +1051,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_row_at_start_point_of_change_of_changes() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -1078,7 +1079,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_row_at_end_point_of_change_of_changes() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -1106,7 +1107,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_value_at_start_point_of_column_of_change_of_changes() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -1135,7 +1136,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_value_at_end_point_of_column_of_change_of_changes() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -1164,7 +1165,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_value_of_row_at_start_point_of_change_of_changes() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -1192,7 +1193,7 @@ public class DefaultDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_default_description_value_of_row_at_end_point_of_change_of_changes() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -1219,7 +1220,7 @@ public class DefaultDescription_Test extends AbstractTest {
    */
   @Test
   public void test_default_description_of_table() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -1243,7 +1244,7 @@ public class DefaultDescription_Test extends AbstractTest {
    */
   @Test
   public void test_default_description_of_request() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -1267,7 +1268,7 @@ public class DefaultDescription_Test extends AbstractTest {
    */
   @Test
   public void test_default_description_of_column_of_table() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -1291,7 +1292,7 @@ public class DefaultDescription_Test extends AbstractTest {
    */
   @Test
   public void test_default_description_of_row_of_table() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -1315,7 +1316,7 @@ public class DefaultDescription_Test extends AbstractTest {
    */
   @Test
   public void test_default_description_of_column_of_request() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -1339,7 +1340,7 @@ public class DefaultDescription_Test extends AbstractTest {
    */
   @Test
   public void test_default_description_of_row_of_request() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -1363,7 +1364,7 @@ public class DefaultDescription_Test extends AbstractTest {
    */
   @Test
   public void test_default_description_of_value_of_column_of_table() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -1387,7 +1388,7 @@ public class DefaultDescription_Test extends AbstractTest {
    */
   @Test
   public void test_default_description_of_value_of_row_of_table() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -1411,7 +1412,7 @@ public class DefaultDescription_Test extends AbstractTest {
    */
   @Test
   public void test_default_description_of_value_of_column_of_request() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 
@@ -1435,7 +1436,7 @@ public class DefaultDescription_Test extends AbstractTest {
    */
   @Test
   public void test_default_description_of_value_of_row_of_request() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 
 

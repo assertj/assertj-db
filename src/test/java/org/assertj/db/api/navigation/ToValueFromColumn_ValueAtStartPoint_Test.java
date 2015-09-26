@@ -25,8 +25,8 @@ import java.math.BigDecimal;
 import static org.assertj.db.api.Assertions.assertThat;
 
 /**
- * Tests on {@link ToValueFromColumn} class :
- * {@link org.assertj.db.api.navigation.ToValueFromColumn#valueAtStartPoint()} method.
+ * Tests on {@link org.assertj.db.navigation.ToValueFromColumn} class :
+ * {@link org.assertj.db.navigation.ToValueFromColumn#valueAtStartPoint()} method.
  *
  * @author Régis Pouiller
  *

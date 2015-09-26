@@ -10,23 +10,23 @@
  *
  * Copyright 2012-2015 the original author or authors.
  */
-package org.assertj.db.api.origin;
+package org.assertj.db.navigation.origin;
 
-import org.assertj.db.api.navigation.ColumnAssert;
-import org.assertj.db.api.navigation.RowAssert;
-import org.assertj.db.api.navigation.ToColumn;
-import org.assertj.db.api.navigation.ToRow;
+import org.assertj.db.navigation.ToColumn;
+import org.assertj.db.navigation.ToRow;
+import org.assertj.db.navigation.element.ColumnElement;
+import org.assertj.db.navigation.element.RowElement;
 
 /**
- * Defines a class which is the {@link org.assertj.db.api.origin.Origin} of another
+ * Defines a class which is the {@link Origin} of another
  * and have {@link org.assertj.db.type.Column}s and {@link org.assertj.db.type.Row}s.
  *
  * @author Régis Pouiller
  *
- * @param <C> The class of a assert on column (an sub-class of {@link org.assertj.db.api.navigation.ColumnAssert}).
- * @param <R> The class of the equivalent row assert (an sub-class of {@link org.assertj.db.api.navigation.RowAssert}).
+ * @param <C> The class of a element of navigation on column (an sub-class of {@link org.assertj.db.navigation.element.ColumnElement}).
+ * @param <R> The class of a element of navigation on a row (an sub-class of {@link org.assertj.db.navigation.element.RowElement}).
  */
-public interface OriginWithColumnsAndRows<C extends ColumnAssert, R extends RowAssert>
+public interface OriginWithColumnsAndRows<C extends ColumnElement, R extends RowElement>
         extends Origin,
                 ToColumn<C>,
                 ToRow<R> {

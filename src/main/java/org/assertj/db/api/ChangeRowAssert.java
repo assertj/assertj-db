@@ -18,9 +18,9 @@ import org.assertj.db.api.assertions.AssertOnRowOfChangeExistence;
 import org.assertj.db.api.assertions.impl.AssertionsOnNumberOfColumns;
 import org.assertj.db.api.assertions.impl.AssertionsOnRowEquality;
 import org.assertj.db.api.assertions.impl.AssertionsOnRowOfChangeExistence;
-import org.assertj.db.api.navigation.RowAssert;
-import org.assertj.db.api.origin.OriginWithValuesFromRow;
 import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.navigation.element.RowElement;
+import org.assertj.db.navigation.origin.OriginWithValuesFromRow;
 import org.assertj.db.type.Row;
 
 import java.util.HashMap;
@@ -36,8 +36,8 @@ import static org.assertj.db.util.Descriptions.getRowValueDescription;
  */
 public class ChangeRowAssert
         extends AbstractAssertWithOriginWithColumnsAndRowsFromChange<ChangeRowAssert, ChangeAssert>
-        implements RowAssert,
-                   OriginWithValuesFromRow,
+        implements RowElement,
+                   OriginWithValuesFromRow<ChangesAssert, ChangeAssert, ChangeColumnAssert, ChangeRowAssert, ChangeRowValueAssert>,
                    AssertOnRowEquality<ChangeRowAssert>,
                    AssertOnNumberOfColumns<ChangeRowAssert>,
                    AssertOnRowOfChangeExistence<ChangeRowAssert> {
@@ -59,7 +59,7 @@ public class ChangeRowAssert
   /**
    * Constructor.
    *
-   * @param origin The assertion of {@link org.assertj.db.api.origin.Origin}.
+   * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    * @param row The {@link Row} on which are the assertions.
    */
   ChangeRowAssert(ChangeAssert origin, Row row) {

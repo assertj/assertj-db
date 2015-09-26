@@ -27,7 +27,7 @@ public class TableRowAssert
   /**
    * Constructor.
    * 
-   * @param origin The assertion of {@link org.assertj.db.api.origin.Origin}.
+   * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    * @param row The row on which do assertion.
    */
   TableRowAssert(TableAssert origin, Row row) {

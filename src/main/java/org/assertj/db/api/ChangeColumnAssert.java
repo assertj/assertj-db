@@ -14,8 +14,8 @@ package org.assertj.db.api;
 
 import org.assertj.db.api.assertions.*;
 import org.assertj.db.api.assertions.impl.*;
-import org.assertj.db.api.navigation.ColumnAssert;
-import org.assertj.db.api.origin.OriginWithValuesFromColumn;
+import org.assertj.db.navigation.element.ColumnElement;
+import org.assertj.db.navigation.origin.OriginWithValuesFromColumn;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
@@ -34,8 +34,8 @@ import static org.assertj.db.util.Descriptions.getColumnValueAtStartPointDescrip
  */
 public class ChangeColumnAssert
         extends AbstractAssertWithOriginWithColumnsAndRowsFromChange<ChangeColumnAssert, ChangeAssert>
-        implements ColumnAssert,
-                   OriginWithValuesFromColumn,
+        implements ColumnElement,
+                   OriginWithValuesFromColumn<ChangesAssert, ChangeAssert, ChangeColumnAssert, ChangeRowAssert, ChangeColumnValueAssert>,
                    AssertOnColumnClass<ChangeColumnAssert>,
                    AssertOnColumnOfChangeEquality<ChangeColumnAssert>,
                    AssertOnModifiedColumn<ChangeColumnAssert>,
@@ -69,7 +69,7 @@ public class ChangeColumnAssert
    * Constructor.
    *
    * @param columnName The column name.
-   * @param origin The assertion of {@link org.assertj.db.api.origin.Origin}.
+   * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    * @param valueAtStartPoint The value at start point.
    * @param valueAtEndPoint The value at end point.
    */

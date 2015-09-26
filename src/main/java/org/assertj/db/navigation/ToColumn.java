@@ -10,13 +10,15 @@
  *
  * Copyright 2012-2015 the original author or authors.
  */
-package org.assertj.db.api.navigation;
+package org.assertj.db.navigation;
+
+import org.assertj.db.navigation.element.ColumnElement;
 
 /**
  * Defines methods to navigate to a {@link org.assertj.db.type.Column}.
- * <p>The different methods return an assertion on one column {@link org.assertj.db.api.navigation.ColumnAssert}.</p>
+ * <p>The different methods return an assertion on one column {@link org.assertj.db.navigation.element.ColumnElement}.</p>
  * <p>These methods exists when navigating (at the beginning {@code assertThat()}) from changes, from a {@link org.assertj.db.type.Table} or from a {@link org.assertj.db.type.Request}.</p>
- * <p>As shown in the diagram below, if navigating from table or request, it is possible to call the method to navigate to a {@link org.assertj.db.api.navigation.ColumnAssert} from :</p>
+ * <p>As shown in the diagram below, if navigating from table or request, it is possible to call the method to navigate to a {@link org.assertj.db.navigation.element.ColumnElement} from :</p>
  * <ul>
  *     <li>a table ({@link org.assertj.db.api.TableAssert})</li>
  *     <li>a request ({@link org.assertj.db.api.RequestAssert})</li>
@@ -26,7 +28,7 @@ package org.assertj.db.api.navigation;
  *     <li>a value of a row ({@link org.assertj.db.api.AbstractRowValueAssert})</li>
  * </ul>
  * <p>
- * <img src="../../../../../../images/table_and_request/navigation/diagramOnNavigationWithTableOrRequest_ToColumn.png" alt="diagram with navigation to column" height="45%" width="45%" >
+ * <img src="../../../../../images/table_and_request/navigation/diagramOnNavigationWithTableOrRequest_ToColumn.png" alt="diagram with navigation to column" height="45%" width="45%" >
  * </p>
  * <p>If navigating from table or request, it is important to keep in mind that the methods are executed from the point of view of the last instance with assertion methods on a table ({@link org.assertj.db.api.TableAssert}) or on a request ({@link org.assertj.db.api.RequestAssert}).<br>
  * So all the lines of code below are equivalent : they point on the column at index 1 (as usual, the list start at index 0).
@@ -45,7 +47,7 @@ package org.assertj.db.api.navigation;
  * assertThat(table_or_request).column().value().returnToColumn().returnToChange().column(1)......;
  * </code>
  * </pre>
- * <p>As shown in the diagram below, if navigating from changes, it is possible to call the method to navigate to a {@link org.assertj.db.api.navigation.ColumnAssert} from :</p>
+ * <p>As shown in the diagram below, if navigating from changes, it is possible to call the method to navigate to a {@link org.assertj.db.navigation.element.ColumnElement} from :</p>
  * <ul>
  *     <li>a change ({@link org.assertj.db.api.ChangeAssert})</li>
  *     <li>a column of a change ({@link org.assertj.db.api.ChangeColumnAssert})</li>
@@ -54,7 +56,7 @@ package org.assertj.db.api.navigation;
  *     <li>a value of a row of a change ({@link org.assertj.db.api.ChangeRowValueAssert})</li>
  * </ul>
  * <p>
- * <img src="../../../../../../images/changes/navigation/diagramOnNavigationWithChanges_ToColumn.png" alt="diagram with navigation to column" height="55%" width="55%" >
+ * <img src="../../../../../images/changes/navigation/diagramOnNavigationWithChanges_ToColumn.png" alt="diagram with navigation to column" height="55%" width="55%" >
  * </p>
  * <p>If navigating from changes, it is important to keep in mind that the methods are executed from the point of view of the last instance with assertion methods on a change ({@link org.assertj.db.api.ChangeAssert}).<br>
  * So all the lines of code below are equivalent : they point on the column at index 1 (as usual, the list start at index 0).
@@ -76,9 +78,9 @@ package org.assertj.db.api.navigation;
  *
  * @author Régis Pouiller
  *
- * @param <C> The class of a assertion on a column (an sub-class of {@link org.assertj.db.api.navigation.ColumnAssert}).
+ * @param <C> The class of a assertion on a column (an sub-class of {@link org.assertj.db.navigation.element.ColumnElement}).
  */
-public interface ToColumn<C extends ColumnAssert> {
+public interface ToColumn<C extends ColumnElement> {
 
   /**
    * Returns assertion methods on the next {@link org.assertj.db.type.Column} in the list of {@link org.assertj.db.type.Column}s.

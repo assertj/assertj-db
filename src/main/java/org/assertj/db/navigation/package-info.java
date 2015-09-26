@@ -15,13 +15,13 @@
  * <p>These navigation methods defined in the interfaces are implemented in the api classes.</p>
  * <p>This diagram shows the part on the tables and requests (the navigation interfaces are in green and the interfaces used by the navigation are in orange) :</p>
  * <p>
- * <img src="../../../../../../images/table_and_request/navigation/diagramOfPartOnTableAndRequestWithNavigation.png" alt="diagram with navigation on table and request" height="80%" width="80%" >
+ * <img src="../../../../../images/table_and_request/navigation/diagramOfPartOnTableAndRequestWithNavigation.png" alt="diagram with navigation on table and request" height="80%" width="80%" >
  * </p>
  * <p>This diagram shows the part on the changes (the navigation interfaces are in green and the interfaces used by the navigation are in orange) :</p>
  * <p>
- * <img src="../../../../../../images/changes/navigation/diagramOfPartOnChangesWithNavigation.png" alt="diagram with navigation on changes" height="80%" width="80%" >
+ * <img src="../../../../../images/changes/navigation/diagramOfPartOnChangesWithNavigation.png" alt="diagram with navigation on changes" height="80%" width="80%" >
  * </p>
  *
  * @author Régis Pouiller
  */
-package org.assertj.db.api.navigation;
+package org.assertj.db.navigation;

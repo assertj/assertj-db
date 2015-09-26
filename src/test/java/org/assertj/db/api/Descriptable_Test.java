@@ -16,6 +16,7 @@ import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.description.Description;
 import org.assertj.core.description.TextDescription;
 import org.assertj.db.common.AbstractTest;
+import org.assertj.db.global.AbstractElement;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
@@ -37,7 +38,7 @@ public class Descriptable_Test extends AbstractTest {
    */
   @Test
   public void test_as() throws Exception {
-    Field field = AbstractAssert.class.getDeclaredField("info");
+    Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
     Table table = new Table(source, "actor");
 

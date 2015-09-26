@@ -10,13 +10,15 @@
  *
  * Copyright 2012-2015 the original author or authors.
  */
-package org.assertj.db.api.navigation;
+package org.assertj.db.navigation;
+
+import org.assertj.db.navigation.element.RowElement;
 
 /**
  * Defines methods to navigate to a {@link org.assertj.db.type.Row} from a {@link org.assertj.db.type.Change}.
- * <p>The different methods return an assertion on one row {@link org.assertj.db.api.navigation.RowAssert}.</p>
+ * <p>The different methods return an assertion on one row {@link org.assertj.db.navigation.element.RowElement}.</p>
  * <p>These methods exists when navigating (at the beginning {@code assertThat()}) from changes.</p>
- * <p>As shown in the diagram below, it is possible to call the method to navigate to a {@link org.assertj.db.api.navigation.RowAssert} from :</p>
+ * <p>As shown in the diagram below, it is possible to call the method to navigate to a {@link org.assertj.db.navigation.element.RowElement} from :</p>
  * <ul>
  *     <li>a change ({@link org.assertj.db.api.ChangeAssert})</li>
  *     <li>a column of a change ({@link org.assertj.db.api.ChangeColumnAssert})</li>
@@ -25,7 +27,7 @@ package org.assertj.db.api.navigation;
  *     <li>a value of a row of a change ({@link org.assertj.db.api.ChangeRowValueAssert})</li>
  * </ul>
  * <p>
- * <img src="../../../../../../images/changes/navigation/diagramOnNavigationWithChanges_ToRow.png" alt="diagram with navigation to row" height="55%" width="55%" >
+ * <img src="../../../../../images/changes/navigation/diagramOnNavigationWithChanges_ToRow.png" alt="diagram with navigation to row" height="55%" width="55%" >
  * </p>
  * <p>It is important to keep in mind that the methods are executed from the point of view of the last instance with assertion methods on a change ({@link org.assertj.db.api.ChangeAssert}).<br>
  * So all the lines of code below are equivalent : they point on the row at end point.
@@ -46,9 +48,9 @@ package org.assertj.db.api.navigation;
  *
  * @author Régis Pouiller
  *
- * @param <R> The class of a assertion on a row (an sub-class of {@link org.assertj.db.api.navigation.RowAssert}).
+ * @param <R> The class of a assertion on a row (an sub-class of {@link org.assertj.db.navigation.element.RowElement}).
  */
-public interface ToRowFromChange<R extends RowAssert> {
+public interface ToRowFromChange<R extends RowElement> {
 
   /**
    * Returns assertion methods on the {@link org.assertj.db.type.Row} at start point.

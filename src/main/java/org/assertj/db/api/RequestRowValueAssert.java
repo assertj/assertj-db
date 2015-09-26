@@ -27,7 +27,7 @@ public class RequestRowValueAssert
   /**
    * Constructor.
    * 
-   * @param origin The assertion of {@link org.assertj.db.api.origin.Origin}.
+   * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    * @param columnName The column name.
    * @param value The value to assert.
    */

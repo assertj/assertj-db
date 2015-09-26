@@ -31,8 +31,8 @@ import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 /**
- * Tests on {@link ToColumn} class :
- * {@link ToColumn#column(String)} method.
+ * Tests on {@link org.assertj.db.navigation.ToColumn} class :
+ * {@link org.assertj.db.navigation.ToColumn#column(String)} method.
  *
  * @author Régis Pouiller
  *

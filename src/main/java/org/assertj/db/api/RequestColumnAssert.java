@@ -27,7 +27,7 @@ public class RequestColumnAssert
   /**
    * Constructor.
    * 
-   * @param origin The assertion of {@link org.assertj.db.api.origin.Origin}.
+   * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    * @param column The column on which do assertion.
    */
   RequestColumnAssert(RequestAssert origin, Column column) {

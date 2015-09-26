@@ -14,8 +14,8 @@ package org.assertj.db.api;
 
 import org.assertj.db.api.assertions.*;
 import org.assertj.db.api.assertions.impl.*;
-import org.assertj.db.api.navigation.ToValue;
-import org.assertj.db.api.navigation.ValueAssert;
+import org.assertj.db.navigation.ToValue;
+import org.assertj.db.navigation.element.ValueElement;
 import org.assertj.db.type.*;
 
 import java.util.UUID;
@@ -38,7 +38,7 @@ import java.util.UUID;
  */
 public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, S extends AbstractSubAssert<D, A, S, V, C, CV, R, RV>, V extends AbstractValueAssert<D, A, S, V, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
         extends AbstractAssertWithOriginWithColumnsAndRows<V, S, D, A, C, CV, R, RV>
-        implements ValueAssert,
+        implements ValueElement,
                    ToValue<V>,
                    AssertOnValueClass<V>,
                    AssertOnValueType<V>,
@@ -56,7 +56,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
   /**
    * Constructor.
    * @param selfType Type of this assertion class : a sub-class of {@code AbstractValueAssert}.
-   * @param origin The assertion of {@link org.assertj.db.api.origin.Origin}.
+   * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    * @param value The value on which are the assertion methods.
    */
   AbstractValueAssert(Class<V> selfType, S origin, Object value) {
@@ -78,7 +78,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
 
   /** {@inheritDoc} */
   @Override
-  public V isOfClass(Class expected) {
+  public V isOfClass(Class<?> expected) {
     return AssertionsOnValueClass.isOfClass(myself, info, value, expected);
   }
 

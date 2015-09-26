@@ -12,30 +12,30 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.db.api.navigation.ToChange;
-import org.assertj.db.api.navigation.ToChanges;
-import org.assertj.db.api.origin.OriginWithChanges;
+import org.assertj.db.navigation.ToChange;
+import org.assertj.db.navigation.ToChanges;
+import org.assertj.db.navigation.origin.OriginWithChanges;
 
 /**
- * Base class for all assertions with an {@link org.assertj.db.api.origin.Origin}
+ * Base class for all assertions with an {@link org.assertj.db.navigation.origin.Origin}
  * and have {@link org.assertj.db.type.Changes}.
  *
  * @param <E> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/1IZIRcY"
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
  *            for more details.
- * @param <O> The type of the assertion class of {@link org.assertj.db.api.origin.Origin}.
+ * @param <O> The type of the assertion class of {@link org.assertj.db.navigation.origin.Origin}.
  * @author Régis Pouiller
  */
-public abstract class AbstractAssertWithOriginWithChanges<E extends AbstractAssertWithOriginWithChanges<E, O>, O extends OriginWithChanges>
+public abstract class AbstractAssertWithOriginWithChanges<E extends AbstractAssertWithOriginWithChanges<E, O>, O extends OriginWithChanges<ChangesAssert, ChangeAssert>>
         extends AbstractAssertWithOrigin<E, O>
-        implements ToChanges,
-                   ToChange {
+        implements ToChanges<ChangesAssert>,
+                   ToChange<ChangeAssert> {
 
   /**
    * Constructor.
    *
    * @param selfType Type of this assertion class : a sub-class of {@code AbstractAssertWithOriginWithChanges}.
-   * @param origin The assertion of {@link org.assertj.db.api.origin.Origin}.
+   * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    */
   AbstractAssertWithOriginWithChanges(Class<E> selfType, O origin) {
     super(selfType, origin);

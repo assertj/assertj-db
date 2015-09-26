@@ -27,8 +27,8 @@ import java.lang.reflect.Field;
 import static org.assertj.db.api.Assertions.assertThat;
 
 /**
- * Tests on {@link ToRowFromChange} class :
- * {@link org.assertj.db.api.navigation.ToRowFromChange#rowAtStartPoint()} method.
+ * Tests on {@link org.assertj.db.navigation.ToRowFromChange} class :
+ * {@link org.assertj.db.navigation.ToRowFromChange#rowAtStartPoint()} method.
  *
  * @author Régis Pouiller
  *

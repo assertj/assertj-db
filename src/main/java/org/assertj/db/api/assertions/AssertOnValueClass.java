@@ -53,5 +53,5 @@ public interface AssertOnValueClass<T extends AssertOnValueClass<T>> {
    * @see org.assertj.db.api.AbstractAssertWithValues#isOfClass(Class)
    * @since 1.1.0
    */
-  public T isOfClass(Class expected);
+  public T isOfClass(Class<?> expected);
 }

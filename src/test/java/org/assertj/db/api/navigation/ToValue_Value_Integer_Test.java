@@ -31,8 +31,8 @@ import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 /**
- * Tests on {@link org.assertj.db.api.navigation.ToValue} class :
- * {@link org.assertj.db.api.navigation.ToValue#value(int)} method.
+ * Tests on {@link org.assertj.db.navigation.ToValue} class :
+ * {@link org.assertj.db.navigation.ToValue#value(int)} method.
  *
  * @author Régis Pouiller
  *

@@ -14,8 +14,8 @@ package org.assertj.db.api;
 
 import org.assertj.db.api.assertions.*;
 import org.assertj.db.api.assertions.impl.*;
-import org.assertj.db.api.navigation.ValueAssert;
-import org.assertj.db.api.origin.OriginWithColumnsAndRowsFromChange;
+import org.assertj.db.navigation.element.ValueElement;
+import org.assertj.db.navigation.origin.OriginWithColumnsAndRowsFromChange;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
@@ -29,13 +29,13 @@ import java.util.UUID;
  * @param <E> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/1IZIRcY"
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
  *            for more details.
- * @param <O> The type of the assertion class of {@link org.assertj.db.api.origin.Origin}.
+ * @param <O> The type of the assertion class of {@link org.assertj.db.navigation.origin.Origin}.
  * @author Régis Pouiller
  * @author Otoniel Isidoro
  */
-public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValues<E, O>, O extends OriginWithColumnsAndRowsFromChange>
+public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValues<E, O>, O extends OriginWithColumnsAndRowsFromChange<ChangesAssert, ChangeAssert, ChangeColumnAssert, ChangeRowAssert>>
         extends AbstractAssertWithOriginWithColumnsAndRowsFromChange<E, O>
-        implements ValueAssert,
+        implements ValueElement,
                    AssertOnValueClass<E>,
                    AssertOnValueType<E>,
                    AssertOnValueNullity<E>,
@@ -53,7 +53,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * Constructor.
    *
    * @param selfType Type of this assertion class : a sub-class of {@code AbstractAssertWithValues}.
-   * @param origin The assertion of {@link org.assertj.db.api.origin.Origin}.
+   * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    * @param value The value on which are the assertion methods.
    */
   AbstractAssertWithValues(Class<E> selfType, O origin, Object value) {
@@ -63,7 +63,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
 
   /** {@inheritDoc} */
   @Override
-  public E isOfClass(Class expected) {
+  public E isOfClass(Class<?> expected) {
     return AssertionsOnValueClass.isOfClass(myself, info, value, expected);
   }
 

@@ -27,7 +27,7 @@ import java.util.List;
 import static org.assertj.db.api.Assertions.assertThat;
 
 /**
- * Tests on {@link ToChanges} interface.
+ * Tests on {@link org.assertj.db.navigation.ToChanges} interface.
  *
  * @author Régis Pouiller
  *

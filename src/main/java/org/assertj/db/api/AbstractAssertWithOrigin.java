@@ -12,17 +12,17 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.db.api.origin.Origin;
+import org.assertj.db.navigation.origin.Origin;
 
 /**
- * Base class for all assertions with an {@link org.assertj.db.api.origin.Origin}.
+ * Base class for all assertions with an {@link org.assertj.db.navigation.origin.Origin}.
  * 
  * @author Régis Pouiller
  * 
  * @param <E> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/1IZIRcY"
  *          target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
  *          for more details.
- * @param <O> The type of the assertion class of {@link org.assertj.db.api.origin.Origin}.
+ * @param <O> The type of the assertion class of {@link org.assertj.db.navigation.origin.Origin}.
  */
 public abstract class AbstractAssertWithOrigin<E extends AbstractAssertWithOrigin<E, O>, O extends Origin>
         extends AbstractAssert<E> {
@@ -36,7 +36,7 @@ public abstract class AbstractAssertWithOrigin<E extends AbstractAssertWithOrigi
    * Constructor.
    * 
    * @param selfType Type of this assertion class : a sub-class of {@code AbstractAssertWithOrigin}.
-   * @param origin The assertion of {@link org.assertj.db.api.origin.Origin}.
+   * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    */
   AbstractAssertWithOrigin(Class<E> selfType, O origin) {
     super(selfType);
@@ -44,7 +44,7 @@ public abstract class AbstractAssertWithOrigin<E extends AbstractAssertWithOrigi
   }
 
   /**
-   * Returns the assertion of origin (an instance of a sub-class of {@link org.assertj.db.api.origin.Origin}.
+   * Returns the assertion of origin (an instance of a sub-class of {@link org.assertj.db.navigation.origin.Origin}.
    * 
    * @return The assertion of origin.
    */

@@ -14,8 +14,9 @@ package org.assertj.db.api;
 
 import org.assertj.db.api.assertions.*;
 import org.assertj.db.api.assertions.impl.*;
-import org.assertj.db.api.origin.OriginWithColumnsAndRowsFromChange;
 import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.navigation.element.ChangeElement;
+import org.assertj.db.navigation.origin.OriginWithColumnsAndRowsFromChange;
 import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.DataType;
@@ -35,7 +36,8 @@ import static org.assertj.db.util.Descriptions.*;
  */
 public class ChangeAssert
         extends AbstractAssertWithOriginWithChanges<ChangeAssert, ChangesAssert>
-        implements OriginWithColumnsAndRowsFromChange,
+        implements ChangeElement,
+                   OriginWithColumnsAndRowsFromChange<ChangesAssert, ChangeAssert, ChangeColumnAssert, ChangeRowAssert>,
                    AssertOnDataType<ChangeAssert>,
                    AssertOnPrimaryKey<ChangeAssert>,
                    AssertOnChangeType<ChangeAssert>,
@@ -68,7 +70,7 @@ public class ChangeAssert
   /**
    * Constructor.
    *
-   * @param origin The assertion of {@link org.assertj.db.api.origin.Origin}.
+   * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    * @param change The {@link Change} on which are the assertions.
    */
   ChangeAssert(ChangesAssert origin, Change change) {

@@ -10,18 +10,20 @@
  *
  * Copyright 2012-2015 the original author or authors.
  */
-package org.assertj.db.api.navigation;
+package org.assertj.db.navigation;
+
+import org.assertj.db.navigation.element.ColumnElement;
 
 /**
  * Defines methods to navigate to a modified {@link org.assertj.db.type.Column} from a {@link org.assertj.db.type.Change}.
- * <p>The different methods return an assertion on one column {@link org.assertj.db.api.navigation.ColumnAssert}.</p>
+ * <p>The different methods return an assertion on one column {@link org.assertj.db.navigation.element.ColumnElement}.</p>
  * <p>These methods exists when navigating (at the beginning {@code assertThat()}) from changes.</p>
- * <p>The difference with {@link org.assertj.db.api.navigation.ToColumn} is that {@link org.assertj.db.api.navigation.ToColumn}
+ * <p>The difference with {@link ToColumn} is that {@link ToColumn}
  * allows to navigate in all the columns of a {@link org.assertj.db.type.Change} and the methods
- * of {@link org.assertj.db.api.navigation.ToColumnFromChange} count only the columns
+ * of {@link ToColumnFromChange} count only the columns
  * with a modification between the start point and the end point.
  * </p>
- * <p>As shown in the diagram below, it is possible to call the method to navigate to a {@link org.assertj.db.api.navigation.ColumnAssert} from :</p>
+ * <p>As shown in the diagram below, it is possible to call the method to navigate to a {@link org.assertj.db.navigation.element.ColumnElement} from :</p>
  * <ul>
  *     <li>a change ({@link org.assertj.db.api.ChangeAssert})</li>
  *     <li>a column of a change ({@link org.assertj.db.api.ChangeColumnAssert})</li>
@@ -30,7 +32,7 @@ package org.assertj.db.api.navigation;
  *     <li>a value of a row of a change ({@link org.assertj.db.api.ChangeRowValueAssert})</li>
  * </ul>
  * <p>
- * <img src="../../../../../../images/changes/navigation/diagramOnNavigationWithChanges_ToColumn.png" alt="diagram with navigation to column" height="55%" width="55%" >
+ * <img src="../../../../../images/changes/navigation/diagramOnNavigationWithChanges_ToColumn.png" alt="diagram with navigation to column" height="55%" width="55%" >
  * </p>
  * <p>It is important to keep in mind that the methods are executed from the point of view of the last instance with assertion methods on a change ({@link org.assertj.db.api.ChangeAssert}).<br>
  * So all the lines of code below are equivalent : they point on the column at index 1 (as usual, the list start at index 0) among the modified columns.
@@ -52,9 +54,9 @@ package org.assertj.db.api.navigation;
  *
  * @author Régis Pouiller
  *
- * @param <C> The class of a assertion on a column (an sub-class of {@link org.assertj.db.api.navigation.ColumnAssert}).
+ * @param <C> The class of a assertion on a column (an sub-class of {@link org.assertj.db.navigation.element.ColumnElement}).
  */
-public interface ToColumnFromChange<C extends ColumnAssert> {
+public interface ToColumnFromChange<C extends ColumnElement> {
 
   /**
    * Returns assertion methods on the next {@link org.assertj.db.type.Column} in the list of the modified {@link org.assertj.db.type.Column}s.
