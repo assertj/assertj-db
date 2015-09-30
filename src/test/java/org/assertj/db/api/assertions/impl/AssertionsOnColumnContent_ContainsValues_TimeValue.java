@@ -15,8 +15,10 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
+import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.assertj.db.type.TimeValue;
+import org.assertj.db.type.Value;
 import org.junit.Test;
 
 import java.sql.Time;
@@ -34,17 +36,19 @@ import static org.junit.Assert.fail;
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnColumnContent_ContainsValues_TimeValue {
+public class AssertionsOnColumnContent_ContainsValues_TimeValue extends AbstractTest {
 
   /**
    * This method tests the {@code containsValues} assertion method.
    */
   @Test
-  public void test_contains_values() {
+  public void test_contains_values() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Object> list = new ArrayList<Object>(Arrays.asList(Time.valueOf("09:01:00"), Time.valueOf("03:30:05"), null));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, Time.valueOf("09:01:00")),
+                                                              getValue(null, Time.valueOf("03:30:05")), getValue(null,
+                                                                                                                 null)));
     TableAssert tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list,
                                                                         TimeValue.of(9, 1),
                                                                         TimeValue.of(3, 30, 5),
@@ -61,12 +65,13 @@ public class AssertionsOnColumnContent_ContainsValues_TimeValue {
    * This method should fail because the values are different.
    */
   @Test
-  public void should_fail_because_values_are_different() {
+  public void should_fail_because_values_are_different() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Object> list = new ArrayList<Object>(Arrays.asList(Time.valueOf("09:01:00"), Time.valueOf("03:30:05"), null));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, Time.valueOf("09:01:00")),
+                                                     getValue(null, Time.valueOf("03:30:05")), getValue(null, null)));
     try {
       AssertionsOnColumnContent.containsValues(tableAssert, info, list,
                                                TimeValue.of(9, 1),
@@ -87,12 +92,12 @@ public class AssertionsOnColumnContent_ContainsValues_TimeValue {
    * This method should fail because one of the values is not a date/time.
    */
   @Test
-  public void should_fail_because_one_value_is_not_a_time() {
+  public void should_fail_because_one_value_is_not_a_time() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Object> list = new ArrayList<Object>(Arrays.asList("other", Time.valueOf("03:30:05")));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "other"), getValue(null, Time.valueOf("03:30:05"))));
     try {
       AssertionsOnColumnContent.containsValues(tableAssert, info, list,
                                                TimeValue.of(9, 1),
@@ -113,12 +118,13 @@ public class AssertionsOnColumnContent_ContainsValues_TimeValue {
    * This method should fail because the number of values is different.
    */
   @Test
-  public void should_fail_because_the_number_of_values_is_different() {
+  public void should_fail_because_the_number_of_values_is_different() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Object> list = new ArrayList<Object>(Arrays.asList(Time.valueOf("09:01:00"), Time.valueOf("03:30:05")));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, Time.valueOf("09:01:00")), getValue(null, Time.valueOf(
+            "03:30:05"))));
     try {
       AssertionsOnColumnContent.containsValues(tableAssert, info, list,
                                                TimeValue.of(9, 1),

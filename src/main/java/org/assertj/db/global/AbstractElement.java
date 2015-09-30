@@ -19,17 +19,16 @@ import org.assertj.core.description.Description;
 /**
  * Base class for all elements of assertj-db.
  *
- * @author Régis Pouiller
- *
  * @param <E> the "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/1IZIRcY"
- *          target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
- *          for more details.
+ *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
+ *            for more details.
+ * @author Régis Pouiller
  */
 public abstract class AbstractElement<E extends AbstractElement<E>>
         implements Descriptable<E> {
 
   /**
-   * Writable information about an assertion.
+   * Writable information about an element.
    */
   protected final WritableAssertionInfo info;
 
@@ -48,29 +47,46 @@ public abstract class AbstractElement<E extends AbstractElement<E>>
     info = new WritableAssertionInfo();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public E as(String description, Object... args) {
     return describedAs(description, args);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public E as(Description description) {
     return describedAs(description);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public E describedAs(String description, Object... args) {
     info.description(description, args);
     return myself;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public E describedAs(Description description) {
     info.description(description);
     return myself;
+  }
+
+  /**
+   * Returns the information about an element.
+   *
+   * @return The information about an element.
+   */
+  public final WritableAssertionInfo getInfo() {
+    return info;
   }
 }

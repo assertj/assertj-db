@@ -70,35 +70,36 @@ public enum ValueType {
    * @param value The actual value
    * @return The type of the actual value
    */
-  public static ValueType getType(Object value) {
-    if (value instanceof byte[]) {
+  public static ValueType getType(Value value) {
+    Object object = value.getValue();
+    if (object instanceof byte[]) {
       return BYTES;
     }
-    if (value instanceof Boolean) {
+    if (object instanceof Boolean) {
       return BOOLEAN;
     }
-    if (value instanceof String) {
+    if (object instanceof String) {
       return TEXT;
     }
-    if (value instanceof Date) {
+    if (object instanceof Date) {
       return DATE;
     }
-    if (value instanceof Time) {
+    if (object instanceof Time) {
       return TIME;
     }
-    if (value instanceof Timestamp) {
+    if (object instanceof Timestamp) {
       return DATE_TIME;
     }
-    if (value instanceof java.util.UUID) {
+    if (object instanceof java.util.UUID) {
       return UUID;
     }
-    if (value instanceof Byte
-        || value instanceof Short
-        || value instanceof Integer
-        || value instanceof Long
-        || value instanceof Float
-        || value instanceof Double
-        || value instanceof BigDecimal) {
+    if (object instanceof Byte
+        || object instanceof Short
+        || object instanceof Integer
+        || object instanceof Long
+        || object instanceof Float
+        || object instanceof Double
+        || object instanceof BigDecimal) {
 
       return NUMBER;
     }

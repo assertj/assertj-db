@@ -15,6 +15,7 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
+import org.assertj.db.type.Value;
 import org.assertj.db.type.ValueType;
 
 import static org.assertj.db.error.ShouldBeValueTypeOfAnyWithEndPoint.shouldBeValueTypeOfAnyWithEndPoint;
@@ -59,7 +60,7 @@ public class AssertionsOnColumnOfChangeType {
    * @throws AssertionError If the type of the column is different to the type in parameter.
    */
   public static <A extends AbstractAssert> A isOfType(A assertion, WritableAssertionInfo info,
-                                                      Object valueAtStartPoint, Object valueAtEndPoint,
+                                                      Value valueAtStartPoint, Value valueAtEndPoint,
                                                       ValueType expected, boolean lenient) {
     if (lenient) {
       return isOfAnyTypeIn(assertion, info, valueAtStartPoint, valueAtEndPoint, expected, ValueType.NOT_IDENTIFIED);
@@ -90,7 +91,7 @@ public class AssertionsOnColumnOfChangeType {
    * @throws AssertionError If the type of the column is different to all the types in parameters.
    */
   public static <A extends AbstractAssert> A isOfAnyTypeIn(A assertion, WritableAssertionInfo info,
-                                                           Object valueAtStartPoint, Object valueAtEndPoint,
+                                                           Value valueAtStartPoint, Value valueAtEndPoint,
                                                            ValueType... expected) {
     ValueType typeAtStartPoint = ValueType.getType(valueAtStartPoint);
     boolean matched = false;
@@ -131,7 +132,7 @@ public class AssertionsOnColumnOfChangeType {
    * @throws AssertionError If the type of the column is not number.
    */
   public static <A extends AbstractAssert> A isNumber(A assertion, WritableAssertionInfo info,
-                                                      Object valueAtStartPoint, Object valueAtEndPoint,
+                                                      Value valueAtStartPoint, Value valueAtEndPoint,
                                                       boolean lenient) {
     return isOfType(assertion, info, valueAtStartPoint, valueAtEndPoint, ValueType.NUMBER, lenient);
   }
@@ -150,7 +151,7 @@ public class AssertionsOnColumnOfChangeType {
    * @throws AssertionError If the type of the column is not boolean.
    */
   public static <A extends AbstractAssert> A isBoolean(A assertion, WritableAssertionInfo info,
-                                                       Object valueAtStartPoint, Object valueAtEndPoint,
+                                                       Value valueAtStartPoint, Value valueAtEndPoint,
                                                        boolean lenient) {
     return isOfType(assertion, info, valueAtStartPoint, valueAtEndPoint, ValueType.BOOLEAN, lenient);
   }
@@ -169,7 +170,7 @@ public class AssertionsOnColumnOfChangeType {
    * @throws AssertionError If the type of the column is not date.
    */
   public static <A extends AbstractAssert> A isDate(A assertion, WritableAssertionInfo info,
-                                                    Object valueAtStartPoint, Object valueAtEndPoint,
+                                                    Value valueAtStartPoint, Value valueAtEndPoint,
                                                     boolean lenient) {
     return isOfType(assertion, info, valueAtStartPoint, valueAtEndPoint, ValueType.DATE, lenient);
   }
@@ -188,7 +189,7 @@ public class AssertionsOnColumnOfChangeType {
    * @throws AssertionError If the type of the column is not time.
    */
   public static <A extends AbstractAssert> A isTime(A assertion, WritableAssertionInfo info,
-                                                    Object valueAtStartPoint, Object valueAtEndPoint,
+                                                    Value valueAtStartPoint, Value valueAtEndPoint,
                                                     boolean lenient) {
     return isOfType(assertion, info, valueAtStartPoint, valueAtEndPoint, ValueType.TIME, lenient);
   }
@@ -207,7 +208,7 @@ public class AssertionsOnColumnOfChangeType {
    * @throws AssertionError If the type of the column is not date/time.
    */
   public static <A extends AbstractAssert> A isDateTime(A assertion, WritableAssertionInfo info,
-                                                        Object valueAtStartPoint, Object valueAtEndPoint,
+                                                        Value valueAtStartPoint, Value valueAtEndPoint,
                                                         boolean lenient) {
     return isOfType(assertion, info, valueAtStartPoint, valueAtEndPoint, ValueType.DATE_TIME, lenient);
   }
@@ -226,7 +227,7 @@ public class AssertionsOnColumnOfChangeType {
    * @throws AssertionError If the type of the column is not array of bytes.
    */
   public static <A extends AbstractAssert> A isBytes(A assertion, WritableAssertionInfo info,
-                                                     Object valueAtStartPoint, Object valueAtEndPoint,
+                                                     Value valueAtStartPoint, Value valueAtEndPoint,
                                                      boolean lenient) {
     return isOfType(assertion, info, valueAtStartPoint, valueAtEndPoint, ValueType.BYTES, lenient);
   }
@@ -245,7 +246,7 @@ public class AssertionsOnColumnOfChangeType {
    * @throws AssertionError If the type of the column is not text.
    */
   public static <A extends AbstractAssert> A isText(A assertion, WritableAssertionInfo info,
-                                                    Object valueAtStartPoint, Object valueAtEndPoint,
+                                                    Value valueAtStartPoint, Value valueAtEndPoint,
                                                     boolean lenient) {
     return isOfType(assertion, info, valueAtStartPoint, valueAtEndPoint, ValueType.TEXT, lenient);
   }
@@ -265,7 +266,7 @@ public class AssertionsOnColumnOfChangeType {
    * @since 1.1.0
    */
   public static <A extends AbstractAssert> A isUUID(A assertion, WritableAssertionInfo info,
-                                                    Object valueAtStartPoint, Object valueAtEndPoint,
+                                                    Value valueAtStartPoint, Value valueAtEndPoint,
                                                     boolean lenient) {
     return isOfType(assertion, info, valueAtStartPoint, valueAtEndPoint, ValueType.UUID, lenient);
   }

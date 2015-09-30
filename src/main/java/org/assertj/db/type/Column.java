@@ -27,7 +27,7 @@ import java.util.List;
  * @author Régis Pouiller.
  * 
  */
-public class Column {
+public class Column implements DbElement {
 
   /**
    * The name of the column.
@@ -36,7 +36,7 @@ public class Column {
   /**
    * The values of the column.
    */
-  private final List<Object> valuesList;
+  private final List<Value> valuesList;
 
   /**
    * Constructor of the column with visibility in the package.
@@ -44,7 +44,7 @@ public class Column {
    * @param name The name of the column.
    * @param valuesList The values in the column.
    */
-  Column(String name, List<Object> valuesList) {
+  Column(String name, List<Value> valuesList) {
     this.name = name;
     this.valuesList = valuesList;
   }
@@ -63,7 +63,7 @@ public class Column {
    * 
    * @return The values of the column.
    */
-  public List<Object> getValuesList() {
+  public List<Value> getValuesList() {
     return valuesList;
   }
 
@@ -73,7 +73,7 @@ public class Column {
    * @param index The index
    * @return The value
    */
-  public Object getRowValue(int index) {
+  public Value getRowValue(int index) {
     return valuesList.get(index);
   }
 }

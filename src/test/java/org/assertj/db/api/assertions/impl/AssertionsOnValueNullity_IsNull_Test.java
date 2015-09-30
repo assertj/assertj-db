@@ -15,6 +15,7 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
+import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
@@ -23,22 +24,22 @@ import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link AssertionsOnValueNullity} class :
- * {@link AssertionsOnValueNullity#isNull(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, Object)} method.
+ * {@link AssertionsOnValueNullity#isNull(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value)} method.
  *
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnValueNullity_IsNull_Test {
+public class AssertionsOnValueNullity_IsNull_Test extends AbstractTest {
 
   /**
    * This method tests the {@code isNull} assertion method.
    */
   @Test
-  public void test_is_null() {
+  public void test_is_null() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    TableAssert tableAssert2 = AssertionsOnValueNullity.isNull(tableAssert, info, null);
+    TableAssert tableAssert2 = AssertionsOnValueNullity.isNull(tableAssert, info, getValue(null, null));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -52,10 +53,12 @@ public class AssertionsOnValueNullity_IsNull_Test {
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnValueNullity.isNull(tableAssert, info, 0);
+      AssertionsOnValueNullity.isNull(tableAssert, info, getValue(null, 0));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] expected:<null> but was:<0>"));
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
 }

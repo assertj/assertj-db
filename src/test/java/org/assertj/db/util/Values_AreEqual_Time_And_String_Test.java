@@ -12,6 +12,7 @@
  */
 package org.assertj.db.util;
 
+import org.assertj.db.common.AbstractTest;
 import org.assertj.db.exception.AssertJDBException;
 import org.junit.Test;
 
@@ -25,31 +26,31 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Régis Pouiller
  * 
  */
-public class Values_AreEqual_Time_And_String_Test {
+public class Values_AreEqual_Time_And_String_Test extends AbstractTest {
 
   /**
    * This method tests the {@code areEqual} method for {@code TimeValue}s.
    */
   @Test
-  public void test_are_equal_for_times() {
-    assertThat(Values.areEqual(Time.valueOf("09:01:06"), "09:01:06")).isTrue();
-    assertThat(Values.areEqual(Time.valueOf("09:01:00"), "09:01:00")).isTrue();
-    assertThat(Values.areEqual(Time.valueOf("09:01:00"), "09:01")).isTrue();
-    assertThat(Values.areEqual(null, (String) null)).isTrue();
+  public void test_are_equal_for_times() throws Exception {
+    assertThat(Values.areEqual(getValue(null, Time.valueOf("09:01:06")), "09:01:06")).isTrue();
+    assertThat(Values.areEqual(getValue(null, Time.valueOf("09:01:00")), "09:01:00")).isTrue();
+    assertThat(Values.areEqual(getValue(null, Time.valueOf("09:01:00")), "09:01")).isTrue();
+    assertThat(Values.areEqual(getValue(null, null), (String) null)).isTrue();
 
-    assertThat(Values.areEqual(Time.valueOf("09:01:06"), "09:01:05")).isFalse();
-    assertThat(Values.areEqual(Time.valueOf("09:01:06"), "09:02:06")).isFalse();
-    assertThat(Values.areEqual(Time.valueOf("09:01:06"), "10:01:06")).isFalse();
-    assertThat(Values.areEqual(Time.valueOf("09:01:06"), "09:01:06.000000003")).isFalse();
-    assertThat(Values.areEqual(Time.valueOf("09:01:06"), (String) null)).isFalse();
+    assertThat(Values.areEqual(getValue(null, Time.valueOf("09:01:06")), "09:01:05")).isFalse();
+    assertThat(Values.areEqual(getValue(null, Time.valueOf("09:01:06")), "09:02:06")).isFalse();
+    assertThat(Values.areEqual(getValue(null, Time.valueOf("09:01:06")), "10:01:06")).isFalse();
+    assertThat(Values.areEqual(getValue(null, Time.valueOf("09:01:06")), "09:01:06.000000003")).isFalse();
+    assertThat(Values.areEqual(getValue(null, Time.valueOf("09:01:06")), (String) null)).isFalse();
   }
 
   /**
    * This method should fail because the expected value ("***") is not parsable to do the comparison.
    */
   @Test(expected = AssertJDBException.class)
-  public void should_fail_because_string_is_not_parseable() {
-    Values.areEqual(Time.valueOf("09:01:06"), "***");
+  public void should_fail_because_string_is_not_parseable() throws Exception {
+    Values.areEqual(getValue(null, Time.valueOf("09:01:06")), "***");
   }
 
 }

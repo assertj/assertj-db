@@ -16,6 +16,7 @@ import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
 import org.assertj.db.error.ShouldBeValueTypeOfAny;
+import org.assertj.db.type.Value;
 import org.assertj.db.type.ValueType;
 
 import static org.assertj.db.error.ShouldBeValueType.shouldBeValueType;
@@ -53,7 +54,7 @@ public class AssertionsOnValueType {
    * @return {@code this} assertion object.
    * @throws AssertionError If the type of the value is different to the type in parameter.
    */
-  public static <A extends AbstractAssert> A isOfType(A assertion, WritableAssertionInfo info, Object value,
+  public static <A extends AbstractAssert> A isOfType(A assertion, WritableAssertionInfo info, Value value,
                                                       ValueType expected) {
     ValueType type = ValueType.getType(value);
     if (type != expected) {
@@ -73,7 +74,7 @@ public class AssertionsOnValueType {
    * @return {@code this} assertion object.
    * @throws AssertionError If the type of the value is different to all the types in parameters.
    */
-  public static <A extends AbstractAssert> A isOfAnyTypeIn(A assertion, WritableAssertionInfo info, Object value,
+  public static <A extends AbstractAssert> A isOfAnyTypeIn(A assertion, WritableAssertionInfo info, Value value,
                                                            ValueType... expected) {
     ValueType type = ValueType.getType(value);
     for (ValueType valueType : expected) {
@@ -94,7 +95,7 @@ public class AssertionsOnValueType {
    * @return {@code this} assertion object.
    * @throws AssertionError If the type of the value is not number.
    */
-  public static <A extends AbstractAssert> A isNumber(A assertion, WritableAssertionInfo info, Object value) {
+  public static <A extends AbstractAssert> A isNumber(A assertion, WritableAssertionInfo info, Value value) {
     return isOfType(assertion, info, value, ValueType.NUMBER);
   }
 
@@ -108,7 +109,7 @@ public class AssertionsOnValueType {
    * @return {@code this} assertion object.
    * @throws AssertionError If the type of the value is not boolean.
    */
-  public static <A extends AbstractAssert> A isBoolean(A assertion, WritableAssertionInfo info, Object value) {
+  public static <A extends AbstractAssert> A isBoolean(A assertion, WritableAssertionInfo info, Value value) {
     return isOfType(assertion, info, value, ValueType.BOOLEAN);
   }
 
@@ -122,7 +123,7 @@ public class AssertionsOnValueType {
    * @return {@code this} assertion object.
    * @throws AssertionError If the type of the value is not date.
    */
-  public static <A extends AbstractAssert> A isDate(A assertion, WritableAssertionInfo info, Object value) {
+  public static <A extends AbstractAssert> A isDate(A assertion, WritableAssertionInfo info, Value value) {
     return isOfType(assertion, info, value, ValueType.DATE);
   }
 
@@ -136,7 +137,7 @@ public class AssertionsOnValueType {
    * @return {@code this} assertion object.
    * @throws AssertionError If the type of the value is not time.
    */
-  public static <A extends AbstractAssert> A isTime(A assertion, WritableAssertionInfo info, Object value) {
+  public static <A extends AbstractAssert> A isTime(A assertion, WritableAssertionInfo info, Value value) {
     return isOfType(assertion, info, value, ValueType.TIME);
   }
 
@@ -150,7 +151,7 @@ public class AssertionsOnValueType {
    * @return {@code this} assertion object.
    * @throws AssertionError If the type of the value is not date/time.
    */
-  public static <A extends AbstractAssert> A isDateTime(A assertion, WritableAssertionInfo info, Object value) {
+  public static <A extends AbstractAssert> A isDateTime(A assertion, WritableAssertionInfo info, Value value) {
     return isOfType(assertion, info, value, ValueType.DATE_TIME);
   }
 
@@ -164,7 +165,7 @@ public class AssertionsOnValueType {
    * @return {@code this} assertion object.
    * @throws AssertionError If the type of the value is not array of bytes.
    */
-  public static <A extends AbstractAssert> A isBytes(A assertion, WritableAssertionInfo info, Object value) {
+  public static <A extends AbstractAssert> A isBytes(A assertion, WritableAssertionInfo info, Value value) {
     return isOfType(assertion, info, value, ValueType.BYTES);
   }
 
@@ -178,7 +179,7 @@ public class AssertionsOnValueType {
    * @return {@code this} assertion object.
    * @throws AssertionError If the type of the value is not text.
    */
-  public static <A extends AbstractAssert> A isText(A assertion, WritableAssertionInfo info, Object value) {
+  public static <A extends AbstractAssert> A isText(A assertion, WritableAssertionInfo info, Value value) {
     return isOfType(assertion, info, value, ValueType.TEXT);
   }
 
@@ -193,7 +194,7 @@ public class AssertionsOnValueType {
    * @throws AssertionError If the type of the value is not UUID.
    * @since 1.1.0
    */
-  public static <A extends AbstractAssert> A isUUID(A assertion, WritableAssertionInfo info, Object value) {
+  public static <A extends AbstractAssert> A isUUID(A assertion, WritableAssertionInfo info, Value value) {
     return isOfType(assertion, info, value, ValueType.UUID);
   }
 

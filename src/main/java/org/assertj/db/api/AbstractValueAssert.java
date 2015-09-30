@@ -51,7 +51,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
   /**
    * The actual value on which this assertion is.
    */
-  private final Object value;
+  private final Value value;
 
   /**
    * Constructor.
@@ -59,7 +59,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
    * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    * @param value The value on which are the assertion methods.
    */
-  AbstractValueAssert(Class<V> selfType, S origin, Object value) {
+  AbstractValueAssert(Class<V> selfType, S origin, Value value) {
     super(selfType, origin);
     this.value = value;
   }

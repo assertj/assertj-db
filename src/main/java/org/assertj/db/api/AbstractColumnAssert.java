@@ -17,7 +17,6 @@ import org.assertj.db.api.assertions.impl.*;
 import org.assertj.db.navigation.element.ColumnElement;
 import org.assertj.db.type.*;
 
-import java.lang.reflect.Constructor;
 import java.util.List;
 import java.util.UUID;
 
@@ -66,15 +65,13 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
 
   /** {@inheritDoc} */
   @Override
-  protected CV getValueAssertInstance(Class<CV> valueAssertType, int index, Object value) throws Exception {
-    Constructor<CV> constructor = valueAssertType.getDeclaredConstructor(myself.getClass(), Object.class);
-    CV instance = constructor.newInstance(this, value);
-    return instance.as(getColumnValueDescription(info, index));
+  protected String getValueDescription(int index) {
+    return getColumnValueDescription(info, index);
   }
 
   /** {@inheritDoc} */
   @Override
-  protected List<Object> getValuesList() {
+  protected List<Value> getValuesList() {
     return column.getValuesList();
   }
 
@@ -86,7 +83,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
 
   /** {@inheritDoc} */
   @Override
-  public C isOfClass(Class expected, boolean lenient) {
+  public C isOfClass(Class<?> expected, boolean lenient) {
     return AssertionsOnColumnClass.isOfClass(myself, info, getValuesList(), expected, lenient);
   }
 

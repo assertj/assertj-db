@@ -15,7 +15,9 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
+import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
+import org.assertj.db.type.Value;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -32,23 +34,23 @@ import static org.junit.Assert.fail;
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnColumnType_IsNumber_Test {
+public class AssertionsOnColumnType_IsNumber_Test extends AbstractTest {
 
   /**
    * This method tests the {@code isNumber} assertion method.
    */
   @Test
-  public void test_is_number() {
+  public void test_is_number() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Object> list = new ArrayList<Object>(Arrays.asList(8, 9));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, 8), getValue(null, 9)));
     TableAssert tableAssert2 = AssertionsOnColumnType.isNumber(tableAssert, info, list, false);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    list = new ArrayList<Object>(Arrays.asList(8, 9));
+    list = new ArrayList<>(Arrays.asList(getValue(null, 8), getValue(null, 9)));
     tableAssert2 = AssertionsOnColumnType.isNumber(tableAssert, info, list, true);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    list = new ArrayList<Object>(Arrays.asList(null, 9));
+    list = new ArrayList<>(Arrays.asList(getValue(null, null), getValue(null, 9)));
     tableAssert2 = AssertionsOnColumnType.isNumber(tableAssert, info, list, true);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
@@ -57,13 +59,13 @@ public class AssertionsOnColumnType_IsNumber_Test {
    * This method should fail because the value is not a number.
    */
   @Test
-  public void should_fail_because_value_is_not_a_number() {
+  public void should_fail_because_value_is_not_a_number() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      List<Object> list = new ArrayList<Object>(Arrays.asList("test", 8));
+      List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "test"), getValue(null, 8)));
       AssertionsOnColumnType.isNumber(tableAssert, info, list, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -81,13 +83,13 @@ public class AssertionsOnColumnType_IsNumber_Test {
    * This method should fail because the value is not a number (with lenience).
    */
   @Test
-  public void should_fail_because_value_is_not_a_number_with_lenience() {
+  public void should_fail_because_value_is_not_a_number_with_lenience() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      List<Object> list = new ArrayList<Object>(Arrays.asList(8, "test"));
+      List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, 8), getValue(null, "test")));
       AssertionsOnColumnType.isNumber(tableAssert, info, list, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -105,13 +107,13 @@ public class AssertionsOnColumnType_IsNumber_Test {
    * This method should fail because the value is a stringbuiler.
    */
   @Test
-  public void should_fail_because_value_is_a_stringbuilder() {
+  public void should_fail_because_value_is_a_stringbuilder() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      List<Object> list = new ArrayList<Object>(Arrays.asList(new StringBuilder("test"), true));
+      List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, new StringBuilder("test")), getValue(null, true)));
       AssertionsOnColumnType.isNumber(tableAssert, info, list, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {

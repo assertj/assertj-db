@@ -36,10 +36,13 @@ public class Row_Has_PksValuesEqualTo_Test extends AbstractTest {
   public void test_when_havingpksvaluesequalto_with_one_pk() throws Exception {
     assertThat(
         getRow(Arrays.asList("col1"), Arrays.asList("col1", "col2", "col3"),
-            Arrays.asList((Object) "val1", "val2", "val3")).hasPksValuesEqualTo(new Object[] { "val1" })).isTrue();
+            Arrays.asList(getValue(null, "val1"), getValue(null, "val2"), getValue(null, "val3"))).hasPksValuesEqualTo(new Value[] { getValue(
+                null, "val1") })).isTrue();
     assertThat(
         getRow(Arrays.asList("col1"), Arrays.asList("col1", "col2", "col3"),
-            Arrays.asList((Object) "val1", "val2", "val3")).hasPksValuesEqualTo(new Object[] { "val2" })).isFalse();
+            Arrays.asList(getValue(null, "val1"), getValue(null, "val2"), getValue(null, "val3"))).hasPksValuesEqualTo(new Value[] { getValue(
+                null, "val2") }))
+                .isFalse();
   }
 
   /**
@@ -51,13 +54,16 @@ public class Row_Has_PksValuesEqualTo_Test extends AbstractTest {
   public void test_when_havingpksvaluesequalto_with_two_pks() throws Exception {
     assertThat(
         getRow(Arrays.asList("col3", "col1"), Arrays.asList("col1", "col2", "col3"),
-            Arrays.asList((Object) "val1", 1, 2)).hasPksValuesEqualTo(new Object[] { 2, "val1" })).isTrue();
+            Arrays.asList(getValue(null, "val1"), getValue(null, 1), getValue(null, 2))).hasPksValuesEqualTo(new Value[] { getValue(
+                null, 2), getValue(null, "val1") })).isTrue();
     assertThat(
         getRow(Arrays.asList("col3", "col1"), Arrays.asList("col1", "col2", "col3"),
-            Arrays.asList((Object) "val1", 1, 2)).hasPksValuesEqualTo(new Object[] { 1, "val1" })).isFalse();
+            Arrays.asList(getValue(null, "val1"), getValue(null, 1), getValue(null, 2))).hasPksValuesEqualTo(new Value[] { getValue(
+                null, 1), getValue(null, "val1") })).isFalse();
     assertThat(
         getRow(Arrays.asList("col3", "col1"), Arrays.asList("col1", "col2", "col3"),
-            Arrays.asList((Object) "val1", 1, 2)).hasPksValuesEqualTo(new Object[] { 2, "val2" })).isFalse();
+            Arrays.asList(getValue(null, "val1"), getValue(null, 1), getValue(null, 2))).hasPksValuesEqualTo(new Value[] { getValue(
+                null, 2), getValue(null, "val2") })).isFalse();
   }
 
 }

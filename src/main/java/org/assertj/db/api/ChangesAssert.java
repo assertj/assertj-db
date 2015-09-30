@@ -20,6 +20,7 @@ import org.assertj.db.navigation.origin.OriginWithChanges;
 import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.Changes;
+import org.assertj.db.type.Value;
 import org.assertj.db.util.Values;
 
 import java.util.Arrays;
@@ -384,8 +385,8 @@ public class ChangesAssert
     List<Change> changesList = changes.getChangesList();
     int index = 0;
     for (Change change : changesList) {
-      List<Object> pksValueList = change.getPksValueList();
-      Object[] values = pksValueList.toArray(new Object[pksValueList.size()]);
+      List<Value> pksValueList = change.getPksValueList();
+      Value[] values = pksValueList.toArray(new Value[pksValueList.size()]);
       boolean equal = false;
       if (pksValues.length == values.length) {
         equal = true;

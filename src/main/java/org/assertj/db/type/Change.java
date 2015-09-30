@@ -26,7 +26,7 @@ import java.util.List;
  * @author Régis Pouiller.
  * 
  */
-public class Change {
+public class Change implements DbElement {
 
   /**
    * The type of the date on which is the change.
@@ -160,7 +160,7 @@ public class Change {
    *
    * @return The list of the primary keys value.
    */
-  public List<Object> getPksValueList() {
+  public List<Value> getPksValueList() {
     if (rowAtStartPoint != null) {
       return rowAtStartPoint.getPksValueList();
     }

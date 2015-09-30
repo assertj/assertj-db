@@ -21,5 +21,5 @@ package org.assertj.db.navigation.element;
  *
  * @author Régis Pouiller
  */
-public interface ValueElement {
+public interface ValueElement extends Element {
 }

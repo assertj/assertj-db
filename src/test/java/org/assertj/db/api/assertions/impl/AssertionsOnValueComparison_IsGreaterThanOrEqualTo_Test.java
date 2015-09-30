@@ -15,6 +15,7 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
+import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
@@ -23,24 +24,24 @@ import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link  AssertionsOnValueComparison} class :
- * {@link  AssertionsOnValueComparison#isGreaterThanOrEqualTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, Object, Number)} method.
+ * {@link  AssertionsOnValueComparison#isGreaterThanOrEqualTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, Number)} method.
  *
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnValueComparison_IsGreaterThanOrEqualTo_Test {
+public class AssertionsOnValueComparison_IsGreaterThanOrEqualTo_Test extends AbstractTest {
 
   /**
    * This method tests the {@code isGreaterThanOrEqualTo} assertion method.
    */
   @Test
-  public void test_is_greater_than_or_equal_to() {
+  public void test_is_greater_than_or_equal_to() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    TableAssert tableAssert2 = AssertionsOnValueComparison.isGreaterThanOrEqualTo(tableAssert, info, 8, 7);
+    TableAssert tableAssert2 = AssertionsOnValueComparison.isGreaterThanOrEqualTo(tableAssert, info, getValue(null, 8), 7);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnValueComparison.isGreaterThanOrEqualTo(tableAssert, info, 8, 8);
+    tableAssert2 = AssertionsOnValueComparison.isGreaterThanOrEqualTo(tableAssert, info, getValue(null, 8), 8);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -48,13 +49,13 @@ public class AssertionsOnValueComparison_IsGreaterThanOrEqualTo_Test {
    * This method should fail because the value is less than.
    */
   @Test
-  public void should_fail_because_value_is_less_than() {
+  public void should_fail_because_value_is_less_than() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnValueComparison.isGreaterThanOrEqualTo(tableAssert, info, 8, 9);
+      AssertionsOnValueComparison.isGreaterThanOrEqualTo(tableAssert, info, getValue(null, 8), 9);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -69,13 +70,13 @@ public class AssertionsOnValueComparison_IsGreaterThanOrEqualTo_Test {
    * This method should fail because the value is not a number.
    */
   @Test
-  public void should_fail_because_value_is_not_a_number() {
+  public void should_fail_because_value_is_not_a_number() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnValueComparison.isGreaterThanOrEqualTo(tableAssert, info, "8", 8);
+      AssertionsOnValueComparison.isGreaterThanOrEqualTo(tableAssert, info, getValue(null, "8"), 8);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"

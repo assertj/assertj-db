@@ -15,6 +15,7 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
+import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
@@ -27,40 +28,43 @@ import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link org.assertj.db.api.assertions.impl.AssertionsOnColumnOfChangeEquality} class :
- * {@link org.assertj.db.api.assertions.impl.AssertionsOnColumnOfChangeEquality#hasValues(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, Object, Object, String, String)} method.
+ * {@link org.assertj.db.api.assertions.impl.AssertionsOnColumnOfChangeEquality#hasValues(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, org.assertj.db.type.Value, String, String)} method.
  *
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnColumnOfChangeEquality_HasValues_Two_String_Test {
+public class AssertionsOnColumnOfChangeEquality_HasValues_Two_String_Test extends AbstractTest {
 
   /**
    * This method tests the {@code hasValues} assertion method.
    */
   @Test
-  public void test_has_values() {
+  public void test_has_values() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                                            "test1", "test2",
+                                                                            getValue(null, "test1"), getValue(null,
+                                                                                                              "test2"),
                                                                             "test1", "test2");
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                                8, 9,
+                                                                getValue(null, 8), getValue(null, 9),
                                                                 "8", "9");
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                                Date.valueOf("2007-12-23"), Date.valueOf("2002-07-25"),
+                                                                getValue(null, Date.valueOf("2007-12-23")),
+                                                                getValue(null, Date.valueOf("2002-07-25")),
                                                                 "2007-12-23", "2002-07-25");
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                                Time.valueOf("09:01:00"), Time.valueOf("03:30:05"),
+                                                                getValue(null, Time.valueOf("09:01:00")),
+                                                                getValue(null, Time.valueOf("03:30:05")),
                                                                 "09:01", "03:30:05");
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                                Timestamp.valueOf("2007-12-23 09:01:00"),
-                                                                Timestamp.valueOf("2002-07-25 03:30:05"),
+                                                                getValue(null, Timestamp.valueOf("2007-12-23 09:01:00")),
+                                                                getValue(null, Timestamp.valueOf("2002-07-25 03:30:05")),
                                                                 "2007-12-23T09:01", "2002-07-25T03:30:05");
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
@@ -69,14 +73,14 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_String_Test {
    * This method should fail because the value at start point is different.
    */
   @Test
-  public void should_fail_because_value_at_start_point_is_different() {
+  public void should_fail_because_value_at_start_point_is_different() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   "test1", "test2",
+                                                   getValue(null, "test1"), getValue(null, "test2"),
                                                    "test2", "test2");
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -88,7 +92,7 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_String_Test {
     }
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   8, 9,
+                                                   getValue(null, 8), getValue(null, 9),
                                                    "9", "9");
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -100,8 +104,9 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_String_Test {
     }
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   Date.valueOf("2007-12-23"), Date.valueOf("2002-07-25"),
-                                                   "2002-07-25", "2002-07-25");
+                                                   getValue(null, Date.valueOf("2007-12-23")),
+                                                   getValue(null, Date.valueOf("2002-07-25")),
+                                                            "2002-07-25", "2002-07-25");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -112,7 +117,8 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_String_Test {
     }
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   Time.valueOf("09:01:00"), Time.valueOf("03:30:05"),
+                                                   getValue(null, Time.valueOf("09:01:00")),
+                                                   getValue(null, Time.valueOf("03:30:05")),
                                                    "03:30:05", "03:30:05");
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -124,8 +130,8 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_String_Test {
     }
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   Timestamp.valueOf("2007-12-23 09:01:00"),
-                                                   Timestamp.valueOf("2002-07-25 03:30:05"),
+                                                   getValue(null, Timestamp.valueOf("2007-12-23 09:01:00")),
+                                                   getValue(null, Timestamp.valueOf("2002-07-25 03:30:05")),
                                                    "2002-07-25T03:30:05", "2002-07-25T03:30:05");
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -141,14 +147,14 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_String_Test {
    * This method should fail because the value at end point is different.
    */
   @Test
-  public void should_fail_because_value_at_end_point_is_different() {
+  public void should_fail_because_value_at_end_point_is_different() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   "test1", "test1",
+                                                   getValue(null, "test1"), getValue(null, "test1"),
                                                    "test1", "test2");
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -160,7 +166,7 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_String_Test {
     }
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   8, 8,
+                                                   getValue(null, 8), getValue(null, 8),
                                                    "8", "9");
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -172,7 +178,8 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_String_Test {
     }
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   Date.valueOf("2007-12-23"), Date.valueOf("2002-07-26"),
+                                                   getValue(null, Date.valueOf("2007-12-23")),
+                                                   getValue(null, Date.valueOf("2002-07-26")),
                                                    "2007-12-23", "2002-07-25");
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -184,7 +191,8 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_String_Test {
     }
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   Time.valueOf("09:01:00"), Time.valueOf("03:30:06"),
+                                                   getValue(null, Time.valueOf("09:01:00")),
+                                                   getValue(null, Time.valueOf("03:30:06")),
                                                    "09:01", "03:30:05");
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -196,8 +204,8 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_String_Test {
     }
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   Timestamp.valueOf("2007-12-23 09:01:00"),
-                                                   Timestamp.valueOf("2002-07-25 03:30:06"),
+                                                   getValue(null, Timestamp.valueOf("2007-12-23 09:01:00")),
+                                                   getValue(null, Timestamp.valueOf("2002-07-25 03:30:06")),
                                                    "2007-12-23T09:01", "2002-07-25T03:30:05");
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -213,14 +221,14 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_String_Test {
    * This method should fail because one of the values is not a text.
    */
   @Test
-  public void should_fail_because_one_value_is_not_a_text() {
+  public void should_fail_because_one_value_is_not_a_text() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   false, "test2",
+                                                   getValue(null, false), getValue(null, "test2"),
                                                    "test1", "test2");
       fail("An exception must be raised");
     } catch (AssertionError e) {

@@ -19,5 +19,5 @@ package org.assertj.db.navigation.element;
  *
  * @author Régis Pouiller
  */
-public interface ChangesElement {
+public interface ChangesElement extends Element {
 }

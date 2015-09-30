@@ -15,10 +15,7 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
-import org.assertj.db.type.DateTimeValue;
-import org.assertj.db.type.DateValue;
-import org.assertj.db.type.TimeValue;
-import org.assertj.db.type.ValueType;
+import org.assertj.db.type.*;
 import org.assertj.db.util.Values;
 
 import java.util.ArrayList;
@@ -60,14 +57,14 @@ public class AssertionsOnColumnContent {
    * @throws AssertionError If the column are not containing the objects in parameter.
    */
   public static <A extends AbstractAssert> A containsValues(A assertion, WritableAssertionInfo info,
-                                                       List<Object> valuesList, Object... expected) {
+                                                       List<Value> valuesList, Object... expected) {
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
-    List<Object> list = new ArrayList<>(valuesList);
+    List<Value> list = new ArrayList<>(valuesList);
     int index = 0;
     for (Object val : expected) {
       boolean found = false;
-      List<Object> newList = new ArrayList<>();
-      for (Object obj : list) {
+      List<Value> newList = new ArrayList<>();
+      for (Value obj : list) {
         if (found || !Values.areEqual(obj, val)) {
           newList.add(obj);
         }
@@ -77,7 +74,7 @@ public class AssertionsOnColumnContent {
       }
       if (!found) {
         List<Object> listForError = new ArrayList<>();
-        for (Object obj : valuesList) {
+        for (Value obj : valuesList) {
           listForError.add(Values.getRepresentationFromValueInFrontOfExpected(obj, Object.class));
         }
         throw failures.failure(info, shouldContainsValue(listForError, expected, val, index));
@@ -100,15 +97,15 @@ public class AssertionsOnColumnContent {
    * @throws AssertionError If the column are not containing the booleans in parameter.
    */
   public static <A extends AbstractAssert> A containsValues(A assertion, WritableAssertionInfo info,
-                                                       List<Object> valuesList, Boolean... expected) {
+                                                       List<Value> valuesList, Boolean... expected) {
     AssertionsOnColumnType.isBoolean(assertion, info, valuesList, true);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
-    List<Object> list = new ArrayList<>(valuesList);
+    List<Value> list = new ArrayList<>(valuesList);
     int index = 0;
     for (Boolean val : expected) {
       boolean found = false;
-      List<Object> newList = new ArrayList<>();
-      for (Object obj : list) {
+      List<Value> newList = new ArrayList<>();
+      for (Value obj : list) {
         if (found || !Values.areEqual(obj, val)) {
           newList.add(obj);
         }
@@ -118,7 +115,7 @@ public class AssertionsOnColumnContent {
       }
       if (!found) {
         List<Object> listForError = new ArrayList<>();
-        for (Object obj : valuesList) {
+        for (Value obj : valuesList) {
           listForError.add(Values.getRepresentationFromValueInFrontOfExpected(obj, Boolean.class));
         }
         throw failures.failure(info, shouldContainsValue(listForError, expected, val, index));
@@ -141,15 +138,15 @@ public class AssertionsOnColumnContent {
    * @throws AssertionError If the column are not containing the numbers in parameter.
    */
   public static <A extends AbstractAssert> A containsValues(A assertion, WritableAssertionInfo info,
-                                                       List<Object> valuesList, Number... expected) {
+                                                       List<Value> valuesList, Number... expected) {
     AssertionsOnColumnType.isNumber(assertion, info, valuesList, true);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
-    List<Object> list = new ArrayList<>(valuesList);
+    List<Value> list = new ArrayList<>(valuesList);
     int index = 0;
     for (Number val : expected) {
       boolean found = false;
-      List<Object> newList = new ArrayList<>();
-      for (Object obj : list) {
+      List<Value> newList = new ArrayList<>();
+      for (Value obj : list) {
         if (found || !Values.areEqual(obj, val)) {
           newList.add(obj);
         }
@@ -159,7 +156,7 @@ public class AssertionsOnColumnContent {
       }
       if (!found) {
         List<Object> listForError = new ArrayList<>();
-        for (Object obj : valuesList) {
+        for (Value obj : valuesList) {
           listForError.add(Values.getRepresentationFromValueInFrontOfExpected(obj, Number.class));
         }
         throw failures.failure(info, shouldContainsValue(listForError, expected, val, index));
@@ -182,15 +179,15 @@ public class AssertionsOnColumnContent {
    * @throws AssertionError If the column are not containing the bytes in parameter.
    */
   public static <A extends AbstractAssert> A containsValues(A assertion, WritableAssertionInfo info,
-                                                       List<Object> valuesList, byte[]... expected) {
+                                                       List<Value> valuesList, byte[]... expected) {
     AssertionsOnColumnType.isBytes(assertion, info, valuesList, true);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
-    List<Object> list = new ArrayList<>(valuesList);
+    List<Value> list = new ArrayList<>(valuesList);
     int index = 0;
     for (byte[] val : expected) {
       boolean found = false;
-      List<Object> newList = new ArrayList<>();
-      for (Object obj : list) {
+      List<Value> newList = new ArrayList<>();
+      for (Value obj : list) {
         if (found || !Values.areEqual(obj, val)) {
           newList.add(obj);
         }
@@ -200,7 +197,7 @@ public class AssertionsOnColumnContent {
       }
       if (!found) {
         List<Object> listForError = new ArrayList<>();
-        for (Object obj : valuesList) {
+        for (Value obj : valuesList) {
           listForError.add(Values.getRepresentationFromValueInFrontOfExpected(obj, byte[].class));
         }
         throw failures.failure(info, shouldContainsValue(index));
@@ -223,16 +220,16 @@ public class AssertionsOnColumnContent {
    * @throws AssertionError If the column are not containing the texts in parameter.
    */
   public static <A extends AbstractAssert> A containsValues(A assertion, WritableAssertionInfo info,
-                                                       List<Object> valuesList, String... expected) {
+                                                       List<Value> valuesList, String... expected) {
     AssertionsOnColumnType.isOfAnyTypeIn(assertion, info, valuesList, ValueType.TEXT, ValueType.NUMBER, ValueType.DATE,
                                          ValueType.TIME, ValueType.DATE_TIME, ValueType.UUID, ValueType.NOT_IDENTIFIED);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
-    List<Object> list = new ArrayList<>(valuesList);
+    List<Value> list = new ArrayList<>(valuesList);
     int index = 0;
     for (String val : expected) {
       boolean found = false;
-      List<Object> newList = new ArrayList<>();
-      for (Object obj : list) {
+      List<Value> newList = new ArrayList<>();
+      for (Value obj : list) {
         if (found || !Values.areEqual(obj, val)) {
           newList.add(obj);
         }
@@ -242,7 +239,7 @@ public class AssertionsOnColumnContent {
       }
       if (!found) {
         List<Object> listForError = new ArrayList<>();
-        for (Object obj : valuesList) {
+        for (Value obj : valuesList) {
           listForError.add(Values.getRepresentationFromValueInFrontOfExpected(obj, String.class));
         }
         throw failures.failure(info, shouldContainsValue(listForError, expected, val, index));
@@ -265,15 +262,15 @@ public class AssertionsOnColumnContent {
    * @throws AssertionError If the column are not containing the UUIDs in parameter.
    */
   public static <A extends AbstractAssert> A containsValues(A assertion, WritableAssertionInfo info,
-                                                       List<Object> valuesList, UUID... expected) {
+                                                       List<Value> valuesList, UUID... expected) {
     AssertionsOnColumnType.isOfAnyTypeIn(assertion, info, valuesList, ValueType.UUID, ValueType.NOT_IDENTIFIED);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
-    List<Object> list = new ArrayList<>(valuesList);
+    List<Value> list = new ArrayList<>(valuesList);
     int index = 0;
     for (UUID val : expected) {
       boolean found = false;
-      List<Object> newList = new ArrayList<>();
-      for (Object obj : list) {
+      List<Value> newList = new ArrayList<>();
+      for (Value obj : list) {
         if (found || !Values.areEqual(obj, val)) {
           newList.add(obj);
         }
@@ -283,7 +280,7 @@ public class AssertionsOnColumnContent {
       }
       if (!found) {
         List<Object> listForError = new ArrayList<>();
-        for (Object obj : valuesList) {
+        for (Value obj : valuesList) {
           listForError.add(Values.getRepresentationFromValueInFrontOfExpected(obj, UUID.class));
         }
         throw failures.failure(info, shouldContainsValue(listForError, expected, val, index));
@@ -306,16 +303,16 @@ public class AssertionsOnColumnContent {
    * @throws AssertionError If the column are not containing the date values in parameter.
    */
   public static <A extends AbstractAssert> A containsValues(A assertion, WritableAssertionInfo info,
-                                                       List<Object> valuesList, DateValue... expected) {
+                                                       List<Value> valuesList, DateValue... expected) {
     AssertionsOnColumnType
             .isOfAnyTypeIn(assertion, info, valuesList, ValueType.DATE, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
-    List<Object> list = new ArrayList<>(valuesList);
+    List<Value> list = new ArrayList<>(valuesList);
     int index = 0;
     for (DateValue val : expected) {
       boolean found = false;
-      List<Object> newList = new ArrayList<>();
-      for (Object obj : list) {
+      List<Value> newList = new ArrayList<>();
+      for (Value obj : list) {
         if (found || !Values.areEqual(obj, val)) {
           newList.add(obj);
         }
@@ -325,7 +322,7 @@ public class AssertionsOnColumnContent {
       }
       if (!found) {
         List<Object> listForError = new ArrayList<>();
-        for (Object obj : valuesList) {
+        for (Value obj : valuesList) {
           listForError.add(Values.getRepresentationFromValueInFrontOfExpected(obj, DateValue.class));
         }
         throw failures.failure(info, shouldContainsValue(listForError, expected, val, index));
@@ -348,15 +345,15 @@ public class AssertionsOnColumnContent {
    * @throws AssertionError If the column are not containing the time values in parameter.
    */
   public static <A extends AbstractAssert> A containsValues(A assertion, WritableAssertionInfo info,
-                                                       List<Object> valuesList, TimeValue... expected) {
+                                                       List<Value> valuesList, TimeValue... expected) {
     AssertionsOnColumnType.isOfAnyTypeIn(assertion, info, valuesList, ValueType.TIME, ValueType.NOT_IDENTIFIED);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
-    List<Object> list = new ArrayList<>(valuesList);
+    List<Value> list = new ArrayList<>(valuesList);
     int index = 0;
     for (TimeValue val : expected) {
       boolean found = false;
-      List<Object> newList = new ArrayList<>();
-      for (Object obj : list) {
+      List<Value> newList = new ArrayList<>();
+      for (Value obj : list) {
         if (found || !Values.areEqual(obj, val)) {
           newList.add(obj);
         }
@@ -366,7 +363,7 @@ public class AssertionsOnColumnContent {
       }
       if (!found) {
         List<Object> listForError = new ArrayList<>();
-        for (Object obj : valuesList) {
+        for (Value obj : valuesList) {
           listForError.add(Values.getRepresentationFromValueInFrontOfExpected(obj, TimeValue.class));
         }
         throw failures.failure(info, shouldContainsValue(listForError, expected, val, index));
@@ -389,16 +386,16 @@ public class AssertionsOnColumnContent {
    * @throws AssertionError If the column are not containing the date/time values in parameter.
    */
   public static <A extends AbstractAssert> A containsValues(A assertion, WritableAssertionInfo info,
-                                                       List<Object> valuesList, DateTimeValue... expected) {
+                                                       List<Value> valuesList, DateTimeValue... expected) {
     AssertionsOnColumnType.isOfAnyTypeIn(assertion, info, valuesList, ValueType.DATE, ValueType.DATE_TIME,
                                          ValueType.NOT_IDENTIFIED);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
-    List<Object> list = new ArrayList<>(valuesList);
+    List<Value> list = new ArrayList<>(valuesList);
     int index = 0;
     for (DateTimeValue val : expected) {
       boolean found = false;
-      List<Object> newList = new ArrayList<>();
-      for (Object obj : list) {
+      List<Value> newList = new ArrayList<>();
+      for (Value obj : list) {
         if (found || !Values.areEqual(obj, val)) {
           newList.add(obj);
         }
@@ -408,7 +405,7 @@ public class AssertionsOnColumnContent {
       }
       if (!found) {
         List<Object> listForError = new ArrayList<>();
-        for (Object obj : valuesList) {
+        for (Value obj : valuesList) {
           listForError.add(Values.getRepresentationFromValueInFrontOfExpected(obj, DateTimeValue.class));
         }
         throw failures.failure(info, shouldContainsValue(listForError, expected, val, index));

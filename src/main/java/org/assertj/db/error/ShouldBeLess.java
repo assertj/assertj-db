@@ -14,6 +14,7 @@ package org.assertj.db.error;
 
 import org.assertj.core.error.BasicErrorMessageFactory;
 import org.assertj.core.error.ErrorMessageFactory;
+import org.assertj.db.type.Value;
 
 /**
  * Creates an error message indicating that an assertion that verifies that a value is less than another value.
@@ -30,7 +31,7 @@ public class ShouldBeLess extends BasicErrorMessageFactory {
    * @param expected The expected value to compare to.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBeLess(Object actual, Object expected) {
+  public static ErrorMessageFactory shouldBeLess(Value actual, Object expected) {
     return new ShouldBeLess(actual, expected);
   }
 
@@ -40,7 +41,7 @@ public class ShouldBeLess extends BasicErrorMessageFactory {
    * @param actual The actual value in the failed assertion.
    * @param expected The expected value to compare to.
    */
-  private ShouldBeLess(Object actual, Object expected) {
-    super("%nExpecting:%n  <%s>%nto be less than %n  <%s>", actual, expected);
+  private ShouldBeLess(Value actual, Object expected) {
+    super("%nExpecting:%n  <%s>%nto be less than %n  <%s>", actual.getValue(), expected);
   }
 }

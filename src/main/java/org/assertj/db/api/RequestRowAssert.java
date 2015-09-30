@@ -31,7 +31,7 @@ public class RequestRowAssert
    * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    * @param row The row on which do assertion.
    */
-  RequestRowAssert(RequestAssert origin, Row row) {
+  public RequestRowAssert(RequestAssert origin, Row row) {
     super(origin, RequestRowAssert.class, RequestRowValueAssert.class, row);
   }
 
@@ -43,5 +43,4 @@ public class RequestRowAssert
   public RequestAssert returnToRequest() {
     return returnToOrigin();
   }
-
 }

@@ -15,6 +15,7 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
+import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
@@ -23,22 +24,22 @@ import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link AssertionsOnValueNullity} class :
- * {@link AssertionsOnValueNullity#isNotNull(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, Object)} method.
+ * {@link AssertionsOnValueNullity#isNotNull(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value)} method.
  *
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnValueNullity_IsNotNull_Test {
+public class AssertionsOnValueNullity_IsNotNull_Test extends AbstractTest {
 
   /**
    * This method tests the {@code isNotNull} assertion method.
    */
   @Test
-  public void test_is_not_null() {
+  public void test_is_not_null() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    TableAssert tableAssert2 = AssertionsOnValueNullity.isNotNull(tableAssert, info, 1);
+    TableAssert tableAssert2 = AssertionsOnValueNullity.isNotNull(tableAssert, info, getValue(null, 1));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -46,13 +47,13 @@ public class AssertionsOnValueNullity_IsNotNull_Test {
    * This method should fail because the value is null.
    */
   @Test
-  public void should_fail_because_value_is_null() {
+  public void should_fail_because_value_is_null() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnValueNullity.isNotNull(tableAssert, info, null);
+      AssertionsOnValueNullity.isNotNull(tableAssert, info, getValue(null, null));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format(String.format("[description] %n"

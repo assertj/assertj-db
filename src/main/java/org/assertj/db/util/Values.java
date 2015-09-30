@@ -13,10 +13,7 @@
 package org.assertj.db.util;
 
 import org.assertj.db.exception.AssertJDBException;
-import org.assertj.db.type.DateTimeValue;
-import org.assertj.db.type.DateValue;
-import org.assertj.db.type.TimeValue;
-import org.assertj.db.type.ValueType;
+import org.assertj.db.type.*;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -48,7 +45,7 @@ public class Values {
    * @param expected The other value to compare.
    * @return {@code true} if the value is equal to the value in parameter, {@code false} otherwise.
    */
-  public static boolean areEqual(Object value, Object expected) {
+  public static boolean areEqual(Value value, Object expected) {
     ValueType valueType = ValueType.getType(value);
     switch (valueType) {
     case BOOLEAN:
@@ -110,11 +107,12 @@ public class Values {
       }
       break;
     default:
-      if (expected == null && value == null) {
+      Object object = value.getValue();
+      if (expected == null && object == null) {
         return true;
       }
-      if (value != null) {
-        return value.equals(expected);
+      if (object != null) {
+        return object.equals(expected);
       }
     }
     return false;
@@ -127,11 +125,12 @@ public class Values {
    * @param expected The {@code Boolean} to compare.
    * @return {@code true} if the value is equal to the {@code Boolean} parameter, {@code false} otherwise.
    */
-  public static boolean areEqual(Object value, Boolean expected) {
+  public static boolean areEqual(Value value, Boolean expected) {
+    Object object = value.getValue();
     if (expected == null) {
-      return value == null;
+      return object == null;
     }
-    return expected.equals(value);
+    return expected.equals(object);
   }
 
   /**
@@ -141,9 +140,10 @@ public class Values {
    * @param expected The {@code Number} to compare.
    * @return {@code true} if the value is equal to the {@code Number} parameter, {@code false} otherwise.
    */
-  public static boolean areEqual(Object value, Number expected) {
+  public static boolean areEqual(Value value, Number expected) {
+    Object object = value.getValue();
     if (expected == null) {
-      return value == null;
+      return object == null;
     }
 
     // If parameter is a BigInteger,
@@ -151,13 +151,13 @@ public class Values {
     if (expected instanceof BigInteger) {
       BigInteger bi;
 
-      if (value instanceof BigInteger) {
-        bi = (BigInteger) value;
+      if (object instanceof BigInteger) {
+        bi = (BigInteger) object;
       } else {
         try {
-          bi = new BigInteger("" + value);
+          bi = new BigInteger("" + object);
         } catch (NumberFormatException e) {
-          throw new AssertJDBException("Expected <%s> can not be compared to a BigInteger (<%s>)", expected, value);
+          throw new AssertJDBException("Expected <%s> can not be compared to a BigInteger (<%s>)", expected, object);
         }
       }
 
@@ -170,13 +170,13 @@ public class Values {
     else if (expected instanceof BigDecimal) {
       BigDecimal bd;
 
-      if (value instanceof BigDecimal) {
-        bd = (BigDecimal) value;
+      if (object instanceof BigDecimal) {
+        bd = (BigDecimal) object;
       } else {
         try {
-          bd = new BigDecimal("" + value);
+          bd = new BigDecimal("" + object);
         } catch (NumberFormatException e) {
-          throw new AssertJDBException("Expected <%s> can not be compared to a BigDecimal (<%s>)", expected, value);
+          throw new AssertJDBException("Expected <%s> can not be compared to a BigDecimal (<%s>)", expected, object);
         }
       }
 
@@ -192,32 +192,32 @@ public class Values {
     else {
       Long actualValue = null;
 
-      if (value instanceof Float) {
-        if (((Float) value) == expected.floatValue()) {
+      if (object instanceof Float) {
+        if (((Float) object) == expected.floatValue()) {
           return true;
         }
-      } else if (value instanceof Double) {
-        if (((Double) value) == expected.doubleValue()) {
+      } else if (object instanceof Double) {
+        if (((Double) object) == expected.doubleValue()) {
           return true;
         }
-      } else if (value instanceof BigInteger) {
+      } else if (object instanceof BigInteger) {
         BigInteger bi = new BigInteger("" + expected);
-        if (((BigInteger) value).compareTo(bi) == 0) {
+        if (((BigInteger) object).compareTo(bi) == 0) {
           return true;
         }
-      } else if (value instanceof BigDecimal) {
+      } else if (object instanceof BigDecimal) {
         BigDecimal bd = new BigDecimal("" + expected);
-        if (((BigDecimal) value).compareTo(bd) == 0) {
+        if (((BigDecimal) object).compareTo(bd) == 0) {
           return true;
         }
-      } else if (value instanceof Byte) {
-        actualValue = ((Byte) value).longValue();
-      } else if (value instanceof Short) {
-        actualValue = ((Short) value).longValue();
-      } else if (value instanceof Integer) {
-        actualValue = ((Integer) value).longValue();
-      } else if (value instanceof Long) {
-        actualValue = (Long) value;
+      } else if (object instanceof Byte) {
+        actualValue = ((Byte) object).longValue();
+      } else if (object instanceof Short) {
+        actualValue = ((Short) object).longValue();
+      } else if (object instanceof Integer) {
+        actualValue = ((Integer) object).longValue();
+      } else if (object instanceof Long) {
+        actualValue = (Long) object;
       }
 
       if (actualValue != null) {
@@ -247,13 +247,14 @@ public class Values {
    * @param expected The array of {@code byte} to compare.
    * @return {@code true} if the value is equal to the array of {@code byte} parameter, {@code false} otherwise.
    */
-  public static boolean areEqual(Object value, byte[] expected) {
+  public static boolean areEqual(Value value, byte[] expected) {
+    Object object = value.getValue();
     if (expected == null) {
-      return value == null;
+      return object == null;
     }
 
-    if (value instanceof byte[]) {
-      byte[] bytes = (byte[]) value;
+    if (object instanceof byte[]) {
+      byte[] bytes = (byte[]) object;
       if (bytes.length != expected.length) {
         return false;
       }
@@ -390,23 +391,24 @@ public class Values {
    * @throws AssertJDBException   If {@code value} is a {@code Number} and it is not possible to compare to
    *                              {@code expected}.
    */
-  public static boolean areEqual(Object value, String expected) {
+  public static boolean areEqual(Value value, String expected) {
+    Object object = value.getValue();
     if (expected == null) {
-      return value == null;
+      return object == null;
     }
 
-    if (value instanceof Number) {
-      return areEqual((Number) value, expected);
-    } else if (value instanceof Date) {
-      return areEqual((Date) value, expected);
-    } else if (value instanceof Time) {
-      return areEqual((Time) value, expected);
-    } else if (value instanceof Timestamp) {
-      return areEqual((Timestamp) value, expected);
-    } else if (value instanceof UUID) {
-      return areEqual((UUID) value, expected);
+    if (object instanceof Number) {
+      return areEqual((Number) object, expected);
+    } else if (object instanceof Date) {
+      return areEqual((Date) object, expected);
+    } else if (object instanceof Time) {
+      return areEqual((Time) object, expected);
+    } else if (object instanceof Timestamp) {
+      return areEqual((Timestamp) object, expected);
+    } else if (object instanceof UUID) {
+      return areEqual((UUID) object, expected);
     }
-    return expected.equals(value);
+    return expected.equals(object);
   }
 
   /**
@@ -417,11 +419,12 @@ public class Values {
    * @return {@code true} if the value is equal to the {@code UUID} parameter, {@code false} otherwise.
    * @since 1.1.0
    */
-  public static boolean areEqual(Object value, UUID expected) {
+  public static boolean areEqual(Value value, UUID expected) {
+    Object object = value.getValue();
     if (expected == null) {
-      return value == null;
+      return object == null;
     }
-    return expected.equals(value);
+    return expected.equals(object);
   }
 
   /**
@@ -452,17 +455,18 @@ public class Values {
    * @param expected The {@link DateValue} to compare.
    * @return {@code true} if the value is equal to the {@link DateValue} parameter, {@code false} otherwise.
    */
-  public static boolean areEqual(Object value, DateValue expected) {
+  public static boolean areEqual(Value value, DateValue expected) {
+    Object object = value.getValue();
     if (expected == null) {
-      return value == null;
+      return object == null;
     }
 
-    if (value instanceof Date) {
-      Date date = (Date) value;
+    if (object instanceof Date) {
+      Date date = (Date) object;
       DateValue dateValue = DateValue.from(date);
       return dateValue.equals(expected);
-    } else if (value instanceof Timestamp) {
-      Timestamp timestamp = (Timestamp) value;
+    } else if (object instanceof Timestamp) {
+      Timestamp timestamp = (Timestamp) object;
       DateTimeValue dateTimeValue = DateTimeValue.from(timestamp);
       return dateTimeValue.equals(DateTimeValue.of(expected));
     }
@@ -476,13 +480,14 @@ public class Values {
    * @param expected The {@link TimeValue} to compare.
    * @return {@code true} if the value is equal to the {@link TimeValue} parameter, {@code false} otherwise.
    */
-  public static boolean areEqual(Object value, TimeValue expected) {
+  public static boolean areEqual(Value value, TimeValue expected) {
+    Object object = value.getValue();
     if (expected == null) {
-      return value == null;
+      return object == null;
     }
 
-    if (value instanceof Time) {
-      Time time = (Time) value;
+    if (object instanceof Time) {
+      Time time = (Time) object;
       TimeValue timeValue = TimeValue.from(time);
       return timeValue.equals(expected);
     }
@@ -496,18 +501,19 @@ public class Values {
    * @param expected The {@link DateTimeValue} to compare.
    * @return {@code true} if the value is equal to the {@link DateTimeValue} parameter, {@code false} otherwise.
    */
-  public static boolean areEqual(Object value, DateTimeValue expected) {
+  public static boolean areEqual(Value value, DateTimeValue expected) {
+    Object object = value.getValue();
     if (expected == null) {
-      return value == null;
+      return object == null;
     }
 
-    if (value instanceof Date) {
-      Date date = (Date) value;
+    if (object instanceof Date) {
+      Date date = (Date) object;
       DateTimeValue dateTimeValue = DateTimeValue.of(DateValue.from(date));
       return dateTimeValue.equals(expected);
     }
-    if (value instanceof Timestamp) {
-      Timestamp timestamp = (Timestamp) value;
+    if (object instanceof Timestamp) {
+      Timestamp timestamp = (Timestamp) object;
       DateTimeValue dateTimeValue = DateTimeValue.from(timestamp);
       return dateTimeValue.equals(expected);
     }
@@ -522,19 +528,20 @@ public class Values {
    * @return {@code 0} if the value is equal to the {@code Number} parameter, {@code -1} if value is less than the
    * {@code Number} parameter and {@code 1} if value is greater than the {@code Number} parameter.
    */
-  public static int compare(Object value, Number expected) {
+  public static int compare(Value value, Number expected) {
+    Object object = value.getValue();
     // If parameter is a BigInteger,
     // change the actual in BigInteger to compare
     if (expected instanceof BigInteger) {
       BigInteger bi;
 
-      if (value instanceof BigInteger) {
-        bi = (BigInteger) value;
+      if (object instanceof BigInteger) {
+        bi = (BigInteger) object;
       } else {
         try {
-          bi = new BigInteger("" + value);
+          bi = new BigInteger("" + object);
         } catch (NumberFormatException e) {
-          throw new AssertJDBException("Expected <%s> can not be compared to a BigInteger (<%s>)", expected, value);
+          throw new AssertJDBException("Expected <%s> can not be compared to a BigInteger (<%s>)", expected, object);
         }
       }
 
@@ -545,13 +552,13 @@ public class Values {
     else if (expected instanceof BigDecimal) {
       BigDecimal bd;
 
-      if (value instanceof BigDecimal) {
-        bd = (BigDecimal) value;
+      if (object instanceof BigDecimal) {
+        bd = (BigDecimal) object;
       } else {
         try {
-          bd = new BigDecimal("" + value);
+          bd = new BigDecimal("" + object);
         } catch (NumberFormatException e) {
-          throw new AssertJDBException("Expected <%s> can not be compared to a BigDecimal (<%s>)", expected, value);
+          throw new AssertJDBException("Expected <%s> can not be compared to a BigDecimal (<%s>)", expected, object);
         }
       }
 
@@ -565,8 +572,8 @@ public class Values {
     else {
       Long actualValue = null;
 
-      if (value instanceof Float) {
-        float f = (Float) value;
+      if (object instanceof Float) {
+        float f = (Float) object;
         float expectedF = expected.floatValue();
         if (f > expectedF) {
           return 1;
@@ -575,8 +582,8 @@ public class Values {
         } else {
           return 0;
         }
-      } else if (value instanceof Double) {
-        double d = (Double) value;
+      } else if (object instanceof Double) {
+        double d = (Double) object;
         double expectedD = expected.doubleValue();
         if (d > expectedD) {
           return 1;
@@ -585,20 +592,20 @@ public class Values {
         } else {
           return 0;
         }
-      } else if (value instanceof BigInteger) {
+      } else if (object instanceof BigInteger) {
         BigInteger bi = new BigInteger("" + expected);
-        return ((BigInteger) value).compareTo(bi);
-      } else if (value instanceof BigDecimal) {
+        return ((BigInteger) object).compareTo(bi);
+      } else if (object instanceof BigDecimal) {
         BigDecimal bd = new BigDecimal("" + expected);
-        return ((BigDecimal) value).compareTo(bd);
-      } else if (value instanceof Byte) {
-        actualValue = ((Byte) value).longValue();
-      } else if (value instanceof Short) {
-        actualValue = ((Short) value).longValue();
-      } else if (value instanceof Integer) {
-        actualValue = ((Integer) value).longValue();
-      } else if (value instanceof Long) {
-        actualValue = (Long) value;
+        return ((BigDecimal) object).compareTo(bd);
+      } else if (object instanceof Byte) {
+        actualValue = ((Byte) object).longValue();
+      } else if (object instanceof Short) {
+        actualValue = ((Short) object).longValue();
+      } else if (object instanceof Integer) {
+        actualValue = ((Integer) object).longValue();
+      } else if (object instanceof Long) {
+        actualValue = (Long) object;
       }
 
       if (actualValue != null) {
@@ -633,7 +640,7 @@ public class Values {
       }
     }
 
-    throw new AssertJDBException("Expected <%s> can not be compared to a Number (<%s>)", expected, value);
+    throw new AssertJDBException("Expected <%s> can not be compared to a Number (<%s>)", expected, object);
   }
 
   /**
@@ -644,12 +651,12 @@ public class Values {
    * @return A representation of the values.
    * @throws org.assertj.db.exception.AssertJDBException If the length of the two arrays are different.
    */
-  public static Object[] getRepresentationsFromValuesInFrontOfExpected(Object[] values, Object[] expected) {
+  public static Object[] getRepresentationsFromValuesInFrontOfExpected(Value[] values, Object[] expected) {
     Object[] representationsValues = new Object[values.length];
     int i = 0;
-    for (Object obj : values) {
+    for (Value obj : values) {
       if (i >= expected.length) {
-        representationsValues[i] = obj;
+        representationsValues[i] = obj.getValue();
       } else {
         representationsValues[i] = Values.getRepresentationFromValueInFrontOfExpected(obj, expected[i]);
       }
@@ -665,14 +672,15 @@ public class Values {
    * @param expected Expected value for comparison.
    * @return A representation of the value.
    */
-  public static Object getRepresentationFromValueInFrontOfExpected(Object value, Object expected) {
+  public static Object getRepresentationFromValueInFrontOfExpected(Value value, Object expected) {
+    Object object = value.getValue();
     switch (ValueType.getType(value)) {
     case DATE:
       if (expected instanceof String) {
         if (((String) expected).contains("T")) {
-          return DateTimeValue.of(DateValue.from((Date) value)).toString();
+          return DateTimeValue.of(DateValue.from((Date) object)).toString();
         } else {
-          return DateValue.from((Date) value).toString();
+          return DateValue.from((Date) object).toString();
         }
       }
     case TIME:
@@ -694,42 +702,43 @@ public class Values {
    * @param clazz    Class for comparison.
    * @return A representation of the value.
    */
-  public static Object getRepresentationFromValueInFrontOfClass(Object value, Class clazz) {
+  public static Object getRepresentationFromValueInFrontOfClass(Value value, Class clazz) {
+    Object object = value.getValue();
     switch (ValueType.getType(value)) {
     case DATE:
       if (clazz == DateValue.class) {
-        return DateValue.from((Date) value);
+        return DateValue.from((Date) object);
       } else if (clazz == DateTimeValue.class) {
-        return DateTimeValue.of(DateValue.from((Date) value));
+        return DateTimeValue.of(DateValue.from((Date) object));
       } else if (clazz == String.class) {
-        return DateTimeValue.of(DateValue.from((Date) value)).toString();
+        return DateTimeValue.of(DateValue.from((Date) object)).toString();
       }
-      return value;
+      return object;
     case TIME:
       if (clazz == String.class) {
-        return TimeValue.from((Time) value).toString();
+        return TimeValue.from((Time) object).toString();
       } else {
-        return TimeValue.from((Time) value);
+        return TimeValue.from((Time) object);
       }
     case DATE_TIME:
       if (clazz == String.class) {
-        return DateTimeValue.from((Timestamp) value).toString();
+        return DateTimeValue.from((Timestamp) object).toString();
       } else {
-        return DateTimeValue.from((Timestamp) value);
+        return DateTimeValue.from((Timestamp) object);
       }
     case NUMBER:
     case UUID:
       if (clazz == String.class) {
-        return value.toString();
+        return object.toString();
       } else {
-        return value;
+        return object;
       }
 
     case BYTES:
     case TEXT:
     case BOOLEAN:
     default:
-      return value;
+      return object;
     }
   }
 }

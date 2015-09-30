@@ -14,6 +14,7 @@ package org.assertj.db.error;
 
 import org.assertj.core.error.BasicErrorMessageFactory;
 import org.assertj.core.error.ErrorMessageFactory;
+import org.assertj.db.type.Value;
 
 /**
  * Creates an error message indicating that an assertion that verifies that a value is of a class.
@@ -39,11 +40,11 @@ public class ShouldBeValueClass extends BasicErrorMessageFactory {
    * @param expected The expected class.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBeValueClass(Object actual, Class expected) {
-    if (actual == null) {
-      return new ShouldBeValueClass(null, expected);
+  public static ErrorMessageFactory shouldBeValueClass(Value actual, Class expected) {
+    if (actual.getValue() == null) {
+      return new ShouldBeValueClass(actual, expected);
     }
-    return new ShouldBeValueClass(actual, actual.getClass(), expected);
+    return new ShouldBeValueClass(actual, actual.getValue().getClass(), expected);
   }
 
   /**
@@ -54,11 +55,11 @@ public class ShouldBeValueClass extends BasicErrorMessageFactory {
    * @param expected The expected type.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBeValueClass(int index, Object actual, Class expected) {
-    if (actual == null) {
-      return new ShouldBeValueClass(index, null, expected);
+  public static ErrorMessageFactory shouldBeValueClass(int index, Value actual, Class expected) {
+    if (actual.getValue() == null) {
+      return new ShouldBeValueClass(index, actual, expected);
     }
-    return new ShouldBeValueClass(index, actual, actual.getClass(), expected);
+    return new ShouldBeValueClass(index, actual, actual.getValue().getClass(), expected);
   }
 
   /**
@@ -68,8 +69,8 @@ public class ShouldBeValueClass extends BasicErrorMessageFactory {
    * @param tested The tested class.
    * @param expected The expected class.
    */
-  private ShouldBeValueClass(Object actual, Class tested, Class expected) {
-    super(EXPECTED_MESSAGE, actual, expected, tested);
+  private ShouldBeValueClass(Value actual, Class tested, Class expected) {
+    super(EXPECTED_MESSAGE, actual.getValue(), expected, tested);
   }
 
   /**
@@ -80,8 +81,8 @@ public class ShouldBeValueClass extends BasicErrorMessageFactory {
    * @param tested The tested class.
    * @param expected The expected class.
    */
-  private ShouldBeValueClass(int index, Object actual, Class tested, Class expected) {
-    super(EXPECTED_MESSAGE_WITH_INDEX, index, actual, expected, tested);
+  private ShouldBeValueClass(int index, Value actual, Class tested, Class expected) {
+    super(EXPECTED_MESSAGE_WITH_INDEX, index, actual.getValue(), expected, tested);
   }
 
   /**
@@ -90,8 +91,8 @@ public class ShouldBeValueClass extends BasicErrorMessageFactory {
    * @param actual The actual value in the failed assertion.
    * @param expected The expected class.
    */
-  private ShouldBeValueClass(Object actual, Class expected) {
-    super(EXPECTED_MESSAGE_JUST_WITH_EXPECTED, actual, expected);
+  private ShouldBeValueClass(Value actual, Class expected) {
+    super(EXPECTED_MESSAGE_JUST_WITH_EXPECTED, actual.getValue(), expected);
   }
 
   /**
@@ -101,7 +102,7 @@ public class ShouldBeValueClass extends BasicErrorMessageFactory {
    * @param actual The actual value in the failed assertion.
    * @param expected The expected class.
    */
-  private ShouldBeValueClass(int index, Object actual, Class expected) {
-    super(EXPECTED_MESSAGE_JUST_WITH_EXPECTED_WITH_INDEX, index, actual, expected);
+  private ShouldBeValueClass(int index, Value actual, Class expected) {
+    super(EXPECTED_MESSAGE_JUST_WITH_EXPECTED_WITH_INDEX, index, actual.getValue(), expected);
   }
 }

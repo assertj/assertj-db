@@ -30,7 +30,7 @@ public class RequestColumnAssert
    * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    * @param column The column on which do assertion.
    */
-  RequestColumnAssert(RequestAssert origin, Column column) {
+  public RequestColumnAssert(RequestAssert origin, Column column) {
     super(origin, RequestColumnAssert.class, RequestColumnValueAssert.class, column);
   }
 
@@ -42,5 +42,4 @@ public class RequestColumnAssert
   public RequestAssert returnToRequest() {
     return returnToOrigin();
   }
-
 }

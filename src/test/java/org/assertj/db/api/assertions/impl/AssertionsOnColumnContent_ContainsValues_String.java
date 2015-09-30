@@ -15,7 +15,9 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
+import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
+import org.assertj.db.type.Value;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -32,17 +34,19 @@ import static org.junit.Assert.fail;
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnColumnContent_ContainsValues_String {
+public class AssertionsOnColumnContent_ContainsValues_String extends AbstractTest {
 
   /**
    * This method tests the {@code containsValues} assertion method.
    */
   @Test
-  public void test_contains_values() {
+  public void test_contains_values() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Object> list = new ArrayList<Object>(Arrays.asList("test1", "test2", "test1", null));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "test1"), getValue(null, "test2"), getValue(null,
+                                                                                                                "test1"), getValue(
+            null, null)));
     TableAssert tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list, "test1", "test2", "test1", null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list, "test2", "test1", "test1", null);
@@ -55,12 +59,14 @@ public class AssertionsOnColumnContent_ContainsValues_String {
    * This method should fail because the values are different.
    */
   @Test
-  public void should_fail_because_values_are_different() {
+  public void should_fail_because_values_are_different() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Object> list = new ArrayList<Object>(Arrays.asList("test1", "test2", "test1", null));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "test1"), getValue(null, "test2"), getValue(null,
+                                                                                                                "test1"), getValue(
+            null, null)));
     try {
       AssertionsOnColumnContent.containsValues(tableAssert, info, list, "test1", null, "test1", null);
       fail("An exception must be raised");
@@ -72,7 +78,8 @@ public class AssertionsOnColumnContent_ContainsValues_String {
                                                                     + "  <[\"test1\", null, \"test1\", null]>%n"
                                                                     + " (parameter <null> at index 3 is not found)"));
     }
-    list = new ArrayList<Object>(Arrays.asList(true, false, false, null));
+    list = new ArrayList<>(Arrays.asList(getValue(null, true), getValue(null, false), getValue(null, false), getValue(
+            null, null)));
     try {
       AssertionsOnColumnContent.containsValues(tableAssert, info, list, "test1", "test2", "test1", "test1");
       fail("An exception must be raised");
@@ -91,12 +98,12 @@ public class AssertionsOnColumnContent_ContainsValues_String {
    * This method should fail because one of the values is not a text.
    */
   @Test
-  public void should_fail_because_one_value_is_not_a_text() {
+  public void should_fail_because_one_value_is_not_a_text() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Object> list = new ArrayList<Object>(Arrays.asList("other", false));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "other"), getValue(null, false)));
     try {
       AssertionsOnColumnContent.containsValues(tableAssert, info, list, "test1", "test2");
       fail("An exception must be raised");
@@ -115,12 +122,12 @@ public class AssertionsOnColumnContent_ContainsValues_String {
    * This method should fail because the number of values is different.
    */
   @Test
-  public void should_fail_because_the_number_of_values_is_different() {
+  public void should_fail_because_the_number_of_values_is_different() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Object> list = new ArrayList<Object>(Arrays.asList("test1", "test2"));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "test1"), getValue(null, "test2")));
     try {
       AssertionsOnColumnContent.containsValues(tableAssert, info, list, "test1", "test2", "test2");
       fail("An exception must be raised");

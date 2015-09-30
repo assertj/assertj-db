@@ -15,7 +15,9 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
+import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
+import org.assertj.db.type.Value;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -32,17 +34,17 @@ import static org.junit.Assert.fail;
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnColumnNullity_HasOnlyNullValues_Test {
+public class AssertionsOnColumnNullity_HasOnlyNullValues_Test extends AbstractTest {
 
   /**
    * This method tests the {@code hasOnlyNullValues} assertion method.
    */
   @Test
-  public void test_has_only_null_values() {
+  public void test_has_only_null_values() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Object> list = new ArrayList<>(Arrays.asList(null, null));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, null), getValue(null, null)));
     TableAssert tableAssert2 = AssertionsOnColumnNullity.hasOnlyNullValues(tableAssert, info, list);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
@@ -51,12 +53,12 @@ public class AssertionsOnColumnNullity_HasOnlyNullValues_Test {
    * This method should fail because the column contains not null values.
    */
   @Test
-  public void should_fail_because_column_contains_not_null_values() {
+  public void should_fail_because_column_contains_not_null_values() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Object> list = new ArrayList<Object>(Arrays.asList(null, "test"));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, null), getValue(null, "test")));
     try {
       AssertionsOnColumnNullity.hasOnlyNullValues(tableAssert, info, list);
       fail("An exception must be raised");

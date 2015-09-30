@@ -15,6 +15,7 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
+import org.assertj.db.type.Value;
 
 import static org.assertj.db.error.ShouldBeGreater.shouldBeGreater;
 import static org.assertj.db.error.ShouldBeGreaterOrEqual.shouldBeGreaterOrEqual;
@@ -53,7 +54,7 @@ public class AssertionsOnValueComparison {
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is less than or equal to the number in parameter.
    */
-  public static <A extends AbstractAssert> A isGreaterThan(A assertion, WritableAssertionInfo info, Object value, Number expected) {
+  public static <A extends AbstractAssert> A isGreaterThan(A assertion, WritableAssertionInfo info, Value value, Number expected) {
     AssertionsOnValueType.isNumber(assertion, info, value);
     if (compare(value, expected) > 0) {
       return assertion;
@@ -72,7 +73,7 @@ public class AssertionsOnValueComparison {
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is greater than or equal to the number in parameter.
    */
-  public static <A extends AbstractAssert> A isLessThan(A assertion, WritableAssertionInfo info, Object value, Number expected) {
+  public static <A extends AbstractAssert> A isLessThan(A assertion, WritableAssertionInfo info, Value value, Number expected) {
     AssertionsOnValueType.isNumber(assertion, info, value);
     if (compare(value, expected) < 0) {
       return assertion;
@@ -91,7 +92,7 @@ public class AssertionsOnValueComparison {
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is less than the number in parameter.
    */
-  public static <A extends AbstractAssert> A isGreaterThanOrEqualTo(A assertion, WritableAssertionInfo info, Object value, Number expected) {
+  public static <A extends AbstractAssert> A isGreaterThanOrEqualTo(A assertion, WritableAssertionInfo info, Value value, Number expected) {
     AssertionsOnValueType.isNumber(assertion, info, value);
     if (compare(value, expected) >= 0) {
       return assertion;
@@ -110,7 +111,7 @@ public class AssertionsOnValueComparison {
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is greater than the number in parameter.
    */
-  public static <A extends AbstractAssert> A isLessThanOrEqualTo(A assertion, WritableAssertionInfo info, Object value, Number expected) {
+  public static <A extends AbstractAssert> A isLessThanOrEqualTo(A assertion, WritableAssertionInfo info, Value value, Number expected) {
     AssertionsOnValueType.isNumber(assertion, info, value);
     if (compare(value, expected) <= 0) {
       return assertion;

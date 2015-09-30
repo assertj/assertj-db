@@ -15,6 +15,7 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
+import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
@@ -25,22 +26,22 @@ import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link AssertionsOnValueType} class :
- * {@link AssertionsOnValueType#isUUID(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, Object)} method.
+ * {@link AssertionsOnValueType#isUUID(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value)} method.
  *
  * @author Régis Pouiller
  */
-public class AssertionsOnValueType_IsUUID_Test {
+public class AssertionsOnValueType_IsUUID_Test extends AbstractTest {
 
   /**
    * This method tests the {@code isUUID} assertion method.
    */
   @Test
-  public void test_is_uuid() {
+  public void test_is_uuid() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    TableAssert tableAssert2 = AssertionsOnValueType.isUUID(tableAssert, info, UUID
-            .fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
+    TableAssert tableAssert2 = AssertionsOnValueType.isUUID(tableAssert, info, getValue(null, UUID
+            .fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -48,13 +49,13 @@ public class AssertionsOnValueType_IsUUID_Test {
    * This method should fail because the value is not a uuid.
    */
   @Test
-  public void should_fail_because_value_is_not_a_time() {
+  public void should_fail_because_value_is_not_a_time() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnValueType.isUUID(tableAssert, info, "test");
+      AssertionsOnValueType.isUUID(tableAssert, info, getValue(null, "test"));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -71,13 +72,13 @@ public class AssertionsOnValueType_IsUUID_Test {
    * This method should fail because the value is a stringbuilder.
    */
   @Test
-  public void should_fail_because_value_is_a_stringbuilder() {
+  public void should_fail_because_value_is_a_stringbuilder() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnValueType.isUUID(tableAssert, info, new StringBuilder("text"));
+      AssertionsOnValueType.isUUID(tableAssert, info, getValue(null, new StringBuilder("text")));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"

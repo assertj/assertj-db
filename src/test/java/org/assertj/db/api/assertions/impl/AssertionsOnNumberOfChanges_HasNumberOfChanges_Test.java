@@ -44,10 +44,12 @@ public class AssertionsOnNumberOfChanges_HasNumberOfChanges_Test extends Abstrac
     TableAssert tableAssert = assertThat(table);
     Row rowAtStartPoint = getRow(Arrays.asList("ID"),
                                  Arrays.asList("ID", "NAME", "FIRSTNAME", "BIRTH"),
-                                 Arrays.asList(1, "Weaver", "Sigourney", Date.valueOf("1949-10-08")));
+                                 Arrays.asList(getValue(null, 1), getValue(null, "Weaver"), getValue(null, "Sigourney"),
+                                               getValue(null, Date.valueOf("1949-10-08"))));
     Row rowAtEndPoint = getRow(Arrays.asList("ID"),
                                Arrays.asList("ID", "NAME", "FIRSTNAME", "BIRTH"),
-                               Arrays.asList(1, "Weaverr", "Sigourneyy", Date.valueOf("1949-10-08")));
+                               Arrays.asList(getValue(null, 1), getValue(null, "Weaverr"), getValue(null, "Sigourneyy"),
+                                             getValue(null, Date.valueOf("1949-10-08"))));
     Change change = getChange(DataType.TABLE, "test", ChangeType.CREATION, rowAtStartPoint, rowAtEndPoint);
     Changes changes = getChanges(Arrays.asList(change, change));
     TableAssert tableAssert2 = AssertionsOnNumberOfChanges.hasNumberOfChanges(tableAssert, info, changes, 2);
@@ -65,10 +67,12 @@ public class AssertionsOnNumberOfChanges_HasNumberOfChanges_Test extends Abstrac
     TableAssert tableAssert = assertThat(table);
     Row rowAtStartPoint = getRow(Arrays.asList("ID"),
                                  Arrays.asList("ID", "NAME", "FIRSTNAME", "BIRTH"),
-                                 Arrays.asList(1, "Weaver", "Sigourney", Date.valueOf("1949-10-08")));
+                                 Arrays.asList(getValue(null, 1), getValue(null, "Weaver"), getValue(null, "Sigourney"),
+                                               getValue(null, Date.valueOf("1949-10-08"))));
     Row rowAtEndPoint = getRow(Arrays.asList("ID"),
                                Arrays.asList("ID", "NAME", "FIRSTNAME", "BIRTH"),
-                               Arrays.asList(1, "Weaverr", "Sigourneyy", Date.valueOf("1949-10-08")));
+                               Arrays.asList(getValue(null, 1), getValue(null, "Weaverr"), getValue(null, "Sigourneyy"),
+                                             getValue(null, Date.valueOf("1949-10-08"))));
     Change change = getChange(DataType.TABLE, "test", ChangeType.CREATION, rowAtStartPoint, rowAtEndPoint);
     Changes changes = getChanges(Arrays.asList(change, change));
     try {

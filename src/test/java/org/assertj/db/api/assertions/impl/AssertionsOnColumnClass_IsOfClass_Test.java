@@ -15,8 +15,10 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
+import org.assertj.db.common.AbstractTest;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Table;
+import org.assertj.db.type.Value;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -33,23 +35,23 @@ import static org.junit.Assert.fail;
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnColumnClass_IsOfClass_Test {
+public class AssertionsOnColumnClass_IsOfClass_Test extends AbstractTest {
 
   /**
    * This method tests the {@code isOfClass} assertion method.
    */
   @Test
-  public void test_is_of_type() {
+  public void test_is_of_type() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Object> list = new ArrayList<Object>(Arrays.asList("test", "test"));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "test"), getValue(null, "test")));
     TableAssert tableAssert2 = AssertionsOnColumnClass.isOfClass(tableAssert, info, list, String.class, false);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    list = new ArrayList<Object>(Arrays.asList("test", "test"));
+    list = new ArrayList<>(Arrays.asList(getValue(null, "test"), getValue(null, "test")));
     tableAssert2 = AssertionsOnColumnClass.isOfClass(tableAssert, info, list, String.class, true);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    list = new ArrayList<Object>(Arrays.asList(null, "test"));
+    list = new ArrayList<>(Arrays.asList(getValue(null, null), getValue(null, "test")));
     tableAssert2 = AssertionsOnColumnClass.isOfClass(tableAssert, info, list, String.class, true);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
@@ -58,13 +60,13 @@ public class AssertionsOnColumnClass_IsOfClass_Test {
    * This method should fail because the value is not of class.
    */
   @Test
-  public void should_fail_because_value_is_not_of_class() {
+  public void should_fail_because_value_is_not_of_class() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      List<Object> list = new ArrayList<Object>(Arrays.asList(8, "test"));
+      List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, 8), getValue(null, "test")));
       AssertionsOnColumnClass.isOfClass(tableAssert, info, list, String.class, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -77,7 +79,7 @@ public class AssertionsOnColumnClass_IsOfClass_Test {
                                                                     + "  <java.lang.Integer>"));
     }
     try {
-      List<Object> list = new ArrayList<Object>(Arrays.asList(null, "test"));
+      List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, null), getValue(null, "test")));
       AssertionsOnColumnClass.isOfClass(tableAssert, info, list, String.class, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -93,13 +95,13 @@ public class AssertionsOnColumnClass_IsOfClass_Test {
    * This method should fail because the value is not of type (with lenience).
    */
   @Test
-  public void should_fail_because_value_is_not_of_type_with_lenience() {
+  public void should_fail_because_value_is_not_of_type_with_lenience() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      List<Object> list = new ArrayList<Object>(Arrays.asList("test", 8));
+      List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "test"), getValue(null, 8)));
       AssertionsOnColumnClass.isOfClass(tableAssert, info, list, String.class, true);
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -117,13 +119,13 @@ public class AssertionsOnColumnClass_IsOfClass_Test {
    * This method should fail because the value is a stringbuiler.
    */
   @Test
-  public void should_fail_because_value_is_a_stringbuilder() {
+  public void should_fail_because_value_is_a_stringbuilder() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      List<Object> list = new ArrayList<Object>(Arrays.asList(new StringBuilder("test"), true));
+      List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, new StringBuilder("test")), getValue(null, true)));
       AssertionsOnColumnClass.isOfClass(tableAssert, info, list, String.class, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -141,12 +143,12 @@ public class AssertionsOnColumnClass_IsOfClass_Test {
    * This method should fail because the class value is null.
    */
   @Test
-  public void should_fail_because_class_value_is_null() {
+  public void should_fail_because_class_value_is_null() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Object> list = new ArrayList<Object>(Arrays.asList("test", "test"));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "test"), getValue(null, "test")));
     try {
       AssertionsOnColumnClass.isOfClass(tableAssert, info, list, null, false);
       fail("An exception must be raised");

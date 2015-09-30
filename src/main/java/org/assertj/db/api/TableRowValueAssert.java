@@ -14,6 +14,7 @@ package org.assertj.db.api;
 
 import org.assertj.db.type.Row;
 import org.assertj.db.type.Table;
+import org.assertj.db.type.Value;
 
 /**
  * Assertion methods for a value in a {@link Row} of a {@link Table}.
@@ -28,10 +29,9 @@ public class TableRowValueAssert
    * Constructor.
    * 
    * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
-   * @param columnName The column name.
-   * @param value The value to assert.
+   * @param value  The value to assert.
    */
-  TableRowValueAssert(TableRowAssert origin, String columnName, Object value) {
-    super(TableRowValueAssert.class, origin, columnName, value);
+  public TableRowValueAssert(TableRowAssert origin, Value value) {
+    super(TableRowValueAssert.class, origin, value.getColumnName(), value);
   }
 }

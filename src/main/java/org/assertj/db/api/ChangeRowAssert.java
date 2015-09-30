@@ -22,6 +22,7 @@ import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.navigation.element.RowElement;
 import org.assertj.db.navigation.origin.OriginWithValuesFromRow;
 import org.assertj.db.type.Row;
+import org.assertj.db.type.Value;
 
 import java.util.HashMap;
 import java.util.List;
@@ -74,7 +75,7 @@ public class ChangeRowAssert
    * @return The value.
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
    */
-  private Object getValue(int index) {
+  private Value getValue(int index) {
     if (row == null) {
       throw new AssertJDBException("Row do not exist");
     }
@@ -82,9 +83,9 @@ public class ChangeRowAssert
     if (index < 0 || index >= size) {
       throw new AssertJDBException("Index %s out of the limits [0, %s[", index, size);
     }
-    Object object = row.getValuesList().get(index);
+    Value value = row.getValuesList().get(index);
     indexNextValue = index + 1;
-    return object;
+    return value;
   }
 
   /**
@@ -101,7 +102,7 @@ public class ChangeRowAssert
       return changeRowValueAssert;
     }
 
-    Object value = getValue(index);
+    Value value = getValue(index);
     List<String> columnsNameList = row.getColumnsNameList();
     String columnName = columnsNameList.get(index);
     ChangeRowValueAssert instance = new ChangeRowValueAssert(this, columnName, value);

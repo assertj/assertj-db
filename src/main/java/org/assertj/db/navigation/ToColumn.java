@@ -80,7 +80,7 @@ import org.assertj.db.navigation.element.ColumnElement;
  *
  * @param <C> The class of a assertion on a column (an sub-class of {@link org.assertj.db.navigation.element.ColumnElement}).
  */
-public interface ToColumn<C extends ColumnElement> {
+public interface ToColumn<C extends ColumnElement> extends Navigation {
 
   /**
    * Returns assertion methods on the next {@link org.assertj.db.type.Column} in the list of {@link org.assertj.db.type.Column}s.

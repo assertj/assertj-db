@@ -15,6 +15,7 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
+import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
@@ -30,23 +31,26 @@ import static org.junit.Assert.fail;
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnColumnOfChangeType_IsDate_Test {
+public class AssertionsOnColumnOfChangeType_IsDate_Test extends AbstractTest {
 
   /**
    * This method tests the {@code isDate} assertion method.
    */
   @Test
-  public void test_is_date() {
+  public void test_is_date() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    TableAssert tableAssert2 = AssertionsOnColumnOfChangeType.isDate(tableAssert, info, Date.valueOf("2007-12-23"),
-                                                                     Date.valueOf("2002-07-25"), false);
+    TableAssert tableAssert2 = AssertionsOnColumnOfChangeType.isDate(tableAssert, info,
+                                                                     getValue(null, Date.valueOf("2007-12-23")),
+                                                                     getValue(null, Date.valueOf("2002-07-25")), false);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnColumnOfChangeType.isDate(tableAssert, info, Date.valueOf("2007-12-23"),
-                                                         Date.valueOf("2002-07-25"), true);
+    tableAssert2 = AssertionsOnColumnOfChangeType.isDate(tableAssert, info,
+                                                         getValue(null, Date.valueOf("2007-12-23")),
+                                                         getValue(null, Date.valueOf("2002-07-25")), true);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnColumnOfChangeType.isDate(tableAssert, info, null, Date.valueOf("2007-12-23"), true);
+    tableAssert2 = AssertionsOnColumnOfChangeType.isDate(tableAssert, info, getValue(null, null),
+                                                         getValue(null, Date.valueOf("2007-12-23")), true);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -54,14 +58,15 @@ public class AssertionsOnColumnOfChangeType_IsDate_Test {
    * This method should fail because the value at start point have different type.
    */
   @Test
-  public void should_fail_because_value_at_start_point_have_different_type() {
+  public void should_fail_because_value_at_start_point_have_different_type() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeType.isDate(tableAssert, info,
-                                            "test", Date.valueOf("2007-12-23"), false);
+                                            getValue(null, "test"),
+                                            getValue(null, Date.valueOf("2007-12-23")), false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -78,14 +83,15 @@ public class AssertionsOnColumnOfChangeType_IsDate_Test {
    * This method should fail because the value at end point have different type.
    */
   @Test
-  public void should_fail_because_value_at_end_point_have_different_type() {
+  public void should_fail_because_value_at_end_point_have_different_type() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeType.isDate(tableAssert, info,
-                                            Date.valueOf("2007-12-23"), "test", false);
+                                            getValue(null, Date.valueOf("2007-12-23")),
+                                            getValue(null, "test"), false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -102,14 +108,15 @@ public class AssertionsOnColumnOfChangeType_IsDate_Test {
    * This method should fail because the value at start point is a stringbuilder.
    */
   @Test
-  public void should_fail_because_value_at_start_point_is_a_stringbuilder() {
+  public void should_fail_because_value_at_start_point_is_a_stringbuilder() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeType.isDate(tableAssert, info,
-                                            new StringBuilder("test"), Date.valueOf("2007-12-23"), false);
+                                            getValue(null, new StringBuilder("test")),
+                                            getValue(null, Date.valueOf("2007-12-23")), false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -126,14 +133,15 @@ public class AssertionsOnColumnOfChangeType_IsDate_Test {
    * This method should fail because the value at end point is a stringbuilder.
    */
   @Test
-  public void should_fail_because_value_at_end_point_is_a_stringbuilder() {
+  public void should_fail_because_value_at_end_point_is_a_stringbuilder() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeType.isDate(tableAssert, info,
-                                            Date.valueOf("2007-12-23"), new StringBuilder("test"), false);
+                                            getValue(null, Date.valueOf("2007-12-23")),
+                                            getValue(null, new StringBuilder("test")), false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"

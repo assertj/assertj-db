@@ -14,6 +14,7 @@ package org.assertj.db.error;
 
 import org.assertj.core.error.BasicErrorMessageFactory;
 import org.assertj.core.error.ErrorMessageFactory;
+import org.assertj.db.type.Value;
 import org.assertj.db.type.ValueType;
 
 /**
@@ -41,9 +42,9 @@ public class ShouldBeValueType extends BasicErrorMessageFactory {
    * @param expected The expected type.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBeValueType(Object actual, ValueType tested, ValueType expected) {
-    if (actual != null && tested == ValueType.NOT_IDENTIFIED) {
-      return  new ShouldBeValueType(actual, actual.getClass(), tested, expected);
+  public static ErrorMessageFactory shouldBeValueType(Value actual, ValueType tested, ValueType expected) {
+    if (actual.getValue() != null && tested == ValueType.NOT_IDENTIFIED) {
+      return  new ShouldBeValueType(actual, actual.getValue().getClass(), tested, expected);
     }
     return new ShouldBeValueType(actual, tested, expected);
   }
@@ -57,9 +58,9 @@ public class ShouldBeValueType extends BasicErrorMessageFactory {
    * @param expected The expected type.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBeValueType(int index, Object actual, ValueType tested, ValueType expected) {
-    if (actual != null && tested == ValueType.NOT_IDENTIFIED) {
-      return  new ShouldBeValueType(index, actual, actual.getClass(), tested, expected);
+  public static ErrorMessageFactory shouldBeValueType(int index, Value actual, ValueType tested, ValueType expected) {
+    if (actual.getValue() != null && tested == ValueType.NOT_IDENTIFIED) {
+      return  new ShouldBeValueType(index, actual, actual.getValue().getClass(), tested, expected);
     }
     return new ShouldBeValueType(index, actual, tested, expected);
   }
@@ -71,8 +72,8 @@ public class ShouldBeValueType extends BasicErrorMessageFactory {
    * @param tested The tested type.
    * @param expected The expected type.
    */
-  private ShouldBeValueType(Object actual, ValueType tested, ValueType expected) {
-    super(EXPECTED_MESSAGE, actual, expected, tested);
+  private ShouldBeValueType(Value actual, ValueType tested, ValueType expected) {
+    super(EXPECTED_MESSAGE, actual.getValue(), expected, tested);
   }
 
   /**
@@ -83,8 +84,8 @@ public class ShouldBeValueType extends BasicErrorMessageFactory {
    * @param tested The tested type.
    * @param expected The expected type.
    */
-  private ShouldBeValueType(int index, Object actual, ValueType tested, ValueType expected) {
-    super(EXPECTED_MESSAGE_WITH_INDEX, index, actual, expected, tested);
+  private ShouldBeValueType(int index, Value actual, ValueType tested, ValueType expected) {
+    super(EXPECTED_MESSAGE_WITH_INDEX, index, actual.getValue(), expected, tested);
   }
 
   /**
@@ -95,8 +96,8 @@ public class ShouldBeValueType extends BasicErrorMessageFactory {
    * @param tested The tested type.
    * @param expected The expected type.
    */
-  private ShouldBeValueType(Object actual, Class classOfActual, ValueType tested, ValueType expected) {
-    super(EXPECTED_MESSAGE_NOT_IDENTIFIED, actual, expected, tested, classOfActual);
+  private ShouldBeValueType(Value actual, Class classOfActual, ValueType tested, ValueType expected) {
+    super(EXPECTED_MESSAGE_NOT_IDENTIFIED, actual.getValue(), expected, tested, classOfActual);
   }
 
   /**
@@ -108,7 +109,7 @@ public class ShouldBeValueType extends BasicErrorMessageFactory {
    * @param tested The tested type.
    * @param expected The expected type.
    */
-  private ShouldBeValueType(int index, Object actual, Class classOfActual, ValueType tested, ValueType expected) {
-    super(EXPECTED_MESSAGE_NOT_IDENTIFIED_WITH_INDEX, index, actual, expected, tested, classOfActual);
+  private ShouldBeValueType(int index, Value actual, Class classOfActual, ValueType tested, ValueType expected) {
+    super(EXPECTED_MESSAGE_NOT_IDENTIFIED_WITH_INDEX, index, actual.getValue(), expected, tested, classOfActual);
   }
 }

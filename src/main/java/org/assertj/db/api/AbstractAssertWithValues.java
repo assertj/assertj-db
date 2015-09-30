@@ -16,10 +16,7 @@ import org.assertj.db.api.assertions.*;
 import org.assertj.db.api.assertions.impl.*;
 import org.assertj.db.navigation.element.ValueElement;
 import org.assertj.db.navigation.origin.OriginWithColumnsAndRowsFromChange;
-import org.assertj.db.type.DateTimeValue;
-import org.assertj.db.type.DateValue;
-import org.assertj.db.type.TimeValue;
-import org.assertj.db.type.ValueType;
+import org.assertj.db.type.*;
 
 import java.util.UUID;
 
@@ -47,7 +44,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
   /**
    * The actual value on which the assertion is.
    */
-  private final Object value;
+  private final Value value;
 
   /**
    * Constructor.
@@ -56,7 +53,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
    * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    * @param value The value on which are the assertion methods.
    */
-  AbstractAssertWithValues(Class<E> selfType, O origin, Object value) {
+  AbstractAssertWithValues(Class<E> selfType, O origin, Value value) {
     super(selfType, origin);
     this.value = value;
   }

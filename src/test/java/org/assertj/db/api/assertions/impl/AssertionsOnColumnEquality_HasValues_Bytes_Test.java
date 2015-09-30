@@ -15,7 +15,9 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
+import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
+import org.assertj.db.type.Value;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -32,17 +34,17 @@ import static org.junit.Assert.fail;
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnColumnEquality_HasValues_Bytes_Test {
+public class AssertionsOnColumnEquality_HasValues_Bytes_Test extends AbstractTest {
 
   /**
    * This method tests the {@code hasValues} assertion method.
    */
   @Test
-  public void test_has_values() {
+  public void test_has_values() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Object> list = new ArrayList<Object>(Arrays.asList(new byte[] {0, 1}, new byte[] {2, 3}));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, new byte[] {0, 1}), getValue(null, new byte[] {2, 3})));
     TableAssert tableAssert2 = AssertionsOnColumnEquality.hasValues(tableAssert, info, list, new byte[] { 0, 1 },
                                                                     new byte[] { 2, 3 });
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
@@ -52,12 +54,13 @@ public class AssertionsOnColumnEquality_HasValues_Bytes_Test {
    * This method should fail because the values are different.
    */
   @Test
-  public void should_fail_because_values_are_different() {
+  public void should_fail_because_values_are_different() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Object> list = new ArrayList<Object>(Arrays.asList(new byte[] {0, 1}, new byte[] {2, 3}, null));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, new byte[] {0, 1}), getValue(null, new byte[] {2, 3}), getValue(
+            null, null)));
     try {
       AssertionsOnColumnEquality.hasValues(tableAssert, info, list, new byte[] { 0, 1 }, new byte[] { 1, 3 }, null);
       fail("An exception must be raised");
@@ -71,12 +74,12 @@ public class AssertionsOnColumnEquality_HasValues_Bytes_Test {
    * This method should fail because one of the values is not bytes.
    */
   @Test
-  public void should_fail_because_one_value_is_not_bytes() {
+  public void should_fail_because_one_value_is_not_bytes() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Object> list = new ArrayList<Object>(Arrays.asList("other", new byte[] {2, 3}));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "other"), getValue(null, new byte[] {2, 3})));
     try {
       AssertionsOnColumnEquality.hasValues(tableAssert, info, list, new byte[] { 0, 1 }, new byte[] { 2, 3 });
       fail("An exception must be raised");
@@ -95,12 +98,12 @@ public class AssertionsOnColumnEquality_HasValues_Bytes_Test {
    * This method should fail because the number of values is different.
    */
   @Test
-  public void should_fail_because_the_number_of_values_is_different() {
+  public void should_fail_because_the_number_of_values_is_different() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Object> list = new ArrayList<Object>(Arrays.asList(new byte[] {0, 1}, new byte[] {2, 3}));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, new byte[] {0, 1}), getValue(null, new byte[] {2, 3})));
     try {
       AssertionsOnColumnEquality.hasValues(tableAssert, info, list, new byte[] { 0, 1 }, new byte[] { 2, 3 },
                                            new byte[] { 4, 5 });

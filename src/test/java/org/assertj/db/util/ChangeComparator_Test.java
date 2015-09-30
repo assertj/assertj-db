@@ -43,21 +43,32 @@ public class ChangeComparator_Test extends AbstractTest {
 
   static {
     try {
-      ROW_ID_PK_1_TEST = getRow(Arrays.asList("id"), Arrays.asList("id", "name"), Arrays.asList(1, "test"));
-      ROW_ID_PK_1_TEST1 = getRow(Arrays.asList("id"), Arrays.asList("id", "name"), Arrays.asList(1, "test1"));
-      ROW_ID_PK_1_TEST2 = getRow(Arrays.asList("id"), Arrays.asList("id", "name"), Arrays.asList(1, "test2"));
-      ROW_ID_PK_2_TEST1 = getRow(Arrays.asList("id"), Arrays.asList("id", "name"), Arrays.asList(2, "test1"));
-      ROW_ID_PK_2_TEST2 = getRow(Arrays.asList("id"), Arrays.asList("id", "name"), Arrays.asList(2, "test2"));
-      ROW_NAME_PK_1_TEST1 = getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(1, "test1"));
-      ROW_NAME_PK_1_TEST2 = getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(1, "test2"));
-      ROW_NAME_PK_1_NULL = getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(1, null));
+      ROW_ID_PK_1_TEST = getRow(Arrays.asList("id"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(
+              null, "test")));
+      ROW_ID_PK_1_TEST1 = getRow(Arrays.asList("id"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(
+              null, "test1")));
+      ROW_ID_PK_1_TEST2 = getRow(Arrays.asList("id"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(
+              null, "test2")));
+      ROW_ID_PK_2_TEST1 = getRow(Arrays.asList("id"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 2), getValue(
+              null, "test1")));
+      ROW_ID_PK_2_TEST2 = getRow(Arrays.asList("id"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 2), getValue(
+              null, "test2")));
+      ROW_NAME_PK_1_TEST1 = getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(
+              null, "test1")));
+      ROW_NAME_PK_1_TEST2 = getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(
+              null, "test2")));
+      ROW_NAME_PK_1_NULL = getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(
+              null, null)));
       ROW_NAME_PK_1_BYTES_0 = getRow(Arrays.asList("name"), Arrays.asList("id", "name"),
-                                     Arrays.asList(1, new byte[] { 0 }));
+                                     Arrays.asList(getValue(null, 1), getValue(null, new byte[] { 0 })));
       ROW_NAME_PK_1_BYTES_1 = getRow(Arrays.asList("name"), Arrays.asList("id", "name"),
-                                     Arrays.asList(1, new byte[] { 1 }));
-      ROW_NAME_PK_2_TEST1 = getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(2, "test1"));
-      ROW_NAME_PK_2_TEST2 = getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(2, "test2"));
-      ROW_NAME_PK_2_NULL = getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(2, null));
+                                     Arrays.asList(getValue(null, 1), getValue(null, new byte[] { 1 })));
+      ROW_NAME_PK_2_TEST1 = getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 2), getValue(
+              null, "test1")));
+      ROW_NAME_PK_2_TEST2 = getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 2), getValue(
+              null, "test2")));
+      ROW_NAME_PK_2_NULL = getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 2),getValue(
+              null, null)));
     } catch (Exception e) {
       throw new ExceptionInInitializerError(e);
     }
@@ -119,7 +130,9 @@ public class ChangeComparator_Test extends AbstractTest {
     assertThat(ChangeComparator.INSTANCE.compare(getTableCreationChange("table", getRow(Arrays.asList("id", "name"),
                                                                                         Arrays.asList("id", "name",
                                                                                                       "plus"),
-                                                                                        Arrays.asList(1, "test1", null))),
+                                                                                        Arrays.asList(getValue(null, 1), getValue(
+                                                                                                null, "test1"), getValue(
+                                                                                                null, null)))),
                                                  getTableCreationChange("table", ROW_NAME_PK_1_TEST2))).isEqualTo(0);
   }
 

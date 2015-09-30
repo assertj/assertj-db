@@ -12,6 +12,7 @@
  */
 package org.assertj.db.util;
 
+import org.assertj.db.common.AbstractTest;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -22,18 +23,18 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Régis Pouiller
  * 
  */
-public class Values_AreEqual_Object_And_Boolean_Test {
+public class Values_AreEqual_Object_And_Boolean_Test extends AbstractTest {
 
   /**
    * This method tests the {@code areEqual} method for {@code Boolean}s.
    */
   @Test
-  public void test_are_equal_for_booleans() {
-    assertThat(Values.areEqual(true, true)).isTrue();
-    assertThat(Values.areEqual(true, false)).isFalse();
-    assertThat(Values.areEqual(false, true)).isFalse();
-    assertThat(Values.areEqual(false, false)).isTrue();
-    assertThat(Values.areEqual(null, (Boolean) null)).isTrue();
-    assertThat(Values.areEqual(false, (Boolean) null)).isFalse();
+  public void test_are_equal_for_booleans() throws Exception {
+    assertThat(Values.areEqual(getValue(null, true), true)).isTrue();
+    assertThat(Values.areEqual(getValue(null, true), false)).isFalse();
+    assertThat(Values.areEqual(getValue(null, false), true)).isFalse();
+    assertThat(Values.areEqual(getValue(null, false), false)).isTrue();
+    assertThat(Values.areEqual(getValue(null, null), (Boolean) null)).isTrue();
+    assertThat(Values.areEqual(getValue(null, false), (Boolean) null)).isFalse();
   }
 }

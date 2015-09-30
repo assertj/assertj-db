@@ -14,6 +14,7 @@ package org.assertj.db.util;
 
 import org.assertj.db.type.Change;
 import org.assertj.db.type.Row;
+import org.assertj.db.type.Value;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -43,15 +44,17 @@ public class Changes {
     Row rowAtStartPoint = change.getRowAtStartPoint();
     Row rowAtEndPoint = change.getRowAtEndPoint();
     if (rowAtStartPoint != null && rowAtEndPoint != null) {
-      List<Object> valuesListAtStartPoint = rowAtStartPoint.getValuesList();
-      List<Object> valuesListAtEndPoint = rowAtEndPoint.getValuesList();
-      Iterator<Object> iteratorAtEndPoint = valuesListAtEndPoint.iterator();
+      List<Value> valuesListAtStartPoint = rowAtStartPoint.getValuesList();
+      List<Value> valuesListAtEndPoint = rowAtEndPoint.getValuesList();
+      Iterator<Value> iteratorAtEndPoint = valuesListAtEndPoint.iterator();
       int index = 0;
-      for (Object valueAtStartPoint : valuesListAtStartPoint) {
-        Object valueAtEndPoint  = iteratorAtEndPoint.next();
+      for (Value valueAtStartPoint : valuesListAtStartPoint) {
+        Value valueAtEndPoint  = iteratorAtEndPoint.next();
+        Object objectAtStartPoint = valueAtStartPoint.getValue();
+        Object objectAtEndPoint = valueAtEndPoint.getValue();
 
-        if ((valueAtStartPoint == null && valueAtEndPoint != null) ||
-            (valueAtStartPoint != null && !valueAtStartPoint.equals(valueAtEndPoint))) {
+        if ((objectAtStartPoint == null && objectAtEndPoint != null) ||
+            (objectAtStartPoint != null && !objectAtStartPoint.equals(objectAtEndPoint))) {
 
           indexesList.add(index);
         }
@@ -59,20 +62,20 @@ public class Changes {
       }
     }
     else if (rowAtStartPoint != null) {
-      List<Object> valuesListAtStartPoint = rowAtStartPoint.getValuesList();
+      List<Value> valuesListAtStartPoint = rowAtStartPoint.getValuesList();
       int index = 0;
-      for (Object valueAtStartPoint : valuesListAtStartPoint) {
-        if (valueAtStartPoint != null) {
+      for (Value valueAtStartPoint : valuesListAtStartPoint) {
+        if (valueAtStartPoint.getValue() != null) {
           indexesList.add(index);
         }
         index++;
       }
     }
     else {
-      List<Object> valuesListAtEndPoint = rowAtEndPoint.getValuesList();
+      List<Value> valuesListAtEndPoint = rowAtEndPoint.getValuesList();
       int index = 0;
-      for (Object valueAtEndPoint : valuesListAtEndPoint) {
-        if (valueAtEndPoint != null) {
+      for (Value valueAtEndPoint : valuesListAtEndPoint) {
+        if (valueAtEndPoint.getValue() != null) {
           indexesList.add(index);
         }
         index++;

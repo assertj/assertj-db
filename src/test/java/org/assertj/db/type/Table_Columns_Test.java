@@ -38,8 +38,10 @@ public class Table_Columns_Test extends AbstractTest {
     Column columnFromIndex = table.getColumn(1);
 
     assertThat(columnFromIndex.getName()).isEqualTo("TITLE");
-    assertThat(columnFromIndex.getValuesList()).containsExactly("Alien", "The Village", "Avatar");
-    assertThat(columnFromIndex.getRowValue(1)).isEqualTo("The Village");
+    assertThat(columnFromIndex.getValuesList().get(0).getValue()).isEqualTo("Alien");
+    assertThat(columnFromIndex.getValuesList().get(1).getValue()).isEqualTo("The Village");
+    assertThat(columnFromIndex.getValuesList().get(2).getValue()).isEqualTo("Avatar");
+    assertThat(columnFromIndex.getRowValue(1).getValue()).isEqualTo("The Village");
   }
 
   /**
@@ -52,8 +54,10 @@ public class Table_Columns_Test extends AbstractTest {
     Column columnFromIndex = table.getColumn(1);
 
     assertThat(columnFromIndex.getName()).isEqualTo("TITLE");
-    assertThat(columnFromIndex.getValuesList()).containsExactly("Alien", "The Village", "Avatar");
-    assertThat(columnFromIndex.getRowValue(1)).isEqualTo("The Village");
+    assertThat(columnFromIndex.getValuesList().get(0).getValue()).isEqualTo("Alien");
+    assertThat(columnFromIndex.getValuesList().get(1).getValue()).isEqualTo("The Village");
+    assertThat(columnFromIndex.getValuesList().get(2).getValue()).isEqualTo("Avatar");
+    assertThat(columnFromIndex.getRowValue(1).getValue()).isEqualTo("The Village");
   }
 
 }

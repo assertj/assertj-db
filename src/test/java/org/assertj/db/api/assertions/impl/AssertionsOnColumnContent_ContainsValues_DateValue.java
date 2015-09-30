@@ -15,8 +15,10 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
+import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.Table;
+import org.assertj.db.type.Value;
 import org.junit.Test;
 
 import java.sql.Date;
@@ -34,17 +36,19 @@ import static org.junit.Assert.fail;
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnColumnContent_ContainsValues_DateValue {
+public class AssertionsOnColumnContent_ContainsValues_DateValue extends AbstractTest {
 
   /**
    * This method tests the {@code containsValues} assertion method.
    */
   @Test
-  public void test_contains_values() {
+  public void test_contains_values() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Object> list = new ArrayList<Object>(Arrays.asList(Date.valueOf("2007-12-23"), Date.valueOf("2002-07-25"), null));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, Date.valueOf("2007-12-23")),
+                                                     getValue(null, Date.valueOf("2002-07-25")),
+                                                     getValue(null, null)));
     TableAssert tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list,
                                                                         DateValue.of(2007, 12, 23),
                                                                         DateValue.of(2002, 7, 25),
@@ -61,12 +65,14 @@ public class AssertionsOnColumnContent_ContainsValues_DateValue {
    * This method should fail because the values are different.
    */
   @Test
-  public void should_fail_because_values_are_different() {
+  public void should_fail_because_values_are_different() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Object> list = new ArrayList<Object>(Arrays.asList(Date.valueOf("2007-12-23"), Date.valueOf("2002-07-25"), null));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, Date.valueOf("2007-12-23")),
+                                                     getValue(null, Date.valueOf("2002-07-25")),
+                                                     getValue(null, null)));
     try {
       AssertionsOnColumnContent.containsValues(tableAssert, info, list,
                                                DateValue.of(2007, 12, 23),
@@ -87,12 +93,13 @@ public class AssertionsOnColumnContent_ContainsValues_DateValue {
    * This method should fail because one of the values is not a date/time.
    */
   @Test
-  public void should_fail_because_one_value_is_not_a_date() {
+  public void should_fail_because_one_value_is_not_a_date() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Object> list = new ArrayList<Object>(Arrays.asList("other", Date.valueOf("2002-07-25")));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "other"),
+                                                     getValue(null, Date.valueOf("2002-07-25"))));
     try {
       AssertionsOnColumnContent.containsValues(tableAssert, info, list,
                                                DateValue.of(2007, 12, 23),
@@ -113,12 +120,13 @@ public class AssertionsOnColumnContent_ContainsValues_DateValue {
    * This method should fail because the number of values is different.
    */
   @Test
-  public void should_fail_because_the_number_of_values_is_different() {
+  public void should_fail_because_the_number_of_values_is_different() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Object> list = new ArrayList<Object>(Arrays.asList(Date.valueOf("2007-12-23"), Date.valueOf("2002-07-25")));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, Date.valueOf("2007-12-23")),
+                                                     getValue(null, Date.valueOf("2002-07-25"))));
     try {
       AssertionsOnColumnContent.containsValues(tableAssert, info, list,
                                                DateValue.of(2007, 12, 23),

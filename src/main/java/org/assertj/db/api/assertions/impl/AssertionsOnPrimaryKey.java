@@ -16,6 +16,7 @@ import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
 import org.assertj.db.type.Change;
+import org.assertj.db.type.Value;
 import org.assertj.db.util.Values;
 
 import java.util.ArrayList;
@@ -101,8 +102,8 @@ public class AssertionsOnPrimaryKey {
   public static <A extends AbstractAssert> A hasPksValues(A assertion, WritableAssertionInfo info, Change change,
                                                           Object... values) {
     // Create a array from the primary keys columns
-    List<Object> pksValueList = change.getPksValueList();
-    Object[] pksValues = pksValueList.toArray(new Object[pksValueList.size()]);
+    List<Value> pksValueList = change.getPksValueList();
+    Value[] pksValues = pksValueList.toArray(new Value[pksValueList.size()]);
 
     // If the length of the values is different than the length of the expected values
     if (values.length != pksValues.length) {
@@ -112,7 +113,7 @@ public class AssertionsOnPrimaryKey {
 
     // Compare each list
     int index = 0;
-    for (Object pkValue : pksValueList) {
+    for (Value pkValue : pksValueList) {
       Object value = values[index];
       if (!Values.areEqual(pkValue, value)) {
         Object[] representationsValues = Values.getRepresentationsFromValuesInFrontOfExpected(pksValues, values);

@@ -12,6 +12,7 @@
  */
 package org.assertj.db.util;
 
+import org.assertj.db.common.AbstractTest;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -22,15 +23,15 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Régis Pouiller
  * 
  */
-public class Values_AreEqual_Object_And_String_Test {
+public class Values_AreEqual_Object_And_String_Test extends AbstractTest {
 
   /**
    * This method tests the {@code areEqual} method for {@code String}s.
    */
   @Test
-  public void test_are_equal_for_string() {
-    assertThat(Values.areEqual("text", "text")).isTrue();
-    assertThat(Values.areEqual("Text", "text")).isFalse();
+  public void test_are_equal_for_string() throws Exception {
+    assertThat(Values.areEqual(getValue(null, "text"), "text")).isTrue();
+    assertThat(Values.areEqual(getValue(null, "Text"), "text")).isFalse();
   }
 
 }

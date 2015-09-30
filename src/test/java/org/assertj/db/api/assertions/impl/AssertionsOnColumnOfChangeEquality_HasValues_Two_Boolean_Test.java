@@ -15,6 +15,7 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
+import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
@@ -23,22 +24,25 @@ import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link AssertionsOnColumnOfChangeEquality} class :
- * {@link AssertionsOnColumnOfChangeEquality#hasValues(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, Object, Object, Boolean, Boolean)} method.
+ * {@link AssertionsOnColumnOfChangeEquality#hasValues(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, org.assertj.db.type.Value, Boolean, Boolean)} method.
  *
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Boolean_Test {
+public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Boolean_Test extends AbstractTest {
 
   /**
    * This method tests the {@code hasValues} assertion method.
    */
   @Test
-  public void test_has_values() {
+  public void test_has_values() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    TableAssert tableAssert2 = AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info, true, true, Boolean.TRUE,
+    TableAssert tableAssert2 = AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
+                                                                            getValue(null, true),
+                                                                            getValue(null, true),
+                                                                            Boolean.TRUE,
                                                                             Boolean.TRUE);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
@@ -47,13 +51,16 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Boolean_Test {
    * This method should fail because the value at start point is different.
    */
   @Test
-  public void should_fail_because_value_at_start_point_is_different() {
+  public void should_fail_because_value_at_start_point_is_different() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info, false, true, Boolean.TRUE, Boolean.TRUE);
+      AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
+                                                   getValue(null, false),
+                                                   getValue(null, true),
+                                                   Boolean.TRUE, Boolean.TRUE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -68,13 +75,16 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Boolean_Test {
    * This method should fail because the value at end point is different.
    */
   @Test
-  public void should_fail_because_value_at_end_point_is_different() {
+  public void should_fail_because_value_at_end_point_is_different() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info, false, true, Boolean.FALSE, Boolean.FALSE);
+      AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
+                                                   getValue(null, false),
+                                                   getValue(null, true),
+                                                   Boolean.FALSE, Boolean.FALSE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -89,13 +99,16 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Boolean_Test {
    * This method should fail because one of the values is not a boolean.
    */
   @Test
-  public void should_fail_because_one_value_is_not_a_boolean() {
+  public void should_fail_because_one_value_is_not_a_boolean() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info, "other", true, Boolean.FALSE, Boolean.TRUE);
+      AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
+                                                   getValue(null, "other"),
+                                                   getValue(null, true),
+                                                   Boolean.FALSE, Boolean.TRUE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"

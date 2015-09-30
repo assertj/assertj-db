@@ -17,10 +17,7 @@ import org.assertj.db.api.assertions.impl.*;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.navigation.element.ChangeElement;
 import org.assertj.db.navigation.origin.OriginWithColumnsAndRowsFromChange;
-import org.assertj.db.type.Change;
-import org.assertj.db.type.ChangeType;
-import org.assertj.db.type.DataType;
-import org.assertj.db.type.Row;
+import org.assertj.db.type.*;
 import org.assertj.db.util.Changes;
 
 import java.util.HashMap;
@@ -119,14 +116,14 @@ public class ChangeAssert
     }
     Row rowAtStartPoint = change.getRowAtStartPoint();
     Row rowAtEndPoint = change.getRowAtEndPoint();
-    Object valueAtStartPoint = null;
-    Object valueAtEndPoint = null;
+    Value valueAtStartPoint = Value.NULL;
+    Value valueAtEndPoint = Value.NULL;
     if (rowAtStartPoint != null) {
-      List<Object> valuesAtStartPoint = rowAtStartPoint.getValuesList();
+      List<Value> valuesAtStartPoint = rowAtStartPoint.getValuesList();
       valueAtStartPoint = valuesAtStartPoint.get(index);
     }
     if (rowAtEndPoint != null) {
-      List<Object> valuesAtEndPoint = rowAtEndPoint.getValuesList();
+      List<Value> valuesAtEndPoint = rowAtEndPoint.getValuesList();
       valueAtEndPoint = valuesAtEndPoint.get(index);
     }
     List<String> columnsNameList = change.getColumnsNameList();

@@ -32,24 +32,33 @@ public class Table_GetRowFromPksValues_Test extends AbstractTest {
    * This method test getting a row from primary keys values without finding it.
    */
   @Test
-  public void test_getting_row_from_primary_keys_values_without_finding() {
+  public void test_getting_row_from_primary_keys_values_without_finding() throws Exception {
     Table table = new Table(source, "movie");
 
     assertThat(table.getRowFromPksValues()).isNull();
-    assertThat(table.getRowFromPksValues(1L, 3)).isNull();
+    assertThat(table.getRowFromPksValues(getValue(null, 1L), getValue(null, 3))).isNull();
   }
 
   /**
    * This method test getting a row from primary keys values with finding it.
    */
   @Test
-  public void test_getting_row_from_primary_keys_values_with_finding() {
+  public void test_getting_row_from_primary_keys_values_with_finding() throws Exception {
     Table table = new Table(source, "movie");
 
-    assertThat(table.getRowFromPksValues(3).getValuesList()).containsExactly(new BigDecimal(3), "Avatar",
-        new BigDecimal(2009), UUID.fromString("D735221B-5DE5-4112-AA1E-49090CB75ADA"));
-    assertThat(table.getRowFromPksValues(1L).getValuesList()).containsExactly(new BigDecimal(1), "Alien",
-        new BigDecimal(1979), UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
+    assertThat(table.getRowFromPksValues(getValue(null, 3)).getValuesList().get(0).getValue()).isEqualTo(new BigDecimal(3));
+    assertThat(table.getRowFromPksValues(getValue(null, 3)).getValuesList().get(1).getValue()).isEqualTo("Avatar");
+    assertThat(table.getRowFromPksValues(getValue(null, 3)).getValuesList().get(2).getValue()).isEqualTo(new BigDecimal(2009));
+    assertThat(table.getRowFromPksValues(getValue(null, 3)).getValuesList().get(3).getValue()).isEqualTo(UUID.fromString(
+                                                                                                           "D735221B-5DE5-4112-AA1E-49090CB75ADA"));
+    assertThat(table.getRowFromPksValues(getValue(null, 1L)).getValuesList().get(0).getValue())
+            .isEqualTo(new BigDecimal(1));
+    assertThat(table.getRowFromPksValues(getValue(null, 1L)).getValuesList().get(1).getValue())
+            .isEqualTo("Alien");
+    assertThat(table.getRowFromPksValues(getValue(null, 1L)).getValuesList().get(2).getValue())
+            .isEqualTo(new BigDecimal(1979));
+    assertThat(table.getRowFromPksValues(getValue(null, 1L)).getValuesList().get(3).getValue())
+            .isEqualTo(UUID.fromString(
+                               "30B443AE-C0C9-4790-9BEC-CE1380808435"));
   }
-
 }

@@ -30,7 +30,7 @@ public class TableRowAssert
    * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    * @param row The row on which do assertion.
    */
-  TableRowAssert(TableAssert origin, Row row) {
+  public TableRowAssert(TableAssert origin, Row row) {
     super(origin, TableRowAssert.class, TableRowValueAssert.class, row);
   }
 
@@ -42,5 +42,4 @@ public class TableRowAssert
   public TableAssert returnToTable() {
     return returnToOrigin();
   }
-
 }

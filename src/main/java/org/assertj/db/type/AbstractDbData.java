@@ -17,7 +17,9 @@ import org.assertj.db.util.RowComparator;
 
 import javax.sql.DataSource;
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * This class represents data from the database (either a {@link Table} or a {@link Request}).
@@ -53,9 +55,9 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    */
   private List<Row> rowsList;
   /**
-   * Map the columns with their index in key (contains the columns already generated).
+   * List of the columns.
    */
-  private final Map<Integer, Column> columnsMap = new HashMap<>();
+  private List<Column> columnsList;
 
   /**
    * Default constructor.
@@ -164,7 +166,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
     ResultSetMetaData metaData = resultSet.getMetaData();
     rowsList = new ArrayList<>();
     while (resultSet.next()) {
-      List<Object> objectsList = new ArrayList<>();
+      List<Value> valuesList = new ArrayList<>();
       for (String columnName : columnsNameList) {
         // TODO Improve the check of the type
         int index = -1;
@@ -174,30 +176,32 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
             break;
           }
         }
+        Object object;
         int type = metaData.getColumnType(index);
         switch (type) {
           case Types.DATE:
-            objectsList.add(resultSet.getDate(columnName));
+            object = resultSet.getDate(columnName);
             break;
           case Types.TIME:
-            objectsList.add(resultSet.getTime(columnName));
+            object = resultSet.getTime(columnName);
             break;
           case Types.TIMESTAMP:
-            objectsList.add(resultSet.getTimestamp(columnName));
+            object = resultSet.getTimestamp(columnName);
             break;
           case Types.BLOB:
-            objectsList.add(resultSet.getBytes(columnName));
+            object = resultSet.getBytes(columnName);
             break;
           case Types.CLOB:
-            objectsList.add(resultSet.getString(columnName));
+            object = resultSet.getString(columnName);
             break;
 
           default:
-            objectsList.add(resultSet.getObject(columnName));
+            object = resultSet.getObject(columnName);
             break;
         }
+        valuesList.add(new Value(columnName, object));
       }
-      rowsList.add(new Row(pksNameList, columnsNameList, objectsList));
+      rowsList.add(new Row(pksNameList, columnsNameList, valuesList));
     }
   }
 
@@ -283,7 +287,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
   }
 
   /**
-   * Return the list of the values for the data from database.
+   * Returns the list of the values in rows for the data from database.
    * <p>
    * If it is the first call to {@code getRowsList()}, the data are loaded from database by calling the {@link #load()}
    * private method.
@@ -301,6 +305,34 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
   }
 
   /**
+   * Returns the list of the values in columns for the data from database.
+   * <p>
+   * This method calls {@link #getColumnsNameList()} and {@link #getValuesList(int)} which calls {@link #getRowsList()}.
+   * <br>
+   * If it is the first call to {@link #getColumnsNameList()} or {@link #getRowsList()}, the data are loaded from
+   * database by calling the {@link #load()} private method.
+   * </p>
+   *
+   * @return The list of the values in columns.
+   * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
+   * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
+   */
+  public List<Column> getColumnsList() {
+    if (columnsList == null) {
+      columnsList = new ArrayList<>();
+      List<String> columnsNameList = getColumnsNameList();
+      int index = 0;
+      for (String name : columnsNameList) {
+        List<Value> valuesList = getValuesList(index);
+        Column column = new Column(name, valuesList);
+        columnsList.add(column);
+        index++;
+      }
+    }
+    return columnsList;
+  }
+
+  /**
    * Returns the column corresponding to the column index in parameter and the values inside the column.
    * <p>
    * This method calls {@link #getColumnsNameList()} and {@link #getValuesList(int)} which calls {@link #getRowsList()}.
@@ -315,14 +347,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
    */
   public Column getColumn(int index) {
-    if (columnsMap.containsKey(index)) {
-      return columnsMap.get(index);
-    }
-    String name = getColumnsNameList().get(index);
-    List<Object> valuesList = getValuesList(index);
-    Column column = new Column(name, valuesList);
-    columnsMap.put(index, column);
-    return column;
+    return getColumnsList().get(index);
   }
 
   /**
@@ -355,8 +380,8 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
    * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
    */
-  private List<Object> getValuesList(int index) {
-    List<Object> valuesList = new ArrayList<>();
+  private List<Value> getValuesList(int index) {
+    List<Value> valuesList = new ArrayList<>();
     for (Row row : getRowsList()) {
       valuesList.add(row.getColumnValue(index));
     }
@@ -370,7 +395,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    * @param pksValues The primary keys values.
    * @return The {@link Row} with the same primary keys values.
    */
-  public Row getRowFromPksValues(Object... pksValues) {
+  public Row getRowFromPksValues(Value... pksValues) {
     for (Row row : getRowsList()) {
       if (row.hasPksValuesEqualTo(pksValues)) {
         return row;

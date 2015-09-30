@@ -15,6 +15,7 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
+import org.assertj.db.type.Value;
 import org.assertj.db.type.ValueType;
 import org.assertj.db.util.Values;
 
@@ -57,10 +58,10 @@ public class AssertionsOnRowEquality {
    * @throws AssertionError If the value is not equal to the values in parameter.
    */
   public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
-                                                       List<Object> valuesList, Object... expected) {
+                                                       List<Value> valuesList, Object... expected) {
     AssertionsOnNumberOfColumns.hasNumberOfColumns(assertion, info, valuesList.size(), expected.length);
     int index = 0;
-    for (Object value : valuesList) {
+    for (Value value : valuesList) {
       ValueType[] possibleTypes = ValueType.getPossibleTypesForComparison(expected[index]);
       ValueType type = ValueType.getType(value);
       if (!Arrays.asList(possibleTypes).contains(type)) {

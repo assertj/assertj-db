@@ -35,20 +35,20 @@ public class ValueType_GetType_Test extends AbstractTest {
    * This method tests the result of {@code getType} method from {@code ValueType} enum.
    */
   @Test
-  public void test_result_when_getting_type() {
-    assertThat(ValueType.getType(new byte[]{1})).isEqualTo(ValueType.BYTES);
-    assertThat(ValueType.getType(true)).isEqualTo(ValueType.BOOLEAN);
-    assertThat(ValueType.getType("")).isEqualTo(ValueType.TEXT);
-    assertThat(ValueType.getType(new Date(10))).isEqualTo(ValueType.DATE);
-    assertThat(ValueType.getType(new Time(10))).isEqualTo(ValueType.TIME);
-    assertThat(ValueType.getType(new Timestamp(10))).isEqualTo(ValueType.DATE_TIME);
-    assertThat(ValueType.getType((short) 10)).isEqualTo(ValueType.NUMBER);
-    assertThat(ValueType.getType(10)).isEqualTo(ValueType.NUMBER);
-    assertThat(ValueType.getType((long) 10)).isEqualTo(ValueType.NUMBER);
-    assertThat(ValueType.getType(10.5d)).isEqualTo(ValueType.NUMBER);
-    assertThat(ValueType.getType(10.5f)).isEqualTo(ValueType.NUMBER);
-    assertThat(ValueType.getType(new BigDecimal(10.5f))).isEqualTo(ValueType.NUMBER);
-    assertThat(ValueType.getType(UUID.randomUUID())).isEqualTo(ValueType.UUID);
-    assertThat(ValueType.getType(null)).isEqualTo(ValueType.NOT_IDENTIFIED);
+  public void test_result_when_getting_type() throws Exception {
+    assertThat(ValueType.getType(getValue(null, new byte[] { 1 }))).isEqualTo(ValueType.BYTES);
+    assertThat(ValueType.getType(getValue(null, true))).isEqualTo(ValueType.BOOLEAN);
+    assertThat(ValueType.getType(getValue(null, ""))).isEqualTo(ValueType.TEXT);
+    assertThat(ValueType.getType(getValue(null, new Date(10)))).isEqualTo(ValueType.DATE);
+    assertThat(ValueType.getType(getValue(null, new Time(10)))).isEqualTo(ValueType.TIME);
+    assertThat(ValueType.getType(getValue(null, new Timestamp(10)))).isEqualTo(ValueType.DATE_TIME);
+    assertThat(ValueType.getType(getValue(null, (short) 10))).isEqualTo(ValueType.NUMBER);
+    assertThat(ValueType.getType(getValue(null, 10))).isEqualTo(ValueType.NUMBER);
+    assertThat(ValueType.getType(getValue(null, (long) 10))).isEqualTo(ValueType.NUMBER);
+    assertThat(ValueType.getType(getValue(null, 10.5d))).isEqualTo(ValueType.NUMBER);
+    assertThat(ValueType.getType(getValue(null, 10.5f))).isEqualTo(ValueType.NUMBER);
+    assertThat(ValueType.getType(getValue(null, new BigDecimal(10.5f)))).isEqualTo(ValueType.NUMBER);
+    assertThat(ValueType.getType(getValue(null, UUID.randomUUID()))).isEqualTo(ValueType.UUID);
+    assertThat(ValueType.getType(getValue(null, null))).isEqualTo(ValueType.NOT_IDENTIFIED);
   }
 }

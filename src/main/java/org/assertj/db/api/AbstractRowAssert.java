@@ -21,8 +21,8 @@ import org.assertj.db.navigation.ToValueFromRow;
 import org.assertj.db.navigation.element.RowElement;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Row;
+import org.assertj.db.type.Value;
 
-import java.lang.reflect.Constructor;
 import java.util.List;
 
 import static org.assertj.db.util.Descriptions.getRowValueDescription;
@@ -66,17 +66,15 @@ public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends A
 
   /** {@inheritDoc} */
   @Override
-  protected RV getValueAssertInstance(Class<RV> valueAssertType, int index, Object value) throws Exception {
+  protected String getValueDescription(int index) {
     List<String> columnsNameList = row.getColumnsNameList();
     String columnName = columnsNameList.get(index);
-    Constructor<RV> constructor = valueAssertType.getDeclaredConstructor(myself.getClass(), String.class, Object.class);
-    RV instance = constructor.newInstance(this, columnName, value);
-    return instance.as(getRowValueDescription(info, index, columnName));
+    return getRowValueDescription(info, index, columnName);
   }
 
   /** {@inheritDoc} */
   @Override
-  protected List<Object> getValuesList() {
+  protected List<Value> getValuesList() {
     return row.getValuesList();
   }
 
@@ -91,7 +89,7 @@ public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends A
     if (index == -1) {
       throw new AssertJDBException("Column <%s> does not exist", columnName);
     }
-    return getValueAssertInstance(index);
+    return valuePosition.getInstance(getValuesList(), index);
   }
 
   /** {@inheritDoc} */

@@ -57,7 +57,8 @@ public class AssertionsOnRowOfChangeExistence_DoesNotExist_Test extends Abstract
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     Row row = getRow(null, Arrays.asList("ID", "NAME", "FIRSTNAME", "BIRTH"),
-                     Arrays.asList(1, "Weaver", "Sigourney", Date.valueOf("1949-10-08")));
+                     Arrays.asList(getValue(null, 1), getValue(null, "Weaver"), getValue(null, "Sigourney"),
+                                   getValue(null, Date.valueOf("1949-10-08"))));
     try {
       AssertionsOnRowOfChangeExistence.doesNotExist(tableAssert, info, row);
       fail("An exception must be raised");

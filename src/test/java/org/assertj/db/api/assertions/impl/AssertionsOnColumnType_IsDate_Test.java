@@ -15,7 +15,9 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
+import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
+import org.assertj.db.type.Value;
 import org.junit.Test;
 
 import java.sql.Date;
@@ -33,26 +35,26 @@ import static org.junit.Assert.fail;
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnColumnType_IsDate_Test {
+public class AssertionsOnColumnType_IsDate_Test extends AbstractTest {
 
   /**
    * This method tests the {@code isDate} assertion method.
    */
   @Test
-  public void test_is_date() {
+  public void test_is_date() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Object> list = new ArrayList<Object>(Arrays.asList(Date.valueOf("2007-12-23"),
-                                                            Date.valueOf("2002-07-25")));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, Date.valueOf("2007-12-23")),
+                                                     getValue(null, Date.valueOf("2002-07-25"))));
     TableAssert tableAssert2 = AssertionsOnColumnType.isDate(tableAssert, info, list, false);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    list = new ArrayList<Object>(Arrays.asList(Date.valueOf("2007-12-23"),
-                                               Date.valueOf("2002-07-25")));
+    list = new ArrayList<>(Arrays.asList(getValue(null, Date.valueOf("2007-12-23")),
+                                         getValue(null, Date.valueOf("2002-07-25"))));
     tableAssert2 = AssertionsOnColumnType.isDate(tableAssert, info, list, true);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    list = new ArrayList<Object>(Arrays.asList(null,
-                                               Date.valueOf("2002-07-25")));
+    list = new ArrayList<>(Arrays.asList(getValue(null, null),
+                                         getValue(null, Date.valueOf("2002-07-25"))));
     tableAssert2 = AssertionsOnColumnType.isDate(tableAssert, info, list, true);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
@@ -61,13 +63,13 @@ public class AssertionsOnColumnType_IsDate_Test {
    * This method should fail because the value is not a date.
    */
   @Test
-  public void should_fail_because_value_is_not_a_date() {
+  public void should_fail_because_value_is_not_a_date() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      List<Object> list = new ArrayList<Object>(Arrays.asList("test", Date.valueOf("2002-07-25")));
+      List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "test"), getValue(null, Date.valueOf("2002-07-25"))));
       AssertionsOnColumnType.isDate(tableAssert, info, list, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -85,13 +87,13 @@ public class AssertionsOnColumnType_IsDate_Test {
    * This method should fail because the value is not a date (with lenience).
    */
   @Test
-  public void should_fail_because_value_is_not_a_date_with_lenience() {
+  public void should_fail_because_value_is_not_a_date_with_lenience() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      List<Object> list = new ArrayList<Object>(Arrays.asList(Date.valueOf("2007-12-23"), "test"));
+      List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, Date.valueOf("2007-12-23")), getValue(null, "test")));
       AssertionsOnColumnType.isDate(tableAssert, info, list, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -109,13 +111,13 @@ public class AssertionsOnColumnType_IsDate_Test {
    * This method should fail because the value is a stringbuiler.
    */
   @Test
-  public void should_fail_because_value_is_a_stringbuilder() {
+  public void should_fail_because_value_is_a_stringbuilder() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      List<Object> list = new ArrayList<Object>(Arrays.asList(new StringBuilder("test"), true));
+      List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, new StringBuilder("test")), getValue(null, true)));
       AssertionsOnColumnType.isDate(tableAssert, info, list, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {

@@ -15,10 +15,7 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
-import org.assertj.db.type.DateTimeValue;
-import org.assertj.db.type.DateValue;
-import org.assertj.db.type.TimeValue;
-import org.assertj.db.type.ValueType;
+import org.assertj.db.type.*;
 import org.assertj.db.util.Values;
 
 import java.util.List;
@@ -60,15 +57,15 @@ public class AssertionsOnColumnEquality {
    * @throws AssertionError If the values of the column are not equal to the objects in parameter.
    */
   public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
-                                                       List<Object> valuesList, Object... expected) {
+                                                       List<Value> valuesList, Object... expected) {
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
     int index = 0;
-    for (Object value : valuesList) {
+    for (Value value : valuesList) {
       if (value != null && expected[index] != null) {
         AssertionsOnValueClass.isOfClass(assertion, info, value, expected[index].getClass());
       }
       if (!areEqual(value, expected[index])) {
-        throw failures.failure(info, shouldBeEqual(index, value, expected[index]));
+        throw failures.failure(info, shouldBeEqual(index, value.getValue(), expected[index]));
       }
       index++;
     }
@@ -87,14 +84,13 @@ public class AssertionsOnColumnEquality {
    * @throws AssertionError If the values of the column are not equal to the booleans in parameter.
    */
   public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
-                                                       List<Object> valuesList, Boolean... expected) {
+                                                       List<Value> valuesList, Boolean... expected) {
     AssertionsOnColumnType.isBoolean(assertion, info, valuesList, true);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
     int index = 0;
-    for (Object value : valuesList) {
-      Boolean val = (Boolean) value;
-      if (!areEqual(val, expected[index])) {
-        throw failures.failure(info, shouldBeEqual(index, val, expected[index]));
+    for (Value value : valuesList) {
+      if (!areEqual(value, expected[index])) {
+        throw failures.failure(info, shouldBeEqual(index, value.getValue(), expected[index]));
       }
       index++;
     }
@@ -113,16 +109,15 @@ public class AssertionsOnColumnEquality {
    * @throws AssertionError If the values of the column are not equal to the numbers in parameter.
    */
   public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
-                                                       List<Object> valuesList, Number... expected) {
+                                                       List<Value> valuesList, Number... expected) {
     AssertionsOnColumnType.isNumber(assertion, info, valuesList, true);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
     int index = 0;
-    for (Object value : valuesList) {
-      Number val = (Number) value;
-      if (!areEqual(val, expected[index])) {
+    for (Value value : valuesList) {
+      if (!areEqual(value, expected[index])) {
         throw failures.failure(info,
                                shouldBeEqual(index,
-                                             Values.getRepresentationFromValueInFrontOfExpected(val, expected[index]),
+                                             Values.getRepresentationFromValueInFrontOfExpected(value, expected[index]),
                                              expected[index]));
       }
       index++;
@@ -142,11 +137,11 @@ public class AssertionsOnColumnEquality {
    * @throws AssertionError If the values of the column are not equal to the bytes in parameter.
    */
   public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
-                                                       List<Object> valuesList, byte[]... expected) {
+                                                       List<Value> valuesList, byte[]... expected) {
     AssertionsOnColumnType.isBytes(assertion, info, valuesList, true);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
     int index = 0;
-    for (Object value : valuesList) {
+    for (Value value : valuesList) {
       if (!areEqual(value, expected[index])) {
         throw failures.failure(info, shouldBeEqual(index));
       }
@@ -167,12 +162,12 @@ public class AssertionsOnColumnEquality {
    * @throws AssertionError If the values of the column are not equal to the texts in parameter.
    */
   public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
-                                                       List<Object> valuesList, String... expected) {
+                                                       List<Value> valuesList, String... expected) {
     AssertionsOnColumnType.isOfAnyTypeIn(assertion, info, valuesList, ValueType.TEXT, ValueType.NUMBER, ValueType.DATE,
             ValueType.TIME, ValueType.DATE_TIME, ValueType.UUID, ValueType.NOT_IDENTIFIED);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
     int index = 0;
-    for (Object value : valuesList) {
+    for (Value value : valuesList) {
       if (!areEqual(value, expected[index])) {
         throw failures.failure(info,
                                shouldBeEqual(index, Values.getRepresentationFromValueInFrontOfExpected(value, expected[index]),
@@ -196,11 +191,11 @@ public class AssertionsOnColumnEquality {
    * @since 1.1.0
    */
   public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
-                                                       List<Object> valuesList, UUID... expected) {
+                                                       List<Value> valuesList, UUID... expected) {
     AssertionsOnColumnType.isOfAnyTypeIn(assertion, info, valuesList, ValueType.UUID, ValueType.NOT_IDENTIFIED);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
     int index = 0;
-    for (Object value : valuesList) {
+    for (Value value : valuesList) {
       if (!areEqual(value, expected[index])) {
         throw failures.failure(info,
                 shouldBeEqual(index, Values.getRepresentationFromValueInFrontOfExpected(value, expected[index]),
@@ -223,12 +218,12 @@ public class AssertionsOnColumnEquality {
    * @throws AssertionError If the values of the column are not equal to the date values in parameter.
    */
   public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
-                                                       List<Object> valuesList, DateValue... expected) {
+                                                       List<Value> valuesList, DateValue... expected) {
     AssertionsOnColumnType
             .isOfAnyTypeIn(assertion, info, valuesList, ValueType.DATE, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
     int index = 0;
-    for (Object value : valuesList) {
+    for (Value value : valuesList) {
       if (!areEqual(value, expected[index])) {
         throw failures.failure(info,
                                shouldBeEqual(index, Values.getRepresentationFromValueInFrontOfExpected(value, expected[index]), expected[index]));
@@ -250,11 +245,11 @@ public class AssertionsOnColumnEquality {
    * @throws AssertionError If the values of the column are not equal to the time values in parameter.
    */
   public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
-                                                       List<Object> valuesList, TimeValue... expected) {
+                                                       List<Value> valuesList, TimeValue... expected) {
     AssertionsOnColumnType.isOfAnyTypeIn(assertion, info, valuesList, ValueType.TIME, ValueType.NOT_IDENTIFIED);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
     int index = 0;
-    for (Object value : valuesList) {
+    for (Value value : valuesList) {
       if (!areEqual(value, expected[index])) {
         throw failures.failure(info,
                                shouldBeEqual(index,
@@ -278,12 +273,12 @@ public class AssertionsOnColumnEquality {
    * @throws AssertionError If the values of the column are not equal to the date/time values in parameter.
    */
   public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
-                                                       List<Object> valuesList, DateTimeValue... expected) {
+                                                       List<Value> valuesList, DateTimeValue... expected) {
     AssertionsOnColumnType.isOfAnyTypeIn(assertion, info, valuesList, ValueType.DATE, ValueType.DATE_TIME,
                                          ValueType.NOT_IDENTIFIED);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
     int index = 0;
-    for (Object value : valuesList) {
+    for (Value value : valuesList) {
       if (!areEqual(value, expected[index])) {
         throw failures.failure(info,
                                shouldBeEqual(index,

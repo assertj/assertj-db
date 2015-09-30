@@ -14,6 +14,7 @@ package org.assertj.db.error;
 
 import org.assertj.core.error.BasicErrorMessageFactory;
 import org.assertj.core.error.ErrorMessageFactory;
+import org.assertj.db.type.Value;
 import org.assertj.db.type.ValueType;
 
 /**
@@ -37,9 +38,9 @@ public class ShouldBeValueTypeWithStartPoint extends BasicErrorMessageFactory {
    * @param expected The expected type.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBeValueTypeWithStartPoint(Object actual, ValueType tested, ValueType expected) {
-    if (actual != null && tested == ValueType.NOT_IDENTIFIED) {
-      return  new ShouldBeValueTypeWithStartPoint(actual, actual.getClass(), tested, expected);
+  public static ErrorMessageFactory shouldBeValueTypeWithStartPoint(Value actual, ValueType tested, ValueType expected) {
+    if (actual.getValue() != null && tested == ValueType.NOT_IDENTIFIED) {
+      return  new ShouldBeValueTypeWithStartPoint(actual, actual.getValue().getClass(), tested, expected);
     }
     return new ShouldBeValueTypeWithStartPoint(actual, tested, expected);
   }
@@ -51,8 +52,8 @@ public class ShouldBeValueTypeWithStartPoint extends BasicErrorMessageFactory {
    * @param tested The tested type.
    * @param expected The expected type.
    */
-  private ShouldBeValueTypeWithStartPoint(Object actual, ValueType tested, ValueType expected) {
-    super(EXPECTED_MESSAGE, actual, expected, tested);
+  private ShouldBeValueTypeWithStartPoint(Value actual, ValueType tested, ValueType expected) {
+    super(EXPECTED_MESSAGE, actual.getValue(), expected, tested);
   }
 
   /**
@@ -63,7 +64,7 @@ public class ShouldBeValueTypeWithStartPoint extends BasicErrorMessageFactory {
    * @param tested The tested type.
    * @param expected The expected type.
    */
-  private ShouldBeValueTypeWithStartPoint(Object actual, Class classOfActual, ValueType tested, ValueType expected) {
-    super(EXPECTED_MESSAGE_NOT_IDENTIFIED, actual, expected, tested, classOfActual);
+  private ShouldBeValueTypeWithStartPoint(Value actual, Class classOfActual, ValueType tested, ValueType expected) {
+    super(EXPECTED_MESSAGE_NOT_IDENTIFIED, actual.getValue(), expected, tested, classOfActual);
   }
 }

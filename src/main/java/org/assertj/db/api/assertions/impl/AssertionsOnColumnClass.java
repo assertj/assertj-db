@@ -16,6 +16,7 @@ import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
 import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.type.Value;
 
 import java.util.List;
 
@@ -56,7 +57,7 @@ public class AssertionsOnColumnClass {
    * @throws AssertJDBException If the class is {@code null}.
    * @since 1.1.0
    */
-  public static <A extends AbstractAssert> A isOfClass(A assertion, WritableAssertionInfo info, List<Object> valuesList,
+  public static <A extends AbstractAssert> A isOfClass(A assertion, WritableAssertionInfo info, List<Value> valuesList,
                                                        Class<?> expected, boolean lenient) {
 
     if (expected == null) {
@@ -64,9 +65,10 @@ public class AssertionsOnColumnClass {
     }
 
     int index = 0;
-    for (Object value : valuesList) {
-      if (value == null || !expected.isAssignableFrom(value.getClass())) {
-        if (!lenient || value != null) {
+    for (Value value : valuesList) {
+      Object object = value.getValue();
+      if (object == null || !expected.isAssignableFrom(object.getClass())) {
+        if (!lenient || object != null) {
           throw failures.failure(info, shouldBeValueClass(index, value, expected));
         }
       }

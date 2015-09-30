@@ -13,8 +13,6 @@
 package org.assertj.db.type;
 
 import javax.sql.DataSource;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -29,7 +27,7 @@ import java.sql.SQLException;
  * @param <D> Class of the subclass (an implementation of {@link AbstractDbElement}) : useful for the fluent methods
  *          (setters).
  */
-public abstract class AbstractDbElement<D extends AbstractDbElement<D>> {
+public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implements DbElement {
 
   /**
    * Class of the element.

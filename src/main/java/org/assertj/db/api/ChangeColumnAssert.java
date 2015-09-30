@@ -16,10 +16,7 @@ import org.assertj.db.api.assertions.*;
 import org.assertj.db.api.assertions.impl.*;
 import org.assertj.db.navigation.element.ColumnElement;
 import org.assertj.db.navigation.origin.OriginWithValuesFromColumn;
-import org.assertj.db.type.DateTimeValue;
-import org.assertj.db.type.DateValue;
-import org.assertj.db.type.TimeValue;
-import org.assertj.db.type.ValueType;
+import org.assertj.db.type.*;
 
 import java.util.UUID;
 
@@ -49,12 +46,12 @@ public class ChangeColumnAssert
   /**
    * The actual value at start point.
    */
-  private final Object valueAtStartPoint;
+  private final Value valueAtStartPoint;
 
   /**
    * The actual value at end point.
    */
-  private final Object valueAtEndPoint;
+  private final Value valueAtEndPoint;
 
   /**
    * The assertion on the value at start point.
@@ -73,7 +70,7 @@ public class ChangeColumnAssert
    * @param valueAtStartPoint The value at start point.
    * @param valueAtEndPoint The value at end point.
    */
-  ChangeColumnAssert(ChangeAssert origin, String columnName, Object valueAtStartPoint, Object valueAtEndPoint) {
+  ChangeColumnAssert(ChangeAssert origin, String columnName, Value valueAtStartPoint, Value valueAtEndPoint) {
     super(ChangeColumnAssert.class, origin);
     this.columnName = columnName;
     this.valueAtStartPoint = valueAtStartPoint;

@@ -15,6 +15,7 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
+import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
@@ -28,18 +29,20 @@ import static org.junit.Assert.fail;
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Bytes_Test {
+public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Bytes_Test extends AbstractTest {
 
   /**
    * This method tests the {@code hasValues} assertion method.
    */
   @Test
-  public void test_has_values() {
+  public void test_has_values() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    TableAssert tableAssert2 = AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info, new byte[] { 0, 1 },
-                                                                            new byte[] { 2, 3 }, new byte[] { 0, 1 },
+    TableAssert tableAssert2 = AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
+                                                                            getValue(null, new byte[] { 0, 1 }),
+                                                                            getValue(null, new byte[] { 2, 3 }),
+                                                                            new byte[] { 0, 1 },
                                                                             new byte[] { 2, 3 });
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
@@ -48,13 +51,15 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Bytes_Test {
    * This method should fail because the value at start point is different.
    */
   @Test
-  public void should_fail_because_value_at_start_point_is_different() {
+  public void should_fail_because_value_at_start_point_is_different() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info, new byte[] { 0, 1 }, new byte[] { 2, 3 },
+      AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
+                                                   getValue(null, new byte[] { 0, 1 }),
+                                                   getValue(null, new byte[] { 2, 3 }),
                                                    new byte[] { 0, 0 }, new byte[] { 2, 3 });
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -67,13 +72,15 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Bytes_Test {
    * This method should fail because the value at end point is different.
    */
   @Test
-  public void should_fail_because_value_at_end_point_is_different() {
+  public void should_fail_because_value_at_end_point_is_different() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info, new byte[] { 0, 1 }, new byte[] { 2, 3 },
+      AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
+                                                   getValue(null, new byte[] { 0, 1 }),
+                                                   getValue(null, new byte[] { 2, 3 }),
                                                    new byte[] { 0, 1 }, new byte[] { 2, 2 });
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -86,13 +93,16 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Bytes_Test {
    * This method should fail because one of the values is not bytes.
    */
   @Test
-  public void should_fail_because_one_value_is_not_bytes() {
+  public void should_fail_because_one_value_is_not_bytes() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info, "other", new byte[] { 2, 3 }, new byte[] { 0, 1 },
+      AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
+                                                   getValue(null, "other"),
+                                                   getValue(null, new byte[] { 2, 3 }),
+                                                   new byte[] { 0, 1 },
                                                    new byte[] { 2, 3 });
       fail("An exception must be raised");
     } catch (AssertionError e) {

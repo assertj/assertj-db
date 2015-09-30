@@ -31,7 +31,7 @@ import java.util.List;
  * @author Régis Pouiller
  * 
  */
-public class Row {
+public class Row implements DbElement {
 
   /**
    * List of the primary key names.
@@ -44,7 +44,7 @@ public class Row {
   /**
    * The list of value.
    */
-  private final List<Object> valuesList;
+  private final List<Value> valuesList;
 
   /**
    * Constructor of the row with visibility in the package.
@@ -53,7 +53,7 @@ public class Row {
    * @param columnsNameList The list of the columns name.
    * @param valuesList The values in the row.
    */
-  Row(List<String> pksNameList, List<String> columnsNameList, List<Object> valuesList) {
+  Row(List<String> pksNameList, List<String> columnsNameList, List<Value> valuesList) {
     this.pksNameList = pksNameList;
     this.columnsNameList = columnsNameList;
     this.valuesList = valuesList;
@@ -73,12 +73,14 @@ public class Row {
    *
    * @return The list of the primary keys value.
    */
-  public List<Object> getPksValueList() {
-    List<Object> pksValueList = new ArrayList<>();
-    for (String name : pksNameList) {
-      int index = columnsNameList.indexOf(name);
-      Object value = valuesList.get(index);
-      pksValueList.add(value);
+  public List<Value> getPksValueList() {
+    List<Value> pksValueList = new ArrayList<>();
+    if (pksNameList != null) {
+      for (String name : pksNameList) {
+        int index = columnsNameList.indexOf(name);
+        Value value = valuesList.get(index);
+        pksValueList.add(value);
+      }
     }
     return pksValueList;
   }
@@ -106,7 +108,7 @@ public class Row {
    * 
    * @return The list of the values.
    */
-  public List<Object> getValuesList() {
+  public List<Value> getValuesList() {
     return valuesList;
   }
 
@@ -115,16 +117,16 @@ public class Row {
    * 
    * @return The primary keys value.
    */
-  public Object[] getPksValues() {
-    List<Object> pksValuesList = new ArrayList<>();
+  public Value[] getPksValues() {
+    List<Value> pksValuesList = new ArrayList<>();
     if (pksNameList != null) {
       for (String pkName : pksNameList) {
         int index = columnsNameList.indexOf(pkName);
-        Object value = valuesList.get(index);
+        Value value = valuesList.get(index);
         pksValuesList.add(value);
       }
     }
-    return pksValuesList.toArray(new Object[pksValuesList.size()]);
+    return pksValuesList.toArray(new Value[pksValuesList.size()]);
   }
 
   /**
@@ -133,11 +135,11 @@ public class Row {
    * @param pksValues The values of the primary keys to compare.
    * @return If the values of the primary keys are equal.
    */
-  public boolean hasPksValuesEqualTo(Object[] pksValues) {
-    Object[] pksValues1 = getPksValues();
+  public boolean hasPksValuesEqualTo(Value[] pksValues) {
+    Value[] pksValues1 = getPksValues();
     if (pksValues1.length != 0 && pksValues1.length == pksValues.length) {
       for (int index = 0; index < pksValues1.length; index++) {
-        if (!Values.areEqual(pksValues1[index], pksValues[index])) {
+        if (!Values.areEqual(pksValues1[index], pksValues[index].getValue())) {
           return false;
         }
       }
@@ -153,12 +155,12 @@ public class Row {
    * @return If the values are equal.
    */
   public boolean hasValues(Row row) {
-    List<Object> valuesList = getValuesList();
-    List<Object> rowValuesList = row.getValuesList();
+    List<Value> valuesList = getValuesList();
+    List<Value> rowValuesList = row.getValuesList();
     for (int index = 0; index < valuesList.size(); index++) {
-      Object value = valuesList.get(index);
-      Object rowValue = rowValuesList.get(index);
-      if (!Values.areEqual(value, rowValue)) {
+      Value value = valuesList.get(index);
+      Value rowValue = rowValuesList.get(index);
+      if (!Values.areEqual(value, rowValue.getValue())) {
         return false;
       }
     }
@@ -172,7 +174,7 @@ public class Row {
    * @param index The index
    * @return The value
    */
-  public Object getColumnValue(int index) {
+  public Value getColumnValue(int index) {
     return valuesList.get(index);
   }
 
@@ -183,7 +185,7 @@ public class Row {
    * @return The value
    * @throws NullPointerException If the {@code columnName} parameter is {@code null}.
    */
-  public Object getColumnValue(String columnName) {
+  public Value getColumnValue(String columnName) {
     if (columnName == null) {
       throw new NullPointerException("Column name must be not null");
     }

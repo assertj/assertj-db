@@ -12,6 +12,7 @@
  */
 package org.assertj.db.util;
 
+import org.assertj.db.common.AbstractTest;
 import org.assertj.db.exception.AssertJDBException;
 import org.junit.Test;
 
@@ -27,164 +28,164 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Régis Pouiller
  * 
  */
-public class Values_AreEqual_Number_And_String_Test {
+public class Values_AreEqual_Number_And_String_Test extends AbstractTest {
 
   /**
    * This method tests the {@code areEqual} method for another type of value and {@code Float}s.
    */
   @Test
-  public void test_are_equal_for_float_and_string() {
-    assertThat(Values.areEqual(1F, "1")).isTrue();
-    assertThat(Values.areEqual(2F, "1")).isFalse();
-    assertThat(Values.areEqual(1.5F, "1.5")).isTrue();
-    assertThat(Values.areEqual(2.5F, "1.5")).isFalse();
+  public void test_are_equal_for_float_and_string() throws Exception {
+    assertThat(Values.areEqual(getValue(null, 1F), "1")).isTrue();
+    assertThat(Values.areEqual(getValue(null, 2F), "1")).isFalse();
+    assertThat(Values.areEqual(getValue(null, 1.5F), "1.5")).isTrue();
+    assertThat(Values.areEqual(getValue(null, 2.5F), "1.5")).isFalse();
   }
 
   /**
    * This method tests the {@code areEqual} method for another type of value and {@code Double}s.
    */
   @Test
-  public void test_are_equal_for_double_and_string() {
-    assertThat(Values.areEqual(1D, "1")).isTrue();
-    assertThat(Values.areEqual(2D, "1")).isFalse();
-    assertThat(Values.areEqual(1.5D, "1.5")).isTrue();
-    assertThat(Values.areEqual(2.5D, "1.5")).isFalse();
+  public void test_are_equal_for_double_and_string() throws Exception {
+    assertThat(Values.areEqual(getValue(null, 1D), "1")).isTrue();
+    assertThat(Values.areEqual(getValue(null, 2D), "1")).isFalse();
+    assertThat(Values.areEqual(getValue(null, 1.5D), "1.5")).isTrue();
+    assertThat(Values.areEqual(getValue(null, 2.5D), "1.5")).isFalse();
   }
 
   /**
    * This method tests the {@code areEqual} method for another type of value and {@code BigInteger}s.
    */
   @Test
-  public void test_are_equal_for_biginteger_and_string() {
-    assertThat(Values.areEqual(new BigInteger("1"), "1")).isTrue();
-    assertThat(Values.areEqual(new BigInteger("2"), "1")).isFalse();
+  public void test_are_equal_for_biginteger_and_string() throws Exception {
+    assertThat(Values.areEqual(getValue(null, new BigInteger("1")), "1")).isTrue();
+    assertThat(Values.areEqual(getValue(null, new BigInteger("2")), "1")).isFalse();
   }
 
   /**
    * This method tests the {@code areEqual} method for another type of value and {@code BigDecimal}s.
    */
   @Test
-  public void test_are_equal_for_bigdecimal_and_string() {
-    assertThat(Values.areEqual(new BigDecimal("1"), "1")).isTrue();
-    assertThat(Values.areEqual(new BigDecimal("2"), "1")).isFalse();
-    assertThat(Values.areEqual(new BigDecimal("1.5"), "1.5")).isTrue();
-    assertThat(Values.areEqual(new BigDecimal("2.5"), "1.5")).isFalse();
+  public void test_are_equal_for_bigdecimal_and_string() throws Exception {
+    assertThat(Values.areEqual(getValue(null, new BigDecimal("1")), "1")).isTrue();
+    assertThat(Values.areEqual(getValue(null, new BigDecimal("2")), "1")).isFalse();
+    assertThat(Values.areEqual(getValue(null, new BigDecimal("1.5")), "1.5")).isTrue();
+    assertThat(Values.areEqual(getValue(null, new BigDecimal("2.5")), "1.5")).isFalse();
   }
 
   /**
    * This method tests the {@code areEqual} method for another type of value and {@code Byte}s.
    */
   @Test
-  public void test_are_equal_for_byte_and_string() {
-    assertThat(Values.areEqual((byte) 1, "1")).isTrue();
-    assertThat(Values.areEqual((byte) 2, "1")).isFalse();
+  public void test_are_equal_for_byte_and_string() throws Exception {
+    assertThat(Values.areEqual(getValue(null, (byte) 1), "1")).isTrue();
+    assertThat(Values.areEqual(getValue(null, (byte) 2), "1")).isFalse();
   }
 
   /**
    * This method tests the {@code areEqual} method for another type of value and {@code Short}s.
    */
   @Test
-  public void test_are_equal_for_short_and_string() {
-    assertThat(Values.areEqual((short) 1, "1")).isTrue();
-    assertThat(Values.areEqual((short) 2, "1")).isFalse();
+  public void test_are_equal_for_short_and_string() throws Exception {
+    assertThat(Values.areEqual(getValue(null, (short) 1), "1")).isTrue();
+    assertThat(Values.areEqual(getValue(null, (short) 2), "1")).isFalse();
   }
 
   /**
    * This method tests the {@code areEqual} method for another type of value and {@code Int}s.
    */
   @Test
-  public void test_are_equal_for_int_and_string() {
-    assertThat(Values.areEqual(1, "1")).isTrue();
-    assertThat(Values.areEqual(2, "1")).isFalse();
+  public void test_are_equal_for_int_and_string() throws Exception {
+    assertThat(Values.areEqual(getValue(null, 1), "1")).isTrue();
+    assertThat(Values.areEqual(getValue(null, 2), "1")).isFalse();
   }
 
   /**
    * This method tests the {@code areEqual} method for another type of value and {@code Long}s.
    */
   @Test
-  public void test_are_equal_for_long_and_string() {
-    assertThat(Values.areEqual((long) 1, "1")).isTrue();
-    assertThat(Values.areEqual((long) 2, "1")).isFalse();
+  public void test_are_equal_for_long_and_string() throws Exception {
+    assertThat(Values.areEqual(getValue(null, (long) 1), "1")).isTrue();
+    assertThat(Values.areEqual(getValue(null, (long) 2), "1")).isFalse();
   }
 
   /**
    * This method tests the {@code areEqual} method for another type of value and {@code AtomicLong}s.
    */
   @Test
-  public void test_are_equal_for_atomiclong_and_string() {
-    assertThat(Values.areEqual(new AtomicLong(1), "1")).isFalse();
-    assertThat(Values.areEqual(new AtomicLong(2), "1")).isFalse();
+  public void test_are_equal_for_atomiclong_and_string() throws Exception {
+    assertThat(Values.areEqual(getValue(null, new AtomicLong(1)), "1")).isFalse();
+    assertThat(Values.areEqual(getValue(null, new AtomicLong(2)), "1")).isFalse();
   }
 
   /**
    * This method should fail because the expected value ("***") is not parsable to do the comparison.
    */
   @Test(expected = AssertJDBException.class)
-  public void should_fail_because_string_is_not_parseable() {
-    Values.areEqual(1, "***");
+  public void should_fail_because_string_is_not_parseable() throws Exception {
+    Values.areEqual(getValue(null, 1), "***");
   }
 
   /**
    * This method should fail because the expected value is null.
    */
   @Test
-  public void should_fail_because_string_is_null_with_float() {
-    assertThat(Values.areEqual(1F, (String) null)).isFalse();
+  public void should_fail_because_string_is_null_with_float() throws Exception {
+    assertThat(Values.areEqual(getValue(null, 1F), (String) null)).isFalse();
   }
 
   /**
    * This method should fail because the expected value is null.
    */
   @Test
-  public void should_fail_because_string_is_null_with_double() {
-    assertThat(Values.areEqual(1D, (String) null)).isFalse();
+  public void should_fail_because_string_is_null_with_double() throws Exception {
+    assertThat(Values.areEqual(getValue(null, 1D), (String) null)).isFalse();
   }
 
   /**
    * This method should fail because the expected value is null.
    */
   @Test
-  public void should_fail_because_string_is_null_with_byte() {
-    assertThat(Values.areEqual((byte) 1, (String) null)).isFalse();
+  public void should_fail_because_string_is_null_with_byte() throws Exception {
+    assertThat(Values.areEqual(getValue(null, (byte) 1), (String) null)).isFalse();
   }
 
   /**
    * This method should fail because the expected value is null.
    */
   @Test
-  public void should_fail_because_string_is_null_with_short() {
-    assertThat(Values.areEqual((short) 1, (String) null)).isFalse();
+  public void should_fail_because_string_is_null_with_short() throws Exception {
+    assertThat(Values.areEqual(getValue(null, (short) 1), (String) null)).isFalse();
   }
 
   /**
    * This method should fail because the expected value is null.
    */
   @Test
-  public void should_fail_because_string_is_null_with_int() {
-    assertThat(Values.areEqual(1, (String) null)).isFalse();
+  public void should_fail_because_string_is_null_with_int() throws Exception {
+    assertThat(Values.areEqual(getValue(null, 1), (String) null)).isFalse();
   }
 
   /**
    * This method should fail because the expected value is null.
    */
   @Test
-  public void should_fail_because_string_is_null_with_long() {
-    assertThat(Values.areEqual((long) 1, (String) null)).isFalse();
+  public void should_fail_because_string_is_null_with_long() throws Exception {
+    assertThat(Values.areEqual(getValue(null, (long) 1), (String) null)).isFalse();
   }
 
   /**
    * This method should fail because the expected value is null.
    */
   @Test
-  public void should_fail_because_string_is_null_with_biginteger() {
-    assertThat(Values.areEqual(new BigInteger("1"), (String) null)).isFalse();
+  public void should_fail_because_string_is_null_with_biginteger() throws Exception {
+    assertThat(Values.areEqual(getValue(null, new BigInteger("1")), (String) null)).isFalse();
   }
 
   /**
    * This method should fail because the expected value is null.
    */
   @Test
-  public void should_fail_because_string_is_null_with_bigdecimal() {
-    assertThat(Values.areEqual(new BigDecimal("1"), (String) null)).isFalse();
+  public void should_fail_because_string_is_null_with_bigdecimal() throws Exception {
+    assertThat(Values.areEqual(getValue(null, new BigDecimal("1")), (String) null)).isFalse();
   }
 }

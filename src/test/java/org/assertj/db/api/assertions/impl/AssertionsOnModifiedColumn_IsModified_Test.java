@@ -15,6 +15,7 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
+import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
@@ -28,21 +29,23 @@ import static org.junit.Assert.fail;
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnModifiedColumn_IsModified_Test {
+public class AssertionsOnModifiedColumn_IsModified_Test extends AbstractTest {
 
   /**
    * This method tests the {@code isModified} assertion method.
    */
   @Test
-  public void test_is_modified() {
+  public void test_is_modified() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    TableAssert tableAssert2 = AssertionsOnModifiedColumn.isModified(tableAssert, info, null, "test");
+    TableAssert tableAssert2 = AssertionsOnModifiedColumn.isModified(tableAssert, info, getValue(null, null), getValue(
+            null, "test"));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnModifiedColumn.isModified(tableAssert, info, "test", null);
+    tableAssert2 = AssertionsOnModifiedColumn.isModified(tableAssert, info, getValue(null, "test"), getValue(null, null));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnModifiedColumn.isModified(tableAssert, info, "test", "test1");
+    tableAssert2 = AssertionsOnModifiedColumn.isModified(tableAssert, info, getValue(null, "test"), getValue(null,
+                                                                                                             "test1"));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -50,13 +53,13 @@ public class AssertionsOnModifiedColumn_IsModified_Test {
    * This method should fail because the column is not modified.
    */
   @Test
-  public void should_fail_because_column_is_not_modified() {
+  public void should_fail_because_column_is_not_modified() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnModifiedColumn.isModified(tableAssert, info, null, null);
+      AssertionsOnModifiedColumn.isModified(tableAssert, info, getValue(null, null), getValue(null, null));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -66,7 +69,7 @@ public class AssertionsOnModifiedColumn_IsModified_Test {
                                                       + "  <null>"));
     }
     try {
-      AssertionsOnModifiedColumn.isModified(tableAssert, info, "test", "test");
+      AssertionsOnModifiedColumn.isModified(tableAssert, info, getValue(null, "test"), getValue(null, "test"));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"

@@ -15,6 +15,7 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
+import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
@@ -25,22 +26,23 @@ import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link AssertionsOnValueType} class :
- * {@link AssertionsOnValueType#isDateTime(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, Object)} method.
+ * {@link AssertionsOnValueType#isDateTime(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value)} method.
  *
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnValueType_IsDateTime_Test {
+public class AssertionsOnValueType_IsDateTime_Test extends AbstractTest {
 
   /**
    * This method tests the {@code isDateTime} assertion method.
    */
   @Test
-  public void test_is_date_time() {
+  public void test_is_date_time() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    TableAssert tableAssert2 = AssertionsOnValueType.isDateTime(tableAssert, info, Timestamp.valueOf("2007-12-23 09:01:00"));
+    TableAssert tableAssert2 = AssertionsOnValueType.isDateTime(tableAssert, info, getValue(
+            null, Timestamp.valueOf("2007-12-23 09:01:00")));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -48,13 +50,13 @@ public class AssertionsOnValueType_IsDateTime_Test {
    * This method should fail because the value is not a date/time.
    */
   @Test
-  public void should_fail_because_value_is_not_a_date_time() {
+  public void should_fail_because_value_is_not_a_date_time() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnValueType.isDateTime(tableAssert, info, "test");
+      AssertionsOnValueType.isDateTime(tableAssert, info, getValue(null, "test"));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -71,13 +73,13 @@ public class AssertionsOnValueType_IsDateTime_Test {
    * This method should fail because the value is a stringbuilder.
    */
   @Test
-  public void should_fail_because_value_is_a_stringbuilder() {
+  public void should_fail_because_value_is_a_stringbuilder() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnValueType.isDateTime(tableAssert, info, new StringBuilder("text"));
+      AssertionsOnValueType.isDateTime(tableAssert, info, getValue(null, new StringBuilder("text")));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"

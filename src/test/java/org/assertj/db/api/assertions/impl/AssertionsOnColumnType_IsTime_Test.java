@@ -15,7 +15,9 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
+import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
+import org.assertj.db.type.Value;
 import org.junit.Test;
 
 import java.sql.Time;
@@ -33,26 +35,26 @@ import static org.junit.Assert.fail;
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnColumnType_IsTime_Test {
+public class AssertionsOnColumnType_IsTime_Test extends AbstractTest {
 
   /**
    * This method tests the {@code isTime} assertion method.
    */
   @Test
-  public void test_is_time() {
+  public void test_is_time() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Object> list = new ArrayList<Object>(Arrays.asList(Time.valueOf("09:01:00"),
-                                                            Time.valueOf("09:01:00")));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, Time.valueOf("09:01:00")),
+                                                     getValue(null, Time.valueOf("09:01:00"))));
     TableAssert tableAssert2 = AssertionsOnColumnType.isTime(tableAssert, info, list, false);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    list = new ArrayList<Object>(Arrays.asList(Time.valueOf("09:01:00"),
-                                               Time.valueOf("09:01:00")));
+    list = new ArrayList<>(Arrays.asList(getValue(null, Time.valueOf("09:01:00")),
+                                         getValue(null, Time.valueOf("09:01:00"))));
     tableAssert2 = AssertionsOnColumnType.isTime(tableAssert, info, list, true);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    list = new ArrayList<Object>(Arrays.asList(null,
-                                               Time.valueOf("09:01:00")));
+    list = new ArrayList<>(Arrays.asList(getValue(null, null),
+                                         getValue(null, Time.valueOf("09:01:00"))));
     tableAssert2 = AssertionsOnColumnType.isTime(tableAssert, info, list, true);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
@@ -61,13 +63,13 @@ public class AssertionsOnColumnType_IsTime_Test {
    * This method should fail because the value is not a time.
    */
   @Test
-  public void should_fail_because_value_is_not_a_time() {
+  public void should_fail_because_value_is_not_a_time() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      List<Object> list = new ArrayList<Object>(Arrays.asList("test", Time.valueOf("09:01:00")));
+      List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "test"), getValue(null, Time.valueOf("09:01:00"))));
       AssertionsOnColumnType.isTime(tableAssert, info, list, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -85,13 +87,13 @@ public class AssertionsOnColumnType_IsTime_Test {
    * This method should fail because the value is not a time (with lenience).
    */
   @Test
-  public void should_fail_because_value_is_not_a_time_with_lenience() {
+  public void should_fail_because_value_is_not_a_time_with_lenience() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      List<Object> list = new ArrayList<Object>(Arrays.asList(Time.valueOf("09:01:00"), "test"));
+      List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, Time.valueOf("09:01:00")), getValue(null, "test")));
       AssertionsOnColumnType.isTime(tableAssert, info, list, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -109,13 +111,13 @@ public class AssertionsOnColumnType_IsTime_Test {
    * This method should fail because the value is a stringbuiler.
    */
   @Test
-  public void should_fail_because_value_is_a_stringbuilder() {
+  public void should_fail_because_value_is_a_stringbuilder() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      List<Object> list = new ArrayList<Object>(Arrays.asList(new StringBuilder("test"), true));
+      List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, new StringBuilder("test")), getValue(null, true)));
       AssertionsOnColumnType.isTime(tableAssert, info, list, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {

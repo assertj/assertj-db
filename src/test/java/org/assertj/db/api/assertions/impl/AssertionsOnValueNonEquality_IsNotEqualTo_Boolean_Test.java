@@ -15,6 +15,7 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
+import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
@@ -23,24 +24,24 @@ import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link  AssertionsOnValueNonEquality} class :
- * {@link AssertionsOnValueNonEquality#isNotEqualTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, Object, Boolean)} method.
+ * {@link AssertionsOnValueNonEquality#isNotEqualTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, Boolean)} method.
  *
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnValueNonEquality_IsNotEqualTo_Boolean_Test {
+public class AssertionsOnValueNonEquality_IsNotEqualTo_Boolean_Test extends AbstractTest {
 
   /**
    * This method tests the {@code isNotEqualTo} assertion method.
    */
   @Test
-  public void test_is_not_equal_to() {
+  public void test_is_not_equal_to() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    TableAssert tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, true, false);
+    TableAssert tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, getValue(null, true), false);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, true, (Boolean) null);
+    tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, getValue(null, true), (Boolean) null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -48,13 +49,13 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_Boolean_Test {
    * This method should fail because the value is equal to.
    */
   @Test
-  public void should_fail_because_value_is_equal_to() {
+  public void should_fail_because_value_is_equal_to() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, true, true);
+      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, getValue(null, true), true);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -64,7 +65,7 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_Boolean_Test {
                                                       + "  <true>"));
     }
     try {
-      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, null, (Boolean) null);
+      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, getValue(null, null), (Boolean) null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -79,13 +80,13 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_Boolean_Test {
    * This method should fail because the value is not a boolean.
    */
   @Test
-  public void should_fail_because_value_is_not_a_boolean() {
+  public void should_fail_because_value_is_not_a_boolean() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, 8, true);
+      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, getValue(null, 8), true);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"

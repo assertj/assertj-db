@@ -34,8 +34,9 @@ public class Change_Exception_Test extends AbstractTest {
   @Test
   public void should_fail_because_datatype_must_be_not_null() {
     try {
-      getChange(null, "name", ChangeType.CREATION, getRow(Arrays.asList(""), Arrays.asList(""), Arrays.asList()),
-          getRow(Arrays.asList(""), Arrays.asList(""), Arrays.asList()));
+      getChange(null, "name", ChangeType.CREATION, getRow(Arrays.asList(""), Arrays.asList(""), Arrays.asList(getValue(
+              null, null))),
+          getRow(Arrays.asList(""), Arrays.asList(""), Arrays.asList(getValue(null, null))));
 
       fail("An exception must be raised");
     } catch (Exception exception) {
@@ -49,8 +50,9 @@ public class Change_Exception_Test extends AbstractTest {
   @Test
   public void should_fail_because_dataname_must_be_not_null() {
     try {
-      getChange(DataType.TABLE, null, ChangeType.CREATION, getRow(Arrays.asList(""), Arrays.asList(""), Arrays.asList()),
-          getRow(Arrays.asList(""), Arrays.asList(""), Arrays.asList()));
+      getChange(DataType.TABLE, null, ChangeType.CREATION, getRow(Arrays.asList(""), Arrays.asList(""), Arrays.asList(getValue(
+              null, null))),
+          getRow(Arrays.asList(""), Arrays.asList(""), Arrays.asList(getValue(null, null))));
 
       fail("An exception must be raised");
     } catch (Exception exception) {

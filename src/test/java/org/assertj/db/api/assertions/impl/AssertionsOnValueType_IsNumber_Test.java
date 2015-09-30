@@ -15,6 +15,7 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
+import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
@@ -23,22 +24,22 @@ import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link AssertionsOnValueType} class :
- * {@link AssertionsOnValueType#isNumber(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, Object)} method.
+ * {@link AssertionsOnValueType#isNumber(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value)} method.
  *
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnValueType_IsNumber_Test {
+public class AssertionsOnValueType_IsNumber_Test extends AbstractTest {
 
   /**
    * This method tests the {@code isNumber} assertion method.
    */
   @Test
-  public void test_is_number() {
+  public void test_is_number() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    TableAssert tableAssert2 = AssertionsOnValueType.isNumber(tableAssert, info, 8);
+    TableAssert tableAssert2 = AssertionsOnValueType.isNumber(tableAssert, info, getValue(null, 8));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -46,13 +47,13 @@ public class AssertionsOnValueType_IsNumber_Test {
    * This method should fail because the value is not a number.
    */
   @Test
-  public void should_fail_because_value_is_not_a_number() {
+  public void should_fail_because_value_is_not_a_number() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnValueType.isNumber(tableAssert, info, "test");
+      AssertionsOnValueType.isNumber(tableAssert, info, getValue(null, "test"));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -69,13 +70,13 @@ public class AssertionsOnValueType_IsNumber_Test {
    * This method should fail because the value is a stringbuilder.
    */
   @Test
-  public void should_fail_because_value_is_a_stringbuilder() {
+  public void should_fail_because_value_is_a_stringbuilder() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnValueType.isNumber(tableAssert, info, new StringBuilder("text"));
+      AssertionsOnValueType.isNumber(tableAssert, info, getValue(null, new StringBuilder("text")));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"

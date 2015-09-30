@@ -15,7 +15,9 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
+import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
+import org.assertj.db.type.Value;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -32,22 +34,23 @@ import static org.junit.Assert.fail;
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnColumnContent_ContainsValues_Bytes {
+public class AssertionsOnColumnContent_ContainsValues_Bytes extends AbstractTest {
 
   /**
    * This method tests the {@code containsValues} assertion method.
    */
   @Test
-  public void test_contains_values() {
+  public void test_contains_values() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Object> list = new ArrayList<Object>(Arrays.asList(new byte[] {0, 1}, new byte[] {2, 3}));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, new byte[] {0, 1}), getValue(null, new byte[] {2, 3})));
     TableAssert tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list, new byte[] {0, 1}, new byte[] {2, 3});
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list, new byte[] {2, 3}, new byte[] {0, 1});
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    list = new ArrayList<Object>(Arrays.asList(new byte[] {0, 1}, new byte[] {2, 3}, null, new byte[] {2, 3}));
+    list = new ArrayList<>(Arrays.asList(getValue(null, new byte[] {0, 1}), getValue(null, new byte[] {2, 3}), getValue(
+            null, null), getValue(null, new byte[] {2, 3})));
     tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list, null, new byte[] {2, 3}, new byte[] {0, 1}, new byte[] {2, 3});
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
@@ -56,12 +59,13 @@ public class AssertionsOnColumnContent_ContainsValues_Bytes {
    * This method should fail because the values are different.
    */
   @Test
-  public void should_fail_because_values_are_different() {
+  public void should_fail_because_values_are_different() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Object> list = new ArrayList<Object>(Arrays.asList(new byte[] {0, 1}, new byte[] {2, 3}, null, new byte[] {2, 3}));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, new byte[] {0, 1}), getValue(null, new byte[] {2, 3}), getValue(
+            null, null), getValue(null, new byte[] {2, 3})));
     try {
       AssertionsOnColumnContent.containsValues(tableAssert, info, list, null, new byte[] {2, 3}, null, new byte[] {2, 3});
       fail("An exception must be raised");
@@ -76,12 +80,12 @@ public class AssertionsOnColumnContent_ContainsValues_Bytes {
    * This method should fail because one of the values is not a bytes.
    */
   @Test
-  public void should_fail_because_one_value_is_not_a_bytes() {
+  public void should_fail_because_one_value_is_not_a_bytes() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Object> list = new ArrayList<Object>(Arrays.asList("other", new byte[] {2, 3}));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "other"), getValue(null, new byte[] {2, 3})));
     try {
       AssertionsOnColumnContent.containsValues(tableAssert, info, list, new byte[] {0, 1}, new byte[] {2, 3});
       fail("An exception must be raised");
@@ -100,12 +104,12 @@ public class AssertionsOnColumnContent_ContainsValues_Bytes {
    * This method should fail because the number of values is different.
    */
   @Test
-  public void should_fail_because_the_number_of_values_is_different() {
+  public void should_fail_because_the_number_of_values_is_different() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Object> list = new ArrayList<Object>(Arrays.asList(new byte[] {0, 1}, new byte[] {2, 3}));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, new byte[] {0, 1}), getValue(null, new byte[] {2, 3})));
     try {
       AssertionsOnColumnContent.containsValues(tableAssert, info, list, new byte[] {0, 1}, new byte[] {2, 3}, new byte[] {2, 3});
       fail("An exception must be raised");

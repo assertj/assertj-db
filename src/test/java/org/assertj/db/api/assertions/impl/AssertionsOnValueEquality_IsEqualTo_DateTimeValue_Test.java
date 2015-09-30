@@ -15,6 +15,7 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
+import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.Table;
@@ -29,27 +30,29 @@ import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link  AssertionsOnValueEquality} class :
- * {@link  AssertionsOnValueEquality#isEqualTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, Object, org.assertj.db.type.DateTimeValue)} method.
+ * {@link  AssertionsOnValueEquality#isEqualTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, org.assertj.db.type.DateTimeValue)} method.
  *
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnValueEquality_IsEqualTo_DateTimeValue_Test {
+public class AssertionsOnValueEquality_IsEqualTo_DateTimeValue_Test extends AbstractTest {
 
   /**
    * This method tests the {@code isEqualTo} assertion method.
    */
   @Test
-  public void test_is_equal_to() {
+  public void test_is_equal_to() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    TableAssert tableAssert2 = AssertionsOnValueEquality.isEqualTo(tableAssert, info, Date.valueOf("2007-12-23"), DateTimeValue.of(DateValue.of(2007, 12, 23)));
+    TableAssert tableAssert2 = AssertionsOnValueEquality.isEqualTo(tableAssert, info, getValue(
+            null, Date.valueOf("2007-12-23")), DateTimeValue.of(DateValue.of(2007, 12, 23)));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnValueEquality.isEqualTo(tableAssert, info, Timestamp.valueOf("2007-12-23 09:01:00"), DateTimeValue.of(
+    tableAssert2 = AssertionsOnValueEquality.isEqualTo(tableAssert, info, getValue(
+            null, Timestamp.valueOf("2007-12-23 09:01:00")), DateTimeValue.of(
             DateValue.of(2007, 12, 23), TimeValue.of(9, 1)));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnValueEquality.isEqualTo(tableAssert, info, null, (DateTimeValue) null);
+    tableAssert2 = AssertionsOnValueEquality.isEqualTo(tableAssert, info, getValue(null, null), (DateTimeValue) null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -57,13 +60,13 @@ public class AssertionsOnValueEquality_IsEqualTo_DateTimeValue_Test {
    * This method should fail because the value is not equal to.
    */
   @Test
-  public void should_fail_because_value_is_not_equal_to() {
+  public void should_fail_because_value_is_not_equal_to() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnValueEquality.isEqualTo(tableAssert, info, Date.valueOf("2007-12-24"), DateTimeValue.of(DateValue.of(2007, 12, 23)));
+      AssertionsOnValueEquality.isEqualTo(tableAssert, info, getValue(null, Date.valueOf("2007-12-24")), DateTimeValue.of(DateValue.of(2007, 12, 23)));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -73,7 +76,7 @@ public class AssertionsOnValueEquality_IsEqualTo_DateTimeValue_Test {
                                                       + "  <2007-12-23T00:00:00.000000000>"));
     }
     try {
-      AssertionsOnValueEquality.isEqualTo(tableAssert, info, Timestamp.valueOf("2007-12-23 09:01:05"), DateTimeValue.of(
+      AssertionsOnValueEquality.isEqualTo(tableAssert, info, getValue(null, Timestamp.valueOf("2007-12-23 09:01:05")), DateTimeValue.of(
               DateValue.of(2007, 12, 23), TimeValue.of(9, 1)));
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -84,7 +87,7 @@ public class AssertionsOnValueEquality_IsEqualTo_DateTimeValue_Test {
                                                       + "  <2007-12-23T09:01:00.000000000>"));
     }
     try {
-      AssertionsOnValueEquality.isEqualTo(tableAssert, info, Date.valueOf("2007-12-24"), (DateTimeValue) null);
+      AssertionsOnValueEquality.isEqualTo(tableAssert, info, getValue(null, Date.valueOf("2007-12-24")), (DateTimeValue) null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -94,7 +97,7 @@ public class AssertionsOnValueEquality_IsEqualTo_DateTimeValue_Test {
                                                                     + "  <null>"));
     }
     try {
-      AssertionsOnValueEquality.isEqualTo(tableAssert, info, Timestamp.valueOf("2007-12-23 09:01:05"),
+      AssertionsOnValueEquality.isEqualTo(tableAssert, info, getValue(null, Timestamp.valueOf("2007-12-23 09:01:05")),
                                           (DateTimeValue) null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -110,13 +113,13 @@ public class AssertionsOnValueEquality_IsEqualTo_DateTimeValue_Test {
    * This method should fail because the value is not a date/time.
    */
   @Test
-  public void should_fail_because_value_is_not_a_date_time() {
+  public void should_fail_because_value_is_not_a_date_time() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnValueEquality.isEqualTo(tableAssert, info, 8, DateTimeValue.of(DateValue.of(2007, 12, 23)));
+      AssertionsOnValueEquality.isEqualTo(tableAssert, info, getValue(null, 8), DateTimeValue.of(DateValue.of(2007, 12, 23)));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"

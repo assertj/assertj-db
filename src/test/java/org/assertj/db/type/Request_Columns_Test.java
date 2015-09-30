@@ -42,8 +42,12 @@ public class Request_Columns_Test extends AbstractTest {
     Column columnFromIndex = request.getColumn(1);
 
     assertThat(columnFromIndex.getName()).isEqualTo("FIRSTNAME");
-    assertThat(columnFromIndex.getValuesList()).containsExactly("Joaquim", "Sigourney", "Sigourney", "Sigourney", "Sam");
-    assertThat(columnFromIndex.getRowValue(4)).isEqualTo("Sam");
+    assertThat(columnFromIndex.getValuesList().get(0).getValue()).isEqualTo("Joaquim");
+    assertThat(columnFromIndex.getValuesList().get(1).getValue()).isEqualTo("Sigourney");
+    assertThat(columnFromIndex.getValuesList().get(2).getValue()).isEqualTo("Sigourney");
+    assertThat(columnFromIndex.getValuesList().get(3).getValue()).isEqualTo("Sigourney");
+    assertThat(columnFromIndex.getValuesList().get(4).getValue()).isEqualTo("Sam");
+    assertThat(columnFromIndex.getRowValue(4).getValue()).isEqualTo("Sam");
   }
 
   /**
@@ -60,8 +64,12 @@ public class Request_Columns_Test extends AbstractTest {
     Column columnFromIndex = request.getColumn(1);
 
     assertThat(columnFromIndex.getName()).isEqualTo("FIRSTNAME");
-    assertThat(columnFromIndex.getValuesList()).containsExactly("Joaquim", "Sigourney", "Sigourney", "Sigourney", "Sam");
-    assertThat(columnFromIndex.getRowValue(4)).isEqualTo("Sam");
+    assertThat(columnFromIndex.getValuesList().get(0).getValue()).isEqualTo("Joaquim");
+    assertThat(columnFromIndex.getValuesList().get(1).getValue()).isEqualTo("Sigourney");
+    assertThat(columnFromIndex.getValuesList().get(2).getValue()).isEqualTo("Sigourney");
+    assertThat(columnFromIndex.getValuesList().get(3).getValue()).isEqualTo("Sigourney");
+    assertThat(columnFromIndex.getValuesList().get(4).getValue()).isEqualTo("Sam");
+    assertThat(columnFromIndex.getRowValue(4).getValue()).isEqualTo("Sam");
   }
 
 }

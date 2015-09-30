@@ -14,6 +14,7 @@ package org.assertj.db.error;
 
 import org.assertj.core.error.BasicErrorMessageFactory;
 import org.assertj.core.error.ErrorMessageFactory;
+import org.assertj.db.type.Value;
 import org.assertj.db.type.ValueType;
 
 /**
@@ -37,10 +38,10 @@ public class ShouldBeValueTypeOfAnyWithEndPoint extends BasicErrorMessageFactory
    * @param expected The expected types.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBeValueTypeOfAnyWithEndPoint(Object actual, ValueType tested,
+  public static ErrorMessageFactory shouldBeValueTypeOfAnyWithEndPoint(Value actual, ValueType tested,
                                                                        ValueType... expected) {
-    if (actual != null && tested == ValueType.NOT_IDENTIFIED) {
-      return  new ShouldBeValueTypeOfAnyWithEndPoint(actual, actual.getClass(), tested, expected);
+    if (actual.getValue() != null && tested == ValueType.NOT_IDENTIFIED) {
+      return  new ShouldBeValueTypeOfAnyWithEndPoint(actual, actual.getValue().getClass(), tested, expected);
     }
     return new ShouldBeValueTypeOfAnyWithEndPoint(actual, tested, expected);
   }
@@ -52,8 +53,8 @@ public class ShouldBeValueTypeOfAnyWithEndPoint extends BasicErrorMessageFactory
    * @param tested The tested type.
    * @param expected The expected types.
    */
-  private ShouldBeValueTypeOfAnyWithEndPoint(Object actual, ValueType tested, ValueType... expected) {
-    super(EXPECTED_MESSAGE, actual, expected, tested);
+  private ShouldBeValueTypeOfAnyWithEndPoint(Value actual, ValueType tested, ValueType... expected) {
+    super(EXPECTED_MESSAGE, actual.getValue(), expected, tested);
   }
 
   /**
@@ -64,7 +65,7 @@ public class ShouldBeValueTypeOfAnyWithEndPoint extends BasicErrorMessageFactory
    * @param tested The tested type.
    * @param expected The expected types.
    */
-  private ShouldBeValueTypeOfAnyWithEndPoint(Object actual, Class classOfActual, ValueType tested, ValueType... expected) {
-    super(EXPECTED_MESSAGE_NOT_IDENTIFIED, actual, expected, tested, classOfActual);
+  private ShouldBeValueTypeOfAnyWithEndPoint(Value actual, Class classOfActual, ValueType tested, ValueType... expected) {
+    super(EXPECTED_MESSAGE_NOT_IDENTIFIED, actual.getValue(), expected, tested, classOfActual);
   }
 }

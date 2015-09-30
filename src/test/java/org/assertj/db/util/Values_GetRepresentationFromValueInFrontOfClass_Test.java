@@ -12,6 +12,7 @@
  */
 package org.assertj.db.util;
 
+import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
@@ -30,21 +31,21 @@ import static org.assertj.core.api.Assertions.assertThat;
 * @author Régis Pouiller
 *
 */
-public class Values_GetRepresentationFromValueInFrontOfClass_Test {
+public class Values_GetRepresentationFromValueInFrontOfClass_Test extends AbstractTest {
 
   /**
    * This method tests the {@code getRepresentationFromValueInFrontOfClass} method for {@code Date}s.
    */
   @Test
-  public void test_getRepresentationFromValueInFrontOfClass_for_dates() {
+  public void test_getRepresentationFromValueInFrontOfClass_for_dates() throws Exception {
     Date date = Date.valueOf("2007-12-23");
-    assertThat(Values.getRepresentationFromValueInFrontOfClass(date, DateValue.class))
-            .isEqualTo(DateValue.from(date));
-    assertThat(Values.getRepresentationFromValueInFrontOfClass(date, DateTimeValue.class))
-            .isEqualTo(DateTimeValue.of(DateValue.from(date)));
-    assertThat(Values.getRepresentationFromValueInFrontOfClass(date, String.class))
-            .isEqualTo("2007-12-23T00:00:00.000000000");
-    assertThat(Values.getRepresentationFromValueInFrontOfClass(date, null))
+    assertThat(Values.getRepresentationFromValueInFrontOfClass(getValue(null, date), DateValue.class))
+                     .isEqualTo(DateValue.from(date));
+    assertThat(Values.getRepresentationFromValueInFrontOfClass(getValue(null, date), DateTimeValue.class))
+                     .isEqualTo(DateTimeValue.of(DateValue.from(date)));
+    assertThat(Values.getRepresentationFromValueInFrontOfClass(getValue(null, date), String.class))
+                     .isEqualTo("2007-12-23T00:00:00.000000000");
+    assertThat(Values.getRepresentationFromValueInFrontOfClass(getValue(null, date), null))
             .isEqualTo(date);
   }
 
@@ -52,30 +53,33 @@ public class Values_GetRepresentationFromValueInFrontOfClass_Test {
    * This method tests the {@code getRepresentationFromValueInFrontOfClass} method for {@code Time}s.
    */
   @Test
-  public void test_getRepresentationFromValueInFrontOfClass_for_times() {
+  public void test_getRepresentationFromValueInFrontOfClass_for_times() throws Exception {
     Time time = Time.valueOf("09:01:06");
-    assertThat(Values.getRepresentationFromValueInFrontOfClass(time, null)).isEqualTo(TimeValue.from(time));
-    assertThat(Values.getRepresentationFromValueInFrontOfClass(time, String.class)).isEqualTo("09:01:06.000000000");
+    assertThat(Values.getRepresentationFromValueInFrontOfClass(getValue(null, time), null)).isEqualTo(TimeValue.from(time));
+    assertThat(Values.getRepresentationFromValueInFrontOfClass(getValue(null, time), String.class)).isEqualTo(
+            "09:01:06.000000000");
   }
 
   /**
    * This method tests the {@code getRepresentationFromValueInFrontOfClass} method for {@code Timestamp}s.
    */
   @Test
-  public void test_getRepresentationFromValueInFrontOfClass_for_datetime() {
+  public void test_getRepresentationFromValueInFrontOfClass_for_datetime() throws Exception {
     Timestamp timestamp = Timestamp.valueOf("2007-12-23 09:01:06.000000003");
-    assertThat(Values.getRepresentationFromValueInFrontOfClass(timestamp, null)).isEqualTo(DateTimeValue.from(timestamp));
-    assertThat(Values.getRepresentationFromValueInFrontOfClass(timestamp, String.class)).isEqualTo("2007-12-23T09:01:06.000000003");
+    assertThat(Values.getRepresentationFromValueInFrontOfClass(getValue(null, timestamp), null)).isEqualTo(
+            DateTimeValue.from(timestamp));
+    assertThat(Values.getRepresentationFromValueInFrontOfClass(getValue(null, timestamp), String.class)).isEqualTo(
+            "2007-12-23T09:01:06.000000003");
   }
 
   /**
    * This method tests the {@code getRepresentationFromValueInFrontOfClass} method for {@code Number}s.
    */
   @Test
-  public void test_getRepresentationFromValueInFrontOfClass_for_numbers() {
-    assertThat(Values.getRepresentationFromValueInFrontOfClass(8,
-                                                               String.class)).isEqualTo("8");
-    assertThat(Values.getRepresentationFromValueInFrontOfClass(8,
+  public void test_getRepresentationFromValueInFrontOfClass_for_numbers() throws Exception {
+    assertThat(Values.getRepresentationFromValueInFrontOfClass(getValue(null, 8),
+                                                                        String.class)).isEqualTo("8");
+    assertThat(Values.getRepresentationFromValueInFrontOfClass(getValue(null, 8),
                                                                null)).isEqualTo(8);
   }
 
@@ -83,44 +87,47 @@ public class Values_GetRepresentationFromValueInFrontOfClass_Test {
    * This method tests the {@code getRepresentationFromValueInFrontOfClass} method for {@code UUID}s.
    */
   @Test
-  public void test_getRepresentationFromValueInFrontOfClass_for_UUID() {
-    assertThat(Values.getRepresentationFromValueInFrontOfClass(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"),
-                                                               String.class)).isEqualTo("30b443ae-c0c9-4790-9bec-ce1380808435");
-    assertThat(Values.getRepresentationFromValueInFrontOfClass(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"),
-                                                               null)).isEqualTo(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
+  public void test_getRepresentationFromValueInFrontOfClass_for_UUID() throws Exception {
+    assertThat(Values.getRepresentationFromValueInFrontOfClass(getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")),
+                                                               String.class)).isEqualTo(
+            "30b443ae-c0c9-4790-9bec-ce1380808435");
+    assertThat(Values.getRepresentationFromValueInFrontOfClass(getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")),
+                                                               null)).isEqualTo(
+            UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
   }
 
   /**
    * This method tests the {@code getRepresentationFromValueInFrontOfClass} method for array of {@code byte}.
    */
   @Test
-  public void test_getRepresentationFromValueInFrontOfClass_for_bytes() {
-    assertThat(Values.getRepresentationFromValueInFrontOfClass(new byte[] { 1, 2 }, null)).isEqualTo(new byte[] {1, 2});
+  public void test_getRepresentationFromValueInFrontOfClass_for_bytes() throws Exception {
+    assertThat(Values.getRepresentationFromValueInFrontOfClass(getValue(null, new byte[] { 1, 2 }), null)).isEqualTo(
+            new byte[] { 1, 2 });
   }
 
   /**
    * This method tests the {@code getRepresentationFromValueInFrontOfClass} method for {@code String}s.
    */
   @Test
-  public void test_getRepresentationFromValueInFrontOfClass_for_text() {
-    assertThat(Values.getRepresentationFromValueInFrontOfClass("text", null)).isEqualTo("text");
+  public void test_getRepresentationFromValueInFrontOfClass_for_text() throws Exception {
+    assertThat(Values.getRepresentationFromValueInFrontOfClass(getValue(null, "text"), null)).isEqualTo("text");
   }
 
   /**
    * This method tests the {@code getRepresentationFromValueInFrontOfClass} method for {@code Boolean}s.
    */
   @Test
-  public void test_getRepresentationFromValueInFrontOfClass_for_boolean() {
-    assertThat(Values.getRepresentationFromValueInFrontOfClass(true, null)).isEqualTo(true);
-    assertThat(Values.getRepresentationFromValueInFrontOfClass(false, null)).isEqualTo(false);
+  public void test_getRepresentationFromValueInFrontOfClass_for_boolean() throws Exception {
+    assertThat(Values.getRepresentationFromValueInFrontOfClass(getValue(null, true), null)).isEqualTo(true);
+    assertThat(Values.getRepresentationFromValueInFrontOfClass(getValue(null, false), null)).isEqualTo(false);
   }
 
   /**
    * This method tests the {@code getRepresentationFromValueInFrontOfClass} method for {@code null}.
    */
   @Test
-  public void test_getRepresentationFromValueInFrontOfClass_for_null() {
-    assertThat(Values.getRepresentationFromValueInFrontOfClass(null, null)).isNull();
+  public void test_getRepresentationFromValueInFrontOfClass_for_null() throws Exception {
+    assertThat(Values.getRepresentationFromValueInFrontOfClass(getValue(null, null), null)).isNull();
   }
 
 }

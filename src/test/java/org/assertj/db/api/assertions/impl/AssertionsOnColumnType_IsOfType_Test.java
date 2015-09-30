@@ -15,7 +15,9 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
+import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
+import org.assertj.db.type.Value;
 import org.assertj.db.type.ValueType;
 import org.junit.Test;
 
@@ -34,23 +36,23 @@ import static org.junit.Assert.fail;
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnColumnType_IsOfType_Test {
+public class AssertionsOnColumnType_IsOfType_Test extends AbstractTest {
 
   /**
    * This method tests the {@code isOfType} assertion method.
    */
   @Test
-  public void test_is_of_type() {
+  public void test_is_of_type() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Object> list = new ArrayList<Object>(Arrays.asList("test", "test"));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "test"), getValue(null, "test")));
     TableAssert tableAssert2 = AssertionsOnColumnType.isOfType(tableAssert, info, list, ValueType.TEXT, false);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    list = new ArrayList<Object>(Arrays.asList("test", "test"));
+    list = new ArrayList<>(Arrays.asList(getValue(null, "test"), getValue(null, "test")));
     tableAssert2 = AssertionsOnColumnType.isOfType(tableAssert, info, list, ValueType.TEXT, true);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    list = new ArrayList<Object>(Arrays.asList(null, "test"));
+    list = new ArrayList<>(Arrays.asList(getValue(null, null), getValue(null, "test")));
     tableAssert2 = AssertionsOnColumnType.isOfType(tableAssert, info, list, ValueType.TEXT, true);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
@@ -59,13 +61,13 @@ public class AssertionsOnColumnType_IsOfType_Test {
    * This method should fail because the value is not of type.
    */
   @Test
-  public void should_fail_because_value_is_not_of_type() {
+  public void should_fail_because_value_is_not_of_type() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      List<Object> list = new ArrayList<Object>(Arrays.asList(8, "test"));
+      List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, 8), getValue(null, "test")));
       AssertionsOnColumnType.isOfType(tableAssert, info, list, ValueType.TEXT, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -78,7 +80,7 @@ public class AssertionsOnColumnType_IsOfType_Test {
                                                       + "  <NUMBER>"));
     }
     try {
-      List<Object> list = new ArrayList<Object>(Arrays.asList(null, "test"));
+      List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, null), getValue(null, "test")));
       AssertionsOnColumnType.isOfType(tableAssert, info, list, ValueType.TEXT, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -91,7 +93,7 @@ public class AssertionsOnColumnType_IsOfType_Test {
                                                                     + "  <NOT_IDENTIFIED>"));
     }
     try {
-      List<Object> list = new ArrayList<Object>(Arrays.asList(Locale.FRENCH, "test"));
+      List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, Locale.FRENCH), getValue(null, "test")));
       AssertionsOnColumnType.isOfType(tableAssert, info, list, ValueType.TEXT, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -109,13 +111,13 @@ public class AssertionsOnColumnType_IsOfType_Test {
    * This method should fail because the value is not of type (with lenience).
    */
   @Test
-  public void should_fail_because_value_is_not_of_type_with_lenience() {
+  public void should_fail_because_value_is_not_of_type_with_lenience() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      List<Object> list = new ArrayList<Object>(Arrays.asList("test", 8));
+      List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "test"), getValue(null, 8)));
       AssertionsOnColumnType.isOfType(tableAssert, info, list, ValueType.TEXT, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -133,13 +135,13 @@ public class AssertionsOnColumnType_IsOfType_Test {
    * This method should fail because the value is a stringbuiler.
    */
   @Test
-  public void should_fail_because_value_is_a_stringbuilder() {
+  public void should_fail_because_value_is_a_stringbuilder() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      List<Object> list = new ArrayList<Object>(Arrays.asList(new StringBuilder("test"), true));
+      List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, new StringBuilder("test")), getValue(null, true)));
       AssertionsOnColumnType.isOfType(tableAssert, info, list, ValueType.TEXT, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {

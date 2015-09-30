@@ -79,8 +79,22 @@ public class Changes_Request_GetChangesList_Test extends AbstractTest {
     assertThat(change.getChangeType()).isEqualTo(ChangeType.DELETION);
     assertThat(change.getColumnsNameList()).containsExactly("VAR1", "VAR2", "VAR3", "VAR4", "VAR5", "VAR6", "VAR7",
             "VAR8", "VAR9", "VAR10", "VAR11", "VAR12", "VAR13", "VAR14", "VAR15", "VAR16");
-    assertThat(change.getRowAtStartPoint().getValuesList()).containsExactly(null, null, null, null, null, null, null,
-        null, null, null, null, null, null, null, null, null);
+    assertThat(change.getRowAtStartPoint().getValuesList().get(0).getValue()).isNull();
+    assertThat(change.getRowAtStartPoint().getValuesList().get(1).getValue()).isNull();
+    assertThat(change.getRowAtStartPoint().getValuesList().get(2).getValue()).isNull();
+    assertThat(change.getRowAtStartPoint().getValuesList().get(3).getValue()).isNull();
+    assertThat(change.getRowAtStartPoint().getValuesList().get(4).getValue()).isNull();
+    assertThat(change.getRowAtStartPoint().getValuesList().get(5).getValue()).isNull();
+    assertThat(change.getRowAtStartPoint().getValuesList().get(6).getValue()).isNull();
+    assertThat(change.getRowAtStartPoint().getValuesList().get(7).getValue()).isNull();
+    assertThat(change.getRowAtStartPoint().getValuesList().get(8).getValue()).isNull();
+    assertThat(change.getRowAtStartPoint().getValuesList().get(9).getValue()).isNull();
+    assertThat(change.getRowAtStartPoint().getValuesList().get(10).getValue()).isNull();
+    assertThat(change.getRowAtStartPoint().getValuesList().get(11).getValue()).isNull();
+    assertThat(change.getRowAtStartPoint().getValuesList().get(12).getValue()).isNull();
+    assertThat(change.getRowAtStartPoint().getValuesList().get(13).getValue()).isNull();
+    assertThat(change.getRowAtStartPoint().getValuesList().get(14).getValue()).isNull();
+    assertThat(change.getRowAtStartPoint().getValuesList().get(15).getValue()).isNull();
     assertThat(change.getRowAtEndPoint()).isNull();
   }
 
@@ -104,8 +118,22 @@ public class Changes_Request_GetChangesList_Test extends AbstractTest {
     assertThat(change.getColumnsNameList()).containsExactly("VAR1", "VAR2", "VAR3", "VAR4", "VAR5", "VAR6", "VAR7",
         "VAR8", "VAR9", "VAR10", "VAR11", "VAR12", "VAR13", "VAR14", "VAR15", "VAR16");
     assertThat(change.getRowAtStartPoint()).isNull();
-    assertThat(change.getRowAtEndPoint().getValuesList()).containsExactly(200, null, null, null, null, null, null,
-        null, null, null, null, null, null, null, null, null);
+    assertThat(change.getRowAtEndPoint().getValuesList().get(0).getValue()).isEqualTo(200);
+    assertThat(change.getRowAtEndPoint().getValuesList().get(1).getValue()).isNull();
+    assertThat(change.getRowAtEndPoint().getValuesList().get(2).getValue()).isNull();
+    assertThat(change.getRowAtEndPoint().getValuesList().get(3).getValue()).isNull();
+    assertThat(change.getRowAtEndPoint().getValuesList().get(4).getValue()).isNull();
+    assertThat(change.getRowAtEndPoint().getValuesList().get(5).getValue()).isNull();
+    assertThat(change.getRowAtEndPoint().getValuesList().get(6).getValue()).isNull();
+    assertThat(change.getRowAtEndPoint().getValuesList().get(7).getValue()).isNull();
+    assertThat(change.getRowAtEndPoint().getValuesList().get(8).getValue()).isNull();
+    assertThat(change.getRowAtEndPoint().getValuesList().get(9).getValue()).isNull();
+    assertThat(change.getRowAtEndPoint().getValuesList().get(10).getValue()).isNull();
+    assertThat(change.getRowAtEndPoint().getValuesList().get(11).getValue()).isNull();
+    assertThat(change.getRowAtEndPoint().getValuesList().get(12).getValue()).isNull();
+    assertThat(change.getRowAtEndPoint().getValuesList().get(13).getValue()).isNull();
+    assertThat(change.getRowAtEndPoint().getValuesList().get(14).getValue()).isNull();
+    assertThat(change.getRowAtEndPoint().getValuesList().get(15).getValue()).isNull();
   }
 
   /**
@@ -128,19 +156,48 @@ public class Changes_Request_GetChangesList_Test extends AbstractTest {
     assertThat(change.getColumnsNameList()).containsExactly("VAR1", "VAR2", "VAR3", "VAR4", "VAR5", "VAR6", "VAR7",
             "VAR8", "VAR9", "VAR10", "VAR11", "VAR12", "VAR13", "VAR14", "VAR15", "VAR16");
     assertThat(change.getRowAtStartPoint()).isNull();
-    assertThat(change.getRowAtEndPoint().getValuesList()).containsExactly(1, true, (byte) 2, (short) 3, 4L,
-            new BigDecimal("5.60"), 7.8f, Time.valueOf("09:46:30"), Date.valueOf("2014-05-24"),
-            Timestamp.valueOf("2014-05-24 09:46:30"), Assertions.bytesContentFromClassPathOf("h2-logo-2.png"),
-            "modification", new BigDecimal("5.00"), 7f, null, UUID.fromString("30b443ae-c0c9-4790-9bec-ce1380808435"));
+    assertThat(change.getRowAtEndPoint().getValuesList().get(0).getValue()).isEqualTo(1);
+    assertThat(change.getRowAtEndPoint().getValuesList().get(1).getValue()).isEqualTo(true);
+    assertThat(change.getRowAtEndPoint().getValuesList().get(2).getValue()).isEqualTo((byte) 2);
+    assertThat(change.getRowAtEndPoint().getValuesList().get(3).getValue()).isEqualTo((short) 3);
+    assertThat(change.getRowAtEndPoint().getValuesList().get(4).getValue()).isEqualTo(4L);
+    assertThat(change.getRowAtEndPoint().getValuesList().get(5).getValue()).isEqualTo(new BigDecimal("5.60"));
+    assertThat(change.getRowAtEndPoint().getValuesList().get(6).getValue()).isEqualTo(7.8f);
+    assertThat(change.getRowAtEndPoint().getValuesList().get(7).getValue()).isEqualTo(Time.valueOf("09:46:30"));
+    assertThat(change.getRowAtEndPoint().getValuesList().get(8).getValue()).isEqualTo(Date.valueOf("2014-05-24"));
+    assertThat(change.getRowAtEndPoint().getValuesList().get(9).getValue()).isEqualTo(Timestamp.valueOf("2014-05-24 09:46:30"));
+    assertThat(change.getRowAtEndPoint().getValuesList().get(10).getValue()).isEqualTo(Assertions
+                                                                                              .bytesContentFromClassPathOf(
+                                                                                                      "h2-logo-2.png"));
+    assertThat(change.getRowAtEndPoint().getValuesList().get(11).getValue()).isEqualTo("modification");
+    assertThat(change.getRowAtEndPoint().getValuesList().get(12).getValue()).isEqualTo(new BigDecimal("5.00"));
+    assertThat(change.getRowAtEndPoint().getValuesList().get(13).getValue()).isEqualTo(7f);
+    assertThat(change.getRowAtEndPoint().getValuesList().get(14).getValue()).isEqualTo(null);
+    assertThat(change.getRowAtEndPoint().getValuesList().get(15).getValue()).isEqualTo(UUID.fromString(
+                                                                                              "30b443ae-c0c9-4790-9bec-ce1380808435"));
     Change change1 = changes.getChangesList().get(1);
     assertThat(change1.getDataName()).isEqualTo("select * from test2");
     assertThat(change1.getChangeType()).isEqualTo(ChangeType.DELETION);
     assertThat(change1.getColumnsNameList()).containsExactly("VAR1", "VAR2", "VAR3", "VAR4", "VAR5", "VAR6", "VAR7",
             "VAR8", "VAR9", "VAR10", "VAR11", "VAR12", "VAR13", "VAR14", "VAR15", "VAR16");
-    assertThat(change1.getRowAtStartPoint().getValuesList()).containsExactly(1, true, (byte) 2, (short) 3, 4L,
-        new BigDecimal("5.60"), 7.8f, Time.valueOf("09:46:30"), Date.valueOf("2014-05-24"),
-        Timestamp.valueOf("2014-05-24 09:46:30"), Assertions.bytesContentFromClassPathOf("h2-logo-2.png"), "text",
-        new BigDecimal("5.00"), 7f, null, UUID.fromString("30b443ae-c0c9-4790-9bec-ce1380808435"));
+    assertThat(change1.getRowAtStartPoint().getValuesList().get(0).getValue()).isEqualTo(1);
+    assertThat(change1.getRowAtStartPoint().getValuesList().get(1).getValue()).isEqualTo(true);
+    assertThat(change1.getRowAtStartPoint().getValuesList().get(2).getValue()).isEqualTo((byte) 2);
+    assertThat(change1.getRowAtStartPoint().getValuesList().get(3).getValue()).isEqualTo((short) 3);
+    assertThat(change1.getRowAtStartPoint().getValuesList().get(4).getValue()).isEqualTo(4L);
+    assertThat(change1.getRowAtStartPoint().getValuesList().get(5).getValue()).isEqualTo(new BigDecimal("5.60"));
+    assertThat(change1.getRowAtStartPoint().getValuesList().get(6).getValue()).isEqualTo(7.8f);
+    assertThat(change1.getRowAtStartPoint().getValuesList().get(7).getValue()).isEqualTo(Time.valueOf("09:46:30"));
+    assertThat(change1.getRowAtStartPoint().getValuesList().get(8).getValue()).isEqualTo(Date.valueOf("2014-05-24"));
+    assertThat(change1.getRowAtStartPoint().getValuesList().get(9).getValue()).isEqualTo(Timestamp.valueOf("2014-05-24 09:46:30"));
+    assertThat(change1.getRowAtStartPoint().getValuesList().get(10).getValue()).isEqualTo(Assertions.bytesContentFromClassPathOf(
+                                                                                                 "h2-logo-2.png"));
+    assertThat(change1.getRowAtStartPoint().getValuesList().get(11).getValue()).isEqualTo("text");
+    assertThat(change1.getRowAtStartPoint().getValuesList().get(12).getValue()).isEqualTo(new BigDecimal("5.00"));
+    assertThat(change1.getRowAtStartPoint().getValuesList().get(13).getValue()).isEqualTo(7f);
+    assertThat(change1.getRowAtStartPoint().getValuesList().get(14).getValue()).isEqualTo(null);
+    assertThat(change1.getRowAtStartPoint().getValuesList().get(15).getValue()).isEqualTo(UUID.fromString(
+                                                                                                 "30b443ae-c0c9-4790-9bec-ce1380808435"));
     assertThat(change1.getRowAtEndPoint()).isNull();
   }
 
@@ -162,10 +219,14 @@ public class Changes_Request_GetChangesList_Test extends AbstractTest {
     assertThat(change.getDataName()).isEqualTo("select * from interpretation");
     assertThat(change.getChangeType()).isEqualTo(ChangeType.MODIFICATION);
     assertThat(change.getColumnsNameList()).containsExactly("ID", "ID_MOVIE", "ID_ACTOR", "CHARACTER");
-    assertThat(change.getRowAtStartPoint().getValuesList()).containsExactly(new BigDecimal(3), new BigDecimal(3),
-        new BigDecimal(1), "Dr Grace Augustine");
-    assertThat(change.getRowAtEndPoint().getValuesList()).containsExactly(new BigDecimal(3), new BigDecimal(3),
-        new BigDecimal(1), "Doctor Grace Augustine");
+    assertThat(change.getRowAtStartPoint().getValuesList().get(0).getValue()).isEqualTo(new BigDecimal(3));
+    assertThat(change.getRowAtStartPoint().getValuesList().get(1).getValue()).isEqualTo(new BigDecimal(3));
+    assertThat(change.getRowAtStartPoint().getValuesList().get(2).getValue()).isEqualTo(new BigDecimal(1));
+    assertThat(change.getRowAtStartPoint().getValuesList().get(3).getValue()).isEqualTo("Dr Grace Augustine");
+    assertThat(change.getRowAtEndPoint().getValuesList().get(0).getValue()).isEqualTo(new BigDecimal(3));
+    assertThat(change.getRowAtEndPoint().getValuesList().get(1).getValue()).isEqualTo(new BigDecimal(3));
+    assertThat(change.getRowAtEndPoint().getValuesList().get(2).getValue()).isEqualTo(new BigDecimal(1));
+    assertThat(change.getRowAtEndPoint().getValuesList().get(3).getValue()).isEqualTo("Doctor Grace Augustine");
   }
 
   /**
@@ -188,8 +249,11 @@ public class Changes_Request_GetChangesList_Test extends AbstractTest {
     assertThat(change.getColumnsNameList()).containsExactly("ID", "TITLE", "YEAR", "MOVIE_IMDB");
     assertThat(change.getRowAtStartPoint()).isNull();
 
-    assertThat(change.getRowAtEndPoint().getValuesList()).containsExactly(new BigDecimal(4), "Ghostbusters",
-        new BigDecimal(1984), UUID.fromString("16319617-AE95-4087-9264-D3D21BF611B6"));
+    assertThat(change.getRowAtEndPoint().getValuesList().get(0).getValue()).isEqualTo(new BigDecimal(4));
+    assertThat(change.getRowAtEndPoint().getValuesList().get(1).getValue()).isEqualTo("Ghostbusters");
+    assertThat(change.getRowAtEndPoint().getValuesList().get(2).getValue()).isEqualTo(new BigDecimal(1984));
+    assertThat(change.getRowAtEndPoint().getValuesList().get(3).getValue()).isEqualTo(UUID.fromString(
+                    "16319617-AE95-4087-9264-D3D21BF611B6"));
   }
 
   /**
@@ -210,8 +274,10 @@ public class Changes_Request_GetChangesList_Test extends AbstractTest {
     assertThat(change.getDataName()).isEqualTo("select * from interpretation");
     assertThat(change.getChangeType()).isEqualTo(ChangeType.DELETION);
     assertThat(change.getColumnsNameList()).containsExactly("ID", "ID_MOVIE", "ID_ACTOR", "CHARACTER");
-    assertThat(change.getRowAtStartPoint().getValuesList()).containsExactly(new BigDecimal(3), new BigDecimal(3),
-        new BigDecimal(1), "Dr Grace Augustine");
+    assertThat(change.getRowAtStartPoint().getValuesList().get(0).getValue()).isEqualTo(new BigDecimal(3));
+    assertThat(change.getRowAtStartPoint().getValuesList().get(1).getValue()).isEqualTo(new BigDecimal(3));
+    assertThat(change.getRowAtStartPoint().getValuesList().get(2).getValue()).isEqualTo(new BigDecimal(1));
+    assertThat(change.getRowAtStartPoint().getValuesList().get(3).getValue()).isEqualTo("Dr Grace Augustine");
     assertThat(change.getRowAtEndPoint()).isNull();
   }
 

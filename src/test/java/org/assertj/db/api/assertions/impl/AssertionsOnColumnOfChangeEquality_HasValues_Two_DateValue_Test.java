@@ -15,6 +15,7 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
+import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.Table;
 import org.junit.Test;
@@ -32,25 +33,25 @@ import static org.junit.Assert.fail;
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnColumnOfChangeEquality_HasValues_Two_DateValue_Test {
+public class AssertionsOnColumnOfChangeEquality_HasValues_Two_DateValue_Test extends AbstractTest {
 
   /**
    * This method tests the {@code hasValues} assertion method.
    */
   @Test
-  public void test_has_values() {
+  public void test_has_values() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                                            Date.valueOf("2007-12-23"),
-                                                                            Date.valueOf("2002-07-25"),
+                                                                            getValue(null, Date.valueOf("2007-12-23")),
+                                                                            getValue(null, Date.valueOf("2002-07-25")),
                                                                             DateValue.of(2007, 12, 23),
                                                                             DateValue.of(2002, 7, 25));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                                Timestamp.valueOf("2007-12-23 00:00:00"),
-                                                                Timestamp.valueOf("2002-07-25 00:00:00"),
+                                                                getValue(null, Timestamp.valueOf("2007-12-23 00:00:00")),
+                                                                getValue(null, Timestamp.valueOf("2002-07-25 00:00:00")),
                                                                 DateValue.of(2007, 12, 23), DateValue.of(2002, 7, 25));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
@@ -59,14 +60,15 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_DateValue_Test {
    * This method should fail because the value at start point is different.
    */
   @Test
-  public void should_fail_because_value_at_start_point_is_different() {
+  public void should_fail_because_value_at_start_point_is_different() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   Date.valueOf("2007-12-23"), Date.valueOf("2002-07-25"),
+                                                   getValue(null, Date.valueOf("2007-12-23")),
+                                                   getValue(null, Date.valueOf("2002-07-25")),
                                                    DateValue.of(2007, 12, 24), DateValue.of(2002, 7, 25));
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -78,8 +80,8 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_DateValue_Test {
     }
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   Timestamp.valueOf("2007-12-23 00:00:05"),
-                                                   Timestamp.valueOf("2002-07-25 00:00:00"),
+                                                   getValue(null, Timestamp.valueOf("2007-12-23 00:00:05")),
+                                                   getValue(null, Timestamp.valueOf("2002-07-25 00:00:00")),
                                                    DateValue.of(2007, 12, 23), DateValue.of(2002, 7, 25));
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -95,14 +97,15 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_DateValue_Test {
    * This method should fail because the value at end point is different.
    */
   @Test
-  public void should_fail_because_value_at_end_point_is_different() {
+  public void should_fail_because_value_at_end_point_is_different() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   Date.valueOf("2007-12-23"), Date.valueOf("2002-07-25"),
+                                                   getValue(null, Date.valueOf("2007-12-23")),
+                                                   getValue(null, Date.valueOf("2002-07-25")),
                                                    DateValue.of(2007, 12, 23), DateValue.of(2002, 7, 26));
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -114,8 +117,8 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_DateValue_Test {
     }
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   Timestamp.valueOf("2007-12-23 00:00:00"),
-                                                   Timestamp.valueOf("2002-07-25 00:00:05"),
+                                                   getValue(null, Timestamp.valueOf("2007-12-23 00:00:00")),
+                                                   getValue(null, Timestamp.valueOf("2002-07-25 00:00:05")),
                                                    DateValue.of(2007, 12, 23), DateValue.of(2002, 7, 25));
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -131,14 +134,15 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_DateValue_Test {
    * This method should fail because one of the values is not a date.
    */
   @Test
-  public void should_fail_because_one_value_is_not_a_date() {
+  public void should_fail_because_one_value_is_not_a_date() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   "other", Date.valueOf("2002-07-25"),
+                                                   getValue(null, "other"),
+                                                   getValue(null, Date.valueOf("2002-07-25")),
                                                    DateValue.of(2007, 12, 23), DateValue.of(2002, 7, 25));
       fail("An exception must be raised");
     } catch (AssertionError e) {

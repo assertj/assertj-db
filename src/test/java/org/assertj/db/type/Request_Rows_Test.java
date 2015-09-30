@@ -45,19 +45,29 @@ public class Request_Rows_Test extends AbstractTest {
         .hasSize(5);
 
     assertThat(request.getRow(0).getColumnsNameList()).containsExactly("NAME", "FIRSTNAME", "YEAR", "CHARACTER");
-    assertThat(request.getRow(0).getColumnValue(0)).isEqualTo("Phoenix");
-    assertThat(request.getRow(0).getColumnValue("firstName")).isEqualTo("Joaquim");
+    assertThat(request.getRow(0).getColumnValue(0).getValue()).isEqualTo("Phoenix");
+    assertThat(request.getRow(0).getColumnValue("firstName").getValue()).isEqualTo("Joaquim");
 
-    assertThat(request.getRow(0).getValuesList())
-        .containsExactly("Phoenix", "Joaquim", new BigDecimal(2004), "Lucius Hunt");
-    assertThat(request.getRow(1).getValuesList())
-        .containsExactly("Weaver", "Sigourney", new BigDecimal(1979), "Ellen Louise Ripley");
-    assertThat(request.getRow(2).getValuesList())
-        .containsExactly("Weaver", "Sigourney", new BigDecimal(2004), "Alice Hunt");
-    assertThat(request.getRow(3).getValuesList())
-        .containsExactly("Weaver", "Sigourney", new BigDecimal(2009), "Dr Grace Augustine");
-    assertThat(request.getRow(4).getValuesList())
-        .containsExactly("Worthington", "Sam", new BigDecimal(2009), "Jake Sully");
+    assertThat(request.getRow(0).getValuesList().get(0).getValue()).isEqualTo("Phoenix");
+    assertThat(request.getRow(0).getValuesList().get(1).getValue()).isEqualTo("Joaquim");
+    assertThat(request.getRow(0).getValuesList().get(2).getValue()).isEqualTo(new BigDecimal(2004));
+    assertThat(request.getRow(0).getValuesList().get(3).getValue()).isEqualTo("Lucius Hunt");
+    assertThat(request.getRow(1).getValuesList().get(0).getValue()).isEqualTo("Weaver");
+    assertThat(request.getRow(1).getValuesList().get(1).getValue()).isEqualTo("Sigourney");
+    assertThat(request.getRow(1).getValuesList().get(2).getValue()).isEqualTo(new BigDecimal(1979));
+    assertThat(request.getRow(1).getValuesList().get(3).getValue()).isEqualTo("Ellen Louise Ripley");
+    assertThat(request.getRow(2).getValuesList().get(0).getValue()).isEqualTo("Weaver");
+    assertThat(request.getRow(2).getValuesList().get(1).getValue()).isEqualTo("Sigourney");
+    assertThat(request.getRow(2).getValuesList().get(2).getValue()).isEqualTo(new BigDecimal(2004));
+    assertThat(request.getRow(2).getValuesList().get(3).getValue()).isEqualTo("Alice Hunt");
+    assertThat(request.getRow(3).getValuesList().get(0).getValue()).isEqualTo("Weaver");
+    assertThat(request.getRow(3).getValuesList().get(1).getValue()).isEqualTo("Sigourney");
+    assertThat(request.getRow(3).getValuesList().get(2).getValue()).isEqualTo(new BigDecimal(2009));
+    assertThat(request.getRow(3).getValuesList().get(3).getValue()).isEqualTo("Dr Grace Augustine");
+    assertThat(request.getRow(4).getValuesList().get(0).getValue()).isEqualTo("Worthington");
+    assertThat(request.getRow(4).getValuesList().get(1).getValue()).isEqualTo("Sam");
+    assertThat(request.getRow(4).getValuesList().get(2).getValue()).isEqualTo(new BigDecimal(2009));
+    assertThat(request.getRow(4).getValuesList().get(3).getValue()).isEqualTo("Jake Sully");
   }
 
   /**
@@ -73,16 +83,26 @@ public class Request_Rows_Test extends AbstractTest {
 
     assertThat(request.getRowsList()).as("Values of the request")
         .hasSize(5);
-    assertThat(request.getRow(0).getValuesList())
-        .containsExactly("Phoenix", "Joaquim", new BigDecimal(2004), "Lucius Hunt");
-    assertThat(request.getRow(1).getValuesList())
-        .containsExactly("Weaver", "Sigourney", new BigDecimal(1979), "Ellen Louise Ripley");
-    assertThat(request.getRow(2).getValuesList())
-        .containsExactly("Weaver", "Sigourney", new BigDecimal(2004), "Alice Hunt");
-    assertThat(request.getRow(3).getValuesList())
-        .containsExactly("Weaver", "Sigourney", new BigDecimal(2009), "Dr Grace Augustine");
-    assertThat(request.getRow(4).getValuesList())
-        .containsExactly("Worthington", "Sam", new BigDecimal(2009), "Jake Sully");
+    assertThat(request.getRow(0).getValuesList().get(0).getValue()).isEqualTo("Phoenix");
+    assertThat(request.getRow(0).getValuesList().get(1).getValue()).isEqualTo("Joaquim");
+    assertThat(request.getRow(0).getValuesList().get(2).getValue()).isEqualTo(new BigDecimal(2004));
+    assertThat(request.getRow(0).getValuesList().get(3).getValue()).isEqualTo("Lucius Hunt");
+    assertThat(request.getRow(1).getValuesList().get(0).getValue()).isEqualTo("Weaver");
+    assertThat(request.getRow(1).getValuesList().get(1).getValue()).isEqualTo("Sigourney");
+    assertThat(request.getRow(1).getValuesList().get(2).getValue()).isEqualTo(new BigDecimal(1979));
+    assertThat(request.getRow(1).getValuesList().get(3).getValue()).isEqualTo("Ellen Louise Ripley");
+    assertThat(request.getRow(2).getValuesList().get(0).getValue()).isEqualTo("Weaver");
+    assertThat(request.getRow(2).getValuesList().get(1).getValue()).isEqualTo("Sigourney");
+    assertThat(request.getRow(2).getValuesList().get(2).getValue()).isEqualTo(new BigDecimal(2004));
+    assertThat(request.getRow(2).getValuesList().get(3).getValue()).isEqualTo("Alice Hunt");
+    assertThat(request.getRow(3).getValuesList().get(0).getValue()).isEqualTo("Weaver");
+    assertThat(request.getRow(3).getValuesList().get(1).getValue()).isEqualTo("Sigourney");
+    assertThat(request.getRow(3).getValuesList().get(2).getValue()).isEqualTo(new BigDecimal(2009));
+    assertThat(request.getRow(3).getValuesList().get(3).getValue()).isEqualTo("Dr Grace Augustine");
+    assertThat(request.getRow(4).getValuesList().get(0).getValue()).isEqualTo("Worthington");
+    assertThat(request.getRow(4).getValuesList().get(1).getValue()).isEqualTo("Sam");
+    assertThat(request.getRow(4).getValuesList().get(2).getValue()).isEqualTo(new BigDecimal(2009));
+    assertThat(request.getRow(4).getValuesList().get(3).getValue()).isEqualTo("Jake Sully");
   }
 
   /**

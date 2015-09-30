@@ -15,6 +15,7 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
+import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
@@ -23,22 +24,22 @@ import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link AssertionsOnValueType} class :
- * {@link AssertionsOnValueType#isText(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, Object)} method.
+ * {@link AssertionsOnValueType#isText(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value)} method.
  *
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnValueType_IsText_Test {
+public class AssertionsOnValueType_IsText_Test extends AbstractTest {
 
   /**
    * This method tests the {@code isText} assertion method.
    */
   @Test
-  public void test_is_text() {
+  public void test_is_text() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    TableAssert tableAssert2 = AssertionsOnValueType.isText(tableAssert, info, "test");
+    TableAssert tableAssert2 = AssertionsOnValueType.isText(tableAssert, info, getValue(null, "test"));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -46,13 +47,13 @@ public class AssertionsOnValueType_IsText_Test {
    * This method should fail because the value is not a text.
    */
   @Test
-  public void should_fail_because_value_is_not_a_text() {
+  public void should_fail_because_value_is_not_a_text() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnValueType.isText(tableAssert, info, true);
+      AssertionsOnValueType.isText(tableAssert, info, getValue(null, true));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -69,13 +70,13 @@ public class AssertionsOnValueType_IsText_Test {
    * This method should fail because the value is a stringbuilder.
    */
   @Test
-  public void should_fail_because_value_is_a_stringbuilder() {
+  public void should_fail_because_value_is_a_stringbuilder() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnValueType.isText(tableAssert, info, new StringBuilder("text"));
+      AssertionsOnValueType.isText(tableAssert, info, getValue(null, new StringBuilder("text")));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"

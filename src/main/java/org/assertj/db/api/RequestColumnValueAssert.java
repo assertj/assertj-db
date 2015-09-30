@@ -14,6 +14,7 @@ package org.assertj.db.api;
 
 import org.assertj.db.type.Column;
 import org.assertj.db.type.Request;
+import org.assertj.db.type.Value;
 
 /**
  * Assertion methods for a value in a {@link Column} of a {@link Request}.
@@ -30,7 +31,7 @@ public class RequestColumnValueAssert
    * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    * @param value The value to assert.
    */
-  RequestColumnValueAssert(RequestColumnAssert origin, Object value) {
+  public RequestColumnValueAssert(RequestColumnAssert origin, Value value) {
     super(RequestColumnValueAssert.class, origin, value);
   }
 }

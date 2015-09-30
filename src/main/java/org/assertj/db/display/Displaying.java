@@ -12,8 +12,13 @@
  */
 package org.assertj.db.display;
 
+import org.assertj.db.type.Request;
+import org.assertj.db.type.Table;
+
+import static org.assertj.db.util.Descriptions.getDescription;
+
 /**
- * Entry point of all the displaying.
+ * Entry point of all the displays.
  *
  * @author Régis Pouiller
  * @since 1.1.0
@@ -25,5 +30,25 @@ public class Displaying {
    */
   private Displaying() {
     // empty
+  }
+
+  /**
+   * Creates a new instance of {@link TableDisplay}.
+   *
+   * @param table The table to display on.
+   * @return The created display object.
+   */
+  public static TableDisplay display(Table table) {
+    return new TableDisplay(table).as(getDescription(table));
+  }
+
+  /**
+   * Creates a new instance of {@link RequestDisplay}.
+   *
+   * @param request The request to display on.
+   * @return The created display object.
+   */
+  public static RequestDisplay display(Request request) {
+    return new RequestDisplay(request).as(getDescription(request));
   }
 }

@@ -17,6 +17,7 @@ import org.assertj.db.api.assertions.impl.AssertionsOnColumnName;
 import org.assertj.db.navigation.ToValueFromRow;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Row;
+import org.assertj.db.type.Value;
 
 /**
  * Assertion methods about a value in a {@link Row}.
@@ -49,7 +50,7 @@ public abstract class AbstractRowValueAssert<D extends AbstractDbData<D>, A exte
    * @param columnName The column name.
    * @param actualValue The value on which are the assertion methods.
    */
-  AbstractRowValueAssert(Class<RV> selfType, R origin, String columnName, Object actualValue) {
+  AbstractRowValueAssert(Class<RV> selfType, R origin, String columnName, Value actualValue) {
     super(selfType, origin, actualValue);
     this.columnName = columnName;
   }

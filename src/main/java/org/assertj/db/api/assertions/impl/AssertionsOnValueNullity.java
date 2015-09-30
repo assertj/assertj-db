@@ -15,6 +15,7 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Objects;
 import org.assertj.db.api.AbstractAssert;
+import org.assertj.db.type.Value;
 
 /**
  * Implements the assertion methods on the nullity of a value.
@@ -46,8 +47,8 @@ public class AssertionsOnValueNullity {
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not {@code null}.
    */
-  public static <A extends AbstractAssert> A isNull(A assertion, WritableAssertionInfo info, Object value) {
-    objects.assertNull(info, value);
+  public static <A extends AbstractAssert> A isNull(A assertion, WritableAssertionInfo info, Value value) {
+    objects.assertNull(info, value.getValue());
     return assertion;
   }
 
@@ -61,8 +62,8 @@ public class AssertionsOnValueNullity {
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is {@code null}.
    */
-  public static <A extends AbstractAssert> A isNotNull(A assertion, WritableAssertionInfo info, Object value) {
-    objects.assertNotNull(info, value);
+  public static <A extends AbstractAssert> A isNotNull(A assertion, WritableAssertionInfo info, Value value) {
+    objects.assertNotNull(info, value.getValue());
     return assertion;
   }
 }

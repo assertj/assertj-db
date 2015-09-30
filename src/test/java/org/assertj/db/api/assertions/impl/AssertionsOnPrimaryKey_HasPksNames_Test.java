@@ -44,10 +44,12 @@ public class AssertionsOnPrimaryKey_HasPksNames_Test extends AbstractTest {
     TableAssert tableAssert = assertThat(table);
     Row rowAtStartPoint = getRow(Arrays.asList("ID", "ID2"),
                                  Arrays.asList("ID", "NAME", "FIRSTNAME", "BIRTH"),
-                                 Arrays.asList(1, "Weaver", "Sigourney", Date.valueOf("1949-10-08")));
+                                 Arrays.asList(getValue(null, 1), getValue(null, "Weaver"), getValue(null, "Sigourney"),
+                                               getValue(null, Date.valueOf("1949-10-08"))));
     Row rowAtEndPoint = getRow(Arrays.asList("ID", "ID2"),
                                Arrays.asList("ID", "NAME", "FIRSTNAME", "BIRTH"),
-                               Arrays.asList(1, "Weaverr", "Sigourneyy", Date.valueOf("1949-10-08")));
+                               Arrays.asList(getValue(null, 1), getValue(null, "Weaverr"), getValue(null, "Sigourneyy"),
+                                             getValue(null, Date.valueOf("1949-10-08"))));
     Change change = getChange(DataType.TABLE, "test", ChangeType.CREATION, rowAtStartPoint, rowAtEndPoint);
     TableAssert tableAssert2 = AssertionsOnPrimaryKey.hasPksNames(tableAssert, info, change, "ID", "ID2");
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
@@ -64,10 +66,12 @@ public class AssertionsOnPrimaryKey_HasPksNames_Test extends AbstractTest {
     TableAssert tableAssert = assertThat(table);
     Row rowAtStartPoint = getRow(Arrays.asList("ID", "ID2"),
                                  Arrays.asList("ID", "NAME", "FIRSTNAME", "BIRTH"),
-                                 Arrays.asList(1, "Weaver", "Sigourney", Date.valueOf("1949-10-08")));
+                                 Arrays.asList(getValue(null, 1), getValue(null, "Weaver"), getValue(null, "Sigourney"),
+                                               getValue(null, Date.valueOf("1949-10-08"))));
     Row rowAtEndPoint = getRow(Arrays.asList("ID", "ID2"),
                                Arrays.asList("ID", "NAME", "FIRSTNAME", "BIRTH"),
-                               Arrays.asList(1, "Weaverr", "Sigourneyy", Date.valueOf("1949-10-08")));
+                               Arrays.asList(getValue(null, 1), getValue(null, "Weaverr"), getValue(null, "Sigourneyy"),
+                                             getValue(null, Date.valueOf("1949-10-08"))));
     Change change = getChange(DataType.TABLE, "test", ChangeType.CREATION, rowAtStartPoint, rowAtEndPoint);
     try {
       AssertionsOnPrimaryKey.hasPksNames(tableAssert, info, change, "ID1", "ID2");
@@ -92,10 +96,12 @@ public class AssertionsOnPrimaryKey_HasPksNames_Test extends AbstractTest {
     TableAssert tableAssert = assertThat(table);
     Row rowAtStartPoint = getRow(Arrays.asList("ID", "ID2"),
                                  Arrays.asList("ID", "NAME", "FIRSTNAME", "BIRTH"),
-                                 Arrays.asList(1, "Weaver", "Sigourney", Date.valueOf("1949-10-08")));
+                                 Arrays.asList(getValue(null, 1), getValue(null, "Weaver"), getValue(null, "Sigourney"),
+                                               getValue(null, Date.valueOf("1949-10-08"))));
     Row rowAtEndPoint = getRow(Arrays.asList("ID", "ID2"),
                                Arrays.asList("ID", "NAME", "FIRSTNAME", "BIRTH"),
-                               Arrays.asList(1, "Weaverr", "Sigourneyy", Date.valueOf("1949-10-08")));
+                               Arrays.asList(getValue(null, 1), getValue(null, "Weaverr"), getValue(null, "Sigourneyy"),
+                                             getValue(null, Date.valueOf("1949-10-08"))));
     Change change = getChange(DataType.TABLE, "test", ChangeType.CREATION, rowAtStartPoint, rowAtEndPoint);
     try {
       AssertionsOnPrimaryKey.hasPksNames(tableAssert, info, change, "ID", "ID2", "ID3");
@@ -120,10 +126,12 @@ public class AssertionsOnPrimaryKey_HasPksNames_Test extends AbstractTest {
     TableAssert tableAssert = assertThat(table);
     Row rowAtStartPoint = getRow(Arrays.asList("ID", "ID2"),
                                  Arrays.asList("ID", "NAME", "FIRSTNAME", "BIRTH"),
-                                 Arrays.asList(1, "Weaver", "Sigourney", Date.valueOf("1949-10-08")));
+                                 Arrays.asList(getValue(null, 1), getValue(null, "Weaver"), getValue(null, "Sigourney"),
+                                               getValue(null, Date.valueOf("1949-10-08"))));
     Row rowAtEndPoint = getRow(Arrays.asList("ID", "ID2"),
                                Arrays.asList("ID", "NAME", "FIRSTNAME", "BIRTH"),
-                               Arrays.asList(1, "Weaverr", "Sigourneyy", Date.valueOf("1949-10-08")));
+                               Arrays.asList(getValue(null, 1), getValue(null, "Weaverr"), getValue(null, "Sigourneyy"),
+                                             getValue(null, Date.valueOf("1949-10-08"))));
     Change change = getChange(DataType.TABLE, "test", ChangeType.CREATION, rowAtStartPoint, rowAtEndPoint);
     try {
       AssertionsOnPrimaryKey.hasPksNames(tableAssert, info, change, "NAME", null);
@@ -144,10 +152,12 @@ public class AssertionsOnPrimaryKey_HasPksNames_Test extends AbstractTest {
     TableAssert tableAssert = assertThat(table);
     Row rowAtStartPoint = getRow(Arrays.asList("ID", "ID2"),
                                  Arrays.asList("ID", "NAME", "FIRSTNAME", "BIRTH"),
-                                 Arrays.asList(1, "Weaver", "Sigourney", Date.valueOf("1949-10-08")));
+                                 Arrays.asList(getValue(null, 1), getValue(null, "Weaver"), getValue(null, "Sigourney"),
+                                               getValue(null, Date.valueOf("1949-10-08"))));
     Row rowAtEndPoint = getRow(Arrays.asList("ID", "ID2"),
                                Arrays.asList("ID", "NAME", "FIRSTNAME", "BIRTH"),
-                               Arrays.asList(1, "Weaverr", "Sigourneyy", Date.valueOf("1949-10-08")));
+                               Arrays.asList(getValue(null, 1), getValue(null, "Weaverr"), getValue(null, "Sigourneyy"),
+                                             getValue(null, Date.valueOf("1949-10-08"))));
     Change change = getChange(DataType.TABLE, "test", ChangeType.CREATION, rowAtStartPoint, rowAtEndPoint);
     try {
       AssertionsOnPrimaryKey.hasPksNames(tableAssert, info, change, (String[]) null);

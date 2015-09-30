@@ -16,6 +16,7 @@ import org.assertj.db.api.assertions.AssertOnColumnName;
 import org.assertj.db.api.assertions.impl.AssertionsOnColumnName;
 import org.assertj.db.navigation.ToValue;
 import org.assertj.db.navigation.ToValueFromRow;
+import org.assertj.db.type.Value;
 
 /**
  * Assertion methods for a value of a {@code Row} of a {@code Change}.
@@ -41,7 +42,7 @@ public class ChangeRowValueAssert
    * @param columnName The column name.
    * @param value The value on which are the assertions.
    */
-  ChangeRowValueAssert(ChangeRowAssert origin, String columnName, Object value) {
+  ChangeRowValueAssert(ChangeRowAssert origin, String columnName, Value value) {
     super(ChangeRowValueAssert.class, origin, value);
     this.columnName = columnName;
   }

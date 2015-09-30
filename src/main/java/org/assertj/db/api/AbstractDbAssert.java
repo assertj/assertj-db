@@ -17,15 +17,13 @@ import org.assertj.db.api.assertions.AssertOnNumberOfRows;
 import org.assertj.db.api.assertions.impl.AssertionsOnNumberOfColumns;
 import org.assertj.db.api.assertions.impl.AssertionsOnNumberOfRows;
 import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.navigation.Position;
 import org.assertj.db.navigation.origin.OriginWithColumnsAndRows;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Column;
 import org.assertj.db.type.Row;
 
-import java.lang.reflect.Constructor;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.assertj.db.util.Descriptions.getColumnDescription;
 import static org.assertj.db.util.Descriptions.getRowDescription;
@@ -54,29 +52,13 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
   private final D actual;
 
   /**
-   * Index of the next row to get.
+   * Position of navigation to column.
    */
-  private int indexNextRow;
+  private final Position<A, C, Column> columnPosition;
   /**
-   * Class of the assertion on the row (used to make instance).
+   * Position of navigation to row.
    */
-  private final Class<R> rowAssertClass;
-  /**
-   * Class of the assertion on the column (used to make instance).
-   */
-  private final Class<C> columnAssertClass;
-  /**
-   * Index of the next column to get.
-   */
-  private int indexNextColumn;
-  /**
-   * Map the rows assertion with their index in key (contains the rows assertion already generated).
-   */
-  private final Map<Integer, R> rowsAssertMap = new HashMap<>();
-  /**
-   * Map the columns assertion with their index in key (contains the columns assertion already generated).
-   */
-  private final Map<Integer, C> columnsAssertMap = new HashMap<>();
+  private final Position<A, R, Row> rowPosition;
 
   /**
    * Constructor of the database assertions.
@@ -89,127 +71,42 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
   AbstractDbAssert(D actualValue, Class<A> selfType, Class<C> columnAssertType, Class<R> rowAssertType) {
     super(selfType);
     actual = actualValue;
-    rowAssertClass = rowAssertType;
-    columnAssertClass = columnAssertType;
-  }
-
-  /**
-   * Returns the {@link Row} at the {@code index} in parameter.
-   * 
-   * @param index The index corresponding to the {@link Row}.
-   * @return The {@link Row}.
-   * @throws AssertJDBException If the {@code index} is out of the bounds.
-   */
-  protected Row getRow(int index) {
-    int size = actual.getRowsList().size();
-    if (index < 0 || index >= size) {
-      throw new AssertJDBException("Index %s out of the limits [0, %s[", index, size);
-    }
-    Row row = actual.getRow(index);
-    indexNextRow = index + 1;
-    return row;
-  }
-
-  /**
-   * Gets an instance of row assert corresponding to the index. If this instance is already instanced, the method
-   * returns it from the cache.
-   * 
-   * @param index Index of the row on which is the instance of row assert.
-   * @return The row assert implementation.
-   */
-  private R getRowAssertInstance(int index) {
-    if (rowsAssertMap.containsKey(index)) {
-      R rowAssert = rowsAssertMap.get(index);
-      indexNextRow = index + 1;
-      return rowAssert;
-    }
-
-    Row row = getRow(index);
-    try {
-      Constructor<R> constructor = rowAssertClass.getDeclaredConstructor(myself.getClass(), Row.class);
-      R instance = constructor.newInstance(this, row);
-      rowsAssertMap.put(index, instance);
-      return instance.as(getRowDescription(info, index));
-    } catch (Exception e) {
-      throw new AssertJDBException("There is an exception '" + e.getMessage()
-          + "'\n\t in the instantiation of the assertion " + rowAssertClass.getName() + "\n\t on the row with "
-          + myself.getClass() + ".\n "
-          + "It is normally impossible.\n That means there is a big mistake in the development of AssertJDB.\n "
-          + "Please write an issue for that if you meet this problem.");
-    }
+    columnPosition = new Position(selfType.cast(this), columnAssertType) {
+      @Override protected String getDescription(int index) {
+        List<String> columnsNameList = actual.getColumnsNameList();
+        String columnName = columnsNameList.get(index);
+        return getColumnDescription(myself.getInfo(), index, columnName);
+      }
+    };
+    rowPosition = new Position(selfType.cast(this), rowAssertType) {
+      @Override protected String getDescription(int index) {
+        return getRowDescription(myself.getInfo(), index);
+      }
+    };
   }
 
   /** {@inheritDoc} */
   @Override
   public R row() {
-    return getRowAssertInstance(indexNextRow);
+    return rowPosition.getInstance(actual.getRowsList());
   }
 
   /** {@inheritDoc} */
   @Override
   public R row(int index) {
-    return getRowAssertInstance(index);
-  }
-
-  /**
-   * Returns the {@link Column} at the {@code index} in parameter.
-   * 
-   * @param index The index corresponding to the {@link Column}.
-   * @return The {@link Column}.
-   * @throws AssertJDBException If the {@code index} is out of the bounds.
-   */
-  protected Column getColumn(int index) {
-    List<String> columnsNameList = actual.getColumnsNameList();
-    int size = columnsNameList.size();
-    if (index < 0 || index >= size) {
-      throw new AssertJDBException("Index %s out of the limits [0, %s[", index, size);
-    }
-    Column column = actual.getColumn(index);
-    indexNextColumn = index + 1;
-    return column;
-  }
-
-  /**
-   * Gets an instance of column assert corresponding to the index. If this instance is already instanced, the method
-   * returns it from the cache.
-   * 
-   * @param index Index of the column on which is the instance of column assert.
-   * @return The column assert implementation.
-   */
-  private C getColumnAssertInstance(int index) {
-    if (columnsAssertMap.containsKey(index)) {
-      C columnAssert = columnsAssertMap.get(index);
-      indexNextColumn = index + 1;
-      return columnAssert;
-    }
-
-    Column column = getColumn(index);
-    List<String> columnsNameList = actual.getColumnsNameList();
-    String columnName = columnsNameList.get(index);
-    try {
-      Constructor<C> constructor = columnAssertClass.getDeclaredConstructor(myself.getClass(), Column.class);
-      C instance = constructor.newInstance(this, column);
-      columnsAssertMap.put(index, instance);
-      return instance.as(getColumnDescription(info, index, columnName));
-    } catch (Exception e) {
-      throw new AssertJDBException("There is an exception '" + e.getMessage()
-          + "'\n\t in the instantiation of the assertion " + columnAssertClass.getName() + "\n\t on the column with "
-          + myself.getClass() + ".\n "
-          + "It is normally impossible.\n That means there is a big mistake in the development of AssertJDB.\n "
-          + "Please write an issue for that if you meet this problem.");
-    }
+    return rowPosition.getInstance(actual.getRowsList(), index);
   }
 
   /** {@inheritDoc} */
   @Override
   public C column() {
-    return getColumnAssertInstance(indexNextColumn);
+    return columnPosition.getInstance(actual.getColumnsList());
   }
 
   /** {@inheritDoc} */
   @Override
   public C column(int index) {
-    return getColumnAssertInstance(index);
+    return columnPosition.getInstance(actual.getColumnsList(), index);
   }
 
   /** {@inheritDoc} */
@@ -223,7 +120,7 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
     if (index == -1) {
       throw new AssertJDBException("Column <%s> does not exist", columnName);
     }
-    return getColumnAssertInstance(index);
+    return columnPosition.getInstance(actual.getColumnsList(), index);
   }
 
   /** {@inheritDoc} */

@@ -15,6 +15,7 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
+import org.assertj.db.common.AbstractTest;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Table;
 import org.junit.Test;
@@ -28,39 +29,39 @@ import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link org.assertj.db.api.assertions.impl.AssertionsOnValueChronology} class :
- * {@link org.assertj.db.api.assertions.impl.AssertionsOnValueChronology#isAfter(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, Object, org.assertj.db.type.DateTimeValue)} method.
+ * {@link org.assertj.db.api.assertions.impl.AssertionsOnValueChronology#isAfter(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, org.assertj.db.type.DateTimeValue)} method.
  *
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnValueChronology_IsAfter_String_Test {
+public class AssertionsOnValueChronology_IsAfter_String_Test extends AbstractTest {
 
   /**
    * This method tests the {@code isAfter} assertion method.
    */
   @Test
-  public void test_is_after() {
+  public void test_is_after() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnValueChronology.isAfter(tableAssert, info,
-                                                                   Timestamp.valueOf("2007-12-23 09:01:05"),
+                                                                   getValue(null, Timestamp.valueOf("2007-12-23 09:01:05")),
                                                                    "2007-12-23T09:01:00");
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnValueChronology.isAfter(tableAssert, info,
-                                                       Date.valueOf("2007-12-24"),
+                                                       getValue(null, Date.valueOf("2007-12-24")),
                                                        "2007-12-23T09:01:05");
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnValueChronology.isAfter(tableAssert, info,
-                                                       Timestamp.valueOf("2007-12-23 09:01:05"),
+                                                       getValue(null, Timestamp.valueOf("2007-12-23 09:01:05")),
                                                        "2007-12-23");
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnValueChronology.isAfter(tableAssert, info,
-                                                       Date.valueOf("2007-12-24"),
+                                                       getValue(null, Date.valueOf("2007-12-24")),
                                                        "2007-12-23");
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnValueChronology.isAfter(tableAssert, info,
-                                                       Time.valueOf("09:01:05"),
+                                                       getValue(null, Time.valueOf("09:01:05")),
                                                        "09:01:00");
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
@@ -69,14 +70,14 @@ public class AssertionsOnValueChronology_IsAfter_String_Test {
    * This method should fail because the value is before or equal to.
    */
   @Test
-  public void should_fail_because_value_is_before_or_equal_to() {
+  public void should_fail_because_value_is_before_or_equal_to() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnValueChronology.isAfter(tableAssert, info,
-                                          Timestamp.valueOf("2007-12-23 09:01:05"),
+                                          getValue(null, Timestamp.valueOf("2007-12-23 09:01:05")),
                                           "2007-12-23T09:01:05");
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -88,7 +89,7 @@ public class AssertionsOnValueChronology_IsAfter_String_Test {
     }
     try {
       AssertionsOnValueChronology.isAfter(tableAssert, info,
-                                          Timestamp.valueOf("2007-12-23 09:01:05"),
+                                          getValue(null, Timestamp.valueOf("2007-12-23 09:01:05")),
                                           "2007-12-23T09:01:06");
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -100,7 +101,7 @@ public class AssertionsOnValueChronology_IsAfter_String_Test {
     }
     try {
       AssertionsOnValueChronology.isAfter(tableAssert, info,
-                                          Date.valueOf("2007-12-23"),
+                                          getValue(null, Date.valueOf("2007-12-23")),
                                           "2007-12-23T00:00");
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -112,7 +113,7 @@ public class AssertionsOnValueChronology_IsAfter_String_Test {
     }
     try {
       AssertionsOnValueChronology.isAfter(tableAssert, info,
-                                          Date.valueOf("2007-12-23"),
+                                          getValue(null, Date.valueOf("2007-12-23")),
                                           "2007-12-23T09:01:05");
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -124,7 +125,7 @@ public class AssertionsOnValueChronology_IsAfter_String_Test {
     }
     try {
       AssertionsOnValueChronology.isAfter(tableAssert, info,
-                                          Timestamp.valueOf("2007-12-23 00:00:00"),
+                                          getValue(null, Timestamp.valueOf("2007-12-23 00:00:00")),
                                           "2007-12-23");
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -136,7 +137,7 @@ public class AssertionsOnValueChronology_IsAfter_String_Test {
     }
     try {
       AssertionsOnValueChronology.isAfter(tableAssert, info,
-                                          Timestamp.valueOf("2007-12-23 09:01:05"),
+                                          getValue(null, Timestamp.valueOf("2007-12-23 09:01:05")),
                                           "2007-12-24");
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -148,7 +149,7 @@ public class AssertionsOnValueChronology_IsAfter_String_Test {
     }
     try {
       AssertionsOnValueChronology.isAfter(tableAssert, info,
-                                          Date.valueOf("2007-12-23"),
+                                          getValue(null, Date.valueOf("2007-12-23")),
                                           "2007-12-23");
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -160,7 +161,7 @@ public class AssertionsOnValueChronology_IsAfter_String_Test {
     }
     try {
       AssertionsOnValueChronology.isAfter(tableAssert, info,
-                                          Date.valueOf("2007-12-23"),
+                                          getValue(null, Date.valueOf("2007-12-23")),
                                           "2007-12-24");
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -172,7 +173,7 @@ public class AssertionsOnValueChronology_IsAfter_String_Test {
     }
     try {
       AssertionsOnValueChronology.isAfter(tableAssert, info,
-                                          Time.valueOf("09:01:05"),
+                                          getValue(null, Time.valueOf("09:01:05")),
                                           "09:01:05");
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -184,7 +185,7 @@ public class AssertionsOnValueChronology_IsAfter_String_Test {
     }
     try {
       AssertionsOnValueChronology.isAfter(tableAssert, info,
-                                          Time.valueOf("09:01:05"),
+                                          getValue(null, Time.valueOf("09:01:05")),
                                           "09:01:06");
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -200,14 +201,14 @@ public class AssertionsOnValueChronology_IsAfter_String_Test {
    * This method should fail because the value is not compatible.
    */
   @Test
-  public void should_fail_because_value_is_not_compatible() {
+  public void should_fail_because_value_is_not_compatible() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnValueChronology.isAfter(tableAssert, info,
-                                          "test",
+                                          getValue(null, "test"),
                                           "2007-12-23T09:01:00");
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -225,14 +226,14 @@ public class AssertionsOnValueChronology_IsAfter_String_Test {
    * This method should fail because the expected string is not correct to compare to a time.
    */
   @Test
-  public void should_fail_because_expected_string_is_not_correct_to_compare_to_time() {
+  public void should_fail_because_expected_string_is_not_correct_to_compare_to_time() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnValueChronology.isAfter(tableAssert, info,
-                                          Time.valueOf("09:01:05"),
+                                          getValue(null, Time.valueOf("09:01:05")),
                                           "09_01:00");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
@@ -244,14 +245,14 @@ public class AssertionsOnValueChronology_IsAfter_String_Test {
    * This method should fail because the expected string is not correct to compare to.
    */
   @Test
-  public void should_fail_because_expected_string_is_not_correct_to_compare_to() {
+  public void should_fail_because_expected_string_is_not_correct_to_compare_to() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnValueChronology.isAfter(tableAssert, info,
-                                          Date.valueOf("2007-12-23"),
+                                          getValue(null, Date.valueOf("2007-12-23")),
                                           "2007_12-23T09:01:00");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {

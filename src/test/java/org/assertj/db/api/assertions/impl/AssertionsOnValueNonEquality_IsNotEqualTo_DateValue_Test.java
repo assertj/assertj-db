@@ -15,6 +15,7 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
+import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.Table;
 import org.junit.Test;
@@ -27,33 +28,35 @@ import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link AssertionsOnValueNonEquality} class :
- * {@link AssertionsOnValueNonEquality#isNotEqualTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, Object, org.assertj.db.type.DateValue)} method.
+ * {@link AssertionsOnValueNonEquality#isNotEqualTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, org.assertj.db.type.DateValue)} method.
  *
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnValueNonEquality_IsNotEqualTo_DateValue_Test {
+public class AssertionsOnValueNonEquality_IsNotEqualTo_DateValue_Test extends AbstractTest {
 
   /**
    * This method tests the {@code isNotEqualTo} assertion method.
    */
   @Test
-  public void test_is_not_equal_to() {
+  public void test_is_not_equal_to() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    TableAssert tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, Date.valueOf("2007-12-24"),
+    TableAssert tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
+                                                                         getValue(null, Date.valueOf("2007-12-24")),
                                                                          DateValue.of(2007, 12, 23));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
-                                                             Timestamp.valueOf("2007-12-23 00:00:05"),
+                                                             getValue(null, Timestamp.valueOf("2007-12-23 00:00:05")),
                                                              DateValue.of(2007, 12, 23));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, Date.valueOf("2007-12-24"),
+    tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
+                                                             getValue(null, Date.valueOf("2007-12-24")),
                                                              (DateValue) null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
-                                                             Timestamp.valueOf("2007-12-23 00:00:05"),
+                                                             getValue(null, Timestamp.valueOf("2007-12-23 00:00:05")),
                                                              (DateValue) null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
@@ -62,13 +65,14 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_DateValue_Test {
    * This method should fail because the value is equal to.
    */
   @Test
-  public void should_fail_because_value_is_equal_to() {
+  public void should_fail_because_value_is_equal_to() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, Date.valueOf("2007-12-23"),
+      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
+                                                getValue(null, Date.valueOf("2007-12-23")),
                                                 DateValue.of(2007, 12, 23));
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -79,7 +83,8 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_DateValue_Test {
                                                       + "  <2007-12-23>"));
     }
     try {
-      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, Timestamp.valueOf("2007-12-23 00:00:00"),
+      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
+                                                getValue(null, Timestamp.valueOf("2007-12-23 00:00:00")),
                                                 DateValue.of(2007, 12, 23));
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -90,7 +95,7 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_DateValue_Test {
                                                       + "  <2007-12-23T00:00:00.000000000>"));
     }
     try {
-      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, null, (DateValue) null);
+      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, getValue(null, null), (DateValue) null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -105,13 +110,13 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_DateValue_Test {
    * This method should fail because the value is not a date.
    */
   @Test
-  public void should_fail_because_value_is_not_a_date() {
+  public void should_fail_because_value_is_not_a_date() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, 8, DateValue.of(2007, 12, 23));
+      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, getValue(null, 8), DateValue.of(2007, 12, 23));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"

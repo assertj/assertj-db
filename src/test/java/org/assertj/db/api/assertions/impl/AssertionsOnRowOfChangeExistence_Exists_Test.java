@@ -44,7 +44,8 @@ public class AssertionsOnRowOfChangeExistence_Exists_Test extends AbstractTest {
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     Row row = getRow(null,Arrays.asList("ID", "NAME", "FIRSTNAME", "BIRTH"),
-                          Arrays.asList(1, "Weaver", "Sigourney", Date.valueOf("1949-10-08")));
+                          Arrays.asList(getValue(null, 1), getValue(null, "Weaver"), getValue(null, "Sigourney"),
+                                        getValue(null, Date.valueOf("1949-10-08"))));
     TableAssert tableAssert2 = AssertionsOnRowOfChangeExistence.exists(tableAssert, info, row);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }

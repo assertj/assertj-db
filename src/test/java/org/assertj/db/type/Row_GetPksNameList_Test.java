@@ -36,7 +36,8 @@ public class Row_GetPksNameList_Test extends AbstractTest {
   public void test_when_getpksnamelist_with_one_pk() throws Exception {
     assertThat(
         getRow(Arrays.asList("col1"), Arrays.asList("col1", "col2", "col3"),
-            Arrays.asList((Object) "val1", "val2", "val3")).getPksNameList()).containsExactly("col1");
+            Arrays.asList(getValue(null, "val1"), getValue(null, "val2"), getValue(null, "val3"))).getPksNameList()).containsExactly(
+            "col1");
   }
 
   /**
@@ -48,7 +49,7 @@ public class Row_GetPksNameList_Test extends AbstractTest {
   public void test_when_getpksnamelist_with_two_pks() throws Exception {
     assertThat(
         getRow(Arrays.asList("col3", "col1"), Arrays.asList("col1", "col2", "col3"),
-            Arrays.asList((Object) "val1", 1, 2)).getPksNameList()).containsExactly("col3", "col1");
+            Arrays.asList(getValue(null, "val1"), getValue(null, 1), getValue(null, 2))).getPksNameList()).containsExactly("col3", "col1");
   }
 
 }

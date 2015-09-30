@@ -16,6 +16,7 @@ import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
 import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.type.Value;
 
 import static org.assertj.db.error.ShouldBeValueClassWithEndPoint.shouldBeValueClassWithEndPoint;
 import static org.assertj.db.error.ShouldBeValueClassWithStartPoint.shouldBeValueClassWithStartPoint;
@@ -56,19 +57,19 @@ public class AssertionsOnColumnOfChangeClass {
    * @since 1.1.0
    */
   public static <A extends AbstractAssert> A isOfClass(A assertion, WritableAssertionInfo info,
-                                                       Object valueAtStartPoint, Object valueAtEndPoint,
+                                                       Value valueAtStartPoint, Value valueAtEndPoint,
                                                        Class<?> expected, boolean lenient) {
 
     if (expected == null) {
       throw new AssertJDBException("Class of the column is null");
     }
-    if (valueAtStartPoint == null || !expected.isAssignableFrom(valueAtStartPoint.getClass())) {
-      if (!lenient || valueAtStartPoint != null) {
+    if (valueAtStartPoint.getValue() == null || !expected.isAssignableFrom(valueAtStartPoint.getValue().getClass())) {
+      if (!lenient || valueAtStartPoint.getValue() != null) {
         throw failures.failure(info, shouldBeValueClassWithStartPoint(valueAtStartPoint, expected));
       }
     }
-    if (valueAtEndPoint == null || !expected.isAssignableFrom(valueAtEndPoint.getClass())) {
-      if (!lenient || valueAtEndPoint != null) {
+    if (valueAtEndPoint.getValue() == null || !expected.isAssignableFrom(valueAtEndPoint.getValue().getClass())) {
+      if (!lenient || valueAtEndPoint.getValue() != null) {
         throw failures.failure(info, shouldBeValueClassWithEndPoint(valueAtEndPoint, expected));
       }
     }

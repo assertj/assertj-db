@@ -14,6 +14,7 @@ package org.assertj.db.error;
 
 import org.assertj.core.error.BasicErrorMessageFactory;
 import org.assertj.core.error.ErrorMessageFactory;
+import org.assertj.db.type.Value;
 
 /**
  * Creates an error message indicating that an assertion that verifies that a column is modified.
@@ -30,7 +31,7 @@ public class ShouldBeModified extends BasicErrorMessageFactory {
    * @param valueAtEndPoint The value at end point.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBeModified(Object valueAtStartPoint, Object valueAtEndPoint) {
+  public static ErrorMessageFactory shouldBeModified(Value valueAtStartPoint, Value valueAtEndPoint) {
     return new ShouldBeModified(valueAtStartPoint, valueAtEndPoint);
   }
 
@@ -40,7 +41,7 @@ public class ShouldBeModified extends BasicErrorMessageFactory {
    * @param valueAtStartPoint The value at start point.
    * @param valueAtEndPoint The value at end point.
    */
-  private ShouldBeModified(Object valueAtStartPoint, Object valueAtEndPoint) {
-    super("%nExpecting :%n  <%s>%nis modified but is still:%n  <%s>", valueAtStartPoint, valueAtEndPoint);
+  private ShouldBeModified(Value valueAtStartPoint, Value valueAtEndPoint) {
+    super("%nExpecting :%n  <%s>%nis modified but is still:%n  <%s>", valueAtStartPoint.getValue(), valueAtEndPoint.getValue());
   }
 }

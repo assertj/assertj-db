@@ -30,7 +30,7 @@ public class TableColumnAssert
    * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    * @param column The column on which do assertion.
    */
-  TableColumnAssert(TableAssert origin, Column column) {
+  public TableColumnAssert(TableAssert origin, Column column) {
     super(origin, TableColumnAssert.class, TableColumnValueAssert.class, column);
   }
 
@@ -42,5 +42,4 @@ public class TableColumnAssert
   public TableAssert returnToTable() {
     return returnToOrigin();
   }
-
 }

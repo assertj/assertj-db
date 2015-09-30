@@ -34,9 +34,10 @@ public class Row_GetPksValues_Test extends AbstractTest {
    */
   @Test
   public void test_when_getprimarykeysvalue_with_one_pk() throws Exception {
-    Object[] primaryKeysValue = getRow(Arrays.asList("col1"), Arrays.asList("col1", "col2", "col3"),
-        Arrays.asList((Object) "val1", "val2", "val3")).getPksValues();
-    assertThat(primaryKeysValue).hasSize(1).containsExactly("val1");
+    Value[] primaryKeysValue = getRow(Arrays.asList("col1"), Arrays.asList("col1", "col2", "col3"),
+        Arrays.asList(getValue(null, "val1"), getValue(null, "val2"), getValue(null, "val3"))).getPksValues();
+    assertThat(primaryKeysValue).hasSize(1);
+    assertThat(primaryKeysValue[0].getValue()).isEqualTo("val1");
   }
 
   /**
@@ -46,9 +47,11 @@ public class Row_GetPksValues_Test extends AbstractTest {
    */
   @Test
   public void test_when_getprimarykeysvalue_with_two_pks() throws Exception {
-    Object[] primaryKeysValue = getRow(Arrays.asList("col3", "col1"), Arrays.asList("col1", "col2", "col3"),
-        Arrays.asList((Object) "val1", 1, 2)).getPksValues();
-    assertThat(primaryKeysValue).hasSize(2).containsExactly(2, "val1");
+    Value[] primaryKeysValue = getRow(Arrays.asList("col3", "col1"), Arrays.asList("col1", "col2", "col3"),
+        Arrays.asList(getValue(null, "val1"), getValue(null, 1), getValue(null, 2))).getPksValues();
+    assertThat(primaryKeysValue).hasSize(2);
+    assertThat(primaryKeysValue[0].getValue()).isEqualTo(2);
+    assertThat(primaryKeysValue[1].getValue()).isEqualTo("val1");
   }
 
 }

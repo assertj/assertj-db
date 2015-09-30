@@ -20,5 +20,5 @@ package org.assertj.db.navigation.element;
  *
  * @author Régis Pouiller
  */
-public interface ColumnElement {
+public interface ColumnElement extends Element {
 }

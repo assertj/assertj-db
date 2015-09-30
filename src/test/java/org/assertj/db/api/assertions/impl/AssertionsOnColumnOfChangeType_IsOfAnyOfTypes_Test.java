@@ -15,6 +15,7 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
+import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.assertj.db.type.ValueType;
 import org.junit.Test;
@@ -31,23 +32,28 @@ import static org.junit.Assert.fail;
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnColumnOfChangeType_IsOfAnyOfTypes_Test {
+public class AssertionsOnColumnOfChangeType_IsOfAnyOfTypes_Test extends AbstractTest {
 
   /**
    * This method tests the {@code isOfAnyTypeIn} assertion method.
    */
   @Test
-  public void test_is_of_any_of_types() {
+  public void test_is_of_any_of_types() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    TableAssert tableAssert2 = AssertionsOnColumnOfChangeType.isOfAnyTypeIn(tableAssert, info, "test", "test",
+    TableAssert tableAssert2 = AssertionsOnColumnOfChangeType.isOfAnyTypeIn(tableAssert, info, getValue(null, "test"),
+                                                                            getValue(null, "test"),
                                                                             ValueType.TEXT);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnColumnOfChangeType.isOfAnyTypeIn(tableAssert, info, "test", "test", ValueType.TEXT,
+    tableAssert2 = AssertionsOnColumnOfChangeType.isOfAnyTypeIn(tableAssert, info,
+                                                                getValue(null, "test"),
+                                                                getValue(null, "test"), ValueType.TEXT,
                                                                 ValueType.NUMBER);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnColumnOfChangeType.isOfAnyTypeIn(tableAssert, info, null, "test", ValueType.TEXT,
+    tableAssert2 = AssertionsOnColumnOfChangeType.isOfAnyTypeIn(tableAssert, info,
+                                                                getValue(null, null),
+                                                                getValue(null, "test"), ValueType.TEXT,
                                                                 ValueType.NOT_IDENTIFIED);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
@@ -56,14 +62,15 @@ public class AssertionsOnColumnOfChangeType_IsOfAnyOfTypes_Test {
    * This method should fail because the value at start point have different type.
    */
   @Test
-  public void should_fail_because_value_at_start_point_have_different_type() {
+  public void should_fail_because_value_at_start_point_have_different_type() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeType.isOfAnyTypeIn(tableAssert, info,
-                                                   8, "test", ValueType.TEXT, ValueType.DATE);
+                                                   getValue(null, 8), getValue(null, "test"),
+                                                   ValueType.TEXT, ValueType.DATE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -76,7 +83,8 @@ public class AssertionsOnColumnOfChangeType_IsOfAnyOfTypes_Test {
     }
     try {
       AssertionsOnColumnOfChangeType.isOfAnyTypeIn(tableAssert, info,
-                                                   null, "test", ValueType.TEXT, ValueType.DATE);
+                                                   getValue(null, null),
+                                                   getValue(null, "test"), ValueType.TEXT, ValueType.DATE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -89,7 +97,8 @@ public class AssertionsOnColumnOfChangeType_IsOfAnyOfTypes_Test {
     }
     try {
       AssertionsOnColumnOfChangeType.isOfAnyTypeIn(tableAssert, info,
-                                                   Locale.FRENCH, "test", ValueType.TEXT, ValueType.DATE);
+                                                   getValue(null, Locale.FRENCH),
+                                                   getValue(null, "test"), ValueType.TEXT, ValueType.DATE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -106,14 +115,15 @@ public class AssertionsOnColumnOfChangeType_IsOfAnyOfTypes_Test {
    * This method should fail because the value at end point have different type.
    */
   @Test
-  public void should_fail_because_value_at_end_point_have_different_type() {
+  public void should_fail_because_value_at_end_point_have_different_type() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeType.isOfAnyTypeIn(tableAssert, info,
-                                                   "test", 8, ValueType.TEXT, ValueType.DATE);
+                                                   getValue(null, "test"),
+                                                   getValue(null, 8), ValueType.TEXT, ValueType.DATE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -126,7 +136,8 @@ public class AssertionsOnColumnOfChangeType_IsOfAnyOfTypes_Test {
     }
     try {
       AssertionsOnColumnOfChangeType.isOfAnyTypeIn(tableAssert, info,
-                                                   "test", null, ValueType.TEXT, ValueType.DATE);
+                                                   getValue(null, "test"),
+                                                   getValue(null, null), ValueType.TEXT, ValueType.DATE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -139,7 +150,8 @@ public class AssertionsOnColumnOfChangeType_IsOfAnyOfTypes_Test {
     }
     try {
       AssertionsOnColumnOfChangeType.isOfAnyTypeIn(tableAssert, info,
-                                                   "test", Locale.FRENCH, ValueType.TEXT, ValueType.DATE);
+                                                   getValue(null, "test"),
+                                                   getValue(null, Locale.FRENCH), ValueType.TEXT, ValueType.DATE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -156,14 +168,15 @@ public class AssertionsOnColumnOfChangeType_IsOfAnyOfTypes_Test {
    * This method should fail because the value at start point is a stringbuilder.
    */
   @Test
-  public void should_fail_because_value_at_start_point_is_a_stringbuilder() {
+  public void should_fail_because_value_at_start_point_is_a_stringbuilder() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeType.isOfAnyTypeIn(tableAssert, info,
-                                                   new StringBuilder("test"), "test", ValueType.TEXT, ValueType.DATE);
+                                                   getValue(null, new StringBuilder("test")),
+                                                   getValue(null, "test"), ValueType.TEXT, ValueType.DATE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -180,14 +193,15 @@ public class AssertionsOnColumnOfChangeType_IsOfAnyOfTypes_Test {
    * This method should fail because the value at end point is a stringbuilder.
    */
   @Test
-  public void should_fail_because_value_at_end_point_is_a_stringbuilder() {
+  public void should_fail_because_value_at_end_point_is_a_stringbuilder() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeType.isOfAnyTypeIn(tableAssert, info,
-                                                   "test", new StringBuilder("test"), ValueType.TEXT, ValueType.DATE);
+                                                   getValue(null, "test"),
+                                                   getValue(null, new StringBuilder("test")), ValueType.TEXT, ValueType.DATE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"

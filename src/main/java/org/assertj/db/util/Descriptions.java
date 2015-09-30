@@ -16,6 +16,7 @@ import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.type.*;
 import org.assertj.db.type.Changes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -229,7 +230,7 @@ public class Descriptions {
   public static String getChangeDescription(WritableAssertionInfo info, Changes changes, Change change, int index,
                                             ChangeType changeType, String tableName) {
     StringBuilder stringBuilder = new StringBuilder("Change at index " + index);
-    List<Object> pksValueList = change.getPksValueList();
+    List<Value> pksValueList = change.getPksValueList();
     boolean isAChangeOnATableAmongOtherTables = changes.getTablesList() != null && changes.getTablesList().size() > 1;
     boolean havePksValues = pksValueList.size() > 0;
     if (isAChangeOnATableAmongOtherTables || havePksValues) {
@@ -241,7 +242,11 @@ public class Descriptions {
         stringBuilder.append(" and ");
       }
       if (havePksValues) {
-        stringBuilder.append("with primary key : ").append(pksValueList);
+        List<Object> objectsList = new ArrayList<>();
+        for (Value value : pksValueList) {
+          objectsList.add(value.getValue());
+        }
+        stringBuilder.append("with primary key : ").append(objectsList);
       }
       stringBuilder.append(")");
     }

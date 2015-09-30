@@ -14,6 +14,7 @@ package org.assertj.db.error;
 
 import org.assertj.core.error.BasicErrorMessageFactory;
 import org.assertj.core.error.ErrorMessageFactory;
+import org.assertj.db.type.Value;
 import org.assertj.db.type.ValueType;
 
 /**
@@ -41,9 +42,9 @@ public class ShouldBeValueTypeOfAny extends BasicErrorMessageFactory {
    * @param expected The expected types.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBeValueTypeOfAny(Object actual, ValueType tested, ValueType... expected) {
-    if (actual != null && tested == ValueType.NOT_IDENTIFIED) {
-      return  new ShouldBeValueTypeOfAny(actual, actual.getClass(), tested, expected);
+  public static ErrorMessageFactory shouldBeValueTypeOfAny(Value actual, ValueType tested, ValueType... expected) {
+    if (actual.getValue() != null && tested == ValueType.NOT_IDENTIFIED) {
+      return  new ShouldBeValueTypeOfAny(actual, actual.getValue().getClass(), tested, expected);
     }
     return new ShouldBeValueTypeOfAny(actual, tested, expected);
   }
@@ -57,10 +58,10 @@ public class ShouldBeValueTypeOfAny extends BasicErrorMessageFactory {
    * @param expected The expected types.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBeValueTypeOfAny(int index, Object actual, ValueType tested,
+  public static ErrorMessageFactory shouldBeValueTypeOfAny(int index, Value actual, ValueType tested,
                                                            ValueType... expected) {
-    if (actual != null && tested == ValueType.NOT_IDENTIFIED) {
-      return  new ShouldBeValueTypeOfAny(index, actual, actual.getClass(), tested, expected);
+    if (actual.getValue() != null && tested == ValueType.NOT_IDENTIFIED) {
+      return  new ShouldBeValueTypeOfAny(index, actual, actual.getValue().getClass(), tested, expected);
     }
     return new ShouldBeValueTypeOfAny(index, actual, tested, expected);
   }
@@ -72,8 +73,8 @@ public class ShouldBeValueTypeOfAny extends BasicErrorMessageFactory {
    * @param tested The tested type.
    * @param expected The expected types.
    */
-  private ShouldBeValueTypeOfAny(Object actual, ValueType tested, ValueType... expected) {
-    super(EXPECTED_MESSAGE, actual, expected, tested);
+  private ShouldBeValueTypeOfAny(Value actual, ValueType tested, ValueType... expected) {
+    super(EXPECTED_MESSAGE, actual.getValue(), expected, tested);
   }
 
   /**
@@ -84,8 +85,8 @@ public class ShouldBeValueTypeOfAny extends BasicErrorMessageFactory {
    * @param tested The tested type.
    * @param expected The expected types.
    */
-  private ShouldBeValueTypeOfAny(int index, Object actual, ValueType tested, ValueType... expected) {
-    super(EXPECTED_MESSAGE_WITH_INDEX, index, actual, expected, tested);
+  private ShouldBeValueTypeOfAny(int index, Value actual, ValueType tested, ValueType... expected) {
+    super(EXPECTED_MESSAGE_WITH_INDEX, index, actual.getValue(), expected, tested);
   }
 
   /**
@@ -96,8 +97,8 @@ public class ShouldBeValueTypeOfAny extends BasicErrorMessageFactory {
    * @param tested The tested type.
    * @param expected The expected types.
    */
-  private ShouldBeValueTypeOfAny(Object actual, Class classOfActual, ValueType tested, ValueType... expected) {
-    super(EXPECTED_MESSAGE_NOT_IDENTIFIED, actual, expected, tested, classOfActual);
+  private ShouldBeValueTypeOfAny(Value actual, Class classOfActual, ValueType tested, ValueType... expected) {
+    super(EXPECTED_MESSAGE_NOT_IDENTIFIED, actual.getValue(), expected, tested, classOfActual);
   }
 
   /**
@@ -109,7 +110,7 @@ public class ShouldBeValueTypeOfAny extends BasicErrorMessageFactory {
    * @param tested The tested type.
    * @param expected The expected types.
    */
-  private ShouldBeValueTypeOfAny(int index, Object actual, Class classOfActual, ValueType tested, ValueType... expected) {
-    super(EXPECTED_MESSAGE_NOT_IDENTIFIED_WITH_INDEX, index, actual, expected, tested, classOfActual);
+  private ShouldBeValueTypeOfAny(int index, Value actual, Class classOfActual, ValueType tested, ValueType... expected) {
+    super(EXPECTED_MESSAGE_NOT_IDENTIFIED_WITH_INDEX, index, actual.getValue(), expected, tested, classOfActual);
   }
 }

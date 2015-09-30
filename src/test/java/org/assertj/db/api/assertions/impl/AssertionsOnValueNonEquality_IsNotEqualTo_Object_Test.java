@@ -15,6 +15,7 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
+import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
@@ -25,27 +26,27 @@ import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link org.assertj.db.api.assertions.impl.AssertionsOnValueNonEquality} class :
- * {@link org.assertj.db.api.assertions.impl.AssertionsOnValueNonEquality#isNotEqualTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, Object, Object)} method.
+ * {@link org.assertj.db.api.assertions.impl.AssertionsOnValueNonEquality#isNotEqualTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, Object)} method.
  *
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnValueNonEquality_IsNotEqualTo_Object_Test {
+public class AssertionsOnValueNonEquality_IsNotEqualTo_Object_Test extends AbstractTest {
 
   /**
    * This method tests the {@code isNotEqualTo} assertion method.
    */
   @Test
-  public void test_is_not_equal_to() {
+  public void test_is_not_equal_to() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
-                                                                         new Locale("fr"),
+                                                                         getValue(null, new Locale("fr")),
                                                                          new Locale("en"));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
-                                                             new Locale("fr"),
+                                                             getValue(null, new Locale("fr")),
                                                              (Object) null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
@@ -54,14 +55,14 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_Object_Test {
    * This method should fail because the value is equal to.
    */
   @Test
-  public void should_fail_because_value_is_equal_to() {
+  public void should_fail_because_value_is_equal_to() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
-                                                new Locale("fr"),
+                                                getValue(null, new Locale("fr")),
                                                 Locale.FRENCH);
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -73,7 +74,7 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_Object_Test {
     }
     try {
       AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
-                                                null,
+                                                getValue(null, null),
                                                 (Object) null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -89,14 +90,14 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_Object_Test {
    * This method should fail because the value is not of the same class.
    */
   @Test
-  public void should_fail_because_value_is_not_of_the_same_class() {
+  public void should_fail_because_value_is_not_of_the_same_class() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
-                                                new StringBuilder("test1"),
+                                                getValue(null, new StringBuilder("test1")),
                                                 new StringBuffer("test2"));
       fail("An exception must be raised");
     } catch (AssertionError e) {
