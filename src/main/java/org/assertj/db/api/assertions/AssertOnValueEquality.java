@@ -58,7 +58,7 @@ public interface AssertOnValueEquality<T extends AssertOnValueEquality<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isEqualTo(Object)
    * @see org.assertj.db.api.AbstractAssertWithValues#isEqualTo(Object)
    */
-  public T isEqualTo(Object expected);
+  T isEqualTo(Object expected);
 
   /**
    * Verifies that the value is equal to a boolean.
@@ -89,7 +89,7 @@ public interface AssertOnValueEquality<T extends AssertOnValueEquality<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isEqualTo(Boolean)
    * @see org.assertj.db.api.AbstractAssertWithValues#isEqualTo(Boolean)
    */
-  public T isEqualTo(Boolean expected);
+  T isEqualTo(Boolean expected);
 
   /**
    * Verifies that the value is equal to true boolean.
@@ -118,7 +118,7 @@ public interface AssertOnValueEquality<T extends AssertOnValueEquality<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isTrue()
    * @see org.assertj.db.api.AbstractAssertWithValues#isTrue()
    */
-  public T isTrue();
+  T isTrue();
 
   /**
    * Verifies that the value is equal to false boolean.
@@ -147,7 +147,7 @@ public interface AssertOnValueEquality<T extends AssertOnValueEquality<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isFalse()
    * @see org.assertj.db.api.AbstractAssertWithValues#isFalse()
    */
-  public T isFalse();
+  T isFalse();
 
   /**
    * Verifies that the value is equal to a number.
@@ -178,7 +178,7 @@ public interface AssertOnValueEquality<T extends AssertOnValueEquality<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isEqualTo(Number)
    * @see org.assertj.db.api.AbstractAssertWithValues#isEqualTo(Number)
    */
-  public T isEqualTo(Number expected);
+  T isEqualTo(Number expected);
 
   /**
    * Verifies that the value is equal to a array of bytes.
@@ -211,7 +211,7 @@ public interface AssertOnValueEquality<T extends AssertOnValueEquality<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isEqualTo(byte[])
    * @see org.assertj.db.api.AbstractAssertWithValues#isEqualTo(byte[])
    */
-  public T isEqualTo(byte[] expected);
+  T isEqualTo(byte[] expected);
 
   /**
    * Verifies that the value is equal to a text.
@@ -242,7 +242,7 @@ public interface AssertOnValueEquality<T extends AssertOnValueEquality<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isEqualTo(String)
    * @see org.assertj.db.api.AbstractAssertWithValues#isEqualTo(String)
    */
-  public T isEqualTo(String expected);
+  T isEqualTo(String expected);
 
   /**
    * Verifies that the value is equal to an UUID.
@@ -274,7 +274,7 @@ public interface AssertOnValueEquality<T extends AssertOnValueEquality<T>> {
    * @see org.assertj.db.api.AbstractAssertWithValues#isEqualTo(UUID)
    * @since 1.1.0
    */
-  public T isEqualTo(UUID expected);
+  T isEqualTo(UUID expected);
 
   /**
    * Verifies that the value is equal to a date value.
@@ -305,7 +305,7 @@ public interface AssertOnValueEquality<T extends AssertOnValueEquality<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isEqualTo(DateValue)
    * @see org.assertj.db.api.AbstractAssertWithValues#isEqualTo(DateValue)
    */
-  public T isEqualTo(DateValue expected);
+  T isEqualTo(DateValue expected);
 
   /**
    * Verifies that the value is equal to a time value.
@@ -336,7 +336,7 @@ public interface AssertOnValueEquality<T extends AssertOnValueEquality<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isEqualTo(TimeValue)
    * @see org.assertj.db.api.AbstractAssertWithValues#isEqualTo(TimeValue)
    */
-  public T isEqualTo(TimeValue expected);
+  T isEqualTo(TimeValue expected);
 
   /**
    * Verifies that the value is equal to a date/time value.
@@ -367,7 +367,7 @@ public interface AssertOnValueEquality<T extends AssertOnValueEquality<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isEqualTo(DateTimeValue)
    * @see org.assertj.db.api.AbstractAssertWithValues#isEqualTo(DateTimeValue)
    */
-  public T isEqualTo(DateTimeValue expected);
+  T isEqualTo(DateTimeValue expected);
 
   /**
    * Verifies that the value is equal to zero.
@@ -397,5 +397,5 @@ public interface AssertOnValueEquality<T extends AssertOnValueEquality<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isZero()
    * @see org.assertj.db.api.AbstractAssertWithValues#isZero()
    */
-  public T isZero();
+  T isZero();
 }

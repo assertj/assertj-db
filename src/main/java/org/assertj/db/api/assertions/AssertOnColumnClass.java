@@ -51,5 +51,5 @@ public interface AssertOnColumnClass<T extends AssertOnColumnClass<T>> {
    * @see org.assertj.db.api.ChangeColumnAssert#isOfClass(Class, boolean)
    * @since 1.1.0
    */
-  public T isOfClass(Class<?> expected, boolean lenient);
+  T isOfClass(Class<?> expected, boolean lenient);
 }

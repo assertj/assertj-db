@@ -36,7 +36,7 @@ public interface AssertOnRowOfChangeExistence<T extends AssertOnRowOfChangeExist
    * @throws AssertionError If the row of the change does not exist.
    * @see org.assertj.db.api.ChangeRowAssert#exists()
    */
-  public T exists();
+  T exists();
 
   /**
    * Verifies that the row of the change does not exist.
@@ -52,5 +52,5 @@ public interface AssertOnRowOfChangeExistence<T extends AssertOnRowOfChangeExist
    * @throws AssertionError If the row of the change exists.
    * @see org.assertj.db.api.ChangeRowAssert#doesNotExist()
    */
-  public T doesNotExist();
+  T doesNotExist();
 }

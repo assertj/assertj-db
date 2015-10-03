@@ -44,7 +44,7 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * @throws AssertionError If the values at start point and at end point are not equal to the object.
    * @see org.assertj.db.api.ChangeColumnAssert#hasValues(Object)
    */
-  public T hasValues(Object expected);
+  T hasValues(Object expected);
 
   /**
    * Verifies that the values at the start point and the end point are equal to a object for start point and another object for end point.
@@ -62,7 +62,7 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * @throws AssertionError If the values at start point and at end point are not equal to the corresponding objects.
    * @see org.assertj.db.api.ChangeColumnAssert#hasValues(Object, Object)
    */
-  public T hasValues(Object expectedAtStartPoint, Object expectedAtEndPoint);
+  T hasValues(Object expectedAtStartPoint, Object expectedAtEndPoint);
 
   /**
    * Verifies that the values at the start point and the end point are equal to a boolean.
@@ -79,7 +79,7 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * @throws AssertionError If the values at start point and at end point are not equal to the boolean.
    * @see org.assertj.db.api.ChangeColumnAssert#hasValues(Boolean)
    */
-  public T hasValues(Boolean expected);
+  T hasValues(Boolean expected);
 
   /**
    * Verifies that the values at the start point and the end point are equal to a boolean for start point and another boolean for end point.
@@ -97,7 +97,7 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * @throws AssertionError If the values at start point and at end point are not equal to the corresponding booleans.
    * @see org.assertj.db.api.ChangeColumnAssert#hasValues(Boolean, Boolean)
    */
-  public T hasValues(Boolean expectedAtStartPoint, Boolean expectedAtEndPoint);
+  T hasValues(Boolean expectedAtStartPoint, Boolean expectedAtEndPoint);
 
   /**
    * Verifies that the values at the start point and the end point are equal to a number.
@@ -114,7 +114,7 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * @throws AssertionError If the values at start point and at end point are not equal to the number.
    * @see org.assertj.db.api.ChangeColumnAssert#hasValues(Number)
    */
-  public T hasValues(Number expected);
+  T hasValues(Number expected);
 
   /**
    * Verifies that the values at the start point and the end point are equal to a number for start point and another number for end point.
@@ -132,7 +132,7 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * @throws AssertionError If the values at start point and at end point are not equal to the corresponding numbers.
    * @see org.assertj.db.api.ChangeColumnAssert#hasValues(Number, Number)
    */
-  public T hasValues(Number expectedAtStartPoint, Number expectedAtEndPoint);
+  T hasValues(Number expectedAtStartPoint, Number expectedAtEndPoint);
 
   /**
    * Verifies that the values at the start point and the end point are equal to bytes.
@@ -150,7 +150,7 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * @throws AssertionError If the values at start point and at end point are not equal to the bytes.
    * @see org.assertj.db.api.ChangeColumnAssert#hasValues(byte[])
    */
-  public T hasValues(byte[] expected);
+  T hasValues(byte[] expected);
 
   /**
    * Verifies that the values at the start point and the end point are equal to bytes for start point and other bytes for end point.
@@ -170,7 +170,7 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * @throws AssertionError If the values at start point and at end point are not equal to the corresponding bytes.
    * @see org.assertj.db.api.ChangeColumnAssert#hasValues(byte[], byte[])
    */
-  public T hasValues(byte[] expectedAtStartPoint, byte[] expectedAtEndPoint);
+  T hasValues(byte[] expectedAtStartPoint, byte[] expectedAtEndPoint);
 
   /**
    * Verifies that the values at the start point and the end point are equal to a text.
@@ -187,7 +187,7 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * @throws AssertionError If the values at start point and at end point are not equal to the text.
    * @see org.assertj.db.api.ChangeColumnAssert#hasValues(String)
    */
-  public T hasValues(String expected);
+  T hasValues(String expected);
 
   /**
    * Verifies that the values at the start point and the end point are equal to a text for start point and another text for end point.
@@ -205,7 +205,7 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * @throws AssertionError If the values at start point and at end point are not equal to the corresponding texts.
    * @see org.assertj.db.api.ChangeColumnAssert#hasValues(String, String)
    */
-  public T hasValues(String expectedAtStartPoint, String expectedAtEndPoint);
+  T hasValues(String expectedAtStartPoint, String expectedAtEndPoint);
 
   /**
    * Verifies that the values at the start point and the end point are equal to an UUID.
@@ -223,7 +223,7 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * @see org.assertj.db.api.ChangeColumnAssert#hasValues(UUID)
    * @since 1.1.0
    */
-  public T hasValues(UUID expected);
+  T hasValues(UUID expected);
 
   /**
    * Verifies that the values at the start point and the end point are equal to an UUID for start point and another UUID for end point.
@@ -242,7 +242,7 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * @see org.assertj.db.api.ChangeColumnAssert#hasValues(UUID, UUID)
    * @since 1.1.0
    */
-  public T hasValues(UUID expectedAtStartPoint, UUID expectedAtEndPoint);
+  T hasValues(UUID expectedAtStartPoint, UUID expectedAtEndPoint);
 
   /**
    * Verifies that the values at the start point and the end point are equal to a date.
@@ -259,7 +259,7 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * @throws AssertionError If the values at start point and at end point are not equal to the date.
    * @see org.assertj.db.api.ChangeColumnAssert#hasValues(DateValue)
    */
-  public T hasValues(DateValue expected);
+  T hasValues(DateValue expected);
 
   /**
    * Verifies that the values at the start point and the end point are equal to a date for start point and another date for end point.
@@ -277,7 +277,7 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * @throws AssertionError If the values at start point and at end point are not equal to the corresponding dates.
    * @see org.assertj.db.api.ChangeColumnAssert#hasValues(DateValue, DateValue)
    */
-  public T hasValues(DateValue expectedAtStartPoint, DateValue expectedAtEndPoint);
+  T hasValues(DateValue expectedAtStartPoint, DateValue expectedAtEndPoint);
 
   /**
    * Verifies that the values at the start point and the end point are equal to a time.
@@ -294,7 +294,7 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * @throws AssertionError If the values at start point and at end point are not equal to the time.
    * @see org.assertj.db.api.ChangeColumnAssert#hasValues(TimeValue)
    */
-  public T hasValues(TimeValue expected);
+  T hasValues(TimeValue expected);
 
   /**
    * Verifies that the values at the start point and the end point are equal to a time for start point and another time for end point.
@@ -312,7 +312,7 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * @throws AssertionError If the values at start point and at end point are not equal to the corresponding times.
    * @see org.assertj.db.api.ChangeColumnAssert#hasValues(TimeValue, TimeValue)
    */
-  public T hasValues(TimeValue expectedAtStartPoint, TimeValue expectedAtEndPoint);
+  T hasValues(TimeValue expectedAtStartPoint, TimeValue expectedAtEndPoint);
 
   /**
    * Verifies that the values at the start point and the end point are equal to a date/time.
@@ -329,7 +329,7 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * @throws AssertionError If the values at start point and at end point are not equal to the date/time.
    * @see org.assertj.db.api.ChangeColumnAssert#hasValues(DateTimeValue)
    */
-  public T hasValues(DateTimeValue expected);
+  T hasValues(DateTimeValue expected);
 
   /**
    * Verifies that the values at the start point and the end point are equal to a date/time for start point and another date/time for end point.
@@ -347,5 +347,5 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
    * @throws AssertionError If the values at start point and at end point are not equal to the corresponding dates/times.
    * @see org.assertj.db.api.ChangeColumnAssert#hasValues(DateTimeValue, DateTimeValue)
    */
-  public T hasValues(DateTimeValue expectedAtStartPoint, DateTimeValue expectedAtEndPoint);
+  T hasValues(DateTimeValue expectedAtStartPoint, DateTimeValue expectedAtEndPoint);
 }

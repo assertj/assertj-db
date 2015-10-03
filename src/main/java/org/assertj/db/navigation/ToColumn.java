@@ -99,7 +99,7 @@ public interface ToColumn<C extends ColumnElement> extends Navigation {
    * @see org.assertj.db.api.ChangeRowAssert#column()
    * @see org.assertj.db.api.ChangeRowValueAssert#column()
    */
-  public C column();
+  C column();
 
   /**
    * Returns assertion methods on the {@link org.assertj.db.type.Column} at the {@code index} in parameter.
@@ -119,7 +119,7 @@ public interface ToColumn<C extends ColumnElement> extends Navigation {
    * @see org.assertj.db.api.ChangeRowAssert#column(int)
    * @see org.assertj.db.api.ChangeRowValueAssert#column(int)
    */
-  public C column(int index);
+  C column(int index);
 
   /**
    * Returns assertion methods on the {@link org.assertj.db.type.Column} corresponding to the column name in parameter.
@@ -140,5 +140,5 @@ public interface ToColumn<C extends ColumnElement> extends Navigation {
    * @see org.assertj.db.api.ChangeRowAssert#column(String)
    * @see org.assertj.db.api.ChangeRowValueAssert#column(String)
    */
-  public C column(String columnName);
+  C column(String columnName);
 }

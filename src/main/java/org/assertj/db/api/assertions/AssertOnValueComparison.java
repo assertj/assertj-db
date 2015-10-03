@@ -51,7 +51,7 @@ public interface AssertOnValueComparison<T extends AssertOnValueComparison<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isGreaterThan(Number)
    * @see org.assertj.db.api.AbstractAssertWithValues#isGreaterThan(Number)
    */
-  public T isGreaterThan(Number expected);
+  T isGreaterThan(Number expected);
 
   /**
    * Verifies that the value is less than a number.
@@ -82,7 +82,7 @@ public interface AssertOnValueComparison<T extends AssertOnValueComparison<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isLessThan(Number)
    * @see org.assertj.db.api.AbstractAssertWithValues#isLessThan(Number)
    */
-  public T isLessThan(Number expected);
+  T isLessThan(Number expected);
 
   /**
    * Verifies that the value is greater than or equal to a number.
@@ -113,7 +113,7 @@ public interface AssertOnValueComparison<T extends AssertOnValueComparison<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isGreaterThanOrEqualTo(Number)
    * @see org.assertj.db.api.AbstractAssertWithValues#isGreaterThanOrEqualTo(Number)
    */
-  public T isGreaterThanOrEqualTo(Number expected);
+  T isGreaterThanOrEqualTo(Number expected);
 
   /**
    * Verifies that the value is less than or equal to a number.
@@ -144,5 +144,5 @@ public interface AssertOnValueComparison<T extends AssertOnValueComparison<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isLessThanOrEqualTo(Number)
    * @see org.assertj.db.api.AbstractAssertWithValues#isLessThanOrEqualTo(Number)
    */
-  public T isLessThanOrEqualTo(Number expected);
+  T isLessThanOrEqualTo(Number expected);
 }

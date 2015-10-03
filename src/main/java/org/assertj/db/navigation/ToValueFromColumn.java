@@ -55,7 +55,7 @@ public interface ToValueFromColumn<V extends ValueElement> {
    * @see org.assertj.db.api.ChangeColumnAssert#valueAtStartPoint
    * @see org.assertj.db.api.ChangeColumnValueAssert#valueAtStartPoint
    */
-  public V valueAtStartPoint();
+  V valueAtStartPoint();
 
   /**
    * Returns assertion methods on the value at the end point.
@@ -64,5 +64,5 @@ public interface ToValueFromColumn<V extends ValueElement> {
    * @see org.assertj.db.api.ChangeColumnAssert#valueAtEndPoint
    * @see org.assertj.db.api.ChangeColumnValueAssert#valueAtEndPoint
    */
-  public V valueAtEndPoint();
+  V valueAtEndPoint();
 }

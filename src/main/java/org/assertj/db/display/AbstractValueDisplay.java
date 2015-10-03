@@ -43,7 +43,7 @@ public abstract class AbstractValueDisplay<D extends AbstractDbData<D>, A extend
   /**
    * The actual value on which this assertion is.
    */
-  private final Value value;
+  protected final Value value;
 
   /**
    * Constructor.

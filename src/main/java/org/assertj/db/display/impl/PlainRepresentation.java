@@ -145,25 +145,11 @@ enum PlainRepresentation implements Representation {
    * the length of the text of the index and the length of the texts representing the objects.
    *
    * @param columnName The column name.
-   * @param type       The text representing the type.
-   * @param index      The index of the column.
    * @param objects     The objects.
    * @return The size.
    */
-  private static int getColumnSize(String columnName, String type, Integer index, Object... objects) {
+  private static int getColumnSize(String columnName, Object... objects) {
     int size = ("" + columnName).length();
-    if (type != null) {
-      int typeSize = type.length();
-      if (typeSize > size) {
-        size = typeSize;
-      }
-    }
-    if (index != null) {
-      int indexSize = ("Index : " + index).length();
-      if (indexSize > size) {
-        size = indexSize;
-      }
-    }
     for (Object object : objects) {
       int valueSize = getText(object).length();
       if (valueSize > size) {
@@ -286,19 +272,17 @@ enum PlainRepresentation implements Representation {
    * @param sizesList           The list of sizes of the column.
    * @param pksNameList         The list of the primary key name.
    * @param columnsNameList     The list of the column name.
-   * @param otherColumnsContent Other content in the column (var-args) : the columns before the values.
    * @return The representation.
    */
   private static StringBuilder getCompletePrimaryKey(List<Integer> sizesList, List<String> pksNameList,
-                                                     List<String> columnsNameList, String... otherColumnsContent) {
+                                                     List<String> columnsNameList) {
     StringBuilder stringBuilder = new StringBuilder();
     stringBuilder.append("|");
     int index = 0;
-    for (String content : otherColumnsContent) {
+    for (; index < sizesList.size() - columnsNameList.size(); index++) {
       Integer columnSize = sizesList.get(index);
-      stringBuilder.append(getFilledText(content, columnSize));
+      stringBuilder.append(getFilledText("", columnSize));
       stringBuilder.append("|");
-      index++;
     }
     for (String columnName : columnsNameList) {
       Integer columnSize = sizesList.get(index);
@@ -372,23 +356,22 @@ enum PlainRepresentation implements Representation {
   /**
    * Returns a {@code StringBuilder} representing a complete line corresponding to the indication about the index.
    *
-   * @param sizesList           The list of sizes of the column.
-   * @param otherColumnsContent Other content in the column (var-args) : the columns before the values.
+   * @param sizesList                  The list of sizes of the column.
+   * @param numberOfAdditionalColumns The number of additional columns.
    * @return The representation.
    */
-  private static StringBuilder getCompleteIndex(List<Integer> sizesList, String... otherColumnsContent) {
+  private static StringBuilder getCompleteIndex(List<Integer> sizesList, int numberOfAdditionalColumns) {
     StringBuilder stringBuilder = new StringBuilder();
     stringBuilder.append("|");
     int index = 0;
-    for (String content : otherColumnsContent) {
+    for (; index < numberOfAdditionalColumns; index++) {
       Integer columnSize = sizesList.get(index);
-      stringBuilder.append(getFilledText(content, columnSize));
+      stringBuilder.append(getFilledText("", columnSize));
       stringBuilder.append("|");
-      index++;
     }
     for (; index < sizesList.size(); index++) {
       Integer columnSize = sizesList.get(index);
-      stringBuilder.append(getFilledText("Index : " + (index - otherColumnsContent.length), columnSize)).append("|");
+      stringBuilder.append(getFilledText("Index : " + (index - numberOfAdditionalColumns), columnSize)).append("|");
     }
     stringBuilder.append("%n");
     return stringBuilder;
@@ -432,7 +415,7 @@ enum PlainRepresentation implements Representation {
    * @return The size.
    */
   private static Integer getIndexColumnSize(int size) {
-    return getColumnSize("", null, null, "Index : " + (size - 1));
+    return getColumnSize("", "Index : " + (size - 1));
   }
 
   /**
@@ -444,7 +427,7 @@ enum PlainRepresentation implements Representation {
     int size = 0;
     for (Change change : changes) {
       ChangeType changeType = change.getChangeType();
-      int changeTypeColumnSize = getColumnSize("TYPE", null, null, changeType);
+      int changeTypeColumnSize = getColumnSize("TYPE", changeType);
       if (size < changeTypeColumnSize) {
         size = changeTypeColumnSize;
       }
@@ -462,7 +445,7 @@ enum PlainRepresentation implements Representation {
     for (Change change : changes) {
       DataType dataType = change.getDataType();
       String dataName = getDataName(change);
-      int dataTypeColumnSize = getColumnSize("" + dataType, null, null, dataName);
+      int dataTypeColumnSize = getColumnSize("" + dataType, dataName);
       if (size < dataTypeColumnSize) {
         size = dataTypeColumnSize;
       }
@@ -562,7 +545,7 @@ enum PlainRepresentation implements Representation {
     List<String> typesList = getTypesList(rows);
     int indexColumnSize = getIndexColumnSize(rows.length);
     StringBuilder[] pksValueStringBuilders = getPksValueStringBuilder(rows);
-    int primaryKeyColumnSize = getColumnSize("PRIMARY", null, null, pksValueStringBuilders);
+    int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
     List<Integer> sizesList = getSizesList(getColumnSizesList(rows),
                                            indexColumnSize,
                                            primaryKeyColumnSize);
@@ -573,8 +556,8 @@ enum PlainRepresentation implements Representation {
     // Line
     stringBuilder.append(getCompleteLine(sizesList));
     // Primary key
-    stringBuilder.append(getCompletePrimaryKey(sizesList, pksNameList, columnsNameList,
-                                               "", ""));
+    stringBuilder.append(getCompletePrimaryKey(sizesList, pksNameList, columnsNameList
+    ));
     // Column name
     stringBuilder.append(getCompleteColumnName(sizesList, columnsNameList,
                                                "", "PRIMARY"));
@@ -582,8 +565,7 @@ enum PlainRepresentation implements Representation {
     stringBuilder.append(getCompleteType(sizesList, typesList,
                                          "", "KEY"));
     // Index
-    stringBuilder.append(getCompleteIndex(sizesList,
-                                          "", ""));
+    stringBuilder.append(getCompleteIndex(sizesList, 2));
     // Line
     stringBuilder.append(getCompleteLine(sizesList));
     // Values
@@ -612,7 +594,7 @@ enum PlainRepresentation implements Representation {
     List<String> typesList = getTypesList(rows);
     int indexColumnSize = getIndexColumnSize(rows.length);
     StringBuilder[] pksValueStringBuilders = getPksValueStringBuilder(rows);
-    int primaryKeyColumnSize = getColumnSize("PRIMARY", null, null, pksValueStringBuilders);
+    int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
     List<Integer> sizesList = getSizesList(getColumnSizesList(rows),
                                            indexColumnSize,
                                            primaryKeyColumnSize);
@@ -623,8 +605,8 @@ enum PlainRepresentation implements Representation {
     // Line
     stringBuilder.append(getCompleteLine(sizesList));
     // Primary key
-    stringBuilder.append(getCompletePrimaryKey(sizesList, pksNameList, columnsNameList,
-                                               "", ""));
+    stringBuilder.append(getCompletePrimaryKey(sizesList, pksNameList, columnsNameList
+    ));
     // Column name
     stringBuilder.append(getCompleteColumnName(sizesList, columnsNameList,
                                                "", "PRIMARY"));
@@ -632,8 +614,7 @@ enum PlainRepresentation implements Representation {
     stringBuilder.append(getCompleteType(sizesList, typesList,
                                          "", "KEY"));
     // Index
-    stringBuilder.append(getCompleteIndex(sizesList,
-                                          "", ""));
+    stringBuilder.append(getCompleteIndex(sizesList, 2));
     // Line
     stringBuilder.append(getCompleteLine(sizesList));
     // Values
@@ -660,7 +641,7 @@ enum PlainRepresentation implements Representation {
     int changeTypeColumnSize = getChangeTypeColumnSize(changesArray);
     int dataTypeColumnSize = getDataTypeColumnSize(changesArray);
     StringBuilder[] pksValueStringBuilders = getPksValueStringBuilder(changesArray);
-    int primaryKeyColumnSize = getColumnSize("PRIMARY", null, null, pksValueStringBuilders);
+    int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
 
     StringBuilder stringBuilder = new StringBuilder();
     // Description
@@ -683,8 +664,8 @@ enum PlainRepresentation implements Representation {
       // Line
       stringBuilder.append(getCompleteLine(sizesList));
       // Primary key
-      stringBuilder.append(getCompletePrimaryKey(sizesList, change.getPksNameList(), columnsNameList,
-                                                 "", "", "", "", ""));
+      stringBuilder.append(getCompletePrimaryKey(sizesList, change.getPksNameList(), columnsNameList
+      ));
       // Column name
       stringBuilder.append(getCompleteColumnName(sizesList, columnsNameList,
                                                  "", "TYPE", "" + dataType, "PRIMARY", ""));
@@ -692,8 +673,7 @@ enum PlainRepresentation implements Representation {
       stringBuilder.append(getCompleteType(sizesList, typesList,
                                            "", "", "", "KEY", ""));
       // Index
-      stringBuilder.append(getCompleteIndex(sizesList,
-                                            "", "", "", "", ""));
+      stringBuilder.append(getCompleteIndex(sizesList, 5));
       // Line
       stringBuilder.append(getCompleteLine(sizesList));
       // Value at start point
@@ -729,9 +709,9 @@ enum PlainRepresentation implements Representation {
     StringBuilder[] pksValueStringBuilders = getPksValueStringBuilder(change);
     List<String> typesList = getTypesList(rowAtStartPoint, rowAtEndPoint);
 
-    int changeTypeColumnSize = getColumnSize("TYPE", null, null, changeType);
-    int dataTypeColumnSize = getColumnSize("" + dataType, null, null, dataName);
-    int primaryKeyColumnSize = getColumnSize("PRIMARY", null, null, pksValueStringBuilders);
+    int changeTypeColumnSize = getColumnSize("TYPE", changeType);
+    int dataTypeColumnSize = getColumnSize("" + dataType, dataName);
+    int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
     List<Integer> sizesList = getSizesList(getColumnSizesList(rowAtStartPoint, rowAtEndPoint),
                                            changeTypeColumnSize,
                                            dataTypeColumnSize,
@@ -743,8 +723,8 @@ enum PlainRepresentation implements Representation {
     // Line
     stringBuilder.append(getCompleteLine(sizesList));
     // Primary key
-    stringBuilder.append(getCompletePrimaryKey(sizesList, change.getPksNameList(), columnsNameList,
-                                               "", "", "", ""));
+    stringBuilder.append(getCompletePrimaryKey(sizesList, change.getPksNameList(), columnsNameList
+    ));
     // Column name
     stringBuilder.append(getCompleteColumnName(sizesList, columnsNameList,
                                                "TYPE", "" + dataType, "PRIMARY", ""));
@@ -752,8 +732,7 @@ enum PlainRepresentation implements Representation {
     stringBuilder.append(getCompleteType(sizesList, typesList,
                                          "", "", "KEY", ""));
     // Index
-    stringBuilder.append(getCompleteIndex(sizesList,
-                                          "", "", "", ""));
+    stringBuilder.append(getCompleteIndex(sizesList, 4));
     // Line
     stringBuilder.append(getCompleteLine(sizesList));
     // Value at start point
@@ -778,7 +757,7 @@ enum PlainRepresentation implements Representation {
     List<String> columnsNameList = row.getColumnsNameList();
     List<String> typesList = getTypesList(row);
     StringBuilder[] pksValueStringBuilders = getPksValueStringBuilder(row);
-    int primaryKeyColumnSize = getColumnSize("PRIMARY", null, null, pksValueStringBuilders);
+    int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
     List<Integer> sizesList = getSizesList(getColumnSizesList(row),
                                            primaryKeyColumnSize);
 
@@ -788,13 +767,13 @@ enum PlainRepresentation implements Representation {
     // Line
     stringBuilder.append(getCompleteLine(sizesList));
     // Primary key
-    stringBuilder.append(getCompletePrimaryKey(sizesList, row.getPksNameList(), columnsNameList, ""));
+    stringBuilder.append(getCompletePrimaryKey(sizesList, row.getPksNameList(), columnsNameList));
     // Column name
     stringBuilder.append(getCompleteColumnName(sizesList, columnsNameList, "PRIMARY"));
     // Type
     stringBuilder.append(getCompleteType(sizesList, typesList, "KEY"));
     // Index
-    stringBuilder.append(getCompleteIndex(sizesList, ""));
+    stringBuilder.append(getCompleteIndex(sizesList, 1));
     // Line
     stringBuilder.append(getCompleteLine(sizesList));
     // Value

@@ -84,5 +84,5 @@ public interface ToValueFromRow<V extends ValueElement> {
    * @see org.assertj.db.api.ChangeRowAssert#value(String)
    * @see org.assertj.db.api.ChangeRowValueAssert#value(String)
    */
-  public V value(String columnName);
+  V value(String columnName);
 }

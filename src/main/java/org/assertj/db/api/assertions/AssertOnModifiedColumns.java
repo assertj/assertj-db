@@ -39,7 +39,7 @@ public interface AssertOnModifiedColumns<T extends AssertOnModifiedColumns<T>> {
    * @throws AssertionError If the number of modified columns is different to the number in parameter.
    * @see org.assertj.db.api.ChangeAssert#hasNumberOfModifiedColumns(int)
    */
-  public T hasNumberOfModifiedColumns(int number);
+  T hasNumberOfModifiedColumns(int number);
 
   /**
    * Verifies that the indexes of columns with a modification in the values between the start point and the end point
@@ -58,7 +58,7 @@ public interface AssertOnModifiedColumns<T extends AssertOnModifiedColumns<T>> {
    * @throws AssertionError If the indexes of the modified columns are different to the indexes in parameters.
    * @see org.assertj.db.api.ChangeAssert#hasModifiedColumns(Integer...)
    */
-  public T hasModifiedColumns(Integer... indexes);
+  T hasModifiedColumns(Integer... indexes);
 
   /**
    * Verifies that the names of columns with a modification in the values between the start point and the end point
@@ -77,6 +77,6 @@ public interface AssertOnModifiedColumns<T extends AssertOnModifiedColumns<T>> {
    * @throws AssertionError If the names of the modified columns are different to the names in parameters.
    * @see org.assertj.db.api.ChangeAssert#hasModifiedColumns(String...)
    */
-  public T hasModifiedColumns(String... names);
+  T hasModifiedColumns(String... names);
 
 }

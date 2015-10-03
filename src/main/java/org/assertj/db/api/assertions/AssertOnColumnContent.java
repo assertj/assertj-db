@@ -45,7 +45,7 @@ public interface AssertOnColumnContent<T extends AssertOnColumnContent<T>> {
    * @throws AssertionError If the column are not containing the objects in parameter.
    * @see org.assertj.db.api.AbstractColumnAssert#containsValues(Object...)
    */
-  public T containsValues(Object... expected);
+  T containsValues(Object... expected);
 
   /**
    * Verifies that the values of a column contains booleans.
@@ -63,7 +63,7 @@ public interface AssertOnColumnContent<T extends AssertOnColumnContent<T>> {
    * @throws AssertionError If the column are not containing the booleans in parameter.
    * @see org.assertj.db.api.AbstractColumnAssert#containsValues(Boolean...)
    */
-  public T containsValues(Boolean... expected);
+  T containsValues(Boolean... expected);
 
   /**
    * Verifies that the values of a column contains numbers.
@@ -81,7 +81,7 @@ public interface AssertOnColumnContent<T extends AssertOnColumnContent<T>> {
    * @throws AssertionError If the column are not containing the numbers in parameter.
    * @see org.assertj.db.api.AbstractColumnAssert#containsValues(Number...)
    */
-  public T containsValues(Number... expected);
+  T containsValues(Number... expected);
 
   /**
    * Verifies that the values of a column contains bytes.
@@ -101,7 +101,7 @@ public interface AssertOnColumnContent<T extends AssertOnColumnContent<T>> {
    * @throws AssertionError If the column are not containing the bytes in parameter.
    * @see org.assertj.db.api.AbstractColumnAssert#containsValues(byte[]...)
    */
-  public T containsValues(byte[]... expected);
+  T containsValues(byte[]... expected);
 
   /**
    * Verifies that the values of a column contains texts.
@@ -119,7 +119,7 @@ public interface AssertOnColumnContent<T extends AssertOnColumnContent<T>> {
    * @throws AssertionError If the column are not containing the texts in parameter.
    * @see org.assertj.db.api.AbstractColumnAssert#containsValues(String...)
    */
-  public T containsValues(String... expected);
+  T containsValues(String... expected);
 
   /**
    * Verifies that the values of a column containsUUIDs.
@@ -138,7 +138,7 @@ public interface AssertOnColumnContent<T extends AssertOnColumnContent<T>> {
    * @throws AssertionError If the column are not containing the UUIDs in parameter.
    * @see org.assertj.db.api.AbstractColumnAssert#containsValues(java.util.UUID...)
    */
-  public T containsValues(UUID... expected);
+  T containsValues(UUID... expected);
 
   /**
    * Verifies that the values of a column contains date values.
@@ -157,7 +157,7 @@ public interface AssertOnColumnContent<T extends AssertOnColumnContent<T>> {
    * @throws AssertionError If the column are not containing the date values in parameter.
    * @see org.assertj.db.api.AbstractColumnAssert#containsValues(org.assertj.db.type.DateValue...)
    */
-  public T containsValues(DateValue... expected);
+  T containsValues(DateValue... expected);
 
   /**
    * Verifies that the values of a column contains time values.
@@ -175,7 +175,7 @@ public interface AssertOnColumnContent<T extends AssertOnColumnContent<T>> {
    * @throws AssertionError If the column are not containing the time values in parameter.
    * @see org.assertj.db.api.AbstractColumnAssert#containsValues(org.assertj.db.type.TimeValue...)
    */
-  public T containsValues(TimeValue... expected);
+  T containsValues(TimeValue... expected);
 
   /**
    * Verifies that the values of a column contains date/time values.
@@ -195,5 +195,5 @@ public interface AssertOnColumnContent<T extends AssertOnColumnContent<T>> {
    * @throws AssertionError If the column are not containing the date/time values in parameter.
    * @see org.assertj.db.api.AbstractColumnAssert#containsValues(org.assertj.db.type.DateTimeValue...)
    */
-  public T containsValues(DateTimeValue... expected);
+  T containsValues(DateTimeValue... expected);
 }

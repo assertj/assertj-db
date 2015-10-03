@@ -32,6 +32,6 @@ public class TableRowValueAssert
    * @param value  The value to assert.
    */
   public TableRowValueAssert(TableRowAssert origin, Value value) {
-    super(TableRowValueAssert.class, origin, value.getColumnName(), value);
+    super(TableRowValueAssert.class, origin, value);
   }
 }

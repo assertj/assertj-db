@@ -71,7 +71,7 @@ public interface ToRow<R extends RowElement> extends Navigation {
    * @see org.assertj.db.api.AbstractRowAssert#row()
    * @see org.assertj.db.api.AbstractRowValueAssert#row()
    */
-  public R row();
+  R row();
 
   /**
    * Returns assertion methods on the {@link org.assertj.db.type.Row} at the {@code index} in parameter.
@@ -86,5 +86,5 @@ public interface ToRow<R extends RowElement> extends Navigation {
    * @see org.assertj.db.api.AbstractRowAssert#row(int)
    * @see org.assertj.db.api.AbstractRowValueAssert#row(int)
    */
-  public R row(int index);
+  R row(int index);
 }

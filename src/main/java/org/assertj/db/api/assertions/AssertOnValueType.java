@@ -55,7 +55,7 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isOfType(org.assertj.db.type.ValueType)
    * @see org.assertj.db.api.AbstractAssertWithValues#isOfType(org.assertj.db.type.ValueType)
    */
-  public T isOfType(ValueType expected);
+  T isOfType(ValueType expected);
 
   /**
    * Verifies that the type of the value is equal to one of the types in parameters.
@@ -86,7 +86,7 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isOfAnyTypeIn(org.assertj.db.type.ValueType...)
    * @see org.assertj.db.api.AbstractAssertWithValues#isOfAnyTypeIn(org.assertj.db.type.ValueType...)
    */
-  public T isOfAnyTypeIn(ValueType... expected);
+  T isOfAnyTypeIn(ValueType... expected);
 
   /**
    * Verifies that the value is a number.
@@ -125,7 +125,7 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isNumber()
    * @see org.assertj.db.api.AbstractAssertWithValues#isNumber()
    */
-  public T isNumber();
+  T isNumber();
 
   /**
    * Verifies that the value is a boolean.
@@ -164,7 +164,7 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isBoolean()
    * @see org.assertj.db.api.AbstractAssertWithValues#isBoolean()
    */
-  public T isBoolean();
+  T isBoolean();
 
   /**
    * Verifies that the value is a date.
@@ -203,7 +203,7 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isDate()
    * @see org.assertj.db.api.AbstractAssertWithValues#isDate()
    */
-  public T isDate();
+  T isDate();
 
   /**
    * Verifies that the value is a time.
@@ -242,7 +242,7 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isTime()
    * @see org.assertj.db.api.AbstractAssertWithValues#isTime()
    */
-  public T isTime();
+  T isTime();
 
   /**
    * Verifies that the value is a date/time.
@@ -281,7 +281,7 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isDateTime()
    * @see org.assertj.db.api.AbstractAssertWithValues#isDateTime()
    */
-  public T isDateTime();
+  T isDateTime();
 
   /**
    * Verifies that the value is a array of bytes.
@@ -320,7 +320,7 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isBytes()
    * @see org.assertj.db.api.AbstractAssertWithValues#isBytes()
    */
-  public T isBytes();
+  T isBytes();
 
   /**
    * Verifies that the value is a text.
@@ -359,7 +359,7 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isText()
    * @see org.assertj.db.api.AbstractAssertWithValues#isText()
    */
-  public T isText();
+  T isText();
 
   /**
    * Verifies that the value is an UUID.
@@ -399,6 +399,6 @@ public interface AssertOnValueType<T extends AssertOnValueType<T>> {
    * @see org.assertj.db.api.AbstractAssertWithValues#isUUID()
    * @since 1.1.0
    */
-  public T isUUID();
+  T isUUID();
 
 }

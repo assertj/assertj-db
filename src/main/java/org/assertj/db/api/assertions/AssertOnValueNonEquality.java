@@ -58,7 +58,7 @@ public interface AssertOnValueNonEquality<T extends AssertOnValueNonEquality<T>>
    * @see org.assertj.db.api.AbstractValueAssert#isNotEqualTo(Object)
    * @see org.assertj.db.api.AbstractAssertWithValues#isNotEqualTo(Object)
    */
-  public T isNotEqualTo(Object expected);
+  T isNotEqualTo(Object expected);
 
   /**
    * Verifies that the value is not equal to a boolean.
@@ -89,7 +89,7 @@ public interface AssertOnValueNonEquality<T extends AssertOnValueNonEquality<T>>
    * @see org.assertj.db.api.AbstractValueAssert#isNotEqualTo(Boolean)
    * @see org.assertj.db.api.AbstractAssertWithValues#isNotEqualTo(Boolean)
    */
-  public T isNotEqualTo(Boolean expected);
+  T isNotEqualTo(Boolean expected);
 
   /**
    * Verifies that the value is not equal to a array of bytes.
@@ -122,7 +122,7 @@ public interface AssertOnValueNonEquality<T extends AssertOnValueNonEquality<T>>
    * @see org.assertj.db.api.AbstractValueAssert#isNotEqualTo(byte[])
    * @see org.assertj.db.api.AbstractAssertWithValues#isNotEqualTo(byte[])
    */
-  public T isNotEqualTo(byte[] expected);
+  T isNotEqualTo(byte[] expected);
 
   /**
    * Verifies that the value is not equal to a date/time value.
@@ -153,7 +153,7 @@ public interface AssertOnValueNonEquality<T extends AssertOnValueNonEquality<T>>
    * @see org.assertj.db.api.AbstractValueAssert#isNotEqualTo(DateTimeValue)
    * @see org.assertj.db.api.AbstractAssertWithValues#isNotEqualTo(DateTimeValue)
    */
-  public T isNotEqualTo(DateTimeValue expected);
+  T isNotEqualTo(DateTimeValue expected);
 
   /**
    * Verifies that the value is not equal to a date value.
@@ -184,7 +184,7 @@ public interface AssertOnValueNonEquality<T extends AssertOnValueNonEquality<T>>
    * @see org.assertj.db.api.AbstractValueAssert#isNotEqualTo(DateValue)
    * @see org.assertj.db.api.AbstractAssertWithValues#isNotEqualTo(DateValue)
    */
-  public T isNotEqualTo(DateValue expected);
+  T isNotEqualTo(DateValue expected);
 
   /**
    * Verifies that the value is not equal to a number.
@@ -215,7 +215,7 @@ public interface AssertOnValueNonEquality<T extends AssertOnValueNonEquality<T>>
    * @see org.assertj.db.api.AbstractValueAssert#isNotEqualTo(Number)
    * @see org.assertj.db.api.AbstractAssertWithValues#isNotEqualTo(Number)
    */
-  public T isNotEqualTo(Number expected);
+  T isNotEqualTo(Number expected);
 
   /**
    * Verifies that the value is not equal to a text.
@@ -246,7 +246,7 @@ public interface AssertOnValueNonEquality<T extends AssertOnValueNonEquality<T>>
    * @see org.assertj.db.api.AbstractValueAssert#isNotEqualTo(String)
    * @see org.assertj.db.api.AbstractAssertWithValues#isNotEqualTo(String)
    */
-  public T isNotEqualTo(String expected);
+  T isNotEqualTo(String expected);
 
   /**
    * Verifies that the value is not equal to an UUID.
@@ -278,7 +278,7 @@ public interface AssertOnValueNonEquality<T extends AssertOnValueNonEquality<T>>
    * @see org.assertj.db.api.AbstractAssertWithValues#isNotEqualTo(UUID)
    * @since 1.1.0
    */
-  public T isNotEqualTo(UUID expected);
+  T isNotEqualTo(UUID expected);
 
   /**
    * Verifies that the value is not equal to a time value.
@@ -309,7 +309,7 @@ public interface AssertOnValueNonEquality<T extends AssertOnValueNonEquality<T>>
    * @see org.assertj.db.api.AbstractValueAssert#isNotEqualTo(TimeValue)
    * @see org.assertj.db.api.AbstractAssertWithValues#isNotEqualTo(TimeValue)
    */
-  public T isNotEqualTo(TimeValue expected);
+  T isNotEqualTo(TimeValue expected);
 
   /**
    * Verifies that the value is not equal to zero.
@@ -339,5 +339,5 @@ public interface AssertOnValueNonEquality<T extends AssertOnValueNonEquality<T>>
    * @see org.assertj.db.api.AbstractValueAssert#isNotZero()
    * @see org.assertj.db.api.AbstractAssertWithValues#isNotZero()
    */
-  public T isNotZero();
+  T isNotZero();
 }

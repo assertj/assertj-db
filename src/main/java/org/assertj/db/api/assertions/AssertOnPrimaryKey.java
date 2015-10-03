@@ -39,7 +39,7 @@ public interface AssertOnPrimaryKey<T extends AssertOnPrimaryKey<T>> {
    * @throws java.lang.NullPointerException If one of the names in parameters is {@code null}.
    * @see org.assertj.db.api.ChangeAssert#hasPksNames(String...)
    */
-  public T hasPksNames(String... names);
+  T hasPksNames(String... names);
 
   /**
    * Verifies that the values of the primary key of the rows of the change are the same as the parameters.
@@ -57,5 +57,5 @@ public interface AssertOnPrimaryKey<T extends AssertOnPrimaryKey<T>> {
    * @throws AssertionError If the values of the primary key are different to the values in parameters.
    * @see org.assertj.db.api.ChangeAssert#hasPksValues(Object...)
    */
-  public T hasPksValues(Object... values);
+  T hasPksValues(Object... values);
 }

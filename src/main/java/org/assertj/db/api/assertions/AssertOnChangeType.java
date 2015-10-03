@@ -44,7 +44,7 @@ public interface AssertOnChangeType<T extends AssertOnChangeType<T>> {
    * @see #isDeletion()
    * @see org.assertj.db.api.ChangeAssert#isOfType(org.assertj.db.type.ChangeType)
    */
-  public T isOfType(ChangeType expected);
+  T isOfType(ChangeType expected);
 
   /**
    * Verifies that the type of the change is a creation.
@@ -70,7 +70,7 @@ public interface AssertOnChangeType<T extends AssertOnChangeType<T>> {
    * @see org.assertj.db.type.ChangeType#CREATION
    * @see org.assertj.db.api.ChangeAssert#isCreation()
    */
-  public T isCreation();
+  T isCreation();
 
   /**
    * Verifies that the type of the change is a modification.
@@ -96,7 +96,7 @@ public interface AssertOnChangeType<T extends AssertOnChangeType<T>> {
    * @see org.assertj.db.type.ChangeType#MODIFICATION
    * @see org.assertj.db.api.ChangeAssert#isModification()
    */
-  public T isModification();
+  T isModification();
 
   /**
    * Verifies that the type of the change is a deletion.
@@ -122,5 +122,5 @@ public interface AssertOnChangeType<T extends AssertOnChangeType<T>> {
    * @see org.assertj.db.type.ChangeType#DELETION
    * @see org.assertj.db.api.ChangeAssert#isDeletion()
    */
-  public T isDeletion();
+  T isDeletion();
 }

@@ -45,7 +45,7 @@ public interface AssertOnColumnEquality<T extends AssertOnColumnEquality<T>> {
    * @throws AssertionError If the values of the column are not equal to the objects in parameter.
    * @see org.assertj.db.api.AbstractColumnAssert#hasValues(Object...)
    */
-  public T hasValues(Object... expected);
+  T hasValues(Object... expected);
 
   /**
    * Verifies that the values of a column are equal to booleans.
@@ -63,7 +63,7 @@ public interface AssertOnColumnEquality<T extends AssertOnColumnEquality<T>> {
    * @throws AssertionError If the values of the column are not equal to the booleans in parameter.
    * @see org.assertj.db.api.AbstractColumnAssert#hasValues(Boolean...)
    */
-  public T hasValues(Boolean... expected);
+  T hasValues(Boolean... expected);
 
   /**
    * Verifies that the values of a column are equal to numbers.
@@ -81,7 +81,7 @@ public interface AssertOnColumnEquality<T extends AssertOnColumnEquality<T>> {
    * @throws AssertionError If the values of the column are not equal to the numbers in parameter.
    * @see org.assertj.db.api.AbstractColumnAssert#hasValues(Number...)
    */
-  public T hasValues(Number... expected);
+  T hasValues(Number... expected);
 
   /**
    * Verifies that the values of a column are equal to bytes.
@@ -101,7 +101,7 @@ public interface AssertOnColumnEquality<T extends AssertOnColumnEquality<T>> {
    * @throws AssertionError If the values of the column are not equal to the bytes in parameter.
    * @see org.assertj.db.api.AbstractColumnAssert#hasValues(byte[]...)
    */
-  public T hasValues(byte[]... expected);
+  T hasValues(byte[]... expected);
 
   /**
    * Verifies that the values of a column are equal to texts.
@@ -119,7 +119,7 @@ public interface AssertOnColumnEquality<T extends AssertOnColumnEquality<T>> {
    * @throws AssertionError If the values of the column are not equal to the texts in parameter.
    * @see org.assertj.db.api.AbstractColumnAssert#hasValues(String...)
    */
-  public T hasValues(String... expected);
+  T hasValues(String... expected);
 
   /**
    * Verifies that the values of a column are equal to UUIDs.
@@ -139,7 +139,7 @@ public interface AssertOnColumnEquality<T extends AssertOnColumnEquality<T>> {
    * @see org.assertj.db.api.AbstractColumnAssert#hasValues(UUID...)
    * @since 1.1.0
    */
-  public T hasValues(UUID... expected);
+  T hasValues(UUID... expected);
 
   /**
    * Verifies that the values of a column are equal to date values.
@@ -158,7 +158,7 @@ public interface AssertOnColumnEquality<T extends AssertOnColumnEquality<T>> {
    * @throws AssertionError If the values of the column are not equal to the date values in parameter.
    * @see org.assertj.db.api.AbstractColumnAssert#hasValues(DateValue...)
    */
-  public T hasValues(DateValue... expected);
+  T hasValues(DateValue... expected);
 
   /**
    * Verifies that the values of a column are equal to time values.
@@ -176,7 +176,7 @@ public interface AssertOnColumnEquality<T extends AssertOnColumnEquality<T>> {
    * @throws AssertionError If the values of the column are not equal to the time values in parameter.
    * @see org.assertj.db.api.AbstractColumnAssert#hasValues(TimeValue...)
    */
-  public T hasValues(TimeValue... expected);
+  T hasValues(TimeValue... expected);
 
   /**
    * Verifies that the values of a column are equal to date/time values.
@@ -196,5 +196,5 @@ public interface AssertOnColumnEquality<T extends AssertOnColumnEquality<T>> {
    * @throws AssertionError If the values of the column are not equal to the date/time values in parameter.
    * @see org.assertj.db.api.AbstractColumnAssert#hasValues(DateTimeValue...)
    */
-  public T hasValues(DateTimeValue... expected);
+  T hasValues(DateTimeValue... expected);
 }

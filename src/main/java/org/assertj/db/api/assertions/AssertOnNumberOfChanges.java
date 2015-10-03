@@ -38,5 +38,5 @@ public interface AssertOnNumberOfChanges<T extends AssertOnNumberOfChanges<T>> {
    * @throws AssertionError If the number of changes is different to the number in parameter.
    * @see org.assertj.db.api.ChangesAssert#hasNumberOfChanges(int)
    */
-  public T hasNumberOfChanges(int expected);
+  T hasNumberOfChanges(int expected);
 }

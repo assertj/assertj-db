@@ -47,5 +47,5 @@ public interface AssertOnRowEquality<T extends AssertOnRowEquality<T>> {
    * @see org.assertj.db.api.AbstractRowAssert#hasValues(Object...)
    * @see org.assertj.db.api.ChangeRowAssert#hasValues(Object...)
    */
-  public T hasValues(Object... expected);
+  T hasValues(Object... expected);
 }

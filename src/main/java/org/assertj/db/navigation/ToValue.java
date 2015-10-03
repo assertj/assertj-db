@@ -88,7 +88,7 @@ public interface ToValue<V extends ValueElement> extends Navigation {
    * @see org.assertj.db.api.ChangeRowAssert#value()
    * @see org.assertj.db.api.ChangeRowValueAssert#value()
    */
-  public V value();
+  V value();
 
   /**
    * Returns assertion methods on the value at the {@code index} in parameter.
@@ -103,5 +103,5 @@ public interface ToValue<V extends ValueElement> extends Navigation {
    * @see org.assertj.db.api.ChangeRowAssert#value(int)
    * @see org.assertj.db.api.ChangeRowValueAssert#value(int)
    */
-  public V value(int index);
+  V value(int index);
 }

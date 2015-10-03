@@ -65,7 +65,7 @@ public interface ToChanges<CHS extends ChangesElement> {
    * @see org.assertj.db.api.ChangeRowAssert#ofAll()
    * @see org.assertj.db.api.ChangeRowValueAssert#ofAll()
    */
-  public CHS ofAll();
+  CHS ofAll();
 
   /**
    * Returns an assertion of the changes of creation ({@link org.assertj.db.type.ChangeType#CREATION}).
@@ -78,7 +78,7 @@ public interface ToChanges<CHS extends ChangesElement> {
    * @see org.assertj.db.api.ChangeRowAssert#ofCreation()
    * @see org.assertj.db.api.ChangeRowValueAssert#ofCreation()
    */
-  public CHS ofCreation();
+  CHS ofCreation();
 
   /**
    * Returns an assertion of the changes of modification ({@link org.assertj.db.type.ChangeType#MODIFICATION}).
@@ -91,7 +91,7 @@ public interface ToChanges<CHS extends ChangesElement> {
    * @see org.assertj.db.api.ChangeRowAssert#ofModification()
    * @see org.assertj.db.api.ChangeRowValueAssert#ofModification()
    */
-  public CHS ofModification();
+  CHS ofModification();
 
   /**
    * Returns an assertion of the changes of deletion ({@link org.assertj.db.type.ChangeType#DELETION}).
@@ -104,7 +104,7 @@ public interface ToChanges<CHS extends ChangesElement> {
    * @see org.assertj.db.api.ChangeRowAssert#ofDeletion()
    * @see org.assertj.db.api.ChangeRowValueAssert#ofDeletion()
    */
-  public CHS ofDeletion();
+  CHS ofDeletion();
 
   /**
    * Returns an assertion of the changes of creation ({@link org.assertj.db.type.ChangeType#CREATION}) on a table.
@@ -118,7 +118,7 @@ public interface ToChanges<CHS extends ChangesElement> {
    * @see org.assertj.db.api.ChangeRowAssert#ofCreationOnTable(String)
    * @see org.assertj.db.api.ChangeRowValueAssert#ofCreationOnTable(String)
    */
-  public CHS ofCreationOnTable(String tableName);
+  CHS ofCreationOnTable(String tableName);
 
   /**
    * Returns an assertion of the changes of modification ({@link org.assertj.db.type.ChangeType#MODIFICATION}) on a table.
@@ -132,7 +132,7 @@ public interface ToChanges<CHS extends ChangesElement> {
    * @see org.assertj.db.api.ChangeRowAssert#ofModificationOnTable(String)
    * @see org.assertj.db.api.ChangeRowValueAssert#ofModificationOnTable(String)
    */
-  public CHS ofModificationOnTable(String tableName);
+  CHS ofModificationOnTable(String tableName);
 
   /**
    * Returns an assertion of the changes of deletion ({@link org.assertj.db.type.ChangeType#DELETION}) on a table.
@@ -146,7 +146,7 @@ public interface ToChanges<CHS extends ChangesElement> {
    * @see org.assertj.db.api.ChangeRowAssert#ofDeletionOnTable(String)
    * @see org.assertj.db.api.ChangeRowValueAssert#ofDeletionOnTable(String)
    */
-  public CHS ofDeletionOnTable(String tableName);
+  CHS ofDeletionOnTable(String tableName);
 
   /**
    * Returns an assertion of the changes on a table.
@@ -160,5 +160,5 @@ public interface ToChanges<CHS extends ChangesElement> {
    * @see org.assertj.db.api.ChangeRowAssert#onTable(String)
    * @see org.assertj.db.api.ChangeRowValueAssert#onTable(String)
    */
-  public CHS onTable(String tableName);
+  CHS onTable(String tableName);
 }

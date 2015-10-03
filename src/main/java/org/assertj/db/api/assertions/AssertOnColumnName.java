@@ -65,5 +65,5 @@ public interface AssertOnColumnName<T extends AssertOnColumnName<T>> {
    * @see org.assertj.db.api.ChangeColumnAssert#hasColumnName(String)
    * @see org.assertj.db.api.ChangeRowValueAssert#hasColumnName(String)
    */
-  public T hasColumnName(String columnName);
+  T hasColumnName(String columnName);
 }

@@ -35,21 +35,14 @@ public abstract class AbstractRowValueDisplay<D extends AbstractDbData<D>, A ext
         implements ToValueFromRow<RV> {
 
   /**
-   * The name of the column.
-   */
-  private final String columnName;
-
-  /**
    * Constructor.
    *
    * @param selfType Type of this assertion class : a sub-class of {@code AbstractValueDisplay}.
    * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
-   * @param columnName The column name.
    * @param actualValue The value on which are the assertion methods.
    */
-  AbstractRowValueDisplay(Class<RV> selfType, R origin, String columnName, Value actualValue) {
+  AbstractRowValueDisplay(Class<RV> selfType, R origin, Value actualValue) {
     super(selfType, origin, actualValue);
-    this.columnName = columnName;
   }
 
   /** {@inheritDoc} */

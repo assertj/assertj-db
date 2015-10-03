@@ -24,18 +24,12 @@ import org.assertj.db.type.Request;
 public class RequestDisplay extends AbstractDbDisplay<Request, RequestDisplay, RequestColumnDisplay, RequestColumnValueDisplay, RequestRowDisplay, RequestRowValueDisplay> {
 
   /**
-   * Request on which the display is.
-   */
-  private Request request;
-
-  /**
    * Constructor.
    *
    * @param request Request on which the display is.
    */
   RequestDisplay(Request request) {
     super(request, RequestDisplay.class, RequestColumnDisplay.class, RequestRowDisplay.class);
-    this.request = request;
   }
 
   /**

@@ -35,7 +35,7 @@ public class Value implements DbElement {
   /**
    * NULL value.
    */
-  public static Value NULL = new Value(null, null);
+  public final static Value NULL = new Value(null, null);
 
   /**
    * Constructor.

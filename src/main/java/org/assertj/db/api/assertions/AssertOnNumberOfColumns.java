@@ -53,5 +53,5 @@ public interface AssertOnNumberOfColumns<T extends AssertOnNumberOfColumns<T>> {
    * @see org.assertj.db.api.AbstractRowAssert#hasNumberOfColumns(int)
    * @see org.assertj.db.api.ChangeRowAssert#hasNumberOfColumns(int)
    */
-  public T hasNumberOfColumns(int expected);
+  T hasNumberOfColumns(int expected);
 }

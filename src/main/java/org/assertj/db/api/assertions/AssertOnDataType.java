@@ -43,7 +43,7 @@ public interface AssertOnDataType<T extends AssertOnDataType<T>> {
    * @see #isOnRequest()
    * @see org.assertj.db.api.ChangeAssert#isOnDataType(org.assertj.db.type.DataType)
    */
-  public T isOnDataType(DataType expected);
+  T isOnDataType(DataType expected);
 
   /**
    * Verifies that the data type on which is the change is a table.
@@ -69,7 +69,7 @@ public interface AssertOnDataType<T extends AssertOnDataType<T>> {
    * @see org.assertj.db.type.DataType#TABLE
    * @see org.assertj.db.api.ChangeAssert#isOnTable()
    */
-  public T isOnTable();
+  T isOnTable();
 
   /**
    * Verifies that the data type on which is the change is a request.
@@ -95,7 +95,7 @@ public interface AssertOnDataType<T extends AssertOnDataType<T>> {
    * @see org.assertj.db.type.DataType#REQUEST
    * @see org.assertj.db.api.ChangeAssert#isOnRequest()
    */
-  public T isOnRequest();
+  T isOnRequest();
 
   /**
    * Verifies that the change is on a table with the name in parameter.
@@ -114,5 +114,5 @@ public interface AssertOnDataType<T extends AssertOnDataType<T>> {
    * @throws java.lang.NullPointerException If the name in parameter is {@code null}.
    * @see org.assertj.db.api.ChangeAssert#isOnTable(String)
    */
-  public T isOnTable(String name);
+  T isOnTable(String name);
 }

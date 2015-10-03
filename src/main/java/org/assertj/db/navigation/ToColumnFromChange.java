@@ -69,7 +69,7 @@ public interface ToColumnFromChange<C extends ColumnElement> {
    * @see org.assertj.db.api.ChangeRowAssert#columnAmongTheModifiedOnes(String)
    * @see org.assertj.db.api.ChangeRowValueAssert#columnAmongTheModifiedOnes(String)
    */
-  public C columnAmongTheModifiedOnes();
+  C columnAmongTheModifiedOnes();
 
   /**
    * Returns assertion methods on the {@link org.assertj.db.type.Column} at the {@code index} in parameter among the modified {@link org.assertj.db.type.Column}s.
@@ -83,7 +83,7 @@ public interface ToColumnFromChange<C extends ColumnElement> {
    * @see org.assertj.db.api.ChangeRowAssert#columnAmongTheModifiedOnes(int)
    * @see org.assertj.db.api.ChangeRowValueAssert#columnAmongTheModifiedOnes(int)
    */
-  public C columnAmongTheModifiedOnes(int index);
+  C columnAmongTheModifiedOnes(int index);
 
   /**
    * Returns assertion methods on the {@link org.assertj.db.type.Column} corresponding to the column name in parameter among the modified {@link org.assertj.db.type.Column}s.
@@ -98,5 +98,5 @@ public interface ToColumnFromChange<C extends ColumnElement> {
    * @see org.assertj.db.api.ChangeRowAssert#columnAmongTheModifiedOnes(String)
    * @see org.assertj.db.api.ChangeRowValueAssert#columnAmongTheModifiedOnes(String)
    */
-  public C columnAmongTheModifiedOnes(String columnName);
+  C columnAmongTheModifiedOnes(String columnName);
 }

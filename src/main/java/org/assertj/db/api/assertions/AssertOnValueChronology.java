@@ -55,7 +55,7 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isBefore(org.assertj.db.type.DateValue)
    * @see org.assertj.db.api.AbstractAssertWithValues#isBefore(org.assertj.db.type.DateValue)
    */
-  public T isBefore(DateValue date);
+  T isBefore(DateValue date);
 
   /**
    * Verifies that the value is before a time value.
@@ -86,7 +86,7 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isBefore(org.assertj.db.type.TimeValue)
    * @see org.assertj.db.api.AbstractAssertWithValues#isBefore(org.assertj.db.type.TimeValue)
    */
-  public T isBefore(TimeValue time);
+  T isBefore(TimeValue time);
 
   /**
    * Verifies that the value is before a date/time value.
@@ -117,7 +117,7 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isBefore(org.assertj.db.type.DateTimeValue)
    * @see org.assertj.db.api.AbstractAssertWithValues#isBefore(org.assertj.db.type.DateTimeValue)
    */
-  public T isBefore(DateTimeValue dateTime);
+  T isBefore(DateTimeValue dateTime);
 
   /**
    * Verifies that the value is before a date, time or date/time represented by a {@code String}.
@@ -148,7 +148,7 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isBefore(String)
    * @see org.assertj.db.api.AbstractAssertWithValues#isBefore(String)
    */
-  public T isBefore(String expected);
+  T isBefore(String expected);
 
   /**
    * Verifies that the value is before or equal to a date value.
@@ -179,7 +179,7 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isBeforeOrEqualTo(org.assertj.db.type.DateValue)
    * @see org.assertj.db.api.AbstractAssertWithValues#isBeforeOrEqualTo(org.assertj.db.type.DateValue)
    */
-  public T isBeforeOrEqualTo(DateValue date);
+  T isBeforeOrEqualTo(DateValue date);
 
   /**
    * Verifies that the value is before or equal to a time value.
@@ -210,7 +210,7 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isBeforeOrEqualTo(org.assertj.db.type.TimeValue)
    * @see org.assertj.db.api.AbstractAssertWithValues#isBeforeOrEqualTo(org.assertj.db.type.TimeValue)
    */
-  public T isBeforeOrEqualTo(TimeValue time);
+  T isBeforeOrEqualTo(TimeValue time);
 
   /**
    * Verifies that the value is before or equal to a date/time value.
@@ -241,7 +241,7 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isBeforeOrEqualTo(org.assertj.db.type.DateTimeValue)
    * @see org.assertj.db.api.AbstractAssertWithValues#isBeforeOrEqualTo(org.assertj.db.type.DateTimeValue)
    */
-  public T isBeforeOrEqualTo(DateTimeValue dateTime);
+  T isBeforeOrEqualTo(DateTimeValue dateTime);
 
   /**
    * Verifies that the value is before or equal to a date, time or date/time represented by a {@code String}.
@@ -272,7 +272,7 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isBeforeOrEqualTo(String)
    * @see org.assertj.db.api.AbstractAssertWithValues#isBeforeOrEqualTo(String)
    */
-  public T isBeforeOrEqualTo(String expected);
+  T isBeforeOrEqualTo(String expected);
 
   /**
    * Verifies that the value is after a date value.
@@ -303,7 +303,7 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isAfter(org.assertj.db.type.DateValue)
    * @see org.assertj.db.api.AbstractAssertWithValues#isAfter(org.assertj.db.type.DateValue)
    */
-  public T isAfter(DateValue date);
+  T isAfter(DateValue date);
 
   /**
    * Verifies that the value is after a time value.
@@ -334,7 +334,7 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isAfter(org.assertj.db.type.TimeValue)
    * @see org.assertj.db.api.AbstractAssertWithValues#isAfter(org.assertj.db.type.TimeValue)
    */
-  public T isAfter(TimeValue time);
+  T isAfter(TimeValue time);
 
   /**
    * Verifies that the value is after a date/time value.
@@ -365,7 +365,7 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isAfter(org.assertj.db.type.DateTimeValue)
    * @see org.assertj.db.api.AbstractAssertWithValues#isAfter(org.assertj.db.type.DateTimeValue)
    */
-  public T isAfter(DateTimeValue dateTime);
+  T isAfter(DateTimeValue dateTime);
 
   /**
    * Verifies that the value is after a date, time or date/time represented by a {@code String}.
@@ -396,7 +396,7 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isAfter(String)
    * @see org.assertj.db.api.AbstractAssertWithValues#isAfter(String)
    */
-  public T isAfter(String expected);
+  T isAfter(String expected);
 
   /**
    * Verifies that the value is after or equal to a date value.
@@ -427,7 +427,7 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isAfterOrEqualTo(org.assertj.db.type.DateValue)
    * @see org.assertj.db.api.AbstractAssertWithValues#isAfterOrEqualTo(org.assertj.db.type.DateValue)
    */
-  public T isAfterOrEqualTo(DateValue date);
+  T isAfterOrEqualTo(DateValue date);
 
   /**
    * Verifies that the value is after or equal to a time value.
@@ -458,7 +458,7 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isAfterOrEqualTo(org.assertj.db.type.TimeValue)
    * @see org.assertj.db.api.AbstractAssertWithValues#isAfterOrEqualTo(org.assertj.db.type.TimeValue)
    */
-  public T isAfterOrEqualTo(TimeValue time);
+  T isAfterOrEqualTo(TimeValue time);
 
   /**
    * Verifies that the value is after or equal to a date/time value.
@@ -489,7 +489,7 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isAfterOrEqualTo(org.assertj.db.type.DateTimeValue)
    * @see org.assertj.db.api.AbstractAssertWithValues#isAfterOrEqualTo(org.assertj.db.type.DateTimeValue)
    */
-  public T isAfterOrEqualTo(DateTimeValue dateTime);
+  T isAfterOrEqualTo(DateTimeValue dateTime);
 
   /**
    * Verifies that the value is after or equal to a date, time or date/time represented by a {@code String}.
@@ -520,5 +520,5 @@ public interface AssertOnValueChronology<T extends AssertOnValueChronology<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isAfterOrEqualTo(String)
    * @see org.assertj.db.api.AbstractAssertWithValues#isAfterOrEqualTo(String)
    */
-  public T isAfterOrEqualTo(String expected);
+  T isAfterOrEqualTo(String expected);
 }

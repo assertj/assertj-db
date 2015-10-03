@@ -32,7 +32,7 @@ public enum RepresentationType implements Representation {
   /**
    * The implementation of the display.
    */
-  private Representation displayer;
+  private final Representation displayer;
 
   /**
    * Constructor.

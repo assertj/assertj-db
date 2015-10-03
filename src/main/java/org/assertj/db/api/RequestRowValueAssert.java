@@ -32,6 +32,6 @@ public class RequestRowValueAssert
    * @param value  The value to assert.
    */
   public RequestRowValueAssert(RequestRowAssert origin, Value value) {
-    super(RequestRowValueAssert.class, origin, value.getColumnName(), value);
+    super(RequestRowValueAssert.class, origin, value);
   }
 }

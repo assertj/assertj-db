@@ -51,7 +51,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
   /**
    * The actual value on which this assertion is.
    */
-  private final Value value;
+  protected final Value value;
 
   /**
    * Constructor.

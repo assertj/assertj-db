@@ -62,7 +62,7 @@ public interface ToRowFromChange<R extends RowElement> {
    * @see org.assertj.db.api.ChangeRowAssert#rowAtStartPoint()
    * @see org.assertj.db.api.ChangeRowValueAssert#rowAtStartPoint()
    */
-  public R rowAtStartPoint();
+  R rowAtStartPoint();
 
   /**
    * Returns assertion methods on the {@link org.assertj.db.type.Row} at end point.
@@ -74,5 +74,5 @@ public interface ToRowFromChange<R extends RowElement> {
    * @see org.assertj.db.api.ChangeRowAssert#rowAtEndPoint()
    * @see org.assertj.db.api.ChangeRowValueAssert#rowAtEndPoint()
    */
-  public R rowAtEndPoint();
+  R rowAtEndPoint();
 }

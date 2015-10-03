@@ -37,7 +37,7 @@ public interface AssertOnModifiedColumn<T extends AssertOnModifiedColumn<T>> {
    * @throws AssertionError If the column is not modified between the start point and the end point.
    * @see org.assertj.db.api.ChangeColumnAssert#isModified()
    */
-  public T isModified();
+  T isModified();
 
   /**
    * Verifies that the column is not modified between the start point and the end point.
@@ -54,5 +54,5 @@ public interface AssertOnModifiedColumn<T extends AssertOnModifiedColumn<T>> {
    * @throws AssertionError If the column is modified between the start point and the end point.
    * @see org.assertj.db.api.ChangeColumnAssert#isNotModified()
    */
-  public T isNotModified();
+  T isNotModified();
 }

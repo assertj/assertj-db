@@ -33,6 +33,6 @@ public class RequestRowValueDisplay
    * @param value  The value to assert.
    */
   public RequestRowValueDisplay(RequestRowDisplay origin, Value value) {
-    super(RequestRowValueDisplay.class, origin, value.getColumnName(), value);
+    super(RequestRowValueDisplay.class, origin, value);
   }
 }

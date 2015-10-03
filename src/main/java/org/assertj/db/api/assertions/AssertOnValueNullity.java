@@ -50,7 +50,7 @@ public interface AssertOnValueNullity<T extends AssertOnValueNullity<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isNull()
    * @see org.assertj.db.api.AbstractAssertWithValues#isNull()
    */
-  public T isNull();
+  T isNull();
 
   /**
    * Verifies that the value is not {@code null}.
@@ -80,5 +80,5 @@ public interface AssertOnValueNullity<T extends AssertOnValueNullity<T>> {
    * @see org.assertj.db.api.AbstractValueAssert#isNotNull()
    * @see org.assertj.db.api.AbstractAssertWithValues#isNotNull()
    */
-  public T isNotNull();
+  T isNotNull();
 }

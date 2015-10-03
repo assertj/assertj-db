@@ -53,7 +53,7 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * @see org.assertj.db.api.AbstractColumnAssert#isOfType(org.assertj.db.type.ValueType, boolean)
    * @see org.assertj.db.api.ChangeColumnAssert#isOfType(org.assertj.db.type.ValueType, boolean)
    */
-  public T isOfType(ValueType expected, boolean lenient);
+  T isOfType(ValueType expected, boolean lenient);
 
   /**
    * Verifies that the type of the column is equal to one of the types in parameters.
@@ -72,7 +72,7 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * @see org.assertj.db.api.AbstractColumnAssert#isOfAnyTypeIn(org.assertj.db.type.ValueType...)
    * @see org.assertj.db.api.ChangeColumnAssert#isOfAnyTypeIn(org.assertj.db.type.ValueType...)
    */
-  public T isOfAnyTypeIn(ValueType... expected);
+  T isOfAnyTypeIn(ValueType... expected);
 
   /**
    * Verifies that the type of the values of the column is number.
@@ -101,7 +101,7 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * @see org.assertj.db.api.AbstractColumnAssert#isNumber(boolean)
    * @see org.assertj.db.api.ChangeColumnAssert#isNumber(boolean)
    */
-  public T isNumber(boolean lenient);
+  T isNumber(boolean lenient);
 
   /**
    * Verifies that the type of the values of the column is boolean.
@@ -130,7 +130,7 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * @see org.assertj.db.api.AbstractColumnAssert#isBoolean(boolean)
    * @see org.assertj.db.api.ChangeColumnAssert#isBoolean(boolean)
    */
-  public T isBoolean(boolean lenient);
+  T isBoolean(boolean lenient);
 
   /**
    * Verifies that the type of the values of the column is date.
@@ -159,7 +159,7 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * @see org.assertj.db.api.AbstractColumnAssert#isDate(boolean)
    * @see org.assertj.db.api.ChangeColumnAssert#isDate(boolean)
    */
-  public T isDate(boolean lenient);
+  T isDate(boolean lenient);
 
   /**
    * Verifies that the type of the values of the column is time.
@@ -188,7 +188,7 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * @see org.assertj.db.api.AbstractColumnAssert#isTime(boolean)
    * @see org.assertj.db.api.ChangeColumnAssert#isTime(boolean)
    */
-  public T isTime(boolean lenient);
+  T isTime(boolean lenient);
 
   /**
    * Verifies that the type of the values of the column is date/time.
@@ -217,7 +217,7 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * @see org.assertj.db.api.AbstractColumnAssert#isDateTime(boolean)
    * @see org.assertj.db.api.ChangeColumnAssert#isDateTime(boolean)
    */
-  public T isDateTime(boolean lenient);
+  T isDateTime(boolean lenient);
 
   /**
    * Verifies that the type of the values of the column is array of bytes.
@@ -246,7 +246,7 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * @see org.assertj.db.api.AbstractColumnAssert#isBytes(boolean)
    * @see org.assertj.db.api.ChangeColumnAssert#isBytes(boolean)
    */
-  public T isBytes(boolean lenient);
+  T isBytes(boolean lenient);
 
   /**
    * Verifies that the type of the values of the column is text.
@@ -275,7 +275,7 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * @see org.assertj.db.api.AbstractColumnAssert#isText(boolean)
    * @see org.assertj.db.api.ChangeColumnAssert#isText(boolean)
    */
-  public T isText(boolean lenient);
+  T isText(boolean lenient);
 
   /**
    * Verifies that the type of the values of the column is UUID.
@@ -305,6 +305,6 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * @see org.assertj.db.api.ChangeColumnAssert#isUUID(boolean)
    * @since 1.1.0
    */
-  public T isUUID(boolean lenient);
+  T isUUID(boolean lenient);
 
 }
