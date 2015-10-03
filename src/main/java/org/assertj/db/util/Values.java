@@ -46,7 +46,7 @@ public class Values {
    * @return {@code true} if the value is equal to the value in parameter, {@code false} otherwise.
    */
   public static boolean areEqual(Value value, Object expected) {
-    ValueType valueType = ValueType.getType(value);
+    ValueType valueType = value.getValueType();
     switch (valueType) {
     case BOOLEAN:
       if (expected instanceof Boolean) {
@@ -674,7 +674,7 @@ public class Values {
    */
   public static Object getRepresentationFromValueInFrontOfExpected(Value value, Object expected) {
     Object object = value.getValue();
-    switch (ValueType.getType(value)) {
+    switch (value.getValueType()) {
     case DATE:
       if (expected instanceof String) {
         if (((String) expected).contains("T")) {
@@ -704,7 +704,7 @@ public class Values {
    */
   public static Object getRepresentationFromValueInFrontOfClass(Value value, Class clazz) {
     Object object = value.getValue();
-    switch (ValueType.getType(value)) {
+    switch (value.getValueType()) {
     case DATE:
       if (clazz == DateValue.class) {
         return DateValue.from((Date) object);

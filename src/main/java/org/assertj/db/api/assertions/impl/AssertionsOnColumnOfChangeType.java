@@ -66,11 +66,11 @@ public class AssertionsOnColumnOfChangeType {
       return isOfAnyTypeIn(assertion, info, valueAtStartPoint, valueAtEndPoint, expected, ValueType.NOT_IDENTIFIED);
     }
 
-    ValueType typeAtStartPoint = ValueType.getType(valueAtStartPoint);
+    ValueType typeAtStartPoint = valueAtStartPoint.getValueType();
     if (typeAtStartPoint != expected) {
       throw failures.failure(info, shouldBeValueTypeWithStartPoint(valueAtStartPoint, typeAtStartPoint, expected));
     }
-    ValueType typeAtEndPoint = ValueType.getType(valueAtEndPoint);
+    ValueType typeAtEndPoint = valueAtEndPoint.getValueType();
     if (typeAtEndPoint != expected) {
       throw failures.failure(info, shouldBeValueTypeWithEndPoint(valueAtEndPoint, typeAtEndPoint, expected));
     }
@@ -93,7 +93,7 @@ public class AssertionsOnColumnOfChangeType {
   public static <A extends AbstractAssert> A isOfAnyTypeIn(A assertion, WritableAssertionInfo info,
                                                            Value valueAtStartPoint, Value valueAtEndPoint,
                                                            ValueType... expected) {
-    ValueType typeAtStartPoint = ValueType.getType(valueAtStartPoint);
+    ValueType typeAtStartPoint = valueAtStartPoint.getValueType();
     boolean matched = false;
     for (ValueType valueType : expected) {
       if (typeAtStartPoint == valueType) {
@@ -104,7 +104,7 @@ public class AssertionsOnColumnOfChangeType {
     if (!matched) {
       throw failures.failure(info, shouldBeValueTypeOfAnyWithStartPoint(valueAtStartPoint, typeAtStartPoint, expected));
     }
-    ValueType typeAtEndPoint = ValueType.getType(valueAtEndPoint);
+    ValueType typeAtEndPoint = valueAtEndPoint.getValueType();
     matched = false;
     for (ValueType valueType : expected) {
       if (typeAtEndPoint == valueType) {

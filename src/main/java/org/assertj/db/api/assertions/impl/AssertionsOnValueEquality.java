@@ -236,7 +236,7 @@ public class AssertionsOnValueEquality {
       return assertion;
     }
     Object object = value.getValue();
-    if (ValueType.getType(value) == ValueType.DATE) {
+    if (value.getValueType() == ValueType.DATE) {
       throw failures.failure(info, shouldBeEqual(DateValue.from((Date) object), expected));
     }
     if (expected != null) {
@@ -288,7 +288,7 @@ public class AssertionsOnValueEquality {
       return assertion;
     }
     Object object = value.getValue();
-    if (ValueType.getType(value) == ValueType.DATE) {
+    if (value.getValueType() == ValueType.DATE) {
       throw failures.failure(info, shouldBeEqual(DateTimeValue.of(DateValue.from((Date) object)), expected));
     }
     throw failures.failure(info, shouldBeEqual(DateTimeValue.from((Timestamp) object), expected));

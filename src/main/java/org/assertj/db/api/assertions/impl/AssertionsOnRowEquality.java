@@ -63,12 +63,12 @@ public class AssertionsOnRowEquality {
     int index = 0;
     for (Value value : valuesList) {
       ValueType[] possibleTypes = ValueType.getPossibleTypesForComparison(expected[index]);
-      ValueType type = ValueType.getType(value);
+      ValueType type = value.getValueType();
       if (!Arrays.asList(possibleTypes).contains(type)) {
         throw failures.failure(info, shouldBeValueTypeOfAny(index, value, type, possibleTypes));
       }
       if (!areEqual(value, expected[index])) {
-        if (ValueType.getType(value) == ValueType.BYTES) {
+        if (value.getValueType() == ValueType.BYTES) {
           throw failures.failure(info, shouldBeEqual(index));
         } else {
           throw failures.failure(info, shouldBeEqual(index, Values.getRepresentationFromValueInFrontOfExpected(value,

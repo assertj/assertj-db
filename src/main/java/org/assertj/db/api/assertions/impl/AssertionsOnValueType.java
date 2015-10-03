@@ -56,7 +56,7 @@ public class AssertionsOnValueType {
    */
   public static <A extends AbstractAssert> A isOfType(A assertion, WritableAssertionInfo info, Value value,
                                                       ValueType expected) {
-    ValueType type = ValueType.getType(value);
+    ValueType type = value.getValueType();
     if (type != expected) {
       throw failures.failure(info, shouldBeValueType(value, type, expected));
     }
@@ -76,7 +76,7 @@ public class AssertionsOnValueType {
    */
   public static <A extends AbstractAssert> A isOfAnyTypeIn(A assertion, WritableAssertionInfo info, Value value,
                                                            ValueType... expected) {
-    ValueType type = ValueType.getType(value);
+    ValueType type = value.getValueType();
     for (ValueType valueType : expected) {
       if (type == valueType) {
         return assertion;

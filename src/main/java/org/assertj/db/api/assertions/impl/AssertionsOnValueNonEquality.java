@@ -133,7 +133,7 @@ public class AssertionsOnValueNonEquality {
       return assertion;
     }
     Object object = value.getValue();
-    if (ValueType.getType(value) == ValueType.DATE) {
+    if (value.getValueType() == ValueType.DATE) {
       throw failures.failure(info, shouldNotBeEqual(DateTimeValue.of(DateValue.from((Date) object)), expected));
     }
     if (object != null) {
@@ -162,7 +162,7 @@ public class AssertionsOnValueNonEquality {
       return assertion;
     }
     Object object = value.getValue();
-    if (ValueType.getType(value) == ValueType.DATE) {
+    if (value.getValueType() == ValueType.DATE) {
       throw failures.failure(info, shouldNotBeEqual(DateValue.from((Date) object), expected));
     }
     if (object != null) {

@@ -12,6 +12,11 @@
  */
 package org.assertj.db.type;
 
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
+
 /**
  * Value in a {@link Row} or a {@link Column}.
  * <p>
@@ -33,9 +38,56 @@ public class Value implements DbElement {
   private final Object value;
 
   /**
+   * The type of value.
+   */
+  private final ValueType valueType;
+
+  /**
    * NULL value.
    */
   public final static Value NULL = new Value(null, null);
+
+
+  /**
+   * Returns the type of the actual value (data).
+   *
+   * @param object The actual object contained in the value.
+   * @return The type of the actual value
+   */
+  static ValueType getType(Object object) {
+    if (object instanceof byte[]) {
+      return ValueType.BYTES;
+    }
+    if (object instanceof Boolean) {
+      return ValueType.BOOLEAN;
+    }
+    if (object instanceof String) {
+      return ValueType.TEXT;
+    }
+    if (object instanceof Date) {
+      return ValueType.DATE;
+    }
+    if (object instanceof Time) {
+      return ValueType.TIME;
+    }
+    if (object instanceof Timestamp) {
+      return ValueType.DATE_TIME;
+    }
+    if (object instanceof java.util.UUID) {
+      return ValueType.UUID;
+    }
+    if (object instanceof Byte
+        || object instanceof Short
+        || object instanceof Integer
+        || object instanceof Long
+        || object instanceof Float
+        || object instanceof Double
+        || object instanceof BigDecimal) {
+
+      return ValueType.NUMBER;
+    }
+    return ValueType.NOT_IDENTIFIED;
+  }
 
   /**
    * Constructor.
@@ -46,6 +98,7 @@ public class Value implements DbElement {
   Value(String columnName, Object value) {
     this.columnName = columnName;
     this.value = value;
+    valueType = getType(value);
   }
 
   /**
@@ -63,5 +116,24 @@ public class Value implements DbElement {
    */
   public Object getValue() {
     return value;
+  }
+
+  /**
+   * Returns the type of the value.
+   * @return The type of the value.
+   */
+  public ValueType getValueType() {
+    return valueType;
+  }
+
+  /**
+   * Returns the representation of the type of the value.
+   * @return The representation of the type of the value.
+   */
+  public String getValueTypeRepresentation() {
+    if (value == null ||valueType != ValueType.NOT_IDENTIFIED) {
+      return valueType.toString();
+    }
+    return valueType + " : " + value.getClass();
   }
 }

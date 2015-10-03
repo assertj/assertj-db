@@ -12,10 +12,6 @@
  */
 package org.assertj.db.type;
 
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.UUID;
 
 /**
@@ -63,48 +59,6 @@ public enum ValueType {
    * Not identified type : null value for example.
    */
   NOT_IDENTIFIED;
-
-  /**
-   * Returns the type of the actual value (data).
-   * 
-   * @param value The actual value
-   * @return The type of the actual value
-   */
-  public static ValueType getType(Value value) {
-    Object object = value.getValue();
-    if (object instanceof byte[]) {
-      return BYTES;
-    }
-    if (object instanceof Boolean) {
-      return BOOLEAN;
-    }
-    if (object instanceof String) {
-      return TEXT;
-    }
-    if (object instanceof Date) {
-      return DATE;
-    }
-    if (object instanceof Time) {
-      return TIME;
-    }
-    if (object instanceof Timestamp) {
-      return DATE_TIME;
-    }
-    if (object instanceof java.util.UUID) {
-      return UUID;
-    }
-    if (object instanceof Byte
-        || object instanceof Short
-        || object instanceof Integer
-        || object instanceof Long
-        || object instanceof Float
-        || object instanceof Double
-        || object instanceof BigDecimal) {
-
-      return NUMBER;
-    }
-    return NOT_IDENTIFIED;
-  }
 
   /**
    * Returns the types which are possible for the actual value (data) for the comparison with an expected value.

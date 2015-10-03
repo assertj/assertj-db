@@ -55,20 +55,12 @@ enum PlainRepresentation implements Representation {
    * @return The text.
    */
   private static String getType(Value... values) {
-    ValueType valueType = null;
     for (Value value : values) {
-      ValueType type = ValueType.getType(value);
       if (value.getValue() != null) {
-        if (type == ValueType.NOT_IDENTIFIED) {
-          return "(" + type + " : " + value.getValue().getClass() + ")";
-        } else {
-          return "(" + type + ")";
-        }
-      } else {
-        valueType = type;
+        return "(" + value.getValueTypeRepresentation() + ")";
       }
     }
-    return "(" + valueType + ")";
+    return "(" + ValueType.NOT_IDENTIFIED + ")";
   }
 
   /**
@@ -79,7 +71,7 @@ enum PlainRepresentation implements Representation {
    */
   private static String getText(Value value) {
     Object object = value.getValue();
-    ValueType type = ValueType.getType(value);
+    ValueType type = value.getValueType();
     if (type == ValueType.BYTES) {
       return "...";
     }

@@ -67,7 +67,7 @@ public class AssertionsOnColumnType {
 
     int index = 0;
     for (Value value : valuesList) {
-      ValueType type = ValueType.getType(value);
+      ValueType type = value.getValueType();
       if (type != expected) {
         throw failures.failure(info, ShouldBeValueType
                 .shouldBeValueType(index, value, type, expected));
@@ -93,7 +93,7 @@ public class AssertionsOnColumnType {
     int index = 0;
     loop:
     for (Value value : valuesList) {
-      ValueType type = ValueType.getType(value);
+      ValueType type = value.getValueType();
       for (ValueType valueType : expected) {
         if (type == valueType) {
           index++;
