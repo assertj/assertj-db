@@ -14,37 +14,33 @@ package org.assertj.db.display;
 
 import org.assertj.db.display.impl.RepresentationType;
 import org.assertj.db.global.AbstractElement;
-import org.assertj.db.type.AbstractDbData;
 
 import java.io.PrintStream;
 
 /**
  * Base class for all display of assertj-db.
  *
- * @param <D> The class of the actual value (an sub-class of {@link AbstractDbData}).
  * @param <E> the "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/1IZIRcY"
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
  *            for more details.
  * @author Régis Pouiller
  * @since 1.1.0
  */
-public abstract class AbstractDisplay<D extends AbstractDbData<D>, E extends AbstractDisplay<D, E>>
+public abstract class AbstractDisplay<E extends AbstractDisplay<E>>
         extends AbstractElement<E> {
 
   /**
    * Type of display.
    */
-  private RepresentationType displayType;
+  protected RepresentationType displayType;
 
   /**
    * Constructor.
    *
    * @param selfType    Class of this assertion class : a sub-class of {@code AbstractDisplay}.
-   * @param displayType Type of display.
    */
-  AbstractDisplay(Class<E> selfType, RepresentationType displayType) {
+  AbstractDisplay(Class<E> selfType) {
     super(selfType);
-    this.displayType = displayType;
   }
 
   /**

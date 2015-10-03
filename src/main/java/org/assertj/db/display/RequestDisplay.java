@@ -16,12 +16,12 @@ import org.assertj.db.display.impl.RepresentationType;
 import org.assertj.db.type.Request;
 
 /**
- * Assertion methods for a {@link org.assertj.db.type.Request}.
+ * Display methods for a {@link org.assertj.db.type.Request}.
  *
  * @author Régis Pouiller
  *
  */
-public class RequestDisplay extends AbstractDisplay<Request, RequestDisplay> {
+public class RequestDisplay extends AbstractDbDisplay<Request, RequestDisplay, RequestColumnDisplay, RequestColumnValueDisplay, RequestRowDisplay, RequestRowValueDisplay> {
 
   /**
    * Request on which the display is.
@@ -34,7 +34,7 @@ public class RequestDisplay extends AbstractDisplay<Request, RequestDisplay> {
    * @param request Request on which the display is.
    */
   RequestDisplay(Request request) {
-    super(RequestDisplay.class, RepresentationType.PLAIN);
+    super(request, RequestDisplay.class, RequestColumnDisplay.class, RequestRowDisplay.class);
     this.request = request;
   }
 
@@ -43,6 +43,6 @@ public class RequestDisplay extends AbstractDisplay<Request, RequestDisplay> {
    */
   @Override
   protected String getRepresentation(RepresentationType displayType) {
-    return displayType.getRequestRepresentation(info, request);
+    return displayType.getRequestRepresentation(info, actual);
   }
 }

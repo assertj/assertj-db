@@ -145,21 +145,24 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
    */
   @Test
   public void test_value_from_column_of_table_with_index() throws Exception {
-    Field fieldIndex = AbstractSubAssert.class.getDeclaredField("indexNextValue");
-    fieldIndex.setAccessible(true);
+    Field fieldPosition = AbstractSubAssert.class.getDeclaredField("valuePosition");
+    fieldPosition.setAccessible(true);
     Field fieldValue = AbstractValueAssert.class.getDeclaredField("value");
     fieldValue.setAccessible(true);
+    Field fieldIndex = Position.class.getDeclaredField("nextIndex");
+    fieldIndex.setAccessible(true);
 
     Table table = new Table(source, "actor");
     TableAssert tableAssert = assertThat(table);
     TableColumnAssert tableColumnAssert = tableAssert.column();
-    Assertions.assertThat(fieldIndex.get(tableColumnAssert)).isEqualTo(0);
+    Position position = (Position) fieldPosition.get(tableColumnAssert);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     TableColumnValueAssert tableColumnValueAssert0 = tableColumnAssert.value(0);
-    Assertions.assertThat(fieldIndex.get(tableColumnAssert)).isEqualTo(1);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
     TableColumnValueAssert tableColumnValueAssert1 = tableColumnAssert.value(1);
-    Assertions.assertThat(fieldIndex.get(tableColumnAssert)).isEqualTo(2);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(2);
     TableColumnValueAssert tableColumnValueAssert2 = tableColumnAssert.value(2);
-    Assertions.assertThat(fieldIndex.get(tableColumnAssert)).isEqualTo(3);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(3);
     try {
       tableColumnAssert.value(5);
       fail("An exception must be raised");
@@ -177,13 +180,14 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
 
     TableAssert tableAssertBis = assertThat(table);
     TableColumnAssert tableColumnAssertBis = tableAssertBis.column();
-    Assertions.assertThat(fieldIndex.get(tableColumnAssertBis)).isEqualTo(0);
+    Position positionBis = (Position) fieldPosition.get(tableColumnAssertBis);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     TableColumnValueAssert tableColumnValueAssertBis0 = tableColumnAssertBis.value(0);
-    Assertions.assertThat(fieldIndex.get(tableColumnAssertBis)).isEqualTo(1);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
     TableColumnValueAssert tableColumnValueAssertBis1 = tableColumnValueAssertBis0.value(1);
-    Assertions.assertThat(fieldIndex.get(tableColumnAssertBis)).isEqualTo(2);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(2);
     TableColumnValueAssert tableColumnValueAssertBis2 = tableColumnValueAssertBis1.value(2);
-    Assertions.assertThat(fieldIndex.get(tableColumnAssertBis)).isEqualTo(3);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(3);
     try {
       tableColumnValueAssertBis2.value(5);
       fail("An exception must be raised");
@@ -215,25 +219,28 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
    */
   @Test
   public void test_value_from_row_of_table_with_index() throws Exception {
-    Field fieldIndex = AbstractSubAssert.class.getDeclaredField("indexNextValue");
-    fieldIndex.setAccessible(true);
+    Field fieldPosition = AbstractSubAssert.class.getDeclaredField("valuePosition");
+    fieldPosition.setAccessible(true);
     Field fieldValue = AbstractValueAssert.class.getDeclaredField("value");
     fieldValue.setAccessible(true);
+    Field fieldIndex = Position.class.getDeclaredField("nextIndex");
+    fieldIndex.setAccessible(true);
 
     Table table = new Table(source, "actor");
     TableAssert tableAssert = assertThat(table);
     TableRowAssert tableRowAssert = tableAssert.row();
-    Assertions.assertThat(fieldIndex.get(tableRowAssert)).isEqualTo(0);
+    Position position = (Position) fieldPosition.get(tableRowAssert);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     TableRowValueAssert tableRowValueAssert0 = tableRowAssert.value(0);
-    Assertions.assertThat(fieldIndex.get(tableRowAssert)).isEqualTo(1);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
     TableRowValueAssert tableRowValueAssert1 = tableRowAssert.value(1);
-    Assertions.assertThat(fieldIndex.get(tableRowAssert)).isEqualTo(2);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(2);
     TableRowValueAssert tableRowValueAssert2 = tableRowAssert.value(2);
-    Assertions.assertThat(fieldIndex.get(tableRowAssert)).isEqualTo(3);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(3);
     TableRowValueAssert tableRowValueAssert3 = tableRowAssert.value(3);
-    Assertions.assertThat(fieldIndex.get(tableRowAssert)).isEqualTo(4);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(4);
     TableRowValueAssert tableRowValueAssert4 = tableRowAssert.value(4);
-    Assertions.assertThat(fieldIndex.get(tableRowAssert)).isEqualTo(5);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(5);
     try {
       tableRowAssert.value(7);
       fail("An exception must be raised");
@@ -251,17 +258,18 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
 
     TableAssert tableAssertBis = assertThat(table);
     TableRowAssert tableRowAssertBis = tableAssertBis.row();
-    Assertions.assertThat(fieldIndex.get(tableRowAssertBis)).isEqualTo(0);
+    Position positionBis = (Position) fieldPosition.get(tableRowAssertBis);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     TableRowValueAssert tableRowValueAssertBis0 = tableRowAssertBis.value(0);
-    Assertions.assertThat(fieldIndex.get(tableRowAssertBis)).isEqualTo(1);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
     TableRowValueAssert tableRowValueAssertBis1 = tableRowValueAssertBis0.value(1);
-    Assertions.assertThat(fieldIndex.get(tableRowAssertBis)).isEqualTo(2);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(2);
     TableRowValueAssert tableRowValueAssertBis2 = tableRowValueAssertBis1.value(2);
-    Assertions.assertThat(fieldIndex.get(tableRowAssertBis)).isEqualTo(3);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(3);
     TableRowValueAssert tableRowValueAssertBis3 = tableRowValueAssertBis2.value(3);
-    Assertions.assertThat(fieldIndex.get(tableRowAssertBis)).isEqualTo(4);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(4);
     TableRowValueAssert tableRowValueAssertBis4 = tableRowValueAssertBis3.value(4);
-    Assertions.assertThat(fieldIndex.get(tableRowAssertBis)).isEqualTo(5);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(5);
     try {
       tableRowValueAssertBis4.value(7);
       fail("An exception must be raised");
@@ -299,21 +307,24 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
    */
   @Test
   public void test_value_from_column_of_request_with_index() throws Exception {
-    Field fieldIndex = AbstractSubAssert.class.getDeclaredField("indexNextValue");
-    fieldIndex.setAccessible(true);
+    Field fieldPosition = AbstractSubAssert.class.getDeclaredField("valuePosition");
+    fieldPosition.setAccessible(true);
     Field fieldValue = AbstractValueAssert.class.getDeclaredField("value");
     fieldValue.setAccessible(true);
+    Field fieldIndex = Position.class.getDeclaredField("nextIndex");
+    fieldIndex.setAccessible(true);
 
     Request request = new Request(source, "select * from actor");
     RequestAssert requestAssert = assertThat(request);
     RequestColumnAssert requestColumnAssert = requestAssert.column();
-    Assertions.assertThat(fieldIndex.get(requestColumnAssert)).isEqualTo(0);
+    Position position = (Position) fieldPosition.get(requestColumnAssert);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     RequestColumnValueAssert requestColumnValueAssert0 = requestColumnAssert.value(0);
-    Assertions.assertThat(fieldIndex.get(requestColumnAssert)).isEqualTo(1);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
     RequestColumnValueAssert requestColumnValueAssert1 = requestColumnAssert.value(1);
-    Assertions.assertThat(fieldIndex.get(requestColumnAssert)).isEqualTo(2);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(2);
     RequestColumnValueAssert requestColumnValueAssert2 = requestColumnAssert.value(2);
-    Assertions.assertThat(fieldIndex.get(requestColumnAssert)).isEqualTo(3);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(3);
     try {
       requestColumnAssert.value(8);
       fail("An exception must be raised");
@@ -331,13 +342,14 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
 
     RequestAssert requestAssertBis = assertThat(request);
     RequestColumnAssert requestColumnAssertBis = requestAssertBis.column();
-    Assertions.assertThat(fieldIndex.get(requestColumnAssertBis)).isEqualTo(0);
+    Position positionBis = (Position) fieldPosition.get(requestColumnAssertBis);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     RequestColumnValueAssert requestColumnValueAssertBis0 = requestColumnAssertBis.value(0);
-    Assertions.assertThat(fieldIndex.get(requestColumnAssertBis)).isEqualTo(1);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
     RequestColumnValueAssert requestColumnValueAssertBis1 = requestColumnValueAssertBis0.value(1);
-    Assertions.assertThat(fieldIndex.get(requestColumnAssertBis)).isEqualTo(2);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(2);
     RequestColumnValueAssert requestColumnValueAssertBis2 = requestColumnValueAssertBis1.value(2);
-    Assertions.assertThat(fieldIndex.get(requestColumnAssertBis)).isEqualTo(3);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(3);
     try {
       requestColumnValueAssertBis2.value(8);
       fail("An exception must be raised");
@@ -369,25 +381,28 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
    */
   @Test
   public void test_value_from_row_of_request_with_index() throws Exception {
-    Field fieldIndex = AbstractSubAssert.class.getDeclaredField("indexNextValue");
-    fieldIndex.setAccessible(true);
+    Field fieldPosition = AbstractSubAssert.class.getDeclaredField("valuePosition");
+    fieldPosition.setAccessible(true);
     Field fieldValue = AbstractValueAssert.class.getDeclaredField("value");
     fieldValue.setAccessible(true);
+    Field fieldIndex = Position.class.getDeclaredField("nextIndex");
+    fieldIndex.setAccessible(true);
 
     Request request = new Request(source, "select * from actor");
     RequestAssert requestAssert = assertThat(request);
     RequestRowAssert requestRowAssert = requestAssert.row();
-    Assertions.assertThat(fieldIndex.get(requestRowAssert)).isEqualTo(0);
+    Position position = (Position) fieldPosition.get(requestRowAssert);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     RequestRowValueAssert requestRowValueAssert0 = requestRowAssert.value(0);
-    Assertions.assertThat(fieldIndex.get(requestRowAssert)).isEqualTo(1);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
     RequestRowValueAssert requestRowValueAssert1 = requestRowAssert.value(1);
-    Assertions.assertThat(fieldIndex.get(requestRowAssert)).isEqualTo(2);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(2);
     RequestRowValueAssert requestRowValueAssert2 = requestRowAssert.value(2);
-    Assertions.assertThat(fieldIndex.get(requestRowAssert)).isEqualTo(3);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(3);
     RequestRowValueAssert requestRowValueAssert3 = requestRowAssert.value(3);
-    Assertions.assertThat(fieldIndex.get(requestRowAssert)).isEqualTo(4);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(4);
     RequestRowValueAssert requestRowValueAssert4 = requestRowAssert.value(4);
-    Assertions.assertThat(fieldIndex.get(requestRowAssert)).isEqualTo(5);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(5);
     try {
       requestRowAssert.value(9);
       fail("An exception must be raised");
@@ -405,17 +420,18 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
 
     RequestAssert requestAssertBis = assertThat(request);
     RequestRowAssert requestRowAssertBis = requestAssertBis.row();
-    Assertions.assertThat(fieldIndex.get(requestRowAssertBis)).isEqualTo(0);
+    Position positionBis = (Position) fieldPosition.get(requestRowAssertBis);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     RequestRowValueAssert requestRowValueAssertBis0 = requestRowAssertBis.value(0);
-    Assertions.assertThat(fieldIndex.get(requestRowAssertBis)).isEqualTo(1);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
     RequestRowValueAssert requestRowValueAssertBis1 = requestRowValueAssertBis0.value(1);
-    Assertions.assertThat(fieldIndex.get(requestRowAssertBis)).isEqualTo(2);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(2);
     RequestRowValueAssert requestRowValueAssertBis2 = requestRowValueAssertBis1.value(2);
-    Assertions.assertThat(fieldIndex.get(requestRowAssertBis)).isEqualTo(3);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(3);
     RequestRowValueAssert requestRowValueAssertBis3 = requestRowValueAssertBis2.value(3);
-    Assertions.assertThat(fieldIndex.get(requestRowAssertBis)).isEqualTo(4);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(4);
     RequestRowValueAssert requestRowValueAssertBis4 = requestRowValueAssertBis3.value(4);
-    Assertions.assertThat(fieldIndex.get(requestRowAssertBis)).isEqualTo(5);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(5);
     try {
       requestRowValueAssertBis4.value(9);
       fail("An exception must be raised");

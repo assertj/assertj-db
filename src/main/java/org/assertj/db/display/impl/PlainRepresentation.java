@@ -303,7 +303,7 @@ enum PlainRepresentation implements Representation {
     for (String columnName : columnsNameList) {
       Integer columnSize = sizesList.get(index);
       String pk = "";
-      if (pksNameList.contains(columnName)) {
+      if (pksNameList != null && pksNameList.contains(columnName)) {
         pk = "*";
       }
       stringBuilder.append(getFilledText(pk, columnSize)).append("|");
@@ -777,27 +777,30 @@ enum PlainRepresentation implements Representation {
   public String getRowRepresentation(WritableAssertionInfo info, Row row) {
     List<String> columnsNameList = row.getColumnsNameList();
     List<String> typesList = getTypesList(row);
-    List<Integer> columnSizesList = getColumnSizesList(row);
+    StringBuilder[] pksValueStringBuilders = getPksValueStringBuilder(row);
+    int primaryKeyColumnSize = getColumnSize("PRIMARY", null, null, pksValueStringBuilders);
+    List<Integer> sizesList = getSizesList(getColumnSizesList(row),
+                                           primaryKeyColumnSize);
 
     StringBuilder stringBuilder = new StringBuilder();
     // Description
     stringBuilder.append("[").append(info.descriptionText()).append("]%n");
     // Line
-    stringBuilder.append(getCompleteLine(columnSizesList));
+    stringBuilder.append(getCompleteLine(sizesList));
     // Primary key
-    stringBuilder.append(getCompletePrimaryKey(columnSizesList, row.getPksNameList(), columnsNameList));
+    stringBuilder.append(getCompletePrimaryKey(sizesList, row.getPksNameList(), columnsNameList, ""));
     // Column name
-    stringBuilder.append(getCompleteColumnName(columnSizesList, columnsNameList));
+    stringBuilder.append(getCompleteColumnName(sizesList, columnsNameList, "PRIMARY"));
     // Type
-    stringBuilder.append(getCompleteType(columnSizesList, typesList));
+    stringBuilder.append(getCompleteType(sizesList, typesList, "KEY"));
     // Index
-    stringBuilder.append(getCompleteIndex(columnSizesList));
+    stringBuilder.append(getCompleteIndex(sizesList, ""));
     // Line
-    stringBuilder.append(getCompleteLine(columnSizesList));
+    stringBuilder.append(getCompleteLine(sizesList));
     // Value
-    stringBuilder.append(getCompleteRow(columnSizesList, row));
+    stringBuilder.append(getCompleteRow(sizesList, row, pksValueStringBuilders[0]));
     // Line
-    stringBuilder.append(getCompleteLine(columnSizesList));
+    stringBuilder.append(getCompleteLine(sizesList));
 
     return String.format(stringBuilder.toString());
   }
@@ -845,7 +848,8 @@ enum PlainRepresentation implements Representation {
    * {@inheritDoc}
    */
   @Override
-  public String getValueRepresentation(WritableAssertionInfo info, String columnName, Value value) {
+  public String getValueRepresentation(WritableAssertionInfo info, Value value) {
+    String columnName = value.getColumnName();
     String type = getType(value);
     int columnSize = getColumnSize(columnName, type, null, value);
 

@@ -81,9 +81,8 @@ interface Representation {
    * Returns the representation of a value.
    *
    * @param info       Writable information about an assertion.
-   * @param columnName Name of the column.
    * @param value      Value.
    * @return The representation of a value.
    */
-  String getValueRepresentation(WritableAssertionInfo info, String columnName, Value value);
+  String getValueRepresentation(WritableAssertionInfo info, Value value);
 }

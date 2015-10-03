@@ -12,31 +12,35 @@
  */
 package org.assertj.db.display;
 
-import org.assertj.db.display.impl.RepresentationType;
+import org.assertj.db.type.Row;
 import org.assertj.db.type.Table;
 
 /**
- * Display methods for a {@link org.assertj.db.type.Table}.
+ * Display methods for a {@link Row} of a {@link Table}.
  *
  * @author Régis Pouiller
  *
  */
-public class TableDisplay extends AbstractDbDisplay<Table, TableDisplay, TableColumnDisplay, TableColumnValueDisplay, TableRowDisplay, TableRowValueDisplay> {
+public class TableRowDisplay
+        extends
+        AbstractRowDisplay<Table, TableDisplay, TableColumnDisplay, TableColumnValueDisplay, TableRowDisplay, TableRowValueDisplay> {
 
   /**
    * Constructor.
    *
-   * @param table Table on which the display is.
+   * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
+   * @param row The row on which do assertion.
    */
-  TableDisplay(Table table) {
-    super(table, TableDisplay.class, TableColumnDisplay.class, TableRowDisplay.class);
+  public TableRowDisplay(TableDisplay origin, Row row) {
+    super(origin, TableRowDisplay.class, TableRowValueDisplay.class, row);
   }
 
   /**
-   * {@inheritDoc}
+   * Returns to level of assertion methods on a {@link Table}.
+   *
+   * @return a object of assertion methods on a {@link Table}.
    */
-  @Override
-  protected String getRepresentation(RepresentationType displayType) {
-    return displayType.getTableRepresentation(info, actual);
+  public TableDisplay returnToTable() {
+    return returnToOrigin();
   }
 }

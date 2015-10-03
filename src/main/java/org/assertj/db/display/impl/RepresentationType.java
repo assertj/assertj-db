@@ -80,7 +80,7 @@ public enum RepresentationType implements Representation {
 
   /** {@inheritDoc} */
   @Override
-  public String getValueRepresentation(WritableAssertionInfo info, String columnName, Value value) {
-    return displayer.getValueRepresentation(info, columnName, value);
+  public String getValueRepresentation(WritableAssertionInfo info, Value value) {
+    return displayer.getValueRepresentation(info, value);
   }
 }

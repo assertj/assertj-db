@@ -107,12 +107,12 @@ public class InstantiationError_Test extends AbstractTest {
       tableColumnAssert.value();
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("There is an exception 'org.assertj.db.navigation.InstantiationError_Test.<init>(org.assertj.db.api.TableColumnAssert, org.assertj.db.type.Value)'\n"
-                                                      + "\t in the instantiation of the assertion org.assertj.db.navigation.InstantiationError_Test\n"
-                                                      + "\t on the value with class org.assertj.db.api.TableColumnAssert.\n"
-                                                      + " It is normally impossible.\n"
-                                                      + " That means there is a big mistake in the development of AssertJDB.\n"
-                                                      + " Please write an issue for that if you meet this problem.");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("There is an exception 'org.assertj.db.navigation.InstantiationError_Test.<init>(org.assertj.db.api.TableColumnAssert, org.assertj.db.type.Value)'%n"
+                                                      + "\t in the instantiation of the element org.assertj.db.navigation.InstantiationError_Test%n"
+                                                      + "\t on class org.assertj.db.type.Value with class org.assertj.db.api.TableColumnAssert.%n"
+                                                      + " It is normally impossible.%n"
+                                                      + " That means there is a big mistake in the development of AssertJDB.%n"
+                                                      + " Please write an issue for that if you meet this problem."));
     }
   }
 }

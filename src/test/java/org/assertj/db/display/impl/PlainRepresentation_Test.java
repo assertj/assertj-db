@@ -373,14 +373,14 @@ public class PlainRepresentation_Test extends AbstractTest {
                                                                                               "30B443AE-C0C9-4790-9BEC-CE1380808435"))))))
             .isEqualTo(String.format(
                     "[description]%n"
-                    + "|------------------|-----------|-----------|-------------------------------|------------|-----------|-------------------------------------------|-----------|--------------------|--------------------------------------|%n"
-                    + "| *                |           |           |                               | *          |           |                                           |           |                    |                                      |%n"
-                    + "| column1          | column2   | column3   | column4                       | column5    | column6   | column7                                   | column8   | column9            | column10                             |%n"
-                    + "| (NOT_IDENTIFIED) | (BOOLEAN) | (BYTES)   | (DATE_TIME)                   | (DATE)     | (NUMBER)  | (NOT_IDENTIFIED : class java.util.Locale) | (TEXT)    | (TIME)             | (UUID)                               |%n"
-                    + "| Index : 0        | Index : 1 | Index : 2 | Index : 3                     | Index : 4  | Index : 5 | Index : 6                                 | Index : 7 | Index : 8          | Index : 9                            |%n"
-                    + "|------------------|-----------|-----------|-------------------------------|------------|-----------|-------------------------------------------|-----------|--------------------|--------------------------------------|%n"
-                    + "| null             | true      | ...       | 2007-12-23T09:01:00.000000000 | 2007-12-23 | 8         | fr                                        | test      | 09:01:00.000000000 | 30b443ae-c0c9-4790-9bec-ce1380808435 |%n"
-                    + "|------------------|-----------|-----------|-------------------------------|------------|-----------|-------------------------------------------|-----------|--------------------|--------------------------------------|%n"));
+                    + "|------------------|------------------|-----------|-----------|-------------------------------|------------|-----------|-------------------------------------------|-----------|--------------------|--------------------------------------|%n"
+                    + "|                  | *                |           |           |                               | *          |           |                                           |           |                    |                                      |%n"
+                    + "| PRIMARY          | column1          | column2   | column3   | column4                       | column5    | column6   | column7                                   | column8   | column9            | column10                             |%n"
+                    + "| KEY              | (NOT_IDENTIFIED) | (BOOLEAN) | (BYTES)   | (DATE_TIME)                   | (DATE)     | (NUMBER)  | (NOT_IDENTIFIED : class java.util.Locale) | (TEXT)    | (TIME)             | (UUID)                               |%n"
+                    + "|                  | Index : 0        | Index : 1 | Index : 2 | Index : 3                     | Index : 4  | Index : 5 | Index : 6                                 | Index : 7 | Index : 8          | Index : 9                            |%n"
+                    + "|------------------|------------------|-----------|-----------|-------------------------------|------------|-----------|-------------------------------------------|-----------|--------------------|--------------------------------------|%n"
+                    + "| null, 2007-12-23 | null             | true      | ...       | 2007-12-23T09:01:00.000000000 | 2007-12-23 | 8         | fr                                        | test      | 09:01:00.000000000 | 30b443ae-c0c9-4790-9bec-ce1380808435 |%n"
+                    + "|------------------|------------------|-----------|-----------|-------------------------------|------------|-----------|-------------------------------------------|-----------|--------------------|--------------------------------------|%n"));
   }
 
   /**
@@ -505,7 +505,7 @@ public class PlainRepresentation_Test extends AbstractTest {
   public void test_value_representation() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    assertThat(PlainRepresentation.INSTANCE.getValueRepresentation(info, "column", getValue(null, null)))
+    assertThat(PlainRepresentation.INSTANCE.getValueRepresentation(info, getValue("column", null)))
             .isEqualTo(String.format("[description]%n"
                                      + "|------------------|%n"
                                      + "| column           |%n"
@@ -513,7 +513,7 @@ public class PlainRepresentation_Test extends AbstractTest {
                                      + "|------------------|%n"
                                      + "| null             |%n"
                                      + "|------------------|%n"));
-    assertThat(PlainRepresentation.INSTANCE.getValueRepresentation(info, "column", getValue(null, true)))
+    assertThat(PlainRepresentation.INSTANCE.getValueRepresentation(info, getValue("column", true)))
             .isEqualTo(String.format("[description]%n"
                                      + "|-----------|%n"
                                      + "| column    |%n"
@@ -521,7 +521,7 @@ public class PlainRepresentation_Test extends AbstractTest {
                                      + "|-----------|%n"
                                      + "| true      |%n"
                                      + "|-----------|%n"));
-    assertThat(PlainRepresentation.INSTANCE.getValueRepresentation(info, "column", getValue(null, new byte[] { 0, 1 })))
+    assertThat(PlainRepresentation.INSTANCE.getValueRepresentation(info, getValue("column", new byte[] { 0, 1 })))
             .isEqualTo(String.format("[description]%n"
                                      + "|---------|%n"
                                      + "| column  |%n"
@@ -529,7 +529,7 @@ public class PlainRepresentation_Test extends AbstractTest {
                                      + "|---------|%n"
                                      + "| ...     |%n"
                                      + "|---------|%n"));
-    assertThat(PlainRepresentation.INSTANCE.getValueRepresentation(info, "column", getValue(null, Timestamp.valueOf("2007-12-23 09:01:00"))))
+    assertThat(PlainRepresentation.INSTANCE.getValueRepresentation(info, getValue("column", Timestamp.valueOf("2007-12-23 09:01:00"))))
             .isEqualTo(String.format("[description]%n"
                                      + "|-------------------------------|%n"
                                      + "| column                        |%n"
@@ -537,7 +537,7 @@ public class PlainRepresentation_Test extends AbstractTest {
                                      + "|-------------------------------|%n"
                                      + "| 2007-12-23T09:01:00.000000000 |%n"
                                      + "|-------------------------------|%n"));
-    assertThat(PlainRepresentation.INSTANCE.getValueRepresentation(info, "column", getValue(null, Date.valueOf("2007-12-23"))))
+    assertThat(PlainRepresentation.INSTANCE.getValueRepresentation(info, getValue("column", Date.valueOf("2007-12-23"))))
             .isEqualTo(String.format("[description]%n"
                                      + "|------------|%n"
                                      + "| column     |%n"
@@ -545,7 +545,7 @@ public class PlainRepresentation_Test extends AbstractTest {
                                      + "|------------|%n"
                                      + "| 2007-12-23 |%n"
                                      + "|------------|%n"));
-    assertThat(PlainRepresentation.INSTANCE.getValueRepresentation(info, "column", getValue(null, 8)))
+    assertThat(PlainRepresentation.INSTANCE.getValueRepresentation(info, getValue("column", 8)))
             .isEqualTo(String.format("[description]%n"
                                      + "|----------|%n"
                                      + "| column   |%n"
@@ -553,7 +553,7 @@ public class PlainRepresentation_Test extends AbstractTest {
                                      + "|----------|%n"
                                      + "| 8        |%n"
                                      + "|----------|%n"));
-    assertThat(PlainRepresentation.INSTANCE.getValueRepresentation(info, "column", getValue(null, Locale.FRENCH)))
+    assertThat(PlainRepresentation.INSTANCE.getValueRepresentation(info, getValue("column", Locale.FRENCH)))
             .isEqualTo(String.format("[description]%n"
                                      + "|-------------------------------------------|%n"
                                      + "| column                                    |%n"
@@ -561,7 +561,7 @@ public class PlainRepresentation_Test extends AbstractTest {
                                      + "|-------------------------------------------|%n"
                                      + "| fr                                        |%n"
                                      + "|-------------------------------------------|%n"));
-    assertThat(PlainRepresentation.INSTANCE.getValueRepresentation(info, "column", getValue(null, "test")))
+    assertThat(PlainRepresentation.INSTANCE.getValueRepresentation(info, getValue("column", "test")))
             .isEqualTo(String.format("[description]%n"
                                      + "|--------|%n"
                                      + "| column |%n"
@@ -569,7 +569,7 @@ public class PlainRepresentation_Test extends AbstractTest {
                                      + "|--------|%n"
                                      + "| test   |%n"
                                      + "|--------|%n"));
-    assertThat(PlainRepresentation.INSTANCE.getValueRepresentation(info, "column", getValue(null, Time.valueOf("09:01:00"))))
+    assertThat(PlainRepresentation.INSTANCE.getValueRepresentation(info, getValue("column", Time.valueOf("09:01:00"))))
             .isEqualTo(String.format("[description]%n"
                                      + "|--------------------|%n"
                                      + "| column             |%n"
@@ -577,7 +577,7 @@ public class PlainRepresentation_Test extends AbstractTest {
                                      + "|--------------------|%n"
                                      + "| 09:01:00.000000000 |%n"
                                      + "|--------------------|%n"));
-    assertThat(PlainRepresentation.INSTANCE.getValueRepresentation(info, "column", getValue(null, UUID.fromString(
+    assertThat(PlainRepresentation.INSTANCE.getValueRepresentation(info, getValue("column", UUID.fromString(
             "30B443AE-C0C9-4790-9BEC-CE1380808435"))))
             .isEqualTo(String.format("[description]%n"
                                      + "|--------------------------------------|%n"

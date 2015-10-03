@@ -12,31 +12,35 @@
  */
 package org.assertj.db.display;
 
-import org.assertj.db.display.impl.RepresentationType;
+import org.assertj.db.type.Column;
 import org.assertj.db.type.Table;
 
 /**
- * Display methods for a {@link org.assertj.db.type.Table}.
+ * Display methods for a {@link Column} of a {@link Table}.
  *
  * @author Régis Pouiller
  *
  */
-public class TableDisplay extends AbstractDbDisplay<Table, TableDisplay, TableColumnDisplay, TableColumnValueDisplay, TableRowDisplay, TableRowValueDisplay> {
+public class TableColumnDisplay
+        extends
+        AbstractColumnDisplay<Table, TableDisplay, TableColumnDisplay, TableColumnValueDisplay, TableRowDisplay, TableRowValueDisplay> {
 
   /**
    * Constructor.
    *
-   * @param table Table on which the display is.
+   * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
+   * @param column The column on which do assertion.
    */
-  TableDisplay(Table table) {
-    super(table, TableDisplay.class, TableColumnDisplay.class, TableRowDisplay.class);
+  public TableColumnDisplay(TableDisplay origin, Column column) {
+    super(origin, TableColumnDisplay.class, TableColumnValueDisplay.class, column);
   }
 
   /**
-   * {@inheritDoc}
+   * Returns to level of assertion methods on a {@link Table}.
+   *
+   * @return a object of assertion methods on a {@link Table}.
    */
-  @Override
-  protected String getRepresentation(RepresentationType displayType) {
-    return displayType.getTableRepresentation(info, actual);
+  public TableDisplay returnToTable() {
+    return returnToOrigin();
   }
 }
