@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.UUID;
 
 /**
  * Value in a {@link Row} or a {@link Column}.
@@ -46,7 +47,6 @@ public class Value implements DbElement {
    * NULL value.
    */
   public final static Value NULL = new Value(null, null);
-
 
   /**
    * Returns the type of the actual value (data).
@@ -103,6 +103,7 @@ public class Value implements DbElement {
 
   /**
    * Returns the name of the column.
+   *
    * @return The name of the column.
    */
   public String getColumnName() {
@@ -120,6 +121,7 @@ public class Value implements DbElement {
 
   /**
    * Returns the type of the value.
+   *
    * @return The type of the value.
    */
   public ValueType getValueType() {
@@ -128,12 +130,47 @@ public class Value implements DbElement {
 
   /**
    * Returns the representation of the type of the value.
+   *
    * @return The representation of the type of the value.
    */
   public String getValueTypeRepresentation() {
-    if (value == null ||valueType != ValueType.NOT_IDENTIFIED) {
+    if (value == null || valueType != ValueType.NOT_IDENTIFIED) {
       return valueType.toString();
     }
     return valueType + " : " + value.getClass();
+  }
+
+  /**
+   * Returns if any kind of comparison is possible between the value and the object in parameter.
+   *
+   * @param object The potential object for comparison.
+   * @return {@code true} is comparison is possible.
+   */
+  public boolean isComparisonPossible(Object object) {
+    switch (valueType) {
+    case BYTES:
+      return (object instanceof byte[]);
+    case BOOLEAN:
+      return (object instanceof Boolean);
+    case TEXT:
+      return (object instanceof String);
+    case DATE:
+    case DATE_TIME:
+      return (object instanceof DateValue ||object instanceof DateTimeValue ||  object instanceof String);
+    case TIME:
+      return (object instanceof TimeValue || object instanceof String);
+    case NUMBER:
+      return (object instanceof Number || object instanceof String);
+    case UUID:
+      return (object instanceof UUID || object instanceof String);
+    case NOT_IDENTIFIED:
+      if (value == null) {
+        return object == null;
+      }
+      else if (object != null) {
+        return value.getClass().equals(object.getClass());
+      }
+    }
+    return false;
   }
 }

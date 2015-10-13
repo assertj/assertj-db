@@ -12,8 +12,6 @@
  */
 package org.assertj.db.type;
 
-import java.util.UUID;
-
 /**
  * Enumeration of the different type of value that are in the database.
  * 
@@ -62,7 +60,7 @@ public enum ValueType {
 
   /**
    * Returns the types which are possible for the actual value (data) for the comparison with an expected value.
-   * 
+   *
    * @param expected The expected value
    * @return The possible types of the actual value
    */
@@ -89,7 +87,7 @@ public enum ValueType {
     if (expected instanceof Number) {
       return new ValueType[] { NUMBER };
     }
-    if (expected instanceof UUID) {
+    if (expected instanceof java.util.UUID) {
       return new ValueType[] { UUID };
     }
     return new ValueType[] { NOT_IDENTIFIED };

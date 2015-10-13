@@ -24,6 +24,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
@@ -47,9 +48,9 @@ public class AssertionsOnRowEquality_HasValues_Test extends AbstractTest {
     TableAssert tableAssert = assertThat(table);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, 1), getValue(null, "Weaver"), getValue(null,
                                                                                                            "Sigourney"),
-                                                     getValue(null, Date.valueOf("1949-10-08"))));
+                                                     getValue(null, Date.valueOf("1949-10-08")), getValue(null, new Locale("fr"))));
     TableAssert tableAssert2 = AssertionsOnRowEquality.hasValues(tableAssert, info, list, 1, "Weaver", "Sigourney",
-                                                                 "1949-10-08");
+                                                                 "1949-10-08", Locale.FRENCH);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -94,12 +95,10 @@ public class AssertionsOnRowEquality_HasValues_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that the value at index 1:%n"
-                                                      + "  <\"Weaver\">%n"
-                                                      + "to be of type%n"
-                                                      + "  <[BOOLEAN]>%n"
-                                                      + "but was of type%n"
-                                                      + "  <TEXT>"));
+                                                                    + "Expecting:%n"
+                                                                    + "  \"TEXT\" : <\"Weaver\">%n"
+                                                                    + "to be compatible with %n"
+                                                                    + "  java.lang.Boolean : <true>"));
     }
   }
 

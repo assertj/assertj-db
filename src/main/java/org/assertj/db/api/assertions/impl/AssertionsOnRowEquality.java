@@ -19,11 +19,10 @@ import org.assertj.db.type.Value;
 import org.assertj.db.type.ValueType;
 import org.assertj.db.util.Values;
 
-import java.util.Arrays;
 import java.util.List;
 
+import static org.assertj.db.error.ShouldBeCompatible.shouldBeCompatible;
 import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
-import static org.assertj.db.error.ShouldBeValueTypeOfAny.shouldBeValueTypeOfAny;
 import static org.assertj.db.util.Values.areEqual;
 
 /**
@@ -62,10 +61,9 @@ public class AssertionsOnRowEquality {
     AssertionsOnNumberOfColumns.hasNumberOfColumns(assertion, info, valuesList.size(), expected.length);
     int index = 0;
     for (Value value : valuesList) {
-      ValueType[] possibleTypes = ValueType.getPossibleTypesForComparison(expected[index]);
-      ValueType type = value.getValueType();
-      if (!Arrays.asList(possibleTypes).contains(type)) {
-        throw failures.failure(info, shouldBeValueTypeOfAny(index, value, type, possibleTypes));
+      Object object = expected[index];
+      if (!value.isComparisonPossible(object)) {
+        throw failures.failure(info, shouldBeCompatible(value, object));
       }
       if (!areEqual(value, expected[index])) {
         if (value.getValueType() == ValueType.BYTES) {
