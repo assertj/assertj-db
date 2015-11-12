@@ -13,6 +13,7 @@
 package org.assertj.db.type;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -82,7 +83,8 @@ public class Value implements DbElement {
         || object instanceof Long
         || object instanceof Float
         || object instanceof Double
-        || object instanceof BigDecimal) {
+        || object instanceof BigDecimal
+        || object instanceof BigInteger) {
 
       return ValueType.NUMBER;
     }

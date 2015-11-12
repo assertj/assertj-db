@@ -335,7 +335,7 @@ public class Values_AreEqual_Object_And_Object_Test extends AbstractTest {
    */
   @Test
   public void test_are_equal_for_biginteger_and_string() throws Exception {
-    assertThat(Values.areEqual(getValue(null, new BigInteger("1")), (Object) "1")).isFalse();
+		assertThat(Values.areEqual(getValue(null, new BigInteger("1")), (Object) "1")).isTrue();
     assertThat(Values.areEqual(getValue(null, new BigInteger("2")), (Object) "1")).isFalse();
   }
 
