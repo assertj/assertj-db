@@ -26,7 +26,7 @@ import java.util.Map;
  * Position during navigation.
  *
  * @author Régis Pouiller
- * @since 1.0.0
+ * @since 1.1.0
  */
 public abstract class Position<E extends AbstractElement & Navigation, N extends AbstractElement & Navigation, D extends DbElement> {
 

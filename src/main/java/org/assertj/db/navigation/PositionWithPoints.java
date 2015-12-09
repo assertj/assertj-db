@@ -18,7 +18,8 @@ import org.assertj.db.global.AbstractElement;
  * Position with point (start point and end point) during navigation.
  *
  * @author Régis Pouiller
- * @since 1.0.0
+ * @since 1.1.0
  */
-public class PositionWithPoints<E extends AbstractElement> {
+class PositionWithPoints<E extends AbstractElement> {
+  //TODO Finish
 }

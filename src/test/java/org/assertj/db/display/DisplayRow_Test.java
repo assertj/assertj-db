@@ -41,7 +41,7 @@ public class DisplayRow_Test extends AbstractTest {
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
     display(table).row().display(new PrintStream(byteArrayOutputStream0))
-                  .row().display(new PrintStream(byteArrayOutputStream1))
+                  .row(1).display(new PrintStream(byteArrayOutputStream1))
                   .row().display(new PrintStream(byteArrayOutputStream2));
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Row at index 0 of actor table]%n"
                                                                                     + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"
@@ -76,14 +76,14 @@ public class DisplayRow_Test extends AbstractTest {
    * This method tests the {@code display} display method.
    */
   @Test
-  public void test_display() throws Exception {
+  public void test_display_for_request() throws Exception {
     Request request = new Request(source, "select * from actor");
 
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
     display(request).row().display(new PrintStream(byteArrayOutputStream0))
-                    .row().display(new PrintStream(byteArrayOutputStream1))
+                    .row(1).display(new PrintStream(byteArrayOutputStream1))
                     .row().display(new PrintStream(byteArrayOutputStream2));
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Row at index 0 of 'select * from actor' request]%n"
                                                                                     + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"
