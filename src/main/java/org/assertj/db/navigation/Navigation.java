@@ -16,7 +16,7 @@ package org.assertj.db.navigation;
  * Navigation to elements.
  *
  * @author Régis Pouiller
- * @since 1.0.0
+ * @since 1.1.0
  */
 public interface Navigation {
 }

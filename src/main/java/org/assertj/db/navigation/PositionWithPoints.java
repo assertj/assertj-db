@@ -20,6 +20,6 @@ import org.assertj.db.global.AbstractElement;
  * @author Régis Pouiller
  * @since 1.1.0
  */
-class PositionWithPoints<E extends AbstractElement> {
+public abstract class PositionWithPoints<E extends AbstractElement> {
   //TODO Finish
 }
