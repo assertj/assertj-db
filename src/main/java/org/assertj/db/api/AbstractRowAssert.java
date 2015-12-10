@@ -16,7 +16,7 @@ import org.assertj.db.api.assertions.AssertOnNumberOfColumns;
 import org.assertj.db.api.assertions.AssertOnRowEquality;
 import org.assertj.db.api.assertions.impl.AssertionsOnNumberOfColumns;
 import org.assertj.db.api.assertions.impl.AssertionsOnRowEquality;
-import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.navigation.PositionWithColumns;
 import org.assertj.db.navigation.ToValueFromRow;
 import org.assertj.db.navigation.element.RowElement;
 import org.assertj.db.type.AbstractDbData;
@@ -48,6 +48,11 @@ public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends A
                    AssertOnNumberOfColumns<R> {
 
   /**
+   * Position of navigation to value.
+   */
+  private final PositionWithColumns<R, RV, Value> valuePosition;
+
+  /**
    * Row on which do the assertion.
    */
   private final Row row;
@@ -62,6 +67,11 @@ public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends A
   AbstractRowAssert(A originalDbAssert, Class<R> selfType, Class<RV> valueType, Row row) {
     super(originalDbAssert, selfType, valueType);
     this.row = row;
+    valuePosition = new PositionWithColumns<R, RV, Value>(selfType.cast(this), valueType) {
+      @Override protected String getDescription(int index) {
+        return getValueDescription(index);
+      }
+    };
   }
 
   /** {@inheritDoc} */
@@ -81,15 +91,7 @@ public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends A
   /** {@inheritDoc} */
   @Override
   public RV value(String columnName) {
-    if (columnName == null) {
-      throw new NullPointerException("Column name must be not null");
-    }
-    List<String> columnsNameList = row.getColumnsNameList();
-    int index = columnsNameList.indexOf(columnName.toUpperCase());
-    if (index == -1) {
-      throw new AssertJDBException("Column <%s> does not exist", columnName);
-    }
-    return valuePosition.getInstance(getValuesList(), index);
+    return valuePosition.getInstance(getValuesList(), row.getColumnsNameList(), columnName);
   }
 
   /** {@inheritDoc} */

@@ -16,8 +16,8 @@ import org.assertj.db.api.assertions.AssertOnNumberOfColumns;
 import org.assertj.db.api.assertions.AssertOnNumberOfRows;
 import org.assertj.db.api.assertions.impl.AssertionsOnNumberOfColumns;
 import org.assertj.db.api.assertions.impl.AssertionsOnNumberOfRows;
-import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.navigation.Position;
+import org.assertj.db.navigation.PositionWithColumns;
 import org.assertj.db.navigation.origin.OriginWithColumnsAndRows;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Column;
@@ -54,7 +54,7 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
   /**
    * Position of navigation to column.
    */
-  private final Position<A, C, Column> columnPosition;
+  private final PositionWithColumns<A, C, Column> columnPosition;
   /**
    * Position of navigation to row.
    */
@@ -71,7 +71,7 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
   AbstractDbAssert(D actualValue, Class<A> selfType, Class<C> columnAssertType, Class<R> rowAssertType) {
     super(selfType);
     actual = actualValue;
-    columnPosition = new Position(selfType.cast(this), columnAssertType) {
+    columnPosition = new PositionWithColumns(selfType.cast(this), columnAssertType) {
       @Override protected String getDescription(int index) {
         List<String> columnsNameList = actual.getColumnsNameList();
         String columnName = columnsNameList.get(index);
@@ -112,15 +112,7 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
   /** {@inheritDoc} */
   @Override
   public C column(String columnName) {
-    if (columnName == null) {
-      throw new NullPointerException("Column name must be not null");
-    }
-    List<String> columnsNameList = actual.getColumnsNameList();
-    int index = columnsNameList.indexOf(columnName.toUpperCase());
-    if (index == -1) {
-      throw new AssertJDBException("Column <%s> does not exist", columnName);
-    }
-    return columnPosition.getInstance(actual.getColumnsList(), index);
+    return columnPosition.getInstance(actual.getColumnsList(), actual.getColumnsNameList(), columnName);
   }
 
   /** {@inheritDoc} */

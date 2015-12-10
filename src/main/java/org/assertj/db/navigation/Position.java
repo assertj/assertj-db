@@ -25,6 +25,10 @@ import java.util.Map;
 /**
  * Position during navigation.
  *
+ * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ * @param <D> The class of the database element on which is the next position (an sub-class of {@link org.assertj.db.type.DbElement}).
+ *
  * @author Régis Pouiller
  * @since 1.1.0
  */
@@ -77,7 +81,7 @@ public abstract class Position<E extends AbstractElement & Navigation, N extends
    * If this instance is already instanced, the method returns it from the cache.
    *
    * @param elementsList List of elements.
-   * @return The row assert implementation.
+   * @return The instance of element of navigation.
    */
   public N getInstance(List<D> elementsList) {
     return getInstance(elementsList, nextIndex);
@@ -89,7 +93,7 @@ public abstract class Position<E extends AbstractElement & Navigation, N extends
    *
    * @param elementsList List of elements.
    * @param index        Index of the element on which is the instance of element of navigation.
-   * @return The row assert implementation.
+   * @return The instance of element of navigation.
    */
   public N getInstance(List<D> elementsList, int index) {
     if (elementsMap.containsKey(index)) {
