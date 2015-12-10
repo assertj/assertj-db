@@ -16,6 +16,7 @@ import org.assertj.db.api.assertions.AssertOnNumberOfColumns;
 import org.assertj.db.api.assertions.AssertOnRowEquality;
 import org.assertj.db.api.assertions.impl.AssertionsOnNumberOfColumns;
 import org.assertj.db.api.assertions.impl.AssertionsOnRowEquality;
+import org.assertj.db.navigation.Position;
 import org.assertj.db.navigation.PositionWithColumns;
 import org.assertj.db.navigation.ToValueFromRow;
 import org.assertj.db.navigation.element.RowElement;
@@ -65,7 +66,7 @@ public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends A
    * @param valueType Class of the assert on the value : a sub-class of {@code AbstractRowValueAssert}.
    */
   AbstractRowAssert(A originalDbAssert, Class<R> selfType, Class<RV> valueType, Row row) {
-    super(originalDbAssert, selfType, valueType);
+    super(originalDbAssert, selfType);
     this.row = row;
     valuePosition = new PositionWithColumns<R, RV, Value>(selfType.cast(this), valueType) {
       @Override protected String getDescription(int index) {
@@ -80,6 +81,12 @@ public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends A
     List<String> columnsNameList = row.getColumnsNameList();
     String columnName = columnsNameList.get(index);
     return getRowValueDescription(info, index, columnName);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  protected Position<R, RV, Value> getValuePosition() {
+    return valuePosition;
   }
 
   /** {@inheritDoc} */

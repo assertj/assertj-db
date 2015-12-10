@@ -13,6 +13,7 @@
 package org.assertj.db.display;
 
 import org.assertj.db.display.impl.RepresentationType;
+import org.assertj.db.navigation.Position;
 import org.assertj.db.navigation.element.ColumnElement;
 import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Column;
@@ -39,6 +40,11 @@ public abstract class AbstractColumnDisplay<D extends AbstractDbData<D>, A exten
         implements ColumnElement {
 
   /**
+   * Position of navigation to value.
+   */
+  protected final Position<C, CV, Value> valuePosition;
+
+  /**
    * Column on which do the assertion.
    */
   private final Column column;
@@ -51,14 +57,25 @@ public abstract class AbstractColumnDisplay<D extends AbstractDbData<D>, A exten
    * @param valueType Class of the assert on the value : a sub-class of {@code AbstractColumnValueDisplay}.
    */
   AbstractColumnDisplay(A originalDbDisplay, Class<C> selfType, Class<CV> valueType, Column column) {
-    super(originalDbDisplay, selfType, valueType);
+    super(originalDbDisplay, selfType);
     this.column = column;
+    valuePosition = new Position<C, CV, Value>(selfType.cast(this), valueType) {
+      @Override protected String getDescription(int index) {
+        return getValueDescription(index);
+      }
+    };
   }
 
   /** {@inheritDoc} */
   @Override
   protected String getValueDescription(int index) {
     return getColumnValueDescription(info, index);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  protected Position<C, CV, Value> getValuePosition() {
+    return valuePosition;
   }
 
   /** {@inheritDoc} */

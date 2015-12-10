@@ -19,14 +19,13 @@ import org.assertj.db.api.assertions.impl.AssertionsOnNumberOfColumns;
 import org.assertj.db.api.assertions.impl.AssertionsOnRowEquality;
 import org.assertj.db.api.assertions.impl.AssertionsOnRowOfChangeExistence;
 import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.navigation.PositionWithColumns;
 import org.assertj.db.navigation.element.RowElement;
 import org.assertj.db.navigation.origin.OriginWithValuesFromRow;
 import org.assertj.db.type.Row;
 import org.assertj.db.type.Value;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.assertj.db.util.Descriptions.getRowValueDescription;
 
@@ -44,18 +43,14 @@ public class ChangeRowAssert
                    AssertOnRowOfChangeExistence<ChangeRowAssert> {
 
   /**
+   * Position of navigation to value.
+   */
+  private final PositionWithColumns<ChangeRowAssert, ChangeRowValueAssert, Value> valuePosition;
+
+  /**
    * The actual row on which the assertion is.
    */
   private final Row row;
-
-  /**
-   * Index of the next value to get.
-   */
-  private int indexNextValue;
-  /**
-   * Map the value assert with their index in key (contains the value assert already generated).
-   */
-  private final Map<Integer, ChangeRowValueAssert> changeValueAssertMap = new HashMap<>();
 
   /**
    * Constructor.
@@ -63,77 +58,43 @@ public class ChangeRowAssert
    * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    * @param row The {@link Row} on which are the assertions.
    */
-  ChangeRowAssert(ChangeAssert origin, Row row) {
+  public ChangeRowAssert(ChangeAssert origin, Row row) {
     super(ChangeRowAssert.class, origin);
     this.row = row;
-  }
-
-  /**
-   * Returns the value at the {@code index} in parameter.
-   *
-   * @param index The index corresponding to the value.
-   * @return The value.
-   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
-   */
-  private Value getValue(int index) {
-    if (row == null) {
-      throw new AssertJDBException("Row do not exist");
-    }
-    int size = row.getValuesList().size();
-    if (index < 0 || index >= size) {
-      throw new AssertJDBException("Index %s out of the limits [0, %s[", index, size);
-    }
-    Value value = row.getValuesList().get(index);
-    indexNextValue = index + 1;
-    return value;
-  }
-
-  /**
-   * Gets an instance of change assert corresponding to the index. If this instance is already instanced, the method
-   * returns it from the cache.
-   *
-   * @param index Index of the change on which is the instance of change assert.
-   * @return The change assert implementation.
-   */
-  private ChangeRowValueAssert getChangeValueAssertInstance(int index) {
-    if (changeValueAssertMap.containsKey(index)) {
-      ChangeRowValueAssert changeRowValueAssert = changeValueAssertMap.get(index);
-      indexNextValue = index + 1;
-      return changeRowValueAssert;
-    }
-
-    Value value = getValue(index);
-    List<String> columnsNameList = row.getColumnsNameList();
-    String columnName = columnsNameList.get(index);
-    ChangeRowValueAssert instance = new ChangeRowValueAssert(this, columnName, value);
-    changeValueAssertMap.put(index, instance);
-    return instance.as(getRowValueDescription(info, index, columnName));
+    valuePosition = new PositionWithColumns<ChangeRowAssert, ChangeRowValueAssert, Value>(this, ChangeRowValueAssert.class) {
+      @Override protected String getDescription(int index) {
+        List<String> columnsNameList = ChangeRowAssert.this.row.getColumnsNameList();
+        String columnName = columnsNameList.get(index);
+        return getRowValueDescription(info, index, columnName);
+      }
+    };
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeRowValueAssert value() {
-    return getChangeValueAssertInstance(indexNextValue);
+    if (row == null) {
+      throw new AssertJDBException("Row do not exist");
+    }
+    return valuePosition.getInstance(row.getValuesList());
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeRowValueAssert value(int index) {
-    return getChangeValueAssertInstance(index);
+    if (row == null) {
+      throw new AssertJDBException("Row do not exist");
+    }
+    return valuePosition.getInstance(row.getValuesList(), index);
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeRowValueAssert value(String columnName) {
-    if (columnName == null) {
-      throw new NullPointerException("Column name must be not null");
+    if (row == null) {
+      throw new AssertJDBException("Row do not exist");
     }
-    List<String> columnsNameList = row.getColumnsNameList();
-    int index = columnsNameList.indexOf(columnName.toUpperCase());
-    if (index == -1) {
-      throw new AssertJDBException("Column <%s> does not exist", columnName);
-    }
-    return getChangeValueAssertInstance(index);
+    return valuePosition.getInstance(row.getValuesList(), row.getColumnsNameList(), columnName);
   }
 
   /** {@inheritDoc} */

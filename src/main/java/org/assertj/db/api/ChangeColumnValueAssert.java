@@ -31,7 +31,7 @@ public class ChangeColumnValueAssert
    * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    * @param value The value on which are the assertions.
    */
-  ChangeColumnValueAssert(ChangeColumnAssert origin, Value value) {
+  public ChangeColumnValueAssert(ChangeColumnAssert origin, Value value) {
     super(ChangeColumnValueAssert.class, origin, value);
   }
 

@@ -49,21 +49,24 @@ public class ToValueFromRow_Value_String_Test extends AbstractTest {
     updateChangesForTests();
     changes.setEndPointNow();
 
-    Field fieldIndex = ChangeRowAssert.class.getDeclaredField("indexNextValue");
-    fieldIndex.setAccessible(true);
+    Field fieldPosition = ChangeRowAssert.class.getDeclaredField("valuePosition");
+    fieldPosition.setAccessible(true);
     Field fieldValue = AbstractAssertWithValues.class.getDeclaredField("value");
     fieldValue.setAccessible(true);
+    Field fieldIndex = Position.class.getDeclaredField("nextIndex");
+    fieldIndex.setAccessible(true);
 
     ChangesAssert changesAssert = assertThat(changes);
     ChangeAssert changeAssert = changesAssert.change();
     ChangeRowAssert changeRowAssert = changeAssert.rowAtEndPoint();
-    Assertions.assertThat(fieldIndex.get(changeRowAssert)).isEqualTo(0);
+    Position position = (Position) fieldPosition.get(changeRowAssert);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     ChangeRowValueAssert changeRowValueAssert0 = changeRowAssert.value("ID");
-    Assertions.assertThat(fieldIndex.get(changeRowAssert)).isEqualTo(1);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
     ChangeRowValueAssert changeRowValueAssert1 = changeRowAssert.value("NAME");
-    Assertions.assertThat(fieldIndex.get(changeRowAssert)).isEqualTo(2);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(2);
     ChangeRowValueAssert changeRowValueAssert2 = changeRowAssert.value("FIRSTNAME");
-    Assertions.assertThat(fieldIndex.get(changeRowAssert)).isEqualTo(3);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(3);
     ChangeRowValueAssert changeRowValueAssert3 = changeRowAssert.value("BIRTH");
     try {
       changeRowAssert.value("TEST");
@@ -81,13 +84,14 @@ public class ToValueFromRow_Value_String_Test extends AbstractTest {
     ChangesAssert changesAssertBis = assertThat(changes);
     ChangeAssert changeAssertBis = changesAssertBis.change();
     ChangeRowAssert changeRowAssertBis = changeAssertBis.rowAtEndPoint();
-    Assertions.assertThat(fieldIndex.get(changeRowAssertBis)).isEqualTo(0);
+    Position positionBis = (Position) fieldPosition.get(changeRowAssertBis);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     ChangeRowValueAssert changeRowValueAssertBis0 = changeRowAssertBis.value("ID");
-    Assertions.assertThat(fieldIndex.get(changeRowAssertBis)).isEqualTo(1);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
     ChangeRowValueAssert changeRowValueAssertBis1 = changeRowValueAssertBis0.value("NAME");
-    Assertions.assertThat(fieldIndex.get(changeRowAssertBis)).isEqualTo(2);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(2);
     ChangeRowValueAssert changeRowValueAssertBis2 = changeRowValueAssertBis1.value("FIRSTNAME");
-    Assertions.assertThat(fieldIndex.get(changeRowAssertBis)).isEqualTo(3);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(3);
     ChangeRowValueAssert changeRowValueAssertBis3 = changeRowValueAssertBis2.value("BIRTH");
     try {
       changeRowValueAssertBis3.value("TEST");
@@ -120,7 +124,7 @@ public class ToValueFromRow_Value_String_Test extends AbstractTest {
    */
   @Test
   public void test_value_from_row_of_table() throws Exception {
-    Field fieldPosition = AbstractSubAssert.class.getDeclaredField("valuePosition");
+    Field fieldPosition = AbstractRowAssert.class.getDeclaredField("valuePosition");
     fieldPosition.setAccessible(true);
     Field fieldValue = AbstractValueAssert.class.getDeclaredField("value");
     fieldValue.setAccessible(true);
@@ -197,7 +201,7 @@ public class ToValueFromRow_Value_String_Test extends AbstractTest {
    */
   @Test
   public void test_value_from_row_of_request() throws Exception {
-    Field fieldPosition = AbstractSubAssert.class.getDeclaredField("valuePosition");
+    Field fieldPosition = AbstractRowAssert.class.getDeclaredField("valuePosition");
     fieldPosition.setAccessible(true);
     Field fieldValue = AbstractValueAssert.class.getDeclaredField("value");
     fieldValue.setAccessible(true);

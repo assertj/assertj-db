@@ -50,23 +50,26 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     updateChangesForTests();
     changes.setEndPointNow();
 
-    Field fieldIndex = ChangeRowAssert.class.getDeclaredField("indexNextValue");
-    fieldIndex.setAccessible(true);
+    Field fieldPosition = ChangeRowAssert.class.getDeclaredField("valuePosition");
+    fieldPosition.setAccessible(true);
     Field fieldValue = AbstractAssertWithValues.class.getDeclaredField("value");
     fieldValue.setAccessible(true);
+    Field fieldIndex = Position.class.getDeclaredField("nextIndex");
+    fieldIndex.setAccessible(true);
 
     ChangesAssert changesAssert = assertThat(changes);
     ChangeAssert changeAssert = changesAssert.change();
     ChangeRowAssert changeRowAssert = changeAssert.rowAtEndPoint();
-    Assertions.assertThat(fieldIndex.get(changeRowAssert)).isEqualTo(0);
+    Position position = (Position) fieldPosition.get(changeRowAssert);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     ChangeRowValueAssert changeRowValueAssert0 = changeRowAssert.value(0);
-    Assertions.assertThat(fieldIndex.get(changeRowAssert)).isEqualTo(1);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
     ChangeRowValueAssert changeRowValueAssert1 = changeRowAssert.value(1);
-    Assertions.assertThat(fieldIndex.get(changeRowAssert)).isEqualTo(2);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(2);
     ChangeRowValueAssert changeRowValueAssert2 = changeRowAssert.value(2);
-    Assertions.assertThat(fieldIndex.get(changeRowAssert)).isEqualTo(3);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(3);
     ChangeRowValueAssert changeRowValueAssert3 = changeRowAssert.value(3);
-    Assertions.assertThat(fieldIndex.get(changeRowAssert)).isEqualTo(4);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(4);
     ChangeRowValueAssert changeRowValueAssert4 = changeRowAssert.value(4);
     try {
       changeRowAssert.value(6);
@@ -92,15 +95,16 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     ChangesAssert changesAssertBis = assertThat(changes);
     ChangeAssert changeAssertBis = changesAssertBis.change();
     ChangeRowAssert changeRowAssertBis = changeAssertBis.rowAtEndPoint();
-    Assertions.assertThat(fieldIndex.get(changeRowAssertBis)).isEqualTo(0);
+    Position positionBis = (Position) fieldPosition.get(changeRowAssertBis);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     ChangeRowValueAssert changeRowValueAssertBis0 = changeRowAssertBis.value(0);
-    Assertions.assertThat(fieldIndex.get(changeRowAssertBis)).isEqualTo(1);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
     ChangeRowValueAssert changeRowValueAssertBis1 = changeRowValueAssertBis0.value(1);
-    Assertions.assertThat(fieldIndex.get(changeRowAssertBis)).isEqualTo(2);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(2);
     ChangeRowValueAssert changeRowValueAssertBis2 = changeRowValueAssertBis1.value(2);
-    Assertions.assertThat(fieldIndex.get(changeRowAssertBis)).isEqualTo(3);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(3);
     ChangeRowValueAssert changeRowValueAssertBis3 = changeRowValueAssertBis2.value(3);
-    Assertions.assertThat(fieldIndex.get(changeRowAssertBis)).isEqualTo(4);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(4);
     ChangeRowValueAssert changeRowValueAssertBis4 = changeRowValueAssertBis3.value(4);
     try {
       changeRowValueAssertBis4.value(6);
@@ -145,7 +149,7 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
    */
   @Test
   public void test_value_from_column_of_table_with_index() throws Exception {
-    Field fieldPosition = AbstractSubAssert.class.getDeclaredField("valuePosition");
+    Field fieldPosition = AbstractColumnAssert.class.getDeclaredField("valuePosition");
     fieldPosition.setAccessible(true);
     Field fieldValue = AbstractValueAssert.class.getDeclaredField("value");
     fieldValue.setAccessible(true);
@@ -219,7 +223,7 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
    */
   @Test
   public void test_value_from_row_of_table_with_index() throws Exception {
-    Field fieldPosition = AbstractSubAssert.class.getDeclaredField("valuePosition");
+    Field fieldPosition = AbstractRowAssert.class.getDeclaredField("valuePosition");
     fieldPosition.setAccessible(true);
     Field fieldValue = AbstractValueAssert.class.getDeclaredField("value");
     fieldValue.setAccessible(true);
@@ -307,7 +311,7 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
    */
   @Test
   public void test_value_from_column_of_request_with_index() throws Exception {
-    Field fieldPosition = AbstractSubAssert.class.getDeclaredField("valuePosition");
+    Field fieldPosition = AbstractColumnAssert.class.getDeclaredField("valuePosition");
     fieldPosition.setAccessible(true);
     Field fieldValue = AbstractValueAssert.class.getDeclaredField("value");
     fieldValue.setAccessible(true);
@@ -381,7 +385,7 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
    */
   @Test
   public void test_value_from_row_of_request_with_index() throws Exception {
-    Field fieldPosition = AbstractSubAssert.class.getDeclaredField("valuePosition");
+    Field fieldPosition = AbstractRowAssert.class.getDeclaredField("valuePosition");
     fieldPosition.setAccessible(true);
     Field fieldValue = AbstractValueAssert.class.getDeclaredField("value");
     fieldValue.setAccessible(true);

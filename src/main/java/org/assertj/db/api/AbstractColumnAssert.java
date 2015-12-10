@@ -14,6 +14,7 @@ package org.assertj.db.api;
 
 import org.assertj.db.api.assertions.*;
 import org.assertj.db.api.assertions.impl.*;
+import org.assertj.db.navigation.Position;
 import org.assertj.db.navigation.element.ColumnElement;
 import org.assertj.db.type.*;
 
@@ -47,6 +48,11 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
                    AssertOnColumnNullity<C> {
 
   /**
+   * Position of navigation to value.
+   */
+  protected final Position<C, CV, Value> valuePosition;
+
+  /**
    * Column on which do the assertion.
    */
   private final Column column;
@@ -59,14 +65,25 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @param valueType Class of the assert on the value : a sub-class of {@code AbstractColumnValueAssert}.
    */
   AbstractColumnAssert(A originalDbAssert, Class<C> selfType, Class<CV> valueType, Column column) {
-    super(originalDbAssert, selfType, valueType);
+    super(originalDbAssert, selfType);
     this.column = column;
+    valuePosition = new Position<C, CV, Value>(selfType.cast(this), valueType) {
+      @Override protected String getDescription(int index) {
+        return getValueDescription(index);
+      }
+    };
   }
 
   /** {@inheritDoc} */
   @Override
   protected String getValueDescription(int index) {
     return getColumnValueDescription(info, index);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  protected Position<C, CV, Value> getValuePosition() {
+    return valuePosition;
   }
 
   /** {@inheritDoc} */

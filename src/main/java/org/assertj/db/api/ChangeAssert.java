@@ -15,6 +15,7 @@ package org.assertj.db.api;
 import org.assertj.db.api.assertions.*;
 import org.assertj.db.api.assertions.impl.*;
 import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.navigation.PositionWithPoints;
 import org.assertj.db.navigation.element.ChangeElement;
 import org.assertj.db.navigation.origin.OriginWithColumnsAndRowsFromChange;
 import org.assertj.db.type.*;
@@ -47,13 +48,9 @@ public class ChangeAssert
   private final Change change;
 
   /**
-   * The assertion on the row at start point.
+   * Position of navigation to row.
    */
-  private ChangeRowAssert changeRowAssertAtStartPoint;
-  /**
-   * The assertion on the row at end point.
-   */
-  private ChangeRowAssert changeRowAssertAtEndPoint;
+  private final PositionWithPoints<ChangeAssert, ChangeRowAssert, Row> rowPosition;
 
   /**
    * Index of the next value to get.
@@ -73,26 +70,28 @@ public class ChangeAssert
   ChangeAssert(ChangesAssert origin, Change change) {
     super(ChangeAssert.class, origin);
     this.change = change;
+    rowPosition = new PositionWithPoints<ChangeAssert, ChangeRowAssert, Row>(this, ChangeRowAssert.class, Row.class, change.getRowAtStartPoint(), change.getRowAtEndPoint()) {
+
+      @Override protected String getDescriptionAtStartPoint() {
+        return getRowAtStartPointDescription(info);
+      }
+
+      @Override protected String getDescriptionAtEndPoint() {
+        return getRowAtEndPointDescription(info);
+      }
+    };
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeRowAssert rowAtStartPoint() {
-    if (changeRowAssertAtStartPoint == null) {
-      changeRowAssertAtStartPoint = new ChangeRowAssert(this, change.getRowAtStartPoint())
-              .as(getRowAtStartPointDescription(info));
-    }
-    return changeRowAssertAtStartPoint;
+    return rowPosition.getInstanceAtStartPoint();
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeRowAssert rowAtEndPoint() {
-    if (changeRowAssertAtEndPoint == null) {
-      changeRowAssertAtEndPoint = new ChangeRowAssert(this, change.getRowAtEndPoint())
-              .as(getRowAtEndPointDescription(info));
-    }
-    return changeRowAssertAtEndPoint;
+    return rowPosition.getInstanceAtEndPoint();
   }
 
   /**

@@ -44,7 +44,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
   /**
    * The actual value on which the assertion is.
    */
-  private final Value value;
+  protected final Value value;
 
   /**
    * Constructor.

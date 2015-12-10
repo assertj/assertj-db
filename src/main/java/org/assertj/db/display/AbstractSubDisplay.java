@@ -44,24 +44,13 @@ public abstract class AbstractSubDisplay<D extends AbstractDbData<D>, A extends 
         ToValue<V> {
 
   /**
-   * Position of navigation to value.
-   */
-  protected final Position<S, V, Value> valuePosition;
-
-  /**
    * Constructor.
    *
    * @param originalDbAssert The original assert. That could be a {@link RequestAssert} or a {@link TableAssert}.
    * @param selfType Type of this assertion class : a sub-class of {@code AbstractSubAssert}.
-   * @param valueAssertType Class of the assertion on the value : a sub-class of {@code AbstractValueAssert}.
    */
-  AbstractSubDisplay(A originalDbAssert, Class<S> selfType, Class<V> valueAssertType) {
+  AbstractSubDisplay(A originalDbAssert, Class<S> selfType) {
     super(selfType, originalDbAssert);
-    valuePosition = new Position<S, V, Value>(selfType.cast(this), valueAssertType) {
-      @Override protected String getDescription(int index) {
-        return getValueDescription(index);
-      }
-    };
   }
 
   /**
@@ -74,14 +63,20 @@ public abstract class AbstractSubDisplay<D extends AbstractDbData<D>, A extends 
   /** {@inheritDoc} */
   @Override
   public V value() {
-    return valuePosition.getInstance(getValuesList()).withType(displayType);
+    return getValuePosition().getInstance(getValuesList()).withType(displayType);
   }
 
   /** {@inheritDoc} */
   @Override
   public V value(int index) {
-    return valuePosition.getInstance(getValuesList(), index).withType(displayType);
+    return getValuePosition().getInstance(getValuesList(), index).withType(displayType);
   }
+
+  /**
+   * Returns the position of navigation to value.
+   * @return The position of navigation to value.
+   */
+  protected abstract Position<S, V, Value> getValuePosition();
 
   /**
    * Returns the list of values.

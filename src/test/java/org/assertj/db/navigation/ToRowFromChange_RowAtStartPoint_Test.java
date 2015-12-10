@@ -45,7 +45,9 @@ public class ToRowFromChange_RowAtStartPoint_Test extends AbstractTest {
     updateChangesForTests();
     changes.setEndPointNow();
 
-    Field fieldRowAssert = ChangeAssert.class.getDeclaredField("changeRowAssertAtStartPoint");
+    Field fieldPosition = ChangeAssert.class.getDeclaredField("rowPosition");
+    fieldPosition.setAccessible(true);
+    Field fieldRowAssert = PositionWithPoints.class.getDeclaredField("instanceAtStartPoint");
     fieldRowAssert.setAccessible(true);
     Field fieldRowFromChange = Change.class.getDeclaredField("rowAtStartPoint");
     fieldRowFromChange.setAccessible(true);
@@ -55,26 +57,29 @@ public class ToRowFromChange_RowAtStartPoint_Test extends AbstractTest {
     ChangesAssert changesAssert = assertThat(changes);
 
     ChangeAssert changeCreationAssert = changesAssert.change();
-    Assertions.assertThat(fieldRowAssert.get(changeCreationAssert)).isNull();
+    PositionWithPoints positionCreation = (PositionWithPoints) fieldPosition.get(changeCreationAssert);
+    Assertions.assertThat(fieldRowAssert.get(positionCreation)).isNull();
     ChangeRowAssert changeCreationRowAssert = changeCreationAssert.rowAtStartPoint();
-    Assertions.assertThat(fieldRowAssert.get(changeCreationAssert)).isNotNull();
+    Assertions.assertThat(fieldRowAssert.get(positionCreation)).isNotNull();
     ChangeRowAssert changeCreationRowAssertBis = changeCreationRowAssert.rowAtStartPoint();
     Assertions.assertThat(changeCreationRowAssert).isSameAs(changeCreationRowAssertBis);
     Assertions.assertThat(fieldRowFromAssert.get(changeCreationRowAssert)).isNull();
 
     ChangeAssert changeModificationAssert = changesAssert.change(3);
-    Assertions.assertThat(fieldRowAssert.get(changeModificationAssert)).isNull();
+    PositionWithPoints positionModification = (PositionWithPoints) fieldPosition.get(changeModificationAssert);
+    Assertions.assertThat(fieldRowAssert.get(positionModification)).isNull();
     ChangeRowAssert changeModificationRowAssert = changeModificationAssert.rowAtStartPoint();
-    Assertions.assertThat(fieldRowAssert.get(changeModificationAssert)).isNotNull();
+    Assertions.assertThat(fieldRowAssert.get(positionModification)).isNotNull();
     ChangeRowAssert changeModificationRowAssertBis = changeModificationRowAssert.rowAtStartPoint();
     Assertions.assertThat(changeModificationRowAssert).isSameAs(changeModificationRowAssertBis);
     Assertions.assertThat(fieldRowFromAssert.get(changeModificationRowAssert)).isEqualTo(
             fieldRowFromChange.get(changes.getChangesList().get(3)));
 
     ChangeAssert changeDeletionAssert = changesAssert.change(6);
-    Assertions.assertThat(fieldRowAssert.get(changeDeletionAssert)).isNull();
+    PositionWithPoints positionDeletion = (PositionWithPoints) fieldPosition.get(changeDeletionAssert);
+    Assertions.assertThat(fieldRowAssert.get(positionDeletion)).isNull();
     ChangeRowAssert changeDeletionRowAssert = changeDeletionAssert.rowAtStartPoint();
-    Assertions.assertThat(fieldRowAssert.get(changeDeletionAssert)).isNotNull();
+    Assertions.assertThat(fieldRowAssert.get(positionDeletion)).isNotNull();
     ChangeRowAssert changeDeletionRowAssertBis = changeDeletionRowAssert.rowAtStartPoint();
     Assertions.assertThat(changeDeletionRowAssert).isSameAs(changeDeletionRowAssertBis);
     Assertions.assertThat(fieldRowFromAssert.get(changeDeletionRowAssert)).isEqualTo(

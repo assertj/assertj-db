@@ -13,6 +13,7 @@
 package org.assertj.db.display;
 
 import org.assertj.db.display.impl.RepresentationType;
+import org.assertj.db.navigation.Position;
 import org.assertj.db.navigation.PositionWithColumns;
 import org.assertj.db.navigation.ToValueFromRow;
 import org.assertj.db.navigation.element.RowElement;
@@ -60,7 +61,7 @@ public abstract class AbstractRowDisplay<D extends AbstractDbData<D>, A extends 
    * @param valueType Class of the assert on the value : a sub-class of {@code AbstractRowValueDisplay}.
    */
   AbstractRowDisplay(A originalDbDisplay, Class<R> selfType, Class<RV> valueType, Row row) {
-    super(originalDbDisplay, selfType, valueType);
+    super(originalDbDisplay, selfType);
     this.row = row;
     valuePosition = new PositionWithColumns<R, RV, Value>(selfType.cast(this), valueType) {
       @Override protected String getDescription(int index) {
@@ -75,6 +76,12 @@ public abstract class AbstractRowDisplay<D extends AbstractDbData<D>, A extends 
     List<String> columnsNameList = row.getColumnsNameList();
     String columnName = columnsNameList.get(index);
     return getRowValueDescription(info, index, columnName);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  protected Position<R, RV, Value> getValuePosition() {
+    return valuePosition;
   }
 
   /** {@inheritDoc} */

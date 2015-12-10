@@ -14,6 +14,7 @@ package org.assertj.db.api;
 
 import org.assertj.db.api.assertions.*;
 import org.assertj.db.api.assertions.impl.*;
+import org.assertj.db.navigation.PositionWithPoints;
 import org.assertj.db.navigation.element.ColumnElement;
 import org.assertj.db.navigation.origin.OriginWithValuesFromColumn;
 import org.assertj.db.type.*;
@@ -54,13 +55,9 @@ public class ChangeColumnAssert
   private final Value valueAtEndPoint;
 
   /**
-   * The assertion on the value at start point.
+   * Position of navigation to row.
    */
-  private ChangeColumnValueAssert changeColumnValueAssertAtStartPoint;
-  /**
-   * The assertion on the value at end point.
-   */
-  private ChangeColumnValueAssert changeColumnValueAssertAtEndPoint;
+  private final PositionWithPoints<ChangeColumnAssert, ChangeColumnValueAssert, Value> valuePosition;
 
   /**
    * Constructor.
@@ -70,31 +67,33 @@ public class ChangeColumnAssert
    * @param valueAtStartPoint The value at start point.
    * @param valueAtEndPoint The value at end point.
    */
-  ChangeColumnAssert(ChangeAssert origin, String columnName, Value valueAtStartPoint, Value valueAtEndPoint) {
+  public ChangeColumnAssert(ChangeAssert origin, String columnName, Value valueAtStartPoint, Value valueAtEndPoint) {
     super(ChangeColumnAssert.class, origin);
     this.columnName = columnName;
     this.valueAtStartPoint = valueAtStartPoint;
     this.valueAtEndPoint = valueAtEndPoint;
+    valuePosition = new PositionWithPoints<ChangeColumnAssert, ChangeColumnValueAssert, Value>(this, ChangeColumnValueAssert.class, Value.class, valueAtStartPoint, valueAtEndPoint) {
+
+      @Override protected String getDescriptionAtStartPoint() {
+        return getColumnValueAtStartPointDescription(info);
+      }
+
+      @Override protected String getDescriptionAtEndPoint() {
+        return getColumnValueAtEndPointDescription(info);
+      }
+    };
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeColumnValueAssert valueAtStartPoint() {
-    if (changeColumnValueAssertAtStartPoint == null) {
-      changeColumnValueAssertAtStartPoint = new ChangeColumnValueAssert(this, valueAtStartPoint)
-              .as(getColumnValueAtStartPointDescription(info));
-    }
-    return changeColumnValueAssertAtStartPoint;
+    return valuePosition.getInstanceAtStartPoint();
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeColumnValueAssert valueAtEndPoint() {
-    if (changeColumnValueAssertAtEndPoint == null) {
-      changeColumnValueAssertAtEndPoint = new ChangeColumnValueAssert(this, valueAtEndPoint)
-              .as(getColumnValueAtEndPointDescription(info));
-    }
-    return changeColumnValueAssertAtEndPoint;
+    return valuePosition.getInstanceAtEndPoint();
   }
 
   /** {@inheritDoc} */

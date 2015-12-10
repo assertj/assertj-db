@@ -13,8 +13,8 @@
 package org.assertj.db.navigation;
 
 import org.assertj.core.api.Assertions;
+import org.assertj.db.api.AbstractColumnAssert;
 import org.assertj.db.api.AbstractDbAssert;
-import org.assertj.db.api.AbstractSubAssert;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.api.TableColumnAssert;
 import org.assertj.db.common.AbstractTest;
@@ -97,7 +97,7 @@ public class InstantiationError_Test extends AbstractTest {
     Table table = new Table(source, "actor");
     TableColumnAssert tableColumnAssert = assertThat(table).column();
 
-    Field field = AbstractSubAssert.class.getDeclaredField("valuePosition");
+    Field field = AbstractColumnAssert.class.getDeclaredField("valuePosition");
     Field field2 = Position.class.getDeclaredField("elementClass");
     field.setAccessible(true);
     field2.setAccessible(true);

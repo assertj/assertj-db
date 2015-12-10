@@ -44,8 +44,10 @@ public class ToValueFromColumn_ValueAtEndPoint_Test extends AbstractTest {
     updateChangesForTests();
     changes.setEndPointNow();
 
-    Field fieldValueAssert = ChangeColumnAssert.class.getDeclaredField("changeColumnValueAssertAtEndPoint");
-    fieldValueAssert.setAccessible(true);
+    Field fieldPosition = ChangeColumnAssert.class.getDeclaredField("valuePosition");
+    fieldPosition.setAccessible(true);
+    Field fieldRowAssert = PositionWithPoints.class.getDeclaredField("instanceAtEndPoint");
+    fieldRowAssert.setAccessible(true);
     Field fieldValueFromColumnAssert = ChangeColumnAssert.class.getDeclaredField("valueAtEndPoint");
     fieldValueFromColumnAssert.setAccessible(true);
     Field fieldValueFromValueAssert = AbstractAssertWithValues.class.getDeclaredField("value");
@@ -55,9 +57,10 @@ public class ToValueFromColumn_ValueAtEndPoint_Test extends AbstractTest {
 
     ChangeAssert changeCreationAssert = changesAssert.change();
     ChangeColumnAssert changeColumnCreationAssert = changeCreationAssert.column();
-    Assertions.assertThat(fieldValueAssert.get(changeColumnCreationAssert)).isNull();
+    PositionWithPoints positionCreation = (PositionWithPoints) fieldPosition.get(changeColumnCreationAssert);
+    Assertions.assertThat(fieldRowAssert.get(positionCreation)).isNull();
     ChangeColumnValueAssert changeColumnValueCreationAssert = changeColumnCreationAssert.valueAtEndPoint();
-    Assertions.assertThat(fieldValueAssert.get(changeColumnCreationAssert)).isNotNull();
+    Assertions.assertThat(fieldRowAssert.get(positionCreation)).isNotNull();
     ChangeColumnValueAssert changeCreationRowValueAssertBis = changeColumnCreationAssert.valueAtEndPoint();
     Assertions.assertThat(changeColumnValueCreationAssert).isSameAs(changeCreationRowValueAssertBis);
     Assertions.assertThat(((Value) fieldValueFromColumnAssert.get(changeColumnCreationAssert)).getValue()).isSameAs(
@@ -66,9 +69,10 @@ public class ToValueFromColumn_ValueAtEndPoint_Test extends AbstractTest {
 
     ChangeAssert changeModificationAssert = changesAssert.change(3);
     ChangeColumnAssert changeColumnModificationAssert = changeModificationAssert.column();
-    Assertions.assertThat(fieldValueAssert.get(changeColumnModificationAssert)).isNull();
+    PositionWithPoints positionModification = (PositionWithPoints) fieldPosition.get(changeColumnModificationAssert);
+    Assertions.assertThat(fieldRowAssert.get(positionModification)).isNull();
     ChangeColumnValueAssert changeColumnValueModificationAssert = changeColumnModificationAssert.valueAtEndPoint();
-    Assertions.assertThat(fieldValueAssert.get(changeColumnModificationAssert)).isNotNull();
+    Assertions.assertThat(fieldRowAssert.get(positionModification)).isNotNull();
     ChangeColumnValueAssert changeModificationRowValueAssertBis = changeColumnValueModificationAssert.valueAtEndPoint();
     Assertions.assertThat(changeColumnValueModificationAssert).isSameAs(changeModificationRowValueAssertBis);
     Assertions.assertThat(((Value) fieldValueFromColumnAssert.get(changeColumnModificationAssert)).getValue()).isSameAs(
@@ -77,9 +81,10 @@ public class ToValueFromColumn_ValueAtEndPoint_Test extends AbstractTest {
 
     ChangeAssert changeDeletionAssert = changesAssert.change(6);
     ChangeColumnAssert changeColumnDeletionAssert = changeDeletionAssert.column();
-    Assertions.assertThat(fieldValueAssert.get(changeColumnDeletionAssert)).isNull();
+    PositionWithPoints positionDeletion = (PositionWithPoints) fieldPosition.get(changeColumnDeletionAssert);
+    Assertions.assertThat(fieldRowAssert.get(positionDeletion)).isNull();
     ChangeColumnValueAssert changeColumnValueDeletionAssert = changeColumnDeletionAssert.valueAtEndPoint();
-    Assertions.assertThat(fieldValueAssert.get(changeColumnDeletionAssert)).isNotNull();
+    Assertions.assertThat(fieldRowAssert.get(positionDeletion)).isNotNull();
     ChangeColumnValueAssert changeDeletionRowValueAssertBis = changeColumnDeletionAssert.valueAtEndPoint();
     Assertions.assertThat(changeColumnValueDeletionAssert).isSameAs(changeDeletionRowValueAssertBis);
     Assertions.assertThat(((Value) fieldValueFromColumnAssert.get(changeColumnDeletionAssert)).getValue()).isNull();
