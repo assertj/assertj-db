@@ -131,6 +131,7 @@ public class DateTimeValue_Test extends AbstractTest {
   public void test_contructor_with_calendar() throws ParseException {
     Calendar calendar = Calendar.getInstance();
     calendar.set(2007, Calendar.DECEMBER, 23, 9, 1, 6);
+    calendar.set(Calendar.MILLISECOND, 50);
     DateTimeValue dateTimeValue = new DateTimeValue(calendar);
     assertThat(dateTimeValue.getDate().getDayOfTheMonth()).isEqualTo(23);
     assertThat(dateTimeValue.getDate().getMonth()).isEqualTo(12);
@@ -138,7 +139,7 @@ public class DateTimeValue_Test extends AbstractTest {
     assertThat(dateTimeValue.getTime().getHour()).isEqualTo(9);
     assertThat(dateTimeValue.getTime().getMinutes()).isEqualTo(1);
     assertThat(dateTimeValue.getTime().getSeconds()).isEqualTo(6);
-    assertThat(dateTimeValue.getTime().getNanoSeconds()).isEqualTo(0);
+    assertThat(dateTimeValue.getTime().getNanoSeconds()).isEqualTo(50000000);
   }
 
   /**
@@ -304,19 +305,56 @@ public class DateTimeValue_Test extends AbstractTest {
     Calendar calendarFirst = Calendar.getInstance();
     DateTimeValue dateTimeValue = DateTimeValue.now();
     Calendar calendarSecond = Calendar.getInstance();
-    assertThat(dateTimeValue.getDate().getDayOfTheMonth()).isBetween(calendarFirst.get(Calendar.DAY_OF_MONTH),
-                                                       calendarSecond.get(Calendar.DAY_OF_MONTH));
-    assertThat(dateTimeValue.getDate().getMonth()).isBetween(calendarFirst.get(Calendar.MONTH) + 1,
-                                               calendarSecond.get(Calendar.MONTH) + 1);
     assertThat(dateTimeValue.getDate().getYear()).isBetween(calendarFirst.get(Calendar.YEAR),
-                                              calendarSecond.get(Calendar.YEAR));
-    assertThat(dateTimeValue.getTime().getHour()).isBetween(calendarFirst.get(Calendar.HOUR_OF_DAY),
-                                              calendarSecond.get(Calendar.HOUR_OF_DAY));
-    assertThat(dateTimeValue.getTime().getMinutes()).isBetween(calendarFirst.get(Calendar.MINUTE),
-                                                 calendarSecond.get(Calendar.MINUTE));
-    assertThat(dateTimeValue.getTime().getSeconds()).isBetween(calendarFirst.get(Calendar.SECOND),
-                                                 calendarSecond.get(Calendar.SECOND));
-    assertThat(dateTimeValue.getTime().getNanoSeconds()).isEqualTo(0);
+                                                            calendarSecond.get(Calendar.YEAR));
+    if (calendarFirst.get(Calendar.YEAR) == calendarSecond.get(Calendar.YEAR)) {
+      assertThat(dateTimeValue.getDate().getMonth()).isBetween(calendarFirst.get(Calendar.MONTH) + 1,
+                                                               calendarSecond.get(Calendar.MONTH) + 1);
+    }
+    else {
+      assertThat(dateTimeValue.getDate().getMonth()).isBetween(calendarFirst.get(Calendar.MONTH) + 1 - 12,
+                                                               calendarSecond.get(Calendar.MONTH) + 1 + 12);
+    }
+    if (calendarFirst.get(Calendar.MONTH) == calendarSecond.get(Calendar.MONTH)) {
+      assertThat(dateTimeValue.getDate().getDayOfTheMonth()).isBetween(calendarFirst.get(Calendar.DAY_OF_MONTH),
+                                                                       calendarSecond.get(Calendar.DAY_OF_MONTH));
+    }
+    else {
+      assertThat(dateTimeValue.getDate().getDayOfTheMonth()).isBetween(calendarFirst.get(Calendar.DAY_OF_MONTH) - 31,
+                                                                       calendarSecond.get(Calendar.DAY_OF_MONTH) + 31);
+    }
+    if (calendarFirst.get(Calendar.DAY_OF_MONTH) == calendarSecond.get(Calendar.DAY_OF_MONTH)) {
+      assertThat(dateTimeValue.getTime().getHour()).isBetween(calendarFirst.get(Calendar.HOUR_OF_DAY),
+                                                              calendarSecond.get(Calendar.HOUR_OF_DAY));
+    }
+    else {
+      assertThat(dateTimeValue.getTime().getHour()).isBetween(calendarFirst.get(Calendar.HOUR_OF_DAY) - 24,
+                                                              calendarSecond.get(Calendar.HOUR_OF_DAY) + 24);
+    }
+    if (calendarFirst.get(Calendar.HOUR_OF_DAY) == calendarSecond.get(Calendar.HOUR_OF_DAY)) {
+      assertThat(dateTimeValue.getTime().getMinutes()).isBetween(calendarFirst.get(Calendar.MINUTE),
+                                                                 calendarSecond.get(Calendar.MINUTE));
+    }
+    else {
+      assertThat(dateTimeValue.getTime().getMinutes()).isBetween(calendarFirst.get(Calendar.MINUTE) - 60,
+                                                                 calendarSecond.get(Calendar.MINUTE) + 60);
+    }
+    if (calendarFirst.get(Calendar.MINUTE) == calendarSecond.get(Calendar.MINUTE)) {
+      assertThat(dateTimeValue.getTime().getSeconds()).isBetween(calendarFirst.get(Calendar.SECOND),
+                                                                 calendarSecond.get(Calendar.SECOND));
+    }
+    else {
+      assertThat(dateTimeValue.getTime().getSeconds()).isBetween(calendarFirst.get(Calendar.SECOND) - 60,
+                                                                 calendarSecond.get(Calendar.SECOND) + 60);
+    }
+    if (calendarFirst.get(Calendar.SECOND) == calendarSecond.get(Calendar.SECOND)) {
+      assertThat(dateTimeValue.getTime().getNanoSeconds()).isBetween(calendarFirst.get(Calendar.MILLISECOND) * 1000000,
+                                                       calendarSecond.get(Calendar.MILLISECOND) * 1000000);
+    }
+    else {
+      assertThat(dateTimeValue.getTime().getNanoSeconds()).isBetween(calendarFirst.get(Calendar.MILLISECOND) * 1000000 - 1000000000,
+                                                       calendarSecond.get(Calendar.MILLISECOND) * 1000000 + 1000000000);
+    }
   }
 
   /**
@@ -326,6 +364,7 @@ public class DateTimeValue_Test extends AbstractTest {
   public void test_from_calendar() throws ParseException {
     Calendar calendar = Calendar.getInstance();
     calendar.set(2007, Calendar.DECEMBER, 23, 9, 1, 6);
+    calendar.set(Calendar.MILLISECOND, 50);
     DateTimeValue dateTimeValue = DateTimeValue.from(calendar);
     assertThat(dateTimeValue.getDate().getDayOfTheMonth()).isEqualTo(23);
     assertThat(dateTimeValue.getDate().getMonth()).isEqualTo(12);
@@ -333,7 +372,7 @@ public class DateTimeValue_Test extends AbstractTest {
     assertThat(dateTimeValue.getTime().getHour()).isEqualTo(9);
     assertThat(dateTimeValue.getTime().getMinutes()).isEqualTo(1);
     assertThat(dateTimeValue.getTime().getSeconds()).isEqualTo(6);
-    assertThat(dateTimeValue.getTime().getNanoSeconds()).isEqualTo(0);
+    assertThat(dateTimeValue.getTime().getNanoSeconds()).isEqualTo(50000000);
   }
 
   /**

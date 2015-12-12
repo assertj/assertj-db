@@ -107,11 +107,12 @@ public class TimeValue_Test extends AbstractTest {
   public void test_contructor_with_calendar() throws ParseException {
     Calendar calendar = Calendar.getInstance();
     calendar.set(2007, Calendar.DECEMBER, 23, 9, 1, 6);
+    calendar.set(Calendar.MILLISECOND, 50);
     TimeValue timeValue = new TimeValue(calendar);
     assertThat(timeValue.getHour()).isEqualTo(9);
     assertThat(timeValue.getMinutes()).isEqualTo(1);
     assertThat(timeValue.getSeconds()).isEqualTo(6);
-    assertThat(timeValue.getNanoSeconds()).isEqualTo(0);
+    assertThat(timeValue.getNanoSeconds()).isEqualTo(50000000);
   }
 
   /**
@@ -251,13 +252,38 @@ public class TimeValue_Test extends AbstractTest {
     Calendar calendarFirst = Calendar.getInstance();
     TimeValue timeValue = TimeValue.now();
     Calendar calendarSecond = Calendar.getInstance();
-    assertThat(timeValue.getHour()).isBetween(calendarFirst.get(Calendar.HOUR_OF_DAY),
-                                                       calendarSecond.get(Calendar.HOUR_OF_DAY));
-    assertThat(timeValue.getMinutes()).isBetween(calendarFirst.get(Calendar.MINUTE),
-                                               calendarSecond.get(Calendar.MINUTE));
-    assertThat(timeValue.getSeconds()).isBetween(calendarFirst.get(Calendar.SECOND),
-                                              calendarSecond.get(Calendar.SECOND));
-    assertThat(timeValue.getNanoSeconds()).isEqualTo(0);
+    if (calendarFirst.get(Calendar.DAY_OF_YEAR) == calendarSecond.get(Calendar.DAY_OF_YEAR)) {
+      assertThat(timeValue.getHour()).isBetween(calendarFirst.get(Calendar.HOUR_OF_DAY),
+                                                calendarSecond.get(Calendar.HOUR_OF_DAY));
+    }
+    else {
+      assertThat(timeValue.getHour()).isBetween(calendarFirst.get(Calendar.HOUR_OF_DAY) - 24,
+                                                calendarSecond.get(Calendar.HOUR_OF_DAY) + 24);
+    }
+    if (calendarFirst.get(Calendar.DAY_OF_YEAR) == calendarSecond.get(Calendar.HOUR_OF_DAY)) {
+      assertThat(timeValue.getMinutes()).isBetween(calendarFirst.get(Calendar.MINUTE),
+                                                   calendarSecond.get(Calendar.MINUTE));
+    }
+    else {
+      assertThat(timeValue.getMinutes()).isBetween(calendarFirst.get(Calendar.MINUTE) - 60,
+                                                   calendarSecond.get(Calendar.MINUTE) + 60);
+    }
+    if (calendarFirst.get(Calendar.MINUTE) == calendarSecond.get(Calendar.MINUTE)) {
+      assertThat(timeValue.getSeconds()).isBetween(calendarFirst.get(Calendar.SECOND),
+                                                   calendarSecond.get(Calendar.SECOND));
+    }
+    else {
+      assertThat(timeValue.getSeconds()).isBetween(calendarFirst.get(Calendar.SECOND) - 60,
+                                                   calendarSecond.get(Calendar.SECOND) + 60);
+    }
+    if (calendarFirst.get(Calendar.SECOND) == calendarSecond.get(Calendar.SECOND)) {
+      assertThat(timeValue.getNanoSeconds()).isBetween(calendarFirst.get(Calendar.MILLISECOND) * 1000000,
+                                                       calendarSecond.get(Calendar.MILLISECOND) * 1000000);
+    }
+    else {
+      assertThat(timeValue.getNanoSeconds()).isBetween(calendarFirst.get(Calendar.MILLISECOND) * 1000000 - 1000000000,
+                                                       calendarSecond.get(Calendar.MILLISECOND) * 1000000 + 1000000000);
+    }
   }
 
   /**
@@ -267,11 +293,12 @@ public class TimeValue_Test extends AbstractTest {
   public void test_from_calendar() throws ParseException {
     Calendar calendar = Calendar.getInstance();
     calendar.set(2007, Calendar.DECEMBER, 23, 9, 1, 6);
+    calendar.set(Calendar.MILLISECOND, 50);
     TimeValue timeValue = TimeValue.from(calendar);
     assertThat(timeValue.getHour()).isEqualTo(9);
     assertThat(timeValue.getMinutes()).isEqualTo(1);
     assertThat(timeValue.getSeconds()).isEqualTo(6);
-    assertThat(timeValue.getNanoSeconds()).isEqualTo(0);
+    assertThat(timeValue.getNanoSeconds()).isEqualTo(50000000);
   }
 
   /**

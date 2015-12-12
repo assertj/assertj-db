@@ -224,7 +224,7 @@ public class TimeValue implements Comparable<TimeValue> {
     hour = calendar.get(Calendar.HOUR_OF_DAY);
     minutes = calendar.get(Calendar.MINUTE);
     seconds = calendar.get(Calendar.SECOND);
-    nanoSeconds = 0;
+    nanoSeconds = calendar.get(Calendar.MILLISECOND) * 1000000;
   }
 
   /**
@@ -241,7 +241,7 @@ public class TimeValue implements Comparable<TimeValue> {
     hour = calendar.get(Calendar.HOUR_OF_DAY);
     minutes = calendar.get(Calendar.MINUTE);
     seconds = calendar.get(Calendar.SECOND);
-    nanoSeconds = 0;
+    nanoSeconds = calendar.get(Calendar.MILLISECOND) * 1000000;
   }
 
   /**
