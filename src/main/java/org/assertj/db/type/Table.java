@@ -346,5 +346,6 @@ public class Table extends AbstractDbData<Table> {
       }
     }
     collectPrimaryKeyName(connection);
+    sortRows();
   }
 }

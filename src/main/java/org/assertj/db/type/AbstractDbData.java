@@ -128,13 +128,19 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
     try (Connection connection = getConnection()) {
       // Call the specific loading depending of Table or Request.
       loadImpl(connection);
-      Collections.sort(rowsList, RowComparator.INSTANCE);
       if (pksNameList == null) {
         pksNameList = new ArrayList<>();
       }
     } catch (SQLException e) {
       throw new AssertJDBException(e);
     }
+  }
+
+  /**
+   * Sorts the list of rows.
+   */
+  protected void sortRows() {
+    Collections.sort(rowsList, RowComparator.INSTANCE);
   }
 
   /**
