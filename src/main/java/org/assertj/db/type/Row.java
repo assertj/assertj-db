@@ -17,6 +17,8 @@ import org.assertj.db.util.Values;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.assertj.db.util.DialectHelper.getColumnName;
+
 /**
  * Row in a {@link AbstractDbData}.
  * <p>
@@ -189,7 +191,7 @@ public class Row implements DbElement {
     if (columnName == null) {
       throw new NullPointerException("Column name must be not null");
     }
-    String name = columnName.toUpperCase();
+    String name = getColumnName(columnName);
     int index = getColumnsNameList().indexOf(name);
     if (index == -1) {
       return null;

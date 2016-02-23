@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.assertj.db.util.Descriptions.*;
+import static org.assertj.db.util.DialectHelper.getColumnName;
 
 /**
  * Assertion methods for a {@link Change}.
@@ -152,7 +153,7 @@ public class ChangeAssert
       throw new NullPointerException("Column name must be not null");
     }
     List<String> columnsNameList = change.getColumnsNameList();
-    int index = columnsNameList.indexOf(columnName.toUpperCase());
+    int index = columnsNameList.indexOf(getColumnName(columnName));
     if (index == -1) {
       throw new AssertJDBException("Column <%s> does not exist", columnName);
     }

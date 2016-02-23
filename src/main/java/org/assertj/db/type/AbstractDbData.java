@@ -13,6 +13,7 @@
 package org.assertj.db.type;
 
 import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.util.DialectHelper;
 import org.assertj.db.util.RowComparator;
 
 import javax.sql.DataSource;
@@ -20,6 +21,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import static org.assertj.db.util.DialectHelper.getColumnName;
 
 /**
  * This class represents data from the database (either a {@link Table} or a {@link Request}).
@@ -281,7 +284,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
   protected void setPksNameList(List<String> pksNameList) {
     this.pksNameList = new ArrayList<>();
     for (String pkName : pksNameList) {
-      String pkNameUp = pkName.toUpperCase();
+      String pkNameUp = getColumnName(pkName);
       this.pksNameList.add(pkNameUp);
     }
     if (rowsList != null) {

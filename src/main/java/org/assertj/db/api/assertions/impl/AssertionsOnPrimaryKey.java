@@ -25,6 +25,7 @@ import java.util.List;
 
 import static org.assertj.db.error.ShouldHavePksNames.shouldHavePksNames;
 import static org.assertj.db.error.ShouldHavePksValues.shouldHavePksValues;
+import static org.assertj.db.util.DialectHelper.getColumnName;
 
 /**
  * Implements the assertion methods on a primary key.
@@ -75,7 +76,7 @@ public class AssertionsOnPrimaryKey {
       if (name == null) {
         throw new NullPointerException("Column name must be not null");
       }
-      namesList.add(name.toUpperCase());
+      namesList.add(getColumnName(name));
     }
     Collections.sort(namesList);
 

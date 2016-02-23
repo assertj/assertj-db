@@ -25,6 +25,7 @@ import java.util.List;
 
 import static org.assertj.db.error.ShouldHaveModifications.shouldHaveModifications;
 import static org.assertj.db.error.ShouldHaveNumberOfModifications.shouldHaveNumberOfModifications;
+import static org.assertj.db.util.DialectHelper.getColumnName;
 
 /**
  * Implements the assertion methods on modified columns.
@@ -133,7 +134,7 @@ public class AssertionsOnModifiedColumns {
       if (name == null) {
         throw new NullPointerException("Column name must be not null");
       }
-      namesList.add(name.toUpperCase());
+      namesList.add(getColumnName(name));
     }
     Collections.sort(namesList);
 
