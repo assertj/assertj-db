@@ -245,7 +245,7 @@ public class Table extends AbstractDbData<Table> {
 
   /**
    * Returns the SQL request.
-   * 
+   *
    * @see AbstractDbData#getRequest()
    * @return The SQL request.
    * @throws NullPointerException If the {@link #name} field is {@code null}.

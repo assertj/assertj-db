@@ -17,11 +17,11 @@ import org.assertj.db.exception.AssertJDBException;
 public class DialectHelper {
 
     public static final String ASSERTJ_DB_DIALECT_PROPERTY_NAME = "ASSERTJ_DB_DIALECT";
-    private static final String ASSERTJ_DB_DIALECT = System.getProperty(ASSERTJ_DB_DIALECT_PROPERTY_NAME);
 
     public static String getColumnName(String name) {
+        String assertj_db_dialect = System.getProperty(ASSERTJ_DB_DIALECT_PROPERTY_NAME);
         if (name == null)
             throw new AssertJDBException("ColumnName is mandatory");
-        return ASSERTJ_DB_DIALECT == null || "H2".equals(ASSERTJ_DB_DIALECT) ? name.toUpperCase() : name;
+        return assertj_db_dialect == null || "H2".equals(assertj_db_dialect) ? name.toUpperCase() : name;
     }
 }
