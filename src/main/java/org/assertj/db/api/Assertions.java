@@ -17,10 +17,12 @@ import org.assertj.db.type.Changes;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Source;
 import org.assertj.db.type.Table;
+import org.assertj.db.util.DialectHelper;
 
 import java.io.*;
 
 import static org.assertj.db.util.Descriptions.getDescription;
+import static org.assertj.db.util.DialectHelper.ASSERTJ_DB_DIALECT_PROPERTY_NAME;
 
 /**
  * Entry point of all the assertions.
@@ -138,6 +140,20 @@ public final class Assertions {
   public static ChangesAssert assertThat(Changes changes) {
     return new ChangesAssert(changes).as(getDescription(changes));
   }
+
+  /**
+   * Set current dialect to given one
+   *
+   * @param dialectName dialectName
+   * @return the name of the current dialect
+     */
+  public static String usingDialect(String dialectName){
+    System.setProperty(ASSERTJ_DB_DIALECT_PROPERTY_NAME, dialectName);
+    return System.getProperty(ASSERTJ_DB_DIALECT_PROPERTY_NAME);
+  }
+
+
+
 
   /**
    * Reads the bytes from an {@link InputStream}.

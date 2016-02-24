@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.assertj.db.util.DialectHelper.getColumnName;
+
 /**
  * A request in the database to get values.
  * <p>
@@ -177,7 +179,7 @@ public class Request extends AbstractDbData<Request> {
     List<String> columnsNameList = new ArrayList<>();
     for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++) {
       String columnName = resultSetMetaData.getColumnLabel(i);
-      columnsNameList.add(columnName.toUpperCase());
+      columnsNameList.add(getColumnName(columnName));
     }
     setColumnsNameList(columnsNameList);
     controlIfAllThePksNameExistInTheColumns();

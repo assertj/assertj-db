@@ -15,8 +15,11 @@ package org.assertj.db.navigation;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.global.AbstractElement;
 import org.assertj.db.type.DbElement;
+import org.assertj.db.util.DialectHelper;
 
 import java.util.List;
+
+import static org.assertj.db.util.DialectHelper.getColumnName;
 
 /**
  * Position with columns during navigation.
@@ -52,7 +55,7 @@ public abstract class PositionWithColumns<E extends AbstractElement & Navigation
     if (columnName == null) {
       throw new NullPointerException("Column name must be not null");
     }
-    int index = columnsNameList.indexOf(columnName.toUpperCase());
+    int index = columnsNameList.indexOf(getColumnName(columnName));
     if (index == -1) {
       throw new AssertJDBException("Column <%s> does not exist", columnName);
     }
