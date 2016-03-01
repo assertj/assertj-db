@@ -30,6 +30,9 @@ import java.lang.reflect.Constructor;
  */
 public abstract class PositionWithPoints<E extends AbstractElement & Navigation, N extends AbstractElement & Navigation, D extends DbElement> {
 
+  /**
+   * Actual value.
+   */
   private final E myself;
   /**
    * Class of the element of navigation (used to make instance).
@@ -62,6 +65,7 @@ public abstract class PositionWithPoints<E extends AbstractElement & Navigation,
   /**
    * Constructor.
    *
+   * @param myself Actual value.
    * @param elementClass Class of the element of navigation (used to make instance).
    * @param pointClass Class of the database element at the next point (used to make instance).
    * @param atStartPoint The element at start point

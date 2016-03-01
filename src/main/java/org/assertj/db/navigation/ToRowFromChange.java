@@ -50,7 +50,7 @@ import org.assertj.db.navigation.element.RowElement;
  *
  * @param <R> The class of a assertion on a row (an sub-class of {@link org.assertj.db.navigation.element.RowElement}).
  */
-public interface ToRowFromChange<R extends RowElement> {
+public interface ToRowFromChange<R extends RowElement> extends Navigation {
 
   /**
    * Returns assertion methods on the {@link org.assertj.db.type.Row} at start point.

@@ -94,7 +94,8 @@ public class ChangeRowAssert
     if (row == null) {
       throw new AssertJDBException("Row do not exist");
     }
-    return valuePosition.getInstance(row.getValuesList(), row.getColumnsNameList(), columnName);
+    return valuePosition.getInstance(row.getValuesList(), row.getColumnsNameList(),
+                                     columnName, row.getColumnLetterCase());
   }
 
   /** {@inheritDoc} */

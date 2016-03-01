@@ -12,6 +12,10 @@
  */
 package org.assertj.db.type;
 
+import org.assertj.db.type.lettercase.LetterCase;
+import org.assertj.db.type.lettercase.WithColumnLetterCase;
+import org.assertj.db.type.lettercase.WithPrimaryKeyLetterCase;
+import org.assertj.db.util.NameComparator;
 import org.assertj.db.util.Values;
 
 import java.util.ArrayList;
@@ -31,7 +35,7 @@ import java.util.List;
  * @author Régis Pouiller
  * 
  */
-public class Row implements DbElement {
+public class Row implements DbElement, WithColumnLetterCase, WithPrimaryKeyLetterCase {
 
   /**
    * List of the primary key names.
@@ -45,6 +49,16 @@ public class Row implements DbElement {
    * The list of value.
    */
   private final List<Value> valuesList;
+  /**
+   * Letter case of the columns.
+   * @since 1.1.0
+   */
+  private LetterCase columnLetterCase;
+  /**
+   * Letter case of the primary keys.
+   * @since 1.1.0
+   */
+  private LetterCase primaryKeyLetterCase;
 
   /**
    * Constructor of the row with visibility in the package.
@@ -52,11 +66,33 @@ public class Row implements DbElement {
    * @param pksNameList The list of the primary keys name.
    * @param columnsNameList The list of the columns name.
    * @param valuesList The values in the row.
+   * @param columnLetterCase The letter case of the columns.
+   * @param primaryKeyLetterCase The letter case of the primary keys.
    */
-  Row(List<String> pksNameList, List<String> columnsNameList, List<Value> valuesList) {
+  Row(List<String> pksNameList, List<String> columnsNameList, List<Value> valuesList,
+      LetterCase columnLetterCase, LetterCase primaryKeyLetterCase) {
+
     this.pksNameList = pksNameList;
     this.columnsNameList = columnsNameList;
     this.valuesList = valuesList;
+    this.columnLetterCase = columnLetterCase;
+    this.primaryKeyLetterCase = primaryKeyLetterCase;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public LetterCase getColumnLetterCase() {
+    return columnLetterCase;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public LetterCase getPrimaryKeyLetterCase() {
+    return primaryKeyLetterCase;
   }
 
   /**
@@ -77,7 +113,7 @@ public class Row implements DbElement {
     List<Value> pksValueList = new ArrayList<>();
     if (pksNameList != null) {
       for (String name : pksNameList) {
-        int index = columnsNameList.indexOf(name);
+        int index = NameComparator.INSTANCE.indexOf(columnsNameList, name, primaryKeyLetterCase);
         Value value = valuesList.get(index);
         pksValueList.add(value);
       }
@@ -121,7 +157,7 @@ public class Row implements DbElement {
     List<Value> pksValuesList = new ArrayList<>();
     if (pksNameList != null) {
       for (String pkName : pksNameList) {
-        int index = columnsNameList.indexOf(pkName);
+        int index = NameComparator.INSTANCE.indexOf(columnsNameList, pkName, primaryKeyLetterCase);
         Value value = valuesList.get(index);
         pksValuesList.add(value);
       }
@@ -189,8 +225,8 @@ public class Row implements DbElement {
     if (columnName == null) {
       throw new NullPointerException("Column name must be not null");
     }
-    String name = columnName.toUpperCase();
-    int index = getColumnsNameList().indexOf(name);
+
+    int index = NameComparator.INSTANCE.indexOf(columnsNameList, columnName, columnLetterCase);
     if (index == -1) {
       return null;
     }

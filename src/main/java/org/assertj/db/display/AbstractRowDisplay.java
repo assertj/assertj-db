@@ -93,7 +93,8 @@ public abstract class AbstractRowDisplay<D extends AbstractDbData<D>, A extends 
   /** {@inheritDoc} */
   @Override
   public RV value(String columnName) {
-    return valuePosition.getInstance(getValuesList(), row.getColumnsNameList(), columnName).withType(displayType);
+    return valuePosition.getInstance(getValuesList(), row.getColumnsNameList(), columnName, row.getColumnLetterCase())
+                        .withType(displayType);
   }
 
   /**

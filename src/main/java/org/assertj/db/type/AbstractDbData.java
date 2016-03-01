@@ -13,6 +13,8 @@
 package org.assertj.db.type;
 
 import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.type.lettercase.LetterCase;
+import org.assertj.db.util.NameComparator;
 import org.assertj.db.util.RowComparator;
 
 import javax.sql.DataSource;
@@ -207,7 +209,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
         }
         valuesList.add(new Value(columnName, object));
       }
-      rowsList.add(new Row(pksNameList, columnsNameList, valuesList));
+      rowsList.add(new Row(pksNameList, columnsNameList, valuesList, getColumnLetterCase(), getPrimaryKeyLetterCase()));
     }
   }
 
@@ -260,11 +262,12 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    * Controls that all the primary keys name exist in the columns.
    */
   protected void controlIfAllThePksNameExistInTheColumns() {
+    LetterCase letterCase = getPrimaryKeyLetterCase();
     if (pksNameList != null) {
       for (String pkName : pksNameList) {
         // If the list of columns name is not set, the presence of the column is not tested
         if (columnsNameList != null) {
-          if (columnsNameList.indexOf(pkName) == -1) {
+          if (!NameComparator.INSTANCE.contains(columnsNameList, pkName, letterCase)) {
             throw new AssertJDBException("Primary key %s do not exist in the columns %s", pkName, columnsNameList);
           }
         }
@@ -280,8 +283,9 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    */
   protected void setPksNameList(List<String> pksNameList) {
     this.pksNameList = new ArrayList<>();
+    LetterCase letterCase = getPrimaryKeyLetterCase();
     for (String pkName : pksNameList) {
-      String pkNameUp = pkName.toUpperCase();
+      String pkNameUp = letterCase.convert(pkName);
       this.pksNameList.add(pkNameUp);
     }
     if (rowsList != null) {

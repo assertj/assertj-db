@@ -98,7 +98,7 @@ public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends A
   /** {@inheritDoc} */
   @Override
   public RV value(String columnName) {
-    return valuePosition.getInstance(getValuesList(), row.getColumnsNameList(), columnName);
+    return valuePosition.getInstance(getValuesList(), row.getColumnsNameList(), columnName, row.getColumnLetterCase());
   }
 
   /** {@inheritDoc} */

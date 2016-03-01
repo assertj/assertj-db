@@ -1,7 +1,7 @@
-create table TEST (
-    var1 INTEGER primary key,
-    var2 INT,
-    var3 DOUBLE,
+create table teSt (
+    Var1 INTEGER primary key,
+    vAr2 INT,
+    vaR3 DOUBLE,
     var4 FLOAT,
     var5 VARCHAR(50),
     var6 VARCHAR_IGNORECASE,

@@ -18,6 +18,7 @@ import com.ninja_squad.dbsetup.destination.DriverManagerDestination;
 import com.ninja_squad.dbsetup.operation.Operation;
 import org.assertj.db.configuration.TestsConfiguration;
 import org.assertj.db.type.*;
+import org.assertj.db.type.lettercase.LetterCase;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -187,9 +188,9 @@ public abstract class AbstractTest {
    */
   protected static Row getRow(List<String> pksNameList, List<String> columnsNameList, List<Value> valuesList)
           throws Exception {
-    Constructor<Row> constructor = Row.class.getDeclaredConstructor(List.class, List.class, List.class);
+    Constructor<Row> constructor = Row.class.getDeclaredConstructor(List.class, List.class, List.class, LetterCase.class, LetterCase.class);
     constructor.setAccessible(true);
-    return constructor.newInstance(pksNameList, columnsNameList, valuesList);
+    return constructor.newInstance(pksNameList, columnsNameList, valuesList, LetterCase.COLUMN_DEFAULT, LetterCase.PRIMARY_KEY_DEFAULT);
   }
 
   /**

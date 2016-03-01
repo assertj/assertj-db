@@ -42,9 +42,9 @@ public class Source {
   /**
    * Constructor with the informations.
    * 
-   * @param url URL to the database
-   * @param user User to connect
-   * @param password Password to connect
+   * @param url URL to the database.
+   * @param user User to connect.
+   * @param password Password to connect.
    */
   public Source(String url, String user, String password) {
     this.url = url;
@@ -55,7 +55,7 @@ public class Source {
   /**
    * Returns the URL to the database.
    * 
-   * @return The URL to the database
+   * @return The URL to the database.
    */
   public String getUrl() {
     return url;
@@ -64,7 +64,7 @@ public class Source {
   /**
    * Returns the user to connect.
    * 
-   * @return The user to connect
+   * @return The user to connect.
    */
   public String getUser() {
     return user;
@@ -73,7 +73,7 @@ public class Source {
   /**
    * Returns the password to connect.
    * 
-   * @return The password to connect
+   * @return The password to connect.
    */
   public String getPassword() {
     return password;

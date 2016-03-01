@@ -14,6 +14,7 @@ package org.assertj.db.database.h2;
 
 import org.assertj.db.common.NeedReload;
 import org.assertj.db.type.*;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -31,14 +32,170 @@ import static org.assertj.db.api.Assertions.bytesContentFromClassPathOf;
  *
  * @author Régis Pouiller
  */
-public class H2Database_Test extends AbstractH2Test {
+public class H2Database_Source_UIUIUI_Test extends AbstractH2Test {
+
+  private Source source;
+
+  @Before
+  public void init() {
+    source = sourceUIUIUI;
+  }
+
+  @Test
+  @NeedReload
+  public void test_PrimaryKey_hasPksNames() {
+    Table table = new Table(source, "test");
+    Changes changes = new Changes(table).setStartPointNow();
+    update();
+    changes.setEndPointNow();
+
+    assertThat(changes).change().hasPksNames("var1")
+    ;
+  }
+
+  @Test
+  @NeedReload
+  public void test_ColumnName_hasColumnName() {
+    Table table = new Table(source, "test");
+    Changes changes = new Changes(table).setStartPointNow();
+    update();
+    changes.setEndPointNow();
+
+    assertThat(table)
+            .column().hasColumnName("var1")
+            .column().hasColumnName("var2")
+            .column().hasColumnName("var3")
+            .column().hasColumnName("var4")
+            .column().hasColumnName("var5")
+            .column().hasColumnName("var6")
+            .column().hasColumnName("var7")
+            .column().hasColumnName("var8")
+            .column().hasColumnName("var9")
+            .column().hasColumnName("var10")
+            .column().hasColumnName("var11")
+            .column().hasColumnName("var12")
+            .column().hasColumnName("var13")
+            .column().hasColumnName("var14")
+            .column().hasColumnName("var15")
+            .column().hasColumnName("var16")
+            .column().hasColumnName("var17")
+            .column().hasColumnName("var18")
+            .column().hasColumnName("var19")
+            .column().hasColumnName("var20")
+            .column().hasColumnName("var21")
+            .column().hasColumnName("var22")
+            .column().hasColumnName("var23")
+            .column().hasColumnName("var24")
+            .column().hasColumnName("var25")
+            .column().hasColumnName("var26")
+            .column().hasColumnName("var27")
+            .column().hasColumnName("var28")
+            .column().hasColumnName("var29")
+            .column().hasColumnName("var30")
+            .column().hasColumnName("var31")
+            .column().hasColumnName("var32")
+            .column().hasColumnName("var33")
+            .column().hasColumnName("var34")
+            .column().hasColumnName("var35")
+            .column().hasColumnName("var36")
+            .column().hasColumnName("var37")
+            .column().hasColumnName("var38")
+            .column().hasColumnName("var39")
+            .column().hasColumnName("var40")
+            .column().hasColumnName("var41")
+            .column().hasColumnName("var42")
+            .column().hasColumnName("var43")
+            .column().hasColumnName("var44")
+            .column().hasColumnName("var45")
+            .column().hasColumnName("var46")
+            .column().hasColumnName("var47")
+            .column().hasColumnName("var48")
+            .column().hasColumnName("var49")
+            .column().hasColumnName("var50")
+            .column().hasColumnName("var51")
+            .column().hasColumnName("var52")
+            .column().hasColumnName("var53")
+            .column().hasColumnName("var54")
+            .column().hasColumnName("var55")
+            .column().hasColumnName("var56")
+            .column().hasColumnName("var57")
+            .column().hasColumnName("var58")
+            .column().hasColumnName("var59")
+            .column().hasColumnName("var60")
+            .column().hasColumnName("var61")
+    ;
+
+    assertThat(changes).change()
+                       .column().hasColumnName("var1")
+                       .column().hasColumnName("var2")
+                       .column().hasColumnName("var3")
+                       .column().hasColumnName("var4")
+                       .column().hasColumnName("var5")
+                       .column().hasColumnName("var6")
+                       .column().hasColumnName("var7")
+                       .column().hasColumnName("var8")
+                       .column().hasColumnName("var9")
+                       .column().hasColumnName("var10")
+                       .column().hasColumnName("var11")
+                       .column().hasColumnName("var12")
+                       .column().hasColumnName("var13")
+                       .column().hasColumnName("var14")
+                       .column().hasColumnName("var15")
+                       .column().hasColumnName("var16")
+                       .column().hasColumnName("var17")
+                       .column().hasColumnName("var18")
+                       .column().hasColumnName("var19")
+                       .column().hasColumnName("var20")
+                       .column().hasColumnName("var21")
+                       .column().hasColumnName("var22")
+                       .column().hasColumnName("var23")
+                       .column().hasColumnName("var24")
+                       .column().hasColumnName("var25")
+                       .column().hasColumnName("var26")
+                       .column().hasColumnName("var27")
+                       .column().hasColumnName("var28")
+                       .column().hasColumnName("var29")
+                       .column().hasColumnName("var30")
+                       .column().hasColumnName("var31")
+                       .column().hasColumnName("var32")
+                       .column().hasColumnName("var33")
+                       .column().hasColumnName("var34")
+                       .column().hasColumnName("var35")
+                       .column().hasColumnName("var36")
+                       .column().hasColumnName("var37")
+                       .column().hasColumnName("var38")
+                       .column().hasColumnName("var39")
+                       .column().hasColumnName("var40")
+                       .column().hasColumnName("var41")
+                       .column().hasColumnName("var42")
+                       .column().hasColumnName("var43")
+                       .column().hasColumnName("var44")
+                       .column().hasColumnName("var45")
+                       .column().hasColumnName("var46")
+                       .column().hasColumnName("var47")
+                       .column().hasColumnName("var48")
+                       .column().hasColumnName("var49")
+                       .column().hasColumnName("var50")
+                       .column().hasColumnName("var51")
+                       .column().hasColumnName("var52")
+                       .column().hasColumnName("var53")
+                       .column().hasColumnName("var54")
+                       .column().hasColumnName("var55")
+                       .column().hasColumnName("var56")
+                       .column().hasColumnName("var57")
+                       .column().hasColumnName("var58")
+                       .column().hasColumnName("var59")
+            .column().hasColumnName("var60")
+            .column().hasColumnName("var61")
+    ;
+  }
 
   @Test
   @NeedReload
   public void test_ColumnClass_isOfClass() {
     Table table = new Table(source, "test");
     Changes changes = new Changes(table).setStartPointNow();
-    update("update test set var2=20");
+    update();
     changes.setEndPointNow();
 
     assertThat(table)
@@ -175,7 +332,7 @@ public class H2Database_Test extends AbstractH2Test {
   public void test_ColumnEquality_hasValues() {
     Table table = new Table(source, "test");
     Changes changes = new Changes(table).setStartPointNow();
-    update("update test set var2=20");
+    update();
     changes.setEndPointNow();
 
     assertThat(table).column("var1").hasValues(1)
@@ -311,7 +468,7 @@ public class H2Database_Test extends AbstractH2Test {
   public void test_ColumnEquality_containsValues() {
     Table table = new Table(source, "test");
     Changes changes = new Changes(table).setStartPointNow();
-    update("update test set var2=20");
+    update();
     changes.setEndPointNow();
 
     assertThat(table).column("var1").containsValues(1)
@@ -383,7 +540,7 @@ public class H2Database_Test extends AbstractH2Test {
   public void test_ColumnType_isOfType() {
     Table table = new Table(source, "test");
     Changes changes = new Changes(table).setStartPointNow();
-    update("update test set var2=20");
+    update();
     changes.setEndPointNow();
 
     assertThat(table).column("var1").isNumber(false).isOfType(ValueType.NUMBER, false)
@@ -519,7 +676,7 @@ public class H2Database_Test extends AbstractH2Test {
   public void test_ColumnOfChangeEquality_hasValues() {
     Table table = new Table(source, "test");
     Changes changes = new Changes(table).setStartPointNow();
-    update("update test set var2=20");
+    update();
     changes.setEndPointNow();
 
     assertThat(changes).change()
@@ -671,7 +828,7 @@ public class H2Database_Test extends AbstractH2Test {
   public void test_RowEquality_hasValues() {
     Table table = new Table(source, "test");
     Changes changes = new Changes(table).setStartPointNow();
-    update("update test set var2=20");
+    update();
     changes.setEndPointNow();
 
     assertThat(table).row()
@@ -808,7 +965,7 @@ public class H2Database_Test extends AbstractH2Test {
   public void test_ValueClass_isOfClass() {
     Table table = new Table(source, "test");
     Changes changes = new Changes(table).setStartPointNow();
-    update("update test set var2=20");
+    update();
     changes.setEndPointNow();
 
     assertThat(table).row()
@@ -945,7 +1102,7 @@ public class H2Database_Test extends AbstractH2Test {
   public void test_ValueEquality_isEqualTo() {
     Table table = new Table(source, "test");
     Changes changes = new Changes(table).setStartPointNow();
-    update("update test set var2=20");
+    update();
     changes.setEndPointNow();
 
     assertThat(table).row()
@@ -1082,7 +1239,7 @@ public class H2Database_Test extends AbstractH2Test {
   public void test_ValueNonEquality_isNotEqualTo() {
     Table table = new Table(source, "test");
     Changes changes = new Changes(table).setStartPointNow();
-    update("update test set var2=20");
+    update();
     changes.setEndPointNow();
 
     assertThat(table).row()
@@ -1219,7 +1376,7 @@ public class H2Database_Test extends AbstractH2Test {
   public void test_ValueType_isOfType() {
     Table table = new Table(source, "test");
     Changes changes = new Changes(table).setStartPointNow();
-    update("update test set var2=20");
+    update();
     changes.setEndPointNow();
 
     assertThat(table).row()

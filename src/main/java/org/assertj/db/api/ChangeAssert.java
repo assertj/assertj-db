@@ -67,7 +67,7 @@ public class ChangeAssert
    * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    * @param change The {@link Change} on which are the assertions.
    */
-  ChangeAssert(ChangesAssert origin, Change change) {
+  public ChangeAssert(ChangesAssert origin, Change change) {
     super(ChangeAssert.class, origin);
     this.change = change;
     rowPosition = new PositionWithPoints<ChangeAssert, ChangeRowAssert, Row>(this, ChangeRowAssert.class, Row.class, change.getRowAtStartPoint(), change.getRowAtEndPoint()) {

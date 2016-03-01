@@ -12,6 +12,9 @@
  */
 package org.assertj.db.type;
 
+import org.assertj.db.type.lettercase.LetterCase;
+import org.assertj.db.util.NameComparator;
+
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
@@ -33,14 +36,14 @@ import java.util.List;
  * This {@link Table} point to a table called {@code movie} in a H2 database in memory like indicated in the
  * {@link Source}.
  * </p>
- * 
+ *
  * <pre>
  * <code class='java'>
  * Source source = new Source(&quot;jdbc:h2:mem:test&quot;, &quot;sa&quot;, &quot;&quot;);
  * Table table = new Table(source, &quot;movie&quot;);
  * </code>
  * </pre>
- * 
+ *
  * </li>
  * <li>
  * <p>
@@ -50,7 +53,7 @@ import java.util.List;
  * {@code birthday}).<br>
  * The {@link Table} use a {@code DataSource} instead of a {@link Source} like above.
  * </p>
- * 
+ *
  * <pre>
  * <code class='java'>
  * DataSource dataSource = ...;
@@ -58,12 +61,11 @@ import java.util.List;
  * Table table2 = new Table(dataSource, &quot;musician&quot;, null, new String[] { &quot;birthday&quot; });
  * </code>
  * </pre>
- * 
+ *
  * </li>
  * </ul>
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class Table extends AbstractDbData<Table> {
 
@@ -89,9 +91,9 @@ public class Table extends AbstractDbData<Table> {
 
   /**
    * Constructor with a {@link Source} and the name of the table.
-   * 
+   *
    * @param source {@link Source} to connect to the database.
-   * @param name Name of the table.
+   * @param name   Name of the table.
    */
   public Table(Source source, String name) {
     this(source, name, null, null);
@@ -99,13 +101,13 @@ public class Table extends AbstractDbData<Table> {
 
   /**
    * Constructor with a {@link Source}, the name of the table and the columns to check and to exclude.
-   * 
-   * @param source {@link Source} to connect to the database.
-   * @param name Name of the table.
-   * @param columnsToCheck Array of the name of the columns to check. If {@code null} that means to check all the
-   *          columns.
+   *
+   * @param source           {@link Source} to connect to the database.
+   * @param name             Name of the table.
+   * @param columnsToCheck   Array of the name of the columns to check. If {@code null} that means to check all the
+   *                         columns.
    * @param columnsToExclude Array of the name of the columns to exclude. If {@code null} that means to exclude no
-   *          column.
+   *                         column.
    */
   public Table(Source source, String name, String[] columnsToCheck, String[] columnsToExclude) {
     super(Table.class, DataType.TABLE, source);
@@ -116,9 +118,9 @@ public class Table extends AbstractDbData<Table> {
 
   /**
    * Constructor with a dataSource and the name of the table.
-   * 
+   *
    * @param dataSource DataSource of the database.
-   * @param name Name of the table.
+   * @param name       Name of the table.
    */
   public Table(DataSource dataSource, String name) {
     this(dataSource, name, null, null);
@@ -126,13 +128,13 @@ public class Table extends AbstractDbData<Table> {
 
   /**
    * Constructor with a connection, the name of the table and the columns to check and to exclude.
-   * 
-   * @param dataSource DataSource of the database.
-   * @param name Name of the table.
-   * @param columnsToCheck Array of the name of the columns to check. If {@code null} that means to check all the
-   *          columns.
+   *
+   * @param dataSource       DataSource of the database.
+   * @param name             Name of the table.
+   * @param columnsToCheck   Array of the name of the columns to check. If {@code null} that means to check all the
+   *                         columns.
    * @param columnsToExclude Array of the name of the columns to exclude. If {@code null} that means to exclude no
-   *          column.
+   *                         column.
    */
   public Table(DataSource dataSource, String name, String[] columnsToCheck, String[] columnsToExclude) {
     super(Table.class, DataType.TABLE, dataSource);
@@ -143,9 +145,9 @@ public class Table extends AbstractDbData<Table> {
 
   /**
    * Return the name of the table.
-   * 
-   * @see #setName(String)
+   *
    * @return the name of the table.
+   * @see #setName(String)
    */
   public String getName() {
     return name;
@@ -153,24 +155,24 @@ public class Table extends AbstractDbData<Table> {
 
   /**
    * Sets the name of the table.
-   * 
-   * @see #getName()
+   *
    * @param name The name of the table.
    * @return The actual instance.
+   * @see #getName()
    */
   public Table setName(String name) {
     if (name == null) {
       throw new NullPointerException("name can not be null");
     }
-    this.name = name;
+    this.name = getTableLetterCase().convert(name);
     return this;
   }
 
   /**
    * Returns the columns to check (which are present in {@link AbstractDbData#getColumnsNameList()}.
-   * 
-   * @see #setColumnsToCheck(String[])
+   *
    * @return Array of the name of the columns to check. If {@code null} that means to check all the columns.
+   * @see #setColumnsToCheck(String[])
    */
   public String[] getColumnsToCheck() {
     if (columnsToCheck == null) {
@@ -181,16 +183,17 @@ public class Table extends AbstractDbData<Table> {
 
   /**
    * Sets the columns to check (which are present in {@link AbstractDbData#getColumnsNameList()}.
-   * 
-   * @see #getColumnsToCheck()
+   *
    * @param columnsToCheck Array of the name of the columns to check. If {@code null} that means to check all the
-   *          columns.
+   *                       columns.
    * @return The actual instance.
    * @throws NullPointerException If one of the name in {@code columnsToCheck} is {@code null}.
+   * @see #getColumnsToCheck()
    */
   public Table setColumnsToCheck(String[] columnsToCheck) {
     if (columnsToCheck != null) {
-      // If the parameter is not null, all the names are transformed to get upper case
+      LetterCase letterCase = getColumnLetterCase();
+      // If the parameter is not null, all the names are convert
       // before setting the instance field
       this.columnsToCheck = new String[columnsToCheck.length];
       for (int index = 0; index < columnsToCheck.length; index++) {
@@ -198,7 +201,7 @@ public class Table extends AbstractDbData<Table> {
         if (column == null) {
           throw new NullPointerException("The name of the column can not be null");
         }
-        this.columnsToCheck[index] = column.toUpperCase();
+        this.columnsToCheck[index] = letterCase.convert(column);
       }
     } else {
       this.columnsToCheck = null;
@@ -208,9 +211,9 @@ public class Table extends AbstractDbData<Table> {
 
   /**
    * Returns the columns to exclude (which are not present in {@link AbstractDbData#getColumnsNameList()}.
-   * 
-   * @see #setColumnsToExclude(String[])
+   *
    * @return The columns.
+   * @see #setColumnsToExclude(String[])
    */
   public String[] getColumnsToExclude() {
     if (columnsToExclude == null) {
@@ -221,20 +224,21 @@ public class Table extends AbstractDbData<Table> {
 
   /**
    * Sets the columns to exclude (which are not present in {@link AbstractDbData#getColumnsNameList()}.
-   * 
-   * @see #getColumnsToExclude()
+   *
    * @param columnsToExclude The columns.
    * @return The actual instance.
+   * @see #getColumnsToExclude()
    */
   public Table setColumnsToExclude(String[] columnsToExclude) {
     if (columnsToExclude != null) {
+      LetterCase letterCase = getColumnLetterCase();
       this.columnsToExclude = new String[columnsToExclude.length];
       for (int index = 0; index < columnsToExclude.length; index++) {
         String column = columnsToExclude[index];
         if (column == null) {
           throw new NullPointerException("The name of the column can not be null");
         }
-        this.columnsToExclude[index] = column.toUpperCase();
+        this.columnsToExclude[index] = letterCase.convert(column);
       }
     } else {
       this.columnsToExclude = null;
@@ -244,10 +248,10 @@ public class Table extends AbstractDbData<Table> {
 
   /**
    * Returns the SQL request.
-   * 
-   * @see AbstractDbData#getRequest()
+   *
    * @return The SQL request.
    * @throws NullPointerException If the {@link #name} field is {@code null}.
+   * @see AbstractDbData#getRequest()
    */
   public String getRequest() {
     if (name == null) {
@@ -277,11 +281,12 @@ public class Table extends AbstractDbData<Table> {
    * This method use the {@link ResultSetMetaData} from the <code>resultSet</code> parameter to list the name of the
    * columns. But the columns to exclude are not collected.
    * </p>
-   * 
+   *
    * @param resultSet The {@code ResultSet}.
    * @throws SQLException SQL Exception.
    */
   private void collectColumnsNameFromResultSet(ResultSet resultSet) throws SQLException {
+    LetterCase letterCase = getColumnLetterCase();
     ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
     List<String> columnsNameList = new ArrayList<>();
     List<String> columnsToExcludeList = null;
@@ -290,8 +295,9 @@ public class Table extends AbstractDbData<Table> {
     }
 
     for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++) {
-      String columnName = resultSetMetaData.getColumnLabel(i).toUpperCase();
-      if (columnsToExcludeList == null || !columnsToExcludeList.contains(columnName)) {
+      String columnName = letterCase.convert(resultSetMetaData.getColumnLabel(i));
+      if (columnsToExcludeList == null
+          || !NameComparator.INSTANCE.contains(columnsToExcludeList, columnName, letterCase)) {
 
         columnsNameList.add(columnName);
       }
@@ -305,20 +311,35 @@ public class Table extends AbstractDbData<Table> {
    * This method use the {@link DatabaseMetaData} from the {@code Connection} parameter to list the primary keys of the
    * table.
    * </p>
-   * 
+   *
    * @param connection The {@code Connection} to the database.
    * @throws SQLException SQL Exception.
    */
   private void collectPrimaryKeyName(Connection connection) throws SQLException {
+    String catalog = getCatalog(connection);
+    String schema = getSchema(connection);
     List<String> pksNameList = new ArrayList<>();
     DatabaseMetaData metaData = connection.getMetaData();
 
-    try (ResultSet resultSet = metaData.getPrimaryKeys(getCatalog(connection), getSchema(connection),
-        name.toUpperCase())) {
+    String tableName = name;
+    try (ResultSet resultSet = metaData.getTables(catalog, schema, null, new String[] { "TABLE" })) {
+      LetterCase letterCase = getTableLetterCase();
       while (resultSet.next()) {
-        String columnName = resultSet.getString("COLUMN_NAME");
-        if (getColumnsNameList().indexOf(columnName) != -1) {
-          pksNameList.add(columnName);
+        String tableResult = resultSet.getString("TABLE_NAME");
+        if (letterCase.isEqual(tableName, tableResult)) {
+          tableName = tableResult;
+          break;
+        }
+      }
+    }
+
+    try (ResultSet resultSet = metaData.getPrimaryKeys(catalog, schema, tableName)) {
+      LetterCase letterCase = getPrimaryKeyLetterCase();
+      while (resultSet.next()) {
+        String columnName = letterCase.convert(resultSet.getString("COLUMN_NAME"));
+        String pkName = letterCase.convert(columnName);
+        if (NameComparator.INSTANCE.contains(getColumnsNameList(), pkName, letterCase)) {
+          pksNameList.add(pkName);
         }
       }
     }
@@ -327,11 +348,11 @@ public class Table extends AbstractDbData<Table> {
 
   /**
    * Specific implementation of the loading for a {@code Table}.
-   * 
-   * @see AbstractDbData#loadImpl(Connection)
+   *
    * @param connection {@link Connection} to the database provided by {@link AbstractDbData#load()} private method.
    * @throws NullPointerException If the {@link #name} field is {@code null}.
-   * @throws SQLException SQL Exception.
+   * @throws SQLException         SQL Exception.
+   * @see AbstractDbData#loadImpl(Connection)
    */
   @Override
   protected void loadImpl(Connection connection) throws SQLException {

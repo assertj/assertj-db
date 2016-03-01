@@ -51,4 +51,14 @@ public class Displaying {
   public static RequestDisplay display(Request request) {
     return new RequestDisplay(request).as(getDescription(request));
   }
+
+//  /**
+//   * Creates a new instance of {@link ChangesDisplay}.
+//   *
+//   * @param changes The changes to display on.
+//   * @return The created display object.
+//   */
+//  public static ChangesDisplay assertThat(Changes changes) {
+//    return new ChangesDisplay(changes).as(getDescription(changes));
+//  }
 }

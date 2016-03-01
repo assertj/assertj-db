@@ -12,6 +12,8 @@
  */
 package org.assertj.db.type;
 
+import org.assertj.db.type.lettercase.LetterCase;
+
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
@@ -173,11 +175,12 @@ public class Request extends AbstractDbData<Request> {
    * @throws SQLException A SQL Exception
    */
   private void collectColumnsNameFromResultSet(ResultSet resultSet) throws SQLException {
+    LetterCase letterCase = getColumnLetterCase();
     ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
     List<String> columnsNameList = new ArrayList<>();
     for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++) {
       String columnName = resultSetMetaData.getColumnLabel(i);
-      columnsNameList.add(columnName.toUpperCase());
+      columnsNameList.add(letterCase.convert(columnName));
     }
     setColumnsNameList(columnsNameList);
     controlIfAllThePksNameExistInTheColumns();

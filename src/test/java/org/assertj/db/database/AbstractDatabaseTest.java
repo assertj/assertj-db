@@ -15,6 +15,9 @@ package org.assertj.db.database;
 import com.ninja_squad.dbsetup.DbSetup;
 import com.ninja_squad.dbsetup.DbSetupTracker;
 import org.assertj.db.common.NeedReload;
+import org.assertj.db.type.lettercase.CaseComparisons;
+import org.assertj.db.type.lettercase.CaseConversions;
+import org.assertj.db.type.lettercase.LetterCase;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -32,6 +35,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.logging.Logger;
 
+import static org.assertj.db.type.lettercase.LetterCase.getLetterCase;
+
 /**
  * Parent for all the tests which are specific for databases.
  *
@@ -41,6 +46,13 @@ import java.util.logging.Logger;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 public abstract class AbstractDatabaseTest {
+
+  protected final LetterCase letterCaseUI = getLetterCase(CaseConversions.UPPER, CaseComparisons.IGNORE);
+  protected final LetterCase letterCaseUS = getLetterCase(CaseConversions.UPPER, CaseComparisons.STRICT);
+  protected final LetterCase letterCaseLI = getLetterCase(CaseConversions.LOWER, CaseComparisons.IGNORE);
+  protected final LetterCase letterCaseLS = getLetterCase(CaseConversions.LOWER, CaseComparisons.STRICT);
+  protected final LetterCase letterCaseNI = getLetterCase(CaseConversions.NO, CaseComparisons.IGNORE);
+  protected final LetterCase letterCaseNS = getLetterCase(CaseConversions.NO, CaseComparisons.STRICT);
 
   protected static final Logger LOG = Logger.getLogger("Test");
 

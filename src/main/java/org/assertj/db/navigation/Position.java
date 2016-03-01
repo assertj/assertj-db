@@ -34,6 +34,9 @@ import java.util.Map;
  */
 public abstract class Position<E extends AbstractElement & Navigation, N extends AbstractElement & Navigation, D extends DbElement> {
 
+  /**
+   * Actual value.
+   */
   private final E myself;
   /**
    * Index of the next to get.
@@ -51,6 +54,7 @@ public abstract class Position<E extends AbstractElement & Navigation, N extends
   /**
    * Constructor.
    *
+   * @param myself Actual value.
    * @param elementClass Class of the element of navigation (used to make instance).
    */
   public Position(E myself, Class<N> elementClass) {

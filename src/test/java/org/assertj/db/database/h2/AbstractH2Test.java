@@ -16,9 +16,13 @@ import com.ninja_squad.dbsetup.DbSetup;
 import com.ninja_squad.dbsetup.destination.DriverManagerDestination;
 import com.ninja_squad.dbsetup.operation.Operation;
 import org.assertj.db.database.AbstractDatabaseTest;
-import org.assertj.db.type.Source;
+import org.assertj.db.type.DataSourceWithLetterCase;
+import org.assertj.db.type.SourceWithLetterCase;
+import org.assertj.db.type.lettercase.LetterCase;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
+import javax.sql.DataSource;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -35,12 +39,26 @@ import static com.ninja_squad.dbsetup.Operations.*;
 @ContextConfiguration(classes = {H2Configuration.class})
 public abstract class AbstractH2Test extends AbstractDatabaseTest {
 
-  protected final Source source = new Source("jdbc:h2:mem:testH2", "sa", "");
+  protected DataSourceWithLetterCase dataSourceUIUIUI;
+  protected DataSourceWithLetterCase dataSourceNSNSNS;
 
-  private static final Operation DELETE_ALL = deleteAllFrom("test");
+  protected final SourceWithLetterCase sourceDDD = new SourceWithLetterCase("jdbc:h2:mem:testH2", "sa", "",
+                                                                            LetterCase.TABLE_DEFAULT,
+                                                                            LetterCase.COLUMN_DEFAULT,
+                                                                            LetterCase.PRIMARY_KEY_DEFAULT);
+  protected final SourceWithLetterCase sourceUIUIUI = new SourceWithLetterCase("jdbc:h2:mem:testH2", "sa", "",
+                                                                               letterCaseUI,
+                                                                               letterCaseUI,
+                                                                               letterCaseUI);
+  protected final SourceWithLetterCase sourceNSNSNS = new SourceWithLetterCase("jdbc:h2:mem:testH2", "sa", "",
+                                                                               letterCaseNS,
+                                                                               letterCaseNS,
+                                                                               letterCaseNS);
 
-  private static final Operation INSERT_TEST = insertInto("test")
-          .columns("var1", "var2", "var3", "var4", "var5", "var6", "var7", "var8", "var9", "var10",
+  private static final Operation DELETE_ALL = deleteAllFrom("teSt");
+
+  private static final Operation INSERT_TEST = insertInto("teSt")
+          .columns("Var1", "vAr2", "vaR3", "var4", "var5", "var6", "var7", "var8", "var9", "var10",
                    "var11", "var12", "var13", "var14", "var15", "var16", "var17", "var18", "var19", "var20",
                    "var21", "var22", "var23", "var24", "var25", "var26", "var27", "var28", "var29", "var30",
                    "var31", "var32", "var33", "var34", "var35", "var36", "var37", "var38", "var39", "var40",
@@ -75,5 +93,15 @@ public abstract class AbstractH2Test extends AbstractDatabaseTest {
 
   static {
     DB_SETUP = new DbSetup(new DriverManagerDestination("jdbc:h2:mem:testH2", "SA", ""), OPERATIONS);
+  }
+
+  @Autowired(required = true)
+  protected void setDataSource(DataSource dataSource) {
+    this.dataSourceUIUIUI = new DataSourceWithLetterCase(dataSource, letterCaseUI, letterCaseUI, letterCaseUI);
+    this.dataSourceNSNSNS = new DataSourceWithLetterCase(dataSource, letterCaseNS, letterCaseNS, letterCaseNS);
+  }
+
+  protected void update() {
+    update("update teSt set vAr2=20");
   }
 }

@@ -70,7 +70,7 @@ import org.assertj.db.navigation.element.ValueElement;
  *
  * @param <V> The class of a assertion on a value (an sub-class of {@link org.assertj.db.navigation.element.ValueElement}).
  */
-public interface ToValueFromRow<V extends ValueElement> {
+public interface ToValueFromRow<V extends ValueElement> extends Navigation {
 
   /**
    * Returns assertion methods on the value corresponding to the column name in parameter.

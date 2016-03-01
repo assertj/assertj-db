@@ -112,7 +112,7 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
   /** {@inheritDoc} */
   @Override
   public C column(String columnName) {
-    return columnPosition.getInstance(actual.getColumnsList(), actual.getColumnsNameList(), columnName);
+    return columnPosition.getInstance(actual.getColumnsList(), actual.getColumnsNameList(), columnName, actual.getColumnLetterCase());
   }
 
   /** {@inheritDoc} */

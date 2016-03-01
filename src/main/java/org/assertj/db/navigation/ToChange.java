@@ -54,7 +54,7 @@ import org.assertj.db.navigation.element.ChangeElement;
  *
  * @param <CH> The class of a assertion on a change (an sub-class of {@link org.assertj.db.navigation.element.ChangeElement}).
  */
-public interface ToChange<CH extends ChangeElement> {
+public interface ToChange<CH extends ChangeElement> extends Navigation {
 
   /**
    * Returns assertion methods on the next {@link org.assertj.db.type.Change} in the list of changes.

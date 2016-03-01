@@ -48,15 +48,18 @@ public class ToChange_ChangeOnTableWithPks_Test extends AbstractTest {
     updateChangesForTests();
     changes.setEndPointNow();
 
+    Field fieldPosition = ChangesAssert.class.getDeclaredField("changesPosition");
+    fieldPosition.setAccessible(true);
     Field fieldList = Changes.class.getDeclaredField("changesList");
     fieldList.setAccessible(true);
-    Field fieldIndex = ChangesAssert.class.getDeclaredField("indexNextChangeMap");
+    Field fieldIndex = PositionWithChanges.class.getDeclaredField("indexNextChangeMap");
     fieldIndex.setAccessible(true);
     Field fieldChange = ChangeAssert.class.getDeclaredField("change");
     fieldChange.setAccessible(true);
 
     ChangesAssert changesAssert = assertThat(changes);
-    Map<ChangeType, Map<String, Integer>> map = (Map<ChangeType, Map<String, Integer>>)fieldIndex.get(changesAssert);
+    PositionWithChanges position = (PositionWithChanges) fieldPosition.get(changesAssert);
+    Map<ChangeType, Map<String, Integer>> map = (Map<ChangeType, Map<String, Integer>>)fieldIndex.get(position);
     Assertions.assertThat(map).hasSize(0);
     Assertions.assertThat(map.get(null)).isNull();
     ChangeAssert changeAssert0 = changesAssert.changeOnTableWithPks("actor", 1);
@@ -79,7 +82,8 @@ public class ToChange_ChangeOnTableWithPks_Test extends AbstractTest {
     }
 
     ChangesAssert changesAssertBis = assertThat(changes);
-    map = (Map<ChangeType, Map<String, Integer>>)fieldIndex.get(changesAssertBis);
+    PositionWithChanges positionBis = (PositionWithChanges) fieldPosition.get(changesAssertBis);
+    map = (Map<ChangeType, Map<String, Integer>>)fieldIndex.get(positionBis);
     Assertions.assertThat(map).hasSize(0);
     Assertions.assertThat(map.get(null)).isNull();
     ChangeAssert changeAssertBis0 = changesAssertBis.changeOnTableWithPks("actor", 1);

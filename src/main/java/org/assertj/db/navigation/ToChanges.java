@@ -52,7 +52,7 @@ import org.assertj.db.navigation.element.ChangesElement;
  *
  * @param <CHS> The class of a assertion on changes (an sub-class of {@link org.assertj.db.navigation.element.ChangesElement}).
  */
-public interface ToChanges<CHS extends ChangesElement> {
+public interface ToChanges<CHS extends ChangesElement> extends Navigation {
 
   /**
    * Returns an assertion of all the changes.

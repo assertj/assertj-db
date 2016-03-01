@@ -12,6 +12,9 @@
  */
 package org.assertj.db.type;
 
+import org.assertj.db.type.lettercase.LetterCase;
+import org.assertj.db.type.lettercase.WithLetterCase;
+
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -27,7 +30,7 @@ import java.sql.SQLException;
  * @param <D> Class of the subclass (an implementation of {@link AbstractDbElement}) : useful for the fluent methods
  *          (setters).
  */
-public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implements DbElement {
+public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implements DbElement, WithLetterCase {
 
   /**
    * Class of the element.
@@ -41,6 +44,21 @@ public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implemen
    * Data source.
    */
   private DataSource dataSource;
+  /**
+   * Letter case of the tables.
+   * @since 1.1.0
+   */
+  private LetterCase tableLetterCase;
+  /**
+   * Letter case of the columns.
+   * @since 1.1.0
+   */
+  private LetterCase columnLetterCase;
+  /**
+   * Letter case of the primary keys.
+   * @since 1.1.0
+   */
+  private LetterCase primaryKeyLetterCase;
 
   /**
    * Default constructor.
@@ -48,6 +66,7 @@ public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implemen
    */
   AbstractDbElement(Class<D> selfType) {
     myself = selfType.cast(this);
+    setLetterCases();
   }
 
   /**
@@ -59,6 +78,7 @@ public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implemen
   AbstractDbElement(Class<D> selfType, Source source) {
     this(selfType);
     this.source = source;
+    setLetterCases();
   }
 
   /**
@@ -70,6 +90,54 @@ public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implemen
   AbstractDbElement(Class<D> selfType, DataSource dataSource) {
     this(selfType);
     this.dataSource = dataSource;
+    setLetterCases();
+  }
+
+  /**
+   * Sets the letter cases from informations in {@code dataSource} and {@code source}.
+   */
+  private void setLetterCases() {
+    if (dataSource instanceof WithLetterCase) {
+      WithLetterCase withLetterCase = (WithLetterCase) dataSource;
+      tableLetterCase = withLetterCase.getTableLetterCase();
+      columnLetterCase = withLetterCase.getColumnLetterCase();
+      primaryKeyLetterCase = withLetterCase.getPrimaryKeyLetterCase();
+    }
+    else if (source instanceof WithLetterCase) {
+      WithLetterCase withLetterCase = (WithLetterCase) source;
+      tableLetterCase = withLetterCase.getTableLetterCase();
+      columnLetterCase = withLetterCase.getColumnLetterCase();
+      primaryKeyLetterCase = withLetterCase.getPrimaryKeyLetterCase();
+    }
+    else {
+      tableLetterCase = LetterCase.TABLE_DEFAULT;
+      columnLetterCase = LetterCase.COLUMN_DEFAULT;
+      primaryKeyLetterCase = LetterCase.PRIMARY_KEY_DEFAULT;
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public LetterCase getColumnLetterCase() {
+    return columnLetterCase;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public LetterCase getPrimaryKeyLetterCase() {
+    return primaryKeyLetterCase;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public LetterCase getTableLetterCase() {
+    return tableLetterCase;
   }
 
   /**
@@ -96,6 +164,7 @@ public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implemen
     }
     this.source = source;
     this.dataSource = null;
+    setLetterCases();
     return myself;
   }
 
@@ -123,6 +192,7 @@ public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implemen
     }
     this.source = null;
     this.dataSource = dataSource;
+    setLetterCases();
     return myself;
   }
 

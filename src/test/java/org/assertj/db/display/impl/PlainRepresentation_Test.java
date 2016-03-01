@@ -22,6 +22,7 @@ import org.junit.Test;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.UUID;
@@ -88,6 +89,18 @@ public class PlainRepresentation_Test extends AbstractTest {
                     + "| Index : 1 | null, 2002-07-25    | null             | false     | ...       | 2002-07-25T03:30:05.000000000 | 2002-07-25 | 9         | en                                        | test2     | 03:30:05.000000000 | 0e2a1269-eff0-4233-b87b-b53e8b6f164d |%n"
                     + "| Index : 2 | null, 2002-07-25, 9 | null             | false     | ...       | 2002-07-25T03:30:05.000000000 | 2002-07-25 | 9         | en                                        | test2     | 03:30:05.000000000 | 0e2a1269-eff0-4233-b87b-b53e8b6f164d |%n"
                     + "|-----------|---------------------|------------------|-----------|-----------|-------------------------------|------------|-----------|-------------------------------------------|-----------|--------------------|--------------------------------------|%n"));
+
+    assertThat(PlainRepresentation.INSTANCE.getTableRepresentation(info,
+                                                                   getTable(row1.getColumnsNameList(), row1.getPksNameList(),
+                                                                            new ArrayList())))
+            .isEqualTo(String.format("[description]%n"
+                                     + "|------------|---------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|%n"
+                                     + "|            |         | *         |           |           |           | *         |           |           |           |           |           |%n"
+                                     + "|            | PRIMARY | column1   | column2   | column3   | column4   | column5   | column6   | column7   | column8   | column9   | column10  |%n"
+                                     + "|            | KEY     |           |           |           |           |           |           |           |           |           |           |%n"
+                                     + "|            |         | Index : 0 | Index : 1 | Index : 2 | Index : 3 | Index : 4 | Index : 5 | Index : 6 | Index : 7 | Index : 8 | Index : 9 |%n"
+                                     + "|------------|---------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|%n"
+                                     + "|------------|---------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|%n"));
   }
 
   /**
@@ -142,6 +155,17 @@ public class PlainRepresentation_Test extends AbstractTest {
                     + "| Index : 1 | null, 2002-07-25    | null             | false     | ...       | 2002-07-25T03:30:05.000000000 | 2002-07-25 | 9         | en                                        | test2     | 03:30:05.000000000 | 0e2a1269-eff0-4233-b87b-b53e8b6f164d |%n"
                     + "| Index : 2 | null, 2002-07-25, 9 | null             | false     | ...       | 2002-07-25T03:30:05.000000000 | 2002-07-25 | 9         | en                                        | test2     | 03:30:05.000000000 | 0e2a1269-eff0-4233-b87b-b53e8b6f164d |%n"
                     + "|-----------|---------------------|------------------|-----------|-----------|-------------------------------|------------|-----------|-------------------------------------------|-----------|--------------------|--------------------------------------|%n"));
+
+    assertThat(PlainRepresentation.INSTANCE.getRequestRepresentation(info,
+                                                                     getRequest(row1.getColumnsNameList(), row1.getPksNameList(), new ArrayList())))
+            .isEqualTo(String.format("[description]%n"
+                                     + "|------------|---------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|%n"
+                                     + "|            |         | *         |           |           |           | *         |           |           |           |           |           |%n"
+                                     + "|            | PRIMARY | column1   | column2   | column3   | column4   | column5   | column6   | column7   | column8   | column9   | column10  |%n"
+                                     + "|            | KEY     |           |           |           |           |           |           |           |           |           |           |%n"
+                                     + "|            |         | Index : 0 | Index : 1 | Index : 2 | Index : 3 | Index : 4 | Index : 5 | Index : 6 | Index : 7 | Index : 8 | Index : 9 |%n"
+                                     + "|------------|---------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|%n"
+                                     + "|------------|---------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|%n"));
   }
 
   /**
@@ -247,6 +271,10 @@ public class PlainRepresentation_Test extends AbstractTest {
                     + "| Index : 4 | DELETION     | table                             | null, 2007-12-23    |----------------|------------------|-----------|-----------|-------------------------------|------------|-----------|-------------------------------------------|-----------|--------------------|--------------------------------------|%n"
                     + "|           |              |                                   |                     | At end point   |                  |           |           |                               |            |           |                                           |           |                    |                                      |%n"
                     + "|-----------|--------------|-----------------------------------|---------------------|----------------|------------------|-----------|-----------|-------------------------------|------------|-----------|-------------------------------------------|-----------|--------------------|--------------------------------------|%n"));
+
+    assertThat(PlainRepresentation.INSTANCE.getChangesRepresentation(info,
+                                                                     getChanges(new ArrayList())))
+            .isEqualTo(String.format("[description]%n"));
   }
 
   /**
@@ -496,6 +524,14 @@ public class PlainRepresentation_Test extends AbstractTest {
                                      + "| Index : 0 | 30b443ae-c0c9-4790-9bec-ce1380808435 |%n"
                                      + "| Index : 1 | 0e2a1269-eff0-4233-b87b-b53e8b6f164d |%n"
                                      + "|-----------|--------------------------------------|%n"));
+    assertThat(PlainRepresentation.INSTANCE
+                       .getColumnRepresentation(info, getColumn("column", new ArrayList())))
+            .isEqualTo(String.format("[description]%n"
+                                     + "|------------|------------------|%n"
+                                     + "|            | column           |%n"
+                                     + "|            | (NOT_IDENTIFIED) |%n"
+                                     + "|------------|------------------|%n"
+                                     + "|------------|------------------|%n"));
   }
 
   /**

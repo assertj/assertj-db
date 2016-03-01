@@ -15,6 +15,8 @@ package org.assertj.db.navigation;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.global.AbstractElement;
 import org.assertj.db.type.DbElement;
+import org.assertj.db.type.lettercase.CaseComparison;
+import org.assertj.db.util.NameComparator;
 
 import java.util.List;
 
@@ -46,13 +48,14 @@ public abstract class PositionWithColumns<E extends AbstractElement & Navigation
    * @param elementsList    List of elements.
    * @param columnsNameList List of the columns name.
    * @param columnName      Name of the column of the element on which is the instance of element of navigation.
+   * @param comparison      Case comparison for column name.
    * @return The instance of element of navigation.
    */
-  public N getInstance(List<D> elementsList, List<String> columnsNameList, String columnName) {
+  public N getInstance(List<D> elementsList, List<String> columnsNameList, String columnName, CaseComparison comparison) {
     if (columnName == null) {
       throw new NullPointerException("Column name must be not null");
     }
-    int index = columnsNameList.indexOf(columnName.toUpperCase());
+    int index = NameComparator.INSTANCE.indexOf(columnsNameList, columnName, comparison);
     if (index == -1) {
       throw new AssertJDBException("Column <%s> does not exist", columnName);
     }

@@ -16,9 +16,12 @@ import com.ninja_squad.dbsetup.DbSetup;
 import com.ninja_squad.dbsetup.destination.DriverManagerDestination;
 import com.ninja_squad.dbsetup.operation.Operation;
 import org.assertj.db.database.AbstractDatabaseTest;
-import org.assertj.db.type.Source;
+import org.assertj.db.type.DataSourceWithLetterCase;
+import org.assertj.db.type.SourceWithLetterCase;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
+import javax.sql.DataSource;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.sql.Date;
@@ -54,12 +57,22 @@ public abstract class AbstractHsqlsbTest extends AbstractDatabaseTest {
     }
   }
 
-  protected final Source source = new Source("jdbc:hsqldb:mem:testHsqldb", "SA", "");
+  protected DataSourceWithLetterCase dataSourceUIUIUI;
+  protected DataSourceWithLetterCase dataSourceNSNSNS;
 
-  private static final Operation DELETE_ALL = deleteAllFrom("test");
+  protected final SourceWithLetterCase sourceUIUIUI = new SourceWithLetterCase("jdbc:hsqldb:mem:testHsqldb", "SA", "",
+                                                                               letterCaseUI,
+                                                                               letterCaseUI,
+                                                                               letterCaseUI);
+  protected final SourceWithLetterCase sourceNSNSNS = new SourceWithLetterCase("jdbc:hsqldb:mem:testHsqldb", "SA", "",
+                                                                               letterCaseNS,
+                                                                               letterCaseNS,
+                                                                               letterCaseNS);
 
-  private static final Operation INSERT_TEST = insertInto("test")
-          .columns("var1", "var2", "var3", "var4", "var5", "var6", "var7", "var8", "var9", "var10",
+  private static final Operation DELETE_ALL = deleteAllFrom("teSt");
+
+  private static final Operation INSERT_TEST = insertInto("teSt")
+          .columns("Var1", "vAr2", "vaR3", "var4", "var5", "var6", "var7", "var8", "var9", "var10",
                    "var11", "var12", "var13", "var14", "var15", "var16", "var17", "var18", "var19", "var20",
                    "var21", "var22", "var23", "var24", "var25", "var26")
           .values(1, 2, 3.3, 4.4, "5", "6", "7", "8", "9", Date.valueOf("2007-12-23"),
@@ -72,5 +85,15 @@ public abstract class AbstractHsqlsbTest extends AbstractDatabaseTest {
 
   static {
     DB_SETUP = new DbSetup(new DriverManagerDestination("jdbc:hsqldb:mem:testHsqldb", "SA", ""), OPERATIONS);
+  }
+
+  @Autowired(required = true)
+  protected void setDataSource(DataSource dataSource) {
+    this.dataSourceUIUIUI = new DataSourceWithLetterCase(dataSource, letterCaseUI, letterCaseUI, letterCaseUI);
+    this.dataSourceNSNSNS = new DataSourceWithLetterCase(dataSource, letterCaseNS, letterCaseNS, letterCaseNS);
+  }
+
+  protected void update() {
+    update("update test set vAr2=20");
   }
 }

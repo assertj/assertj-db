@@ -1,7 +1,7 @@
-create table test (
-    var1 IDENTITY,
-    var2 INT,
-    var3 INTEGER,
+create table teSt (
+    Var1 IDENTITY,
+    vAr2 INT,
+    vaR3 INTEGER,
     var4 MEDIUMINT,
     var5 INT4,
     var6 SIGNED,

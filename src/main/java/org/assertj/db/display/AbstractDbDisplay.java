@@ -108,6 +108,8 @@ public abstract class AbstractDbDisplay<D extends AbstractDbData<D>, A extends A
   /** {@inheritDoc} */
   @Override
   public C column(String columnName) {
-    return columnPosition.getInstance(actual.getColumnsList(), actual.getColumnsNameList(), columnName).withType(displayType);
+    return columnPosition.getInstance(actual.getColumnsList(), actual.getColumnsNameList(),
+                                      columnName, actual.getColumnLetterCase())
+                         .withType(displayType);
   }
 }
