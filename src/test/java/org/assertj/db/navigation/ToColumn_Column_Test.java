@@ -47,7 +47,9 @@ public class ToColumn_Column_Test extends AbstractTest {
     updateChangesForTests();
     changes.setEndPointNow();
 
-    Field fieldIndex = ChangeAssert.class.getDeclaredField("indexNextColumn");
+    Field fieldPosition = ChangeAssert.class.getDeclaredField("columnPosition");
+    fieldPosition.setAccessible(true);
+    Field fieldIndex = PositionWithColumnsChange.class.getDeclaredField("nextIndex");
     fieldIndex.setAccessible(true);
     Field fieldColumnName = ChangeColumnAssert.class.getDeclaredField("columnName");
     fieldColumnName.setAccessible(true);
@@ -58,17 +60,18 @@ public class ToColumn_Column_Test extends AbstractTest {
 
     ChangesAssert changesAssert = assertThat(changes);
     ChangeAssert changeAssert = changesAssert.change();
-    assertThat(fieldIndex.get(changeAssert)).isEqualTo(0);
+    PositionWithColumnsChange position = (PositionWithColumnsChange) fieldPosition.get(changeAssert);
+    assertThat(fieldIndex.get(position)).isEqualTo(0);
     ChangeColumnAssert changeColumnAssert0 = changeAssert.column();
-    assertThat(fieldIndex.get(changeAssert)).isEqualTo(1);
+    assertThat(fieldIndex.get(position)).isEqualTo(1);
     ChangeColumnAssert changeColumnAssert1 = changeAssert.column();
-    assertThat(fieldIndex.get(changeAssert)).isEqualTo(2);
+    assertThat(fieldIndex.get(position)).isEqualTo(2);
     ChangeColumnAssert changeColumnAssert2 = changeAssert.column();
-    assertThat(fieldIndex.get(changeAssert)).isEqualTo(3);
+    assertThat(fieldIndex.get(position)).isEqualTo(3);
     ChangeColumnAssert changeColumnAssert3 = changeAssert.column();
-    assertThat(fieldIndex.get(changeAssert)).isEqualTo(4);
+    assertThat(fieldIndex.get(position)).isEqualTo(4);
     ChangeColumnAssert changeColumnAssert4 = changeAssert.column();
-    assertThat(fieldIndex.get(changeAssert)).isEqualTo(5);
+    assertThat(fieldIndex.get(position)).isEqualTo(5);
     try {
       changeAssert.column();
       fail("An exception must be raised");
@@ -78,17 +81,18 @@ public class ToColumn_Column_Test extends AbstractTest {
 
     ChangesAssert changesAssertBis = assertThat(changes);
     ChangeAssert changeAssertBis = changesAssertBis.change();
-    assertThat(fieldIndex.get(changeAssertBis)).isEqualTo(0);
+    PositionWithColumnsChange positionBis = (PositionWithColumnsChange) fieldPosition.get(changeAssertBis);
+    assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     ChangeColumnAssert changeColumnAssertBis0 = changeAssertBis.column();
-    assertThat(fieldIndex.get(changeAssertBis)).isEqualTo(1);
+    assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
     ChangeColumnAssert changeColumnAssertBis1 = changeColumnAssertBis0.column();
-    assertThat(fieldIndex.get(changeAssertBis)).isEqualTo(2);
+    assertThat(fieldIndex.get(positionBis)).isEqualTo(2);
     ChangeColumnAssert changeColumnAssertBis2 = changeColumnAssertBis1.column();
-    assertThat(fieldIndex.get(changeAssertBis)).isEqualTo(3);
+    assertThat(fieldIndex.get(positionBis)).isEqualTo(3);
     ChangeColumnAssert changeColumnAssertBis3 = changeColumnAssertBis2.column();
-    assertThat(fieldIndex.get(changeAssertBis)).isEqualTo(4);
+    assertThat(fieldIndex.get(positionBis)).isEqualTo(4);
     ChangeColumnAssert changeColumnAssertBis4 = changeColumnAssertBis3.column();
-    assertThat(fieldIndex.get(changeAssertBis)).isEqualTo(5);
+    assertThat(fieldIndex.get(positionBis)).isEqualTo(5);
     try {
       changeColumnAssertBis4.column();
       fail("An exception must be raised");

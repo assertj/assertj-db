@@ -14,16 +14,15 @@ package org.assertj.db.api;
 
 import org.assertj.db.api.assertions.*;
 import org.assertj.db.api.assertions.impl.*;
-import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.navigation.PositionWithColumnsChange;
 import org.assertj.db.navigation.PositionWithPoints;
 import org.assertj.db.navigation.element.ChangeElement;
 import org.assertj.db.navigation.origin.OriginWithColumnsAndRowsFromChange;
-import org.assertj.db.type.*;
+import org.assertj.db.type.Change;
+import org.assertj.db.type.ChangeType;
+import org.assertj.db.type.DataType;
+import org.assertj.db.type.Row;
 import org.assertj.db.util.Changes;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import static org.assertj.db.util.Descriptions.*;
 
@@ -53,13 +52,9 @@ public class ChangeAssert
   private final PositionWithPoints<ChangeAssert, ChangeRowAssert, Row> rowPosition;
 
   /**
-   * Index of the next value to get.
+   * Position of navigation to column.
    */
-  private int indexNextColumn;
-  /**
-   * Map the columns assert with their index in key (contains the columns assert already generated).
-   */
-  private final Map<Integer, ChangeColumnAssert> columnsAssertMap = new HashMap<>();
+  private final PositionWithColumnsChange<ChangeAssert, ChangeColumnAssert> columnPosition;
 
   /**
    * Constructor.
@@ -80,6 +75,12 @@ public class ChangeAssert
         return getRowAtEndPointDescription(info);
       }
     };
+    columnPosition = new PositionWithColumnsChange<ChangeAssert, ChangeColumnAssert>(this, ChangeColumnAssert.class){
+
+      @Override protected String getDescription(int index, String columnName) {
+        return getColumnDescription(info, index, columnName);
+      }
+    };
   }
 
   /** {@inheritDoc} */
@@ -94,110 +95,40 @@ public class ChangeAssert
     return rowPosition.getInstanceAtEndPoint();
   }
 
-  /**
-   * Gets an instance of value assert corresponding to the index. If this instance is already instanced, the method
-   * returns it from the cache.
-   *
-   * @param index Index of the value on which is the instance of value assert.
-   * @return The value assert implementation.
-   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
-   */
-  private ChangeColumnAssert getChangeColumnAssertInstance(int index) {
-    if (columnsAssertMap.containsKey(index)) {
-      ChangeColumnAssert changeColumnAssert = columnsAssertMap.get(index);
-      indexNextColumn = index + 1;
-      return changeColumnAssert;
-    }
-
-    int size = change.getColumnsNameList().size();
-    if (index < 0 || index >= size) {
-      throw new AssertJDBException("Index %s out of the limits [0, %s[", index, size);
-    }
-    Row rowAtStartPoint = change.getRowAtStartPoint();
-    Row rowAtEndPoint = change.getRowAtEndPoint();
-    Value valueAtStartPoint = Value.NULL;
-    Value valueAtEndPoint = Value.NULL;
-    if (rowAtStartPoint != null) {
-      List<Value> valuesAtStartPoint = rowAtStartPoint.getValuesList();
-      valueAtStartPoint = valuesAtStartPoint.get(index);
-    }
-    if (rowAtEndPoint != null) {
-      List<Value> valuesAtEndPoint = rowAtEndPoint.getValuesList();
-      valueAtEndPoint = valuesAtEndPoint.get(index);
-    }
-    List<String> columnsNameList = change.getColumnsNameList();
-    String columnName = columnsNameList.get(index);
-    ChangeColumnAssert instance = new ChangeColumnAssert(this, columnName, valueAtStartPoint, valueAtEndPoint);
-    columnsAssertMap.put(index, instance);
-    indexNextColumn = index + 1;
-    return instance.as(getColumnDescription(info, index, columnName));
-  }
-
   /** {@inheritDoc} */
   @Override
   public ChangeColumnAssert column() {
-    return getChangeColumnAssertInstance(indexNextColumn);
+    return columnPosition.getChangeColumnInstance(change);
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeColumnAssert column(int index) {
-    return getChangeColumnAssertInstance(index);
+    return columnPosition.getChangeColumnInstance(change, index);
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeColumnAssert column(String columnName) {
-    if (columnName == null) {
-      throw new NullPointerException("Column name must be not null");
-    }
-    List<String> columnsNameList = change.getColumnsNameList();
-    int index = columnsNameList.indexOf(columnName.toUpperCase());
-    if (index == -1) {
-      throw new AssertJDBException("Column <%s> does not exist", columnName);
-    }
-    return getChangeColumnAssertInstance(index);
+    return columnPosition.getChangeColumnInstance(change, columnName, change.getColumnLetterCase());
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeColumnAssert columnAmongTheModifiedOnes() {
-    Integer[] indexesOfModifiedColumns = Changes.getIndexesOfModifiedColumns(change);
-    for (Integer indexModified : indexesOfModifiedColumns) {
-      if (indexModified >= indexNextColumn) {
-        return getChangeColumnAssertInstance(indexModified);
-      }
-    }
-    throw new AssertJDBException("No more modified columns");
+    return columnPosition.getModifiedChangeColumnInstance(change);
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeColumnAssert columnAmongTheModifiedOnes(int index) {
-    Integer[] indexesOfModifiedColumns = Changes.getIndexesOfModifiedColumns(change);
-    int size = indexesOfModifiedColumns.length;
-    if (index < 0 || index >= size) {
-      throw new AssertJDBException("Index %s out of the limits of the modified columns [0, %s[", index, size);
-    }
-    int indexModified = indexesOfModifiedColumns[index];
-    return getChangeColumnAssertInstance(indexModified);
+    return columnPosition.getModifiedChangeColumnInstance(change, index);
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeColumnAssert columnAmongTheModifiedOnes(String columnName) {
-    if (columnName == null) {
-      throw new NullPointerException("Column name must be not null");
-    }
-    Integer[] indexesOfModifiedColumns = Changes.getIndexesOfModifiedColumns(change);
-    List<String> columnsNameList = change.getColumnsNameList();
-    for (Integer indexModified : indexesOfModifiedColumns) {
-      String modifiedColumnName = columnsNameList.get(indexModified);
-      if (modifiedColumnName.equalsIgnoreCase(columnName)) {
-        return getChangeColumnAssertInstance(indexModified);
-      }
-    }
-    throw new AssertJDBException("Column <%s> do not exist among the modified columns", columnName);
+    return columnPosition.getModifiedChangeColumnInstance(change, columnName, change.getColumnLetterCase());
   }
 
   /** {@inheritDoc} */

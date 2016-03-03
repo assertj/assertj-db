@@ -49,7 +49,9 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_String_Test extends A
     updateChangesForTests();
     changes.setEndPointNow();
 
-    Field fieldIndex = ChangeAssert.class.getDeclaredField("indexNextColumn");
+    Field fieldPosition = ChangeAssert.class.getDeclaredField("columnPosition");
+    fieldPosition.setAccessible(true);
+    Field fieldIndex = PositionWithColumnsChange.class.getDeclaredField("nextIndex");
     fieldIndex.setAccessible(true);
     Field fieldColumnName = ChangeColumnAssert.class.getDeclaredField("columnName");
     fieldColumnName.setAccessible(true);
@@ -60,15 +62,16 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_String_Test extends A
 
     ChangesAssert changesAssert = assertThat(changes);
     ChangeAssert changeAssert = changesAssert.change();
-    Assertions.assertThat(fieldIndex.get(changeAssert)).isEqualTo(0);
+    PositionWithColumnsChange position = (PositionWithColumnsChange) fieldPosition.get(changeAssert);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     ChangeColumnAssert changeColumnAssert0 = changeAssert.columnAmongTheModifiedOnes("ID");
-    Assertions.assertThat(fieldIndex.get(changeAssert)).isEqualTo(1);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
     ChangeColumnAssert changeColumnAssert1 = changeAssert.columnAmongTheModifiedOnes("NAME");
-    Assertions.assertThat(fieldIndex.get(changeAssert)).isEqualTo(2);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(2);
     ChangeColumnAssert changeColumnAssert2 = changeAssert.columnAmongTheModifiedOnes("FIRSTNAME");
-    Assertions.assertThat(fieldIndex.get(changeAssert)).isEqualTo(3);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(3);
     ChangeColumnAssert changeColumnAssert3 = changeAssert.columnAmongTheModifiedOnes("BIRTH");
-    Assertions.assertThat(fieldIndex.get(changeAssert)).isEqualTo(4);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(4);
     try {
       changeAssert.columnAmongTheModifiedOnes("TEST");
       fail("An exception must be raised");
@@ -84,15 +87,16 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_String_Test extends A
 
     ChangesAssert changesAssertBis = assertThat(changes);
     ChangeAssert changeAssertBis = changesAssertBis.change();
-    Assertions.assertThat(fieldIndex.get(changeAssertBis)).isEqualTo(0);
+    PositionWithColumnsChange positionBis = (PositionWithColumnsChange) fieldPosition.get(changeAssertBis);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     ChangeColumnAssert changeColumnAssertBis0 = changeAssertBis.columnAmongTheModifiedOnes("ID");
-    Assertions.assertThat(fieldIndex.get(changeAssertBis)).isEqualTo(1);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
     ChangeColumnAssert changeColumnAssertBis1 = changeColumnAssertBis0.columnAmongTheModifiedOnes("NAME");
-    Assertions.assertThat(fieldIndex.get(changeAssertBis)).isEqualTo(2);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(2);
     ChangeColumnAssert changeColumnAssertBis2 = changeColumnAssertBis1.columnAmongTheModifiedOnes("FIRSTNAME");
-    Assertions.assertThat(fieldIndex.get(changeAssertBis)).isEqualTo(3);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(3);
     ChangeColumnAssert changeColumnAssertBis3 = changeColumnAssertBis2.columnAmongTheModifiedOnes("BIRTH");
-    Assertions.assertThat(fieldIndex.get(changeAssertBis)).isEqualTo(4);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(4);
     try {
       changeColumnAssertBis3.columnAmongTheModifiedOnes("TEST");
       fail("An exception must be raised");

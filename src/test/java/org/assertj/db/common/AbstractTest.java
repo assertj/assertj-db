@@ -298,9 +298,11 @@ public abstract class AbstractTest {
                                     Row rowAtEndPoint)
           throws Exception {
     Constructor<Change> constructor = Change.class
-            .getDeclaredConstructor(DataType.class, String.class, ChangeType.class, Row.class, Row.class);
+            .getDeclaredConstructor(DataType.class, String.class, ChangeType.class, Row.class, Row.class,
+                                    LetterCase.class);
     constructor.setAccessible(true);
-    return constructor.newInstance(dataType, dataName, changeType, rowAtStartPoint, rowAtEndPoint);
+    return constructor.newInstance(dataType, dataName, changeType, rowAtStartPoint, rowAtEndPoint,
+                                   LetterCase.COLUMN_DEFAULT);
   }
 
   /**

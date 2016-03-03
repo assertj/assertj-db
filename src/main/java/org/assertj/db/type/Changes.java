@@ -340,7 +340,7 @@ public class Changes extends AbstractDbElement<Changes> {
     for (Row row : dataAtEndPoint.getRowsList()) {
       Row rowAtStartPoint = dataAtStartPoint.getRowFromPksValues(row.getPksValues());
       if (rowAtStartPoint == null) {
-        Change change = createCreationChange(dataAtEndPoint.getDataType(), dataName, row);
+        Change change = createCreationChange(dataAtEndPoint.getDataType(), dataName, row, getColumnLetterCase());
         changesList.add(change);
       }
     }
@@ -348,13 +348,14 @@ public class Changes extends AbstractDbElement<Changes> {
       Row rowAtEndPoint = dataAtEndPoint.getRowFromPksValues(row.getPksValues());
       if (rowAtEndPoint == null) {
         // List the deleted rows : the row is not present at the end point
-        Change change = createDeletionChange(dataAtStartPoint.getDataType(), dataName, row);
+        Change change = createDeletionChange(dataAtStartPoint.getDataType(), dataName, row, getColumnLetterCase());
         changesList.add(change);
       } else {
         // List the modified rows
         if (!row.hasValues(rowAtEndPoint)) {
           // If at least one value in the rows is different, add the change
-          Change change = createModificationChange(dataAtStartPoint.getDataType(), dataName, row, rowAtEndPoint);
+          Change change = createModificationChange(dataAtStartPoint.getDataType(), dataName, row, rowAtEndPoint,
+                                                   getColumnLetterCase());
           changesList.add(change);
         }
       }
@@ -389,7 +390,8 @@ public class Changes extends AbstractDbElement<Changes> {
         index1++;
       }
       if (index == -1) {
-        Change change = createCreationChange(dataAtStartPoint.getDataType(), dataName, rowAtEndPoint);
+        Change change = createCreationChange(dataAtStartPoint.getDataType(), dataName, rowAtEndPoint,
+                                             getColumnLetterCase());
         changesList.add(change);
       } else {
         rowsAtStartPointList.remove(index);
@@ -408,7 +410,8 @@ public class Changes extends AbstractDbElement<Changes> {
         index1++;
       }
       if (index == -1) {
-        Change change = createDeletionChange(dataAtStartPoint.getDataType(), dataName, rowAtStartPoint);
+        Change change = createDeletionChange(dataAtStartPoint.getDataType(), dataName, rowAtStartPoint,
+                                             getColumnLetterCase());
         changesList.add(change);
       } else {
         rowsAtEndPointList.remove(index);

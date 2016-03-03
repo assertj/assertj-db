@@ -50,7 +50,9 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_Integer_Test extends 
     updateChangesForTests();
     changes.setEndPointNow();
 
-    Field fieldIndex = ChangeAssert.class.getDeclaredField("indexNextColumn");
+    Field fieldPosition = ChangeAssert.class.getDeclaredField("columnPosition");
+    fieldPosition.setAccessible(true);
+    Field fieldIndex = PositionWithColumnsChange.class.getDeclaredField("nextIndex");
     fieldIndex.setAccessible(true);
     Field fieldColumnName = ChangeColumnAssert.class.getDeclaredField("columnName");
     fieldColumnName.setAccessible(true);
@@ -61,17 +63,18 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_Integer_Test extends 
 
     ChangesAssert changesAssert = assertThat(changes);
     ChangeAssert changeAssert = changesAssert.change(6);
-    Assertions.assertThat(fieldIndex.get(changeAssert)).isEqualTo(0);
+    PositionWithColumnsChange position = (PositionWithColumnsChange) fieldPosition.get(changeAssert);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     ChangeColumnAssert changeColumnAssert0 = changeAssert.columnAmongTheModifiedOnes(0);
-    Assertions.assertThat(fieldIndex.get(changeAssert)).isEqualTo(1);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
     ChangeColumnAssert changeColumnAssert1 = changeAssert.columnAmongTheModifiedOnes(1);
-    Assertions.assertThat(fieldIndex.get(changeAssert)).isEqualTo(2);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(2);
     ChangeColumnAssert changeColumnAssert2 = changeAssert.columnAmongTheModifiedOnes(2);
-    Assertions.assertThat(fieldIndex.get(changeAssert)).isEqualTo(3);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(3);
     ChangeColumnAssert changeColumnAssert3 = changeAssert.columnAmongTheModifiedOnes(3);
-    Assertions.assertThat(fieldIndex.get(changeAssert)).isEqualTo(4);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(4);
     ChangeColumnAssert changeColumnAssert4 = changeAssert.columnAmongTheModifiedOnes(4);
-    Assertions.assertThat(fieldIndex.get(changeAssert)).isEqualTo(5);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(5);
     try {
       changeAssert.columnAmongTheModifiedOnes(5);
       fail("An exception must be raised");
@@ -89,17 +92,18 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_Integer_Test extends 
 
     ChangesAssert changesAssertBis = assertThat(changes);
     ChangeAssert changeAssertBis = changesAssertBis.change(6);
-    Assertions.assertThat(fieldIndex.get(changeAssertBis)).isEqualTo(0);
+    PositionWithColumnsChange positionBis = (PositionWithColumnsChange) fieldPosition.get(changeAssertBis);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     ChangeColumnAssert changeColumnAssertBis0 = changeAssertBis.columnAmongTheModifiedOnes(0);
-    Assertions.assertThat(fieldIndex.get(changeAssertBis)).isEqualTo(1);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
     ChangeColumnAssert changeColumnAssertBis1 = changeColumnAssertBis0.columnAmongTheModifiedOnes(1);
-    Assertions.assertThat(fieldIndex.get(changeAssertBis)).isEqualTo(2);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(2);
     ChangeColumnAssert changeColumnAssertBis2 = changeColumnAssertBis1.columnAmongTheModifiedOnes(2);
-    Assertions.assertThat(fieldIndex.get(changeAssertBis)).isEqualTo(3);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(3);
     ChangeColumnAssert changeColumnAssertBis3 = changeColumnAssertBis2.columnAmongTheModifiedOnes(3);
-    Assertions.assertThat(fieldIndex.get(changeAssertBis)).isEqualTo(4);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(4);
     ChangeColumnAssert changeColumnAssertBis4 = changeColumnAssertBis3.columnAmongTheModifiedOnes(4);
-    Assertions.assertThat(fieldIndex.get(changeAssertBis)).isEqualTo(5);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(5);
     try {
       changeColumnAssertBis4.columnAmongTheModifiedOnes(5);
       fail("An exception must be raised");
