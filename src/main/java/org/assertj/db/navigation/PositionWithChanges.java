@@ -17,8 +17,11 @@ import org.assertj.db.global.AbstractElement;
 import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.Changes;
+import org.assertj.db.type.Value;
+import org.assertj.db.util.Values;
 
 import java.lang.reflect.Constructor;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -215,6 +218,40 @@ public abstract class PositionWithChanges<E extends AbstractElement & Navigation
                                                  + "It is normally impossible.%n That means there is a big mistake in the development of AssertJDB.%n "
                                                  + "Please write an issue for that if you meet this problem."));
     }
+  }
+
+  /**
+   * Gets an instance of change assert corresponding to the table and the primary keys.
+   * If this instance is already instanced, the method returns it from the cache.
+   *
+   * @param changes The changes
+   * @param tableName  Name of the table on which is the instance of change assert.
+   * @param pksValues The values of the primary key corresponding to the {@link org.assertj.db.type.Change}.
+   * @return The change assert implementation.
+   */
+  public N getChangeInstanceWithPK(Changes changes, String tableName, Object... pksValues) {
+    Changes changesOfTable = changes.getChangesOfTable(tableName);
+    List<Change> changesList = changesOfTable.getChangesList();
+    int index = 0;
+    for (Change change : changesList) {
+      List<Value> pksValueList = change.getPksValueList();
+      Value[] values = pksValueList.toArray(new Value[pksValueList.size()]);
+      boolean equal = false;
+      if (pksValues.length == values.length) {
+        equal = true;
+        for (int i = 0; i < pksValues.length; i++) {
+          if (!Values.areEqual(values[i], pksValues[i])) {
+            equal = false;
+          }
+        }
+      }
+      if (equal) {
+        return getChangeInstance(changesOfTable, null, tableName, index);
+      }
+      index++;
+    }
+    throw new AssertJDBException("No change found for table " + tableName + " and primary keys " + Arrays
+            .asList(pksValues));
   }
 
   /**

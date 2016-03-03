@@ -14,19 +14,13 @@ package org.assertj.db.api;
 
 import org.assertj.db.api.assertions.AssertOnNumberOfChanges;
 import org.assertj.db.api.assertions.impl.AssertionsOnNumberOfChanges;
-import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.navigation.PositionWithChanges;
 import org.assertj.db.navigation.element.ChangesElement;
 import org.assertj.db.navigation.origin.OriginWithChanges;
 import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.Changes;
-import org.assertj.db.type.Value;
 import org.assertj.db.util.Descriptions;
-import org.assertj.db.util.Values;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Assertion methods for {@link Changes}.
@@ -254,27 +248,7 @@ public class ChangesAssert
     if (origin != null) {
       return origin.changeOnTableWithPks(tableName, pksValues);
     }
-    Changes changes = this.changes.getChangesOfTable(tableName);
-    List<Change> changesList = changes.getChangesList();
-    int index = 0;
-    for (Change change : changesList) {
-      List<Value> pksValueList = change.getPksValueList();
-      Value[] values = pksValueList.toArray(new Value[pksValueList.size()]);
-      boolean equal = false;
-      if (pksValues.length == values.length) {
-        equal = true;
-        for (int i = 0; i < pksValues.length; i++) {
-          if (!Values.areEqual(values[i], pksValues[i])) {
-            equal = false;
-          }
-        }
-      }
-      if (equal) {
-        return changesPosition.getChangeInstance(changes, null, tableName, index);
-      }
-      index++;
-    }
-    throw new AssertJDBException("No change found for table " + tableName + " and primary keys " + Arrays.asList(pksValues));
+    return changesPosition.getChangeInstanceWithPK(changes, tableName, pksValues);
   }
 
   /** {@inheritDoc} */
