@@ -763,6 +763,12 @@ enum PlainRepresentation implements Representation {
    */
   @Override
   public String getRowRepresentation(WritableAssertionInfo info, Row row) {
+    if (row == null) {
+      StringBuilder stringBuilder = new StringBuilder();
+      stringBuilder.append("[").append(info.descriptionText()).append("]%n");
+      stringBuilder.append("Row does not exist%n");
+      return String.format(stringBuilder.toString());
+    }
     List<String> columnsNameList = row.getColumnsNameList();
     List<String> typesList = getTypesList(row);
     StringBuilder[] pksValueStringBuilders = getPksValueStringBuilder(row);
@@ -832,6 +838,42 @@ enum PlainRepresentation implements Representation {
     return String.format(stringBuilder.toString());
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public String getChangeColumnRepresentation(WritableAssertionInfo info, String columnName,
+                                       Value valueAtStartPoint, Value valueAtEndPoint) {
+
+    String typeAtStartPoint = getType(valueAtStartPoint);
+    String typeAtEndPoint = getType(valueAtEndPoint);
+    String type = typeAtStartPoint != null ? typeAtStartPoint : typeAtEndPoint;
+
+    int columnSize = getColumnSize(columnName, type, null, valueAtStartPoint, valueAtEndPoint);
+
+    StringBuilder stringBuilder = new StringBuilder();
+    // Description
+    stringBuilder.append("[").append(info.descriptionText()).append("]%n");
+    // Line
+    stringBuilder.append("|----------------|").append(getCellLine(columnSize)).append("|%n");
+    // Column name
+    stringBuilder.append("|                |").append(getFilledText(columnName, columnSize)).append("|%n");
+    // Type
+    stringBuilder.append("|                |").append(getFilledText(type, columnSize)).append("|%n");
+    // Line
+    stringBuilder.append("|----------------|").append(getCellLine(columnSize)).append("|%n");
+    // Value at start point
+    stringBuilder.append("| At start point |").append(getFilledText(getText(valueAtStartPoint), columnSize)).append(
+            "|%n");
+    // Line
+    stringBuilder.append("|----------------|").append(getCellLine(columnSize)).append("|%n");
+    // Value at end point
+    stringBuilder.append("| At end point   |").append(getFilledText(getText(valueAtEndPoint), columnSize)).append("|%n");
+    // Line
+    stringBuilder.append("|----------------|").append(getCellLine(columnSize)).append("|%n");
+
+    return String.format(stringBuilder.toString());
+  }
   /**
    * {@inheritDoc}
    */

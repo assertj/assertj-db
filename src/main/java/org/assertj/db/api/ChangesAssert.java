@@ -43,16 +43,6 @@ public class ChangesAssert
    */
   private final PositionWithChanges<ChangesAssert, ChangeAssert> changesPosition;
 
-//  /**
-//   * Index of the next change to get per type of change.
-//   */
-//  private final Map<ChangeType, Map<String, Integer>> indexNextChangeMap = new HashMap<>();
-//
-//  /**
-//   * Map the change assert with the change in key (contains the change assert already generated).
-//   */
-//  private final Map<Change, ChangeAssert> changeMap = new HashMap<>();
-
   /**
    * Constructor.
    *

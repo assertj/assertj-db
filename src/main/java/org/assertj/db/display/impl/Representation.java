@@ -78,6 +78,18 @@ interface Representation {
   String getColumnRepresentation(WritableAssertionInfo info, Column column);
 
   /**
+   * Returns the representation of a {@code Column} of a {@code Change}.
+   *
+   * @param info   Writable information about an assertion.
+   * @param columnName Column name.
+   * @param valueAtStartPoint Value at start point.
+   * @param valueAtEndPoint Value at end point.
+   * @return The representation of a {@code Column} of a {@code Change}.
+   */
+  String getChangeColumnRepresentation(WritableAssertionInfo info, String columnName,
+                                       Value valueAtStartPoint, Value valueAtEndPoint);
+
+  /**
    * Returns the representation of a value.
    *
    * @param info       Writable information about an assertion.

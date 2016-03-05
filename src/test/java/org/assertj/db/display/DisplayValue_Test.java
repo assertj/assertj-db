@@ -14,6 +14,8 @@ package org.assertj.db.display;
 
 import org.assertj.core.api.Assertions;
 import org.assertj.db.common.AbstractTest;
+import org.assertj.db.common.NeedReload;
+import org.assertj.db.type.Changes;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
 import org.junit.Test;
@@ -124,6 +126,45 @@ public class DisplayValue_Test extends AbstractTest {
    * This method tests the {@code display} display method.
    */
   @Test
+  @NeedReload
+  public void test_display_for_row_from_change() throws Exception {
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+
+    ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
+    ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
+    ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
+    display(changes).change().rowAtEndPoint().value().display(new PrintStream(byteArrayOutputStream0))
+                    .changeOfModification().rowAtStartPoint().value().display(new PrintStream(byteArrayOutputStream1))
+                    .rowAtEndPoint().value().display(new PrintStream(byteArrayOutputStream2));
+    Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Value at index 0 (column name : ID) of Row at end point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
+                                                                                     + "|----------|%n"
+                                                                                     + "| ID       |%n"
+                                                                                     + "| (NUMBER) |%n"
+                                                                                     + "|----------|%n"
+                                                                                     + "| 4        |%n"
+                                                                                     + "|----------|%n"));
+    Assertions.assertThat(byteArrayOutputStream1.toString()).isEqualTo(String.format("[Value at index 0 (column name : ID) of Row at start point of Change at index 0 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source (only modification changes)]%n"
+                                                                                     + "|----------|%n"
+                                                                                     + "| ID       |%n"
+                                                                                     + "| (NUMBER) |%n"
+                                                                                     + "|----------|%n"
+                                                                                     + "| 1        |%n"
+                                                                                     + "|----------|%n"));
+    Assertions.assertThat(byteArrayOutputStream2.toString()).isEqualTo(String.format("[Value at index 0 (column name : ID) of Row at end point of Change at index 0 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source (only modification changes)]%n"
+                                                                                     + "|----------|%n"
+                                                                                     + "| ID       |%n"
+                                                                                     + "| (NUMBER) |%n"
+                                                                                     + "|----------|%n"
+                                                                                     + "| 1        |%n"
+                                                                                     + "|----------|%n"));
+  }
+
+  /**
+   * This method tests the {@code display} display method.
+   */
+  @Test
   public void test_display_for_column_from_table() throws Exception {
     Table table = new Table(source, "actor");
 
@@ -209,5 +250,44 @@ public class DisplayValue_Test extends AbstractTest {
                                                                                      + "|-------------|%n"
                                                                                      + "| Worthington |%n"
                                                                                      + "|-------------|%n"));
+  }
+
+  /**
+   * This method tests the {@code display} display method.
+   */
+  @Test
+  @NeedReload
+  public void test_display_for_column_from_change() throws Exception {
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+
+    ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
+    ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
+    ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
+    display(changes).change().column().valueAtStartPoint().display(new PrintStream(byteArrayOutputStream0))
+                    .valueAtEndPoint().display(new PrintStream(byteArrayOutputStream1))
+                    .column().valueAtEndPoint().display(new PrintStream(byteArrayOutputStream2));
+    Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Value at start point of Column at index 0 (column name : ID) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
+                                                                                     + "|------------------|%n"
+                                                                                     + "| null             |%n"
+                                                                                     + "| (NOT_IDENTIFIED) |%n"
+                                                                                     + "|------------------|%n"
+                                                                                     + "| null             |%n"
+                                                                                     + "|------------------|%n"));
+    Assertions.assertThat(byteArrayOutputStream1.toString()).isEqualTo(String.format("[Value at end point of Column at index 0 (column name : ID) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
+                                                                                     + "|----------|%n"
+                                                                                     + "| ID       |%n"
+                                                                                     + "| (NUMBER) |%n"
+                                                                                     + "|----------|%n"
+                                                                                     + "| 4        |%n"
+                                                                                     + "|----------|%n"));
+    Assertions.assertThat(byteArrayOutputStream2.toString()).isEqualTo(String.format("[Value at end point of Column at index 1 (column name : NAME) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
+                                                                                     + "|--------|%n"
+                                                                                     + "| NAME   |%n"
+                                                                                     + "| (TEXT) |%n"
+                                                                                     + "|--------|%n"
+                                                                                     + "| Murray |%n"
+                                                                                     + "|--------|%n"));
   }
 }

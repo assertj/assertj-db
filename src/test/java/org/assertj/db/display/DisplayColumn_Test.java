@@ -14,6 +14,8 @@ package org.assertj.db.display;
 
 import org.assertj.core.api.Assertions;
 import org.assertj.db.common.AbstractTest;
+import org.assertj.db.common.NeedReload;
+import org.assertj.db.type.Changes;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
 import org.junit.Test;
@@ -112,5 +114,50 @@ public class DisplayColumn_Test extends AbstractTest {
                                                                                      + "| Index : 1 | Joaquim   |%n"
                                                                                      + "| Index : 2 | Sam       |%n"
                                                                                      + "|-----------|-----------|%n"));
+  }
+
+  /**
+   * This method tests the {@code display} display method.
+   */
+  @Test
+  @NeedReload
+  public void test_display_for_change() throws Exception {
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+
+    ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
+    ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
+    ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
+    display(changes).change().column().display(new PrintStream(byteArrayOutputStream0))
+                    .column().display(new PrintStream(byteArrayOutputStream1))
+                    .column().display(new PrintStream(byteArrayOutputStream2));
+    Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Column at index 0 (column name : ID) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
+                                                                                     + "|----------------|------------------|%n"
+                                                                                     + "|                | ID               |%n"
+                                                                                     + "|                | (NOT_IDENTIFIED) |%n"
+                                                                                     + "|----------------|------------------|%n"
+                                                                                     + "| At start point | null             |%n"
+                                                                                     + "|----------------|------------------|%n"
+                                                                                     + "| At end point   | 4                |%n"
+                                                                                     + "|----------------|------------------|%n"));
+    Assertions.assertThat(byteArrayOutputStream1.toString()).isEqualTo(String.format("[Column at index 1 (column name : NAME) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
+                                                                                     + "|----------------|------------------|%n"
+                                                                                     + "|                | NAME             |%n"
+                                                                                     + "|                | (NOT_IDENTIFIED) |%n"
+                                                                                     + "|----------------|------------------|%n"
+                                                                                     + "| At start point | null             |%n"
+                                                                                     + "|----------------|------------------|%n"
+                                                                                     + "| At end point   | Murray           |%n"
+                                                                                     + "|----------------|------------------|%n"));
+    Assertions.assertThat(byteArrayOutputStream2.toString()).isEqualTo(String.format("[Column at index 2 (column name : FIRSTNAME) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
+                                                                                     + "|----------------|------------------|%n"
+                                                                                     + "|                | FIRSTNAME        |%n"
+                                                                                     + "|                | (NOT_IDENTIFIED) |%n"
+                                                                                     + "|----------------|------------------|%n"
+                                                                                     + "| At start point | null             |%n"
+                                                                                     + "|----------------|------------------|%n"
+                                                                                     + "| At end point   | Bill             |%n"
+                                                                                     + "|----------------|------------------|%n"));
   }
 }

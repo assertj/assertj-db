@@ -78,6 +78,16 @@ public enum RepresentationType implements Representation {
     return displayer.getColumnRepresentation(info, column);
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public String getChangeColumnRepresentation(WritableAssertionInfo info, String columnName,
+                                              Value valueAtStartPoint, Value valueAtEndPoint) {
+
+    return displayer.getChangeColumnRepresentation(info, columnName, valueAtStartPoint, valueAtEndPoint);
+  }
+
   /** {@inheritDoc} */
   @Override
   public String getValueRepresentation(WritableAssertionInfo info, Value value) {

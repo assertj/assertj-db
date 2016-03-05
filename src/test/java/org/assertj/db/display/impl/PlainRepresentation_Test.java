@@ -535,6 +535,53 @@ public class PlainRepresentation_Test extends AbstractTest {
   }
 
   /**
+   * This method tests the {@code getChangeColumnRepresentation} display method.
+   */
+  @Test
+  public void test_change_column_representation() throws Exception {
+    WritableAssertionInfo info = new WritableAssertionInfo();
+    info.description("description");
+
+    assertThat(PlainRepresentation.INSTANCE.getChangeColumnRepresentation(info, "column2", getValue(null, true), getValue(null, false)))
+            .isEqualTo(String.format(
+                    "[description]%n"
+                    + "|----------------|-----------|%n"
+                    + "|                | column2   |%n"
+                    + "|                | (BOOLEAN) |%n"
+                    + "|----------------|-----------|%n"
+                    + "| At start point | true      |%n"
+                    + "|----------------|-----------|%n"
+                    + "| At end point   | false     |%n"
+                    + "|----------------|-----------|%n"));
+    assertThat(PlainRepresentation.INSTANCE.getChangeColumnRepresentation(info, "column1", getValue(null, null),
+                                                                          getValue(null, null)))
+            .isEqualTo(String.format(
+                    "[description]%n"
+                    + "|----------------|------------------|%n"
+                    + "|                | column1          |%n"
+                    + "|                | (NOT_IDENTIFIED) |%n"
+                    + "|----------------|------------------|%n"
+                    + "| At start point | null             |%n"
+                    + "|----------------|------------------|%n"
+                    + "| At end point   | null             |%n"
+                    + "|----------------|------------------|%n"));
+    assertThat(PlainRepresentation.INSTANCE.getChangeColumnRepresentation(info, "column", getValue(null, UUID.fromString(
+                                                                                  "30B443AE-C0C9-4790-9BEC-CE1380808435")),
+                                                                          getValue(null, UUID.fromString(
+                                                                                  "0E2A1269-EFF0-4233-B87B-B53E8B6F164D"))))
+            .isEqualTo(String.format(
+                    "[description]%n"
+                    + "|----------------|--------------------------------------|%n"
+                    + "|                | column                               |%n"
+                    + "|                | (UUID)                               |%n"
+                    + "|----------------|--------------------------------------|%n"
+                    + "| At start point | 30b443ae-c0c9-4790-9bec-ce1380808435 |%n"
+                    + "|----------------|--------------------------------------|%n"
+                    + "| At end point   | 0e2a1269-eff0-4233-b87b-b53e8b6f164d |%n"
+                    + "|----------------|--------------------------------------|%n"));
+  }
+
+  /**
    * This method tests the {@code getValueRepresentation} display method.
    */
   @Test

@@ -12,6 +12,7 @@
  */
 package org.assertj.db.display;
 
+import org.assertj.db.type.Changes;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
 
@@ -52,13 +53,13 @@ public class Displaying {
     return new RequestDisplay(request).as(getDescription(request));
   }
 
-//  /**
-//   * Creates a new instance of {@link ChangesDisplay}.
-//   *
-//   * @param changes The changes to display on.
-//   * @return The created display object.
-//   */
-//  public static ChangesDisplay assertThat(Changes changes) {
-//    return new ChangesDisplay(changes).as(getDescription(changes));
-//  }
+  /**
+   * Creates a new instance of {@link ChangesDisplay}.
+   *
+   * @param changes The changes to display on.
+   * @return The created display object.
+   */
+  public static ChangesDisplay display(Changes changes) {
+    return new ChangesDisplay(changes).as(getDescription(changes));
+  }
 }

@@ -14,6 +14,8 @@ package org.assertj.db.display;
 
 import org.assertj.core.api.Assertions;
 import org.assertj.db.common.AbstractTest;
+import org.assertj.db.common.NeedReload;
+import org.assertj.db.type.Changes;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
 import org.junit.Test;
@@ -112,5 +114,43 @@ public class DisplayRow_Test extends AbstractTest {
                                                                                      + "|---------|-----------|-------------|-----------|------------|--------------------------------------|%n"
                                                                                      + "|         | 3         | Worthington | Sam       | 1976-08-02 | d735221b-5de5-4112-aa1e-49090cb75ada |%n"
                                                                                      + "|---------|-----------|-------------|-----------|------------|--------------------------------------|%n"));
+  }
+
+  /**
+   * This method tests the {@code display} display method.
+   */
+  @Test
+  @NeedReload
+  public void test_display_for_change() throws Exception {
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+
+    ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
+    ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
+    ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
+    display(changes).change().rowAtStartPoint().display(new PrintStream(byteArrayOutputStream0))
+                  .rowAtEndPoint().display(new PrintStream(byteArrayOutputStream1))
+                  .changeOfModification().rowAtStartPoint().display(new PrintStream(byteArrayOutputStream2));
+    Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Row at start point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
+                                                                                     + "Row does not exist%n"));
+    Assertions.assertThat(byteArrayOutputStream1.toString()).isEqualTo(String.format("[Row at end point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
+                                                                                     + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"
+                                                                                     + "|         | *         |           |           |            |                                      |%n"
+                                                                                     + "| PRIMARY | ID        | NAME      | FIRSTNAME | BIRTH      | ACTOR_IMDB                           |%n"
+                                                                                     + "| KEY     | (NUMBER)  | (TEXT)    | (TEXT)    | (DATE)     | (UUID)                               |%n"
+                                                                                     + "|         | Index : 0 | Index : 1 | Index : 2 | Index : 3  | Index : 4                            |%n"
+                                                                                     + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"
+                                                                                     + "| 4       | 4         | Murray    | Bill      | 1950-09-21 | 30b443ae-c0c9-4790-9bec-ce1380808435 |%n"
+                                                                                     + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"));
+    Assertions.assertThat(byteArrayOutputStream2.toString()).isEqualTo(String.format("[Row at start point of Change at index 0 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source (only modification changes)]%n"
+                                                                                     + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"
+                                                                                     + "|         | *         |           |           |            |                                      |%n"
+                                                                                     + "| PRIMARY | ID        | NAME      | FIRSTNAME | BIRTH      | ACTOR_IMDB                           |%n"
+                                                                                     + "| KEY     | (NUMBER)  | (TEXT)    | (TEXT)    | (DATE)     | (UUID)                               |%n"
+                                                                                     + "|         | Index : 0 | Index : 1 | Index : 2 | Index : 3  | Index : 4                            |%n"
+                                                                                     + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"
+                                                                                     + "| 1       | 1         | Weaver    | Sigourney | 1949-10-08 | 30b443ae-c0c9-4790-9bec-ce1380808435 |%n"
+                                                                                     + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"));
   }
 }
