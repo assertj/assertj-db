@@ -18,6 +18,9 @@ import org.assertj.db.api.ChangeColumnAssert;
 import org.assertj.db.api.ChangesAssert;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.common.NeedReload;
+import org.assertj.db.display.ChangeColumnDisplay;
+import org.assertj.db.display.ChangeDisplay;
+import org.assertj.db.display.ChangesDisplay;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Changes;
 import org.assertj.db.type.Value;
@@ -28,6 +31,7 @@ import java.math.BigDecimal;
 import java.sql.Date;
 
 import static org.assertj.db.api.Assertions.assertThat;
+import static org.assertj.db.display.Displaying.display;
 import static org.junit.Assert.fail;
 
 /**
@@ -44,7 +48,7 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_String_Test extends A
    */
   @Test
   @NeedReload
-  public void test_column_among_the_modified_ones_with_column_name() throws Exception {
+  public void test_column_among_the_modified_ones_with_column_name_with_assertions() throws Exception {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
@@ -151,6 +155,121 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_String_Test extends A
     }
     Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnAssert)).getValue()).isEqualTo("Sigourney");
     Assertions.assertThat(((Value) fieldValueAtEndPoint.get(changeColumnAssert)).getValue()).isEqualTo(
+            "Susan Alexandra");
+  }
+
+  /**
+   * This method tests the {@code columnAmongTheModifiedOnes} navigation method.
+   */
+  @Test
+  @NeedReload
+  public void test_column_among_the_modified_ones_with_column_name_with_displays() throws Exception {
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+
+    Field fieldPosition = ChangeDisplay.class.getDeclaredField("columnPosition");
+    fieldPosition.setAccessible(true);
+    Field fieldIndex = PositionWithColumnsChange.class.getDeclaredField("nextIndex");
+    fieldIndex.setAccessible(true);
+    Field fieldColumnName = ChangeColumnDisplay.class.getDeclaredField("columnName");
+    fieldColumnName.setAccessible(true);
+    Field fieldValueAtStartPoint = ChangeColumnDisplay.class.getDeclaredField("valueAtStartPoint");
+    fieldValueAtStartPoint.setAccessible(true);
+    Field fieldValueAtEndPoint = ChangeColumnDisplay.class.getDeclaredField("valueAtEndPoint");
+    fieldValueAtEndPoint.setAccessible(true);
+
+    ChangesDisplay changesDisplay = display(changes);
+    ChangeDisplay changeDisplay = changesDisplay.change();
+    PositionWithColumnsChange position = (PositionWithColumnsChange) fieldPosition.get(changeDisplay);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
+    ChangeColumnDisplay changeColumnDisplay0 = changeDisplay.columnAmongTheModifiedOnes("ID");
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
+    ChangeColumnDisplay changeColumnDisplay1 = changeDisplay.columnAmongTheModifiedOnes("NAME");
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(2);
+    ChangeColumnDisplay changeColumnDisplay2 = changeDisplay.columnAmongTheModifiedOnes("FIRSTNAME");
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(3);
+    ChangeColumnDisplay changeColumnDisplay3 = changeDisplay.columnAmongTheModifiedOnes("BIRTH");
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(4);
+    try {
+      changeDisplay.columnAmongTheModifiedOnes("TEST");
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Column <TEST> do not exist among the modified columns");
+    }
+    try {
+      changeDisplay.columnAmongTheModifiedOnes(null);
+      fail("An exception must be raised");
+    } catch (NullPointerException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Column name must be not null");
+    }
+
+    ChangesDisplay changesDisplayBis = display(changes);
+    ChangeDisplay changeDisplayBis = changesDisplayBis.change();
+    PositionWithColumnsChange positionBis = (PositionWithColumnsChange) fieldPosition.get(changeDisplayBis);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
+    ChangeColumnDisplay changeColumnDisplayBis0 = changeDisplayBis.columnAmongTheModifiedOnes("ID");
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
+    ChangeColumnDisplay changeColumnDisplayBis1 = changeColumnDisplayBis0.columnAmongTheModifiedOnes("NAME");
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(2);
+    ChangeColumnDisplay changeColumnDisplayBis2 = changeColumnDisplayBis1.columnAmongTheModifiedOnes("FIRSTNAME");
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(3);
+    ChangeColumnDisplay changeColumnDisplayBis3 = changeColumnDisplayBis2.columnAmongTheModifiedOnes("BIRTH");
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(4);
+    try {
+      changeColumnDisplayBis3.columnAmongTheModifiedOnes("TEST");
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Column <TEST> do not exist among the modified columns");
+    }
+    try {
+      changeColumnDisplayBis3.columnAmongTheModifiedOnes(null);
+      fail("An exception must be raised");
+    } catch (NullPointerException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Column name must be not null");
+    }
+
+    Assertions.assertThat(fieldColumnName.get(changeColumnDisplay0)).isEqualTo(fieldColumnName.get(changeColumnDisplayBis0)).isEqualTo(
+            "ID");
+    Assertions.assertThat(fieldColumnName.get(changeColumnDisplay1)).isEqualTo(fieldColumnName.get(changeColumnDisplayBis1)).isEqualTo(
+            "NAME");
+    Assertions.assertThat(fieldColumnName.get(changeColumnDisplay2)).isEqualTo(fieldColumnName.get(changeColumnDisplayBis2)).isEqualTo(
+            "FIRSTNAME");
+    Assertions.assertThat(fieldColumnName.get(changeColumnDisplay3)).isEqualTo(fieldColumnName.get(changeColumnDisplayBis3)).isEqualTo(
+            "BIRTH");
+
+    Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnDisplay0)).getValue()).isNull();
+    Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnDisplay1)).getValue()).isNull();
+    Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnDisplay2)).getValue()).isNull();
+    Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnDisplay3)).getValue()).isNull();
+    Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnDisplayBis0)).getValue()).isNull();
+    Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnDisplayBis1)).getValue()).isNull();
+    Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnDisplayBis2)).getValue()).isNull();
+    Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnDisplayBis3)).getValue()).isNull();
+
+    Assertions.assertThat(((Value) fieldValueAtEndPoint.get(changeColumnDisplay0)).getValue()).isEqualTo(
+            ((Value) fieldValueAtEndPoint.get(changeColumnDisplayBis0)).getValue()).isEqualTo(
+            new BigDecimal("4"));
+    Assertions.assertThat(((Value) fieldValueAtEndPoint.get(changeColumnDisplay1)).getValue()).
+            isEqualTo(((Value) fieldValueAtEndPoint.get(changeColumnDisplayBis1)).getValue()).
+                      isEqualTo("Murray");
+    Assertions.assertThat(((Value) fieldValueAtEndPoint.get(changeColumnDisplay2)).getValue()).
+            isEqualTo(((Value) fieldValueAtEndPoint.get(changeColumnDisplayBis2)).getValue()).
+                      isEqualTo("Bill");
+    Assertions.assertThat(((Value) fieldValueAtEndPoint.get(changeColumnDisplay3)).getValue()).
+            isEqualTo(((Value) fieldValueAtEndPoint.get(changeColumnDisplayBis3)).getValue()).
+                      isEqualTo(
+                              Date.valueOf("1950-09-21"));
+
+    ChangeColumnDisplay changeColumnDisplay = display(changes).change(3).columnAmongTheModifiedOnes("firstname");
+    try {
+      changeColumnDisplay.columnAmongTheModifiedOnes("birth");
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Column <birth> do not exist among the modified columns");
+    }
+    Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnDisplay)).getValue()).isEqualTo("Sigourney");
+    Assertions.assertThat(((Value) fieldValueAtEndPoint.get(changeColumnDisplay)).getValue()).isEqualTo(
             "Susan Alexandra");
   }
 }

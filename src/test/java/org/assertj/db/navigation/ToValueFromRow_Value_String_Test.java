@@ -39,9 +39,28 @@ import static org.junit.Assert.fail;
  */
 public class ToValueFromRow_Value_String_Test extends AbstractTest {
 
+
   /**
-   * This method tests the {@code value} navigation method.
+   * This method should fail because the row does not exist.
    */
+  @Test
+  @NeedReload
+  public void should_fail_because_row_does_not_exist() {
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+
+    try {
+      assertThat(changes).change().rowAtStartPoint().value("NAME");
+      fail("An exception must be raised");
+    } catch (AssertJDBException exception) {
+      Assertions.assertThat(exception.getMessage()).isEqualTo("Row do not exist");
+    }
+  }
+
+    /**
+     * This method tests the {@code value} navigation method.
+     */
   @Test
   @NeedReload
   public void test_value_from_row_of_change_with_column_name() throws Exception {

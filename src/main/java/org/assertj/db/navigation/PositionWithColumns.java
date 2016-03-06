@@ -35,6 +35,7 @@ public abstract class PositionWithColumns<E extends AbstractElement & Navigation
   /**
    * Constructor.
    *
+   * @param myself Actual value.
    * @param elementClass Class of the element of navigation (used to make instance).
    */
   public PositionWithColumns(E myself, Class<N> elementClass) {

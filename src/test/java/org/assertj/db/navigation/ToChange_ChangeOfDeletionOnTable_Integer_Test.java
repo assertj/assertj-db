@@ -17,6 +17,8 @@ import org.assertj.db.api.ChangeAssert;
 import org.assertj.db.api.ChangesAssert;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.common.NeedReload;
+import org.assertj.db.display.ChangeDisplay;
+import org.assertj.db.display.ChangesDisplay;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.Changes;
@@ -28,6 +30,7 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.db.api.Assertions.assertThat;
+import static org.assertj.db.display.Displaying.display;
 import static org.junit.Assert.fail;
 
 /**
@@ -44,7 +47,7 @@ public class ToChange_ChangeOfDeletionOnTable_Integer_Test extends AbstractTest 
    */
   @Test
   @NeedReload
-  public void test_change_of_deletion_on_table_with_index() throws Exception {
+  public void test_change_of_deletion_on_table_with_index_with_assertions() throws Exception {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
@@ -121,5 +124,89 @@ public class ToChange_ChangeOfDeletionOnTable_Integer_Test extends AbstractTest 
     List<Changes> changesList = (List<Changes>) fieldList.get(changes);
     assertThat(fieldChange.get(changeAssert0)).isSameAs(fieldChange.get(changeAssertBis0)).isSameAs(changesList.get(6));
     assertThat(fieldChange.get(changeAssert1)).isSameAs(fieldChange.get(changeAssertBis1)).isSameAs(changesList.get(7));
+  }
+
+  /**
+   * This method tests the {@code changeOfDeletionOnTable} navigation method.
+   */
+  @Test
+  @NeedReload
+  public void test_change_of_deletion_on_table_with_index_with_displays() throws Exception {
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+
+    Field fieldPosition = ChangesDisplay.class.getDeclaredField("changesPosition");
+    fieldPosition.setAccessible(true);
+    Field fieldList = Changes.class.getDeclaredField("changesList");
+    fieldList.setAccessible(true);
+    Field fieldIndex = PositionWithChanges.class.getDeclaredField("indexNextChangeMap");
+    fieldIndex.setAccessible(true);
+    Field fieldChange = ChangeDisplay.class.getDeclaredField("change");
+    fieldChange.setAccessible(true);
+
+    ChangesDisplay changesDisplay = display(changes);
+    PositionWithChanges position = (PositionWithChanges) fieldPosition.get(changesDisplay);
+    Map<ChangeType, Map<String, Integer>> map = (Map<ChangeType, Map<String, Integer>>)fieldIndex.get(position);
+    assertThat(map).hasSize(0);
+    assertThat(map.get(null)).isNull();
+    ChangeDisplay changeDisplay0 = changesDisplay.changeOfDeletionOnTable("actor", 0);
+    assertThat(map).hasSize(1);
+    assertThat(map.get(null)).isNull();
+    assertThat(map.get(ChangeType.DELETION)).hasSize(1);
+    assertThat(map.get(ChangeType.DELETION).get("actor")).isEqualTo(1);
+    ChangeDisplay changeDisplay1 = changesDisplay.changeOfDeletionOnTable("interpretation", 0);
+    assertThat(map).hasSize(1);
+    assertThat(map.get(null)).isNull();
+    assertThat(map.get(ChangeType.DELETION)).hasSize(2);
+    assertThat(map.get(ChangeType.DELETION).get("interpretation")).isEqualTo(1);
+    try {
+      changesDisplay.changeOfDeletionOnTable("actor", 4);
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index 4 out of the limits [0, 1[");
+    }
+    try {
+      changesDisplay.changeOfDeletionOnTable("actor", -1);
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 1[");
+    }
+    ChangeDisplay changeDisplayAgain0 = changesDisplay.changeOfDeletionOnTable("actor", 0);
+    assertThat(changeDisplay0).isSameAs(changeDisplayAgain0);
+
+    ChangesDisplay changesDisplayBis = display(changes);
+    PositionWithChanges positionBis = (PositionWithChanges) fieldPosition.get(changesDisplayBis);
+    map = (Map<ChangeType, Map<String, Integer>>)fieldIndex.get(positionBis);
+    assertThat(map).hasSize(0);
+    assertThat(map.get(null)).isNull();
+    ChangeDisplay changeDisplayBis0 = changesDisplayBis.changeOfDeletionOnTable("actor", 0);
+    assertThat(map).hasSize(1);
+    assertThat(map.get(null)).isNull();
+    assertThat(map.get(ChangeType.DELETION)).hasSize(1);
+    assertThat(map.get(ChangeType.DELETION).get("actor")).isEqualTo(1);
+    ChangeDisplay changeDisplayBis1 = changeDisplayBis0.changeOfDeletionOnTable("interpretation", 0);
+    assertThat(map).hasSize(1);
+    assertThat(map.get(null)).isNull();
+    assertThat(map.get(ChangeType.DELETION)).hasSize(2);
+    assertThat(map.get(ChangeType.DELETION).get("interpretation")).isEqualTo(1);
+    try {
+      changeDisplayBis1.changeOfDeletionOnTable("interpretation", 2);
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index 2 out of the limits [0, 1[");
+    }
+    try {
+      changeDisplayBis1.changeOfDeletionOnTable("interpretation", -1);
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 1[");
+    }
+    ChangeDisplay changeDisplayBisAgain0 = changeDisplayBis1.changeOfDeletionOnTable("actor", 0);
+    assertThat(changeDisplayBis0).isSameAs(changeDisplayBisAgain0);
+
+    List<Changes> changesList = (List<Changes>) fieldList.get(changes);
+    assertThat(fieldChange.get(changeDisplay0)).isSameAs(fieldChange.get(changeDisplayBis0)).isSameAs(changesList.get(6));
+    assertThat(fieldChange.get(changeDisplay1)).isSameAs(fieldChange.get(changeDisplayBis1)).isSameAs(changesList.get(7));
   }
 }

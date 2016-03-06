@@ -17,6 +17,7 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.net.URL;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -60,7 +61,7 @@ public class Value_IsComparisonPossible_Test extends AbstractTest {
       assertThat(getValue("", UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")).isComparisonPossible("")).isTrue();
       assertThat(getValue("", UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")).isComparisonPossible(UUID.randomUUID())).isTrue();
       assertThat(getValue("", null).isComparisonPossible(null)).isTrue();
-
+      assertThat(getValue("", new URL("http://github.com")).isComparisonPossible(null)).isFalse();
       assertThat(getValue("", new byte[] { 1 }).isComparisonPossible("")).isFalse();
       assertThat(getValue("", true).isComparisonPossible("")).isFalse();
       assertThat(getValue("", "").isComparisonPossible(new byte[] { 1 })).isFalse();

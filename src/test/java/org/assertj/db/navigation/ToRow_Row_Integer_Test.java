@@ -15,6 +15,7 @@ package org.assertj.db.navigation;
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.*;
 import org.assertj.db.common.AbstractTest;
+import org.assertj.db.display.*;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Row;
@@ -27,6 +28,7 @@ import java.sql.Date;
 import java.util.UUID;
 
 import static org.assertj.db.api.Assertions.assertThat;
+import static org.assertj.db.display.Displaying.display;
 import static org.junit.Assert.fail;
 
 /**
@@ -42,7 +44,7 @@ public class ToRow_Row_Integer_Test extends AbstractTest {
    * This method tests the {@code row} navigation method.
    */
   @Test
-  public void test_column_from_table() throws Exception {
+  public void test_column_from_table_with_assertions() throws Exception {
     Field fieldPosition = AbstractDbAssert.class.getDeclaredField("rowPosition");
     fieldPosition.setAccessible(true);
     Field fieldRow = AbstractRowAssert.class.getDeclaredField("row");
@@ -136,7 +138,7 @@ public class ToRow_Row_Integer_Test extends AbstractTest {
    * This method tests the {@code row} navigation method.
    */
   @Test
-  public void test_column_from_request() throws Exception {
+  public void test_column_from_request_with_assertions() throws Exception {
     Field fieldPosition = AbstractDbAssert.class.getDeclaredField("rowPosition");
     fieldPosition.setAccessible(true);
     Field fieldRow = AbstractRowAssert.class.getDeclaredField("row");
@@ -199,6 +201,200 @@ public class ToRow_Row_Integer_Test extends AbstractTest {
     Row rowIdBis0 = (Row) fieldRow.get(requestRowAssertBis0);
     Row rowIdBis1 = (Row) fieldRow.get(requestRowAssertBis1);
     Row rowIdBis2 = (Row) fieldRow.get(requestRowAssertBis2);
+
+    Assertions.assertThat(rowId0.getValuesList().get(0).getValue()).isEqualTo(rowIdBis0.getValuesList().get(0).getValue())
+              .isEqualTo(new BigDecimal("1"));
+    Assertions.assertThat(rowId0.getValuesList().get(1).getValue()).isEqualTo(rowIdBis0.getValuesList().get(1).getValue())
+              .isEqualTo("Weaver");
+    Assertions.assertThat(rowId0.getValuesList().get(2).getValue()).isEqualTo(rowIdBis0.getValuesList().get(2).getValue())
+              .isEqualTo("Sigourney");
+    Assertions.assertThat(rowId0.getValuesList().get(3).getValue()).isEqualTo(rowIdBis0.getValuesList().get(3).getValue())
+              .isEqualTo(Date.valueOf("1949-10-08"));
+    Assertions.assertThat(rowId0.getValuesList().get(4).getValue()).isEqualTo(rowIdBis0.getValuesList().get(4).getValue())
+              .isEqualTo(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
+    Assertions.assertThat(rowId1.getValuesList().get(0).getValue()).isEqualTo(rowIdBis1.getValuesList().get(0).getValue())
+              .isEqualTo(new BigDecimal("2"));
+    Assertions.assertThat(rowId1.getValuesList().get(1).getValue()).isEqualTo(rowIdBis1.getValuesList().get(1).getValue())
+              .isEqualTo("Phoenix");
+    Assertions.assertThat(rowId1.getValuesList().get(2).getValue()).isEqualTo(rowIdBis1.getValuesList().get(2).getValue())
+              .isEqualTo("Joaquim");
+    Assertions.assertThat(rowId1.getValuesList().get(3).getValue()).isEqualTo(rowIdBis1.getValuesList().get(3).getValue())
+              .isEqualTo(Date.valueOf("1974-10-28"));
+    Assertions.assertThat(rowId1.getValuesList().get(4).getValue()).isEqualTo(rowIdBis1.getValuesList().get(4).getValue())
+              .isEqualTo(UUID.fromString("16319617-AE95-4087-9264-D3D21BF611B6"));
+    Assertions.assertThat(rowId2.getValuesList().get(0).getValue()).isEqualTo(rowIdBis2.getValuesList().get(0).getValue())
+              .isEqualTo(new BigDecimal("3"));
+    Assertions.assertThat(rowId2.getValuesList().get(1).getValue()).isEqualTo(rowIdBis2.getValuesList().get(1).getValue())
+              .isEqualTo("Worthington");
+    Assertions.assertThat(rowId2.getValuesList().get(2).getValue()).isEqualTo(rowIdBis2.getValuesList().get(2).getValue())
+              .isEqualTo("Sam");
+    Assertions.assertThat(rowId2.getValuesList().get(3).getValue()).isEqualTo(rowIdBis2.getValuesList().get(3).getValue())
+              .isEqualTo(Date.valueOf("1976-08-02"));
+    Assertions.assertThat(rowId2.getValuesList().get(4).getValue()).isEqualTo(rowIdBis2.getValuesList().get(4).getValue())
+              .isEqualTo(UUID.fromString("D735221B-5DE5-4112-AA1E-49090CB75ADA"));
+  }
+
+  /**
+   * This method tests the {@code row} navigation method.
+   */
+  @Test
+  public void test_column_from_table_with_displays() throws Exception {
+    Field fieldPosition = AbstractDbDisplay.class.getDeclaredField("rowPosition");
+    fieldPosition.setAccessible(true);
+    Field fieldRow = AbstractRowDisplay.class.getDeclaredField("row");
+    fieldRow.setAccessible(true);
+    Field fieldIndex = Position.class.getDeclaredField("nextIndex");
+    fieldIndex.setAccessible(true);
+
+    Table table = new Table(source, "actor");
+    TableDisplay tableDisplay = display(table);
+    Position position = (Position) fieldPosition.get(tableDisplay);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
+    TableRowDisplay tableRowDisplay0 = tableDisplay.row(0);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
+    TableRowDisplay tableRowDisplay1 = tableDisplay.row(1);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(2);
+    TableRowDisplay tableRowDisplay2 = tableDisplay.row(2);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(3);
+    try {
+      tableDisplay.row(3);
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index 3 out of the limits [0, 3[");
+    }
+    TableRowDisplay tableRowDisplayAgain0 = tableDisplay.row(0);
+    Assertions.assertThat(tableRowDisplay0).isSameAs(tableRowDisplayAgain0);
+
+    TableDisplay tableDisplayBis = display(table);
+    Position positionBis = (Position) fieldPosition.get(tableDisplayBis);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
+    TableRowDisplay tableRowDisplayBis0 = tableDisplayBis.row(0);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
+    TableRowDisplay tableRowDisplayBis1 = tableRowDisplayBis0.row(1);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(2);
+    TableRowDisplay tableRowDisplayBis2 = tableRowDisplayBis1.row(2);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(3);
+    try {
+      tableRowDisplayBis2.row(3);
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index 3 out of the limits [0, 3[");
+    }
+    try {
+      tableRowDisplayBis2.row(-1);
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 3[");
+    }
+    TableRowDisplay tableRowDisplayBisAgain0 = tableRowDisplayBis2.row(0);
+    Assertions.assertThat(tableRowDisplayBis0).isSameAs(tableRowDisplayBisAgain0);
+
+    Row rowId0 = (Row) fieldRow.get(tableRowDisplay0);
+    Row rowId1 = (Row) fieldRow.get(tableRowDisplay1);
+    Row rowId2 = (Row) fieldRow.get(tableRowDisplay2);
+    Row rowIdBis0 = (Row) fieldRow.get(tableRowDisplayBis0);
+    Row rowIdBis1 = (Row) fieldRow.get(tableRowDisplayBis1);
+    Row rowIdBis2 = (Row) fieldRow.get(tableRowDisplayBis2);
+
+    Assertions.assertThat(rowId0.getValuesList().get(0).getValue()).isEqualTo(rowIdBis0.getValuesList().get(0).getValue())
+              .isEqualTo(new BigDecimal("1"));
+    Assertions.assertThat(rowId0.getValuesList().get(1).getValue()).isEqualTo(rowIdBis0.getValuesList().get(1).getValue())
+              .isEqualTo("Weaver");
+    Assertions.assertThat(rowId0.getValuesList().get(2).getValue()).isEqualTo(rowIdBis0.getValuesList().get(2).getValue())
+              .isEqualTo("Sigourney");
+    Assertions.assertThat(rowId0.getValuesList().get(3).getValue()).isEqualTo(rowIdBis0.getValuesList().get(3).getValue())
+              .isEqualTo(Date.valueOf("1949-10-08"));
+    Assertions.assertThat(rowId0.getValuesList().get(4).getValue()).isEqualTo(rowIdBis0.getValuesList().get(4).getValue())
+              .isEqualTo(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
+    Assertions.assertThat(rowId1.getValuesList().get(0).getValue()).isEqualTo(rowIdBis1.getValuesList().get(0).getValue())
+              .isEqualTo(new BigDecimal("2"));
+    Assertions.assertThat(rowId1.getValuesList().get(1).getValue()).isEqualTo(rowIdBis1.getValuesList().get(1).getValue())
+              .isEqualTo("Phoenix");
+    Assertions.assertThat(rowId1.getValuesList().get(2).getValue()).isEqualTo(rowIdBis1.getValuesList().get(2).getValue())
+              .isEqualTo("Joaquim");
+    Assertions.assertThat(rowId1.getValuesList().get(3).getValue()).isEqualTo(rowIdBis1.getValuesList().get(3).getValue())
+              .isEqualTo(Date.valueOf("1974-10-28"));
+    Assertions.assertThat(rowId1.getValuesList().get(4).getValue()).isEqualTo(rowIdBis1.getValuesList().get(4).getValue())
+              .isEqualTo(UUID.fromString("16319617-AE95-4087-9264-D3D21BF611B6"));
+    Assertions.assertThat(rowId2.getValuesList().get(0).getValue()).isEqualTo(rowIdBis2.getValuesList().get(0).getValue())
+              .isEqualTo(new BigDecimal("3"));
+    Assertions.assertThat(rowId2.getValuesList().get(1).getValue()).isEqualTo(rowIdBis2.getValuesList().get(1).getValue())
+              .isEqualTo("Worthington");
+    Assertions.assertThat(rowId2.getValuesList().get(2).getValue()).isEqualTo(rowIdBis2.getValuesList().get(2).getValue())
+              .isEqualTo("Sam");
+    Assertions.assertThat(rowId2.getValuesList().get(3).getValue()).isEqualTo(rowIdBis2.getValuesList().get(3).getValue())
+              .isEqualTo(Date.valueOf("1976-08-02"));
+    Assertions.assertThat(rowId2.getValuesList().get(4).getValue()).isEqualTo(rowIdBis2.getValuesList().get(4).getValue())
+              .isEqualTo(UUID.fromString("D735221B-5DE5-4112-AA1E-49090CB75ADA"));
+  }
+
+  /**
+   * This method tests the {@code row} navigation method.
+   */
+  @Test
+  public void test_column_from_request_with_displays() throws Exception {
+    Field fieldPosition = AbstractDbDisplay.class.getDeclaredField("rowPosition");
+    fieldPosition.setAccessible(true);
+    Field fieldRow = AbstractRowDisplay.class.getDeclaredField("row");
+    fieldRow.setAccessible(true);
+    Field fieldIndex = Position.class.getDeclaredField("nextIndex");
+    fieldIndex.setAccessible(true);
+
+    Request request = new Request(source, "select * from actor");
+    RequestDisplay requestDisplay = display(request);
+    Position position = (Position) fieldPosition.get(requestDisplay);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
+    RequestRowDisplay requestRowDisplay0 = requestDisplay.row(0);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
+    RequestRowDisplay requestRowDisplay1 = requestDisplay.row(1);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(2);
+    RequestRowDisplay requestRowDisplay2 = requestDisplay.row(2);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(3);
+    try {
+      requestDisplay.row(3);
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index 3 out of the limits [0, 3[");
+    }
+    try {
+      requestDisplay.row(-1);
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 3[");
+    }
+    RequestRowDisplay requestRowDisplayAgain0 = requestDisplay.row(0);
+    Assertions.assertThat(requestRowDisplay0).isSameAs(requestRowDisplayAgain0);
+
+    RequestDisplay requestDisplayBis = display(request);
+    Position positionBis = (Position) fieldPosition.get(requestDisplayBis);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
+    RequestRowDisplay requestRowDisplayBis0 = requestDisplayBis.row(0);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
+    RequestRowDisplay requestRowDisplayBis1 = requestRowDisplayBis0.row(1);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(2);
+    RequestRowDisplay requestRowDisplayBis2 = requestRowDisplayBis1.row(2);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(3);
+    try {
+      requestRowDisplayBis2.row(3);
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index 3 out of the limits [0, 3[");
+    }
+    try {
+      requestRowDisplayBis2.row(-1);
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 3[");
+    }
+    RequestRowDisplay requestRowDisplayBisAgain0 = requestRowDisplayBis2.row(0);
+    Assertions.assertThat(requestRowDisplayBis0).isSameAs(requestRowDisplayBisAgain0);
+
+    Row rowId0 = (Row) fieldRow.get(requestRowDisplay0);
+    Row rowId1 = (Row) fieldRow.get(requestRowDisplay1);
+    Row rowId2 = (Row) fieldRow.get(requestRowDisplay2);
+    Row rowIdBis0 = (Row) fieldRow.get(requestRowDisplayBis0);
+    Row rowIdBis1 = (Row) fieldRow.get(requestRowDisplayBis1);
+    Row rowIdBis2 = (Row) fieldRow.get(requestRowDisplayBis2);
 
     Assertions.assertThat(rowId0.getValuesList().get(0).getValue()).isEqualTo(rowIdBis0.getValuesList().get(0).getValue())
               .isEqualTo(new BigDecimal("1"));

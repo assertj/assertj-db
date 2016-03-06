@@ -17,6 +17,8 @@ import org.assertj.db.api.ChangeAssert;
 import org.assertj.db.api.ChangesAssert;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.common.NeedReload;
+import org.assertj.db.display.ChangeDisplay;
+import org.assertj.db.display.ChangesDisplay;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.Changes;
@@ -27,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.assertj.db.api.Assertions.assertThat;
+import static org.assertj.db.display.Displaying.display;
 import static org.junit.Assert.fail;
 
 /**
@@ -43,7 +46,7 @@ public class ToChange_ChangeOnTableWithPks_Test extends AbstractTest {
    */
   @Test
   @NeedReload
-  public void test_change_on_table_with_pks() throws Exception {
+  public void test_change_on_table_with_pks_with_assertions() throws Exception {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
@@ -115,5 +118,84 @@ public class ToChange_ChangeOnTableWithPks_Test extends AbstractTest {
     Assertions.assertThat(fieldChange.get(changeAssert0)).isSameAs(fieldChange.get(changeAssertBis0)).isSameAs(changesList.get(3));
     Assertions.assertThat(fieldChange.get(changeAssert1)).isSameAs(fieldChange.get(changeAssertBis1)).isSameAs(changesList.get(6));
     Assertions.assertThat(fieldChange.get(changeAssert2)).isSameAs(fieldChange.get(changeAssertBis2)).isSameAs(changesList.get(0));
+  }
+
+  /**
+   * This method tests the {@code changeOnTableWithPks} navigation method.
+   */
+  @Test
+  @NeedReload
+  public void test_change_on_table_with_pks_with_displays() throws Exception {
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+
+    Field fieldPosition = ChangesDisplay.class.getDeclaredField("changesPosition");
+    fieldPosition.setAccessible(true);
+    Field fieldList = Changes.class.getDeclaredField("changesList");
+    fieldList.setAccessible(true);
+    Field fieldIndex = PositionWithChanges.class.getDeclaredField("indexNextChangeMap");
+    fieldIndex.setAccessible(true);
+    Field fieldChange = ChangeDisplay.class.getDeclaredField("change");
+    fieldChange.setAccessible(true);
+
+    ChangesDisplay changesDisplay = display(changes);
+    PositionWithChanges position = (PositionWithChanges) fieldPosition.get(changesDisplay);
+    Map<ChangeType, Map<String, Integer>> map = (Map<ChangeType, Map<String, Integer>>)fieldIndex.get(position);
+    Assertions.assertThat(map).hasSize(0);
+    Assertions.assertThat(map.get(null)).isNull();
+    ChangeDisplay changeDisplay0 = changesDisplay.changeOnTableWithPks("actor", 1);
+    Assertions.assertThat(map).hasSize(1);
+    Assertions.assertThat(map.get(null)).hasSize(1);
+    Assertions.assertThat(map.get(null).get("actor")).isEqualTo(2);
+    ChangeDisplay changeDisplay1 = changesDisplay.changeOnTableWithPks("actor", 3);
+    Assertions.assertThat(map).hasSize(1);
+    Assertions.assertThat(map.get(null)).hasSize(1);
+    Assertions.assertThat(map.get(null).get("actor")).isEqualTo(3);
+    ChangeDisplay changeDisplay2 = changesDisplay.changeOnTableWithPks("actor", 4);
+    Assertions.assertThat(map).hasSize(1);
+    Assertions.assertThat(map.get(null)).hasSize(1);
+    Assertions.assertThat(map.get(null).get("actor")).isEqualTo(1);
+    try {
+      changesDisplay.changeOnTableWithPks("actor", 2);
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("No change found for table actor and primary keys [2]");
+    }
+
+    ChangesDisplay changesDisplayBis = display(changes);
+    PositionWithChanges positionBis = (PositionWithChanges) fieldPosition.get(changesDisplayBis);
+    map = (Map<ChangeType, Map<String, Integer>>)fieldIndex.get(positionBis);
+    Assertions.assertThat(map).hasSize(0);
+    Assertions.assertThat(map.get(null)).isNull();
+    ChangeDisplay changeDisplayBis0 = changesDisplayBis.changeOnTableWithPks("actor", 1);
+    Assertions.assertThat(map).hasSize(1);
+    Assertions.assertThat(map.get(null)).hasSize(1);
+    Assertions.assertThat(map.get(null).get("actor")).isEqualTo(2);
+    ChangeDisplay changeDisplayBis1 = changeDisplayBis0.changeOnTableWithPks("actor", 3);
+    Assertions.assertThat(map).hasSize(1);
+    Assertions.assertThat(map.get(null)).hasSize(1);
+    Assertions.assertThat(map.get(null).get("actor")).isEqualTo(3);
+    ChangeDisplay changeDisplayBis2 = changeDisplayBis1.changeOnTableWithPks("actor", 4);
+    Assertions.assertThat(map).hasSize(1);
+    Assertions.assertThat(map.get(null)).hasSize(1);
+    Assertions.assertThat(map.get(null).get("actor")).isEqualTo(1);
+    try {
+      changeDisplayBis2.changeOnTableWithPks("actor", 2);
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("No change found for table actor and primary keys [2]");
+    }
+    try {
+      changeDisplayBis2.changeOnTableWithPks("actor", 1, 2);
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("No change found for table actor and primary keys [1, 2]");
+    }
+
+    List<Changes> changesList = (List<Changes>) fieldList.get(changes);
+    Assertions.assertThat(fieldChange.get(changeDisplay0)).isSameAs(fieldChange.get(changeDisplayBis0)).isSameAs(changesList.get(3));
+    Assertions.assertThat(fieldChange.get(changeDisplay1)).isSameAs(fieldChange.get(changeDisplayBis1)).isSameAs(changesList.get(6));
+    Assertions.assertThat(fieldChange.get(changeDisplay2)).isSameAs(fieldChange.get(changeDisplayBis2)).isSameAs(changesList.get(0));
   }
 }

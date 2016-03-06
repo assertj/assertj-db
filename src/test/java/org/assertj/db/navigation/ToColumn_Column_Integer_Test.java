@@ -16,6 +16,7 @@ import org.assertj.core.api.Assertions;
 import org.assertj.db.api.*;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.common.NeedReload;
+import org.assertj.db.display.*;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.*;
 import org.junit.Test;
@@ -26,6 +27,7 @@ import java.sql.Date;
 import java.util.UUID;
 
 import static org.assertj.db.api.Assertions.assertThat;
+import static org.assertj.db.display.Displaying.display;
 import static org.junit.Assert.fail;
 
 /**
@@ -42,7 +44,7 @@ public class ToColumn_Column_Integer_Test extends AbstractTest {
    */
   @Test
   @NeedReload
-  public void test_column_with_index_from_change() throws Exception {
+  public void test_column_with_index_from_change_with_assertions() throws Exception {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
@@ -161,7 +163,7 @@ public class ToColumn_Column_Integer_Test extends AbstractTest {
    * This method tests the {@code column} navigation method.
    */
   @Test
-  public void test_column_with_index_from_table() throws Exception {
+  public void test_column_with_index_from_table_with_assertions() throws Exception {
     Field fieldPosition = AbstractDbAssert.class.getDeclaredField("columnPosition");
     fieldPosition.setAccessible(true);
     Field fieldColumn = AbstractColumnAssert.class.getDeclaredField("column");
@@ -264,7 +266,7 @@ public class ToColumn_Column_Integer_Test extends AbstractTest {
    * This method tests the {@code column} navigation method.
    */
   @Test
-  public void test_column_with_index_from_request() throws Exception {
+  public void test_column_with_index_from_request_with_assertions() throws Exception {
     Field fieldPosition = AbstractDbAssert.class.getDeclaredField("columnPosition");
     fieldPosition.setAccessible(true);
     Field fieldColumn = AbstractColumnAssert.class.getDeclaredField("column");
@@ -339,6 +341,338 @@ public class ToColumn_Column_Integer_Test extends AbstractTest {
     Column columnIdBis2 = (Column) fieldColumn.get(requestColumnAssertBis2);
     Column columnIdBis3 = (Column) fieldColumn.get(requestColumnAssertBis3);
     Column columnIdBis4 = (Column) fieldColumn.get(requestColumnAssertBis4);
+
+    Assertions.assertThat(columnId0.getName()).isEqualTo(columnIdBis0.getName()).isEqualTo("ID");
+    Assertions.assertThat(columnId1.getName()).isEqualTo(columnIdBis1.getName()).isEqualTo("NAME");
+    Assertions.assertThat(columnId2.getName()).isEqualTo(columnIdBis2.getName()).isEqualTo("FIRSTNAME");
+    Assertions.assertThat(columnId3.getName()).isEqualTo(columnIdBis3.getName()).isEqualTo("BIRTH");
+    Assertions.assertThat(columnId4.getName()).isEqualTo(columnIdBis4.getName()).isEqualTo("ACTOR_IMDB");
+
+    Assertions.assertThat(columnId0.getValuesList().get(0).getValue()).isEqualTo(columnIdBis0.getValuesList().get(0).getValue()).isEqualTo(new BigDecimal("1"));
+    Assertions.assertThat(columnId0.getValuesList().get(1).getValue()).isEqualTo(columnIdBis0.getValuesList().get(1).getValue()).isEqualTo(new BigDecimal("2"));
+    Assertions.assertThat(columnId0.getValuesList().get(2).getValue()).isEqualTo(columnIdBis0.getValuesList().get(2).getValue()).isEqualTo(new BigDecimal("3"));
+    Assertions.assertThat(columnId1.getValuesList().get(0).getValue()).isEqualTo(columnIdBis1.getValuesList().get(0).getValue()).isEqualTo("Weaver");
+    Assertions.assertThat(columnId1.getValuesList().get(1).getValue()).isEqualTo(columnIdBis1.getValuesList().get(1).getValue()).isEqualTo("Phoenix");
+    Assertions.assertThat(columnId1.getValuesList().get(2).getValue()).isEqualTo(columnIdBis1.getValuesList().get(2).getValue()).isEqualTo("Worthington");
+    Assertions.assertThat(columnId2.getValuesList().get(0).getValue()).isEqualTo(columnIdBis2.getValuesList().get(0).getValue()).isEqualTo("Sigourney");
+    Assertions.assertThat(columnId2.getValuesList().get(1).getValue()).isEqualTo(columnIdBis2.getValuesList().get(1).getValue()).isEqualTo("Joaquim");
+    Assertions.assertThat(columnId2.getValuesList().get(2).getValue()).isEqualTo(columnIdBis2.getValuesList().get(2).getValue()).isEqualTo("Sam");
+    Assertions.assertThat(columnId3.getValuesList().get(0).getValue()).isEqualTo(columnIdBis3.getValuesList().get(0).getValue()).isEqualTo(Date.valueOf("1949-10-08"));
+    Assertions.assertThat(columnId3.getValuesList().get(1).getValue()).isEqualTo(columnIdBis3.getValuesList().get(1).getValue()).isEqualTo(
+            Date.valueOf("1974-10-28"));
+    Assertions.assertThat(columnId3.getValuesList().get(2).getValue()).isEqualTo(columnIdBis3.getValuesList().get(2).getValue()).isEqualTo(
+            Date.valueOf("1976-08-02"));
+    Assertions.assertThat(
+            columnId4.getValuesList().get(0).getValue()).isEqualTo(columnIdBis4.getValuesList().get(0).getValue()).isEqualTo(
+            UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
+    Assertions.assertThat(columnId4.getValuesList().get(1).getValue()).isEqualTo(columnIdBis4.getValuesList().get(1).getValue()).isEqualTo(
+            UUID.fromString("16319617-AE95-4087-9264-D3D21BF611B6"));
+    Assertions.assertThat(columnId4.getValuesList().get(2).getValue()).isEqualTo(columnIdBis4.getValuesList().get(2).getValue()).isEqualTo(
+            UUID.fromString("D735221B-5DE5-4112-AA1E-49090CB75ADA"));
+  }
+
+  /**
+   * This method tests the {@code column} navigation method.
+   */
+  @Test
+  @NeedReload
+  public void test_column_with_index_from_change_with_displays() throws Exception {
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+
+    Field fieldPosition = ChangeDisplay.class.getDeclaredField("columnPosition");
+    fieldPosition.setAccessible(true);
+    Field fieldIndex = PositionWithColumnsChange.class.getDeclaredField("nextIndex");
+    fieldIndex.setAccessible(true);
+    Field fieldColumnName = ChangeColumnDisplay.class.getDeclaredField("columnName");
+    fieldColumnName.setAccessible(true);
+    Field fieldValueAtStartPoint = ChangeColumnDisplay.class.getDeclaredField("valueAtStartPoint");
+    fieldValueAtStartPoint.setAccessible(true);
+    Field fieldValueAtEndPoint = ChangeColumnDisplay.class.getDeclaredField("valueAtEndPoint");
+    fieldValueAtEndPoint.setAccessible(true);
+
+    ChangesDisplay changesDisplay = display(changes);
+    ChangeDisplay changeDisplay = changesDisplay.change(6);
+    PositionWithColumnsChange position = (PositionWithColumnsChange) fieldPosition.get(changeDisplay);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
+    ChangeColumnDisplay changeColumnDisplay0 = changeDisplay.column(0);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
+    ChangeColumnDisplay changeColumnDisplay1 = changeDisplay.column(1);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(2);
+    ChangeColumnDisplay changeColumnDisplay2 = changeDisplay.column(2);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(3);
+    ChangeColumnDisplay changeColumnDisplay3 = changeDisplay.column(3);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(4);
+    ChangeColumnDisplay changeColumnDisplay4 = changeDisplay.column(4);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(5);
+    try {
+      changeDisplay.column(5);
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index 5 out of the limits [0, 5[");
+    }
+    try {
+      changeDisplay.column(-1);
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 5[");
+    }
+    ChangeColumnDisplay changeColumnDisplayAgain0 = changeDisplay.column(0);
+    Assertions.assertThat(changeColumnDisplay0).isSameAs(changeColumnDisplayAgain0);
+
+    ChangesDisplay changesDisplayBis = display(changes);
+    ChangeDisplay changeDisplayBis = changesDisplayBis.change(6);
+    PositionWithColumnsChange positionBis = (PositionWithColumnsChange) fieldPosition.get(changeDisplayBis);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
+    ChangeColumnDisplay changeColumnDisplayBis0 = changeDisplayBis.column(0);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
+    ChangeColumnDisplay changeColumnDisplayBis1 = changeColumnDisplayBis0.column(1);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(2);
+    ChangeColumnDisplay changeColumnDisplayBis2 = changeColumnDisplayBis1.column(2);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(3);
+    ChangeColumnDisplay changeColumnDisplayBis3 = changeColumnDisplayBis2.column(3);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(4);
+    ChangeColumnDisplay changeColumnDisplayBis4 = changeColumnDisplayBis3.column(4);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(5);
+    try {
+      changeColumnDisplayBis4.column(5);
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index 5 out of the limits [0, 5[");
+    }
+    try {
+      changeColumnDisplayBis4.column(-1);
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 5[");
+    }
+    ChangeColumnDisplay changeColumnDisplayBisAgain0 = changeColumnDisplayBis4.column(0);
+    Assertions.assertThat(changeColumnDisplayBis0).isSameAs(changeColumnDisplayBisAgain0);
+
+    Assertions.assertThat(fieldColumnName.get(changeColumnDisplay0)).isEqualTo(fieldColumnName.get(changeColumnDisplayBis0)).isEqualTo(
+            "ID");
+    Assertions.assertThat(fieldColumnName.get(changeColumnDisplay1)).isEqualTo(fieldColumnName.get(changeColumnDisplayBis1)).isEqualTo(
+            "NAME");
+    Assertions.assertThat(fieldColumnName.get(changeColumnDisplay2)).isEqualTo(fieldColumnName.get(changeColumnDisplayBis2)).isEqualTo(
+            "FIRSTNAME");
+    Assertions.assertThat(fieldColumnName.get(changeColumnDisplay3)).isEqualTo(
+            fieldColumnName.get(changeColumnDisplayBis3)).isEqualTo(
+            "BIRTH");
+    Assertions.assertThat(fieldColumnName.get(changeColumnDisplay4)).isEqualTo(
+            fieldColumnName.get(changeColumnDisplayBis4)).isEqualTo(
+            "ACTOR_IMDB");
+
+    Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnDisplay0)).getValue())
+              .isEqualTo(((Value) fieldValueAtStartPoint.get(changeColumnDisplayBis0)).getValue())
+              .isEqualTo(new BigDecimal("3"));
+    Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnDisplay1)).getValue())
+              .isEqualTo(((Value) fieldValueAtStartPoint.get(changeColumnDisplayBis1)).getValue())
+              .isEqualTo("Worthington");
+    Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnDisplay2)).getValue())
+              .isEqualTo(((Value) fieldValueAtStartPoint.get(changeColumnDisplayBis2)).getValue())
+              .isEqualTo("Sam");
+    Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnDisplay3)).getValue())
+              .isEqualTo(((Value) fieldValueAtStartPoint.get(changeColumnDisplayBis3)).getValue())
+              .isEqualTo(Date.valueOf("1976-08-02"));
+    Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnDisplay4)).getValue())
+              .isEqualTo(((Value) fieldValueAtStartPoint.get(changeColumnDisplayBis4)).getValue())
+              .isEqualTo(UUID.fromString("D735221B-5DE5-4112-AA1E-49090CB75ADA"));
+
+    Assertions.assertThat(((Value) fieldValueAtEndPoint.get(changeColumnDisplay0)).getValue()).isNull();
+    Assertions.assertThat(((Value) fieldValueAtEndPoint.get(changeColumnDisplay1)).getValue()).isNull();
+    Assertions.assertThat(((Value) fieldValueAtEndPoint.get(changeColumnDisplay2)).getValue()).isNull();
+    Assertions.assertThat(((Value) fieldValueAtEndPoint.get(changeColumnDisplay3)).getValue()).isNull();
+    Assertions.assertThat(((Value) fieldValueAtEndPoint.get(changeColumnDisplay4)).getValue()).isNull();
+    Assertions.assertThat(((Value) fieldValueAtEndPoint.get(changeColumnDisplayBis0)).getValue()).isNull();
+    Assertions.assertThat(((Value) fieldValueAtEndPoint.get(changeColumnDisplayBis1)).getValue()).isNull();
+    Assertions.assertThat(((Value) fieldValueAtEndPoint.get(changeColumnDisplayBis2)).getValue()).isNull();
+    Assertions.assertThat(((Value) fieldValueAtEndPoint.get(changeColumnDisplayBis3)).getValue()).isNull();
+    Assertions.assertThat(((Value) fieldValueAtEndPoint.get(changeColumnDisplayBis4)).getValue()).isNull();
+  }
+
+  /**
+   * This method tests the {@code column} navigation method.
+   */
+  @Test
+  public void test_column_with_index_from_table_with_displays() throws Exception {
+    Field fieldPosition = AbstractDbDisplay.class.getDeclaredField("columnPosition");
+    fieldPosition.setAccessible(true);
+    Field fieldColumn = AbstractColumnDisplay.class.getDeclaredField("column");
+    fieldColumn.setAccessible(true);
+    Field fieldIndex = Position.class.getDeclaredField("nextIndex");
+    fieldIndex.setAccessible(true);
+
+    Table table = new Table(source, "actor");
+    TableDisplay tableDisplay = display(table);
+    Position position = (Position) fieldPosition.get(tableDisplay);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
+    TableColumnDisplay tableColumnDisplay0 = tableDisplay.column(0);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
+    TableColumnDisplay tableColumnDisplay1 = tableDisplay.column(1);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(2);
+    TableColumnDisplay tableColumnDisplay2 = tableDisplay.column(2);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(3);
+    TableColumnDisplay tableColumnDisplay3 = tableDisplay.column(3);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(4);
+    TableColumnDisplay tableColumnDisplay4 = tableDisplay.column(4);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(5);
+    try {
+      tableDisplay.column(5);
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index 5 out of the limits [0, 5[");
+    }
+    try {
+      tableDisplay.column(-1);
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 5[");
+    }
+    TableColumnDisplay tableColumnDisplayAgain0 = tableDisplay.column(0);
+    Assertions.assertThat(tableColumnDisplay0).isSameAs(tableColumnDisplayAgain0);
+
+    TableDisplay tableDisplayBis = display(table);
+    Position positionBis = (Position) fieldPosition.get(tableDisplayBis);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
+    TableColumnDisplay tableColumnDisplayBis0 = tableDisplayBis.column(0);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
+    TableColumnDisplay tableColumnDisplayBis1 = tableColumnDisplayBis0.column(1);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(2);
+    TableColumnDisplay tableColumnDisplayBis2 = tableColumnDisplayBis1.column(2);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(3);
+    TableColumnDisplay tableColumnDisplayBis3 = tableColumnDisplayBis2.column(3);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(4);
+    TableColumnDisplay tableColumnDisplayBis4 = tableColumnDisplayBis3.column(4);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(5);
+    try {
+      tableColumnDisplayBis4.column(5);
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index 5 out of the limits [0, 5[");
+    }
+    try {
+      tableColumnDisplayBis4.column(-1);
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 5[");
+    }
+    TableColumnDisplay tableColumnDisplayBisAgain0 = tableColumnDisplayBis4.column(0);
+    Assertions.assertThat(tableColumnDisplayBis0).isSameAs(tableColumnDisplayBisAgain0);
+
+    Column columnId0 = (Column) fieldColumn.get(tableColumnDisplay0);
+    Column columnId1 = (Column) fieldColumn.get(tableColumnDisplay1);
+    Column columnId2 = (Column) fieldColumn.get(tableColumnDisplay2);
+    Column columnId3 = (Column) fieldColumn.get(tableColumnDisplay3);
+    Column columnId4 = (Column) fieldColumn.get(tableColumnDisplay4);
+    Column columnIdBis0 = (Column) fieldColumn.get(tableColumnDisplayBis0);
+    Column columnIdBis1 = (Column) fieldColumn.get(tableColumnDisplayBis1);
+    Column columnIdBis2 = (Column) fieldColumn.get(tableColumnDisplayBis2);
+    Column columnIdBis3 = (Column) fieldColumn.get(tableColumnDisplayBis3);
+    Column columnIdBis4 = (Column) fieldColumn.get(tableColumnDisplayBis4);
+
+    Assertions.assertThat(columnId0.getName()).isEqualTo(columnIdBis0.getName()).isEqualTo("ID");
+    Assertions.assertThat(columnId1.getName()).isEqualTo(columnIdBis1.getName()).isEqualTo("NAME");
+    Assertions.assertThat(columnId2.getName()).isEqualTo(columnIdBis2.getName()).isEqualTo("FIRSTNAME");
+    Assertions.assertThat(columnId3.getName()).isEqualTo(columnIdBis3.getName()).isEqualTo("BIRTH");
+    Assertions.assertThat(columnId4.getName()).isEqualTo(columnIdBis4.getName()).isEqualTo("ACTOR_IMDB");
+
+    Assertions.assertThat(columnId0.getValuesList().get(0).getValue()).isEqualTo(columnIdBis0.getValuesList().get(0).getValue()).isEqualTo(new BigDecimal("1"));
+    Assertions.assertThat(columnId0.getValuesList().get(1).getValue()).isEqualTo(columnIdBis0.getValuesList().get(1).getValue()).isEqualTo(new BigDecimal("2"));
+    Assertions.assertThat(columnId0.getValuesList().get(2).getValue()).isEqualTo(columnIdBis0.getValuesList().get(2).getValue()).isEqualTo(new BigDecimal("3"));
+    Assertions.assertThat(columnId1.getValuesList().get(0).getValue()).isEqualTo(columnIdBis1.getValuesList().get(0).getValue()).isEqualTo("Weaver");
+    Assertions.assertThat(columnId1.getValuesList().get(1).getValue()).isEqualTo(columnIdBis1.getValuesList().get(1).getValue()).isEqualTo("Phoenix");
+    Assertions.assertThat(columnId1.getValuesList().get(2).getValue()).isEqualTo(columnIdBis1.getValuesList().get(2).getValue()).isEqualTo("Worthington");
+    Assertions.assertThat(columnId2.getValuesList().get(0).getValue()).isEqualTo(columnIdBis2.getValuesList().get(0).getValue()).isEqualTo("Sigourney");
+    Assertions.assertThat(columnId2.getValuesList().get(1).getValue()).isEqualTo(columnIdBis2.getValuesList().get(1).getValue()).isEqualTo("Joaquim");
+    Assertions.assertThat(columnId2.getValuesList().get(2).getValue()).isEqualTo(columnIdBis2.getValuesList().get(2).getValue()).isEqualTo("Sam");
+    Assertions.assertThat(columnId3.getValuesList().get(0).getValue()).isEqualTo(columnIdBis3.getValuesList().get(0).getValue()).isEqualTo(Date.valueOf("1949-10-08"));
+    Assertions.assertThat(columnId3.getValuesList().get(1).getValue()).isEqualTo(columnIdBis3.getValuesList().get(1).getValue()).isEqualTo(Date.valueOf("1974-10-28"));
+    Assertions.assertThat(columnId3.getValuesList().get(2).getValue()).isEqualTo(columnIdBis3.getValuesList().get(2).getValue()).isEqualTo(Date.valueOf("1976-08-02"));
+    Assertions.assertThat(columnId4.getValuesList().get(0).getValue()).isEqualTo(columnIdBis4.getValuesList().get(0).getValue()).isEqualTo(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
+    Assertions.assertThat(columnId4.getValuesList().get(1).getValue()).isEqualTo(columnIdBis4.getValuesList().get(1).getValue()).isEqualTo(UUID.fromString("16319617-AE95-4087-9264-D3D21BF611B6"));
+    Assertions.assertThat(columnId4.getValuesList().get(2).getValue()).isEqualTo(columnIdBis4.getValuesList().get(2).getValue()).isEqualTo(UUID.fromString("D735221B-5DE5-4112-AA1E-49090CB75ADA"));
+  }
+
+  /**
+   * This method tests the {@code column} navigation method.
+   */
+  @Test
+  public void test_column_with_index_from_request_with_displays() throws Exception {
+    Field fieldPosition = AbstractDbDisplay.class.getDeclaredField("columnPosition");
+    fieldPosition.setAccessible(true);
+    Field fieldColumn = AbstractColumnDisplay.class.getDeclaredField("column");
+    fieldColumn.setAccessible(true);
+    Field fieldIndex = Position.class.getDeclaredField("nextIndex");
+    fieldIndex.setAccessible(true);
+
+    Request request = new Request(source, "select * from actor");
+    RequestDisplay requestDisplay = display(request);
+    Position position = (Position) fieldPosition.get(requestDisplay);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
+    RequestColumnDisplay requestColumnDisplay0 = requestDisplay.column(0);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
+    RequestColumnDisplay requestColumnDisplay1 = requestDisplay.column(1);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(2);
+    RequestColumnDisplay requestColumnDisplay2 = requestDisplay.column(2);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(3);
+    RequestColumnDisplay requestColumnDisplay3 = requestDisplay.column(3);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(4);
+    RequestColumnDisplay requestColumnDisplay4 = requestDisplay.column(4);
+    Assertions.assertThat(fieldIndex.get(position)).isEqualTo(5);
+    try {
+      requestDisplay.column(5);
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index 5 out of the limits [0, 5[");
+    }
+    try {
+      requestDisplay.column(-1);
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 5[");
+    }
+    RequestColumnDisplay requestColumnDisplayAgain0 = requestDisplay.column(0);
+    Assertions.assertThat(requestColumnDisplay0).isSameAs(requestColumnDisplayAgain0);
+
+    RequestDisplay requestDisplayBis = display(request);
+    Position positionBis = (Position) fieldPosition.get(requestDisplayBis);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
+    RequestColumnDisplay requestColumnDisplayBis0 = requestDisplayBis.column(0);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
+    RequestColumnDisplay requestColumnDisplayBis1 = requestColumnDisplayBis0.column(1);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(2);
+    RequestColumnDisplay requestColumnDisplayBis2 = requestColumnDisplayBis1.column(2);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(3);
+    RequestColumnDisplay requestColumnDisplayBis3 = requestColumnDisplayBis2.column(3);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(4);
+    RequestColumnDisplay requestColumnDisplayBis4 = requestColumnDisplayBis3.column(4);
+    Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(5);
+    try {
+      requestColumnDisplayBis4.column(5);
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index 5 out of the limits [0, 5[");
+    }
+    try {
+      requestColumnDisplayBis4.column(-1);
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 5[");
+    }
+    RequestColumnDisplay requestColumnDisplayBisAgain0 = requestColumnDisplayBis4.column(0);
+    Assertions.assertThat(requestColumnDisplayBis0).isSameAs(requestColumnDisplayBisAgain0);
+
+    Column columnId0 = (Column) fieldColumn.get(requestColumnDisplay0);
+    Column columnId1 = (Column) fieldColumn.get(requestColumnDisplay1);
+    Column columnId2 = (Column) fieldColumn.get(requestColumnDisplay2);
+    Column columnId3 = (Column) fieldColumn.get(requestColumnDisplay3);
+    Column columnId4 = (Column) fieldColumn.get(requestColumnDisplay4);
+    Column columnIdBis0 = (Column) fieldColumn.get(requestColumnDisplayBis0);
+    Column columnIdBis1 = (Column) fieldColumn.get(requestColumnDisplayBis1);
+    Column columnIdBis2 = (Column) fieldColumn.get(requestColumnDisplayBis2);
+    Column columnIdBis3 = (Column) fieldColumn.get(requestColumnDisplayBis3);
+    Column columnIdBis4 = (Column) fieldColumn.get(requestColumnDisplayBis4);
 
     Assertions.assertThat(columnId0.getName()).isEqualTo(columnIdBis0.getName()).isEqualTo("ID");
     Assertions.assertThat(columnId1.getName()).isEqualTo(columnIdBis1.getName()).isEqualTo("NAME");

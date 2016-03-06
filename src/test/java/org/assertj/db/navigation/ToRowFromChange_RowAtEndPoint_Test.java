@@ -18,6 +18,9 @@ import org.assertj.db.api.ChangeRowAssert;
 import org.assertj.db.api.ChangesAssert;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.common.NeedReload;
+import org.assertj.db.display.ChangeDisplay;
+import org.assertj.db.display.ChangeRowDisplay;
+import org.assertj.db.display.ChangesDisplay;
 import org.assertj.db.type.Change;
 import org.assertj.db.type.Changes;
 import org.junit.Test;
@@ -25,6 +28,7 @@ import org.junit.Test;
 import java.lang.reflect.Field;
 
 import static org.assertj.db.api.Assertions.assertThat;
+import static org.assertj.db.display.Displaying.display;
 
 /**
  * Tests on {@link org.assertj.db.navigation.ToRowFromChange} class :
@@ -40,7 +44,7 @@ public class ToRowFromChange_RowAtEndPoint_Test extends AbstractTest {
    */
   @Test
   @NeedReload
-  public void test_row_at_end_point() throws Exception {
+  public void test_row_at_end_point_with_assertions() throws Exception {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
@@ -84,5 +88,56 @@ public class ToRowFromChange_RowAtEndPoint_Test extends AbstractTest {
     ChangeRowAssert changeDeletionRowAssertBis = changeDeletionRowAssert.rowAtEndPoint();
     Assertions.assertThat(changeDeletionRowAssert).isSameAs(changeDeletionRowAssertBis);
     Assertions.assertThat(fieldRowFromAssert.get(changeDeletionRowAssert)).isNull();
+  }
+
+  /**
+   * This method tests the {@code rowAtEndPoint} navigation method.
+   */
+  @Test
+  @NeedReload
+  public void test_row_at_end_point_with_displays() throws Exception {
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+
+    Field fieldPosition = ChangeDisplay.class.getDeclaredField("rowPosition");
+    fieldPosition.setAccessible(true);
+    Field fieldRowDisplay = PositionWithPoints.class.getDeclaredField("instanceAtEndPoint");
+    fieldRowDisplay.setAccessible(true);
+    Field fieldRowFromChange = Change.class.getDeclaredField("rowAtEndPoint");
+    fieldRowFromChange.setAccessible(true);
+    Field fieldRowFromDisplay = ChangeRowDisplay.class.getDeclaredField("row");
+    fieldRowFromDisplay.setAccessible(true);
+
+    ChangesDisplay changesDisplay = display(changes);
+
+    ChangeDisplay changeCreationDisplay = changesDisplay.change();
+    PositionWithPoints positionCreation = (PositionWithPoints) fieldPosition.get(changeCreationDisplay);
+    Assertions.assertThat(fieldRowDisplay.get(positionCreation)).isNull();
+    ChangeRowDisplay changeCreationRowDisplay = changeCreationDisplay.rowAtEndPoint();
+    Assertions.assertThat(fieldRowDisplay.get(positionCreation)).isNotNull();
+    ChangeRowDisplay changeCreationRowDisplayBis = changeCreationRowDisplay.rowAtEndPoint();
+    Assertions.assertThat(changeCreationRowDisplay).isSameAs(changeCreationRowDisplayBis);
+    Assertions.assertThat(fieldRowFromDisplay.get(changeCreationRowDisplay)).isEqualTo(
+            fieldRowFromChange.get(changes.getChangesList().get(0)));
+
+    ChangeDisplay changeModificationDisplay = changesDisplay.change(3);
+    PositionWithPoints positionModification = (PositionWithPoints) fieldPosition.get(changeModificationDisplay);
+    Assertions.assertThat(fieldRowDisplay.get(positionModification)).isNull();
+    ChangeRowDisplay changeModificationRowDisplay = changeModificationDisplay.rowAtEndPoint();
+    Assertions.assertThat(fieldRowDisplay.get(positionModification)).isNotNull();
+    ChangeRowDisplay changeModificationRowDisplayBis = changeModificationRowDisplay.rowAtEndPoint();
+    Assertions.assertThat(changeModificationRowDisplay).isSameAs(changeModificationRowDisplayBis);
+    Assertions.assertThat(fieldRowFromDisplay.get(changeModificationRowDisplay)).isEqualTo(
+            fieldRowFromChange.get(changes.getChangesList().get(3)));
+
+    ChangeDisplay changeDeletionDisplay = changesDisplay.change(6);
+    PositionWithPoints positionDeletion = (PositionWithPoints) fieldPosition.get(changeDeletionDisplay);
+    Assertions.assertThat(fieldRowDisplay.get(positionDeletion)).isNull();
+    ChangeRowDisplay changeDeletionRowDisplay = changeDeletionDisplay.rowAtEndPoint();
+    Assertions.assertThat(fieldRowDisplay.get(positionDeletion)).isNotNull();
+    ChangeRowDisplay changeDeletionRowDisplayBis = changeDeletionRowDisplay.rowAtEndPoint();
+    Assertions.assertThat(changeDeletionRowDisplay).isSameAs(changeDeletionRowDisplayBis);
+    Assertions.assertThat(fieldRowFromDisplay.get(changeDeletionRowDisplay)).isNull();
   }
 }
