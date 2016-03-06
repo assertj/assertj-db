@@ -115,6 +115,7 @@ public class AssertionsOnModifiedColumns {
    * @param assertion The assertion which call this method.
    * @param info      Writable information about an assertion.
    * @param change    The change.
+   * @param columnLetterCase Letter case of the column names.
    * @param names     The names of the modified columns.
    * @return {@code this} assertion object.
    * @throws AssertionError If the names of the modified columns are different to the names in parameters.
@@ -137,7 +138,7 @@ public class AssertionsOnModifiedColumns {
 
     // Create a sorted list from the modified columns
     Integer[] indexesOfModifiedColumns = Changes.getIndexesOfModifiedColumns(change);
-    String[] namesOfModifiedColumns = new String[names.length];
+    String[] namesOfModifiedColumns = new String[indexesOfModifiedColumns.length];
     List<String> columnsNameList = change.getColumnsNameList();
     for (int i = 0; i < indexesOfModifiedColumns.length; i++) {
       namesOfModifiedColumns[i] = columnsNameList.get(indexesOfModifiedColumns[i]);

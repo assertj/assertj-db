@@ -17,6 +17,8 @@ import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.*;
+import org.assertj.db.type.lettercase.CaseComparisons;
+import org.assertj.db.type.lettercase.CaseConversions;
 import org.assertj.db.type.lettercase.LetterCase;
 import org.junit.Test;
 
@@ -56,6 +58,61 @@ public class AssertionsOnModifiedColumns_HasModifiedColumns_String_Test extends 
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnModifiedColumns.hasModifiedColumns(tableAssert, info, change, LetterCase.COLUMN_DEFAULT, "FIRSTNAME", "NAME");
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
+    tableAssert2 = AssertionsOnModifiedColumns.hasModifiedColumns(tableAssert, info, change, LetterCase.COLUMN_DEFAULT, "FirstNAME", "NaME");
+    Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
+  }
+
+  /**
+   * This method should fail because the columns names are different.
+   */
+  @Test
+  public void should_fail_because_column_names_are_different() throws Exception {
+    WritableAssertionInfo info = new WritableAssertionInfo();
+    info.description("description");
+    Table table = new Table();
+    TableAssert tableAssert = assertThat(table);
+    Row rowAtStartPoint = getRow(null,
+                                 Arrays.asList("ID", "NAME", "FIRSTNAME", "BIRTH"),
+                                 Arrays.asList(getValue(null, 1), getValue(null, "Weaver"), getValue(null, "Sigourney"),
+                                               getValue(null, Date.valueOf("1949-10-08"))));
+    Row rowAtEndPoint = getRow(null,
+                               Arrays.asList("ID", "NAME", "FIRSTNAME", "BIRTH"),
+                               Arrays.asList(getValue(null, 1), getValue(null, "Weaverr"), getValue(null, "Sigourneyy"),
+                                             getValue(null, Date.valueOf("1949-10-08"))));
+    Change change = getChange(DataType.TABLE, "test", ChangeType.MODIFICATION, rowAtStartPoint, rowAtEndPoint);
+    try {
+      AssertionsOnModifiedColumns.hasModifiedColumns(tableAssert, info, change, LetterCase.COLUMN_DEFAULT, "NAME", "BIRTH");
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                                    + "Expecting :%n"
+                                                                    + "  [\"NAME\", \"BIRTH\"]%n"
+                                                                    + "as modified columns but was:%n"
+                                                                    + "  [\"FIRSTNAME\", \"NAME\"]"));
+    }
+    try {
+      AssertionsOnModifiedColumns.hasModifiedColumns(tableAssert, info, change, LetterCase.getLetterCase(
+              CaseConversions.NO,
+              CaseComparisons.STRICT), "NAME", "FirstNAME");
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                                    + "Expecting :%n"
+                                                                    + "  [\"NAME\", \"FirstNAME\"]%n"
+                                                                    + "as modified columns but was:%n"
+                                                                    + "  [\"FIRSTNAME\", \"NAME\"]"));
+    }
+    try {
+      AssertionsOnModifiedColumns.hasModifiedColumns(tableAssert, info, change, LetterCase.getLetterCase(CaseConversions.NO,
+                                                                                                         CaseComparisons.STRICT), "FirstNAME", "NAME");
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                                    + "Expecting :%n"
+                                                                    + "  [\"FirstNAME\", \"NAME\"]%n"
+                                                                    + "as modified columns but was:%n"
+                                                                    + "  [\"FIRSTNAME\", \"NAME\"]"));
+    }
   }
 
   /**
@@ -77,12 +134,12 @@ public class AssertionsOnModifiedColumns_HasModifiedColumns_String_Test extends 
                                              getValue(null, Date.valueOf("1949-10-08"))));
     Change change = getChange(DataType.TABLE, "test", ChangeType.MODIFICATION, rowAtStartPoint, rowAtEndPoint);
     try {
-      AssertionsOnModifiedColumns.hasModifiedColumns(tableAssert, info, change, LetterCase.COLUMN_DEFAULT, "NAME", "BIRTH");
+      AssertionsOnModifiedColumns.hasModifiedColumns(tableAssert, info, change, LetterCase.COLUMN_DEFAULT, "NAME", "FIRSTNAME", "BIRTH");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
                                                       + "Expecting :%n"
-                                                      + "  [\"NAME\", \"BIRTH\"]%n"
+                                                      + "  [\"NAME\", \"FIRSTNAME\", \"BIRTH\"]%n"
                                                       + "as modified columns but was:%n"
                                                       + "  [\"FIRSTNAME\", \"NAME\"]"));
     }
