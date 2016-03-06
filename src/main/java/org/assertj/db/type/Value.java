@@ -12,6 +12,9 @@
  */
 package org.assertj.db.type;
 
+import org.assertj.db.type.lettercase.LetterCase;
+import org.assertj.db.type.lettercase.WithColumnLetterCase;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Date;
@@ -28,7 +31,7 @@ import java.util.UUID;
  *
  * @author Régis Pouiller
  */
-public class Value implements DbElement {
+public class Value implements DbElement, WithColumnLetterCase {
 
   /**
    * The name of the column.
@@ -43,11 +46,16 @@ public class Value implements DbElement {
    * The type of value.
    */
   private final ValueType valueType;
+  /**
+   * Letter case of the columns.
+   * @since 1.1.0
+   */
+  private final LetterCase columnLetterCase;
 
   /**
    * NULL value.
    */
-  public final static Value NULL = new Value(null, null);
+  public final static Value NULL = new Value(null, null, LetterCase.COLUMN_DEFAULT);
 
   /**
    * Returns the type of the actual value (data).
@@ -96,11 +104,21 @@ public class Value implements DbElement {
    *
    * @param columnName The name of the column.
    * @param value      The value.
+   * @param columnLetterCase The letter case of the columns.
    */
-  Value(String columnName, Object value) {
+  Value(String columnName, Object value, LetterCase columnLetterCase) {
     this.columnName = columnName;
     this.value = value;
+    this.columnLetterCase = columnLetterCase;
     valueType = getType(value);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public LetterCase getColumnLetterCase() {
+    return columnLetterCase;
   }
 
   /**

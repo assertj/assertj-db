@@ -14,6 +14,8 @@ package org.assertj.db.type;
 
 import org.assertj.db.type.lettercase.LetterCase;
 import org.assertj.db.type.lettercase.WithColumnLetterCase;
+import org.assertj.db.type.lettercase.WithPrimaryKeyLetterCase;
+import org.assertj.db.type.lettercase.WithTableLetterCase;
 
 import java.util.List;
 
@@ -29,7 +31,7 @@ import java.util.List;
  * @author Régis Pouiller.
  * 
  */
-public class Change implements DbElement, WithColumnLetterCase {
+public class Change implements DbElement, WithTableLetterCase, WithColumnLetterCase, WithPrimaryKeyLetterCase {
 
   /**
    * The type of the date on which is the change.
@@ -61,10 +63,22 @@ public class Change implements DbElement, WithColumnLetterCase {
   private final Row rowAtEndPoint;
 
   /**
+   * Letter case of the tables.
+   * @since 1.1.0
+   */
+  private final LetterCase tableLetterCase;
+
+  /**
    * Letter case of the columns.
    * @since 1.1.0
    */
   private LetterCase columnLetterCase;
+
+  /**
+   * Letter case of the primary keys.
+   * @since 1.1.0
+   */
+  private final LetterCase primaryKeyLetterCase;
 
   /**
    * Returns a new instance of a creation change.
@@ -72,13 +86,16 @@ public class Change implements DbElement, WithColumnLetterCase {
    * @param dataType The type of the data on which is the change.
    * @param dataName The name of the data.
    * @param rowAtEndPoint The row at end point.
-   * @param columnLetterCase The letter case of the columns.
+   * @param tableLetterCase Letter case of the tables.
+   * @param columnLetterCase Letter case of the columns.
+   * @param primaryKeyLetterCase Letter case of the primary keys.
    * @return The new instance of a creation change.
    * @throws NullPointerException If the name of the date is {@code null}.
    */
   static Change createCreationChange(DataType dataType, String dataName, Row rowAtEndPoint,
-                                     LetterCase columnLetterCase) {
-    return new Change(dataType, dataName, ChangeType.CREATION, null, rowAtEndPoint, columnLetterCase);
+                                     LetterCase tableLetterCase, LetterCase columnLetterCase, LetterCase primaryKeyLetterCase) {
+    return new Change(dataType, dataName, ChangeType.CREATION, null, rowAtEndPoint,
+                      tableLetterCase, columnLetterCase, primaryKeyLetterCase);
   }
 
   /**
@@ -88,13 +105,16 @@ public class Change implements DbElement, WithColumnLetterCase {
    * @param dataName The name of the data.
    * @param rowAtStartPoint The row at start point.
    * @param rowAtEndPoint The row at end point.
-   * @param columnLetterCase The letter case of the columns.
+   * @param tableLetterCase Letter case of the tables.
+   * @param columnLetterCase Letter case of the columns.
+   * @param primaryKeyLetterCase Letter case of the primary keys.
    * @return The new instance of a modification change.
    * @throws NullPointerException If the name of the date is {@code null}.
    */
   static Change createModificationChange(DataType dataType, String dataName, Row rowAtStartPoint, Row rowAtEndPoint,
-                                         LetterCase columnLetterCase) {
-    return new Change(dataType, dataName, ChangeType.MODIFICATION, rowAtStartPoint, rowAtEndPoint, columnLetterCase);
+                                         LetterCase tableLetterCase, LetterCase columnLetterCase, LetterCase primaryKeyLetterCase) {
+    return new Change(dataType, dataName, ChangeType.MODIFICATION, rowAtStartPoint, rowAtEndPoint,
+                      tableLetterCase, columnLetterCase, primaryKeyLetterCase);
   }
 
   /**
@@ -103,13 +123,16 @@ public class Change implements DbElement, WithColumnLetterCase {
    * @param dataType The type of the data on which is the change.
    * @param dataName The name of the data.
    * @param rowAtStartPoint The row at start point.
-   * @param columnLetterCase The letter case of the columns.
+   * @param tableLetterCase Letter case of the tables.
+   * @param columnLetterCase Letter case of the columns.
+   * @param primaryKeyLetterCase Letter case of the primary keys.
    * @return The new instance of a deletion change.
    * @throws NullPointerException If the name of the date is {@code null}.
    */
   static Change createDeletionChange(DataType dataType, String dataName, Row rowAtStartPoint,
-                                     LetterCase columnLetterCase) {
-    return new Change(dataType, dataName, ChangeType.DELETION, rowAtStartPoint, null, columnLetterCase);
+                                     LetterCase tableLetterCase, LetterCase columnLetterCase, LetterCase primaryKeyLetterCase) {
+    return new Change(dataType, dataName, ChangeType.DELETION, rowAtStartPoint, null,
+                      tableLetterCase, columnLetterCase, primaryKeyLetterCase);
   }
 
   /**
@@ -120,11 +143,14 @@ public class Change implements DbElement, WithColumnLetterCase {
    * @param changeType The type of the change.
    * @param rowAtStartPoint The row at start point.
    * @param rowAtEndPoint The row at end point.
-   * @param columnLetterCase The letter case of the columns.
+   * @param tableLetterCase Letter case of the tables.
+   * @param columnLetterCase Letter case of the columns.
+   * @param primaryKeyLetterCase Letter case of the primary keys.
    * @throws NullPointerException If the type of the data is {@code null} or if the name of the data is {@code null}.
    */
   private Change(DataType dataType, String dataName, ChangeType changeType, Row rowAtStartPoint, Row rowAtEndPoint,
-                 LetterCase columnLetterCase) {
+                 LetterCase tableLetterCase, LetterCase columnLetterCase, LetterCase primaryKeyLetterCase) {
+
     if (dataType == null) {
       throw new NullPointerException("The type of the data must be not null");
     }
@@ -143,7 +169,9 @@ public class Change implements DbElement, WithColumnLetterCase {
     this.changeType = changeType;
     this.rowAtStartPoint = rowAtStartPoint;
     this.rowAtEndPoint = rowAtEndPoint;
+    this.tableLetterCase = tableLetterCase;
     this.columnLetterCase = columnLetterCase;
+    this.primaryKeyLetterCase = primaryKeyLetterCase;
   }
 
   /**
@@ -152,6 +180,22 @@ public class Change implements DbElement, WithColumnLetterCase {
   @Override
   public LetterCase getColumnLetterCase() {
     return columnLetterCase;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public LetterCase getPrimaryKeyLetterCase() {
+    return primaryKeyLetterCase;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public LetterCase getTableLetterCase() {
+    return tableLetterCase;
   }
 
   /**

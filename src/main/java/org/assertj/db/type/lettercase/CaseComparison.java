@@ -12,12 +12,14 @@
  */
 package org.assertj.db.type.lettercase;
 
+import java.util.Comparator;
+
 /**
  * Comparison on {@link java.lang.String} which consider the case.
  * @author Régis Pouiller
  * @since 1.1.0
  */
-public interface CaseComparison {
+public interface CaseComparison extends Comparator<String> {
 
   /**
    * Returns if {@code value1} is equal to {@code value2}.

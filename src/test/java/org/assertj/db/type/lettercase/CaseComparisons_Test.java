@@ -29,7 +29,7 @@ public class CaseComparisons_Test extends AbstractTest {
    * This method tests the comparison of {@code isEqual} method from {@code CaseComparisons} enum for {@code IGNORE}.
    */
   @Test
-  public void test_comparison_of_ignore() {
+  public void test_equality_of_ignore() {
     assertThat(CaseComparisons.IGNORE.isEqual(null, null)).isTrue();
     assertThat(CaseComparisons.IGNORE.isEqual("AZERTY", null)).isFalse();
     assertThat(CaseComparisons.IGNORE.isEqual(null, "AZERTY")).isFalse();
@@ -42,12 +42,44 @@ public class CaseComparisons_Test extends AbstractTest {
    * This method tests the comparison of {@code isEqual} method from {@code CaseComparisons} enum for {@code STRICT}.
    */
   @Test
-  public void test_comparison_of_strict() {
+  public void test_equality_of_strict() {
     assertThat(CaseComparisons.STRICT.isEqual(null, null)).isTrue();
     assertThat(CaseComparisons.STRICT.isEqual("AZERTY", null)).isFalse();
     assertThat(CaseComparisons.STRICT.isEqual(null, "AZERTY")).isFalse();
     assertThat(CaseComparisons.STRICT.isEqual("azerty", "AZERTY")).isFalse();
     assertThat(CaseComparisons.STRICT.isEqual("AzertY", "AZERTY")).isFalse();
     assertThat(CaseComparisons.STRICT.isEqual("AZERTY", "AZERTY")).isTrue();
+  }
+
+  /**
+   * This method tests the comparison of {@code compare} method from {@code CaseComparisons} enum for {@code IGNORE}.
+   */
+  @Test
+  public void test_comparison_of_ignore() {
+    assertThat(CaseComparisons.IGNORE.compare(null, null)).isZero();
+    assertThat(CaseComparisons.IGNORE.compare("AZERTY", null)).isPositive();
+    assertThat(CaseComparisons.IGNORE.compare(null, "AZERTY")).isNegative();
+    assertThat(CaseComparisons.IGNORE.compare("azerty", "AZERTY")).isZero();
+    assertThat(CaseComparisons.IGNORE.compare("AzertY", "AZERTY")).isZero();
+    assertThat(CaseComparisons.IGNORE.compare("AZERTY", "AZERTY")).isZero();
+    assertThat(CaseComparisons.IGNORE.compare("azerty", "QWERTY")).isNegative();
+    assertThat(CaseComparisons.IGNORE.compare("AzertY", "QWERTY")).isNegative();
+    assertThat(CaseComparisons.IGNORE.compare("AZERTY", "QWERTY")).isNegative();
+  }
+
+  /**
+   * This method tests the comparison of {@code compare} method from {@code CaseComparisons} enum for {@code STRICT}.
+   */
+  @Test
+  public void test_comparison_of_strict() {
+    assertThat(CaseComparisons.STRICT.compare(null, null)).isZero();
+    assertThat(CaseComparisons.STRICT.compare("AZERTY", null)).isPositive();
+    assertThat(CaseComparisons.STRICT.compare(null, "AZERTY")).isNegative();
+    assertThat(CaseComparisons.STRICT.compare("azerty", "AZERTY")).isPositive();
+    assertThat(CaseComparisons.STRICT.compare("AzertY", "AZERTY")).isPositive();
+    assertThat(CaseComparisons.STRICT.compare("AZERTY", "AZERTY")).isZero();
+    assertThat(CaseComparisons.STRICT.compare("azerty", "QWERTY")).isPositive();
+    assertThat(CaseComparisons.STRICT.compare("AzertY", "QWERTY")).isNegative();
+    assertThat(CaseComparisons.STRICT.compare("AZERTY", "QWERTY")).isNegative();
   }
 }

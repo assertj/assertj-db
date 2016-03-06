@@ -17,6 +17,7 @@ import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.*;
+import org.assertj.db.type.lettercase.LetterCase;
 import org.junit.Test;
 
 import java.sql.Date;
@@ -27,7 +28,7 @@ import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link AssertionsOnModifiedColumns} class :
- * {@link AssertionsOnModifiedColumns#hasModifiedColumns(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Change, String...)} method.
+ * {@link AssertionsOnModifiedColumns#hasModifiedColumns(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Change, LetterCase, String...)} method.
  *
  * @author Régis Pouiller
  *
@@ -51,9 +52,9 @@ public class AssertionsOnModifiedColumns_HasModifiedColumns_String_Test extends 
                                Arrays.asList(getValue(null, 1), getValue(null, "Weaverr"), getValue(null, "Sigourneyy"),
                                              getValue(null, Date.valueOf("1949-10-08"))));
     Change change = getChange(DataType.TABLE, "test", ChangeType.MODIFICATION, rowAtStartPoint, rowAtEndPoint);
-    TableAssert tableAssert2 = AssertionsOnModifiedColumns.hasModifiedColumns(tableAssert, info, change, "NAME", "FIRSTNAME");
+    TableAssert tableAssert2 = AssertionsOnModifiedColumns.hasModifiedColumns(tableAssert, info, change, LetterCase.COLUMN_DEFAULT, "NAME", "FIRSTNAME");
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnModifiedColumns.hasModifiedColumns(tableAssert, info, change, "FIRSTNAME", "NAME");
+    tableAssert2 = AssertionsOnModifiedColumns.hasModifiedColumns(tableAssert, info, change, LetterCase.COLUMN_DEFAULT, "FIRSTNAME", "NAME");
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -76,7 +77,7 @@ public class AssertionsOnModifiedColumns_HasModifiedColumns_String_Test extends 
                                              getValue(null, Date.valueOf("1949-10-08"))));
     Change change = getChange(DataType.TABLE, "test", ChangeType.MODIFICATION, rowAtStartPoint, rowAtEndPoint);
     try {
-      AssertionsOnModifiedColumns.hasModifiedColumns(tableAssert, info, change, "NAME", "BIRTH");
+      AssertionsOnModifiedColumns.hasModifiedColumns(tableAssert, info, change, LetterCase.COLUMN_DEFAULT, "NAME", "BIRTH");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -106,7 +107,7 @@ public class AssertionsOnModifiedColumns_HasModifiedColumns_String_Test extends 
                                              getValue(null, Date.valueOf("1949-10-08"))));
     Change change = getChange(DataType.TABLE, "test", ChangeType.MODIFICATION, rowAtStartPoint, rowAtEndPoint);
     try {
-      AssertionsOnModifiedColumns.hasModifiedColumns(tableAssert, info, change, "NAME", null);
+      AssertionsOnModifiedColumns.hasModifiedColumns(tableAssert, info, change, LetterCase.COLUMN_DEFAULT, "NAME", null);
       fail("An exception must be raised");
     } catch (NullPointerException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column name must be not null"));
@@ -132,7 +133,7 @@ public class AssertionsOnModifiedColumns_HasModifiedColumns_String_Test extends 
                                              getValue(null, Date.valueOf("1949-10-08"))));
     Change change = getChange(DataType.TABLE, "test", ChangeType.MODIFICATION, rowAtStartPoint, rowAtEndPoint);
     try {
-      AssertionsOnModifiedColumns.hasModifiedColumns(tableAssert, info, change, (String[]) null);
+      AssertionsOnModifiedColumns.hasModifiedColumns(tableAssert, info, change, LetterCase.COLUMN_DEFAULT, (String[]) null);
       fail("An exception must be raised");
     } catch (NullPointerException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Columns names must be not null"));

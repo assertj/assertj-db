@@ -340,7 +340,8 @@ public class Changes extends AbstractDbElement<Changes> {
     for (Row row : dataAtEndPoint.getRowsList()) {
       Row rowAtStartPoint = dataAtStartPoint.getRowFromPksValues(row.getPksValues());
       if (rowAtStartPoint == null) {
-        Change change = createCreationChange(dataAtEndPoint.getDataType(), dataName, row, getColumnLetterCase());
+        Change change = createCreationChange(dataAtEndPoint.getDataType(), dataName, row,
+                                             getTableLetterCase(), getColumnLetterCase(), getPrimaryKeyLetterCase());
         changesList.add(change);
       }
     }
@@ -348,14 +349,15 @@ public class Changes extends AbstractDbElement<Changes> {
       Row rowAtEndPoint = dataAtEndPoint.getRowFromPksValues(row.getPksValues());
       if (rowAtEndPoint == null) {
         // List the deleted rows : the row is not present at the end point
-        Change change = createDeletionChange(dataAtStartPoint.getDataType(), dataName, row, getColumnLetterCase());
+        Change change = createDeletionChange(dataAtStartPoint.getDataType(), dataName, row,
+                                             getTableLetterCase(), getColumnLetterCase(), getPrimaryKeyLetterCase());
         changesList.add(change);
       } else {
         // List the modified rows
         if (!row.hasValues(rowAtEndPoint)) {
           // If at least one value in the rows is different, add the change
           Change change = createModificationChange(dataAtStartPoint.getDataType(), dataName, row, rowAtEndPoint,
-                                                   getColumnLetterCase());
+                                                   getTableLetterCase(), getColumnLetterCase(), getPrimaryKeyLetterCase());
           changesList.add(change);
         }
       }
@@ -391,7 +393,7 @@ public class Changes extends AbstractDbElement<Changes> {
       }
       if (index == -1) {
         Change change = createCreationChange(dataAtStartPoint.getDataType(), dataName, rowAtEndPoint,
-                                             getColumnLetterCase());
+                                             getTableLetterCase(), getColumnLetterCase(), getPrimaryKeyLetterCase());
         changesList.add(change);
       } else {
         rowsAtStartPointList.remove(index);
@@ -411,7 +413,7 @@ public class Changes extends AbstractDbElement<Changes> {
       }
       if (index == -1) {
         Change change = createDeletionChange(dataAtStartPoint.getDataType(), dataName, rowAtStartPoint,
-                                             getColumnLetterCase());
+                                             getTableLetterCase(), getColumnLetterCase(), getPrimaryKeyLetterCase());
         changesList.add(change);
       } else {
         rowsAtEndPointList.remove(index);
@@ -483,7 +485,7 @@ public class Changes extends AbstractDbElement<Changes> {
     List<Change> changesList = getChangesList();
     if (tablesList != null) {
       for (Change change : changesList) {
-        if (tableName.equalsIgnoreCase(change.getDataName())) {
+        if (getTableLetterCase().isEqual(tableName, change.getDataName())) {
           changes.changesList.add(change);
         }
       }

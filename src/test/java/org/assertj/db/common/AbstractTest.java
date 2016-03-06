@@ -172,9 +172,9 @@ public abstract class AbstractTest {
    */
   protected static Column getColumn(String columnName, List<Value> valuesList)
           throws Exception {
-    Constructor<Column> constructor = Column.class.getDeclaredConstructor(String.class, List.class);
+    Constructor<Column> constructor = Column.class.getDeclaredConstructor(String.class, List.class, LetterCase.class);
     constructor.setAccessible(true);
-    return constructor.newInstance(columnName, valuesList);
+    return constructor.newInstance(columnName, valuesList, LetterCase.COLUMN_DEFAULT);
   }
 
   /**
@@ -260,9 +260,9 @@ public abstract class AbstractTest {
    * @throws Exception Exception
    */
   protected static Value getValue(String columnName, Object object)throws Exception {
-    Constructor<Value> constructor = Value.class.getDeclaredConstructor(String.class, Object.class);
+    Constructor<Value> constructor = Value.class.getDeclaredConstructor(String.class, Object.class, LetterCase.class);
     constructor.setAccessible(true);
-    Value value = constructor.newInstance(columnName, object);
+    Value value = constructor.newInstance(columnName, object, LetterCase.COLUMN_DEFAULT);
     return value;
   }
 
@@ -299,10 +299,10 @@ public abstract class AbstractTest {
           throws Exception {
     Constructor<Change> constructor = Change.class
             .getDeclaredConstructor(DataType.class, String.class, ChangeType.class, Row.class, Row.class,
-                                    LetterCase.class);
+                                    LetterCase.class, LetterCase.class, LetterCase.class);
     constructor.setAccessible(true);
     return constructor.newInstance(dataType, dataName, changeType, rowAtStartPoint, rowAtEndPoint,
-                                   LetterCase.COLUMN_DEFAULT);
+                                   LetterCase.TABLE_DEFAULT, LetterCase.COLUMN_DEFAULT, LetterCase.PRIMARY_KEY_DEFAULT);
   }
 
   /**

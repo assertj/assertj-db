@@ -61,7 +61,7 @@ public class ChangeRowValueAssert
   /** {@inheritDoc} */
   @Override
   public ChangeRowValueAssert hasColumnName(String columnName) {
-    return AssertionsOnColumnName.hasColumnName(myself, info, value.getColumnName(), columnName);
+    return AssertionsOnColumnName.hasColumnName(myself, info, value.getColumnName(), columnName, value.getColumnLetterCase());
   }
 
   /**

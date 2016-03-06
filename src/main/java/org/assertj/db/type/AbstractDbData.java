@@ -179,7 +179,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
         // TODO Improve the check of the type
         int index = -1;
         for (int i = 1; i <= metaData.getColumnCount(); i++) {
-          if (columnName.equalsIgnoreCase(metaData.getColumnLabel(i))) {
+          if (getColumnLetterCase().isEqual(columnName, metaData.getColumnLabel(i))) {
             index = i;
             break;
           }
@@ -207,7 +207,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
             object = resultSet.getObject(columnName);
             break;
         }
-        valuesList.add(new Value(columnName, object));
+        valuesList.add(new Value(columnName, object, getColumnLetterCase()));
       }
       rowsList.add(new Row(pksNameList, columnsNameList, valuesList, getColumnLetterCase(), getPrimaryKeyLetterCase()));
     }
@@ -334,7 +334,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
       int index = 0;
       for (String name : columnsNameList) {
         List<Value> valuesList = getValuesList(index);
-        Column column = new Column(name, valuesList);
+        Column column = new Column(name, valuesList, getColumnLetterCase());
         columnsList.add(column);
         index++;
       }

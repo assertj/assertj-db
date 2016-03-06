@@ -15,6 +15,7 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
+import org.assertj.db.type.lettercase.LetterCase;
 
 import static org.assertj.db.error.ShouldHaveName.shouldHaveName;
 
@@ -46,15 +47,16 @@ public class AssertionsOnColumnName {
    * @param info       Writable information about an assertion.
    * @param columnName The column name.
    * @param expected   The expected column name.
+   * @param columnLetterCase The letter case of column.
    * @return {@code this} assertion object.
    * @throws AssertionError If the column name is not equal to the parameter.
    */
   public static <A extends AbstractAssert> A hasColumnName(A assertion, WritableAssertionInfo info, String columnName,
-                                                           String expected) {
+                                                           String expected, LetterCase columnLetterCase) {
     if (expected == null) {
       throw new NullPointerException("Column name must be not null");
     }
-    if (!expected.equalsIgnoreCase(columnName)) {
+    if (!columnLetterCase.isEqual(expected, columnName)) {
       throw failures.failure(info, shouldHaveName(columnName, expected));
     }
     return assertion;

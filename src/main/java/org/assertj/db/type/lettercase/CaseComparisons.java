@@ -27,6 +27,25 @@ public enum CaseComparisons implements CaseComparison {
      * {@inheritDoc}
      */
     @Override
+    public int compare(String value1, String value2) {
+      if (value1 == null) {
+        if (value2 == null) {
+          return 0;
+        }
+        else {
+          return -1;
+        }
+      }
+      else if (value2 == null) {
+        return 1;
+      }
+      return value1.compareToIgnoreCase(value2);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean isEqual(String value1, String value2) {
       if (value1 == null) {
         return value2 == null;
@@ -38,6 +57,25 @@ public enum CaseComparisons implements CaseComparison {
    * Comparison on {@link java.lang.String} which strictly consider the case.
    */
   STRICT {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int compare(String value1, String value2) {
+      if (value1 == null) {
+        if (value2 == null) {
+          return 0;
+        }
+        else {
+          return -1;
+        }
+      }
+      else if (value2 == null) {
+        return 1;
+      }
+      return value1.compareTo(value2);
+    }
+
     /**
      * {@inheritDoc}
      */

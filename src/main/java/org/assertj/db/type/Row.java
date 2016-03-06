@@ -53,12 +53,12 @@ public class Row implements DbElement, WithColumnLetterCase, WithPrimaryKeyLette
    * Letter case of the columns.
    * @since 1.1.0
    */
-  private LetterCase columnLetterCase;
+  private final LetterCase columnLetterCase;
   /**
    * Letter case of the primary keys.
    * @since 1.1.0
    */
-  private LetterCase primaryKeyLetterCase;
+  private final LetterCase primaryKeyLetterCase;
 
   /**
    * Constructor of the row with visibility in the package.

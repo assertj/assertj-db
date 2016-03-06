@@ -847,7 +847,7 @@ enum PlainRepresentation implements Representation {
 
     String typeAtStartPoint = getType(valueAtStartPoint);
     String typeAtEndPoint = getType(valueAtEndPoint);
-    String type = typeAtStartPoint != null ? typeAtStartPoint : typeAtEndPoint;
+    String type = valueAtStartPoint.getValue() != null ? typeAtStartPoint : typeAtEndPoint;
 
     int columnSize = getColumnSize(columnName, type, null, valueAtStartPoint, valueAtEndPoint);
 

@@ -16,12 +16,10 @@ import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
 import org.assertj.db.type.Change;
+import org.assertj.db.type.lettercase.LetterCase;
 import org.assertj.db.util.Changes;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static org.assertj.db.error.ShouldHaveModifications.shouldHaveModifications;
 import static org.assertj.db.error.ShouldHaveNumberOfModifications.shouldHaveNumberOfModifications;
@@ -122,7 +120,7 @@ public class AssertionsOnModifiedColumns {
    * @throws AssertionError If the names of the modified columns are different to the names in parameters.
    */
   public static <A extends AbstractAssert> A hasModifiedColumns(A assertion, WritableAssertionInfo info, Change change,
-                                                                String... names) {
+                                                                LetterCase columnLetterCase, String... names) {
     if (names == null) {
       throw new NullPointerException("Columns names must be not null");
     }
@@ -133,9 +131,9 @@ public class AssertionsOnModifiedColumns {
       if (name == null) {
         throw new NullPointerException("Column name must be not null");
       }
-      namesList.add(name.toUpperCase());
+      namesList.add(name);
     }
-    Collections.sort(namesList);
+    Collections.sort(namesList, columnLetterCase);
 
     // Create a sorted list from the modified columns
     Integer[] indexesOfModifiedColumns = Changes.getIndexesOfModifiedColumns(change);
@@ -145,10 +143,19 @@ public class AssertionsOnModifiedColumns {
       namesOfModifiedColumns[i] = columnsNameList.get(indexesOfModifiedColumns[i]);
     }
     List<String> namesOfModifiedList = Arrays.asList(namesOfModifiedColumns);
-    Collections.sort(namesOfModifiedList);
+    Collections.sort(namesOfModifiedList, columnLetterCase);
 
     // Compare each list
-    if (!namesList.equals(namesOfModifiedList)) {
+    Iterator<String> namesIterator = namesList.iterator();
+    Iterator<String> namesOfModifiedIterator = namesOfModifiedList.iterator();
+    while (namesIterator.hasNext() && namesOfModifiedIterator.hasNext()) {
+      String name = namesIterator.next();
+      String nameOfModified = namesOfModifiedIterator.next();
+      if (!columnLetterCase.isEqual(name, nameOfModified)) {
+        throw failures.failure(info, shouldHaveModifications(namesOfModifiedColumns, names));
+      }
+    }
+    if (namesIterator.hasNext() || namesOfModifiedIterator.hasNext()) {
       throw failures.failure(info, shouldHaveModifications(namesOfModifiedColumns, names));
     }
 

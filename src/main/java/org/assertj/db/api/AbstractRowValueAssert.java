@@ -57,7 +57,7 @@ public abstract class AbstractRowValueAssert<D extends AbstractDbData<D>, A exte
   /** {@inheritDoc} */
   @Override
   public RV hasColumnName(String columnName) {
-    return AssertionsOnColumnName.hasColumnName(myself, info, value.getColumnName(), columnName);
+    return AssertionsOnColumnName.hasColumnName(myself, info, value.getColumnName(), columnName, value.getColumnLetterCase());
   }
 
   /**

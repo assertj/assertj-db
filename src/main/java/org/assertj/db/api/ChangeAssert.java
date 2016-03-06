@@ -152,13 +152,13 @@ public class ChangeAssert
   /** {@inheritDoc} */
   @Override
   public ChangeAssert isOnTable(String name) {
-    return AssertionsOnDataType.isOnTable(myself, info, change, name);
+    return AssertionsOnDataType.isOnTable(myself, info, change, change.getTableLetterCase(), name);
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeAssert hasPksNames(String... names) {
-    return AssertionsOnPrimaryKey.hasPksNames(myself, info, change, names);
+    return AssertionsOnPrimaryKey.hasPksNames(myself, info, change, change.getPrimaryKeyLetterCase(), names);
   }
 
   /** {@inheritDoc} */
@@ -206,7 +206,7 @@ public class ChangeAssert
   /** {@inheritDoc} */
   @Override
   public ChangeAssert hasModifiedColumns(String... names) {
-    return AssertionsOnModifiedColumns.hasModifiedColumns(myself, info, change, names);
+    return AssertionsOnModifiedColumns.hasModifiedColumns(myself, info, change, change.getColumnLetterCase(), names);
   }
 
   /** {@inheritDoc} */

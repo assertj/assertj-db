@@ -63,6 +63,7 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
    * @param originalDbAssert The original assert. That could be a {@link RequestAssert} or a {@link TableAssert}.
    * @param selfType Type of this assertion class : a sub-class of {@code AbstractColumnAssert}.
    * @param valueType Class of the assert on the value : a sub-class of {@code AbstractColumnValueAssert}.
+   * @param column The column.
    */
   AbstractColumnAssert(A originalDbAssert, Class<C> selfType, Class<CV> valueType, Column column) {
     super(originalDbAssert, selfType);
@@ -288,6 +289,6 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
   @Override
   public C hasColumnName(String columnName) {
     String name = column.getName();
-    return AssertionsOnColumnName.hasColumnName(myself, info, name, columnName);
+    return AssertionsOnColumnName.hasColumnName(myself, info, name, columnName, column.getColumnLetterCase());
   }
 }

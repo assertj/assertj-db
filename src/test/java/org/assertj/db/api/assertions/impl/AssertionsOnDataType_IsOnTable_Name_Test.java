@@ -14,9 +14,11 @@ package org.assertj.db.api.assertions.impl;
 
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
+import org.assertj.db.api.AbstractAssert;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.*;
+import org.assertj.db.type.lettercase.LetterCase;
 import org.junit.Test;
 
 import static org.assertj.db.api.Assertions.assertThat;
@@ -24,7 +26,7 @@ import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link AssertionsOnDataType} class :
- * {@link AssertionsOnDataType#isOnTable(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Change, String)} method.
+ * {@link AssertionsOnDataType#isOnTable(AbstractAssert, WritableAssertionInfo, Change, LetterCase, String)} method.
  *
  * @author Régis Pouiller
  *
@@ -42,7 +44,7 @@ public class AssertionsOnDataType_IsOnTable_Name_Test extends AbstractTest {
     Row rowAtStartPoint = getRow(null, null, null);
     Row rowAtEndPoint = getRow(null, null, null);
     Change change = getChange(DataType.TABLE, "test", ChangeType.CREATION, rowAtStartPoint, rowAtEndPoint);
-    TableAssert tableAssert2 = AssertionsOnDataType.isOnTable(tableAssert, info, change, "test");
+    TableAssert tableAssert2 = AssertionsOnDataType.isOnTable(tableAssert, info, change, LetterCase.PRIMARY_KEY_DEFAULT, "test");
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -59,7 +61,7 @@ public class AssertionsOnDataType_IsOnTable_Name_Test extends AbstractTest {
     Row rowAtEndPoint = getRow(null, null, null);
     Change change = getChange(DataType.REQUEST, "test", ChangeType.CREATION, rowAtStartPoint, rowAtEndPoint);
     try {
-      AssertionsOnDataType.isOnTable(tableAssert, info, change, "test");
+      AssertionsOnDataType.isOnTable(tableAssert, info, change, LetterCase.PRIMARY_KEY_DEFAULT, "test");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -84,7 +86,7 @@ public class AssertionsOnDataType_IsOnTable_Name_Test extends AbstractTest {
     Row rowAtEndPoint = getRow(null, null, null);
     Change change = getChange(DataType.TABLE, "test", ChangeType.CREATION, rowAtStartPoint, rowAtEndPoint);
     try {
-      AssertionsOnDataType.isOnTable(tableAssert, info, change, "test2");
+      AssertionsOnDataType.isOnTable(tableAssert, info, change, LetterCase.PRIMARY_KEY_DEFAULT, "test2");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -108,7 +110,7 @@ public class AssertionsOnDataType_IsOnTable_Name_Test extends AbstractTest {
     Row rowAtEndPoint = getRow(null, null, null);
     Change change = getChange(DataType.TABLE, "test", ChangeType.CREATION, rowAtStartPoint, rowAtEndPoint);
     try {
-      AssertionsOnDataType.isOnTable(tableAssert, info, change, null);
+      AssertionsOnDataType.isOnTable(tableAssert, info, change, LetterCase.PRIMARY_KEY_DEFAULT, null);
       fail("An exception must be raised");
     } catch (NullPointerException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Table name must be not null"));

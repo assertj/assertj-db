@@ -39,6 +39,7 @@ import static com.ninja_squad.dbsetup.Operations.*;
 @ContextConfiguration(classes = {H2Configuration.class})
 public abstract class AbstractH2Test extends AbstractDatabaseTest {
 
+  protected DataSourceWithLetterCase dataSourceDDD;
   protected DataSourceWithLetterCase dataSourceUIUIUI;
   protected DataSourceWithLetterCase dataSourceNSNSNS;
 
@@ -76,17 +77,17 @@ public abstract class AbstractH2Test extends AbstractDatabaseTest {
                   null).build();
 
   private static final Operation SQL = sql(
-          "update test set var30 = FILE_READ('classpath:h2-logo-2.png') where var1 = 1",
-          "update test set var31 = FILE_READ('classpath:h2-logo-2.png') where var1 = 1",
-          "update test set var32 = FILE_READ('classpath:h2-logo-2.png') where var1 = 1",
-          "update test set var33 = FILE_READ('classpath:h2-logo-2.png') where var1 = 1",
-          "update test set var34 = FILE_READ('classpath:h2-logo-2.png') where var1 = 1",
-          "update test set var46 = FILE_READ('classpath:h2-logo-2.png') where var1 = 1",
-          "update test set var47 = FILE_READ('classpath:h2-logo-2.png') where var1 = 1",
-          "update test set var48 = FILE_READ('classpath:h2-logo-2.png') where var1 = 1",
-          "update test set var49 = FILE_READ('classpath:h2-logo-2.png') where var1 = 1",
-          "update test set var50 = FILE_READ('classpath:h2-logo-2.png') where var1 = 1",
-          "update test set var51 = FILE_READ('classpath:h2-logo-2.png') where var1 = 1"
+          "update test set var30 = FILE_READ('classpath:h2-logo-2.png') where Var1 = 1",
+          "update test set var31 = FILE_READ('classpath:h2-logo-2.png') where Var1 = 1",
+          "update test set var32 = FILE_READ('classpath:h2-logo-2.png') where Var1 = 1",
+          "update test set var33 = FILE_READ('classpath:h2-logo-2.png') where Var1 = 1",
+          "update test set var34 = FILE_READ('classpath:h2-logo-2.png') where Var1 = 1",
+          "update test set var46 = FILE_READ('classpath:h2-logo-2.png') where Var1 = 1",
+          "update test set var47 = FILE_READ('classpath:h2-logo-2.png') where Var1 = 1",
+          "update test set var48 = FILE_READ('classpath:h2-logo-2.png') where Var1 = 1",
+          "update test set var49 = FILE_READ('classpath:h2-logo-2.png') where Var1 = 1",
+          "update test set var50 = FILE_READ('classpath:h2-logo-2.png') where Var1 = 1",
+          "update test set var51 = FILE_READ('classpath:h2-logo-2.png') where Var1 = 1"
   );
 
   private static final Operation OPERATIONS = sequenceOf(DELETE_ALL, INSERT_TEST, SQL);
@@ -97,6 +98,9 @@ public abstract class AbstractH2Test extends AbstractDatabaseTest {
 
   @Autowired(required = true)
   protected void setDataSource(DataSource dataSource) {
+    this.dataSourceDDD = new DataSourceWithLetterCase(dataSource, LetterCase.TABLE_DEFAULT,
+                                                      LetterCase.COLUMN_DEFAULT,
+                                                      LetterCase.PRIMARY_KEY_DEFAULT);
     this.dataSourceUIUIUI = new DataSourceWithLetterCase(dataSource, letterCaseUI, letterCaseUI, letterCaseUI);
     this.dataSourceNSNSNS = new DataSourceWithLetterCase(dataSource, letterCaseNS, letterCaseNS, letterCaseNS);
   }

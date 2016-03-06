@@ -17,6 +17,7 @@ import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.*;
+import org.assertj.db.type.lettercase.LetterCase;
 import org.junit.Test;
 
 import java.sql.Date;
@@ -27,7 +28,7 @@ import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link AssertionsOnPrimaryKey} class :
- * {@link AssertionsOnPrimaryKey#hasPksNames(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Change, String...)} method.
+ * {@link AssertionsOnPrimaryKey#hasPksNames(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Change, LetterCase, String...)} method.
  *
  * @author Régis Pouiller
  *
@@ -51,7 +52,7 @@ public class AssertionsOnPrimaryKey_HasPksNames_Test extends AbstractTest {
                                Arrays.asList(getValue(null, 1), getValue(null, "Weaverr"), getValue(null, "Sigourneyy"),
                                              getValue(null, Date.valueOf("1949-10-08"))));
     Change change = getChange(DataType.TABLE, "test", ChangeType.CREATION, rowAtStartPoint, rowAtEndPoint);
-    TableAssert tableAssert2 = AssertionsOnPrimaryKey.hasPksNames(tableAssert, info, change, "ID", "ID2");
+    TableAssert tableAssert2 = AssertionsOnPrimaryKey.hasPksNames(tableAssert, info, change, LetterCase.COLUMN_DEFAULT, "ID", "ID2");
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -74,7 +75,7 @@ public class AssertionsOnPrimaryKey_HasPksNames_Test extends AbstractTest {
                                              getValue(null, Date.valueOf("1949-10-08"))));
     Change change = getChange(DataType.TABLE, "test", ChangeType.CREATION, rowAtStartPoint, rowAtEndPoint);
     try {
-      AssertionsOnPrimaryKey.hasPksNames(tableAssert, info, change, "ID1", "ID2");
+      AssertionsOnPrimaryKey.hasPksNames(tableAssert, info, change, LetterCase.COLUMN_DEFAULT, "ID1", "ID2");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -104,7 +105,7 @@ public class AssertionsOnPrimaryKey_HasPksNames_Test extends AbstractTest {
                                              getValue(null, Date.valueOf("1949-10-08"))));
     Change change = getChange(DataType.TABLE, "test", ChangeType.CREATION, rowAtStartPoint, rowAtEndPoint);
     try {
-      AssertionsOnPrimaryKey.hasPksNames(tableAssert, info, change, "ID", "ID2", "ID3");
+      AssertionsOnPrimaryKey.hasPksNames(tableAssert, info, change, LetterCase.COLUMN_DEFAULT, "ID", "ID2", "ID3");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -134,7 +135,7 @@ public class AssertionsOnPrimaryKey_HasPksNames_Test extends AbstractTest {
                                              getValue(null, Date.valueOf("1949-10-08"))));
     Change change = getChange(DataType.TABLE, "test", ChangeType.CREATION, rowAtStartPoint, rowAtEndPoint);
     try {
-      AssertionsOnPrimaryKey.hasPksNames(tableAssert, info, change, "NAME", null);
+      AssertionsOnPrimaryKey.hasPksNames(tableAssert, info, change, LetterCase.COLUMN_DEFAULT, "NAME", null);
       fail("An exception must be raised");
     } catch (NullPointerException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column name must be not null"));
@@ -160,7 +161,7 @@ public class AssertionsOnPrimaryKey_HasPksNames_Test extends AbstractTest {
                                              getValue(null, Date.valueOf("1949-10-08"))));
     Change change = getChange(DataType.TABLE, "test", ChangeType.CREATION, rowAtStartPoint, rowAtEndPoint);
     try {
-      AssertionsOnPrimaryKey.hasPksNames(tableAssert, info, change, (String[]) null);
+      AssertionsOnPrimaryKey.hasPksNames(tableAssert, info, change, LetterCase.COLUMN_DEFAULT, (String[]) null);
       fail("An exception must be raised");
     } catch (NullPointerException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Columns names must be not null"));

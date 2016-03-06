@@ -133,31 +133,31 @@ public class DisplayColumn_Test extends AbstractTest {
                     .column().display(new PrintStream(byteArrayOutputStream1))
                     .column().display(new PrintStream(byteArrayOutputStream2));
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Column at index 0 (column name : ID) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
-                                                                                     + "|----------------|------------------|%n"
-                                                                                     + "|                | ID               |%n"
-                                                                                     + "|                | (NOT_IDENTIFIED) |%n"
-                                                                                     + "|----------------|------------------|%n"
-                                                                                     + "| At start point | null             |%n"
-                                                                                     + "|----------------|------------------|%n"
-                                                                                     + "| At end point   | 4                |%n"
-                                                                                     + "|----------------|------------------|%n"));
+                                                                                     + "|----------------|----------|%n"
+                                                                                     + "|                | ID       |%n"
+                                                                                     + "|                | (NUMBER) |%n"
+                                                                                     + "|----------------|----------|%n"
+                                                                                     + "| At start point | null     |%n"
+                                                                                     + "|----------------|----------|%n"
+                                                                                     + "| At end point   | 4        |%n"
+                                                                                     + "|----------------|----------|%n"));
     Assertions.assertThat(byteArrayOutputStream1.toString()).isEqualTo(String.format("[Column at index 1 (column name : NAME) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
-                                                                                     + "|----------------|------------------|%n"
-                                                                                     + "|                | NAME             |%n"
-                                                                                     + "|                | (NOT_IDENTIFIED) |%n"
-                                                                                     + "|----------------|------------------|%n"
-                                                                                     + "| At start point | null             |%n"
-                                                                                     + "|----------------|------------------|%n"
-                                                                                     + "| At end point   | Murray           |%n"
-                                                                                     + "|----------------|------------------|%n"));
+                                                                                     + "|----------------|--------|%n"
+                                                                                     + "|                | NAME   |%n"
+                                                                                     + "|                | (TEXT) |%n"
+                                                                                     + "|----------------|--------|%n"
+                                                                                     + "| At start point | null   |%n"
+                                                                                     + "|----------------|--------|%n"
+                                                                                     + "| At end point   | Murray |%n"
+                                                                                     + "|----------------|--------|%n"));
     Assertions.assertThat(byteArrayOutputStream2.toString()).isEqualTo(String.format("[Column at index 2 (column name : FIRSTNAME) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
-                                                                                     + "|----------------|------------------|%n"
-                                                                                     + "|                | FIRSTNAME        |%n"
-                                                                                     + "|                | (NOT_IDENTIFIED) |%n"
-                                                                                     + "|----------------|------------------|%n"
-                                                                                     + "| At start point | null             |%n"
-                                                                                     + "|----------------|------------------|%n"
-                                                                                     + "| At end point   | Bill             |%n"
-                                                                                     + "|----------------|------------------|%n"));
+                                                                                     + "|----------------|-----------|%n"
+                                                                                     + "|                | FIRSTNAME |%n"
+                                                                                     + "|                | (TEXT)    |%n"
+                                                                                     + "|----------------|-----------|%n"
+                                                                                     + "| At start point | null      |%n"
+                                                                                     + "|----------------|-----------|%n"
+                                                                                     + "| At end point   | Bill      |%n"
+                                                                                     + "|----------------|-----------|%n"));
   }
 }

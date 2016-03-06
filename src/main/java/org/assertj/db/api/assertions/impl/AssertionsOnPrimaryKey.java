@@ -17,10 +17,12 @@ import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
 import org.assertj.db.type.Change;
 import org.assertj.db.type.Value;
+import org.assertj.db.type.lettercase.LetterCase;
 import org.assertj.db.util.Values;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import static org.assertj.db.error.ShouldHavePksNames.shouldHavePksNames;
@@ -53,13 +55,14 @@ public class AssertionsOnPrimaryKey {
    * @param assertion The assertion which call this method.
    * @param info      Writable information about an assertion.
    * @param change    The change.
+   * @param primaryKeyLetterCase Letter case of the primary keys.
    * @param names     The names of the primary key associated with the rows of the change.
    * @return {@code this} assertion object.
    * @throws AssertionError                 If the columns of the primary key are different to the names in parameters.
    * @throws java.lang.NullPointerException If one of the names in parameters is {@code null}.
    */
   public static <A extends AbstractAssert> A hasPksNames(A assertion, WritableAssertionInfo info, Change change,
-                                                         String... names) {
+                                                         LetterCase primaryKeyLetterCase, String... names) {
     if (names == null) {
       throw new NullPointerException("Columns names must be not null");
     }
@@ -67,7 +70,7 @@ public class AssertionsOnPrimaryKey {
     // Create a sorted list from the primary keys columns
     List<String> pksNameList = change.getPksNameList();
     List<String> pksList = new ArrayList<>(pksNameList);
-    Collections.sort(pksList);
+    Collections.sort(pksList, primaryKeyLetterCase);
 
     // Create a sorted list from the parameters
     List<String> namesList = new ArrayList<>();
@@ -75,12 +78,22 @@ public class AssertionsOnPrimaryKey {
       if (name == null) {
         throw new NullPointerException("Column name must be not null");
       }
-      namesList.add(name.toUpperCase());
+      namesList.add(name);
     }
-    Collections.sort(namesList);
+    Collections.sort(namesList, primaryKeyLetterCase);
 
     // Compare each list
-    if (!namesList.equals(pksList)) {
+    Iterator<String> namesIterator = namesList.iterator();
+    Iterator<String> pksIterator = pksList.iterator();
+    while (namesIterator.hasNext() && pksIterator.hasNext()) {
+      String name = namesIterator.next();
+      String pk = pksIterator.next();
+      if (!primaryKeyLetterCase.isEqual(name, pk)) {
+        String[] pksNames = pksNameList.toArray(new String[pksNameList.size()]);
+        throw failures.failure(info, shouldHavePksNames(pksNames, names));
+      }
+    }
+    if (namesIterator.hasNext() || pksIterator.hasNext()) {
       String[] pksNames = pksNameList.toArray(new String[pksNameList.size()]);
       throw failures.failure(info, shouldHavePksNames(pksNames, names));
     }

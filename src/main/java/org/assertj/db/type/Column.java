@@ -12,6 +12,9 @@
  */
 package org.assertj.db.type;
 
+import org.assertj.db.type.lettercase.LetterCase;
+import org.assertj.db.type.lettercase.WithColumnLetterCase;
+
 import java.util.List;
 
 /**
@@ -27,7 +30,7 @@ import java.util.List;
  * @author Régis Pouiller.
  * 
  */
-public class Column implements DbElement {
+public class Column implements DbElement, WithColumnLetterCase {
 
   /**
    * The name of the column.
@@ -37,16 +40,31 @@ public class Column implements DbElement {
    * The values of the column.
    */
   private final List<Value> valuesList;
+  /**
+   * Letter case of the columns.
+   * @since 1.1.0
+   */
+  private final LetterCase columnLetterCase;
 
   /**
    * Constructor of the column with visibility in the package.
    * 
    * @param name The name of the column.
    * @param valuesList The values in the column.
+   * @param columnLetterCase The letter case of the columns.
    */
-  Column(String name, List<Value> valuesList) {
+  Column(String name, List<Value> valuesList, LetterCase columnLetterCase) {
     this.name = name;
     this.valuesList = valuesList;
+    this.columnLetterCase = columnLetterCase;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public LetterCase getColumnLetterCase() {
+    return columnLetterCase;
   }
 
   /**

@@ -16,6 +16,7 @@ import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.type.Table;
+import org.assertj.db.type.lettercase.LetterCase;
 import org.junit.Test;
 
 import static org.assertj.db.api.Assertions.assertThat;
@@ -38,7 +39,7 @@ public class AssertionsOnColumnName_HasColumnName_Test {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    TableAssert tableAssert2 = AssertionsOnColumnName.hasColumnName(tableAssert, info, "test", "test");
+    TableAssert tableAssert2 = AssertionsOnColumnName.hasColumnName(tableAssert, info, "test", "test", LetterCase.COLUMN_DEFAULT);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -52,7 +53,7 @@ public class AssertionsOnColumnName_HasColumnName_Test {
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnColumnName.hasColumnName(tableAssert, info, "test1", "test");
+      AssertionsOnColumnName.hasColumnName(tableAssert, info, "test1", "test", LetterCase.COLUMN_DEFAULT);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -73,7 +74,7 @@ public class AssertionsOnColumnName_HasColumnName_Test {
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnColumnName.hasColumnName(tableAssert, info, "test", null);
+      AssertionsOnColumnName.hasColumnName(tableAssert, info, "test", null, LetterCase.COLUMN_DEFAULT);
       fail("An exception must be raised");
     } catch (NullPointerException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column name must be not null"));

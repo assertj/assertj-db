@@ -246,7 +246,7 @@ public class ChangeColumnAssert
   /** {@inheritDoc} */
   @Override
   public ChangeColumnAssert hasColumnName(String columnName) {
-    return AssertionsOnColumnName.hasColumnName(myself, info, this.columnName, columnName);
+    return AssertionsOnColumnName.hasColumnName(myself, info, this.columnName, columnName, valueAtStartPoint.getColumnLetterCase());
   }
 
   /** {@inheritDoc} */

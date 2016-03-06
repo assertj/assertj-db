@@ -17,6 +17,7 @@ import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
 import org.assertj.db.type.Change;
 import org.assertj.db.type.DataType;
+import org.assertj.db.type.lettercase.LetterCase;
 
 import static org.assertj.db.error.ShouldBeDataType.shouldBeDataType;
 import static org.assertj.db.error.ShouldBeOnTable.shouldBeOnTable;
@@ -97,19 +98,20 @@ public class AssertionsOnDataType {
    * @param assertion The assertion which call this method.
    * @param info      Writable information about an assertion.
    * @param change    The change.
+   * @param columnLetterCase The letter case of column.
    * @param name      The name of the table on which is the change.
    * @return {@code this} assertion object.
    * @throws AssertionError                 If the type of data is not table or if the table have a different name.
    * @throws java.lang.NullPointerException If the name in parameter is {@code null}.
    */
   public static <A extends AbstractAssert> A isOnTable(A assertion, WritableAssertionInfo info, Change change,
-                                                       String name) {
+                                                       LetterCase columnLetterCase, String name) {
     if (name == null) {
       throw new NullPointerException("Table name must be not null");
     }
     isOnTable(assertion, info, change);
     String dataName = change.getDataName();
-    if (!dataName.toUpperCase().equals(name.toUpperCase())) {
+    if (!columnLetterCase.isEqual(dataName, name)) {
       throw failures.failure(info, shouldBeOnTable(name, dataName));
     }
     return assertion;
