@@ -97,20 +97,26 @@ public abstract class PositionWithColumnsChange<E extends AbstractElement & Navi
     if (index < 0 || index >= size) {
       throw new AssertJDBException("Index %s out of the limits [0, %s[", index, size);
     }
+    List<String> columnsNameList = change.getColumnsNameList();
+    String columnName = columnsNameList.get(index);
     Row rowAtStartPoint = change.getRowAtStartPoint();
     Row rowAtEndPoint = change.getRowAtEndPoint();
-    Value valueAtStartPoint = Value.NULL;
-    Value valueAtEndPoint = Value.NULL;
+    Value valueAtStartPoint;
+    Value valueAtEndPoint;
     if (rowAtStartPoint != null) {
       List<Value> valuesAtStartPoint = rowAtStartPoint.getValuesList();
       valueAtStartPoint = valuesAtStartPoint.get(index);
+    }
+    else {
+      valueAtStartPoint = Value.getNullValue(columnName, change.getColumnLetterCase());
     }
     if (rowAtEndPoint != null) {
       List<Value> valuesAtEndPoint = rowAtEndPoint.getValuesList();
       valueAtEndPoint = valuesAtEndPoint.get(index);
     }
-    List<String> columnsNameList = change.getColumnsNameList();
-    String columnName = columnsNameList.get(index);
+    else {
+      valueAtEndPoint = Value.getNullValue(columnName, change.getColumnLetterCase());
+    }
     try {
       Constructor<N> constructor = elementClass.getDeclaredConstructor(myself.getClass(), String.class, Value.class, Value.class);
       N instance = constructor.newInstance(myself, columnName, valueAtStartPoint, valueAtEndPoint);

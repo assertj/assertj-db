@@ -53,9 +53,14 @@ public class Value implements DbElement, WithColumnLetterCase {
   private final LetterCase columnLetterCase;
 
   /**
-   * NULL value.
+   * Returns a NULL value.
+   * @param columnName The name of the column.
+   * @param columnLetterCase The letter case of the columns.
+   * @return A NULL value.
    */
-  public final static Value NULL = new Value(null, null, LetterCase.COLUMN_DEFAULT);
+  public static Value getNullValue(String columnName, LetterCase columnLetterCase) {
+    return new Value(columnName, null, columnLetterCase);
+  }
 
   /**
    * Returns the type of the actual value (data).

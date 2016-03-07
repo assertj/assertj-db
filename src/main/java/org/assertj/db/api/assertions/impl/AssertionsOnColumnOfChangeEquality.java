@@ -91,10 +91,16 @@ public class AssertionsOnColumnOfChangeEquality {
                                                        Object expectedAtStartPoint, Object expectedAtEndPoint) {
 
     if (expectedAtStartPoint != null) {
-      AssertionsOnColumnOfChangeClass.isOfClass(assertion, info, valueAtStartPoint, Value.NULL, expectedAtStartPoint.getClass(), true);
+      AssertionsOnColumnOfChangeClass.isOfClass(assertion, info, valueAtStartPoint,
+                                                Value.getNullValue(valueAtEndPoint.getColumnName(),
+                                                                   valueAtEndPoint.getColumnLetterCase()),
+                                                expectedAtStartPoint.getClass(), true);
     }
     if (expectedAtEndPoint != null) {
-      AssertionsOnColumnOfChangeClass.isOfClass(assertion, info, Value.NULL, valueAtEndPoint, expectedAtEndPoint.getClass(), true);
+      AssertionsOnColumnOfChangeClass.isOfClass(assertion, info,
+                                                Value.getNullValue(valueAtStartPoint.getColumnName(),
+                                                                   valueAtStartPoint.getColumnLetterCase()),
+                                                valueAtEndPoint, expectedAtEndPoint.getClass(), true);
     }
     if (!areEqual(valueAtStartPoint, expectedAtStartPoint)) {
       throw failures.failure(info, shouldBeEqualWithStartPoint(valueAtStartPoint.getValue(), expectedAtStartPoint));

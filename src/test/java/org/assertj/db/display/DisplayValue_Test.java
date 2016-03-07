@@ -270,7 +270,7 @@ public class DisplayValue_Test extends AbstractTest {
                     .column().valueAtEndPoint().display(new PrintStream(byteArrayOutputStream2));
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Value at start point of Column at index 0 (column name : ID) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
                                                                                      + "|------------------|%n"
-                                                                                     + "| null             |%n"
+                                                                                     + "| ID               |%n"
                                                                                      + "| (NOT_IDENTIFIED) |%n"
                                                                                      + "|------------------|%n"
                                                                                      + "| null             |%n"
