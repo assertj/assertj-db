@@ -236,8 +236,12 @@ public class Changes extends AbstractDbElement<Changes> {
   private static Request getDuplicatedRequest(Request request) {
     Request r = new Request();
     copyElement(request, r);
-    return r.setRequest(request.getRequest()).setParameters(request.getParameters())
-        .setPksName(request.getPksNameList().toArray(new String[request.getPksNameList().size()]));
+    return r.setLetterCases(request.getTableLetterCase(),
+                            request.getColumnLetterCase(),
+                            request.getPrimaryKeyLetterCase())
+            .setRequest(request.getRequest())
+            .setParameters(request.getParameters())
+            .setPksName(request.getPksNameList().toArray(new String[request.getPksNameList().size()]));
   }
 
   /**
@@ -249,8 +253,12 @@ public class Changes extends AbstractDbElement<Changes> {
   private static Table getDuplicatedTable(Table table) {
     Table t = new Table();
     copyElement(table, t);
-    return t.setName(table.getName()).setColumnsToCheck(table.getColumnsToCheck())
-        .setColumnsToExclude(table.getColumnsToExclude());
+    return t.setLetterCases(table.getTableLetterCase(),
+                            table.getColumnLetterCase(),
+                            table.getPrimaryKeyLetterCase())
+            .setName(table.getName())
+            .setColumnsToCheck(table.getColumnsToCheck())
+            .setColumnsToExclude(table.getColumnsToExclude());
   }
 
   /**
@@ -267,7 +275,8 @@ public class Changes extends AbstractDbElement<Changes> {
             new String[] { "TABLE" });
         while (resultSet.next()) {
           String tableName = resultSet.getString("TABLE_NAME");
-          Table t = new Table().setName(tableName);
+          Table t = new Table().setLetterCases(getTableLetterCase(), getColumnLetterCase(), getPrimaryKeyLetterCase())
+                               .setName(tableName);
           copyElement(this, t);
           tablesList.add(t);
         }

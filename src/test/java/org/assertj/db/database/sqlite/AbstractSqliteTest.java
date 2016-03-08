@@ -18,6 +18,7 @@ import com.ninja_squad.dbsetup.operation.Operation;
 import org.assertj.db.database.AbstractDatabaseTest;
 import org.assertj.db.type.DataSourceWithLetterCase;
 import org.assertj.db.type.SourceWithLetterCase;
+import org.assertj.db.type.lettercase.LetterCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -55,9 +56,14 @@ public abstract class AbstractSqliteTest extends AbstractDatabaseTest {
     }
   }
 
+  protected DataSourceWithLetterCase dataSourceDDD;
   protected DataSourceWithLetterCase dataSourceUIUIUI;
   protected DataSourceWithLetterCase dataSourceNSNSNS;
 
+  protected final SourceWithLetterCase sourceDDD = new SourceWithLetterCase("jdbc:sqlite:target/testDerby.db", "", "",
+                                                                            LetterCase.TABLE_DEFAULT,
+                                                                            LetterCase.COLUMN_DEFAULT,
+                                                                            LetterCase.PRIMARY_KEY_DEFAULT);
   protected final SourceWithLetterCase sourceUIUIUI = new SourceWithLetterCase("jdbc:sqlite:target/testDerby.db", "", "",
                                                                                letterCaseUI,
                                                                                letterCaseUI,
@@ -86,6 +92,9 @@ public abstract class AbstractSqliteTest extends AbstractDatabaseTest {
 
   @Autowired(required = true)
   protected void setDataSource(DataSource dataSource) {
+    this.dataSourceDDD = new DataSourceWithLetterCase(dataSource, LetterCase.TABLE_DEFAULT,
+                                                      LetterCase.COLUMN_DEFAULT,
+                                                      LetterCase.PRIMARY_KEY_DEFAULT);
     this.dataSourceUIUIUI = new DataSourceWithLetterCase(dataSource, letterCaseUI, letterCaseUI, letterCaseUI);
     this.dataSourceNSNSNS = new DataSourceWithLetterCase(dataSource, letterCaseNS, letterCaseNS, letterCaseNS);
   }
