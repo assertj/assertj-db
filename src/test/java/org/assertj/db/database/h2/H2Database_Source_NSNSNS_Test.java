@@ -386,14 +386,18 @@ public class H2Database_Source_NSNSNS_Test extends AbstractH2Test {
       fail("An exception must be raised");
     }
     catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <Var1> does not exist"));
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <Var1> does not exist%n"
+                                                                    + "in <[VAR1, VAR2, VAR3, VAR4, VAR5, VAR6, VAR7, VAR8, VAR9, VAR10, VAR11, VAR12, VAR13, VAR14, VAR15, VAR16, VAR17, VAR18, VAR19, VAR20, VAR21, VAR22, VAR23, VAR24, VAR25, VAR26, VAR27, VAR28, VAR29, VAR30, VAR31, VAR32, VAR33, VAR34, VAR35, VAR36, VAR37, VAR38, VAR39, VAR40, VAR41, VAR42, VAR43, VAR44, VAR45, VAR46, VAR47, VAR48, VAR49, VAR50, VAR51, VAR52, VAR53, VAR54, VAR55, VAR56, VAR57, VAR58, VAR59, VAR60, VAR61]>%n"
+                                                                    + "with comparison STRICT - Strictly compare the case"));
     }
     try {
       assertThat(table).row().value("Var1");
       fail("An exception must be raised");
     }
     catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <Var1> does not exist"));
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <Var1> does not exist%n"
+                                                                    + "in <[VAR1, VAR2, VAR3, VAR4, VAR5, VAR6, VAR7, VAR8, VAR9, VAR10, VAR11, VAR12, VAR13, VAR14, VAR15, VAR16, VAR17, VAR18, VAR19, VAR20, VAR21, VAR22, VAR23, VAR24, VAR25, VAR26, VAR27, VAR28, VAR29, VAR30, VAR31, VAR32, VAR33, VAR34, VAR35, VAR36, VAR37, VAR38, VAR39, VAR40, VAR41, VAR42, VAR43, VAR44, VAR45, VAR46, VAR47, VAR48, VAR49, VAR50, VAR51, VAR52, VAR53, VAR54, VAR55, VAR56, VAR57, VAR58, VAR59, VAR60, VAR61]>%n"
+                                                                    + "with comparison STRICT - Strictly compare the case"));
     }
 
     try {
@@ -401,14 +405,18 @@ public class H2Database_Source_NSNSNS_Test extends AbstractH2Test {
       fail("An exception must be raised");
     }
     catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <Var1> does not exist"));
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <Var1> does not exist%n"
+                                                                    + "in <[VAR1, VAR2, VAR3, VAR4, VAR5, VAR6, VAR7, VAR8, VAR9, VAR10, VAR11, VAR12, VAR13, VAR14, VAR15, VAR16, VAR17, VAR18, VAR19, VAR20, VAR21, VAR22, VAR23, VAR24, VAR25, VAR26, VAR27, VAR28, VAR29, VAR30, VAR31, VAR32, VAR33, VAR34, VAR35, VAR36, VAR37, VAR38, VAR39, VAR40, VAR41, VAR42, VAR43, VAR44, VAR45, VAR46, VAR47, VAR48, VAR49, VAR50, VAR51, VAR52, VAR53, VAR54, VAR55, VAR56, VAR57, VAR58, VAR59, VAR60, VAR61]>%n"
+                                                                    + "with comparison STRICT - Strictly compare the case"));
     }
     try {
       assertThat(changes).change().rowAtEndPoint().value("Var1");
       fail("An exception must be raised");
     }
     catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <Var1> does not exist"));
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <Var1> does not exist%n"
+                                                                    + "in <[VAR1, VAR2, VAR3, VAR4, VAR5, VAR6, VAR7, VAR8, VAR9, VAR10, VAR11, VAR12, VAR13, VAR14, VAR15, VAR16, VAR17, VAR18, VAR19, VAR20, VAR21, VAR22, VAR23, VAR24, VAR25, VAR26, VAR27, VAR28, VAR29, VAR30, VAR31, VAR32, VAR33, VAR34, VAR35, VAR36, VAR37, VAR38, VAR39, VAR40, VAR41, VAR42, VAR43, VAR44, VAR45, VAR46, VAR47, VAR48, VAR49, VAR50, VAR51, VAR52, VAR53, VAR54, VAR55, VAR56, VAR57, VAR58, VAR59, VAR60, VAR61]>%n"
+                                                                    + "with comparison STRICT - Strictly compare the case"));
     }
 
     try {
@@ -416,14 +424,18 @@ public class H2Database_Source_NSNSNS_Test extends AbstractH2Test {
       fail("An exception must be raised");
     }
     catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <Var1> does not exist"));
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <Var1> does not exist%n"
+                                                                    + "in <[VAR1, VAR2, VAR3, VAR4, VAR5, VAR6, VAR7, VAR8, VAR9, VAR10, VAR11, VAR12, VAR13, VAR14, VAR15, VAR16, VAR17, VAR18, VAR19, VAR20, VAR21, VAR22, VAR23, VAR24, VAR25, VAR26, VAR27, VAR28, VAR29, VAR30, VAR31, VAR32, VAR33, VAR34, VAR35, VAR36, VAR37, VAR38, VAR39, VAR40, VAR41, VAR42, VAR43, VAR44, VAR45, VAR46, VAR47, VAR48, VAR49, VAR50, VAR51, VAR52, VAR53, VAR54, VAR55, VAR56, VAR57, VAR58, VAR59, VAR60, VAR61]>%n"
+                                                                    + "with comparison STRICT - Strictly compare the case"));
     }
     try {
       assertThat(changes2).change().rowAtEndPoint().value("Var1");
       fail("An exception must be raised");
     }
     catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <Var1> does not exist"));
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <Var1> does not exist%n"
+                                                                    + "in <[VAR1, VAR2, VAR3, VAR4, VAR5, VAR6, VAR7, VAR8, VAR9, VAR10, VAR11, VAR12, VAR13, VAR14, VAR15, VAR16, VAR17, VAR18, VAR19, VAR20, VAR21, VAR22, VAR23, VAR24, VAR25, VAR26, VAR27, VAR28, VAR29, VAR30, VAR31, VAR32, VAR33, VAR34, VAR35, VAR36, VAR37, VAR38, VAR39, VAR40, VAR41, VAR42, VAR43, VAR44, VAR45, VAR46, VAR47, VAR48, VAR49, VAR50, VAR51, VAR52, VAR53, VAR54, VAR55, VAR56, VAR57, VAR58, VAR59, VAR60, VAR61]>%n"
+                                                                    + "with comparison STRICT - Strictly compare the case"));
     }
   }
 

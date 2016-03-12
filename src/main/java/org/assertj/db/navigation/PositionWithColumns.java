@@ -58,7 +58,8 @@ public abstract class PositionWithColumns<E extends AbstractElement & Navigation
     }
     int index = NameComparator.INSTANCE.indexOf(columnsNameList, columnName, comparison);
     if (index == -1) {
-      throw new AssertJDBException("Column <%s> does not exist", columnName);
+      throw new AssertJDBException(String.format("Column <%s> does not exist%nin <%s>%nwith comparison %s",
+                                                 columnName, columnsNameList, comparison.getComparisonName()));
     }
     return getInstance(elementsList, index);
   }

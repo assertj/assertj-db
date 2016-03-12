@@ -97,6 +97,14 @@ public class LetterCase implements CaseConversion, CaseComparison {
    * {@inheritDoc}
    */
   @Override
+  public String getComparisonName() {
+    return comparison.getComparisonName();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public boolean isEqual(String value1, String value2) {
     return comparison.isEqual(value1, value2);
   }
@@ -107,6 +115,14 @@ public class LetterCase implements CaseConversion, CaseComparison {
   @Override
   public int compare(String value1, String value2) {
     return comparison.compare(value1, value2);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public String getConversionName() {
+    return conversion.getConversionName();
   }
 
   /**

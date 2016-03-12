@@ -75,7 +75,9 @@ public class ToColumn_Column_String_Test extends AbstractTest {
       changeAssert.column("TEST");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Column <TEST> does not exist");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
+                                                      + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+                                                      + "with comparison IGNORE - Ignore the case"));
     }
     try {
       changeAssert.column(null);
@@ -100,7 +102,9 @@ public class ToColumn_Column_String_Test extends AbstractTest {
       changeColumnAssertBis3.column("TEST");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Column <TEST> does not exist");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
+                                                                    + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+                                                                    + "with comparison IGNORE - Ignore the case"));
     }
     try {
       changeColumnAssertBis3.column(null);
@@ -169,7 +173,9 @@ public class ToColumn_Column_String_Test extends AbstractTest {
       tableAssert.column("TEST");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Column <TEST> does not exist");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
+                                                                    + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+                                                                    + "with comparison IGNORE - Ignore the case"));
     }
     try {
       tableAssert.column(null);
@@ -193,7 +199,9 @@ public class ToColumn_Column_String_Test extends AbstractTest {
       tableColumnAssertBis3.column("TEST");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Column <TEST> does not exist");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
+                                                                    + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+                                                                    + "with comparison IGNORE - Ignore the case"));
     }
     try {
       tableColumnAssertBis3.column(null);
@@ -261,7 +269,9 @@ public class ToColumn_Column_String_Test extends AbstractTest {
       requestAssert.column("TEST");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Column <TEST> does not exist");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
+                                                                    + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+                                                                    + "with comparison IGNORE - Ignore the case"));
     }
     try {
       requestAssert.column(null);
@@ -285,7 +295,9 @@ public class ToColumn_Column_String_Test extends AbstractTest {
       requestColumnAssertBis3.column("TEST");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Column <TEST> does not exist");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
+                                                                    + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+                                                                    + "with comparison IGNORE - Ignore the case"));
     }
     try {
       requestColumnAssertBis3.column(null);
@@ -362,7 +374,9 @@ public class ToColumn_Column_String_Test extends AbstractTest {
       changeDisplay.column("TEST");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Column <TEST> does not exist");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
+                                                      + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+                                                      + "with comparison IGNORE - Ignore the case"));
     }
     try {
       changeDisplay.column(null);
@@ -387,7 +401,9 @@ public class ToColumn_Column_String_Test extends AbstractTest {
       changeColumnDisplayBis3.column("TEST");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Column <TEST> does not exist");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
+                                                                    + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+                                                                    + "with comparison IGNORE - Ignore the case"));
     }
     try {
       changeColumnDisplayBis3.column(null);
@@ -456,7 +472,9 @@ public class ToColumn_Column_String_Test extends AbstractTest {
       tableDisplay.column("TEST");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Column <TEST> does not exist");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
+                                                                    + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+                                                                    + "with comparison IGNORE - Ignore the case"));
     }
     try {
       tableDisplay.column(null);
@@ -480,7 +498,9 @@ public class ToColumn_Column_String_Test extends AbstractTest {
       tableColumnDisplayBis3.column("TEST");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Column <TEST> does not exist");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
+                                                                    + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+                                                                    + "with comparison IGNORE - Ignore the case"));
     }
     try {
       tableColumnDisplayBis3.column(null);
@@ -548,7 +568,9 @@ public class ToColumn_Column_String_Test extends AbstractTest {
       requestDisplay.column("TEST");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Column <TEST> does not exist");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
+                                                                    + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+                                                                    + "with comparison IGNORE - Ignore the case"));
     }
     try {
       requestDisplay.column(null);
@@ -572,7 +594,9 @@ public class ToColumn_Column_String_Test extends AbstractTest {
       requestColumnDisplayBis3.column("TEST");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Column <TEST> does not exist");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
+                                                                    + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+                                                                    + "with comparison IGNORE - Ignore the case"));
     }
     try {
       requestColumnDisplayBis3.column(null);

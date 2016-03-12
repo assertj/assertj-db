@@ -22,6 +22,7 @@ import org.assertj.db.util.Changes;
 import org.assertj.db.util.NameComparator;
 
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -150,7 +151,8 @@ public abstract class PositionWithColumnsChange<E extends AbstractElement & Navi
     List<String> columnsNameList = change.getColumnsNameList();
     int index = NameComparator.INSTANCE.indexOf(columnsNameList, columnName, comparison);
     if (index == -1) {
-      throw new AssertJDBException("Column <%s> does not exist", columnName);
+      throw new AssertJDBException(String.format("Column <%s> does not exist%nin <%s>%nwith comparison %s",
+                                                 columnName, columnsNameList, comparison.getComparisonName()));
     }
     return getChangeColumnInstance(change, index);
   }
@@ -207,14 +209,17 @@ public abstract class PositionWithColumnsChange<E extends AbstractElement & Navi
       throw new NullPointerException("Column name must be not null");
     }
     Integer[] indexesOfModifiedColumns = Changes.getIndexesOfModifiedColumns(change);
+    List<String> modifiedColumnsNameList = new ArrayList<>();
     List<String> columnsNameList = change.getColumnsNameList();
     for (Integer indexModified : indexesOfModifiedColumns) {
       String modifiedColumnName = columnsNameList.get(indexModified);
+      modifiedColumnsNameList.add(modifiedColumnName);
       if (comparison.isEqual(modifiedColumnName, columnName)) {
         return getChangeColumnInstance(change, indexModified);
       }
     }
-    throw new AssertJDBException("Column <%s> do not exist among the modified columns", columnName);
+    throw new AssertJDBException(String.format("Column <%s> does not exist among the modified columns%nin <%s>%nwith comparison %s",
+                                               columnName, modifiedColumnsNameList, comparison.getComparisonName()));
   }
 
   /**

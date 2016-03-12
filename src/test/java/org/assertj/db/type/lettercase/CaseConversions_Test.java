@@ -26,6 +26,30 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CaseConversions_Test extends AbstractTest {
 
   /**
+   * This method tests the method of {@code getConversionName} method from {@code CaseConversions} enum for {@code UPPER}.
+   */
+  @Test
+  public void test_name_of_upper() {
+    assertThat(CaseConversions.UPPER.getConversionName()).isEqualTo("UPPER - Upper case conversion");
+  }
+
+  /**
+   * This method tests the method of {@code getConversionName} method from {@code CaseConversions} enum for {@code LOWER}.
+   */
+  @Test
+  public void test_name_of_lower() {
+    assertThat(CaseConversions.LOWER.getConversionName()).isEqualTo("LOWER - Lower case conversion");
+  }
+
+  /**
+   * This method tests the method of {@code getConversionName} method from {@code CaseConversions} enum for {@code NO}.
+   */
+  @Test
+  public void test_name_of_no() {
+    assertThat(CaseConversions.NO.getConversionName()).isEqualTo("NO - No case conversion");
+  }
+
+  /**
    * This method tests the conversion of {@code convert} method from {@code CaseConversions} enum for {@code UPPER}.
    */
   @Test

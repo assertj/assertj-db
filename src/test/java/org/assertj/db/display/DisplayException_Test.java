@@ -47,7 +47,9 @@ public class DisplayException_Test extends AbstractTest {
       display(table).column("TEST");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Column <TEST> does not exist");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
+                                                      + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+                                                      + "with comparison IGNORE - Ignore the case"));
     }
   }
 
@@ -69,7 +71,9 @@ public class DisplayException_Test extends AbstractTest {
       display(request).column("TEST");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Column <TEST> does not exist");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
+                                                      + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+                                                      + "with comparison IGNORE - Ignore the case"));
     }
   }
 
@@ -91,7 +95,9 @@ public class DisplayException_Test extends AbstractTest {
       display(table).row().value("TEST");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Column <TEST> does not exist");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
+                                                      + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+                                                      + "with comparison IGNORE - Ignore the case"));
     }
   }
 
@@ -113,7 +119,9 @@ public class DisplayException_Test extends AbstractTest {
       display(request).row().value("TEST");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Column <TEST> does not exist");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
+                                                      + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+                                                      + "with comparison IGNORE - Ignore the case"));
     }
   }
 }

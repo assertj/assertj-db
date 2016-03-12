@@ -26,6 +26,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CaseComparisons_Test extends AbstractTest {
 
   /**
+   * This method tests the method of {@code getComparisonName} method from {@code CaseComparisons} enum for {@code IGNORE}.
+   */
+  @Test
+  public void test_name_of_ignore() {
+    assertThat(CaseComparisons.IGNORE.getComparisonName()).isEqualTo("IGNORE - Ignore the case");
+  }
+
+  /**
+   * This method tests the method of {@code getComparisonName} method from {@code CaseComparisons} enum for {@code STRICT}.
+   */
+  @Test
+  public void test_name_of_strict() {
+    assertThat(CaseComparisons.STRICT.getComparisonName()).isEqualTo("STRICT - Strictly compare the case");
+  }
+
+  /**
    * This method tests the comparison of {@code isEqual} method from {@code CaseComparisons} enum for {@code IGNORE}.
    */
   @Test

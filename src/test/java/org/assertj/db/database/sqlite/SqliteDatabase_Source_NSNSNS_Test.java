@@ -308,14 +308,18 @@ public class SqliteDatabase_Source_NSNSNS_Test extends AbstractSqliteTest {
       fail("An exception must be raised");
     }
     catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <var1> does not exist"));
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <var1> does not exist%n"
+                                                                    + "in <[Var1, vAr2, vaR3, var4, var5, var6, var7, var8, var9, var10, var11, var12, var13, var14, var15, var16, var17, var18, var19, var20]>%n"
+                                                                    + "with comparison STRICT - Strictly compare the case"));
     }
     try {
       assertThat(table).row().value("var1");
       fail("An exception must be raised");
     }
     catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <var1> does not exist"));
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <var1> does not exist%n"
+                                                                    + "in <[Var1, vAr2, vaR3, var4, var5, var6, var7, var8, var9, var10, var11, var12, var13, var14, var15, var16, var17, var18, var19, var20]>%n"
+                                                                    + "with comparison STRICT - Strictly compare the case"));
     }
 
     try {
@@ -323,14 +327,18 @@ public class SqliteDatabase_Source_NSNSNS_Test extends AbstractSqliteTest {
       fail("An exception must be raised");
     }
     catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <var1> does not exist"));
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <var1> does not exist%n"
+                                                                    + "in <[Var1, vAr2, vaR3, var4, var5, var6, var7, var8, var9, var10, var11, var12, var13, var14, var15, var16, var17, var18, var19, var20]>%n"
+                                                                    + "with comparison STRICT - Strictly compare the case"));
     }
     try {
       assertThat(changes).change().rowAtEndPoint().value("var1");
       fail("An exception must be raised");
     }
     catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <var1> does not exist"));
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <var1> does not exist%n"
+                                                                    + "in <[Var1, vAr2, vaR3, var4, var5, var6, var7, var8, var9, var10, var11, var12, var13, var14, var15, var16, var17, var18, var19, var20]>%n"
+                                                                    + "with comparison STRICT - Strictly compare the case"));
     }
 
     try {
@@ -338,14 +346,18 @@ public class SqliteDatabase_Source_NSNSNS_Test extends AbstractSqliteTest {
       fail("An exception must be raised");
     }
     catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <var1> does not exist"));
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <var1> does not exist%n"
+                                                                    + "in <[Var1, vAr2, vaR3, var4, var5, var6, var7, var8, var9, var10, var11, var12, var13, var14, var15, var16, var17, var18, var19, var20]>%n"
+                                                                    + "with comparison STRICT - Strictly compare the case"));
     }
     try {
       assertThat(changes2).change().rowAtEndPoint().value("var1");
       fail("An exception must be raised");
     }
     catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <var1> does not exist"));
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <var1> does not exist%n"
+                                                                    + "in <[Var1, vAr2, vaR3, var4, var5, var6, var7, var8, var9, var10, var11, var12, var13, var14, var15, var16, var17, var18, var19, var20]>%n"
+                                                                    + "with comparison STRICT - Strictly compare the case"));
     }
   }
 

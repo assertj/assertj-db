@@ -23,6 +23,15 @@ public enum CaseConversions implements CaseConversion {
    * Lower conversion of the case of a {@link java.lang.String}.
    */
   LOWER {
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getConversionName() {
+      return "LOWER - Lower case conversion";
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -38,6 +47,15 @@ public enum CaseConversions implements CaseConversion {
    * Upper conversion of the case of a {@link java.lang.String}.
    */
   UPPER {
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getConversionName() {
+      return "UPPER - Upper case conversion";
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -53,6 +71,15 @@ public enum CaseConversions implements CaseConversion {
    * No conversion of the case of a {@link java.lang.String}.
    */
   NO {
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getConversionName() {
+      return "NO - No case conversion";
+    }
+
     /**
      * {@inheritDoc}
      */

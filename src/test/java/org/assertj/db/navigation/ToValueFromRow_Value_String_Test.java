@@ -91,7 +91,9 @@ public class ToValueFromRow_Value_String_Test extends AbstractTest {
       changeRowAssert.value("TEST");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Column <TEST> does not exist");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
+                                                                    + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+                                                                    + "with comparison IGNORE - Ignore the case"));
     }
     try {
       changeRowAssert.value(null);
@@ -116,7 +118,9 @@ public class ToValueFromRow_Value_String_Test extends AbstractTest {
       changeRowValueAssertBis3.value("TEST");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Column <TEST> does not exist");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
+                                                                    + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+                                                                    + "with comparison IGNORE - Ignore the case"));
     }
     try {
       changeRowValueAssertBis3.value(null);
@@ -167,7 +171,9 @@ public class ToValueFromRow_Value_String_Test extends AbstractTest {
       tableRowAssert.value("TEST");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Column <TEST> does not exist");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
+                                                                    + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+                                                                    + "with comparison IGNORE - Ignore the case"));
     }
     try {
       tableRowAssert.value(null);
@@ -192,7 +198,9 @@ public class ToValueFromRow_Value_String_Test extends AbstractTest {
       tableRowValueAssertBis3.value("TEST");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Column <TEST> does not exist");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
+                                                                    + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+                                                                    + "with comparison IGNORE - Ignore the case"));
     }
     try {
       tableRowValueAssertBis3.value(null);
@@ -244,7 +252,9 @@ public class ToValueFromRow_Value_String_Test extends AbstractTest {
       requestRowAssert.value("TEST");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Column <TEST> does not exist");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
+                                                                    + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+                                                                    + "with comparison IGNORE - Ignore the case"));
     }
     try {
       requestRowAssert.value(null);
@@ -269,7 +279,9 @@ public class ToValueFromRow_Value_String_Test extends AbstractTest {
       requestRowValueAssertBis3.value("TEST");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Column <TEST> does not exist");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
+                                                                    + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+                                                                    + "with comparison IGNORE - Ignore the case"));
     }
     try {
       requestRowValueAssertBis3.value(null);

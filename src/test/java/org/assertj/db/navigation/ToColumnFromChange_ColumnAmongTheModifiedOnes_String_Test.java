@@ -80,7 +80,9 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_String_Test extends A
       changeAssert.columnAmongTheModifiedOnes("TEST");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Column <TEST> do not exist among the modified columns");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist among the modified columns%n"
+                                                      + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+                                                      + "with comparison IGNORE - Ignore the case"));
     }
     try {
       changeAssert.columnAmongTheModifiedOnes(null);
@@ -105,7 +107,9 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_String_Test extends A
       changeColumnAssertBis3.columnAmongTheModifiedOnes("TEST");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Column <TEST> do not exist among the modified columns");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist among the modified columns%n"
+                                                                    + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+                                                                    + "with comparison IGNORE - Ignore the case"));
     }
     try {
       changeColumnAssertBis3.columnAmongTheModifiedOnes(null);
@@ -151,7 +155,9 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_String_Test extends A
       changeColumnAssert.columnAmongTheModifiedOnes("birth");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Column <birth> do not exist among the modified columns");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <birth> does not exist among the modified columns%n"
+                                                                    + "in <[FIRSTNAME]>%n"
+                                                                    + "with comparison IGNORE - Ignore the case"));
     }
     Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnAssert)).getValue()).isEqualTo("Sigourney");
     Assertions.assertThat(((Value) fieldValueAtEndPoint.get(changeColumnAssert)).getValue()).isEqualTo(
@@ -195,7 +201,9 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_String_Test extends A
       changeDisplay.columnAmongTheModifiedOnes("TEST");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Column <TEST> do not exist among the modified columns");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist among the modified columns%n"
+                                                      + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+                                                      + "with comparison IGNORE - Ignore the case"));
     }
     try {
       changeDisplay.columnAmongTheModifiedOnes(null);
@@ -220,7 +228,9 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_String_Test extends A
       changeColumnDisplayBis3.columnAmongTheModifiedOnes("TEST");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Column <TEST> do not exist among the modified columns");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist among the modified columns%n"
+                                                                    + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+                                                                    + "with comparison IGNORE - Ignore the case"));
     }
     try {
       changeColumnDisplayBis3.columnAmongTheModifiedOnes(null);
@@ -266,7 +276,9 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_String_Test extends A
       changeColumnDisplay.columnAmongTheModifiedOnes("birth");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("Column <birth> do not exist among the modified columns");
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <birth> does not exist among the modified columns%n"
+                                                                    + "in <[FIRSTNAME]>%n"
+                                                                    + "with comparison IGNORE - Ignore the case"));
     }
     Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnDisplay)).getValue()).isEqualTo("Sigourney");
     Assertions.assertThat(((Value) fieldValueAtEndPoint.get(changeColumnDisplay)).getValue()).isEqualTo(

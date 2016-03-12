@@ -23,6 +23,15 @@ public enum CaseComparisons implements CaseComparison {
    * Comparison on {@link java.lang.String} which ignore the case.
    */
   IGNORE {
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getComparisonName() {
+      return "IGNORE - Ignore the case";
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -57,6 +66,15 @@ public enum CaseComparisons implements CaseComparison {
    * Comparison on {@link java.lang.String} which strictly consider the case.
    */
   STRICT {
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getComparisonName() {
+      return "STRICT - Strictly compare the case";
+    }
+
     /**
      * {@inheritDoc}
      */
