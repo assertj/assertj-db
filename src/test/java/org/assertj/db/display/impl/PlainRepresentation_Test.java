@@ -30,7 +30,7 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test on the utility class {@code PlainDisplay} : the private constructor.
+ * Test on the utility class {@code PlainRepresentation}.
  *
  * @author Régis Pouiller
  */

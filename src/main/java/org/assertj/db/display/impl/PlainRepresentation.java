@@ -15,14 +15,11 @@ package org.assertj.db.display.impl;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.type.*;
 
-import java.sql.Date;
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Implementation of plain display of assertj-db.
+ * Implementation of plain representation of assertj-db.
  *
  * @author Régis Pouiller
  * @since 1.1.0
@@ -33,61 +30,6 @@ enum PlainRepresentation implements Representation {
    * Singleton instance.
    */
   INSTANCE;
-
-  /**
-   * Returns the data name of the change.
-   * @param change The change.
-   * @return The data name.
-   */
-  private static String getDataName(Change change) {
-    DataType dataType = change.getDataType();
-    String dataName = change.getDataName();
-    if (dataType == DataType.REQUEST && dataName.length() > 30) {
-      dataName = dataName.substring(0, 30) + "...";
-    }
-    return dataName;
-  }
-
-  /**
-   * Returns a text representing the type of values.
-   *
-   * @param values The values.
-   * @return The text.
-   */
-  private static String getType(Value... values) {
-    for (Value value : values) {
-      if (value.getValue() != null) {
-        return "(" + value.getValueTypeRepresentation() + ")";
-      }
-    }
-    return "(" + ValueType.NOT_IDENTIFIED + ")";
-  }
-
-  /**
-   * Returns the text representing a value.
-   *
-   * @param value The value
-   * @return The text.
-   */
-  private static String getText(Value value) {
-    Object object = value.getValue();
-    ValueType type = value.getValueType();
-    if (type == ValueType.BYTES) {
-      return "...";
-    }
-    if (type == ValueType.DATE_TIME) {
-      return "" + DateTimeValue.from((Timestamp) object);
-    }
-    if (type == ValueType.DATE) {
-      return "" + DateValue.from((Date) object);
-    }
-    if (type == ValueType.TIME) {
-      return "" + TimeValue.from((Time) object);
-    } else {
-      return "" + object;
-    }
-
-  }
 
   /**
    * Returns the text representing a object.
@@ -124,7 +66,7 @@ enum PlainRepresentation implements Representation {
       }
     }
     for (Value value : values) {
-      int valueSize = getText(value).length();
+      int valueSize = RepresentationType.getText(value).length();
       if (valueSize > size) {
         size = valueSize;
       }
@@ -202,7 +144,7 @@ enum PlainRepresentation implements Representation {
       else {
         if (row != null) {
           Value value = row.getValuesList().get(index - otherColumnsContent.length);
-          stringBuilder.append(getFilledText(getText(value), size)).append("|");
+          stringBuilder.append(getFilledText(RepresentationType.getText(value), size)).append("|");
         }
         else {
           stringBuilder.append(getFilledText("", size)).append("|");
@@ -372,38 +314,6 @@ enum PlainRepresentation implements Representation {
   }
 
   /**
-   * Returns the labels for the columns corresponding to the type of the values of the column.
-   *
-   * @param rows The rows.
-   * @return The labels.
-   */
-  private static List<String> getTypesList(Row... rows) {
-    List<String> typesList = new ArrayList<>();
-    Row row0 = null;
-    for (Row row : rows) {
-      if (row != null) {
-        row0 = row;
-        break;
-      }
-    }
-    if (row0 != null) {
-      int index = 0;
-      for (; index < row0.getColumnsNameList().size(); index++) {
-        List<Object> valuesList = new ArrayList<>();
-        for (Row row : rows) {
-          if (row != null) {
-            Object value = row.getValuesList().get(index);
-            valuesList.add(value);
-          }
-        }
-        String type = getType(valuesList.toArray(new Value[valuesList.size()]));
-        typesList.add(type);
-      }
-    }
-    return typesList;
-  }
-
-  /**
    * Returns the size of the column of index.
    * @param size The size of the rows/changes.
    * @return The size.
@@ -438,7 +348,7 @@ enum PlainRepresentation implements Representation {
     int size = 0;
     for (Change change : changes) {
       DataType dataType = change.getDataType();
-      String dataName = getDataName(change);
+      String dataName = RepresentationType.getDataName(change);
       int dataTypeColumnSize = getColumnSize("" + dataType, dataName);
       if (size < dataTypeColumnSize) {
         size = dataTypeColumnSize;
@@ -491,57 +401,13 @@ enum PlainRepresentation implements Representation {
             valuesList.add(value);
           }
         }
-        String type = getType(valuesList.toArray(new Value[valuesList.size()]));
+        String type = RepresentationType.getType(valuesList.toArray(new Value[valuesList.size()]));
         int columnSize = getColumnSize(columnName, type, index, valuesList.toArray(new Value[valuesList.size()]));
         columnSizesList.add(columnSize);
         index++;
       }
     }
     return columnSizesList;
-  }
-
-  /**
-   * Returns a {@code StringBuilder} representing the values of the primary key.
-   *
-   * @param changes The changes
-   * @return The representation.
-   */
-  private StringBuilder[] getPksValueStringBuilder(Change... changes) {
-    List<StringBuilder> stringBuildersList = new ArrayList<>();
-    for (Change change : changes) {
-      List<Value> pksValueList = change.getPksValueList();
-      StringBuilder pksValueStringBuilder = new StringBuilder();
-      for (Value pkValue : pksValueList) {
-        if (pksValueStringBuilder.length() > 0) {
-          pksValueStringBuilder.append(", ");
-        }
-        pksValueStringBuilder.append(getText(pkValue));
-      }
-      stringBuildersList.add(pksValueStringBuilder);
-    }
-    return stringBuildersList.toArray(new StringBuilder[stringBuildersList.size()]);
-  }
-
-  /**
-   * Returns a {@code StringBuilder} representing the values of the primary key.
-   *
-   * @param rows The rows
-   * @return The representation.
-   */
-  private StringBuilder[] getPksValueStringBuilder(Row... rows) {
-    List<StringBuilder> stringBuildersList = new ArrayList<>();
-    for (Row row : rows) {
-      List<Value> pksValueList = row.getPksValueList();
-      StringBuilder pksValueStringBuilder = new StringBuilder();
-      for (Value pkValue : pksValueList) {
-        if (pksValueStringBuilder.length() > 0) {
-          pksValueStringBuilder.append(", ");
-        }
-        pksValueStringBuilder.append(getText(pkValue));
-      }
-      stringBuildersList.add(pksValueStringBuilder);
-    }
-    return stringBuildersList.toArray(new StringBuilder[stringBuildersList.size()]);
   }
 
   /**
@@ -554,9 +420,9 @@ enum PlainRepresentation implements Representation {
     List<Row> rowsList = table.getRowsList();
     Row[] rows = rowsList.toArray(new Row[rowsList.size()]);
 
-    List<String> typesList = getTypesList(rows);
+    List<String> typesList = RepresentationType.getTypesList(rows);
     int indexColumnSize = getIndexColumnSize(rows.length);
-    StringBuilder[] pksValueStringBuilders = getPksValueStringBuilder(rows);
+    StringBuilder[] pksValueStringBuilders = RepresentationType.getPksValueStringBuilder(rows);
     int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
     List<Integer> sizesList = getSizesList(rows.length == 0 ? getColumnSizesList(columnsNameList) : getColumnSizesList(rows),
                                            indexColumnSize,
@@ -600,9 +466,9 @@ enum PlainRepresentation implements Representation {
     List<Row> rowsList = request.getRowsList();
     Row[] rows = rowsList.toArray(new Row[rowsList.size()]);
 
-    List<String> typesList = getTypesList(rows);
+    List<String> typesList = RepresentationType.getTypesList(rows);
     int indexColumnSize = getIndexColumnSize(rows.length);
-    StringBuilder[] pksValueStringBuilders = getPksValueStringBuilder(rows);
+    StringBuilder[] pksValueStringBuilders = RepresentationType.getPksValueStringBuilder(rows);
     int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
     List<Integer> sizesList = getSizesList(rows.length == 0 ? getColumnSizesList(columnsNameList) : getColumnSizesList(rows),
                                            indexColumnSize,
@@ -649,7 +515,7 @@ enum PlainRepresentation implements Representation {
     int indexColumnSize = getIndexColumnSize(changesList.size());
     int changeTypeColumnSize = getChangeTypeColumnSize(changesArray);
     int dataTypeColumnSize = getDataTypeColumnSize(changesArray);
-    StringBuilder[] pksValueStringBuilders = getPksValueStringBuilder(changesArray);
+    StringBuilder[] pksValueStringBuilders = RepresentationType.getPksValueStringBuilder(changesArray);
     int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
 
     StringBuilder stringBuilder = new StringBuilder();
@@ -659,11 +525,11 @@ enum PlainRepresentation implements Representation {
     for (Change change : changesList) {
       ChangeType changeType = change.getChangeType();
       DataType dataType = change.getDataType();
-      String dataName = getDataName(change);
+      String dataName = RepresentationType.getDataName(change);
       List<String> columnsNameList = change.getColumnsNameList();
       Row rowAtStartPoint = change.getRowAtStartPoint();
       Row rowAtEndPoint = change.getRowAtEndPoint();
-      List<String> typesList = getTypesList(rowAtStartPoint, rowAtEndPoint);
+      List<String> typesList = RepresentationType.getTypesList(rowAtStartPoint, rowAtEndPoint);
 
       List<Integer> sizesList = getSizesList(getColumnSizesList(rowAtStartPoint, rowAtEndPoint),
                                              indexColumnSize,
@@ -710,13 +576,13 @@ enum PlainRepresentation implements Representation {
   public String getChangeRepresentation(WritableAssertionInfo info, Change change) {
     ChangeType changeType = change.getChangeType();
     DataType dataType = change.getDataType();
-    String dataName = getDataName(change);
+    String dataName = RepresentationType.getDataName(change);
     List<String> columnsNameList = change.getColumnsNameList();
     Row rowAtStartPoint = change.getRowAtStartPoint();
     Row rowAtEndPoint = change.getRowAtEndPoint();
 
-    StringBuilder[] pksValueStringBuilders = getPksValueStringBuilder(change);
-    List<String> typesList = getTypesList(rowAtStartPoint, rowAtEndPoint);
+    StringBuilder[] pksValueStringBuilders = RepresentationType.getPksValueStringBuilder(change);
+    List<String> typesList = RepresentationType.getTypesList(rowAtStartPoint, rowAtEndPoint);
 
     int changeTypeColumnSize = getColumnSize("TYPE", changeType);
     int dataTypeColumnSize = getColumnSize("" + dataType, dataName);
@@ -770,8 +636,8 @@ enum PlainRepresentation implements Representation {
       return String.format(stringBuilder.toString());
     }
     List<String> columnsNameList = row.getColumnsNameList();
-    List<String> typesList = getTypesList(row);
-    StringBuilder[] pksValueStringBuilders = getPksValueStringBuilder(row);
+    List<String> typesList = RepresentationType.getTypesList(row);
+    StringBuilder[] pksValueStringBuilders = RepresentationType.getPksValueStringBuilder(row);
     int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
     List<Integer> sizesList = getSizesList(getColumnSizesList(row),
                                            primaryKeyColumnSize);
@@ -808,7 +674,7 @@ enum PlainRepresentation implements Representation {
     List<Value> valuesList = column.getValuesList();
     Value[] values = valuesList.toArray(new Value[valuesList.size()]);
     int indexColumnSize = getIndexColumnSize(values.length);
-    String type = getType(values);
+    String type = RepresentationType.getType(values);
     int columnSize = getColumnSize(columnName, type, null, values);
     List<Integer> sizesList = getSizesList(null,
                                            indexColumnSize,
@@ -829,7 +695,7 @@ enum PlainRepresentation implements Representation {
     int index = 0;
     for (Value value : values) {
       stringBuilder.append("|").append(getFilledText(getText("Index : " + index), indexColumnSize))
-                   .append("|").append(getFilledText(getText(value), columnSize)).append("|%n");
+                   .append("|").append(getFilledText(RepresentationType.getText(value), columnSize)).append("|%n");
       index++;
     }
     // Line
@@ -845,8 +711,8 @@ enum PlainRepresentation implements Representation {
   public String getChangeColumnRepresentation(WritableAssertionInfo info, String columnName,
                                        Value valueAtStartPoint, Value valueAtEndPoint) {
 
-    String typeAtStartPoint = getType(valueAtStartPoint);
-    String typeAtEndPoint = getType(valueAtEndPoint);
+    String typeAtStartPoint = RepresentationType.getType(valueAtStartPoint);
+    String typeAtEndPoint = RepresentationType.getType(valueAtEndPoint);
     String type = valueAtStartPoint.getValue() != null ? typeAtStartPoint : typeAtEndPoint;
 
     int columnSize = getColumnSize(columnName, type, null, valueAtStartPoint, valueAtEndPoint);
@@ -863,24 +729,25 @@ enum PlainRepresentation implements Representation {
     // Line
     stringBuilder.append("|----------------|").append(getCellLine(columnSize)).append("|%n");
     // Value at start point
-    stringBuilder.append("| At start point |").append(getFilledText(getText(valueAtStartPoint), columnSize)).append(
+    stringBuilder.append("| At start point |").append(getFilledText(RepresentationType.getText(valueAtStartPoint), columnSize)).append(
             "|%n");
     // Line
     stringBuilder.append("|----------------|").append(getCellLine(columnSize)).append("|%n");
     // Value at end point
-    stringBuilder.append("| At end point   |").append(getFilledText(getText(valueAtEndPoint), columnSize)).append("|%n");
+    stringBuilder.append("| At end point   |").append(getFilledText(RepresentationType.getText(valueAtEndPoint), columnSize)).append("|%n");
     // Line
     stringBuilder.append("|----------------|").append(getCellLine(columnSize)).append("|%n");
 
     return String.format(stringBuilder.toString());
   }
+
   /**
    * {@inheritDoc}
    */
   @Override
   public String getValueRepresentation(WritableAssertionInfo info, Value value) {
     String columnName = value.getColumnName();
-    String type = getType(value);
+    String type = RepresentationType.getType(value);
     int columnSize = getColumnSize(columnName, type, null, value);
 
     StringBuilder stringBuilder = new StringBuilder();
@@ -895,7 +762,7 @@ enum PlainRepresentation implements Representation {
     // Line
     stringBuilder.append("|").append(getCellLine(columnSize)).append("|%n");
     // Value
-    stringBuilder.append("|").append(getFilledText(getText(value), columnSize)).append("|%n");
+    stringBuilder.append("|").append(getFilledText(RepresentationType.getText(value), columnSize)).append("|%n");
     // Line
     stringBuilder.append("|").append(getCellLine(columnSize)).append("|%n");
 
