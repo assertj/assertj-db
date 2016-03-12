@@ -79,7 +79,7 @@ public class H2Database_Source_NSNSNS_Test extends AbstractH2Test {
                     .value().display(new PrintStream(byteArrayOutputStream8))
                     .column().display(new PrintStream(byteArrayOutputStream9))
                     .valueAtEndPoint().display(new PrintStream(byteArrayOutputStream10));
-    display(changes).display(new PrintStream(byteArrayOutputStream11))
+    display(changes2).display(new PrintStream(byteArrayOutputStream11))
                     .change().display(new PrintStream(byteArrayOutputStream12))
                     .rowAtEndPoint().display(new PrintStream(byteArrayOutputStream13))
                     .value().display(new PrintStream(byteArrayOutputStream14))
@@ -267,9 +267,10 @@ public class H2Database_Source_NSNSNS_Test extends AbstractH2Test {
 
     try {
       assertThat(changes).change().hasPksNames("var1");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 of Changes on test table of a data source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 of Changes on test table of 'sa/jdbc:h2:mem:testH2' source] %n"
                                                                     + "Expecting :%n"
                                                                     + "  [\"var1\"]%n"
                                                                     + "to be the name of the columns of the primary keys but was:%n"
@@ -278,13 +279,14 @@ public class H2Database_Source_NSNSNS_Test extends AbstractH2Test {
 
     try {
       assertThat(changes2).change().hasPksNames("var1");
+      fail("An exception must be raised");
     }
     catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 of Changes on test table of a data source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:testH2' source] %n"
                                                                     + "Expecting :%n"
                                                                     + "  [\"var1\"]%n"
                                                                     + "to be the name of the columns of the primary keys but was:%n"
-                                                                    + "  []"));
+                                                                    + "  [\"VAR1\"]"));
     }
   }
 
@@ -303,18 +305,19 @@ public class H2Database_Source_NSNSNS_Test extends AbstractH2Test {
       fail("An exception must be raised");
     }
     catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 0 (column name : VAR1) of test table] %n"
-                                                                    + "Expecting :%n"
-                                                                    + "  \"Var1\"%n"
-                                                                    + "to be the name of the column but was:%n"
-                                                                    + "  \"VAR1\""));
+      Assertions.assertThat(e.getMessage()).as("message1").isEqualTo(
+              String.format("[Column at index 0 (column name : VAR1) of test table] %n"
+                            + "Expecting :%n"
+                            + "  \"Var1\"%n"
+                            + "to be the name of the column but was:%n"
+                            + "  \"VAR1\""));
     }
     try {
       assertThat(table).row().value().hasColumnName("Var1");
       fail("An exception must be raised");
     }
     catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 0 (column name : VAR1) of Row at index 0 of test table] %n"
+      Assertions.assertThat(e.getMessage()).as("message2").isEqualTo(String.format("[Value at index 0 (column name : VAR1) of Row at index 0 of test table] %n"
                                                                     + "Expecting :%n"
                                                                     + "  \"Var1\"%n"
                                                                     + "to be the name of the column but was:%n"
@@ -326,20 +329,20 @@ public class H2Database_Source_NSNSNS_Test extends AbstractH2Test {
       fail("An exception must be raised");
     }
     catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 0 (column name : VAR1) of Change at index 0 of Changes on test table of a data source] %n"
-                                                                    + "Expecting :%n"
-                                                                    + "  \"Var1\"%n"
-                                                                    + "to be the name of the column but was:%n"
-                                                                    + "  \"VAR1\""));
+      Assertions.assertThat(e.getMessage()).as("message3").isEqualTo(String.format("[Column at index 0 (column name : VAR1) of Change at index 0 of Changes on test table of 'sa/jdbc:h2:mem:testH2' source] %n"
+                                                                                   + "Expecting :%n"
+                                                                                   + "  \"Var1\"%n"
+                                                                                   + "to be the name of the column but was:%n"
+                                                                                   + "  \"VAR1\""));
     }
     try {
       assertThat(changes).change().rowAtEndPoint().value().hasColumnName("Var1");
       fail("An exception must be raised");
     }
     catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 0 (column name : VAR1) of Row at end point of Change at index 0 of Changes on test table of a data source] %n"
+      Assertions.assertThat(e.getMessage()).as("message4").isEqualTo(String.format("[Value at index 0 (column name : VAR1) of Row at end point of Change at index 0 of Changes on test table of 'sa/jdbc:h2:mem:testH2' source] %n"
                                                                     + "Expecting :%n"
-                                                                    + "  \"Var1\"%n"
+                                                                                   + "  \"Var1\"%n"
                                                                     + "to be the name of the column but was:%n"
                                                                     + "  \"VAR1\""));
     }
@@ -349,22 +352,22 @@ public class H2Database_Source_NSNSNS_Test extends AbstractH2Test {
       fail("An exception must be raised");
     }
     catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 0 (column name : VAR1) of Change at index 0 of Changes on test table of a data source] %n"
-                                                                    + "Expecting :%n"
-                                                                    + "  \"Var1\"%n"
-                                                                    + "to be the name of the column but was:%n"
-                                                                    + "  \"VAR1\""));
+      Assertions.assertThat(e.getMessage()).as("message5").isEqualTo(String.format("[Column at index 0 (column name : VAR1) of Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:testH2' source] %n"
+                                                                                   + "Expecting :%n"
+                                                                                   + "  \"Var1\"%n"
+                                                                                   + "to be the name of the column but was:%n"
+                                                                                   + "  \"VAR1\""));
     }
     try {
       assertThat(changes2).change().rowAtEndPoint().value().hasColumnName("Var1");
       fail("An exception must be raised");
     }
     catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 0 (column name : VAR1) of Row at end point of Change at index 0 of Changes on test table of a data source] %n"
-                                                                    + "Expecting :%n"
-                                                                    + "  \"Var1\"%n"
-                                                                    + "to be the name of the column but was:%n"
-                                                                    + "  \"VAR1\""));
+      Assertions.assertThat(e.getMessage()).as("message6").isEqualTo(String.format("[Value at index 0 (column name : VAR1) of Row at end point of Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:testH2' source] %n"
+                                                                                   + "Expecting :%n"
+                                                                                   + "  \"Var1\"%n"
+                                                                                   + "to be the name of the column but was:%n"
+                                                                                   + "  \"VAR1\""));
     }
   }
 
@@ -439,7 +442,7 @@ public class H2Database_Source_NSNSNS_Test extends AbstractH2Test {
       fail("An exception must be raised");
     }
     catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 of Changes on test table of a data source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 of Changes on test table of 'sa/jdbc:h2:mem:testH2' source] %n"
                                                                     + "Expecting to be on the table:%n"
                                                                     + "  <\"teSt\">%n"
                                                                     + "but was on the table:%n"
@@ -450,11 +453,11 @@ public class H2Database_Source_NSNSNS_Test extends AbstractH2Test {
       fail("An exception must be raised");
     }
     catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 of Changes on test table of a data source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:testH2' source] %n"
                                                                     + "Expecting to be on the table:%n"
                                                                     + "  <\"teSt\">%n"
                                                                     + "but was on the table:%n"
-                                                                    + "  <\"test\">"));
+                                                                    + "  <\"TEST\">"));
     }
   }
 

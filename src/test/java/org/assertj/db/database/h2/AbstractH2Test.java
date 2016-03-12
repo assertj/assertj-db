@@ -39,6 +39,7 @@ import static com.ninja_squad.dbsetup.Operations.*;
 @ContextConfiguration(classes = {H2Configuration.class})
 public abstract class AbstractH2Test extends AbstractDatabaseTest {
 
+  protected DataSource dataSource;
   protected DataSourceWithLetterCase dataSourceDDD;
   protected DataSourceWithLetterCase dataSourceUIUIUI;
   protected DataSourceWithLetterCase dataSourceNSNSNS;
@@ -98,6 +99,7 @@ public abstract class AbstractH2Test extends AbstractDatabaseTest {
 
   @Autowired(required = true)
   protected void setDataSource(DataSource dataSource) {
+    this.dataSource = dataSource;
     this.dataSourceDDD = new DataSourceWithLetterCase(dataSource, LetterCase.TABLE_DEFAULT,
                                                       LetterCase.COLUMN_DEFAULT,
                                                       LetterCase.PRIMARY_KEY_DEFAULT);

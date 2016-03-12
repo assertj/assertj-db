@@ -56,6 +56,7 @@ public abstract class AbstractSqliteTest extends AbstractDatabaseTest {
     }
   }
 
+  protected DataSource dataSource;
   protected DataSourceWithLetterCase dataSourceDDD;
   protected DataSourceWithLetterCase dataSourceUIUIUI;
   protected DataSourceWithLetterCase dataSourceNSNSNS;
@@ -92,6 +93,7 @@ public abstract class AbstractSqliteTest extends AbstractDatabaseTest {
 
   @Autowired(required = true)
   protected void setDataSource(DataSource dataSource) {
+    this.dataSource = dataSource;
     this.dataSourceDDD = new DataSourceWithLetterCase(dataSource, LetterCase.TABLE_DEFAULT,
                                                       LetterCase.COLUMN_DEFAULT,
                                                       LetterCase.PRIMARY_KEY_DEFAULT);

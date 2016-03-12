@@ -27,7 +27,7 @@ import static org.assertj.db.api.Assertions.assertThat;
 import static org.assertj.db.api.Assertions.bytesContentFromClassPathOf;
 
 /**
- * Test on the H2 database.
+ * Test on the HSQLDB database.
  *
  * @author Régis Pouiller
  */
