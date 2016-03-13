@@ -125,6 +125,38 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
 
   /** {@inheritDoc} */
   @Override
+  public A hasNumberOfRowsGreaterThan(int expected) {
+    List<Row> rowsList = actual.getRowsList();
+    int size = rowsList.size();
+    return AssertionsOnNumberOfRows.hasNumberOfRowsGreaterThan(myself, info, size, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public A hasNumberOfRowsLessThan(int expected) {
+    List<Row> rowsList = actual.getRowsList();
+    int size = rowsList.size();
+    return AssertionsOnNumberOfRows.hasNumberOfRowsLessThan(myself, info, size, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public A hasNumberOfRowsGreaterThanOrEqualTo(int expected) {
+    List<Row> rowsList = actual.getRowsList();
+    int size = rowsList.size();
+    return AssertionsOnNumberOfRows.hasNumberOfRowsGreaterThanOrEqualTo(myself, info, size, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public A hasNumberOfRowsLessThanOrEqualTo(int expected) {
+    List<Row> rowsList = actual.getRowsList();
+    int size = rowsList.size();
+    return AssertionsOnNumberOfRows.hasNumberOfRowsLessThanOrEqualTo(myself, info, size, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public A hasNumberOfColumns(int expected) {
     List<String> columnsNameList = actual.getColumnsNameList();
     int size = columnsNameList.size();

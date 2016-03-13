@@ -101,6 +101,30 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
 
   /** {@inheritDoc} */
   @Override
+  public C hasNumberOfRowsGreaterThan(int expected) {
+    return AssertionsOnNumberOfRows.hasNumberOfRowsGreaterThan(myself, info, column.getValuesList().size(), expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public C hasNumberOfRowsLessThan(int expected) {
+    return AssertionsOnNumberOfRows.hasNumberOfRowsLessThan(myself, info, column.getValuesList().size(), expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public C hasNumberOfRowsGreaterThanOrEqualTo(int expected) {
+    return AssertionsOnNumberOfRows.hasNumberOfRowsGreaterThanOrEqualTo(myself, info, column.getValuesList().size(), expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public C hasNumberOfRowsLessThanOrEqualTo(int expected) {
+    return AssertionsOnNumberOfRows.hasNumberOfRowsLessThanOrEqualTo(myself, info, column.getValuesList().size(), expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public C isOfClass(Class<?> expected, boolean lenient) {
     return AssertionsOnColumnClass.isOfClass(myself, info, getValuesList(), expected, lenient);
   }

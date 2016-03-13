@@ -17,6 +17,10 @@ import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
 
 import static org.assertj.db.error.ShouldHaveRowsSize.shouldHaveRowsSize;
+import static org.assertj.db.error.ShouldHaveRowsSizeGreater.shouldHaveRowsSizeGreater;
+import static org.assertj.db.error.ShouldHaveRowsSizeGreaterOrEqual.shouldHaveRowsSizeGreaterOrEqual;
+import static org.assertj.db.error.ShouldHaveRowsSizeLess.shouldHaveRowsSizeLess;
+import static org.assertj.db.error.ShouldHaveRowsSizeLessOrEqual.shouldHaveRowsSizeLessOrEqual;
 
 /**
  * Implements the assertion method on the number of rows.
@@ -53,6 +57,86 @@ public class AssertionsOnNumberOfRows {
                                                              int expected) {
     if (size != expected) {
       throw failures.failure(info, shouldHaveRowsSize(size, expected));
+    }
+    return assertion;
+  }
+
+  /**
+   * Verifies that the number of rows is greater than the number in parameter.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Writable information about an assertion.
+   * @param size      The size of the row.
+   * @param expected  The number to compare to the size.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the number of rows is less than or equal to the number in parameter.
+   * @since 1.1.0
+   */
+  public static <A extends AbstractAssert> A hasNumberOfRowsGreaterThan(A assertion, WritableAssertionInfo info, int size,
+                                                                           int expected) {
+    if (size <= expected) {
+      throw failures.failure(info, shouldHaveRowsSizeGreater(size, expected));
+    }
+    return assertion;
+  }
+
+  /**
+   * Verifies that the number of rows is less than the number in parameter.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Writable information about an assertion.
+   * @param size      The size of the row.
+   * @param expected  The number to compare to the size.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the number of rows is greater than or equal to the number in parameter.
+   * @since 1.1.0
+   */
+  public static <A extends AbstractAssert> A hasNumberOfRowsLessThan(A assertion, WritableAssertionInfo info, int size,
+                                                                        int expected) {
+    if (size >= expected) {
+      throw failures.failure(info, shouldHaveRowsSizeLess(size, expected));
+    }
+    return assertion;
+  }
+
+  /**
+   * Verifies that the number of rows is greater than or equal to the number in parameter.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Writable information about an assertion.
+   * @param size      The size of the row.
+   * @param expected  The number to compare to the size.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the number of rows is less than the number in parameter.
+   * @since 1.1.0
+   */
+  public static <A extends AbstractAssert> A hasNumberOfRowsGreaterThanOrEqualTo(A assertion, WritableAssertionInfo info, int size,
+                                                                                    int expected) {
+    if (size < expected) {
+      throw failures.failure(info, shouldHaveRowsSizeGreaterOrEqual(size, expected));
+    }
+    return assertion;
+  }
+
+  /**
+   * Verifies that the number of rows is less than or equal to the number in parameter.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Writable information about an assertion.
+   * @param size      The size of the row.
+   * @param expected  The number to compare to the size.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the number of rows is greater than the number in parameter.
+   * @since 1.1.0
+   */
+  public static <A extends AbstractAssert> A hasNumberOfRowsLessThanOrEqualTo(A assertion, WritableAssertionInfo info, int size,
+                                                                                 int expected) {
+    if (size > expected) {
+      throw failures.failure(info, shouldHaveRowsSizeLessOrEqual(size, expected));
     }
     return assertion;
   }
