@@ -237,17 +237,22 @@ public class HtmlRepresentation_Test extends AbstractTest {
                                     getValue(null, UUID.fromString("0E2A1269-EFF0-4233-B87B-B53E8B6F164D"))));
 
     assertThat(HtmlRepresentation.INSTANCE.getChangeRepresentation(info, getTableCreationChange("table", row2)))
+            .as("representation1")
             .isEqualTo(htmlTextFromClassPathOf("test_change_representation1.html"));
     assertThat(HtmlRepresentation.INSTANCE.getChangeRepresentation(info, getTableModificationChange("table", row1, row2)))
+            .as("representation2")
             .isEqualTo(htmlTextFromClassPathOf("test_change_representation2.html"));
     assertThat(HtmlRepresentation.INSTANCE.getChangeRepresentation(info, getTableDeletionChange("table", row1)))
+            .as("representation3")
             .isEqualTo(htmlTextFromClassPathOf("test_change_representation3.html"));
     assertThat(HtmlRepresentation.INSTANCE.getChangeRepresentation(info,
                                                                     getChange(DataType.REQUEST, "select * from table", ChangeType.MODIFICATION, row1, row2)))
+            .as("representation4")
             .isEqualTo(htmlTextFromClassPathOf("test_change_representation4.html"));
     assertThat(HtmlRepresentation.INSTANCE.getChangeRepresentation(info,
                                                                     getChange(DataType.REQUEST, "select id, name, firstname, birth, actor_imdb from actor",
                                                                               ChangeType.MODIFICATION, row1, row2)))
+            .as("representation5")
             .isEqualTo(htmlTextFromClassPathOf("test_change_representation5.html"));
   }
 

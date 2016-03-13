@@ -187,10 +187,28 @@ public enum HtmlRepresentation implements Representation {
   public String getChangesRepresentation(WritableAssertionInfo info, Changes changes) {
     StringBuilder stringBuilder = new StringBuilder();
 
+    List<Change> changesList = changes.getChangesList();
+
+    stringBuilder.append("<table border=\"1\" cellspacing=\"0\">");
+    stringBuilder.append("<tr>");
+    stringBuilder.append("<th>");
+    stringBuilder.append("</th>");
+    stringBuilder.append("<th>");
+    stringBuilder.append("<br/>TYPE");
+    stringBuilder.append("</th>");
+    stringBuilder.append("<th><br/>");
+    stringBuilder.append(changesList.size() > 0 ? changesList.get(0).getDataType() : "");
+    stringBuilder.append("</th>");
+    stringBuilder.append("<th>");
+    stringBuilder.append("<br/>PRIMARY<br/>KEY");
+    stringBuilder.append("</th>");
+    stringBuilder.append("<th>");
+    stringBuilder.append("</th>");
+    stringBuilder.append("</tr>");
+
     int index1 = 0;
     for (Change change : changes.getChangesList()) {
       ChangeType changeType = change.getChangeType();
-      DataType dataType = change.getDataType();
       String dataName = RepresentationType.getDataName(change);
       List<String> columnsNameList = change.getColumnsNameList();
       Row rowAtStartPoint = change.getRowAtStartPoint();
@@ -199,19 +217,22 @@ public enum HtmlRepresentation implements Representation {
       StringBuilder[] pksValueStringBuilders = RepresentationType.getPksValueStringBuilder(change);
       List<String> typesList = RepresentationType.getTypesList(rowAtStartPoint, rowAtEndPoint);
 
+      stringBuilder.append("<tr>");
+      stringBuilder.append("<td>Index : ");
+      stringBuilder.append(index1);
+      stringBuilder.append("</td>");
+      stringBuilder.append("<td>");
+      stringBuilder.append(changeType);
+      stringBuilder.append("</td>");
+      stringBuilder.append("<td>");
+      stringBuilder.append(dataName);
+      stringBuilder.append("</td>");
+      stringBuilder.append("<td>");
+      stringBuilder.append(pksValueStringBuilders[0]);
+      stringBuilder.append("</td>");
+      stringBuilder.append("<td>");
       stringBuilder.append("<table border=\"1\" cellspacing=\"0\">");
       stringBuilder.append("<tr>");
-      stringBuilder.append("<th>");
-      stringBuilder.append("</th>");
-      stringBuilder.append("<th>");
-      stringBuilder.append("<br/>TYPE");
-      stringBuilder.append("</th>");
-      stringBuilder.append("<th><br/>");
-      stringBuilder.append(dataType);
-      stringBuilder.append("</th>");
-      stringBuilder.append("<th>");
-      stringBuilder.append("<br/>PRIMARY<br/>KEY");
-      stringBuilder.append("</th>");
       stringBuilder.append("<th>");
       stringBuilder.append("</th>");
       int index = 0;
@@ -234,18 +255,6 @@ public enum HtmlRepresentation implements Representation {
       }
       stringBuilder.append("</tr>");
       stringBuilder.append("<tr>");
-      stringBuilder.append("<td rowspan=\"2\">Index : ");
-      stringBuilder.append(index1);
-      stringBuilder.append("</td>");
-      stringBuilder.append("<td rowspan=\"2\">");
-      stringBuilder.append(changeType);
-      stringBuilder.append("</td>");
-      stringBuilder.append("<td rowspan=\"2\">");
-      stringBuilder.append(dataName);
-      stringBuilder.append("</td>");
-      stringBuilder.append("<td rowspan=\"2\">");
-      stringBuilder.append(pksValueStringBuilders[0]);
-      stringBuilder.append("</td>");
       stringBuilder.append("<td>");
       stringBuilder.append("At start point");
       stringBuilder.append("</td>");
@@ -284,8 +293,11 @@ public enum HtmlRepresentation implements Representation {
       }
       stringBuilder.append("</tr>");
       stringBuilder.append("</table>");
+      stringBuilder.append("</td>");
+      stringBuilder.append("</tr>");
       index1++;
     }
+    stringBuilder.append("</table>");
 
     return getHtml(info, stringBuilder.toString());
   }
@@ -320,6 +332,24 @@ public enum HtmlRepresentation implements Representation {
     stringBuilder.append("</th>");
     stringBuilder.append("<th>");
     stringBuilder.append("</th>");
+    stringBuilder.append("</tr>");
+    stringBuilder.append("<tr>");
+    stringBuilder.append("<td>");
+    stringBuilder.append(changeType);
+    stringBuilder.append("</td>");
+    stringBuilder.append("<td>");
+    stringBuilder.append(dataName);
+    stringBuilder.append("</td>");
+    stringBuilder.append("<td>");
+    stringBuilder.append(pksValueStringBuilders[0]);
+    stringBuilder.append("</td>");
+    stringBuilder.append("<td>");
+
+
+    stringBuilder.append("<table border=\"1\" cellspacing=\"0\">");
+    stringBuilder.append("<tr>");
+    stringBuilder.append("<th>");
+    stringBuilder.append("</th>");
     int index = 0;
     for (String columnName : columnsNameList) {
       String pk = "";
@@ -339,16 +369,8 @@ public enum HtmlRepresentation implements Representation {
       index++;
     }
     stringBuilder.append("</tr>");
+
     stringBuilder.append("<tr>");
-    stringBuilder.append("<td rowspan=\"2\">");
-    stringBuilder.append(changeType);
-    stringBuilder.append("</td>");
-    stringBuilder.append("<td rowspan=\"2\">");
-    stringBuilder.append(dataName);
-    stringBuilder.append("</td>");
-    stringBuilder.append("<td rowspan=\"2\">");
-    stringBuilder.append(pksValueStringBuilders[0]);
-    stringBuilder.append("</td>");
     stringBuilder.append("<td>");
     stringBuilder.append("At start point");
     stringBuilder.append("</td>");
@@ -385,6 +407,9 @@ public enum HtmlRepresentation implements Representation {
         stringBuilder.append("</td>");
       }
     }
+    stringBuilder.append("</tr>");
+    stringBuilder.append("</table>");
+    stringBuilder.append("</td>");
     stringBuilder.append("</tr>");
     stringBuilder.append("</table>");
 
