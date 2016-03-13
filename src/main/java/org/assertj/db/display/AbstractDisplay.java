@@ -13,9 +13,10 @@
 package org.assertj.db.display;
 
 import org.assertj.db.display.impl.RepresentationType;
+import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.global.AbstractElement;
 
-import java.io.PrintStream;
+import java.io.*;
 
 /**
  * Base class for all display of assertj-db.
@@ -67,19 +68,40 @@ public abstract class AbstractDisplay<E extends AbstractDisplay<E>>
    *
    * @return {@code this} display object.
    */
-  public E display() {
-    return display(System.out);
+  public E inConsole() {
+    return inStream(System.out);
   }
 
   /**
-   * Display {@code this} in the {@code printStream}.
+   * Display {@code this} in the {@code OutputStream}.
    *
-   * @param printStream {@code PrintStream} to use for output
+   * @param outputStream {@code OutputStream} to use for output.
    * @return {@code this} display object.
    */
-  public E display(PrintStream printStream) {
+  public E inStream(OutputStream outputStream) {
     String representation = getRepresentation(displayType);
+    PrintStream printStream = new PrintStream(outputStream);
     printStream.print(representation);
+    return myself;
+  }
+
+  /**
+   * Display {@code this} in a file.
+   *
+   * @param fileName The file name.
+   * @return {@code this} display object.
+   * @throws AssertJDBException If exception in IO.
+   */
+  public E inFile(String fileName) {
+    String representation = getRepresentation(displayType);
+    try (FileOutputStream fileOutputStream = new FileOutputStream(fileName)) {
+      PrintStream printStream = new PrintStream(fileOutputStream);
+      printStream.print(representation);
+    } catch (FileNotFoundException e) {
+      throw new AssertJDBException(e);
+    } catch (IOException e) {
+      throw new AssertJDBException(e);
+    }
     return myself;
   }
 }

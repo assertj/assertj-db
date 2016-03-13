@@ -19,7 +19,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.sql.Date;
 
 import static org.assertj.db.api.Assertions.assertThat;
@@ -58,18 +57,18 @@ public class SqliteDatabase_Source_DDD_Test extends AbstractSqliteTest {
     ByteArrayOutputStream byteArrayOutputStream8 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream9 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream10 = new ByteArrayOutputStream();
-    display(table).display(new PrintStream(byteArrayOutputStream0))
-                  .column().display(new PrintStream(byteArrayOutputStream1))
-                  .value().display(new PrintStream(byteArrayOutputStream2))
-                  .row().display(new PrintStream(byteArrayOutputStream3))
-                  .value().display(new PrintStream(byteArrayOutputStream4))
+    display(table).inStream(byteArrayOutputStream0)
+                  .column().inStream(byteArrayOutputStream1)
+                  .value().inStream(byteArrayOutputStream2)
+                  .row().inStream(byteArrayOutputStream3)
+                  .value().inStream(byteArrayOutputStream4)
     ;
-    display(changes).display(new PrintStream(byteArrayOutputStream5))
-                    .change().display(new PrintStream(byteArrayOutputStream6))
-                    .rowAtEndPoint().display(new PrintStream(byteArrayOutputStream7))
-                    .value().display(new PrintStream(byteArrayOutputStream8))
-                    .column().display(new PrintStream(byteArrayOutputStream9))
-                    .valueAtEndPoint().display(new PrintStream(byteArrayOutputStream10));
+    display(changes).inStream(byteArrayOutputStream5)
+                    .change().inStream(byteArrayOutputStream6)
+                    .rowAtEndPoint().inStream(byteArrayOutputStream7)
+                    .value().inStream(byteArrayOutputStream8)
+                    .column().inStream(byteArrayOutputStream9)
+                    .valueAtEndPoint().inStream(byteArrayOutputStream10);
 
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[test table]%n"
                                                                                      + "|-----------|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"

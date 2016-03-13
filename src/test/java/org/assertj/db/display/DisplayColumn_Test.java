@@ -21,7 +21,6 @@ import org.assertj.db.type.Table;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 
 import static org.assertj.db.display.Displaying.display;
 
@@ -42,9 +41,9 @@ public class DisplayColumn_Test extends AbstractTest {
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
-    display(table).column().display(new PrintStream(byteArrayOutputStream0))
-                  .column(1).display(new PrintStream(byteArrayOutputStream1))
-                  .column().display(new PrintStream(byteArrayOutputStream2));
+    display(table).column().inStream(byteArrayOutputStream0)
+                  .column(1).inStream(byteArrayOutputStream1)
+                  .column().inStream(byteArrayOutputStream2);
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Column at index 0 (column name : ID) of actor table]%n"
                                                                                      + "|-----------|----------|%n"
                                                                                      + "|           | ID       |%n"
@@ -84,9 +83,9 @@ public class DisplayColumn_Test extends AbstractTest {
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
-    display(request).column().display(new PrintStream(byteArrayOutputStream0))
-                    .column(1).display(new PrintStream(byteArrayOutputStream1))
-                    .column().display(new PrintStream(byteArrayOutputStream2));
+    display(request).column().inStream(byteArrayOutputStream0)
+                    .column(1).inStream(byteArrayOutputStream1)
+                    .column().inStream(byteArrayOutputStream2);
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Column at index 0 (column name : ID) of 'select * from actor' request]%n"
                                                                                      + "|-----------|----------|%n"
                                                                                      + "|           | ID       |%n"
@@ -129,9 +128,9 @@ public class DisplayColumn_Test extends AbstractTest {
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
-    display(changes).change().column().display(new PrintStream(byteArrayOutputStream0))
-                    .column().display(new PrintStream(byteArrayOutputStream1))
-                    .column().display(new PrintStream(byteArrayOutputStream2));
+    display(changes).change().column().inStream(byteArrayOutputStream0)
+                    .column().inStream(byteArrayOutputStream1)
+                    .column().inStream(byteArrayOutputStream2);
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Column at index 0 (column name : ID) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
                                                                                      + "|----------------|----------|%n"
                                                                                      + "|                | ID       |%n"

@@ -45,7 +45,7 @@ public enum RepresentationType implements Representation {
    * @param change The change.
    * @return The data name.
    */
-  public static String getDataName(Change change) {
+  static String getDataName(Change change) {
     DataType dataType = change.getDataType();
     String dataName = change.getDataName();
     if (dataType == DataType.REQUEST && dataName.length() > 30) {
@@ -60,7 +60,7 @@ public enum RepresentationType implements Representation {
    * @param values The values.
    * @return The text.
    */
-  public static String getType(Value... values) {
+  static String getType(Value... values) {
     for (Value value : values) {
       if (value.getValue() != null) {
         return "(" + value.getValueTypeRepresentation() + ")";
@@ -75,7 +75,7 @@ public enum RepresentationType implements Representation {
    * @param value The value
    * @return The text.
    */
-  public static String getText(Value value) {
+  static String getText(Value value) {
     Object object = value.getValue();
     ValueType type = value.getValueType();
     if (type == ValueType.BYTES) {
@@ -100,7 +100,7 @@ public enum RepresentationType implements Representation {
    * @param rows The rows.
    * @return The labels.
    */
-  public static List<String> getTypesList(Row... rows) {
+  static List<String> getTypesList(Row... rows) {
     List<String> typesList = new ArrayList<>();
     Row row0 = null;
     for (Row row : rows) {
@@ -132,7 +132,7 @@ public enum RepresentationType implements Representation {
    * @param rows The rows
    * @return The representation.
    */
-  public static StringBuilder[] getPksValueStringBuilder(Row... rows) {
+  static StringBuilder[] getPksValueStringBuilder(Row... rows) {
     List<StringBuilder> stringBuildersList = new ArrayList<>();
     for (Row row : rows) {
       List<Value> pksValueList = row.getPksValueList();
@@ -154,7 +154,7 @@ public enum RepresentationType implements Representation {
    * @param changes The changes
    * @return The representation.
    */
-  public static StringBuilder[] getPksValueStringBuilder(Change... changes) {
+  static StringBuilder[] getPksValueStringBuilder(Change... changes) {
     List<StringBuilder> stringBuildersList = new ArrayList<>();
     for (Change change : changes) {
       List<Value> pksValueList = change.getPksValueList();

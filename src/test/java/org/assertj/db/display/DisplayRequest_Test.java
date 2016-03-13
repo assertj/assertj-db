@@ -18,7 +18,6 @@ import org.assertj.db.type.Request;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 
 import static org.assertj.db.display.Displaying.display;
 
@@ -37,7 +36,7 @@ public class DisplayRequest_Test extends AbstractTest {
     Request request = new Request(source, "select * from actor");
 
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-    display(request).display(new PrintStream(byteArrayOutputStream));
+    display(request).inStream(byteArrayOutputStream);
     Assertions.assertThat(byteArrayOutputStream.toString()).isEqualTo(String.format("['select * from actor' request]%n"
                                                                                     + "|-----------|---------|-----------|-------------|-----------|------------|--------------------------------------|%n"
                                                                                     + "|           |         |           |             |           |            |                                      |%n"

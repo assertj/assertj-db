@@ -19,7 +19,6 @@ import org.assertj.db.type.Changes;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 
 import static org.assertj.db.display.Displaying.display;
 
@@ -41,7 +40,7 @@ public class DisplayChanges_Test extends AbstractTest {
     changes.setEndPointNow();
 
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-    display(changes).display(new PrintStream(byteArrayOutputStream));
+    display(changes).inStream(byteArrayOutputStream);
     Assertions.assertThat(byteArrayOutputStream.toString()).isEqualTo(String.format("[Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
                                                                                     + "|-----------|--------------|----------------|---------|----------------|-----------|-----------|-----------|------------|--------------------------------------|%n"
                                                                                     + "|           |              |                |         |                | *         |           |           |            |                                      |%n"

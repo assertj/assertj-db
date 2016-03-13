@@ -18,7 +18,6 @@ import org.assertj.db.type.Table;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 
 import static org.assertj.db.display.Displaying.display;
 
@@ -37,7 +36,7 @@ public class DisplayTable_Test extends AbstractTest {
     Table table = new Table(source, "actor");
 
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-    display(table).display(new PrintStream(byteArrayOutputStream));
+    display(table).inStream(byteArrayOutputStream);
     Assertions.assertThat(byteArrayOutputStream.toString()).isEqualTo(String.format("[actor table]%n"
                                                                                     + "|-----------|---------|-----------|-------------|-----------|------------|--------------------------------------|%n"
                                                                                     + "|           |         | *         |             |           |            |                                      |%n"

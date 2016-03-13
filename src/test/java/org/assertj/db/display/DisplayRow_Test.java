@@ -21,7 +21,6 @@ import org.assertj.db.type.Table;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 
 import static org.assertj.db.display.Displaying.display;
 
@@ -42,9 +41,9 @@ public class DisplayRow_Test extends AbstractTest {
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
-    display(table).row().display(new PrintStream(byteArrayOutputStream0))
-                  .row(1).display(new PrintStream(byteArrayOutputStream1))
-                  .row().display(new PrintStream(byteArrayOutputStream2));
+    display(table).row().inStream(byteArrayOutputStream0)
+                  .row(1).inStream(byteArrayOutputStream1)
+                  .row().inStream(byteArrayOutputStream2);
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Row at index 0 of actor table]%n"
                                                                                     + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"
                                                                                     + "|         | *         |           |           |            |                                      |%n"
@@ -84,9 +83,9 @@ public class DisplayRow_Test extends AbstractTest {
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
-    display(request).row().display(new PrintStream(byteArrayOutputStream0))
-                    .row(1).display(new PrintStream(byteArrayOutputStream1))
-                    .row().display(new PrintStream(byteArrayOutputStream2));
+    display(request).row().inStream(byteArrayOutputStream0)
+                    .row(1).inStream(byteArrayOutputStream1)
+                    .row().inStream(byteArrayOutputStream2);
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Row at index 0 of 'select * from actor' request]%n"
                                                                                     + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"
                                                                                     + "|         |           |           |           |            |                                      |%n"
@@ -129,9 +128,9 @@ public class DisplayRow_Test extends AbstractTest {
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
-    display(changes).change().rowAtStartPoint().display(new PrintStream(byteArrayOutputStream0))
-                  .rowAtEndPoint().display(new PrintStream(byteArrayOutputStream1))
-                  .changeOfModification().rowAtStartPoint().display(new PrintStream(byteArrayOutputStream2));
+    display(changes).change().rowAtStartPoint().inStream(byteArrayOutputStream0)
+                  .rowAtEndPoint().inStream(byteArrayOutputStream1)
+                  .changeOfModification().rowAtStartPoint().inStream(byteArrayOutputStream2);
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Row at start point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
                                                                                      + "Row does not exist%n"));
     Assertions.assertThat(byteArrayOutputStream1.toString()).isEqualTo(String.format("[Row at end point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
