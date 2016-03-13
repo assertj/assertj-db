@@ -39,4 +39,76 @@ public interface AssertOnNumberOfChanges<T extends AssertOnNumberOfChanges<T>> {
    * @see org.assertj.db.api.ChangesAssert#hasNumberOfChanges(int)
    */
   T hasNumberOfChanges(int expected);
+
+  /**
+   * Verifies that the number of changes is greater than the number in parameter.
+   * <p>
+   * Example where the assertion verifies that there are greater than 8 changes :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).hasNumberOfChangesGreaterThan(8);
+   * </code>
+   * </pre>
+   *
+   * @param expected The number to compare to.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the number of changes is less than or equal to the number in parameter.
+   * @see org.assertj.db.api.ChangesAssert#hasNumberOfChangesGreaterThan(int)
+   */
+  T hasNumberOfChangesGreaterThan(int expected);
+
+  /**
+   * Verifies that the number of changes is less than the number in parameter.
+   * <p>
+   * Example where the assertion verifies that there are less than 8 changes :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).hasNumberOfChangesLessThan(8);
+   * </code>
+   * </pre>
+   *
+   * @param expected The number to compare to.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the number of changes is greater than or equal to the number in parameter.
+   * @see org.assertj.db.api.ChangesAssert#hasNumberOfChangesLessThan(int)
+   */
+  T hasNumberOfChangesLessThan(int expected);
+
+  /**
+   * Verifies that the number of changes is greater than or equal to the number in parameter.
+   * <p>
+   * Example where the assertion verifies that there are at least 8 changes :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).hasNumberOfChangesGreaterThanOrEqualTo(8);
+   * </code>
+   * </pre>
+   *
+   * @param expected The number to compare to.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the number of changes is less than the number in parameter.
+   * @see org.assertj.db.api.ChangesAssert#hasNumberOfChangesGreaterThanOrEqualTo(int)
+   */
+  T hasNumberOfChangesGreaterThanOrEqualTo(int expected);
+
+  /**
+   * Verifies that the number of changes is less than or equal to the number in parameter.
+   * <p>
+   * Example where the assertion verifies that there are at most 8 changes :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).hasNumberOfChangesLessThanOrEqualTo(8);
+   * </code>
+   * </pre>
+   *
+   * @param expected The number to compare to.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the number of changes is greater than the number in parameter.
+   * @see org.assertj.db.api.ChangesAssert#hasNumberOfChangesLessThanOrEqualTo(int)
+   */
+  T hasNumberOfChangesLessThanOrEqualTo(int expected);
 }

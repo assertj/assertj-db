@@ -21,6 +21,10 @@ import org.assertj.db.type.Changes;
 import java.util.List;
 
 import static org.assertj.db.error.ShouldHaveChangesSize.shouldHaveChangesSize;
+import static org.assertj.db.error.ShouldHaveChangesSizeGreater.shouldHaveChangesSizeGreater;
+import static org.assertj.db.error.ShouldHaveChangesSizeGreaterOrEqual.shouldHaveChangesSizeGreaterOrEqual;
+import static org.assertj.db.error.ShouldHaveChangesSizeLess.shouldHaveChangesSizeLess;
+import static org.assertj.db.error.ShouldHaveChangesSizeLessOrEqual.shouldHaveChangesSizeLessOrEqual;
 
 /**
  * Implements the assertion method on the number of changes.
@@ -59,6 +63,90 @@ public class AssertionsOnNumberOfChanges {
     int size = changesList.size();
     if (size != expected) {
       throw failures.failure(info, shouldHaveChangesSize(size, expected));
+    }
+    return assertion;
+  }
+
+  /**
+   * Verifies that the number of changes is greater than the number in parameter.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Writable information about an assertion.
+   * @param changes   The changes.
+   * @param expected  The number to compare to the size.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the number of changes is less than or equal to the number in parameter.
+   */
+  public static <A extends AbstractAssert> A hasNumberOfChangesGreaterThan(A assertion, WritableAssertionInfo info,
+                                                                Changes changes, int expected) {
+    List<Change> changesList = changes.getChangesList();
+    int size = changesList.size();
+    if (size <= expected) {
+      throw failures.failure(info, shouldHaveChangesSizeGreater(size, expected));
+    }
+    return assertion;
+  }
+
+  /**
+   * Verifies that the number of changes is less to the number in parameter.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Writable information about an assertion.
+   * @param changes   The changes.
+   * @param expected  The number to compare to the size.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the number of changes is greater than or equal to the number in parameter.
+   */
+  public static <A extends AbstractAssert> A hasNumberOfChangesLessThan(A assertion, WritableAssertionInfo info,
+                                                                Changes changes, int expected) {
+    List<Change> changesList = changes.getChangesList();
+    int size = changesList.size();
+    if (size >= expected) {
+      throw failures.failure(info, shouldHaveChangesSizeLess(size, expected));
+    }
+    return assertion;
+  }
+
+  /**
+   * Verifies that the number of changes is greater than or equal to the number in parameter.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Writable information about an assertion.
+   * @param changes   The changes.
+   * @param expected  The number to compare to the size.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the number of changes is less than the number in parameter.
+   */
+  public static <A extends AbstractAssert> A hasNumberOfChangesGreaterThanOrEqualTo(A assertion, WritableAssertionInfo info,
+                                                                Changes changes, int expected) {
+    List<Change> changesList = changes.getChangesList();
+    int size = changesList.size();
+    if (size < expected) {
+      throw failures.failure(info, shouldHaveChangesSizeGreaterOrEqual(size, expected));
+    }
+    return assertion;
+  }
+
+  /**
+   * Verifies that the number of changes is less than or equal to the number in parameter.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Writable information about an assertion.
+   * @param changes   The changes.
+   * @param expected  The number to compare to the size.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the number of changes is greater than the number in parameter.
+   */
+  public static <A extends AbstractAssert> A hasNumberOfChangesLessThanOrEqualTo(A assertion, WritableAssertionInfo info,
+                                                                Changes changes, int expected) {
+    List<Change> changesList = changes.getChangesList();
+    int size = changesList.size();
+    if (size > expected) {
+      throw failures.failure(info, shouldHaveChangesSizeLessOrEqual(size, expected));
     }
     return assertion;
   }

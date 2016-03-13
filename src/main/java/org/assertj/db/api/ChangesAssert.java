@@ -300,4 +300,28 @@ public class ChangesAssert
   public ChangesAssert hasNumberOfChanges(int expected) {
     return AssertionsOnNumberOfChanges.hasNumberOfChanges(myself, info, changes, expected);
   }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangesAssert hasNumberOfChangesGreaterThan(int expected) {
+    return AssertionsOnNumberOfChanges.hasNumberOfChangesGreaterThan(myself, info, changes, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangesAssert hasNumberOfChangesLessThan(int expected) {
+    return AssertionsOnNumberOfChanges.hasNumberOfChangesLessThan(myself, info, changes, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangesAssert hasNumberOfChangesGreaterThanOrEqualTo(int expected) {
+    return AssertionsOnNumberOfChanges.hasNumberOfChangesGreaterThanOrEqualTo(myself, info, changes, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangesAssert hasNumberOfChangesLessThanOrEqualTo(int expected) {
+    return AssertionsOnNumberOfChanges.hasNumberOfChangesLessThanOrEqualTo(myself, info, changes, expected);
+  }
 }
