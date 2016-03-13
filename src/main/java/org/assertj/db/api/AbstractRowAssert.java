@@ -109,6 +109,31 @@ public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends A
 
   /** {@inheritDoc} */
   @Override
+  public R hasNumberOfColumnsGreaterThan(int expected) {
+    return AssertionsOnNumberOfColumns.hasNumberOfColumnsGreaterThan(myself, info, getValuesList().size(), expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public R hasNumberOfColumnsLessThan(int expected) {
+    return AssertionsOnNumberOfColumns.hasNumberOfColumnsLessThan(myself, info, getValuesList().size(), expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public R hasNumberOfColumnsGreaterThanOrEqualTo(int expected) {
+    return AssertionsOnNumberOfColumns.hasNumberOfColumnsGreaterThanOrEqualTo(myself, info, getValuesList().size(),
+                                                                              expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public R hasNumberOfColumnsLessThanOrEqualTo(int expected) {
+    return AssertionsOnNumberOfColumns.hasNumberOfColumnsLessThanOrEqualTo(myself, info, getValuesList().size(), expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public R hasValues(Object... expected) {
     return AssertionsOnRowEquality.hasValues(myself, info, getValuesList(), expected);
   }

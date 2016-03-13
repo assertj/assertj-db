@@ -215,6 +215,31 @@ public class ChangeAssert
     return AssertionsOnNumberOfColumns.hasNumberOfColumns(myself, info, change.getColumnsNameList().size(), expected);
   }
 
+  /** {@inheritDoc} */
+  @Override
+  public ChangeAssert hasNumberOfColumnsGreaterThan(int expected) {
+    return AssertionsOnNumberOfColumns.hasNumberOfColumnsGreaterThan(myself, info, change.getColumnsNameList().size(), expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeAssert hasNumberOfColumnsLessThan(int expected) {
+    return AssertionsOnNumberOfColumns.hasNumberOfColumnsLessThan(myself, info, change.getColumnsNameList().size(), expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeAssert hasNumberOfColumnsGreaterThanOrEqualTo(int expected) {
+    return AssertionsOnNumberOfColumns.hasNumberOfColumnsGreaterThanOrEqualTo(myself, info, change.getColumnsNameList().size(),
+                                                                              expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeAssert hasNumberOfColumnsLessThanOrEqualTo(int expected) {
+    return AssertionsOnNumberOfColumns.hasNumberOfColumnsLessThanOrEqualTo(myself, info, change.getColumnsNameList().size(), expected);
+  }
+
   /**
    * Returns to level of assertion methods on {@link Changes}.
    *

@@ -130,4 +130,36 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
     int size = columnsNameList.size();
     return AssertionsOnNumberOfColumns.hasNumberOfColumns(myself, info, size, expected);
   }
+
+  /** {@inheritDoc} */
+  @Override
+  public A hasNumberOfColumnsGreaterThan(int expected) {
+    List<String> columnsNameList = actual.getColumnsNameList();
+    int size = columnsNameList.size();
+    return AssertionsOnNumberOfColumns.hasNumberOfColumnsGreaterThan(myself, info, size, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public A hasNumberOfColumnsLessThan(int expected) {
+    List<String> columnsNameList = actual.getColumnsNameList();
+    int size = columnsNameList.size();
+    return AssertionsOnNumberOfColumns.hasNumberOfColumnsLessThan(myself, info, size, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public A hasNumberOfColumnsGreaterThanOrEqualTo(int expected) {
+    List<String> columnsNameList = actual.getColumnsNameList();
+    int size = columnsNameList.size();
+    return AssertionsOnNumberOfColumns.hasNumberOfColumnsGreaterThanOrEqualTo(myself, info, size, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public A hasNumberOfColumnsLessThanOrEqualTo(int expected) {
+    List<String> columnsNameList = actual.getColumnsNameList();
+    int size = columnsNameList.size();
+    return AssertionsOnNumberOfColumns.hasNumberOfColumnsLessThanOrEqualTo(myself, info, size, expected);
+  }
 }

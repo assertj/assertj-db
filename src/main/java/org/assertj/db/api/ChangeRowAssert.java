@@ -109,6 +109,43 @@ public class ChangeRowAssert
 
   /** {@inheritDoc} */
   @Override
+  public ChangeRowAssert hasNumberOfColumnsGreaterThan(int expected) {
+    exists();
+    List<String> columnsNameList = row.getColumnsNameList();
+    int size = columnsNameList.size();
+    return AssertionsOnNumberOfColumns.hasNumberOfColumnsGreaterThan(myself, info, size, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeRowAssert hasNumberOfColumnsLessThan(int expected) {
+    exists();
+    List<String> columnsNameList = row.getColumnsNameList();
+    int size = columnsNameList.size();
+    return AssertionsOnNumberOfColumns.hasNumberOfColumnsLessThan(myself, info, size, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeRowAssert hasNumberOfColumnsGreaterThanOrEqualTo(int expected) {
+    exists();
+    List<String> columnsNameList = row.getColumnsNameList();
+    int size = columnsNameList.size();
+    return AssertionsOnNumberOfColumns.hasNumberOfColumnsGreaterThanOrEqualTo(myself, info, size,
+                                                                              expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeRowAssert hasNumberOfColumnsLessThanOrEqualTo(int expected) {
+    exists();
+    List<String> columnsNameList = row.getColumnsNameList();
+    int size = columnsNameList.size();
+    return AssertionsOnNumberOfColumns.hasNumberOfColumnsLessThanOrEqualTo(myself, info, size, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public ChangeRowAssert hasValues(Object... expected) {
     exists();
     return AssertionsOnRowEquality.hasValues(myself, info, row.getValuesList(), expected);
