@@ -199,6 +199,30 @@ public class ChangeAssert
 
   /** {@inheritDoc} */
   @Override
+  public ChangeAssert hasNumberOfModifiedColumnsGreaterThan(int number) {
+    return AssertionsOnModifiedColumns.hasNumberOfModifiedColumnsGreaterThan(myself, info, change, number);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeAssert hasNumberOfModifiedColumnsLessThan(int number) {
+    return AssertionsOnModifiedColumns.hasNumberOfModifiedColumnsLessThan(myself, info, change, number);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeAssert hasNumberOfModifiedColumnsGreaterThanOrEqualTo(int number) {
+    return AssertionsOnModifiedColumns.hasNumberOfModifiedColumnsGreaterThanOrEqualTo(myself, info, change, number);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeAssert hasNumberOfModifiedColumnsLessThanOrEqualTo(int number) {
+    return AssertionsOnModifiedColumns.hasNumberOfModifiedColumnsLessThanOrEqualTo(myself, info, change, number);
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public ChangeAssert hasModifiedColumns(Integer... indexes) {
     return AssertionsOnModifiedColumns.hasModifiedColumns(myself, info, change, indexes);
   }

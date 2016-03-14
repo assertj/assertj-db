@@ -23,6 +23,10 @@ import java.util.*;
 
 import static org.assertj.db.error.ShouldHaveModifications.shouldHaveModifications;
 import static org.assertj.db.error.ShouldHaveNumberOfModifications.shouldHaveNumberOfModifications;
+import static org.assertj.db.error.ShouldHaveNumberOfModificationsGreater.shouldHaveNumberOfModificationsGreater;
+import static org.assertj.db.error.ShouldHaveNumberOfModificationsGreaterOrEqual.shouldHaveNumberOfModificationsGreaterOrEqual;
+import static org.assertj.db.error.ShouldHaveNumberOfModificationsLess.shouldHaveNumberOfModificationsLess;
+import static org.assertj.db.error.ShouldHaveNumberOfModificationsLessOrEqual.shouldHaveNumberOfModificationsLessOrEqual;
 
 /**
  * Implements the assertion methods on modified columns.
@@ -62,6 +66,95 @@ public class AssertionsOnModifiedColumns {
 
     if (number != indexesOfModifiedColumns.length) {
       throw failures.failure(info, shouldHaveNumberOfModifications(indexesOfModifiedColumns.length, number));
+    }
+    return assertion;
+  }
+
+  /**
+   * Verifies that the number of columns with a modification in the values between the start point and the end point
+   * is greater than the number in parameter.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Writable information about an assertion.
+   * @param change    The change.
+   * @param number    The expected number of modified columns
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the number of modified columns is less than or equal to the number in parameter.
+   */
+  public static <A extends AbstractAssert> A hasNumberOfModifiedColumnsGreaterThan(A assertion, WritableAssertionInfo info,
+                                                                                   Change change, int number) {
+    Integer[] indexesOfModifiedColumns = Changes.getIndexesOfModifiedColumns(change);
+
+    if (number >= indexesOfModifiedColumns.length) {
+      throw failures.failure(info, shouldHaveNumberOfModificationsGreater(indexesOfModifiedColumns.length, number));
+    }
+    return assertion;
+  }
+
+  /**
+   * Verifies that the number of columns with a modification in the values between the start point and the end point
+   * is less than the number in parameter.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Writable information about an assertion.
+   * @param change    The change.
+   * @param number    The expected number of modified columns
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the number of modified columns is greater than or equal to the number in parameter.
+   */
+  public static <A extends AbstractAssert> A hasNumberOfModifiedColumnsLessThan(A assertion, WritableAssertionInfo info,
+                                                                                Change change, int number) {
+    Integer[] indexesOfModifiedColumns = Changes.getIndexesOfModifiedColumns(change);
+
+    if (number <= indexesOfModifiedColumns.length) {
+      throw failures.failure(info, shouldHaveNumberOfModificationsLess(indexesOfModifiedColumns.length, number));
+    }
+    return assertion;
+  }
+
+  /**
+   * Verifies that the number of columns with a modification in the values between the start point and the end point
+   * is greater than or equal to the number in parameter.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Writable information about an assertion.
+   * @param change    The change.
+   * @param number    The expected number of modified columns
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the number of modified columns is less than the number in parameter.
+   */
+  public static <A extends AbstractAssert> A hasNumberOfModifiedColumnsGreaterThanOrEqualTo(A assertion, WritableAssertionInfo info,
+                                                                        Change change, int number) {
+    Integer[] indexesOfModifiedColumns = Changes.getIndexesOfModifiedColumns(change);
+
+    if (number > indexesOfModifiedColumns.length) {
+      throw failures.failure(info, shouldHaveNumberOfModificationsGreaterOrEqual(indexesOfModifiedColumns.length,
+                                                                                 number));
+    }
+    return assertion;
+  }
+
+  /**
+   * Verifies that the number of columns with a modification in the values between the start point and the end point
+   * is less than or equal to the number in parameter.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Writable information about an assertion.
+   * @param change    The change.
+   * @param number    The expected number of modified columns
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the number of modified columns is greater than the number in parameter.
+   */
+  public static <A extends AbstractAssert> A hasNumberOfModifiedColumnsLessThanOrEqualTo(A assertion, WritableAssertionInfo info,
+                                                                                   Change change, int number) {
+    Integer[] indexesOfModifiedColumns = Changes.getIndexesOfModifiedColumns(change);
+
+    if (number < indexesOfModifiedColumns.length) {
+      throw failures.failure(info, shouldHaveNumberOfModificationsLessOrEqual(indexesOfModifiedColumns.length, number));
     }
     return assertion;
   }

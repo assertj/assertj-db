@@ -42,6 +42,82 @@ public interface AssertOnModifiedColumns<T extends AssertOnModifiedColumns<T>> {
   T hasNumberOfModifiedColumns(int number);
 
   /**
+   * Verifies that the number of columns with a modification in the values between the start point and the end point
+   * is greater than the number in parameter.
+   * <p>
+   * Example where the assertion verifies that there are greater than 3 modified columns :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change(1).hasNumberOfModifiedColumnsGreaterThan(3);
+   * </code>
+   * </pre>
+   *
+   * @param number The expected number of modified columns
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the number of modified columns is less than or equal to the number in parameter.
+   * @see org.assertj.db.api.ChangeAssert#hasNumberOfModifiedColumnsGreaterThan(int)
+   */
+  T hasNumberOfModifiedColumnsGreaterThan(int number);
+
+  /**
+   * Verifies that the number of columns with a modification in the values between the start point and the end point
+   * is less than the number in parameter.
+   * <p>
+   * Example where the assertion verifies that there are less than 3 modified columns :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change(1).hasNumberOfModifiedColumnsLessThan(3);
+   * </code>
+   * </pre>
+   *
+   * @param number The expected number of modified columns
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the number of modified columns is greater than or equal to the number in parameter.
+   * @see org.assertj.db.api.ChangeAssert#hasNumberOfModifiedColumnsLessThan(int)
+   */
+  T hasNumberOfModifiedColumnsLessThan(int number);
+
+  /**
+   * Verifies that the number of columns with a modification in the values between the start point and the end point
+   * is greater than or equal to the number in parameter.
+   * <p>
+   * Example where the assertion verifies that there are ar least 3 modified columns :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change(1).hasNumberOfModifiedColumnsGreaterThanOrEqualTo(3);
+   * </code>
+   * </pre>
+   *
+   * @param number The expected number of modified columns
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the number of modified columns is less than the number in parameter.
+   * @see org.assertj.db.api.ChangeAssert#hasNumberOfModifiedColumnsGreaterThanOrEqualTo(int)
+   */
+  T hasNumberOfModifiedColumnsGreaterThanOrEqualTo(int number);
+
+  /**
+   * Verifies that the number of columns with a modification in the values between the start point and the end point
+   * is less than or equal to the number in parameter.
+   * <p>
+   * Example where the assertion verifies that there are at most 3 modified columns :
+   * </p>
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change(1).hasNumberOfModifiedColumnsLessThanOrEqualTo(3);
+   * </code>
+   * </pre>
+   *
+   * @param number The expected number of modified columns
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the number of modified columns is greater than the number in parameter.
+   * @see org.assertj.db.api.ChangeAssert#hasNumberOfModifiedColumnsLessThanOrEqualTo(int)
+   */
+  T hasNumberOfModifiedColumnsLessThanOrEqualTo(int number);
+
+  /**
    * Verifies that the indexes of columns with a modification in the values between the start point and the end point
    * is equals to the parameters.
    * <p>
