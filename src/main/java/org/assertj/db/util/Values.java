@@ -741,4 +741,182 @@ public class Values {
       return object;
     }
   }
+
+  /**
+   * Returns if the value is close to the {@code Number} in parameter with the tolerance in parameter.
+   *
+   * @param value     The value.
+   * @param expected  The {@code Number} to compare.
+   * @param tolerance The tolerance of the closeness.
+   * @return {@code true} if the value is close to the {@code Number} parameter, {@code false} otherwise.
+   */
+  public static boolean areClose(Value value, Number expected, Number tolerance) {
+    Object object = value.getValue();
+    if (expected == null) {
+      return object == null;
+    }
+
+    // If parameter is a BigInteger,
+    // change the actual in BigInteger to compare
+    if (expected instanceof BigInteger) {
+      BigInteger bi;
+
+      if (object instanceof BigInteger) {
+        bi = (BigInteger) object;
+      } else {
+        try {
+          bi = new BigInteger("" + object);
+        } catch (NumberFormatException e) {
+          throw new AssertJDBException("Expected <%s> can not be compared to a BigInteger (<%s>)", expected, object);
+        }
+      }
+
+      BigInteger bigExpected = (BigInteger) expected;
+      BigInteger bigTolerance = new BigInteger("" + tolerance);
+      BigInteger bigMin = bigExpected.subtract(bigTolerance);
+      BigInteger bigMax = bigExpected.add(bigTolerance);
+      if (bi.compareTo(bigMin) >= 0 && bi.compareTo(bigMax) <= 0) {
+        return true;
+      }
+    }
+    // If parameter is a BigDecimal,
+    // change the value in BigDecimal to compare
+    else if (expected instanceof BigDecimal) {
+      BigDecimal bd;
+
+      if (object instanceof BigDecimal) {
+        bd = (BigDecimal) object;
+      } else {
+        try {
+          bd = new BigDecimal("" + object);
+        } catch (NumberFormatException e) {
+          throw new AssertJDBException("Expected <%s> can not be compared to a BigDecimal (<%s>)", expected, object);
+        }
+      }
+
+      BigDecimal bigExpected = (BigDecimal) expected;
+      BigDecimal bigTolerance = new BigDecimal("" + tolerance);
+      BigDecimal bigMin = bigExpected.subtract(bigTolerance);
+      BigDecimal bigMax = bigExpected.add(bigTolerance);
+      if (bd.compareTo(bigMin) >= 0 && bd.compareTo(bigMax) <= 0) {
+        return true;
+      }
+    }
+    // Otherwise
+    // If the value is Float, Double, BigInteger or BigDecimal
+    // change the value to compare to make the comparison possible
+    // else
+    // get the value value in Long to compare
+    else {
+      Long actualValue = null;
+
+      if (object instanceof Float) {
+        Float f = (Float) object;
+        float fMin = expected.floatValue() - tolerance.floatValue();
+        float fMax = expected.floatValue() + tolerance.floatValue();
+        if (f >= fMin && f <= fMax) {
+          return true;
+        }
+      } else if (object instanceof Double) {
+        Double d = (Double) object;
+        double dMin = expected.doubleValue() - tolerance.doubleValue();
+        double dMax = expected.doubleValue() + tolerance.doubleValue();
+        if (d >= dMin && d <= dMax) {
+          return true;
+        }
+      } else if (object instanceof BigInteger) {
+        BigInteger bi = (BigInteger) object;
+        BigInteger bigExpected = new BigInteger("" + expected);
+        BigInteger bigTolerance = new BigInteger("" + tolerance);
+        BigInteger bigMin = bigExpected.subtract(bigTolerance);
+        BigInteger bigMax = bigExpected.add(bigTolerance);
+        if (bi.compareTo(bigMin) >= 0 && bi.compareTo(bigMax) <= 0) {
+          return true;
+        }
+      } else if (object instanceof BigDecimal) {
+        BigDecimal bd = (BigDecimal) object;
+        BigDecimal bigExpected = new BigDecimal("" + expected);
+        BigDecimal bigTolerance = new BigDecimal("" + tolerance);
+        BigDecimal bigMin = bigExpected.subtract(bigTolerance);
+        BigDecimal bigMax = bigExpected.add(bigTolerance);
+        if (bd.compareTo(bigMin) >= 0 && bd.compareTo(bigMax) <= 0) {
+          return true;
+        }
+      } else if (object instanceof Byte) {
+        actualValue = ((Byte) object).longValue();
+      } else if (object instanceof Short) {
+        actualValue = ((Short) object).longValue();
+      } else if (object instanceof Integer) {
+        actualValue = ((Integer) object).longValue();
+      } else if (object instanceof Long) {
+        actualValue = (Long) object;
+      }
+
+      if (actualValue != null) {
+        if (expected instanceof Float) {
+          if (tolerance instanceof Float) {
+            if (actualValue >= expected.floatValue() - tolerance.floatValue() &&
+                actualValue <= expected.floatValue() + tolerance.floatValue()) {
+
+              return true;
+            }
+          } else if (tolerance instanceof Double) {
+            if (actualValue >= expected.floatValue() - tolerance.doubleValue() &&
+                actualValue <= expected.floatValue() + tolerance.doubleValue()) {
+
+              return true;
+            }
+          } else {
+            if (actualValue >= expected.floatValue() - tolerance.longValue() &&
+                actualValue <= expected.floatValue() + tolerance.longValue()) {
+
+              return true;
+            }
+          }
+        } else if (expected instanceof Double) {
+          if (tolerance instanceof Float) {
+            if (actualValue >= expected.doubleValue() - tolerance.floatValue() &&
+                actualValue <= expected.doubleValue() + tolerance.floatValue()) {
+
+              return true;
+            }
+          } else if (tolerance instanceof Double) {
+            if (actualValue >= expected.doubleValue() - tolerance.doubleValue() &&
+                actualValue <= expected.doubleValue() + tolerance.doubleValue()) {
+
+              return true;
+            }
+          } else {
+            if (actualValue >= expected.doubleValue() - tolerance.longValue() &&
+                actualValue <= expected.doubleValue() + tolerance.longValue()) {
+
+              return true;
+            }
+          }
+        } else {
+          if (tolerance instanceof Float) {
+            if (actualValue >= expected.longValue() - tolerance.floatValue() &&
+                actualValue <= expected.longValue() + tolerance.floatValue()) {
+
+              return true;
+            }
+          } else if (tolerance instanceof Double) {
+            if (actualValue >= expected.longValue() - tolerance.doubleValue() &&
+                actualValue <= expected.longValue() + tolerance.doubleValue()) {
+
+              return true;
+            }
+          } else {
+            if (actualValue >= expected.longValue() - tolerance.longValue() &&
+                actualValue <= expected.longValue() + tolerance.longValue()) {
+
+              return true;
+            }
+          }
+        }
+      }
+    }
+
+    return false;
+  }
 }

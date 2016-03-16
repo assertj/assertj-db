@@ -39,7 +39,8 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
                    AssertOnValueEquality<E>,
                    AssertOnValueNonEquality<E>,
                    AssertOnValueComparison<E>,
-                   AssertOnValueChronology<E> {
+                   AssertOnValueChronology<E>,
+                   AssertOnValueCloseness<E> {
 
   /**
    * The actual value on which the assertion is.
@@ -386,5 +387,11 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
   @Override
   public E isLessThanOrEqualTo(Number expected) {
     return AssertionsOnValueComparison.isLessThanOrEqualTo(myself, info, value, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E isCloseTo(Number expected, Number tolerance) {
+    return AssertionsOnValueCloseness.isCloseTo(myself, info, value, expected, tolerance);
   }
 }

@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class AssertionsOnModifiedColumns_Constructor_Test {
 
   /**
-   * This method tests the private constructor of {@code Assertions} for the tests coverage..
+   * This method tests the private constructor of {@code AssertionsOnModifiedColumns} for the tests coverage..
    * @throws NoSuchMethodException
    * @throws SecurityException
    * @throws java.lang.reflect.InvocationTargetException

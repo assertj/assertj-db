@@ -12,7 +12,7 @@
  */
 package org.assertj.db.api.assertions.impl.constructor;
 
-import org.assertj.db.api.assertions.impl.AssertionsOnNumberOfRows;
+import org.assertj.db.api.assertions.impl.AssertionsOnValueCloseness;
 import org.junit.Test;
 
 import java.lang.reflect.Constructor;
@@ -22,16 +22,16 @@ import java.lang.reflect.Modifier;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests on {@link AssertionsOnNumberOfRows} class :
- * {@link AssertionsOnNumberOfRows#AssertionsOnNumberOfRows()} private constructor.
+ * Tests on {@link AssertionsOnValueCloseness} class :
+ * {@link AssertionsOnValueCloseness#AssertionsOnValueCloseness()} private constructor.
  *
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnNumberOfRows_Constructor_Test {
+public class AssertionsOnValueCloseness_Constructor_Test {
 
   /**
-   * This method tests the private constructor of {@code AssertionsOnNumberOfRows} for the tests coverage..
+   * This method tests the private constructor of {@code AssertionsOnValueCloseness} for the tests coverage..
    * @throws NoSuchMethodException
    * @throws SecurityException
    * @throws java.lang.reflect.InvocationTargetException
@@ -44,7 +44,7 @@ public class AssertionsOnNumberOfRows_Constructor_Test {
           throws SecurityException, NoSuchMethodException, IllegalArgumentException,
           InstantiationException, IllegalAccessException, InvocationTargetException {
 
-    Constructor<AssertionsOnNumberOfRows> constructor = AssertionsOnNumberOfRows.class.getDeclaredConstructor();
+    Constructor<AssertionsOnValueCloseness> constructor = AssertionsOnValueCloseness.class.getDeclaredConstructor();
     assertThat(Modifier.isPrivate(constructor.getModifiers())).isTrue();
     constructor.setAccessible(true);
     constructor.newInstance();

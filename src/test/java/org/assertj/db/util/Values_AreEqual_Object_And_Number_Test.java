@@ -210,5 +210,4 @@ public class Values_AreEqual_Object_And_Number_Test extends AbstractTest {
   public void test_are_equal_for_other_and_other() throws Exception {
     assertThat(Values.areEqual(getValue(null, "-"), 1)).isFalse();
   }
-
 }

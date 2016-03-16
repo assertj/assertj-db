@@ -46,7 +46,8 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
                    AssertOnValueEquality<V>,
                    AssertOnValueNonEquality<V>,
                    AssertOnValueChronology<V>,
-                   AssertOnValueComparison<V> {
+                   AssertOnValueComparison<V>,
+                   AssertOnValueCloseness<V> {
 
   /**
    * The actual value on which this assertion is.
@@ -404,5 +405,11 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
   @Override
   public V isLessThanOrEqualTo(Number expected) {
     return AssertionsOnValueComparison.isLessThanOrEqualTo(myself, info, value, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public V isCloseTo(Number expected, Number tolerance) {
+    return AssertionsOnValueCloseness.isCloseTo(myself, info, value, expected, tolerance);
   }
 }
