@@ -394,4 +394,46 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
   public E isCloseTo(Number expected, Number tolerance) {
     return AssertionsOnValueCloseness.isCloseTo(myself, info, value, expected, tolerance);
   }
+
+  /** {@inheritDoc} */
+  @Override
+  public E isCloseTo(DateValue expected, DateValue tolerance) {
+    return AssertionsOnValueCloseness.isCloseTo(myself, info, value, expected, tolerance);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E isCloseTo(DateValue expected, TimeValue tolerance) {
+    return AssertionsOnValueCloseness.isCloseTo(myself, info, value, expected, tolerance);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E isCloseTo(DateValue expected, DateTimeValue tolerance) {
+    return AssertionsOnValueCloseness.isCloseTo(myself, info, value, expected, tolerance);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E isCloseTo(TimeValue expected, TimeValue tolerance) {
+    return AssertionsOnValueCloseness.isCloseTo(myself, info, value, expected, tolerance);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E isCloseTo(DateTimeValue expected, DateValue tolerance) {
+    return AssertionsOnValueCloseness.isCloseTo(myself, info, value, expected, tolerance);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E isCloseTo(DateTimeValue expected, TimeValue tolerance) {
+    return AssertionsOnValueCloseness.isCloseTo(myself, info, value, expected, tolerance);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E isCloseTo(DateTimeValue expected, DateTimeValue tolerance) {
+    return AssertionsOnValueCloseness.isCloseTo(myself, info, value, expected, tolerance);
+  }
 }

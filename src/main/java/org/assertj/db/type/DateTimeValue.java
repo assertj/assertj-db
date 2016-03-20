@@ -207,7 +207,7 @@ public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContai
   }
 
   public boolean isMidnight() {
-    return time.getHour() == 0 && time.getMinutes() == 0 && time.getSeconds() == 0 && time.getNanoSeconds() == 0;
+    return time.getHours() == 0 && time.getMinutes() == 0 && time.getSeconds() == 0 && time.getNanoSeconds() == 0;
   }
 
   /**
@@ -222,7 +222,7 @@ public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContai
   @Override
   public String toString() {
     return String.format("%4d-%02d-%02dT%02d:%02d:%02d.%09d", date.getYear(), date.getMonth(), date.getDayOfTheMonth(),
-        time.getHour(), time.getMinutes(), time.getSeconds(), time.getNanoSeconds());
+        time.getHours(), time.getMinutes(), time.getSeconds(), time.getNanoSeconds());
   }
 
   @Override
@@ -275,4 +275,64 @@ public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContai
     return compareTo(dateTime) == 1;
   }
 
+  /**
+   * Moves the date/time with the value in parameter.
+   * @param date Value to move the date.
+   * @return The date/time moved.
+   */
+  public DateTimeValue move(DateValue date) {
+    TimeValue timeValue = getTime();
+
+    DateValue dateValue = getDate();
+    DateValue movedDateValue = dateValue.move(date);
+
+    return of(movedDateValue, timeValue);
+  }
+
+  /**
+   * Moves the date/time with the value in parameter.
+   * @param time Value to move the date.
+   * @return The date/time moved.
+   */
+  public DateTimeValue move(TimeValue time) {
+    TimeValue timeValue = getTime();
+    TimeValue movedTimeValue = timeValue.move(time);
+
+    int hours = movedTimeValue.getHours();
+    int days = hours / 24;
+    if (hours > 0) {
+      hours -= days * 24;
+    }
+    else {
+      hours += days * 24;
+    }
+    if (hours < 0) {
+      days--;
+      hours += 24;
+    }
+
+    DateValue dateValue = getDate();
+    DateValue movedDateValue = dateValue.move(DateValue.of(0, 0, days));
+
+    return of(movedDateValue, TimeValue.of(hours, movedTimeValue.getMinutes(),
+                                           movedTimeValue.getSeconds(), movedTimeValue.getNanoSeconds()));
+  }
+
+  /**
+   * Moves the date/time with the value in parameter.
+   * @param dateTime Value to move the date.
+   * @return The date/time moved.
+   */
+  public DateTimeValue move(DateTimeValue dateTime) {
+    DateTimeValue aDateTime = move(dateTime.getDate());
+    return aDateTime.move(dateTime.getTime());
+  }
+
+  /**
+   * Returns the reverse of the date/time.
+   * @return The reverse.
+   */
+  public DateTimeValue reverse() {
+    return of(date.reverse(), time.reverse());
+  }
 }

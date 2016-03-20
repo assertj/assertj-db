@@ -271,4 +271,79 @@ public class DateValue implements Comparable<DateValue>, DateValueContainer {
   public boolean isAfter(DateValue date) {
     return compareTo(date) == 1;
   }
+
+  /**
+   * Moves the date with the value in parameter.
+   * @param date Value to move the date.
+   * @return The date moved.
+   */
+  public DateValue move(DateValue date) {
+    Calendar calendar = Calendar.getInstance();
+    calendar.set(Calendar.YEAR, year);
+    calendar.set(Calendar.MONTH, month - 1);
+    calendar.set(Calendar.DAY_OF_MONTH, dayOfTheMonth);
+    calendar.set(Calendar.HOUR_OF_DAY, 0);
+    calendar.set(Calendar.MINUTE, 0);
+    calendar.set(Calendar.SECOND, 0);
+    calendar.set(Calendar.MILLISECOND, 0);
+
+    if (date.getYear() != 0) {
+      calendar.add(Calendar.YEAR, date.getYear());
+    }
+    if (date.getMonth() != 0) {
+      calendar.add(Calendar.MONTH, date.getMonth());
+    }
+    if (date.getDayOfTheMonth() != 0) {
+      calendar.add(Calendar.DAY_OF_MONTH, date.getDayOfTheMonth());
+    }
+
+    return from(calendar);
+  }
+
+  /**
+   * Moves the date with the value in parameter.
+   * @param time Value to move the date.
+   * @return The date/time moved.
+   */
+  public DateTimeValue move(TimeValue time) {
+    TimeValue timeValue = TimeValue.of(0, 0);
+    TimeValue movedTimeValue = timeValue.move(time);
+
+    int hours = movedTimeValue.getHours();
+    int days = hours / 24;
+    if (hours > 0) {
+      hours -= days * 24;
+    }
+    else {
+      hours += days * 24;
+    }
+    if (hours < 0) {
+      days--;
+      hours += 24;
+    }
+
+    DateValue dateValue = getDate();
+    DateValue movedDateValue = dateValue.move(DateValue.of(0, 0, days));
+
+    return DateTimeValue.of(movedDateValue, TimeValue.of(hours, movedTimeValue.getMinutes(),
+                                                         movedTimeValue.getSeconds(), movedTimeValue.getNanoSeconds()));
+  }
+
+  /**
+   * Moves the date with the value in parameter.
+   * @param dateTime Value to move the date.
+   * @return The date/time moved.
+   */
+  public DateTimeValue move(DateTimeValue dateTime) {
+    DateValue date = move(dateTime.getDate());
+    return date.move(dateTime.getTime());
+  }
+
+  /**
+   * Returns the reverse of the date.
+   * @return The reverse.
+   */
+  public DateValue reverse() {
+    return of(-getYear(), -getMonth(), -getDayOfTheMonth());
+  }
 }

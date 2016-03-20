@@ -25,9 +25,9 @@ import java.util.Calendar;
 public class TimeValue implements Comparable<TimeValue> {
 
   /**
-   * Hour.
+   * Hours.
    */
-  private final int hour;
+  private final int hours;
   /**
    * Minutes.
    */
@@ -56,39 +56,39 @@ public class TimeValue implements Comparable<TimeValue> {
   private static final String TIME_FORMAT_WITH_NANO = "\\d\\d:\\d\\d:\\d\\d.\\d\\d\\d\\d\\d\\d\\d\\d\\d";
 
   /**
-   * Makes an instance of time value from a hour, minutes, seconds and nanoseconds.
+   * Makes an instance of time value from a hours, minutes, seconds and nanoseconds.
    * 
-   * @param hour Hour.
+   * @param hours Hours.
    * @param minutes Minutes.
    * @param seconds Seconds.
    * @param nanoSeconds Nanoseconds.
    * @return An instance of time value.
    */
-  public static TimeValue of(int hour, int minutes, int seconds, int nanoSeconds) {
-    return new TimeValue(hour, minutes, seconds, nanoSeconds);
+  public static TimeValue of(int hours, int minutes, int seconds, int nanoSeconds) {
+    return new TimeValue(hours, minutes, seconds, nanoSeconds);
   }
 
   /**
-   * Makes an instance of time value from a hour, minutes and seconds.
+   * Makes an instance of time value from a hours, minutes and seconds.
    * 
-   * @param hour Hour.
+   * @param hours Hours.
    * @param minutes Minutes.
    * @param seconds Seconds.
    * @return An instance of time value.
    */
-  public static TimeValue of(int hour, int minutes, int seconds) {
-    return new TimeValue(hour, minutes, seconds);
+  public static TimeValue of(int hours, int minutes, int seconds) {
+    return new TimeValue(hours, minutes, seconds);
   }
 
   /**
-   * Makes an instance of time value from a hour and minutes.
+   * Makes an instance of time value from a hours and minutes.
    * 
-   * @param hour Hour.
+   * @param hours Hours.
    * @param minutes Minutes.
    * @return An instance of time value.
    */
-  public static TimeValue of(int hour, int minutes) {
-    return new TimeValue(hour, minutes);
+  public static TimeValue of(int hours, int minutes) {
+    return new TimeValue(hours, minutes);
   }
 
   /**
@@ -141,13 +141,13 @@ public class TimeValue implements Comparable<TimeValue> {
   /**
    * Constructor.
    * 
-   * @param hour Hour.
+   * @param hours Hours.
    * @param minutes Minutes.
    * @param seconds Seconds.
    * @param nanoSeconds Nanoseconds.
    */
-  public TimeValue(int hour, int minutes, int seconds, int nanoSeconds) {
-    this.hour = hour;
+  public TimeValue(int hours, int minutes, int seconds, int nanoSeconds) {
+    this.hours = hours;
     this.minutes = minutes;
     this.seconds = seconds;
     this.nanoSeconds = nanoSeconds;
@@ -156,22 +156,22 @@ public class TimeValue implements Comparable<TimeValue> {
   /**
    * Constructor.
    * 
-   * @param hour Hour.
+   * @param hours Hours.
    * @param minutes Minutes.
    * @param seconds Seconds.
    */
-  public TimeValue(int hour, int minutes, int seconds) {
-    this(hour, minutes, seconds, 0);
+  public TimeValue(int hours, int minutes, int seconds) {
+    this(hours, minutes, seconds, 0);
   }
 
   /**
    * Constructor.
    * 
-   * @param hour Hour.
+   * @param hours Hours.
    * @param minutes Minutes.
    */
-  public TimeValue(int hour, int minutes) {
-    this(hour, minutes, 0, 0);
+  public TimeValue(int hours, int minutes) {
+    this(hours, minutes, 0, 0);
   }
 
   /**
@@ -188,17 +188,17 @@ public class TimeValue implements Comparable<TimeValue> {
     }
 
     if (time.matches(TIME_FORMAT)) {
-      hour = Integer.parseInt(time.substring(0, 2));
+      hours = Integer.parseInt(time.substring(0, 2));
       minutes = Integer.parseInt(time.substring(3));
       seconds = 0;
       nanoSeconds = 0;
     } else if (time.matches(TIME_FORMAT_WITH_SECONDS)) {
-      hour = Integer.parseInt(time.substring(0, 2));
+      hours = Integer.parseInt(time.substring(0, 2));
       minutes = Integer.parseInt(time.substring(3, 5));
       seconds = Integer.parseInt(time.substring(6));
       nanoSeconds = 0;
     } else if (time.matches(TIME_FORMAT_WITH_NANO)) {
-      hour = Integer.parseInt(time.substring(0, 2));
+      hours = Integer.parseInt(time.substring(0, 2));
       minutes = Integer.parseInt(time.substring(3, 5));
       seconds = Integer.parseInt(time.substring(6, 8));
       nanoSeconds = Integer.parseInt(time.substring(9));
@@ -221,7 +221,7 @@ public class TimeValue implements Comparable<TimeValue> {
     Calendar calendar = Calendar.getInstance();
     calendar.setTimeInMillis(time.getTime());
 
-    hour = calendar.get(Calendar.HOUR_OF_DAY);
+    hours = calendar.get(Calendar.HOUR_OF_DAY);
     minutes = calendar.get(Calendar.MINUTE);
     seconds = calendar.get(Calendar.SECOND);
     nanoSeconds = calendar.get(Calendar.MILLISECOND) * 1000000;
@@ -238,19 +238,19 @@ public class TimeValue implements Comparable<TimeValue> {
       throw new NullPointerException("time should be not null");
     }
 
-    hour = calendar.get(Calendar.HOUR_OF_DAY);
+    hours = calendar.get(Calendar.HOUR_OF_DAY);
     minutes = calendar.get(Calendar.MINUTE);
     seconds = calendar.get(Calendar.SECOND);
     nanoSeconds = calendar.get(Calendar.MILLISECOND) * 1000000;
   }
 
   /**
-   * Returns the hour.
+   * Returns the hours.
    * 
-   * @return The hour.
+   * @return The hours.
    */
-  public int getHour() {
-    return hour;
+  public int getHours() {
+    return hours;
   }
 
   /**
@@ -282,14 +282,14 @@ public class TimeValue implements Comparable<TimeValue> {
 
   @Override
   public String toString() {
-    return String.format("%02d:%02d:%02d.%09d", hour, minutes, seconds, nanoSeconds);
+    return String.format("%02d:%02d:%02d.%09d", hours, minutes, seconds, nanoSeconds);
   }
 
   @Override
   public boolean equals(Object obj) {
     if (obj instanceof TimeValue) {
       TimeValue timeValue = (TimeValue) obj;
-      return hour == timeValue.hour && minutes == timeValue.minutes && seconds == timeValue.seconds
+      return hours == timeValue.hours && minutes == timeValue.minutes && seconds == timeValue.seconds
           && nanoSeconds == timeValue.nanoSeconds;
     }
     return false;
@@ -299,7 +299,7 @@ public class TimeValue implements Comparable<TimeValue> {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + hour;
+    result = prime * result + hours;
     result = prime * result + minutes;
     result = prime * result + nanoSeconds;
     result = prime * result + seconds;
@@ -308,10 +308,10 @@ public class TimeValue implements Comparable<TimeValue> {
 
   @Override
   public int compareTo(TimeValue other) {
-    if (hour < other.hour) {
+    if (hours < other.hours) {
       return -1;
     }
-    else if (hour > other.hour) {
+    else if (hours > other.hours) {
       return 1;
     }
     else if (minutes < other.minutes) {
@@ -353,4 +353,53 @@ public class TimeValue implements Comparable<TimeValue> {
     return compareTo(time) == 1;
   }
 
+  /**
+   * Moves the time with the value in parameter.
+   * @param time Value to move the date.
+   * @return The date/time moved.
+   */
+  public TimeValue move(TimeValue time) {
+    int thisHours = this.hours;
+    int thisMinutes = this.minutes;
+    int thisSeconds = this.seconds;
+    int thisNanoSeconds = this.nanoSeconds;
+
+    int hours = time.getHours();
+    int minutes = time.getMinutes();
+    int seconds = time.getSeconds();
+    int nanoSeconds = time.getNanoSeconds();
+
+    if (nanoSeconds >= 0 || thisNanoSeconds >= -nanoSeconds) {
+      thisNanoSeconds += nanoSeconds;
+    }
+    else {
+      thisNanoSeconds += 1000000000 + nanoSeconds;
+      seconds--;
+    }
+    if (seconds >= 0 || thisSeconds >= -seconds) {
+      thisSeconds += seconds;
+    }
+    else {
+      thisSeconds += 60 + seconds;
+      minutes--;
+    }
+    if (minutes >= 0 || thisMinutes >= -minutes) {
+      thisMinutes += minutes;
+    }
+    else {
+      thisMinutes += 60 + minutes;
+      hours--;
+    }
+    thisHours += hours;
+
+    return of(thisHours, thisMinutes, thisSeconds, thisNanoSeconds);
+  }
+
+  /**
+   * Returns the reverse of the time.
+   * @return The reverse.
+   */
+  public TimeValue reverse() {
+    return of(-getHours(), -getMinutes(), -getSeconds(), -getNanoSeconds());
+  }
 }

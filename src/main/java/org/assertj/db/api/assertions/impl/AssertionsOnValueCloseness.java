@@ -15,7 +15,11 @@ package org.assertj.db.api.assertions.impl;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
-import org.assertj.db.type.Value;
+import org.assertj.db.type.*;
+
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
 
 import static org.assertj.db.error.ShouldBeClose.shouldBeClose;
 import static org.assertj.db.util.Values.areClose;
@@ -47,8 +51,8 @@ public class AssertionsOnValueCloseness {
    * @param assertion The assertion which call this method.
    * @param info      Writable information about an assertion.
    * @param value     The value.
-   * @param tolerance The tolerance of the closeness.
    * @param expected  The expected number value.
+   * @param tolerance The tolerance of the closeness.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to the number in parameter.
    */
@@ -61,5 +65,200 @@ public class AssertionsOnValueCloseness {
       return assertion;
     }
     throw failures.failure(info, shouldBeClose(value.getValue(), expected, tolerance));
+  }
+
+  /**
+   * Verifies that the value is close to a date.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Writable information about an assertion.
+   * @param value     The value.
+   * @param expected  The expected date value.
+   * @param tolerance The tolerance of the closeness.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the date in parameter.
+   */
+  public static <A extends AbstractAssert> A isCloseTo(A assertion, WritableAssertionInfo info, Value value,
+                                                       DateValue expected, DateValue tolerance) {
+    if (expected != null) {
+      AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
+    }
+    if (areClose(value, expected, tolerance)) {
+      return assertion;
+    }
+    Object object = value.getValue();
+    if (value.getValueType() == ValueType.DATE) {
+      throw failures.failure(info, shouldBeClose(DateValue.from((Date) object), expected, tolerance));
+    }
+    if (expected != null) {
+      throw failures.failure(info, shouldBeClose(DateTimeValue.from((Timestamp) object), DateTimeValue.of(expected), tolerance));
+    }
+    throw failures.failure(info, shouldBeClose(DateTimeValue.from((Timestamp) object), null, tolerance));
+  }
+
+  /**
+   * Verifies that the value is close to a date.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Writable information about an assertion.
+   * @param value     The value.
+   * @param expected  The expected date value.
+   * @param tolerance The tolerance of the closeness.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the date in parameter.
+   */
+  public static <A extends AbstractAssert> A isCloseTo(A assertion, WritableAssertionInfo info, Value value,
+                                                       DateValue expected, TimeValue tolerance) {
+    if (expected != null) {
+      AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
+    }
+    if (areClose(value, expected, tolerance)) {
+      return assertion;
+    }
+    Object object = value.getValue();
+    if (value.getValueType() == ValueType.DATE) {
+      throw failures.failure(info, shouldBeClose(DateValue.from((Date) object), expected, tolerance));
+    }
+    if (expected != null) {
+      throw failures.failure(info, shouldBeClose(DateTimeValue.from((Timestamp) object), DateTimeValue.of(expected), tolerance));
+    }
+    throw failures.failure(info, shouldBeClose(DateTimeValue.from((Timestamp) object), null, tolerance));
+  }
+
+  /**
+   * Verifies that the value is close to a date.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Writable information about an assertion.
+   * @param value     The value.
+   * @param expected  The expected date value.
+   * @param tolerance The tolerance of the closeness.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the date in parameter.
+   */
+  public static <A extends AbstractAssert> A isCloseTo(A assertion, WritableAssertionInfo info, Value value,
+                                                       DateValue expected, DateTimeValue tolerance) {
+    if (expected != null) {
+      AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
+    }
+    if (areClose(value, expected, tolerance)) {
+      return assertion;
+    }
+    Object object = value.getValue();
+    if (value.getValueType() == ValueType.DATE) {
+      throw failures.failure(info, shouldBeClose(DateValue.from((Date) object), expected, tolerance));
+    }
+    if (expected != null) {
+      throw failures.failure(info, shouldBeClose(DateTimeValue.from((Timestamp) object), DateTimeValue.of(expected), tolerance));
+    }
+    throw failures.failure(info, shouldBeClose(DateTimeValue.from((Timestamp) object), null, tolerance));
+  }
+
+  /**
+   * Verifies that the value is close to a time.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Writable information about an assertion.
+   * @param value     The value.
+   * @param expected  The expected time value.
+   * @param tolerance The tolerance of the closeness.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the date in parameter.
+   */
+  public static <A extends AbstractAssert> A isCloseTo(A assertion, WritableAssertionInfo info, Value value,
+                                                       TimeValue expected, TimeValue tolerance) {
+    if (expected != null) {
+      AssertionsOnValueType.isTime(assertion, info, value);
+    }
+    if (areClose(value, expected, tolerance)) {
+      return assertion;
+    }
+    Object object = value.getValue();
+    throw failures.failure(info, shouldBeClose(TimeValue.from((Time) object), expected, tolerance));
+  }
+
+  /**
+   * Verifies that the value is close to a date/time.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Writable information about an assertion.
+   * @param value     The value.
+   * @param expected  The expected date/time value.
+   * @param tolerance The tolerance of the closeness.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the date in parameter.
+   */
+  public static <A extends AbstractAssert> A isCloseTo(A assertion, WritableAssertionInfo info, Value value,
+                                                       DateTimeValue expected, DateValue tolerance) {
+    if (expected != null) {
+      AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
+    }
+    if (areClose(value, expected, tolerance)) {
+      return assertion;
+    }
+    Object object = value.getValue();
+    if (value.getValueType() == ValueType.DATE) {
+      throw failures.failure(info, shouldBeClose(DateTimeValue.of(DateValue.from((Date) object)), expected, tolerance));
+    }
+    throw failures.failure(info, shouldBeClose(DateTimeValue.from((Timestamp) object), expected, tolerance));
+  }
+
+  /**
+   * Verifies that the value is close to a date/time.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Writable information about an assertion.
+   * @param value     The value.
+   * @param expected  The expected date/time value.
+   * @param tolerance The tolerance of the closeness.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the date in parameter.
+   */
+  public static <A extends AbstractAssert> A isCloseTo(A assertion, WritableAssertionInfo info, Value value,
+                                                       DateTimeValue expected, TimeValue tolerance) {
+    if (expected != null) {
+      AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
+    }
+    if (areClose(value, expected, tolerance)) {
+      return assertion;
+    }
+    Object object = value.getValue();
+    if (value.getValueType() == ValueType.DATE) {
+      throw failures.failure(info, shouldBeClose(DateTimeValue.of(DateValue.from((Date) object)), expected, tolerance));
+    }
+    throw failures.failure(info, shouldBeClose(DateTimeValue.from((Timestamp) object), expected, tolerance));
+  }
+
+  /**
+   * Verifies that the value is close to a date/time.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Writable information about an assertion.
+   * @param value     The value.
+   * @param expected  The expected date/time value.
+   * @param tolerance The tolerance of the closeness.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the date in parameter.
+   */
+  public static <A extends AbstractAssert> A isCloseTo(A assertion, WritableAssertionInfo info, Value value,
+                                                       DateTimeValue expected, DateTimeValue tolerance) {
+    if (expected != null) {
+      AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
+    }
+    if (areClose(value, expected, tolerance)) {
+      return assertion;
+    }
+    Object object = value.getValue();
+    if (value.getValueType() == ValueType.DATE) {
+      throw failures.failure(info, shouldBeClose(DateTimeValue.of(DateValue.from((Date) object)), expected, tolerance));
+    }
+    throw failures.failure(info, shouldBeClose(DateTimeValue.from((Timestamp) object), expected, tolerance));
   }
 }

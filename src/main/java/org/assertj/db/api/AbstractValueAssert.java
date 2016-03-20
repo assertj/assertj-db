@@ -412,4 +412,46 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
   public V isCloseTo(Number expected, Number tolerance) {
     return AssertionsOnValueCloseness.isCloseTo(myself, info, value, expected, tolerance);
   }
+
+  /** {@inheritDoc} */
+  @Override
+  public V isCloseTo(DateValue expected, DateValue tolerance) {
+    return AssertionsOnValueCloseness.isCloseTo(myself, info, value, expected, tolerance);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public V isCloseTo(DateValue expected, TimeValue tolerance) {
+    return AssertionsOnValueCloseness.isCloseTo(myself, info, value, expected, tolerance);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public V isCloseTo(DateValue expected, DateTimeValue tolerance) {
+    return AssertionsOnValueCloseness.isCloseTo(myself, info, value, expected, tolerance);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public V isCloseTo(TimeValue expected, TimeValue tolerance) {
+    return AssertionsOnValueCloseness.isCloseTo(myself, info, value, expected, tolerance);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public V isCloseTo(DateTimeValue expected, DateValue tolerance) {
+    return AssertionsOnValueCloseness.isCloseTo(myself, info, value, expected, tolerance);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public V isCloseTo(DateTimeValue expected, TimeValue tolerance) {
+    return AssertionsOnValueCloseness.isCloseTo(myself, info, value, expected, tolerance);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public V isCloseTo(DateTimeValue expected, DateTimeValue tolerance) {
+    return AssertionsOnValueCloseness.isCloseTo(myself, info, value, expected, tolerance);
+  }
 }

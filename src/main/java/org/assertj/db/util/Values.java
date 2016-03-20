@@ -919,4 +919,211 @@ public class Values {
 
     return false;
   }
+
+  /**
+   * Returns if the value is close to the {@code DateValue} in parameter with the tolerance in parameter.
+   *
+   * @param value     The value.
+   * @param expected  The {@code DateValue} to compare.
+   * @param tolerance The tolerance of the closeness.
+   * @return {@code true} if the value is close to the {@code DateValue} parameter, {@code false} otherwise.
+   */
+  public static boolean areClose(Value value, DateValue expected, DateValue tolerance) {
+    Object object = value.getValue();
+    if (expected == null) {
+      return object == null;
+    }
+
+    if (object instanceof Date) {
+      Date date = (Date) object;
+      DateValue dateValue = DateValue.from(date);
+      DateValue dateValueMin = expected.move(tolerance.reverse());
+      DateValue dateValueMax = expected.move(tolerance);
+      return dateValue.compareTo(dateValueMin) >= 0 && dateValue.compareTo(dateValueMax) <= 0;
+    } else if (object instanceof Timestamp) {
+      Timestamp timestamp = (Timestamp) object;
+      DateTimeValue dateTimeValue = DateTimeValue.from(timestamp);
+      DateTimeValue dateTimeValueMin = DateTimeValue.of(expected).move(tolerance.reverse());
+      DateTimeValue dateTimeValueMax = DateTimeValue.of(expected).move(tolerance);
+      return dateTimeValue.compareTo(dateTimeValueMin) >= 0 && dateTimeValue.compareTo(dateTimeValueMax) <= 0;
+    }
+    return false;
+  }
+
+  /**
+   * Returns if the value is close to the {@code DateValue} in parameter with the tolerance in parameter.
+   *
+   * @param value     The value.
+   * @param expected  The {@code DateValue} to compare.
+   * @param tolerance The tolerance of the closeness.
+   * @return {@code true} if the value is close to the {@code DateValue} parameter, {@code false} otherwise.
+   */
+  public static boolean areClose(Value value, DateValue expected, TimeValue tolerance) {
+    Object object = value.getValue();
+    if (expected == null) {
+      return object == null;
+    }
+
+    if (object instanceof Date) {
+      Date date = (Date) object;
+      DateTimeValue dateTimeValue = DateTimeValue.of(DateValue.from(date));
+      DateTimeValue dateTimeValueMin = expected.move(tolerance.reverse());
+      DateTimeValue dateTimeValueMax = expected.move(tolerance);
+      return dateTimeValue.compareTo(dateTimeValueMin) >= 0 && dateTimeValue.compareTo(dateTimeValueMax) <= 0;
+    } else if (object instanceof Timestamp) {
+      Timestamp timestamp = (Timestamp) object;
+      DateTimeValue dateTimeValue = DateTimeValue.from(timestamp);
+      DateTimeValue dateTimeValueMin = DateTimeValue.of(expected).move(tolerance.reverse());
+      DateTimeValue dateTimeValueMax = DateTimeValue.of(expected).move(tolerance);
+      return dateTimeValue.compareTo(dateTimeValueMin) >= 0 && dateTimeValue.compareTo(dateTimeValueMax) <= 0;
+    }
+    return false;
+  }
+
+  /**
+   * Returns if the value is close to the {@code DateValue} in parameter with the tolerance in parameter.
+   *
+   * @param value     The value.
+   * @param expected  The {@code DateValue} to compare.
+   * @param tolerance The tolerance of the closeness.
+   * @return {@code true} if the value is close to the {@code DateValue} parameter, {@code false} otherwise.
+   */
+  public static boolean areClose(Value value, DateValue expected, DateTimeValue tolerance) {
+    Object object = value.getValue();
+    if (expected == null) {
+      return object == null;
+    }
+
+    if (object instanceof Date) {
+      Date date = (Date) object;
+      DateTimeValue dateTimeValue = DateTimeValue.of(DateValue.from(date));
+      DateTimeValue dateTimeValueMin = expected.move(tolerance.reverse());
+      DateTimeValue dateTimeValueMax = expected.move(tolerance);
+      return dateTimeValue.compareTo(dateTimeValueMin) >= 0 && dateTimeValue.compareTo(dateTimeValueMax) <= 0;
+    } else if (object instanceof Timestamp) {
+      Timestamp timestamp = (Timestamp) object;
+      DateTimeValue dateTimeValue = DateTimeValue.from(timestamp);
+      DateTimeValue dateTimeValueMin = DateTimeValue.of(expected).move(tolerance.reverse());
+      DateTimeValue dateTimeValueMax = DateTimeValue.of(expected).move(tolerance);
+      return dateTimeValue.compareTo(dateTimeValueMin) >= 0 && dateTimeValue.compareTo(dateTimeValueMax) <= 0;
+    }
+    return false;
+  }
+
+  /**
+   * Returns if the value is close to the {@code TimeValue} in parameter with the tolerance in parameter.
+   *
+   * @param value     The value.
+   * @param expected  The {@code TimeValue} to compare.
+   * @param tolerance The tolerance of the closeness.
+   * @return {@code true} if the value is close to the {@code TimeValue} parameter, {@code false} otherwise.
+   */
+  public static boolean areClose(Value value, TimeValue expected, TimeValue tolerance) {
+    Object object = value.getValue();
+    if (expected == null) {
+      return object == null;
+    }
+
+    if (object instanceof Time) {
+      Time time = (Time) object;
+      TimeValue timeValue = TimeValue.from(time);
+      TimeValue timeValueMin = expected.move(tolerance.reverse());
+      TimeValue timeValueMax = expected.move(tolerance);
+      return timeValue.compareTo(timeValueMin) >= 0 && timeValue.compareTo(timeValueMax) <= 0;
+    }
+    return false;
+  }
+
+  /**
+   * Returns if the value is close to the {@code DateTimeValue} in parameter with the tolerance in parameter.
+   *
+   * @param value     The value.
+   * @param expected  The {@code DateTimeValue} to compare.
+   * @param tolerance The tolerance of the closeness.
+   * @return {@code true} if the value is close to the {@code DateTimeValue} parameter, {@code false} otherwise.
+   */
+  public static boolean areClose(Value value, DateTimeValue expected, DateValue tolerance) {
+    Object object = value.getValue();
+    if (expected == null) {
+      return object == null;
+    }
+
+    if (object instanceof Date) {
+      Date date = (Date) object;
+      DateTimeValue dateTimeValue = DateTimeValue.of(DateValue.from(date));
+      DateTimeValue dateTimeValueMin = expected.move(tolerance.reverse());
+      DateTimeValue dateTimeValueMax = expected.move(tolerance);
+      return dateTimeValue.compareTo(dateTimeValueMin) >= 0 && dateTimeValue.compareTo(dateTimeValueMax) <= 0;
+    }
+    if (object instanceof Timestamp) {
+      Timestamp timestamp = (Timestamp) object;
+      DateTimeValue dateTimeValue = DateTimeValue.from(timestamp);
+      DateTimeValue dateTimeValueMin = expected.move(tolerance.reverse());
+      DateTimeValue dateTimeValueMax = expected.move(tolerance);
+      return dateTimeValue.compareTo(dateTimeValueMin) >= 0 && dateTimeValue.compareTo(dateTimeValueMax) <= 0;
+    }
+    return false;
+  }
+
+  /**
+   * Returns if the value is close to the {@code DateTimeValue} in parameter with the tolerance in parameter.
+   *
+   * @param value     The value.
+   * @param expected  The {@code DateTimeValue} to compare.
+   * @param tolerance The tolerance of the closeness.
+   * @return {@code true} if the value is close to the {@code DateTimeValue} parameter, {@code false} otherwise.
+   */
+  public static boolean areClose(Value value, DateTimeValue expected, TimeValue tolerance) {
+    Object object = value.getValue();
+    if (expected == null) {
+      return object == null;
+    }
+
+    if (object instanceof Date) {
+      Date date = (Date) object;
+      DateTimeValue dateTimeValue = DateTimeValue.of(DateValue.from(date));
+      DateTimeValue dateTimeValueMin = expected.move(tolerance.reverse());
+      DateTimeValue dateTimeValueMax = expected.move(tolerance);
+      return dateTimeValue.compareTo(dateTimeValueMin) >= 0 && dateTimeValue.compareTo(dateTimeValueMax) <= 0;
+    }
+    if (object instanceof Timestamp) {
+      Timestamp timestamp = (Timestamp) object;
+      DateTimeValue dateTimeValue = DateTimeValue.from(timestamp);
+      DateTimeValue dateTimeValueMin = expected.move(tolerance.reverse());
+      DateTimeValue dateTimeValueMax = expected.move(tolerance);
+      return dateTimeValue.compareTo(dateTimeValueMin) >= 0 && dateTimeValue.compareTo(dateTimeValueMax) <= 0;
+    }
+    return false;
+  }
+
+  /**
+   * Returns if the value is close to the {@code DateTimeValue} in parameter with the tolerance in parameter.
+   *
+   * @param value     The value.
+   * @param expected  The {@code DateTimeValue} to compare.
+   * @param tolerance The tolerance of the closeness.
+   * @return {@code true} if the value is close to the {@code DateTimeValue} parameter, {@code false} otherwise.
+   */
+  public static boolean areClose(Value value, DateTimeValue expected, DateTimeValue tolerance) {
+    Object object = value.getValue();
+    if (expected == null) {
+      return object == null;
+    }
+
+    if (object instanceof Date) {
+      Date date = (Date) object;
+      DateTimeValue dateTimeValue = DateTimeValue.of(DateValue.from(date));
+      DateTimeValue dateTimeValueMin = expected.move(tolerance.reverse());
+      DateTimeValue dateTimeValueMax = expected.move(tolerance);
+      return dateTimeValue.compareTo(dateTimeValueMin) >= 0 && dateTimeValue.compareTo(dateTimeValueMax) <= 0;
+    }
+    if (object instanceof Timestamp) {
+      Timestamp timestamp = (Timestamp) object;
+      DateTimeValue dateTimeValue = DateTimeValue.from(timestamp);
+      DateTimeValue dateTimeValueMin = expected.move(tolerance.reverse());
+      DateTimeValue dateTimeValueMax = expected.move(tolerance);
+      return dateTimeValue.compareTo(dateTimeValueMin) >= 0 && dateTimeValue.compareTo(dateTimeValueMax) <= 0;
+    }
+    return false;
+  }
 }

@@ -35,7 +35,7 @@ public class TimeValue_Test extends AbstractTest {
   @Test
   public void test_contructor_with_string_containing_nanoseconds() throws ParseException {
     TimeValue timeValue = new TimeValue("09:01:06.000000003");
-    assertThat(timeValue.getHour()).isEqualTo(9);
+    assertThat(timeValue.getHours()).isEqualTo(9);
     assertThat(timeValue.getMinutes()).isEqualTo(1);
     assertThat(timeValue.getSeconds()).isEqualTo(6);
     assertThat(timeValue.getNanoSeconds()).isEqualTo(3);
@@ -47,7 +47,7 @@ public class TimeValue_Test extends AbstractTest {
   @Test
   public void test_contructor_with_string_containing_seconds() throws ParseException {
     TimeValue timeValue = new TimeValue("09:01:06");
-    assertThat(timeValue.getHour()).isEqualTo(9);
+    assertThat(timeValue.getHours()).isEqualTo(9);
     assertThat(timeValue.getMinutes()).isEqualTo(1);
     assertThat(timeValue.getSeconds()).isEqualTo(6);
     assertThat(timeValue.getNanoSeconds()).isEqualTo(0);
@@ -59,7 +59,7 @@ public class TimeValue_Test extends AbstractTest {
   @Test
   public void test_contructor_with_string_containing_minutes() throws ParseException {
     TimeValue timeValue = new TimeValue("09:01");
-    assertThat(timeValue.getHour()).isEqualTo(9);
+    assertThat(timeValue.getHours()).isEqualTo(9);
     assertThat(timeValue.getMinutes()).isEqualTo(1);
     assertThat(timeValue.getSeconds()).isEqualTo(0);
     assertThat(timeValue.getNanoSeconds()).isEqualTo(0);
@@ -109,7 +109,7 @@ public class TimeValue_Test extends AbstractTest {
     calendar.set(2007, Calendar.DECEMBER, 23, 9, 1, 6);
     calendar.set(Calendar.MILLISECOND, 50);
     TimeValue timeValue = new TimeValue(calendar);
-    assertThat(timeValue.getHour()).isEqualTo(9);
+    assertThat(timeValue.getHours()).isEqualTo(9);
     assertThat(timeValue.getMinutes()).isEqualTo(1);
     assertThat(timeValue.getSeconds()).isEqualTo(6);
     assertThat(timeValue.getNanoSeconds()).isEqualTo(50000000);
@@ -121,7 +121,7 @@ public class TimeValue_Test extends AbstractTest {
   @Test
   public void test_contructor_with_time_containing_seconds() throws ParseException {
     TimeValue timeValue = new TimeValue(Time.valueOf("09:01:06"));
-    assertThat(timeValue.getHour()).isEqualTo(9);
+    assertThat(timeValue.getHours()).isEqualTo(9);
     assertThat(timeValue.getMinutes()).isEqualTo(1);
     assertThat(timeValue.getSeconds()).isEqualTo(6);
     assertThat(timeValue.getNanoSeconds()).isEqualTo(0);
@@ -142,7 +142,7 @@ public class TimeValue_Test extends AbstractTest {
   @Test
   public void test_contructor_with_four_values() throws ParseException {
     TimeValue timeValue = new TimeValue(9, 1, 6, 3);
-    assertThat(timeValue.getHour()).isEqualTo(9);
+    assertThat(timeValue.getHours()).isEqualTo(9);
     assertThat(timeValue.getMinutes()).isEqualTo(1);
     assertThat(timeValue.getSeconds()).isEqualTo(6);
     assertThat(timeValue.getNanoSeconds()).isEqualTo(3);
@@ -154,7 +154,7 @@ public class TimeValue_Test extends AbstractTest {
   @Test
   public void test_contructor_with_three_values() throws ParseException {
     TimeValue timeValue = new TimeValue(9, 1, 6);
-    assertThat(timeValue.getHour()).isEqualTo(9);
+    assertThat(timeValue.getHours()).isEqualTo(9);
     assertThat(timeValue.getMinutes()).isEqualTo(1);
     assertThat(timeValue.getSeconds()).isEqualTo(6);
     assertThat(timeValue.getNanoSeconds()).isEqualTo(0);
@@ -166,7 +166,7 @@ public class TimeValue_Test extends AbstractTest {
   @Test
   public void test_contructor_with_two_values() throws ParseException {
     TimeValue timeValue = new TimeValue(9, 1);
-    assertThat(timeValue.getHour()).isEqualTo(9);
+    assertThat(timeValue.getHours()).isEqualTo(9);
     assertThat(timeValue.getMinutes()).isEqualTo(1);
     assertThat(timeValue.getSeconds()).isEqualTo(0);
     assertThat(timeValue.getNanoSeconds()).isEqualTo(0);
@@ -178,7 +178,7 @@ public class TimeValue_Test extends AbstractTest {
   @Test
   public void test_parse_containing_nanoseconds() throws ParseException {
     TimeValue timeValue = TimeValue.parse("09:01:06.000000003");
-    assertThat(timeValue.getHour()).isEqualTo(9);
+    assertThat(timeValue.getHours()).isEqualTo(9);
     assertThat(timeValue.getMinutes()).isEqualTo(1);
     assertThat(timeValue.getSeconds()).isEqualTo(6);
     assertThat(timeValue.getNanoSeconds()).isEqualTo(3);
@@ -190,7 +190,7 @@ public class TimeValue_Test extends AbstractTest {
   @Test
   public void test_parse_containing_seconds() throws ParseException {
     TimeValue timeValue = TimeValue.parse("09:01:06");
-    assertThat(timeValue.getHour()).isEqualTo(9);
+    assertThat(timeValue.getHours()).isEqualTo(9);
     assertThat(timeValue.getMinutes()).isEqualTo(1);
     assertThat(timeValue.getSeconds()).isEqualTo(6);
     assertThat(timeValue.getNanoSeconds()).isEqualTo(0);
@@ -202,7 +202,7 @@ public class TimeValue_Test extends AbstractTest {
   @Test
   public void test_parse_containing_minutes() throws ParseException {
     TimeValue timeValue = TimeValue.parse("09:01");
-    assertThat(timeValue.getHour()).isEqualTo(9);
+    assertThat(timeValue.getHours()).isEqualTo(9);
     assertThat(timeValue.getMinutes()).isEqualTo(1);
     assertThat(timeValue.getSeconds()).isEqualTo(0);
     assertThat(timeValue.getNanoSeconds()).isEqualTo(0);
@@ -253,11 +253,11 @@ public class TimeValue_Test extends AbstractTest {
     TimeValue timeValue = TimeValue.now();
     Calendar calendarSecond = Calendar.getInstance();
     if (calendarFirst.get(Calendar.DAY_OF_YEAR) == calendarSecond.get(Calendar.DAY_OF_YEAR)) {
-      assertThat(timeValue.getHour()).isBetween(calendarFirst.get(Calendar.HOUR_OF_DAY),
+      assertThat(timeValue.getHours()).isBetween(calendarFirst.get(Calendar.HOUR_OF_DAY),
                                                 calendarSecond.get(Calendar.HOUR_OF_DAY));
     }
     else {
-      assertThat(timeValue.getHour()).isBetween(calendarFirst.get(Calendar.HOUR_OF_DAY) - 24,
+      assertThat(timeValue.getHours()).isBetween(calendarFirst.get(Calendar.HOUR_OF_DAY) - 24,
                                                 calendarSecond.get(Calendar.HOUR_OF_DAY) + 24);
     }
     if (calendarFirst.get(Calendar.DAY_OF_YEAR) == calendarSecond.get(Calendar.HOUR_OF_DAY)) {
@@ -295,7 +295,7 @@ public class TimeValue_Test extends AbstractTest {
     calendar.set(2007, Calendar.DECEMBER, 23, 9, 1, 6);
     calendar.set(Calendar.MILLISECOND, 50);
     TimeValue timeValue = TimeValue.from(calendar);
-    assertThat(timeValue.getHour()).isEqualTo(9);
+    assertThat(timeValue.getHours()).isEqualTo(9);
     assertThat(timeValue.getMinutes()).isEqualTo(1);
     assertThat(timeValue.getSeconds()).isEqualTo(6);
     assertThat(timeValue.getNanoSeconds()).isEqualTo(50000000);
@@ -307,7 +307,7 @@ public class TimeValue_Test extends AbstractTest {
   @Test
   public void test_from_containing_seconds() throws ParseException {
     TimeValue timeValue = TimeValue.from(Time.valueOf("09:01:06"));
-    assertThat(timeValue.getHour()).isEqualTo(9);
+    assertThat(timeValue.getHours()).isEqualTo(9);
     assertThat(timeValue.getMinutes()).isEqualTo(1);
     assertThat(timeValue.getSeconds()).isEqualTo(6);
     assertThat(timeValue.getNanoSeconds()).isEqualTo(0);
@@ -337,7 +337,7 @@ public class TimeValue_Test extends AbstractTest {
   @Test
   public void test_of_with_four_values() throws ParseException {
     TimeValue timeValue = TimeValue.of(9, 1, 6, 3);
-    assertThat(timeValue.getHour()).isEqualTo(9);
+    assertThat(timeValue.getHours()).isEqualTo(9);
     assertThat(timeValue.getMinutes()).isEqualTo(1);
     assertThat(timeValue.getSeconds()).isEqualTo(6);
     assertThat(timeValue.getNanoSeconds()).isEqualTo(3);
@@ -349,7 +349,7 @@ public class TimeValue_Test extends AbstractTest {
   @Test
   public void test_of_with_three_values() throws ParseException {
     TimeValue timeValue = TimeValue.of(9, 1, 6);
-    assertThat(timeValue.getHour()).isEqualTo(9);
+    assertThat(timeValue.getHours()).isEqualTo(9);
     assertThat(timeValue.getMinutes()).isEqualTo(1);
     assertThat(timeValue.getSeconds()).isEqualTo(6);
     assertThat(timeValue.getNanoSeconds()).isEqualTo(0);
@@ -361,7 +361,7 @@ public class TimeValue_Test extends AbstractTest {
   @Test
   public void test_of_with_two_values() throws ParseException {
     TimeValue timeValue = TimeValue.of(9, 1);
-    assertThat(timeValue.getHour()).isEqualTo(9);
+    assertThat(timeValue.getHours()).isEqualTo(9);
     assertThat(timeValue.getMinutes()).isEqualTo(1);
     assertThat(timeValue.getSeconds()).isEqualTo(0);
     assertThat(timeValue.getNanoSeconds()).isEqualTo(0);
@@ -489,5 +489,80 @@ public class TimeValue_Test extends AbstractTest {
     assertThat(TimeValue.of(9, 1, 6, 3).isAfter(TimeValue.of(9, 1, 7, 3))).isFalse();
     assertThat(TimeValue.of(9, 1, 6, 3).isAfter(TimeValue.of(9, 2, 6, 3))).isFalse();
     assertThat(TimeValue.of(9, 1, 6, 3).isAfter(TimeValue.of(10, 1, 6, 3))).isFalse();
+  }
+
+  /**
+   * This method tests the {@code move} method with a {@code TimeValue}.
+   */
+  @Test
+  public void test_move_time() {
+    assertThat(TimeValue.of(9, 1).move(TimeValue.of(0, 0, 0, 1))).as("add 1 nano").isEqualTo(
+            TimeValue.of(9, 1, 0, 1));
+    assertThat(TimeValue.of(9, 1).move(TimeValue.of(0, 0, 0, 2))).as("add 2 nanos").isEqualTo(
+            TimeValue.of(9, 1, 0, 2));
+
+    assertThat(TimeValue.of(9, 1).move(TimeValue.of(0, 0, 0, -1))).as("substract 1 nano").isEqualTo(
+            TimeValue.of(9, 0, 59, 999999999));
+    assertThat(TimeValue.of(9, 1).move(TimeValue.of(0, 0, 0, -2))).as("substract 2 nanos").isEqualTo(
+            TimeValue.of(9, 0, 59, 999999998));
+
+    assertThat(TimeValue.of(9, 1).move(TimeValue.of(0, 0, 0, 1000000))).as("add 1 milli").isEqualTo(
+            TimeValue.of(9, 1, 0, 1000000));
+    assertThat(TimeValue.of(9, 1).move(TimeValue.of(0, 0, 0, 2000000))).as("add 2 millis").isEqualTo(
+            TimeValue.of(9, 1, 0, 2000000));
+
+    assertThat(TimeValue.of(9, 1).move(TimeValue.of(0, 0, 0, -1000000))).as("substract 1 milli").isEqualTo(
+            TimeValue.of(9, 0, 59, 999000000));
+    assertThat(TimeValue.of(9, 1).move(TimeValue.of(0, 0, 0, -2000000))).as("substract 2 millis").isEqualTo(
+            TimeValue.of(9, 0, 59, 998000000));
+
+    assertThat(TimeValue.of(9, 1).move(TimeValue.of(0, 0, 1))).as("add 1 second").isEqualTo(
+            TimeValue.of(9, 1, 1));
+    assertThat(TimeValue.of(9, 1).move(TimeValue.of(0, 0, 2))).as("add 2 seconds").isEqualTo(
+            TimeValue.of(9, 1, 2));
+
+    assertThat(TimeValue.of(9, 1).move(TimeValue.of(0, 0, -1))).as("substract 1 second").isEqualTo(
+            TimeValue.of(9, 0, 59, 0));
+    assertThat(TimeValue.of(9, 1).move(TimeValue.of(0, 0, -2))).as("substract 2 seconds").isEqualTo(
+            TimeValue.of(9, 0, 58, 0));
+
+    assertThat(TimeValue.of(9, 1).move(TimeValue.of(0, 1, 0))).as("add 1 minute").isEqualTo(
+            TimeValue.of(9, 2));
+    assertThat(TimeValue.of(9, 1).move(TimeValue.of(0, 2, 0))).as("add 2 minutes").isEqualTo(
+            TimeValue.of(9, 3));
+
+    assertThat(TimeValue.of(9, 1).move(TimeValue.of(0, -1, 0))).as("substract 1 minute").isEqualTo(
+            TimeValue.of(9, 0, 0, 0));
+    assertThat(TimeValue.of(9, 1).move(TimeValue.of(0, -2, 0))).as("substract 2 minutes").isEqualTo(
+            TimeValue.of(8, 59, 0, 0));
+
+    assertThat(TimeValue.of(9, 1).move(TimeValue.of(1, 0, 0))).as("add 1 hour").isEqualTo(
+            TimeValue.of(10, 1));
+    assertThat(TimeValue.of(9, 1).move(TimeValue.of(2, 0, 0))).as("add 2 hours").isEqualTo(
+            TimeValue.of(11, 1));
+
+    assertThat(TimeValue.of(9, 1).move(TimeValue.of(-1, 0, 0))).as("substract 1 hour").isEqualTo(
+            TimeValue.of(8, 1, 0, 0));
+    assertThat(TimeValue.of(9, 1).move(TimeValue.of(-2, 0, 0))).as("substract 2 hours").isEqualTo(
+            TimeValue.of(7, 1, 0, 0));
+
+    assertThat(TimeValue.of(9, 1).move(TimeValue.of(1, 1, 1, 1000000))).as("add 1 all").isEqualTo(
+            TimeValue.of(10, 2, 1, 1000000));
+    assertThat(TimeValue.of(9, 1).move(TimeValue.of(2, 2, 2, 2000000))).as("add 2 all").isEqualTo(
+            TimeValue.of(11, 3, 2, 2000000));
+
+    assertThat(TimeValue.of(9, 1).move(TimeValue.of(-1, -1, -1, -1000000))).as("substract 1 all").isEqualTo(
+            TimeValue.of(7, 59, 58, 999000000));
+    assertThat(TimeValue.of(9, 1).move(TimeValue.of(-2, -2, -2, -2000000))).as("substract 2 all").isEqualTo(
+            TimeValue.of(6, 58, 57, 998000000));
+  }
+
+  /**
+   * This method tests the {@code reverse} method with a {@code TimeValue}.
+   */
+  @Test
+  public void test_reverse() {
+    assertThat(TimeValue.of(9, 1).reverse()).isEqualTo(TimeValue.of(-9, -1));
+    assertThat(TimeValue.of(1, 1, 1, 1).reverse()).isEqualTo(TimeValue.of(-1, -1, -1, -1));
   }
 }
