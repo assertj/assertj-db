@@ -73,7 +73,7 @@ public class AssertOnColumnContent_ContainsValues_DateValue_Test extends Abstrac
                                        DateValue.of(2014, 5, 30));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 8 (column name : VAR9) of test table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 8 (column name : VAR9) of TEST table] %n"
                                                                     + "Expecting:%n"
                                                                     + "  <[2014-05-24T00:00:00.000,%n"
                                                                     + "    2014-05-30T00:00:00.000,%n"
@@ -90,7 +90,7 @@ public class AssertOnColumnContent_ContainsValues_DateValue_Test extends Abstrac
                                         DateValue.of(2014, 5, 24));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 8 (column name : VAR9) of test2 table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 8 (column name : VAR9) of TEST2 table] %n"
                                                                     + "Expecting:%n"
                                                                     + "  <[2014-05-24T00:00:00.000, null]>%n"
                                                                     + "to contain: %n"
@@ -103,7 +103,7 @@ public class AssertOnColumnContent_ContainsValues_DateValue_Test extends Abstrac
                                         null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 9 (column name : VAR10) of test2 table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 9 (column name : VAR10) of TEST2 table] %n"
                                                                     + "Expecting:%n"
                                                                     + "  <[2014-05-24T09:46:30.000000000, null]>%n"
                                                                     + "to contain: %n"

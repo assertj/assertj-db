@@ -68,7 +68,7 @@ public class AssertOnColumnEquality_HasValues_UUID_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage())
-                .isEqualTo(String.format("[Column at index 14 (column name : VAR15) of test table] %n"
+                .isEqualTo(String.format("[Column at index 14 (column name : VAR15) of TEST table] %n"
                                          + "Expecting that the value at index 0:%n"
                                          + "  <30b443ae-c0c9-4790-9bec-ce1380808435>%n"
                                          + "to be equal to: %n"
@@ -82,7 +82,7 @@ public class AssertOnColumnEquality_HasValues_UUID_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage())
-                .isEqualTo(String.format("[Column at index 15 (column name : VAR16) of test2 table] %n"
+                .isEqualTo(String.format("[Column at index 15 (column name : VAR16) of TEST2 table] %n"
                                          + "Expecting that the value at index 1:%n"
                                          + "  <null>%n"
                                          + "to be equal to: %n"

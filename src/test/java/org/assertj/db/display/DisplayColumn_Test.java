@@ -44,7 +44,7 @@ public class DisplayColumn_Test extends AbstractTest {
     display(table).column().inStream(byteArrayOutputStream0)
                   .column(1).inStream(byteArrayOutputStream1)
                   .column().inStream(byteArrayOutputStream2);
-    Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Column at index 0 (column name : ID) of actor table]%n"
+    Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Column at index 0 (column name : ID) of ACTOR table]%n"
                                                                                      + "|-----------|----------|%n"
                                                                                      + "|           | ID       |%n"
                                                                                      + "|           | (NUMBER) |%n"
@@ -53,7 +53,7 @@ public class DisplayColumn_Test extends AbstractTest {
                                                                                      + "| Index : 1 | 2        |%n"
                                                                                      + "| Index : 2 | 3        |%n"
                                                                                      + "|-----------|----------|%n"));
-    Assertions.assertThat(byteArrayOutputStream1.toString()).isEqualTo(String.format("[Column at index 1 (column name : NAME) of actor table]%n"
+    Assertions.assertThat(byteArrayOutputStream1.toString()).isEqualTo(String.format("[Column at index 1 (column name : NAME) of ACTOR table]%n"
                                                                                      + "|-----------|-------------|%n"
                                                                                      + "|           | NAME        |%n"
                                                                                      + "|           | (TEXT)      |%n"
@@ -62,7 +62,7 @@ public class DisplayColumn_Test extends AbstractTest {
                                                                                      + "| Index : 1 | Phoenix     |%n"
                                                                                      + "| Index : 2 | Worthington |%n"
                                                                                      + "|-----------|-------------|%n"));
-    Assertions.assertThat(byteArrayOutputStream2.toString()).isEqualTo(String.format("[Column at index 2 (column name : FIRSTNAME) of actor table]%n"
+    Assertions.assertThat(byteArrayOutputStream2.toString()).isEqualTo(String.format("[Column at index 2 (column name : FIRSTNAME) of ACTOR table]%n"
                                                                                      + "|-----------|-----------|%n"
                                                                                      + "|           | FIRSTNAME |%n"
                                                                                      + "|           | (TEXT)    |%n"

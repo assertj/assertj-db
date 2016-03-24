@@ -98,7 +98,7 @@ public class AssertOnColumnName_HasColumnName_Test extends AbstractTest {
       tableAssert.column().hasColumnName("ID2");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 0 (column name : ID) of actor table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 0 (column name : ID) of ACTOR table] %n"
                                                       + "Expecting :%n"
                                                       + "  \"ID2\"%n"
                                                       + "to be the name of the column but was:%n"
@@ -108,7 +108,7 @@ public class AssertOnColumnName_HasColumnName_Test extends AbstractTest {
       tableAssert.row().value().hasColumnName("ID2");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 0 (column name : ID) of Row at index 0 of actor table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 0 (column name : ID) of Row at index 0 of ACTOR table] %n"
                                                       + "Expecting :%n"
                                                       + "  \"ID2\"%n"
                                                       + "to be the name of the column but was:%n"

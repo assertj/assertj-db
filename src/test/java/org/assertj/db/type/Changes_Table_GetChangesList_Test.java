@@ -250,7 +250,7 @@ public class Changes_Table_GetChangesList_Test extends AbstractTest {
 
     assertThat(changes.getChangesList()).hasSize(1);
     Change change = changes.getChangesList().get(0);
-    assertThat(change.getDataName()).isEqualTo("movie");
+    assertThat(change.getDataName()).isEqualTo("MOVIE");
     assertThat(change.getChangeType()).isEqualTo(ChangeType.CREATION);
     assertThat(change.getColumnsNameList()).containsExactly("ID", "TITLE", "YEAR", "MOVIE_IMDB");
     assertThat(change.getRowAtStartPoint()).isNull();
@@ -277,7 +277,7 @@ public class Changes_Table_GetChangesList_Test extends AbstractTest {
 
     assertThat(changes.getChangesList()).hasSize(1);
     Change change = changes.getChangesList().get(0);
-    assertThat(change.getDataName()).isEqualTo("interpretation");
+    assertThat(change.getDataName()).isEqualTo("INTERPRETATION");
     assertThat(change.getChangeType()).isEqualTo(ChangeType.DELETION);
     assertThat(change.getColumnsNameList()).containsExactly("ID", "ID_MOVIE", "ID_ACTOR", "CHARACTER");
     assertThat(change.getRowAtStartPoint().getValuesList().get(0).getValue()).isEqualTo(new BigDecimal(3));

@@ -276,7 +276,7 @@ public class Changes extends AbstractDbElement<Changes> {
         while (resultSet.next()) {
           String tableName = resultSet.getString("TABLE_NAME");
           Table t = new Table().setLetterCases(getTableLetterCase(), getColumnLetterCase(), getPrimaryKeyLetterCase())
-                               .setName(tableName);
+                               .setName(getTableLetterCase().convert(tableName));
           copyElement(this, t);
           tablesList.add(t);
         }

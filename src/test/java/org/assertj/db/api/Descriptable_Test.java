@@ -44,7 +44,7 @@ public class Descriptable_Test extends AbstractTest {
 
     TableRowAssert assertion = assertThat(table).row();
     WritableAssertionInfo info1 = (WritableAssertionInfo) field.get(assertion);
-    assertThat(info1.descriptionText()).isEqualTo("Row at index 0 of actor table");
+    assertThat(info1.descriptionText()).isEqualTo("Row at index 0 of ACTOR table");
 
     TableRowAssert assertion2 = assertion.as("message %s with text", 1);
     WritableAssertionInfo info2 = (WritableAssertionInfo) field.get(assertion2);

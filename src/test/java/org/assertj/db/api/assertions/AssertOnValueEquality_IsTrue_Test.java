@@ -68,7 +68,7 @@ public class AssertOnValueEquality_IsTrue_Test extends AbstractTest {
       assertThat(changes).change().column("var2").valueAtEndPoint().isTrue();
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 1 (column name : VAR2) of Change at index 0 (with primary key : [10]) of Changes on test table of 'sa/jdbc:h2:mem:test' source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 1 (column name : VAR2) of Change at index 0 (with primary key : [10]) of Changes on TEST table of 'sa/jdbc:h2:mem:test' source] %n"
                                                       + "Expecting:%n"
                                                       + "  <false>%n"
                                                       + "to be equal to: %n"
@@ -78,7 +78,7 @@ public class AssertOnValueEquality_IsTrue_Test extends AbstractTest {
       assertThat(table).column("var2").value(2).isTrue();
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 2 of Column at index 1 (column name : VAR2) of test table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 2 of Column at index 1 (column name : VAR2) of TEST table] %n"
                                                       + "Expecting:%n"
                                                       + "  <false>%n"
                                                       + "to be equal to: %n"

@@ -37,7 +37,7 @@ public class DisplayTable_Test extends AbstractTest {
 
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
     display(table).inStream(byteArrayOutputStream);
-    Assertions.assertThat(byteArrayOutputStream.toString()).isEqualTo(String.format("[actor table]%n"
+    Assertions.assertThat(byteArrayOutputStream.toString()).isEqualTo(String.format("[ACTOR table]%n"
                                                                                     + "|-----------|---------|-----------|-------------|-----------|------------|--------------------------------------|%n"
                                                                                     + "|           |         | *         |             |           |            |                                      |%n"
                                                                                     + "|           | PRIMARY | ID        | NAME        | FIRSTNAME | BIRTH      | ACTOR_IMDB                           |%n"

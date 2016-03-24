@@ -57,7 +57,7 @@ public class AssertOnColumnContent_ContainsValues_Boolean_Test extends AbstractT
       tableColumnAssert.containsValues(true, false, true, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 1 (column name : VAR2) of test table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 1 (column name : VAR2) of TEST table] %n"
                                                                     + "Expecting:%n"
                                                                     + "  <[true, false, false, false]>%n"
                                                                     + "to contain: %n"
@@ -71,7 +71,7 @@ public class AssertOnColumnContent_ContainsValues_Boolean_Test extends AbstractT
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format(
-              "[Column at index 1 (column name : VAR2) of test2 table] %n"
+              "[Column at index 1 (column name : VAR2) of TEST2 table] %n"
               + "Expecting:%n"
               + "  <[true, null]>%n"
               + "to contain: %n"

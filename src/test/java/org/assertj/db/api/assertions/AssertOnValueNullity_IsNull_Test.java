@@ -68,13 +68,13 @@ public class AssertOnValueNullity_IsNull_Test extends AbstractTest {
       assertThat(changes).change().column("var3").valueAtEndPoint().isNull();
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 2 (column name : VAR3) of Change at index 0 (with primary key : [1]) of Changes on test table of 'sa/jdbc:h2:mem:test' source] expected:<null> but was:<2>"));
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 2 (column name : VAR3) of Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:test' source] expected:<null> but was:<2>"));
     }
     try {
       assertThat(table).column("var3").value().isNull();
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 0 of Column at index 2 (column name : VAR3) of test table] expected:<null> but was:<2>"));
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 0 of Column at index 2 (column name : VAR3) of TEST table] expected:<null> but was:<2>"));
     }
   }
 }

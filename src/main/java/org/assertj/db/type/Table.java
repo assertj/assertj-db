@@ -12,6 +12,7 @@
  */
 package org.assertj.db.type;
 
+import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.lettercase.LetterCase;
 import org.assertj.db.util.NameComparator;
 
@@ -73,6 +74,10 @@ public class Table extends AbstractDbData<Table> {
    * The name of the table.
    */
   private String name;
+  /**
+   * The list of columns of the table.
+   */
+  private List<String> columnsList;
   /**
    * The columns to check.
    */
@@ -164,8 +169,59 @@ public class Table extends AbstractDbData<Table> {
     if (name == null) {
       throw new NullPointerException("name can not be null");
     }
-    this.name = getTableLetterCase().convert(name);
+    this.name = name;
+    setNameFromDb();
     return this;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Table setDataSource(DataSource dataSource) {
+    Table table = super.setDataSource(dataSource);
+    setNameFromDb();
+    return table;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Table setSource(Source source) {
+    Table table = super.setSource(source);
+    setNameFromDb();
+    return table;
+  }
+
+  /**
+   * Set the name from the corresponding name in the database.
+   */
+  private void setNameFromDb() {
+    if (name != null && (getSource() != null || getDataSource() != null)) {
+      try (Connection connection = getConnection()) {
+        LetterCase tableLetterCase = getTableLetterCase();
+        LetterCase columnLetterCase = getColumnLetterCase();
+
+        DatabaseMetaData metaData = connection.getMetaData();
+        try (ResultSet tableResultSet = metaData.getTables(getCatalog(connection), getSchema(connection), null,
+                                                 new String[] { "TABLE" })) {
+          while (tableResultSet.next()) {
+            String tableName = tableResultSet.getString("TABLE_NAME");
+            if (tableLetterCase.isEqual(tableName, name)) {
+              name = tableLetterCase.convert(tableName);
+              break;
+            }
+          }
+        }
+
+        columnsList = new ArrayList<>();
+        try (ResultSet columnsResultSet = metaData.getColumns(getCatalog(connection), getSchema(connection), name, null)) {
+          while (columnsResultSet.next()) {
+            String column = columnsResultSet.getString("COLUMN_NAME");
+            columnsList.add(columnLetterCase.convert(column));
+          }
+        }
+      } catch (SQLException e) {
+        throw new AssertJDBException(e);
+      }
+    }
   }
 
   /**
@@ -191,6 +247,9 @@ public class Table extends AbstractDbData<Table> {
    * @see #getColumnsToCheck()
    */
   public Table setColumnsToCheck(String[] columnsToCheck) {
+    if (columnsList == null) {
+      throw new AssertJDBException("The table name and the source or datasource must be set first");
+    }
     if (columnsToCheck != null) {
       LetterCase letterCase = getColumnLetterCase();
       // If the parameter is not null, all the names are convert
@@ -201,7 +260,10 @@ public class Table extends AbstractDbData<Table> {
         if (column == null) {
           throw new NullPointerException("The name of the column can not be null");
         }
-        this.columnsToCheck[index] = letterCase.convert(column);
+        int indexOf = NameComparator.INSTANCE.indexOf(columnsList, column, letterCase);
+        if (indexOf != -1) {
+          this.columnsToCheck[index] = columnsList.get(indexOf);
+        }
       }
     } else {
       this.columnsToCheck = null;
@@ -230,6 +292,9 @@ public class Table extends AbstractDbData<Table> {
    * @see #getColumnsToExclude()
    */
   public Table setColumnsToExclude(String[] columnsToExclude) {
+    if (columnsList == null) {
+      throw new AssertJDBException("The table name and the source or datasource must be set first");
+    }
     if (columnsToExclude != null) {
       LetterCase letterCase = getColumnLetterCase();
       this.columnsToExclude = new String[columnsToExclude.length];
@@ -238,7 +303,10 @@ public class Table extends AbstractDbData<Table> {
         if (column == null) {
           throw new NullPointerException("The name of the column can not be null");
         }
-        this.columnsToExclude[index] = letterCase.convert(column);
+        int indexOf = NameComparator.INSTANCE.indexOf(columnsList, column, letterCase);
+        if (indexOf != -1) {
+          this.columnsToExclude[index] = columnsList.get(indexOf);
+        }
       }
     } else {
       this.columnsToExclude = null;

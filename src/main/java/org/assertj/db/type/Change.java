@@ -72,7 +72,7 @@ public class Change implements DbElement, WithTableLetterCase, WithColumnLetterC
    * Letter case of the columns.
    * @since 1.1.0
    */
-  private LetterCase columnLetterCase;
+  private final LetterCase columnLetterCase;
 
   /**
    * Letter case of the primary keys.

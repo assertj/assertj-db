@@ -46,28 +46,28 @@ public class DisplayValue_Test extends AbstractTest {
                         .value(1).inStream(byteArrayOutputStream1)
                         .value().inStream(byteArrayOutputStream2)
                   .row(2).value(2).inStream(byteArrayOutputStream3);
-    Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Value at index 0 (column name : ID) of Row at index 0 of actor table]%n"
+    Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Value at index 0 (column name : ID) of Row at index 0 of ACTOR table]%n"
                                                                                      + "|----------|%n"
                                                                                      + "| ID       |%n"
                                                                                      + "| (NUMBER) |%n"
                                                                                      + "|----------|%n"
                                                                                      + "| 1        |%n"
                                                                                      + "|----------|%n"));
-    Assertions.assertThat(byteArrayOutputStream1.toString()).isEqualTo(String.format("[Value at index 1 (column name : NAME) of Row at index 0 of actor table]%n"
+    Assertions.assertThat(byteArrayOutputStream1.toString()).isEqualTo(String.format("[Value at index 1 (column name : NAME) of Row at index 0 of ACTOR table]%n"
                                                                                      + "|--------|%n"
                                                                                      + "| NAME   |%n"
                                                                                      + "| (TEXT) |%n"
                                                                                      + "|--------|%n"
                                                                                      + "| Weaver |%n"
                                                                                      + "|--------|%n"));
-    Assertions.assertThat(byteArrayOutputStream2.toString()).isEqualTo(String.format("[Value at index 2 (column name : FIRSTNAME) of Row at index 0 of actor table]%n"
+    Assertions.assertThat(byteArrayOutputStream2.toString()).isEqualTo(String.format("[Value at index 2 (column name : FIRSTNAME) of Row at index 0 of ACTOR table]%n"
                                                                                      + "|-----------|%n"
                                                                                      + "| FIRSTNAME |%n"
                                                                                      + "| (TEXT)    |%n"
                                                                                      + "|-----------|%n"
                                                                                      + "| Sigourney |%n"
                                                                                      + "|-----------|%n"));
-    Assertions.assertThat(byteArrayOutputStream3.toString()).isEqualTo(String.format("[Value at index 2 (column name : FIRSTNAME) of Row at index 2 of actor table]%n"
+    Assertions.assertThat(byteArrayOutputStream3.toString()).isEqualTo(String.format("[Value at index 2 (column name : FIRSTNAME) of Row at index 2 of ACTOR table]%n"
                                                                                      + "|-----------|%n"
                                                                                      + "| FIRSTNAME |%n"
                                                                                      + "| (TEXT)    |%n"
@@ -175,28 +175,28 @@ public class DisplayValue_Test extends AbstractTest {
                            .value(1).inStream(byteArrayOutputStream1)
                            .value().inStream(byteArrayOutputStream2)
                   .column("name").value(2).inStream(byteArrayOutputStream3);
-    Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Value at index 0 of Column at index 0 (column name : ID) of actor table]%n"
+    Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Value at index 0 of Column at index 0 (column name : ID) of ACTOR table]%n"
                           + "|----------|%n"
                           + "| ID       |%n"
                           + "| (NUMBER) |%n"
                           + "|----------|%n"
                           + "| 1        |%n"
                           + "|----------|%n"));
-    Assertions.assertThat(byteArrayOutputStream1.toString()).isEqualTo(String.format("[Value at index 1 of Column at index 0 (column name : ID) of actor table]%n"
+    Assertions.assertThat(byteArrayOutputStream1.toString()).isEqualTo(String.format("[Value at index 1 of Column at index 0 (column name : ID) of ACTOR table]%n"
                                                                                      + "|----------|%n"
                                                                                      + "| ID       |%n"
                                                                                      + "| (NUMBER) |%n"
                                                                                      + "|----------|%n"
                                                                                      + "| 2        |%n"
                                                                                      + "|----------|%n"));
-    Assertions.assertThat(byteArrayOutputStream2.toString()).isEqualTo(String.format("[Value at index 2 of Column at index 0 (column name : ID) of actor table]%n"
+    Assertions.assertThat(byteArrayOutputStream2.toString()).isEqualTo(String.format("[Value at index 2 of Column at index 0 (column name : ID) of ACTOR table]%n"
                                                                                      + "|----------|%n"
                                                                                      + "| ID       |%n"
                                                                                      + "| (NUMBER) |%n"
                                                                                      + "|----------|%n"
                                                                                      + "| 3        |%n"
                                                                                      + "|----------|%n"));
-    Assertions.assertThat(byteArrayOutputStream3.toString()).isEqualTo(String.format("[Value at index 2 of Column at index 1 (column name : NAME) of actor table]%n"
+    Assertions.assertThat(byteArrayOutputStream3.toString()).isEqualTo(String.format("[Value at index 2 of Column at index 1 (column name : NAME) of ACTOR table]%n"
                                                                                      + "|-------------|%n"
                                                                                      + "| NAME        |%n"
                                                                                      + "| (TEXT)      |%n"

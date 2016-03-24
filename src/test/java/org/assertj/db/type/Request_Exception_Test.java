@@ -20,10 +20,7 @@ import org.assertj.db.exception.AssertJDBException;
 import org.junit.Test;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * Test on loading of the data for a request and exception during the different steps.
@@ -62,7 +59,7 @@ public class Request_Exception_Test extends AbstractTest {
    */
   @Test(expected = AssertJDBException.class)
   public void should_fail_because_connection_throws_exception_when_getting_an_object() {
-    DataSource ds = new DefaultDataSource();
+    DataSource ds = new DefaultDataSource(dataSource);
     Request request = new Request(ds, "select * from movi where id = ?", 1);
     request.getColumnsNameList();
   }
@@ -72,14 +69,14 @@ public class Request_Exception_Test extends AbstractTest {
    */
   @Test(expected = AssertJDBException.class)
   public void should_fail_because_connection_throws_exception_when_executing_a_query() {
-    DataSource ds = new DefaultDataSource() {
+    DataSource ds = new DefaultDataSource(dataSource) {
       @Override
       public Connection getConnection() throws SQLException {
-        return new DefaultConnection() {
+        return new DefaultConnection(thisDataSource.getConnection()) {
 
           @Override
           public PreparedStatement prepareStatement(String sql) throws SQLException {
-            return new DefaultPreparedStatement() {
+            return new DefaultPreparedStatement(thisConnection.prepareStatement(sql)) {
 
               @Override
               public ResultSet executeQuery() throws SQLException {
@@ -95,14 +92,35 @@ public class Request_Exception_Test extends AbstractTest {
   }
 
   /**
+   * This method should fail because the connection throw an exception when getting metadata.
+   */
+  @Test(expected = AssertJDBException.class)
+  public void should_fail_because_connection_throws_exception_when_getting_metadata() {
+    DataSource ds = new DefaultDataSource(dataSource) {
+      @Override
+      public Connection getConnection() throws SQLException {
+        return new DefaultConnection(thisDataSource.getConnection()) {
+
+          @Override
+          public DatabaseMetaData getMetaData() throws SQLException {
+            throw new SQLException();
+          }
+        };
+      }
+    };
+    Request request = new Request(ds, "select * from movi where id = ?", 1);
+    request.getColumnsNameList();
+  }
+
+  /**
    * This method should fail because the connection throw an exception when creating a statement.
    */
   @Test(expected = AssertJDBException.class)
   public void should_fail_because_connection_throws_exception_when_creating_a_statement() {
-    DataSource ds = new DefaultDataSource() {
+    DataSource ds = new DefaultDataSource(dataSource) {
       @Override
       public Connection getConnection() throws SQLException {
-        return new DefaultConnection() {
+        return new DefaultConnection(thisDataSource.getConnection()) {
 
           @Override
           public PreparedStatement prepareStatement(String sql) throws SQLException {
@@ -120,7 +138,7 @@ public class Request_Exception_Test extends AbstractTest {
    */
   @Test(expected = AssertJDBException.class)
   public void should_fail_because_connection_throws_exception_when_getting_a_connection() {
-    DataSource ds = new DefaultDataSource() {
+    DataSource ds = new DefaultDataSource(dataSource) {
       @Override
       public Connection getConnection() throws SQLException {
         throw new SQLException();

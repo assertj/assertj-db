@@ -73,7 +73,7 @@ public class AssertOnValueEquality_IsEqualTo_UUID_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format(
-          "[Value at end point of Column at index 14 (column name : VAR15) of Change at index 0 (with primary key : [10]) of Changes on test table of 'sa/jdbc:h2:mem:test' source] %n"
+          "[Value at end point of Column at index 14 (column name : VAR15) of Change at index 0 (with primary key : [10]) of Changes on TEST table of 'sa/jdbc:h2:mem:test' source] %n"
           + "Expecting:%n"
           + "  <2b0d1bdd-909e-4362-ba10-c930ba82718d>%n"
           + "to be equal to: %n"
@@ -84,7 +84,7 @@ public class AssertOnValueEquality_IsEqualTo_UUID_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(
-          String.format("[Value at index 1 of Column at index 14 (column name : VAR15) of test table] %n"
+          String.format("[Value at index 1 of Column at index 14 (column name : VAR15) of TEST table] %n"
                         + "Expecting:%n"
                         + "  <2b0d1bdd-909e-4362-ba10-c930ba82718d>%n"
                         + "to be equal to: %n"

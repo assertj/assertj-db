@@ -40,8 +40,8 @@ public class Descriptions_GetDescription_Test extends AbstractTest {
     String descriptionFromSource = Descriptions.getDescription(fromSource);
     String descriptionFromDataSource = Descriptions.getDescription(fromDataSource);
 
-    assertThat(descriptionFromSource).isEqualTo("actor table");
-    assertThat(descriptionFromDataSource).isEqualTo("actor table");
+    assertThat(descriptionFromSource).isEqualTo("ACTOR table");
+    assertThat(descriptionFromDataSource).isEqualTo("ACTOR table");
   }
 
   /**
@@ -101,8 +101,8 @@ public class Descriptions_GetDescription_Test extends AbstractTest {
     String descriptionFromSource = Descriptions.getDescription(fromSource);
     String descriptionFromDataSource = Descriptions.getDescription(fromDataSource);
 
-    assertThat(descriptionFromSource).isEqualTo("Changes on actor table of 'sa/jdbc:h2:mem:test' source");
-    assertThat(descriptionFromDataSource).isEqualTo("Changes on actor table of a data source");
+    assertThat(descriptionFromSource).isEqualTo("Changes on ACTOR table of 'sa/jdbc:h2:mem:test' source");
+    assertThat(descriptionFromDataSource).isEqualTo("Changes on ACTOR table of a data source");
   }
 
   /**

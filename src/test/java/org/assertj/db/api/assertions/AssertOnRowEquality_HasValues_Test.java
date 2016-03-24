@@ -71,7 +71,7 @@ public class AssertOnRowEquality_HasValues_Test extends AbstractTest {
     try {
       assertThat(changes).change().rowAtEndPoint().hasValues(4, "Murray", "Billy", "1950-09-21", UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Row at end point of Change at index 0 (with primary key : [4]) of Changes on actor table of 'sa/jdbc:h2:mem:test' source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Row at end point of Change at index 0 (with primary key : [4]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test' source] %n"
                                                       + "Expecting that the value at index 2:%n"
                                                       + "  <\"Bill\">%n"
                                                       + "to be equal to: %n"
@@ -80,7 +80,7 @@ public class AssertOnRowEquality_HasValues_Test extends AbstractTest {
     try {
       assertThat(table).row().hasValues(1, "Weaver", "Sigourney", "1949-10-08", UUID.fromString("648DFAC8-14AC-47F7-95CF-3475525A3BE3"));
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Row at index 0 of actor table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Row at index 0 of ACTOR table] %n"
                                                       + "Expecting that the value at index 2:%n"
                                                       + "  <\"Susan Alexandra\">%n"
                                                       + "to be equal to: %n"

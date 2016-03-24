@@ -68,7 +68,7 @@ public class AssertOnValueNonEquality_IsNotEqualTo_Object_Test extends AbstractT
       assertThat(changes).change().column("var3").valueAtEndPoint().isNotEqualTo((Object) null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 2 (column name : VAR3) of Change at index 0 of Changes on test2 table of 'sa/jdbc:h2:mem:test' source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 2 (column name : VAR3) of Change at index 0 of Changes on TEST2 table of 'sa/jdbc:h2:mem:test' source] %n"
                                                                     + "Expecting:%n"
                                                                     + "  <null>%n"
                                                                     + "not to be equal to: %n"
@@ -78,7 +78,7 @@ public class AssertOnValueNonEquality_IsNotEqualTo_Object_Test extends AbstractT
       assertThat(table).column("var3").value(1).isNotEqualTo((Object) null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 1 of Column at index 2 (column name : VAR3) of test2 table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 1 of Column at index 2 (column name : VAR3) of TEST2 table] %n"
                                                                     + "Expecting:%n"
                                                                     + "  <null>%n"
                                                                     + "not to be equal to: %n"

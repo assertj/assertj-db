@@ -52,7 +52,7 @@ public class AssertOnColumnNullity_HasOnlyNullValues_Test extends AbstractTest {
       tableColumnAssert.hasOnlyNullValues();
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 13 (column name : VAR14) of test2 table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 13 (column name : VAR14) of TEST2 table] %n"
                                                       + "Expecting to contain only null:%n"
                                                       + "but contains not null at index: 0"));
     }

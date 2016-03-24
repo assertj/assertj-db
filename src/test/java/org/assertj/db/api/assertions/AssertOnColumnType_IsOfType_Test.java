@@ -102,7 +102,7 @@ public class AssertOnColumnType_IsOfType_Test extends AbstractTest {
       assertThat(table).column("var1").isOfType(ValueType.BOOLEAN, true);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 0 (column name : VAR1) of test table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 0 (column name : VAR1) of TEST table] %n"
                                                       + "Expecting that the value at index 0:%n"
                                                       + "  <1>%n"
                                                       + "to be of type%n"
@@ -114,7 +114,7 @@ public class AssertOnColumnType_IsOfType_Test extends AbstractTest {
       assertThat(table2).column("var2").isOfType(ValueType.BOOLEAN, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 1 (column name : VAR2) of test2 table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 1 (column name : VAR2) of TEST2 table] %n"
                                                       + "Expecting that the value at index 1:%n"
                                                       + "  <null>%n"
                                                       + "to be of type%n"

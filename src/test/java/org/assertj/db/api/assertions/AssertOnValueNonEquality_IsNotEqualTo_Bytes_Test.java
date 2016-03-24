@@ -71,14 +71,14 @@ public class AssertOnValueNonEquality_IsNotEqualTo_Bytes_Test extends AbstractTe
       assertThat(changes).change().column("var11").valueAtEndPoint().isNotEqualTo(bytesH2);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 10 (column name : VAR11) of Change at index 0 (with primary key : [1]) of Changes on test table of 'sa/jdbc:h2:mem:test' source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 10 (column name : VAR11) of Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:test' source] %n"
                                                       + "Expecting to be not equal to the value but was equal"));
     }
     try {
       assertThat(table).column("var11").value().isNotEqualTo(bytesH2);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 0 of Column at index 10 (column name : VAR11) of test table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 0 of Column at index 10 (column name : VAR11) of TEST table] %n"
                                                       + "Expecting to be not equal to the value but was equal"));
     }
   }

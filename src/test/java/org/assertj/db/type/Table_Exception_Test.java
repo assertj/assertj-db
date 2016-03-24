@@ -20,10 +20,7 @@ import org.assertj.db.exception.AssertJDBException;
 import org.junit.Test;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 /**
  * Test on loading of the data for a table and exception during the different steps.
@@ -54,7 +51,7 @@ public class Table_Exception_Test extends AbstractTest {
    */
   @Test(expected = AssertJDBException.class)
   public void should_fail_because_connection_throws_exception_when_getting_an_object() {
-    DataSource ds = new DefaultDataSource();
+    DataSource ds = new DefaultDataSource(dataSource);
     Table table = new Table(ds, "movi");
     table.getColumnsNameList();
   }
@@ -64,14 +61,14 @@ public class Table_Exception_Test extends AbstractTest {
    */
   @Test(expected = AssertJDBException.class)
   public void should_fail_because_connection_throws_exception_when_executing_a_query() {
-    DataSource ds = new DefaultDataSource() {
+    DataSource ds = new DefaultDataSource(dataSource) {
       @Override
       public Connection getConnection() throws SQLException {
-        return new DefaultConnection() {
+        return new DefaultConnection(thisDataSource.getConnection()) {
 
           @Override
           public Statement createStatement() throws SQLException {
-            return new DefaultStatement() {
+            return new DefaultStatement(thisConnection.createStatement()) {
 
               @Override
               public ResultSet executeQuery(String sql) throws SQLException {
@@ -87,14 +84,35 @@ public class Table_Exception_Test extends AbstractTest {
   }
 
   /**
+   * This method should fail because the connection throw an exception when getting metadata.
+   */
+  @Test(expected = AssertJDBException.class)
+  public void should_fail_because_connection_throws_exception_when_getting_metadata() {
+    DataSource ds = new DefaultDataSource(dataSource) {
+      @Override
+      public Connection getConnection() throws SQLException {
+        return new DefaultConnection(thisDataSource.getConnection()) {
+
+          @Override
+          public DatabaseMetaData getMetaData() throws SQLException {
+            throw new SQLException();
+          }
+        };
+      }
+    };
+    Table table = new Table(ds, "movi");
+    table.getColumnsNameList();
+  }
+
+  /**
    * This method should fail because the connection throw an exception when creating a statement.
    */
   @Test(expected = AssertJDBException.class)
   public void should_fail_because_connection_throws_exception_when_creating_a_statement() {
-    DataSource ds = new DefaultDataSource() {
+    DataSource ds = new DefaultDataSource(dataSource) {
       @Override
       public Connection getConnection() throws SQLException {
-        return new DefaultConnection() {
+        return new DefaultConnection(thisDataSource.getConnection()) {
 
           @Override
           public Statement createStatement() throws SQLException {
@@ -112,7 +130,7 @@ public class Table_Exception_Test extends AbstractTest {
    */
   @Test(expected = AssertJDBException.class)
   public void should_fail_because_connection_throws_exception_when_getting_a_connection() {
-    DataSource ds = new DefaultDataSource() {
+    DataSource ds = new DefaultDataSource(dataSource) {
       @Override
       public Connection getConnection() throws SQLException {
         throw new SQLException();

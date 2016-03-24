@@ -73,7 +73,7 @@ public class AssertOnValueChronology_IsBeforeOrEqualTo_DateValue_Test extends Ab
       assertThat(changes).change().column("var10").valueAtEndPoint().isBeforeOrEqualTo(DateValue.parse("2014-05-24"));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 9 (column name : VAR10) of Change at index 0 (with primary key : [1]) of Changes on test table of 'sa/jdbc:h2:mem:test' source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 9 (column name : VAR10) of Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:test' source] %n"
                                                       + "Expecting:%n"
                                                       + "  <2014-05-24T09:46:30.000000000>%n"
                                                       + "to be before or equal to %n"
@@ -83,7 +83,7 @@ public class AssertOnValueChronology_IsBeforeOrEqualTo_DateValue_Test extends Ab
       assertThat(table).column("var10").value().isBeforeOrEqualTo(DateValue.parse("2014-05-24"));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 0 of Column at index 9 (column name : VAR10) of test table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 0 of Column at index 9 (column name : VAR10) of TEST table] %n"
                                                       + "Expecting:%n"
                                                       + "  <2014-05-24T09:46:30.000000000>%n"
                                                       + "to be before or equal to %n"

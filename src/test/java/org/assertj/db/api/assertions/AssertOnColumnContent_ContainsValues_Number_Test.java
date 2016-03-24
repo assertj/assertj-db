@@ -105,7 +105,7 @@ public class AssertOnColumnContent_ContainsValues_Number_Test extends AbstractTe
       tableColumnAssert.containsValues(2, 20, 35, 0);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 2 (column name : VAR3) of test table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 2 (column name : VAR3) of TEST table] %n"
                                                                     + "Expecting:%n"
                                                                     + "  <[2, 20, 25, 0]>%n"
                                                                     + "to contain: %n"
@@ -118,7 +118,7 @@ public class AssertOnColumnContent_ContainsValues_Number_Test extends AbstractTe
       tableColumnAssert2.containsValues(2, 2);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 2 (column name : VAR3) of test2 table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 2 (column name : VAR3) of TEST2 table] %n"
                                                                     + "Expecting:%n"
                                                                     + "  <[2, null]>%n"
                                                                     + "to contain: %n"
@@ -131,7 +131,7 @@ public class AssertOnColumnContent_ContainsValues_Number_Test extends AbstractTe
       tableColumnAssert3.containsValues(3, 35, 300, 0);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 3 (column name : VAR4) of test table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 3 (column name : VAR4) of TEST table] %n"
                                                                     + "Expecting:%n"
                                                                     + "  <[3, 30, 300, 0]>%n"
                                                                     + "to contain: %n"
@@ -144,7 +144,7 @@ public class AssertOnColumnContent_ContainsValues_Number_Test extends AbstractTe
       tableColumnAssert4.containsValues(3, 3);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 3 (column name : VAR4) of test2 table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 3 (column name : VAR4) of TEST2 table] %n"
                                                                     + "Expecting:%n"
                                                                     + "  <[3, null]>%n"
                                                                     + "to contain: %n"
@@ -157,7 +157,7 @@ public class AssertOnColumnContent_ContainsValues_Number_Test extends AbstractTe
       tableColumnAssert5.containsValues(4, 45, 400, 0);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 4 (column name : VAR5) of test table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 4 (column name : VAR5) of TEST table] %n"
                                                                     + "Expecting:%n"
                                                                     + "  <[4L, 40L, 400L, 0L]>%n"
                                                                     + "to contain: %n"
@@ -170,7 +170,7 @@ public class AssertOnColumnContent_ContainsValues_Number_Test extends AbstractTe
       tableColumnAssert6.containsValues(4, 4);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 4 (column name : VAR5) of test2 table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 4 (column name : VAR5) of TEST2 table] %n"
                                                                     + "Expecting:%n"
                                                                     + "  <[4L, null]>%n"
                                                                     + "to contain: %n"
@@ -183,7 +183,7 @@ public class AssertOnColumnContent_ContainsValues_Number_Test extends AbstractTe
       tableColumnAssert7.containsValues(5.6, 55.6, 500.6, 0);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 5 (column name : VAR6) of test table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 5 (column name : VAR6) of TEST table] %n"
                                                                     + "Expecting:%n"
                                                                     + "  <[5.60, 50.60, 500.60, 0.00]>%n"
                                                                     + "to contain: %n"
@@ -196,7 +196,7 @@ public class AssertOnColumnContent_ContainsValues_Number_Test extends AbstractTe
       tableColumnAssert8.containsValues(5.6, 5.6);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 5 (column name : VAR6) of test2 table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 5 (column name : VAR6) of TEST2 table] %n"
                                                                     + "Expecting:%n"
                                                                     + "  <[5.60, null]>%n"
                                                                     + "to contain: %n"
@@ -209,7 +209,7 @@ public class AssertOnColumnContent_ContainsValues_Number_Test extends AbstractTe
       tableColumnAssert9.containsValues(7.8, 75.8, 700.8, 0);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 6 (column name : VAR7) of test table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 6 (column name : VAR7) of TEST table] %n"
                                                                     + "Expecting:%n"
                                                                     + "  <[7.8f, 70.8f, 700.8f, 0.0f]>%n"
                                                                     + "to contain: %n"
@@ -222,7 +222,7 @@ public class AssertOnColumnContent_ContainsValues_Number_Test extends AbstractTe
       tableColumnAssert10.containsValues(7.8, 7.8);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 6 (column name : VAR7) of test2 table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 6 (column name : VAR7) of TEST2 table] %n"
                                                                     + "Expecting:%n"
                                                                     + "  <[7.8f, null]>%n"
                                                                     + "to contain: %n"
@@ -235,7 +235,7 @@ public class AssertOnColumnContent_ContainsValues_Number_Test extends AbstractTe
       tableColumnAssert11.containsValues(5, 50, 505, 500);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 12 (column name : VAR13) of test table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 12 (column name : VAR13) of TEST table] %n"
                                                                     + "Expecting:%n"
                                                                     + "  <[5.00, 50.00, 500.00, 500.00]>%n"
                                                                     + "to contain: %n"
@@ -248,7 +248,7 @@ public class AssertOnColumnContent_ContainsValues_Number_Test extends AbstractTe
       tableColumnAssert12.containsValues(5, 5);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 12 (column name : VAR13) of test2 table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 12 (column name : VAR13) of TEST2 table] %n"
                                                                     + "Expecting:%n"
                                                                     + "  <[5.00, null]>%n"
                                                                     + "to contain: %n"
@@ -261,7 +261,7 @@ public class AssertOnColumnContent_ContainsValues_Number_Test extends AbstractTe
       tableColumnAssert13.containsValues(7, 70, 750, 700);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 13 (column name : VAR14) of test table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 13 (column name : VAR14) of TEST table] %n"
                                                                     + "Expecting:%n"
                                                                     + "  <[7.0f, 70.0f, 700.0f, 700.0f]>%n"
                                                                     + "to contain: %n"
@@ -274,7 +274,7 @@ public class AssertOnColumnContent_ContainsValues_Number_Test extends AbstractTe
       tableColumnAssert14.containsValues(7, 7);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 13 (column name : VAR14) of test2 table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 13 (column name : VAR14) of TEST2 table] %n"
                                                                     + "Expecting:%n"
                                                                     + "  <[7.0f, null]>%n"
                                                                     + "to contain: %n"

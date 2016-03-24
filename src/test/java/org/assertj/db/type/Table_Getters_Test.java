@@ -93,10 +93,10 @@ public class Table_Getters_Test extends AbstractTest {
 
     assertThat(table.getSource()).as("Source of MOVIE table").isSameAs(source);
     assertThat(table.getDataSource()).isNull();
-    assertThat(table.getName()).isEqualTo("movie");
+    assertThat(table.getName()).isEqualTo("MOVIE");
     assertThat(table.getColumnsToCheck()).isNull();
     assertThat(table.getColumnsToExclude()).isNull();
-    assertThat(table.getRequest()).isEqualTo("SELECT * FROM movie");
+    assertThat(table.getRequest()).isEqualTo("SELECT * FROM MOVIE");
   }
 
   /**
@@ -105,14 +105,14 @@ public class Table_Getters_Test extends AbstractTest {
    */
   @Test
   public void test_getters_with_source_name_and_columns_set() {
-    Table table = new Table(source, "movie", new String[] { "name", "birth" }, new String[] { "id" });
+    Table table = new Table(source, "movie", new String[] { "title", "year" }, new String[] { "id" });
 
     assertThat(table.getSource()).as("Source of MOVIE table").isSameAs(source);
     assertThat(table.getDataSource()).isNull();
-    assertThat(table.getName()).isEqualTo("movie");
-    assertThat(table.getColumnsToCheck()).containsExactly("NAME", "BIRTH");
+    assertThat(table.getName()).isEqualTo("MOVIE");
+    assertThat(table.getColumnsToCheck()).containsExactly("TITLE", "YEAR");
     assertThat(table.getColumnsToExclude()).containsExactly("ID");
-    assertThat(table.getRequest()).isEqualTo("SELECT NAME, BIRTH FROM movie");
+    assertThat(table.getRequest()).isEqualTo("SELECT TITLE, YEAR FROM MOVIE");
   }
 
 }

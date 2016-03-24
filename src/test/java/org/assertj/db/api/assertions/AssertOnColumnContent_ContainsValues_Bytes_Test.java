@@ -63,7 +63,7 @@ public class AssertOnColumnContent_ContainsValues_Bytes_Test extends AbstractTes
       tableColumnAssert.containsValues(bytesH2, bytesH2, bytesH2, bytesH2);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 10 (column name : VAR11) of test table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 10 (column name : VAR11) of TEST table] %n"
                                                       + "Expecting to contain values but not%n"
                                                       + " (parameter at index 1 is not found)"));
     }
@@ -74,7 +74,7 @@ public class AssertOnColumnContent_ContainsValues_Bytes_Test extends AbstractTes
       tableColumnAssert2.containsValues(bytesH2, bytesH2);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 10 (column name : VAR11) of test2 table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 10 (column name : VAR11) of TEST2 table] %n"
                                                       + "Expecting to contain values but not%n"
                                                       + " (parameter at index 1 is not found)"));
     }

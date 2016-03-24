@@ -61,7 +61,7 @@ public class DefaultDescription_Test extends AbstractTest {
     WritableAssertionInfo infoOnTestTable = (WritableAssertionInfo) field.get(assertThat(changes).change(8));
     WritableAssertionInfo infoOnRequest = (WritableAssertionInfo) field.get(assertThat(changesOnRequest).change());
     assertThat(info.descriptionText()).isEqualTo("Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of a data source");
-    assertThat(infoOnActorTable.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on actor table of a data source");
+    assertThat(infoOnActorTable.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on ACTOR table of a data source");
     assertThat(infoOnTestTable.descriptionText()).isEqualTo("Change at index 8 (on table : TEST2) of Changes on tables of a data source");
     assertThat(infoOnRequest.descriptionText()).isEqualTo("Change at index 0 of Changes on 'select * from actor' request of a data source");
   }
@@ -342,10 +342,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Changes on actor table of 'sa/jdbc:h2:mem:test' source");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Changes on ACTOR table of 'sa/jdbc:h2:mem:test' source");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Changes on actor table of a data source");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Changes on ACTOR table of a data source");
   }
 
   /**
@@ -429,10 +429,10 @@ public class DefaultDescription_Test extends AbstractTest {
     ChangeAssert assertionFromDataSource = assertThat(changesFromDataSource).change(2);
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on actor table of 'sa/jdbc:h2:mem:test' source");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test' source");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 2 (with primary key : [3]) of Changes on actor table of a data source");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 2 (with primary key : [3]) of Changes on ACTOR table of a data source");
   }
 
   /**
@@ -517,10 +517,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on actor table of 'sa/jdbc:h2:mem:test' source (only creation changes)");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test' source (only creation changes)");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on actor table of a data source (only creation changes)");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on ACTOR table of a data source (only creation changes)");
   }
 
   /**
@@ -605,10 +605,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [1]) of Changes on actor table of 'sa/jdbc:h2:mem:test' source (only modification changes)");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [1]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test' source (only modification changes)");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [1]) of Changes on actor table of a data source (only modification changes)");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [1]) of Changes on ACTOR table of a data source (only modification changes)");
   }
 
   /**
@@ -692,10 +692,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [3]) of Changes on actor table of 'sa/jdbc:h2:mem:test' source (only deletion changes)");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [3]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test' source (only deletion changes)");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [3]) of Changes on actor table of a data source (only deletion changes)");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [3]) of Changes on ACTOR table of a data source (only deletion changes)");
   }
 
   /**
@@ -780,10 +780,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on actor table of 'sa/jdbc:h2:mem:test' source (only creation changes on actor table)");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test' source (only creation changes on actor table)");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on actor table of a data source (only creation changes on actor table)");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on ACTOR table of a data source (only creation changes on actor table)");
   }
 
   /**
@@ -838,10 +838,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [1]) of Changes on actor table of 'sa/jdbc:h2:mem:test' source (only modification changes on actor table)");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [1]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test' source (only modification changes on actor table)");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [1]) of Changes on actor table of a data source (only modification changes on actor table)");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [1]) of Changes on ACTOR table of a data source (only modification changes on actor table)");
   }
 
   /**
@@ -896,10 +896,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [3]) of Changes on actor table of 'sa/jdbc:h2:mem:test' source (only deletion changes on actor table)");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [3]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test' source (only deletion changes on actor table)");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [3]) of Changes on actor table of a data source (only deletion changes on actor table)");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [3]) of Changes on ACTOR table of a data source (only deletion changes on actor table)");
   }
 
   /**
@@ -953,10 +953,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on actor table of 'sa/jdbc:h2:mem:test' source (only changes on actor table)");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test' source (only changes on actor table)");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on actor table of a data source (only changes on actor table)");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on ACTOR table of a data source (only changes on actor table)");
   }
 
   /**
@@ -1011,10 +1011,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 1 (with primary key : [1]) of Changes on actor table of 'sa/jdbc:h2:mem:test' source (only changes on actor table)");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 1 (with primary key : [1]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test' source (only changes on actor table)");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 1 (with primary key : [1]) of Changes on actor table of a data source (only changes on actor table)");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 1 (with primary key : [1]) of Changes on ACTOR table of a data source (only changes on actor table)");
   }
 
   /**
@@ -1233,10 +1233,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("actor table");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("ACTOR table");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("actor table");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("ACTOR table");
   }
 
   /**
@@ -1281,10 +1281,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Column at index 0 (column name : ID) of actor table");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Column at index 0 (column name : ID) of ACTOR table");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Column at index 0 (column name : ID) of actor table");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Column at index 0 (column name : ID) of ACTOR table");
   }
 
   /**
@@ -1305,10 +1305,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Row at index 0 of actor table");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Row at index 0 of ACTOR table");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Row at index 0 of actor table");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Row at index 0 of ACTOR table");
   }
 
   /**
@@ -1377,10 +1377,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Value at index 0 of Column at index 0 (column name : ID) of actor table");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Value at index 0 of Column at index 0 (column name : ID) of ACTOR table");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Value at index 0 of Column at index 0 (column name : ID) of actor table");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Value at index 0 of Column at index 0 (column name : ID) of ACTOR table");
   }
 
   /**
@@ -1401,10 +1401,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Value at index 0 (column name : ID) of Row at index 0 of actor table");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Value at index 0 (column name : ID) of Row at index 0 of ACTOR table");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Value at index 0 (column name : ID) of Row at index 0 of actor table");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Value at index 0 (column name : ID) of Row at index 0 of ACTOR table");
   }
 
   /**

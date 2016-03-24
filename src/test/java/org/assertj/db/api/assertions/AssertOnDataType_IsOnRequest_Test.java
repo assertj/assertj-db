@@ -64,7 +64,7 @@ public class AssertOnDataType_IsOnRequest_Test extends AbstractTest {
       assertThat(changes).change().isOnRequest();
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 (with primary key : [4]) of Changes on actor table of 'sa/jdbc:h2:mem:test' source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 (with primary key : [4]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test' source] %n"
                                                       + "Expecting:%n"
                                                       + "to be on data type%n"
                                                       + "  <REQUEST>%n"

@@ -64,7 +64,7 @@ public class AssertOnColumnContent_HasValues_TimeValue_Test extends AbstractTest
                                        TimeValue.of(12, 29, 49));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 7 (column name : VAR8) of test table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 7 (column name : VAR8) of TEST table] %n"
                                                                     + "Expecting:%n"
                                                                     + "  <[09:46:30.000000000,%n"
                                                                     + "    12:29:49.000000000,%n"
@@ -84,7 +84,7 @@ public class AssertOnColumnContent_HasValues_TimeValue_Test extends AbstractTest
                                         TimeValue.of(12, 29, 49));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 7 (column name : VAR8) of test2 table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 7 (column name : VAR8) of TEST2 table] %n"
                                                                     + "Expecting:%n"
                                                                     + "  <[09:46:30.000000000, null]>%n"
                                                                     + "to contain: %n"

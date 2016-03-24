@@ -44,7 +44,7 @@ public class DisplayRow_Test extends AbstractTest {
     display(table).row().inStream(byteArrayOutputStream0)
                   .row(1).inStream(byteArrayOutputStream1)
                   .row().inStream(byteArrayOutputStream2);
-    Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Row at index 0 of actor table]%n"
+    Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Row at index 0 of ACTOR table]%n"
                                                                                     + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"
                                                                                     + "|         | *         |           |           |            |                                      |%n"
                                                                                     + "| PRIMARY | ID        | NAME      | FIRSTNAME | BIRTH      | ACTOR_IMDB                           |%n"
@@ -53,7 +53,7 @@ public class DisplayRow_Test extends AbstractTest {
                                                                                     + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"
                                                                                     + "| 1       | 1         | Weaver    | Sigourney | 1949-10-08 | 30b443ae-c0c9-4790-9bec-ce1380808435 |%n"
                                                                                     + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"));
-    Assertions.assertThat(byteArrayOutputStream1.toString()).isEqualTo(String.format("[Row at index 1 of actor table]%n"
+    Assertions.assertThat(byteArrayOutputStream1.toString()).isEqualTo(String.format("[Row at index 1 of ACTOR table]%n"
                                                                                      + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"
                                                                                      + "|         | *         |           |           |            |                                      |%n"
                                                                                      + "| PRIMARY | ID        | NAME      | FIRSTNAME | BIRTH      | ACTOR_IMDB                           |%n"
@@ -62,7 +62,7 @@ public class DisplayRow_Test extends AbstractTest {
                                                                                      + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"
                                                                                      + "| 2       | 2         | Phoenix   | Joaquim   | 1974-10-28 | 16319617-ae95-4087-9264-d3d21bf611b6 |%n"
                                                                                      + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"));
-    Assertions.assertThat(byteArrayOutputStream2.toString()).isEqualTo(String.format("[Row at index 2 of actor table]%n"
+    Assertions.assertThat(byteArrayOutputStream2.toString()).isEqualTo(String.format("[Row at index 2 of ACTOR table]%n"
                                                                                      + "|---------|-----------|-------------|-----------|------------|--------------------------------------|%n"
                                                                                      + "|         | *         |             |           |            |                                      |%n"
                                                                                      + "| PRIMARY | ID        | NAME        | FIRSTNAME | BIRTH      | ACTOR_IMDB                           |%n"

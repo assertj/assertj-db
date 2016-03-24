@@ -57,7 +57,7 @@ public class AssertOnColumnEquality_HasValues_Boolean_Test extends AbstractTest 
       tableColumnAssert.hasValues(true, false, true, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 1 (column name : VAR2) of test table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 1 (column name : VAR2) of TEST table] %n"
                                                       + "Expecting that the value at index 2:%n"
                                                       + "  <false>%n"
                                                       + "to be equal to: %n"
@@ -69,7 +69,7 @@ public class AssertOnColumnEquality_HasValues_Boolean_Test extends AbstractTest 
       tableColumnAssert2.hasValues(true, true);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 1 (column name : VAR2) of test2 table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 1 (column name : VAR2) of TEST2 table] %n"
                                                       + "Expecting that the value at index 1:%n"
                                                       + "  <null>%n"
                                                       + "to be equal to: %n"

@@ -221,8 +221,8 @@ public class Changes_Constructor_Test extends AbstractTest {
     assertThat(changes.getTablesAtStartPointList().size()).isEqualTo(1);
     assertThat(changes.getTablesAtStartPointList().get(0).getSource()).isSameAs(source);
     assertThat(changes.getTablesAtStartPointList().get(0).getDataSource()).isNull();
-    assertThat(changes.getTablesAtStartPointList().get(0).getName()).isEqualTo("test");
-    assertThat(changes.getTablesAtStartPointList().get(0).getRequest()).isEqualTo("SELECT * FROM test");
+    assertThat(changes.getTablesAtStartPointList().get(0).getName()).isEqualTo("TEST");
+    assertThat(changes.getTablesAtStartPointList().get(0).getRequest()).isEqualTo("SELECT * FROM TEST");
 
     assertThat(changes.getTablesAtEndPointList()).isNull();
     changes.setEndPointNow();
@@ -230,8 +230,8 @@ public class Changes_Constructor_Test extends AbstractTest {
     assertThat(changes.getTablesAtEndPointList().size()).isEqualTo(1);
     assertThat(changes.getTablesAtEndPointList().get(0).getSource()).isSameAs(source);
     assertThat(changes.getTablesAtEndPointList().get(0).getDataSource()).isNull();
-    assertThat(changes.getTablesAtEndPointList().get(0).getName()).isEqualTo("test");
-    assertThat(changes.getTablesAtEndPointList().get(0).getRequest()).isEqualTo("SELECT * FROM test");
+    assertThat(changes.getTablesAtEndPointList().get(0).getName()).isEqualTo("TEST");
+    assertThat(changes.getTablesAtEndPointList().get(0).getRequest()).isEqualTo("SELECT * FROM TEST");
   }
 
   /**
@@ -250,12 +250,12 @@ public class Changes_Constructor_Test extends AbstractTest {
     assertThat(changes.getTablesAtStartPointList().size()).isEqualTo(2);
     assertThat(changes.getTablesAtStartPointList().get(0).getSource()).isSameAs(source);
     assertThat(changes.getTablesAtStartPointList().get(0).getDataSource()).isNull();
-    assertThat(changes.getTablesAtStartPointList().get(0).getName()).isEqualTo("test");
-    assertThat(changes.getTablesAtStartPointList().get(0).getRequest()).isEqualTo("SELECT * FROM test");
+    assertThat(changes.getTablesAtStartPointList().get(0).getName()).isEqualTo("TEST");
+    assertThat(changes.getTablesAtStartPointList().get(0).getRequest()).isEqualTo("SELECT * FROM TEST");
     assertThat(changes.getTablesAtStartPointList().get(1).getSource()).isNull();
     assertThat(changes.getTablesAtStartPointList().get(1).getDataSource()).isSameAs(dataSource);
-    assertThat(changes.getTablesAtStartPointList().get(1).getName()).isEqualTo("test2");
-    assertThat(changes.getTablesAtStartPointList().get(1).getRequest()).isEqualTo("SELECT * FROM test2");
+    assertThat(changes.getTablesAtStartPointList().get(1).getName()).isEqualTo("TEST2");
+    assertThat(changes.getTablesAtStartPointList().get(1).getRequest()).isEqualTo("SELECT * FROM TEST2");
 
     assertThat(changes.getTablesAtEndPointList()).isNull();
     changes.setEndPointNow();
@@ -263,12 +263,12 @@ public class Changes_Constructor_Test extends AbstractTest {
     assertThat(changes.getTablesAtEndPointList().size()).isEqualTo(2);
     assertThat(changes.getTablesAtEndPointList().get(0).getSource()).isSameAs(source);
     assertThat(changes.getTablesAtEndPointList().get(0).getDataSource()).isNull();
-    assertThat(changes.getTablesAtEndPointList().get(0).getName()).isEqualTo("test");
-    assertThat(changes.getTablesAtEndPointList().get(0).getRequest()).isEqualTo("SELECT * FROM test");
+    assertThat(changes.getTablesAtEndPointList().get(0).getName()).isEqualTo("TEST");
+    assertThat(changes.getTablesAtEndPointList().get(0).getRequest()).isEqualTo("SELECT * FROM TEST");
     assertThat(changes.getTablesAtEndPointList().get(1).getSource()).isNull();
     assertThat(changes.getTablesAtEndPointList().get(1).getDataSource()).isSameAs(dataSource);
-    assertThat(changes.getTablesAtEndPointList().get(1).getName()).isEqualTo("test2");
-    assertThat(changes.getTablesAtEndPointList().get(1).getRequest()).isEqualTo("SELECT * FROM test2");
+    assertThat(changes.getTablesAtEndPointList().get(1).getName()).isEqualTo("TEST2");
+    assertThat(changes.getTablesAtEndPointList().get(1).getRequest()).isEqualTo("SELECT * FROM TEST2");
   }
 
   /**

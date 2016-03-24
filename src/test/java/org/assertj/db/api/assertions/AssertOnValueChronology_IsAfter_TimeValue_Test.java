@@ -71,7 +71,7 @@ public class AssertOnValueChronology_IsAfter_TimeValue_Test extends AbstractTest
       assertThat(changes).change().column("var8").valueAtEndPoint().isAfter(TimeValue.parse("09:46:30"));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 7 (column name : VAR8) of Change at index 0 (with primary key : [1]) of Changes on test table of 'sa/jdbc:h2:mem:test' source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 7 (column name : VAR8) of Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:test' source] %n"
                                                       + "Expecting:%n"
                                                       + "  <09:46:30.000000000>%n"
                                                       + "to be after %n"
@@ -81,7 +81,7 @@ public class AssertOnValueChronology_IsAfter_TimeValue_Test extends AbstractTest
       assertThat(table).column("var8").value().isAfter(TimeValue.parse("09:46:30"));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 0 of Column at index 7 (column name : VAR8) of test table] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 0 of Column at index 7 (column name : VAR8) of TEST table] %n"
                                                       + "Expecting:%n"
                                                       + "  <09:46:30.000000000>%n"
                                                       + "to be after %n"

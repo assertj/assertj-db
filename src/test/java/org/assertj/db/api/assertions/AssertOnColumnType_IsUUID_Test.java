@@ -105,7 +105,7 @@ public class AssertOnColumnType_IsUUID_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage())
-                .isEqualTo(String.format("[Column at index 0 (column name : VAR1) of test table] %n"
+                .isEqualTo(String.format("[Column at index 0 (column name : VAR1) of TEST table] %n"
                                          + "Expecting that the value at index 0:%n"
                                          + "  <1>%n"
                                          + "to be of type%n"
@@ -118,7 +118,7 @@ public class AssertOnColumnType_IsUUID_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage())
-                .isEqualTo(String.format("[Column at index 14 (column name : VAR15) of test2 table] %n"
+                .isEqualTo(String.format("[Column at index 14 (column name : VAR15) of TEST2 table] %n"
                                          + "Expecting that the value at index 0:%n"
                                          + "  <null>%n"
                                          + "to be of type%n"

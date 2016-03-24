@@ -27,48 +27,54 @@ import java.util.logging.Logger;
  */
 public class DefaultDataSource implements DataSource {
 
+  protected DataSource thisDataSource;
+
+  public DefaultDataSource(DataSource dataSource) {
+    this.thisDataSource = dataSource;
+  }
+
   @Override
   public PrintWriter getLogWriter() throws SQLException {
-    return null;
+    return thisDataSource.getLogWriter();
   }
 
   @Override
   public void setLogWriter(PrintWriter out) throws SQLException {
-
+    thisDataSource.setLogWriter(out);
   }
 
   @Override
   public void setLoginTimeout(int seconds) throws SQLException {
-
+    thisDataSource.setLoginTimeout(seconds);
   }
 
   @Override
   public int getLoginTimeout() throws SQLException {
-    return 0;
+    return thisDataSource.getLoginTimeout();
   }
 
   @Override
   public <T> T unwrap(Class<T> iface) throws SQLException {
-    return null;
+    return thisDataSource.unwrap(iface);
   }
 
   @Override
   public boolean isWrapperFor(Class<?> iface) throws SQLException {
-    return false;
+    return thisDataSource.isWrapperFor(iface);
   }
 
   @Override
   public Connection getConnection() throws SQLException {
-    return new DefaultConnection();
+    return new DefaultConnection(thisDataSource.getConnection());
   }
 
   @Override
   public Connection getConnection(String username, String password) throws SQLException {
-    return null;
+    return thisDataSource.getConnection(username, password);
   }
 
   @Override
   public Logger getParentLogger() throws SQLFeatureNotSupportedException {
-    return null;
+    return thisDataSource.getParentLogger();
   }
 }
