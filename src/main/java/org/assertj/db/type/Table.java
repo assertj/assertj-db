@@ -404,9 +404,9 @@ public class Table extends AbstractDbData<Table> {
     try (ResultSet resultSet = metaData.getPrimaryKeys(catalog, schema, tableName)) {
       LetterCase letterCase = getPrimaryKeyLetterCase();
       while (resultSet.next()) {
-        String columnName = letterCase.convert(resultSet.getString("COLUMN_NAME"));
-        String pkName = letterCase.convert(columnName);
-        if (NameComparator.INSTANCE.contains(getColumnsNameList(), pkName, letterCase)) {
+        String columnName = resultSet.getString("COLUMN_NAME");
+        if (NameComparator.INSTANCE.contains(getColumnsNameList(), columnName, letterCase)) {
+          String pkName = letterCase.convert(columnName);
           pksNameList.add(pkName);
         }
       }

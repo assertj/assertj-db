@@ -283,10 +283,8 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    */
   protected void setPksNameList(List<String> pksNameList) {
     this.pksNameList = new ArrayList<>();
-    LetterCase letterCase = getPrimaryKeyLetterCase();
     for (String pkName : pksNameList) {
-      String pkNameUp = letterCase.convert(pkName);
-      this.pksNameList.add(pkNameUp);
+      this.pksNameList.add(pkName);
     }
     if (rowsList != null) {
       for (Row row : rowsList) {
