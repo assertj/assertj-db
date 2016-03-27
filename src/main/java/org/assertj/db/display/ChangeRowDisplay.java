@@ -12,7 +12,7 @@
  */
 package org.assertj.db.display;
 
-import org.assertj.db.display.impl.RepresentationType;
+import org.assertj.db.display.impl.Representation;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.navigation.PositionWithColumns;
 import org.assertj.db.navigation.element.RowElement;
@@ -68,7 +68,7 @@ public class ChangeRowDisplay
     if (row == null) {
       throw new AssertJDBException("Row do not exist");
     }
-    return valuePosition.getInstance(row.getValuesList()).withType(displayType);
+    return valuePosition.getInstance(row.getValuesList()).withType(representationType);
   }
 
   /** {@inheritDoc} */
@@ -77,7 +77,7 @@ public class ChangeRowDisplay
     if (row == null) {
       throw new AssertJDBException("Row do not exist");
     }
-    return valuePosition.getInstance(row.getValuesList(), index).withType(displayType);
+    return valuePosition.getInstance(row.getValuesList(), index).withType(representationType);
   }
 
   /** {@inheritDoc} */
@@ -87,7 +87,7 @@ public class ChangeRowDisplay
       throw new AssertJDBException("Row do not exist");
     }
     return valuePosition.getInstance(row.getValuesList(), row.getColumnsNameList(),
-                                     columnName, row.getColumnLetterCase()).withType(displayType);
+                                     columnName, row.getColumnLetterCase()).withType(representationType);
   }
 
   /**
@@ -103,7 +103,7 @@ public class ChangeRowDisplay
    * {@inheritDoc}
    */
   @Override
-  protected String getRepresentation(RepresentationType displayType) {
-    return displayType.getRowRepresentation(info, row);
+  protected String getRepresentation(Representation representationType) {
+    return representationType.getRowRepresentation(info, row);
   }
 }

@@ -21,7 +21,7 @@ import org.assertj.db.type.*;
  * @author Régis Pouiller
  * @since 1.1.0
  */
-interface Representation {
+public interface Representation {
 
   /**
    * Returns the representation of a {@code Table}.

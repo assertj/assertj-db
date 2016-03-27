@@ -12,6 +12,7 @@
  */
 package org.assertj.db.display;
 
+import org.assertj.db.display.impl.Representation;
 import org.assertj.db.display.impl.RepresentationType;
 import org.assertj.db.navigation.PositionWithChanges;
 import org.assertj.db.navigation.element.ChangesElement;
@@ -90,7 +91,7 @@ public class ChangesDisplay
     if (origin != null) {
       return origin.ofCreation();
     }
-    return changesPosition.getChangesInstance(changes, ChangeType.CREATION, null).withType(displayType);
+    return changesPosition.getChangesInstance(changes, ChangeType.CREATION, null).withType(representationType);
   }
 
   /** {@inheritDoc} */
@@ -99,7 +100,7 @@ public class ChangesDisplay
     if (origin != null) {
       return origin.ofModification();
     }
-    return changesPosition.getChangesInstance(changes, ChangeType.MODIFICATION, null).withType(displayType);
+    return changesPosition.getChangesInstance(changes, ChangeType.MODIFICATION, null).withType(representationType);
   }
 
   /** {@inheritDoc} */
@@ -108,7 +109,7 @@ public class ChangesDisplay
     if (origin != null) {
       return origin.ofDeletion();
     }
-    return changesPosition.getChangesInstance(changes, ChangeType.DELETION, null).withType(displayType);
+    return changesPosition.getChangesInstance(changes, ChangeType.DELETION, null).withType(representationType);
   }
 
   /** {@inheritDoc} */
@@ -117,7 +118,7 @@ public class ChangesDisplay
     if (origin != null) {
       return origin.ofCreationOnTable(tableName);
     }
-    return changesPosition.getChangesInstance(changes, ChangeType.CREATION, tableName).withType(displayType);
+    return changesPosition.getChangesInstance(changes, ChangeType.CREATION, tableName).withType(representationType);
   }
 
   /** {@inheritDoc} */
@@ -126,7 +127,7 @@ public class ChangesDisplay
     if (origin != null) {
       return origin.ofModificationOnTable(tableName);
     }
-    return changesPosition.getChangesInstance(changes, ChangeType.MODIFICATION, tableName).withType(displayType);
+    return changesPosition.getChangesInstance(changes, ChangeType.MODIFICATION, tableName).withType(representationType);
   }
 
   /** {@inheritDoc} */
@@ -135,7 +136,7 @@ public class ChangesDisplay
     if (origin != null) {
       return origin.ofDeletionOnTable(tableName);
     }
-    return changesPosition.getChangesInstance(changes, ChangeType.DELETION, tableName).withType(displayType);
+    return changesPosition.getChangesInstance(changes, ChangeType.DELETION, tableName).withType(representationType);
   }
 
   /** {@inheritDoc} */
@@ -144,19 +145,19 @@ public class ChangesDisplay
     if (origin != null) {
       return origin.onTable(tableName);
     }
-    return changesPosition.getChangesInstance(changes, null, tableName).withType(displayType);
+    return changesPosition.getChangesInstance(changes, null, tableName).withType(representationType);
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeDisplay change() {
-    return changesPosition.getChangeInstance(changes, null, null).withType(displayType);
+    return changesPosition.getChangeInstance(changes, null, null).withType(representationType);
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeDisplay change(int index) {
-    return changesPosition.getChangeInstance(changes, null, null, index).withType(displayType);
+    return changesPosition.getChangeInstance(changes, null, null, index).withType(representationType);
   }
 
   /** {@inheritDoc} */
@@ -165,7 +166,7 @@ public class ChangesDisplay
     if (origin != null) {
       return origin.changeOfCreation();
     }
-    return changesPosition.getChangeInstance(changes, ChangeType.CREATION, null).withType(displayType);
+    return changesPosition.getChangeInstance(changes, ChangeType.CREATION, null).withType(representationType);
   }
 
   /** {@inheritDoc} */
@@ -174,7 +175,7 @@ public class ChangesDisplay
     if (origin != null) {
       return origin.changeOfCreation(index);
     }
-    return changesPosition.getChangeInstance(changes, ChangeType.CREATION, null, index).withType(displayType);
+    return changesPosition.getChangeInstance(changes, ChangeType.CREATION, null, index).withType(representationType);
   }
 
   /** {@inheritDoc} */
@@ -183,7 +184,7 @@ public class ChangesDisplay
     if (origin != null) {
       return origin.changeOfModification();
     }
-    return changesPosition.getChangeInstance(changes, ChangeType.MODIFICATION, null).withType(displayType);
+    return changesPosition.getChangeInstance(changes, ChangeType.MODIFICATION, null).withType(representationType);
   }
 
   /** {@inheritDoc} */
@@ -192,7 +193,7 @@ public class ChangesDisplay
     if (origin != null) {
       return origin.changeOfModification(index);
     }
-    return changesPosition.getChangeInstance(changes, ChangeType.MODIFICATION, null, index).withType(displayType);
+    return changesPosition.getChangeInstance(changes, ChangeType.MODIFICATION, null, index).withType(representationType);
   }
 
   /** {@inheritDoc} */
@@ -201,7 +202,7 @@ public class ChangesDisplay
     if (origin != null) {
       return origin.changeOfDeletion();
     }
-    return changesPosition.getChangeInstance(changes, ChangeType.DELETION, null).withType(displayType);
+    return changesPosition.getChangeInstance(changes, ChangeType.DELETION, null).withType(representationType);
   }
 
   /** {@inheritDoc} */
@@ -210,7 +211,7 @@ public class ChangesDisplay
     if (origin != null) {
       return origin.changeOfDeletion(index);
     }
-    return changesPosition.getChangeInstance(changes, ChangeType.DELETION, null, index).withType(displayType);
+    return changesPosition.getChangeInstance(changes, ChangeType.DELETION, null, index).withType(representationType);
   }
 
   /** {@inheritDoc} */
@@ -219,7 +220,7 @@ public class ChangesDisplay
     if (origin != null) {
       return origin.changeOnTable(tableName);
     }
-    return changesPosition.getChangeInstance(changes, null, tableName).withType(displayType);
+    return changesPosition.getChangeInstance(changes, null, tableName).withType(representationType);
   }
 
   /** {@inheritDoc} */
@@ -228,7 +229,7 @@ public class ChangesDisplay
     if (origin != null) {
       return origin.changeOnTable(tableName, index);
     }
-    return changesPosition.getChangeInstance(changes, null, tableName, index).withType(displayType);
+    return changesPosition.getChangeInstance(changes, null, tableName, index).withType(representationType);
   }
 
   /** {@inheritDoc} */
@@ -237,7 +238,7 @@ public class ChangesDisplay
     if (origin != null) {
       return origin.changeOnTableWithPks(tableName, pksValues);
     }
-    return changesPosition.getChangeInstanceWithPK(changes, tableName, pksValues).withType(displayType);
+    return changesPosition.getChangeInstanceWithPK(changes, tableName, pksValues).withType(representationType);
   }
 
   /** {@inheritDoc} */
@@ -246,7 +247,7 @@ public class ChangesDisplay
     if (origin != null) {
       return origin.changeOfCreationOnTable(tableName);
     }
-    return changesPosition.getChangeInstance(changes, ChangeType.CREATION, tableName).withType(displayType);
+    return changesPosition.getChangeInstance(changes, ChangeType.CREATION, tableName).withType(representationType);
   }
 
   /** {@inheritDoc} */
@@ -255,7 +256,7 @@ public class ChangesDisplay
     if (origin != null) {
       return origin.changeOfCreationOnTable(tableName, index);
     }
-    return changesPosition.getChangeInstance(changes, ChangeType.CREATION, tableName, index).withType(displayType);
+    return changesPosition.getChangeInstance(changes, ChangeType.CREATION, tableName, index).withType(representationType);
   }
 
   /** {@inheritDoc} */
@@ -264,7 +265,7 @@ public class ChangesDisplay
     if (origin != null) {
       return origin.changeOfModificationOnTable(tableName);
     }
-    return changesPosition.getChangeInstance(changes, ChangeType.MODIFICATION, tableName).withType(displayType);
+    return changesPosition.getChangeInstance(changes, ChangeType.MODIFICATION, tableName).withType(representationType);
   }
 
   /** {@inheritDoc} */
@@ -273,7 +274,7 @@ public class ChangesDisplay
     if (origin != null) {
       return origin.changeOfModificationOnTable(tableName, index);
     }
-    return changesPosition.getChangeInstance(changes, ChangeType.MODIFICATION, tableName, index).withType(displayType);
+    return changesPosition.getChangeInstance(changes, ChangeType.MODIFICATION, tableName, index).withType(representationType);
   }
 
   /** {@inheritDoc} */
@@ -282,7 +283,7 @@ public class ChangesDisplay
     if (origin != null) {
       return origin.changeOfDeletionOnTable(tableName);
     }
-    return changesPosition.getChangeInstance(changes, ChangeType.DELETION, tableName).withType(displayType);
+    return changesPosition.getChangeInstance(changes, ChangeType.DELETION, tableName).withType(representationType);
   }
 
   /** {@inheritDoc} */
@@ -291,14 +292,14 @@ public class ChangesDisplay
     if (origin != null) {
       return origin.changeOfDeletionOnTable(tableName, index);
     }
-    return changesPosition.getChangeInstance(changes, ChangeType.DELETION, tableName, index).withType(displayType);
+    return changesPosition.getChangeInstance(changes, ChangeType.DELETION, tableName, index).withType(representationType);
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  protected String getRepresentation(RepresentationType displayType) {
-    return displayType.getChangesRepresentation(info, changes);
+  protected String getRepresentation(Representation representationType) {
+    return representationType.getChangesRepresentation(info, changes);
   }
 }

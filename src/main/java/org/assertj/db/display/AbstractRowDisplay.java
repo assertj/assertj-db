@@ -12,7 +12,7 @@
  */
 package org.assertj.db.display;
 
-import org.assertj.db.display.impl.RepresentationType;
+import org.assertj.db.display.impl.Representation;
 import org.assertj.db.navigation.Position;
 import org.assertj.db.navigation.PositionWithColumns;
 import org.assertj.db.navigation.ToValueFromRow;
@@ -94,14 +94,14 @@ public abstract class AbstractRowDisplay<D extends AbstractDbData<D>, A extends 
   @Override
   public RV value(String columnName) {
     return valuePosition.getInstance(getValuesList(), row.getColumnsNameList(), columnName, row.getColumnLetterCase())
-                        .withType(displayType);
+                        .withType(representationType);
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  protected String getRepresentation(RepresentationType displayType) {
-    return displayType.getRowRepresentation(info, row);
+  protected String getRepresentation(Representation representationType) {
+    return representationType.getRowRepresentation(info, row);
   }
 }

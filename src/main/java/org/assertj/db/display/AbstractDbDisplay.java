@@ -84,25 +84,25 @@ public abstract class AbstractDbDisplay<D extends AbstractDbData<D>, A extends A
   /** {@inheritDoc} */
   @Override
   public R row() {
-    return rowPosition.getInstance(actual.getRowsList()).withType(displayType);
+    return rowPosition.getInstance(actual.getRowsList()).withType(representationType);
   }
 
   /** {@inheritDoc} */
   @Override
   public R row(int index) {
-    return rowPosition.getInstance(actual.getRowsList(), index).withType(displayType);
+    return rowPosition.getInstance(actual.getRowsList(), index).withType(representationType);
   }
 
   /** {@inheritDoc} */
   @Override
   public C column() {
-    return columnPosition.getInstance(actual.getColumnsList()).withType(displayType);
+    return columnPosition.getInstance(actual.getColumnsList()).withType(representationType);
   }
 
   /** {@inheritDoc} */
   @Override
   public C column(int index) {
-    return columnPosition.getInstance(actual.getColumnsList(), index).withType(displayType);
+    return columnPosition.getInstance(actual.getColumnsList(), index).withType(representationType);
   }
 
   /** {@inheritDoc} */
@@ -110,6 +110,6 @@ public abstract class AbstractDbDisplay<D extends AbstractDbData<D>, A extends A
   public C column(String columnName) {
     return columnPosition.getInstance(actual.getColumnsList(), actual.getColumnsNameList(),
                                       columnName, actual.getColumnLetterCase())
-                         .withType(displayType);
+                         .withType(representationType);
   }
 }

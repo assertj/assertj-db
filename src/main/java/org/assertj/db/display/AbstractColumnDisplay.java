@@ -12,7 +12,7 @@
  */
 package org.assertj.db.display;
 
-import org.assertj.db.display.impl.RepresentationType;
+import org.assertj.db.display.impl.Representation;
 import org.assertj.db.navigation.Position;
 import org.assertj.db.navigation.element.ColumnElement;
 import org.assertj.db.type.AbstractDbData;
@@ -88,7 +88,7 @@ public abstract class AbstractColumnDisplay<D extends AbstractDbData<D>, A exten
    * {@inheritDoc}
    */
   @Override
-  protected String getRepresentation(RepresentationType displayType) {
-    return displayType.getColumnRepresentation(info, column);
+  protected String getRepresentation(Representation representationType) {
+    return representationType.getColumnRepresentation(info, column);
   }
 }

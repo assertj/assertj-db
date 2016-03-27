@@ -12,7 +12,7 @@
  */
 package org.assertj.db.display;
 
-import org.assertj.db.display.impl.RepresentationType;
+import org.assertj.db.display.impl.Representation;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.global.AbstractElement;
 
@@ -31,9 +31,9 @@ public abstract class AbstractDisplay<E extends AbstractDisplay<E>>
         extends AbstractElement<E> {
 
   /**
-   * Type of display.
+   * Type of representation.
    */
-  protected RepresentationType displayType;
+  protected Representation representationType;
 
   /**
    * Constructor.
@@ -45,23 +45,23 @@ public abstract class AbstractDisplay<E extends AbstractDisplay<E>>
   }
 
   /**
-   * Changes the type of the display.
+   * Changes the type of the representation.
    *
-   * @param displayType Type of display.
+   * @param representationType Type of representation.
    * @return {@code this} display object.
    */
-  public E withType(RepresentationType displayType) {
-    this.displayType = displayType;
+  public E withType(Representation representationType) {
+    this.representationType = representationType;
     return myself;
   }
 
   /**
    * Returns the representation for the display
    *
-   * @param displayType Type of display.
+   * @param representationType Type of representation.
    * @return The representation.
    */
-  protected abstract String getRepresentation(RepresentationType displayType);
+  protected abstract String getRepresentation(Representation representationType);
 
   /**
    * Display {@code this} in the {@code System.out}.
@@ -79,7 +79,7 @@ public abstract class AbstractDisplay<E extends AbstractDisplay<E>>
    * @return {@code this} display object.
    */
   public E inStream(OutputStream outputStream) {
-    String representation = getRepresentation(displayType);
+    String representation = getRepresentation(representationType);
     PrintStream printStream = new PrintStream(outputStream);
     printStream.print(representation);
     return myself;
@@ -93,7 +93,7 @@ public abstract class AbstractDisplay<E extends AbstractDisplay<E>>
    * @throws AssertJDBException If exception in IO.
    */
   public E inFile(String fileName) {
-    String representation = getRepresentation(displayType);
+    String representation = getRepresentation(representationType);
     try (FileOutputStream fileOutputStream = new FileOutputStream(fileName)) {
       PrintStream printStream = new PrintStream(fileOutputStream);
       printStream.print(representation);

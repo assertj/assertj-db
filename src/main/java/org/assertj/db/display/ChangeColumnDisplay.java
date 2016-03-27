@@ -12,7 +12,7 @@
  */
 package org.assertj.db.display;
 
-import org.assertj.db.display.impl.RepresentationType;
+import org.assertj.db.display.impl.Representation;
 import org.assertj.db.navigation.PositionWithPoints;
 import org.assertj.db.navigation.element.ColumnElement;
 import org.assertj.db.navigation.origin.OriginWithValuesFromColumn;
@@ -78,13 +78,13 @@ public class ChangeColumnDisplay
   /** {@inheritDoc} */
   @Override
   public ChangeColumnValueDisplay valueAtStartPoint() {
-    return valuePosition.getInstanceAtStartPoint().withType(displayType);
+    return valuePosition.getInstanceAtStartPoint().withType(representationType);
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeColumnValueDisplay valueAtEndPoint() {
-    return valuePosition.getInstanceAtEndPoint().withType(displayType);
+    return valuePosition.getInstanceAtEndPoint().withType(representationType);
   }
 
   /**
@@ -100,7 +100,7 @@ public class ChangeColumnDisplay
    * {@inheritDoc}
    */
   @Override
-  protected String getRepresentation(RepresentationType displayType) {
-    return displayType.getChangeColumnRepresentation(info, columnName, valueAtStartPoint, valueAtEndPoint);
+  protected String getRepresentation(Representation representationType) {
+    return representationType.getChangeColumnRepresentation(info, columnName, valueAtStartPoint, valueAtEndPoint);
   }
 }

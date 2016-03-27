@@ -12,7 +12,7 @@
  */
 package org.assertj.db.display;
 
-import org.assertj.db.display.impl.RepresentationType;
+import org.assertj.db.display.impl.Representation;
 import org.assertj.db.type.Table;
 
 /**
@@ -36,7 +36,7 @@ public class TableDisplay extends AbstractDbDisplay<Table, TableDisplay, TableCo
    * {@inheritDoc}
    */
   @Override
-  protected String getRepresentation(RepresentationType displayType) {
-    return displayType.getTableRepresentation(info, actual);
+  protected String getRepresentation(Representation representationType) {
+    return representationType.getTableRepresentation(info, actual);
   }
 }

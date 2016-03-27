@@ -63,13 +63,13 @@ public abstract class AbstractSubDisplay<D extends AbstractDbData<D>, A extends 
   /** {@inheritDoc} */
   @Override
   public V value() {
-    return getValuePosition().getInstance(getValuesList()).withType(displayType);
+    return getValuePosition().getInstance(getValuesList()).withType(representationType);
   }
 
   /** {@inheritDoc} */
   @Override
   public V value(int index) {
-    return getValuePosition().getInstance(getValuesList(), index).withType(displayType);
+    return getValuePosition().getInstance(getValuesList(), index).withType(representationType);
   }
 
   /**

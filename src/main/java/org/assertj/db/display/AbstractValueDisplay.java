@@ -12,7 +12,7 @@
  */
 package org.assertj.db.display;
 
-import org.assertj.db.display.impl.RepresentationType;
+import org.assertj.db.display.impl.Representation;
 import org.assertj.db.navigation.ToValue;
 import org.assertj.db.navigation.element.ValueElement;
 import org.assertj.db.type.AbstractDbData;
@@ -72,7 +72,7 @@ public abstract class AbstractValueDisplay<D extends AbstractDbData<D>, A extend
    * {@inheritDoc}
    */
   @Override
-  protected String getRepresentation(RepresentationType displayType) {
-    return displayType.getValueRepresentation(info, value);
+  protected String getRepresentation(Representation representationType) {
+    return representationType.getValueRepresentation(info, value);
   }
 }

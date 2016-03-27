@@ -12,7 +12,7 @@
  */
 package org.assertj.db.display;
 
-import org.assertj.db.display.impl.RepresentationType;
+import org.assertj.db.display.impl.Representation;
 import org.assertj.db.navigation.PositionWithColumnsChange;
 import org.assertj.db.navigation.PositionWithPoints;
 import org.assertj.db.navigation.element.ChangeElement;
@@ -78,50 +78,50 @@ public class ChangeDisplay
   /** {@inheritDoc} */
   @Override
   public ChangeRowDisplay rowAtStartPoint() {
-    return rowPosition.getInstanceAtStartPoint().withType(displayType);
+    return rowPosition.getInstanceAtStartPoint().withType(representationType);
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeRowDisplay rowAtEndPoint() {
-    return rowPosition.getInstanceAtEndPoint().withType(displayType);
+    return rowPosition.getInstanceAtEndPoint().withType(representationType);
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeColumnDisplay column() {
-    return columnPosition.getChangeColumnInstance(change).withType(displayType);
+    return columnPosition.getChangeColumnInstance(change).withType(representationType);
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeColumnDisplay column(int index) {
-    return columnPosition.getChangeColumnInstance(change, index).withType(displayType);
+    return columnPosition.getChangeColumnInstance(change, index).withType(representationType);
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeColumnDisplay column(String columnName) {
     return columnPosition.getChangeColumnInstance(change, columnName, change.getColumnLetterCase()).withType(
-            displayType);
+            representationType);
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeColumnDisplay columnAmongTheModifiedOnes() {
-    return columnPosition.getModifiedChangeColumnInstance(change).withType(displayType);
+    return columnPosition.getModifiedChangeColumnInstance(change).withType(representationType);
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeColumnDisplay columnAmongTheModifiedOnes(int index) {
-    return columnPosition.getModifiedChangeColumnInstance(change, index).withType(displayType);
+    return columnPosition.getModifiedChangeColumnInstance(change, index).withType(representationType);
   }
 
   /** {@inheritDoc} */
   @Override
   public ChangeColumnDisplay columnAmongTheModifiedOnes(String columnName) {
-    return columnPosition.getModifiedChangeColumnInstance(change, columnName, change.getColumnLetterCase()).withType(displayType);
+    return columnPosition.getModifiedChangeColumnInstance(change, columnName, change.getColumnLetterCase()).withType(representationType);
   }
 
   /**
@@ -137,7 +137,7 @@ public class ChangeDisplay
    * {@inheritDoc}
    */
   @Override
-  protected String getRepresentation(RepresentationType displayType) {
-    return displayType.getChangeRepresentation(info, change);
+  protected String getRepresentation(Representation representationType) {
+    return representationType.getChangeRepresentation(info, change);
   }
 }
