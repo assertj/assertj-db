@@ -55,6 +55,7 @@ public interface AssertOnNumberOfChanges<T extends AssertOnNumberOfChanges<T>> {
    * @return {@code this} assertion object.
    * @throws AssertionError If the number of changes is less than or equal to the number in parameter.
    * @see org.assertj.db.api.ChangesAssert#hasNumberOfChangesGreaterThan(int)
+   * @since 1.1.0
    */
   T hasNumberOfChangesGreaterThan(int expected);
 
@@ -73,6 +74,7 @@ public interface AssertOnNumberOfChanges<T extends AssertOnNumberOfChanges<T>> {
    * @return {@code this} assertion object.
    * @throws AssertionError If the number of changes is greater than or equal to the number in parameter.
    * @see org.assertj.db.api.ChangesAssert#hasNumberOfChangesLessThan(int)
+   * @since 1.1.0
    */
   T hasNumberOfChangesLessThan(int expected);
 
@@ -91,6 +93,7 @@ public interface AssertOnNumberOfChanges<T extends AssertOnNumberOfChanges<T>> {
    * @return {@code this} assertion object.
    * @throws AssertionError If the number of changes is less than the number in parameter.
    * @see org.assertj.db.api.ChangesAssert#hasNumberOfChangesGreaterThanOrEqualTo(int)
+   * @since 1.1.0
    */
   T hasNumberOfChangesGreaterThanOrEqualTo(int expected);
 
@@ -109,6 +112,7 @@ public interface AssertOnNumberOfChanges<T extends AssertOnNumberOfChanges<T>> {
    * @return {@code this} assertion object.
    * @throws AssertionError If the number of changes is greater than the number in parameter.
    * @see org.assertj.db.api.ChangesAssert#hasNumberOfChangesLessThanOrEqualTo(int)
+   * @since 1.1.0
    */
   T hasNumberOfChangesLessThanOrEqualTo(int expected);
 }

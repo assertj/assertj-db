@@ -76,6 +76,7 @@ public interface AssertOnNumberOfRows<T extends AssertOnNumberOfRows<T>> {
    * @throws AssertionError If the number of rows is less than or equal to the number in parameter.
    * @see org.assertj.db.api.AbstractDbAssert#hasNumberOfRowsGreaterThan(int)
    * @see org.assertj.db.api.AbstractColumnAssert#hasNumberOfRowsGreaterThan(int)
+   * @since 1.1.0
    */
   T hasNumberOfRowsGreaterThan(int expected);
 
@@ -108,6 +109,7 @@ public interface AssertOnNumberOfRows<T extends AssertOnNumberOfRows<T>> {
    * @throws AssertionError If the number of rows is greater than or equal to the number in parameter.
    * @see org.assertj.db.api.AbstractDbAssert#hasNumberOfRowsLessThan(int)
    * @see org.assertj.db.api.AbstractColumnAssert#hasNumberOfRowsLessThan(int)
+   * @since 1.1.0
    */
   T hasNumberOfRowsLessThan(int expected);
 
@@ -140,6 +142,7 @@ public interface AssertOnNumberOfRows<T extends AssertOnNumberOfRows<T>> {
    * @throws AssertionError If the number of rows is less than the number in parameter.
    * @see org.assertj.db.api.AbstractDbAssert#hasNumberOfRowsGreaterThanOrEqualTo(int)
    * @see org.assertj.db.api.AbstractColumnAssert#hasNumberOfRowsGreaterThanOrEqualTo(int)
+   * @since 1.1.0
    */
   T hasNumberOfRowsGreaterThanOrEqualTo(int expected);
 
@@ -172,6 +175,7 @@ public interface AssertOnNumberOfRows<T extends AssertOnNumberOfRows<T>> {
    * @throws AssertionError If the number of rows is greater than the number in parameter.
    * @see org.assertj.db.api.AbstractDbAssert#hasNumberOfRowsLessThanOrEqualTo(int)
    * @see org.assertj.db.api.AbstractColumnAssert#hasNumberOfRowsLessThanOrEqualTo(int)
+   * @since 1.1.0
    */
   T hasNumberOfRowsLessThanOrEqualTo(int expected);
 }

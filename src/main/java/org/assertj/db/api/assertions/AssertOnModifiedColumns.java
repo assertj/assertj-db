@@ -57,6 +57,7 @@ public interface AssertOnModifiedColumns<T extends AssertOnModifiedColumns<T>> {
    * @return {@code this} assertion object.
    * @throws AssertionError If the number of modified columns is less than or equal to the number in parameter.
    * @see org.assertj.db.api.ChangeAssert#hasNumberOfModifiedColumnsGreaterThan(int)
+   * @since 1.1.0
    */
   T hasNumberOfModifiedColumnsGreaterThan(int number);
 
@@ -76,6 +77,7 @@ public interface AssertOnModifiedColumns<T extends AssertOnModifiedColumns<T>> {
    * @return {@code this} assertion object.
    * @throws AssertionError If the number of modified columns is greater than or equal to the number in parameter.
    * @see org.assertj.db.api.ChangeAssert#hasNumberOfModifiedColumnsLessThan(int)
+   * @since 1.1.0
    */
   T hasNumberOfModifiedColumnsLessThan(int number);
 
@@ -95,6 +97,7 @@ public interface AssertOnModifiedColumns<T extends AssertOnModifiedColumns<T>> {
    * @return {@code this} assertion object.
    * @throws AssertionError If the number of modified columns is less than the number in parameter.
    * @see org.assertj.db.api.ChangeAssert#hasNumberOfModifiedColumnsGreaterThanOrEqualTo(int)
+   * @since 1.1.0
    */
   T hasNumberOfModifiedColumnsGreaterThanOrEqualTo(int number);
 
@@ -114,6 +117,7 @@ public interface AssertOnModifiedColumns<T extends AssertOnModifiedColumns<T>> {
    * @return {@code this} assertion object.
    * @throws AssertionError If the number of modified columns is greater than the number in parameter.
    * @see org.assertj.db.api.ChangeAssert#hasNumberOfModifiedColumnsLessThanOrEqualTo(int)
+   * @since 1.1.0
    */
   T hasNumberOfModifiedColumnsLessThanOrEqualTo(int number);
 

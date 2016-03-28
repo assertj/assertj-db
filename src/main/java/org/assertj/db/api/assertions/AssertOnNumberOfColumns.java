@@ -85,6 +85,7 @@ public interface AssertOnNumberOfColumns<T extends AssertOnNumberOfColumns<T>> {
    * @see org.assertj.db.api.AbstractDbAssert#hasNumberOfColumnsGreaterThan(int)
    * @see org.assertj.db.api.AbstractRowAssert#hasNumberOfColumnsGreaterThan(int)
    * @see org.assertj.db.api.ChangeRowAssert#hasNumberOfColumnsGreaterThan(int)
+   * @since 1.1.0
    */
   T hasNumberOfColumnsGreaterThan(int expected);
 
@@ -118,6 +119,7 @@ public interface AssertOnNumberOfColumns<T extends AssertOnNumberOfColumns<T>> {
    * @see org.assertj.db.api.AbstractDbAssert#hasNumberOfColumnsLessThan(int)
    * @see org.assertj.db.api.AbstractRowAssert#hasNumberOfColumnsLessThan(int)
    * @see org.assertj.db.api.ChangeRowAssert#hasNumberOfColumnsLessThan(int)
+   * @since 1.1.0
    */
   T hasNumberOfColumnsLessThan(int expected);
 
@@ -151,6 +153,7 @@ public interface AssertOnNumberOfColumns<T extends AssertOnNumberOfColumns<T>> {
    * @see org.assertj.db.api.AbstractDbAssert#hasNumberOfColumnsGreaterThanOrEqualTo(int)
    * @see org.assertj.db.api.AbstractRowAssert#hasNumberOfColumnsGreaterThanOrEqualTo(int)
    * @see org.assertj.db.api.ChangeRowAssert#hasNumberOfColumnsGreaterThanOrEqualTo(int)
+   * @since 1.1.0
    */
   T hasNumberOfColumnsGreaterThanOrEqualTo(int expected);
 
@@ -184,6 +187,7 @@ public interface AssertOnNumberOfColumns<T extends AssertOnNumberOfColumns<T>> {
    * @see org.assertj.db.api.AbstractDbAssert#hasNumberOfColumnsLessThanOrEqualTo(int)
    * @see org.assertj.db.api.AbstractRowAssert#hasNumberOfColumnsLessThanOrEqualTo(int)
    * @see org.assertj.db.api.ChangeRowAssert#hasNumberOfColumnsLessThanOrEqualTo(int)
+   * @since 1.1.0
    */
   T hasNumberOfColumnsLessThanOrEqualTo(int expected);
 }
