@@ -28,7 +28,7 @@ import java.util.UUID;
 
 import static org.assertj.db.api.Assertions.assertThat;
 import static org.assertj.db.api.Assertions.bytesContentFromClassPathOf;
-import static org.assertj.db.display.Displaying.display;
+import static org.assertj.db.output.Outputs.display;
 
 /**
  * Test on the H2 database.

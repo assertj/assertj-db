@@ -17,15 +17,15 @@ import org.assertj.db.api.ChangeAssert;
 import org.assertj.db.api.ChangesAssert;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.common.NeedReload;
-import org.assertj.db.display.ChangeDisplay;
-import org.assertj.db.display.ChangesDisplay;
+import org.assertj.db.output.ChangeOutputter;
+import org.assertj.db.output.ChangesOutputter;
 import org.assertj.db.type.Changes;
 import org.junit.Test;
 
 import java.lang.reflect.Field;
 
 import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.display.Displaying.display;
+import static org.assertj.db.output.Outputs.display;
 
 /**
  * Tests on {@link ToChange} interface.
@@ -129,75 +129,75 @@ public class ToChange_Test extends AbstractTest {
     updateChangesForTests();
     changes.setEndPointNow();
 
-    Field fieldChanges = ChangesDisplay.class.getDeclaredField("changes");
+    Field fieldChanges = ChangesOutputter.class.getDeclaredField("changes");
     fieldChanges.setAccessible(true);
 
-    ChangesDisplay changesDisplay = display(changes);
-    ChangesDisplay changesDisplayCreation = changesDisplay.ofCreation();
-    ChangesDisplay changesDisplayModification = changesDisplay.ofModification();
-    ChangesDisplay changesDisplayDeletion = changesDisplay.ofDeletion();
+    ChangesOutputter changesDisplay = display(changes);
+    ChangesOutputter changesDisplayCreation = changesDisplay.ofCreation();
+    ChangesOutputter changesDisplayModification = changesDisplay.ofModification();
+    ChangesOutputter changesDisplayDeletion = changesDisplay.ofDeletion();
 
-    ChangeDisplay changeDisplayCreation0 = changesDisplay.changeOfCreation();
-    ChangeDisplay changeDisplayCreation1 = changesDisplayCreation.changeOfCreation();
-    ChangeDisplay changeDisplayCreation0Bis = changesDisplayCreation.changeOfCreation(0);
-    ChangeDisplay changeDisplayCreation1Bis = changesDisplay.changeOfCreation(1);
+    ChangeOutputter changeDisplayCreation0 = changesDisplay.changeOfCreation();
+    ChangeOutputter changeDisplayCreation1 = changesDisplayCreation.changeOfCreation();
+    ChangeOutputter changeDisplayCreation0Bis = changesDisplayCreation.changeOfCreation(0);
+    ChangeOutputter changeDisplayCreation1Bis = changesDisplay.changeOfCreation(1);
 
     Assertions.assertThat(changeDisplayCreation0).isSameAs(changeDisplayCreation0Bis);
     Assertions.assertThat(changeDisplayCreation1).isSameAs(changeDisplayCreation1Bis);
 
-    ChangeDisplay changeDisplayModification0 = changesDisplay.changeOfModification();
-    ChangeDisplay changeDisplayModification1 = changesDisplayModification.changeOfModification();
-    ChangeDisplay changeDisplayModification0Bis = changesDisplayModification.changeOfModification(0);
-    ChangeDisplay changeDisplayModification1Bis = changesDisplay.changeOfModification(1);
+    ChangeOutputter changeDisplayModification0 = changesDisplay.changeOfModification();
+    ChangeOutputter changeDisplayModification1 = changesDisplayModification.changeOfModification();
+    ChangeOutputter changeDisplayModification0Bis = changesDisplayModification.changeOfModification(0);
+    ChangeOutputter changeDisplayModification1Bis = changesDisplay.changeOfModification(1);
 
     Assertions.assertThat(changeDisplayModification0).isSameAs(changeDisplayModification0Bis);
     Assertions.assertThat(changeDisplayModification1).isSameAs(changeDisplayModification1Bis);
 
-    ChangeDisplay changeDisplayDeletion0 = changesDisplay.changeOfDeletion();
-    ChangeDisplay changeDisplayDeletion1 = changesDisplayDeletion.changeOfDeletion();
-    ChangeDisplay changeDisplayDeletion0Bis = changesDisplayDeletion.changeOfDeletion(0);
-    ChangeDisplay changeDisplayDeletion1Bis = changesDisplay.changeOfDeletion(1);
+    ChangeOutputter changeDisplayDeletion0 = changesDisplay.changeOfDeletion();
+    ChangeOutputter changeDisplayDeletion1 = changesDisplayDeletion.changeOfDeletion();
+    ChangeOutputter changeDisplayDeletion0Bis = changesDisplayDeletion.changeOfDeletion(0);
+    ChangeOutputter changeDisplayDeletion1Bis = changesDisplay.changeOfDeletion(1);
 
     Assertions.assertThat(changeDisplayDeletion0).isSameAs(changeDisplayDeletion0Bis);
     Assertions.assertThat(changeDisplayDeletion1).isSameAs(changeDisplayDeletion1Bis);
 
-    ChangeDisplay changeDisplayCreationOnTable0 = changesDisplay.changeOfCreationOnTable("actor");
-    ChangeDisplay changeDisplayCreationOnTable1 = changesDisplayCreation.changeOfCreationOnTable("interpretation");
-    ChangeDisplay changeDisplayCreationOnTable0Bis = changesDisplayCreation.changeOfCreationOnTable("actor", 0);
-    ChangeDisplay changeDisplayCreationOnTable1Bis = changesDisplay.changeOfCreationOnTable("interpretation", 0);
+    ChangeOutputter changeDisplayCreationOnTable0 = changesDisplay.changeOfCreationOnTable("actor");
+    ChangeOutputter changeDisplayCreationOnTable1 = changesDisplayCreation.changeOfCreationOnTable("interpretation");
+    ChangeOutputter changeDisplayCreationOnTable0Bis = changesDisplayCreation.changeOfCreationOnTable("actor", 0);
+    ChangeOutputter changeDisplayCreationOnTable1Bis = changesDisplay.changeOfCreationOnTable("interpretation", 0);
 
     Assertions.assertThat(changeDisplayCreationOnTable0).isSameAs(changeDisplayCreationOnTable0Bis);
     Assertions.assertThat(changeDisplayCreationOnTable1).isSameAs(changeDisplayCreationOnTable1Bis);
 
-    ChangeDisplay changeDisplayModificationOnTable0 = changesDisplay.changeOfModificationOnTable("actor");
-    ChangeDisplay changeDisplayModificationOnTable1 = changesDisplayModification.changeOfModificationOnTable(
+    ChangeOutputter changeDisplayModificationOnTable0 = changesDisplay.changeOfModificationOnTable("actor");
+    ChangeOutputter changeDisplayModificationOnTable1 = changesDisplayModification.changeOfModificationOnTable(
             "interpretation");
-    ChangeDisplay changeDisplayModificationOnTable0Bis = changesDisplayModification.changeOfModificationOnTable("actor", 0);
-    ChangeDisplay changeDisplayModificationOnTable1Bis = changesDisplay.changeOfModificationOnTable("interpretation", 0);
+    ChangeOutputter changeDisplayModificationOnTable0Bis = changesDisplayModification.changeOfModificationOnTable("actor", 0);
+    ChangeOutputter changeDisplayModificationOnTable1Bis = changesDisplay.changeOfModificationOnTable("interpretation", 0);
 
     Assertions.assertThat(changeDisplayModificationOnTable0).isSameAs(changeDisplayModificationOnTable0Bis);
     Assertions.assertThat(changeDisplayModificationOnTable1).isSameAs(changeDisplayModificationOnTable1Bis);
 
-    ChangeDisplay changeDisplayDeletionOnTable0 = changesDisplay.changeOfDeletionOnTable("actor");
-    ChangeDisplay changeDisplayDeletionOnTable1 = changesDisplayDeletion.changeOfDeletionOnTable("interpretation");
-    ChangeDisplay changeDisplayDeletionOnTable0Bis = changesDisplayDeletion.changeOfDeletionOnTable("actor", 0);
-    ChangeDisplay changeDisplayDeletionOnTable1Bis = changesDisplay.changeOfDeletionOnTable("interpretation", 0);
+    ChangeOutputter changeDisplayDeletionOnTable0 = changesDisplay.changeOfDeletionOnTable("actor");
+    ChangeOutputter changeDisplayDeletionOnTable1 = changesDisplayDeletion.changeOfDeletionOnTable("interpretation");
+    ChangeOutputter changeDisplayDeletionOnTable0Bis = changesDisplayDeletion.changeOfDeletionOnTable("actor", 0);
+    ChangeOutputter changeDisplayDeletionOnTable1Bis = changesDisplay.changeOfDeletionOnTable("interpretation", 0);
 
     Assertions.assertThat(changeDisplayDeletionOnTable0).isSameAs(changeDisplayDeletionOnTable0Bis);
     Assertions.assertThat(changeDisplayDeletionOnTable1).isSameAs(changeDisplayDeletionOnTable1Bis);
 
-    ChangeDisplay changeDisplayOnTable0 = changesDisplay.changeOnTable("actor");
-    ChangeDisplay changeDisplayOnTable1 = changesDisplayCreation.changeOnTable("actor");
-    ChangeDisplay changeDisplayOnTable0Bis = changesDisplayCreation.changeOnTable("actor", 0);
-    ChangeDisplay changeDisplayOnTable1Bis = changesDisplay.changeOnTable("actor", 1);
+    ChangeOutputter changeDisplayOnTable0 = changesDisplay.changeOnTable("actor");
+    ChangeOutputter changeDisplayOnTable1 = changesDisplayCreation.changeOnTable("actor");
+    ChangeOutputter changeDisplayOnTable0Bis = changesDisplayCreation.changeOnTable("actor", 0);
+    ChangeOutputter changeDisplayOnTable1Bis = changesDisplay.changeOnTable("actor", 1);
 
     Assertions.assertThat(changeDisplayOnTable0).isSameAs(changeDisplayOnTable0Bis);
     Assertions.assertThat(changeDisplayOnTable1).isSameAs(changeDisplayOnTable1Bis);
 
-    ChangeDisplay changeDisplayOnTableWithPks0 = changesDisplay.changeOnTableWithPks("actor", 1);
-    ChangeDisplay changeDisplayOnTableWithPks1 = changesDisplayCreation.changeOnTableWithPks("actor", 3);
-    ChangeDisplay changeDisplayOnTableWithPks0Bis = changesDisplayCreation.changeOnTableWithPks("actor", 1);
-    ChangeDisplay changeDisplayOnTableWithPks1Bis = changesDisplay.changeOnTableWithPks("actor", 3);
+    ChangeOutputter changeDisplayOnTableWithPks0 = changesDisplay.changeOnTableWithPks("actor", 1);
+    ChangeOutputter changeDisplayOnTableWithPks1 = changesDisplayCreation.changeOnTableWithPks("actor", 3);
+    ChangeOutputter changeDisplayOnTableWithPks0Bis = changesDisplayCreation.changeOnTableWithPks("actor", 1);
+    ChangeOutputter changeDisplayOnTableWithPks1Bis = changesDisplay.changeOnTableWithPks("actor", 3);
 
     Assertions.assertThat(changeDisplayOnTableWithPks0).isSameAs(changeDisplayOnTableWithPks0Bis);
     Assertions.assertThat(changeDisplayOnTableWithPks1).isSameAs(changeDisplayOnTableWithPks1Bis);

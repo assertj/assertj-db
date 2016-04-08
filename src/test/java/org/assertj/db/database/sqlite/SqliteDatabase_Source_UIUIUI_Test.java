@@ -22,7 +22,7 @@ import java.io.ByteArrayOutputStream;
 import java.sql.Date;
 
 import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.display.Displaying.display;
+import static org.assertj.db.output.Outputs.display;
 
 /**
  * Test on the Sqlite database.

@@ -16,14 +16,14 @@ import org.assertj.core.api.Assertions;
 import org.assertj.db.api.*;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.common.NeedReload;
-import org.assertj.db.display.*;
+import org.assertj.db.output.*;
 import org.assertj.db.type.Changes;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
 import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.display.Displaying.display;
+import static org.assertj.db.output.Outputs.display;
 
 /**
  * Tests on the different methods linked on the {@code returnToOrigin()} method.
@@ -232,11 +232,11 @@ public class ReturnToOrigin_Test extends AbstractTest {
   @Test
   public void test_return_to_table_from_column_with_displays() throws Exception {
     Table table = new Table(source, "actor");
-    TableDisplay tableDisplay = display(table);
-    TableColumnDisplay tableColumnDisplay = tableDisplay.column();
-    TableDisplay tableDisplayBis = tableColumnDisplay.returnToTable();
+    TableOutputter tableOutputter = display(table);
+    TableColumnOutputter tableColumnOutputter = tableOutputter.column();
+    TableOutputter tableOutputterBis = tableColumnOutputter.returnToTable();
 
-    Assertions.assertThat(tableDisplay).isSameAs(tableDisplayBis);
+    Assertions.assertThat(tableOutputter).isSameAs(tableOutputterBis);
   }
 
   /**
@@ -245,11 +245,11 @@ public class ReturnToOrigin_Test extends AbstractTest {
   @Test
   public void test_return_to_table_from_row_with_displays() throws Exception {
     Table table = new Table(source, "actor");
-    TableDisplay tableDisplay = display(table);
-    TableRowDisplay tableRowDisplay = tableDisplay.row();
-    TableDisplay tableDisplayBis = tableRowDisplay.returnToTable();
+    TableOutputter tableOutputter = display(table);
+    TableRowOutputter tableRowOutputter = tableOutputter.row();
+    TableOutputter tableOutputterBis = tableRowOutputter.returnToTable();
 
-    Assertions.assertThat(tableDisplay).isSameAs(tableDisplayBis);
+    Assertions.assertThat(tableOutputter).isSameAs(tableOutputterBis);
   }
 
   /**
@@ -258,11 +258,11 @@ public class ReturnToOrigin_Test extends AbstractTest {
   @Test
   public void test_return_to_request_from_column_with_displays() throws Exception {
     Request request = new Request(source, "select * from actor");
-    RequestDisplay requestDisplay = display(request);
-    RequestColumnDisplay requestColumnDisplay = requestDisplay.column();
-    RequestDisplay requestDisplayBis = requestColumnDisplay.returnToRequest();
+    RequestOutputter requestOutputter = display(request);
+    RequestColumnOutputter requestColumnOutputter = requestOutputter.column();
+    RequestOutputter requestOutputterBis = requestColumnOutputter.returnToRequest();
 
-    Assertions.assertThat(requestDisplay).isSameAs(requestDisplayBis);
+    Assertions.assertThat(requestOutputter).isSameAs(requestOutputterBis);
   }
 
   /**
@@ -271,11 +271,11 @@ public class ReturnToOrigin_Test extends AbstractTest {
   @Test
   public void test_return_to_request_from_row_with_displays() throws Exception {
     Request request = new Request(source, "select * from actor");
-    RequestDisplay requestDisplay = display(request);
-    RequestRowDisplay requestRowDisplay = requestDisplay.row();
-    RequestDisplay requestDisplayBis = requestRowDisplay.returnToRequest();
+    RequestOutputter requestOutputter = display(request);
+    RequestRowOutputter requestRowOutputter = requestOutputter.row();
+    RequestOutputter requestOutputterBis = requestRowOutputter.returnToRequest();
 
-    Assertions.assertThat(requestDisplay).isSameAs(requestDisplayBis);
+    Assertions.assertThat(requestOutputter).isSameAs(requestOutputterBis);
   }
 
   /**
@@ -284,12 +284,12 @@ public class ReturnToOrigin_Test extends AbstractTest {
   @Test
   public void test_return_to_column_from_value_for_table_with_displays() throws Exception {
     Table table = new Table(source, "actor");
-    TableDisplay tableDisplay = display(table);
-    TableColumnDisplay tableColumnDisplay = tableDisplay.column();
-    TableColumnValueDisplay tableColumnValueDisplay = tableColumnDisplay.value();
-    TableColumnDisplay tableColumnDisplayBis = tableColumnValueDisplay.returnToColumn();
+    TableOutputter tableOutputter = display(table);
+    TableColumnOutputter tableColumnOutputter = tableOutputter.column();
+    TableColumnValueOutputter tableColumnValueOutputter = tableColumnOutputter.value();
+    TableColumnOutputter tableColumnOutputterBis = tableColumnValueOutputter.returnToColumn();
 
-    Assertions.assertThat(tableColumnDisplay).isSameAs(tableColumnDisplayBis);
+    Assertions.assertThat(tableColumnOutputter).isSameAs(tableColumnOutputterBis);
   }
 
   /**
@@ -298,12 +298,12 @@ public class ReturnToOrigin_Test extends AbstractTest {
   @Test
   public void test_return_to_row_from_value_for_table_with_displays() throws Exception {
     Table table = new Table(source, "actor");
-    TableDisplay tableDisplay = display(table);
-    TableRowDisplay tableRowDisplay = tableDisplay.row();
-    TableRowValueDisplay tableRowValueDisplay = tableRowDisplay.value();
-    TableRowDisplay tableRowDisplayBis = tableRowValueDisplay.returnToRow();
+    TableOutputter tableOutputter = display(table);
+    TableRowOutputter tableRowOutputter = tableOutputter.row();
+    TableRowValueOutputter tableRowValueOutputter = tableRowOutputter.value();
+    TableRowOutputter tableRowOutputterBis = tableRowValueOutputter.returnToRow();
 
-    Assertions.assertThat(tableRowDisplay).isSameAs(tableRowDisplayBis);
+    Assertions.assertThat(tableRowOutputter).isSameAs(tableRowOutputterBis);
   }
 
   /**
@@ -312,12 +312,12 @@ public class ReturnToOrigin_Test extends AbstractTest {
   @Test
   public void test_return_to_column_from_value_for_request_with_displays() throws Exception {
     Request request = new Request(source, "select * from actor");
-    RequestDisplay requestDisplay = display(request);
-    RequestColumnDisplay requestColumnDisplay = requestDisplay.column();
-    RequestColumnValueDisplay requestColumnValueDisplay = requestColumnDisplay.value();
-    RequestColumnDisplay requestColumnDisplayBis = requestColumnValueDisplay.returnToColumn();
+    RequestOutputter requestOutputter = display(request);
+    RequestColumnOutputter requestColumnOutputter = requestOutputter.column();
+    RequestColumnValueOutputter requestColumnValueOutputter = requestColumnOutputter.value();
+    RequestColumnOutputter requestColumnOutputterBis = requestColumnValueOutputter.returnToColumn();
 
-    Assertions.assertThat(requestColumnDisplay).isSameAs(requestColumnDisplayBis);
+    Assertions.assertThat(requestColumnOutputter).isSameAs(requestColumnOutputterBis);
   }
 
   /**
@@ -326,12 +326,12 @@ public class ReturnToOrigin_Test extends AbstractTest {
   @Test
   public void test_return_to_row_from_value_for_request_with_displays() throws Exception {
     Request request = new Request(source, "select * from actor");
-    RequestDisplay requestDisplay = display(request);
-    RequestRowDisplay requestRowDisplay = requestDisplay.row();
-    RequestRowValueDisplay requestRowValueDisplay = requestRowDisplay.value();
-    RequestRowDisplay requestRowDisplayBis = requestRowValueDisplay.returnToRow();
+    RequestOutputter requestOutputter = display(request);
+    RequestRowOutputter requestRowOutputter = requestOutputter.row();
+    RequestRowValueOutputter requestRowValueOutputter = requestRowOutputter.value();
+    RequestRowOutputter requestRowOutputterBis = requestRowValueOutputter.returnToRow();
 
-    Assertions.assertThat(requestRowDisplay).isSameAs(requestRowDisplayBis);
+    Assertions.assertThat(requestRowOutputter).isSameAs(requestRowOutputterBis);
   }
 
   /**
@@ -344,11 +344,11 @@ public class ReturnToOrigin_Test extends AbstractTest {
     updateChangesForTests();
     changes.setEndPointNow();
 
-    ChangesDisplay changesDisplay = display(changes);
-    ChangeDisplay changeDisplay = changesDisplay.change();
-    ChangesDisplay changesDisplayBis = changeDisplay.returnToChanges();
+    ChangesOutputter changesOutputter = display(changes);
+    ChangeOutputter changeOutputter = changesOutputter.change();
+    ChangesOutputter changesOutputterBis = changeOutputter.returnToChanges();
 
-    Assertions.assertThat(changesDisplay).isSameAs(changesDisplayBis);
+    Assertions.assertThat(changesOutputter).isSameAs(changesOutputterBis);
   }
 
   /**
@@ -361,11 +361,11 @@ public class ReturnToOrigin_Test extends AbstractTest {
     updateChangesForTests();
     changes.setEndPointNow();
 
-    ChangeDisplay changeDisplay = display(changes).change();
-    ChangeColumnDisplay changeColumnDisplay = changeDisplay.column();
-    ChangeDisplay changeDisplayBis = changeColumnDisplay.returnToChange();
+    ChangeOutputter changeOutputter = display(changes).change();
+    ChangeColumnOutputter changeColumnOutputter = changeOutputter.column();
+    ChangeOutputter changeOutputterBis = changeColumnOutputter.returnToChange();
 
-    Assertions.assertThat(changeDisplay).isSameAs(changeDisplayBis);
+    Assertions.assertThat(changeOutputter).isSameAs(changeOutputterBis);
   }
 
   /**
@@ -378,11 +378,11 @@ public class ReturnToOrigin_Test extends AbstractTest {
     updateChangesForTests();
     changes.setEndPointNow();
 
-    ChangeDisplay changeDisplay = display(changes).change();
-    ChangeRowDisplay changeRowDisplay = changeDisplay.rowAtEndPoint();
-    ChangeDisplay changeDisplayBis = changeRowDisplay.returnToChange();
+    ChangeOutputter changeOutputter = display(changes).change();
+    ChangeRowOutputter changeRowOutputter = changeOutputter.rowAtEndPoint();
+    ChangeOutputter changeOutputterBis = changeRowOutputter.returnToChange();
 
-    Assertions.assertThat(changeDisplay).isSameAs(changeDisplayBis);
+    Assertions.assertThat(changeOutputter).isSameAs(changeOutputterBis);
   }
 
   /**
@@ -395,11 +395,11 @@ public class ReturnToOrigin_Test extends AbstractTest {
     updateChangesForTests();
     changes.setEndPointNow();
 
-    ChangeColumnDisplay changeColumnDisplay = display(changes).change().column();
-    ChangeColumnValueDisplay changeColumnValueDisplay = changeColumnDisplay.valueAtEndPoint();
-    ChangeColumnDisplay changeColumnDisplayBis = changeColumnValueDisplay.returnToColumn();
+    ChangeColumnOutputter changeColumnOutputter = display(changes).change().column();
+    ChangeColumnValueOutputter changeColumnValueOutputter = changeColumnOutputter.valueAtEndPoint();
+    ChangeColumnOutputter changeColumnOutputterBis = changeColumnValueOutputter.returnToColumn();
 
-    Assertions.assertThat(changeColumnDisplay).isSameAs(changeColumnDisplayBis);
+    Assertions.assertThat(changeColumnOutputter).isSameAs(changeColumnOutputterBis);
   }
 
   /**
@@ -412,10 +412,10 @@ public class ReturnToOrigin_Test extends AbstractTest {
     updateChangesForTests();
     changes.setEndPointNow();
 
-    ChangeRowDisplay changeRowDisplay = display(changes).change().rowAtEndPoint();
-    ChangeRowValueDisplay changeRowValueDisplay = changeRowDisplay.value();
-    ChangeRowDisplay changeRowDisplayBis = changeRowValueDisplay.returnToRow();
+    ChangeRowOutputter changeRowOutputter = display(changes).change().rowAtEndPoint();
+    ChangeRowValueOutputter changeRowValueOutputter = changeRowOutputter.value();
+    ChangeRowOutputter changeRowOutputterBis = changeRowValueOutputter.returnToRow();
 
-    Assertions.assertThat(changeRowDisplay).isSameAs(changeRowDisplayBis);
+    Assertions.assertThat(changeRowOutputter).isSameAs(changeRowOutputterBis);
   }
 }

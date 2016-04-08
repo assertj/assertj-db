@@ -17,9 +17,9 @@ import org.assertj.db.api.ChangeAssert;
 import org.assertj.db.api.ChangesAssert;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.common.NeedReload;
-import org.assertj.db.display.ChangeDisplay;
-import org.assertj.db.display.ChangesDisplay;
 import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.output.ChangeOutputter;
+import org.assertj.db.output.ChangesOutputter;
 import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.Changes;
 import org.junit.Test;
@@ -30,7 +30,7 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.display.Displaying.display;
+import static org.assertj.db.output.Outputs.display;
 import static org.junit.Assert.fail;
 
 /**
@@ -147,31 +147,31 @@ public class ToChange_ChangeOfModification_Integer_Test extends AbstractTest {
     updateChangesForTests();
     changes.setEndPointNow();
 
-    Field fieldPosition = ChangesDisplay.class.getDeclaredField("changesPosition");
+    Field fieldPosition = ChangesOutputter.class.getDeclaredField("changesPosition");
     fieldPosition.setAccessible(true);
     Field fieldList = Changes.class.getDeclaredField("changesList");
     fieldList.setAccessible(true);
     Field fieldIndex = PositionWithChanges.class.getDeclaredField("indexNextChangeMap");
     fieldIndex.setAccessible(true);
-    Field fieldChange = ChangeDisplay.class.getDeclaredField("change");
+    Field fieldChange = ChangeOutputter.class.getDeclaredField("change");
     fieldChange.setAccessible(true);
 
-    ChangesDisplay changesDisplay = display(changes);
+    ChangesOutputter changesDisplay = display(changes);
     PositionWithChanges position = (PositionWithChanges) fieldPosition.get(changesDisplay);
     Map<ChangeType, Map<String, Integer>> map = (Map<ChangeType, Map<String, Integer>>)fieldIndex.get(position);
     assertThat(map).hasSize(0);
     assertThat(map.get(null)).isNull();
-    ChangeDisplay changeDisplay0 = changesDisplay.changeOfModification(0);
+    ChangeOutputter changeDisplay0 = changesDisplay.changeOfModification(0);
     assertThat(map).hasSize(1);
     assertThat(map.get(null)).isNull();
     assertThat(map.get(ChangeType.MODIFICATION)).hasSize(1);
     assertThat(map.get(ChangeType.MODIFICATION).get(null)).isEqualTo(1);
-    ChangeDisplay changeDisplay1 = changesDisplay.changeOfModification(1);
+    ChangeOutputter changeDisplay1 = changesDisplay.changeOfModification(1);
     assertThat(map).hasSize(1);
     assertThat(map.get(null)).isNull();
     assertThat(map.get(ChangeType.MODIFICATION)).hasSize(1);
     assertThat(map.get(ChangeType.MODIFICATION).get(null)).isEqualTo(2);
-    ChangeDisplay changeDisplay2 = changesDisplay.changeOfModification(2);
+    ChangeOutputter changeDisplay2 = changesDisplay.changeOfModification(2);
     assertThat(map).hasSize(1);
     assertThat(map.get(null)).isNull();
     assertThat(map.get(ChangeType.MODIFICATION)).hasSize(1);
@@ -188,25 +188,25 @@ public class ToChange_ChangeOfModification_Integer_Test extends AbstractTest {
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 3[");
     }
-    ChangeDisplay changeDisplayAgain0 = changesDisplay.changeOfModification(0);
+    ChangeOutputter changeDisplayAgain0 = changesDisplay.changeOfModification(0);
     assertThat(changeDisplay0).isSameAs(changeDisplayAgain0);
 
-    ChangesDisplay changesDisplayBis = display(changes);
+    ChangesOutputter changesDisplayBis = display(changes);
     PositionWithChanges positionBis = (PositionWithChanges) fieldPosition.get(changesDisplayBis);
     map = (Map<ChangeType, Map<String, Integer>>)fieldIndex.get(positionBis);
     assertThat(map).hasSize(0);
     assertThat(map.get(null)).isNull();
-    ChangeDisplay changeDisplayBis0 = changesDisplayBis.changeOfModification(0);
+    ChangeOutputter changeDisplayBis0 = changesDisplayBis.changeOfModification(0);
     assertThat(map).hasSize(1);
     assertThat(map.get(null)).isNull();
     assertThat(map.get(ChangeType.MODIFICATION)).hasSize(1);
     assertThat(map.get(ChangeType.MODIFICATION).get(null)).isEqualTo(1);
-    ChangeDisplay changeDisplayBis1 = changeDisplayBis0.changeOfModification(1);
+    ChangeOutputter changeDisplayBis1 = changeDisplayBis0.changeOfModification(1);
     assertThat(map).hasSize(1);
     assertThat(map.get(null)).isNull();
     assertThat(map.get(ChangeType.MODIFICATION)).hasSize(1);
     assertThat(map.get(ChangeType.MODIFICATION).get(null)).isEqualTo(2);
-    ChangeDisplay changeDisplayBis2 = changeDisplayBis1.changeOfModification(2);
+    ChangeOutputter changeDisplayBis2 = changeDisplayBis1.changeOfModification(2);
     assertThat(map).hasSize(1);
     assertThat(map.get(null)).isNull();
     assertThat(map.get(ChangeType.MODIFICATION)).hasSize(1);
@@ -223,7 +223,7 @@ public class ToChange_ChangeOfModification_Integer_Test extends AbstractTest {
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 3[");
     }
-    ChangeDisplay changeDisplayBisAgain0 = changeDisplayBis2.changeOfModification(0);
+    ChangeOutputter changeDisplayBisAgain0 = changeDisplayBis2.changeOfModification(0);
     assertThat(changeDisplayBis0).isSameAs(changeDisplayBisAgain0);
 
     List<Changes> changesList = (List<Changes>) fieldList.get(changes);

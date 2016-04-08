@@ -16,8 +16,8 @@ import org.assertj.core.api.Assertions;
 import org.assertj.db.api.*;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.common.NeedReload;
-import org.assertj.db.display.*;
 import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.output.*;
 import org.assertj.db.type.Changes;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
@@ -30,7 +30,7 @@ import java.sql.Date;
 import java.util.UUID;
 
 import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.display.Displaying.display;
+import static org.assertj.db.output.Outputs.display;
 import static org.junit.Assert.fail;
 
 /**
@@ -480,97 +480,97 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     updateChangesForTests();
     changes.setEndPointNow();
 
-    Field fieldPosition = ChangeRowDisplay.class.getDeclaredField("valuePosition");
+    Field fieldPosition = ChangeRowOutputter.class.getDeclaredField("valuePosition");
     fieldPosition.setAccessible(true);
-    Field fieldValue = AbstractDisplayWithValues.class.getDeclaredField("value");
+    Field fieldValue = AbstractOutputterWithValues.class.getDeclaredField("value");
     fieldValue.setAccessible(true);
     Field fieldIndex = Position.class.getDeclaredField("nextIndex");
     fieldIndex.setAccessible(true);
 
-    ChangesDisplay changesDisplay = display(changes);
-    ChangeDisplay changeDisplay = changesDisplay.change();
-    ChangeRowDisplay changeRowDisplay = changeDisplay.rowAtEndPoint();
-    Position position = (Position) fieldPosition.get(changeRowDisplay);
+    ChangesOutputter changesOutputter = display(changes);
+    ChangeOutputter changeOutputter = changesOutputter.change();
+    ChangeRowOutputter changeRowOutputter = changeOutputter.rowAtEndPoint();
+    Position position = (Position) fieldPosition.get(changeRowOutputter);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
-    ChangeRowValueDisplay changeRowValueDisplay0 = changeRowDisplay.value(0);
+    ChangeRowValueOutputter changeRowValueOutputter0 = changeRowOutputter.value(0);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
-    ChangeRowValueDisplay changeRowValueDisplay1 = changeRowDisplay.value(1);
+    ChangeRowValueOutputter changeRowValueOutputter1 = changeRowOutputter.value(1);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(2);
-    ChangeRowValueDisplay changeRowValueDisplay2 = changeRowDisplay.value(2);
+    ChangeRowValueOutputter changeRowValueOutputter2 = changeRowOutputter.value(2);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(3);
-    ChangeRowValueDisplay changeRowValueDisplay3 = changeRowDisplay.value(3);
+    ChangeRowValueOutputter changeRowValueOutputter3 = changeRowOutputter.value(3);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(4);
-    ChangeRowValueDisplay changeRowValueDisplay4 = changeRowDisplay.value(4);
+    ChangeRowValueOutputter changeRowValueOutputter4 = changeRowOutputter.value(4);
     try {
-      changeRowDisplay.value(6);
+      changeRowOutputter.value(6);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index 6 out of the limits [0, 5[");
     }
     try {
-      changeRowDisplay.value(-1);
+      changeRowOutputter.value(-1);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 5[");
     }
     try {
-      changeDisplay.rowAtStartPoint().value(0);
+      changeOutputter.rowAtStartPoint().value(0);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Row do not exist");
     }
-    ChangeRowValueDisplay changeRowValueDisplayAgain0 = changeRowDisplay.value(0);
-    Assertions.assertThat(changeRowValueDisplay0).isSameAs(changeRowValueDisplayAgain0);
+    ChangeRowValueOutputter changeRowValueOutputterAgain0 = changeRowOutputter.value(0);
+    Assertions.assertThat(changeRowValueOutputter0).isSameAs(changeRowValueOutputterAgain0);
 
-    ChangesDisplay changesDisplayBis = display(changes);
-    ChangeDisplay changeDisplayBis = changesDisplayBis.change();
-    ChangeRowDisplay changeRowDisplayBis = changeDisplayBis.rowAtEndPoint();
-    Position positionBis = (Position) fieldPosition.get(changeRowDisplayBis);
+    ChangesOutputter changesOutputterBis = display(changes);
+    ChangeOutputter changeOutputterBis = changesOutputterBis.change();
+    ChangeRowOutputter changeRowOutputterBis = changeOutputterBis.rowAtEndPoint();
+    Position positionBis = (Position) fieldPosition.get(changeRowOutputterBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
-    ChangeRowValueDisplay changeRowValueDisplayBis0 = changeRowDisplayBis.value(0);
+    ChangeRowValueOutputter changeRowValueOutputterBis0 = changeRowOutputterBis.value(0);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
-    ChangeRowValueDisplay changeRowValueDisplayBis1 = changeRowValueDisplayBis0.value(1);
+    ChangeRowValueOutputter changeRowValueOutputterBis1 = changeRowValueOutputterBis0.value(1);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(2);
-    ChangeRowValueDisplay changeRowValueDisplayBis2 = changeRowValueDisplayBis1.value(2);
+    ChangeRowValueOutputter changeRowValueOutputterBis2 = changeRowValueOutputterBis1.value(2);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(3);
-    ChangeRowValueDisplay changeRowValueDisplayBis3 = changeRowValueDisplayBis2.value(3);
+    ChangeRowValueOutputter changeRowValueOutputterBis3 = changeRowValueOutputterBis2.value(3);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(4);
-    ChangeRowValueDisplay changeRowValueDisplayBis4 = changeRowValueDisplayBis3.value(4);
+    ChangeRowValueOutputter changeRowValueOutputterBis4 = changeRowValueOutputterBis3.value(4);
     try {
-      changeRowValueDisplayBis4.value(6);
+      changeRowValueOutputterBis4.value(6);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index 6 out of the limits [0, 5[");
     }
     try {
-      changeRowValueDisplayBis4.value(-1);
+      changeRowValueOutputterBis4.value(-1);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 5[");
     }
     try {
-      changeDisplayBis.rowAtStartPoint().value(0);
+      changeOutputterBis.rowAtStartPoint().value(0);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Row do not exist");
     }
-    ChangeRowValueDisplay changeRowValueDisplayBisAgain0 = changeRowValueDisplayBis4.value(0);
-    Assertions.assertThat(changeRowValueDisplayBis0).isSameAs(changeRowValueDisplayBisAgain0);
+    ChangeRowValueOutputter changeRowValueOutputterBisAgain0 = changeRowValueOutputterBis4.value(0);
+    Assertions.assertThat(changeRowValueOutputterBis0).isSameAs(changeRowValueOutputterBisAgain0);
 
-    Assertions.assertThat(((Value) fieldValue.get(changeRowValueDisplay0)).getValue())
-              .isSameAs(((Value) fieldValue.get(changeRowValueDisplayBis0)).getValue())
+    Assertions.assertThat(((Value) fieldValue.get(changeRowValueOutputter0)).getValue())
+              .isSameAs(((Value) fieldValue.get(changeRowValueOutputterBis0)).getValue())
               .isEqualTo(new BigDecimal("4"));
-    Assertions.assertThat(((Value) fieldValue.get(changeRowValueDisplay1)).getValue())
-              .isSameAs(((Value) fieldValue.get(changeRowValueDisplayBis1)).getValue())
+    Assertions.assertThat(((Value) fieldValue.get(changeRowValueOutputter1)).getValue())
+              .isSameAs(((Value) fieldValue.get(changeRowValueOutputterBis1)).getValue())
               .isEqualTo("Murray");
-    Assertions.assertThat(((Value) fieldValue.get(changeRowValueDisplay2)).getValue())
-              .isSameAs(((Value) fieldValue.get(changeRowValueDisplayBis2)).getValue())
+    Assertions.assertThat(((Value) fieldValue.get(changeRowValueOutputter2)).getValue())
+              .isSameAs(((Value) fieldValue.get(changeRowValueOutputterBis2)).getValue())
               .isEqualTo("Bill");
-    Assertions.assertThat(((Value) fieldValue.get(changeRowValueDisplay3)).getValue())
-              .isSameAs(((Value) fieldValue.get(changeRowValueDisplayBis3)).getValue())
+    Assertions.assertThat(((Value) fieldValue.get(changeRowValueOutputter3)).getValue())
+              .isSameAs(((Value) fieldValue.get(changeRowValueOutputterBis3)).getValue())
               .isEqualTo(Date.valueOf("1950-09-21"));
-    Assertions.assertThat(((Value) fieldValue.get(changeRowValueDisplay4)).getValue())
-              .isSameAs(((Value) fieldValue.get(changeRowValueDisplayBis4)).getValue())
+    Assertions.assertThat(((Value) fieldValue.get(changeRowValueOutputter4)).getValue())
+              .isSameAs(((Value) fieldValue.get(changeRowValueOutputterBis4)).getValue())
               .isEqualTo(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
   }
 
@@ -579,72 +579,72 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
    */
   @Test
   public void test_value_from_column_of_table_with_index_with_displays() throws Exception {
-    Field fieldPosition = AbstractColumnDisplay.class.getDeclaredField("valuePosition");
+    Field fieldPosition = AbstractColumnOutputter.class.getDeclaredField("valuePosition");
     fieldPosition.setAccessible(true);
-    Field fieldValue = AbstractValueDisplay.class.getDeclaredField("value");
+    Field fieldValue = AbstractValueOutputter.class.getDeclaredField("value");
     fieldValue.setAccessible(true);
     Field fieldIndex = Position.class.getDeclaredField("nextIndex");
     fieldIndex.setAccessible(true);
 
     Table table = new Table(source, "actor");
-    TableDisplay tableDisplay = display(table);
-    TableColumnDisplay tableColumnDisplay = tableDisplay.column();
-    Position position = (Position) fieldPosition.get(tableColumnDisplay);
+    TableOutputter tableOutputter = display(table);
+    TableColumnOutputter tableColumnOutputter = tableOutputter.column();
+    Position position = (Position) fieldPosition.get(tableColumnOutputter);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
-    TableColumnValueDisplay tableColumnValueDisplay0 = tableColumnDisplay.value(0);
+    TableColumnValueOutputter tableColumnValueOutputter0 = tableColumnOutputter.value(0);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
-    TableColumnValueDisplay tableColumnValueDisplay1 = tableColumnDisplay.value(1);
+    TableColumnValueOutputter tableColumnValueOutputter1 = tableColumnOutputter.value(1);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(2);
-    TableColumnValueDisplay tableColumnValueDisplay2 = tableColumnDisplay.value(2);
+    TableColumnValueOutputter tableColumnValueOutputter2 = tableColumnOutputter.value(2);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(3);
     try {
-      tableColumnDisplay.value(5);
+      tableColumnOutputter.value(5);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index 5 out of the limits [0, 3[");
     }
     try {
-      tableColumnDisplay.value(-1);
+      tableColumnOutputter.value(-1);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 3[");
     }
-    TableColumnValueDisplay tableColumnValueDisplayAgain0 = tableColumnDisplay.value(0);
-    Assertions.assertThat(tableColumnValueDisplay0).isSameAs(tableColumnValueDisplayAgain0);
+    TableColumnValueOutputter tableColumnValueOutputterAgain0 = tableColumnOutputter.value(0);
+    Assertions.assertThat(tableColumnValueOutputter0).isSameAs(tableColumnValueOutputterAgain0);
 
-    TableDisplay tableDisplayBis = display(table);
-    TableColumnDisplay tableColumnDisplayBis = tableDisplayBis.column();
-    Position positionBis = (Position) fieldPosition.get(tableColumnDisplayBis);
+    TableOutputter tableOutputterBis = display(table);
+    TableColumnOutputter tableColumnOutputterBis = tableOutputterBis.column();
+    Position positionBis = (Position) fieldPosition.get(tableColumnOutputterBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
-    TableColumnValueDisplay tableColumnValueDisplayBis0 = tableColumnDisplayBis.value(0);
+    TableColumnValueOutputter tableColumnValueOutputterBis0 = tableColumnOutputterBis.value(0);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
-    TableColumnValueDisplay tableColumnValueDisplayBis1 = tableColumnValueDisplayBis0.value(1);
+    TableColumnValueOutputter tableColumnValueOutputterBis1 = tableColumnValueOutputterBis0.value(1);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(2);
-    TableColumnValueDisplay tableColumnValueDisplayBis2 = tableColumnValueDisplayBis1.value(2);
+    TableColumnValueOutputter tableColumnValueOutputterBis2 = tableColumnValueOutputterBis1.value(2);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(3);
     try {
-      tableColumnValueDisplayBis2.value(5);
+      tableColumnValueOutputterBis2.value(5);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index 5 out of the limits [0, 3[");
     }
     try {
-      tableColumnValueDisplayBis2.value(-1);
+      tableColumnValueOutputterBis2.value(-1);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 3[");
     }
-    TableColumnValueDisplay tableColumnValueDisplayBisAgain0 = tableColumnValueDisplayBis2.value(0);
-    Assertions.assertThat(tableColumnValueDisplayBis0).isSameAs(tableColumnValueDisplayBisAgain0);
+    TableColumnValueOutputter tableColumnValueOutputterBisAgain0 = tableColumnValueOutputterBis2.value(0);
+    Assertions.assertThat(tableColumnValueOutputterBis0).isSameAs(tableColumnValueOutputterBisAgain0);
 
-    Assertions.assertThat(((Value) fieldValue.get(tableColumnValueDisplay0)).getValue())
-              .isSameAs(((Value) fieldValue.get(tableColumnValueDisplayBis0)).getValue())
+    Assertions.assertThat(((Value) fieldValue.get(tableColumnValueOutputter0)).getValue())
+              .isSameAs(((Value) fieldValue.get(tableColumnValueOutputterBis0)).getValue())
               .isEqualTo(new BigDecimal("1"));
-    Assertions.assertThat(((Value) fieldValue.get(tableColumnValueDisplay1)).getValue())
-              .isSameAs(((Value) fieldValue.get(tableColumnValueDisplayBis1)).getValue())
+    Assertions.assertThat(((Value) fieldValue.get(tableColumnValueOutputter1)).getValue())
+              .isSameAs(((Value) fieldValue.get(tableColumnValueOutputterBis1)).getValue())
               .isEqualTo(new BigDecimal("2"));
-    Assertions.assertThat(((Value) fieldValue.get(tableColumnValueDisplay2)).getValue())
-              .isSameAs(((Value) fieldValue.get(tableColumnValueDisplayBis2)).getValue())
+    Assertions.assertThat(((Value) fieldValue.get(tableColumnValueOutputter2)).getValue())
+              .isSameAs(((Value) fieldValue.get(tableColumnValueOutputterBis2)).getValue())
               .isEqualTo(new BigDecimal("3"));
   }
 
@@ -653,86 +653,86 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
    */
   @Test
   public void test_value_from_row_of_table_with_index_with_displays() throws Exception {
-    Field fieldPosition = AbstractRowDisplay.class.getDeclaredField("valuePosition");
+    Field fieldPosition = AbstractRowOutputter.class.getDeclaredField("valuePosition");
     fieldPosition.setAccessible(true);
-    Field fieldValue = AbstractValueDisplay.class.getDeclaredField("value");
+    Field fieldValue = AbstractValueOutputter.class.getDeclaredField("value");
     fieldValue.setAccessible(true);
     Field fieldIndex = Position.class.getDeclaredField("nextIndex");
     fieldIndex.setAccessible(true);
 
     Table table = new Table(source, "actor");
-    TableDisplay tableDisplay = display(table);
-    TableRowDisplay tableRowDisplay = tableDisplay.row();
-    Position position = (Position) fieldPosition.get(tableRowDisplay);
+    TableOutputter tableOutputter = display(table);
+    TableRowOutputter tableRowOutputter = tableOutputter.row();
+    Position position = (Position) fieldPosition.get(tableRowOutputter);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
-    TableRowValueDisplay tableRowValueDisplay0 = tableRowDisplay.value(0);
+    TableRowValueOutputter tableRowValueOutputter0 = tableRowOutputter.value(0);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
-    TableRowValueDisplay tableRowValueDisplay1 = tableRowDisplay.value(1);
+    TableRowValueOutputter tableRowValueOutputter1 = tableRowOutputter.value(1);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(2);
-    TableRowValueDisplay tableRowValueDisplay2 = tableRowDisplay.value(2);
+    TableRowValueOutputter tableRowValueOutputter2 = tableRowOutputter.value(2);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(3);
-    TableRowValueDisplay tableRowValueDisplay3 = tableRowDisplay.value(3);
+    TableRowValueOutputter tableRowValueOutputter3 = tableRowOutputter.value(3);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(4);
-    TableRowValueDisplay tableRowValueDisplay4 = tableRowDisplay.value(4);
+    TableRowValueOutputter tableRowValueOutputter4 = tableRowOutputter.value(4);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(5);
     try {
-      tableRowDisplay.value(7);
+      tableRowOutputter.value(7);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index 7 out of the limits [0, 5[");
     }
     try {
-      tableRowDisplay.value(-1);
+      tableRowOutputter.value(-1);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 5[");
     }
-    TableRowValueDisplay tableRowValueDisplayAgain0 = tableRowDisplay.value(0);
-    Assertions.assertThat(tableRowValueDisplay0).isSameAs(tableRowValueDisplayAgain0);
+    TableRowValueOutputter tableRowValueOutputterAgain0 = tableRowOutputter.value(0);
+    Assertions.assertThat(tableRowValueOutputter0).isSameAs(tableRowValueOutputterAgain0);
 
-    TableDisplay tableDisplayBis = display(table);
-    TableRowDisplay tableRowDisplayBis = tableDisplayBis.row();
-    Position positionBis = (Position) fieldPosition.get(tableRowDisplayBis);
+    TableOutputter tableOutputterBis = display(table);
+    TableRowOutputter tableRowOutputterBis = tableOutputterBis.row();
+    Position positionBis = (Position) fieldPosition.get(tableRowOutputterBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
-    TableRowValueDisplay tableRowValueDisplayBis0 = tableRowDisplayBis.value(0);
+    TableRowValueOutputter tableRowValueOutputterBis0 = tableRowOutputterBis.value(0);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
-    TableRowValueDisplay tableRowValueDisplayBis1 = tableRowValueDisplayBis0.value(1);
+    TableRowValueOutputter tableRowValueOutputterBis1 = tableRowValueOutputterBis0.value(1);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(2);
-    TableRowValueDisplay tableRowValueDisplayBis2 = tableRowValueDisplayBis1.value(2);
+    TableRowValueOutputter tableRowValueOutputterBis2 = tableRowValueOutputterBis1.value(2);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(3);
-    TableRowValueDisplay tableRowValueDisplayBis3 = tableRowValueDisplayBis2.value(3);
+    TableRowValueOutputter tableRowValueOutputterBis3 = tableRowValueOutputterBis2.value(3);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(4);
-    TableRowValueDisplay tableRowValueDisplayBis4 = tableRowValueDisplayBis3.value(4);
+    TableRowValueOutputter tableRowValueOutputterBis4 = tableRowValueOutputterBis3.value(4);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(5);
     try {
-      tableRowValueDisplayBis4.value(7);
+      tableRowValueOutputterBis4.value(7);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index 7 out of the limits [0, 5[");
     }
     try {
-      tableRowValueDisplayBis4.value(-1);
+      tableRowValueOutputterBis4.value(-1);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 5[");
     }
-    TableRowValueDisplay tableRowValueDisplayBisAgain0 = tableRowValueDisplayBis4.value(0);
-    Assertions.assertThat(tableRowValueDisplayBis0).isSameAs(tableRowValueDisplayBisAgain0);
+    TableRowValueOutputter tableRowValueOutputterBisAgain0 = tableRowValueOutputterBis4.value(0);
+    Assertions.assertThat(tableRowValueOutputterBis0).isSameAs(tableRowValueOutputterBisAgain0);
 
-    Assertions.assertThat(((Value) fieldValue.get(tableRowValueDisplay0)).getValue())
-              .isSameAs(((Value) fieldValue.get(tableRowValueDisplayBis0)).getValue())
+    Assertions.assertThat(((Value) fieldValue.get(tableRowValueOutputter0)).getValue())
+              .isSameAs(((Value) fieldValue.get(tableRowValueOutputterBis0)).getValue())
               .isEqualTo(new BigDecimal("1"));
-    Assertions.assertThat(((Value) fieldValue.get(tableRowValueDisplay1)).getValue())
-              .isSameAs(((Value) fieldValue.get(tableRowValueDisplayBis1)).getValue())
+    Assertions.assertThat(((Value) fieldValue.get(tableRowValueOutputter1)).getValue())
+              .isSameAs(((Value) fieldValue.get(tableRowValueOutputterBis1)).getValue())
               .isEqualTo("Weaver");
-    Assertions.assertThat(((Value) fieldValue.get(tableRowValueDisplay2)).getValue())
-              .isSameAs(((Value) fieldValue.get(tableRowValueDisplayBis2)).getValue())
+    Assertions.assertThat(((Value) fieldValue.get(tableRowValueOutputter2)).getValue())
+              .isSameAs(((Value) fieldValue.get(tableRowValueOutputterBis2)).getValue())
               .isEqualTo("Sigourney");
-    Assertions.assertThat(((Value) fieldValue.get(tableRowValueDisplay3)).getValue())
-              .isSameAs(((Value) fieldValue.get(tableRowValueDisplayBis3)).getValue())
+    Assertions.assertThat(((Value) fieldValue.get(tableRowValueOutputter3)).getValue())
+              .isSameAs(((Value) fieldValue.get(tableRowValueOutputterBis3)).getValue())
               .isEqualTo(Date.valueOf("1949-10-08"));
-    Assertions.assertThat(((Value) fieldValue.get(tableRowValueDisplay4)).getValue())
-              .isSameAs(((Value) fieldValue.get(tableRowValueDisplayBis4)).getValue())
+    Assertions.assertThat(((Value) fieldValue.get(tableRowValueOutputter4)).getValue())
+              .isSameAs(((Value) fieldValue.get(tableRowValueOutputterBis4)).getValue())
               .isEqualTo(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
   }
 
@@ -741,72 +741,72 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
    */
   @Test
   public void test_value_from_column_of_request_with_index_with_displays() throws Exception {
-    Field fieldPosition = AbstractColumnDisplay.class.getDeclaredField("valuePosition");
+    Field fieldPosition = AbstractColumnOutputter.class.getDeclaredField("valuePosition");
     fieldPosition.setAccessible(true);
-    Field fieldValue = AbstractValueDisplay.class.getDeclaredField("value");
+    Field fieldValue = AbstractValueOutputter.class.getDeclaredField("value");
     fieldValue.setAccessible(true);
     Field fieldIndex = Position.class.getDeclaredField("nextIndex");
     fieldIndex.setAccessible(true);
 
     Request request = new Request(source, "select * from actor");
-    RequestDisplay requestDisplay = display(request);
-    RequestColumnDisplay requestColumnDisplay = requestDisplay.column();
-    Position position = (Position) fieldPosition.get(requestColumnDisplay);
+    RequestOutputter requestOutputter = display(request);
+    RequestColumnOutputter requestColumnOutputter = requestOutputter.column();
+    Position position = (Position) fieldPosition.get(requestColumnOutputter);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
-    RequestColumnValueDisplay requestColumnValueDisplay0 = requestColumnDisplay.value(0);
+    RequestColumnValueOutputter requestColumnValueOutputter0 = requestColumnOutputter.value(0);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
-    RequestColumnValueDisplay requestColumnValueDisplay1 = requestColumnDisplay.value(1);
+    RequestColumnValueOutputter requestColumnValueOutputter1 = requestColumnOutputter.value(1);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(2);
-    RequestColumnValueDisplay requestColumnValueDisplay2 = requestColumnDisplay.value(2);
+    RequestColumnValueOutputter requestColumnValueOutputter2 = requestColumnOutputter.value(2);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(3);
     try {
-      requestColumnDisplay.value(8);
+      requestColumnOutputter.value(8);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index 8 out of the limits [0, 3[");
     }
     try {
-      requestColumnDisplay.value(-1);
+      requestColumnOutputter.value(-1);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 3[");
     }
-    RequestColumnValueDisplay requestColumnValueDisplayAgain0 = requestColumnDisplay.value(0);
-    Assertions.assertThat(requestColumnValueDisplay0).isSameAs(requestColumnValueDisplayAgain0);
+    RequestColumnValueOutputter requestColumnValueOutputterAgain0 = requestColumnOutputter.value(0);
+    Assertions.assertThat(requestColumnValueOutputter0).isSameAs(requestColumnValueOutputterAgain0);
 
-    RequestDisplay requestDisplayBis = display(request);
-    RequestColumnDisplay requestColumnDisplayBis = requestDisplayBis.column();
-    Position positionBis = (Position) fieldPosition.get(requestColumnDisplayBis);
+    RequestOutputter requestOutputterBis = display(request);
+    RequestColumnOutputter requestColumnOutputterBis = requestOutputterBis.column();
+    Position positionBis = (Position) fieldPosition.get(requestColumnOutputterBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
-    RequestColumnValueDisplay requestColumnValueDisplayBis0 = requestColumnDisplayBis.value(0);
+    RequestColumnValueOutputter requestColumnValueOutputterBis0 = requestColumnOutputterBis.value(0);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
-    RequestColumnValueDisplay requestColumnValueDisplayBis1 = requestColumnValueDisplayBis0.value(1);
+    RequestColumnValueOutputter requestColumnValueOutputterBis1 = requestColumnValueOutputterBis0.value(1);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(2);
-    RequestColumnValueDisplay requestColumnValueDisplayBis2 = requestColumnValueDisplayBis1.value(2);
+    RequestColumnValueOutputter requestColumnValueOutputterBis2 = requestColumnValueOutputterBis1.value(2);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(3);
     try {
-      requestColumnValueDisplayBis2.value(8);
+      requestColumnValueOutputterBis2.value(8);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index 8 out of the limits [0, 3[");
     }
     try {
-      requestColumnValueDisplayBis2.value(-1);
+      requestColumnValueOutputterBis2.value(-1);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 3[");
     }
-    RequestColumnValueDisplay requestColumnValueDisplayBisAgain0 = requestColumnValueDisplayBis2.value(0);
-    Assertions.assertThat(requestColumnValueDisplayBis0).isSameAs(requestColumnValueDisplayBisAgain0);
+    RequestColumnValueOutputter requestColumnValueOutputterBisAgain0 = requestColumnValueOutputterBis2.value(0);
+    Assertions.assertThat(requestColumnValueOutputterBis0).isSameAs(requestColumnValueOutputterBisAgain0);
 
-    Assertions.assertThat(((Value) fieldValue.get(requestColumnValueDisplay0)).getValue())
-              .isSameAs(((Value) fieldValue.get(requestColumnValueDisplayBis0)).getValue())
+    Assertions.assertThat(((Value) fieldValue.get(requestColumnValueOutputter0)).getValue())
+              .isSameAs(((Value) fieldValue.get(requestColumnValueOutputterBis0)).getValue())
               .isEqualTo(new BigDecimal("1"));
-    Assertions.assertThat(((Value) fieldValue.get(requestColumnValueDisplay1)).getValue())
-              .isSameAs(((Value) fieldValue.get(requestColumnValueDisplayBis1)).getValue())
+    Assertions.assertThat(((Value) fieldValue.get(requestColumnValueOutputter1)).getValue())
+              .isSameAs(((Value) fieldValue.get(requestColumnValueOutputterBis1)).getValue())
               .isEqualTo(new BigDecimal("2"));
-    Assertions.assertThat(((Value) fieldValue.get(requestColumnValueDisplay2)).getValue())
-              .isSameAs(((Value) fieldValue.get(requestColumnValueDisplayBis2)).getValue())
+    Assertions.assertThat(((Value) fieldValue.get(requestColumnValueOutputter2)).getValue())
+              .isSameAs(((Value) fieldValue.get(requestColumnValueOutputterBis2)).getValue())
               .isEqualTo(new BigDecimal("3"));
   }
 
@@ -815,86 +815,86 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
    */
   @Test
   public void test_value_from_row_of_request_with_index_with_displays() throws Exception {
-    Field fieldPosition = AbstractRowDisplay.class.getDeclaredField("valuePosition");
+    Field fieldPosition = AbstractRowOutputter.class.getDeclaredField("valuePosition");
     fieldPosition.setAccessible(true);
-    Field fieldValue = AbstractValueDisplay.class.getDeclaredField("value");
+    Field fieldValue = AbstractValueOutputter.class.getDeclaredField("value");
     fieldValue.setAccessible(true);
     Field fieldIndex = Position.class.getDeclaredField("nextIndex");
     fieldIndex.setAccessible(true);
 
     Request request = new Request(source, "select * from actor");
-    RequestDisplay requestDisplay = display(request);
-    RequestRowDisplay requestRowDisplay = requestDisplay.row();
-    Position position = (Position) fieldPosition.get(requestRowDisplay);
+    RequestOutputter requestOutputter = display(request);
+    RequestRowOutputter requestRowOutputter = requestOutputter.row();
+    Position position = (Position) fieldPosition.get(requestRowOutputter);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
-    RequestRowValueDisplay requestRowValueDisplay0 = requestRowDisplay.value(0);
+    RequestRowValueOutputter requestRowValueOutputter0 = requestRowOutputter.value(0);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
-    RequestRowValueDisplay requestRowValueDisplay1 = requestRowDisplay.value(1);
+    RequestRowValueOutputter requestRowValueOutputter1 = requestRowOutputter.value(1);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(2);
-    RequestRowValueDisplay requestRowValueDisplay2 = requestRowDisplay.value(2);
+    RequestRowValueOutputter requestRowValueOutputter2 = requestRowOutputter.value(2);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(3);
-    RequestRowValueDisplay requestRowValueDisplay3 = requestRowDisplay.value(3);
+    RequestRowValueOutputter requestRowValueOutputter3 = requestRowOutputter.value(3);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(4);
-    RequestRowValueDisplay requestRowValueDisplay4 = requestRowDisplay.value(4);
+    RequestRowValueOutputter requestRowValueOutputter4 = requestRowOutputter.value(4);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(5);
     try {
-      requestRowDisplay.value(9);
+      requestRowOutputter.value(9);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index 9 out of the limits [0, 5[");
     }
     try {
-      requestRowDisplay.value(-1);
+      requestRowOutputter.value(-1);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 5[");
     }
-    RequestRowValueDisplay requestRowValueDisplayAgain0 = requestRowDisplay.value(0);
-    Assertions.assertThat(requestRowValueDisplay0).isSameAs(requestRowValueDisplayAgain0);
+    RequestRowValueOutputter requestRowValueOutputterAgain0 = requestRowOutputter.value(0);
+    Assertions.assertThat(requestRowValueOutputter0).isSameAs(requestRowValueOutputterAgain0);
 
-    RequestDisplay requestDisplayBis = display(request);
-    RequestRowDisplay requestRowDisplayBis = requestDisplayBis.row();
-    Position positionBis = (Position) fieldPosition.get(requestRowDisplayBis);
+    RequestOutputter requestOutputterBis = display(request);
+    RequestRowOutputter requestRowOutputterBis = requestOutputterBis.row();
+    Position positionBis = (Position) fieldPosition.get(requestRowOutputterBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
-    RequestRowValueDisplay requestRowValueDisplayBis0 = requestRowDisplayBis.value(0);
+    RequestRowValueOutputter requestRowValueOutputterBis0 = requestRowOutputterBis.value(0);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
-    RequestRowValueDisplay requestRowValueDisplayBis1 = requestRowValueDisplayBis0.value(1);
+    RequestRowValueOutputter requestRowValueOutputterBis1 = requestRowValueOutputterBis0.value(1);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(2);
-    RequestRowValueDisplay requestRowValueDisplayBis2 = requestRowValueDisplayBis1.value(2);
+    RequestRowValueOutputter requestRowValueOutputterBis2 = requestRowValueOutputterBis1.value(2);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(3);
-    RequestRowValueDisplay requestRowValueDisplayBis3 = requestRowValueDisplayBis2.value(3);
+    RequestRowValueOutputter requestRowValueOutputterBis3 = requestRowValueOutputterBis2.value(3);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(4);
-    RequestRowValueDisplay requestRowValueDisplayBis4 = requestRowValueDisplayBis3.value(4);
+    RequestRowValueOutputter requestRowValueOutputterBis4 = requestRowValueOutputterBis3.value(4);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(5);
     try {
-      requestRowValueDisplayBis4.value(9);
+      requestRowValueOutputterBis4.value(9);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index 9 out of the limits [0, 5[");
     }
     try {
-      requestRowValueDisplayBis4.value(-1);
+      requestRowValueOutputterBis4.value(-1);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index -1 out of the limits [0, 5[");
     }
-    RequestRowValueDisplay requestRowValueDisplayBisAgain0 = requestRowValueDisplayBis4.value(0);
-    Assertions.assertThat(requestRowValueDisplayBis0).isSameAs(requestRowValueDisplayBisAgain0);
+    RequestRowValueOutputter requestRowValueOutputterBisAgain0 = requestRowValueOutputterBis4.value(0);
+    Assertions.assertThat(requestRowValueOutputterBis0).isSameAs(requestRowValueOutputterBisAgain0);
 
-    Assertions.assertThat(((Value) fieldValue.get(requestRowValueDisplay0)).getValue())
-              .isSameAs(((Value) fieldValue.get(requestRowValueDisplayBis0)).getValue())
+    Assertions.assertThat(((Value) fieldValue.get(requestRowValueOutputter0)).getValue())
+              .isSameAs(((Value) fieldValue.get(requestRowValueOutputterBis0)).getValue())
               .isEqualTo(new BigDecimal("1"));
-    Assertions.assertThat(((Value) fieldValue.get(requestRowValueDisplay1)).getValue())
-              .isSameAs(((Value) fieldValue.get(requestRowValueDisplayBis1)).getValue())
+    Assertions.assertThat(((Value) fieldValue.get(requestRowValueOutputter1)).getValue())
+              .isSameAs(((Value) fieldValue.get(requestRowValueOutputterBis1)).getValue())
               .isEqualTo("Weaver");
-    Assertions.assertThat(((Value) fieldValue.get(requestRowValueDisplay2)).getValue())
-              .isSameAs(((Value) fieldValue.get(requestRowValueDisplayBis2)).getValue())
+    Assertions.assertThat(((Value) fieldValue.get(requestRowValueOutputter2)).getValue())
+              .isSameAs(((Value) fieldValue.get(requestRowValueOutputterBis2)).getValue())
               .isEqualTo("Sigourney");
-    Assertions.assertThat(((Value) fieldValue.get(requestRowValueDisplay3)).getValue())
-              .isSameAs(((Value) fieldValue.get(requestRowValueDisplayBis3)).getValue())
+    Assertions.assertThat(((Value) fieldValue.get(requestRowValueOutputter3)).getValue())
+              .isSameAs(((Value) fieldValue.get(requestRowValueOutputterBis3)).getValue())
               .isEqualTo(Date.valueOf("1949-10-08"));
-    Assertions.assertThat(((Value) fieldValue.get(requestRowValueDisplay4)).getValue())
-              .isSameAs(((Value) fieldValue.get(requestRowValueDisplayBis4)).getValue())
+    Assertions.assertThat(((Value) fieldValue.get(requestRowValueOutputter4)).getValue())
+              .isSameAs(((Value) fieldValue.get(requestRowValueOutputterBis4)).getValue())
               .isEqualTo(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
   }
 }

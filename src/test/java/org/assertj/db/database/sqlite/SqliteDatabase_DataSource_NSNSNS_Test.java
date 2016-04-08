@@ -24,7 +24,7 @@ import javax.sql.DataSource;
 import java.io.ByteArrayOutputStream;
 
 import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.display.Displaying.display;
+import static org.assertj.db.output.Outputs.display;
 import static org.junit.Assert.fail;
 
 /**

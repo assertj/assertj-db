@@ -16,7 +16,7 @@ import org.assertj.core.api.Assertions;
 import org.assertj.db.api.*;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.common.NeedReload;
-import org.assertj.db.display.*;
+import org.assertj.db.output.*;
 import org.assertj.db.type.Changes;
 import org.assertj.db.type.Value;
 import org.junit.Test;
@@ -25,7 +25,7 @@ import java.lang.reflect.Field;
 import java.math.BigDecimal;
 
 import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.display.Displaying.display;
+import static org.assertj.db.output.Outputs.display;
 
 /**
  * Tests on {@link org.assertj.db.navigation.ToValueFromColumn} class :
@@ -104,51 +104,51 @@ public class ToValueFromColumn_ValueAtStartPoint_Test extends AbstractTest {
     updateChangesForTests();
     changes.setEndPointNow();
 
-    Field fieldPosition = ChangeColumnDisplay.class.getDeclaredField("valuePosition");
+    Field fieldPosition = ChangeColumnOutputter.class.getDeclaredField("valuePosition");
     fieldPosition.setAccessible(true);
-    Field fieldRowDisplay = PositionWithPoints.class.getDeclaredField("instanceAtStartPoint");
-    fieldRowDisplay.setAccessible(true);
-    Field fieldValueFromColumnDisplay = ChangeColumnDisplay.class.getDeclaredField("valueAtStartPoint");
-    fieldValueFromColumnDisplay.setAccessible(true);
-    Field fieldValueFromValueDisplay = AbstractDisplayWithValues.class.getDeclaredField("value");
-    fieldValueFromValueDisplay.setAccessible(true);
+    Field fieldRowOutputter = PositionWithPoints.class.getDeclaredField("instanceAtStartPoint");
+    fieldRowOutputter.setAccessible(true);
+    Field fieldValueFromColumnOutputter = ChangeColumnOutputter.class.getDeclaredField("valueAtStartPoint");
+    fieldValueFromColumnOutputter.setAccessible(true);
+    Field fieldValueFromValueOutputter = AbstractOutputterWithValues.class.getDeclaredField("value");
+    fieldValueFromValueOutputter.setAccessible(true);
 
-    ChangesDisplay changesDisplay = display(changes);
+    ChangesOutputter changesOutputter = display(changes);
 
-    ChangeDisplay changeCreationDisplay = changesDisplay.change();
-    ChangeColumnDisplay changeColumnCreationDisplay = changeCreationDisplay.column();
-    PositionWithPoints positionCreation = (PositionWithPoints) fieldPosition.get(changeColumnCreationDisplay);
-    Assertions.assertThat(fieldRowDisplay.get(positionCreation)).isNull();
-    ChangeColumnValueDisplay changeColumnValueCreationDisplay = changeColumnCreationDisplay.valueAtStartPoint();
-    Assertions.assertThat(fieldRowDisplay.get(positionCreation)).isNotNull();
-    ChangeColumnValueDisplay changeCreationRowValueDisplayBis = changeColumnCreationDisplay.valueAtStartPoint();
-    Assertions.assertThat(changeColumnValueCreationDisplay).isSameAs(
-            changeCreationRowValueDisplayBis);
-    Assertions.assertThat(((Value) fieldValueFromColumnDisplay.get(changeColumnCreationDisplay)).getValue()).isNull();
-    Assertions.assertThat(((Value) fieldValueFromValueDisplay.get(changeColumnValueCreationDisplay)).getValue()).isNull();
+    ChangeOutputter changeCreationOutputter = changesOutputter.change();
+    ChangeColumnOutputter changeColumnCreationOutputter = changeCreationOutputter.column();
+    PositionWithPoints positionCreation = (PositionWithPoints) fieldPosition.get(changeColumnCreationOutputter);
+    Assertions.assertThat(fieldRowOutputter.get(positionCreation)).isNull();
+    ChangeColumnValueOutputter changeColumnValueCreationOutputter = changeColumnCreationOutputter.valueAtStartPoint();
+    Assertions.assertThat(fieldRowOutputter.get(positionCreation)).isNotNull();
+    ChangeColumnValueOutputter changeCreationRowValueOutputterBis = changeColumnCreationOutputter.valueAtStartPoint();
+    Assertions.assertThat(changeColumnValueCreationOutputter).isSameAs(
+            changeCreationRowValueOutputterBis);
+    Assertions.assertThat(((Value) fieldValueFromColumnOutputter.get(changeColumnCreationOutputter)).getValue()).isNull();
+    Assertions.assertThat(((Value) fieldValueFromValueOutputter.get(changeColumnValueCreationOutputter)).getValue()).isNull();
 
-    ChangeDisplay changeModificationDisplay = changesDisplay.change(3);
-    ChangeColumnDisplay changeColumnModificationDisplay = changeModificationDisplay.column();
-    PositionWithPoints positionModification = (PositionWithPoints) fieldPosition.get(changeColumnModificationDisplay);
-    Assertions.assertThat(fieldRowDisplay.get(positionModification)).isNull();
-    ChangeColumnValueDisplay changeColumnValueModificationDisplay = changeColumnModificationDisplay.valueAtStartPoint();
-    Assertions.assertThat(fieldRowDisplay.get(positionModification)).isNotNull();
-    ChangeColumnValueDisplay changeModificationRowValueDisplayBis = changeColumnValueModificationDisplay.valueAtStartPoint();
-    Assertions.assertThat(changeColumnValueModificationDisplay).isSameAs(changeModificationRowValueDisplayBis);
-    Assertions.assertThat(((Value) fieldValueFromColumnDisplay.get(changeColumnModificationDisplay)).getValue()).isSameAs(
-            ((Value) fieldValueFromValueDisplay.get(changeColumnValueModificationDisplay)).getValue()).isEqualTo(
+    ChangeOutputter changeModificationOutputter = changesOutputter.change(3);
+    ChangeColumnOutputter changeColumnModificationOutputter = changeModificationOutputter.column();
+    PositionWithPoints positionModification = (PositionWithPoints) fieldPosition.get(changeColumnModificationOutputter);
+    Assertions.assertThat(fieldRowOutputter.get(positionModification)).isNull();
+    ChangeColumnValueOutputter changeColumnValueModificationOutputter = changeColumnModificationOutputter.valueAtStartPoint();
+    Assertions.assertThat(fieldRowOutputter.get(positionModification)).isNotNull();
+    ChangeColumnValueOutputter changeModificationRowValueOutputterBis = changeColumnValueModificationOutputter.valueAtStartPoint();
+    Assertions.assertThat(changeColumnValueModificationOutputter).isSameAs(changeModificationRowValueOutputterBis);
+    Assertions.assertThat(((Value) fieldValueFromColumnOutputter.get(changeColumnModificationOutputter)).getValue()).isSameAs(
+            ((Value) fieldValueFromValueOutputter.get(changeColumnValueModificationOutputter)).getValue()).isEqualTo(
             new BigDecimal("1"));
 
-    ChangeDisplay changeDeletionDisplay = changesDisplay.change(6);
-    ChangeColumnDisplay changeColumnDeletionDisplay = changeDeletionDisplay.column();
-    PositionWithPoints positionDeletion = (PositionWithPoints) fieldPosition.get(changeColumnDeletionDisplay);
-    Assertions.assertThat(fieldRowDisplay.get(positionDeletion)).isNull();
-    ChangeColumnValueDisplay changeColumnValueDeletionDisplay = changeColumnDeletionDisplay.valueAtStartPoint();
-    Assertions.assertThat(fieldRowDisplay.get(positionDeletion)).isNotNull();
-    ChangeColumnValueDisplay changeDeletionRowValueDisplayBis = changeColumnDeletionDisplay.valueAtStartPoint();
-    Assertions.assertThat(changeColumnValueDeletionDisplay).isSameAs(changeDeletionRowValueDisplayBis);
-    Assertions.assertThat(((Value) fieldValueFromColumnDisplay.get(changeColumnDeletionDisplay)).getValue()).isSameAs(
-            ((Value) fieldValueFromValueDisplay.get(changeColumnValueDeletionDisplay)).getValue()).isEqualTo(
+    ChangeOutputter changeDeletionOutputter = changesOutputter.change(6);
+    ChangeColumnOutputter changeColumnDeletionOutputter = changeDeletionOutputter.column();
+    PositionWithPoints positionDeletion = (PositionWithPoints) fieldPosition.get(changeColumnDeletionOutputter);
+    Assertions.assertThat(fieldRowOutputter.get(positionDeletion)).isNull();
+    ChangeColumnValueOutputter changeColumnValueDeletionOutputter = changeColumnDeletionOutputter.valueAtStartPoint();
+    Assertions.assertThat(fieldRowOutputter.get(positionDeletion)).isNotNull();
+    ChangeColumnValueOutputter changeDeletionRowValueOutputterBis = changeColumnDeletionOutputter.valueAtStartPoint();
+    Assertions.assertThat(changeColumnValueDeletionOutputter).isSameAs(changeDeletionRowValueOutputterBis);
+    Assertions.assertThat(((Value) fieldValueFromColumnOutputter.get(changeColumnDeletionOutputter)).getValue()).isSameAs(
+            ((Value) fieldValueFromValueOutputter.get(changeColumnValueDeletionOutputter)).getValue()).isEqualTo(
             new BigDecimal("3"));
   }
 }
