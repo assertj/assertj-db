@@ -24,7 +24,7 @@ import java.util.List;
  * @author Régis Pouiller
  * @since 1.1.0
  */
-public enum HtmlOutput implements Output {
+enum HtmlOutput implements Output {
 
   /**
    * Singleton instance.
