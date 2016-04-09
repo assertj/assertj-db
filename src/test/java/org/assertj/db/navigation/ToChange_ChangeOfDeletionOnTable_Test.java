@@ -30,7 +30,7 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.output.Outputs.display;
+import static org.assertj.db.output.Outputs.output;
 import static org.junit.Assert.fail;
 
 /**
@@ -129,7 +129,7 @@ public class ToChange_ChangeOfDeletionOnTable_Test extends AbstractTest {
     Field fieldChange = ChangeOutputter.class.getDeclaredField("change");
     fieldChange.setAccessible(true);
 
-    ChangesOutputter changesDisplay = display(changes);
+    ChangesOutputter changesDisplay = output(changes);
     PositionWithChanges position = (PositionWithChanges) fieldPosition.get(changesDisplay);
     Map<ChangeType, Map<String, Integer>> map = (Map<ChangeType, Map<String, Integer>>)fieldIndex.get(position);
     assertThat(map).hasSize(0);
@@ -151,7 +151,7 @@ public class ToChange_ChangeOfDeletionOnTable_Test extends AbstractTest {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index 1 out of the limits [0, 1[");
     }
 
-    ChangesOutputter changesDisplayBis = display(changes);
+    ChangesOutputter changesDisplayBis = output(changes);
     PositionWithChanges positionBis = (PositionWithChanges) fieldPosition.get(changesDisplayBis);
     map = (Map<ChangeType, Map<String, Integer>>)fieldIndex.get(positionBis);
     assertThat(map).hasSize(0);

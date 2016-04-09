@@ -20,7 +20,7 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 
-import static org.assertj.db.output.Outputs.display;
+import static org.assertj.db.output.Outputs.output;
 
 /**
  * Test the output of changes.
@@ -47,7 +47,7 @@ public class OutputterChange_Test extends AbstractTest {
     ByteArrayOutputStream byteArrayOutputStream5 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream6 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream7 = new ByteArrayOutputStream();
-    display(changes).change().inStream(byteArrayOutputStream0)
+    output(changes).change().inStream(byteArrayOutputStream0)
                     .change().inStream(byteArrayOutputStream1)
                     .change().inStream(byteArrayOutputStream2)
                     .change().inStream(byteArrayOutputStream3)

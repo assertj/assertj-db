@@ -22,7 +22,7 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 
-import static org.assertj.db.output.Outputs.display;
+import static org.assertj.db.output.Outputs.output;
 
 /**
  * Test the output of columns.
@@ -41,7 +41,7 @@ public class OutputterColumn_Test extends AbstractTest {
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
-    display(table).column().inStream(byteArrayOutputStream0)
+    Outputs.output(table).column().inStream(byteArrayOutputStream0)
                   .column(1).inStream(byteArrayOutputStream1)
                   .column().inStream(byteArrayOutputStream2);
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Column at index 0 (column name : ID) of ACTOR table]%n"
@@ -83,7 +83,7 @@ public class OutputterColumn_Test extends AbstractTest {
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
-    display(request).column().inStream(byteArrayOutputStream0)
+    Outputs.output(request).column().inStream(byteArrayOutputStream0)
                     .column(1).inStream(byteArrayOutputStream1)
                     .column().inStream(byteArrayOutputStream2);
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Column at index 0 (column name : ID) of 'select * from actor' request]%n"
@@ -128,7 +128,7 @@ public class OutputterColumn_Test extends AbstractTest {
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
-    display(changes).change().column().inStream(byteArrayOutputStream0)
+    output(changes).change().column().inStream(byteArrayOutputStream0)
                     .column().inStream(byteArrayOutputStream1)
                     .column().inStream(byteArrayOutputStream2);
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Column at index 0 (column name : ID) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"

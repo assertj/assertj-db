@@ -31,7 +31,7 @@ public class ChangeRowValueOutputter
   /**
    * Constructor.
    *
-   * @param origin The display of {@link org.assertj.db.navigation.origin.Origin}.
+   * @param origin The output of {@link org.assertj.db.navigation.origin.Origin}.
    * @param value The value on which are the displays.
    */
   public ChangeRowValueOutputter(ChangeRowOutputter origin, Value value) {
@@ -57,9 +57,9 @@ public class ChangeRowValueOutputter
   }
 
   /**
-   * Returns to level of display methods on a {@link org.assertj.db.type.Row}.
+   * Returns to level of output methods on a {@link org.assertj.db.type.Row}.
    *
-   * @return a object of display methods on a {@link org.assertj.db.type.Row}.
+   * @return a object of output methods on a {@link org.assertj.db.type.Row}.
    */
   public ChangeRowOutputter returnToRow() {
     return returnToOrigin();

@@ -25,7 +25,7 @@ import org.junit.Test;
 import java.lang.reflect.Field;
 
 import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.output.Outputs.display;
+import static org.assertj.db.output.Outputs.output;
 
 /**
  * Tests on {@link ToChange} interface.
@@ -132,7 +132,7 @@ public class ToChange_Test extends AbstractTest {
     Field fieldChanges = ChangesOutputter.class.getDeclaredField("changes");
     fieldChanges.setAccessible(true);
 
-    ChangesOutputter changesDisplay = display(changes);
+    ChangesOutputter changesDisplay = output(changes);
     ChangesOutputter changesDisplayCreation = changesDisplay.ofCreation();
     ChangesOutputter changesDisplayModification = changesDisplay.ofModification();
     ChangesOutputter changesDisplayDeletion = changesDisplay.ofDeletion();

@@ -20,7 +20,7 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 
-import static org.assertj.db.output.Outputs.display;
+import static org.assertj.db.output.Outputs.output;
 
 /**
  * Test the output of changes.
@@ -40,7 +40,7 @@ public class OutputterChanges_Test extends AbstractTest {
     changes.setEndPointNow();
 
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-    display(changes).inStream(byteArrayOutputStream);
+    output(changes).inStream(byteArrayOutputStream);
     Assertions.assertThat(byteArrayOutputStream.toString()).isEqualTo(String.format("[Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
                                                                                     + "|-----------|--------------|----------------|---------|----------------|-----------|-----------|-----------|------------|--------------------------------------|%n"
                                                                                     + "|           |              |                |         |                | *         |           |           |            |                                      |%n"

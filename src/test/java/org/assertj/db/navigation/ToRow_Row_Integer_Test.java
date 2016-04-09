@@ -28,7 +28,6 @@ import java.sql.Date;
 import java.util.UUID;
 
 import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.output.Outputs.display;
 import static org.junit.Assert.fail;
 
 /**
@@ -247,7 +246,7 @@ public class ToRow_Row_Integer_Test extends AbstractTest {
     fieldIndex.setAccessible(true);
 
     Table table = new Table(source, "actor");
-    TableOutputter tableOutputter = display(table);
+    TableOutputter tableOutputter = Outputs.output(table);
     Position position = (Position) fieldPosition.get(tableOutputter);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     TableRowOutputter tableRowOutputter0 = tableOutputter.row(0);
@@ -265,7 +264,7 @@ public class ToRow_Row_Integer_Test extends AbstractTest {
     TableRowOutputter tableRowOutputterAgain0 = tableOutputter.row(0);
     Assertions.assertThat(tableRowOutputter0).isSameAs(tableRowOutputterAgain0);
 
-    TableOutputter tableOutputterBis = display(table);
+    TableOutputter tableOutputterBis = Outputs.output(table);
     Position positionBis = (Position) fieldPosition.get(tableOutputterBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     TableRowOutputter tableRowOutputterBis0 = tableOutputterBis.row(0);
@@ -341,7 +340,7 @@ public class ToRow_Row_Integer_Test extends AbstractTest {
     fieldIndex.setAccessible(true);
 
     Request request = new Request(source, "select * from actor");
-    RequestOutputter requestOutputter = display(request);
+    RequestOutputter requestOutputter = Outputs.output(request);
     Position position = (Position) fieldPosition.get(requestOutputter);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     RequestRowOutputter requestRowOutputter0 = requestOutputter.row(0);
@@ -365,7 +364,7 @@ public class ToRow_Row_Integer_Test extends AbstractTest {
     RequestRowOutputter requestRowOutputterAgain0 = requestOutputter.row(0);
     Assertions.assertThat(requestRowOutputter0).isSameAs(requestRowOutputterAgain0);
 
-    RequestOutputter requestOutputterBis = display(request);
+    RequestOutputter requestOutputterBis = Outputs.output(request);
     Position positionBis = (Position) fieldPosition.get(requestOutputterBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     RequestRowOutputter requestRowOutputterBis0 = requestOutputterBis.row(0);

@@ -26,7 +26,7 @@ import java.math.BigDecimal;
 import java.sql.Date;
 
 import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.output.Outputs.display;
+import static org.assertj.db.output.Outputs.output;
 import static org.junit.Assert.fail;
 
 /**
@@ -358,7 +358,7 @@ public class ToColumn_Column_String_Test extends AbstractTest {
     Field fieldValueAtEndPoint = ChangeColumnOutputter.class.getDeclaredField("valueAtEndPoint");
     fieldValueAtEndPoint.setAccessible(true);
 
-    ChangesOutputter changesOutputter = display(changes);
+    ChangesOutputter changesOutputter = output(changes);
     ChangeOutputter changeOutputter = changesOutputter.change();
     PositionWithColumnsChange position = (PositionWithColumnsChange) fieldPosition.get(changeOutputter);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
@@ -385,7 +385,7 @@ public class ToColumn_Column_String_Test extends AbstractTest {
       Assertions.assertThat(e.getMessage()).isEqualTo("Column name must be not null");
     }
 
-    ChangesOutputter changesOutputterBis = display(changes);
+    ChangesOutputter changesOutputterBis = output(changes);
     ChangeOutputter changeOutputterBis = changesOutputterBis.change();
     PositionWithColumnsChange positionBis = (PositionWithColumnsChange) fieldPosition.get(changeOutputterBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
@@ -457,7 +457,7 @@ public class ToColumn_Column_String_Test extends AbstractTest {
     fieldIndex.setAccessible(true);
 
     Table table = new Table(source, "actor");
-    TableOutputter tableOutputter = display(table);
+    TableOutputter tableOutputter = Outputs.output(table);
     Position position = (Position) fieldPosition.get(tableOutputter);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     TableColumnOutputter tableColumnOutputter0 = tableOutputter.column("ID");
@@ -483,7 +483,7 @@ public class ToColumn_Column_String_Test extends AbstractTest {
       Assertions.assertThat(e.getMessage()).isEqualTo("Column name must be not null");
     }
 
-    TableOutputter tableOutputterBis = display(table);
+    TableOutputter tableOutputterBis = Outputs.output(table);
     Position positionBis = (Position) fieldPosition.get(tableOutputterBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     TableColumnOutputter tableColumnOutputterBis0 = tableOutputterBis.column("ID");
@@ -553,7 +553,7 @@ public class ToColumn_Column_String_Test extends AbstractTest {
     fieldIndex.setAccessible(true);
 
     Request request = new Request(source, "select * from actor");
-    RequestOutputter requestOutputter = display(request);
+    RequestOutputter requestOutputter = Outputs.output(request);
     Position position = (Position) fieldPosition.get(requestOutputter);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     RequestColumnOutputter requestColumnOutputter0 = requestOutputter.column("ID");
@@ -579,7 +579,7 @@ public class ToColumn_Column_String_Test extends AbstractTest {
       Assertions.assertThat(e.getMessage()).isEqualTo("Column name must be not null");
     }
 
-    RequestOutputter requestOutputterBis = display(request);
+    RequestOutputter requestOutputterBis = Outputs.output(request);
     Position positionBis = (Position) fieldPosition.get(requestOutputterBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     RequestColumnOutputter requestColumnOutputterBis0 = requestOutputterBis.column("ID");

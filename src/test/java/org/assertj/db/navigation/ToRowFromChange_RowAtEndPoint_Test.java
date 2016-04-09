@@ -28,7 +28,7 @@ import org.junit.Test;
 import java.lang.reflect.Field;
 
 import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.output.Outputs.display;
+import static org.assertj.db.output.Outputs.output;
 
 /**
  * Tests on {@link org.assertj.db.navigation.ToRowFromChange} class :
@@ -109,7 +109,7 @@ public class ToRowFromChange_RowAtEndPoint_Test extends AbstractTest {
     Field fieldRowFromOutputter = ChangeRowOutputter.class.getDeclaredField("row");
     fieldRowFromOutputter.setAccessible(true);
 
-    ChangesOutputter changesOutputter = display(changes);
+    ChangesOutputter changesOutputter = output(changes);
 
     ChangeOutputter changeCreationOutputter = changesOutputter.change();
     PositionWithPoints positionCreation = (PositionWithPoints) fieldPosition.get(changeCreationOutputter);

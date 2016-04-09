@@ -23,7 +23,7 @@ import org.assertj.db.type.Table;
 import org.junit.Test;
 
 import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.output.Outputs.display;
+import static org.assertj.db.output.Outputs.output;
 
 /**
  * Tests on the different methods linked on the {@code returnToOrigin()} method.
@@ -232,7 +232,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
   @Test
   public void test_return_to_table_from_column_with_displays() throws Exception {
     Table table = new Table(source, "actor");
-    TableOutputter tableOutputter = display(table);
+    TableOutputter tableOutputter = Outputs.output(table);
     TableColumnOutputter tableColumnOutputter = tableOutputter.column();
     TableOutputter tableOutputterBis = tableColumnOutputter.returnToTable();
 
@@ -245,7 +245,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
   @Test
   public void test_return_to_table_from_row_with_displays() throws Exception {
     Table table = new Table(source, "actor");
-    TableOutputter tableOutputter = display(table);
+    TableOutputter tableOutputter = Outputs.output(table);
     TableRowOutputter tableRowOutputter = tableOutputter.row();
     TableOutputter tableOutputterBis = tableRowOutputter.returnToTable();
 
@@ -258,7 +258,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
   @Test
   public void test_return_to_request_from_column_with_displays() throws Exception {
     Request request = new Request(source, "select * from actor");
-    RequestOutputter requestOutputter = display(request);
+    RequestOutputter requestOutputter = Outputs.output(request);
     RequestColumnOutputter requestColumnOutputter = requestOutputter.column();
     RequestOutputter requestOutputterBis = requestColumnOutputter.returnToRequest();
 
@@ -271,7 +271,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
   @Test
   public void test_return_to_request_from_row_with_displays() throws Exception {
     Request request = new Request(source, "select * from actor");
-    RequestOutputter requestOutputter = display(request);
+    RequestOutputter requestOutputter = Outputs.output(request);
     RequestRowOutputter requestRowOutputter = requestOutputter.row();
     RequestOutputter requestOutputterBis = requestRowOutputter.returnToRequest();
 
@@ -284,7 +284,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
   @Test
   public void test_return_to_column_from_value_for_table_with_displays() throws Exception {
     Table table = new Table(source, "actor");
-    TableOutputter tableOutputter = display(table);
+    TableOutputter tableOutputter = Outputs.output(table);
     TableColumnOutputter tableColumnOutputter = tableOutputter.column();
     TableColumnValueOutputter tableColumnValueOutputter = tableColumnOutputter.value();
     TableColumnOutputter tableColumnOutputterBis = tableColumnValueOutputter.returnToColumn();
@@ -298,7 +298,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
   @Test
   public void test_return_to_row_from_value_for_table_with_displays() throws Exception {
     Table table = new Table(source, "actor");
-    TableOutputter tableOutputter = display(table);
+    TableOutputter tableOutputter = Outputs.output(table);
     TableRowOutputter tableRowOutputter = tableOutputter.row();
     TableRowValueOutputter tableRowValueOutputter = tableRowOutputter.value();
     TableRowOutputter tableRowOutputterBis = tableRowValueOutputter.returnToRow();
@@ -312,7 +312,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
   @Test
   public void test_return_to_column_from_value_for_request_with_displays() throws Exception {
     Request request = new Request(source, "select * from actor");
-    RequestOutputter requestOutputter = display(request);
+    RequestOutputter requestOutputter = Outputs.output(request);
     RequestColumnOutputter requestColumnOutputter = requestOutputter.column();
     RequestColumnValueOutputter requestColumnValueOutputter = requestColumnOutputter.value();
     RequestColumnOutputter requestColumnOutputterBis = requestColumnValueOutputter.returnToColumn();
@@ -326,7 +326,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
   @Test
   public void test_return_to_row_from_value_for_request_with_displays() throws Exception {
     Request request = new Request(source, "select * from actor");
-    RequestOutputter requestOutputter = display(request);
+    RequestOutputter requestOutputter = Outputs.output(request);
     RequestRowOutputter requestRowOutputter = requestOutputter.row();
     RequestRowValueOutputter requestRowValueOutputter = requestRowOutputter.value();
     RequestRowOutputter requestRowOutputterBis = requestRowValueOutputter.returnToRow();
@@ -344,7 +344,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
     updateChangesForTests();
     changes.setEndPointNow();
 
-    ChangesOutputter changesOutputter = display(changes);
+    ChangesOutputter changesOutputter = output(changes);
     ChangeOutputter changeOutputter = changesOutputter.change();
     ChangesOutputter changesOutputterBis = changeOutputter.returnToChanges();
 
@@ -361,7 +361,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
     updateChangesForTests();
     changes.setEndPointNow();
 
-    ChangeOutputter changeOutputter = display(changes).change();
+    ChangeOutputter changeOutputter = output(changes).change();
     ChangeColumnOutputter changeColumnOutputter = changeOutputter.column();
     ChangeOutputter changeOutputterBis = changeColumnOutputter.returnToChange();
 
@@ -378,7 +378,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
     updateChangesForTests();
     changes.setEndPointNow();
 
-    ChangeOutputter changeOutputter = display(changes).change();
+    ChangeOutputter changeOutputter = output(changes).change();
     ChangeRowOutputter changeRowOutputter = changeOutputter.rowAtEndPoint();
     ChangeOutputter changeOutputterBis = changeRowOutputter.returnToChange();
 
@@ -395,7 +395,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
     updateChangesForTests();
     changes.setEndPointNow();
 
-    ChangeColumnOutputter changeColumnOutputter = display(changes).change().column();
+    ChangeColumnOutputter changeColumnOutputter = output(changes).change().column();
     ChangeColumnValueOutputter changeColumnValueOutputter = changeColumnOutputter.valueAtEndPoint();
     ChangeColumnOutputter changeColumnOutputterBis = changeColumnValueOutputter.returnToColumn();
 
@@ -412,7 +412,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
     updateChangesForTests();
     changes.setEndPointNow();
 
-    ChangeRowOutputter changeRowOutputter = display(changes).change().rowAtEndPoint();
+    ChangeRowOutputter changeRowOutputter = output(changes).change().rowAtEndPoint();
     ChangeRowValueOutputter changeRowValueOutputter = changeRowOutputter.value();
     ChangeRowOutputter changeRowOutputterBis = changeRowValueOutputter.returnToRow();
 

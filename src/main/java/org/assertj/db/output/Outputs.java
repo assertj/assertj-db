@@ -39,7 +39,7 @@ public class Outputs {
    * @param table The table to output on.
    * @return The created output object.
    */
-  public static TableOutputter display(Table table) {
+  public static TableOutputter output(Table table) {
     return new TableOutputter(table).as(getDescription(table));
   }
 
@@ -49,7 +49,7 @@ public class Outputs {
    * @param request The request to output on.
    * @return The created output object.
    */
-  public static RequestOutputter display(Request request) {
+  public static RequestOutputter output(Request request) {
     return new RequestOutputter(request).as(getDescription(request));
   }
 
@@ -59,7 +59,7 @@ public class Outputs {
    * @param changes The changes to output on.
    * @return The created output object.
    */
-  public static ChangesOutputter display(Changes changes) {
+  public static ChangesOutputter output(Changes changes) {
     return new ChangesOutputter(changes).as(getDescription(changes));
   }
 }

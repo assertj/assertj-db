@@ -15,6 +15,7 @@ package org.assertj.db.database.h2;
 import org.assertj.core.api.Assertions;
 import org.assertj.db.common.NeedReload;
 import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.output.Outputs;
 import org.assertj.db.type.Changes;
 import org.assertj.db.type.Table;
 import org.junit.Before;
@@ -24,7 +25,7 @@ import javax.sql.DataSource;
 import java.io.ByteArrayOutputStream;
 
 import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.output.Outputs.display;
+import static org.assertj.db.output.Outputs.output;
 import static org.junit.Assert.fail;
 
 /**
@@ -68,18 +69,18 @@ public class H2Database_DataSource_NSNSNS_Test extends AbstractH2Test {
     ByteArrayOutputStream byteArrayOutputStream14 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream15 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream16 = new ByteArrayOutputStream();
-    display(table).inStream(byteArrayOutputStream0)
+    Outputs.output(table).inStream(byteArrayOutputStream0)
                   .column().inStream(byteArrayOutputStream1)
                   .value().inStream(byteArrayOutputStream2)
                   .row().inStream(byteArrayOutputStream3)
                   .value().inStream(byteArrayOutputStream4);
-    display(changes).inStream(byteArrayOutputStream5)
+    output(changes).inStream(byteArrayOutputStream5)
                     .change().inStream(byteArrayOutputStream6)
                     .rowAtEndPoint().inStream(byteArrayOutputStream7)
                     .value().inStream(byteArrayOutputStream8)
                     .column().inStream(byteArrayOutputStream9)
                     .valueAtEndPoint().inStream(byteArrayOutputStream10);
-    display(changes2).inStream(byteArrayOutputStream11)
+    output(changes2).inStream(byteArrayOutputStream11)
                     .change().inStream(byteArrayOutputStream12)
                     .rowAtEndPoint().inStream(byteArrayOutputStream13)
                     .value().inStream(byteArrayOutputStream14)

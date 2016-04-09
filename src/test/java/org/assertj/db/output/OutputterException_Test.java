@@ -19,7 +19,6 @@ import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.output.Outputs.display;
 import static org.junit.Assert.fail;
 
 /**
@@ -37,14 +36,14 @@ public class OutputterException_Test extends AbstractTest {
     Table table = new Table(source, "actor");
 
     try {
-      display(table).column(null);
+      Outputs.output(table).column(null);
       fail("An exception must be raised");
     } catch (NullPointerException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Column name must be not null");
     }
 
     try {
-      display(table).column("TEST");
+      Outputs.output(table).column("TEST");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
@@ -61,14 +60,14 @@ public class OutputterException_Test extends AbstractTest {
     Request request = new Request(source, "select * from actor");
 
     try {
-      display(request).column(null);
+      Outputs.output(request).column(null);
       fail("An exception must be raised");
     } catch (NullPointerException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Column name must be not null");
     }
 
     try {
-      display(request).column("TEST");
+      Outputs.output(request).column("TEST");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
@@ -85,14 +84,14 @@ public class OutputterException_Test extends AbstractTest {
     Table table = new Table(source, "actor");
 
     try {
-      display(table).row().value(null);
+      Outputs.output(table).row().value(null);
       fail("An exception must be raised");
     } catch (NullPointerException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Column name must be not null");
     }
 
     try {
-      display(table).row().value("TEST");
+      Outputs.output(table).row().value("TEST");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
@@ -109,14 +108,14 @@ public class OutputterException_Test extends AbstractTest {
     Request request = new Request(source, "select * from actor");
 
     try {
-      display(request).row().value(null);
+      Outputs.output(request).row().value(null);
       fail("An exception must be raised");
     } catch (NullPointerException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo("Column name must be not null");
     }
 
     try {
-      display(request).row().value("TEST");
+      Outputs.output(request).row().value("TEST");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"

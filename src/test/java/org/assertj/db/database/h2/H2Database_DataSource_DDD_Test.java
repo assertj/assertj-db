@@ -14,6 +14,7 @@ package org.assertj.db.database.h2;
 
 import org.assertj.core.api.Assertions;
 import org.assertj.db.common.NeedReload;
+import org.assertj.db.output.Outputs;
 import org.assertj.db.type.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +30,7 @@ import java.util.UUID;
 
 import static org.assertj.db.api.Assertions.assertThat;
 import static org.assertj.db.api.Assertions.bytesContentFromClassPathOf;
-import static org.assertj.db.output.Outputs.display;
+import static org.assertj.db.output.Outputs.output;
 
 /**
  * Test on the H2 database.
@@ -64,13 +65,13 @@ public class H2Database_DataSource_DDD_Test extends AbstractH2Test {
     ByteArrayOutputStream byteArrayOutputStream8 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream9 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream10 = new ByteArrayOutputStream();
-    display(table).inStream(byteArrayOutputStream0)
+    Outputs.output(table).inStream(byteArrayOutputStream0)
                   .column().inStream(byteArrayOutputStream1)
                   .value().inStream(byteArrayOutputStream2)
                   .row().inStream(byteArrayOutputStream3)
                   .value().inStream(byteArrayOutputStream4)
     ;
-    display(changes).inStream(byteArrayOutputStream5)
+    output(changes).inStream(byteArrayOutputStream5)
                     .change().inStream(byteArrayOutputStream6)
                     .rowAtEndPoint().inStream(byteArrayOutputStream7)
                     .value().inStream(byteArrayOutputStream8)

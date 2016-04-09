@@ -22,7 +22,7 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 
-import static org.assertj.db.output.Outputs.display;
+import static org.assertj.db.output.Outputs.output;
 
 /**
  * Test the output of values.
@@ -42,7 +42,7 @@ public class OutputterValue_Test extends AbstractTest {
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream3 = new ByteArrayOutputStream();
-    display(table).row().value().inStream(byteArrayOutputStream0).returnToRow()
+    Outputs.output(table).row().value().inStream(byteArrayOutputStream0).returnToRow()
                         .value(1).inStream(byteArrayOutputStream1)
                         .value().inStream(byteArrayOutputStream2)
                   .row(2).value(2).inStream(byteArrayOutputStream3);
@@ -87,7 +87,7 @@ public class OutputterValue_Test extends AbstractTest {
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream3 = new ByteArrayOutputStream();
-    display(request).row().value().inStream(byteArrayOutputStream0).returnToRow()
+    Outputs.output(request).row().value().inStream(byteArrayOutputStream0).returnToRow()
                     .value(1).inStream(byteArrayOutputStream1)
                           .value().inStream(byteArrayOutputStream2)
                     .row(2).value(2).inStream(byteArrayOutputStream3);
@@ -134,7 +134,7 @@ public class OutputterValue_Test extends AbstractTest {
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
-    display(changes).change().rowAtEndPoint().value().inStream(byteArrayOutputStream0)
+    output(changes).change().rowAtEndPoint().value().inStream(byteArrayOutputStream0)
                     .changeOfModification().rowAtStartPoint().value().inStream(byteArrayOutputStream1)
                     .rowAtEndPoint().value().inStream(byteArrayOutputStream2);
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Value at index 0 (column name : ID) of Row at end point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
@@ -171,7 +171,7 @@ public class OutputterValue_Test extends AbstractTest {
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream3 = new ByteArrayOutputStream();
-    display(table).column().value().inStream(byteArrayOutputStream0).returnToColumn()
+    Outputs.output(table).column().value().inStream(byteArrayOutputStream0).returnToColumn()
                            .value(1).inStream(byteArrayOutputStream1)
                            .value().inStream(byteArrayOutputStream2)
                   .column("name").value(2).inStream(byteArrayOutputStream3);
@@ -216,7 +216,7 @@ public class OutputterValue_Test extends AbstractTest {
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream3 = new ByteArrayOutputStream();
-    display(request).column().value().inStream(byteArrayOutputStream0).returnToColumn()
+    Outputs.output(request).column().value().inStream(byteArrayOutputStream0).returnToColumn()
                     .value(1).inStream(byteArrayOutputStream1)
                              .value().inStream(byteArrayOutputStream2)
                     .column("name").value(2).inStream(byteArrayOutputStream3);
@@ -264,7 +264,7 @@ public class OutputterValue_Test extends AbstractTest {
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
-    display(changes).change().column().valueAtStartPoint().inStream(byteArrayOutputStream0)
+    output(changes).change().column().valueAtStartPoint().inStream(byteArrayOutputStream0)
                     .valueAtEndPoint().inStream(byteArrayOutputStream1)
                     .column().valueAtEndPoint().inStream(byteArrayOutputStream2);
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Value at start point of Column at index 0 (column name : ID) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"

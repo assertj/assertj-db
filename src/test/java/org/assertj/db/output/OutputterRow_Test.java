@@ -22,7 +22,7 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 
-import static org.assertj.db.output.Outputs.display;
+import static org.assertj.db.output.Outputs.output;
 
 /**
  * Test the output of rows.
@@ -41,7 +41,7 @@ public class OutputterRow_Test extends AbstractTest {
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
-    display(table).row().inStream(byteArrayOutputStream0)
+    Outputs.output(table).row().inStream(byteArrayOutputStream0)
                   .row(1).inStream(byteArrayOutputStream1)
                   .row().inStream(byteArrayOutputStream2);
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Row at index 0 of ACTOR table]%n"
@@ -83,7 +83,7 @@ public class OutputterRow_Test extends AbstractTest {
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
-    display(request).row().inStream(byteArrayOutputStream0)
+    Outputs.output(request).row().inStream(byteArrayOutputStream0)
                     .row(1).inStream(byteArrayOutputStream1)
                     .row().inStream(byteArrayOutputStream2);
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Row at index 0 of 'select * from actor' request]%n"
@@ -128,7 +128,7 @@ public class OutputterRow_Test extends AbstractTest {
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
-    display(changes).change().rowAtStartPoint().inStream(byteArrayOutputStream0)
+    output(changes).change().rowAtStartPoint().inStream(byteArrayOutputStream0)
                   .rowAtEndPoint().inStream(byteArrayOutputStream1)
                   .changeOfModification().rowAtStartPoint().inStream(byteArrayOutputStream2);
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Row at start point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"

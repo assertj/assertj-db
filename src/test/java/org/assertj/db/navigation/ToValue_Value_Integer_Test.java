@@ -30,7 +30,7 @@ import java.sql.Date;
 import java.util.UUID;
 
 import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.output.Outputs.display;
+import static org.assertj.db.output.Outputs.output;
 import static org.junit.Assert.fail;
 
 /**
@@ -487,7 +487,7 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     Field fieldIndex = Position.class.getDeclaredField("nextIndex");
     fieldIndex.setAccessible(true);
 
-    ChangesOutputter changesOutputter = display(changes);
+    ChangesOutputter changesOutputter = output(changes);
     ChangeOutputter changeOutputter = changesOutputter.change();
     ChangeRowOutputter changeRowOutputter = changeOutputter.rowAtEndPoint();
     Position position = (Position) fieldPosition.get(changeRowOutputter);
@@ -522,7 +522,7 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     ChangeRowValueOutputter changeRowValueOutputterAgain0 = changeRowOutputter.value(0);
     Assertions.assertThat(changeRowValueOutputter0).isSameAs(changeRowValueOutputterAgain0);
 
-    ChangesOutputter changesOutputterBis = display(changes);
+    ChangesOutputter changesOutputterBis = output(changes);
     ChangeOutputter changeOutputterBis = changesOutputterBis.change();
     ChangeRowOutputter changeRowOutputterBis = changeOutputterBis.rowAtEndPoint();
     Position positionBis = (Position) fieldPosition.get(changeRowOutputterBis);
@@ -587,7 +587,7 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     fieldIndex.setAccessible(true);
 
     Table table = new Table(source, "actor");
-    TableOutputter tableOutputter = display(table);
+    TableOutputter tableOutputter = Outputs.output(table);
     TableColumnOutputter tableColumnOutputter = tableOutputter.column();
     Position position = (Position) fieldPosition.get(tableColumnOutputter);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
@@ -612,7 +612,7 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     TableColumnValueOutputter tableColumnValueOutputterAgain0 = tableColumnOutputter.value(0);
     Assertions.assertThat(tableColumnValueOutputter0).isSameAs(tableColumnValueOutputterAgain0);
 
-    TableOutputter tableOutputterBis = display(table);
+    TableOutputter tableOutputterBis = Outputs.output(table);
     TableColumnOutputter tableColumnOutputterBis = tableOutputterBis.column();
     Position positionBis = (Position) fieldPosition.get(tableColumnOutputterBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
@@ -661,7 +661,7 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     fieldIndex.setAccessible(true);
 
     Table table = new Table(source, "actor");
-    TableOutputter tableOutputter = display(table);
+    TableOutputter tableOutputter = Outputs.output(table);
     TableRowOutputter tableRowOutputter = tableOutputter.row();
     Position position = (Position) fieldPosition.get(tableRowOutputter);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
@@ -690,7 +690,7 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     TableRowValueOutputter tableRowValueOutputterAgain0 = tableRowOutputter.value(0);
     Assertions.assertThat(tableRowValueOutputter0).isSameAs(tableRowValueOutputterAgain0);
 
-    TableOutputter tableOutputterBis = display(table);
+    TableOutputter tableOutputterBis = Outputs.output(table);
     TableRowOutputter tableRowOutputterBis = tableOutputterBis.row();
     Position positionBis = (Position) fieldPosition.get(tableRowOutputterBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
@@ -749,7 +749,7 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     fieldIndex.setAccessible(true);
 
     Request request = new Request(source, "select * from actor");
-    RequestOutputter requestOutputter = display(request);
+    RequestOutputter requestOutputter = Outputs.output(request);
     RequestColumnOutputter requestColumnOutputter = requestOutputter.column();
     Position position = (Position) fieldPosition.get(requestColumnOutputter);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
@@ -774,7 +774,7 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     RequestColumnValueOutputter requestColumnValueOutputterAgain0 = requestColumnOutputter.value(0);
     Assertions.assertThat(requestColumnValueOutputter0).isSameAs(requestColumnValueOutputterAgain0);
 
-    RequestOutputter requestOutputterBis = display(request);
+    RequestOutputter requestOutputterBis = Outputs.output(request);
     RequestColumnOutputter requestColumnOutputterBis = requestOutputterBis.column();
     Position positionBis = (Position) fieldPosition.get(requestColumnOutputterBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
@@ -823,7 +823,7 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     fieldIndex.setAccessible(true);
 
     Request request = new Request(source, "select * from actor");
-    RequestOutputter requestOutputter = display(request);
+    RequestOutputter requestOutputter = Outputs.output(request);
     RequestRowOutputter requestRowOutputter = requestOutputter.row();
     Position position = (Position) fieldPosition.get(requestRowOutputter);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
@@ -852,7 +852,7 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     RequestRowValueOutputter requestRowValueOutputterAgain0 = requestRowOutputter.value(0);
     Assertions.assertThat(requestRowValueOutputter0).isSameAs(requestRowValueOutputterAgain0);
 
-    RequestOutputter requestOutputterBis = display(request);
+    RequestOutputter requestOutputterBis = Outputs.output(request);
     RequestRowOutputter requestRowOutputterBis = requestOutputterBis.row();
     Position positionBis = (Position) fieldPosition.get(requestRowOutputterBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);

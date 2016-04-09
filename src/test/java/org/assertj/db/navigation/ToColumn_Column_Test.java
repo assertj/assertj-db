@@ -27,7 +27,7 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.output.Outputs.display;
+import static org.assertj.db.output.Outputs.output;
 import static org.junit.Assert.fail;
 
 /**
@@ -335,7 +335,7 @@ public class ToColumn_Column_Test extends AbstractTest {
     Field fieldValueAtEndPoint = ChangeColumnOutputter.class.getDeclaredField("valueAtEndPoint");
     fieldValueAtEndPoint.setAccessible(true);
 
-    ChangesOutputter changesOutputter = display(changes);
+    ChangesOutputter changesOutputter = output(changes);
     ChangeOutputter changeOutputter = changesOutputter.change();
     PositionWithColumnsChange position = (PositionWithColumnsChange) fieldPosition.get(changeOutputter);
     assertThat(fieldIndex.get(position)).isEqualTo(0);
@@ -356,7 +356,7 @@ public class ToColumn_Column_Test extends AbstractTest {
       assertThat(e.getMessage()).isEqualTo("Index 5 out of the limits [0, 5[");
     }
 
-    ChangesOutputter changesOutputterBis = display(changes);
+    ChangesOutputter changesOutputterBis = output(changes);
     ChangeOutputter changeOutputterBis = changesOutputterBis.change();
     PositionWithColumnsChange positionBis = (PositionWithColumnsChange) fieldPosition.get(changeOutputterBis);
     assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
@@ -426,7 +426,7 @@ public class ToColumn_Column_Test extends AbstractTest {
     fieldIndex.setAccessible(true);
 
     Table table = new Table(source, "actor");
-    TableOutputter tableOutputter = display(table);
+    TableOutputter tableOutputter = Outputs.output(table);
     Position position = (Position) fieldPosition.get(tableOutputter);
     assertThat(fieldIndex.get(position)).isEqualTo(0);
     TableColumnOutputter tableColumnOutputter0 = tableOutputter.column();
@@ -446,7 +446,7 @@ public class ToColumn_Column_Test extends AbstractTest {
       assertThat(e.getMessage()).isEqualTo("Index 5 out of the limits [0, 5[");
     }
 
-    TableOutputter tableOutputterBis = display(table);
+    TableOutputter tableOutputterBis = Outputs.output(table);
     Position positionBis = (Position) fieldPosition.get(tableOutputterBis);
     assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     TableColumnOutputter tableColumnOutputterBis0 = tableOutputterBis.column();
@@ -513,7 +513,7 @@ public class ToColumn_Column_Test extends AbstractTest {
     fieldIndex.setAccessible(true);
 
     Request request = new Request(source, "select * from actor");
-    RequestOutputter requestOutputter = display(request);
+    RequestOutputter requestOutputter = Outputs.output(request);
     Position position = (Position) fieldPosition.get(requestOutputter);
     assertThat(fieldIndex.get(position)).isEqualTo(0);
     RequestColumnOutputter requestColumnOutputter0 = requestOutputter.column();
@@ -533,7 +533,7 @@ public class ToColumn_Column_Test extends AbstractTest {
       assertThat(e.getMessage()).isEqualTo("Index 5 out of the limits [0, 5[");
     }
 
-    RequestOutputter requestOutputterBis = display(request);
+    RequestOutputter requestOutputterBis = Outputs.output(request);
     Position positionBis = (Position) fieldPosition.get(requestOutputterBis);
     assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     RequestColumnOutputter requestColumnOutputterBis0 = requestOutputterBis.column();

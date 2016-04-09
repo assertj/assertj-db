@@ -32,7 +32,7 @@ import java.sql.Date;
 import java.util.UUID;
 
 import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.output.Outputs.display;
+import static org.assertj.db.output.Outputs.output;
 import static org.junit.Assert.fail;
 
 /**
@@ -199,7 +199,7 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_Integer_Test extends 
     Field fieldValueAtEndPoint = ChangeColumnOutputter.class.getDeclaredField("valueAtEndPoint");
     fieldValueAtEndPoint.setAccessible(true);
 
-    ChangesOutputter changesOutputter = display(changes);
+    ChangesOutputter changesOutputter = output(changes);
     ChangeOutputter changeOutputter = changesOutputter.change(6);
     PositionWithColumnsChange position = (PositionWithColumnsChange) fieldPosition.get(changeOutputter);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
@@ -228,7 +228,7 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_Integer_Test extends 
     ChangeColumnOutputter changeColumnOutputterAgain0 = changeOutputter.column(0);
     Assertions.assertThat(changeColumnOutputter0).isSameAs(changeColumnOutputterAgain0);
 
-    ChangesOutputter changesOutputterBis = display(changes);
+    ChangesOutputter changesOutputterBis = output(changes);
     ChangeOutputter changeOutputterBis = changesOutputterBis.change(6);
     PositionWithColumnsChange positionBis = (PositionWithColumnsChange) fieldPosition.get(changeOutputterBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
@@ -300,7 +300,7 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_Integer_Test extends 
     Assertions.assertThat(((Value) fieldValueAtEndPoint.get(changeColumnOutputterBis3)).getValue()).isNull();
     Assertions.assertThat(((Value) fieldValueAtEndPoint.get(changeColumnOutputterBis4)).getValue()).isNull();
 
-    ChangeColumnOutputter changeColumnOutputter = display(changes).change(3).columnAmongTheModifiedOnes(0);
+    ChangeColumnOutputter changeColumnOutputter = output(changes).change(3).columnAmongTheModifiedOnes(0);
     try {
       changeColumnOutputter.columnAmongTheModifiedOnes(1);
       fail("An exception must be raised");

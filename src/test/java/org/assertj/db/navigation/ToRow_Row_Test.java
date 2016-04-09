@@ -28,7 +28,6 @@ import java.sql.Date;
 import java.util.UUID;
 
 import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.output.Outputs.display;
 import static org.junit.Assert.fail;
 
 /**
@@ -221,7 +220,7 @@ public class ToRow_Row_Test extends AbstractTest {
     fieldIndex.setAccessible(true);
 
     Table table = new Table(source, "actor");
-    TableOutputter tableOutputter = display(table);
+    TableOutputter tableOutputter = Outputs.output(table);
     Position position = (Position) fieldPosition.get(tableOutputter);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     TableRowOutputter tableRowOutputter0 = tableOutputter.row();
@@ -237,7 +236,7 @@ public class ToRow_Row_Test extends AbstractTest {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index 3 out of the limits [0, 3[");
     }
 
-    TableOutputter tableOutputterBis = display(table);
+    TableOutputter tableOutputterBis = Outputs.output(table);
     Position positionBis = (Position) fieldPosition.get(tableOutputterBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     TableRowOutputter tableRowOutputterBis0 = tableOutputterBis.row();
@@ -305,7 +304,7 @@ public class ToRow_Row_Test extends AbstractTest {
     fieldIndex.setAccessible(true);
 
     Request request = new Request(source, "select * from actor");
-    RequestOutputter requestOutputter = display(request);
+    RequestOutputter requestOutputter = Outputs.output(request);
     Position position = (Position) fieldPosition.get(requestOutputter);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     RequestRowOutputter requestRowOutputter0 = requestOutputter.row();
@@ -321,7 +320,7 @@ public class ToRow_Row_Test extends AbstractTest {
       Assertions.assertThat(e.getMessage()).isEqualTo("Index 3 out of the limits [0, 3[");
     }
 
-    RequestOutputter requestOutputterBis = display(request);
+    RequestOutputter requestOutputterBis = Outputs.output(request);
     Position positionBis = (Position) fieldPosition.get(requestOutputterBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     RequestRowOutputter requestRowOutputterBis0 = requestOutputterBis.row();

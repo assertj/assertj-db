@@ -25,7 +25,7 @@ import java.lang.reflect.Field;
 import java.math.BigDecimal;
 
 import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.output.Outputs.display;
+import static org.assertj.db.output.Outputs.output;
 
 /**
  * Tests on {@link org.assertj.db.navigation.ToValueFromColumn} class :
@@ -112,7 +112,7 @@ public class ToValueFromColumn_ValueAtEndPoint_Test extends AbstractTest {
     Field fieldValueFromValueOutputter = AbstractOutputterWithValues.class.getDeclaredField("value");
     fieldValueFromValueOutputter.setAccessible(true);
 
-    ChangesOutputter changesOutputter = display(changes);
+    ChangesOutputter changesOutputter = output(changes);
 
     ChangeOutputter changeCreationOutputter = changesOutputter.change();
     ChangeColumnOutputter changeColumnCreationOutputter = changeCreationOutputter.column();

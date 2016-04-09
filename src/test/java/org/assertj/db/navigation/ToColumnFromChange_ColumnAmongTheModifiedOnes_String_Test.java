@@ -31,7 +31,7 @@ import java.math.BigDecimal;
 import java.sql.Date;
 
 import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.output.Outputs.display;
+import static org.assertj.db.output.Outputs.output;
 import static org.junit.Assert.fail;
 
 /**
@@ -185,7 +185,7 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_String_Test extends A
     Field fieldValueAtEndPoint = ChangeColumnOutputter.class.getDeclaredField("valueAtEndPoint");
     fieldValueAtEndPoint.setAccessible(true);
 
-    ChangesOutputter changesDisplay = display(changes);
+    ChangesOutputter changesDisplay = output(changes);
     ChangeOutputter changeDisplay = changesDisplay.change();
     PositionWithColumnsChange position = (PositionWithColumnsChange) fieldPosition.get(changeDisplay);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
@@ -212,7 +212,7 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_String_Test extends A
       Assertions.assertThat(e.getMessage()).isEqualTo("Column name must be not null");
     }
 
-    ChangesOutputter changesDisplayBis = display(changes);
+    ChangesOutputter changesDisplayBis = output(changes);
     ChangeOutputter changeDisplayBis = changesDisplayBis.change();
     PositionWithColumnsChange positionBis = (PositionWithColumnsChange) fieldPosition.get(changeDisplayBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
@@ -271,7 +271,7 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_String_Test extends A
                       isEqualTo(
                               Date.valueOf("1950-09-21"));
 
-    ChangeColumnOutputter changeColumnDisplay = display(changes).change(3).columnAmongTheModifiedOnes("firstname");
+    ChangeColumnOutputter changeColumnDisplay = output(changes).change(3).columnAmongTheModifiedOnes("firstname");
     try {
       changeColumnDisplay.columnAmongTheModifiedOnes("birth");
       fail("An exception must be raised");

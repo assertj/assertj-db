@@ -32,7 +32,7 @@ import java.sql.Date;
 import java.util.UUID;
 
 import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.output.Outputs.display;
+import static org.assertj.db.output.Outputs.output;
 import static org.junit.Assert.fail;
 
 /**
@@ -179,7 +179,7 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_Test extends Abstract
     Field fieldValueAtEndPoint = ChangeColumnOutputter.class.getDeclaredField("valueAtEndPoint");
     fieldValueAtEndPoint.setAccessible(true);
 
-    ChangesOutputter changesOutputter = display(changes);
+    ChangesOutputter changesOutputter = output(changes);
     ChangeOutputter changeOutputter = changesOutputter.change();
     PositionWithColumnsChange position = (PositionWithColumnsChange) fieldPosition.get(changeOutputter);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
@@ -200,7 +200,7 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_Test extends Abstract
       Assertions.assertThat(e.getMessage()).isEqualTo("No more modified columns");
     }
 
-    ChangesOutputter changesOutputterBis = display(changes);
+    ChangesOutputter changesOutputterBis = output(changes);
     ChangeOutputter changeOutputterBis = changesOutputterBis.change();
     PositionWithColumnsChange positionBis = (PositionWithColumnsChange) fieldPosition.get(changeOutputterBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
@@ -260,7 +260,7 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_Test extends Abstract
                       isEqualTo(
                               UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
 
-    ChangeColumnOutputter changeColumnOutputter = display(changes).change(3).columnAmongTheModifiedOnes();
+    ChangeColumnOutputter changeColumnOutputter = output(changes).change(3).columnAmongTheModifiedOnes();
     try {
       changeColumnOutputter.columnAmongTheModifiedOnes();
       fail("An exception must be raised");
