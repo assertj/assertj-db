@@ -36,7 +36,7 @@ public class OutputterTable_Test extends AbstractTest {
     Table table = new Table(source, "actor");
 
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-    output(table).inStream(byteArrayOutputStream);
+    output(table).toStream(byteArrayOutputStream);
     Assertions.assertThat(byteArrayOutputStream.toString()).isEqualTo(String.format("[ACTOR table]%n"
                                                                                     + "|-----------|---------|-----------|-------------|-----------|------------|--------------------------------------|%n"
                                                                                     + "|           |         | *         |             |           |            |                                      |%n"

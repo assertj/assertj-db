@@ -45,7 +45,7 @@ public class SqliteDatabase_DataSource_UIUIUI_Test extends AbstractSqliteTest {
 
   @Test
   @NeedReload
-  public void test_Displaying_diplay() {
+  public void test_Outputs_output() {
     Table table = new Table(dataSource, "test", null, new String[] {"var20"});
     Changes changes = new Changes(table).setStartPointNow();
     update();
@@ -62,18 +62,18 @@ public class SqliteDatabase_DataSource_UIUIUI_Test extends AbstractSqliteTest {
     ByteArrayOutputStream byteArrayOutputStream8 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream9 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream10 = new ByteArrayOutputStream();
-    Outputs.output(table).inStream(byteArrayOutputStream0)
-                  .column().inStream(byteArrayOutputStream1)
-                  .value().inStream(byteArrayOutputStream2)
-                  .row().inStream(byteArrayOutputStream3)
-                  .value().inStream(byteArrayOutputStream4)
+    Outputs.output(table).toStream(byteArrayOutputStream0)
+           .column().toStream(byteArrayOutputStream1)
+           .value().toStream(byteArrayOutputStream2)
+           .row().toStream(byteArrayOutputStream3)
+           .value().toStream(byteArrayOutputStream4)
     ;
-    output(changes).inStream(byteArrayOutputStream5)
-                    .change().inStream(byteArrayOutputStream6)
-                    .rowAtEndPoint().inStream(byteArrayOutputStream7)
-                    .value().inStream(byteArrayOutputStream8)
-                    .column().inStream(byteArrayOutputStream9)
-                    .valueAtEndPoint().inStream(byteArrayOutputStream10);
+    output(changes).toStream(byteArrayOutputStream5)
+                   .change().toStream(byteArrayOutputStream6)
+                   .rowAtEndPoint().toStream(byteArrayOutputStream7)
+                   .value().toStream(byteArrayOutputStream8)
+                   .column().toStream(byteArrayOutputStream9)
+                   .valueAtEndPoint().toStream(byteArrayOutputStream10);
 
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[TEST table]%n"
                                                                                      + "|-----------|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"

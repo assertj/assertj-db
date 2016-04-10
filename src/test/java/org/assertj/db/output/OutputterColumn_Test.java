@@ -35,15 +35,15 @@ public class OutputterColumn_Test extends AbstractTest {
    * This method tests the {@code output} output method.
    */
   @Test
-  public void test_display_for_table() throws Exception {
+  public void test_output_for_table() throws Exception {
     Table table = new Table(source, "actor");
 
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
-    Outputs.output(table).column().inStream(byteArrayOutputStream0)
-                  .column(1).inStream(byteArrayOutputStream1)
-                  .column().inStream(byteArrayOutputStream2);
+    Outputs.output(table).column().toStream(byteArrayOutputStream0)
+                  .column(1).toStream(byteArrayOutputStream1)
+                  .column().toStream(byteArrayOutputStream2);
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Column at index 0 (column name : ID) of ACTOR table]%n"
                                                                                      + "|-----------|----------|%n"
                                                                                      + "|           | ID       |%n"
@@ -77,15 +77,15 @@ public class OutputterColumn_Test extends AbstractTest {
    * This method tests the {@code output} output method.
    */
   @Test
-  public void test_display_for_request() throws Exception {
+  public void test_output_for_request() throws Exception {
     Request request = new Request(source, "select * from actor");
 
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
-    Outputs.output(request).column().inStream(byteArrayOutputStream0)
-                    .column(1).inStream(byteArrayOutputStream1)
-                    .column().inStream(byteArrayOutputStream2);
+    Outputs.output(request).column().toStream(byteArrayOutputStream0)
+                    .column(1).toStream(byteArrayOutputStream1)
+                    .column().toStream(byteArrayOutputStream2);
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Column at index 0 (column name : ID) of 'select * from actor' request]%n"
                                                                                      + "|-----------|----------|%n"
                                                                                      + "|           | ID       |%n"
@@ -120,7 +120,7 @@ public class OutputterColumn_Test extends AbstractTest {
    */
   @Test
   @NeedReload
-  public void test_display_for_change() throws Exception {
+  public void test_output_for_change() throws Exception {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
@@ -128,9 +128,9 @@ public class OutputterColumn_Test extends AbstractTest {
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
-    output(changes).change().column().inStream(byteArrayOutputStream0)
-                    .column().inStream(byteArrayOutputStream1)
-                    .column().inStream(byteArrayOutputStream2);
+    output(changes).change().column().toStream(byteArrayOutputStream0)
+                    .column().toStream(byteArrayOutputStream1)
+                    .column().toStream(byteArrayOutputStream2);
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Column at index 0 (column name : ID) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
                                                                                      + "|----------------|----------|%n"
                                                                                      + "|                | ID       |%n"

@@ -43,7 +43,7 @@ public class H2Database_Source_NSNSNS_Test extends AbstractH2Test {
   }
 
   @NeedReload
-  public void test_Displaying_diplay() {
+  public void test_Outputs_output() {
     Table table = new Table(source, "test");
     Changes changes = new Changes(table).setStartPointNow();
     Changes changes2 = new Changes(source).setStartPointNow();
@@ -68,23 +68,23 @@ public class H2Database_Source_NSNSNS_Test extends AbstractH2Test {
     ByteArrayOutputStream byteArrayOutputStream14 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream15 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream16 = new ByteArrayOutputStream();
-    Outputs.output(table).inStream(byteArrayOutputStream0)
-                  .column().inStream(byteArrayOutputStream1)
-                  .value().inStream(byteArrayOutputStream2)
-                  .row().inStream(byteArrayOutputStream3)
-                  .value().inStream(byteArrayOutputStream4);
-    output(changes).inStream(byteArrayOutputStream5)
-                    .change().inStream(byteArrayOutputStream6)
-                    .rowAtEndPoint().inStream(byteArrayOutputStream7)
-                    .value().inStream(byteArrayOutputStream8)
-                    .column().inStream(byteArrayOutputStream9)
-                    .valueAtEndPoint().inStream(byteArrayOutputStream10);
-    output(changes2).inStream(byteArrayOutputStream11)
-                    .change().inStream(byteArrayOutputStream12)
-                    .rowAtEndPoint().inStream(byteArrayOutputStream13)
-                    .value().inStream(byteArrayOutputStream14)
-                    .column().inStream(byteArrayOutputStream15)
-                    .valueAtEndPoint().inStream(byteArrayOutputStream16);
+    Outputs.output(table).toStream(byteArrayOutputStream0)
+                  .column().toStream(byteArrayOutputStream1)
+                  .value().toStream(byteArrayOutputStream2)
+                  .row().toStream(byteArrayOutputStream3)
+                  .value().toStream(byteArrayOutputStream4);
+    output(changes).toStream(byteArrayOutputStream5)
+                    .change().toStream(byteArrayOutputStream6)
+                    .rowAtEndPoint().toStream(byteArrayOutputStream7)
+                    .value().toStream(byteArrayOutputStream8)
+                    .column().toStream(byteArrayOutputStream9)
+                    .valueAtEndPoint().toStream(byteArrayOutputStream10);
+    output(changes2).toStream(byteArrayOutputStream11)
+                    .change().toStream(byteArrayOutputStream12)
+                    .rowAtEndPoint().toStream(byteArrayOutputStream13)
+                    .value().toStream(byteArrayOutputStream14)
+                    .column().toStream(byteArrayOutputStream15)
+                    .valueAtEndPoint().toStream(byteArrayOutputStream16);
 
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[TEST table]%n"
                                                                                      + "|-----------|---------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|--------------------|------------|-------------------------------|-------------------------------|-------------------------------|------------|------------|------------|------------|------------|-------------------------------------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|--------------------------------------|------------------|------------------|%n"

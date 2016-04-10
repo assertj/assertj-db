@@ -36,7 +36,7 @@ public class OutputterRequest_Test extends AbstractTest {
     Request request = new Request(source, "select * from actor");
 
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-    output(request).inStream(byteArrayOutputStream);
+    output(request).toStream(byteArrayOutputStream);
     Assertions.assertThat(byteArrayOutputStream.toString()).isEqualTo(String.format("['select * from actor' request]%n"
                                                                                     + "|-----------|---------|-----------|-------------|-----------|------------|--------------------------------------|%n"
                                                                                     + "|           |         |           |             |           |            |                                      |%n"

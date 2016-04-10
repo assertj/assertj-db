@@ -35,17 +35,17 @@ public class OutputterValue_Test extends AbstractTest {
    * This method tests the {@code output} output method.
    */
   @Test
-  public void test_display_for_row_from_table() throws Exception {
+  public void test_output_for_row_from_table() throws Exception {
     Table table = new Table(source, "actor");
 
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream3 = new ByteArrayOutputStream();
-    Outputs.output(table).row().value().inStream(byteArrayOutputStream0).returnToRow()
-                        .value(1).inStream(byteArrayOutputStream1)
-                        .value().inStream(byteArrayOutputStream2)
-                  .row(2).value(2).inStream(byteArrayOutputStream3);
+    Outputs.output(table).row().value().toStream(byteArrayOutputStream0).returnToRow()
+                        .value(1).toStream(byteArrayOutputStream1)
+                        .value().toStream(byteArrayOutputStream2)
+                  .row(2).value(2).toStream(byteArrayOutputStream3);
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Value at index 0 (column name : ID) of Row at index 0 of ACTOR table]%n"
                                                                                      + "|----------|%n"
                                                                                      + "| ID       |%n"
@@ -80,17 +80,17 @@ public class OutputterValue_Test extends AbstractTest {
    * This method tests the {@code output} output method.
    */
   @Test
-  public void test_display_for_row_from_request() throws Exception {
+  public void test_output_for_row_from_request() throws Exception {
     Request request = new Request(source, "select * from actor");
 
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream3 = new ByteArrayOutputStream();
-    Outputs.output(request).row().value().inStream(byteArrayOutputStream0).returnToRow()
-                    .value(1).inStream(byteArrayOutputStream1)
-                          .value().inStream(byteArrayOutputStream2)
-                    .row(2).value(2).inStream(byteArrayOutputStream3);
+    Outputs.output(request).row().value().toStream(byteArrayOutputStream0).returnToRow()
+                    .value(1).toStream(byteArrayOutputStream1)
+                          .value().toStream(byteArrayOutputStream2)
+                    .row(2).value(2).toStream(byteArrayOutputStream3);
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Value at index 0 (column name : ID) of Row at index 0 of 'select * from actor' request]%n"
                           + "|----------|%n"
                           + "| ID       |%n"
@@ -126,7 +126,7 @@ public class OutputterValue_Test extends AbstractTest {
    */
   @Test
   @NeedReload
-  public void test_display_for_row_from_change() throws Exception {
+  public void test_output_for_row_from_change() throws Exception {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
@@ -134,9 +134,9 @@ public class OutputterValue_Test extends AbstractTest {
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
-    output(changes).change().rowAtEndPoint().value().inStream(byteArrayOutputStream0)
-                    .changeOfModification().rowAtStartPoint().value().inStream(byteArrayOutputStream1)
-                    .rowAtEndPoint().value().inStream(byteArrayOutputStream2);
+    output(changes).change().rowAtEndPoint().value().toStream(byteArrayOutputStream0)
+                    .changeOfModification().rowAtStartPoint().value().toStream(byteArrayOutputStream1)
+                    .rowAtEndPoint().value().toStream(byteArrayOutputStream2);
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Value at index 0 (column name : ID) of Row at end point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
                                                                                      + "|----------|%n"
                                                                                      + "| ID       |%n"
@@ -164,17 +164,17 @@ public class OutputterValue_Test extends AbstractTest {
    * This method tests the {@code output} output method.
    */
   @Test
-  public void test_display_for_column_from_table() throws Exception {
+  public void test_output_for_column_from_table() throws Exception {
     Table table = new Table(source, "actor");
 
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream3 = new ByteArrayOutputStream();
-    Outputs.output(table).column().value().inStream(byteArrayOutputStream0).returnToColumn()
-                           .value(1).inStream(byteArrayOutputStream1)
-                           .value().inStream(byteArrayOutputStream2)
-                  .column("name").value(2).inStream(byteArrayOutputStream3);
+    Outputs.output(table).column().value().toStream(byteArrayOutputStream0).returnToColumn()
+                           .value(1).toStream(byteArrayOutputStream1)
+                           .value().toStream(byteArrayOutputStream2)
+                  .column("name").value(2).toStream(byteArrayOutputStream3);
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Value at index 0 of Column at index 0 (column name : ID) of ACTOR table]%n"
                           + "|----------|%n"
                           + "| ID       |%n"
@@ -209,17 +209,17 @@ public class OutputterValue_Test extends AbstractTest {
    * This method tests the {@code output} output method.
    */
   @Test
-  public void test_display_for_column_from_request() throws Exception {
+  public void test_output_for_column_from_request() throws Exception {
     Request request = new Request(source, "select * from actor");
 
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream3 = new ByteArrayOutputStream();
-    Outputs.output(request).column().value().inStream(byteArrayOutputStream0).returnToColumn()
-                    .value(1).inStream(byteArrayOutputStream1)
-                             .value().inStream(byteArrayOutputStream2)
-                    .column("name").value(2).inStream(byteArrayOutputStream3);
+    Outputs.output(request).column().value().toStream(byteArrayOutputStream0).returnToColumn()
+                    .value(1).toStream(byteArrayOutputStream1)
+                             .value().toStream(byteArrayOutputStream2)
+                    .column("name").value(2).toStream(byteArrayOutputStream3);
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format(
             "[Value at index 0 of Column at index 0 (column name : ID) of 'select * from actor' request]%n"
             + "|----------|%n"
@@ -256,7 +256,7 @@ public class OutputterValue_Test extends AbstractTest {
    */
   @Test
   @NeedReload
-  public void test_display_for_column_from_change() throws Exception {
+  public void test_output_for_column_from_change() throws Exception {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
@@ -264,9 +264,9 @@ public class OutputterValue_Test extends AbstractTest {
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
-    output(changes).change().column().valueAtStartPoint().inStream(byteArrayOutputStream0)
-                    .valueAtEndPoint().inStream(byteArrayOutputStream1)
-                    .column().valueAtEndPoint().inStream(byteArrayOutputStream2);
+    output(changes).change().column().valueAtStartPoint().toStream(byteArrayOutputStream0)
+                    .valueAtEndPoint().toStream(byteArrayOutputStream1)
+                    .column().valueAtEndPoint().toStream(byteArrayOutputStream2);
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Value at start point of Column at index 0 (column name : ID) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
                                                                                      + "|------------------|%n"
                                                                                      + "| ID               |%n"

@@ -34,7 +34,7 @@ public class OutputterChange_Test extends AbstractTest {
    */
   @Test
   @NeedReload
-  public void test_display() throws Exception {
+  public void test_output() throws Exception {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
@@ -47,14 +47,14 @@ public class OutputterChange_Test extends AbstractTest {
     ByteArrayOutputStream byteArrayOutputStream5 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream6 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream7 = new ByteArrayOutputStream();
-    output(changes).change().inStream(byteArrayOutputStream0)
-                    .change().inStream(byteArrayOutputStream1)
-                    .change().inStream(byteArrayOutputStream2)
-                    .change().inStream(byteArrayOutputStream3)
-                    .change().inStream(byteArrayOutputStream4)
-                    .change().inStream(byteArrayOutputStream5)
-                    .change().inStream(byteArrayOutputStream6)
-                    .change().inStream(byteArrayOutputStream7);
+    output(changes).change().toStream(byteArrayOutputStream0)
+                    .change().toStream(byteArrayOutputStream1)
+                    .change().toStream(byteArrayOutputStream2)
+                    .change().toStream(byteArrayOutputStream3)
+                    .change().toStream(byteArrayOutputStream4)
+                    .change().toStream(byteArrayOutputStream5)
+                    .change().toStream(byteArrayOutputStream6)
+                    .change().toStream(byteArrayOutputStream7);
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
                                                                                     + "|----------|-------|---------|----------------|-----------|-----------|-----------|------------|--------------------------------------|%n"
                                                                                     + "|          |       |         |                | *         |           |           |            |                                      |%n"

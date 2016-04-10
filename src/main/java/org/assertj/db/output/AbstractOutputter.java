@@ -64,21 +64,21 @@ public abstract class AbstractOutputter<E extends AbstractOutputter<E>>
   protected abstract String getOutput(Output outputType);
 
   /**
-   * Output {@code this} in the {@code System.out}.
+   * Output {@code this} to the {@code System.out}.
    *
    * @return {@code this} output object.
    */
-  public E inConsole() {
-    return inStream(System.out);
+  public E toConsole() {
+    return toStream(System.out);
   }
 
   /**
-   * Output {@code this} in the {@code OutputStream}.
+   * Output {@code this} to the {@code OutputStream}.
    *
    * @param outputStream {@code OutputStream} to use for output.
    * @return {@code this} output object.
    */
-  public E inStream(OutputStream outputStream) {
+  public E toStream(OutputStream outputStream) {
     String output = getOutput(outputType);
     PrintStream printStream = new PrintStream(outputStream);
     printStream.print(output);
@@ -86,13 +86,13 @@ public abstract class AbstractOutputter<E extends AbstractOutputter<E>>
   }
 
   /**
-   * Output {@code this} in a file.
+   * Output {@code this} to a file.
    *
    * @param fileName The file name.
    * @return {@code this} output object.
    * @throws AssertJDBException If exception in IO.
    */
-  public E inFile(String fileName) {
+  public E toFile(String fileName) {
     String output = getOutput(outputType);
     try (FileOutputStream fileOutputStream = new FileOutputStream(fileName)) {
       PrintStream printStream = new PrintStream(fileOutputStream);

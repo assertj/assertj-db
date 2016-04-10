@@ -35,15 +35,15 @@ public class OutputterRow_Test extends AbstractTest {
    * This method tests the {@code output} output method.
    */
   @Test
-  public void test_display_for_table() throws Exception {
+  public void test_output_for_table() throws Exception {
     Table table = new Table(source, "actor");
 
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
-    Outputs.output(table).row().inStream(byteArrayOutputStream0)
-                  .row(1).inStream(byteArrayOutputStream1)
-                  .row().inStream(byteArrayOutputStream2);
+    Outputs.output(table).row().toStream(byteArrayOutputStream0)
+                  .row(1).toStream(byteArrayOutputStream1)
+                  .row().toStream(byteArrayOutputStream2);
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Row at index 0 of ACTOR table]%n"
                                                                                     + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"
                                                                                     + "|         | *         |           |           |            |                                      |%n"
@@ -77,15 +77,15 @@ public class OutputterRow_Test extends AbstractTest {
    * This method tests the {@code output} output method.
    */
   @Test
-  public void test_display_for_request() throws Exception {
+  public void test_output_for_request() throws Exception {
     Request request = new Request(source, "select * from actor");
 
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
-    Outputs.output(request).row().inStream(byteArrayOutputStream0)
-                    .row(1).inStream(byteArrayOutputStream1)
-                    .row().inStream(byteArrayOutputStream2);
+    Outputs.output(request).row().toStream(byteArrayOutputStream0)
+                    .row(1).toStream(byteArrayOutputStream1)
+                    .row().toStream(byteArrayOutputStream2);
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Row at index 0 of 'select * from actor' request]%n"
                                                                                     + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"
                                                                                     + "|         |           |           |           |            |                                      |%n"
@@ -120,7 +120,7 @@ public class OutputterRow_Test extends AbstractTest {
    */
   @Test
   @NeedReload
-  public void test_display_for_change() throws Exception {
+  public void test_output_for_change() throws Exception {
     Changes changes = new Changes(source).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
@@ -128,9 +128,9 @@ public class OutputterRow_Test extends AbstractTest {
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
-    output(changes).change().rowAtStartPoint().inStream(byteArrayOutputStream0)
-                  .rowAtEndPoint().inStream(byteArrayOutputStream1)
-                  .changeOfModification().rowAtStartPoint().inStream(byteArrayOutputStream2);
+    output(changes).change().rowAtStartPoint().toStream(byteArrayOutputStream0)
+                  .rowAtEndPoint().toStream(byteArrayOutputStream1)
+                  .changeOfModification().rowAtStartPoint().toStream(byteArrayOutputStream2);
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Row at start point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
                                                                                      + "Row does not exist%n"));
     Assertions.assertThat(byteArrayOutputStream1.toString()).isEqualTo(String.format("[Row at end point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
