@@ -8,7 +8,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- * Copyright 2012-2015 the original author or authors.
+ * Copyright 2012-2016 the original author or authors.
  */
 package org.assertj.db.type;
 
@@ -16,6 +16,8 @@ import org.assertj.db.common.AbstractTest;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.db.type.Table.Order.asc;
+import static org.assertj.db.type.Table.Order.desc;
 
 /**
  * Tests on the getters of {@code Table}.
@@ -115,4 +117,40 @@ public class Table_Getters_Test extends AbstractTest {
     assertThat(table.getRequest()).isEqualTo("SELECT TITLE, YEAR FROM MOVIE");
   }
 
+  /**
+   * This method test the getters of a {@code Table} when the source, the name and the informations about the columns
+   * and the orders are set.
+   */
+  @Test
+  public void test_getters_with_source_name_columns_and_order_set() {
+    Table table = new Table(source, "movie",
+                            new Table.Order[]{ asc("title"), desc("year") },
+                            new String[] { "title", "year" }, new String[] { "id" });
+
+    assertThat(table.getSource()).as("Source of MOVIE table").isSameAs(source);
+    assertThat(table.getDataSource()).isNull();
+    assertThat(table.getName()).isEqualTo("MOVIE");
+    assertThat(table.getColumnsToCheck()).containsExactly("TITLE", "YEAR");
+    assertThat(table.getColumnsToExclude()).containsExactly("ID");
+    assertThat(table.getColumnsToOrder()).containsExactly(asc("TITLE"), desc("YEAR"));
+    assertThat(table.getRequest()).isEqualTo("SELECT TITLE, YEAR FROM MOVIE ORDER BY TITLE, YEAR DESC");
+  }
+
+  /**
+   * This method test the getters of a {@code Table} when the source, the name and the informations about the orders
+   * are set.
+   */
+  @Test
+  public void test_getters_with_source_name_and_order_set() {
+    Table table = new Table(source, "movie",
+                            new Table.Order[]{ asc("title"), desc("year") });
+
+    assertThat(table.getSource()).as("Source of MOVIE table").isSameAs(source);
+    assertThat(table.getDataSource()).isNull();
+    assertThat(table.getName()).isEqualTo("MOVIE");
+    assertThat(table.getColumnsToCheck()).isNull();
+    assertThat(table.getColumnsToExclude()).isNull();
+    assertThat(table.getColumnsToOrder()).containsExactly(asc("TITLE"), desc("YEAR"));
+    assertThat(table.getRequest()).isEqualTo("SELECT * FROM MOVIE ORDER BY TITLE, YEAR DESC");
+  }
 }

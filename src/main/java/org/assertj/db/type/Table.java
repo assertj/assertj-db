@@ -8,7 +8,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- * Copyright 2012-2015 the original author or authors.
+ * Copyright 2012-2016 the original author or authors.
  */
 package org.assertj.db.type;
 
@@ -86,6 +86,109 @@ public class Table extends AbstractDbData<Table> {
    * The columns to exclude.
    */
   private String[] columnsToExclude;
+  /**
+   * The columns to order.
+   * @since 1.2.0
+   */
+  private Order[] columnsToOrder;
+
+  /**
+   * Indicates an order with the name on which is the order and the type.
+   * @see org.assertj.db.type.Table.Order.OrderType
+   */
+  public static class Order {
+    /**
+     * The name of the order.
+     */
+    private String name;
+    /**
+     * The type of the order.
+     */
+    private OrderType type;
+
+    /**
+     * Enumeration of the type of order.
+     */
+    public enum OrderType {
+      /**
+       * Ascending order.
+       */
+      ASC,
+      /**
+       * Descending order.
+       */
+      DESC;
+    }
+
+    /**
+     * Builds an ascending order.
+     * @param name The name of the order.
+     * @return An ascending order.
+     */
+    public static Order asc(String name) {
+      return getOrder(name, OrderType.ASC);
+    }
+
+    /**
+     * Builds the descending order.
+     * @param name The name of the order.
+     * @return The descending order.
+     */
+    public static Order desc(String name) {
+      return getOrder(name, OrderType.DESC);
+    }
+
+    /**
+     * Builds an order.
+     * @param name The name of the order.
+     * @param type The type of the order.
+     * @return The instantiated order.
+     */
+    private static Order getOrder(String name, OrderType type) {
+      return new Order(name, type);
+    }
+
+    /**
+     * Constructor.
+     * @param name The name of the order.
+     * @param type The type of the order.
+     */
+    private Order(String name, OrderType type) {
+      this.name = name;
+      this.type = type;
+    }
+
+    /**
+     * Returns the name of the order.
+     * @return The name of the order.
+     */
+    public String getName() {
+      return name;
+    }
+
+    /**
+     * Returns the type of the order.
+     * @return The type of the order.
+     */
+    public OrderType getType() {
+      return type;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+      if (obj instanceof Order) {
+        Order order = (Order) obj;
+        if (order.type == type) {
+          if ((name == null && order.name == null) ||
+              (name != null && name.equals(order.name))) {
+
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+  }
 
   /**
    * Default constructor.
@@ -101,7 +204,7 @@ public class Table extends AbstractDbData<Table> {
    * @param name   Name of the table.
    */
   public Table(Source source, String name) {
-    this(source, name, null, null);
+    this(source, name, null, null, null);
   }
 
   /**
@@ -115,10 +218,7 @@ public class Table extends AbstractDbData<Table> {
    *                         column.
    */
   public Table(Source source, String name, String[] columnsToCheck, String[] columnsToExclude) {
-    super(Table.class, DataType.TABLE, source);
-    setName(name);
-    setColumnsToCheck(columnsToCheck);
-    setColumnsToExclude(columnsToExclude);
+    this(source, name, null, columnsToCheck, columnsToExclude);
   }
 
   /**
@@ -128,7 +228,7 @@ public class Table extends AbstractDbData<Table> {
    * @param name       Name of the table.
    */
   public Table(DataSource dataSource, String name) {
-    this(dataSource, name, null, null);
+    this(dataSource, name, null, null, null);
   }
 
   /**
@@ -142,8 +242,65 @@ public class Table extends AbstractDbData<Table> {
    *                         column.
    */
   public Table(DataSource dataSource, String name, String[] columnsToCheck, String[] columnsToExclude) {
+    this(dataSource, name, null, columnsToCheck, columnsToExclude);
+  }
+
+  /**
+   * Constructor with a {@link Source} and the name of the table.
+   *
+   * @param source {@link Source} to connect to the database.
+   * @param name   Name of the table.
+   * @since 1.2.0
+   */
+  public Table(Source source, String name, Order[] columnsToOrder) {
+    this(source, name, columnsToOrder, null, null);
+  }
+
+  /**
+   * Constructor with a {@link Source}, the name of the table and the columns to check and to exclude.
+   *
+   * @param source           {@link Source} to connect to the database.
+   * @param name             Name of the table.
+   * @param columnsToCheck   Array of the name of the columns to check. If {@code null} that means to check all the
+   *                         columns.
+   * @param columnsToExclude Array of the name of the columns to exclude. If {@code null} that means to exclude no
+   *                         column.
+   * @since 1.2.0
+   */
+  public Table(Source source, String name, Order[] columnsToOrder, String[] columnsToCheck, String[] columnsToExclude) {
+    super(Table.class, DataType.TABLE, source);
+    setName(name);
+    setColumnsToOrder(columnsToOrder);
+    setColumnsToCheck(columnsToCheck);
+    setColumnsToExclude(columnsToExclude);
+  }
+
+  /**
+   * Constructor with a dataSource and the name of the table.
+   *
+   * @param dataSource DataSource of the database.
+   * @param name       Name of the table.
+   * @since 1.2.0
+   */
+  public Table(DataSource dataSource, String name, Order[] columnsToOrder) {
+    this(dataSource, name, columnsToOrder, null, null);
+  }
+
+  /**
+   * Constructor with a connection, the name of the table and the columns to check and to exclude.
+   *
+   * @param dataSource       DataSource of the database.
+   * @param name             Name of the table.
+   * @param columnsToCheck   Array of the name of the columns to check. If {@code null} that means to check all the
+   *                         columns.
+   * @param columnsToExclude Array of the name of the columns to exclude. If {@code null} that means to exclude no
+   *                         column.
+   * @since 1.2.0
+   */
+  public Table(DataSource dataSource, String name, Order[] columnsToOrder, String[] columnsToCheck, String[] columnsToExclude) {
     super(Table.class, DataType.TABLE, dataSource);
     setName(name);
+    setColumnsToOrder(columnsToOrder);
     setColumnsToCheck(columnsToCheck);
     setColumnsToExclude(columnsToExclude);
   }
@@ -225,7 +382,7 @@ public class Table extends AbstractDbData<Table> {
   }
 
   /**
-   * Returns the columns to check (which are present in {@link AbstractDbData#getColumnsNameList()}.
+   * Returns the columns to check (which are present in {@link AbstractDbData#getColumnsNameList()}).
    *
    * @return Array of the name of the columns to check. If {@code null} that means to check all the columns.
    * @see #setColumnsToCheck(String[])
@@ -238,7 +395,7 @@ public class Table extends AbstractDbData<Table> {
   }
 
   /**
-   * Sets the columns to check (which are present in {@link AbstractDbData#getColumnsNameList()}.
+   * Sets the columns to check (which are present in {@link AbstractDbData#getColumnsNameList()}).
    *
    * @param columnsToCheck Array of the name of the columns to check. If {@code null} that means to check all the
    *                       columns.
@@ -272,7 +429,7 @@ public class Table extends AbstractDbData<Table> {
   }
 
   /**
-   * Returns the columns to exclude (which are not present in {@link AbstractDbData#getColumnsNameList()}.
+   * Returns the columns to exclude (which are not present in {@link AbstractDbData#getColumnsNameList()}).
    *
    * @return The columns.
    * @see #setColumnsToExclude(String[])
@@ -285,7 +442,7 @@ public class Table extends AbstractDbData<Table> {
   }
 
   /**
-   * Sets the columns to exclude (which are not present in {@link AbstractDbData#getColumnsNameList()}.
+   * Sets the columns to exclude (which are not present in {@link AbstractDbData#getColumnsNameList()}).
    *
    * @param columnsToExclude The columns.
    * @return The actual instance.
@@ -310,6 +467,54 @@ public class Table extends AbstractDbData<Table> {
       }
     } else {
       this.columnsToExclude = null;
+    }
+    return this;
+  }
+
+  /**
+   * Returns the columns to order (which are used in {@code ORDER BY}).
+   *
+   * @return Array of the name of the columns to order. If {@code null} that means not to do order.
+   * @see #setColumnsToOrder(Order[])
+   */
+  public Order[] getColumnsToOrder() {
+    if (columnsToOrder == null) {
+      return null;
+    }
+    return columnsToOrder.clone();
+  }
+
+  /**
+   * Sets the columns to order (which are used in {@code ORDER BY}).
+   *
+   * @param columnsToOrder The columns.
+   * @return The actual instance.
+   * @see #getColumnsToOrder()
+   */
+  public Table setColumnsToOrder(Order[] columnsToOrder) {
+    if (columnsList == null) {
+      throw new AssertJDBException("The table name and the source or datasource must be set first");
+    }
+    if (columnsToOrder != null) {
+      LetterCase letterCase = getColumnLetterCase();
+      this.columnsToOrder = new Order[columnsToOrder.length];
+      for (int index = 0; index < columnsToOrder.length; index++) {
+        Order order = columnsToOrder[index];
+        if (order == null) {
+          throw new NullPointerException("The order can not be null");
+        }
+        String column = order.getName();
+        if (order == null) {
+          throw new NullPointerException("The name of the column for order can not be null");
+        }
+        int indexOf = NameComparator.INSTANCE.indexOf(columnsList, column, letterCase);
+        if (indexOf != -1) {
+          String columnName = columnsList.get(indexOf);
+          this.columnsToOrder[index] = Order.getOrder(columnName, order.getType());
+        }
+      }
+    } else {
+      this.columnsToOrder = null;
     }
     return this;
   }
@@ -340,6 +545,20 @@ public class Table extends AbstractDbData<Table> {
     }
     stringBuilder.append(" FROM ");
     stringBuilder.append(name);
+    if (columnsToOrder != null) {
+      for (int index = 0 ; index < columnsToOrder.length ; index++) {
+        if (index == 0) {
+          stringBuilder.append(" ORDER BY ");
+        }
+        else {
+          stringBuilder.append(", ");
+        }
+        stringBuilder.append(columnsToOrder[index].getName());
+        if (columnsToOrder[index].getType() == Order.OrderType.DESC) {
+          stringBuilder.append(" DESC");
+        }
+      }
+    }
     return stringBuilder.toString();
   }
 
@@ -435,6 +654,8 @@ public class Table extends AbstractDbData<Table> {
       }
     }
     collectPrimaryKeyName(connection);
-    sortRows();
+    if (columnsToOrder == null) {
+      sortRows();
+    }
   }
 }

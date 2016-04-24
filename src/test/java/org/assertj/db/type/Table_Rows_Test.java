@@ -8,7 +8,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- * Copyright 2012-2015 the original author or authors.
+ * Copyright 2012-2016 the original author or authors.
  */
 package org.assertj.db.type;
 
@@ -19,6 +19,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.db.type.Table.Order.asc;
 
 /**
  * Tests on the {@code Row} of {@code Table}.
@@ -100,6 +101,42 @@ public class Table_Rows_Test extends AbstractTest {
     assertThat(table.getRow(2).getValuesList().get(3).getValue()).as("Row 3 of MOVIE table")
                                                                  .isEqualTo(UUID.fromString(
                                                                          "D735221B-5DE5-4112-AA1E-49090CB75ADA"));
+  }
+
+  /**
+   * This method test the rows got from a {@code DataSource}.
+   */
+  @Test
+  public void test_rows_with_datasource_and_order_set() {
+    Table table = new Table(dataSource, "movie", new Table.Order[] { asc("title")});
+
+    System.out.println(table.getRequest());
+
+    assertThat(table.getRowsList()).as("Values of MOVIE table").hasSize(3);
+
+    assertThat(table.getRow(0).getValuesList().get(0).getValue()).as("Row 1 of MOVIE table").isEqualTo(
+            new BigDecimal(1));
+    assertThat(table.getRow(0).getValuesList().get(1).getValue()).as("Row 1 of MOVIE table").isEqualTo("Alien");
+    assertThat(table.getRow(0).getValuesList().get(2).getValue()).as("Row 1 of MOVIE table").isEqualTo(
+            new BigDecimal(1979));
+    assertThat(table.getRow(0).getValuesList().get(3).getValue()).as("Row 1 of MOVIE table").isEqualTo(
+            UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
+    assertThat(table.getRow(1).getValuesList().get(0).getValue()).as("Row 3 of MOVIE table")
+                                                                 .isEqualTo(new BigDecimal(3));
+    assertThat(table.getRow(1).getValuesList().get(1).getValue()).as("Row 3 of MOVIE table")
+                                                                 .isEqualTo("Avatar");
+    assertThat(table.getRow(1).getValuesList().get(2).getValue()).as("Row 3 of MOVIE table")
+                                                                 .isEqualTo(new BigDecimal(2009));
+    assertThat(table.getRow(1).getValuesList().get(3).getValue()).as("Row 3 of MOVIE table")
+                                                                 .isEqualTo(UUID.fromString(
+                                                                         "D735221B-5DE5-4112-AA1E-49090CB75ADA"));
+    assertThat(table.getRow(2).getValuesList().get(0).getValue()).as("Row 2 of MOVIE table").isEqualTo(
+            new BigDecimal(2));
+    assertThat(table.getRow(2).getValuesList().get(1).getValue()).as("Row 2 of MOVIE table").isEqualTo("The Village");
+    assertThat(table.getRow(2).getValuesList().get(2).getValue()).as("Row 2 of MOVIE table").isEqualTo(
+            new BigDecimal(2004));
+    assertThat(table.getRow(2).getValuesList().get(3).getValue()).as("Row 2 of MOVIE table").isEqualTo(
+            UUID.fromString("16319617-AE95-4087-9264-D3D21BF611B6"));
   }
 
   /**
