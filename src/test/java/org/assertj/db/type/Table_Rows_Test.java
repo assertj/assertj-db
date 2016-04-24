@@ -110,8 +110,6 @@ public class Table_Rows_Test extends AbstractTest {
   public void test_rows_with_datasource_and_order_set() {
     Table table = new Table(dataSource, "movie", new Table.Order[] { asc("title")});
 
-    System.out.println(table.getRequest());
-
     assertThat(table.getRowsList()).as("Values of MOVIE table").hasSize(3);
 
     assertThat(table.getRow(0).getValuesList().get(0).getValue()).as("Row 1 of MOVIE table").isEqualTo(
