@@ -23,6 +23,23 @@ package org.assertj.db.api.assertions;
 public interface AssertOnNumberOfRows<T extends AssertOnNumberOfRows<T>> {
 
   /**
+   * Verifies that the number of rows is zero.
+   * <p>
+   * Example where the assertion verifies that the table is empty :
+   * </p>
+   *
+   * <pre><code class='java'>
+   * assertThat(table).isEmpty();
+   * </code></pre>
+   *
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the number of rows is different from zero.
+   * @see org.assertj.db.api.AbstractDbAssert#isEmpty()
+   * @see org.assertj.db.api.AbstractColumnAssert#isEmpty()
+   */
+  T isEmpty();
+
+  /**
    * Verifies that the number of rows is equal to the number in parameter.
    * <p>
    * Example where the assertion verifies that the table has 2 rows :
