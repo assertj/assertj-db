@@ -39,7 +39,7 @@ public class AssertOnNumberOfRows_HasNumberOfRowsGreaterThanOrEqualTo_Test exten
   public void test_has_number_of_rows_greater_than_or_equal_to() {
     Table table = new Table(source, "actor");
     TableAssert tableAssert = assertThat(table);
-    TableAssert tableAssert2 = tableAssert.hasNumberOfRows(3);
+    TableAssert tableAssert2 = tableAssert.hasNumberOfRowsGreaterThanOrEqualTo(3);
     Assertions.assertThat(tableAssert).isSameAs(tableAssert2);
     TableColumnAssert tableColumnAssert = assertThat(table).column();
     TableColumnAssert tableColumnAssert2 = tableColumnAssert.hasNumberOfRowsGreaterThanOrEqualTo(3);
