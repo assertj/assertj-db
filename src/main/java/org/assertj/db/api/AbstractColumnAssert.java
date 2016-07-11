@@ -192,13 +192,13 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
   /** {@inheritDoc} */
   @Override
   public C hasOnlyNullValues() {
-    return AssertionsOnColumnNullity.hasOnlyNullValues(myself, info, getValuesList());
+    return AssertionsOnValuesNullity.hasOnlyNullValues(myself, info, getValuesList());
   }
 
   /** {@inheritDoc} */
   @Override
   public C hasOnlyNotNullValues() {
-    return AssertionsOnColumnNullity.hasOnlyNotNullValues(myself, info, getValuesList());
+    return AssertionsOnValuesNullity.hasOnlyNotNullValues(myself, info, getValuesList());
   }
 
   /** {@inheritDoc} */

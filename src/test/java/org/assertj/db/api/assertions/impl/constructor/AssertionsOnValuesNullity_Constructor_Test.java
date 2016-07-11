@@ -12,7 +12,7 @@
  */
 package org.assertj.db.api.assertions.impl.constructor;
 
-import org.assertj.db.api.assertions.impl.AssertionsOnColumnNullity;
+import org.assertj.db.api.assertions.impl.AssertionsOnValuesNullity;
 import org.junit.Test;
 
 import java.lang.reflect.Constructor;
@@ -22,16 +22,16 @@ import java.lang.reflect.Modifier;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests on {@link AssertionsOnColumnNullity} class :
- * {@link AssertionsOnColumnNullity#AssertionsOnColumnNullity()} private constructor.
+ * Tests on {@link AssertionsOnValuesNullity} class :
+ * {@link AssertionsOnValuesNullity#AssertionsOnValuesNullity()} private constructor.
  *
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnColumnNullity_Constructor_Test {
+public class AssertionsOnValuesNullity_Constructor_Test {
 
   /**
-   * This method tests the private constructor of {@code AssertionsOnColumnNullity} for the tests coverage..
+   * This method tests the private constructor of {@code AssertionsOnValuesNullity} for the tests coverage..
    * @throws NoSuchMethodException
    * @throws SecurityException
    * @throws java.lang.reflect.InvocationTargetException
@@ -44,7 +44,7 @@ public class AssertionsOnColumnNullity_Constructor_Test {
           throws SecurityException, NoSuchMethodException, IllegalArgumentException,
           InstantiationException, IllegalAccessException, InvocationTargetException {
 
-    Constructor<AssertionsOnColumnNullity> constructor = AssertionsOnColumnNullity.class.getDeclaredConstructor();
+    Constructor<AssertionsOnValuesNullity> constructor = AssertionsOnValuesNullity.class.getDeclaredConstructor();
     assertThat(Modifier.isPrivate(constructor.getModifiers())).isTrue();
     constructor.setAccessible(true);
     constructor.newInstance();

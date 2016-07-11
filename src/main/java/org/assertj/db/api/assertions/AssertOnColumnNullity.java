@@ -34,7 +34,7 @@ public interface AssertOnColumnNullity<T extends AssertOnColumnNullity<T>> {
    * </code></pre>
    *
    * @return {@code this} assertion object.
-   * @throws AssertionError If at least one of the values of the column are not {@code null}.
+   * @throws AssertionError If at least one of the values of the column is not {@code null}.
    * @see org.assertj.db.api.AbstractColumnAssert#hasOnlyNullValues()
    */
   T hasOnlyNullValues();
@@ -51,7 +51,7 @@ public interface AssertOnColumnNullity<T extends AssertOnColumnNullity<T>> {
    * </code></pre>
    *
    * @return {@code this} assertion object.
-   * @throws AssertionError If at least one of the values of the column are {@code null}.
+   * @throws AssertionError If at least one of the values of the column is {@code null}.
    * @see org.assertj.db.api.AbstractColumnAssert#hasOnlyNotNullValues()
    */
   T hasOnlyNotNullValues();

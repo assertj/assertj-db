@@ -23,12 +23,13 @@ import static org.assertj.db.error.ShouldContainsOnlyNotNull.shouldContainsOnlyN
 import static org.assertj.db.error.ShouldContainsOnlyNull.shouldContainsOnlyNull;
 
 /**
- * Implements the assertion methods on the nullity of a values of a column.
+ * Implements the assertion methods on the nullity of a values of a column/row.
  *
  * @author Régis Pouiller
  * @see org.assertj.db.api.assertions.AssertOnColumnNullity
+ * @see org.assertj.db.api.assertions.AssertOnRowNullity
  */
-public class AssertionsOnColumnNullity {
+public class AssertionsOnValuesNullity {
 
   /**
    * To notice failures in the assertion.
@@ -38,7 +39,7 @@ public class AssertionsOnColumnNullity {
   /**
    * Private constructor.
    */
-  private AssertionsOnColumnNullity() {
+  private AssertionsOnValuesNullity() {
     // Empty
   }
 

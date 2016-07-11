@@ -14,6 +14,8 @@ package org.assertj.db.api;
 
 import org.assertj.db.api.assertions.AssertOnNumberOfColumns;
 import org.assertj.db.api.assertions.AssertOnRowEquality;
+import org.assertj.db.api.assertions.AssertOnRowNullity;
+import org.assertj.db.api.assertions.impl.AssertionsOnValuesNullity;
 import org.assertj.db.api.assertions.impl.AssertionsOnNumberOfColumns;
 import org.assertj.db.api.assertions.impl.AssertionsOnRowEquality;
 import org.assertj.db.navigation.Position;
@@ -46,7 +48,8 @@ public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends A
         implements RowElement,
                    ToValueFromRow<RV>,
                    AssertOnRowEquality<R>,
-                   AssertOnNumberOfColumns<R> {
+                   AssertOnNumberOfColumns<R>,
+                   AssertOnRowNullity<R> {
 
   /**
    * Position of navigation to value.
@@ -136,5 +139,11 @@ public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends A
   @Override
   public R hasValues(Object... expected) {
     return AssertionsOnRowEquality.hasValues(myself, info, getValuesList(), expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public R hasOnlyNotNullValues() {
+    return AssertionsOnValuesNullity.hasOnlyNotNullValues(myself, info, getValuesList());
   }
 }

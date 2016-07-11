@@ -28,13 +28,13 @@ import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 /**
- * Tests on {@link AssertionsOnColumnNullity} class :
- * {@link AssertionsOnColumnNullity#hasOnlyNullValues(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, java.util.List)} method.
+ * Tests on {@link AssertionsOnValuesNullity} class :
+ * {@link AssertionsOnValuesNullity#hasOnlyNullValues(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, java.util.List)} method.
  *
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnColumnNullity_HasOnlyNullValues_Test extends AbstractTest {
+public class AssertionsOnValuesNullity_HasOnlyNullValues_Test extends AbstractTest {
 
   /**
    * This method tests the {@code hasOnlyNullValues} assertion method.
@@ -45,12 +45,12 @@ public class AssertionsOnColumnNullity_HasOnlyNullValues_Test extends AbstractTe
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, null), getValue(null, null)));
-    TableAssert tableAssert2 = AssertionsOnColumnNullity.hasOnlyNullValues(tableAssert, info, list);
+    TableAssert tableAssert2 = AssertionsOnValuesNullity.hasOnlyNullValues(tableAssert, info, list);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
   /**
-   * This method should fail because the column contains not null values.
+   * This method should fail because values contain not null values.
    */
   @Test
   public void should_fail_because_column_contains_not_null_values() throws Exception {
@@ -60,7 +60,7 @@ public class AssertionsOnColumnNullity_HasOnlyNullValues_Test extends AbstractTe
     TableAssert tableAssert = assertThat(table);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, null), getValue(null, "test")));
     try {
-      AssertionsOnColumnNullity.hasOnlyNullValues(tableAssert, info, list);
+      AssertionsOnValuesNullity.hasOnlyNullValues(tableAssert, info, list);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
