@@ -49,7 +49,7 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
   /**
    * The actual value on which the assertion is.
    */
-  private final D actual;
+  protected final D actual;
 
   /**
    * Position of navigation to column.

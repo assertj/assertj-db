@@ -12,6 +12,8 @@
  */
 package org.assertj.db.api;
 
+import org.assertj.db.api.assertions.AssertOnExistence;
+import org.assertj.db.api.assertions.impl.AssertionsOnTableExistence;
 import org.assertj.db.type.Table;
 
 /**
@@ -21,7 +23,8 @@ import org.assertj.db.type.Table;
  * 
  */
 public class TableAssert
-        extends AbstractDbAssert<Table, TableAssert, TableColumnAssert, TableColumnValueAssert, TableRowAssert, TableRowValueAssert> {
+        extends AbstractDbAssert<Table, TableAssert, TableColumnAssert, TableColumnValueAssert, TableRowAssert, TableRowValueAssert>
+        implements AssertOnExistence<TableAssert> {
 
   /**
    * Constructor.
@@ -30,5 +33,39 @@ public class TableAssert
    */
   TableAssert(Table table) {
     super(table, TableAssert.class, TableColumnAssert.class, TableRowAssert.class);
+  }
+
+  /**
+   * Verifies that the table exist.
+   * <p>
+   * Example where the assertion verifies that the table exists:
+   * </p>
+   *
+   * <pre><code class='java'>
+   * assertThat(table).exists();
+   * </code></pre>
+   *
+   * @return {@code this} assertion object.
+   */
+  @Override
+  public TableAssert exists() {
+    return AssertionsOnTableExistence.exists(this, info, actual.getName(), actual.getSource(), actual.getDataSource());
+  }
+
+  /**
+   * Verifies that the table doesn't exist.
+   * <p>
+   * Example where the assertion verifies that the table doesn't exists:
+   * </p>
+   *
+   * <pre><code class='java'>
+   * assertThat(table).doesNotExists();
+   * </code></pre>
+   *
+   * @return {@code this} assertion object.
+   */
+  @Override
+  public TableAssert doesNotExist() {
+    return null;
   }
 }
