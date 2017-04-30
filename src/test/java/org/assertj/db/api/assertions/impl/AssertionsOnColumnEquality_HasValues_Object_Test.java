@@ -61,6 +61,7 @@ public class AssertionsOnColumnEquality_HasValues_Object_Test extends AbstractTe
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, Locale.ENGLISH), getValue(null, Locale.ENGLISH)));
+    List<Value> list2 = new ArrayList<>(Arrays.asList(getValue(null, null), getValue(null, Locale.ENGLISH)));
     try {
       AssertionsOnColumnEquality.hasValues(tableAssert, info, list, Locale.FRENCH, Locale.ENGLISH);
       fail("An exception must be raised");
@@ -69,6 +70,26 @@ public class AssertionsOnColumnEquality_HasValues_Object_Test extends AbstractTe
                                                                     + "Expecting that the value at index 0:%n"
                                                                     + "  <en>%n"
                                                                     + "to be equal to: %n"
+                                                                    + "  <fr>"));
+    }
+    try {
+      AssertionsOnColumnEquality.hasValues(tableAssert, info, list, null, Locale.ENGLISH);
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                                    + "Expecting that the value at index 0:%n"
+                                                                    + "  <en>%n"
+                                                                    + "to be equal to: %n" 
+                                                                    + "  <null>"));
+    }
+    try {
+      AssertionsOnColumnEquality.hasValues(tableAssert, info, list2, Locale.FRENCH, Locale.ENGLISH);
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                                    + "Expecting that the value at index 0:%n"
+                                                                    + "  <null>%n"
+                                                                    + "to be equal to: %n" 
                                                                     + "  <fr>"));
     }
   }

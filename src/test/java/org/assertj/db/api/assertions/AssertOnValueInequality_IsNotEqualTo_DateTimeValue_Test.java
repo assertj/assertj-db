@@ -24,13 +24,13 @@ import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 /**
- * Tests on {@link org.assertj.db.api.assertions.AssertOnValueNonEquality} class :
- * {@link org.assertj.db.api.assertions.AssertOnValueNonEquality#isNotEqualTo(org.assertj.db.type.DateTimeValue)} method.
+ * Tests on {@link org.assertj.db.api.assertions.AssertOnValueInequality} class :
+ * {@link org.assertj.db.api.assertions.AssertOnValueInequality#isNotEqualTo(org.assertj.db.type.DateTimeValue)} method.
  *
  * @author Régis Pouiller
  *
  */
-public class AssertOnValueNonEquality_IsNotEqualTo_DateTimeValue_Test extends AbstractTest {
+public class AssertOnValueInequality_IsNotEqualTo_DateTimeValue_Test extends AbstractTest {
 
   /**
    * This method tests the {@code isNotEqualTo} assertion method.

@@ -61,7 +61,7 @@ public class AssertionsOnColumnEquality {
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
     int index = 0;
     for (Value value : valuesList) {
-      if (value != null && expected[index] != null) {
+      if (value.getValue() != null && expected[index] != null) {
         AssertionsOnValueClass.isOfClass(assertion, info, value, expected[index].getClass());
       }
       if (!areEqual(value, expected[index])) {

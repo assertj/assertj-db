@@ -27,7 +27,7 @@ import java.util.UUID;
  * @author Régis Pouiller
  * @author Otoniel Isidoro
  */
-public interface AssertOnValueNonEquality<T extends AssertOnValueNonEquality<T>> {
+public interface AssertOnValueInequality<T extends AssertOnValueInequality<T>> {
 
   /**
    * Verifies that the value is not equal to a object.

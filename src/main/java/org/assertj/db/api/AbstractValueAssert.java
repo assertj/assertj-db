@@ -44,7 +44,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
                    AssertOnValueType<V>,
                    AssertOnValueNullity<V>,
                    AssertOnValueEquality<V>,
-                   AssertOnValueNonEquality<V>,
+                   AssertOnValueInequality<V>,
                    AssertOnValueChronology<V>,
                    AssertOnValueComparison<V>,
                    AssertOnValueCloseness<V> {
@@ -224,55 +224,55 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
   /** {@inheritDoc} */
   @Override
   public V isNotEqualTo(Object expected) {
-    return AssertionsOnValueNonEquality.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValueInequality.isNotEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isNotEqualTo(Boolean expected) {
-    return AssertionsOnValueNonEquality.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValueInequality.isNotEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isNotEqualTo(byte[] expected) {
-    return AssertionsOnValueNonEquality.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValueInequality.isNotEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isNotEqualTo(DateTimeValue expected) {
-    return AssertionsOnValueNonEquality.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValueInequality.isNotEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isNotEqualTo(DateValue expected) {
-    return AssertionsOnValueNonEquality.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValueInequality.isNotEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isNotEqualTo(Number expected) {
-    return AssertionsOnValueNonEquality.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValueInequality.isNotEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isNotEqualTo(String expected) {
-    return AssertionsOnValueNonEquality.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValueInequality.isNotEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isNotEqualTo(UUID expected) {
-    return AssertionsOnValueNonEquality.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValueInequality.isNotEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public V isNotEqualTo(TimeValue expected) {
-    return AssertionsOnValueNonEquality.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValueInequality.isNotEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
@@ -380,7 +380,7 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
   /** {@inheritDoc} */
   @Override
   public V isNotZero() {
-    return AssertionsOnValueNonEquality.isNotZero(myself, info, value);
+    return AssertionsOnValueInequality.isNotZero(myself, info, value);
   }
 
   /** {@inheritDoc} */

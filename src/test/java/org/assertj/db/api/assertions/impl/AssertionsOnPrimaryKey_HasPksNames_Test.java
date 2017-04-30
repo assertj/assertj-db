@@ -142,6 +142,16 @@ public class AssertionsOnPrimaryKey_HasPksNames_Test extends AbstractTest {
                                                       + "to be the name of the columns of the primary keys but was:%n"
                                                       + "  [\"ID\", \"ID2\"]"));
     }
+    try {
+      AssertionsOnPrimaryKey.hasPksNames(tableAssert, info, change, LetterCase.PRIMARY_KEY_DEFAULT, "ID");
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting :%n"
+                                                      + "  [\"ID\"]%n"
+                                                      + "to be the name of the columns of the primary keys but was:%n"
+                                                      + "  [\"ID\", \"ID2\"]"));
+    }
   }
 
   /**

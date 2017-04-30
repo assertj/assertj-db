@@ -75,7 +75,7 @@ enum HtmlOutput implements Output {
     int index = 0;
     for (String columnName : columnsNameList) {
       String pk = "";
-      if (pksNameList != null && pksNameList.contains(columnName)) {
+      if (pksNameList.contains(columnName)) {
         pk = "*";
       }
       stringBuilder.append("<th>");
@@ -140,7 +140,7 @@ enum HtmlOutput implements Output {
     int index = 0;
     for (String columnName : columnsNameList) {
       String pk = "";
-      if (pksNameList != null && pksNameList.contains(columnName)) {
+      if (pksNameList.contains(columnName)) {
         pk = "*";
       }
       stringBuilder.append("<th>");
@@ -238,7 +238,7 @@ enum HtmlOutput implements Output {
       int index = 0;
       for (String columnName : columnsNameList) {
         String pk = "";
-        if (change.getPksNameList() != null && change.getPksNameList().contains(columnName)) {
+        if (change.getPksNameList().contains(columnName)) {
           pk = "*";
         }
         stringBuilder.append("<th>");
@@ -353,7 +353,7 @@ enum HtmlOutput implements Output {
     int index = 0;
     for (String columnName : columnsNameList) {
       String pk = "";
-      if (change.getPksNameList() != null && change.getPksNameList().contains(columnName)) {
+      if (change.getPksNameList().contains(columnName)) {
         pk = "*";
       }
       stringBuilder.append("<th>");
@@ -438,7 +438,7 @@ enum HtmlOutput implements Output {
     int index = 0;
     for (String columnName : columnsNameList) {
       String pk = "";
-      if (row.getPksNameList() != null && row.getPksNameList().contains(columnName)) {
+      if (row.getPksNameList().contains(columnName)) {
         pk = "*";
       }
       stringBuilder.append("<th>");

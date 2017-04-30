@@ -35,7 +35,7 @@ import static org.assertj.db.api.Assertions.bytesContentFromClassPathOf;
  *
  * @author Régis Pouiller
  */
-public class Values_AreEqual_Object_And_Object_Test extends AbstractTest {
+public class Values_AreEqual_Value_And_Object_Test extends AbstractTest {
 
   /**
    * This method tests the {@code areEqual} method for {@code Object}s with {@code null}.

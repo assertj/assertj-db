@@ -47,37 +47,36 @@ public class Values {
    */
   public static boolean areEqual(Value value, Object expected) {
     ValueType valueType = value.getValueType();
-    switch (valueType) {
-    case BOOLEAN:
+    if (valueType == ValueType.BOOLEAN) {
       if (expected instanceof Boolean) {
         return areEqual(value, (Boolean) expected);
       }
-      break;
-    case NUMBER:
+    }
+    else if (valueType == ValueType.NUMBER) {
       if (expected instanceof Number) {
         return areEqual(value, (Number) expected);
       } else if (expected instanceof String) {
         return areEqual(value, (String) expected);
       }
-      break;
-    case BYTES:
+    }
+    else if (valueType == ValueType.BYTES) {
       if (expected instanceof byte[]) {
         return areEqual(value, (byte[]) expected);
       }
-      break;
-    case TEXT:
+    }
+    else if (valueType == ValueType.TEXT) {
       if (expected instanceof String) {
         return areEqual(value, (String) expected);
       }
-      break;
-    case UUID:
+    }
+    else if (valueType == ValueType.UUID) {
       if (expected instanceof UUID) {
         return areEqual(value, (UUID) expected);
       } else if (expected instanceof String) {
         return areEqual(value, (String) expected);
       }
-      break;
-    case DATE:
+    }
+    else if (valueType == ValueType.DATE) {
       if (expected instanceof DateValue) {
         return areEqual(value, (DateValue) expected);
       } else if (expected instanceof String) {
@@ -85,8 +84,8 @@ public class Values {
       } else if (expected instanceof Date) {
         return areEqual(value, DateValue.from((Date) expected));
       }
-      break;
-    case TIME:
+    }
+    else if (valueType == ValueType.TIME) {
       if (expected instanceof TimeValue) {
         return areEqual(value, (TimeValue) expected);
       } else if (expected instanceof String) {
@@ -94,8 +93,8 @@ public class Values {
       } else if (expected instanceof Time) {
         return areEqual(value, TimeValue.from((Time) expected));
       }
-      break;
-    case DATE_TIME:
+    }
+    else if (valueType == ValueType.DATE_TIME) {
       if (expected instanceof DateTimeValue) {
         return areEqual(value, (DateTimeValue) expected);
       } else if (expected instanceof DateValue) {
@@ -105,8 +104,8 @@ public class Values {
       } else if (expected instanceof Timestamp) {
         return areEqual(value, DateTimeValue.from((Timestamp) expected));
       }
-      break;
-    default:
+    }
+    else {
       Object object = value.getValue();
       if (expected == null && object == null) {
         return true;
@@ -115,6 +114,7 @@ public class Values {
         return object.equals(expected);
       }
     }
+
     return false;
   }
 
@@ -674,8 +674,8 @@ public class Values {
    */
   public static Object getRepresentationFromValueInFrontOfExpected(Value value, Object expected) {
     Object object = value.getValue();
-    switch (value.getValueType()) {
-    case DATE:
+    ValueType valueType = value.getValueType();
+    if (valueType == ValueType.DATE) {
       if (expected instanceof String) {
         if (((String) expected).contains("T")) {
           return DateTimeValue.of(DateValue.from((Date) object)).toString();
@@ -683,16 +683,8 @@ public class Values {
           return DateValue.from((Date) object).toString();
         }
       }
-    case TIME:
-    case DATE_TIME:
-    case NUMBER:
-    case UUID:
-    case BYTES:
-    case TEXT:
-    case BOOLEAN:
-    default:
-      return getRepresentationFromValueInFrontOfClass(value, expected == null ? null : expected.getClass());
     }
+    return getRepresentationFromValueInFrontOfClass(value, expected == null ? null : expected.getClass());
   }
 
   /**
@@ -702,10 +694,10 @@ public class Values {
    * @param clazz    Class for comparison.
    * @return A representation of the value.
    */
-  public static Object getRepresentationFromValueInFrontOfClass(Value value, Class clazz) {
+  public static Object getRepresentationFromValueInFrontOfClass(Value value, Class<?> clazz) {
     Object object = value.getValue();
-    switch (value.getValueType()) {
-    case DATE:
+    ValueType valueType = value.getValueType();
+    if (valueType == ValueType.DATE) {
       if (clazz == DateValue.class) {
         return DateValue.from((Date) object);
       } else if (clazz == DateTimeValue.class) {
@@ -714,32 +706,274 @@ public class Values {
         return DateTimeValue.of(DateValue.from((Date) object)).toString();
       }
       return object;
-    case TIME:
+    }
+    else if (valueType == ValueType.TIME) {
       if (clazz == String.class) {
         return TimeValue.from((Time) object).toString();
       } else {
         return TimeValue.from((Time) object);
       }
-    case DATE_TIME:
+    }
+    else if (valueType == ValueType.DATE_TIME) {
       if (clazz == String.class) {
         return DateTimeValue.from((Timestamp) object).toString();
       } else {
         return DateTimeValue.from((Timestamp) object);
       }
-    case NUMBER:
-    case UUID:
+    }
+    else if (valueType == ValueType.NUMBER || valueType == ValueType.UUID) {
       if (clazz == String.class) {
         return object.toString();
       } else {
         return object;
       }
-
-    case BYTES:
-    case TEXT:
-    case BOOLEAN:
-    default:
-      return object;
     }
+    return object;
+  }
+
+  /**
+   * Returns if object is close to the {@code BigInteger} in parameter with the tolerance in parameter.
+   *
+   * @param object The object.
+   * @param expected The {@code BigInteger} to compare.
+   * @param tolerance The tolerance of the closeness.
+   * @return {@code true} if the value is close to the {@code BigInteger} parameter, {@code false} otherwise.
+   */
+  private static boolean isObjectCloseToBigInteger(Object object, BigInteger expected, Number tolerance) {
+    BigInteger bi;
+
+    if (object instanceof BigInteger) {
+      bi = (BigInteger) object;
+    } else {
+      try {
+        bi = new BigInteger("" + object);
+      } catch (NumberFormatException e) {
+        throw new AssertJDBException("Expected <%s> can not be compared to a BigInteger (<%s>)", expected, object);
+      }
+    }
+
+    BigInteger bigTolerance = new BigInteger("" + tolerance);
+    BigInteger bigMin = expected.subtract(bigTolerance);
+    BigInteger bigMax = expected.add(bigTolerance);
+    if (bi.compareTo(bigMin) >= 0 && bi.compareTo(bigMax) <= 0) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Returns if object is close to the {@code BigDecimal} in parameter with the tolerance in parameter.
+   *
+   * @param object The object.
+   * @param expected The {@code BigDecimal} to compare.
+   * @param tolerance The tolerance of the closeness.
+   * @return {@code true} if the value is close to the {@code BigDecimal} parameter, {@code false} otherwise.
+   */
+  private static boolean isObjectCloseToBigDecimal(Object object, BigDecimal expected, Number tolerance) {
+    BigDecimal bd;
+
+    if (object instanceof BigDecimal) {
+      bd = (BigDecimal) object;
+    } else {
+      try {
+        bd = new BigDecimal("" + object);
+      } catch (NumberFormatException e) {
+        throw new AssertJDBException("Expected <%s> can not be compared to a BigDecimal (<%s>)", expected, object);
+      }
+    }
+
+    BigDecimal bigExpected = (BigDecimal) expected;
+    BigDecimal bigTolerance = new BigDecimal("" + tolerance);
+    BigDecimal bigMin = bigExpected.subtract(bigTolerance);
+    BigDecimal bigMax = bigExpected.add(bigTolerance);
+    if (bd.compareTo(bigMin) >= 0 && bd.compareTo(bigMax) <= 0) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Returns if nb is close to the {@code Number} in parameter with the tolerance in parameter.
+   *
+   * @param nb The {@code Float}.
+   * @param expected The {@code Number} to compare.
+   * @param tolerance The tolerance of the closeness.
+   * @return {@code true} if the value is close to the {@code Number} parameter, {@code false} otherwise.
+   */
+  private static boolean isFloatCloseToNumber(Float nb, Number expected, Number tolerance) {
+    float fMin = expected.floatValue() - tolerance.floatValue();
+    float fMax = expected.floatValue() + tolerance.floatValue();
+    if (nb >= fMin && nb <= fMax) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Returns if nb is close to the {@code Number} in parameter with the tolerance in parameter.
+   *
+   * @param nb The {@code Double}.
+   * @param expected The {@code Number} to compare.
+   * @param tolerance The tolerance of the closeness.
+   * @return {@code true} if the value is close to the {@code Number} parameter, {@code false} otherwise.
+   */
+  private static boolean isDoubleCloseToNumber(Double nb, Number expected, Number tolerance) {
+    double dMin = expected.doubleValue() - tolerance.doubleValue();
+    double dMax = expected.doubleValue() + tolerance.doubleValue();
+    if (nb >= dMin && nb <= dMax) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Returns if nb is close to the {@code Number} in parameter with the tolerance in parameter.
+   *
+   * @param nb The {@code BigInteger}.
+   * @param expected The {@code Number} to compare.
+   * @param tolerance The tolerance of the closeness.
+   * @return {@code true} if the value is close to the {@code Number} parameter, {@code false} otherwise.
+   */
+  private static boolean isBigIntegerCloseToNumber(BigInteger nb, Number expected, Number tolerance) {
+    BigInteger bigExpected = new BigInteger("" + expected);
+    BigInteger bigTolerance = new BigInteger("" + tolerance);
+    BigInteger bigMin = bigExpected.subtract(bigTolerance);
+    BigInteger bigMax = bigExpected.add(bigTolerance);
+    if (nb.compareTo(bigMin) >= 0 && nb.compareTo(bigMax) <= 0) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Returns if nb is close to the {@code Number} in parameter with the tolerance in parameter.
+   *
+   * @param nb The {@code BigDecimal}.
+   * @param expected The {@code Number} to compare.
+   * @param tolerance The tolerance of the closeness.
+   * @return {@code true} if the value is close to the {@code Number} parameter, {@code false} otherwise.
+   */
+  private static boolean isBigDecimalCloseToNumber(BigDecimal nb, Number expected, Number tolerance) {
+    BigDecimal bigExpected = new BigDecimal("" + expected);
+    BigDecimal bigTolerance = new BigDecimal("" + tolerance);
+    BigDecimal bigMin = bigExpected.subtract(bigTolerance);
+    BigDecimal bigMax = bigExpected.add(bigTolerance);
+    if (nb.compareTo(bigMin) >= 0 && nb.compareTo(bigMax) <= 0) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Returns the Long corresponding to object.
+   *
+   * @param object The object.
+   * @return The Long
+   */
+  private static Long getLong(Object object) {
+    if (object instanceof Byte) {
+      return ((Byte) object).longValue();
+    } else if (object instanceof Short) {
+      return ((Short) object).longValue();
+    } else if (object instanceof Integer) {
+      return ((Integer) object).longValue();
+    } else if (object instanceof Long) {
+      return (Long) object;
+    }
+    return null;
+  }
+
+  /**
+   * Returns if nb is close to the {@code Float} in parameter with the tolerance in parameter.
+   *
+   * @param nb The {@code Long}.
+   * @param expected The {@code Float} to compare.
+   * @param tolerance The tolerance of the closeness.
+   * @return {@code true} if the value is close to the {@code Float} parameter, {@code false} otherwise.
+   */
+  private static boolean isLongCloseToFloat(Long nb, Float expected, Number tolerance) {
+    if (tolerance instanceof Float) {
+      if (nb >= expected.floatValue() - tolerance.floatValue() &&
+          nb <= expected.floatValue() + tolerance.floatValue()) {
+
+        return true;
+      }
+    } else if (tolerance instanceof Double) {
+      if (nb >= expected.floatValue() - tolerance.doubleValue() &&
+          nb <= expected.floatValue() + tolerance.doubleValue()) {
+
+        return true;
+      }
+    } else {
+      if (nb >= expected.floatValue() - tolerance.longValue() &&
+          nb <= expected.floatValue() + tolerance.longValue()) {
+
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Returns if nb is close to the {@code Double} in parameter with the tolerance in parameter.
+   *
+   * @param nb The {@code Long}.
+   * @param expected The {@code Double} to compare.
+   * @param tolerance The tolerance of the closeness.
+   * @return {@code true} if the value is close to the {@code Double} parameter, {@code false} otherwise.
+   */
+  private static boolean isLongCloseToDouble(Long nb, Double expected, Number tolerance) {
+    if (tolerance instanceof Float) {
+      if (nb >= expected.doubleValue() - tolerance.floatValue() &&
+          nb <= expected.doubleValue() + tolerance.floatValue()) {
+
+        return true;
+      }
+    } else if (tolerance instanceof Double) {
+      if (nb >= expected.doubleValue() - tolerance.doubleValue() &&
+          nb <= expected.doubleValue() + tolerance.doubleValue()) {
+
+        return true;
+      }
+    } else {
+      if (nb >= expected.doubleValue() - tolerance.longValue() &&
+          nb <= expected.doubleValue() + tolerance.longValue()) {
+
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Returns if nb is close to the {@code Number} in parameter with the tolerance in parameter.
+   *
+   * @param nb The {@code Long}.
+   * @param expected The {@code Number} to compare.
+   * @param tolerance The tolerance of the closeness.
+   * @return {@code true} if the value is close to the {@code Number} parameter, {@code false} otherwise.
+   */
+  private static boolean isLongCloseToNumber(Long nb, Number expected, Number tolerance) {
+    if (tolerance instanceof Float) {
+      if (nb >= expected.longValue() - tolerance.floatValue() &&
+          nb <= expected.longValue() + tolerance.floatValue()) {
+
+        return true;
+      }
+    } else if (tolerance instanceof Double) {
+      if (nb >= expected.longValue() - tolerance.doubleValue() &&
+          nb <= expected.longValue() + tolerance.doubleValue()) {
+
+        return true;
+      }
+    } else {
+      if (nb >= expected.longValue() - tolerance.longValue() &&
+          nb <= expected.longValue() + tolerance.longValue()) {
+
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
@@ -759,160 +993,35 @@ public class Values {
     // If parameter is a BigInteger,
     // change the actual in BigInteger to compare
     if (expected instanceof BigInteger) {
-      BigInteger bi;
-
-      if (object instanceof BigInteger) {
-        bi = (BigInteger) object;
-      } else {
-        try {
-          bi = new BigInteger("" + object);
-        } catch (NumberFormatException e) {
-          throw new AssertJDBException("Expected <%s> can not be compared to a BigInteger (<%s>)", expected, object);
-        }
-      }
-
-      BigInteger bigExpected = (BigInteger) expected;
-      BigInteger bigTolerance = new BigInteger("" + tolerance);
-      BigInteger bigMin = bigExpected.subtract(bigTolerance);
-      BigInteger bigMax = bigExpected.add(bigTolerance);
-      if (bi.compareTo(bigMin) >= 0 && bi.compareTo(bigMax) <= 0) {
-        return true;
-      }
+      return isObjectCloseToBigInteger(object, (BigInteger) expected, tolerance);
     }
     // If parameter is a BigDecimal,
     // change the value in BigDecimal to compare
     else if (expected instanceof BigDecimal) {
-      BigDecimal bd;
-
-      if (object instanceof BigDecimal) {
-        bd = (BigDecimal) object;
-      } else {
-        try {
-          bd = new BigDecimal("" + object);
-        } catch (NumberFormatException e) {
-          throw new AssertJDBException("Expected <%s> can not be compared to a BigDecimal (<%s>)", expected, object);
-        }
-      }
-
-      BigDecimal bigExpected = (BigDecimal) expected;
-      BigDecimal bigTolerance = new BigDecimal("" + tolerance);
-      BigDecimal bigMin = bigExpected.subtract(bigTolerance);
-      BigDecimal bigMax = bigExpected.add(bigTolerance);
-      if (bd.compareTo(bigMin) >= 0 && bd.compareTo(bigMax) <= 0) {
-        return true;
-      }
+      return isObjectCloseToBigDecimal(object, (BigDecimal) expected, tolerance);
     }
     // Otherwise
     // If the value is Float, Double, BigInteger or BigDecimal
     // change the value to compare to make the comparison possible
     // else
     // get the value value in Long to compare
-    else {
-      Long actualValue = null;
-
-      if (object instanceof Float) {
-        Float f = (Float) object;
-        float fMin = expected.floatValue() - tolerance.floatValue();
-        float fMax = expected.floatValue() + tolerance.floatValue();
-        if (f >= fMin && f <= fMax) {
-          return true;
-        }
-      } else if (object instanceof Double) {
-        Double d = (Double) object;
-        double dMin = expected.doubleValue() - tolerance.doubleValue();
-        double dMax = expected.doubleValue() + tolerance.doubleValue();
-        if (d >= dMin && d <= dMax) {
-          return true;
-        }
-      } else if (object instanceof BigInteger) {
-        BigInteger bi = (BigInteger) object;
-        BigInteger bigExpected = new BigInteger("" + expected);
-        BigInteger bigTolerance = new BigInteger("" + tolerance);
-        BigInteger bigMin = bigExpected.subtract(bigTolerance);
-        BigInteger bigMax = bigExpected.add(bigTolerance);
-        if (bi.compareTo(bigMin) >= 0 && bi.compareTo(bigMax) <= 0) {
-          return true;
-        }
-      } else if (object instanceof BigDecimal) {
-        BigDecimal bd = (BigDecimal) object;
-        BigDecimal bigExpected = new BigDecimal("" + expected);
-        BigDecimal bigTolerance = new BigDecimal("" + tolerance);
-        BigDecimal bigMin = bigExpected.subtract(bigTolerance);
-        BigDecimal bigMax = bigExpected.add(bigTolerance);
-        if (bd.compareTo(bigMin) >= 0 && bd.compareTo(bigMax) <= 0) {
-          return true;
-        }
-      } else if (object instanceof Byte) {
-        actualValue = ((Byte) object).longValue();
-      } else if (object instanceof Short) {
-        actualValue = ((Short) object).longValue();
-      } else if (object instanceof Integer) {
-        actualValue = ((Integer) object).longValue();
-      } else if (object instanceof Long) {
-        actualValue = (Long) object;
-      }
-
+    else if (object instanceof Float) {
+      return isFloatCloseToNumber((Float) object, expected, tolerance);
+    } else if (object instanceof Double) {
+      return isDoubleCloseToNumber((Double) object, expected, tolerance);
+    } else if (object instanceof BigInteger) {
+      return isBigIntegerCloseToNumber((BigInteger) object, expected, tolerance);
+    } else if (object instanceof BigDecimal) {
+      return isBigDecimalCloseToNumber((BigDecimal) object, expected, tolerance);
+    } else {
+      Long actualValue = getLong(object);
       if (actualValue != null) {
         if (expected instanceof Float) {
-          if (tolerance instanceof Float) {
-            if (actualValue >= expected.floatValue() - tolerance.floatValue() &&
-                actualValue <= expected.floatValue() + tolerance.floatValue()) {
-
-              return true;
-            }
-          } else if (tolerance instanceof Double) {
-            if (actualValue >= expected.floatValue() - tolerance.doubleValue() &&
-                actualValue <= expected.floatValue() + tolerance.doubleValue()) {
-
-              return true;
-            }
-          } else {
-            if (actualValue >= expected.floatValue() - tolerance.longValue() &&
-                actualValue <= expected.floatValue() + tolerance.longValue()) {
-
-              return true;
-            }
-          }
+          return isLongCloseToFloat(actualValue, expected.floatValue(), tolerance);
         } else if (expected instanceof Double) {
-          if (tolerance instanceof Float) {
-            if (actualValue >= expected.doubleValue() - tolerance.floatValue() &&
-                actualValue <= expected.doubleValue() + tolerance.floatValue()) {
-
-              return true;
-            }
-          } else if (tolerance instanceof Double) {
-            if (actualValue >= expected.doubleValue() - tolerance.doubleValue() &&
-                actualValue <= expected.doubleValue() + tolerance.doubleValue()) {
-
-              return true;
-            }
-          } else {
-            if (actualValue >= expected.doubleValue() - tolerance.longValue() &&
-                actualValue <= expected.doubleValue() + tolerance.longValue()) {
-
-              return true;
-            }
-          }
+          return isLongCloseToDouble(actualValue, expected.doubleValue(), tolerance);
         } else {
-          if (tolerance instanceof Float) {
-            if (actualValue >= expected.longValue() - tolerance.floatValue() &&
-                actualValue <= expected.longValue() + tolerance.floatValue()) {
-
-              return true;
-            }
-          } else if (tolerance instanceof Double) {
-            if (actualValue >= expected.longValue() - tolerance.doubleValue() &&
-                actualValue <= expected.longValue() + tolerance.doubleValue()) {
-
-              return true;
-            }
-          } else {
-            if (actualValue >= expected.longValue() - tolerance.longValue() &&
-                actualValue <= expected.longValue() + tolerance.longValue()) {
-
-              return true;
-            }
-          }
+          return isLongCloseToNumber(actualValue, expected.longValue(), tolerance);
         }
       }
     }

@@ -23,13 +23,13 @@ import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 /**
- * Tests on {@link AssertionsOnValueNonEquality} class :
- * {@link AssertionsOnValueNonEquality#isNotEqualTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, Number)} method.
+ * Tests on {@link AssertionsOnValueInequality} class :
+ * {@link AssertionsOnValueInequality#isNotEqualTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, Number)} method.
  *
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnValueNonEquality_IsNotEqualTo_Number_Test extends AbstractTest {
+public class AssertionsOnValueInequality_IsNotEqualTo_Number_Test extends AbstractTest {
 
   /**
    * This method tests the {@code isNotEqualTo} assertion method.
@@ -39,9 +39,9 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_Number_Test extends Abstr
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    TableAssert tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, getValue(null, 9), 8);
+    TableAssert tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info, getValue(null, 9), 8);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, getValue(null, 9), (Number) null);
+    tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info, getValue(null, 9), (Number) null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -55,7 +55,7 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_Number_Test extends Abstr
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, getValue(null, 8), 8);
+      AssertionsOnValueInequality.isNotEqualTo(tableAssert, info, getValue(null, 8), 8);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -65,7 +65,7 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_Number_Test extends Abstr
                                                       + "  <8>"));
     }
     try {
-      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, getValue(null, null), (Number) null);
+      AssertionsOnValueInequality.isNotEqualTo(tableAssert, info, getValue(null, null), (Number) null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -86,7 +86,7 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_Number_Test extends Abstr
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, getValue(null, false), 8);
+      AssertionsOnValueInequality.isNotEqualTo(tableAssert, info, getValue(null, false), 8);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"

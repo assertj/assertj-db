@@ -76,11 +76,16 @@ public class Descriptions {
       }
     } else {
       Request request = changes.getRequest();
-      String sql = request.getRequest();
-      if (sql.length() > 30) {
-        sql = sql.substring(0, 30) + "...";
+      if (request != null) {
+        String sql = request.getRequest();
+        if (sql.length() > 30) {
+          sql = sql.substring(0, 30) + "...";
+        }
+        stringBuilder.append("Changes on '").append(sql).append("' request");
       }
-      stringBuilder.append("Changes on '").append(sql).append("' request");
+      else {
+        stringBuilder.append("Changes");
+      }
     }
     if (changes.getSource() != null) {
       Source source = changes.getSource();

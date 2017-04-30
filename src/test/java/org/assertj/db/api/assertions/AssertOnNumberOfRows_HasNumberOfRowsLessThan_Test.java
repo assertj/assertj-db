@@ -39,7 +39,7 @@ public class AssertOnNumberOfRows_HasNumberOfRowsLessThan_Test extends AbstractT
   public void test_has_number_of_rows_less_than() {
     Table table = new Table(source, "actor");
     TableAssert tableAssert = assertThat(table);
-    TableAssert tableAssert2 = tableAssert.hasNumberOfRows(3);
+    TableAssert tableAssert2 = tableAssert.hasNumberOfRowsLessThan(4);
     Assertions.assertThat(tableAssert).isSameAs(tableAssert2);
     TableColumnAssert tableColumnAssert = assertThat(table).column();
     TableColumnAssert tableColumnAssert2 = tableColumnAssert.hasNumberOfRowsLessThan(4);

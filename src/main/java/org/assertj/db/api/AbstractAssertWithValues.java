@@ -37,7 +37,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
                    AssertOnValueType<E>,
                    AssertOnValueNullity<E>,
                    AssertOnValueEquality<E>,
-                   AssertOnValueNonEquality<E>,
+                   AssertOnValueInequality<E>,
                    AssertOnValueComparison<E>,
                    AssertOnValueChronology<E>,
                    AssertOnValueCloseness<E> {
@@ -206,55 +206,55 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
   /** {@inheritDoc} */
   @Override
   public E isNotEqualTo(Object expected) {
-    return AssertionsOnValueNonEquality.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValueInequality.isNotEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public E isNotEqualTo(Boolean expected) {
-    return AssertionsOnValueNonEquality.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValueInequality.isNotEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public E isNotEqualTo(byte[] expected) {
-    return AssertionsOnValueNonEquality.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValueInequality.isNotEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public E isNotEqualTo(DateTimeValue expected) {
-    return AssertionsOnValueNonEquality.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValueInequality.isNotEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public E isNotEqualTo(DateValue expected) {
-    return AssertionsOnValueNonEquality.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValueInequality.isNotEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public E isNotEqualTo(Number expected) {
-    return AssertionsOnValueNonEquality.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValueInequality.isNotEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public E isNotEqualTo(String expected) {
-    return AssertionsOnValueNonEquality.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValueInequality.isNotEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public E isNotEqualTo(UUID expected) {
-    return AssertionsOnValueNonEquality.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValueInequality.isNotEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
   @Override
   public E isNotEqualTo(TimeValue expected) {
-    return AssertionsOnValueNonEquality.isNotEqualTo(myself, info, value, expected);
+    return AssertionsOnValueInequality.isNotEqualTo(myself, info, value, expected);
   }
 
   /** {@inheritDoc} */
@@ -362,7 +362,7 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
   /** {@inheritDoc} */
   @Override
   public E isNotZero() {
-    return AssertionsOnValueNonEquality.isNotZero(myself, info, value);
+    return AssertionsOnValueInequality.isNotZero(myself, info, value);
   }
 
   /** {@inheritDoc} */

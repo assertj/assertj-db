@@ -12,6 +12,7 @@
  */
 package org.assertj.db.type;
 
+import org.assertj.core.api.Assertions;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.common.DefaultConnection;
 import org.assertj.db.common.DefaultDataSource;
@@ -20,6 +21,9 @@ import org.assertj.db.exception.AssertJDBException;
 import org.junit.Test;
 
 import javax.sql.DataSource;
+
+import static org.junit.Assert.fail;
+
 import java.sql.*;
 
 /**
@@ -54,6 +58,32 @@ public class Table_Exception_Test extends AbstractTest {
     DataSource ds = new DefaultDataSource(dataSource);
     Table table = new Table(ds, "movi");
     table.getColumnsNameList();
+  }
+
+  /**
+   * This method should fail because trying to set the columns to check first.
+   */
+  @Test
+  public void should_fail_because_trying_to_set_columns_to_check_first() {
+    try {
+      new Table().setColumnsToCheck(new String[] { "test" });
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("The table name and the source or datasource must be set first"));
+    }
+  }
+
+  /**
+   * This method should fail because trying to set the columns to exclude first.
+   */
+  @Test
+  public void should_fail_because_trying_to_set_columns_to_exclude_first() {
+    try {
+      new Table().setColumnsToExclude(new String[] { "test" });
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("The table name and the source or datasource must be set first"));
+    }
   }
 
   /**

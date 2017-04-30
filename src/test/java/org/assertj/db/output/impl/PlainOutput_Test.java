@@ -14,9 +14,11 @@ package org.assertj.db.output.impl;
 
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.common.AbstractTest;
+import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.DataType;
 import org.assertj.db.type.Row;
+import org.assertj.db.type.Value;
 import org.junit.Test;
 
 import java.sql.Date;
@@ -92,7 +94,7 @@ public class PlainOutput_Test extends AbstractTest {
 
     assertThat(PlainOutput.INSTANCE.getTableOutput(info,
                                                    getTable(row1.getColumnsNameList(), row1.getPksNameList(),
-                                                            new ArrayList())))
+                                                            new ArrayList<Row>())))
             .isEqualTo(String.format("[description]%n"
                                      + "|------------|---------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|%n"
                                      + "|            |         | *         |           |           |           | *         |           |           |           |           |           |%n"
@@ -159,7 +161,7 @@ public class PlainOutput_Test extends AbstractTest {
 
     assertThat(PlainOutput.INSTANCE.getRequestOutput(info,
                                                      getRequest(row1.getColumnsNameList(), row1.getPksNameList(),
-                                                                new ArrayList())))
+                                                                new ArrayList<Row>())))
             .isEqualTo(String.format("[description]%n"
                                      + "|------------|---------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|%n"
                                      + "|            |         | *         |           |           |           | *         |           |           |           |           |           |%n"
@@ -275,7 +277,7 @@ public class PlainOutput_Test extends AbstractTest {
                     + "|-----------|--------------|-----------------------------------|---------------------|----------------|------------------|-----------|-----------|-------------------------------|------------|-----------|-------------------------------------------|-----------|--------------------|--------------------------------------|%n"));
 
     assertThat(PlainOutput.INSTANCE.getChangesOutput(info,
-                                                     getChanges(new ArrayList())))
+                                                     getChanges(new ArrayList<Change>())))
             .isEqualTo(String.format("[description]%n"));
   }
 
@@ -413,6 +415,10 @@ public class PlainOutput_Test extends AbstractTest {
                     + "|------------------|------------------|-----------|-----------|-------------------------------|------------|-----------|-------------------------------------------|-----------|--------------------|--------------------------------------|%n"
                     + "| null, 2007-12-23 | null             | true      | ...       | 2007-12-23T09:01:00.000000000 | 2007-12-23 | 8         | fr                                        | test      | 09:01:00.000000000 | 30b443ae-c0c9-4790-9bec-ce1380808435 |%n"
                     + "|------------------|------------------|-----------|-----------|-------------------------------|------------|-----------|-------------------------------------------|-----------|--------------------|--------------------------------------|%n"));
+    assertThat(PlainOutput.INSTANCE.getRowOutput(info, null))
+            .isEqualTo(String.format(
+                    "[description]%n"
+                    + "Row does not exist%n"));
   }
 
   /**
@@ -540,7 +546,7 @@ public class PlainOutput_Test extends AbstractTest {
                                      + "| Index : 1 | 0e2a1269-eff0-4233-b87b-b53e8b6f164d |%n"
                                      + "|-----------|--------------------------------------|%n"));
     assertThat(PlainOutput.INSTANCE
-                       .getColumnOutput(info, getColumn("column", new ArrayList())))
+                       .getColumnOutput(info, getColumn("column", new ArrayList<Value>())))
             .isEqualTo(String.format("[description]%n"
                                      + "|------------|------------------|%n"
                                      + "|            | column           |%n"

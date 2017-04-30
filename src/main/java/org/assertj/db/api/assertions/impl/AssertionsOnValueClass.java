@@ -63,7 +63,7 @@ public class AssertionsOnValueClass {
     if (classOfValue == null) {
       throw new AssertJDBException("Class of the value is null");
     }
-    Class testedClass = value.getValue().getClass();
+    Class<?> testedClass = value.getValue().getClass();
     if (!classOfValue.isAssignableFrom(testedClass)) {
       throw failures.failure(info, shouldBeValueClass(value, classOfValue));
     }

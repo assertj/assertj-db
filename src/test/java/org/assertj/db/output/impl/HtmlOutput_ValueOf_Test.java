@@ -10,27 +10,25 @@
  *
  * Copyright 2012-2016 the original author or authors.
  */
-package org.assertj.db.type;
-
-import org.junit.Test;
+package org.assertj.db.output.impl;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.junit.Test;
+
 /**
- * Test on the type got from {@code valueOf} method from {@code ChangeType} enum.
+ * Test on the type got from {@code valueOf} method from {@code HtmlOutput} enum.
  * 
  * @author Régis Pouiller
  * 
  */
-public class ChangeType_ValueOf_Test {
+public class HtmlOutput_ValueOf_Test {
 
   /**
-   * This method tests the result of {@code valueOf} method from {@code ChangeType} enum.
+   * This method tests the result of {@code valueOf} method from {@code HtmlOutput} enum.
    */
   @Test
   public void test_result_of_valueOf() {
-    assertThat(ChangeType.valueOf("CREATION")).isEqualTo(ChangeType.CREATION);
-    assertThat(ChangeType.valueOf("MODIFICATION")).isEqualTo(ChangeType.MODIFICATION);
-    assertThat(ChangeType.valueOf("DELETION")).isEqualTo(ChangeType.DELETION);
+    assertThat(HtmlOutput.valueOf("INSTANCE")).isEqualTo(HtmlOutput.INSTANCE);
   }
 }

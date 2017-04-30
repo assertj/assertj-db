@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Régis Pouiller
  *
  */
-public class Values_AreClose_Object_And_DateValue_Test extends AbstractTest {
+public class Values_AreClose_Value_And_DateValue_Test extends AbstractTest {
 
   /**
    * This method tests the {@code areClose} method for {@code DateValue}s and {@code java.sql.Date}.
@@ -43,6 +43,7 @@ public class Values_AreClose_Object_And_DateValue_Test extends AbstractTest {
 
     assertThat(Values.areClose(getValue(null, Date.valueOf("2007-12-23")), DateValue.of(2007, 12, 2), DateValue.of(0, 0, 0))).isFalse();
     assertThat(Values.areClose(getValue(null, Date.valueOf("2007-12-23")), DateValue.of(2007, 1, 23), DateValue.of(0, 0, 0))).isFalse();
+    assertThat(Values.areClose(getValue(null, Date.valueOf("2007-12-23")), DateValue.of(2008, 1, 23), DateValue.of(0, 0, 0))).isFalse();
     assertThat(Values.areClose(getValue(null, Date.valueOf("2007-12-23")), DateValue.of(2006, 12, 23), DateValue.of(0, 0, 0))).isFalse();
 
     assertThat(Values.areClose(getValue(null, Date.valueOf("2007-12-23")), DateValue.of(2007, 12, 2), DateValue.of(0, 0, 21))).isTrue();
@@ -67,6 +68,8 @@ public class Values_AreClose_Object_And_DateValue_Test extends AbstractTest {
     assertThat(Values.areClose(getValue(null, Timestamp.valueOf("2007-12-23 00:00:00.000000000")),
                                DateValue.of(2007, 1, 23), DateValue.of(0, 0, 0))).isFalse();
     assertThat(Values.areClose(getValue(null, Timestamp.valueOf("2007-12-23 00:00:00.000000000")),
+                               DateValue.of(2008, 1, 23), DateValue.of(0, 0, 0))).isFalse();
+    assertThat(Values.areClose(getValue(null, Timestamp.valueOf("2007-12-23 00:00:00.000000000")),
                                DateValue.of(2006, 12, 23), DateValue.of(0, 0, 0))).isFalse();
 
     assertThat(Values.areClose(getValue(null, Timestamp.valueOf("2007-12-23 00:00:00.000000000")),
@@ -89,6 +92,7 @@ public class Values_AreClose_Object_And_DateValue_Test extends AbstractTest {
 
     assertThat(Values.areClose(getValue(null, Date.valueOf("2007-12-23")), DateValue.of(2007, 12, 2), TimeValue.of(0, 0, 0))).isFalse();
     assertThat(Values.areClose(getValue(null, Date.valueOf("2007-12-23")), DateValue.of(2007, 1, 23), TimeValue.of(0, 0, 0))).isFalse();
+    assertThat(Values.areClose(getValue(null, Date.valueOf("2007-12-23")), DateValue.of(2008, 1, 23), TimeValue.of(0, 0, 0))).isFalse();
     assertThat(Values.areClose(getValue(null, Date.valueOf("2007-12-23")), DateValue.of(2006, 12, 23), TimeValue.of(0, 0, 0))).isFalse();
 
     assertThat(Values.areClose(getValue(null, Date.valueOf("2007-12-23")), DateValue.of(2007, 12, 2), TimeValue.of(21 * 24, 0, 0))).isTrue();
@@ -114,6 +118,8 @@ public class Values_AreClose_Object_And_DateValue_Test extends AbstractTest {
     assertThat(Values.areClose(getValue(null, Timestamp.valueOf("2007-12-23 00:00:00.000000000")),
                                DateValue.of(2007, 1, 23), TimeValue.of(0, 0, 0))).isFalse();
     assertThat(Values.areClose(getValue(null, Timestamp.valueOf("2007-12-23 00:00:00.000000000")),
+                               DateValue.of(2008, 1, 23), TimeValue.of(0, 0, 0))).isFalse();
+    assertThat(Values.areClose(getValue(null, Timestamp.valueOf("2007-12-23 00:00:00.000000000")),
                                DateValue.of(2006, 12, 23), TimeValue.of(0, 0, 0))).isFalse();
 
     assertThat(Values.areClose(getValue(null, Timestamp.valueOf("2007-12-23 00:00:00.000000000")),
@@ -138,6 +144,7 @@ public class Values_AreClose_Object_And_DateValue_Test extends AbstractTest {
 
     assertThat(Values.areClose(getValue(null, Date.valueOf("2007-12-23")), DateValue.of(2007, 12, 2), DateTimeValue.of(DateValue.of(0, 0, 0)))).isFalse();
     assertThat(Values.areClose(getValue(null, Date.valueOf("2007-12-23")), DateValue.of(2007, 1, 23), DateTimeValue.of(DateValue.of(0, 0, 0)))).isFalse();
+    assertThat(Values.areClose(getValue(null, Date.valueOf("2007-12-23")), DateValue.of(2008, 1, 23), DateTimeValue.of(DateValue.of(0, 0, 0)))).isFalse();
     assertThat(Values.areClose(getValue(null, Date.valueOf("2007-12-23")), DateValue.of(2006, 12, 23), DateTimeValue.of(DateValue.of(0, 0, 0)))).isFalse();
 
     assertThat(Values.areClose(getValue(null, Date.valueOf("2007-12-23")), DateValue.of(2007, 12, 2), DateTimeValue.of(DateValue.of(0, 0, 21)))).isTrue();
@@ -162,6 +169,8 @@ public class Values_AreClose_Object_And_DateValue_Test extends AbstractTest {
                                DateValue.of(2007, 12, 2), DateTimeValue.of(DateValue.of(0, 0, 0)))).isFalse();
     assertThat(Values.areClose(getValue(null, Timestamp.valueOf("2007-12-23 00:00:00.000000000")),
                                DateValue.of(2007, 1, 23), DateTimeValue.of(DateValue.of(0, 0, 0)))).isFalse();
+    assertThat(Values.areClose(getValue(null, Timestamp.valueOf("2007-12-23 00:00:00.000000000")),
+                               DateValue.of(2008, 1, 23), DateTimeValue.of(DateValue.of(0, 0, 0)))).isFalse();
     assertThat(Values.areClose(getValue(null, Timestamp.valueOf("2007-12-23 00:00:00.000000000")),
                                DateValue.of(2006, 12, 23), DateTimeValue.of(DateValue.of(0, 0, 0)))).isFalse();
 

@@ -134,9 +134,11 @@ public class OutputterValue_Test extends AbstractTest {
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
+    ByteArrayOutputStream byteArrayOutputStream3 = new ByteArrayOutputStream();
     output(changes).change().rowAtEndPoint().value().toStream(byteArrayOutputStream0)
                     .changeOfModification().rowAtStartPoint().value().toStream(byteArrayOutputStream1)
-                    .rowAtEndPoint().value().toStream(byteArrayOutputStream2);
+                    .rowAtEndPoint().value().toStream(byteArrayOutputStream2)
+                    .value("firstname").toStream(byteArrayOutputStream3);
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Value at index 0 (column name : ID) of Row at end point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
                                                                                      + "|----------|%n"
                                                                                      + "| ID       |%n"
@@ -158,6 +160,13 @@ public class OutputterValue_Test extends AbstractTest {
                                                                                      + "|----------|%n"
                                                                                      + "| 1        |%n"
                                                                                      + "|----------|%n"));
+    Assertions.assertThat(byteArrayOutputStream3.toString()).isEqualTo(String.format("[Value at index 2 (column name : FIRSTNAME) of Row at end point of Change at index 0 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source (only modification changes)]%n"
+                                                                                     + "|-----------------|%n"
+                                                                                     + "| FIRSTNAME       |%n"
+                                                                                     + "| (TEXT)          |%n"
+                                                                                     + "|-----------------|%n"
+                                                                                     + "| Susan Alexandra |%n"
+                                                                                     + "|-----------------|%n"));
   }
 
   /**

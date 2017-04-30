@@ -27,12 +27,12 @@ import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 /**
- * Tests on {@link  org.assertj.db.api.assertions.AssertOnValueNonEquality} class :
- * {@link org.assertj.db.api.assertions.AssertOnValueNonEquality#isNotEqualTo(UUID)} method.
+ * Tests on {@link  org.assertj.db.api.assertions.AssertOnValueInequality} class :
+ * {@link org.assertj.db.api.assertions.AssertOnValueInequality#isNotEqualTo(UUID)} method.
  *
  * @author Otoniel Isidoro (otoniel.isidoro@sofist.com.br)
  */
-public class AssertOnValueNonEquality_IsNotEqualTo_UUID_Test extends AbstractTest {
+public class AssertOnValueInequality_IsNotEqualTo_UUID_Test extends AbstractTest {
 
   /**
    * This method tests the {@code isNotEqualTo} assertion method.

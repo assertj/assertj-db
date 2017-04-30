@@ -12,14 +12,16 @@
  */
 package org.assertj.db.output;
 
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.common.AbstractTest;
+import org.assertj.db.common.NeedReload;
 import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.type.Changes;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
 import org.junit.Test;
-
-import static org.junit.Assert.fail;
 
 /**
  * Test the exception of output.
@@ -80,6 +82,38 @@ public class OutputterException_Test extends AbstractTest {
    * This method tests the {@code output} output method.
    */
   @Test
+  @NeedReload
+  public void test_output_for_row_from_change() throws Exception {
+    Changes changes = new Changes(source).setStartPointNow();
+    updateChangesForTests();
+    changes.setEndPointNow();
+
+    try {
+      Outputs.output(changes).changeOfCreation().rowAtStartPoint().value();
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Row do not exist");
+    }
+
+    try {
+      Outputs.output(changes).changeOfCreation().rowAtStartPoint().value(1);
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Row do not exist");
+    }
+
+    try {
+      Outputs.output(changes).changeOfCreation().rowAtStartPoint().value("test");
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("Row do not exist");
+    }
+  }
+
+  /**
+   * This method tests the {@code output} output method.
+   */
+  @Test
   public void test_display_from_value_from_row_for_table() throws Exception {
     Table table = new Table(source, "actor");
 
@@ -121,6 +155,18 @@ public class OutputterException_Test extends AbstractTest {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
                                                       + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
                                                       + "with comparison IGNORE - Ignore the case"));
+    }
+  }
+
+  @Test
+  public void test_display_to_file() {
+    Request request = new Request(source, "select * from actor");
+
+    try {
+      Outputs.output(request).toFile("test\\test.txt");
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo("java.io.FileNotFoundException: test\\test.txt (Le chemin d’accès spécifié est introuvable)");
     }
   }
 }

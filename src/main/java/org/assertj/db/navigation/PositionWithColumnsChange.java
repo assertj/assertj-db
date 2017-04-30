@@ -127,8 +127,8 @@ public abstract class PositionWithColumnsChange<E extends AbstractElement & Navi
       return instance;
     } catch (Exception e) {
       throw new AssertJDBException(String.format("There is an exception '" + e.getMessage()
-                                                 + "'%n\t in the instantiation of the element " + elementClass.getName() + "%n\t "
-                                                 + " with " + myself.getClass() + ".%n "
+                                                 + "'%n\t in the instantiation of the element " + elementClass.getName() + "%n"
+                                                 + "\t with " + myself.getClass() + ".%n "
                                                  + "It is normally impossible.%n That means there is a big mistake in the development of AssertJDB.%n "
                                                  + "Please write an issue for that if you meet this problem."));
     }

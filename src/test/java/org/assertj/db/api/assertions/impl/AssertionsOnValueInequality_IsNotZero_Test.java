@@ -23,13 +23,13 @@ import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 /**
- * Tests on {@link AssertionsOnValueNonEquality} class :
- * {@link AssertionsOnValueNonEquality#isNotZero(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value)} method.
+ * Tests on {@link AssertionsOnValueInequality} class :
+ * {@link AssertionsOnValueInequality#isNotZero(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value)} method.
  *
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnValueNonEquality_IsNotZero_Test extends AbstractTest {
+public class AssertionsOnValueInequality_IsNotZero_Test extends AbstractTest {
 
   /**
    * This method tests the {@code isNotZero} assertion method.
@@ -39,7 +39,7 @@ public class AssertionsOnValueNonEquality_IsNotZero_Test extends AbstractTest {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    TableAssert tableAssert2 = AssertionsOnValueNonEquality.isNotZero(tableAssert, info, getValue(null, 1));
+    TableAssert tableAssert2 = AssertionsOnValueInequality.isNotZero(tableAssert, info, getValue(null, 1));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -53,7 +53,7 @@ public class AssertionsOnValueNonEquality_IsNotZero_Test extends AbstractTest {
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnValueNonEquality.isNotZero(tableAssert, info, getValue(null, 0));
+      AssertionsOnValueInequality.isNotZero(tableAssert, info, getValue(null, 0));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -74,7 +74,7 @@ public class AssertionsOnValueNonEquality_IsNotZero_Test extends AbstractTest {
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnValueNonEquality.isNotZero(tableAssert, info, getValue(null, false));
+      AssertionsOnValueInequality.isNotZero(tableAssert, info, getValue(null, false));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"

@@ -12,12 +12,7 @@
  */
 package org.assertj.db.output.impl;
 
-import org.assertj.core.api.WritableAssertionInfo;
-import org.assertj.db.common.AbstractTest;
-import org.assertj.db.type.ChangeType;
-import org.assertj.db.type.DataType;
-import org.assertj.db.type.Row;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -30,7 +25,14 @@ import java.util.Arrays;
 import java.util.Locale;
 import java.util.UUID;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.WritableAssertionInfo;
+import org.assertj.db.common.AbstractTest;
+import org.assertj.db.type.Change;
+import org.assertj.db.type.ChangeType;
+import org.assertj.db.type.DataType;
+import org.assertj.db.type.Row;
+import org.assertj.db.type.Value;
+import org.junit.Test;
 
 /**
  * Test on the utility class {@code HtmlRepresentation}.
@@ -99,7 +101,7 @@ public class HtmlOutput_Test extends AbstractTest {
 
     assertThat(HtmlOutput.INSTANCE.getTableOutput(info,
                                                   getTable(row1.getColumnsNameList(), row1.getPksNameList(),
-                                                           new ArrayList())))
+                                                           new ArrayList<Row>())))
             .isEqualTo(htmlTextFromClassPathOf("test_table_output2.html"));
   }
 
@@ -148,7 +150,7 @@ public class HtmlOutput_Test extends AbstractTest {
 
     assertThat(HtmlOutput.INSTANCE.getRequestOutput(info,
                                                     getRequest(row1.getColumnsNameList(), row1.getPksNameList(),
-                                                               new ArrayList())))
+                                                               new ArrayList<Row>())))
             .isEqualTo(htmlTextFromClassPathOf("test_request_output2.html"));
   }
 
@@ -206,7 +208,7 @@ public class HtmlOutput_Test extends AbstractTest {
             .isEqualTo(htmlTextFromClassPathOf("test_changes_output1.html"));
 
     assertThat(HtmlOutput.INSTANCE.getChangesOutput(info,
-                                                    getChanges(new ArrayList())))
+                                                    getChanges(new ArrayList<Change>())))
             .isEqualTo(htmlTextFromClassPathOf("test_changes_output2.html"));
   }
 
@@ -285,6 +287,9 @@ public class HtmlOutput_Test extends AbstractTest {
                                                                            getValue(null, UUID.fromString(
                                                                                    "30B443AE-C0C9-4790-9BEC-CE1380808435"))))))
             .isEqualTo(htmlTextFromClassPathOf("test_row_output.html"));
+    assertThat(HtmlOutput.INSTANCE.getRowOutput(info, null))
+            .isEqualTo("<html><head><title>description</title></head><body>"
+                       + "<h1>description</h1>Row does not exist</body></html>");
   }
 
   /**
@@ -341,7 +346,7 @@ public class HtmlOutput_Test extends AbstractTest {
                                                                               "0E2A1269-EFF0-4233-B87B-B53E8B6F164D"))))))
             .isEqualTo(htmlTextFromClassPathOf("test_column_output10.html"));
     assertThat(HtmlOutput.INSTANCE
-                       .getColumnOutput(info, getColumn("column", new ArrayList())))
+                       .getColumnOutput(info, getColumn("column", new ArrayList<Value>())))
             .isEqualTo(htmlTextFromClassPathOf("test_column_output11.html"));
   }
 

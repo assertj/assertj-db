@@ -25,13 +25,13 @@ import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 /**
- * Tests on {@link org.assertj.db.api.assertions.impl.AssertionsOnValueNonEquality} class :
- * {@link org.assertj.db.api.assertions.impl.AssertionsOnValueNonEquality#isNotEqualTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, Object)} method.
+ * Tests on {@link org.assertj.db.api.assertions.impl.AssertionsOnValueInequality} class :
+ * {@link org.assertj.db.api.assertions.impl.AssertionsOnValueInequality#isNotEqualTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, Object)} method.
  *
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnValueNonEquality_IsNotEqualTo_Object_Test extends AbstractTest {
+public class AssertionsOnValueInequality_IsNotEqualTo_Object_Test extends AbstractTest {
 
   /**
    * This method tests the {@code isNotEqualTo} assertion method.
@@ -41,14 +41,22 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_Object_Test extends Abstr
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    TableAssert tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
+    TableAssert tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
                                                                          getValue(null, new Locale("fr")),
                                                                          new Locale("en"));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
+    tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
                                                              getValue(null, new Locale("fr")),
                                                              (Object) null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
+    tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
+                                                            getValue(null, null),
+                                                            new Locale("en"));
+   Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
+   tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
+                                                           getValue(null, null),
+                                                           new Locale("en"));
+  Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
   /**
@@ -61,7 +69,7 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_Object_Test extends Abstr
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
+      AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
                                                 getValue(null, new Locale("fr")),
                                                 Locale.FRENCH);
       fail("An exception must be raised");
@@ -73,7 +81,7 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_Object_Test extends Abstr
                                                          + "  <fr>"));
     }
     try {
-      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
+      AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
                                                 getValue(null, null),
                                                 (Object) null);
       fail("An exception must be raised");
@@ -96,7 +104,7 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_Object_Test extends Abstr
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
+      AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
                                                 getValue(null, new StringBuilder("test1")),
                                                 new StringBuffer("test2"));
       fail("An exception must be raised");

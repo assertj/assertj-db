@@ -113,6 +113,28 @@ public class AssertionsOnModifiedColumns_HasModifiedColumns_String_Test extends 
                                                                     + "as modified columns but was:%n"
                                                                     + "  [\"FIRSTNAME\", \"NAME\"]"));
     }
+    try {
+      AssertionsOnModifiedColumns.hasModifiedColumns(tableAssert, info, change, LetterCase.getLetterCase(CaseConversions.NO,
+                                                                                                         CaseComparisons.STRICT), "FIRSTNAME", "NAME", "ZANE");
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                                    + "Expecting :%n"
+                                                                    + "  [\"FIRSTNAME\", \"NAME\", \"ZANE\"]%n"
+                                                                    + "as modified columns but was:%n"
+                                                                    + "  [\"FIRSTNAME\", \"NAME\"]"));
+    }
+    try {
+      AssertionsOnModifiedColumns.hasModifiedColumns(tableAssert, info, change, LetterCase.getLetterCase(CaseConversions.NO,
+                                                                                                         CaseComparisons.STRICT), "FIRSTNAME");
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                                    + "Expecting :%n"
+                                                                    + "  [\"FIRSTNAME\"]%n"
+                                                                    + "as modified columns but was:%n"
+                                                                    + "  [\"FIRSTNAME\", \"NAME\"]"));
+    }
   }
 
   /**

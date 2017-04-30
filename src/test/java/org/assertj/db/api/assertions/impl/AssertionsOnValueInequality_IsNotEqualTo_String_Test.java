@@ -28,13 +28,13 @@ import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 /**
- * Tests on {@link AssertionsOnValueNonEquality} class :
- * {@link AssertionsOnValueNonEquality#isNotEqualTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, String)} method.
+ * Tests on {@link AssertionsOnValueInequality} class :
+ * {@link AssertionsOnValueInequality#isNotEqualTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, String)} method.
  *
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnValueNonEquality_IsNotEqualTo_String_Test extends AbstractTest {
+public class AssertionsOnValueInequality_IsNotEqualTo_String_Test extends AbstractTest {
 
   /**
    * This method tests the {@code isNotEqualTo} assertion method.
@@ -44,59 +44,59 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_String_Test extends Abstr
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    TableAssert tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, getValue(null, "test1"), "test");
+    TableAssert tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info, getValue(null, "test1"), "test");
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, getValue(null, 9), "8");
+    tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info, getValue(null, 9), "8");
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
+    tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
                                                              getValue(null, Date.valueOf("2007-12-24")),
                                                              "2007-12-23");
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
+    tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
                                                              getValue(null, Timestamp.valueOf("2007-12-24 00:00:00")),
                                                              "2007-12-23");
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
+    tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
                                                              getValue(null, Time.valueOf("09:01:05")),
                                                                       "09:01");
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
+    tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
                                                              getValue(null, Date.valueOf("2007-12-24")),
                                                              "2007-12-23T00:00:00");
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
+    tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
                                                              getValue(null, Timestamp.valueOf("2007-12-23 09:01:05")),
                                                              "2007-12-23T09:01");
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
+    tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
                                                              getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")),
                                                              "0E2A1269-EFF0-4233-B87B-B53E8B6F164D");
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, getValue(null, "test1"), (String) null);
+    tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info, getValue(null, "test1"), (String) null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, getValue(null, 9), (String) null);
+    tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info, getValue(null, 9), (String) null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
+    tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
                                                              getValue(null, Date.valueOf("2007-12-24")),
                                                              (String) null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
+    tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
                                                              getValue(null, Timestamp.valueOf("2007-12-24 00:00:00")),
                                                              (String) null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
+    tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
                                                              getValue(null, Time.valueOf("09:01:05")),
                                                              (String) null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
+    tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
                                                              getValue(null, Date.valueOf("2007-12-24")),
                                                              (String) null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
+    tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
                                                              getValue(null, Timestamp.valueOf("2007-12-23 09:01:05")),
                                                              (String) null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
+    tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
                                                              getValue(null, UUID.fromString(
                                                                      "30B443AE-C0C9-4790-9BEC-CE1380808435")),
                                                              (String) null);
@@ -113,7 +113,7 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_String_Test extends Abstr
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, getValue(null, "test"), "test");
+      AssertionsOnValueInequality.isNotEqualTo(tableAssert, info, getValue(null, "test"), "test");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -123,7 +123,7 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_String_Test extends Abstr
                                                          + "  <\"test\">"));
     }
     try {
-      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, getValue(null, 8), "8");
+      AssertionsOnValueInequality.isNotEqualTo(tableAssert, info, getValue(null, 8), "8");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -133,7 +133,7 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_String_Test extends Abstr
                                                       + "  <\"8\">"));
     }
     try {
-      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, getValue(null, Date.valueOf("2007-12-23")), "2007-12-23");
+      AssertionsOnValueInequality.isNotEqualTo(tableAssert, info, getValue(null, Date.valueOf("2007-12-23")), "2007-12-23");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -143,7 +143,7 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_String_Test extends Abstr
                                                       + "  <\"2007-12-23\">"));
     }
     try {
-      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, getValue(null, Timestamp.valueOf("2007-12-23 00:00:00")),
+      AssertionsOnValueInequality.isNotEqualTo(tableAssert, info, getValue(null, Timestamp.valueOf("2007-12-23 00:00:00")),
                                                 "2007-12-23");
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -154,7 +154,7 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_String_Test extends Abstr
                                                       + "  <\"2007-12-23\">"));
     }
     try {
-      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, getValue(null, Time.valueOf("09:01:00")), "09:01");
+      AssertionsOnValueInequality.isNotEqualTo(tableAssert, info, getValue(null, Time.valueOf("09:01:00")), "09:01");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -164,7 +164,7 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_String_Test extends Abstr
                                                       + "  <\"09:01\">"));
     }
     try {
-      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, getValue(null, Date.valueOf("2007-12-23")), "2007-12-23T00:00:00");
+      AssertionsOnValueInequality.isNotEqualTo(tableAssert, info, getValue(null, Date.valueOf("2007-12-23")), "2007-12-23T00:00:00");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -174,7 +174,7 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_String_Test extends Abstr
                                                       + "  <\"2007-12-23T00:00:00\">"));
     }
     try {
-      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, getValue(null, Timestamp.valueOf("2007-12-23 09:01:00")),
+      AssertionsOnValueInequality.isNotEqualTo(tableAssert, info, getValue(null, Timestamp.valueOf("2007-12-23 09:01:00")),
                                                 "2007-12-23T09:01");
       fail("An exception must be raised");
     } catch (AssertionError e) {
@@ -185,7 +185,7 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_String_Test extends Abstr
                                                       + "  <\"2007-12-23T09:01\">"));
     }
     try {
-      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
+      AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
                                                 getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")),
                                                 "30B443AE-C0C9-4790-9BEC-CE1380808435");
       fail("An exception must be raised");
@@ -197,7 +197,7 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_String_Test extends Abstr
                                                                     + "  <\"30B443AE-C0C9-4790-9BEC-CE1380808435\">"));
     }
     try {
-      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
+      AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
                                                 getValue(null, null),
                                                 (String) null);
       fail("An exception must be raised");
@@ -220,7 +220,7 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_String_Test extends Abstr
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, getValue(null, false), "test");
+      AssertionsOnValueInequality.isNotEqualTo(tableAssert, info, getValue(null, false), "test");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"

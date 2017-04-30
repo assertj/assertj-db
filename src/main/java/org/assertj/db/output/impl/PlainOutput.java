@@ -53,11 +53,9 @@ enum PlainOutput implements Output {
    */
   private static int getColumnSize(String columnName, String type, Integer index, Value... values) {
     int size = ("" + columnName).length();
-    if (type != null) {
-      int typeSize = type.length();
-      if (typeSize > size) {
-        size = typeSize;
-      }
+    int typeSize = type.length();
+    if (typeSize > size) {
+      size = typeSize;
     }
     if (index != null) {
       int indexSize = ("Index : " + index).length();
@@ -390,23 +388,23 @@ enum PlainOutput implements Output {
         break;
       }
     }
-    if (row0 != null) {
-      List<String> columnsNameList = row0.getColumnsNameList();
-      int index = 0;
-      for (String columnName : columnsNameList) {
-        List<Object> valuesList = new ArrayList<>();
-        for (Row row : rows) {
-          if (row != null) {
-            Object value = row.getValuesList().get(index);
-            valuesList.add(value);
-          }
+
+    List<String> columnsNameList = row0.getColumnsNameList();
+    int index = 0;
+    for (String columnName : columnsNameList) {
+      List<Object> valuesList = new ArrayList<>();
+      for (Row row : rows) {
+        if (row != null) {
+          Object value = row.getValuesList().get(index);
+          valuesList.add(value);
         }
-        String type = OutputType.getType(valuesList.toArray(new Value[valuesList.size()]));
-        int columnSize = getColumnSize(columnName, type, index, valuesList.toArray(new Value[valuesList.size()]));
-        columnSizesList.add(columnSize);
-        index++;
       }
+      String type = OutputType.getType(valuesList.toArray(new Value[valuesList.size()]));
+      int columnSize = getColumnSize(columnName, type, index, valuesList.toArray(new Value[valuesList.size()]));
+      columnSizesList.add(columnSize);
+      index++;
     }
+
     return columnSizesList;
   }
 

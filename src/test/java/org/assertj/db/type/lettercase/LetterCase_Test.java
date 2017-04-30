@@ -48,4 +48,24 @@ public class LetterCase_Test extends AbstractTest {
     assertThat(LetterCase.getLetterCase(CaseConversions.UPPER, CaseComparisons.IGNORE).isEqual("AzertY", "AZERTY")).isTrue();
     assertThat(LetterCase.getLetterCase(CaseConversions.UPPER, CaseComparisons.IGNORE).isEqual("AZERTY", "AZERTY")).isTrue();
   }
+
+  /**
+   * This method tests the conversion name of {@code getConversionName} method from {@code LetterCase}.
+   */
+  @Test
+  public void test_conversion_name_of_default() {
+    assertThat(LetterCase.TABLE_DEFAULT.getConversionName()).isEqualTo("NO - No case conversion");
+    assertThat(LetterCase.COLUMN_DEFAULT.getConversionName()).isEqualTo("UPPER - Upper case conversion");
+    assertThat(LetterCase.PRIMARY_KEY_DEFAULT.getConversionName()).isEqualTo("UPPER - Upper case conversion");
+  }
+
+  /**
+   * This method tests the comparison name of {@code getComparisonName} method from {@code LetterCase}.
+   */
+  @Test
+  public void test_comparison_name_of_default() {
+    assertThat(LetterCase.TABLE_DEFAULT.getComparisonName()).isEqualTo("IGNORE - Ignore the case");
+    assertThat(LetterCase.COLUMN_DEFAULT.getComparisonName()).isEqualTo("IGNORE - Ignore the case");
+    assertThat(LetterCase.PRIMARY_KEY_DEFAULT.getComparisonName()).isEqualTo("IGNORE - Ignore the case");
+  }
 }

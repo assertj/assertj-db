@@ -12,12 +12,17 @@
  */
 package org.assertj.db.database.h2;
 
-import org.junit.Test;
-
-import java.sql.*;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import org.junit.Test;
 
 /**
  * Test on the H2 database.
@@ -49,26 +54,16 @@ public class H2DataBase_Test extends AbstractH2Test {
   @Test
   public void test_schema_for_data_source() throws SQLException {
     try (Connection connection = dataSource.getConnection()) {
-      try {
-        connection.getSchema();
-        fail("An exception must be raised");
-      }
-      catch (AbstractMethodError e) {
-        assertThat(e.getMessage()).isEqualTo("org.h2.jdbc.JdbcConnection.getSchema()Ljava/lang/String;");
-      }
+      String schema = connection.getSchema();
+      assertThat(schema).isNull();
     }
   }
 
   @Test
   public void test_schema_for_source() throws SQLException {
     try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
-      try {
-        connection.getSchema();
-        fail("An exception must be raised");
-      }
-      catch (AbstractMethodError e) {
-        assertThat(e.getMessage()).isEqualTo("org.h2.jdbc.JdbcConnection.getSchema()Ljava/lang/String;");
-      }
+      String schema = connection.getSchema();
+      assertThat(schema).isNull();
     }
   }
 

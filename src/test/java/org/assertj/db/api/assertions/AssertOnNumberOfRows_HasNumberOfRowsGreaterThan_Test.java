@@ -39,7 +39,7 @@ public class AssertOnNumberOfRows_HasNumberOfRowsGreaterThan_Test extends Abstra
   public void test_has_number_of_rows_greater_than() {
     Table table = new Table(source, "actor");
     TableAssert tableAssert = assertThat(table);
-    TableAssert tableAssert2 = tableAssert.hasNumberOfRows(3);
+    TableAssert tableAssert2 = tableAssert.hasNumberOfRowsGreaterThan(2);
     Assertions.assertThat(tableAssert).isSameAs(tableAssert2);
     TableColumnAssert tableColumnAssert = assertThat(table).column();
     TableColumnAssert tableColumnAssert2 = tableColumnAssert.hasNumberOfRowsGreaterThan(2);

@@ -12,12 +12,13 @@
  */
 package org.assertj.db.util;
 
-import org.assertj.db.exception.AssertJDBException;
-import org.junit.Test;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.UUID;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.db.exception.AssertJDBException;
+import org.junit.Test;
 
 /**
  * Tests on {@code areEqual} method for {@code UUID}s and {@code String}s.
@@ -31,8 +32,14 @@ public class Values_AreEqual_UUID_And_String_Test {
    */
   @Test
   public void test_are_equal_for_UUIDs() {
-    assertThat(Values.areEqual(UUID.fromString("88838129-291E-40A9-A94C-A15BE36CF7C3"),
-                               "88838129-291E-40A9-A94C-A15BE36CF7C3")).isTrue();
+    assertTrue(Values.areEqual(UUID.fromString("88838129-291E-40A9-A94C-A15BE36CF7C3"),
+                                "88838129-291E-40A9-A94C-A15BE36CF7C3"));
+    assertFalse(Values.areEqual(UUID.fromString("88838129-291E-40A9-A94C-A15BE36CF7C3"),
+                                null));
+    assertTrue(Values.areEqual((UUID) null,
+                                (String) null));
+    assertFalse(Values.areEqual((UUID) null,
+                                "88838129-291E-40A9-A94C-A15BE36CF7C3"));
   }
 
   /**

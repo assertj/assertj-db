@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Régis Pouiller
  *
  */
-public class Values_AreClose_Object_And_DateTimeValue_Test extends AbstractTest {
+public class Values_AreClose_Value_And_DateTimeValue_Test extends AbstractTest {
 
   /**
    * This method tests the {@code areClose} method for {@code DateTimeValue}s.

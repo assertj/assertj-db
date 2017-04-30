@@ -26,13 +26,13 @@ import static org.assertj.db.api.Assertions.bytesContentFromClassPathOf;
 import static org.junit.Assert.fail;
 
 /**
- * Tests on {@link org.assertj.db.api.assertions.AssertOnValueNonEquality} class :
- * {@link org.assertj.db.api.assertions.AssertOnValueNonEquality#isNotEqualTo(byte[])} method.
+ * Tests on {@link org.assertj.db.api.assertions.AssertOnValueInequality} class :
+ * {@link org.assertj.db.api.assertions.AssertOnValueInequality#isNotEqualTo(byte[])} method.
  *
  * @author Régis Pouiller
  *
  */
-public class AssertOnValueNonEquality_IsNotEqualTo_Bytes_Test extends AbstractTest {
+public class AssertOnValueInequality_IsNotEqualTo_Bytes_Test extends AbstractTest {
 
   /**
    * This method tests the {@code isNotEqualTo} assertion method.

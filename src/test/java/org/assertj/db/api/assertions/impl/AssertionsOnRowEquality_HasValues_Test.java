@@ -88,7 +88,7 @@ public class AssertionsOnRowEquality_HasValues_Test extends AbstractTest {
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, 1), getValue(null, "Weaver"), getValue(null,
-                                                                                                           "Sigourney"),
+                                                                                                           null),
                                                      getValue(null, Date.valueOf("1949-10-08"))));
     try {
       AssertionsOnRowEquality.hasValues(tableAssert, info, list, 1, true, "Sigourney", "1949-10-08");
@@ -99,6 +99,26 @@ public class AssertionsOnRowEquality_HasValues_Test extends AbstractTest {
                                                                     + "  \"TEXT\" : <\"Weaver\">%n"
                                                                     + "to be compatible with %n"
                                                                     + "  java.lang.Boolean : <true>"));
+    }
+    try {
+      AssertionsOnRowEquality.hasValues(tableAssert, info, list, 1, "Weaver", "Sigourney", "1949-10-08");
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting:%n"
+                                                      + "  \"NOT_IDENTIFIED\" : <null>%n"
+                                                      + "to be compatible with %n"
+                                                      + "  java.lang.String : <\"Sigourney\">"));
+    }
+    try {
+      AssertionsOnRowEquality.hasValues(tableAssert, info, list, 1, null, "Sigourney", "1949-10-08");
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                      + "Expecting:%n"
+                                                      + "  \"TEXT\" : <\"Weaver\">%n"
+                                                      + "to be compatible with %n"
+                                                      + "  <null>"));
     }
   }
 

@@ -46,6 +46,11 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_One_Object_Test extend
                                                                             getValue(null, Locale.FRENCH),
                                                                             Locale.FRENCH);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
+    tableAssert2 = AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
+                                                                getValue(null, null),
+                                                                getValue(null, null),
+                                                                (Object) null);
+    Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
   /**
@@ -69,6 +74,19 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_One_Object_Test extend
                                                                     + "  <en>%n"
                                                                     + "to be equal to: %n"
                                                                     + "  <fr>"));
+    }
+    try {
+      AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
+                                                   getValue(null, Locale.ENGLISH),
+                                                   getValue(null, Locale.FRENCH),
+                                                   (Object) null);
+      fail("An exception must be raised");
+    } catch (AssertionError e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
+                                                                    + "Expecting that start point:%n"
+                                                                    + "  <en>%n"
+                                                                    + "to be equal to: %n"
+                                                                    + "  <null>"));
     }
   }
 

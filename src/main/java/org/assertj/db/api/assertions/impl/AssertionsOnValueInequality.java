@@ -31,9 +31,9 @@ import static org.assertj.db.util.Values.areEqual;
  *
  * @author Régis Pouiller
  * @author Otoniel Isidoro
- * @see org.assertj.db.api.assertions.AssertOnValueNonEquality
+ * @see org.assertj.db.api.assertions.AssertOnValueInequality
  */
-public class AssertionsOnValueNonEquality {
+public class AssertionsOnValueInequality {
 
   /**
    * To notice failures in the assertion.
@@ -43,7 +43,7 @@ public class AssertionsOnValueNonEquality {
   /**
    * Private constructor.
    */
-  private AssertionsOnValueNonEquality() {
+  private AssertionsOnValueInequality() {
     // Empty
   }
 
@@ -60,7 +60,7 @@ public class AssertionsOnValueNonEquality {
    */
   public static <A extends AbstractAssert> A isNotEqualTo(A assertion, WritableAssertionInfo info, Value value,
                                                           Object expected) {
-    if (value != null && expected != null) {
+    if (value.getValue() != null && expected != null) {
       AssertionsOnValueClass.isOfClass(assertion, info, value, expected.getClass());
     }
     if (!areEqual(value, expected)) {

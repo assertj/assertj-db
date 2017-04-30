@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Régis Pouiller
  * 
  */
-public class Values_AreEqual_Object_And_String_Test extends AbstractTest {
+public class Values_AreEqual_Value_And_String_Test extends AbstractTest {
 
   /**
    * This method tests the {@code areEqual} method for {@code String}s.

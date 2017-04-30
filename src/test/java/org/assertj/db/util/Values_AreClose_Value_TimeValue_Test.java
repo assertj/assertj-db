@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Régis Pouiller
  *
  */
-public class Values_AreClose_Object_TimeValue_Test extends AbstractTest {
+public class Values_AreClose_Value_TimeValue_Test extends AbstractTest {
 
   /**
    * This method tests the {@code areClose} method for {@code TimeValue}s.

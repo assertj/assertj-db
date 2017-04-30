@@ -26,13 +26,13 @@ import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 /**
- * Tests on {@link AssertionsOnValueNonEquality} class :
- * {@link AssertionsOnValueNonEquality#isNotEqualTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, org.assertj.db.type.TimeValue)} method.
+ * Tests on {@link AssertionsOnValueInequality} class :
+ * {@link AssertionsOnValueInequality#isNotEqualTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, org.assertj.db.type.TimeValue)} method.
  *
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnValueNonEquality_IsNotEqualTo_TimeValue_Test extends AbstractTest {
+public class AssertionsOnValueInequality_IsNotEqualTo_TimeValue_Test extends AbstractTest {
 
   /**
    * This method tests the {@code isNotEqualTo} assertion method.
@@ -42,11 +42,11 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_TimeValue_Test extends Ab
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    TableAssert tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
+    TableAssert tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
                                                                          getValue(null, Time.valueOf("09:01:05")),
                                                                       TimeValue.of(9, 1));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
+    tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
                                                              getValue(null, Time.valueOf("09:01:05")),
                                                              (TimeValue) null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
@@ -62,7 +62,7 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_TimeValue_Test extends Ab
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info,
+      AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
                                                 getValue(null, Time.valueOf("09:01:00")),
                                                          TimeValue.of(9, 1));
       fail("An exception must be raised");
@@ -74,7 +74,7 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_TimeValue_Test extends Ab
                                                       + "  <09:01:00.000000000>"));
     }
     try {
-      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, getValue(null, null), (TimeValue) null);
+      AssertionsOnValueInequality.isNotEqualTo(tableAssert, info, getValue(null, null), (TimeValue) null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -95,7 +95,7 @@ public class AssertionsOnValueNonEquality_IsNotEqualTo_TimeValue_Test extends Ab
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnValueNonEquality.isNotEqualTo(tableAssert, info, getValue(null, 8), TimeValue.of(9, 1));
+      AssertionsOnValueInequality.isNotEqualTo(tableAssert, info, getValue(null, 8), TimeValue.of(9, 1));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
