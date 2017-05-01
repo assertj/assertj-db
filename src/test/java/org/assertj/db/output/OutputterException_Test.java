@@ -27,6 +27,7 @@ import org.junit.Test;
  * Test the exception of output.
  *
  * @author Régis Pouiller
+ * @author Pascal Schumacher
  */
 public class OutputterException_Test extends AbstractTest {
 
