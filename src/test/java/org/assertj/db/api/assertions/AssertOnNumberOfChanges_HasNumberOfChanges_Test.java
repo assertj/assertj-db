@@ -47,6 +47,8 @@ public class AssertOnNumberOfChanges_HasNumberOfChanges_Test extends AbstractTes
     ChangesAssert changesAssert = assertThat(changes);
     ChangesAssert changesAssert2 = changesAssert.hasNumberOfChanges(3);
     Assertions.assertThat(changesAssert).isSameAs(changesAssert2);
+
+    assertThat(new Changes(table).setStartPointNow().setEndPointNow()).hasNumberOfChanges(0);
   }
 
   /**
