@@ -166,7 +166,7 @@ public class OutputterException_Test extends AbstractTest {
       Outputs.output(request).toFile("test\\test.txt");
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo("java.io.FileNotFoundException: test\\test.txt (Le chemin d’accès spécifié est introuvable)");
+      Assertions.assertThat(e).hasMessageStartingWith("java.io.FileNotFoundException: test\\test.txt");
     }
   }
 }
