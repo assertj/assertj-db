@@ -338,6 +338,7 @@ public class DefaultPreparedStatement implements PreparedStatement {
     thisPreparedStatement.setAsciiStream(parameterIndex, x);
   }
 
+  @SuppressWarnings("deprecation")
   @Override
   public void setUnicodeStream(int parameterIndex, InputStream x, int length) throws SQLException {
     thisPreparedStatement.setUnicodeStream(parameterIndex, x, length);

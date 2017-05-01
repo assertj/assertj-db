@@ -411,7 +411,7 @@ public class Table extends AbstractDbData<Table> {
       LetterCase letterCase = getColumnLetterCase();
       // If the parameter is not null, all the names are convert
       // before setting the instance field
-      this.columnsToCheck = new String[columnsToCheck.length];
+      List<String> columnsToCheckList = new ArrayList<String>();
       for (int index = 0; index < columnsToCheck.length; index++) {
         String column = columnsToCheck[index];
         if (column == null) {
@@ -419,9 +419,10 @@ public class Table extends AbstractDbData<Table> {
         }
         int indexOf = NameComparator.INSTANCE.indexOf(columnsList, column, letterCase);
         if (indexOf != -1) {
-          this.columnsToCheck[index] = columnsList.get(indexOf);
+          columnsToCheckList.add(columnsList.get(indexOf));
         }
       }
+      this.columnsToCheck = columnsToCheckList.toArray(new String[0]);
     } else {
       this.columnsToCheck = null;
     }
@@ -455,6 +456,7 @@ public class Table extends AbstractDbData<Table> {
     if (columnsToExclude != null) {
       LetterCase letterCase = getColumnLetterCase();
       this.columnsToExclude = new String[columnsToExclude.length];
+      List<String> columnsToExcludeList = new ArrayList<String>();
       for (int index = 0; index < columnsToExclude.length; index++) {
         String column = columnsToExclude[index];
         if (column == null) {
@@ -462,9 +464,10 @@ public class Table extends AbstractDbData<Table> {
         }
         int indexOf = NameComparator.INSTANCE.indexOf(columnsList, column, letterCase);
         if (indexOf != -1) {
-          this.columnsToExclude[index] = columnsList.get(indexOf);
+          columnsToExcludeList.add(columnsList.get(indexOf));
         }
       }
+      this.columnsToExclude = columnsToExcludeList.toArray(new String[0]);
     } else {
       this.columnsToExclude = null;
     }
@@ -498,21 +501,23 @@ public class Table extends AbstractDbData<Table> {
     if (columnsToOrder != null) {
       LetterCase letterCase = getColumnLetterCase();
       this.columnsToOrder = new Order[columnsToOrder.length];
+      List<Order> columnsToOrderList = new ArrayList<Order>();
       for (int index = 0; index < columnsToOrder.length; index++) {
         Order order = columnsToOrder[index];
         if (order == null) {
           throw new NullPointerException("The order can not be null");
         }
         String column = order.getName();
-        if (order == null) {
+        if (column == null) {
           throw new NullPointerException("The name of the column for order can not be null");
         }
         int indexOf = NameComparator.INSTANCE.indexOf(columnsList, column, letterCase);
         if (indexOf != -1) {
           String columnName = columnsList.get(indexOf);
-          this.columnsToOrder[index] = Order.getOrder(columnName, order.getType());
+          columnsToOrderList.add(Order.getOrder(columnName, order.getType()));
         }
       }
+      this.columnsToOrder = columnsToOrderList.toArray(new Order[0]);
     } else {
       this.columnsToOrder = null;
     }

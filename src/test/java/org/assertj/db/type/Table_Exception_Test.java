@@ -18,6 +18,7 @@ import org.assertj.db.common.DefaultConnection;
 import org.assertj.db.common.DefaultDataSource;
 import org.assertj.db.common.DefaultStatement;
 import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.type.Table.Order;
 import org.junit.Test;
 
 import javax.sql.DataSource;
@@ -83,6 +84,45 @@ public class Table_Exception_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("The table name and the source or datasource must be set first"));
+    }
+  }
+
+  /**
+   * This method should fail because trying to set the columns order first.
+   */
+  @Test
+  public void should_fail_because_trying_to_set_columns_order_first() {
+    try {
+      new Table().setColumnsToOrder(new Order[] { Order.asc("test") });
+      fail("An exception must be raised");
+    } catch (AssertJDBException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("The table name and the source or datasource must be set first"));
+    }
+  }
+
+  /**
+   * This method should fail because trying to set the columns order with order null.
+   */
+  @Test
+  public void should_fail_because_trying_to_set_columns_order_with_order_null() {
+    try {
+      new Table(source, "test").setColumnsToOrder(new Order[] { null });
+      fail("An exception must be raised");
+    } catch (NullPointerException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("The order can not be null"));
+    }
+  }
+
+  /**
+   * This method should fail because trying to set the columns order with column null.
+   */
+  @Test
+  public void should_fail_because_trying_to_set_columns_order_with_column_null() {
+    try {
+      new Table(source, "test").setColumnsToOrder(new Order[] { Order.asc(null) });
+      fail("An exception must be raised");
+    } catch (NullPointerException e) {
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("The name of the column for order can not be null"));
     }
   }
 

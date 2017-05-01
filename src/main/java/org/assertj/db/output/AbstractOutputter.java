@@ -97,8 +97,6 @@ public abstract class AbstractOutputter<E extends AbstractOutputter<E>>
     try (FileOutputStream fileOutputStream = new FileOutputStream(fileName)) {
       PrintStream printStream = new PrintStream(fileOutputStream);
       printStream.print(output);
-    } catch (FileNotFoundException e) {
-      throw new AssertJDBException(e);
     } catch (IOException e) {
       throw new AssertJDBException(e);
     }

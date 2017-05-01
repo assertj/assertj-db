@@ -13,6 +13,7 @@
 package org.assertj.db.type;
 
 import org.assertj.db.common.AbstractTest;
+import org.assertj.db.type.Table.Order;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -60,4 +61,48 @@ public class Table_Columns_Test extends AbstractTest {
     assertThat(columnFromIndex.getRowValue(1).getValue()).isEqualTo("The Village");
   }
 
+  /**
+   * This method tests the columns to check.
+   */
+  @Test
+  public void test_columns_to_check() {
+    Table table = new Table(source, "movie");
+
+    assertThat(table.getColumnsToCheck()).isNull();
+
+    table.setColumnsToCheck(new String[] { "title" , "test" });
+
+    assertThat(table.getColumnsToCheck()).hasSize(1);
+    assertThat(table.getColumnsToCheck()).contains("TITLE");
+  }
+
+  /**
+   * This method tests the columns to exclude.
+   */
+  @Test
+  public void test_columns_to_exclude() {
+    Table table = new Table(source, "movie");
+
+    assertThat(table.getColumnsToExclude()).isNull();
+
+    table.setColumnsToExclude(new String[] { "title" , "test" });
+
+    assertThat(table.getColumnsToExclude()).hasSize(1);
+    assertThat(table.getColumnsToExclude()).contains("TITLE");
+  }
+
+  /**
+   * This method tests the columns to order.
+   */
+  @Test
+  public void test_columns_to_order() {
+    Table table = new Table(source, "movie");
+
+    assertThat(table.getColumnsToOrder()).isNull();
+
+    table.setColumnsToOrder(new Order[] { Order.asc("title") , Order.asc("test") });
+
+    assertThat(table.getColumnsToOrder()).hasSize(1);
+    assertThat(table.getColumnsToOrder()).contains(Order.asc("TITLE"));
+  }
 }
