@@ -12,10 +12,8 @@
  */
 package org.assertj.db.database.h2;
 
-import org.assertj.db.common.NeedReload;
-import org.assertj.db.type.*;
-import org.junit.Before;
-import org.junit.Test;
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.assertj.db.api.Assertions.bytesContentFromClassPathOf;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -24,8 +22,25 @@ import java.sql.Timestamp;
 import java.util.Locale;
 import java.util.UUID;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.api.Assertions.bytesContentFromClassPathOf;
+import org.assertj.core.api.Assertions;
+import org.assertj.db.common.NeedReload;
+import org.assertj.db.type.Change;
+import org.assertj.db.type.Changes;
+import org.assertj.db.type.Column;
+import org.assertj.db.type.DateTimeValue;
+import org.assertj.db.type.DateValue;
+import org.assertj.db.type.Request;
+import org.assertj.db.type.Row;
+import org.assertj.db.type.Source;
+import org.assertj.db.type.SourceWithLetterCase;
+import org.assertj.db.type.Table;
+import org.assertj.db.type.TimeValue;
+import org.assertj.db.type.Value;
+import org.assertj.db.type.ValueType;
+import org.assertj.db.type.lettercase.CaseComparisons;
+import org.assertj.db.type.lettercase.CaseConversions;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Test on the H2 database.
@@ -1506,5 +1521,158 @@ public class H2Database_Source_UIUIUI_Test extends AbstractH2Test {
             .value("var60")  // ARRAY is not implemented (no idea of the goal so wait a issue from user)
             .value("var61")  // GEOMETRY is not implemented (no idea of the goal so wait a issue from user)
     ;
+  }
+
+  @Test
+  @NeedReload
+  public void test_getTableLetterCase() {
+    SourceWithLetterCase sourceWithLetterCase = (SourceWithLetterCase) source;
+
+    Table table = new Table(source, "test");
+
+    Request request = new Request(source, "select * from test");
+
+    Changes changes = new Changes(table).setStartPointNow();
+    update();
+    changes.setEndPointNow();
+    Change change = changes.getChangesList().get(0);
+
+
+    Assertions.assertThat(sourceWithLetterCase.getTableLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
+
+    Assertions.assertThat(table.getTableLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
+
+    Assertions.assertThat(request.getTableLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
+
+    Assertions.assertThat(changes.getTableLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
+    Assertions.assertThat(change.getTableLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
+
+
+    Assertions.assertThat(sourceWithLetterCase.getTableLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
+
+    Assertions.assertThat(table.getTableLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
+
+    Assertions.assertThat(request.getTableLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
+
+    Assertions.assertThat(changes.getTableLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
+    Assertions.assertThat(change.getTableLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
+  }
+
+  @Test
+  @NeedReload
+  public void test_getColumnLetterCase() {
+    SourceWithLetterCase sourceWithLetterCase = (SourceWithLetterCase) source;
+
+    Table table = new Table(source, "test");
+    Row tableRow = table.getRow(0);
+    Column tableColumn = table.getColumn(0);
+    Value tableRowValue = tableRow.getColumnValue(0);
+    Value tableColumnValue = tableColumn.getRowValue(0);
+
+    Request request = new Request(source, "select * from test");
+    Row requestRow = request.getRow(0);
+    Column requestColumn = request.getColumn(0);
+    Value requestRowValue = requestRow.getColumnValue(0);
+    Value requestColumnValue = requestColumn.getRowValue(0);
+
+    Changes changes = new Changes(table).setStartPointNow();
+    update();
+    changes.setEndPointNow();
+    Change change = changes.getChangesList().get(0);
+    Row rowAtStartPoint = change.getRowAtStartPoint();
+    Row rowAtEndPoint = change.getRowAtEndPoint();
+    Value valueAtStartPoint = rowAtStartPoint.getColumnValue(0);
+    Value valueAtEndPoint = rowAtEndPoint.getColumnValue(0);
+
+
+    Assertions.assertThat(sourceWithLetterCase.getColumnLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
+
+    Assertions.assertThat(table.getColumnLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
+    Assertions.assertThat(tableRow.getColumnLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
+    Assertions.assertThat(tableColumn.getColumnLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
+    Assertions.assertThat(tableRowValue.getColumnLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
+    Assertions.assertThat(tableColumnValue.getColumnLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
+
+    Assertions.assertThat(request.getColumnLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
+    Assertions.assertThat(requestRow.getColumnLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
+    Assertions.assertThat(requestColumn.getColumnLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
+    Assertions.assertThat(requestRowValue.getColumnLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
+    Assertions.assertThat(requestColumnValue.getColumnLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
+
+    Assertions.assertThat(changes.getColumnLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
+    Assertions.assertThat(change.getColumnLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
+    Assertions.assertThat(rowAtStartPoint.getColumnLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
+    Assertions.assertThat(rowAtEndPoint.getColumnLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
+    Assertions.assertThat(valueAtStartPoint.getColumnLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
+    Assertions.assertThat(valueAtEndPoint.getColumnLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
+
+
+    Assertions.assertThat(sourceWithLetterCase.getColumnLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
+
+    Assertions.assertThat(table.getColumnLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
+    Assertions.assertThat(tableRow.getColumnLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
+    Assertions.assertThat(tableColumn.getColumnLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
+    Assertions.assertThat(tableRowValue.getColumnLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
+    Assertions.assertThat(tableColumnValue.getColumnLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
+
+    Assertions.assertThat(request.getColumnLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
+    Assertions.assertThat(requestRow.getColumnLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
+    Assertions.assertThat(requestColumn.getColumnLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
+    Assertions.assertThat(requestRowValue.getColumnLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
+    Assertions.assertThat(requestColumnValue.getColumnLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
+
+    Assertions.assertThat(changes.getColumnLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
+    Assertions.assertThat(change.getColumnLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
+    Assertions.assertThat(rowAtStartPoint.getColumnLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
+    Assertions.assertThat(rowAtEndPoint.getColumnLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
+    Assertions.assertThat(valueAtStartPoint.getColumnLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
+    Assertions.assertThat(valueAtEndPoint.getColumnLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
+  }
+
+  @Test
+  @NeedReload
+  public void test_getPrimaryKeyLetterCase() {
+    SourceWithLetterCase sourceWithLetterCase = (SourceWithLetterCase) source;
+
+    Table table = new Table(source, "test");
+    Row tableRow = table.getRow(0);
+
+    Request request = new Request(source, "select * from test");
+    Row requestRow = request.getRow(0);
+
+    Changes changes = new Changes(table).setStartPointNow();
+    update();
+    changes.setEndPointNow();
+    Change change = changes.getChangesList().get(0);
+    Row rowAtStartPoint = change.getRowAtStartPoint();
+    Row rowAtEndPoint = change.getRowAtEndPoint();
+
+
+    Assertions.assertThat(sourceWithLetterCase.getPrimaryKeyLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
+
+    Assertions.assertThat(table.getPrimaryKeyLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
+    Assertions.assertThat(tableRow.getPrimaryKeyLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
+
+    Assertions.assertThat(request.getPrimaryKeyLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
+    Assertions.assertThat(requestRow.getPrimaryKeyLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
+
+    Assertions.assertThat(changes.getPrimaryKeyLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
+    Assertions.assertThat(change.getPrimaryKeyLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
+    Assertions.assertThat(rowAtStartPoint.getPrimaryKeyLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
+    Assertions.assertThat(rowAtEndPoint.getPrimaryKeyLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
+
+
+    Assertions.assertThat(sourceWithLetterCase.getPrimaryKeyLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
+
+    Assertions.assertThat(table.getPrimaryKeyLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
+    Assertions.assertThat(tableRow.getPrimaryKeyLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
+
+    Assertions.assertThat(request.getPrimaryKeyLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
+    Assertions.assertThat(requestRow.getPrimaryKeyLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
+
+    Assertions.assertThat(changes.getPrimaryKeyLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
+    Assertions.assertThat(change.getPrimaryKeyLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
+    Assertions.assertThat(rowAtStartPoint.getPrimaryKeyLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
+    Assertions.assertThat(rowAtEndPoint.getPrimaryKeyLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
   }
 }

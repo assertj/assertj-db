@@ -172,23 +172,28 @@ public class Value implements DbElement, WithColumnLetterCase {
    * @return {@code true} is comparison is possible.
    */
   public boolean isComparisonPossible(Object object) {
-    switch (valueType) {
-    case BYTES:
+    if (valueType == ValueType.BYTES) {
       return (object instanceof byte[]);
-    case BOOLEAN:
+    }
+    else if (valueType == ValueType.BOOLEAN) {
       return (object instanceof Boolean);
-    case TEXT:
+    }
+    else if (valueType == ValueType.TEXT) {
       return (object instanceof String);
-    case DATE:
-    case DATE_TIME:
+    }
+    else if (valueType == ValueType.DATE || valueType == ValueType.DATE_TIME) {
       return (object instanceof DateValue ||object instanceof DateTimeValue ||  object instanceof String);
-    case TIME:
+    }
+    else if (valueType == ValueType.TIME) {
       return (object instanceof TimeValue || object instanceof String);
-    case NUMBER:
+    }
+    else if (valueType == ValueType.NUMBER) {
       return (object instanceof Number || object instanceof String);
-    case UUID:
+    }
+    else if (valueType == ValueType.UUID) {
       return (object instanceof UUID || object instanceof String);
-    case NOT_IDENTIFIED:
+    }
+    else if (valueType == ValueType.NOT_IDENTIFIED) {
       if (value == null) {
         return object == null;
       }
@@ -196,6 +201,7 @@ public class Value implements DbElement, WithColumnLetterCase {
         return value.getClass().equals(object.getClass());
       }
     }
+
     return false;
   }
 }

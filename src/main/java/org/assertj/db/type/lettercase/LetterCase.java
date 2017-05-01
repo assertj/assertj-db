@@ -65,11 +65,11 @@ public class LetterCase implements CaseConversion, CaseComparison {
     }
 
     if (CACHE == null) {
-      CACHE = new HashMap();
+      CACHE = new HashMap<CaseConversion, Map<CaseComparison, LetterCase>>();
     }
     Map<CaseComparison, LetterCase> map = CACHE.get(conversion);
     if (map == null) {
-      map = new HashMap();
+      map = new HashMap<CaseComparison, LetterCase>();
       CACHE.put(conversion, map);
       LetterCase letterCase = new LetterCase(conversion, comparison);
       map.put(comparison, letterCase);
