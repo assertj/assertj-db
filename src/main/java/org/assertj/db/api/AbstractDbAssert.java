@@ -117,6 +117,12 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
 
   /** {@inheritDoc} */
   @Override
+  public A isEmpty() {
+    return hasNumberOfRows(0);
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public A hasNumberOfRows(int expected) {
     List<Row> rowsList = actual.getRowsList();
     int size = rowsList.size();

@@ -95,6 +95,12 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
 
   /** {@inheritDoc} */
   @Override
+  public C isEmpty() {
+    return hasNumberOfRows(0);
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public C hasNumberOfRows(int expected) {
     return AssertionsOnNumberOfRows.hasNumberOfRows(myself, info, column.getValuesList().size(), expected);
   }
