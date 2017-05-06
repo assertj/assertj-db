@@ -28,13 +28,13 @@ import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 /**
- * Tests on {@link org.assertj.db.api.assertions.impl.AssertionsOnColumnContent} class :
- * {@link org.assertj.db.api.assertions.impl.AssertionsOnColumnContent#containsValues(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, java.util.List, String...)} method.
+ * Tests on {@link AssertionsOnColumnContent} class :
+ * {@link AssertionsOnColumnContent#containsValues(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, java.util.List, Boolean...)} method.
  *
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnColumnContent_ContainsValues_String extends AbstractTest {
+public class AssertionsOnColumnContent_ContainsValues_Boolean_Test extends AbstractTest {
 
   /**
    * This method tests the {@code containsValues} assertion method.
@@ -44,14 +44,20 @@ public class AssertionsOnColumnContent_ContainsValues_String extends AbstractTes
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "test1"), getValue(null, "test2"), getValue(null,
-                                                                                                                "test1"), getValue(
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, true), getValue(null, false), getValue(null, null)));
+    TableAssert tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list, Boolean.TRUE,
+                                                                        Boolean.FALSE, null);
+    Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
+    tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list, Boolean.FALSE,
+                                                            Boolean.TRUE, null);
+    Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
+    tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list, null, Boolean.FALSE,
+                                                            Boolean.TRUE);
+    Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
+    list = new ArrayList<>(Arrays.asList(getValue(null, true), getValue(null, false), getValue(null, false), getValue(
             null, null)));
-    TableAssert tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list, "test1", "test2", "test1", null);
-    Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list, "test2", "test1", "test1", null);
-    Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list, null, "test1", "test1", "test2");
+    tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list, null, Boolean.FALSE,
+                                                            Boolean.TRUE, Boolean.FALSE);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -64,57 +70,56 @@ public class AssertionsOnColumnContent_ContainsValues_String extends AbstractTes
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "test1"), getValue(null, "test2"), getValue(null,
-                                                                                                                "test1"), getValue(
-            null, null)));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, true), getValue(null, false), getValue(null, null)));
     try {
-      AssertionsOnColumnContent.containsValues(tableAssert, info, list, "test1", null, "test1", null);
+      AssertionsOnColumnContent.containsValues(tableAssert, info, list, null, null,
+                                               Boolean.TRUE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
                                                                     + "Expecting:%n"
-                                                                    + "  <[\"test1\", \"test2\", \"test1\", null]>%n"
+                                                                    + "  <[true, false, null]>%n"
                                                                     + "to contain: %n"
-                                                                    + "  <[\"test1\", null, \"test1\", null]>%n"
-                                                                    + " (parameter <null> at index 3 is not found)"));
+                                                                    + "  <[null, null, true]>%n"
+                                                                    + " (parameter <null> at index 1 is not found)"));
     }
     list = new ArrayList<>(Arrays.asList(getValue(null, true), getValue(null, false), getValue(null, false), getValue(
             null, null)));
     try {
-      AssertionsOnColumnContent.containsValues(tableAssert, info, list, "test1", "test2", "test1", "test1");
+      AssertionsOnColumnContent.containsValues(tableAssert, info, list, null, Boolean.FALSE,
+                                               Boolean.TRUE, Boolean.TRUE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at index 0:%n"
-                                                                    + "  <true>%n"
-                                                                    + "to be of type%n"
-                                                                    + "  <[TEXT, NUMBER, DATE, TIME, DATE_TIME, UUID, NOT_IDENTIFIED]>%n"
-                                                                    + "but was of type%n"
-                                                                    + "  <BOOLEAN>"));
+                                                                    + "Expecting:%n"
+                                                                    + "  <[true, false, false, null]>%n"
+                                                                    + "to contain: %n"
+                                                                    + "  <[null, false, true, true]>%n"
+                                                                    + " (parameter <true> at index 3 is not found)"));
     }
   }
 
   /**
-   * This method should fail because one of the values is not a text.
+   * This method should fail because one of the values is not a boolean.
    */
   @Test
-  public void should_fail_because_one_value_is_not_a_text() throws Exception {
+  public void should_fail_because_one_value_is_not_a_boolean() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "other"), getValue(null, false)));
     try {
-      AssertionsOnColumnContent.containsValues(tableAssert, info, list, "test1", "test2");
+      AssertionsOnColumnContent.containsValues(tableAssert, info, list, Boolean.TRUE, Boolean.FALSE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at index 1:%n"
-                                                                    + "  <false>%n"
+                                                                    + "Expecting that the value at index 0:%n"
+                                                                    + "  <\"other\">%n"
                                                                     + "to be of type%n"
-                                                                    + "  <[TEXT, NUMBER, DATE, TIME, DATE_TIME, UUID, NOT_IDENTIFIED]>%n"
+                                                                    + "  <[BOOLEAN, NOT_IDENTIFIED]>%n"
                                                                     + "but was of type%n"
-                                                                    + "  <BOOLEAN>"));
+                                                                    + "  <TEXT>"));
     }
   }
 
@@ -127,9 +132,9 @@ public class AssertionsOnColumnContent_ContainsValues_String extends AbstractTes
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "test1"), getValue(null, "test2")));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, true), getValue(null, false)));
     try {
-      AssertionsOnColumnContent.containsValues(tableAssert, info, list, "test1", "test2", "test2");
+      AssertionsOnColumnContent.containsValues(tableAssert, info, list, Boolean.TRUE, Boolean.FALSE, Boolean.FALSE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"

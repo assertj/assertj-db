@@ -34,7 +34,7 @@ import static org.junit.Assert.fail;
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnColumnContent_ContainsValues_Number extends AbstractTest {
+public class AssertionsOnColumnContent_ContainsValues_Number_Test extends AbstractTest {
 
   /**
    * This method tests the {@code containsValues} assertion method.

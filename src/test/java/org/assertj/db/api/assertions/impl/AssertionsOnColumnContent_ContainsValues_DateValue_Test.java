@@ -16,10 +16,12 @@ import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.common.AbstractTest;
+import org.assertj.db.type.DateValue;
 import org.assertj.db.type.Table;
 import org.assertj.db.type.Value;
 import org.junit.Test;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,12 +31,12 @@ import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link org.assertj.db.api.assertions.impl.AssertionsOnColumnContent} class :
- * {@link org.assertj.db.api.assertions.impl.AssertionsOnColumnContent#containsValues(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, java.util.List, byte[]...)} method.
+ * {@link org.assertj.db.api.assertions.impl.AssertionsOnColumnContent#containsValues(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, java.util.List, org.assertj.db.type.DateValue...)} method.
  *
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnColumnContent_ContainsValues_Bytes extends AbstractTest {
+public class AssertionsOnColumnContent_ContainsValues_DateValue_Test extends AbstractTest {
 
   /**
    * This method tests the {@code containsValues} assertion method.
@@ -44,14 +46,18 @@ public class AssertionsOnColumnContent_ContainsValues_Bytes extends AbstractTest
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, new byte[] {0, 1}), getValue(null, new byte[] {2, 3})));
-    TableAssert tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list, new byte[] {0, 1}, new byte[] {2, 3});
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, Date.valueOf("2007-12-23")),
+                                                     getValue(null, Date.valueOf("2002-07-25")),
+                                                     getValue(null, null)));
+    TableAssert tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list,
+                                                                        DateValue.of(2007, 12, 23),
+                                                                        DateValue.of(2002, 7, 25),
+                                                                        null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list, new byte[] {2, 3}, new byte[] {0, 1});
-    Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    list = new ArrayList<>(Arrays.asList(getValue(null, new byte[] {0, 1}), getValue(null, new byte[] {2, 3}), getValue(
-            null, null), getValue(null, new byte[] {2, 3})));
-    tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list, null, new byte[] {2, 3}, new byte[] {0, 1}, new byte[] {2, 3});
+    tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list,
+                                                            DateValue.of(2002, 7, 25),
+                                                            DateValue.of(2007, 12, 23),
+                                                            null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -64,37 +70,47 @@ public class AssertionsOnColumnContent_ContainsValues_Bytes extends AbstractTest
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, new byte[] {0, 1}), getValue(null, new byte[] {2, 3}), getValue(
-            null, null), getValue(null, new byte[] {2, 3})));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, Date.valueOf("2007-12-23")),
+                                                     getValue(null, Date.valueOf("2002-07-25")),
+                                                     getValue(null, null)));
     try {
-      AssertionsOnColumnContent.containsValues(tableAssert, info, list, null, new byte[] {2, 3}, null, new byte[] {2, 3});
+      AssertionsOnColumnContent.containsValues(tableAssert, info, list,
+                                               DateValue.of(2007, 12, 23),
+                                               DateValue.of(2007, 12, 23),
+                                               null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting to contain values but not%n"
-                                                                    + " (parameter at index 2 is not found)"));
+                                                                    + "Expecting:%n"
+                                                                    + "  <[2007-12-23T00:00:00.000, 2002-07-25T00:00:00.000, null]>%n"
+                                                                    + "to contain: %n"
+                                                                    + "  <[2007-12-23, 2007-12-23, null]>%n"
+                                                                    + " (parameter <2007-12-23> at index 1 is not found)"));
     }
   }
 
   /**
-   * This method should fail because one of the values is not a bytes.
+   * This method should fail because one of the values is not a date/time.
    */
   @Test
-  public void should_fail_because_one_value_is_not_a_bytes() throws Exception {
+  public void should_fail_because_one_value_is_not_a_date() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "other"), getValue(null, new byte[] {2, 3})));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "other"),
+                                                     getValue(null, Date.valueOf("2002-07-25"))));
     try {
-      AssertionsOnColumnContent.containsValues(tableAssert, info, list, new byte[] {0, 1}, new byte[] {2, 3});
+      AssertionsOnColumnContent.containsValues(tableAssert, info, list,
+                                               DateValue.of(2007, 12, 23),
+                                               DateValue.of(2007, 12, 23));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
                                                                     + "Expecting that the value at index 0:%n"
                                                                     + "  <\"other\">%n"
                                                                     + "to be of type%n"
-                                                                    + "  <[BYTES, NOT_IDENTIFIED]>%n"
+                                                                    + "  <[DATE, DATE_TIME, NOT_IDENTIFIED]>%n"
                                                                     + "but was of type%n"
                                                                     + "  <TEXT>"));
     }
@@ -109,9 +125,13 @@ public class AssertionsOnColumnContent_ContainsValues_Bytes extends AbstractTest
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, new byte[] {0, 1}), getValue(null, new byte[] {2, 3})));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, Date.valueOf("2007-12-23")),
+                                                     getValue(null, Date.valueOf("2002-07-25"))));
     try {
-      AssertionsOnColumnContent.containsValues(tableAssert, info, list, new byte[] {0, 1}, new byte[] {2, 3}, new byte[] {2, 3});
+      AssertionsOnColumnContent.containsValues(tableAssert, info, list,
+                                               DateValue.of(2007, 12, 23),
+                                               DateValue.of(2007, 12, 23),
+                                               DateValue.of(2007, 12, 23));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"

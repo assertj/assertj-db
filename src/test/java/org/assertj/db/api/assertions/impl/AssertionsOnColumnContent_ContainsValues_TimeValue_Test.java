@@ -17,9 +17,11 @@ import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
+import org.assertj.db.type.TimeValue;
 import org.assertj.db.type.Value;
 import org.junit.Test;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,13 +30,13 @@ import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 /**
- * Tests on {@link AssertionsOnColumnContent} class :
- * {@link AssertionsOnColumnContent#containsValues(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, java.util.List, Boolean...)} method.
+ * Tests on {@link org.assertj.db.api.assertions.impl.AssertionsOnColumnContent} class :
+ * {@link org.assertj.db.api.assertions.impl.AssertionsOnColumnContent#containsValues(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, java.util.List, org.assertj.db.type.TimeValue...)} method.
  *
  * @author Régis Pouiller
  *
  */
-public class AssertionsOnColumnContent_ContainsValues_Boolean extends AbstractTest {
+public class AssertionsOnColumnContent_ContainsValues_TimeValue_Test extends AbstractTest {
 
   /**
    * This method tests the {@code containsValues} assertion method.
@@ -44,20 +46,18 @@ public class AssertionsOnColumnContent_ContainsValues_Boolean extends AbstractTe
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, true), getValue(null, false), getValue(null, null)));
-    TableAssert tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list, Boolean.TRUE,
-                                                                        Boolean.FALSE, null);
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, Time.valueOf("09:01:00")),
+                                                              getValue(null, Time.valueOf("03:30:05")), getValue(null,
+                                                                                                                 null)));
+    TableAssert tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list,
+                                                                        TimeValue.of(9, 1),
+                                                                        TimeValue.of(3, 30, 5),
+                                                                        null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list, Boolean.FALSE,
-                                                            Boolean.TRUE, null);
-    Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list, null, Boolean.FALSE,
-                                                            Boolean.TRUE);
-    Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    list = new ArrayList<>(Arrays.asList(getValue(null, true), getValue(null, false), getValue(null, false), getValue(
-            null, null)));
-    tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list, null, Boolean.FALSE,
-                                                            Boolean.TRUE, Boolean.FALSE);
+    tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list,
+                                                            TimeValue.of(3, 30, 5),
+                                                            TimeValue.of(9, 1),
+                                                            null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -70,54 +70,45 @@ public class AssertionsOnColumnContent_ContainsValues_Boolean extends AbstractTe
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, true), getValue(null, false), getValue(null, null)));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, Time.valueOf("09:01:00")),
+                                                     getValue(null, Time.valueOf("03:30:05")), getValue(null, null)));
     try {
-      AssertionsOnColumnContent.containsValues(tableAssert, info, list, null, null,
-                                               Boolean.TRUE);
+      AssertionsOnColumnContent.containsValues(tableAssert, info, list,
+                                               TimeValue.of(9, 1),
+                                               TimeValue.of(9, 1),
+                                               null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
                                                                     + "Expecting:%n"
-                                                                    + "  <[true, false, null]>%n"
+                                                                    + "  <[09:01:00.000000000, 03:30:05.000000000, null]>%n"
                                                                     + "to contain: %n"
-                                                                    + "  <[null, null, true]>%n"
-                                                                    + " (parameter <null> at index 1 is not found)"));
-    }
-    list = new ArrayList<>(Arrays.asList(getValue(null, true), getValue(null, false), getValue(null, false), getValue(
-            null, null)));
-    try {
-      AssertionsOnColumnContent.containsValues(tableAssert, info, list, null, Boolean.FALSE,
-                                               Boolean.TRUE, Boolean.TRUE);
-      fail("An exception must be raised");
-    } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <[true, false, false, null]>%n"
-                                                                    + "to contain: %n"
-                                                                    + "  <[null, false, true, true]>%n"
-                                                                    + " (parameter <true> at index 3 is not found)"));
+                                                                    + "  <[09:01:00.000000000, 09:01:00.000000000, null]>%n"
+                                                                    + " (parameter <09:01:00.000000000> at index 1 is not found)"));
     }
   }
 
   /**
-   * This method should fail because one of the values is not a boolean.
+   * This method should fail because one of the values is not a date/time.
    */
   @Test
-  public void should_fail_because_one_value_is_not_a_boolean() throws Exception {
+  public void should_fail_because_one_value_is_not_a_time() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "other"), getValue(null, false)));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "other"), getValue(null, Time.valueOf("03:30:05"))));
     try {
-      AssertionsOnColumnContent.containsValues(tableAssert, info, list, Boolean.TRUE, Boolean.FALSE);
+      AssertionsOnColumnContent.containsValues(tableAssert, info, list,
+                                               TimeValue.of(9, 1),
+                                               TimeValue.of(9, 1));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
                                                                     + "Expecting that the value at index 0:%n"
                                                                     + "  <\"other\">%n"
                                                                     + "to be of type%n"
-                                                                    + "  <[BOOLEAN, NOT_IDENTIFIED]>%n"
+                                                                    + "  <[TIME, NOT_IDENTIFIED]>%n"
                                                                     + "but was of type%n"
                                                                     + "  <TEXT>"));
     }
@@ -132,9 +123,13 @@ public class AssertionsOnColumnContent_ContainsValues_Boolean extends AbstractTe
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, true), getValue(null, false)));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, Time.valueOf("09:01:00")), getValue(null, Time.valueOf(
+            "03:30:05"))));
     try {
-      AssertionsOnColumnContent.containsValues(tableAssert, info, list, Boolean.TRUE, Boolean.FALSE, Boolean.FALSE);
+      AssertionsOnColumnContent.containsValues(tableAssert, info, list,
+                                               TimeValue.of(9, 1),
+                                               TimeValue.of(9, 1),
+                                               TimeValue.of(9, 1));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
