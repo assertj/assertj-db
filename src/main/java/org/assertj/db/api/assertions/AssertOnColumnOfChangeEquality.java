@@ -208,6 +208,44 @@ public interface AssertOnColumnOfChangeEquality<T extends AssertOnColumnOfChange
   T hasValues(String expectedAtStartPoint, String expectedAtEndPoint);
 
   /**
+   * Verifies that the values at the start point and the end point are equal to a character.
+   * <p>
+   * Example where the assertion verifies that the values of the first {@code Column} of the {@code Table} are equal to
+   * 'c' :
+   * </p>
+   * <pre><code class='java'>
+   * assertThat(changes).change(1).column().hasValues('c');
+   * </code></pre>
+   *
+   * @param expected The expected character value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the values at start point and at end point are not equal to the character.
+   * @see org.assertj.db.api.ChangeColumnAssert#hasValues(Character)
+   * @since 1.2.0
+   */
+  T hasValues(Character expected);
+
+  /**
+   * Verifies that the values at the start point and the end point are equal to a character for start point
+   * and another character for end point.
+   * <p>
+   * Example where the assertion verifies that the values of the first {@code Column} of the {@code Table} are equal to
+   * 'c' at start point and 'S' at end point :
+   * </p>
+   * <pre><code class='java'>
+   * assertThat(changes).change(1).column().hasValues('c', 'S');
+   * </code></pre>
+   *
+   * @param expectedAtStartPoint The expected character at start point.
+   * @param expectedAtEndPoint   The expected character at end point.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the values at start point and at end point are not equal to the corresponding characters.
+   * @see org.assertj.db.api.ChangeColumnAssert#hasValues(Character, Character)
+   * @since 1.2.0
+   */
+  T hasValues(Character expectedAtStartPoint, Character expectedAtEndPoint);
+
+  /**
    * Verifies that the values at the start point and the end point are equal to an UUID.
    * <p>
    * Example where the assertion verifies that the values of the first {@code Column} of the {@code Table} are equal to

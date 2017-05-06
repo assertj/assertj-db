@@ -245,6 +245,38 @@ public interface AssertOnValueEquality<T extends AssertOnValueEquality<T>> {
   T isEqualTo(String expected);
 
   /**
+   * Verifies that the value is equal to a character.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is equal to a character :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isEqualTo('c');
+   * </code>
+   * </pre>
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
+   * of the first {@code Change} is equal to a character :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change().rowAtEndPoint().value().isEqualTo('c');
+   * </code>
+   * </pre>
+   *
+   * @param expected The expected character value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the character in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isEqualTo(Character)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isEqualTo(Character)
+   * @since 1.2.0
+   */
+  T isEqualTo(Character expected);
+
+  /**
    * Verifies that the value is equal to an UUID.
    * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the

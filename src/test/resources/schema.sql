@@ -38,7 +38,8 @@ create table test(
     var12 varchar,
     var13 decimal(20,2),
     var14 real,
-    var15 UUID
+    var15 UUID,
+    var16 char(1)
 );
 
 create table test2(
@@ -57,5 +58,6 @@ create table test2(
     var13 decimal(20,2),
     var14 real,
     var15 tinyint,
-    var16 UUID
+    var16 UUID,
+    var17 char(1)
 );

@@ -28,7 +28,7 @@ import java.lang.reflect.Constructor;
  * @author Régis Pouiller
  * @since 1.1.0
  */
-public abstract class PositionWithPoints<E extends AbstractElement<?> & Navigation, N extends AbstractElement<?> & Navigation, D extends DbElement> {
+public abstract class PositionWithPoints<E extends AbstractElement & Navigation, N extends AbstractElement & Navigation, D extends DbElement> {
 
   /**
    * Actual value.

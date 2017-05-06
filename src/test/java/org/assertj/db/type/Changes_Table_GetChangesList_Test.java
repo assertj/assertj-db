@@ -78,7 +78,7 @@ public class Changes_Table_GetChangesList_Test extends AbstractTest {
     assertThat(change.getDataName()).isEqualTo("TEST2");
     assertThat(change.getChangeType()).isEqualTo(ChangeType.DELETION);
     assertThat(change.getColumnsNameList()).containsExactly("VAR1", "VAR2", "VAR3", "VAR4", "VAR5", "VAR6", "VAR7",
-            "VAR8", "VAR9", "VAR10", "VAR11", "VAR12", "VAR13", "VAR14", "VAR15", "VAR16");
+            "VAR8", "VAR9", "VAR10", "VAR11", "VAR12", "VAR13", "VAR14", "VAR15", "VAR16", "VAR17");
     assertThat(change.getRowAtStartPoint().getValuesList().get(0).getValue()).isNull();
     assertThat(change.getRowAtStartPoint().getValuesList().get(1).getValue()).isNull();
     assertThat(change.getRowAtStartPoint().getValuesList().get(2).getValue()).isNull();
@@ -95,6 +95,7 @@ public class Changes_Table_GetChangesList_Test extends AbstractTest {
     assertThat(change.getRowAtStartPoint().getValuesList().get(13).getValue()).isNull();
     assertThat(change.getRowAtStartPoint().getValuesList().get(14).getValue()).isNull();
     assertThat(change.getRowAtStartPoint().getValuesList().get(15).getValue()).isNull();
+    assertThat(change.getRowAtStartPoint().getValuesList().get(16).getValue()).isNull();
     assertThat(change.getRowAtEndPoint()).isNull();
   }
 
@@ -117,7 +118,7 @@ public class Changes_Table_GetChangesList_Test extends AbstractTest {
     assertThat(change.getChangeType()).isEqualTo(ChangeType.CREATION);
     assertThat(change.getColumnsNameList()).containsExactly("VAR1", "VAR2", "VAR3", "VAR4", "VAR5", "VAR6", "VAR7",
                                                             "VAR8", "VAR9", "VAR10", "VAR11", "VAR12", "VAR13", "VAR14",
-                                                            "VAR15", "VAR16");
+                                                            "VAR15", "VAR16", "VAR17");
     assertThat(change.getRowAtStartPoint()).isNull();
     assertThat(change.getRowAtEndPoint().getValuesList().get(0).getValue()).isEqualTo(200);
     assertThat(change.getRowAtEndPoint().getValuesList().get(1).getValue()).isNull();
@@ -135,6 +136,7 @@ public class Changes_Table_GetChangesList_Test extends AbstractTest {
     assertThat(change.getRowAtEndPoint().getValuesList().get(13).getValue()).isNull();
     assertThat(change.getRowAtEndPoint().getValuesList().get(14).getValue()).isNull();
     assertThat(change.getRowAtEndPoint().getValuesList().get(15).getValue()).isNull();
+    assertThat(change.getRowAtEndPoint().getValuesList().get(16).getValue()).isNull();
   }
 
   /**
@@ -156,7 +158,7 @@ public class Changes_Table_GetChangesList_Test extends AbstractTest {
     assertThat(change.getChangeType()).isEqualTo(ChangeType.CREATION);
     assertThat(change.getColumnsNameList()).containsExactly("VAR1", "VAR2", "VAR3", "VAR4", "VAR5", "VAR6", "VAR7",
                                                             "VAR8", "VAR9", "VAR10", "VAR11", "VAR12", "VAR13", "VAR14",
-                                                            "VAR15", "VAR16");
+                                                            "VAR15", "VAR16", "VAR17");
     assertThat(change.getRowAtStartPoint()).isNull();
     assertThat(change.getRowAtEndPoint().getValuesList().get(0).getValue()).isEqualTo(1);
     assertThat(change.getRowAtEndPoint().getValuesList().get(1).getValue()).isEqualTo(true);
@@ -178,12 +180,13 @@ public class Changes_Table_GetChangesList_Test extends AbstractTest {
     assertThat(change.getRowAtEndPoint().getValuesList().get(14).getValue()).isEqualTo(null);
     assertThat(change.getRowAtEndPoint().getValuesList().get(15).getValue()).isEqualTo(UUID.fromString(
                                                                                               "30b443ae-c0c9-4790-9bec-ce1380808435"));
+    assertThat(change.getRowAtEndPoint().getValuesList().get(16).getValue()).isEqualTo("T");
     Change change1 = changes.getChangesList().get(1);
     assertThat(change1.getDataName()).isEqualTo("TEST2");
     assertThat(change1.getChangeType()).isEqualTo(ChangeType.DELETION);
     assertThat(change1.getColumnsNameList()).containsExactly("VAR1", "VAR2", "VAR3", "VAR4", "VAR5", "VAR6", "VAR7",
                                                              "VAR8", "VAR9", "VAR10", "VAR11", "VAR12", "VAR13",
-                                                             "VAR14", "VAR15", "VAR16");
+                                                             "VAR14", "VAR15", "VAR16", "VAR17");
     assertThat(change1.getRowAtStartPoint().getValuesList().get(0).getValue()).isEqualTo(1);
     assertThat(change1.getRowAtStartPoint().getValuesList().get(1).getValue()).isEqualTo(true);
     assertThat(change1.getRowAtStartPoint().getValuesList().get(2).getValue()).isEqualTo((byte) 2);
@@ -204,6 +207,7 @@ public class Changes_Table_GetChangesList_Test extends AbstractTest {
     assertThat(change1.getRowAtStartPoint().getValuesList().get(14).getValue()).isEqualTo(null);
     assertThat(change1.getRowAtStartPoint().getValuesList().get(15).getValue()).isEqualTo(UUID.fromString(
             "30b443ae-c0c9-4790-9bec-ce1380808435"));
+    assertThat(change1.getRowAtStartPoint().getValuesList().get(16).getValue()).isEqualTo("T");
     assertThat(change1.getRowAtEndPoint()).isNull();
   }
 

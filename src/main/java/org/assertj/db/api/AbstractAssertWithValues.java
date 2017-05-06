@@ -181,6 +181,12 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
 
   /** {@inheritDoc} */
   @Override
+  public E isEqualTo(Character expected) {
+    return AssertionsOnValueEquality.isEqualTo(myself, info, value, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public E isEqualTo(UUID expected) {
     return AssertionsOnValueEquality.isEqualTo(myself, info, value, expected);
   }
@@ -242,6 +248,12 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
   /** {@inheritDoc} */
   @Override
   public E isNotEqualTo(String expected) {
+    return AssertionsOnValueInequality.isNotEqualTo(myself, info, value, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E isNotEqualTo(Character expected) {
     return AssertionsOnValueInequality.isNotEqualTo(myself, info, value, expected);
   }
 

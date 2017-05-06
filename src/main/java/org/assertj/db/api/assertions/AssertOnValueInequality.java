@@ -249,6 +249,38 @@ public interface AssertOnValueInequality<T extends AssertOnValueInequality<T>> {
   T isNotEqualTo(String expected);
 
   /**
+   * Verifies that the value is not equal to a character.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is not equal to a character :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isNotEqualTo('c');
+   * </code>
+   * </pre>
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
+   * of the first {@code Change} is not equal to a character :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change().rowAtEndPoint().value().isNotEqualTo('c');
+   * </code>
+   * </pre>
+   *
+   * @param expected The expected character value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is equal to the character in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isNotEqualTo(Character)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isNotEqualTo(Character)
+   * @since 1.2.0
+   */
+  T isNotEqualTo(Character expected);
+
+  /**
    * Verifies that the value is not equal to an UUID.
    * <p>
    * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the

@@ -251,6 +251,48 @@ public class AssertionsOnColumnContent {
   }
 
   /**
+   * Verifies that the column contains characters.
+   *
+   * @param <A>        The type of the assertion which call this method.
+   * @param assertion  The assertion which call this method.
+   * @param info       Writable information about an assertion.
+   * @param valuesList The list of values.
+   * @param expected The expected character values.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the column are not containing the characters in parameter.
+   * @since 1.2.0
+   */
+  public static <A extends AbstractAssert<?>> A containsValues(A assertion, WritableAssertionInfo info,
+                                                       List<Value> valuesList, Character... expected) {
+    AssertionsOnColumnType.isText(assertion, info, valuesList, true);
+    AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
+    List<Value> list = new ArrayList<>(valuesList);
+    int index = 0;
+    for (Character val : expected) {
+      boolean found = false;
+      List<Value> newList = new ArrayList<>();
+      for (Value obj : list) {
+        if (found || !Values.areEqual(obj, val)) {
+          newList.add(obj);
+        }
+        else {
+          found = true;
+        }
+      }
+      if (!found) {
+        List<Object> listForError = new ArrayList<>();
+        for (Value obj : valuesList) {
+          listForError.add(Values.getRepresentationFromValueInFrontOfExpected(obj, Character.class));
+        }
+        throw failures.failure(info, shouldContainsValue(listForError, expected, val, index));
+      }
+      list = newList;
+      index++;
+    }
+    return assertion;
+  }
+
+  /**
    * Verifies that the column contains UUIDs.
    *
    * @param <A>        The type of the assertion which call this method.

@@ -68,6 +68,9 @@ public class Values {
       if (expected instanceof String) {
         return areEqual(value, (String) expected);
       }
+      else if (expected instanceof Character) {
+        return areEqual(value, (Character) expected);
+      }
     }
     else if (valueType == ValueType.UUID) {
       if (expected instanceof UUID) {
@@ -408,6 +411,28 @@ public class Values {
     } else if (object instanceof UUID) {
       return areEqual((UUID) object, expected);
     }
+    return expected.equals(object);
+  }
+
+  /**
+   * Returns if the value is equal to the {@code String} in parameter.
+   *
+   * @param value    The value.
+   * @param expected The {@code Character} to compare.
+   * @return {@code true} if the value is equal to the {@code Character} parameter, {@code false} otherwise.
+   * @throws NullPointerException if {@code expected} is {@code null}.
+   * @since 1.2.0
+   */
+  public static boolean areEqual(Value value, Character expected) {
+    Object object = value.getValue();
+    if (expected == null) {
+      return object == null;
+    }
+
+    if (object instanceof String) {
+      return ((String) object).charAt(0) == expected;
+    }
+
     return expected.equals(object);
   }
 

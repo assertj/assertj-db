@@ -35,7 +35,7 @@ import java.util.Map;
  * @author Régis Pouiller
  * @since 1.1.0
  */
-public abstract class PositionWithChanges<E extends AbstractElement<?> & Navigation, N extends AbstractElement<?> & Navigation> {
+public abstract class PositionWithChanges<E extends AbstractElement & Navigation, N extends AbstractElement & Navigation> {
 
   private final E myself;
 

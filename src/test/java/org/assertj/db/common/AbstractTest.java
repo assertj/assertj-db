@@ -88,31 +88,31 @@ public abstract class AbstractTest {
 
   private static final Operation INSERT_TEST = insertInto("test")
           .columns("var1", "var2", "var3", "var4", "var5", "var6", "var7", "var8", "var9", "var10", "var11", "var12",
-                   "var13", "var14", "var15")
+                   "var13", "var14", "var15", "var16")
           .values(1, true, 2, 3, 4, 5.6, 7.8, Time.valueOf("09:46:30"), Date.valueOf("2014-05-24"),
                   Timestamp.valueOf("2014-05-24 09:46:30"), new byte[0], "text", 5, 7,
-                  "30B443AE-C0C9-4790-9BEC-CE1380808435")
+                  "30B443AE-C0C9-4790-9BEC-CE1380808435", 'T')
 
           .values(10, false, 20, 30, 40, 50.6, 70.8, Time.valueOf("12:29:49"), Date.valueOf("2014-05-30"),
                   Timestamp.valueOf("2014-05-30 12:29:49"), new byte[0], "another text", 50, 70,
-                  "0E2A1269-EFF0-4233-B87B-B53E8B6F164D")
+                  "0E2A1269-EFF0-4233-B87B-B53E8B6F164D", 'e')
 
           .values(100, false, 25, 300, 400, 500.6, 700.8, Time.valueOf("12:29:49"), Date.valueOf("2014-05-30"),
                   Timestamp.valueOf("2014-05-30 00:00:00"), new byte[0], "another text again", 500, 700,
-                  "2B0D1BDD-909E-4362-BA10-C930BA82718D")
+                  "2B0D1BDD-909E-4362-BA10-C930BA82718D", 's')
 
           .values(1000, false, 0, 0, 0, 0, 0, Time.valueOf("12:29:49"), Date.valueOf("2014-05-30"),
                   Timestamp.valueOf("2014-05-30 00:00:00"), new byte[0], "another text again", 500, 700,
-                  "399FFFCA-7874-4225-9903-E227C4E9DCC1")
+                  "399FFFCA-7874-4225-9903-E227C4E9DCC1", 't')
           .build();
 
   private static final Operation INSERT_TEST2 = insertInto("test2")
           .columns("var1", "var2", "var3", "var4", "var5", "var6", "var7", "var8", "var9", "var10", "var11", "var12",
-                   "var13", "var14", "var15", "var16")
+                   "var13", "var14", "var15", "var16", "var17")
           .values(1, true, 2, 3, 4, 5.6, 7.8, Time.valueOf("09:46:30"), Date.valueOf("2014-05-24"),
                   Timestamp.valueOf("2014-05-24 09:46:30"), new byte[0], "text", 5, 7, null,
-                  "30B443AE-C0C9-4790-9BEC-CE1380808435")
-          .values(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
+                  "30B443AE-C0C9-4790-9BEC-CE1380808435", 'T')
+          .values(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
           .build();
 
   private static final Operation SQL = sql(

@@ -75,7 +75,9 @@ public class Value implements DbElement, WithColumnLetterCase {
     if (object instanceof Boolean) {
       return ValueType.BOOLEAN;
     }
-    if (object instanceof String) {
+    if (object instanceof String
+        || object instanceof Character) {
+
       return ValueType.TEXT;
     }
     if (object instanceof Date) {

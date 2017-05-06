@@ -122,6 +122,25 @@ public interface AssertOnColumnContent<T extends AssertOnColumnContent<T>> {
   T containsValues(String... expected);
 
   /**
+   * Verifies that the values of a column contains characters.
+   * <p>
+   * Example where the assertion verifies that the values in the first {@code Column} of the {@code Table} are containing
+   * the characters in parameter :
+   * </p>
+   *
+   * <pre><code class='java'>
+   * assertThat(table).column().containsValues('t', 'e', 'x', 't');
+   * </code></pre>
+   *
+   * @param expected The expected character values.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the column are not containing the characters in parameter.
+   * @see org.assertj.db.api.AbstractColumnAssert#containsValues(Character...)
+   * @since 1.2.0
+   */
+  T containsValues(Character... expected);
+
+  /**
    * Verifies that the values of a column containsUUIDs.
    * <p>
    * Example where the assertion verifies that the values in the first {@code Column} of the {@code Table} are containing

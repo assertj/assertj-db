@@ -192,6 +192,31 @@ public class AssertionsOnValueEquality {
   }
 
   /**
+   * Verifies that the value is equal to a character.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Writable information about an assertion.
+   * @param value     The value.
+   * @param expected  The expected character value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the character in parameter.
+   * @since 1.2.0
+   */
+  public static <A extends AbstractAssert<?>> A isEqualTo(A assertion, WritableAssertionInfo info, Value value,
+                                                       Character expected) {
+    if (expected != null) {
+      AssertionsOnValueType.isText(assertion, info, value);
+    }
+    if (areEqual(value, expected)) {
+      return assertion;
+    }
+    throw failures.failure(info, shouldBeEqual(
+            Values.getRepresentationFromValueInFrontOfExpected(value, expected),
+                                               expected));
+  }
+
+  /**
    * Verifies that the value is equal to an UUID.
    *
    * @param <A>       The type of the assertion which call this method.

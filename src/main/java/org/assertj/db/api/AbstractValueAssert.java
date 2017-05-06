@@ -199,6 +199,12 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
 
   /** {@inheritDoc} */
   @Override
+  public V isEqualTo(Character expected) {
+    return AssertionsOnValueEquality.isEqualTo(myself, info, value, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public V isEqualTo(UUID expected) {
     return AssertionsOnValueEquality.isEqualTo(myself, info, value, expected);
   }
@@ -260,6 +266,12 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
   /** {@inheritDoc} */
   @Override
   public V isNotEqualTo(String expected) {
+    return AssertionsOnValueInequality.isNotEqualTo(myself, info, value, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public V isNotEqualTo(Character expected) {
     return AssertionsOnValueInequality.isNotEqualTo(myself, info, value, expected);
   }
 

@@ -239,6 +239,12 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
 
   /** {@inheritDoc} */
   @Override
+  public C hasValues(Character... expected) {
+    return AssertionsOnColumnEquality.hasValues(myself, info, getValuesList(), expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public C hasValues(UUID... expected) {
     return AssertionsOnColumnEquality.hasValues(myself, info, getValuesList(), expected);
   }
@@ -288,6 +294,12 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
   /** {@inheritDoc} */
   @Override
   public C containsValues(String... expected) {
+    return AssertionsOnColumnContent.containsValues(myself, info, getValuesList(), expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public C containsValues(Character... expected) {
     return AssertionsOnColumnContent.containsValues(myself, info, getValuesList(), expected);
   }
 

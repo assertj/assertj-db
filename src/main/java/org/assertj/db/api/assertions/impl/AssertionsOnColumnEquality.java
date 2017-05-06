@@ -179,6 +179,32 @@ public class AssertionsOnColumnEquality {
   }
 
   /**
+   * Verifies that the values of a column are equal to characters.
+   *
+   * @param <A>        The type of the assertion which call this method.
+   * @param assertion  The assertion which call this method.
+   * @param info       Writable information about an assertion.
+   * @param valuesList The list of values.
+   * @param expected The expected character values.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the values of the column are not equal to the characters in parameter.
+   * @since 1.2.0
+   */
+  public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
+                                                       List<Value> valuesList, Character... expected) {
+    AssertionsOnColumnType.isText(assertion, info, valuesList, true);
+    AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
+    int index = 0;
+    for (Value value : valuesList) {
+      if (!areEqual(value, expected[index])) {
+        throw failures.failure(info, shouldBeEqual(index, value.getValue(), expected[index]));
+      }
+      index++;
+    }
+    return assertion;
+  }
+
+  /**
    * Verifies that the values of a column are equal to UUIDs.
    *
    * @param <A>        The type of the assertion which call this method.

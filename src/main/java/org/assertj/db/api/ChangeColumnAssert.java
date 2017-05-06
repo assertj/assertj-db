@@ -185,6 +185,21 @@ public class ChangeColumnAssert
 
   /** {@inheritDoc} */
   @Override
+  public ChangeColumnAssert hasValues(Character expected) {
+    return AssertionsOnColumnOfChangeEquality
+            .hasValues(myself, info, valueAtStartPoint, valueAtEndPoint, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeColumnAssert hasValues(Character expectedAtStartPoint, Character expectedAtEndPoint) {
+    return AssertionsOnColumnOfChangeEquality
+            .hasValues(myself, info, valueAtStartPoint, valueAtEndPoint, expectedAtStartPoint,
+                       expectedAtEndPoint);
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public ChangeColumnAssert hasValues(UUID expected) {
     return AssertionsOnColumnOfChangeEquality
             .hasValues(myself, info, valueAtStartPoint, valueAtEndPoint, expected);

@@ -122,6 +122,25 @@ public interface AssertOnColumnEquality<T extends AssertOnColumnEquality<T>> {
   T hasValues(String... expected);
 
   /**
+   * Verifies that the values of a column are equal to characters.
+   * <p>
+   * Example where the assertion verifies that the values in the first {@code Column} of the {@code Table} are equal to
+   * the characters in parameter :
+   * </p>
+   *
+   * <pre><code class='java'>
+   * assertThat(table).column().hasValues('t', 'e', 'x', 't');
+   * </code></pre>
+   *
+   * @param expected The expected character values.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the values of the column are not equal to the characters in parameter.
+   * @see org.assertj.db.api.AbstractColumnAssert#hasValues(Character...)
+   * @since 1.2.0
+   */
+  T hasValues(Character... expected);
+
+  /**
    * Verifies that the values of a column are equal to UUIDs.
    * <p>
    * Example where the assertion verifies that the values in the first {@code Column} of the {@code Table} are equal to

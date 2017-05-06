@@ -336,6 +336,61 @@ public class AssertionsOnColumnOfChangeEquality {
   }
 
   /**
+   * Verifies that the values at the start point and the end point are equal to a character.
+   *
+   * @param <A>               The type of the assertion which call this method.
+   * @param assertion         The assertion which call this method.
+   * @param info              Writable information about an assertion.
+   * @param valueAtStartPoint The value at start point.
+   * @param valueAtEndPoint   The value at end point.
+   * @param expected          The character value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the values at start point and at end point are not equal to the character.
+   * @since 1.2.0
+   */
+  public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
+                                                       Value valueAtStartPoint, Value valueAtEndPoint,
+                                                       Character expected) {
+
+    AssertionsOnColumnOfChangeType.isText(assertion, info, valueAtStartPoint, valueAtEndPoint, true);
+    if (!areEqual(valueAtStartPoint, expected)) {
+      throw failures.failure(info, shouldBeEqualWithStartPoint(valueAtStartPoint.getValue(), expected));
+    }
+    if (!areEqual(valueAtEndPoint, expected)) {
+      throw failures.failure(info, shouldBeEqualWithEndPoint(valueAtEndPoint.getValue(), expected));
+    }
+    return assertion;
+  }
+
+  /**
+   * Verifies that the values at the start point and the end point are equal to a character for start point and another character for end point.
+   *
+   * @param <A>                  The type of the assertion which call this method.
+   * @param assertion            The assertion which call this method.
+   * @param info                 Writable information about an assertion.
+   * @param valueAtStartPoint    The value at start point.
+   * @param valueAtEndPoint      The value at end point.
+   * @param expectedAtStartPoint The expected character at start point.
+   * @param expectedAtEndPoint   The expected character at end point.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the values at start point and at end point are not equal to the corresponding characters.
+   * @since 1.2.0
+   */
+  public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
+                                                       Value valueAtStartPoint, Value valueAtEndPoint,
+                                                       Character expectedAtStartPoint, Character expectedAtEndPoint) {
+
+    AssertionsOnColumnOfChangeType.isText(assertion, info, valueAtStartPoint, valueAtEndPoint, true);
+    if (!areEqual(valueAtStartPoint, expectedAtStartPoint)) {
+      throw failures.failure(info, shouldBeEqualWithStartPoint(valueAtStartPoint.getValue(), expectedAtStartPoint));
+    }
+    if (!areEqual(valueAtEndPoint, expectedAtEndPoint)) {
+      throw failures.failure(info, shouldBeEqualWithEndPoint(valueAtEndPoint.getValue(), expectedAtEndPoint));
+    }
+    return assertion;
+  }
+
+  /**
    * Verifies that the values at the start point and the end point are equal to a date.
    *
    * @param <A>               The type of the assertion which call this method.
