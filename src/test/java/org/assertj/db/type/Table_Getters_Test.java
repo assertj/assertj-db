@@ -42,6 +42,8 @@ public class Table_Getters_Test extends AbstractTest {
     assertThat(table.getName()).isNull();
     assertThat(table.getColumnsToCheck()).isNull();
     assertThat(table.getColumnsToExclude()).isNull();
+    assertThat(table.getStartDelimiter()).isNull();
+    assertThat(table.getEndDelimiter()).isNull();
   }
 
   /**
@@ -56,6 +58,8 @@ public class Table_Getters_Test extends AbstractTest {
     assertThat(table.getName()).isNull();
     assertThat(table.getColumnsToCheck()).isNull();
     assertThat(table.getColumnsToExclude()).isNull();
+    assertThat(table.getStartDelimiter()).isNull();
+    assertThat(table.getEndDelimiter()).isNull();
   }
 
   /**
@@ -70,6 +74,8 @@ public class Table_Getters_Test extends AbstractTest {
     assertThat(table.getName()).isNull();
     assertThat(table.getColumnsToCheck()).isNull();
     assertThat(table.getColumnsToExclude()).isNull();
+    assertThat(table.getStartDelimiter()).isNull();
+    assertThat(table.getEndDelimiter()).isNull();
   }
 
   /**
@@ -84,6 +90,8 @@ public class Table_Getters_Test extends AbstractTest {
     assertThat(table.getName()).isNull();
     assertThat(table.getColumnsToCheck()).isNull();
     assertThat(table.getColumnsToExclude()).isNull();
+    assertThat(table.getStartDelimiter()).isNull();
+    assertThat(table.getEndDelimiter()).isNull();
   }
 
   /**
@@ -99,6 +107,8 @@ public class Table_Getters_Test extends AbstractTest {
     assertThat(table.getColumnsToCheck()).isNull();
     assertThat(table.getColumnsToExclude()).isNull();
     assertThat(table.getRequest()).isEqualTo("SELECT * FROM MOVIE");
+    assertThat(table.getStartDelimiter()).isNull();
+    assertThat(table.getEndDelimiter()).isNull();
   }
 
   /**
@@ -115,6 +125,8 @@ public class Table_Getters_Test extends AbstractTest {
     assertThat(table.getColumnsToCheck()).containsExactly("TITLE", "YEAR");
     assertThat(table.getColumnsToExclude()).containsExactly("ID");
     assertThat(table.getRequest()).isEqualTo("SELECT TITLE, YEAR FROM MOVIE");
+    assertThat(table.getStartDelimiter()).isNull();
+    assertThat(table.getEndDelimiter()).isNull();
   }
 
   /**
@@ -134,6 +146,8 @@ public class Table_Getters_Test extends AbstractTest {
     assertThat(table.getColumnsToExclude()).containsExactly("ID");
     assertThat(table.getColumnsToOrder()).containsExactly(asc("TITLE"), desc("YEAR"));
     assertThat(table.getRequest()).isEqualTo("SELECT TITLE, YEAR FROM MOVIE ORDER BY TITLE, YEAR DESC");
+    assertThat(table.getStartDelimiter()).isNull();
+    assertThat(table.getEndDelimiter()).isNull();
   }
 
   /**
@@ -152,5 +166,84 @@ public class Table_Getters_Test extends AbstractTest {
     assertThat(table.getColumnsToExclude()).isNull();
     assertThat(table.getColumnsToOrder()).containsExactly(asc("TITLE"), desc("YEAR"));
     assertThat(table.getRequest()).isEqualTo("SELECT * FROM MOVIE ORDER BY TITLE, YEAR DESC");
+    assertThat(table.getStartDelimiter()).isNull();
+    assertThat(table.getEndDelimiter()).isNull();
+  }
+
+  /**
+   * This method test the getters of a {@code Table} when the source, delimiteres and the name are set.
+   */
+  @Test
+  public void test_getters_with_source_delimiters_and_name_set() {
+    Table table = new Table(source, "movie", '1', '2');
+
+    assertThat(table.getSource()).as("Source of MOVIE table").isSameAs(source);
+    assertThat(table.getDataSource()).isNull();
+    assertThat(table.getName()).isEqualTo("MOVIE");
+    assertThat(table.getColumnsToCheck()).isNull();
+    assertThat(table.getColumnsToExclude()).isNull();
+    assertThat(table.getRequest()).isEqualTo("SELECT * FROM 1MOVIE2");
+    assertThat(table.getStartDelimiter()).isEqualTo('1');
+    assertThat(table.getEndDelimiter()).isEqualTo('2');
+  }
+
+  /**
+   * This method test the getters of a {@code Table} when the source, the name, the delimiters
+   * and the informations about the columns are set.
+   */
+  @Test
+  public void test_getters_with_source_name_delimiters_and_columns_set() {
+    Table table = new Table(source, "movie", '1', '2',
+                            new String[] { "title", "year" }, new String[] { "id" });
+
+    assertThat(table.getSource()).as("Source of MOVIE table").isSameAs(source);
+    assertThat(table.getDataSource()).isNull();
+    assertThat(table.getName()).isEqualTo("MOVIE");
+    assertThat(table.getColumnsToCheck()).containsExactly("TITLE", "YEAR");
+    assertThat(table.getColumnsToExclude()).containsExactly("ID");
+    assertThat(table.getRequest()).isEqualTo("SELECT 1TITLE2, 1YEAR2 FROM 1MOVIE2");
+    assertThat(table.getStartDelimiter()).isEqualTo('1');
+    assertThat(table.getEndDelimiter()).isEqualTo('2');
+  }
+
+  /**
+   * This method test the getters of a {@code Table} when the source, the name, the delimiters
+   * and the informations about the columns and the orders are set.
+   */
+  @Test
+  public void test_getters_with_source_name_columns_delimiters_and_order_set() {
+    Table table = new Table(source, "movie", '1', '2',
+                            new Table.Order[]{ asc("title"), desc("year") },
+                            new String[] { "title", "year" }, new String[] { "id" });
+
+    assertThat(table.getSource()).as("Source of MOVIE table").isSameAs(source);
+    assertThat(table.getDataSource()).isNull();
+    assertThat(table.getName()).isEqualTo("MOVIE");
+    assertThat(table.getColumnsToCheck()).containsExactly("TITLE", "YEAR");
+    assertThat(table.getColumnsToExclude()).containsExactly("ID");
+    assertThat(table.getColumnsToOrder()).containsExactly(asc("TITLE"), desc("YEAR"));
+    assertThat(table.getRequest()).isEqualTo("SELECT 1TITLE2, 1YEAR2 FROM 1MOVIE2 ORDER BY 1TITLE2, 1YEAR2 DESC");
+    assertThat(table.getStartDelimiter()).isEqualTo('1');
+    assertThat(table.getEndDelimiter()).isEqualTo('2');
+  }
+
+  /**
+   * This method test the getters of a {@code Table} when the source, the name, the delimiters
+   * and the informations about the orders are set.
+   */
+  @Test
+  public void test_getters_with_source_name_delimiters_and_order_set() {
+    Table table = new Table(source, "movie", '1', '2',
+                            new Table.Order[]{ asc("title"), desc("year") });
+
+    assertThat(table.getSource()).as("Source of MOVIE table").isSameAs(source);
+    assertThat(table.getDataSource()).isNull();
+    assertThat(table.getName()).isEqualTo("MOVIE");
+    assertThat(table.getColumnsToCheck()).isNull();
+    assertThat(table.getColumnsToExclude()).isNull();
+    assertThat(table.getColumnsToOrder()).containsExactly(asc("TITLE"), desc("YEAR"));
+    assertThat(table.getRequest()).isEqualTo("SELECT * FROM 1MOVIE2 ORDER BY 1TITLE2, 1YEAR2 DESC");
+    assertThat(table.getStartDelimiter()).isEqualTo('1');
+    assertThat(table.getEndDelimiter()).isEqualTo('2');
   }
 }

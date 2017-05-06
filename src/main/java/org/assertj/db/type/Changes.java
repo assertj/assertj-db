@@ -257,8 +257,11 @@ public class Changes extends AbstractDbElement<Changes> {
                             table.getColumnLetterCase(),
                             table.getPrimaryKeyLetterCase())
             .setName(table.getName())
+            .setStartDelimiter(table.getStartDelimiter())
+            .setEndDelimiter(table.getEndDelimiter())
             .setColumnsToCheck(table.getColumnsToCheck())
-            .setColumnsToExclude(table.getColumnsToExclude());
+            .setColumnsToExclude(table.getColumnsToExclude())
+            .setColumnsToOrder(table.getColumnsToOrder());
   }
 
   /**

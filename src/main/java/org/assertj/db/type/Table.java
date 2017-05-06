@@ -91,6 +91,16 @@ public class Table extends AbstractDbData<Table> {
    * @since 1.2.0
    */
   private Order[] columnsToOrder;
+  /**
+   * Start delimiter for column name and table name.
+   * @since 1.2.0
+   */
+  private Character startDelimiter = null;
+  /**
+   * End delimiter for column name and table name.
+   * @since 1.2.0
+   */
+  private Character endDelimiter = null;
 
   /**
    * Indicates an order with the name on which is the order and the type.
@@ -204,7 +214,7 @@ public class Table extends AbstractDbData<Table> {
    * @param name   Name of the table.
    */
   public Table(Source source, String name) {
-    this(source, name, null, null, null);
+    this(source, name, (String[]) null, (String[]) null);
   }
 
   /**
@@ -228,7 +238,7 @@ public class Table extends AbstractDbData<Table> {
    * @param name       Name of the table.
    */
   public Table(DataSource dataSource, String name) {
-    this(dataSource, name, null, null, null);
+    this(dataSource, name, (String[]) null, (String[]) null);
   }
 
   /**
@@ -268,11 +278,7 @@ public class Table extends AbstractDbData<Table> {
    * @since 1.2.0
    */
   public Table(Source source, String name, Order[] columnsToOrder, String[] columnsToCheck, String[] columnsToExclude) {
-    super(Table.class, DataType.TABLE, source);
-    setName(name);
-    setColumnsToOrder(columnsToOrder);
-    setColumnsToCheck(columnsToCheck);
-    setColumnsToExclude(columnsToExclude);
+    this(source, name, null, null, columnsToOrder, columnsToCheck, columnsToExclude);
   }
 
   /**
@@ -298,8 +304,136 @@ public class Table extends AbstractDbData<Table> {
    * @since 1.2.0
    */
   public Table(DataSource dataSource, String name, Order[] columnsToOrder, String[] columnsToCheck, String[] columnsToExclude) {
+    this(dataSource, name, null, null, columnsToOrder, columnsToCheck, columnsToExclude);
+  }
+
+  /**
+   * Constructor with a {@link Source} and the name of the table.
+   *
+   * @param source {@link Source} to connect to the database.
+   * @param name   Name of the table.
+   * @param startDelimiter   Start delimiter for column name and table name.
+   * @param endDelimiter     End delimiter for column name and table name.
+   * @since 1.2.0
+   */
+  public Table(Source source, String name, Character startDelimiter, Character endDelimiter) {
+    this(source, name, startDelimiter, endDelimiter, null, null, null);
+  }
+
+  /**
+   * Constructor with a {@link Source}, the name of the table and the columns to check and to exclude.
+   *
+   * @param source           {@link Source} to connect to the database.
+   * @param name             Name of the table.
+   * @param startDelimiter   Start delimiter for column name and table name.
+   * @param endDelimiter     End delimiter for column name and table name.
+   * @param columnsToCheck   Array of the name of the columns to check. If {@code null} that means to check all the
+   *                         columns.
+   * @param columnsToExclude Array of the name of the columns to exclude. If {@code null} that means to exclude no
+   *                         column.
+   * @since 1.2.0
+   */
+  public Table(Source source, String name, Character startDelimiter, Character endDelimiter, String[] columnsToCheck, String[] columnsToExclude) {
+    this(source, name, startDelimiter, endDelimiter, null, columnsToCheck, columnsToExclude);
+  }
+
+  /**
+   * Constructor with a dataSource and the name of the table.
+   *
+   * @param dataSource DataSource of the database.
+   * @param name       Name of the table.
+   * @param startDelimiter   Start delimiter for column name and table name.
+   * @param endDelimiter     End delimiter for column name and table name.
+   * @since 1.2.0
+   */
+  public Table(DataSource dataSource, String name, Character startDelimiter, Character endDelimiter) {
+    this(dataSource, name, startDelimiter, endDelimiter, null, null, null);
+  }
+
+  /**
+   * Constructor with a connection, the name of the table and the columns to check and to exclude.
+   *
+   * @param dataSource       DataSource of the database.
+   * @param name             Name of the table.
+   * @param startDelimiter   Start delimiter for column name and table name.
+   * @param endDelimiter     End delimiter for column name and table name.
+   * @param columnsToCheck   Array of the name of the columns to check. If {@code null} that means to check all the
+   *                         columns.
+   * @param columnsToExclude Array of the name of the columns to exclude. If {@code null} that means to exclude no
+   *                         column.
+   * @since 1.2.0
+   */
+  public Table(DataSource dataSource, String name, Character startDelimiter, Character endDelimiter, String[] columnsToCheck, String[] columnsToExclude) {
+    this(dataSource, name, startDelimiter, endDelimiter, null, columnsToCheck, columnsToExclude);
+  }
+
+  /**
+   * Constructor with a {@link Source} and the name of the table.
+   *
+   * @param source {@link Source} to connect to the database.
+   * @param name   Name of the table.
+   * @param startDelimiter   Start delimiter for column name and table name.
+   * @param endDelimiter     End delimiter for column name and table name.
+   * @since 1.2.0
+   */
+  public Table(Source source, String name, Character startDelimiter, Character endDelimiter, Order[] columnsToOrder) {
+    this(source, name, startDelimiter, endDelimiter, columnsToOrder, null, null);
+  }
+
+  /**
+   * Constructor with a {@link Source}, the name of the table and the columns to check and to exclude.
+   *
+   * @param source           {@link Source} to connect to the database.
+   * @param name             Name of the table.
+   * @param startDelimiter   Start delimiter for column name and table name.
+   * @param endDelimiter     End delimiter for column name and table name.
+   * @param columnsToCheck   Array of the name of the columns to check. If {@code null} that means to check all the
+   *                         columns.
+   * @param columnsToExclude Array of the name of the columns to exclude. If {@code null} that means to exclude no
+   *                         column.
+   * @since 1.2.0
+   */
+  public Table(Source source, String name, Character startDelimiter, Character endDelimiter, Order[] columnsToOrder, String[] columnsToCheck, String[] columnsToExclude) {
+    super(Table.class, DataType.TABLE, source);
+    setName(name);
+    setStartDelimiter(startDelimiter);
+    setEndDelimiter(endDelimiter);
+    setColumnsToOrder(columnsToOrder);
+    setColumnsToCheck(columnsToCheck);
+    setColumnsToExclude(columnsToExclude);
+  }
+
+  /**
+   * Constructor with a dataSource and the name of the table.
+   *
+   * @param dataSource DataSource of the database.
+   * @param name       Name of the table.
+   * @param startDelimiter   Start delimiter for column name and table name.
+   * @param endDelimiter     End delimiter for column name and table name.
+   * @since 1.2.0
+   */
+  public Table(DataSource dataSource, String name, Character startDelimiter, Character endDelimiter, Order[] columnsToOrder) {
+    this(dataSource, name, startDelimiter, endDelimiter, columnsToOrder, null, null);
+  }
+
+  /**
+   * Constructor with a connection, the name of the table and the columns to check and to exclude.
+   *
+   * @param dataSource       DataSource of the database.
+   * @param name             Name of the table.
+   * @param startDelimiter   Start delimiter for column name and table name.
+   * @param endDelimiter     End delimiter for column name and table name.
+   * @param columnsToCheck   Array of the name of the columns to check. If {@code null} that means to check all the
+   *                         columns.
+   * @param columnsToExclude Array of the name of the columns to exclude. If {@code null} that means to exclude no
+   *                         column.
+   * @since 1.2.0
+   */
+  public Table(DataSource dataSource, String name, Character startDelimiter, Character endDelimiter, Order[] columnsToOrder, String[] columnsToCheck, String[] columnsToExclude) {
     super(Table.class, DataType.TABLE, dataSource);
     setName(name);
+    setStartDelimiter(startDelimiter);
+    setEndDelimiter(endDelimiter);
     setColumnsToOrder(columnsToOrder);
     setColumnsToCheck(columnsToCheck);
     setColumnsToExclude(columnsToExclude);
@@ -525,6 +659,69 @@ public class Table extends AbstractDbData<Table> {
   }
 
   /**
+   * Returns the start delimiter for column name and table name.
+   *
+   * @return The start delimiter for column name and table name.
+   * @see #setStartDelimiter(Character)
+   * @since 1.2.0
+   */
+  public Character getStartDelimiter() {
+    return startDelimiter;
+  }
+
+  /**
+   * Sets the start delimiter for column name and table name.
+   *
+   * @param startDelimiter The start delimiter for column name and table name.
+   * @see #getStartDelimiter()
+   * @since 1.2.0
+   */
+  public Table setStartDelimiter(Character startDelimiter) {
+    this.startDelimiter = startDelimiter;
+    return this;
+  }
+
+  /**
+   * Returns the end delimiter for column name and table name.
+   *
+   * @return The end delimiter for column name and table name.
+   * @see #setEndDelimiter(Character)
+   * @since 1.2.0
+   */
+  public Character getEndDelimiter() {
+    return endDelimiter;
+  }
+
+  /**
+   * Sets the end delimiter for column name and table name.
+   *
+   * @param endDelimiter The end delimiter for column name and table name.
+   * @see #getEndDelimiter()
+   * @since 1.2.0
+   */
+  public Table setEndDelimiter(Character endDelimiter) {
+    this.endDelimiter = endDelimiter;
+    return this;
+  }
+
+  /**
+   * Encode the column name and table name.
+   * @param name The column name or table name.
+   * The encoded column name or table name.
+   */
+  private String encode(String name) {
+    StringBuilder stringBuilder = new StringBuilder();
+    if (startDelimiter != null) {
+      stringBuilder.append(startDelimiter);
+    }
+    stringBuilder.append(name);
+    if (endDelimiter != null) {
+      stringBuilder.append(endDelimiter);
+    }
+    return stringBuilder.toString();
+  }
+
+  /**
    * Returns the SQL request.
    *
    * @return The SQL request.
@@ -545,11 +742,11 @@ public class Table extends AbstractDbData<Table> {
         if (stringBuilder.length() > 7) {
           stringBuilder.append(", ");
         }
-        stringBuilder.append(column);
+        stringBuilder.append(encode(column));
       }
     }
     stringBuilder.append(" FROM ");
-    stringBuilder.append(name);
+    stringBuilder.append(encode(name));
     if (columnsToOrder != null) {
       for (int index = 0 ; index < columnsToOrder.length ; index++) {
         if (index == 0) {
@@ -558,7 +755,7 @@ public class Table extends AbstractDbData<Table> {
         else {
           stringBuilder.append(", ");
         }
-        stringBuilder.append(columnsToOrder[index].getName());
+        stringBuilder.append(encode(columnsToOrder[index].getName()));
         if (columnsToOrder[index].getType() == Order.OrderType.DESC) {
           stringBuilder.append(" DESC");
         }
