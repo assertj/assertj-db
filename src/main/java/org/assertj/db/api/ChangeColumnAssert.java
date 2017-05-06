@@ -251,7 +251,7 @@ public class ChangeColumnAssert
 
   /** {@inheritDoc} */
   @Override
-  public ChangeColumnAssert isOfClass(Class expected, boolean lenient) {
+  public ChangeColumnAssert isOfClass(Class<?> expected, boolean lenient) {
     return AssertionsOnColumnOfChangeClass.isOfClass(myself, info, valueAtStartPoint, valueAtEndPoint, expected, lenient);
   }
 

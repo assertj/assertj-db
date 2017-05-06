@@ -61,7 +61,9 @@ public class ChangesAssert
   public ChangesAssert(ChangesAssert origin, Changes changes) {
     super(ChangesAssert.class, origin);
     this.changes = changes;
-    changesPosition = new PositionWithChanges(this, ChangesAssert.class, ChangeAssert.class) {
+    changesPosition = new PositionWithChanges<ChangesAssert, ChangeAssert>(this, 
+                                                ChangesAssert.class, ChangeAssert.class) {
+
       @Override
       protected String getChangesDescription(ChangeType changeType, String tableName) {
         return Descriptions.getChangesDescription(info, changeType, tableName);
