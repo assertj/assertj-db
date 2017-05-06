@@ -30,7 +30,7 @@ import java.util.List;
  * @author Régis Pouiller
  * @since 1.1.0
  */
-public abstract class PositionWithColumns<E extends AbstractElement & Navigation, N extends AbstractElement & Navigation, D extends DbElement> extends Position<E, N, D> {
+public abstract class PositionWithColumns<E extends AbstractElement<?> & Navigation, N extends AbstractElement<?> & Navigation, D extends DbElement> extends Position<E, N, D> {
 
   /**
    * Constructor.

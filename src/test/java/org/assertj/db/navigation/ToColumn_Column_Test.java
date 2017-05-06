@@ -62,7 +62,8 @@ public class ToColumn_Column_Test extends AbstractTest {
 
     ChangesAssert changesAssert = assertThat(changes);
     ChangeAssert changeAssert = changesAssert.change();
-    PositionWithColumnsChange position = (PositionWithColumnsChange) fieldPosition.get(changeAssert);
+    PositionWithColumnsChange<ChangeAssert, ChangeColumnAssert> position = 
+              (PositionWithColumnsChange) fieldPosition.get(changeAssert);
     assertThat(fieldIndex.get(position)).isEqualTo(0);
     ChangeColumnAssert changeColumnAssert0 = changeAssert.column();
     assertThat(fieldIndex.get(position)).isEqualTo(1);
@@ -83,7 +84,8 @@ public class ToColumn_Column_Test extends AbstractTest {
 
     ChangesAssert changesAssertBis = assertThat(changes);
     ChangeAssert changeAssertBis = changesAssertBis.change();
-    PositionWithColumnsChange positionBis = (PositionWithColumnsChange) fieldPosition.get(changeAssertBis);
+    PositionWithColumnsChange<ChangeAssert, ChangeColumnAssert> positionBis = 
+              (PositionWithColumnsChange) fieldPosition.get(changeAssertBis);
     assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     ChangeColumnAssert changeColumnAssertBis0 = changeAssertBis.column();
     assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
@@ -152,7 +154,7 @@ public class ToColumn_Column_Test extends AbstractTest {
 
     Table table = new Table(source, "actor");
     TableAssert tableAssert = assertThat(table);
-    Position position = (Position) fieldPosition.get(tableAssert);
+    Position<TableAssert, TableColumnAssert, Column> position = (Position) fieldPosition.get(tableAssert);
     assertThat(fieldIndex.get(position)).isEqualTo(0);
     TableColumnAssert tableColumnAssert0 = tableAssert.column();
     assertThat(fieldIndex.get(position)).isEqualTo(1);
@@ -172,7 +174,7 @@ public class ToColumn_Column_Test extends AbstractTest {
     }
 
     TableAssert tableAssertBis = assertThat(table);
-    Position positionBis = (Position) fieldPosition.get(tableAssertBis);
+    Position<TableAssert, TableColumnAssert, Column> positionBis = (Position) fieldPosition.get(tableAssertBis);
     assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     TableColumnAssert tableColumnAssertBis0 = tableAssertBis.column();
     assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
@@ -239,7 +241,7 @@ public class ToColumn_Column_Test extends AbstractTest {
 
     Request request = new Request(source, "select * from actor");
     RequestAssert requestAssert = assertThat(request);
-    Position position = (Position) fieldPosition.get(requestAssert);
+    Position<RequestAssert, RequestColumnAssert, Column> position = (Position) fieldPosition.get(requestAssert);
     assertThat(fieldIndex.get(position)).isEqualTo(0);
     RequestColumnAssert requestColumnAssert0 = requestAssert.column();
     assertThat(fieldIndex.get(position)).isEqualTo(1);
@@ -259,7 +261,7 @@ public class ToColumn_Column_Test extends AbstractTest {
     }
 
     RequestAssert requestAssertBis = assertThat(request);
-    Position positionBis = (Position) fieldPosition.get(requestAssertBis);
+    Position<RequestAssert, RequestColumnAssert, Column> positionBis = (Position) fieldPosition.get(requestAssertBis);
     assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     RequestColumnAssert requestColumnAssertBis0 = requestAssertBis.column();
     assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
@@ -337,7 +339,8 @@ public class ToColumn_Column_Test extends AbstractTest {
 
     ChangesOutputter changesOutputter = output(changes);
     ChangeOutputter changeOutputter = changesOutputter.change();
-    PositionWithColumnsChange position = (PositionWithColumnsChange) fieldPosition.get(changeOutputter);
+    PositionWithColumnsChange<ChangeOutputter, ChangeColumnOutputter> position = 
+              (PositionWithColumnsChange) fieldPosition.get(changeOutputter);
     assertThat(fieldIndex.get(position)).isEqualTo(0);
     ChangeColumnOutputter changeColumnOutputter0 = changeOutputter.column();
     assertThat(fieldIndex.get(position)).isEqualTo(1);
@@ -358,7 +361,8 @@ public class ToColumn_Column_Test extends AbstractTest {
 
     ChangesOutputter changesOutputterBis = output(changes);
     ChangeOutputter changeOutputterBis = changesOutputterBis.change();
-    PositionWithColumnsChange positionBis = (PositionWithColumnsChange) fieldPosition.get(changeOutputterBis);
+    PositionWithColumnsChange<ChangeOutputter, ChangeColumnOutputter> positionBis = 
+              (PositionWithColumnsChange) fieldPosition.get(changeOutputterBis);
     assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     ChangeColumnOutputter changeColumnOutputterBis0 = changeOutputterBis.column();
     assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
@@ -427,7 +431,8 @@ public class ToColumn_Column_Test extends AbstractTest {
 
     Table table = new Table(source, "actor");
     TableOutputter tableOutputter = Outputs.output(table);
-    Position position = (Position) fieldPosition.get(tableOutputter);
+    Position<TableOutputter, TableColumnOutputter, Column> position = 
+            (Position) fieldPosition.get(tableOutputter);
     assertThat(fieldIndex.get(position)).isEqualTo(0);
     TableColumnOutputter tableColumnOutputter0 = tableOutputter.column();
     assertThat(fieldIndex.get(position)).isEqualTo(1);
@@ -447,7 +452,8 @@ public class ToColumn_Column_Test extends AbstractTest {
     }
 
     TableOutputter tableOutputterBis = Outputs.output(table);
-    Position positionBis = (Position) fieldPosition.get(tableOutputterBis);
+    Position<TableOutputter, TableColumnOutputter, Column> positionBis = 
+            (Position) fieldPosition.get(tableOutputterBis);
     assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     TableColumnOutputter tableColumnOutputterBis0 = tableOutputterBis.column();
     assertThat(fieldIndex.get(positionBis)).isEqualTo(1);

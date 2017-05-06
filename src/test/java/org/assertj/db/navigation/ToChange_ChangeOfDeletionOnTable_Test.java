@@ -62,7 +62,8 @@ public class ToChange_ChangeOfDeletionOnTable_Test extends AbstractTest {
     fieldChange.setAccessible(true);
 
     ChangesAssert changesAssert = assertThat(changes);
-    PositionWithChanges position = (PositionWithChanges) fieldPosition.get(changesAssert);
+    PositionWithChanges<ChangesAssert, ChangeAssert> position = 
+              (PositionWithChanges) fieldPosition.get(changesAssert);
     Map<ChangeType, Map<String, Integer>> map = (Map<ChangeType, Map<String, Integer>>)fieldIndex.get(position);
     assertThat(map).hasSize(0);
     assertThat(map.get(null)).isNull();
@@ -84,7 +85,8 @@ public class ToChange_ChangeOfDeletionOnTable_Test extends AbstractTest {
     }
 
     ChangesAssert changesAssertBis = assertThat(changes);
-    PositionWithChanges positionBis = (PositionWithChanges) fieldPosition.get(changesAssertBis);
+    PositionWithChanges<ChangesAssert, ChangeAssert> positionBis = 
+              (PositionWithChanges) fieldPosition.get(changesAssertBis);
     map = (Map<ChangeType, Map<String, Integer>>)fieldIndex.get(positionBis);
     assertThat(map).hasSize(0);
     assertThat(map.get(null)).isNull();
@@ -130,7 +132,8 @@ public class ToChange_ChangeOfDeletionOnTable_Test extends AbstractTest {
     fieldChange.setAccessible(true);
 
     ChangesOutputter changesDisplay = output(changes);
-    PositionWithChanges position = (PositionWithChanges) fieldPosition.get(changesDisplay);
+    PositionWithChanges<ChangesAssert, ChangeAssert> position = 
+              (PositionWithChanges) fieldPosition.get(changesDisplay);
     Map<ChangeType, Map<String, Integer>> map = (Map<ChangeType, Map<String, Integer>>)fieldIndex.get(position);
     assertThat(map).hasSize(0);
     assertThat(map.get(null)).isNull();
@@ -152,7 +155,8 @@ public class ToChange_ChangeOfDeletionOnTable_Test extends AbstractTest {
     }
 
     ChangesOutputter changesDisplayBis = output(changes);
-    PositionWithChanges positionBis = (PositionWithChanges) fieldPosition.get(changesDisplayBis);
+    PositionWithChanges<ChangesAssert, ChangeAssert> positionBis = 
+              (PositionWithChanges) fieldPosition.get(changesDisplayBis);
     map = (Map<ChangeType, Map<String, Integer>>)fieldIndex.get(positionBis);
     assertThat(map).hasSize(0);
     assertThat(map.get(null)).isNull();

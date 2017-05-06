@@ -36,7 +36,7 @@ import java.util.Map;
  * @author Régis Pouiller
  * @since 1.1.0
  */
-public abstract class PositionWithColumnsChange<E extends AbstractElement & Navigation, N extends AbstractElement & Navigation> {
+public abstract class PositionWithColumnsChange<E extends AbstractElement<?> & Navigation, N extends AbstractElement<?> & Navigation> {
 
   /**
    * Actual value.

@@ -17,6 +17,7 @@ import org.assertj.db.api.*;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.output.*;
+import org.assertj.db.type.Column;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Row;
 import org.assertj.db.type.Table;
@@ -53,7 +54,8 @@ public class ToRow_Row_Integer_Test extends AbstractTest {
 
     Table table = new Table(source, "actor");
     TableAssert tableAssert = assertThat(table);
-    Position position = (Position) fieldPosition.get(tableAssert);
+    Position<TableAssert, TableRowAssert, Row> position = 
+            (Position) fieldPosition.get(tableAssert);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     TableRowAssert tableRowAssert0 = tableAssert.row(0);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
@@ -71,7 +73,8 @@ public class ToRow_Row_Integer_Test extends AbstractTest {
     Assertions.assertThat(tableRowAssert0).isSameAs(tableRowAssertAgain0);
 
     TableAssert tableAssertBis = assertThat(table);
-    Position positionBis = (Position) fieldPosition.get(tableAssertBis);
+    Position<TableAssert, TableRowAssert, Row> positionBis = 
+            (Position) fieldPosition.get(tableAssertBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     TableRowAssert tableRowAssertBis0 = tableAssertBis.row(0);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
@@ -147,7 +150,8 @@ public class ToRow_Row_Integer_Test extends AbstractTest {
 
     Request request = new Request(source, "select * from actor");
     RequestAssert requestAssert = assertThat(request);
-    Position position = (Position) fieldPosition.get(requestAssert);
+    Position<RequestAssert, RequestRowAssert, Row> position = 
+            (Position) fieldPosition.get(requestAssert);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     RequestRowAssert requestRowAssert0 = requestAssert.row(0);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
@@ -171,7 +175,8 @@ public class ToRow_Row_Integer_Test extends AbstractTest {
     Assertions.assertThat(requestRowAssert0).isSameAs(requestRowAssertAgain0);
 
     RequestAssert requestAssertBis = assertThat(request);
-    Position positionBis = (Position) fieldPosition.get(requestAssertBis);
+    Position<RequestAssert, RequestRowAssert, Row> positionBis = 
+            (Position) fieldPosition.get(requestAssertBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     RequestRowAssert requestRowAssertBis0 = requestAssertBis.row(0);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
@@ -247,7 +252,8 @@ public class ToRow_Row_Integer_Test extends AbstractTest {
 
     Table table = new Table(source, "actor");
     TableOutputter tableOutputter = Outputs.output(table);
-    Position position = (Position) fieldPosition.get(tableOutputter);
+    Position<TableOutputter, TableRowOutputter, Row> position = 
+            (Position) fieldPosition.get(tableOutputter);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     TableRowOutputter tableRowOutputter0 = tableOutputter.row(0);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
@@ -265,7 +271,8 @@ public class ToRow_Row_Integer_Test extends AbstractTest {
     Assertions.assertThat(tableRowOutputter0).isSameAs(tableRowOutputterAgain0);
 
     TableOutputter tableOutputterBis = Outputs.output(table);
-    Position positionBis = (Position) fieldPosition.get(tableOutputterBis);
+    Position<TableOutputter, TableRowOutputter, Row> positionBis = 
+            (Position) fieldPosition.get(tableOutputterBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     TableRowOutputter tableRowOutputterBis0 = tableOutputterBis.row(0);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
@@ -341,7 +348,8 @@ public class ToRow_Row_Integer_Test extends AbstractTest {
 
     Request request = new Request(source, "select * from actor");
     RequestOutputter requestOutputter = Outputs.output(request);
-    Position position = (Position) fieldPosition.get(requestOutputter);
+    Position<RequestOutputter, RequestRowOutputter, Row> position = 
+            (Position) fieldPosition.get(requestOutputter);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     RequestRowOutputter requestRowOutputter0 = requestOutputter.row(0);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
@@ -365,7 +373,8 @@ public class ToRow_Row_Integer_Test extends AbstractTest {
     Assertions.assertThat(requestRowOutputter0).isSameAs(requestRowOutputterAgain0);
 
     RequestOutputter requestOutputterBis = Outputs.output(request);
-    Position positionBis = (Position) fieldPosition.get(requestOutputterBis);
+    Position<RequestOutputter, RequestRowOutputter, Row> positionBis = 
+            (Position) fieldPosition.get(requestOutputterBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     RequestRowOutputter requestRowOutputterBis0 = requestOutputterBis.row(0);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);

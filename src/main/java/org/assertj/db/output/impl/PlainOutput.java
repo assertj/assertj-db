@@ -421,7 +421,7 @@ enum PlainOutput implements Output {
     List<String> typesList = OutputType.getTypesList(rows);
     int indexColumnSize = getIndexColumnSize(rows.length);
     StringBuilder[] pksValueStringBuilders = OutputType.getPksValueStringBuilder(rows);
-    int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
+    int primaryKeyColumnSize = getColumnSize("PRIMARY", (Object[]) pksValueStringBuilders);
     List<Integer> sizesList = getSizesList(rows.length == 0 ? getColumnSizesList(columnsNameList) : getColumnSizesList(rows),
                                            indexColumnSize,
                                            primaryKeyColumnSize);
@@ -467,7 +467,7 @@ enum PlainOutput implements Output {
     List<String> typesList = OutputType.getTypesList(rows);
     int indexColumnSize = getIndexColumnSize(rows.length);
     StringBuilder[] pksValueStringBuilders = OutputType.getPksValueStringBuilder(rows);
-    int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
+    int primaryKeyColumnSize = getColumnSize("PRIMARY", (Object[]) pksValueStringBuilders);
     List<Integer> sizesList = getSizesList(rows.length == 0 ? getColumnSizesList(columnsNameList) : getColumnSizesList(rows),
                                            indexColumnSize,
                                            primaryKeyColumnSize);
@@ -514,7 +514,7 @@ enum PlainOutput implements Output {
     int changeTypeColumnSize = getChangeTypeColumnSize(changesArray);
     int dataTypeColumnSize = getDataTypeColumnSize(changesArray);
     StringBuilder[] pksValueStringBuilders = OutputType.getPksValueStringBuilder(changesArray);
-    int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
+    int primaryKeyColumnSize = getColumnSize("PRIMARY", (Object[]) pksValueStringBuilders);
 
     StringBuilder stringBuilder = new StringBuilder();
     // Description
@@ -584,7 +584,7 @@ enum PlainOutput implements Output {
 
     int changeTypeColumnSize = getColumnSize("TYPE", changeType);
     int dataTypeColumnSize = getColumnSize("" + dataType, dataName);
-    int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
+    int primaryKeyColumnSize = getColumnSize("PRIMARY", (Object[]) pksValueStringBuilders);
     List<Integer> sizesList = getSizesList(getColumnSizesList(rowAtStartPoint, rowAtEndPoint),
                                            changeTypeColumnSize,
                                            dataTypeColumnSize,
@@ -636,7 +636,7 @@ enum PlainOutput implements Output {
     List<String> columnsNameList = row.getColumnsNameList();
     List<String> typesList = OutputType.getTypesList(row);
     StringBuilder[] pksValueStringBuilders = OutputType.getPksValueStringBuilder(row);
-    int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
+    int primaryKeyColumnSize = getColumnSize("PRIMARY", (Object[]) pksValueStringBuilders);
     List<Integer> sizesList = getSizesList(getColumnSizesList(row),
                                            primaryKeyColumnSize);
 

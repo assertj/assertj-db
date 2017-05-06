@@ -62,7 +62,8 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     ChangesAssert changesAssert = assertThat(changes);
     ChangeAssert changeAssert = changesAssert.change();
     ChangeRowAssert changeRowAssert = changeAssert.rowAtEndPoint();
-    Position position = (Position) fieldPosition.get(changeRowAssert);
+    PositionWithColumns<ChangeRowAssert, ChangeRowValueAssert, Value> position = 
+              (PositionWithColumns) fieldPosition.get(changeRowAssert);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     ChangeRowValueAssert changeRowValueAssert0 = changeRowAssert.value(0);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
@@ -97,7 +98,8 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     ChangesAssert changesAssertBis = assertThat(changes);
     ChangeAssert changeAssertBis = changesAssertBis.change();
     ChangeRowAssert changeRowAssertBis = changeAssertBis.rowAtEndPoint();
-    Position positionBis = (Position) fieldPosition.get(changeRowAssertBis);
+    PositionWithColumns<ChangeRowAssert, ChangeRowValueAssert, Value> positionBis = 
+              (PositionWithColumns) fieldPosition.get(changeRowAssertBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     ChangeRowValueAssert changeRowValueAssertBis0 = changeRowAssertBis.value(0);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
@@ -161,7 +163,8 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     Table table = new Table(source, "actor");
     TableAssert tableAssert = assertThat(table);
     TableColumnAssert tableColumnAssert = tableAssert.column();
-    Position position = (Position) fieldPosition.get(tableColumnAssert);
+    Position<TableColumnAssert, TableColumnValueAssert, Value> position = 
+            (Position) fieldPosition.get(tableColumnAssert);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     TableColumnValueAssert tableColumnValueAssert0 = tableColumnAssert.value(0);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
@@ -186,7 +189,8 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
 
     TableAssert tableAssertBis = assertThat(table);
     TableColumnAssert tableColumnAssertBis = tableAssertBis.column();
-    Position positionBis = (Position) fieldPosition.get(tableColumnAssertBis);
+    Position<TableColumnAssert, TableColumnValueAssert, Value> positionBis = 
+            (Position) fieldPosition.get(tableColumnAssertBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     TableColumnValueAssert tableColumnValueAssertBis0 = tableColumnAssertBis.value(0);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
@@ -235,7 +239,8 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     Table table = new Table(source, "actor");
     TableAssert tableAssert = assertThat(table);
     TableRowAssert tableRowAssert = tableAssert.row();
-    Position position = (Position) fieldPosition.get(tableRowAssert);
+    Position<TableRowAssert, TableRowValueAssert, Value> position = 
+            (Position) fieldPosition.get(tableRowAssert);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     TableRowValueAssert tableRowValueAssert0 = tableRowAssert.value(0);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
@@ -264,7 +269,8 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
 
     TableAssert tableAssertBis = assertThat(table);
     TableRowAssert tableRowAssertBis = tableAssertBis.row();
-    Position positionBis = (Position) fieldPosition.get(tableRowAssertBis);
+    Position<TableRowAssert, TableRowValueAssert, Value> positionBis = 
+            (Position) fieldPosition.get(tableRowAssertBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     TableRowValueAssert tableRowValueAssertBis0 = tableRowAssertBis.value(0);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);

@@ -67,7 +67,8 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_Test extends Abstract
 
     ChangesAssert changesAssert = assertThat(changes);
     ChangeAssert changeAssert = changesAssert.change();
-    PositionWithColumnsChange position = (PositionWithColumnsChange) fieldPosition.get(changeAssert);
+    PositionWithColumnsChange<ChangeAssert, ChangeColumnAssert> position = 
+              (PositionWithColumnsChange) fieldPosition.get(changeAssert);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     ChangeColumnAssert changeColumnAssert0 = changeAssert.columnAmongTheModifiedOnes();
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
@@ -88,7 +89,8 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_Test extends Abstract
 
     ChangesAssert changesAssertBis = assertThat(changes);
     ChangeAssert changeAssertBis = changesAssertBis.change();
-    PositionWithColumnsChange positionBis = (PositionWithColumnsChange) fieldPosition.get(changeAssertBis);
+    PositionWithColumnsChange<ChangeAssert, ChangeColumnAssert> positionBis = 
+              (PositionWithColumnsChange) fieldPosition.get(changeAssertBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     ChangeColumnAssert changeColumnAssertBis0 = changeAssertBis.columnAmongTheModifiedOnes();
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
@@ -181,7 +183,8 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_Test extends Abstract
 
     ChangesOutputter changesOutputter = output(changes);
     ChangeOutputter changeOutputter = changesOutputter.change();
-    PositionWithColumnsChange position = (PositionWithColumnsChange) fieldPosition.get(changeOutputter);
+    PositionWithColumnsChange<ChangeAssert, ChangeColumnAssert> position = 
+              (PositionWithColumnsChange) fieldPosition.get(changeOutputter);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     ChangeColumnOutputter changeColumnOutputter0 = changeOutputter.columnAmongTheModifiedOnes();
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
@@ -202,7 +205,8 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_Test extends Abstract
 
     ChangesOutputter changesOutputterBis = output(changes);
     ChangeOutputter changeOutputterBis = changesOutputterBis.change();
-    PositionWithColumnsChange positionBis = (PositionWithColumnsChange) fieldPosition.get(changeOutputterBis);
+    PositionWithColumnsChange<ChangeAssert, ChangeColumnAssert> positionBis = 
+              (PositionWithColumnsChange) fieldPosition.get(changeOutputterBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     ChangeColumnOutputter changeColumnOutputterBis0 = changeOutputterBis.columnAmongTheModifiedOnes();
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);

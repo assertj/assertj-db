@@ -60,7 +60,8 @@ public class ChangesOutputter
   public ChangesOutputter(ChangesOutputter origin, Changes changes) {
     super(ChangesOutputter.class, origin);
     this.changes = changes;
-    changesPosition = new PositionWithChanges(this, ChangesOutputter.class, ChangeOutputter.class) {
+    changesPosition = new PositionWithChanges<ChangesOutputter, ChangeOutputter>(this, 
+                                                ChangesOutputter.class, ChangeOutputter.class) {
       @Override
       protected String getChangesDescription(ChangeType changeType, String tableName) {
         return Descriptions.getChangesDescription(info, changeType, tableName);

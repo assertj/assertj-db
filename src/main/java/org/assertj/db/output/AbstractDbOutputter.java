@@ -66,14 +66,14 @@ public abstract class AbstractDbOutputter<D extends AbstractDbData<D>, A extends
   AbstractDbOutputter(D actualValue, Class<A> selfType, Class<C> columnAssertType, Class<R> rowAssertType) {
     super(selfType);
     actual = actualValue;
-    columnPosition = new PositionWithColumns(selfType.cast(this), columnAssertType) {
+    columnPosition = new PositionWithColumns<A, C, Column>(selfType.cast(this), columnAssertType) {
       @Override protected String getDescription(int index) {
         List<String> columnsNameList = actual.getColumnsNameList();
         String columnName = columnsNameList.get(index);
         return getColumnDescription(myself.getInfo(), index, columnName);
       }
     };
-    rowPosition = new Position(selfType.cast(this), rowAssertType) {
+    rowPosition = new Position<A, R, Row>(selfType.cast(this), rowAssertType) {
       @Override protected String getDescription(int index) {
         return getRowDescription(myself.getInfo(), index);
       }

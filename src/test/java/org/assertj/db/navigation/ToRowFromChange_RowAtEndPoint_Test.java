@@ -23,6 +23,7 @@ import org.assertj.db.output.ChangeRowOutputter;
 import org.assertj.db.output.ChangesOutputter;
 import org.assertj.db.type.Change;
 import org.assertj.db.type.Changes;
+import org.assertj.db.type.Row;
 import org.junit.Test;
 
 import java.lang.reflect.Field;
@@ -61,7 +62,8 @@ public class ToRowFromChange_RowAtEndPoint_Test extends AbstractTest {
     ChangesAssert changesAssert = assertThat(changes);
 
     ChangeAssert changeCreationAssert = changesAssert.change();
-    PositionWithPoints positionCreation = (PositionWithPoints) fieldPosition.get(changeCreationAssert);
+    PositionWithPoints<ChangeAssert, ChangeRowAssert, Row> positionCreation = 
+              (PositionWithPoints) fieldPosition.get(changeCreationAssert);
     Assertions.assertThat(fieldRowAssert.get(positionCreation)).isNull();
     ChangeRowAssert changeCreationRowAssert = changeCreationAssert.rowAtEndPoint();
     Assertions.assertThat(fieldRowAssert.get(positionCreation)).isNotNull();
@@ -71,7 +73,8 @@ public class ToRowFromChange_RowAtEndPoint_Test extends AbstractTest {
             fieldRowFromChange.get(changes.getChangesList().get(0)));
 
     ChangeAssert changeModificationAssert = changesAssert.change(3);
-    PositionWithPoints positionModification = (PositionWithPoints) fieldPosition.get(changeModificationAssert);
+    PositionWithPoints<ChangeAssert, ChangeRowAssert, Row> positionModification = 
+              (PositionWithPoints) fieldPosition.get(changeModificationAssert);
     Assertions.assertThat(fieldRowAssert.get(positionModification)).isNull();
     ChangeRowAssert changeModificationRowAssert = changeModificationAssert.rowAtEndPoint();
     Assertions.assertThat(fieldRowAssert.get(positionModification)).isNotNull();
@@ -81,7 +84,8 @@ public class ToRowFromChange_RowAtEndPoint_Test extends AbstractTest {
             fieldRowFromChange.get(changes.getChangesList().get(3)));
 
     ChangeAssert changeDeletionAssert = changesAssert.change(6);
-    PositionWithPoints positionDeletion = (PositionWithPoints) fieldPosition.get(changeDeletionAssert);
+    PositionWithPoints<ChangeAssert, ChangeRowAssert, Row> positionDeletion = 
+              (PositionWithPoints) fieldPosition.get(changeDeletionAssert);
     Assertions.assertThat(fieldRowAssert.get(positionDeletion)).isNull();
     ChangeRowAssert changeDeletionRowAssert = changeDeletionAssert.rowAtEndPoint();
     Assertions.assertThat(fieldRowAssert.get(positionDeletion)).isNotNull();
@@ -112,7 +116,8 @@ public class ToRowFromChange_RowAtEndPoint_Test extends AbstractTest {
     ChangesOutputter changesOutputter = output(changes);
 
     ChangeOutputter changeCreationOutputter = changesOutputter.change();
-    PositionWithPoints positionCreation = (PositionWithPoints) fieldPosition.get(changeCreationOutputter);
+    PositionWithPoints<ChangeAssert, ChangeRowAssert, Row> positionCreation = 
+              (PositionWithPoints) fieldPosition.get(changeCreationOutputter);
     Assertions.assertThat(fieldRowOutputter.get(positionCreation)).isNull();
     ChangeRowOutputter changeCreationRowOutputter = changeCreationOutputter.rowAtEndPoint();
     Assertions.assertThat(fieldRowOutputter.get(positionCreation)).isNotNull();
@@ -122,7 +127,8 @@ public class ToRowFromChange_RowAtEndPoint_Test extends AbstractTest {
             fieldRowFromChange.get(changes.getChangesList().get(0)));
 
     ChangeOutputter changeModificationOutputter = changesOutputter.change(3);
-    PositionWithPoints positionModification = (PositionWithPoints) fieldPosition.get(changeModificationOutputter);
+    PositionWithPoints<ChangeAssert, ChangeRowAssert, Row> positionModification = 
+              (PositionWithPoints) fieldPosition.get(changeModificationOutputter);
     Assertions.assertThat(fieldRowOutputter.get(positionModification)).isNull();
     ChangeRowOutputter changeModificationRowOutputter = changeModificationOutputter.rowAtEndPoint();
     Assertions.assertThat(fieldRowOutputter.get(positionModification)).isNotNull();
@@ -132,7 +138,8 @@ public class ToRowFromChange_RowAtEndPoint_Test extends AbstractTest {
             fieldRowFromChange.get(changes.getChangesList().get(3)));
 
     ChangeOutputter changeDeletionOutputter = changesOutputter.change(6);
-    PositionWithPoints positionDeletion = (PositionWithPoints) fieldPosition.get(changeDeletionOutputter);
+    PositionWithPoints<ChangeAssert, ChangeRowAssert, Row> positionDeletion = 
+              (PositionWithPoints) fieldPosition.get(changeDeletionOutputter);
     Assertions.assertThat(fieldRowOutputter.get(positionDeletion)).isNull();
     ChangeRowOutputter changeDeletionRowOutputter = changeDeletionOutputter.rowAtEndPoint();
     Assertions.assertThat(fieldRowOutputter.get(positionDeletion)).isNotNull();
