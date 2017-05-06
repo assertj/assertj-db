@@ -52,7 +52,7 @@ public class AssertionsOnChangeType {
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is different to the type in parameter.
    */
-  public static <A extends AbstractAssert> A isOfType(A assertion, WritableAssertionInfo info, Change change,
+  public static <A extends AbstractAssert<?>> A isOfType(A assertion, WritableAssertionInfo info, Change change,
                                                       ChangeType expected) {
     ChangeType type = change.getChangeType();
     if (type != expected) {
@@ -71,7 +71,7 @@ public class AssertionsOnChangeType {
    * @return {@code this} assertion object.
    * @throws AssertionError If the type of the change is not a creation.
    */
-  public static <A extends AbstractAssert> A isCreation(A assertion, WritableAssertionInfo info, Change change) {
+  public static <A extends AbstractAssert<?>> A isCreation(A assertion, WritableAssertionInfo info, Change change) {
     return isOfType(assertion, info, change, ChangeType.CREATION);
   }
 
@@ -85,7 +85,7 @@ public class AssertionsOnChangeType {
    * @return {@code this} assertion object.
    * @throws AssertionError If the type of the change is not a modification.
    */
-  public static <A extends AbstractAssert> A isModification(A assertion, WritableAssertionInfo info, Change change) {
+  public static <A extends AbstractAssert<?>> A isModification(A assertion, WritableAssertionInfo info, Change change) {
     return isOfType(assertion, info, change, ChangeType.MODIFICATION);
   }
 
@@ -99,7 +99,7 @@ public class AssertionsOnChangeType {
    * @return {@code this} assertion object.
    * @throws AssertionError If the type of the change is not a deletion.
    */
-  public static <A extends AbstractAssert> A isDeletion(A assertion, WritableAssertionInfo info, Change change) {
+  public static <A extends AbstractAssert<?>> A isDeletion(A assertion, WritableAssertionInfo info, Change change) {
     return isOfType(assertion, info, change, ChangeType.DELETION);
   }
 }

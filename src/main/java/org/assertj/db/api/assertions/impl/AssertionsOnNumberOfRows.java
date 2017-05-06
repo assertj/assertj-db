@@ -53,7 +53,7 @@ public class AssertionsOnNumberOfRows {
    * @return {@code this} assertion object.
    * @throws AssertionError If the number of rows is different to the number in parameter.
    */
-  public static <A extends AbstractAssert> A hasNumberOfRows(A assertion, WritableAssertionInfo info, int size,
+  public static <A extends AbstractAssert<?>> A hasNumberOfRows(A assertion, WritableAssertionInfo info, int size,
                                                              int expected) {
     if (size != expected) {
       throw failures.failure(info, shouldHaveRowsSize(size, expected));
@@ -73,7 +73,7 @@ public class AssertionsOnNumberOfRows {
    * @throws AssertionError If the number of rows is less than or equal to the number in parameter.
    * @since 1.1.0
    */
-  public static <A extends AbstractAssert> A hasNumberOfRowsGreaterThan(A assertion, WritableAssertionInfo info, int size,
+  public static <A extends AbstractAssert<?>> A hasNumberOfRowsGreaterThan(A assertion, WritableAssertionInfo info, int size,
                                                                            int expected) {
     if (size <= expected) {
       throw failures.failure(info, shouldHaveRowsSizeGreater(size, expected));
@@ -93,7 +93,7 @@ public class AssertionsOnNumberOfRows {
    * @throws AssertionError If the number of rows is greater than or equal to the number in parameter.
    * @since 1.1.0
    */
-  public static <A extends AbstractAssert> A hasNumberOfRowsLessThan(A assertion, WritableAssertionInfo info, int size,
+  public static <A extends AbstractAssert<?>> A hasNumberOfRowsLessThan(A assertion, WritableAssertionInfo info, int size,
                                                                         int expected) {
     if (size >= expected) {
       throw failures.failure(info, shouldHaveRowsSizeLess(size, expected));
@@ -113,7 +113,7 @@ public class AssertionsOnNumberOfRows {
    * @throws AssertionError If the number of rows is less than the number in parameter.
    * @since 1.1.0
    */
-  public static <A extends AbstractAssert> A hasNumberOfRowsGreaterThanOrEqualTo(A assertion, WritableAssertionInfo info, int size,
+  public static <A extends AbstractAssert<?>> A hasNumberOfRowsGreaterThanOrEqualTo(A assertion, WritableAssertionInfo info, int size,
                                                                                     int expected) {
     if (size < expected) {
       throw failures.failure(info, shouldHaveRowsSizeGreaterOrEqual(size, expected));
@@ -133,7 +133,7 @@ public class AssertionsOnNumberOfRows {
    * @throws AssertionError If the number of rows is greater than the number in parameter.
    * @since 1.1.0
    */
-  public static <A extends AbstractAssert> A hasNumberOfRowsLessThanOrEqualTo(A assertion, WritableAssertionInfo info, int size,
+  public static <A extends AbstractAssert<?>> A hasNumberOfRowsLessThanOrEqualTo(A assertion, WritableAssertionInfo info, int size,
                                                                                  int expected) {
     if (size > expected) {
       throw failures.failure(info, shouldHaveRowsSizeLessOrEqual(size, expected));

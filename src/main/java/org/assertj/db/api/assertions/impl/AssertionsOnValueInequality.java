@@ -58,7 +58,7 @@ public class AssertionsOnValueInequality {
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is equal to the object in parameter.
    */
-  public static <A extends AbstractAssert> A isNotEqualTo(A assertion, WritableAssertionInfo info, Value value,
+  public static <A extends AbstractAssert<?>> A isNotEqualTo(A assertion, WritableAssertionInfo info, Value value,
                                                           Object expected) {
     if (value.getValue() != null && expected != null) {
       AssertionsOnValueClass.isOfClass(assertion, info, value, expected.getClass());
@@ -80,7 +80,7 @@ public class AssertionsOnValueInequality {
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is equal to the boolean in parameter.
    */
-  public static <A extends AbstractAssert> A isNotEqualTo(A assertion, WritableAssertionInfo info, Value value,
+  public static <A extends AbstractAssert<?>> A isNotEqualTo(A assertion, WritableAssertionInfo info, Value value,
                                                           Boolean expected) {
     if (expected != null) {
       AssertionsOnValueType.isBoolean(assertion, info, value);
@@ -102,7 +102,7 @@ public class AssertionsOnValueInequality {
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is equal to the array of bytes in parameter.
    */
-  public static <A extends AbstractAssert> A isNotEqualTo(A assertion, WritableAssertionInfo info, Value value,
+  public static <A extends AbstractAssert<?>> A isNotEqualTo(A assertion, WritableAssertionInfo info, Value value,
                                                           byte[] expected) {
     if (expected != null) {
       AssertionsOnValueType.isBytes(assertion, info, value);
@@ -124,7 +124,7 @@ public class AssertionsOnValueInequality {
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is equal to the date/time value in parameter.
    */
-  public static <A extends AbstractAssert> A isNotEqualTo(A assertion, WritableAssertionInfo info, Value value,
+  public static <A extends AbstractAssert<?>> A isNotEqualTo(A assertion, WritableAssertionInfo info, Value value,
                                                           DateTimeValue expected) {
     if (expected != null){
       AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
@@ -153,7 +153,7 @@ public class AssertionsOnValueInequality {
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is equal to the date value in parameter.
    */
-  public static <A extends AbstractAssert> A isNotEqualTo(A assertion, WritableAssertionInfo info, Value value,
+  public static <A extends AbstractAssert<?>> A isNotEqualTo(A assertion, WritableAssertionInfo info, Value value,
                                                           DateValue expected) {
     if (expected != null) {
       AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
@@ -182,7 +182,7 @@ public class AssertionsOnValueInequality {
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is equal to the number in parameter.
    */
-  public static <A extends AbstractAssert> A isNotEqualTo(A assertion, WritableAssertionInfo info, Value value,
+  public static <A extends AbstractAssert<?>> A isNotEqualTo(A assertion, WritableAssertionInfo info, Value value,
                                                           Number expected) {
     if (expected != null) {
       AssertionsOnValueType.isNumber(assertion, info, value);
@@ -204,7 +204,7 @@ public class AssertionsOnValueInequality {
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is equal to the text in parameter.
    */
-  public static <A extends AbstractAssert> A isNotEqualTo(A assertion, WritableAssertionInfo info, Value value,
+  public static <A extends AbstractAssert<?>> A isNotEqualTo(A assertion, WritableAssertionInfo info, Value value,
                                                           String expected) {
 
     if (expected != null) {
@@ -232,7 +232,7 @@ public class AssertionsOnValueInequality {
    * @throws AssertionError If the value is equal to the UUID in parameter.
    * @since 1.1.0
    */
-  public static <A extends AbstractAssert> A isNotEqualTo(A assertion, WritableAssertionInfo info, Value value,
+  public static <A extends AbstractAssert<?>> A isNotEqualTo(A assertion, WritableAssertionInfo info, Value value,
                                                           UUID expected) {
 
     if (expected != null) {
@@ -257,7 +257,7 @@ public class AssertionsOnValueInequality {
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is equal to the time value in parameter.
    */
-  public static <A extends AbstractAssert> A isNotEqualTo(A assertion, WritableAssertionInfo info, Value value,
+  public static <A extends AbstractAssert<?>> A isNotEqualTo(A assertion, WritableAssertionInfo info, Value value,
                                                           TimeValue expected) {
     if (expected != null) {
       AssertionsOnValueType.isTime(assertion, info, value);
@@ -282,7 +282,7 @@ public class AssertionsOnValueInequality {
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is equal to zero.
    */
-  public static <A extends AbstractAssert> A isNotZero(A assertion, WritableAssertionInfo info, Value value) {
+  public static <A extends AbstractAssert<?>> A isNotZero(A assertion, WritableAssertionInfo info, Value value) {
     return isNotEqualTo(assertion, info, value, 0);
   }
 }

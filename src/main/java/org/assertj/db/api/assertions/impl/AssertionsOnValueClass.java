@@ -54,7 +54,7 @@ public class AssertionsOnValueClass {
    * @throws AssertJDBException If the class is {@code null}.
    * @since 1.1.0
    */
-  public static <A extends AbstractAssert> A isOfClass(A assertion, WritableAssertionInfo info, Value value,
+  public static <A extends AbstractAssert<?>> A isOfClass(A assertion, WritableAssertionInfo info, Value value,
                                                        Class<?> classOfValue) {
 
     if (value.getValue() == null) {

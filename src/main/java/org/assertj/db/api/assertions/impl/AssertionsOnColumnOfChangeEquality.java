@@ -57,7 +57,7 @@ public class AssertionsOnColumnOfChangeEquality {
    * @return {@code this} assertion object.
    * @throws AssertionError If the values at start point and at end point are not equal to the object.
    */
-  public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
                                                        Value valueAtStartPoint, Value valueAtEndPoint,
                                                        Object expected) {
 
@@ -86,7 +86,7 @@ public class AssertionsOnColumnOfChangeEquality {
    * @return {@code this} assertion object.
    * @throws AssertionError If the values at start point and at end point are not equal to the corresponding objects.
    */
-  public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
                                                        Value valueAtStartPoint, Value valueAtEndPoint,
                                                        Object expectedAtStartPoint, Object expectedAtEndPoint) {
 
@@ -123,7 +123,7 @@ public class AssertionsOnColumnOfChangeEquality {
    * @return {@code this} assertion object.
    * @throws AssertionError If the values at start point and at end point are not equal to the boolean.
    */
-  public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
                                                        Value valueAtStartPoint, Value valueAtEndPoint,
                                                        Boolean expected) {
 
@@ -150,7 +150,7 @@ public class AssertionsOnColumnOfChangeEquality {
    * @return {@code this} assertion object.
    * @throws AssertionError If the values at start point and at end point are not equal to the corresponding booleans.
    */
-  public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
                                                        Value valueAtStartPoint, Value valueAtEndPoint,
                                                        Boolean expectedAtStartPoint, Boolean expectedAtEndPoint) {
 
@@ -176,7 +176,7 @@ public class AssertionsOnColumnOfChangeEquality {
    * @return {@code this} assertion object.
    * @throws AssertionError If the values at start point and at end point are not equal to the number.
    */
-  public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
                                                        Value valueAtStartPoint, Value valueAtEndPoint,
                                                        Number expected) {
 
@@ -205,7 +205,7 @@ public class AssertionsOnColumnOfChangeEquality {
    * @return {@code this} assertion object.
    * @throws AssertionError If the values at start point and at end point are not equal to the corresponding numbers.
    */
-  public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
                                                        Value valueAtStartPoint, Value valueAtEndPoint,
                                                        Number expectedAtStartPoint, Number expectedAtEndPoint) {
 
@@ -233,7 +233,7 @@ public class AssertionsOnColumnOfChangeEquality {
    * @return {@code this} assertion object.
    * @throws AssertionError If the values at start point and at end point are not equal to the bytes.
    */
-  public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
                                                        Value valueAtStartPoint, Value valueAtEndPoint,
                                                        byte[] expected) {
 
@@ -260,7 +260,7 @@ public class AssertionsOnColumnOfChangeEquality {
    * @return {@code this} assertion object.
    * @throws AssertionError If the values at start point and at end point are not equal to the corresponding bytes.
    */
-  public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
                                                        Value valueAtStartPoint, Value valueAtEndPoint,
                                                        byte[] expectedAtStartPoint, byte[] expectedAtEndPoint) {
 
@@ -286,7 +286,7 @@ public class AssertionsOnColumnOfChangeEquality {
    * @return {@code this} assertion object.
    * @throws AssertionError If the values at start point and at end point are not equal to the text.
    */
-  public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
                                                        Value valueAtStartPoint, Value valueAtEndPoint,
                                                        String expected) {
 
@@ -317,7 +317,7 @@ public class AssertionsOnColumnOfChangeEquality {
    * @return {@code this} assertion object.
    * @throws AssertionError If the values at start point and at end point are not equal to the corresponding texts.
    */
-  public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
                                                        Value valueAtStartPoint, Value valueAtEndPoint,
                                                        String expectedAtStartPoint, String expectedAtEndPoint) {
 
@@ -347,7 +347,7 @@ public class AssertionsOnColumnOfChangeEquality {
    * @return {@code this} assertion object.
    * @throws AssertionError If the values at start point and at end point are not equal to the date.
    */
-  public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
                                                        Value valueAtStartPoint, Value valueAtEndPoint,
                                                        DateValue expected) {
     AssertionsOnColumnOfChangeType
@@ -377,7 +377,7 @@ public class AssertionsOnColumnOfChangeEquality {
    * @return {@code this} assertion object.
    * @throws AssertionError If the values at start point and at end point are not equal to the corresponding dates.
    */
-  public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
                                                        Value valueAtStartPoint, Value valueAtEndPoint,
                                                        DateValue expectedAtStartPoint, DateValue expectedAtEndPoint) {
 
@@ -406,7 +406,7 @@ public class AssertionsOnColumnOfChangeEquality {
    * @return {@code this} assertion object.
    * @throws AssertionError If the values at start point and at end point are not equal to the time.
    */
-  public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
                                                        Value valueAtStartPoint, Value valueAtEndPoint,
                                                        TimeValue expected) {
 
@@ -436,7 +436,7 @@ public class AssertionsOnColumnOfChangeEquality {
    * @return {@code this} assertion object.
    * @throws AssertionError If the values at start point and at end point are not equal to the corresponding times.
    */
-  public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
                                                        Value valueAtStartPoint, Value valueAtEndPoint,
                                                        TimeValue expectedAtStartPoint, TimeValue expectedAtEndPoint) {
 
@@ -465,7 +465,7 @@ public class AssertionsOnColumnOfChangeEquality {
    * @return {@code this} assertion object.
    * @throws AssertionError If the values at start point and at end point are not equal to the date/time.
    */
-  public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
                                                        Value valueAtStartPoint, Value valueAtEndPoint,
                                                        DateTimeValue expected) {
 
@@ -495,7 +495,7 @@ public class AssertionsOnColumnOfChangeEquality {
    * @return {@code this} assertion object.
    * @throws AssertionError If the values at start point and at end point are not equal to the corresponding dates/times.
    */
-  public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
                                                        Value valueAtStartPoint, Value valueAtEndPoint,
                                                        DateTimeValue expectedAtStartPoint,
                                                        DateTimeValue expectedAtEndPoint) {
@@ -526,7 +526,7 @@ public class AssertionsOnColumnOfChangeEquality {
    * @throws AssertionError If the values at start point and at end point are not equal to the UUID.
    * @since 1.1.0
    */
-  public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
                                                        Value valueAtStartPoint, Value valueAtEndPoint,
                                                        UUID expected) {
 
@@ -557,7 +557,7 @@ public class AssertionsOnColumnOfChangeEquality {
    * @throws AssertionError If the values at start point and at end point are not equal to the corresponding UUIDs.
    * @since 1.1.0
    */
-  public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
                                                        Value valueAtStartPoint, Value valueAtEndPoint,
                                                        UUID expectedAtStartPoint, UUID expectedAtEndPoint) {
 

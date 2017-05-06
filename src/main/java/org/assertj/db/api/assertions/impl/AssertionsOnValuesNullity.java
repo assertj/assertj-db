@@ -53,7 +53,7 @@ public class AssertionsOnValuesNullity {
    * @return {@code this} assertion object.
    * @throws AssertionError If at least one of the values of the column are not {@code null}.
    */
-  public static <A extends AbstractAssert> A hasOnlyNullValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasOnlyNullValues(A assertion, WritableAssertionInfo info,
                                                                List<Value> valuesList) {
     int index = 0;
     for (Value value : valuesList) {
@@ -75,7 +75,7 @@ public class AssertionsOnValuesNullity {
    * @return {@code this} assertion object.
    * @throws AssertionError If at least one of the values of the column are {@code null}.
    */
-  public static <A extends AbstractAssert> A hasOnlyNotNullValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasOnlyNotNullValues(A assertion, WritableAssertionInfo info,
                                                                   List<Value> valuesList) {
     int index = 0;
     for (Value value : valuesList) {

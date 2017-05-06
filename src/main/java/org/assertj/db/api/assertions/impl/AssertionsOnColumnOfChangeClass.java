@@ -56,7 +56,7 @@ public class AssertionsOnColumnOfChangeClass {
    * @throws AssertionError If the class of the column is different to the class in parameter.
    * @since 1.1.0
    */
-  public static <A extends AbstractAssert> A isOfClass(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A isOfClass(A assertion, WritableAssertionInfo info,
                                                        Value valueAtStartPoint, Value valueAtEndPoint,
                                                        Class<?> expected, boolean lenient) {
 

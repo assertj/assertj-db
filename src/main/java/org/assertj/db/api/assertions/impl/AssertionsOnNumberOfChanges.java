@@ -57,7 +57,7 @@ public class AssertionsOnNumberOfChanges {
    * @return {@code this} assertion object.
    * @throws AssertionError If the number of changes is different to the number in parameter.
    */
-  public static <A extends AbstractAssert> A hasNumberOfChanges(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasNumberOfChanges(A assertion, WritableAssertionInfo info,
                                                                 Changes changes, int expected) {
     List<Change> changesList = changes.getChangesList();
     int size = changesList.size();
@@ -78,7 +78,7 @@ public class AssertionsOnNumberOfChanges {
    * @return {@code this} assertion object.
    * @throws AssertionError If the number of changes is less than or equal to the number in parameter.
    */
-  public static <A extends AbstractAssert> A hasNumberOfChangesGreaterThan(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasNumberOfChangesGreaterThan(A assertion, WritableAssertionInfo info,
                                                                 Changes changes, int expected) {
     List<Change> changesList = changes.getChangesList();
     int size = changesList.size();
@@ -99,7 +99,7 @@ public class AssertionsOnNumberOfChanges {
    * @return {@code this} assertion object.
    * @throws AssertionError If the number of changes is greater than or equal to the number in parameter.
    */
-  public static <A extends AbstractAssert> A hasNumberOfChangesLessThan(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasNumberOfChangesLessThan(A assertion, WritableAssertionInfo info,
                                                                 Changes changes, int expected) {
     List<Change> changesList = changes.getChangesList();
     int size = changesList.size();
@@ -120,7 +120,7 @@ public class AssertionsOnNumberOfChanges {
    * @return {@code this} assertion object.
    * @throws AssertionError If the number of changes is less than the number in parameter.
    */
-  public static <A extends AbstractAssert> A hasNumberOfChangesGreaterThanOrEqualTo(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasNumberOfChangesGreaterThanOrEqualTo(A assertion, WritableAssertionInfo info,
                                                                 Changes changes, int expected) {
     List<Change> changesList = changes.getChangesList();
     int size = changesList.size();
@@ -141,7 +141,7 @@ public class AssertionsOnNumberOfChanges {
    * @return {@code this} assertion object.
    * @throws AssertionError If the number of changes is greater than the number in parameter.
    */
-  public static <A extends AbstractAssert> A hasNumberOfChangesLessThanOrEqualTo(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasNumberOfChangesLessThanOrEqualTo(A assertion, WritableAssertionInfo info,
                                                                 Changes changes, int expected) {
     List<Change> changesList = changes.getChangesList();
     int size = changesList.size();

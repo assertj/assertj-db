@@ -60,7 +60,7 @@ public class AssertionsOnModifiedColumns {
    * @return {@code this} assertion object.
    * @throws AssertionError If the number of modified columns is different to the number in parameter.
    */
-  public static <A extends AbstractAssert> A hasNumberOfModifiedColumns(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasNumberOfModifiedColumns(A assertion, WritableAssertionInfo info,
                                                                         Change change, int number) {
     Integer[] indexesOfModifiedColumns = Changes.getIndexesOfModifiedColumns(change);
 
@@ -82,7 +82,7 @@ public class AssertionsOnModifiedColumns {
    * @return {@code this} assertion object.
    * @throws AssertionError If the number of modified columns is less than or equal to the number in parameter.
    */
-  public static <A extends AbstractAssert> A hasNumberOfModifiedColumnsGreaterThan(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasNumberOfModifiedColumnsGreaterThan(A assertion, WritableAssertionInfo info,
                                                                                    Change change, int number) {
     Integer[] indexesOfModifiedColumns = Changes.getIndexesOfModifiedColumns(change);
 
@@ -104,7 +104,7 @@ public class AssertionsOnModifiedColumns {
    * @return {@code this} assertion object.
    * @throws AssertionError If the number of modified columns is greater than or equal to the number in parameter.
    */
-  public static <A extends AbstractAssert> A hasNumberOfModifiedColumnsLessThan(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasNumberOfModifiedColumnsLessThan(A assertion, WritableAssertionInfo info,
                                                                                 Change change, int number) {
     Integer[] indexesOfModifiedColumns = Changes.getIndexesOfModifiedColumns(change);
 
@@ -126,7 +126,7 @@ public class AssertionsOnModifiedColumns {
    * @return {@code this} assertion object.
    * @throws AssertionError If the number of modified columns is less than the number in parameter.
    */
-  public static <A extends AbstractAssert> A hasNumberOfModifiedColumnsGreaterThanOrEqualTo(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasNumberOfModifiedColumnsGreaterThanOrEqualTo(A assertion, WritableAssertionInfo info,
                                                                         Change change, int number) {
     Integer[] indexesOfModifiedColumns = Changes.getIndexesOfModifiedColumns(change);
 
@@ -149,7 +149,7 @@ public class AssertionsOnModifiedColumns {
    * @return {@code this} assertion object.
    * @throws AssertionError If the number of modified columns is greater than the number in parameter.
    */
-  public static <A extends AbstractAssert> A hasNumberOfModifiedColumnsLessThanOrEqualTo(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasNumberOfModifiedColumnsLessThanOrEqualTo(A assertion, WritableAssertionInfo info,
                                                                                    Change change, int number) {
     Integer[] indexesOfModifiedColumns = Changes.getIndexesOfModifiedColumns(change);
 
@@ -171,7 +171,7 @@ public class AssertionsOnModifiedColumns {
    * @return {@code this} assertion object.
    * @throws AssertionError If the indexes of the modified columns are different to the indexes in parameters.
    */
-  public static <A extends AbstractAssert> A hasModifiedColumns(A assertion, WritableAssertionInfo info, Change change,
+  public static <A extends AbstractAssert<?>> A hasModifiedColumns(A assertion, WritableAssertionInfo info, Change change,
                                                                 Integer... indexes) {
     if (indexes == null) {
       throw new NullPointerException("Columns indexes must be not null");
@@ -213,7 +213,7 @@ public class AssertionsOnModifiedColumns {
    * @return {@code this} assertion object.
    * @throws AssertionError If the names of the modified columns are different to the names in parameters.
    */
-  public static <A extends AbstractAssert> A hasModifiedColumns(A assertion, WritableAssertionInfo info, Change change,
+  public static <A extends AbstractAssert<?>> A hasModifiedColumns(A assertion, WritableAssertionInfo info, Change change,
                                                                 LetterCase columnLetterCase, String... names) {
     if (names == null) {
       throw new NullPointerException("Columns names must be not null");

@@ -53,7 +53,7 @@ public class AssertionsOnNumberOfColumns {
    * @return {@code this} assertion object.
    * @throws AssertionError If the number of columns is different to the number in parameter.
    */
-  public static <A extends AbstractAssert> A hasNumberOfColumns(A assertion, WritableAssertionInfo info, int size,
+  public static <A extends AbstractAssert<?>> A hasNumberOfColumns(A assertion, WritableAssertionInfo info, int size,
                                                                 int expected) {
     if (size != expected) {
       throw failures.failure(info, shouldHaveColumnsSize(size, expected));
@@ -73,7 +73,7 @@ public class AssertionsOnNumberOfColumns {
    * @throws AssertionError If the number of columns is less than or equal to the number in parameter.
    * @since 1.1.0
    */
-  public static <A extends AbstractAssert> A hasNumberOfColumnsGreaterThan(A assertion, WritableAssertionInfo info, int size,
+  public static <A extends AbstractAssert<?>> A hasNumberOfColumnsGreaterThan(A assertion, WritableAssertionInfo info, int size,
                                                                 int expected) {
     if (size <= expected) {
       throw failures.failure(info, shouldHaveColumnsSizeGreater(size, expected));
@@ -93,7 +93,7 @@ public class AssertionsOnNumberOfColumns {
    * @throws AssertionError If the number of columns is greater than or equal to the number in parameter.
    * @since 1.1.0
    */
-  public static <A extends AbstractAssert> A hasNumberOfColumnsLessThan(A assertion, WritableAssertionInfo info, int size,
+  public static <A extends AbstractAssert<?>> A hasNumberOfColumnsLessThan(A assertion, WritableAssertionInfo info, int size,
                                                                            int expected) {
     if (size >= expected) {
       throw failures.failure(info, shouldHaveColumnsSizeLess(size, expected));
@@ -113,7 +113,7 @@ public class AssertionsOnNumberOfColumns {
    * @throws AssertionError If the number of columns is less than the number in parameter.
    * @since 1.1.0
    */
-  public static <A extends AbstractAssert> A hasNumberOfColumnsGreaterThanOrEqualTo(A assertion, WritableAssertionInfo info, int size,
+  public static <A extends AbstractAssert<?>> A hasNumberOfColumnsGreaterThanOrEqualTo(A assertion, WritableAssertionInfo info, int size,
                                                                            int expected) {
     if (size < expected) {
       throw failures.failure(info, shouldHaveColumnsSizeGreaterOrEqual(size, expected));
@@ -133,7 +133,7 @@ public class AssertionsOnNumberOfColumns {
    * @throws AssertionError If the number of columns is greater than the number in parameter.
    * @since 1.1.0
    */
-  public static <A extends AbstractAssert> A hasNumberOfColumnsLessThanOrEqualTo(A assertion, WritableAssertionInfo info, int size,
+  public static <A extends AbstractAssert<?>> A hasNumberOfColumnsLessThanOrEqualTo(A assertion, WritableAssertionInfo info, int size,
                                                                         int expected) {
     if (size > expected) {
       throw failures.failure(info, shouldHaveColumnsSizeLessOrEqual(size, expected));

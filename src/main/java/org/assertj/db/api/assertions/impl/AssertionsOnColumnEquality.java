@@ -56,7 +56,7 @@ public class AssertionsOnColumnEquality {
    * @return {@code this} assertion object.
    * @throws AssertionError If the values of the column are not equal to the objects in parameter.
    */
-  public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
                                                        List<Value> valuesList, Object... expected) {
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
     int index = 0;
@@ -83,7 +83,7 @@ public class AssertionsOnColumnEquality {
    * @return {@code this} assertion object.
    * @throws AssertionError If the values of the column are not equal to the booleans in parameter.
    */
-  public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
                                                        List<Value> valuesList, Boolean... expected) {
     AssertionsOnColumnType.isBoolean(assertion, info, valuesList, true);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
@@ -108,7 +108,7 @@ public class AssertionsOnColumnEquality {
    * @return {@code this} assertion object.
    * @throws AssertionError If the values of the column are not equal to the numbers in parameter.
    */
-  public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
                                                        List<Value> valuesList, Number... expected) {
     AssertionsOnColumnType.isNumber(assertion, info, valuesList, true);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
@@ -136,7 +136,7 @@ public class AssertionsOnColumnEquality {
    * @return {@code this} assertion object.
    * @throws AssertionError If the values of the column are not equal to the bytes in parameter.
    */
-  public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
                                                        List<Value> valuesList, byte[]... expected) {
     AssertionsOnColumnType.isBytes(assertion, info, valuesList, true);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
@@ -161,7 +161,7 @@ public class AssertionsOnColumnEquality {
    * @return {@code this} assertion object.
    * @throws AssertionError If the values of the column are not equal to the texts in parameter.
    */
-  public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
                                                        List<Value> valuesList, String... expected) {
     AssertionsOnColumnType.isOfAnyTypeIn(assertion, info, valuesList, ValueType.TEXT, ValueType.NUMBER, ValueType.DATE,
             ValueType.TIME, ValueType.DATE_TIME, ValueType.UUID, ValueType.NOT_IDENTIFIED);
@@ -190,7 +190,7 @@ public class AssertionsOnColumnEquality {
    * @throws AssertionError If the values of the column are not equal to the UUIDs in parameter.
    * @since 1.1.0
    */
-  public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
                                                        List<Value> valuesList, UUID... expected) {
     AssertionsOnColumnType.isOfAnyTypeIn(assertion, info, valuesList, ValueType.UUID, ValueType.NOT_IDENTIFIED);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
@@ -217,7 +217,7 @@ public class AssertionsOnColumnEquality {
    * @return {@code this} assertion object.
    * @throws AssertionError If the values of the column are not equal to the date values in parameter.
    */
-  public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
                                                        List<Value> valuesList, DateValue... expected) {
     AssertionsOnColumnType
             .isOfAnyTypeIn(assertion, info, valuesList, ValueType.DATE, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
@@ -244,7 +244,7 @@ public class AssertionsOnColumnEquality {
    * @return {@code this} assertion object.
    * @throws AssertionError If the values of the column are not equal to the time values in parameter.
    */
-  public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
                                                        List<Value> valuesList, TimeValue... expected) {
     AssertionsOnColumnType.isOfAnyTypeIn(assertion, info, valuesList, ValueType.TIME, ValueType.NOT_IDENTIFIED);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
@@ -272,7 +272,7 @@ public class AssertionsOnColumnEquality {
    * @return {@code this} assertion object.
    * @throws AssertionError If the values of the column are not equal to the date/time values in parameter.
    */
-  public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
                                                        List<Value> valuesList, DateTimeValue... expected) {
     AssertionsOnColumnType.isOfAnyTypeIn(assertion, info, valuesList, ValueType.DATE, ValueType.DATE_TIME,
                                          ValueType.NOT_IDENTIFIED);

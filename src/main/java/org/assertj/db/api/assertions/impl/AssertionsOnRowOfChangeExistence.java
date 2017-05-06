@@ -51,7 +51,7 @@ public class AssertionsOnRowOfChangeExistence {
    * @throws AssertionError If the row of the change does not exist.
    * @see org.assertj.db.api.ChangeRowAssert#exists()
    */
-  public static <A extends AbstractAssert> A exists(A assertion, WritableAssertionInfo info, Row row) {
+  public static <A extends AbstractAssert<?>> A exists(A assertion, WritableAssertionInfo info, Row row) {
     if (row == null) {
       throw failures.failure(info, shouldExist());
     }
@@ -69,7 +69,7 @@ public class AssertionsOnRowOfChangeExistence {
    * @throws AssertionError If the row of the change exists.
    * @see org.assertj.db.api.ChangeRowAssert#doesNotExist()
    */
-  public static <A extends AbstractAssert> A doesNotExist(A assertion, WritableAssertionInfo info, Row row) {
+  public static <A extends AbstractAssert<?>> A doesNotExist(A assertion, WritableAssertionInfo info, Row row) {
     if (row != null) {
       throw failures.failure(info, shouldNotExist());
     }

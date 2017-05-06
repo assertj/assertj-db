@@ -61,7 +61,7 @@ public class AssertionsOnPrimaryKey {
    * @throws AssertionError                 If the columns of the primary key are different to the names in parameters.
    * @throws java.lang.NullPointerException If one of the names in parameters is {@code null}.
    */
-  public static <A extends AbstractAssert> A hasPksNames(A assertion, WritableAssertionInfo info, Change change,
+  public static <A extends AbstractAssert<?>> A hasPksNames(A assertion, WritableAssertionInfo info, Change change,
                                                          LetterCase primaryKeyLetterCase, String... names) {
     if (names == null) {
       throw new NullPointerException("Columns names must be not null");
@@ -112,7 +112,7 @@ public class AssertionsOnPrimaryKey {
    * @return {@code this} assertion object.
    * @throws AssertionError If the values of the primary key are different to the values in parameters.
    */
-  public static <A extends AbstractAssert> A hasPksValues(A assertion, WritableAssertionInfo info, Change change,
+  public static <A extends AbstractAssert<?>> A hasPksValues(A assertion, WritableAssertionInfo info, Change change,
                                                           Object... values) {
     // Create a array from the primary keys columns
     List<Value> pksValueList = change.getPksValueList();

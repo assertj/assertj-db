@@ -51,7 +51,7 @@ public class AssertionsOnModifiedColumn {
    * @return {@code this} assertion object.
    * @throws AssertionError If the column is not modified between the start point and the end point.
    */
-  public static <A extends AbstractAssert> A isModified(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A isModified(A assertion, WritableAssertionInfo info,
                                                         Value valueAtStartPoint, Value valueAtEndPoint) {
     if ((valueAtStartPoint.getValue() == null && valueAtEndPoint.getValue() == null)
         || (valueAtStartPoint.getValue() != null && valueAtStartPoint.getValue().equals(valueAtEndPoint.getValue()))) {
@@ -72,7 +72,7 @@ public class AssertionsOnModifiedColumn {
    * @return {@code this} assertion object.
    * @throws AssertionError If the column is modified between the start point and the end point.
    */
-  public static <A extends AbstractAssert> A isNotModified(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A isNotModified(A assertion, WritableAssertionInfo info,
                                                            Value valueAtStartPoint, Value valueAtEndPoint) {
     if ((valueAtStartPoint.getValue() == null && valueAtEndPoint.getValue() != null)
         || (valueAtStartPoint.getValue() != null && !valueAtStartPoint.getValue().equals(valueAtEndPoint.getValue()))) {

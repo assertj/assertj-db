@@ -56,7 +56,7 @@ public class AssertionsOnColumnContent {
    * @return {@code this} assertion object.
    * @throws AssertionError If the column are not containing the objects in parameter.
    */
-  public static <A extends AbstractAssert> A containsValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A containsValues(A assertion, WritableAssertionInfo info,
                                                        List<Value> valuesList, Object... expected) {
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
     List<Value> list = new ArrayList<>(valuesList);
@@ -96,7 +96,7 @@ public class AssertionsOnColumnContent {
    * @return {@code this} assertion object.
    * @throws AssertionError If the column are not containing the booleans in parameter.
    */
-  public static <A extends AbstractAssert> A containsValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A containsValues(A assertion, WritableAssertionInfo info,
                                                        List<Value> valuesList, Boolean... expected) {
     AssertionsOnColumnType.isBoolean(assertion, info, valuesList, true);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
@@ -137,7 +137,7 @@ public class AssertionsOnColumnContent {
    * @return {@code this} assertion object.
    * @throws AssertionError If the column are not containing the numbers in parameter.
    */
-  public static <A extends AbstractAssert> A containsValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A containsValues(A assertion, WritableAssertionInfo info,
                                                        List<Value> valuesList, Number... expected) {
     AssertionsOnColumnType.isNumber(assertion, info, valuesList, true);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
@@ -178,7 +178,7 @@ public class AssertionsOnColumnContent {
    * @return {@code this} assertion object.
    * @throws AssertionError If the column are not containing the bytes in parameter.
    */
-  public static <A extends AbstractAssert> A containsValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A containsValues(A assertion, WritableAssertionInfo info,
                                                        List<Value> valuesList, byte[]... expected) {
     AssertionsOnColumnType.isBytes(assertion, info, valuesList, true);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
@@ -219,7 +219,7 @@ public class AssertionsOnColumnContent {
    * @return {@code this} assertion object.
    * @throws AssertionError If the column are not containing the texts in parameter.
    */
-  public static <A extends AbstractAssert> A containsValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A containsValues(A assertion, WritableAssertionInfo info,
                                                        List<Value> valuesList, String... expected) {
     AssertionsOnColumnType.isOfAnyTypeIn(assertion, info, valuesList, ValueType.TEXT, ValueType.NUMBER, ValueType.DATE,
                                          ValueType.TIME, ValueType.DATE_TIME, ValueType.UUID, ValueType.NOT_IDENTIFIED);
@@ -261,7 +261,7 @@ public class AssertionsOnColumnContent {
    * @return {@code this} assertion object.
    * @throws AssertionError If the column are not containing the UUIDs in parameter.
    */
-  public static <A extends AbstractAssert> A containsValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A containsValues(A assertion, WritableAssertionInfo info,
                                                        List<Value> valuesList, UUID... expected) {
     AssertionsOnColumnType.isOfAnyTypeIn(assertion, info, valuesList, ValueType.UUID, ValueType.NOT_IDENTIFIED);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
@@ -302,7 +302,7 @@ public class AssertionsOnColumnContent {
    * @return {@code this} assertion object.
    * @throws AssertionError If the column are not containing the date values in parameter.
    */
-  public static <A extends AbstractAssert> A containsValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A containsValues(A assertion, WritableAssertionInfo info,
                                                        List<Value> valuesList, DateValue... expected) {
     AssertionsOnColumnType
             .isOfAnyTypeIn(assertion, info, valuesList, ValueType.DATE, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
@@ -344,7 +344,7 @@ public class AssertionsOnColumnContent {
    * @return {@code this} assertion object.
    * @throws AssertionError If the column are not containing the time values in parameter.
    */
-  public static <A extends AbstractAssert> A containsValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A containsValues(A assertion, WritableAssertionInfo info,
                                                        List<Value> valuesList, TimeValue... expected) {
     AssertionsOnColumnType.isOfAnyTypeIn(assertion, info, valuesList, ValueType.TIME, ValueType.NOT_IDENTIFIED);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
@@ -385,7 +385,7 @@ public class AssertionsOnColumnContent {
    * @return {@code this} assertion object.
    * @throws AssertionError If the column are not containing the date/time values in parameter.
    */
-  public static <A extends AbstractAssert> A containsValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A containsValues(A assertion, WritableAssertionInfo info,
                                                        List<Value> valuesList, DateTimeValue... expected) {
     AssertionsOnColumnType.isOfAnyTypeIn(assertion, info, valuesList, ValueType.DATE, ValueType.DATE_TIME,
                                          ValueType.NOT_IDENTIFIED);

@@ -51,7 +51,7 @@ public class AssertionsOnColumnName {
    * @return {@code this} assertion object.
    * @throws AssertionError If the column name is not equal to the parameter.
    */
-  public static <A extends AbstractAssert> A hasColumnName(A assertion, WritableAssertionInfo info, String columnName,
+  public static <A extends AbstractAssert<?>> A hasColumnName(A assertion, WritableAssertionInfo info, String columnName,
                                                            String expected, LetterCase columnLetterCase) {
     if (expected == null) {
       throw new NullPointerException("Column name must be not null");

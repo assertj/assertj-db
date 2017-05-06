@@ -54,7 +54,7 @@ public class AssertionsOnDataType {
    * @return {@code this} assertion object.
    * @throws AssertionError If the type is different to the type in parameter.
    */
-  public static <A extends AbstractAssert> A isOnDataType(A assertion, WritableAssertionInfo info, Change change,
+  public static <A extends AbstractAssert<?>> A isOnDataType(A assertion, WritableAssertionInfo info, Change change,
                                                           DataType expected) {
     DataType dataType = change.getDataType();
     if (dataType != expected) {
@@ -73,7 +73,7 @@ public class AssertionsOnDataType {
    * @return {@code this} assertion object.
    * @throws AssertionError If the type of data is not table.
    */
-  public static <A extends AbstractAssert> A isOnTable(A assertion, WritableAssertionInfo info, Change change) {
+  public static <A extends AbstractAssert<?>> A isOnTable(A assertion, WritableAssertionInfo info, Change change) {
     return isOnDataType(assertion, info, change, DataType.TABLE);
   }
 
@@ -87,7 +87,7 @@ public class AssertionsOnDataType {
    * @return {@code this} assertion object.
    * @throws AssertionError If the type of data is not request.
    */
-  public static <A extends AbstractAssert> A isOnRequest(A assertion, WritableAssertionInfo info, Change change) {
+  public static <A extends AbstractAssert<?>> A isOnRequest(A assertion, WritableAssertionInfo info, Change change) {
     return isOnDataType(assertion, info, change, DataType.REQUEST);
   }
 
@@ -104,7 +104,7 @@ public class AssertionsOnDataType {
    * @throws AssertionError                 If the type of data is not table or if the table have a different name.
    * @throws java.lang.NullPointerException If the name in parameter is {@code null}.
    */
-  public static <A extends AbstractAssert> A isOnTable(A assertion, WritableAssertionInfo info, Change change,
+  public static <A extends AbstractAssert<?>> A isOnTable(A assertion, WritableAssertionInfo info, Change change,
                                                        LetterCase tableLetterCase, String name) {
     if (name == null) {
       throw new NullPointerException("Table name must be not null");

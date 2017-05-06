@@ -56,7 +56,7 @@ public class AssertionsOnRowEquality {
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to the values in parameter.
    */
-  public static <A extends AbstractAssert> A hasValues(A assertion, WritableAssertionInfo info,
+  public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
                                                        List<Value> valuesList, Object... expected) {
     AssertionsOnNumberOfColumns.hasNumberOfColumns(assertion, info, valuesList.size(), expected.length);
     int index = 0;

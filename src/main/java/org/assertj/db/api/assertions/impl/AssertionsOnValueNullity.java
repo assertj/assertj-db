@@ -47,7 +47,7 @@ public class AssertionsOnValueNullity {
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not {@code null}.
    */
-  public static <A extends AbstractAssert> A isNull(A assertion, WritableAssertionInfo info, Value value) {
+  public static <A extends AbstractAssert<?>> A isNull(A assertion, WritableAssertionInfo info, Value value) {
     objects.assertNull(info, value.getValue());
     return assertion;
   }
@@ -62,7 +62,7 @@ public class AssertionsOnValueNullity {
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is {@code null}.
    */
-  public static <A extends AbstractAssert> A isNotNull(A assertion, WritableAssertionInfo info, Value value) {
+  public static <A extends AbstractAssert<?>> A isNotNull(A assertion, WritableAssertionInfo info, Value value) {
     objects.assertNotNull(info, value.getValue());
     return assertion;
   }
