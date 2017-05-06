@@ -36,7 +36,7 @@ public class ShouldBeValueClassWithEndPoint extends BasicErrorMessageFactory {
    * @param expected The expected class.
    * @return the created {@code ErrorMessageFactory}.
    */
-  public static ErrorMessageFactory shouldBeValueClassWithEndPoint(Value actual, Class expected) {
+  public static ErrorMessageFactory shouldBeValueClassWithEndPoint(Value actual, Class<?> expected) {
     if (actual.getValue() == null) {
       return new ShouldBeValueClassWithEndPoint(actual, expected);
     }
@@ -50,7 +50,7 @@ public class ShouldBeValueClassWithEndPoint extends BasicErrorMessageFactory {
    * @param tested The tested class.
    * @param expected The expected class.
    */
-  private ShouldBeValueClassWithEndPoint(Value actual, Class tested, Class expected) {
+  private ShouldBeValueClassWithEndPoint(Value actual, Class<?> tested, Class<?> expected) {
     super(EXPECTED_MESSAGE, actual.getValue(), expected, tested);
   }
 
@@ -60,7 +60,7 @@ public class ShouldBeValueClassWithEndPoint extends BasicErrorMessageFactory {
    * @param actual The actual value in the failed assertion.
    * @param expected The expected class.
    */
-  private ShouldBeValueClassWithEndPoint(Value actual, Class expected) {
+  private ShouldBeValueClassWithEndPoint(Value actual, Class<?> expected) {
     super(EXPECTED_MESSAGE_JUST_WITH_EXPECTED, actual.getValue(), expected);
   }
 }

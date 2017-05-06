@@ -97,7 +97,7 @@ public class ShouldBeValueTypeOfAny extends BasicErrorMessageFactory {
    * @param tested The tested type.
    * @param expected The expected types.
    */
-  private ShouldBeValueTypeOfAny(Value actual, Class classOfActual, ValueType tested, ValueType... expected) {
+  private ShouldBeValueTypeOfAny(Value actual, Class<?> classOfActual, ValueType tested, ValueType... expected) {
     super(EXPECTED_MESSAGE_NOT_IDENTIFIED, actual.getValue(), expected, tested, classOfActual);
   }
 
@@ -110,7 +110,7 @@ public class ShouldBeValueTypeOfAny extends BasicErrorMessageFactory {
    * @param tested The tested type.
    * @param expected The expected types.
    */
-  private ShouldBeValueTypeOfAny(int index, Value actual, Class classOfActual, ValueType tested, ValueType... expected) {
+  private ShouldBeValueTypeOfAny(int index, Value actual, Class<?> classOfActual, ValueType tested, ValueType... expected) {
     super(EXPECTED_MESSAGE_NOT_IDENTIFIED_WITH_INDEX, index, actual.getValue(), expected, tested, classOfActual);
   }
 }

@@ -64,7 +64,7 @@ public class ShouldBeValueTypeWithEndPoint extends BasicErrorMessageFactory {
    * @param tested The tested type.
    * @param expected The expected type.
    */
-  private ShouldBeValueTypeWithEndPoint(Value actual, Class classOfActual, ValueType tested, ValueType expected) {
+  private ShouldBeValueTypeWithEndPoint(Value actual, Class<?> classOfActual, ValueType tested, ValueType expected) {
     super(EXPECTED_MESSAGE_NOT_IDENTIFIED, actual.getValue(), expected, tested, classOfActual);
   }
 }
