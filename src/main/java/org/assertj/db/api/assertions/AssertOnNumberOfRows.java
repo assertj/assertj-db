@@ -19,6 +19,7 @@ package org.assertj.db.api.assertions;
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
  *            for more details.
  * @author Régis Pouiller
+ * @author fiery-phoenix
  */
 public interface AssertOnNumberOfRows<T extends AssertOnNumberOfRows<T>> {
 
@@ -36,6 +37,7 @@ public interface AssertOnNumberOfRows<T extends AssertOnNumberOfRows<T>> {
    * @throws AssertionError If the number of rows is different from zero.
    * @see org.assertj.db.api.AbstractDbAssert#isEmpty()
    * @see org.assertj.db.api.AbstractColumnAssert#isEmpty()
+   * @since 1.2.0
    */
   T isEmpty();
 
