@@ -32,6 +32,11 @@ enum PlainOutput implements Output {
   INSTANCE;
 
   /**
+   * End of a line.
+   */
+  private final static String EOL = String.format("%n");
+
+  /**
    * Returns the text representing a object.
    *
    * @param object The object
@@ -150,7 +155,7 @@ enum PlainOutput implements Output {
       }
       index++;
     }
-    stringBuilder.append("%n");
+    stringBuilder.append(EOL);
     return stringBuilder;
   }
 
@@ -174,7 +179,7 @@ enum PlainOutput implements Output {
       stringBuilder.append("|");
       index++;
     }
-    stringBuilder.append("%n");
+    stringBuilder.append(EOL);
     return stringBuilder;
   }
 
@@ -226,7 +231,7 @@ enum PlainOutput implements Output {
       stringBuilder.append(getFilledText(pk, columnSize)).append("|");
       index++;
     }
-    stringBuilder.append("%n");
+    stringBuilder.append(EOL);
     return stringBuilder;
   }
 
@@ -254,7 +259,7 @@ enum PlainOutput implements Output {
       stringBuilder.append(getFilledText(columnName, columnSize)).append("|");
       index++;
     }
-    stringBuilder.append("%n");
+    stringBuilder.append(EOL);
     return stringBuilder;
   }
 
@@ -283,7 +288,7 @@ enum PlainOutput implements Output {
       String type = index1 < typesList.size() ? typesList.get(index1) : "";
       stringBuilder.append(getFilledText(type, columnSize)).append("|");
     }
-    stringBuilder.append("%n");
+    stringBuilder.append(EOL);
     return stringBuilder;
   }
 
@@ -307,7 +312,7 @@ enum PlainOutput implements Output {
       Integer columnSize = sizesList.get(index);
       stringBuilder.append(getFilledText("Index : " + (index - numberOfAdditionalColumns), columnSize)).append("|");
     }
-    stringBuilder.append("%n");
+    stringBuilder.append(EOL);
     return stringBuilder;
   }
 
@@ -428,7 +433,7 @@ enum PlainOutput implements Output {
 
     StringBuilder stringBuilder = new StringBuilder();
     // Description
-    stringBuilder.append("[").append(info.descriptionText()).append("]%n");
+    stringBuilder.append("[").append(info.descriptionText()).append("]").append(EOL);
     // Line
     stringBuilder.append(getCompleteLine(sizesList));
     // Primary key
@@ -451,7 +456,7 @@ enum PlainOutput implements Output {
     // Line
     stringBuilder.append(getCompleteLine(sizesList));
 
-    return String.format(stringBuilder.toString());
+    return stringBuilder.toString();
   }
 
   /**
@@ -474,7 +479,7 @@ enum PlainOutput implements Output {
 
     StringBuilder stringBuilder = new StringBuilder();
     // Description
-    stringBuilder.append("[").append(info.descriptionText()).append("]%n");
+    stringBuilder.append("[").append(info.descriptionText()).append("]").append(EOL);
     // Line
     stringBuilder.append(getCompleteLine(sizesList));
     // Primary key
@@ -500,7 +505,7 @@ enum PlainOutput implements Output {
     // Line
     stringBuilder.append(getCompleteLine(sizesList));
 
-    return String.format(stringBuilder.toString());
+    return stringBuilder.toString();
   }
 
   /**
@@ -518,7 +523,7 @@ enum PlainOutput implements Output {
 
     StringBuilder stringBuilder = new StringBuilder();
     // Description
-    stringBuilder.append("[").append(info.descriptionText()).append("]%n");
+    stringBuilder.append("[").append(info.descriptionText()).append("]").append(EOL);
     int index = 0;
     for (Change change : changesList) {
       ChangeType changeType = change.getChangeType();
@@ -564,7 +569,7 @@ enum PlainOutput implements Output {
       index++;
     }
 
-    return String.format(stringBuilder.toString());
+    return stringBuilder.toString();
   }
 
   /**
@@ -592,7 +597,7 @@ enum PlainOutput implements Output {
 
     StringBuilder stringBuilder = new StringBuilder();
     // Description
-    stringBuilder.append("[").append(info.descriptionText()).append("]%n");
+    stringBuilder.append("[").append(info.descriptionText()).append("]").append(EOL);
     // Line
     stringBuilder.append(getCompleteLine(sizesList));
     // Primary key
@@ -619,7 +624,7 @@ enum PlainOutput implements Output {
     // Line
     stringBuilder.append(getCompleteLine(sizesList));
 
-    return String.format(stringBuilder.toString());
+    return stringBuilder.toString();
   }
 
   /**
@@ -629,8 +634,8 @@ enum PlainOutput implements Output {
   public String getRowOutput(WritableAssertionInfo info, Row row) {
     if (row == null) {
       StringBuilder stringBuilder = new StringBuilder();
-      stringBuilder.append("[").append(info.descriptionText()).append("]%n");
-      stringBuilder.append("Row does not exist%n");
+      stringBuilder.append("[").append(info.descriptionText()).append("]").append(EOL);
+      stringBuilder.append("Row does not exist").append(EOL);
       return String.format(stringBuilder.toString());
     }
     List<String> columnsNameList = row.getColumnsNameList();
@@ -642,7 +647,7 @@ enum PlainOutput implements Output {
 
     StringBuilder stringBuilder = new StringBuilder();
     // Description
-    stringBuilder.append("[").append(info.descriptionText()).append("]%n");
+    stringBuilder.append("[").append(info.descriptionText()).append("]").append(EOL);
     // Line
     stringBuilder.append(getCompleteLine(sizesList));
     // Primary key
@@ -660,7 +665,7 @@ enum PlainOutput implements Output {
     // Line
     stringBuilder.append(getCompleteLine(sizesList));
 
-    return String.format(stringBuilder.toString());
+    return stringBuilder.toString();
   }
 
   /**
@@ -680,26 +685,29 @@ enum PlainOutput implements Output {
 
     StringBuilder stringBuilder = new StringBuilder();
     // Description
-    stringBuilder.append("[").append(info.descriptionText()).append("]%n");
+    stringBuilder.append("[").append(info.descriptionText()).append("]").append(EOL);
     // Line
     stringBuilder.append(getCompleteLine(sizesList));
     // Column name
-    stringBuilder.append("|").append(getFilledText("", indexColumnSize)).append("|").append(getFilledText(columnName, columnSize)).append("|%n");
+    stringBuilder.append("|").append(getFilledText("", indexColumnSize)).append("|").append(getFilledText(columnName, columnSize))
+                .append("|").append(EOL);
     // Type
-    stringBuilder.append("|").append(getFilledText("", indexColumnSize)).append("|").append(getFilledText(type, columnSize)).append("|%n");
+    stringBuilder.append("|").append(getFilledText("", indexColumnSize)).append("|").append(getFilledText(type, columnSize))
+                .append("|").append(EOL);
     // Line
     stringBuilder.append(getCompleteLine(sizesList));
     // Value
     int index = 0;
     for (Value value : values) {
       stringBuilder.append("|").append(getFilledText(getText("Index : " + index), indexColumnSize))
-                   .append("|").append(getFilledText(OutputType.getText(value), columnSize)).append("|%n");
+                   .append("|").append(getFilledText(OutputType.getText(value), columnSize))
+                   .append("|").append(EOL);
       index++;
     }
     // Line
     stringBuilder.append(getCompleteLine(sizesList));
 
-    return String.format(stringBuilder.toString());
+    return stringBuilder.toString();
   }
 
   /**
@@ -717,26 +725,33 @@ enum PlainOutput implements Output {
 
     StringBuilder stringBuilder = new StringBuilder();
     // Description
-    stringBuilder.append("[").append(info.descriptionText()).append("]%n");
+    stringBuilder.append("[").append(info.descriptionText()).append("]").append(EOL);
     // Line
-    stringBuilder.append("|----------------|").append(getCellLine(columnSize)).append("|%n");
+    stringBuilder.append("|----------------|").append(getCellLine(columnSize))
+                .append("|").append(EOL);
     // Column name
-    stringBuilder.append("|                |").append(getFilledText(columnName, columnSize)).append("|%n");
+    stringBuilder.append("|                |").append(getFilledText(columnName, columnSize))
+                .append("|").append(EOL);
     // Type
-    stringBuilder.append("|                |").append(getFilledText(type, columnSize)).append("|%n");
+    stringBuilder.append("|                |").append(getFilledText(type, columnSize))
+                .append("|").append(EOL);
     // Line
-    stringBuilder.append("|----------------|").append(getCellLine(columnSize)).append("|%n");
+    stringBuilder.append("|----------------|").append(getCellLine(columnSize))
+                .append("|").append(EOL);
     // Value at start point
-    stringBuilder.append("| At start point |").append(getFilledText(OutputType.getText(valueAtStartPoint), columnSize)).append(
-            "|%n");
+    stringBuilder.append("| At start point |").append(getFilledText(OutputType.getText(valueAtStartPoint), columnSize))
+                .append("|").append(EOL);
     // Line
-    stringBuilder.append("|----------------|").append(getCellLine(columnSize)).append("|%n");
+    stringBuilder.append("|----------------|").append(getCellLine(columnSize))
+                .append("|").append(EOL);
     // Value at end point
-    stringBuilder.append("| At end point   |").append(getFilledText(OutputType.getText(valueAtEndPoint), columnSize)).append("|%n");
+    stringBuilder.append("| At end point   |").append(getFilledText(OutputType.getText(valueAtEndPoint), columnSize))
+                .append("|").append(EOL);
     // Line
-    stringBuilder.append("|----------------|").append(getCellLine(columnSize)).append("|%n");
+    stringBuilder.append("|----------------|").append(getCellLine(columnSize))
+                .append("|").append(EOL);
 
-    return String.format(stringBuilder.toString());
+    return stringBuilder.toString();
   }
 
   /**
@@ -750,20 +765,26 @@ enum PlainOutput implements Output {
 
     StringBuilder stringBuilder = new StringBuilder();
     // Description
-    stringBuilder.append("[").append(info.descriptionText()).append("]%n");
+    stringBuilder.append("[").append(info.descriptionText()).append("]").append(EOL);
     // Line
-    stringBuilder.append("|").append(getCellLine(columnSize)).append("|%n");
+    stringBuilder.append("|").append(getCellLine(columnSize))
+                .append("|").append(EOL);
     // Column name
-    stringBuilder.append("|").append(getFilledText(columnName, columnSize)).append("|%n");
+    stringBuilder.append("|").append(getFilledText(columnName, columnSize))
+                .append("|").append(EOL);
     // Type
-    stringBuilder.append("|").append(getFilledText(type, columnSize)).append("|%n");
+    stringBuilder.append("|").append(getFilledText(type, columnSize))
+                .append("|").append(EOL);
     // Line
-    stringBuilder.append("|").append(getCellLine(columnSize)).append("|%n");
+    stringBuilder.append("|").append(getCellLine(columnSize))
+                .append("|").append(EOL);
     // Value
-    stringBuilder.append("|").append(getFilledText(OutputType.getText(value), columnSize)).append("|%n");
+    stringBuilder.append("|").append(getFilledText(OutputType.getText(value), columnSize))
+                .append("|").append(EOL);
     // Line
-    stringBuilder.append("|").append(getCellLine(columnSize)).append("|%n");
+    stringBuilder.append("|").append(getCellLine(columnSize))
+                .append("|").append(EOL);
 
-    return String.format(stringBuilder.toString());
+    return stringBuilder.toString();
   }
 }
