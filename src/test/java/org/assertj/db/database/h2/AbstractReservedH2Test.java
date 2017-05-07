@@ -56,13 +56,18 @@ public abstract class AbstractReservedH2Test extends AbstractDatabaseTest {
                                                                                letterCaseNS,
                                                                                letterCaseNS);
 
-  private static final Operation DELETE_ALL = deleteAllFrom("`group`");
+  private static final Operation DELETE_ALL = deleteAllFrom("`group`", "`Two Words`");
 
   private static final Operation INSERT_TEST = insertInto("`group`")
           .columns("read", "by", "`select`", "`from`", "`where`", "`order`")
           .values(1, 2, 3, 4, '5', '6').build();
 
-  private static final Operation OPERATIONS = sequenceOf(DELETE_ALL, INSERT_TEST);
+  private static final Operation INSERT_TWO_WORDS = insertInto("`Two Words`")
+          .columns("`Primary Key`", "`Column Name`", "`Test%Test`")
+          .values(1, "Nom 1", "Test 1")
+          .values(2, "Nom 2", "Test 2").build();
+
+  private static final Operation OPERATIONS = sequenceOf(DELETE_ALL, INSERT_TEST, INSERT_TWO_WORDS);
 
   static {
     DB_SETUP = new DbSetup(new DriverManagerDestination("jdbc:h2:mem:testReservedH2", "SA", ""), OPERATIONS);
@@ -80,6 +85,7 @@ public abstract class AbstractReservedH2Test extends AbstractDatabaseTest {
 
   protected void update() {
     update("update `group` set `select`=20");
+    update("update `Two Words` set `Test%Test`= 'Test 3' where `Primary Key` = 2");
   }
 
 }

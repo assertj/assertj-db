@@ -74,6 +74,8 @@ public class ReservedH2DataBase_Test extends AbstractReservedH2Test {
       ResultSet resultSet = databaseMetaData.getTables("TESTRESERVEDH2", null, null, new String[] { "TABLE" });
       assertThat(resultSet.next()).isTrue();
       assertThat(resultSet.getString("TABLE_NAME")).isEqualTo("GROUP");
+      assertThat(resultSet.next()).isTrue();
+      assertThat(resultSet.getString("TABLE_NAME")).isEqualTo("TWO WORDS");
       assertThat(resultSet.next()).isFalse();
     }
   }
@@ -85,6 +87,8 @@ public class ReservedH2DataBase_Test extends AbstractReservedH2Test {
       ResultSet resultSet = databaseMetaData.getTables("TESTRESERVEDH2", null, null, new String[] { "TABLE" });
       assertThat(resultSet.next()).isTrue();
       assertThat(resultSet.getString("TABLE_NAME")).isEqualTo("GROUP");
+      assertThat(resultSet.next()).isTrue();
+      assertThat(resultSet.getString("TABLE_NAME")).isEqualTo("TWO WORDS");
       assertThat(resultSet.next()).isFalse();
     }
   }
@@ -97,6 +101,12 @@ public class ReservedH2DataBase_Test extends AbstractReservedH2Test {
         ResultSet resultSet = databaseMetaData.getPrimaryKeys("TESTRESERVEDH2", null, "GROUP");
         assertThat(resultSet.next()).isTrue();
         assertThat(resultSet.getString("COLUMN_NAME")).isEqualTo("READ");
+        assertThat(resultSet.next()).isFalse();
+      }
+      {
+        ResultSet resultSet = databaseMetaData.getPrimaryKeys("TESTRESERVEDH2", null, "TWO WORDS");
+        assertThat(resultSet.next()).isTrue();
+        assertThat(resultSet.getString("COLUMN_NAME")).isEqualTo("PRIMARY KEY");
         assertThat(resultSet.next()).isFalse();
       }
       {
@@ -114,6 +124,12 @@ public class ReservedH2DataBase_Test extends AbstractReservedH2Test {
         ResultSet resultSet = databaseMetaData.getPrimaryKeys("TESTRESERVEDH2", null, "GROUP");
         assertThat(resultSet.next()).isTrue();
         assertThat(resultSet.getString("COLUMN_NAME")).isEqualTo("READ");
+        assertThat(resultSet.next()).isFalse();
+      }
+      {
+        ResultSet resultSet = databaseMetaData.getPrimaryKeys("TESTRESERVEDH2", null, "TWO WORDS");
+        assertThat(resultSet.next()).isTrue();
+        assertThat(resultSet.getString("COLUMN_NAME")).isEqualTo("PRIMARY KEY");
         assertThat(resultSet.next()).isFalse();
       }
       {
@@ -144,6 +160,16 @@ public class ReservedH2DataBase_Test extends AbstractReservedH2Test {
         assertThat(resultSet.next()).isFalse();
       }
       {
+        ResultSet resultSet = databaseMetaData.getColumns("TESTRESERVEDH2", null, "TWO WORDS", null);
+        assertThat(resultSet.next()).isTrue();
+        assertThat(resultSet.getString("COLUMN_NAME")).isEqualTo("PRIMARY KEY");
+        assertThat(resultSet.next()).isTrue();
+        assertThat(resultSet.getString("COLUMN_NAME")).isEqualTo("COLUMN NAME");
+        assertThat(resultSet.next()).isTrue();
+        assertThat(resultSet.getString("COLUMN_NAME")).isEqualTo("TEST%TEST");
+        assertThat(resultSet.next()).isFalse();
+      }
+      {
         ResultSet resultSet = databaseMetaData.getColumns("TESTRESERVEDH2", null, "group", null);
         assertThat(resultSet.next()).isFalse();
       }
@@ -171,6 +197,16 @@ public class ReservedH2DataBase_Test extends AbstractReservedH2Test {
         assertThat(resultSet.next()).isFalse();
       }
       {
+        ResultSet resultSet = databaseMetaData.getColumns("TESTRESERVEDH2", null, "TWO WORDS", null);
+        assertThat(resultSet.next()).isTrue();
+        assertThat(resultSet.getString("COLUMN_NAME")).isEqualTo("PRIMARY KEY");
+        assertThat(resultSet.next()).isTrue();
+        assertThat(resultSet.getString("COLUMN_NAME")).isEqualTo("COLUMN NAME");
+        assertThat(resultSet.next()).isTrue();
+        assertThat(resultSet.getString("COLUMN_NAME")).isEqualTo("TEST%TEST");
+        assertThat(resultSet.next()).isFalse();
+      }
+      {
         ResultSet resultSet = databaseMetaData.getColumns("TESTRESERVEDH2", null, "group", null);
         assertThat(resultSet.next()).isFalse();
       }
@@ -191,6 +227,13 @@ public class ReservedH2DataBase_Test extends AbstractReservedH2Test {
           assertThat(resultSetMetaData.getColumnName(5)).isEqualTo("WHERE");
           assertThat(resultSetMetaData.getColumnName(6)).isEqualTo("ORDER");
         }
+        try (ResultSet resultSet1 = statement.executeQuery("select * from `two words`")) {
+          ResultSetMetaData resultSetMetaData = resultSet1.getMetaData();
+          assertThat(resultSetMetaData.getColumnCount()).isEqualTo(3);
+          assertThat(resultSetMetaData.getColumnName(1)).isEqualTo("PRIMARY KEY");
+          assertThat(resultSetMetaData.getColumnName(2)).isEqualTo("COLUMN NAME");
+          assertThat(resultSetMetaData.getColumnName(3)).isEqualTo("TEST%TEST");
+        }
       }
     }
   }
@@ -208,6 +251,13 @@ public class ReservedH2DataBase_Test extends AbstractReservedH2Test {
           assertThat(resultSetMetaData.getColumnName(4)).isEqualTo("FROM");
           assertThat(resultSetMetaData.getColumnName(5)).isEqualTo("WHERE");
           assertThat(resultSetMetaData.getColumnName(6)).isEqualTo("ORDER");
+        }
+        try (ResultSet resultSet1 = statement.executeQuery("select * from `two words`")) {
+          ResultSetMetaData resultSetMetaData = resultSet1.getMetaData();
+          assertThat(resultSetMetaData.getColumnCount()).isEqualTo(3);
+          assertThat(resultSetMetaData.getColumnName(1)).isEqualTo("PRIMARY KEY");
+          assertThat(resultSetMetaData.getColumnName(2)).isEqualTo("COLUMN NAME");
+          assertThat(resultSetMetaData.getColumnName(3)).isEqualTo("TEST%TEST");
         }
       }
     }

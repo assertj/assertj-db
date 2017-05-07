@@ -14,10 +14,9 @@ package org.assertj.db.database.h2;
 
 import static org.assertj.db.api.Assertions.assertThat;
 
-import javax.sql.DataSource;
-
 import org.assertj.db.common.NeedReload;
 import org.assertj.db.type.Changes;
+import org.assertj.db.type.Source;
 import org.assertj.db.type.Table;
 import org.assertj.db.type.Table.Order;
 import org.junit.Before;
@@ -30,34 +29,42 @@ import org.junit.Test;
  */
 public class ReservedH2Database_Source_NSNSNS_Test extends AbstractReservedH2Test {
 
-  private DataSource dataSource;
+  private Source source;
 
   @Before
   public void init() {
-    dataSource = dataSourceNSNSNS;
+    source = sourceNSNSNS;
   }
 
   @Test
   @NeedReload
   public void test_PrimaryKey_hasPksNames() {
-    Table table = new Table(dataSource, "GROUP", '`', '`');
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table1 = new Table(source, "GROUP", '`', '`');
+    Table table2 = new Table(source, "TWO WORDS", '`', '`');
+    Changes changes1 = new Changes(table1).setStartPointNow();
+    Changes changes2 = new Changes(table2).setStartPointNow();
     update();
-    changes.setEndPointNow();
+    changes1.setEndPointNow();
+    changes2.setEndPointNow();
 
-    assertThat(changes).change().hasPksNames("READ")
+    assertThat(changes1).change().hasPksNames("READ")
+    ;
+    assertThat(changes2).change().hasPksNames("PRIMARY KEY")
     ;
   }
 
   @Test
   @NeedReload
   public void test_ColumnName_hasColumnName() {
-    Table table = new Table(dataSource, "GROUP", '`', '`');
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table1 = new Table(source, "GROUP", '`', '`');
+    Table table2 = new Table(source, "TWO WORDS", '`', '`');
+    Changes changes1 = new Changes(table1).setStartPointNow();
+    Changes changes2 = new Changes(table2).setStartPointNow();
     update();
-    changes.setEndPointNow();
+    changes1.setEndPointNow();
+    changes2.setEndPointNow();
 
-    assertThat(table)
+    assertThat(table1)
             .column().hasColumnName("READ")
             .column().hasColumnName("BY")
             .column().hasColumnName("SELECT")
@@ -66,78 +73,130 @@ public class ReservedH2Database_Source_NSNSNS_Test extends AbstractReservedH2Tes
             .column().hasColumnName("ORDER")
     ;
 
-    assertThat(changes).change()
+    assertThat(changes1).change()
             .column().hasColumnName("READ")
             .column().hasColumnName("BY")
             .column().hasColumnName("SELECT")
             .column().hasColumnName("FROM")
             .column().hasColumnName("WHERE")
             .column().hasColumnName("ORDER")
+    ;
+
+    assertThat(table2)
+            .column().hasColumnName("PRIMARY KEY")
+            .column().hasColumnName("COLUMN NAME")
+            .column().hasColumnName("TEST%TEST")
+    ;
+
+    assertThat(changes2).change()
+            .column().hasColumnName("PRIMARY KEY")
+            .column().hasColumnName("COLUMN NAME")
+            .column().hasColumnName("TEST%TEST")
     ;
   }
 
   @Test
   @NeedReload
   public void test_ColumnName_hasColumnName_with_columns_to_check() {
-    Table table = new Table(dataSource, "GROUP", '`', '`')
+    Table table1 = new Table(source, "GROUP", '`', '`')
                       .setColumnsToCheck(new String[] {
                           "READ", "BY", "SELECT", "FROM" 
                       });
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table2 = new Table(source, "TWO WORDS", '`', '`')
+                      .setColumnsToCheck(new String[] {
+                          "PRIMARY KEY", "COLUMN NAME", "TEST%TEST" 
+                      });
+    Changes changes1 = new Changes(table1).setStartPointNow();
+    Changes changes2 = new Changes(table2).setStartPointNow();
     update();
-    changes.setEndPointNow();
+    changes1.setEndPointNow();
+    changes2.setEndPointNow();
 
-    assertThat(table)
+    assertThat(table1)
             .column().hasColumnName("READ")
             .column().hasColumnName("BY")
             .column().hasColumnName("SELECT")
             .column().hasColumnName("FROM")
     ;
 
-    assertThat(changes).change()
+    assertThat(changes1).change()
             .column().hasColumnName("READ")
             .column().hasColumnName("BY")
             .column().hasColumnName("SELECT")
             .column().hasColumnName("FROM")
+    ;
+
+    assertThat(table2)
+            .column().hasColumnName("PRIMARY KEY")
+            .column().hasColumnName("COLUMN NAME")
+            .column().hasColumnName("TEST%TEST")
+    ;
+
+    assertThat(changes2).change()
+            .column().hasColumnName("PRIMARY KEY")
+            .column().hasColumnName("COLUMN NAME")
+            .column().hasColumnName("TEST%TEST")
     ;
   }
 
   @Test
   @NeedReload
   public void test_ColumnName_hasColumnName_with_columns_to_exclude() {
-    Table table = new Table(dataSource, "GROUP", '`', '`')
+    Table table1 = new Table(source, "GROUP", '`', '`')
                       .setColumnsToExclude(new String[] {
                           "READ", "BY", "FROM" 
                       });
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table2 = new Table(source, "TWO WORDS", '`', '`')
+                      .setColumnsToExclude(new String[] {
+                          "COLUMN NAME" 
+                      });
+    Changes changes1 = new Changes(table1).setStartPointNow();
+    Changes changes2 = new Changes(table2).setStartPointNow();
     update();
-    changes.setEndPointNow();
+    changes1.setEndPointNow();
+    changes2.setEndPointNow();
 
-    assertThat(table)
+    assertThat(table1)
             .column().hasColumnName("SELECT")
             .column().hasColumnName("WHERE")
             .column().hasColumnName("ORDER")
     ;
 
-    assertThat(changes).change()
+    assertThat(changes1).change()
             .column().hasColumnName("SELECT")
             .column().hasColumnName("WHERE")
             .column().hasColumnName("ORDER")
+    ;
+
+    assertThat(table2)
+            .column().hasColumnName("PRIMARY KEY")
+            .column().hasColumnName("TEST%TEST")
+    ;
+
+    assertThat(changes2).change()
+            .column().hasColumnName("PRIMARY KEY")
+            .column().hasColumnName("TEST%TEST")
     ;
   }
 
   @Test
   @NeedReload
   public void test_ColumnName_hasColumnName_with_order() {
-    Table table = new Table(dataSource, "GROUP", '`', '`')
+    Table table1 = new Table(source, "GROUP", '`', '`')
                       .setColumnsToOrder(new Order[] {
                           Order.asc("WHERE")
                       });
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table2 = new Table(source, "TWO WORDS", '`', '`')
+                      .setColumnsToOrder(new Order[] {
+                          Order.asc("PRIMARY KEY")
+                      });
+    Changes changes1 = new Changes(table1).setStartPointNow();
+    Changes changes2 = new Changes(table2).setStartPointNow();
     update();
-    changes.setEndPointNow();
+    changes1.setEndPointNow();
+    changes2.setEndPointNow();
 
-    assertThat(table)
+    assertThat(table1)
             .column().hasColumnName("READ")
             .column().hasColumnName("BY")
             .column().hasColumnName("SELECT")
@@ -146,13 +205,25 @@ public class ReservedH2Database_Source_NSNSNS_Test extends AbstractReservedH2Tes
             .column().hasColumnName("ORDER")
     ;
 
-    assertThat(changes).change()
+    assertThat(changes1).change()
             .column().hasColumnName("READ")
             .column().hasColumnName("BY")
             .column().hasColumnName("SELECT")
             .column().hasColumnName("FROM")
             .column().hasColumnName("WHERE")
             .column().hasColumnName("ORDER")
+    ;
+
+    assertThat(table2)
+            .column().hasColumnName("PRIMARY KEY")
+            .column().hasColumnName("COLUMN NAME")
+            .column().hasColumnName("TEST%TEST")
+    ;
+
+    assertThat(changes2).change()
+            .column().hasColumnName("PRIMARY KEY")
+            .column().hasColumnName("COLUMN NAME")
+            .column().hasColumnName("TEST%TEST")
     ;
   }
 
