@@ -12,6 +12,7 @@
  */
 package org.assertj.db.api;
 
+import org.assertj.core.api.Condition;
 import org.assertj.db.api.assertions.*;
 import org.assertj.db.api.assertions.impl.*;
 import org.assertj.db.navigation.ToValue;
@@ -25,6 +26,7 @@ import java.util.UUID;
  *
  * @author Régis Pouiller
  * @author Otoniel Isidoro
+ * @author Julien Roy
  *
  * @param <D> The class of the actual value (an sub-class of {@link AbstractDbData}).
  * @param <A> The class of the original assertion (an sub-class of {@link AbstractDbAssert}).
@@ -37,17 +39,18 @@ import java.util.UUID;
  * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
 public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, S extends AbstractSubAssert<D, A, S, V, C, CV, R, RV>, V extends AbstractValueAssert<D, A, S, V, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
-        extends AbstractAssertWithOriginWithColumnsAndRows<V, S, D, A, C, CV, R, RV>
-        implements ValueElement,
-                   ToValue<V>,
-                   AssertOnValueClass<V>,
-                   AssertOnValueType<V>,
-                   AssertOnValueNullity<V>,
-                   AssertOnValueEquality<V>,
-                   AssertOnValueInequality<V>,
-                   AssertOnValueChronology<V>,
-                   AssertOnValueComparison<V>,
-                   AssertOnValueCloseness<V> {
+    extends AbstractAssertWithOriginWithColumnsAndRows<V, S, D, A, C, CV, R, RV>
+    implements ValueElement,
+    ToValue<V>,
+    AssertOnValueClass<V>,
+    AssertOnValueType<V>,
+    AssertOnValueNullity<V>,
+    AssertOnValueEquality<V>,
+    AssertOnValueInequality<V>,
+    AssertOnValueChronology<V>,
+    AssertOnValueComparison<V>,
+    AssertOnValueCloseness<V>,
+    AssertOnValueCondition<V> {
 
   /**
    * The actual value on which this assertion is.
@@ -465,5 +468,35 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
   @Override
   public V isCloseTo(DateTimeValue expected, DateTimeValue tolerance) {
     return AssertionsOnValueCloseness.isCloseTo(myself, info, value, expected, tolerance);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public V is(Condition<?> condition) {
+    return AssertionsOnValueCondition.is(myself, info, value, condition);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public V isNot(Condition<?> condition) {
+    return AssertionsOnValueCondition.isNot(myself, info, value, condition);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public V has(Condition<?> condition) {
+    return AssertionsOnValueCondition.is(myself, info, value, condition);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public V doesNotHave(Condition<?> condition) {
+    return AssertionsOnValueCondition.isNot(myself, info, value, condition);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public V satisfies(Condition<?> condition) {
+    return AssertionsOnValueCondition.is(myself, info, value, condition);
   }
 }

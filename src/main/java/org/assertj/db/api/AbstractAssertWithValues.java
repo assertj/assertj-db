@@ -12,6 +12,7 @@
  */
 package org.assertj.db.api;
 
+import org.assertj.core.api.Condition;
 import org.assertj.db.api.assertions.*;
 import org.assertj.db.api.assertions.impl.*;
 import org.assertj.db.navigation.element.ValueElement;
@@ -29,18 +30,20 @@ import java.util.UUID;
  * @param <O> The type of the assertion class of {@link org.assertj.db.navigation.origin.Origin}.
  * @author Régis Pouiller
  * @author Otoniel Isidoro
+ * @author Julien Roy
  */
-public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValues<E, O>, O extends OriginWithColumnsAndRowsFromChange<ChangesAssert, ChangeAssert, ChangeColumnAssert, ChangeRowAssert>>
-        extends AbstractAssertWithOriginWithColumnsAndRowsFromChange<E, O>
-        implements ValueElement,
-                   AssertOnValueClass<E>,
-                   AssertOnValueType<E>,
-                   AssertOnValueNullity<E>,
-                   AssertOnValueEquality<E>,
-                   AssertOnValueInequality<E>,
-                   AssertOnValueComparison<E>,
-                   AssertOnValueChronology<E>,
-                   AssertOnValueCloseness<E> {
+public abstract class AbstractAssertWithValues<E extends AbstractAssertWithValues<E, O>, O extends OriginWithColumnsAndRowsFromChange<ChangesAssert, ChangeAssert, ChangeColumnAssert, ChangeRowAssert>>
+    extends AbstractAssertWithOriginWithColumnsAndRowsFromChange<E, O>
+    implements ValueElement,
+    AssertOnValueClass<E>,
+    AssertOnValueType<E>,
+    AssertOnValueNullity<E>,
+    AssertOnValueEquality<E>,
+    AssertOnValueInequality<E>,
+    AssertOnValueComparison<E>,
+    AssertOnValueChronology<E>,
+    AssertOnValueCloseness<E>,
+    AssertOnValueCondition<E> {
 
   /**
    * The actual value on which the assertion is.
@@ -447,5 +450,35 @@ public abstract class AbstractAssertWithValues <E extends AbstractAssertWithValu
   @Override
   public E isCloseTo(DateTimeValue expected, DateTimeValue tolerance) {
     return AssertionsOnValueCloseness.isCloseTo(myself, info, value, expected, tolerance);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E is(Condition<?> condition) {
+    return AssertionsOnValueCondition.is(myself, info, value, condition);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E isNot(Condition<?> condition) {
+    return AssertionsOnValueCondition.isNot(myself, info, value, condition);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E has(Condition<?> condition) {
+    return AssertionsOnValueCondition.is(myself, info, value, condition);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E doesNotHave(Condition<?> condition) {
+    return AssertionsOnValueCondition.isNot(myself, info, value, condition);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E satisfies(Condition<?> condition) {
+    return AssertionsOnValueCondition.is(myself, info, value, condition);
   }
 }
