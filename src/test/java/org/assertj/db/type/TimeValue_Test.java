@@ -25,7 +25,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Tests on the time value.
  * 
  * @author Régis Pouiller
- * 
+ * @author Julien Roy
+ *
  */
 public class TimeValue_Test extends AbstractTest {
 
@@ -520,6 +521,15 @@ public class TimeValue_Test extends AbstractTest {
             TimeValue.of(9, 1, 1));
     assertThat(TimeValue.of(9, 1).move(TimeValue.of(0, 0, 2))).as("add 2 seconds").isEqualTo(
             TimeValue.of(9, 1, 2));
+
+    assertThat(TimeValue.of(9, 1, 58).move(TimeValue.of(0, 0,  10))).as("add 10 seconds to 58").isEqualTo(
+        TimeValue.of(9, 2, 8));
+
+    assertThat(TimeValue.of(9, 59, 58).move(TimeValue.of(0, 0,  50))).as("add 50 seconds to 58").isEqualTo(
+        TimeValue.of(10, 00, 48));
+
+    assertThat(TimeValue.of(9, 0, 0).move(TimeValue.of(0, 0,  -10))).as("substract 10 seconds to 0").isEqualTo(
+        TimeValue.of(8, 59, 50));
 
     assertThat(TimeValue.of(9, 1).move(TimeValue.of(0, 0, -1))).as("substract 1 second").isEqualTo(
             TimeValue.of(9, 0, 59, 0));

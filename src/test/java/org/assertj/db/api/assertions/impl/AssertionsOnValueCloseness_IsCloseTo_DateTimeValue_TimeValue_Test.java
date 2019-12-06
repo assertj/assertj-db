@@ -33,6 +33,7 @@ import static org.junit.Assert.fail;
  * {@link  AssertionsOnValueCloseness#isCloseTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, org.assertj.db.type.DateTimeValue, org.assertj.db.type.TimeValue)} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  *
  */
 public class AssertionsOnValueCloseness_IsCloseTo_DateTimeValue_TimeValue_Test extends AbstractTest {
@@ -45,14 +46,21 @@ public class AssertionsOnValueCloseness_IsCloseTo_DateTimeValue_TimeValue_Test e
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
+
     TableAssert tableAssert2 = AssertionsOnValueCloseness.isCloseTo(tableAssert, info, getValue(
             null, Date.valueOf("2007-12-23")), DateTimeValue.of(DateValue.of(2007, 12, 23)), TimeValue.of(0, 0, 0));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
+
     tableAssert2 = AssertionsOnValueCloseness.isCloseTo(tableAssert, info, getValue(
             null, Timestamp.valueOf("2007-12-23 09:01:00")), DateTimeValue.of(
             DateValue.of(2007, 12, 23), TimeValue.of(9, 1)), TimeValue.of(0, 0, 0));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
+
     tableAssert2 = AssertionsOnValueCloseness.isCloseTo(tableAssert, info, getValue(null, null), (DateTimeValue) null, TimeValue.of(0, 0, 0));
+    Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
+
+    tableAssert2 = AssertionsOnValueCloseness.isCloseTo(tableAssert, info, getValue(
+        null, Timestamp.valueOf("2019-12-03 09:25:00")), DateTimeValue.from(Timestamp.valueOf("2019-12-03 09:24:58")), TimeValue.of(0, 0, 10));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 

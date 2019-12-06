@@ -20,7 +20,8 @@ import java.util.Calendar;
  * This class represents a time value in the database.
  * 
  * @author Régis Pouiller
- * 
+ * @author Julien Roy
+ *
  */
 public class TimeValue implements Comparable<TimeValue> {
 
@@ -376,20 +377,31 @@ public class TimeValue implements Comparable<TimeValue> {
       thisNanoSeconds += 1000000000 + nanoSeconds;
       seconds--;
     }
-    if (seconds >= 0 || thisSeconds >= -seconds) {
+
+    if (seconds > 0 && (thisSeconds + seconds >= 60)) {
+      thisSeconds += seconds - 60;
+      minutes++;
+    }
+    else if (seconds >= 0 || thisSeconds >= -seconds) {
       thisSeconds += seconds;
     }
     else {
       thisSeconds += 60 + seconds;
       minutes--;
     }
-    if (minutes >= 0 || thisMinutes >= -minutes) {
+
+    if ( minutes > 0 && (thisMinutes + minutes >= 60 )) {
+      thisMinutes += minutes - 60;
+      hours++;
+    }
+    else if (minutes >= 0 || thisMinutes >= -minutes) {
       thisMinutes += minutes;
     }
     else {
       thisMinutes += 60 + minutes;
       hours--;
     }
+
     thisHours += hours;
 
     return of(thisHours, thisMinutes, thisSeconds, thisNanoSeconds);
