@@ -13,6 +13,7 @@
 package org.assertj.db.database.hsqldb;
 
 import com.ninja_squad.dbsetup.DbSetup;
+import com.ninja_squad.dbsetup.DbSetupTracker;
 import com.ninja_squad.dbsetup.destination.DriverManagerDestination;
 import com.ninja_squad.dbsetup.operation.Operation;
 import org.assertj.db.database.AbstractDatabaseTest;
@@ -28,16 +29,17 @@ import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Locale;
+import java.util.logging.Level;
 
 import static com.ninja_squad.dbsetup.Operations.*;
 
 /**
- * Parent for all the tests which are specific for H2 database.
+ * Parent for all the tests which are specific for HSQLDB database.
  *
  * @author Régis Pouiller
  */
-@ContextConfiguration(classes = { HsqlsbConfiguration.class })
-public abstract class AbstractHsqlsbTest extends AbstractDatabaseTest {
+@ContextConfiguration(classes = { HsqldbConfiguration.class })
+public abstract class AbstractHsqldbTest extends AbstractDatabaseTest {
 
   private static byte[] BYTES;
 
@@ -53,7 +55,7 @@ public abstract class AbstractHsqlsbTest extends AbstractDatabaseTest {
       }
       BYTES = byteArrayOutputStream.toByteArray();
     } catch (Exception e) {
-      e.printStackTrace();
+      LOG.log(Level.SEVERE, "Error during loading bytes sample data", e);
     }
   }
 
@@ -64,30 +66,34 @@ public abstract class AbstractHsqlsbTest extends AbstractDatabaseTest {
                                                                                letterCaseUI,
                                                                                letterCaseUI,
                                                                                letterCaseUI);
-  protected final SourceWithLetterCase sourceNSNSNS = new SourceWithLetterCase("jdbc:hsqldb:mem:testHsqldb", "SA", "",
-                                                                               letterCaseNS,
-                                                                               letterCaseNS,
-                                                                               letterCaseNS);
 
   private static final Operation DELETE_ALL = deleteAllFrom("teSt");
 
   private static final Operation INSERT_TEST = insertInto("teSt")
-          .columns("Var1", "vAr2", "vaR3", "var4", "var5", "var6", "var7", "var8", "var9", "var10",
-                   "var11", "var12", "var13", "var14", "var15", "var16", "var17", "var18", "var19", "var20",
-                   "var21", "var22", "var23", "var24", "var25", "var26")
-          .values(1, 2, 3.3, 4.4, "5", "6", "7", "8", "9", Date.valueOf("2007-12-23"),
-                  Time.valueOf("09:01:00"), Timestamp.valueOf("2007-12-23 09:01:00"),
-                  Timestamp.valueOf("2007-12-23 09:01:00"), 10, 11, true, false, 12, 13, 14,
-                  15, BYTES, BYTES, BYTES, Locale.FRENCH, Locale.FRENCH)
-          .build();
+      .columns("Var1", "vAr2", "vaR3", "var4", "var5", "var6", "var7", "var8", "var9", "var10",
+               "var11", "var12", "var13", "var14", "var15", "var16", "var17", "var18", "var19", "var20",
+               "var21", "var22", "var23", "var24", "var25", "var26")
+      .values(1, 2, 3.3, 4.4, "5", "6", "7", "8", "9", Date.valueOf("2007-12-23"),
+              Time.valueOf("09:01:00"), Timestamp.valueOf("2007-12-23 09:01:00"),
+              Timestamp.valueOf("2007-12-23 09:01:00"), 10, 11, true, false, 12, 13, 14,
+              15, BYTES, BYTES, BYTES, Locale.FRENCH, Locale.FRENCH)
+      .build();
 
   private static final Operation OPERATIONS = sequenceOf(DELETE_ALL, INSERT_TEST);
 
-  static {
-    DB_SETUP = new DbSetup(new DriverManagerDestination("jdbc:hsqldb:mem:testHsqldb", "SA", ""), OPERATIONS);
+  private static final DbSetup DB_SETUP = new DbSetup(new DriverManagerDestination("jdbc:hsqldb:mem:testHsqldb", "SA", ""),
+                                                      OPERATIONS);
+  private static final DbSetupTracker DB_SETUP_TRACKER = new DbSetupTracker();
+
+  protected DbSetup getDbSetup() {
+    return DB_SETUP;
   }
 
-  @Autowired(required = true)
+  protected DbSetupTracker getDbSetupTracker() {
+    return DB_SETUP_TRACKER;
+  }
+
+  @Autowired
   protected void setDataSource(DataSource dataSource) {
     this.dataSourceUIUIUI = new DataSourceWithLetterCase(dataSource, letterCaseUI, letterCaseUI, letterCaseUI);
     this.dataSourceNSNSNS = new DataSourceWithLetterCase(dataSource, letterCaseNS, letterCaseNS, letterCaseNS);

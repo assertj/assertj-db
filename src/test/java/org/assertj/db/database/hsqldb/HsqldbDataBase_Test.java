@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Régis Pouiller
  */
-public class HsqldbDataBase_Test extends AbstractHsqlsbTest {
+public class HsqldbDataBase_Test extends AbstractHsqldbTest {
 
   private final String URL = "jdbc:hsqldb:mem:testHsqldb";
   private final String USER = "SA";

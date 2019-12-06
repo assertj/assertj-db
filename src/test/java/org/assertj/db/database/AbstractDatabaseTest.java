@@ -33,6 +33,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static org.assertj.db.type.lettercase.LetterCase.getLetterCase;
@@ -47,45 +48,28 @@ import static org.assertj.db.type.lettercase.LetterCase.getLetterCase;
 @Transactional
 public abstract class AbstractDatabaseTest {
 
-  protected final LetterCase letterCaseUI = getLetterCase(CaseConversions.UPPER, CaseComparisons.IGNORE);
-  protected final LetterCase letterCaseUS = getLetterCase(CaseConversions.UPPER, CaseComparisons.STRICT);
-  protected final LetterCase letterCaseLI = getLetterCase(CaseConversions.LOWER, CaseComparisons.IGNORE);
-  protected final LetterCase letterCaseLS = getLetterCase(CaseConversions.LOWER, CaseComparisons.STRICT);
-  protected final LetterCase letterCaseNI = getLetterCase(CaseConversions.NO, CaseComparisons.IGNORE);
-  protected final LetterCase letterCaseNS = getLetterCase(CaseConversions.NO, CaseComparisons.STRICT);
-
   protected static final Logger LOG = Logger.getLogger("Test");
 
-  private static final DbSetupTracker dbSetupTracker = new DbSetupTracker();
+  protected final LetterCase letterCaseUI = getLetterCase(CaseConversions.UPPER, CaseComparisons.IGNORE);
+  protected final LetterCase letterCaseNS = getLetterCase(CaseConversions.NO, CaseComparisons.STRICT);
 
   @Rule
   public TestName testNameRule = new TestName();
 
-  @Autowired(required = true)
+  @Autowired
   protected DataSource dataSource;
 
-  protected static DbSetup DB_SETUP = null;
+  protected abstract DbSetup getDbSetup();
+
+  protected abstract DbSetupTracker getDbSetupTracker();
 
   @Before
-  public void initiate() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException,
-          SecurityException {
-
-    Field fieldLastSetup = DbSetupTracker.class.getDeclaredField("lastSetupLaunched");
-    Field fieldNextLaunch = DbSetupTracker.class.getDeclaredField("nextLaunchSkipped");
-    fieldLastSetup.setAccessible(true);
-    fieldNextLaunch.setAccessible(true);
-    Boolean nextLaunchSkipped = fieldNextLaunch.getBoolean(dbSetupTracker);
-    DbSetup lastSetupLaunched = (DbSetup) fieldLastSetup.get(dbSetupTracker);
-    boolean skipLaunch = nextLaunchSkipped && DB_SETUP.equals(lastSetupLaunched);
-    LOG.warning("--------------------------------------------------");
-    LOG.warning(getClass().getCanonicalName() + " - " + testNameRule.getMethodName() + " - skipLaunch : " + skipLaunch
-                + " (" + nextLaunchSkipped + " && " + DB_SETUP.equals(lastSetupLaunched) + ")");
-    LOG.warning("--------------------------------------------------");
-    dbSetupTracker.launchIfNecessary(DB_SETUP);
+  public void initiate() {
+    getDbSetupTracker().launchIfNecessary(getDbSetup());
   }
 
   @After
-  public void determineIfReloadIsNeeded() throws NoSuchMethodException, SecurityException {
+  public void determineIfReloadIsNeeded() throws NoSuchMethodException {
     Annotation classAnnotation = getClass().getAnnotation(NeedReload.class);
     if (classAnnotation != null) {
       return;
@@ -96,7 +80,7 @@ public abstract class AbstractDatabaseTest {
     if (methodAnnotation != null) {
       return;
     }
-    dbSetupTracker.skipNextLaunch();
+    getDbSetupTracker().skipNextLaunch();
   }
 
   /**
@@ -114,7 +98,7 @@ public abstract class AbstractDatabaseTest {
         statement.executeUpdate();
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      LOG.log(Level.SEVERE, "Cannot apply update SQL query", e);
     }
   }
 }

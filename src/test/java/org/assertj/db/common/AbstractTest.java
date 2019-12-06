@@ -36,6 +36,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.sql.*;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static com.ninja_squad.dbsetup.Operations.*;
@@ -55,72 +56,70 @@ public abstract class AbstractTest {
   @Rule
   public TestName testNameRule = new TestName();
 
-  @Autowired(required = true)
+  @Autowired
   protected DataSource dataSource;
 
   protected final Source source = new Source("jdbc:h2:mem:test", "sa", "");
 
-  private static final DbSetupTracker dbSetupTracker = new DbSetupTracker();
-
   private static final Operation DELETE_ALL = deleteAllFrom("test2", "test", "interpretation", "actor", "movie");
 
   private static final Operation INSERT_MOVIE = sequenceOf(
-          insertInto("movie").columns("id", "title", "year", "movie_imdb")
-                             .values(1, "Alien", 1979, "30B443AE-C0C9-4790-9BEC-CE1380808435")
-                             .values(2, "The Village", 2004, "16319617-AE95-4087-9264-D3D21BF611B6")
-                             .values(3, "Avatar", 2009, "D735221B-5DE5-4112-AA1E-49090CB75ADA").build());
+      insertInto("movie").columns("id", "title", "year", "movie_imdb")
+                         .values(1, "Alien", 1979, "30B443AE-C0C9-4790-9BEC-CE1380808435")
+                         .values(2, "The Village", 2004, "16319617-AE95-4087-9264-D3D21BF611B6")
+                         .values(3, "Avatar", 2009, "D735221B-5DE5-4112-AA1E-49090CB75ADA").build());
 
   private static final Operation INSERT_ACTOR = insertInto("actor")
-          .columns("id", "name", "firstname", "birth", "actor_imdb")
-          .values(1, "Weaver", "Sigourney", Date.valueOf("1949-10-08"), "30B443AE-C0C9-4790-9BEC-CE1380808435")
-          .values(2, "Phoenix", "Joaquim", Date.valueOf("1974-10-28"), "16319617-AE95-4087-9264-D3D21BF611B6")
-          .values(3, "Worthington", "Sam", Date.valueOf("1976-08-02"), "D735221B-5DE5-4112-AA1E-49090CB75ADA")
-          .build();
+      .columns("id", "name", "firstname", "birth", "actor_imdb")
+      .values(1, "Weaver", "Sigourney", Date.valueOf("1949-10-08"), "30B443AE-C0C9-4790-9BEC-CE1380808435")
+      .values(2, "Phoenix", "Joaquim", Date.valueOf("1974-10-28"), "16319617-AE95-4087-9264-D3D21BF611B6")
+      .values(3, "Worthington", "Sam", Date.valueOf("1976-08-02"), "D735221B-5DE5-4112-AA1E-49090CB75ADA")
+      .build();
 
   private static final Operation INSERT_INTERPRETATION = insertInto("interpretation")
-          .columns("id", "id_movie", "id_actor", "character")
-          .values(1, 1, 1, "Ellen Louise Ripley")
-          .values(2, 2, 1, "Alice Hunt")
-          .values(3, 3, 1, "Dr Grace Augustine")
-          .values(4, 2, 2, "Lucius Hunt")
-          .values(5, 3, 3, "Jake Sully")
-          .build();
+      .columns("id", "id_movie", "id_actor", "character")
+      .values(1, 1, 1, "Ellen Louise Ripley")
+      .values(2, 2, 1, "Alice Hunt")
+      .values(3, 3, 1, "Dr Grace Augustine")
+      .values(4, 2, 2, "Lucius Hunt")
+      .values(5, 3, 3, "Jake Sully")
+      .build();
 
   private static final Operation INSERT_TEST = insertInto("test")
-          .columns("var1", "var2", "var3", "var4", "var5", "var6", "var7", "var8", "var9", "var10", "var11", "var12",
-                   "var13", "var14", "var15", "var16")
-          .values(1, true, 2, 3, 4, 5.6, 7.8, Time.valueOf("09:46:30"), Date.valueOf("2014-05-24"),
-                  Timestamp.valueOf("2014-05-24 09:46:30"), new byte[0], "text", 5, 7,
-                  "30B443AE-C0C9-4790-9BEC-CE1380808435", 'T')
+      .columns("var1", "var2", "var3", "var4", "var5", "var6", "var7", "var8", "var9", "var10", "var11", "var12",
+               "var13", "var14", "var15", "var16")
+      .values(1, true, 2, 3, 4, 5.6, 7.8, Time.valueOf("09:46:30"), Date.valueOf("2014-05-24"),
+              Timestamp.valueOf("2014-05-24 09:46:30"), new byte[0], "text", 5, 7,
+              "30B443AE-C0C9-4790-9BEC-CE1380808435", 'T')
 
-          .values(10, false, 20, 30, 40, 50.6, 70.8, Time.valueOf("12:29:49"), Date.valueOf("2014-05-30"),
-                  Timestamp.valueOf("2014-05-30 12:29:49"), new byte[0], "another text", 50, 70,
-                  "0E2A1269-EFF0-4233-B87B-B53E8B6F164D", 'e')
+      .values(10, false, 20, 30, 40, 50.6, 70.8, Time.valueOf("12:29:49"), Date.valueOf("2014-05-30"),
+              Timestamp.valueOf("2014-05-30 12:29:49"), new byte[0], "another text", 50, 70,
+              "0E2A1269-EFF0-4233-B87B-B53E8B6F164D", 'e')
 
-          .values(100, false, 25, 300, 400, 500.6, 700.8, Time.valueOf("12:29:49"), Date.valueOf("2014-05-30"),
-                  Timestamp.valueOf("2014-05-30 00:00:00"), new byte[0], "another text again", 500, 700,
-                  "2B0D1BDD-909E-4362-BA10-C930BA82718D", 's')
+      .values(100, false, 25, 300, 400, 500.6, 700.8, Time.valueOf("12:29:49"), Date.valueOf("2014-05-30"),
+              Timestamp.valueOf("2014-05-30 00:00:00"), new byte[0], "another text again", 500, 700,
+              "2B0D1BDD-909E-4362-BA10-C930BA82718D", 's')
 
-          .values(1000, false, 0, 0, 0, 0, 0, Time.valueOf("12:29:49"), Date.valueOf("2014-05-30"),
-                  Timestamp.valueOf("2014-05-30 00:00:00"), new byte[0], "another text again", 500, 700,
-                  "399FFFCA-7874-4225-9903-E227C4E9DCC1", 't')
-          .build();
+      .values(1000, false, 0, 0, 0, 0, 0, Time.valueOf("12:29:49"), Date.valueOf("2014-05-30"),
+              Timestamp.valueOf("2014-05-30 00:00:00"), new byte[0], "another text again", 500, 700,
+              "399FFFCA-7874-4225-9903-E227C4E9DCC1", 't')
+      .build();
 
   private static final Operation INSERT_TEST2 = insertInto("test2")
-          .columns("var1", "var2", "var3", "var4", "var5", "var6", "var7", "var8", "var9", "var10", "var11", "var12",
-                   "var13", "var14", "var15", "var16", "var17")
-          .values(1, true, 2, 3, 4, 5.6, 7.8, Time.valueOf("09:46:30"), Date.valueOf("2014-05-24"),
-                  Timestamp.valueOf("2014-05-24 09:46:30"), new byte[0], "text", 5, 7, null,
-                  "30B443AE-C0C9-4790-9BEC-CE1380808435", 'T')
-          .values(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
-          .build();
+      .columns("var1", "var2", "var3", "var4", "var5", "var6", "var7", "var8", "var9", "var10", "var11", "var12",
+               "var13", "var14", "var15", "var16", "var17")
+      .values(1, true, 2, 3, 4, 5.6, 7.8, Time.valueOf("09:46:30"), Date.valueOf("2014-05-24"),
+              Timestamp.valueOf("2014-05-24 09:46:30"), new byte[0], "text", 5, 7, null,
+              "30B443AE-C0C9-4790-9BEC-CE1380808435", 'T')
+      .values(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
+      .build();
 
   private static final Operation SQL = sql(
-          "update test set var11 = FILE_READ('classpath:h2-logo-2.png') where var1 = 1",
-          "update test set var11 = FILE_READ('classpath:logo-dev.jpg') where var1 = 10",
-          "update test set var11 = FILE_READ('classpath:logo-dev.jpg') where var1 = 100",
-          "update test set var11 = FILE_READ('classpath:logo-dev.jpg') where var1 = 1000",
-          "update test2 set var11 = FILE_READ('classpath:h2-logo-2.png') where var1 = 1"
+      "update test set var11 = FILE_READ('classpath:h2-logo-2.png') where var1 = 1",
+      "update test set var11 = FILE_READ('classpath:logo-dev.jpg') where var1 = 10",
+      "update test set var11 = FILE_READ('classpath:logo-dev.jpg') where var1 = 100",
+      "update test set var11 = FILE_READ('classpath:logo-dev.jpg') where var1 = 1000",
+      "update test2 set var11 = FILE_READ('classpath:h2-logo-2.png') where var1 = 1"
   );
 
   private static final Operation OPERATIONS = sequenceOf(DELETE_ALL, INSERT_MOVIE, INSERT_ACTOR, INSERT_INTERPRETATION,
@@ -129,22 +128,11 @@ public abstract class AbstractTest {
   private static final DbSetup DB_SETUP = new DbSetup(new DriverManagerDestination("jdbc:h2:mem:test", "SA", ""),
                                                       OPERATIONS);
 
-  @Before
-  public void initiate() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException,
-          SecurityException {
+  private static final DbSetupTracker DB_SETUP_TRACKER = new DbSetupTracker();
 
-    Field fieldLastSetup = DbSetupTracker.class.getDeclaredField("lastSetupLaunched");
-    Field fieldNextLaunch = DbSetupTracker.class.getDeclaredField("nextLaunchSkipped");
-    fieldLastSetup.setAccessible(true);
-    fieldNextLaunch.setAccessible(true);
-    Boolean nextLaunchSkipped = fieldNextLaunch.getBoolean(dbSetupTracker);
-    DbSetup lastSetupLaunched = (DbSetup) fieldLastSetup.get(dbSetupTracker);
-    boolean skipLaunch = nextLaunchSkipped && DB_SETUP.equals(lastSetupLaunched);
-    LOG.warning("--------------------------------------------------");
-    LOG.warning(getClass().getCanonicalName() + " - " + testNameRule.getMethodName() + " - skipLaunch : " + skipLaunch
-                + " (" + nextLaunchSkipped + " && " + DB_SETUP.equals(lastSetupLaunched) + ")");
-    LOG.warning("--------------------------------------------------");
-    dbSetupTracker.launchIfNecessary(DB_SETUP);
+  @Before
+  public void initiate() {
+    DB_SETUP_TRACKER.launchIfNecessary(DB_SETUP);
   }
 
   @After
@@ -159,7 +147,7 @@ public abstract class AbstractTest {
     if (methodAnnotation != null) {
       return;
     }
-    dbSetupTracker.skipNextLaunch();
+    DB_SETUP_TRACKER.skipNextLaunch();
   }
 
   /**
@@ -170,8 +158,7 @@ public abstract class AbstractTest {
    * @return An instance.
    * @throws Exception Exception
    */
-  protected static Column getColumn(String columnName, List<Value> valuesList)
-          throws Exception {
+  protected static Column getColumn(String columnName, List<Value> valuesList) throws Exception {
     Constructor<Column> constructor = Column.class.getDeclaredConstructor(String.class, List.class, LetterCase.class);
     constructor.setAccessible(true);
     return constructor.newInstance(columnName, valuesList, LetterCase.COLUMN_DEFAULT);
@@ -187,10 +174,12 @@ public abstract class AbstractTest {
    * @throws Exception Exception
    */
   protected static Row getRow(List<String> pksNameList, List<String> columnsNameList, List<Value> valuesList)
-          throws Exception {
-    Constructor<Row> constructor = Row.class.getDeclaredConstructor(List.class, List.class, List.class, LetterCase.class, LetterCase.class);
+      throws Exception {
+    Constructor<Row> constructor = Row.class
+        .getDeclaredConstructor(List.class, List.class, List.class, LetterCase.class, LetterCase.class);
     constructor.setAccessible(true);
-    return constructor.newInstance(pksNameList, columnsNameList, valuesList, LetterCase.COLUMN_DEFAULT, LetterCase.PRIMARY_KEY_DEFAULT);
+    return constructor
+        .newInstance(pksNameList, columnsNameList, valuesList, LetterCase.COLUMN_DEFAULT, LetterCase.PRIMARY_KEY_DEFAULT);
   }
 
   /**
@@ -203,7 +192,7 @@ public abstract class AbstractTest {
    * @throws Exception Exception
    */
   protected static Table getTable(List<String> columnsNameList, List<String> pksNameList, List<Row> rowsList)
-          throws Exception {
+      throws Exception {
     Constructor<Table> constructor = Table.class.getDeclaredConstructor();
     constructor.setAccessible(true);
     Table table = constructor.newInstance();
@@ -232,7 +221,7 @@ public abstract class AbstractTest {
    * @throws Exception Exception
    */
   protected static Request getRequest(List<String> columnsNameList, List<String> pksNameList, List<Row> rowsList)
-          throws Exception {
+      throws Exception {
     Constructor<Request> constructor = Request.class.getDeclaredConstructor();
     constructor.setAccessible(true);
     Request request = constructor.newInstance();
@@ -259,7 +248,7 @@ public abstract class AbstractTest {
    * @return An instance.
    * @throws Exception Exception
    */
-  protected static Value getValue(String columnName, Object object)throws Exception {
+  protected static Value getValue(String columnName, Object object) throws Exception {
     Constructor<Value> constructor = Value.class.getDeclaredConstructor(String.class, Object.class, LetterCase.class);
     constructor.setAccessible(true);
     Value value = constructor.newInstance(columnName, object, LetterCase.COLUMN_DEFAULT);
@@ -296,10 +285,10 @@ public abstract class AbstractTest {
    */
   protected static Change getChange(DataType dataType, String dataName, ChangeType changeType, Row rowAtStartPoint,
                                     Row rowAtEndPoint)
-          throws Exception {
+      throws Exception {
     Constructor<Change> constructor = Change.class
-            .getDeclaredConstructor(DataType.class, String.class, ChangeType.class, Row.class, Row.class,
-                                    LetterCase.class, LetterCase.class, LetterCase.class);
+        .getDeclaredConstructor(DataType.class, String.class, ChangeType.class, Row.class, Row.class,
+                                LetterCase.class, LetterCase.class, LetterCase.class);
     constructor.setAccessible(true);
     return constructor.newInstance(dataType, dataName, changeType, rowAtStartPoint, rowAtEndPoint,
                                    LetterCase.TABLE_DEFAULT, LetterCase.COLUMN_DEFAULT, LetterCase.PRIMARY_KEY_DEFAULT);
@@ -327,7 +316,7 @@ public abstract class AbstractTest {
    * @throws Exception Exception
    */
   protected static Change getTableModificationChange(String dataName, Row rowAtStartPoint, Row rowAtEndPoint)
-          throws Exception {
+      throws Exception {
     return getChange(DataType.TABLE, dataName, ChangeType.MODIFICATION, rowAtStartPoint, rowAtEndPoint);
   }
 
@@ -358,7 +347,7 @@ public abstract class AbstractTest {
         statement.executeUpdate();
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      LOG.log(Level.SEVERE, "Cannot apply update SQL query", e);
     }
   }
 
@@ -367,7 +356,8 @@ public abstract class AbstractTest {
    */
   protected void updateChangesForTests() {
     update("insert into movie values(4, 'Ghostbusters', 1984, '30B443AE-C0C9-4790-9BEC-CE1380808435')");
-    update("insert into actor values(4, 'Murray', 'Bill', PARSEDATETIME('21/09/1950', 'dd/MM/yyyy'), '30B443AE-C0C9-4790-9BEC-CE1380808435')");
+    update(
+        "insert into actor values(4, 'Murray', 'Bill', PARSEDATETIME('21/09/1950', 'dd/MM/yyyy'), '30B443AE-C0C9-4790-9BEC-CE1380808435')");
     update("insert into interpretation values(6, 4, 4, 'Dr Peter Venkman')");
 
     update("delete from interpretation where id = 5");

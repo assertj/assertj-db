@@ -31,7 +31,7 @@ import static org.assertj.db.api.Assertions.bytesContentFromClassPathOf;
  *
  * @author Régis Pouiller
  */
-public class HsqldbDatabase_Source_UIUIUI_Test extends AbstractHsqlsbTest {
+public class HsqldbDatabase_Source_UIUIUI_Test extends AbstractHsqldbTest {
 
   private Source source = sourceUIUIUI;
 

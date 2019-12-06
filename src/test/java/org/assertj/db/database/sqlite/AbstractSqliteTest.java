@@ -13,6 +13,7 @@
 package org.assertj.db.database.sqlite;
 
 import com.ninja_squad.dbsetup.DbSetup;
+import com.ninja_squad.dbsetup.DbSetupTracker;
 import com.ninja_squad.dbsetup.destination.DriverManagerDestination;
 import com.ninja_squad.dbsetup.operation.Operation;
 import org.assertj.db.database.AbstractDatabaseTest;
@@ -27,6 +28,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.logging.Level;
 
 import static com.ninja_squad.dbsetup.Operations.*;
 
@@ -35,7 +37,7 @@ import static com.ninja_squad.dbsetup.Operations.*;
  *
  * @author Régis Pouiller
  */
-@ContextConfiguration(classes = {SqliteConfiguration.class})
+@ContextConfiguration(classes = { SqliteConfiguration.class })
 public abstract class AbstractSqliteTest extends AbstractDatabaseTest {
 
   private static byte[] BYTES;
@@ -52,7 +54,7 @@ public abstract class AbstractSqliteTest extends AbstractDatabaseTest {
       }
       BYTES = byteArrayOutputStream.toByteArray();
     } catch (Exception e) {
-      e.printStackTrace();
+      LOG.log(Level.SEVERE, "Error during loading bytes sample data", e);
     }
   }
 
@@ -77,21 +79,29 @@ public abstract class AbstractSqliteTest extends AbstractDatabaseTest {
   private static final Operation DELETE_ALL = deleteAllFrom("teSt");
 
   private static final Operation INSERT_TEST = insertInto("teSt")
-          .columns("Var1", "vAr2", "vaR3", "var4", "var5", "var6", "var7", "var8", "var9", "var10",
-                   "var11", "var12", "var13", "var14", "var15", "var16", "var17", "var18", "var19", "var20")
-          .values(1, "13", "2", "14", "15",
-                  Timestamp.valueOf("2007-12-23 09:01:00"), 3.3, 4.4, 5.5, 6.6,
-                  7, "8", "16", 9, 10.1,
-                  11, Time.valueOf("09:01:00"), Timestamp.valueOf("2007-12-23 09:01:00"), "12", BYTES)
-          .build();
+      .columns("Var1", "vAr2", "vaR3", "var4", "var5", "var6", "var7", "var8", "var9", "var10",
+               "var11", "var12", "var13", "var14", "var15", "var16", "var17", "var18", "var19", "var20")
+      .values(1, "13", "2", "14", "15",
+              Timestamp.valueOf("2007-12-23 09:01:00"), 3.3, 4.4, 5.5, 6.6,
+              7, "8", "16", 9, 10.1,
+              11, Time.valueOf("09:01:00"), Timestamp.valueOf("2007-12-23 09:01:00"), "12", BYTES)
+      .build();
 
   private static final Operation OPERATIONS = sequenceOf(DELETE_ALL, INSERT_TEST);
 
-  static {
-    DB_SETUP = new DbSetup(new DriverManagerDestination("jdbc:sqlite:target/testDerby.db", "", ""), OPERATIONS);
+  private static final DbSetup DB_SETUP = new DbSetup(new DriverManagerDestination("jdbc:sqlite:target/testDerby.db", "", ""),
+                                                      OPERATIONS);
+  private static final DbSetupTracker DB_SETUP_TRACKER = new DbSetupTracker();
+
+  protected DbSetup getDbSetup() {
+    return DB_SETUP;
   }
 
-  @Autowired(required = true)
+  protected DbSetupTracker getDbSetupTracker() {
+    return DB_SETUP_TRACKER;
+  }
+
+  @Autowired
   protected void setDataSource(DataSource dataSource) {
     this.dataSource = dataSource;
     this.dataSourceDDD = new DataSourceWithLetterCase(dataSource, LetterCase.TABLE_DEFAULT,

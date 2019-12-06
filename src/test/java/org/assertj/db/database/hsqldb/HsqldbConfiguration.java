@@ -22,17 +22,17 @@ import org.springframework.transaction.PlatformTransactionManager;
 import javax.sql.DataSource;
 
 /**
- * Provides the configuration for the tests.
+ * Provides the configuration for the HSQLDB tests.
  *
  * @author Régis Pouiller
  *
  */
 @Configuration
-public class HsqlsbConfiguration {
+public class HsqldbConfiguration {
 
   @Bean
   public DataSource dataSource() {
-    return new EmbeddedDatabaseBuilder().setName("testHsqldb").setType(EmbeddedDatabaseType.HSQL).addScript("schemaHsqlsb.sql")
+    return new EmbeddedDatabaseBuilder().setName("testHsqldb").setType(EmbeddedDatabaseType.HSQL).addScript("schemaHsqldb.sql")
                                         .build();
   }
 

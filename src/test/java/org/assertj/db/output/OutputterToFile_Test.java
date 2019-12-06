@@ -12,14 +12,14 @@
  */
 package org.assertj.db.output;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-
 import org.assertj.core.api.Assertions;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 
 /**
  * Test the output to File.
@@ -35,17 +35,18 @@ public class OutputterToFile_Test extends AbstractTest {
   public void test_output_to_file() throws Exception {
     Table table = new Table(source, "actor");
 
-    Outputs.output(table).row().value().toFile("target\\test.txt");
-    try (InputStream inputStream = new FileInputStream(new File("target\\test.txt"))) {
+    Outputs.output(table).row().value().toFile("target" + File.separator + "test.txt");
+    try (InputStream inputStream = new FileInputStream(new File("target" + File.separator + "test.txt"))) {
       byte[] bytes = new byte[2048];
       int nb = inputStream.read(bytes);
-      Assertions.assertThat(new String(bytes, 0, nb)).isEqualTo(String.format("[Value at index 0 (column name : ID) of Row at index 0 of ACTOR table]%n"
-                                                                                       + "|----------|%n"
-                                                                                       + "| ID       |%n"
-                                                                                       + "| (NUMBER) |%n"
-                                                                                       + "|----------|%n"
-                                                                                       + "| 1        |%n"
-                                                                                       + "|----------|%n"));
+      Assertions.assertThat(new String(bytes, 0, nb))
+                .isEqualTo(String.format("[Value at index 0 (column name : ID) of Row at index 0 of ACTOR table]%n"
+                                         + "|----------|%n"
+                                         + "| ID       |%n"
+                                         + "| (NUMBER) |%n"
+                                         + "|----------|%n"
+                                         + "| 1        |%n"
+                                         + "|----------|%n"));
     }
   }
 }
