@@ -43,16 +43,16 @@ public class ChangeColumnAssert
   /**
    * The name of the column.
    */
-  private final String columnName;
+  protected final String columnName;
   /**
    * The actual value at start point.
    */
-  private final Value valueAtStartPoint;
+  protected final Value valueAtStartPoint;
 
   /**
    * The actual value at end point.
    */
-  private final Value valueAtEndPoint;
+  protected final Value valueAtEndPoint;
 
   /**
    * Position of navigation to row.

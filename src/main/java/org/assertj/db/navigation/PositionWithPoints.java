@@ -18,6 +18,8 @@ import org.assertj.db.type.DbElement;
 
 import java.lang.reflect.Constructor;
 
+import static org.assertj.db.util.Proxies.unProxy;
+
 /**
  * Position with point (start point and end point) during navigation.
  *
@@ -79,7 +81,6 @@ public abstract class PositionWithPoints<E extends AbstractElement & Navigation,
     this.atEndPoint = atEndPoint;
   }
 
-
   /**
    * Gets an instance of element of navigation at start point.
    * If this instance is already instanced, the method returns it from the cache.
@@ -116,12 +117,14 @@ public abstract class PositionWithPoints<E extends AbstractElement & Navigation,
    */
   protected N getInstance(D element) {
     try {
-      Constructor<N> constructor = elementClass.getDeclaredConstructor(myself.getClass(), pointClass);
+      Class clazz = unProxy(myself.getClass());
+      Constructor<N> constructor = elementClass.getDeclaredConstructor(clazz, pointClass);
       N instance = constructor.newInstance(myself, element);
       return instance;
     } catch (Exception e) {
       throw new AssertJDBException(String.format("There is an exception '" + e.getMessage()
-                                                 + "'%n\t in the instantiation of the element " + elementClass.getName() + "%n\t on "
+                                                 + "'%n\t in the instantiation of the element " + elementClass.getName()
+                                                 + "%n\t on "
                                                  + pointClass
                                                  + " with " + myself.getClass() + ".%n "
                                                  + "It is normally impossible.%n That means there is a big mistake in the development of AssertJDB.%n "

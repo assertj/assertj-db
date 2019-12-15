@@ -44,7 +44,7 @@ public class ChangeAssert
   /**
    * The actual change on which the assertion is.
    */
-  private final Change change;
+  protected final Change change;
 
   /**
    * Position of navigation to row.

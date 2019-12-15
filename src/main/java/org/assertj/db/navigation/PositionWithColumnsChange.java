@@ -27,6 +27,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.assertj.db.util.Proxies.unProxy;
+
 /**
  * Position during navigation.
  *
@@ -107,19 +109,18 @@ public abstract class PositionWithColumnsChange<E extends AbstractElement & Navi
     if (rowAtStartPoint != null) {
       List<Value> valuesAtStartPoint = rowAtStartPoint.getValuesList();
       valueAtStartPoint = valuesAtStartPoint.get(index);
-    }
-    else {
+    } else {
       valueAtStartPoint = Value.getNullValue(columnName, change.getColumnLetterCase());
     }
     if (rowAtEndPoint != null) {
       List<Value> valuesAtEndPoint = rowAtEndPoint.getValuesList();
       valueAtEndPoint = valuesAtEndPoint.get(index);
-    }
-    else {
+    } else {
       valueAtEndPoint = Value.getNullValue(columnName, change.getColumnLetterCase());
     }
     try {
-      Constructor<N> constructor = elementClass.getDeclaredConstructor(myself.getClass(), String.class, Value.class, Value.class);
+      Class clazz = unProxy(myself.getClass());
+      Constructor<N> constructor = elementClass.getDeclaredConstructor(clazz, String.class, Value.class, Value.class);
       N instance = constructor.newInstance(myself, columnName, valueAtStartPoint, valueAtEndPoint);
       elementsMap.put(index, instance);
       nextIndex = index + 1;
@@ -218,8 +219,9 @@ public abstract class PositionWithColumnsChange<E extends AbstractElement & Navi
         return getChangeColumnInstance(change, indexModified);
       }
     }
-    throw new AssertJDBException(String.format("Column <%s> does not exist among the modified columns%nin <%s>%nwith comparison %s",
-                                               columnName, modifiedColumnsNameList, comparison.getComparisonName()));
+    throw new AssertJDBException(
+        String.format("Column <%s> does not exist among the modified columns%nin <%s>%nwith comparison %s",
+                      columnName, modifiedColumnsNameList, comparison.getComparisonName()));
   }
 
   /**

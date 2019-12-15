@@ -1,0 +1,65 @@
+/**
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ *
+ * Copyright 2012-2016 the original author or authors.
+ */
+package org.assertj.db.api;
+
+import org.assertj.core.internal.Failures;
+import org.assertj.core.util.Lists;
+
+import java.util.List;
+
+/**
+ * Base class of AssertJ-DB SoftAssertions.
+ *
+ * @author Julien Roy
+ */
+public class AbstractSoftAssertions {
+
+  protected final SoftProxies proxies = new SoftProxies();
+
+  public <T, V> V proxy(Class<V> assertClass, Class<T> actualClass, T actual) {
+    return this.proxies.create(assertClass, actualClass, actual);
+  }
+
+  public void fail(String failureMessage) {
+    AssertionError error = Failures.instance().failure(failureMessage);
+    this.proxies.collectError(error);
+  }
+
+  public void fail(String failureMessage, Object... args) {
+    AssertionError error = Failures.instance().failure(String.format(failureMessage, args));
+    this.proxies.collectError(error);
+  }
+
+  public void fail(String failureMessage, Throwable realCause) {
+    AssertionError error = Failures.instance().failure(failureMessage);
+    error.initCause(realCause);
+    this.proxies.collectError(error);
+  }
+
+  public void failBecauseExceptionWasNotThrown(Class<? extends Throwable> throwableClass) {
+    this.shouldHaveThrown(throwableClass);
+  }
+
+  public void shouldHaveThrown(Class<? extends Throwable> throwableClass) {
+    AssertionError error = Failures.instance().expectedThrowableNotThrown(throwableClass);
+    this.proxies.collectError(error);
+  }
+
+  public List<Throwable> errorsCollected() {
+    return Lists.newArrayList(this.proxies.errorsCollected());
+  }
+
+  public boolean wasSuccess() {
+    return this.proxies.wasSuccess();
+  }
+}

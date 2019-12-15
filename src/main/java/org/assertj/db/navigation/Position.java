@@ -22,6 +22,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.assertj.db.util.Proxies.unProxy;
+
 /**
  * Position during navigation.
  *
@@ -99,6 +101,7 @@ public abstract class Position<E extends AbstractElement & Navigation, N extends
    * @param index        Index of the element on which is the instance of element of navigation.
    * @return The instance of element of navigation.
    */
+
   public N getInstance(List<D> elementsList, int index) {
     if (elementsMap.containsKey(index)) {
       N rowAssert = elementsMap.get(index);
@@ -108,18 +111,21 @@ public abstract class Position<E extends AbstractElement & Navigation, N extends
 
     D element = getDbElement(elementsList, index);
     try {
-      Constructor<N> constructor = elementClass.getDeclaredConstructor(myself.getClass(), element.getClass());
+
+      Class clazz = unProxy(myself.getClass());
+      Constructor<N> constructor = elementClass.getDeclaredConstructor(clazz, element.getClass());
       N instance = constructor.newInstance(myself, element);
       elementsMap.put(index, instance);
       instance.as(getDescription(index));
       return instance;
     } catch (Exception e) {
       throw new AssertJDBException(String.format("There is an exception '" + e.getMessage()
-                                   + "'%n\t in the instantiation of the element " + elementClass.getName() + "%n\t on "
-                                   + element.getClass()
-                                   + " with " + myself.getClass() + ".%n "
-                                   + "It is normally impossible.%n That means there is a big mistake in the development of AssertJDB.%n "
-                                   + "Please write an issue for that if you meet this problem."));
+                                                 + "'%n\t in the instantiation of the element " + elementClass.getName()
+                                                 + "%n\t on "
+                                                 + element.getClass()
+                                                 + " with " + myself.getClass() + ".%n "
+                                                 + "It is normally impossible.%n That means there is a big mistake in the development of AssertJDB.%n "
+                                                 + "Please write an issue for that if you meet this problem."));
     }
   }
 

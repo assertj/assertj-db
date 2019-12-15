@@ -48,6 +48,7 @@ public class AssertionsOnValueCondition {
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to the number in parameter.
    */
+  @SuppressWarnings("unchecked")
   public static <A extends AbstractAssert<?>> A is(A assertion, WritableAssertionInfo info, Value value, Condition<?> condition) {
     conditions.assertIs(info, value.getValue(), (Condition<? super Object>) condition);
     return assertion;
@@ -64,6 +65,7 @@ public class AssertionsOnValueCondition {
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not equal to the number in parameter.
    */
+  @SuppressWarnings("unchecked")
   public static <A extends AbstractAssert<?>> A isNot(A assertion, WritableAssertionInfo info, Value value, Condition<?> condition) {
     conditions.assertIsNot(info, value.getValue(), (Condition<? super Object>) condition);
     return assertion;

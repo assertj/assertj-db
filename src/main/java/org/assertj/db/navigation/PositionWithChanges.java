@@ -26,6 +26,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.assertj.db.util.Proxies.unProxy;
+
 /**
  * Position during navigation.
  *
@@ -130,14 +132,16 @@ public abstract class PositionWithChanges<E extends AbstractElement & Navigation
     }
 
     try {
-      Constructor<E> constructor = actualElementClass.getDeclaredConstructor(myself.getClass(), Changes.class);
+      Class clazz = Class.forName(myself.getClass().getName().replaceAll("\\$\\$.*", ""));
+      Constructor<E> constructor = actualElementClass.getDeclaredConstructor(clazz, Changes.class);
       instance = constructor.newInstance(myself, nextChanges);
       instance.as(getChangesDescription(changeType, tableName));
       setInCache(changeType, tableName, instance);
       return instance;
     } catch (Exception e) {
       throw new AssertJDBException(String.format("There is an exception '" + e.getMessage()
-                                                 + "'%n\t in the instantiation of the element " + actualElementClass.getName() + "%n\t on "
+                                                 + "'%n\t in the instantiation of the element " + actualElementClass.getName()
+                                                 + "%n\t on "
                                                  + Changes.class
                                                  + " with " + myself.getClass() + ".%n "
                                                  + "It is normally impossible.%n That means there is a big mistake in the development of AssertJDB.%n "
@@ -182,7 +186,7 @@ public abstract class PositionWithChanges<E extends AbstractElement & Navigation
    * @return The change assert implementation.
    */
   public N getChangeInstance(Changes changes, ChangeType changeType, String tableName) {
-    return getChangeInstance(changes, changeType,tableName, getIndexNextChange(changeType, tableName));
+    return getChangeInstance(changes, changeType, tableName, getIndexNextChange(changeType, tableName));
   }
 
   /**
@@ -202,9 +206,9 @@ public abstract class PositionWithChanges<E extends AbstractElement & Navigation
       return instance;
     }
 
-
     try {
-      Constructor<N> constructor = nextElementClass.getDeclaredConstructor(myself.getClass(), Change.class);
+      Class clazz = unProxy(myself.getClass());
+      Constructor<N> constructor = nextElementClass.getDeclaredConstructor(clazz, Change.class);
       instance = constructor.newInstance(myself, change);
       instance.as(getChangeDescription(changes, change, index, changeType, tableName));
       changeMap.put(change, instance);
@@ -212,7 +216,8 @@ public abstract class PositionWithChanges<E extends AbstractElement & Navigation
       return instance;
     } catch (Exception e) {
       throw new AssertJDBException(String.format("There is an exception '" + e.getMessage()
-                                                 + "'%n\t in the instantiation of the element " + nextElementClass.getName() + "%n\t on "
+                                                 + "'%n\t in the instantiation of the element " + nextElementClass.getName()
+                                                 + "%n\t on "
                                                  + Change.class
                                                  + " with " + myself.getClass() + ".%n "
                                                  + "It is normally impossible.%n That means there is a big mistake in the development of AssertJDB.%n "
@@ -251,7 +256,7 @@ public abstract class PositionWithChanges<E extends AbstractElement & Navigation
       index++;
     }
     throw new AssertJDBException("No change found for table " + tableName + " and primary keys " + Arrays
-            .asList(pksValues));
+        .asList(pksValues));
   }
 
   /**
@@ -306,5 +311,5 @@ public abstract class PositionWithChanges<E extends AbstractElement & Navigation
    * @return The description
    */
   protected abstract String getChangeDescription(Changes changes, Change change, int index,
-                       ChangeType changeType, String tableName);
+                                                 ChangeType changeType, String tableName);
 }
