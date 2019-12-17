@@ -14,14 +14,14 @@
     </parent>
 
     <scm>
-        <developerConnection>scm:git:ssh://git@github.com/joel-costigliola/assertj-db.git</developerConnection>
-        <connection>scm:git:ssh://git@github.com/joel-costigliola/assertj-db.git</connection>
-        <url>git@github.com:joel-costigliola/assertj-db</url>
+        <developerConnection>scm:git:ssh://git@github.com/assertj/assertj-db.git</developerConnection>
+        <connection>scm:git:ssh://git@github.com/assertj/assertj-db.git</connection>
+        <url>git@github.com:assertj/assertj-db</url>
         <tag>HEAD</tag>
     </scm>
     <issueManagement>
         <system>github</system>
-        <url>https://github.com/joel-costigliola/assertj-db/issues</url>
+        <url>https://github.com/assertj/assertj-db/issues</url>
     </issueManagement>
     <dependencies>
         <dependency>
