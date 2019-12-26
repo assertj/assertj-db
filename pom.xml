@@ -20,10 +20,16 @@
         <url>git@github.com:assertj/assertj-db</url>
         <tag>HEAD</tag>
     </scm>
+
     <issueManagement>
         <system>github</system>
         <url>https://github.com/assertj/assertj-db/issues</url>
     </issueManagement>
+
+    <properties>
+        <javadocAdditionalOptions>--allow-script-in-comments</javadocAdditionalOptions>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.assertj</groupId>
@@ -237,6 +243,7 @@
                       hljs.initHighlightingOnLoad();
                     </script>
                   ]]></footer>
+                    <additionalJOption>${javadocAdditionalOptions}</additionalJOption>
                 </configuration>
             </plugin>
         </plugins>
