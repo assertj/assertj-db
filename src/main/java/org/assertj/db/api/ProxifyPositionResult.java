@@ -12,19 +12,15 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.core.api.ObjectArrayAssert;
-import org.assertj.core.internal.cglib.proxy.MethodInterceptor;
-import org.assertj.core.internal.cglib.proxy.MethodProxy;
+import net.sf.cglib.proxy.MethodInterceptor;
+import net.sf.cglib.proxy.MethodProxy;
 import org.assertj.core.util.Arrays;
 import org.assertj.db.type.Change;
 import org.assertj.db.type.Column;
 import org.assertj.db.type.Row;
 import org.assertj.db.type.Value;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 
 import static org.assertj.db.util.Proxies.isProxified;
 import static org.assertj.db.util.Proxies.unProxy;
@@ -44,7 +40,7 @@ class ProxifyPositionResult implements MethodInterceptor {
 
   public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
     Object result = proxy.invokeSuper(obj, args);
-    if (isProxified(result.getClass()) || actual(result) == null) {
+    if (isProxified(result.getClass()) || Arrays.isNullOrEmpty(actual(result))) {
       return result;
     }
     return this.proxies.create(result.getClass(), actualClass(result), actual(result));
@@ -79,14 +75,8 @@ class ProxifyPositionResult implements MethodInterceptor {
           Value.class,
           Value.class
       );
-    } else if (result instanceof ObjectArrayAssert) {
-      return Arrays.array(Array.newInstance(Object.class, 0).getClass());
     } else {
-      Type actualType = ((ParameterizedType) result.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
-      Class type = actualType instanceof ParameterizedType ?
-          (Class) ((ParameterizedType) actualType).getRawType() :
-          (Class) actualType;
-      return Arrays.array(type);
+      return Arrays.array();
     }
   }
 
@@ -119,7 +109,7 @@ class ProxifyPositionResult implements MethodInterceptor {
           ((ChangeColumnAssert) result).valueAtEndPoint
       );
     } else {
-      return null;
+      return Arrays.array();
     }
   }
 }

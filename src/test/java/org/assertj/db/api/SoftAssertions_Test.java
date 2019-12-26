@@ -51,6 +51,7 @@ public class SoftAssertions_Test extends AbstractTest {
           .returnToColumn()
           .column("var1").value().isEqualTo(0);
 
+    assertThat(softly.wasSuccess()).isFalse();
     assertThat(softly.errorsCollected()).hasSize(8);
 
     assertThatThrownBy(new ThrowableAssert.ThrowingCallable() {
@@ -79,6 +80,7 @@ public class SoftAssertions_Test extends AbstractTest {
           .returnToColumn()
           .column("var1").value().isEqualTo(0);
 
+    assertThat(softly.wasSuccess()).isFalse();
     assertThat(softly.errorsCollected()).hasSize(8);
 
     assertThatThrownBy(new ThrowableAssert.ThrowingCallable() {
@@ -102,6 +104,8 @@ public class SoftAssertions_Test extends AbstractTest {
     final SoftAssertions softly = new SoftAssertions();
     softly.assertThat(changes).change().column("var1").hasValues(0);
     softly.assertThat(changes).change().rowAtStartPoint().changeOfModification().column("var1").hasValues(0);
+
+    assertThat(softly.wasSuccess()).isFalse();
     assertThat(softly.errorsCollected()).hasSize(2);
 
     assertThatThrownBy(new ThrowableAssert.ThrowingCallable() {

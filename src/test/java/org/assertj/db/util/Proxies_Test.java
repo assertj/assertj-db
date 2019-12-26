@@ -12,8 +12,8 @@
  */
 package org.assertj.db.util;
 
-import org.assertj.core.internal.cglib.proxy.Enhancer;
-import org.assertj.core.internal.cglib.proxy.NoOp;
+import net.sf.cglib.proxy.Enhancer;
+import net.sf.cglib.proxy.NoOp;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

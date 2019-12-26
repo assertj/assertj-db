@@ -12,7 +12,7 @@
  */
 package org.assertj.db.util;
 
-import org.assertj.core.internal.cglib.proxy.Enhancer;
+import net.sf.cglib.proxy.Enhancer;
 
 /**
  * Utilities for manage proxies.

@@ -12,10 +12,9 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.core.api.ErrorCollector;
-import org.assertj.core.internal.cglib.proxy.Callback;
-import org.assertj.core.internal.cglib.proxy.CallbackFilter;
-import org.assertj.core.internal.cglib.proxy.Enhancer;
+import net.sf.cglib.proxy.Callback;
+import net.sf.cglib.proxy.CallbackFilter;
+import net.sf.cglib.proxy.Enhancer;
 import org.assertj.core.util.Arrays;
 
 import java.lang.reflect.Method;
@@ -30,10 +29,6 @@ class SoftProxies {
   private final ErrorCollector collector = new ErrorCollector();
 
   SoftProxies() {
-  }
-
-  void collectError(Throwable error) {
-    this.collector.addError(error);
   }
 
   List<Throwable> errorsCollected() {

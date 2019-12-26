@@ -12,7 +12,6 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.core.internal.Failures;
 import org.assertj.core.util.Lists;
 
 import java.util.List;
@@ -28,31 +27,6 @@ public class AbstractSoftAssertions {
 
   public <T, V> V proxy(Class<V> assertClass, Class<T> actualClass, T actual) {
     return this.proxies.create(assertClass, actualClass, actual);
-  }
-
-  public void fail(String failureMessage) {
-    AssertionError error = Failures.instance().failure(failureMessage);
-    this.proxies.collectError(error);
-  }
-
-  public void fail(String failureMessage, Object... args) {
-    AssertionError error = Failures.instance().failure(String.format(failureMessage, args));
-    this.proxies.collectError(error);
-  }
-
-  public void fail(String failureMessage, Throwable realCause) {
-    AssertionError error = Failures.instance().failure(failureMessage);
-    error.initCause(realCause);
-    this.proxies.collectError(error);
-  }
-
-  public void failBecauseExceptionWasNotThrown(Class<? extends Throwable> throwableClass) {
-    this.shouldHaveThrown(throwableClass);
-  }
-
-  public void shouldHaveThrown(Class<? extends Throwable> throwableClass) {
-    AssertionError error = Failures.instance().expectedThrowableNotThrown(throwableClass);
-    this.proxies.collectError(error);
   }
 
   public List<Throwable> errorsCollected() {
