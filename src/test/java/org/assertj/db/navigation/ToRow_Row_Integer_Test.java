@@ -17,7 +17,6 @@ import org.assertj.db.api.*;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.output.*;
-import org.assertj.db.type.Column;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Row;
 import org.assertj.db.type.Table;
