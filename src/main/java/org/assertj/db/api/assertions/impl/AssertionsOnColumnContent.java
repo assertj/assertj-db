@@ -196,10 +196,6 @@ public class AssertionsOnColumnContent {
         }
       }
       if (!found) {
-        List<Object> listForError = new ArrayList<>();
-        for (Value obj : valuesList) {
-          listForError.add(Values.getRepresentationFromValueInFrontOfExpected(obj, byte[].class));
-        }
         throw failures.failure(info, shouldContainsValue(index));
       }
       list = newList;
