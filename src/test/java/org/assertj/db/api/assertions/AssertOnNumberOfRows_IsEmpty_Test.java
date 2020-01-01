@@ -16,6 +16,7 @@ import org.assertj.core.api.Assertions;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.api.TableColumnAssert;
 import org.assertj.db.common.AbstractTest;
+import org.assertj.db.common.NeedReload;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
 import org.junit.Test;
@@ -27,6 +28,7 @@ import static org.junit.Assert.fail;
  * Tests on {@link org.assertj.db.api.assertions.AssertOnNumberOfRows} class :
  * {@link AssertOnNumberOfRows#isEmpty()} method.
  */
+@NeedReload
 public class AssertOnNumberOfRows_IsEmpty_Test extends AbstractTest {
 
   /**
