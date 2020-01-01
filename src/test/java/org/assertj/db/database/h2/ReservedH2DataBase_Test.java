@@ -55,7 +55,7 @@ public class ReservedH2DataBase_Test extends AbstractReservedH2Test {
   public void test_schema_for_data_source() throws SQLException {
     try (Connection connection = dataSource.getConnection()) {
       String schema = connection.getSchema();
-      assertThat(schema).isNull();
+      assertThat(schema).isEqualTo("PUBLIC");
     }
   }
 
@@ -63,7 +63,7 @@ public class ReservedH2DataBase_Test extends AbstractReservedH2Test {
   public void test_schema_for_source() throws SQLException {
     try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
       String schema = connection.getSchema();
-      assertThat(schema).isNull();
+      assertThat(schema).isEqualTo("PUBLIC");
     }
   }
 
