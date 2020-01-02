@@ -12,6 +12,9 @@ out
 /clover.license
 /actual.txt
 /expected.txt
-/cobertura.ser
 #jEnv configuration
 .java-version
+/bin/
+/dependency-reduced-pom.xml
+/bin/
+.mvn/wrapper/maven-wrapper.jar
