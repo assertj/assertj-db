@@ -15,6 +15,5 @@ out
 #jEnv configuration
 .java-version
 /bin/
-/dependency-reduced-pom.xml
-/bin/
 .mvn/wrapper/maven-wrapper.jar
+dependency-reduced-pom.xml

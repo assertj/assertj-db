@@ -26,4 +26,7 @@ jobs:
         with:
           java-version: 1.8
       - name: Build with Maven
-        run: mvn -B clean verify javadoc:javadoc --file pom.xml
+        run: ./mvnw -B clean verify javadoc:javadoc sonar:sonar --file pom.xml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
