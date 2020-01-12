@@ -30,6 +30,11 @@
         <javadocAdditionalOptions>--allow-script-in-comments</javadocAdditionalOptions>
         <currentYear>2020</currentYear>
         <maven.compiler.source>8</maven.compiler.source>
+
+        <!-- SonarCloud -->
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.organization>assertj</sonar.organization>
+        <sonar.projectKey>joel-costigliola_assertj-db</sonar.projectKey>
     </properties>
 
     <dependencies>
@@ -135,8 +140,6 @@ Copyright ${project.inceptionYear}-${currentYear} the original author or authors
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>true</createDependencyReducedPom>
-                            <dependencyReducedPomLocation>${project.build.directory}/dependency-reduced-pom.xml
-                            </dependencyReducedPomLocation>
                             <artifactSet>
                                 <includes>
                                     <include>cglib:cglib-nodep</include>
@@ -265,5 +268,14 @@ Copyright ${project.inceptionYear}-${currentYear} the original author or authors
                 </configuration>
             </plugin>
         </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.sonarsource.scanner.maven</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>3.7.0.1746</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 </project>
