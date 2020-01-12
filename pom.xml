@@ -29,6 +29,7 @@
     <properties>
         <javadocAdditionalOptions>--allow-script-in-comments</javadocAdditionalOptions>
         <currentYear>2020</currentYear>
+        <maven.compiler.source>8</maven.compiler.source>
     </properties>
 
     <dependencies>
@@ -102,11 +103,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>com.mycila</groupId>
