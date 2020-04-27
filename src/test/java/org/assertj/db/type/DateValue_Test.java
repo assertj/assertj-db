@@ -17,15 +17,16 @@ import org.junit.Test;
 
 import java.sql.Date;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.Calendar;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests on the date value.
- * 
+ *
  * @author Régis Pouiller
- * 
+ *
  */
 public class DateValue_Test extends AbstractTest {
 
@@ -54,12 +55,33 @@ public class DateValue_Test extends AbstractTest {
   }
 
   /**
+   * This method tests the constructor with a {@code LocalDate}.
+   */
+  @Test
+  public void test_constructor_with_local_date() {
+    LocalDate localDate = LocalDate.of(2007, 12, 23);
+    DateValue dateValue = new DateValue(localDate);
+    assertThat(dateValue.getDayOfTheMonth()).isEqualTo(23);
+    assertThat(dateValue.getMonth()).isEqualTo(12);
+    assertThat(dateValue.getYear()).isEqualTo(2007);
+  }
+
+  /**
    * This method should throw a {@code NullPointerException} because passing a {@code null} parameter to constructor
-   * with a {@code String}.
+   * with a {@code Date}.
    */
   @Test(expected = NullPointerException.class)
   public void should_constructor_with_date_fail_if_date_is_null() throws ParseException {
     new DateValue((Date) null);
+  }
+
+  /**
+   * This method should throw a {@code NullPointerException} because passing a {@code null} parameter to constructor
+   * with a {@code LocalDate}.
+   */
+  @Test(expected = NullPointerException.class)
+  public void should_constructor_with_local_date_fail_if_local_date_is_null() {
+    new DateValue((LocalDate) null);
   }
 
   /**
@@ -136,13 +158,25 @@ public class DateValue_Test extends AbstractTest {
   }
 
   /**
-   * This method tests the constructor with a {@code Calendar}.
+   * This method tests the {@code from} static method with a {@code Calendar}.
    */
   @Test
   public void test_from_calendar() throws ParseException {
     Calendar calendar = Calendar.getInstance();
     calendar.set(2007, Calendar.DECEMBER, 23);
     DateValue dateValue = DateValue.from(calendar);
+    assertThat(dateValue.getDayOfTheMonth()).isEqualTo(23);
+    assertThat(dateValue.getMonth()).isEqualTo(12);
+    assertThat(dateValue.getYear()).isEqualTo(2007);
+  }
+
+  /**
+   * This method tests the {@code from} static method with a {@code LocalDate}.
+   */
+  @Test
+  public void test_from_local_date() {
+    LocalDate localDate = LocalDate.of(2007, 12, 23);
+    DateValue dateValue = DateValue.from(localDate);
     assertThat(dateValue.getDayOfTheMonth()).isEqualTo(23);
     assertThat(dateValue.getMonth()).isEqualTo(12);
     assertThat(dateValue.getYear()).isEqualTo(2007);
@@ -175,6 +209,15 @@ public class DateValue_Test extends AbstractTest {
   @Test(expected = NullPointerException.class)
   public void should_from_fail_if_calendar_is_null() throws ParseException {
     DateValue.from((Calendar) null);
+  }
+
+  /**
+   * This method should throw a {@code NullPointerException} because passing a {@code null} parameter to the
+   * {@code from} static method.
+   */
+  @Test(expected = NullPointerException.class)
+  public void should_from_fail_if_local_date_is_null() {
+    DateValue.from((LocalDate) null);
   }
 
   /**

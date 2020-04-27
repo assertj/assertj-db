@@ -17,13 +17,14 @@ import org.junit.Test;
 
 import java.sql.Time;
 import java.text.ParseException;
+import java.time.LocalTime;
 import java.util.Calendar;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests on the time value.
- * 
+ *
  * @author Régis Pouiller
  * @author Julien Roy
  *
@@ -117,6 +118,19 @@ public class TimeValue_Test extends AbstractTest {
   }
 
   /**
+   * This method tests the constructor with a {@code LocalTime}.
+   */
+  @Test
+  public void test_constructor_with_local_time() {
+    LocalTime localTime = LocalTime.of(9, 1, 6, 50000000);
+    TimeValue timeValue = new TimeValue(localTime);
+    assertThat(timeValue.getHours()).isEqualTo(9);
+    assertThat(timeValue.getMinutes()).isEqualTo(1);
+    assertThat(timeValue.getSeconds()).isEqualTo(6);
+    assertThat(timeValue.getNanoSeconds()).isEqualTo(50000000);
+  }
+
+  /**
    * This method tests the constructor with a {@code Time} containing seconds.
    */
   @Test
@@ -135,6 +149,15 @@ public class TimeValue_Test extends AbstractTest {
   @Test(expected = NullPointerException.class)
   public void should_constructor_with_time_fail_if_date_is_null() throws ParseException {
     new TimeValue((String) null);
+  }
+
+  /**
+   * This method should throw a {@code NullPointerException} because passing a {@code null} parameter to constructor
+   * with a {@code LocalTime}.
+   */
+  @Test(expected = NullPointerException.class)
+  public void should_constructor_with_local_time_fail_if_local_time_is_null() {
+    new TimeValue((LocalTime) null);
   }
 
   /**
@@ -288,7 +311,7 @@ public class TimeValue_Test extends AbstractTest {
   }
 
   /**
-   * This method tests the constructor with a {@code Calendar}.
+   * This method tests the {@code from} method with a {@code Calendar}.
    */
   @Test
   public void test_from_calendar() throws ParseException {
@@ -296,6 +319,19 @@ public class TimeValue_Test extends AbstractTest {
     calendar.set(2007, Calendar.DECEMBER, 23, 9, 1, 6);
     calendar.set(Calendar.MILLISECOND, 50);
     TimeValue timeValue = TimeValue.from(calendar);
+    assertThat(timeValue.getHours()).isEqualTo(9);
+    assertThat(timeValue.getMinutes()).isEqualTo(1);
+    assertThat(timeValue.getSeconds()).isEqualTo(6);
+    assertThat(timeValue.getNanoSeconds()).isEqualTo(50000000);
+  }
+
+  /**
+   * This method tests the {@code from} method with a {@code LocalTime}.
+   */
+  @Test
+  public void test_from_local_time() {
+    LocalTime localTime = LocalTime.of(9, 1, 6, 50000000);
+    TimeValue timeValue = TimeValue.from(localTime);
     assertThat(timeValue.getHours()).isEqualTo(9);
     assertThat(timeValue.getMinutes()).isEqualTo(1);
     assertThat(timeValue.getSeconds()).isEqualTo(6);
@@ -330,6 +366,15 @@ public class TimeValue_Test extends AbstractTest {
   @Test(expected = NullPointerException.class)
   public void should_from_fail_if_calendar_is_null() throws ParseException {
     TimeValue.from((Calendar) null);
+  }
+
+  /**
+   * This method should throw a {@code NullPointerException} because passing a {@code null} parameter to {@code from}
+   * method.
+   */
+  @Test(expected = NullPointerException.class)
+  public void should_from_fail_if_local_time_is_null() {
+    TimeValue.from((LocalTime) null);
   }
 
   /**
