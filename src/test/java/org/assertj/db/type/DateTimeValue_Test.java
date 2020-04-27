@@ -17,15 +17,16 @@ import org.junit.Test;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests on the date/time value.
- * 
+ *
  * @author Régis Pouiller
- * 
+ *
  */
 public class DateTimeValue_Test extends AbstractTest {
 
@@ -143,6 +144,22 @@ public class DateTimeValue_Test extends AbstractTest {
   }
 
   /**
+   * This method tests the constructor with a {@code LocalDateTime}.
+   */
+  @Test
+  public void test_constructor_with_local_date_time() {
+    LocalDateTime localDateTime = LocalDateTime.of(2007, 12, 23, 9, 1, 6, 50000000);
+    DateTimeValue dateTimeValue = new DateTimeValue(localDateTime);
+    assertThat(dateTimeValue.getDate().getDayOfTheMonth()).isEqualTo(23);
+    assertThat(dateTimeValue.getDate().getMonth()).isEqualTo(12);
+    assertThat(dateTimeValue.getDate().getYear()).isEqualTo(2007);
+    assertThat(dateTimeValue.getTime().getHours()).isEqualTo(9);
+    assertThat(dateTimeValue.getTime().getMinutes()).isEqualTo(1);
+    assertThat(dateTimeValue.getTime().getSeconds()).isEqualTo(6);
+    assertThat(dateTimeValue.getTime().getNanoSeconds()).isEqualTo(50000000);
+  }
+
+  /**
    * This method tests the {@code from} method containing seconds.
    */
   @Test
@@ -155,6 +172,15 @@ public class DateTimeValue_Test extends AbstractTest {
     assertThat(dateTimeValue.getTime().getMinutes()).isEqualTo(1);
     assertThat(dateTimeValue.getTime().getSeconds()).isEqualTo(6);
     assertThat(dateTimeValue.getTime().getNanoSeconds()).isEqualTo(3);
+  }
+
+  /**
+   * This method should throw a {@code NullPointerException} because passing a {@code null} parameter to constructor
+   * with a {@code LocalDateTime}.
+   */
+  @Test(expected = NullPointerException.class)
+  public void should_constructor_with_local_date_time_fail_if_local_date_time_is_null() {
+    new DateTimeValue((LocalDateTime) null);
   }
 
   /**
@@ -358,7 +384,7 @@ public class DateTimeValue_Test extends AbstractTest {
   }
 
   /**
-   * This method tests the constructor with a {@code Calendar}.
+   * This method tests the {@code from} method with a {@code Calendar}.
    */
   @Test
   public void test_from_calendar() throws ParseException {
@@ -366,6 +392,22 @@ public class DateTimeValue_Test extends AbstractTest {
     calendar.set(2007, Calendar.DECEMBER, 23, 9, 1, 6);
     calendar.set(Calendar.MILLISECOND, 50);
     DateTimeValue dateTimeValue = DateTimeValue.from(calendar);
+    assertThat(dateTimeValue.getDate().getDayOfTheMonth()).isEqualTo(23);
+    assertThat(dateTimeValue.getDate().getMonth()).isEqualTo(12);
+    assertThat(dateTimeValue.getDate().getYear()).isEqualTo(2007);
+    assertThat(dateTimeValue.getTime().getHours()).isEqualTo(9);
+    assertThat(dateTimeValue.getTime().getMinutes()).isEqualTo(1);
+    assertThat(dateTimeValue.getTime().getSeconds()).isEqualTo(6);
+    assertThat(dateTimeValue.getTime().getNanoSeconds()).isEqualTo(50000000);
+  }
+
+  /**
+   * This method tests the {@code from} method with a {@code LocalDateTime}.
+   */
+  @Test
+  public void test_from_local_date_time() {
+    LocalDateTime localDateTime = LocalDateTime.of(2007, 12, 23, 9, 1, 6, 50000000);
+    DateTimeValue dateTimeValue = DateTimeValue.from(localDateTime);
     assertThat(dateTimeValue.getDate().getDayOfTheMonth()).isEqualTo(23);
     assertThat(dateTimeValue.getDate().getMonth()).isEqualTo(12);
     assertThat(dateTimeValue.getDate().getYear()).isEqualTo(2007);
@@ -406,6 +448,15 @@ public class DateTimeValue_Test extends AbstractTest {
   @Test(expected = NullPointerException.class)
   public void should_from_fail_if_calendar_is_null() throws ParseException {
     DateTimeValue.from((Calendar) null);
+  }
+
+  /**
+   * This method should throw a {@code NullPointerException} because passing a {@code null} parameter to {@code from}
+   * method.
+   */
+  @Test(expected = NullPointerException.class)
+  public void should_from_fail_if_local_date_time_is_null() {
+    DateTimeValue.from((LocalDateTime) null);
   }
 
   /**

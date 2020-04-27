@@ -14,6 +14,7 @@ package org.assertj.db.type;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 
 /**
@@ -110,6 +111,18 @@ public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContai
   }
 
   /**
+   * Makes an instance of date/time value from a {@link LocalDateTime}.
+   *
+   * @param localDateTime LocalDateTime.
+   * @throws NullPointerException If {@code localDateTime} is {@code null}.
+   * @return An instance of date/time value.
+   * @since 2.0.0
+   */
+  public static DateTimeValue from(LocalDateTime localDateTime) {
+    return new DateTimeValue(localDateTime);
+  }
+
+  /**
    * Makes an instance of the date/time value corresponding to now.
    *
    * @return An instance of date/time value.
@@ -198,6 +211,22 @@ public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContai
 
     date = DateValue.from(calendar);
     time = TimeValue.from(calendar);
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param localDateTime LocalDateTime.
+   * @throws NullPointerException If {@code localDateTime} is {@code null}.
+   * @since 2.0.0
+   */
+  public DateTimeValue(LocalDateTime localDateTime) {
+    if (localDateTime == null) {
+      throw new NullPointerException("date/time should be not null");
+    }
+
+    date = DateValue.from(localDateTime.toLocalDate());
+    time = TimeValue.from(localDateTime.toLocalTime());
   }
 
   /** {@inheritDoc} */

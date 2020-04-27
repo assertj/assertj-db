@@ -14,6 +14,7 @@ package org.assertj.db.type;
 
 import java.sql.Date;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.Calendar;
 
 /**
@@ -86,6 +87,18 @@ public class DateValue implements Comparable<DateValue>, DateValueContainer {
    */
   public static DateValue from(Calendar calendar) {
     return new DateValue(calendar);
+  }
+
+  /**
+   * Makes an instance of date value from a {@link LocalDate}.
+   *
+   * @param localDate LocalDate.
+   * @throws NullPointerException If {@code localDate} is {@code null}.
+   * @return An instance of date value.
+   * @since 2.0.0
+   */
+  public static DateValue from(LocalDate localDate) {
+    return new DateValue(localDate);
   }
 
   /**
@@ -165,6 +178,23 @@ public class DateValue implements Comparable<DateValue>, DateValueContainer {
     dayOfTheMonth = calendar.get(Calendar.DAY_OF_MONTH);
     month = calendar.get(Calendar.MONTH) + 1;
     year = calendar.get(Calendar.YEAR);
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param localDate LocalDate.
+   * @throws NullPointerException If {@code localDate} is {@code null}.
+   * @since 2.0.0
+   */
+  public DateValue(LocalDate localDate) {
+    if (localDate == null) {
+      throw new NullPointerException("date should be not null");
+    }
+
+    dayOfTheMonth = localDate.getDayOfMonth();
+    month = localDate.getMonthValue();
+    year = localDate.getYear();
   }
 
   /** {@inheritDoc} */

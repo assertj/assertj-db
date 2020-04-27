@@ -14,6 +14,7 @@ package org.assertj.db.type;
 
 import java.sql.Time;
 import java.text.ParseException;
+import java.time.LocalTime;
 import java.util.Calendar;
 
 /**
@@ -130,6 +131,18 @@ public class TimeValue implements Comparable<TimeValue> {
   }
 
   /**
+   * Makes an instance of time value from a {@link LocalTime}.
+   *
+   * @param localTime LocalTime.
+   * @throws NullPointerException If {@code localTime} is {@code null}.
+   * @return An instance of time value.
+   * @since 2.0.0
+   */
+  public static TimeValue from(LocalTime localTime) {
+    return new TimeValue(localTime);
+  }
+
+  /**
    * Makes an instance of the time value corresponding to now.
    *
    * @return An instance of time value.
@@ -243,6 +256,24 @@ public class TimeValue implements Comparable<TimeValue> {
     minutes = calendar.get(Calendar.MINUTE);
     seconds = calendar.get(Calendar.SECOND);
     nanoSeconds = calendar.get(Calendar.MILLISECOND) * 1000000;
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param localTime LocalTime.
+   * @throws NullPointerException If {@code localTime} is {@code null}.
+   * @since 2.0.0
+   */
+  public TimeValue(LocalTime localTime) {
+    if (localTime == null) {
+      throw new NullPointerException("time should be not null");
+    }
+
+    hours = localTime.getHour();
+    minutes = localTime.getMinute();
+    seconds = localTime.getSecond();
+    nanoSeconds = localTime.getNano();
   }
 
   /**
