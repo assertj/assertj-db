@@ -80,12 +80,14 @@ public class AssertionsOnColumnContent_ContainsValues_DateValue_Test extends Abs
                                                null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <[2007-12-23T00:00:00.000, 2002-07-25T00:00:00.000, null]>%n"
-                                                                    + "to contain: %n"
-                                                                    + "  <[2007-12-23, 2007-12-23, null]>%n"
-                                                                    + " (parameter <2007-12-23> at index 1 is not found)"));
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n" +
+                                                                    "Expecting:%n" +
+                                                                    "  <[2007-12-23T00:00:00.000 (java.sql.Date),%n" +
+                                                                    "    2002-07-25T00:00:00.000 (java.sql.Date),%n" +
+                                                                    "    null]>%n" +
+                                                                    "to contain: %n" +
+                                                                    "  <[2007-12-23, 2007-12-23, null]>%n" +
+                                                                    " (parameter <2007-12-23> at index 1 is not found)"));
     }
   }
 

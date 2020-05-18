@@ -120,10 +120,10 @@ public class AssertOnColumnContent_ContainsValues_DateTimeValue_Test extends Abs
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 8 (column name : VAR9) of TEST table] %n"
                                                                     + "Expecting:%n"
-                                                                    + "  <[2014-05-24T00:00:00.000,%n"
-                                                                    + "    2014-05-30T00:00:00.000,%n"
-                                                                    + "    2014-05-30T00:00:00.000,%n"
-                                                                    + "    2014-05-30T00:00:00.000]>%n"
+                                                                    + "  <[2014-05-24T00:00:00.000 (java.sql.Date),%n"
+                                                                    + "    2014-05-30T00:00:00.000 (java.sql.Date),%n"
+                                                                    + "    2014-05-30T00:00:00.000 (java.sql.Date),%n"
+                                                                    + "    2014-05-30T00:00:00.000 (java.sql.Date)]>%n"
                                                                     + "to contain: %n"
                                                                     + "  <[2014-05-24T00:00:00.000000000,%n"
                                                                     + "    2014-05-24T00:00:00.000000000,%n"
@@ -139,7 +139,7 @@ public class AssertOnColumnContent_ContainsValues_DateTimeValue_Test extends Abs
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 8 (column name : VAR9) of TEST2 table] %n"
                                                                     + "Expecting:%n"
-                                                                    + "  <[2014-05-24T00:00:00.000, null]>%n"
+                                                                    + "  <[2014-05-24T00:00:00.000 (java.sql.Date), null]>%n"
                                                                     + "to contain: %n"
                                                                     + "  <[2014-05-24T00:00:00.000000000, 2014-05-24T00:00:00.000000000]>%n"
                                                                     + " (parameter <2014-05-24T00:00:00.000000000> at index 1 is not found)"));

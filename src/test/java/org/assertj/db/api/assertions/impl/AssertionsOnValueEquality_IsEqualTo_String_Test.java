@@ -183,7 +183,7 @@ public class AssertionsOnValueEquality_IsEqualTo_String_Test extends AbstractTes
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
                                                                     + "Expecting:%n"
-                                                                    + "  <2007-12-24T00:00:00.000>%n"
+                                                                    + "  <2007-12-24T00:00:00.000 (java.sql.Date)>%n"
                                                                     + "to be equal to: %n"
                                                                     + "  <null>"));
     }
