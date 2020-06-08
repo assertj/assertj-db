@@ -31,7 +31,7 @@ public class TableAssert
    *
    * @param table Table on which the assertion is.
    */
-  TableAssert(Table table) {
+  public TableAssert(Table table) {
     super(table, TableAssert.class, TableColumnAssert.class, TableRowAssert.class);
   }
 

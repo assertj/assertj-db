@@ -48,7 +48,7 @@ public class ChangesAssert
    *
    * @param changes The {@link Changes} on which are the assertions.
    */
-  ChangesAssert(Changes changes) {
+  public ChangesAssert(Changes changes) {
     this(null, changes);
   }
 

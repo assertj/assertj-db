@@ -28,7 +28,7 @@ public class RequestAssert
    * 
    * @param request Request on which the assertion is.
    */
-  RequestAssert(Request request) {
+  public RequestAssert(Request request) {
     super(request, RequestAssert.class, RequestColumnAssert.class, RequestRowAssert.class);
   }
 }

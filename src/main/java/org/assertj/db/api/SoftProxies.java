@@ -12,13 +12,17 @@
  */
 package org.assertj.db.api;
 
-import net.sf.cglib.proxy.Callback;
-import net.sf.cglib.proxy.CallbackFilter;
-import net.sf.cglib.proxy.Enhancer;
-import org.assertj.core.util.Arrays;
+import net.bytebuddy.ByteBuddy;
+import net.bytebuddy.description.method.MethodDescription;
+import net.bytebuddy.dynamic.scaffold.TypeValidation;
+import net.bytebuddy.implementation.MethodDelegation;
+import net.bytebuddy.implementation.auxiliary.AuxiliaryType;
+import net.bytebuddy.matcher.ElementMatcher;
 
-import java.lang.reflect.Method;
+import java.lang.reflect.Constructor;
 import java.util.List;
+
+import static net.bytebuddy.matcher.ElementMatchers.*;
 
 /**
  * Proxy implementation utilities.
@@ -26,6 +30,49 @@ import java.util.List;
  * @author Julien Roy
  */
 class SoftProxies {
+
+  private static final ByteBuddy BYTE_BUDDY = new ByteBuddy()
+      .with(new AuxiliaryType.NamingStrategy.SuffixingRandom("AssertJDb$SoftProxies"))
+      .with(TypeValidation.DISABLED);
+
+  private static final ElementMatcher.Junction<MethodDescription> METHODS_TO_EXTRACT_PROXY = nameContains("change")
+      .or(nameContains("column"))
+      .or(nameContains("row"))
+      .or(nameContains("value"))
+      .or(nameStartsWith("changeOf"))
+      .or(nameStartsWith("of"))
+      .or(nameStartsWith("rowAt"));
+
+  private static final ElementMatcher.Junction<MethodDescription> METHODS_NOT_TO_PROXY = METHODS_TO_EXTRACT_PROXY
+      .or(named("equals"))
+      .or(named("hashCode"))
+      .or(named("clone"))
+      .or(named("as"))
+      .or(named("toString"))
+      .or(named("describedAs"))
+      .or(named("descriptionText"))
+      .or(named("getWritableAssertionInfo"))
+      .or(named("inBinary"))
+      .or(named("inHexadecimal"))
+      .or(named("newAbstractIterableAssert"))
+      .or(named("newObjectArrayAssert"))
+      .or(named("removeCustomAssertRelatedElementsFromStackTraceIfNeeded"))
+      .or(named("overridingErrorMessage"))
+      .or(named("usingComparator"))
+      .or(named("usingDefaultComparator"))
+      .or(named("usingElementComparator"))
+      .or(named("withComparatorsForElementPropertyOrFieldNames"))
+      .or(named("withComparatorsForElementPropertyOrFieldTypes"))
+      .or(named("withIterables"))
+      .or(named("withFailMessage"))
+      .or(named("withAssertionInfo"))
+      .or(named("withAssertionState"))
+      .or(named("withRepresentation"))
+      .or(named("withTypeComparators"))
+      .or(named("withThreadDumpOnError"))
+      .or(named("succeedsWithin"))
+      .or(named("isEmpty"));
+
   private final ErrorCollector collector = new ErrorCollector();
 
   SoftProxies() {
@@ -35,42 +82,41 @@ class SoftProxies {
     return this.collector.errors();
   }
 
-  @SuppressWarnings("unchecked")
   <V, T> V create(Class<V> assertClass, Class<T> actualClass, T actual) {
-    Enhancer enhancer = new Enhancer();
-    enhancer.setSuperclass(assertClass);
-    enhancer.setCallbackFilter(SoftProxies.CollectErrorsOrCreateExtractedProxy.FILTER);
-    enhancer.setCallbacks(new Callback[] { this.collector, new ProxifyPositionResult(this) });
-    return (V) enhancer.create((Class[]) Arrays.array(new Class[] { actualClass }), Arrays.array(new Object[] { actual }));
+    try {
+      Class<? extends V> proxyClass = createProxyClass(assertClass);
+      Constructor<? extends V> constructor = proxyClass.getConstructor(actualClass);
+      return constructor.newInstance(actual);
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
+
   }
 
-  @SuppressWarnings("unchecked")
   <V> V create(Class<V> assertClass, Class[] paramClass, Object[] params) {
-    Enhancer enhancer = new Enhancer();
-    enhancer.setSuperclass(assertClass);
-    enhancer.setCallbackFilter(SoftProxies.CollectErrorsOrCreateExtractedProxy.FILTER);
-    enhancer.setCallbacks(new Callback[] { this.collector, new ProxifyPositionResult(this) });
-    return (V) enhancer.create(paramClass, params);
+    try {
+      Class<? extends V> proxyClass = createProxyClass(assertClass);
+      Constructor<? extends V> constructor = proxyClass.getConstructor(paramClass);
+      return constructor.newInstance(params);
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
   }
 
   public boolean wasSuccess() {
     return this.collector.wasSuccess();
   }
 
-  private enum CollectErrorsOrCreateExtractedProxy implements CallbackFilter {
-    FILTER;
-
-    public int accept(Method method) {
-      return this.isPositionMethod(method) ? 1 : 0;
-    }
-
-    private boolean isPositionMethod(Method method) {
-      String methodName = method.getName();
-      return
-          java.util.Arrays.asList("change", "column", "row", "value").contains(methodName) ||
-          methodName.startsWith("changeOf") ||
-          methodName.startsWith("rowAt") ||
-          methodName.startsWith("of");
-    }
+  @SuppressWarnings("unchecked")
+  private <V> Class<V> createProxyClass(Class<V> assertClass) {
+    return (Class<V>) BYTE_BUDDY
+        .subclass(assertClass)
+        .method(any().and(not(METHODS_NOT_TO_PROXY)))
+        .intercept(MethodDelegation.to(collector))
+        .method(METHODS_TO_EXTRACT_PROXY)
+        .intercept(MethodDelegation.to(new ProxifyPositionResult(this)))
+        .make()
+        .load(assertClass.getClassLoader())
+        .getLoaded();
   }
 }

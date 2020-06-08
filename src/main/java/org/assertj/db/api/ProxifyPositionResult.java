@@ -12,15 +12,15 @@
  */
 package org.assertj.db.api;
 
-import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
+import net.bytebuddy.implementation.bind.annotation.RuntimeType;
+import net.bytebuddy.implementation.bind.annotation.SuperCall;
 import org.assertj.core.util.Arrays;
 import org.assertj.db.type.Change;
 import org.assertj.db.type.Column;
 import org.assertj.db.type.Row;
 import org.assertj.db.type.Value;
 
-import java.lang.reflect.Method;
+import java.util.concurrent.Callable;
 
 import static org.assertj.db.util.Proxies.isProxified;
 import static org.assertj.db.util.Proxies.unProxy;
@@ -31,15 +31,17 @@ import static org.assertj.db.util.Proxies.unProxy;
  *
  * @author Julien Roy
  */
-class ProxifyPositionResult implements MethodInterceptor {
+public class ProxifyPositionResult {
   private final SoftProxies proxies;
 
   ProxifyPositionResult(SoftProxies proxies) {
     this.proxies = proxies;
   }
 
-  public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
-    Object result = proxy.invokeSuper(obj, args);
+  @RuntimeType
+  public Object intercept(@SuperCall Callable<?> proxy) throws Exception {
+    Object result = proxy.call();
+
     if (isProxified(result.getClass()) || Arrays.isNullOrEmpty(actual(result))) {
       return result;
     }

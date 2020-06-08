@@ -12,14 +12,14 @@
  */
 package org.assertj.db.util;
 
-import net.sf.cglib.proxy.Enhancer;
-
 /**
  * Utilities for manage proxies.
  *
  * @author Julien Roy
  */
 public class Proxies {
+
+  public static final String BYTE_BUDDY_PATTERN = "$ByteBuddy$";
 
   /**
    * Check if class is proxified.
@@ -28,7 +28,7 @@ public class Proxies {
    * @return True if class is proxified by CGLIB
    */
   public static boolean isProxified(Class clazz) {
-    return Enhancer.isEnhanced(clazz);
+    return clazz.getName().contains(BYTE_BUDDY_PATTERN);
   }
 
   /**

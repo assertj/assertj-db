@@ -12,16 +12,16 @@
  */
 package org.assertj.db.api;
 
-import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
+import net.bytebuddy.implementation.bind.annotation.*;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 /** Collects error messages of all AssertionErrors thrown by the proxied method. */
-class ErrorCollector implements MethodInterceptor {
+public class ErrorCollector {
 
   private static final String INTERCEPT_METHOD_NAME = "intercept";
 
@@ -32,20 +32,29 @@ class ErrorCollector implements MethodInterceptor {
   // scope : the last assertion call (might be nested)
   private final LastResult lastResult = new LastResult();
 
-  @Override
-  public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
-    Object result = obj;
+  @RuntimeType
+  public Object intercept(
+      @This Object assertion,
+      @SuperCall Callable<?> proxy,
+      @SuperMethod(nullIfImpossible = true) Method method,
+      @StubValue Object stub) throws Exception {
     try {
-      result = proxy.invokeSuper(obj, args);
-      lastResult.setSuccess(true);
-    } catch (AssertionError e) {
+      Object result = proxy.call();
+      this.lastResult.setSuccess(true);
+      return result;
+    } catch (AssertionError assertionError) {
       if (isNestedErrorCollectorProxyCall()) {
         // let the most outer call handle the assertion error
-        throw e;
+        throw assertionError;
       }
-      addError(e);
+      addError(assertionError);
     }
-    return result;
+    if (method != null && !method.getReturnType().isInstance(assertion)) {
+      // In case the object is not an instance of the return type, just default value for the return type:
+      // null for reference type and 0 for the corresponding primitive types.
+      return stub;
+    }
+    return assertion;
   }
 
   public void addError(Throwable error) {

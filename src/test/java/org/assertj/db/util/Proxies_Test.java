@@ -12,8 +12,7 @@
  */
 package org.assertj.db.util;
 
-import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.NoOp;
+import net.bytebuddy.ByteBuddy;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -38,8 +37,12 @@ public class Proxies_Test {
    */
   @Test
   public void test_is_proxy_with_enhanced_class() {
-    Object enhancedClass = Enhancer.create(ClassForProxiesTest.class, NoOp.INSTANCE);
-    assertThat(Proxies.isProxified(enhancedClass.getClass())).isTrue();
+    Class enhancedClass = new ByteBuddy()
+        .subclass(ClassForProxiesTest.class)
+        .make()
+        .load(ClassForProxiesTest.class.getClassLoader())
+        .getLoaded();
+    assertThat(Proxies.isProxified(enhancedClass)).isTrue();
   }
 
   /**
@@ -55,8 +58,12 @@ public class Proxies_Test {
    */
   @Test
   public void test_unproxy_with_enhanced_class() {
-    Object enhancedClass = Enhancer.create(ClassForProxiesTest.class, NoOp.INSTANCE);
-    assertThat(Proxies.unProxy(enhancedClass.getClass())).isEqualTo(ClassForProxiesTest.class);
+    Class enhancedClass = new ByteBuddy()
+        .subclass(ClassForProxiesTest.class)
+        .make()
+        .load(ClassForProxiesTest.class.getClassLoader())
+        .getLoaded();
+    assertThat(Proxies.unProxy(enhancedClass)).isEqualTo(ClassForProxiesTest.class);
   }
 
   public static class ClassForProxiesTest {
