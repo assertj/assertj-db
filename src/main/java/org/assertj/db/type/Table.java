@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * A table in the database to read to get the values.
  * <p>
- * The different informations of the table are {@link Source} or {@link DataSource}, name of the table and optionally
+ * The different information of the table are {@link Source} or {@link DataSource}, name of the table and optionally
  * the columns to check and to exclude.
  * </p>
  * <p>
@@ -110,11 +110,11 @@ public class Table extends AbstractDbData<Table> {
     /**
      * The name of the order.
      */
-    private String name;
+    private final String name;
     /**
      * The type of the order.
      */
-    private OrderType type;
+    private final OrderType type;
 
     /**
      * Enumeration of the type of order.
@@ -127,7 +127,7 @@ public class Table extends AbstractDbData<Table> {
       /**
        * Descending order.
        */
-      DESC;
+      DESC
     }
 
     /**
@@ -189,11 +189,8 @@ public class Table extends AbstractDbData<Table> {
       if (obj instanceof Order) {
         Order order = (Order) obj;
         if (order.type == type) {
-          if ((name == null && order.name == null) ||
-              (name != null && name.equals(order.name))) {
-
-            return true;
-          }
+          return (name == null && order.name == null) ||
+                 (name != null && name.equals(order.name));
         }
       }
       return false;
@@ -333,7 +330,8 @@ public class Table extends AbstractDbData<Table> {
    *                         column.
    * @since 1.2.0
    */
-  public Table(Source source, String name, Character startDelimiter, Character endDelimiter, String[] columnsToCheck, String[] columnsToExclude) {
+  public Table(Source source, String name, Character startDelimiter, Character endDelimiter, String[] columnsToCheck,
+               String[] columnsToExclude) {
     this(source, name, startDelimiter, endDelimiter, null, columnsToCheck, columnsToExclude);
   }
 
@@ -363,7 +361,8 @@ public class Table extends AbstractDbData<Table> {
    *                         column.
    * @since 1.2.0
    */
-  public Table(DataSource dataSource, String name, Character startDelimiter, Character endDelimiter, String[] columnsToCheck, String[] columnsToExclude) {
+  public Table(DataSource dataSource, String name, Character startDelimiter, Character endDelimiter, String[] columnsToCheck,
+               String[] columnsToExclude) {
     this(dataSource, name, startDelimiter, endDelimiter, null, columnsToCheck, columnsToExclude);
   }
 
@@ -393,7 +392,8 @@ public class Table extends AbstractDbData<Table> {
    *                         column.
    * @since 1.2.0
    */
-  public Table(Source source, String name, Character startDelimiter, Character endDelimiter, Order[] columnsToOrder, String[] columnsToCheck, String[] columnsToExclude) {
+  public Table(Source source, String name, Character startDelimiter, Character endDelimiter, Order[] columnsToOrder,
+               String[] columnsToCheck, String[] columnsToExclude) {
     super(Table.class, DataType.TABLE, source);
     setName(name);
     setStartDelimiter(startDelimiter);
@@ -429,7 +429,8 @@ public class Table extends AbstractDbData<Table> {
    *                         column.
    * @since 1.2.0
    */
-  public Table(DataSource dataSource, String name, Character startDelimiter, Character endDelimiter, Order[] columnsToOrder, String[] columnsToCheck, String[] columnsToExclude) {
+  public Table(DataSource dataSource, String name, Character startDelimiter, Character endDelimiter, Order[] columnsToOrder,
+               String[] columnsToCheck, String[] columnsToExclude) {
     super(Table.class, DataType.TABLE, dataSource);
     setName(name);
     setStartDelimiter(startDelimiter);
@@ -492,7 +493,7 @@ public class Table extends AbstractDbData<Table> {
 
         DatabaseMetaData metaData = connection.getMetaData();
         try (ResultSet tableResultSet = metaData.getTables(getCatalog(connection), getSchema(connection), null,
-                                                 new String[] { "TABLE" })) {
+                                                           new String[] { "TABLE" })) {
           while (tableResultSet.next()) {
             String tableName = tableResultSet.getString("TABLE_NAME");
             if (tableLetterCase.isEqual(tableName, name)) {
@@ -545,9 +546,8 @@ public class Table extends AbstractDbData<Table> {
       LetterCase letterCase = getColumnLetterCase();
       // If the parameter is not null, all the names are convert
       // before setting the instance field
-      List<String> columnsToCheckList = new ArrayList<String>();
-      for (int index = 0; index < columnsToCheck.length; index++) {
-        String column = columnsToCheck[index];
+      List<String> columnsToCheckList = new ArrayList<>();
+      for (String column : columnsToCheck) {
         if (column == null) {
           throw new NullPointerException("The name of the column can not be null");
         }
@@ -590,9 +590,8 @@ public class Table extends AbstractDbData<Table> {
     if (columnsToExclude != null) {
       LetterCase letterCase = getColumnLetterCase();
       this.columnsToExclude = new String[columnsToExclude.length];
-      List<String> columnsToExcludeList = new ArrayList<String>();
-      for (int index = 0; index < columnsToExclude.length; index++) {
-        String column = columnsToExclude[index];
+      List<String> columnsToExcludeList = new ArrayList<>();
+      for (String column : columnsToExclude) {
         if (column == null) {
           throw new NullPointerException("The name of the column can not be null");
         }
@@ -635,9 +634,8 @@ public class Table extends AbstractDbData<Table> {
     if (columnsToOrder != null) {
       LetterCase letterCase = getColumnLetterCase();
       this.columnsToOrder = new Order[columnsToOrder.length];
-      List<Order> columnsToOrderList = new ArrayList<Order>();
-      for (int index = 0; index < columnsToOrder.length; index++) {
-        Order order = columnsToOrder[index];
+      List<Order> columnsToOrderList = new ArrayList<>();
+      for (Order order : columnsToOrder) {
         if (order == null) {
           throw new NullPointerException("The order can not be null");
         }
@@ -748,11 +746,10 @@ public class Table extends AbstractDbData<Table> {
     stringBuilder.append(" FROM ");
     stringBuilder.append(encode(name));
     if (columnsToOrder != null) {
-      for (int index = 0 ; index < columnsToOrder.length ; index++) {
+      for (int index = 0; index < columnsToOrder.length; index++) {
         if (index == 0) {
           stringBuilder.append(" ORDER BY ");
-        }
-        else {
+        } else {
           stringBuilder.append(", ");
         }
         stringBuilder.append(encode(columnsToOrder[index].getName()));

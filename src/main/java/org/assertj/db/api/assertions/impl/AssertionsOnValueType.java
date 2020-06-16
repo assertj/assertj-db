@@ -34,7 +34,7 @@ public class AssertionsOnValueType {
   /**
    * To notice failures in the assertion.
    */
-  private final static Failures failures = Failures.instance();
+  private static final Failures failures = Failures.instance();
 
   /**
    * Private constructor.

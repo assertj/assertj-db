@@ -53,7 +53,7 @@ public enum RowComparator implements Comparator<Row>{
         }
         if (object1 instanceof Comparable && object2 instanceof Comparable) {
           @SuppressWarnings("unchecked")
-          Comparable<Object> comparable1 = Comparable.class.cast(object1);
+          Comparable<Object> comparable1 = (Comparable) object1;
           int compare = comparable1.compareTo(object2);
           if (compare != 0) {
             return compare;
@@ -75,8 +75,8 @@ public enum RowComparator implements Comparator<Row>{
     }
     List<Value> valuesList1 = row1.getValuesList();
     List<Value> valuesList2 = row2.getValuesList();
-    Value[] values1 = valuesList1.toArray(new Value[valuesList1.size()]);
-    Value[] values2 = valuesList2.toArray(new Value[valuesList2.size()]);
+    Value[] values1 = valuesList1.toArray(new Value[0]);
+    Value[] values2 = valuesList2.toArray(new Value[0]);
     return compare(values1, values2);
   }
 }

@@ -240,7 +240,7 @@ public class Values_Compare_Value_And_Number_Test extends AbstractTest {
    */
   @Test(expected = AssertJDBException.class)
   public void should_fail_because_value_can_not_be_compared_to_a_number() throws Exception {
-    assertThat(Values.compare(getValue(null, "-"), 1));
+    Values.compare(getValue(null, "-"), 1);
   }
 
 }

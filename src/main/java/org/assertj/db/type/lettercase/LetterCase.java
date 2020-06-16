@@ -25,30 +25,30 @@ public class LetterCase implements CaseConversion, CaseComparison {
   /**
    * The default letter case for table.
    */
-  public static LetterCase TABLE_DEFAULT = getLetterCase(CaseConversions.NO, CaseComparisons.IGNORE);
+  public static final LetterCase TABLE_DEFAULT = getLetterCase(CaseConversions.NO, CaseComparisons.IGNORE);
   /**
    * The default letter case for table.
    */
-  public static LetterCase COLUMN_DEFAULT = getLetterCase(CaseConversions.UPPER, CaseComparisons.IGNORE);
+  public static final LetterCase COLUMN_DEFAULT = getLetterCase(CaseConversions.UPPER, CaseComparisons.IGNORE);
   /**
    * The default letter case for table.
    */
-  public static LetterCase PRIMARY_KEY_DEFAULT = getLetterCase(CaseConversions.UPPER, CaseComparisons.IGNORE);
+  public static final LetterCase PRIMARY_KEY_DEFAULT = getLetterCase(CaseConversions.UPPER, CaseComparisons.IGNORE);
 
   /**
    * The conversion of the case of a {@link java.lang.String}.
    */
-  private CaseConversion conversion;
+  private final CaseConversion conversion;
 
   /**
    * The comparison on {@link java.lang.String} which consider the case.
    */
-  private CaseComparison comparison;
+  private final CaseComparison comparison;
 
   /**
    * The cache containing the different possible letter case after the first instantiation.
    */
-  private static Map<CaseConversion, Map<CaseComparison, LetterCase>> CACHE;
+  private static Map<CaseConversion, Map<CaseComparison, LetterCase>> cache;
 
   /**
    * Returns a instance of a letter case.
@@ -64,13 +64,13 @@ public class LetterCase implements CaseConversion, CaseComparison {
       throw new NullPointerException("The case comparison must be not null");
     }
 
-    if (CACHE == null) {
-      CACHE = new HashMap<CaseConversion, Map<CaseComparison, LetterCase>>();
+    if (cache == null) {
+      cache = new HashMap<>();
     }
-    Map<CaseComparison, LetterCase> map = CACHE.get(conversion);
+    Map<CaseComparison, LetterCase> map = cache.get(conversion);
     if (map == null) {
-      map = new HashMap<CaseComparison, LetterCase>();
-      CACHE.put(conversion, map);
+      map = new HashMap<>();
+      cache.put(conversion, map);
       LetterCase letterCase = new LetterCase(conversion, comparison);
       map.put(comparison, letterCase);
       return letterCase;

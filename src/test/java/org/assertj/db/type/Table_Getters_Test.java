@@ -112,7 +112,7 @@ public class Table_Getters_Test extends AbstractTest {
   }
 
   /**
-   * This method test the getters of a {@code Table} when the source, the name and the informations about the columns
+   * This method test the getters of a {@code Table} when the source, the name and the information about the columns
    * are set.
    */
   @Test
@@ -130,7 +130,7 @@ public class Table_Getters_Test extends AbstractTest {
   }
 
   /**
-   * This method test the getters of a {@code Table} when the source, the name and the informations about the columns
+   * This method test the getters of a {@code Table} when the source, the name and the information about the columns
    * and the orders are set.
    */
   @Test
@@ -151,7 +151,7 @@ public class Table_Getters_Test extends AbstractTest {
   }
 
   /**
-   * This method test the getters of a {@code Table} when the source, the name and the informations about the orders
+   * This method test the getters of a {@code Table} when the source, the name and the information about the orders
    * are set.
    */
   @Test
@@ -189,7 +189,7 @@ public class Table_Getters_Test extends AbstractTest {
 
   /**
    * This method test the getters of a {@code Table} when the source, the name, the delimiters
-   * and the informations about the columns are set.
+   * and the information about the columns are set.
    */
   @Test
   public void test_getters_with_source_name_delimiters_and_columns_set() {
@@ -208,7 +208,7 @@ public class Table_Getters_Test extends AbstractTest {
 
   /**
    * This method test the getters of a {@code Table} when the source, the name, the delimiters
-   * and the informations about the columns and the orders are set.
+   * and the information about the columns and the orders are set.
    */
   @Test
   public void test_getters_with_source_name_columns_delimiters_and_order_set() {
@@ -229,7 +229,7 @@ public class Table_Getters_Test extends AbstractTest {
 
   /**
    * This method test the getters of a {@code Table} when the source, the name, the delimiters
-   * and the informations about the orders are set.
+   * and the information about the orders are set.
    */
   @Test
   public void test_getters_with_source_name_delimiters_and_order_set() {

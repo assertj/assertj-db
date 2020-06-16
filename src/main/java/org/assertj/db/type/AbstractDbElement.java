@@ -94,7 +94,7 @@ public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implemen
   }
 
   /**
-   * Sets the letter cases from informations in parameters.
+   * Sets the letter cases from information in parameters.
    * @param tableLetterCase Letter case of the tables.
    * @param columnLetterCase Letter case of the columns.
    * @param primaryKeyLetterCase Letter case of the primary keys.
@@ -108,7 +108,7 @@ public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implemen
   }
 
   /**
-   * Sets the letter cases from informations in {@code dataSource} and {@code source}.
+   * Sets the letter cases from information in {@code dataSource} and {@code source}.
    */
   private void setLetterCases() {
     if (dataSource instanceof WithLetterCase) {
@@ -242,7 +242,7 @@ public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implemen
     catch (SQLException exception) {
       throw exception;
     }
-    catch (Throwable throwable) {
+    catch (Exception throwable) {
       return null;
     }
   }
@@ -260,7 +260,7 @@ public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implemen
     catch (SQLException exception) {
       throw exception;
     }
-    catch (Throwable throwable) {
+    catch (Exception throwable) {
       return null;
     }
   }

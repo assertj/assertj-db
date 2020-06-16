@@ -255,7 +255,7 @@ public class DefaultPreparedStatement implements PreparedStatement {
 
   @Override
   public ResultSet executeQuery() throws SQLException {
-    return new DefaultResulSet();
+    return new DefaultResultSet();
   }
 
   @Override

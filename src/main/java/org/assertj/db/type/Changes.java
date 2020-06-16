@@ -241,7 +241,7 @@ public class Changes extends AbstractDbElement<Changes> {
                             request.getPrimaryKeyLetterCase())
             .setRequest(request.getRequest())
             .setParameters(request.getParameters())
-            .setPksName(request.getPksNameList().toArray(new String[request.getPksNameList().size()]));
+            .setPksName(request.getPksNameList().toArray(new String[0]));
   }
 
   /**
@@ -346,7 +346,7 @@ public class Changes extends AbstractDbElement<Changes> {
   private List<Change> getChangesListWithPks(String dataName, AbstractDbData<?> dataAtStartPoint,
       AbstractDbData<?> dataAtEndPoint) {
 
-    List<Change> changesList = new ArrayList<>();
+    List<Change> changesListWithPks = new ArrayList<>();
 
     // List the created rows : the row is not present at the start point
     for (Row row : dataAtEndPoint.getRowsList()) {
@@ -354,7 +354,7 @@ public class Changes extends AbstractDbElement<Changes> {
       if (rowAtStartPoint == null) {
         Change change = createCreationChange(dataAtEndPoint.getDataType(), dataName, row,
                                              getTableLetterCase(), getColumnLetterCase(), getPrimaryKeyLetterCase());
-        changesList.add(change);
+        changesListWithPks.add(change);
       }
     }
     for (Row row : dataAtStartPoint.getRowsList()) {
@@ -363,19 +363,19 @@ public class Changes extends AbstractDbElement<Changes> {
         // List the deleted rows : the row is not present at the end point
         Change change = createDeletionChange(dataAtStartPoint.getDataType(), dataName, row,
                                              getTableLetterCase(), getColumnLetterCase(), getPrimaryKeyLetterCase());
-        changesList.add(change);
+        changesListWithPks.add(change);
       } else {
         // List the modified rows
         if (!row.hasValues(rowAtEndPoint)) {
           // If at least one value in the rows is different, add the change
           Change change = createModificationChange(dataAtStartPoint.getDataType(), dataName, row, rowAtEndPoint,
                                                    getTableLetterCase(), getColumnLetterCase(), getPrimaryKeyLetterCase());
-          changesList.add(change);
+          changesListWithPks.add(change);
         }
       }
     }
 
-    return changesList;
+    return changesListWithPks;
   }
 
   /**
@@ -389,7 +389,7 @@ public class Changes extends AbstractDbElement<Changes> {
   private List<Change> getChangesListWithoutPks(String dataName, AbstractDbData<?> dataAtStartPoint,
       AbstractDbData<?> dataAtEndPoint) {
 
-    List<Change> changesList = new ArrayList<>();
+    List<Change> changesListWithoutPks = new ArrayList<>();
 
     // List the created rows : the row is not present at the start point
     List<Row> rowsAtStartPointList = new ArrayList<>(dataAtStartPoint.getRowsList());
@@ -406,7 +406,7 @@ public class Changes extends AbstractDbElement<Changes> {
       if (index == -1) {
         Change change = createCreationChange(dataAtStartPoint.getDataType(), dataName, rowAtEndPoint,
                                              getTableLetterCase(), getColumnLetterCase(), getPrimaryKeyLetterCase());
-        changesList.add(change);
+        changesListWithoutPks.add(change);
       } else {
         rowsAtStartPointList.remove(index);
       }
@@ -426,13 +426,13 @@ public class Changes extends AbstractDbElement<Changes> {
       if (index == -1) {
         Change change = createDeletionChange(dataAtStartPoint.getDataType(), dataName, rowAtStartPoint,
                                              getTableLetterCase(), getColumnLetterCase(), getPrimaryKeyLetterCase());
-        changesList.add(change);
+        changesListWithoutPks.add(change);
       } else {
         rowsAtEndPointList.remove(index);
       }
     }
 
-    return changesList;
+    return changesListWithoutPks;
   }
 
   /**
@@ -446,10 +446,10 @@ public class Changes extends AbstractDbElement<Changes> {
   private List<Change> getChangesList(String dataName, AbstractDbData<?> dataAtStartPoint,
       AbstractDbData<?> dataAtEndPoint) {
 
-    if (dataAtStartPoint.getPksNameList().size() > 0) {
-      return getChangesListWithPks(dataName, dataAtStartPoint, dataAtEndPoint);
-    } else {
+    if (dataAtStartPoint.getPksNameList().isEmpty()) {
       return getChangesListWithoutPks(dataName, dataAtStartPoint, dataAtEndPoint);
+    } else {
+      return getChangesListWithPks(dataName, dataAtStartPoint, dataAtEndPoint);
     }
   }
 
@@ -480,7 +480,7 @@ public class Changes extends AbstractDbElement<Changes> {
       }
     }
 
-    Collections.sort(changesList, ChangeComparator.INSTANCE);
+    changesList.sort(ChangeComparator.INSTANCE);
     return changesList;
   }
 
@@ -494,9 +494,9 @@ public class Changes extends AbstractDbElement<Changes> {
       throw new NullPointerException("tableName must be not null");
     }
     Changes changes = createChangesFromThis();
-    List<Change> changesList = getChangesList();
+    List<Change> changesListOfTable = getChangesList();
     if (tablesList != null) {
-      for (Change change : changesList) {
+      for (Change change : changesListOfTable) {
         if (getTableLetterCase().isEqual(tableName, change.getDataName())) {
           changes.changesList.add(change);
         }
@@ -515,8 +515,8 @@ public class Changes extends AbstractDbElement<Changes> {
       throw new NullPointerException("changeType must be not null");
     }
     Changes changes = createChangesFromThis();
-    List<Change> changesList = getChangesList();
-    for (Change change : changesList) {
+    List<Change> changesListOfType = getChangesList();
+    for (Change change : changesListOfType) {
       if (changeType.equals(change.getChangeType())) {
         changes.changesList.add(change);
       }

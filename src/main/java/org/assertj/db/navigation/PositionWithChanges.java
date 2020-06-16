@@ -21,10 +21,7 @@ import org.assertj.db.type.Value;
 import org.assertj.db.util.Values;
 
 import java.lang.reflect.Constructor;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.assertj.db.util.Proxies.unProxy;
 
@@ -37,7 +34,7 @@ import static org.assertj.db.util.Proxies.unProxy;
  * @author Régis Pouiller
  * @since 1.1.0
  */
-public abstract class PositionWithChanges<E extends AbstractElement & Navigation, N extends AbstractElement & Navigation> {
+public abstract class PositionWithChanges<E extends AbstractElement<E> & Navigation, N extends AbstractElement<N> & Navigation> {
 
   private final E myself;
 
@@ -101,11 +98,7 @@ public abstract class PositionWithChanges<E extends AbstractElement & Navigation
    * @param changesInstance Changes to add in the cache.
    */
   private void setInCache(ChangeType changeType, String tableName, E changesInstance) {
-    Map<String, E> mapWithTableName = changesAssertMap.get(changeType);
-    if (mapWithTableName == null) {
-      mapWithTableName = new HashMap<>();
-      changesAssertMap.put(changeType, mapWithTableName);
-    }
+    Map<String, E> mapWithTableName = changesAssertMap.computeIfAbsent(changeType, k -> new HashMap<>());
     mapWithTableName.put(tableName, changesInstance);
   }
 
@@ -240,7 +233,7 @@ public abstract class PositionWithChanges<E extends AbstractElement & Navigation
     int index = 0;
     for (Change change : changesList) {
       List<Value> pksValueList = change.getPksValueList();
-      Value[] values = pksValueList.toArray(new Value[pksValueList.size()]);
+      Value[] values = pksValueList.toArray(new Value[0]);
       boolean equal = false;
       if (pksValues.length == values.length) {
         equal = true;
@@ -283,11 +276,7 @@ public abstract class PositionWithChanges<E extends AbstractElement & Navigation
    * @param index The index of the next change.
    */
   private void setIndexNextChange(ChangeType changeType, String tableName, int index) {
-    Map<String, Integer> map = indexNextChangeMap.get(changeType);
-    if (map == null) {
-      map = new HashMap<>();
-      indexNextChangeMap.put(changeType, map);
-    }
+    Map<String, Integer> map = indexNextChangeMap.computeIfAbsent(changeType, k -> new HashMap<>());
     map.put(tableName, index);
   }
 

@@ -12,15 +12,15 @@
  */
 package org.assertj.db.api.assertions.impl;
 
-import static org.assertj.db.error.ShouldBeValueClass.shouldBeValueClass;
-
-import java.util.List;
-
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Value;
+
+import java.util.List;
+
+import static org.assertj.db.error.ShouldBeValueClass.shouldBeValueClass;
 
 /**
  * Implements the assertion methods on the class of a column.
@@ -33,7 +33,7 @@ public class AssertionsOnColumnClass {
   /**
    * To notice failures in the assertion.
    */
-  private final static Failures failures = Failures.instance();
+  private static final Failures failures = Failures.instance();
 
   /**
    * Private constructor.
@@ -58,7 +58,7 @@ public class AssertionsOnColumnClass {
    * @since 1.1.0
    */
   public static <A extends AbstractAssert<?>> A isOfClass(A assertion, WritableAssertionInfo info, List<Value> valuesList,
-                                                       Class<?> expected, boolean lenient) {
+                                                          Class<?> expected, boolean lenient) {
 
     if (expected == null) {
       throw new AssertJDBException("Class of the column is null");
@@ -67,10 +67,12 @@ public class AssertionsOnColumnClass {
     int index = 0;
     for (Value value : valuesList) {
       Object object = value.getValue();
-      if (object == null || !expected.isAssignableFrom(object.getClass())) {
-        if (!lenient || object != null) {
-          throw failures.failure(info, shouldBeValueClass(index, value, expected));
-        }
+      if (
+          (object == null || !expected.isAssignableFrom(object.getClass())) &&
+          (!lenient || object != null)
+      ) {
+
+        throw failures.failure(info, shouldBeValueClass(index, value, expected));
       }
       index++;
     }

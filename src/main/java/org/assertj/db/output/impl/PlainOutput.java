@@ -16,6 +16,7 @@ import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.type.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -34,7 +35,7 @@ enum PlainOutput implements Output {
   /**
    * End of a line.
    */
-  private final static String EOL = String.format("%n");
+  private static final String EOL = String.format("%n");
 
   /**
    * Returns the text representing a object.
@@ -191,14 +192,9 @@ enum PlainOutput implements Output {
    * @return An array with the sizes.
    */
   private List<Integer> getSizesList(List<Integer> columnSizesList, Integer... sizes) {
-    List<Integer> sizesList = new ArrayList<>();
-    for (Integer size : sizes) {
-      sizesList.add(size);
-    }
+    List<Integer> sizesList = new ArrayList<>(Arrays.asList(sizes));
     if (columnSizesList != null) {
-      for (Integer size : columnSizesList) {
-        sizesList.add(size);
-      }
+      sizesList.addAll(columnSizesList);
     }
     return sizesList;
   }
@@ -397,15 +393,15 @@ enum PlainOutput implements Output {
     List<String> columnsNameList = row0.getColumnsNameList();
     int index = 0;
     for (String columnName : columnsNameList) {
-      List<Object> valuesList = new ArrayList<>();
+      List<Value> valuesList = new ArrayList<>();
       for (Row row : rows) {
         if (row != null) {
-          Object value = row.getValuesList().get(index);
+          Value value = row.getValuesList().get(index);
           valuesList.add(value);
         }
       }
-      String type = OutputType.getType(valuesList.toArray(new Value[valuesList.size()]));
-      int columnSize = getColumnSize(columnName, type, index, valuesList.toArray(new Value[valuesList.size()]));
+      String type = OutputType.getType(valuesList.toArray(new Value[0]));
+      int columnSize = getColumnSize(columnName, type, index, valuesList.toArray(new Value[0]));
       columnSizesList.add(columnSize);
       index++;
     }
@@ -421,12 +417,12 @@ enum PlainOutput implements Output {
     List<String> pksNameList = table.getPksNameList();
     List<String> columnsNameList = table.getColumnsNameList();
     List<Row> rowsList = table.getRowsList();
-    Row[] rows = rowsList.toArray(new Row[rowsList.size()]);
+    Row[] rows = rowsList.toArray(new Row[0]);
 
     List<String> typesList = OutputType.getTypesList(rows);
     int indexColumnSize = getIndexColumnSize(rows.length);
     StringBuilder[] pksValueStringBuilders = OutputType.getPksValueStringBuilder(rows);
-    int primaryKeyColumnSize = getColumnSize("PRIMARY", (Object[]) pksValueStringBuilders);
+    int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
     List<Integer> sizesList = getSizesList(rows.length == 0 ? getColumnSizesList(columnsNameList) : getColumnSizesList(rows),
                                            indexColumnSize,
                                            primaryKeyColumnSize);
@@ -467,12 +463,12 @@ enum PlainOutput implements Output {
     List<String> pksNameList = request.getPksNameList();
     List<String> columnsNameList = request.getColumnsNameList();
     List<Row> rowsList = request.getRowsList();
-    Row[] rows = rowsList.toArray(new Row[rowsList.size()]);
+    Row[] rows = rowsList.toArray(new Row[0]);
 
     List<String> typesList = OutputType.getTypesList(rows);
     int indexColumnSize = getIndexColumnSize(rows.length);
     StringBuilder[] pksValueStringBuilders = OutputType.getPksValueStringBuilder(rows);
-    int primaryKeyColumnSize = getColumnSize("PRIMARY", (Object[]) pksValueStringBuilders);
+    int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
     List<Integer> sizesList = getSizesList(rows.length == 0 ? getColumnSizesList(columnsNameList) : getColumnSizesList(rows),
                                            indexColumnSize,
                                            primaryKeyColumnSize);
@@ -514,12 +510,12 @@ enum PlainOutput implements Output {
   @Override
   public String getChangesOutput(WritableAssertionInfo info, Changes changes) {
     List<Change> changesList = changes.getChangesList();
-    Change[] changesArray = changesList.toArray(new Change[changesList.size()]);
+    Change[] changesArray = changesList.toArray(new Change[0]);
     int indexColumnSize = getIndexColumnSize(changesList.size());
     int changeTypeColumnSize = getChangeTypeColumnSize(changesArray);
     int dataTypeColumnSize = getDataTypeColumnSize(changesArray);
     StringBuilder[] pksValueStringBuilders = OutputType.getPksValueStringBuilder(changesArray);
-    int primaryKeyColumnSize = getColumnSize("PRIMARY", (Object[]) pksValueStringBuilders);
+    int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
 
     StringBuilder stringBuilder = new StringBuilder();
     // Description
@@ -589,42 +585,40 @@ enum PlainOutput implements Output {
 
     int changeTypeColumnSize = getColumnSize("TYPE", changeType);
     int dataTypeColumnSize = getColumnSize("" + dataType, dataName);
-    int primaryKeyColumnSize = getColumnSize("PRIMARY", (Object[]) pksValueStringBuilders);
+    int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
     List<Integer> sizesList = getSizesList(getColumnSizesList(rowAtStartPoint, rowAtEndPoint),
                                            changeTypeColumnSize,
                                            dataTypeColumnSize,
                                            primaryKeyColumnSize, 16);
 
-    StringBuilder stringBuilder = new StringBuilder();
     // Description
-    stringBuilder.append("[").append(info.descriptionText()).append("]").append(EOL);
-    // Line
-    stringBuilder.append(getCompleteLine(sizesList));
-    // Primary key
-    stringBuilder.append(getCompletePrimaryKey(sizesList, change.getPksNameList(), columnsNameList
-    ));
-    // Column name
-    stringBuilder.append(getCompleteColumnName(sizesList, columnsNameList,
-                                               "TYPE", "" + dataType, "PRIMARY", ""));
-    // Type
-    stringBuilder.append(getCompleteType(sizesList, typesList,
-                                         "", "", "KEY", ""));
-    // Index
-    stringBuilder.append(getCompleteIndex(sizesList, 4));
-    // Line
-    stringBuilder.append(getCompleteLine(sizesList));
-    // Value at start point
-    stringBuilder.append(getCompleteRow(sizesList, rowAtStartPoint,
-                                        "", "", "", "At start point"));
-    // Line
-    stringBuilder.append(getCompleteLine(sizesList, changeType, dataName, pksValueStringBuilders[0]));
-    // Value at end point
-    stringBuilder.append(getCompleteRow(sizesList, rowAtEndPoint,
-                                        "", "", "", "At end point"));
-    // Line
-    stringBuilder.append(getCompleteLine(sizesList));
 
-    return stringBuilder.toString();
+    return "[" + info.descriptionText() + "]" + EOL
+           // Line
+           + getCompleteLine(sizesList)
+           // Primary key
+           + getCompletePrimaryKey(sizesList, change.getPksNameList(), columnsNameList
+    )
+           // Column name
+           + getCompleteColumnName(sizesList, columnsNameList,
+                                                   "TYPE", "" + dataType, "PRIMARY", "")
+           // Type
+           + getCompleteType(sizesList, typesList,
+                                             "", "", "KEY", "")
+           // Index
+           + getCompleteIndex(sizesList, 4)
+           // Line
+           + getCompleteLine(sizesList)
+           // Value at start point
+           + getCompleteRow(sizesList, rowAtStartPoint,
+                                            "", "", "", "At start point")
+           // Line
+           + getCompleteLine(sizesList, changeType, dataName, pksValueStringBuilders[0])
+           // Value at end point
+           + getCompleteRow(sizesList, rowAtEndPoint,
+                                            "", "", "", "At end point")
+           // Line
+           + getCompleteLine(sizesList);
   }
 
   /**
@@ -633,39 +627,35 @@ enum PlainOutput implements Output {
   @Override
   public String getRowOutput(WritableAssertionInfo info, Row row) {
     if (row == null) {
-      StringBuilder stringBuilder = new StringBuilder();
-      stringBuilder.append("[").append(info.descriptionText()).append("]").append(EOL);
-      stringBuilder.append("Row does not exist").append(EOL);
-      return String.format(stringBuilder.toString());
+      return "[" + info.descriptionText() + "]" + EOL
+             + "Row does not exist" + EOL;
     }
     List<String> columnsNameList = row.getColumnsNameList();
     List<String> typesList = OutputType.getTypesList(row);
     StringBuilder[] pksValueStringBuilders = OutputType.getPksValueStringBuilder(row);
-    int primaryKeyColumnSize = getColumnSize("PRIMARY", (Object[]) pksValueStringBuilders);
+    int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
     List<Integer> sizesList = getSizesList(getColumnSizesList(row),
                                            primaryKeyColumnSize);
 
-    StringBuilder stringBuilder = new StringBuilder();
     // Description
-    stringBuilder.append("[").append(info.descriptionText()).append("]").append(EOL);
-    // Line
-    stringBuilder.append(getCompleteLine(sizesList));
-    // Primary key
-    stringBuilder.append(getCompletePrimaryKey(sizesList, row.getPksNameList(), columnsNameList));
-    // Column name
-    stringBuilder.append(getCompleteColumnName(sizesList, columnsNameList, "PRIMARY"));
-    // Type
-    stringBuilder.append(getCompleteType(sizesList, typesList, "KEY"));
-    // Index
-    stringBuilder.append(getCompleteIndex(sizesList, 1));
-    // Line
-    stringBuilder.append(getCompleteLine(sizesList));
-    // Value
-    stringBuilder.append(getCompleteRow(sizesList, row, pksValueStringBuilders[0]));
-    // Line
-    stringBuilder.append(getCompleteLine(sizesList));
 
-    return stringBuilder.toString();
+    return "[" + info.descriptionText() + "]" + EOL
+           // Line
+           + getCompleteLine(sizesList)
+           // Primary key
+           + getCompletePrimaryKey(sizesList, row.getPksNameList(), columnsNameList)
+           // Column name
+           + getCompleteColumnName(sizesList, columnsNameList, "PRIMARY")
+           // Type
+           + getCompleteType(sizesList, typesList, "KEY")
+           // Index
+           + getCompleteIndex(sizesList, 1)
+           // Line
+           + getCompleteLine(sizesList)
+           // Value
+           + getCompleteRow(sizesList, row, pksValueStringBuilders[0])
+           // Line
+           + getCompleteLine(sizesList);
   }
 
   /**
@@ -675,7 +665,7 @@ enum PlainOutput implements Output {
   public String getColumnOutput(WritableAssertionInfo info, Column column) {
     String columnName = column.getName();
     List<Value> valuesList = column.getValuesList();
-    Value[] values = valuesList.toArray(new Value[valuesList.size()]);
+    Value[] values = valuesList.toArray(new Value[0]);
     int indexColumnSize = getIndexColumnSize(values.length);
     String type = OutputType.getType(values);
     int columnSize = getColumnSize(columnName, type, null, values);
@@ -723,35 +713,33 @@ enum PlainOutput implements Output {
 
     int columnSize = getColumnSize(columnName, type, null, valueAtStartPoint, valueAtEndPoint);
 
-    StringBuilder stringBuilder = new StringBuilder();
     // Description
-    stringBuilder.append("[").append(info.descriptionText()).append("]").append(EOL);
-    // Line
-    stringBuilder.append("|----------------|").append(getCellLine(columnSize))
-                .append("|").append(EOL);
-    // Column name
-    stringBuilder.append("|                |").append(getFilledText(columnName, columnSize))
-                .append("|").append(EOL);
-    // Type
-    stringBuilder.append("|                |").append(getFilledText(type, columnSize))
-                .append("|").append(EOL);
-    // Line
-    stringBuilder.append("|----------------|").append(getCellLine(columnSize))
-                .append("|").append(EOL);
-    // Value at start point
-    stringBuilder.append("| At start point |").append(getFilledText(OutputType.getText(valueAtStartPoint), columnSize))
-                .append("|").append(EOL);
-    // Line
-    stringBuilder.append("|----------------|").append(getCellLine(columnSize))
-                .append("|").append(EOL);
-    // Value at end point
-    stringBuilder.append("| At end point   |").append(getFilledText(OutputType.getText(valueAtEndPoint), columnSize))
-                .append("|").append(EOL);
-    // Line
-    stringBuilder.append("|----------------|").append(getCellLine(columnSize))
-                .append("|").append(EOL);
 
-    return stringBuilder.toString();
+    return "[" + info.descriptionText() + "]" + EOL
+           // Line
+           + "|----------------|" + getCellLine(columnSize)
+           + "|" + EOL
+           // Column name
+           + "|                |" + getFilledText(columnName, columnSize)
+           + "|" + EOL
+           // Type
+           + "|                |" + getFilledText(type, columnSize)
+           + "|" + EOL
+           // Line
+           + "|----------------|" + getCellLine(columnSize)
+           + "|" + EOL
+           // Value at start point
+           + "| At start point |" + getFilledText(OutputType.getText(valueAtStartPoint), columnSize)
+           + "|" + EOL
+           // Line
+           + "|----------------|" + getCellLine(columnSize)
+           + "|" + EOL
+           // Value at end point
+           + "| At end point   |" + getFilledText(OutputType.getText(valueAtEndPoint), columnSize)
+           + "|" + EOL
+           // Line
+           + "|----------------|" + getCellLine(columnSize)
+           + "|" + EOL;
   }
 
   /**
@@ -763,28 +751,26 @@ enum PlainOutput implements Output {
     String type = OutputType.getType(value);
     int columnSize = getColumnSize(columnName, type, null, value);
 
-    StringBuilder stringBuilder = new StringBuilder();
     // Description
-    stringBuilder.append("[").append(info.descriptionText()).append("]").append(EOL);
-    // Line
-    stringBuilder.append("|").append(getCellLine(columnSize))
-                .append("|").append(EOL);
-    // Column name
-    stringBuilder.append("|").append(getFilledText(columnName, columnSize))
-                .append("|").append(EOL);
-    // Type
-    stringBuilder.append("|").append(getFilledText(type, columnSize))
-                .append("|").append(EOL);
-    // Line
-    stringBuilder.append("|").append(getCellLine(columnSize))
-                .append("|").append(EOL);
-    // Value
-    stringBuilder.append("|").append(getFilledText(OutputType.getText(value), columnSize))
-                .append("|").append(EOL);
-    // Line
-    stringBuilder.append("|").append(getCellLine(columnSize))
-                .append("|").append(EOL);
 
-    return stringBuilder.toString();
+    return "[" + info.descriptionText() + "]" + EOL
+           // Line
+           + "|" + getCellLine(columnSize)
+           + "|" + EOL
+           // Column name
+           + "|" + getFilledText(columnName, columnSize)
+           + "|" + EOL
+           // Type
+           + "|" + getFilledText(type, columnSize)
+           + "|" + EOL
+           // Line
+           + "|" + getCellLine(columnSize)
+           + "|" + EOL
+           // Value
+           + "|" + getFilledText(OutputType.getText(value), columnSize)
+           + "|" + EOL
+           // Line
+           + "|" + getCellLine(columnSize)
+           + "|" + EOL;
   }
 }

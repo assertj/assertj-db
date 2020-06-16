@@ -25,6 +25,7 @@ import java.util.Calendar;
  */
 public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContainer {
 
+  public static final String DATE_TIME_SHOULD_BE_NOT_NULL = "date/time should be not null";
   /**
    * The date part.
    */
@@ -161,7 +162,7 @@ public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContai
    */
   public DateTimeValue(String dateTime) throws ParseException {
     if (dateTime == null) {
-      throw new NullPointerException("date/time should be not null");
+      throw new NullPointerException(DATE_TIME_SHOULD_BE_NOT_NULL);
     }
 
     if (dateTime.matches(DATE_FORMAT)) {
@@ -186,7 +187,7 @@ public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContai
    */
   public DateTimeValue(Timestamp timestamp) {
     if (timestamp == null) {
-      throw new NullPointerException("date/time should be not null");
+      throw new NullPointerException(DATE_TIME_SHOULD_BE_NOT_NULL);
     }
 
     Calendar calendar = Calendar.getInstance();
@@ -206,7 +207,7 @@ public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContai
    */
   public DateTimeValue(Calendar calendar) {
     if (calendar == null) {
-      throw new NullPointerException("date/time should be not null");
+      throw new NullPointerException(DATE_TIME_SHOULD_BE_NOT_NULL);
     }
 
     date = DateValue.from(calendar);
@@ -222,7 +223,7 @@ public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContai
    */
   public DateTimeValue(LocalDateTime localDateTime) {
     if (localDateTime == null) {
-      throw new NullPointerException("date/time should be not null");
+      throw new NullPointerException(DATE_TIME_SHOULD_BE_NOT_NULL);
     }
 
     date = DateValue.from(localDateTime.toLocalDate());
@@ -291,7 +292,7 @@ public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContai
    * @return If this date/time value is before the date/time value in parameter.
    */
   public boolean isBefore(DateTimeValue dateTime) {
-    return compareTo(dateTime) == -1;
+    return compareTo(dateTime) < 0;
   }
 
   /**
@@ -301,7 +302,7 @@ public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContai
    * @return If this date/time value is after the date/time value in parameter.
    */
   public boolean isAfter(DateTimeValue dateTime) {
-    return compareTo(dateTime) == 1;
+    return compareTo(dateTime) > 0;
   }
 
   /**

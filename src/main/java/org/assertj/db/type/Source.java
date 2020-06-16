@@ -13,7 +13,7 @@
 package org.assertj.db.type;
 
 /**
- * A source to indicates the informations to connect to the database. It contains the url, user and password to the
+ * A source to indicates the information to connect to the database. It contains the url, user and password to the
  * database. A source is used by a {@link Table} or a {@link Request}.
  * <p>Example of instantiation :</p>
  * <pre><code class='java'>
@@ -40,7 +40,7 @@ public class Source {
   private final String password;
 
   /**
-   * Constructor with the informations.
+   * Constructor with the information.
    * 
    * @param url URL to the database.
    * @param user User to connect.

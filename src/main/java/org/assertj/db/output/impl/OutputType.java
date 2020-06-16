@@ -112,14 +112,14 @@ public enum OutputType implements Output {
     if (row0 != null) {
       int index = 0;
       for (; index < row0.getColumnsNameList().size(); index++) {
-        List<Object> valuesList = new ArrayList<>();
+        List<Value> valuesList = new ArrayList<>();
         for (Row row : rows) {
           if (row != null) {
-            Object value = row.getValuesList().get(index);
+            Value value = row.getValuesList().get(index);
             valuesList.add(value);
           }
         }
-        String type = OutputType.getType(valuesList.toArray(new Value[valuesList.size()]));
+        String type = OutputType.getType(valuesList.toArray(new Value[0]));
         typesList.add(type);
       }
     }
@@ -145,7 +145,7 @@ public enum OutputType implements Output {
       }
       stringBuildersList.add(pksValueStringBuilder);
     }
-    return stringBuildersList.toArray(new StringBuilder[stringBuildersList.size()]);
+    return stringBuildersList.toArray(new StringBuilder[0]);
   }
 
   /**
@@ -167,7 +167,7 @@ public enum OutputType implements Output {
       }
       stringBuildersList.add(pksValueStringBuilder);
     }
-    return stringBuildersList.toArray(new StringBuilder[stringBuildersList.size()]);
+    return stringBuildersList.toArray(new StringBuilder[0]);
   }
 
   /**

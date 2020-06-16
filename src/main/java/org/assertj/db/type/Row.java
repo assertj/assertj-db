@@ -162,7 +162,7 @@ public class Row implements DbElement, WithColumnLetterCase, WithPrimaryKeyLette
         pksValuesList.add(value);
       }
     }
-    return pksValuesList.toArray(new Value[pksValuesList.size()]);
+    return pksValuesList.toArray(new Value[0]);
   }
 
   /**
@@ -191,10 +191,10 @@ public class Row implements DbElement, WithColumnLetterCase, WithPrimaryKeyLette
    * @return If the values are equal.
    */
   public boolean hasValues(Row row) {
-    List<Value> valuesList = getValuesList();
+    List<Value> currentValuesList = getValuesList();
     List<Value> rowValuesList = row.getValuesList();
-    for (int index = 0; index < valuesList.size(); index++) {
-      Value value = valuesList.get(index);
+    for (int index = 0; index < currentValuesList.size(); index++) {
+      Value value = currentValuesList.get(index);
       Value rowValue = rowValuesList.get(index);
       if (!Values.areEqual(value, rowValue.getValue())) {
         return false;

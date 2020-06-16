@@ -27,19 +27,19 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class ChangeComparator_Test extends AbstractTest {
 
-  private final static Row ROW_ID_PK_1_TEST;
-  private final static Row ROW_ID_PK_1_TEST1;
-  private final static Row ROW_ID_PK_1_TEST2;
-  private final static Row ROW_ID_PK_2_TEST1;
-  private final static Row ROW_ID_PK_2_TEST2;
-  private final static Row ROW_NAME_PK_1_TEST1;
-  private final static Row ROW_NAME_PK_1_TEST2;
-  private final static Row ROW_NAME_PK_1_NULL;
-  private final static Row ROW_NAME_PK_1_BYTES_0;
-  private final static Row ROW_NAME_PK_1_BYTES_1;
-  private final static Row ROW_NAME_PK_2_TEST1;
-  private final static Row ROW_NAME_PK_2_TEST2;
-  private final static Row ROW_NAME_PK_2_NULL;
+  private static final Row ROW_ID_PK_1_TEST;
+  private static final Row ROW_ID_PK_1_TEST1;
+  private static final Row ROW_ID_PK_1_TEST2;
+  private static final Row ROW_ID_PK_2_TEST1;
+  private static final Row ROW_ID_PK_2_TEST2;
+  private static final Row ROW_NAME_PK_1_TEST1;
+  private static final Row ROW_NAME_PK_1_TEST2;
+  private static final Row ROW_NAME_PK_1_NULL;
+  private static final Row ROW_NAME_PK_1_BYTES_0;
+  private static final Row ROW_NAME_PK_1_BYTES_1;
+  private static final Row ROW_NAME_PK_2_TEST1;
+  private static final Row ROW_NAME_PK_2_TEST2;
+  private static final Row ROW_NAME_PK_2_NULL;
 
   static {
     try {

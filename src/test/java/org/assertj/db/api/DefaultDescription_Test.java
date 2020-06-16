@@ -35,11 +35,11 @@ import static org.assertj.db.api.Assertions.assertThat;
 public class DefaultDescription_Test extends AbstractTest {
 
   /**
-   * This method tests the description of change with different informations.
+   * This method tests the description of change with different information.
    */
   @Test
   @NeedReload
-  public void test_default_description_for_change_with_different_informations() throws Exception {
+  public void test_default_description_for_change_with_different_information() throws Exception {
     Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
 

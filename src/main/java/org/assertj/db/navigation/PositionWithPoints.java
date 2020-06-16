@@ -30,7 +30,7 @@ import static org.assertj.db.util.Proxies.unProxy;
  * @author Régis Pouiller
  * @since 1.1.0
  */
-public abstract class PositionWithPoints<E extends AbstractElement & Navigation, N extends AbstractElement & Navigation, D extends DbElement> {
+public abstract class PositionWithPoints<E extends AbstractElement<E> & Navigation, N extends AbstractElement<N> & Navigation, D extends DbElement> {
 
   /**
    * Actual value.
@@ -119,8 +119,7 @@ public abstract class PositionWithPoints<E extends AbstractElement & Navigation,
     try {
       Class clazz = unProxy(myself.getClass());
       Constructor<N> constructor = elementClass.getDeclaredConstructor(clazz, pointClass);
-      N instance = constructor.newInstance(myself, element);
-      return instance;
+      return constructor.newInstance(myself, element);
     } catch (Exception e) {
       throw new AssertJDBException(String.format("There is an exception '" + e.getMessage()
                                                  + "'%n\t in the instantiation of the element " + elementClass.getName()

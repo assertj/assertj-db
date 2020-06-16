@@ -40,7 +40,7 @@ public class DefaultStatement implements Statement {
 
   @Override
   public ResultSet executeQuery(String sql) throws SQLException {
-    return new DefaultResulSet();
+    return new DefaultResultSet();
   }
 
   @Override

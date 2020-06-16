@@ -21,7 +21,6 @@ import org.assertj.db.type.lettercase.LetterCase;
 import org.assertj.db.util.Values;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -39,7 +38,7 @@ public class AssertionsOnPrimaryKey {
   /**
    * To notice failures in the assertion.
    */
-  private final static Failures failures = Failures.instance();
+  private static final Failures failures = Failures.instance();
 
   /**
    * Private constructor.
@@ -70,7 +69,7 @@ public class AssertionsOnPrimaryKey {
     // Create a sorted list from the primary keys columns
     List<String> pksNameList = change.getPksNameList();
     List<String> pksList = new ArrayList<>(pksNameList);
-    Collections.sort(pksList, primaryKeyLetterCase);
+    pksList.sort(primaryKeyLetterCase);
 
     // Create a sorted list from the parameters
     List<String> namesList = new ArrayList<>();
@@ -80,7 +79,7 @@ public class AssertionsOnPrimaryKey {
       }
       namesList.add(name);
     }
-    Collections.sort(namesList, primaryKeyLetterCase);
+    namesList.sort(primaryKeyLetterCase);
 
     // Compare each list
     Iterator<String> namesIterator = namesList.iterator();
@@ -89,12 +88,12 @@ public class AssertionsOnPrimaryKey {
       String name = namesIterator.next();
       String pk = pksIterator.next();
       if (!primaryKeyLetterCase.isEqual(name, pk)) {
-        String[] pksNames = pksNameList.toArray(new String[pksNameList.size()]);
+        String[] pksNames = pksNameList.toArray(new String[0]);
         throw failures.failure(info, shouldHavePksNames(pksNames, names));
       }
     }
     if (namesIterator.hasNext() || pksIterator.hasNext()) {
-      String[] pksNames = pksNameList.toArray(new String[pksNameList.size()]);
+      String[] pksNames = pksNameList.toArray(new String[0]);
       throw failures.failure(info, shouldHavePksNames(pksNames, names));
     }
 
@@ -116,7 +115,7 @@ public class AssertionsOnPrimaryKey {
                                                           Object... values) {
     // Create a array from the primary keys columns
     List<Value> pksValueList = change.getPksValueList();
-    Value[] pksValues = pksValueList.toArray(new Value[pksValueList.size()]);
+    Value[] pksValues = pksValueList.toArray(new Value[0]);
 
     // If the length of the values is different than the length of the expected values
     if (values.length != pksValues.length) {

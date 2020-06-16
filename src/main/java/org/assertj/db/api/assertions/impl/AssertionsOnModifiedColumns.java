@@ -39,7 +39,7 @@ public class AssertionsOnModifiedColumns {
   /**
    * To notice failures in the assertion.
    */
-  private final static Failures failures = Failures.instance();
+  private static final Failures failures = Failures.instance();
 
   /**
    * Private constructor.
@@ -227,7 +227,7 @@ public class AssertionsOnModifiedColumns {
       }
       namesList.add(name);
     }
-    Collections.sort(namesList, columnLetterCase);
+    namesList.sort(columnLetterCase);
 
     // Create a sorted list from the modified columns
     Integer[] indexesOfModifiedColumns = Changes.getIndexesOfModifiedColumns(change);
@@ -237,7 +237,7 @@ public class AssertionsOnModifiedColumns {
       namesOfModifiedColumns[i] = columnsNameList.get(indexesOfModifiedColumns[i]);
     }
     List<String> namesOfModifiedList = Arrays.asList(namesOfModifiedColumns);
-    Collections.sort(namesOfModifiedList, columnLetterCase);
+    namesOfModifiedList.sort(columnLetterCase);
 
     // Compare each list
     Iterator<String> namesIterator = namesList.iterator();

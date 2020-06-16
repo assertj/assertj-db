@@ -82,7 +82,7 @@ public class Changes {
       }
     }
 
-    return indexesList.toArray(new Integer[indexesList.size()]);
+    return indexesList.toArray(new Integer[0]);
   }
 
 }

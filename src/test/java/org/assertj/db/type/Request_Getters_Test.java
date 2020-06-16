@@ -77,7 +77,7 @@ public class Request_Getters_Test extends AbstractTest {
   }
 
   /**
-   * This method test the getters of a {@code Table} when the source, the name and the informations about the columns
+   * This method test the getters of a {@code Table} when the source, the name and the information about the columns
    * are set.
    */
   @Test

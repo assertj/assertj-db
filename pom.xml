@@ -7,7 +7,6 @@
     <packaging>jar</packaging>
     <name>AssertJ-DB - Assertions for database</name>
     <description>AssertJ-DB - Rich and fluent assertions for testing with database</description>
-    <inceptionYear>2015</inceptionYear>
     <parent>
         <groupId>org.assertj</groupId>
         <artifactId>assertj-parent-pom</artifactId>
@@ -28,6 +27,7 @@
 
     <properties>
         <javadocAdditionalOptions>--allow-script-in-comments</javadocAdditionalOptions>
+        <inceptionYear>2015</inceptionYear>
         <currentYear>2020</currentYear>
         <maven.compiler.source>8</maven.compiler.source>
 

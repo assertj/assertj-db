@@ -15,7 +15,6 @@ package org.assertj.db.output.impl;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.type.*;
 
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -38,16 +37,13 @@ enum HtmlOutput implements Output {
    * @return The html document.
    */
   private static String getHtml(WritableAssertionInfo info, String content) {
-    StringBuilder stringBuilder = new StringBuilder();
 
-    stringBuilder.append("<html><head><title>description</title></head>");
-    stringBuilder.append("<body><h1>");
-    stringBuilder.append(info.descriptionText());
-    stringBuilder.append("</h1>");
-    stringBuilder.append(content);
-    stringBuilder.append("</body></html>");
-
-    return stringBuilder.toString();
+    return "<html><head><title>description</title></head>"
+           + "<body><h1>"
+           + info.descriptionText()
+           + "</h1>"
+           + content
+           + "</body></html>";
   }
 
   /**
@@ -58,7 +54,7 @@ enum HtmlOutput implements Output {
     List<String> pksNameList = table.getPksNameList();
     List<String> columnsNameList = table.getColumnsNameList();
     List<Row> rowsList = table.getRowsList();
-    Row[] rows = rowsList.toArray(new Row[rowsList.size()]);
+    Row[] rows = rowsList.toArray(new Row[0]);
 
     List<String> typesList = OutputType.getTypesList(rows);
     StringBuilder[] pksValueStringBuilders = OutputType.getPksValueStringBuilder(rows);
@@ -123,7 +119,7 @@ enum HtmlOutput implements Output {
     List<String> pksNameList = request.getPksNameList();
     List<String> columnsNameList = request.getColumnsNameList();
     List<Row> rowsList = request.getRowsList();
-    Row[] rows = rowsList.toArray(new Row[rowsList.size()]);
+    Row[] rows = rowsList.toArray(new Row[0]);
 
     List<String> typesList = OutputType.getTypesList(rows);
     StringBuilder[] pksValueStringBuilders = OutputType.getPksValueStringBuilder(rows);
@@ -197,7 +193,7 @@ enum HtmlOutput implements Output {
     stringBuilder.append("<br/>TYPE");
     stringBuilder.append("</th>");
     stringBuilder.append("<th><br/>");
-    stringBuilder.append(changesList.size() > 0 ? changesList.get(0).getDataType() : "");
+    stringBuilder.append(changesList.isEmpty() ? "" : changesList.get(0).getDataType());
     stringBuilder.append("</th>");
     stringBuilder.append("<th>");
     stringBuilder.append("<br/>PRIMARY<br/>KEY");
@@ -259,9 +255,7 @@ enum HtmlOutput implements Output {
       stringBuilder.append("At start point");
       stringBuilder.append("</td>");
       if (change.getRowAtStartPoint() == null) {
-        Iterator<String> iterator = change.getColumnsNameList().iterator();
-        while (iterator.hasNext()) {
-          iterator.next();
+        for (String s : change.getColumnsNameList()) {
           stringBuilder.append("<td>");
           stringBuilder.append("</td>");
         }
@@ -278,9 +272,7 @@ enum HtmlOutput implements Output {
       stringBuilder.append("At end point");
       stringBuilder.append("</td>");
       if (change.getRowAtEndPoint() == null) {
-        Iterator<String> iterator = change.getColumnsNameList().iterator();
-        while (iterator.hasNext()) {
-          iterator.next();
+        for (String s : change.getColumnsNameList()) {
           stringBuilder.append("<td>");
           stringBuilder.append("</td>");
         }
@@ -375,9 +367,7 @@ enum HtmlOutput implements Output {
     stringBuilder.append("At start point");
     stringBuilder.append("</td>");
     if (change.getRowAtStartPoint() == null) {
-      Iterator<String> iterator = change.getColumnsNameList().iterator();
-      while (iterator.hasNext()) {
-        iterator.next();
+      for (String s : change.getColumnsNameList()) {
         stringBuilder.append("<td>");
         stringBuilder.append("</td>");
       }
@@ -394,9 +384,7 @@ enum HtmlOutput implements Output {
     stringBuilder.append("At end point");
     stringBuilder.append("</td>");
     if (change.getRowAtEndPoint() == null) {
-      Iterator<String> iterator = change.getColumnsNameList().iterator();
-      while (iterator.hasNext()) {
-        iterator.next();
+      for (String s : change.getColumnsNameList()) {
         stringBuilder.append("<td>");
         stringBuilder.append("</td>");
       }
@@ -476,7 +464,7 @@ enum HtmlOutput implements Output {
   public String getColumnOutput(WritableAssertionInfo info, Column column) {
     String columnName = column.getName();
     List<Value> valuesList = column.getValuesList();
-    Value[] values = valuesList.toArray(new Value[valuesList.size()]);
+    Value[] values = valuesList.toArray(new Value[0]);
     String type = OutputType.getType(values);
 
     StringBuilder stringBuilder = new StringBuilder();
@@ -519,33 +507,30 @@ enum HtmlOutput implements Output {
     String typeAtEndPoint = OutputType.getType(valueAtEndPoint);
     String type = valueAtStartPoint.getValue() != null ? typeAtStartPoint : typeAtEndPoint;
 
-    StringBuilder stringBuilder = new StringBuilder();
-
-    stringBuilder.append("<table border=\"1\" cellspacing=\"0\">");
-    stringBuilder.append("<tr>");
-    stringBuilder.append("<th>");
-    stringBuilder.append("</th>");
-    stringBuilder.append("<th>");
-    stringBuilder.append(columnName);
-    stringBuilder.append("<br/>");
-    stringBuilder.append(type);
-    stringBuilder.append("</th>");
-    stringBuilder.append("</tr>");
-    stringBuilder.append("<tr>");
-    stringBuilder.append("<td>At start point</td>");
-    stringBuilder.append("<td>");
-    stringBuilder.append(OutputType.getText(valueAtStartPoint));
-    stringBuilder.append("</td>");
-    stringBuilder.append("</tr>");
-    stringBuilder.append("<tr>");
-    stringBuilder.append("<td>At end point</td>");
-    stringBuilder.append("<td>");
-    stringBuilder.append(OutputType.getText(valueAtEndPoint));
-    stringBuilder.append("</td>");
-    stringBuilder.append("</tr>");
-    stringBuilder.append("</table>");
-
-    return getHtml(info, stringBuilder.toString());
+    String stringBuilder = "<table border=\"1\" cellspacing=\"0\">"
+                           + "<tr>"
+                           + "<th>"
+                           + "</th>"
+                           + "<th>"
+                           + columnName
+                           + "<br/>"
+                           + type
+                           + "</th>"
+                           + "</tr>"
+                           + "<tr>"
+                           + "<td>At start point</td>"
+                           + "<td>"
+                           + OutputType.getText(valueAtStartPoint)
+                           + "</td>"
+                           + "</tr>"
+                           + "<tr>"
+                           + "<td>At end point</td>"
+                           + "<td>"
+                           + OutputType.getText(valueAtEndPoint)
+                           + "</td>"
+                           + "</tr>"
+                           + "</table>";
+    return getHtml(info, stringBuilder);
   }
 
   /**
@@ -556,23 +541,20 @@ enum HtmlOutput implements Output {
     String columnName = value.getColumnName();
     String type = OutputType.getType(value);
 
-    StringBuilder stringBuilder = new StringBuilder();
-
-    stringBuilder.append("<table border=\"1\" cellspacing=\"0\">");
-    stringBuilder.append("<tr>");
-    stringBuilder.append("<th>");
-    stringBuilder.append(columnName);
-    stringBuilder.append("<br/>");
-    stringBuilder.append(type);
-    stringBuilder.append("</th>");
-    stringBuilder.append("</tr>");
-    stringBuilder.append("<tr>");
-    stringBuilder.append("<td>");
-    stringBuilder.append(OutputType.getText(value));
-    stringBuilder.append("</td>");
-    stringBuilder.append("</tr>");
-    stringBuilder.append("</table>");
-
-    return getHtml(info, stringBuilder.toString());
+    String stringBuilder = "<table border=\"1\" cellspacing=\"0\">"
+                           + "<tr>"
+                           + "<th>"
+                           + columnName
+                           + "<br/>"
+                           + type
+                           + "</th>"
+                           + "</tr>"
+                           + "<tr>"
+                           + "<td>"
+                           + OutputType.getText(value)
+                           + "</td>"
+                           + "</tr>"
+                           + "</table>";
+    return getHtml(info, stringBuilder);
   }
 }

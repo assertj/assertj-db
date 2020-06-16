@@ -104,5 +104,5 @@ public enum CaseComparisons implements CaseComparison {
       }
       return value1.equals(value2);
     }
-  };
+  }
 }

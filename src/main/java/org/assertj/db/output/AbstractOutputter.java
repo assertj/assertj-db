@@ -68,6 +68,7 @@ public abstract class AbstractOutputter<E extends AbstractOutputter<E>>
    *
    * @return {@code this} output object.
    */
+  @SuppressWarnings("squid:S106")
   public E toConsole() {
     return toStream(System.out);
   }

@@ -237,7 +237,7 @@ public class Descriptions {
     StringBuilder stringBuilder = new StringBuilder("Change at index " + index);
     List<Value> pksValueList = change.getPksValueList();
     boolean isAChangeOnATableAmongOtherTables = changes.getTablesList() != null && changes.getTablesList().size() > 1;
-    boolean havePksValues = pksValueList.size() > 0;
+    boolean havePksValues = !pksValueList.isEmpty();
     if (isAChangeOnATableAmongOtherTables || havePksValues) {
       stringBuilder.append(" (");
       if (isAChangeOnATableAmongOtherTables) {

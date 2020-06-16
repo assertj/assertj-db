@@ -11,7 +11,7 @@
  * Copyright 2015-2020 the original author or authors.
  */
 /**
- * This package contains classes that allows to output the informations about table, request or changes.
+ * This package contains classes that allows to output the information about table, request or changes.
  * <p>Like for assertions, it is possible to navigate between the elements.</p>
  * <p>This diagram shows the part on the tables and requests (the navigation interfaces are in green and the interfaces used by the navigation are in orange) :</p>
  * <p>

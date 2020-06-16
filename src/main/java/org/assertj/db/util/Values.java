@@ -164,9 +164,7 @@ public class Values {
         }
       }
 
-      if (bi.compareTo((BigInteger) expected) == 0) {
-        return true;
-      }
+      return bi.compareTo((BigInteger) expected) == 0;
     }
     // If parameter is a BigDecimal,
     // change the value in BigDecimal to compare
@@ -183,9 +181,7 @@ public class Values {
         }
       }
 
-      if (bd.compareTo((BigDecimal) expected) == 0) {
-        return true;
-      }
+      return bd.compareTo((BigDecimal) expected) == 0;
     }
     // Otherwise
     // If the value is Float, Double, BigInteger or BigDecimal
@@ -225,17 +221,11 @@ public class Values {
 
       if (actualValue != null) {
         if (expected instanceof Float) {
-          if (actualValue == expected.floatValue()) {
-            return true;
-          }
+          return actualValue == expected.floatValue();
         } else if (expected instanceof Double) {
-          if (actualValue == expected.doubleValue()) {
-            return true;
-          }
+          return actualValue == expected.doubleValue();
         } else {
-          if (actualValue == expected.longValue()) {
-            return true;
-          }
+          return actualValue == expected.longValue();
         }
       }
     }
@@ -600,23 +590,11 @@ public class Values {
       if (object instanceof Float) {
         float f = (Float) object;
         float expectedF = expected.floatValue();
-        if (f > expectedF) {
-          return 1;
-        } else if (f < expectedF) {
-          return -1;
-        } else {
-          return 0;
-        }
+        return Float.compare(f, expectedF);
       } else if (object instanceof Double) {
         double d = (Double) object;
         double expectedD = expected.doubleValue();
-        if (d > expectedD) {
-          return 1;
-        } else if (d < expectedD) {
-          return -1;
-        } else {
-          return 0;
-        }
+        return Double.compare(d, expectedD);
       } else if (object instanceof BigInteger) {
         BigInteger bi = new BigInteger("" + expected);
         return ((BigInteger) object).compareTo(bi);
@@ -780,10 +758,7 @@ public class Values {
     BigInteger bigTolerance = new BigInteger("" + tolerance);
     BigInteger bigMin = expected.subtract(bigTolerance);
     BigInteger bigMax = expected.add(bigTolerance);
-    if (bi.compareTo(bigMin) >= 0 && bi.compareTo(bigMax) <= 0) {
-      return true;
-    }
-    return false;
+    return bi.compareTo(bigMin) >= 0 && bi.compareTo(bigMax) <= 0;
   }
 
   /**
@@ -807,14 +782,10 @@ public class Values {
       }
     }
 
-    BigDecimal bigExpected = (BigDecimal) expected;
     BigDecimal bigTolerance = new BigDecimal("" + tolerance);
-    BigDecimal bigMin = bigExpected.subtract(bigTolerance);
-    BigDecimal bigMax = bigExpected.add(bigTolerance);
-    if (bd.compareTo(bigMin) >= 0 && bd.compareTo(bigMax) <= 0) {
-      return true;
-    }
-    return false;
+    BigDecimal bigMin = expected.subtract(bigTolerance);
+    BigDecimal bigMax = expected.add(bigTolerance);
+    return bd.compareTo(bigMin) >= 0 && bd.compareTo(bigMax) <= 0;
   }
 
   /**
@@ -828,10 +799,7 @@ public class Values {
   private static boolean isFloatCloseToNumber(Float nb, Number expected, Number tolerance) {
     float fMin = expected.floatValue() - tolerance.floatValue();
     float fMax = expected.floatValue() + tolerance.floatValue();
-    if (nb >= fMin && nb <= fMax) {
-      return true;
-    }
-    return false;
+    return nb >= fMin && nb <= fMax;
   }
 
   /**
@@ -845,10 +813,7 @@ public class Values {
   private static boolean isDoubleCloseToNumber(Double nb, Number expected, Number tolerance) {
     double dMin = expected.doubleValue() - tolerance.doubleValue();
     double dMax = expected.doubleValue() + tolerance.doubleValue();
-    if (nb >= dMin && nb <= dMax) {
-      return true;
-    }
-    return false;
+    return nb >= dMin && nb <= dMax;
   }
 
   /**
@@ -864,10 +829,7 @@ public class Values {
     BigInteger bigTolerance = new BigInteger("" + tolerance);
     BigInteger bigMin = bigExpected.subtract(bigTolerance);
     BigInteger bigMax = bigExpected.add(bigTolerance);
-    if (nb.compareTo(bigMin) >= 0 && nb.compareTo(bigMax) <= 0) {
-      return true;
-    }
-    return false;
+    return nb.compareTo(bigMin) >= 0 && nb.compareTo(bigMax) <= 0;
   }
 
   /**
@@ -883,10 +845,7 @@ public class Values {
     BigDecimal bigTolerance = new BigDecimal("" + tolerance);
     BigDecimal bigMin = bigExpected.subtract(bigTolerance);
     BigDecimal bigMax = bigExpected.add(bigTolerance);
-    if (nb.compareTo(bigMin) >= 0 && nb.compareTo(bigMax) <= 0) {
-      return true;
-    }
-    return false;
+    return nb.compareTo(bigMin) >= 0 && nb.compareTo(bigMax) <= 0;
   }
 
   /**
@@ -918,25 +877,15 @@ public class Values {
    */
   private static boolean isLongCloseToFloat(Long nb, Float expected, Number tolerance) {
     if (tolerance instanceof Float) {
-      if (nb >= expected.floatValue() - tolerance.floatValue() &&
-          nb <= expected.floatValue() + tolerance.floatValue()) {
-
-        return true;
-      }
+      return nb >= expected - tolerance.floatValue() &&
+             nb <= expected + tolerance.floatValue();
     } else if (tolerance instanceof Double) {
-      if (nb >= expected.floatValue() - tolerance.doubleValue() &&
-          nb <= expected.floatValue() + tolerance.doubleValue()) {
-
-        return true;
-      }
+      return nb >= expected - tolerance.doubleValue() &&
+             nb <= expected + tolerance.doubleValue();
     } else {
-      if (nb >= expected.floatValue() - tolerance.longValue() &&
-          nb <= expected.floatValue() + tolerance.longValue()) {
-
-        return true;
-      }
+      return nb >= expected - tolerance.longValue() &&
+             nb <= expected + tolerance.longValue();
     }
-    return false;
   }
 
   /**
@@ -949,25 +898,15 @@ public class Values {
    */
   private static boolean isLongCloseToDouble(Long nb, Double expected, Number tolerance) {
     if (tolerance instanceof Float) {
-      if (nb >= expected.doubleValue() - tolerance.floatValue() &&
-          nb <= expected.doubleValue() + tolerance.floatValue()) {
-
-        return true;
-      }
+      return nb >= expected - tolerance.floatValue() &&
+             nb <= expected + tolerance.floatValue();
     } else if (tolerance instanceof Double) {
-      if (nb >= expected.doubleValue() - tolerance.doubleValue() &&
-          nb <= expected.doubleValue() + tolerance.doubleValue()) {
-
-        return true;
-      }
+      return nb >= expected - tolerance.doubleValue() &&
+             nb <= expected + tolerance.doubleValue();
     } else {
-      if (nb >= expected.doubleValue() - tolerance.longValue() &&
-          nb <= expected.doubleValue() + tolerance.longValue()) {
-
-        return true;
-      }
+      return nb >= expected - tolerance.longValue() &&
+             nb <= expected + tolerance.longValue();
     }
-    return false;
   }
 
   /**
@@ -980,25 +919,15 @@ public class Values {
    */
   private static boolean isLongCloseToNumber(Long nb, Number expected, Number tolerance) {
     if (tolerance instanceof Float) {
-      if (nb >= expected.longValue() - tolerance.floatValue() &&
-          nb <= expected.longValue() + tolerance.floatValue()) {
-
-        return true;
-      }
+      return nb >= expected.longValue() - tolerance.floatValue() &&
+             nb <= expected.longValue() + tolerance.floatValue();
     } else if (tolerance instanceof Double) {
-      if (nb >= expected.longValue() - tolerance.doubleValue() &&
-          nb <= expected.longValue() + tolerance.doubleValue()) {
-
-        return true;
-      }
+      return nb >= expected.longValue() - tolerance.doubleValue() &&
+             nb <= expected.longValue() + tolerance.doubleValue();
     } else {
-      if (nb >= expected.longValue() - tolerance.longValue() &&
-          nb <= expected.longValue() + tolerance.longValue()) {
-
-        return true;
-      }
+      return nb >= expected.longValue() - tolerance.longValue() &&
+             nb <= expected.longValue() + tolerance.longValue();
     }
-    return false;
   }
 
   /**

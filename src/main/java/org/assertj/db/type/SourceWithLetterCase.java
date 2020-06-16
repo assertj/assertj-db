@@ -16,7 +16,7 @@ import org.assertj.db.type.lettercase.LetterCase;
 import org.assertj.db.type.lettercase.WithLetterCase;
 
 /**
- * A source to indicates the informations to connect to the database with letter case.
+ * A source to indicates the information to connect to the database with letter case.
  *
  * @author Régis Pouiller
  * @since 1.1.0
@@ -37,7 +37,7 @@ public class SourceWithLetterCase extends Source implements WithLetterCase {
   private final LetterCase primaryKeyLetterCase;
 
   /**
-   * Constructor with the informations.
+   * Constructor with the information.
    *
    * @param url URL to the database.
    * @param user User to connect.

@@ -25,6 +25,7 @@ import java.util.Calendar;
  */
 public class DateValue implements Comparable<DateValue>, DateValueContainer {
 
+  public static final String DATE_SHOULD_BE_NOT_NULL = "date should be not null";
   /**
    * Day of the month.
    */
@@ -133,7 +134,7 @@ public class DateValue implements Comparable<DateValue>, DateValueContainer {
    */
   public DateValue(String date) throws ParseException {
     if (date == null) {
-      throw new NullPointerException("date should be not null");
+      throw new NullPointerException(DATE_SHOULD_BE_NOT_NULL);
     }
 
     if (date.matches(DATE_FORMAT)) {
@@ -153,7 +154,7 @@ public class DateValue implements Comparable<DateValue>, DateValueContainer {
    */
   public DateValue(Date date) {
     if (date == null) {
-      throw new NullPointerException("date should be not null");
+      throw new NullPointerException(DATE_SHOULD_BE_NOT_NULL);
     }
 
     Calendar calendar = Calendar.getInstance();
@@ -172,7 +173,7 @@ public class DateValue implements Comparable<DateValue>, DateValueContainer {
    */
   public DateValue(Calendar calendar) {
     if (calendar == null) {
-      throw new NullPointerException("date should be not null");
+      throw new NullPointerException(DATE_SHOULD_BE_NOT_NULL);
     }
 
     dayOfTheMonth = calendar.get(Calendar.DAY_OF_MONTH);
@@ -189,7 +190,7 @@ public class DateValue implements Comparable<DateValue>, DateValueContainer {
    */
   public DateValue(LocalDate localDate) {
     if (localDate == null) {
-      throw new NullPointerException("date should be not null");
+      throw new NullPointerException(DATE_SHOULD_BE_NOT_NULL);
     }
 
     dayOfTheMonth = localDate.getDayOfMonth();
@@ -290,7 +291,7 @@ public class DateValue implements Comparable<DateValue>, DateValueContainer {
    * @return If this date value is before the date value in parameter.
    */
   public boolean isBefore(DateValue date) {
-    return compareTo(date) == -1;
+    return compareTo(date) < 0;
   }
 
   /**
@@ -299,7 +300,7 @@ public class DateValue implements Comparable<DateValue>, DateValueContainer {
    * @return If this date value is after the date value in parameter.
    */
   public boolean isAfter(DateValue date) {
-    return compareTo(date) == 1;
+    return compareTo(date) > 0;
   }
 
   /**

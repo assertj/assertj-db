@@ -373,7 +373,7 @@ public class TimeValue implements Comparable<TimeValue> {
    * @return If this time value is before the time value in parameter.
    */
   public boolean isBefore(TimeValue time) {
-    return compareTo(time) == -1;
+    return compareTo(time) < 0;
   }
 
   /**
@@ -382,7 +382,7 @@ public class TimeValue implements Comparable<TimeValue> {
    * @return If this time value is after the time value in parameter.
    */
   public boolean isAfter(TimeValue time) {
-    return compareTo(time) == 1;
+    return compareTo(time) > 0;
   }
 
   /**

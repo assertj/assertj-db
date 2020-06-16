@@ -38,7 +38,7 @@ import static org.assertj.db.util.Proxies.unProxy;
  * @author Régis Pouiller
  * @since 1.1.0
  */
-public abstract class PositionWithColumnsChange<E extends AbstractElement & Navigation, N extends AbstractElement & Navigation> {
+public abstract class PositionWithColumnsChange<E extends AbstractElement<E> & Navigation, N extends AbstractElement<N> & Navigation> {
 
   /**
    * Actual value.

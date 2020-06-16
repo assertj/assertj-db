@@ -20,7 +20,6 @@ import org.assertj.db.util.RowComparator;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -32,9 +31,9 @@ import java.util.List;
  * and the list of the rows ({@link #getRowsList()}).
  * The first call to one of these methods triggers a loading from the database.
  * </p>
- * 
+ *
  * @author Régis Pouiller
- * 
+ *
  * @param <D> Class of the subclass (an implementation of {@link AbstractDbData}) : useful for the fluent methods
  *          (setters).
  */
@@ -63,7 +62,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
 
   /**
    * Default constructor.
-   * 
+   *
    * @param dataType The type of the data on which is the change.
    * @param selfType Class of this element : a sub-class of {@code AbstractDbData}.
    */
@@ -74,7 +73,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
 
   /**
    * Constructor with a {@link Source}.
-   * 
+   *
    * @param dataType The type of the data on which is the change.
    * @param selfType Class of this element : a sub-class of {@code AbstractDbData}.
    * @param source The {@link Source} to connect to the database (must be not {@code null}).
@@ -87,7 +86,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
 
   /**
    * Constructor with a {@link DataSource}.
-   * 
+   *
    * @param dataType The type of the data on which is the change.
    * @param selfType Class of this element : a sub-class of {@code AbstractDbData}.
    * @param dataSource The {@link DataSource} (must be not {@code null}).
@@ -100,7 +99,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
 
   /**
    * Returns the type of the data on which is the change.
-   * 
+   *
    * @return The type of the data on which is the change.
    */
   public DataType getDataType() {
@@ -109,7 +108,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
 
   /**
    * Returns the SQL request.
-   * 
+   *
    * @see Table#getRequest()
    * @see Request#getRequest()
    * @return The SQL request.
@@ -117,12 +116,12 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
   public abstract String getRequest();
 
   /**
-   * Loads the informations of the data from the database.
+   * Loads the information of the data from the database.
    * <p>
    * This method gets a {@link Connection} and calls {@link AbstractDbData#loadImpl(Connection)} for specific loading
    * depending of being a {@link Table} or a {@link Request}.
    * </p>
-   * 
+   *
    * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
    * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
    */
@@ -142,7 +141,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    * Sorts the list of rows.
    */
   protected void sortRows() {
-    Collections.sort(rowsList, RowComparator.INSTANCE);
+    rowsList.sort(RowComparator.INSTANCE);
   }
 
   /**
@@ -152,7 +151,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    * method but {@code loadImpl()} is abstract here and it is implemented in the sub-classes depending of the need of
    * the sub-class.
    * </p>
-   * 
+   *
    * @see Table#loadImpl(Connection)
    * @see Request#loadImpl(Connection)
    * @param connection {@link Connection} to the database provided by {@link #load()} method.
@@ -166,7 +165,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    * This method browse the {@link ResultSet} in parameter to get the data and fill the list of {@link Row} (
    * {@link #rowsList}) with these data.
    * </p>
-   * 
+   *
    * @param resultSet The {@link ResultSet}.
    * @throws SQLException A SQL Exception.
    */
@@ -187,25 +186,25 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
         Object object;
         int type = metaData.getColumnType(index);
         switch (type) {
-          case Types.DATE:
-            object = resultSet.getDate(columnName);
-            break;
-          case Types.TIME:
-            object = resultSet.getTime(columnName);
-            break;
-          case Types.TIMESTAMP:
-            object = resultSet.getTimestamp(columnName);
-            break;
-          case Types.BLOB:
-            object = resultSet.getBytes(columnName);
-            break;
-          case Types.CLOB:
-            object = resultSet.getString(columnName);
-            break;
+        case Types.DATE:
+          object = resultSet.getDate(columnName);
+          break;
+        case Types.TIME:
+          object = resultSet.getTime(columnName);
+          break;
+        case Types.TIMESTAMP:
+          object = resultSet.getTimestamp(columnName);
+          break;
+        case Types.BLOB:
+          object = resultSet.getBytes(columnName);
+          break;
+        case Types.CLOB:
+          object = resultSet.getString(columnName);
+          break;
 
-          default:
-            object = resultSet.getObject(columnName);
-            break;
+        default:
+          object = resultSet.getObject(columnName);
+          break;
         }
         valuesList.add(new Value(columnName, object, getColumnLetterCase()));
       }
@@ -219,7 +218,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    * If it is the first call to {@code getColumnsNameList()}, the data are loaded from database by calling the
    * {@link #load()} private method.
    * </p>
-   * 
+   *
    * @return The list of the columns name.
    * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
    * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
@@ -233,7 +232,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
 
   /**
    * Sets the list of the columns name.
-   * 
+   *
    * @param columnsNameList The list of the columns name.
    */
   protected void setColumnsNameList(List<String> columnsNameList) {
@@ -246,7 +245,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    * If it is the first call to {@code getIdsNameList()}, the data are loaded from database by calling the
    * {@link #load()} private method.
    * </p>
-   * 
+   *
    * @return The list of the primary key name.
    * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
    * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
@@ -266,10 +265,8 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
     if (pksNameList != null) {
       for (String pkName : pksNameList) {
         // If the list of columns name is not set, the presence of the column is not tested
-        if (columnsNameList != null) {
-          if (!NameComparator.INSTANCE.contains(columnsNameList, pkName, letterCase)) {
-            throw new AssertJDBException("Primary key %s do not exist in the columns %s", pkName, columnsNameList);
-          }
+        if (columnsNameList != null && !NameComparator.INSTANCE.contains(columnsNameList, pkName, letterCase)) {
+          throw new AssertJDBException("Primary key %s do not exist in the columns %s", pkName, columnsNameList);
         }
       }
     }
@@ -277,15 +274,13 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
 
   /**
    * Sets the list of the primary key name.
-   * 
+   *
    * @param pksNameList The list of the primary keys name.
    * @throws AssertJDBException If one the primary keys do not exist in the columns name, the exception is triggered.
    */
   protected void setPksNameList(List<String> pksNameList) {
     this.pksNameList = new ArrayList<>();
-    for (String pkName : pksNameList) {
-      this.pksNameList.add(pkName);
-    }
+    this.pksNameList.addAll(pksNameList);
     if (rowsList != null) {
       for (Row row : rowsList) {
         row.setPksNameList(this.pksNameList);
@@ -300,7 +295,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    * If it is the first call to {@code getRowsList()}, the data are loaded from database by calling the {@link #load()}
    * private method.
    * </p>
-   * 
+   *
    * @return The list of the values.
    * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
    * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
@@ -328,9 +323,9 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
   public List<Column> getColumnsList() {
     if (columnsList == null) {
       columnsList = new ArrayList<>();
-      List<String> columnsNameList = getColumnsNameList();
+      List<String> loadedColumnsNameList = getColumnsNameList();
       int index = 0;
-      for (String name : columnsNameList) {
+      for (String name : loadedColumnsNameList) {
         List<Value> valuesList = getValuesList(index);
         Column column = new Column(name, valuesList, getColumnLetterCase());
         columnsList.add(column);
@@ -348,7 +343,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    * If it is the first call to {@link #getColumnsNameList()} or {@link #getRowsList()}, the data are loaded from
    * database by calling the {@link #load()} private method.
    * </p>
-   * 
+   *
    * @param index The column index.
    * @return The column and the values
    * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
@@ -365,7 +360,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    * If it is the first call to {@link #getRowsList()}, the data are loaded from database by calling the {@link #load()}
    * private method.
    * </p>
-   * 
+   *
    * @param index The index
    * @return The {@link Row}
    * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
@@ -382,7 +377,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    * If it is the first call to {@link #getColumnsNameList()} or {@link #getRowsList()}, the data are loaded from
    * database by calling the {@link #load()} private method.
    * </p>
-   * 
+   *
    * @param index The column index
    * @return The values
    * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
@@ -399,7 +394,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
 
   /**
    * Returns the {@link Row} with the primary keys values in parameter.
-   * 
+   *
    * @param pksValues The primary keys values.
    * @return The {@link Row} with the same primary keys values.
    */

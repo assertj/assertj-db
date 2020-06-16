@@ -87,5 +87,5 @@ public enum CaseConversions implements CaseConversion {
     public String convert(String value) {
       return value;
     }
-  };
+  }
 }

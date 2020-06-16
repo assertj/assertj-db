@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * A request in the database to get values.
  * <p>
- * The different informations of the request are connection or data source, the SQL request and optionally the parameters
+ * The different information of the request are connection or data source, the SQL request and optionally the parameters
  * of the SQL request.
  * </p>
  * <p>
@@ -158,8 +158,7 @@ public class Request extends AbstractDbData<Request> {
    * @return {@code this} instance.
    */
   public Request setPksName(String... pksName) {
-    List<String> pksNameList = new ArrayList<>();
-    pksNameList.addAll(Arrays.asList(pksName));
+    List<String> pksNameList = new ArrayList<>(Arrays.asList(pksName));
     super.setPksNameList(pksNameList);
     return this;
   }
