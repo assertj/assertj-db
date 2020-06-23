@@ -185,6 +185,14 @@ public class Table extends AbstractDbData<Table> {
     }
 
     @Override
+    public int hashCode() {
+      int hash = 7;
+      hash = 31 * hash + (type == null ? 0 : type.hashCode());
+      hash = 31 * hash + (name == null ? 0 : name.hashCode());
+      return hash;
+    }
+
+    @Override
     public boolean equals(Object obj) {
       if (obj instanceof Order) {
         Order order = (Order) obj;

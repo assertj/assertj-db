@@ -575,7 +575,7 @@ public class DateValue_Test extends AbstractTest {
     assertThat(DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(0, -1, 0), TimeValue.of(0, 0)))).as("substract 1 month")
                         .isEqualTo(DateTimeValue.of(DateValue.of(2007, 11, 23)));
     assertThat(DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(0, -2, 0), TimeValue.of(0, 0)))).as("substract 2 months")
-                        .isEqualTo(DateValue.of(2007, 10, 23));
+                        .isEqualTo(DateTimeValue.of(DateValue.of(2007, 10, 23)));
 
     assertThat(DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(1, 0, 0), TimeValue.of(0, 0)))).as("add 1 year")
                         .isEqualTo(DateTimeValue.of(DateValue.of(2008, 12, 23)));

@@ -390,6 +390,10 @@ enum PlainOutput implements Output {
       }
     }
 
+    if (row0 == null) {
+      return columnSizesList;
+    }
+
     List<String> columnsNameList = row0.getColumnsNameList();
     int index = 0;
     for (String columnName : columnsNameList) {

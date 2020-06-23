@@ -15,16 +15,14 @@ package org.assertj.db.type;
 import org.assertj.db.common.AbstractTest;
 import org.junit.Test;
 
-import java.util.Arrays;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import static java.util.Collections.singletonList;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * Tests on the exceptions of Change
- * 
+ *
  * @author Régis Pouiller
- * 
+ *
  */
 public class Change_Exception_Test extends AbstractTest {
 
@@ -32,31 +30,29 @@ public class Change_Exception_Test extends AbstractTest {
    * This method should fail because the data type must be not null.
    */
   @Test
-  public void should_fail_because_datatype_must_be_not_null() {
-    try {
-      getChange(null, "name", ChangeType.CREATION, getRow(Arrays.asList(""), Arrays.asList(""), Arrays.asList(getValue(
-              null, null))),
-          getRow(Arrays.asList(""), Arrays.asList(""), Arrays.asList(getValue(null, null))));
+  public void should_fail_because_datatype_must_be_not_null() throws Exception {
 
-      fail("An exception must be raised");
-    } catch (Exception exception) {
-      assertThat(exception.getCause().getLocalizedMessage()).isEqualTo("The type of the data must be not null");
-    }
+    Row start = getRow(singletonList(""), singletonList(""), singletonList(getValue(null, null)));
+    Row end = getRow(singletonList(""), singletonList(""), singletonList(getValue(null, null)));
+
+    assertThatThrownBy(() -> getChange(null, "name", ChangeType.CREATION, start, end))
+        .isInstanceOf(Exception.class)
+        .getCause()
+        .hasMessage("The type of the data must be not null");
   }
 
   /**
    * This method should fail because the data name must be not null.
    */
   @Test
-  public void should_fail_because_dataname_must_be_not_null() {
-    try {
-      getChange(DataType.TABLE, null, ChangeType.CREATION, getRow(Arrays.asList(""), Arrays.asList(""), Arrays.asList(getValue(
-              null, null))),
-          getRow(Arrays.asList(""), Arrays.asList(""), Arrays.asList(getValue(null, null))));
+  public void should_fail_because_dataname_must_be_not_null() throws Exception {
 
-      fail("An exception must be raised");
-    } catch (Exception exception) {
-      assertThat(exception.getCause().getLocalizedMessage()).isEqualTo("The name of the data must be not null");
-    }
+    Row start = getRow(singletonList(""), singletonList(""), singletonList(getValue(null, null)));
+    Row end = getRow(singletonList(""), singletonList(""), singletonList(getValue(null, null)));
+
+    assertThatThrownBy(() -> getChange(DataType.TABLE, null, ChangeType.CREATION, start, end))
+        .isInstanceOf(Exception.class)
+        .getCause()
+        .hasMessage("The name of the data must be not null");
   }
 }
