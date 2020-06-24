@@ -90,13 +90,13 @@ public class SqliteDataBase_Test extends AbstractSqliteTest {
       {
         ResultSet resultSet = databaseMetaData.getPrimaryKeys(null, null, "teSt");
         assertThat(resultSet.next()).isTrue();
-        assertThat(resultSet.getString("COLUMN_NAME")).isEqualTo("var1");
+        assertThat(resultSet.getString("COLUMN_NAME")).isEqualTo("Var1");
         assertThat(resultSet.next()).isFalse();
       }
       {
         ResultSet resultSet = databaseMetaData.getPrimaryKeys(null, null, "test");
         assertThat(resultSet.next()).isTrue();
-        assertThat(resultSet.getString("COLUMN_NAME")).isEqualTo("var1");
+        assertThat(resultSet.getString("COLUMN_NAME")).isEqualTo("Var1");
         assertThat(resultSet.next()).isFalse();
       }
     }
@@ -109,13 +109,13 @@ public class SqliteDataBase_Test extends AbstractSqliteTest {
       {
         ResultSet resultSet = databaseMetaData.getPrimaryKeys(null, null, "teSt");
         assertThat(resultSet.next()).isTrue();
-        assertThat(resultSet.getString("COLUMN_NAME")).isEqualTo("var1");
+        assertThat(resultSet.getString("COLUMN_NAME")).isEqualTo("Var1");
         assertThat(resultSet.next()).isFalse();
       }
       {
         ResultSet resultSet = databaseMetaData.getPrimaryKeys(null, null, "test");
         assertThat(resultSet.next()).isTrue();
-        assertThat(resultSet.getString("COLUMN_NAME")).isEqualTo("var1");
+        assertThat(resultSet.getString("COLUMN_NAME")).isEqualTo("Var1");
         assertThat(resultSet.next()).isFalse();
       }
     }
