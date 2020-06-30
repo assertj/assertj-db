@@ -24,6 +24,9 @@ import java.math.BigInteger;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -254,6 +257,8 @@ public class Values_AreEqual_Value_And_Object_Test extends AbstractTest {
     assertThat(Values.areEqual(getValue(null, Date.valueOf("2007-12-23")), (Object) "2007-12-23T00:00")).isTrue();
     assertThat(Values.areEqual(getValue(null, Date.valueOf("2007-12-23")), (Object) "2007-12-23T00:00:00")).isTrue();
     assertThat(Values.areEqual(getValue(null, Date.valueOf("2007-12-23")), (Object) "2007-12-23T00:00:00.000000000")).isTrue();
+    assertThat(Values.areEqual(getValue(null, Date.valueOf("2007-12-23")), Date.valueOf("2007-12-23"))).isTrue();
+    assertThat(Values.areEqual(getValue(null, Date.valueOf("2007-12-23")), LocalDate.of(2007, 12, 23))).isTrue();
   }
 
   /**
@@ -287,6 +292,8 @@ public class Values_AreEqual_Value_And_Object_Test extends AbstractTest {
     assertThat(Values.areEqual(getValue(null, Time.valueOf("09:01:06")), (Object) null)).isFalse();
     assertThat(Values.areEqual(getValue(null, Time.valueOf("09:01:06")), (Object) "09:01:06")).isTrue();
     assertThat(Values.areEqual(getValue(null, Time.valueOf("09:01:06")), (Object) "09:01:06.000000000")).isTrue();
+    assertThat(Values.areEqual(getValue(null, Time.valueOf("09:01:06")), Time.valueOf("09:01:06"))).isTrue();
+    assertThat(Values.areEqual(getValue(null, Time.valueOf("09:01:06")), LocalTime.of(9, 1, 6))).isTrue();
   }
 
   /**
@@ -294,18 +301,19 @@ public class Values_AreEqual_Value_And_Object_Test extends AbstractTest {
    */
   @Test
   public void test_are_equal_for_timestamps() throws Exception {
-    assertThat(
-            Values.areEqual(getValue(null, Timestamp.valueOf("2007-12-23 09:01:06.000000003")),
-                            (Object) DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)))).isTrue();
-    assertThat(
-            Values.areEqual(getValue(null, Timestamp.valueOf("2007-12-23 09:01:06.000000003")),
-                            (Object) DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 5, 3)))).isFalse();
-    assertThat(Values.areEqual(getValue(null, ""), (Object) DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3))))
-            .isFalse();
+    assertThat(Values.areEqual(getValue(null, Timestamp.valueOf("2007-12-23 09:01:06.000000003")),
+            (Object) DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)))).isTrue();
+    assertThat(Values.areEqual(getValue(null, Timestamp.valueOf("2007-12-23 09:01:06.000000003")),
+            (Object) DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 5, 3)))).isFalse();
+    assertThat(Values.areEqual(getValue(null, ""), (Object) DateTimeValue.of(DateValue.of(2007, 12, 23),
+            TimeValue.of(9, 1, 6, 3)))).isFalse();
     assertThat(Values.areEqual(getValue(null, Timestamp.valueOf("2007-12-23 09:01:06.000000003")), (Object) null)).isFalse();
-    assertThat(
-            Values.areEqual(getValue(null, Timestamp.valueOf("2007-12-23 09:01:06.000000003")),
-                            (Object) "2007-12-23T09:01:06.000000003")).isTrue();
+    assertThat(Values.areEqual(getValue(null, Timestamp.valueOf("2007-12-23 09:01:06.000000003")),
+            (Object) "2007-12-23T09:01:06.000000003")).isTrue();
+    assertThat(Values.areEqual(getValue(null, Timestamp.valueOf("2007-12-23 09:01:06.000000003")),
+            Timestamp.valueOf("2007-12-23 09:01:06.000000003"))).isTrue();
+    assertThat(Values.areEqual(getValue(null, Timestamp.valueOf("2007-12-23 09:01:06.000000003")),
+            LocalDateTime.of(2007, 12, 23, 9, 1, 6, 3))).isTrue();
   }
 
   /**
