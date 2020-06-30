@@ -21,6 +21,9 @@ import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.UUID;
 
 /**
@@ -86,6 +89,8 @@ public class Values {
         return areEqual(value, (String) expected);
       } else if (expected instanceof Date) {
         return areEqual(value, DateValue.from((Date) expected));
+      } else if (expected instanceof LocalDate) {
+        return areEqual(value, DateValue.from((LocalDate) expected));
       }
     }
     else if (valueType == ValueType.TIME) {
@@ -95,6 +100,8 @@ public class Values {
         return areEqual(value, (String) expected);
       } else if (expected instanceof Time) {
         return areEqual(value, TimeValue.from((Time) expected));
+      } else if (expected instanceof LocalTime) {
+        return areEqual(value, TimeValue.from((LocalTime) expected));
       }
     }
     else if (valueType == ValueType.DATE_TIME) {
@@ -106,6 +113,8 @@ public class Values {
         return areEqual(value, (String) expected);
       } else if (expected instanceof Timestamp) {
         return areEqual(value, DateTimeValue.from((Timestamp) expected));
+      } else if (expected instanceof LocalDateTime) {
+        return areEqual(value, DateTimeValue.from((LocalDateTime) expected));
       }
     }
     else {
