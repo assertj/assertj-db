@@ -3,7 +3,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>assertj-db</artifactId>
-    <version>2.0.0.RC1</version>
+    <version>2.0.0.RC2</version>
     <packaging>jar</packaging>
     <name>AssertJ-DB - Assertions for database</name>
     <description>AssertJ-DB - Rich and fluent assertions for testing with database</description>
@@ -17,7 +17,7 @@
         <developerConnection>scm:git:ssh://git@github.com/assertj/assertj-db.git</developerConnection>
         <connection>scm:git:ssh://git@github.com/assertj/assertj-db.git</connection>
         <url>git@github.com:assertj/assertj-db</url>
-        <tag>assertj-db-2.0.0.RC1</tag>
+        <tag>assertj-db-2.0.0.RC2</tag>
     </scm>
 
     <issueManagement>
