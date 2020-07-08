@@ -115,6 +115,8 @@ public class Values {
         return areEqual(value, DateTimeValue.from((Timestamp) expected));
       } else if (expected instanceof LocalDateTime) {
         return areEqual(value, DateTimeValue.from((LocalDateTime) expected));
+      } else if (expected instanceof LocalDate) {
+        return areEqual(value, DateValue.from((LocalDate) expected));
       }
     }
     else {

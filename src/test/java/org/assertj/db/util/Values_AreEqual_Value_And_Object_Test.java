@@ -268,7 +268,11 @@ public class Values_AreEqual_Value_And_Object_Test extends AbstractTest {
   public void test_are_equal_for_timestamp_and_dates() throws Exception {
     assertThat(Values.areEqual(getValue(null, Timestamp.valueOf("2007-12-23 00:00:00.000000000")), (Object) DateValue.of(2007, 12, 23)))
             .isTrue();
+    assertThat(Values.areEqual(getValue(null, Timestamp.valueOf("2007-12-23 00:00:00.000000000")), LocalDate.of(2007, 12, 23)))
+            .isTrue();
     assertThat(Values.areEqual(getValue(null, Timestamp.valueOf("2007-12-23 00:00:00.000000000")), (Object) DateValue.of(2007, 1, 2)))
+            .isFalse();
+    assertThat(Values.areEqual(getValue(null, Timestamp.valueOf("2007-12-23 00:00:00.000000000")), LocalDate.of(2007, 1, 2)))
             .isFalse();
     assertThat(Values.areEqual(getValue(null, ""), (Object) DateValue.of(2007, 12, 23))).isFalse();
     assertThat(Values.areEqual(getValue(null, Timestamp.valueOf("2007-12-23 00:00:00.000000000")), (Object) null)).isFalse();
