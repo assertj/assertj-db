@@ -331,6 +331,24 @@ public abstract class AbstractAssertWithValues<E extends AbstractAssertWithValue
 
   /** {@inheritDoc} */
   @Override
+  public E isBefore(LocalDate date) {
+    return isBefore(DateValue.from(date));
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E isBefore(LocalTime time) {
+    return isBefore(TimeValue.from(time));
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E isBefore(LocalDateTime dateTime) {
+    return isBefore(DateTimeValue.from(dateTime));
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public E isBefore(String expected) {
     return AssertionsOnValueChronology.isBefore(myself, info, value, expected);
   }
@@ -351,6 +369,24 @@ public abstract class AbstractAssertWithValues<E extends AbstractAssertWithValue
   @Override
   public E isBeforeOrEqualTo(DateTimeValue dateTime) {
     return AssertionsOnValueChronology.isBeforeOrEqualTo(myself, info, value, dateTime);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E isBeforeOrEqualTo(LocalDate date) {
+    return isBeforeOrEqualTo(DateValue.from(date));
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E isBeforeOrEqualTo(LocalTime time) {
+    return isBeforeOrEqualTo(TimeValue.from(time));
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E isBeforeOrEqualTo(LocalDateTime dateTime) {
+    return isBeforeOrEqualTo(DateTimeValue.from(dateTime));
   }
 
   /** {@inheritDoc} */
@@ -379,6 +415,24 @@ public abstract class AbstractAssertWithValues<E extends AbstractAssertWithValue
 
   /** {@inheritDoc} */
   @Override
+  public E isAfter(LocalDate date) {
+    return isAfter(DateValue.from(date));
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E isAfter(LocalTime time) {
+    return isAfter(TimeValue.from(time));
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E isAfter(LocalDateTime dateTime) {
+    return isAfter(DateTimeValue.from(dateTime));
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public E isAfter(String expected) {
     return AssertionsOnValueChronology.isAfter(myself, info, value, expected);
   }
@@ -399,6 +453,24 @@ public abstract class AbstractAssertWithValues<E extends AbstractAssertWithValue
   @Override
   public E isAfterOrEqualTo(DateTimeValue dateTime) {
     return AssertionsOnValueChronology.isAfterOrEqualTo(myself, info, value, dateTime);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E isAfterOrEqualTo(LocalDate date) {
+    return isAfterOrEqualTo(DateValue.from(date));
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E isAfterOrEqualTo(LocalTime time) {
+    return isAfterOrEqualTo(TimeValue.from(time));
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E isAfterOrEqualTo(LocalDateTime dateTime) {
+    return isAfterOrEqualTo(DateTimeValue.from(dateTime));
   }
 
   /** {@inheritDoc} */
