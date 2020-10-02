@@ -16,6 +16,9 @@ import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.UUID;
 
 /**
@@ -400,6 +403,99 @@ public interface AssertOnValueEquality<T extends AssertOnValueEquality<T>> {
    * @see org.assertj.db.api.AbstractAssertWithValues#isEqualTo(DateTimeValue)
    */
   T isEqualTo(DateTimeValue expected);
+
+  /**
+   * Verifies that the value is equal to a date value.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is equal to a date value :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isEqualTo(LocalDate.of(2014, 7, 7));
+   * </code>
+   * </pre>
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
+   * of the first {@code Change} is equal to a date value :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change().rowAtEndPoint().value().isEqualTo(LocalDate.of(2014, 7, 7));
+   * </code>
+   * </pre>
+   *
+   * @param expected The expected date value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the date value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isEqualTo(LocalDate)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isEqualTo(LocalDate)
+   */
+  T isEqualTo(LocalDate expected);
+
+  /**
+   * Verifies that the value is equal to a time value.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is equal to a time value :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isEqualTo(LocalTime.of(21, 29, 30));
+   * </code>
+   * </pre>
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
+   * of the first {@code Change} is equal to a time value :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change().rowAtEndPoint().value().isEqualTo(LocalTime.of(21, 29, 30));
+   * </code>
+   * </pre>
+   *
+   * @param expected The expected time value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isEqualTo(LocalTime)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isEqualTo(LocalTime)
+   */
+  T isEqualTo(LocalTime expected);
+
+  /**
+   * Verifies that the value is equal to a date/time value.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is equal to a date/time value :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isEqualTo(LocalDateTime.of(2014, 7, 7, 21, 29));
+   * </code>
+   * </pre>
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
+   * of the first {@code Change} is equal to a date/time value :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change().rowAtEndPoint().value().isEqualTo(LocalDateTime.of(2014, 7, 7, 21, 29));
+   * </code>
+   * </pre>
+   *
+   * @param expected The expected date/time value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the date/time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isEqualTo(LocalDateTime)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isEqualTo(LocalDateTime)
+   */
+  T isEqualTo(LocalDateTime expected);
 
   /**
    * Verifies that the value is equal to zero.
