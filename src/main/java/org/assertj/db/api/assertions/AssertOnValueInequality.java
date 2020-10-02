@@ -16,6 +16,9 @@ import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.UUID;
 
 /**
@@ -342,6 +345,99 @@ public interface AssertOnValueInequality<T extends AssertOnValueInequality<T>> {
    * @see org.assertj.db.api.AbstractAssertWithValues#isNotEqualTo(TimeValue)
    */
   T isNotEqualTo(TimeValue expected);
+
+  /**
+   * Verifies that the value is not equal to a date value.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is not equal to a date value :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isNotEqualTo(LocalDate.of(2014, 7, 7));
+   * </code>
+   * </pre>
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
+   * of the first {@code Change} is not equal to a date value :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change().rowAtEndPoint().value().isNotEqualTo(LocalDate.of(2014, 7, 7));
+   * </code>
+   * </pre>
+   *
+   * @param expected The expected date value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is equal to the date value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isNotEqualTo(LocalDate)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isNotEqualTo(LocalDate)
+   */
+  T isNotEqualTo(LocalDate expected);
+
+  /**
+   * Verifies that the value is not equal to a time value.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is not equal to a time value :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isNotEqualTo(LocalTime.of(21, 29, 30));
+   * </code>
+   * </pre>
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
+   * of the first {@code Change} is not equal to a time value :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change().rowAtEndPoint().value().isNotEqualTo(LocalTime.of(21, 29, 30));
+   * </code>
+   * </pre>
+   *
+   * @param expected The expected time value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is equal to the time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isNotEqualTo(LocalTime)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isNotEqualTo(LocalTime)
+   */
+  T isNotEqualTo(LocalTime expected);
+
+  /**
+   * Verifies that the value is not equal to a date/time value.
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the first {@code Row} of the
+   * {@code Table} is not equal to a date/time value :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(table).row().value().isNotEqualTo(LocalDateTime.of(2014, 7, 7, 21, 29));
+   * </code>
+   * </pre>
+   * <p>
+   * Example where the assertion verifies that the value in the first {@code Column} of the {@code Row} at end point
+   * of the first {@code Change} is not equal to a date/time value :
+   * </p>
+   *
+   * <pre>
+   * <code class='java'>
+   * assertThat(changes).change().rowAtEndPoint().value().isNotEqualTo(LocalDateTime.of(2014, 7, 7, 21, 29));
+   * </code>
+   * </pre>
+   *
+   * @param expected The expected date/time value.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is equal to the date/time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isNotEqualTo(LocalDateTime)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isNotEqualTo(LocalDateTime)
+   */
+  T isNotEqualTo(LocalDateTime expected);
 
   /**
    * Verifies that the value is not equal to zero.

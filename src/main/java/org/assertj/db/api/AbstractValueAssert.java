@@ -313,6 +313,24 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
 
   /** {@inheritDoc} */
   @Override
+  public V isNotEqualTo(LocalDate expected) {
+    return isNotEqualTo(DateValue.from(expected));
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public V isNotEqualTo(LocalTime expected) {
+    return isNotEqualTo(TimeValue.from(expected));
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public V isNotEqualTo(LocalDateTime expected) {
+    return isNotEqualTo(DateTimeValue.from(expected));
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public V isBefore(DateValue date) {
     return AssertionsOnValueChronology.isBefore(myself, info, value, date);
   }
