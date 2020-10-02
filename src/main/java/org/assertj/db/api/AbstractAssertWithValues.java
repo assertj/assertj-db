@@ -19,6 +19,9 @@ import org.assertj.db.navigation.element.ValueElement;
 import org.assertj.db.navigation.origin.OriginWithColumnsAndRowsFromChange;
 import org.assertj.db.type.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.UUID;
 
 /**
@@ -210,6 +213,24 @@ public abstract class AbstractAssertWithValues<E extends AbstractAssertWithValue
   @Override
   public E isEqualTo(DateTimeValue expected) {
     return AssertionsOnValueEquality.isEqualTo(myself, info, value, expected);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E isEqualTo(LocalDate expected) {
+    return isEqualTo(DateValue.from(expected));
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E isEqualTo(LocalTime expected) {
+    return isEqualTo(TimeValue.from(expected));
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E isEqualTo(LocalDateTime expected) {
+    return isEqualTo(DateTimeValue.from(expected));
   }
 
   /** {@inheritDoc} */
