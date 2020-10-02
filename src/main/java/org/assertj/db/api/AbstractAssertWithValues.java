@@ -295,6 +295,24 @@ public abstract class AbstractAssertWithValues<E extends AbstractAssertWithValue
 
   /** {@inheritDoc} */
   @Override
+  public E isNotEqualTo(LocalDate expected) {
+    return isNotEqualTo(DateValue.from(expected));
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E isNotEqualTo(LocalTime expected) {
+    return isNotEqualTo(TimeValue.from(expected));
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public E isNotEqualTo(LocalDateTime expected) {
+    return isNotEqualTo(DateTimeValue.from(expected));
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public E isBefore(DateValue date) {
     return AssertionsOnValueChronology.isBefore(myself, info, value, date);
   }
