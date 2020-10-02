@@ -349,6 +349,24 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
 
   /** {@inheritDoc} */
   @Override
+  public V isBefore(LocalDate date) {
+    return isBefore(DateValue.from(date));
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public V isBefore(LocalTime time) {
+    return isBefore(TimeValue.from(time));
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public V isBefore(LocalDateTime dateTime) {
+    return isBefore(DateTimeValue.from(dateTime));
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public V isBefore(String expected) {
     return AssertionsOnValueChronology.isBefore(myself, info, value, expected);
   }
@@ -369,6 +387,24 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
   @Override
   public V isBeforeOrEqualTo(DateTimeValue dateTime) {
     return AssertionsOnValueChronology.isBeforeOrEqualTo(myself, info, value, dateTime);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public V isBeforeOrEqualTo(LocalDate date) {
+    return isBeforeOrEqualTo(DateValue.from(date));
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public V isBeforeOrEqualTo(LocalTime time) {
+    return isBeforeOrEqualTo(TimeValue.from(time));
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public V isBeforeOrEqualTo(LocalDateTime dateTime) {
+    return isBeforeOrEqualTo(DateTimeValue.from(dateTime));
   }
 
   /** {@inheritDoc} */
@@ -397,6 +433,24 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
 
   /** {@inheritDoc} */
   @Override
+  public V isAfter(LocalDate date) {
+    return isAfter(DateValue.from(date));
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public V isAfter(LocalTime time) {
+    return isAfter(TimeValue.from(time));
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public V isAfter(LocalDateTime dateTime) {
+    return isAfter(DateTimeValue.from(dateTime));
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public V isAfter(String expected) {
     return AssertionsOnValueChronology.isAfter(myself, info, value, expected);
   }
@@ -417,6 +471,24 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
   @Override
   public V isAfterOrEqualTo(DateTimeValue dateTime) {
     return AssertionsOnValueChronology.isAfterOrEqualTo(myself, info, value, dateTime);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public V isAfterOrEqualTo(LocalDate date) {
+    return isAfterOrEqualTo(DateValue.from(date));
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public V isAfterOrEqualTo(LocalTime time) {
+    return isAfterOrEqualTo(TimeValue.from(time));
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public V isAfterOrEqualTo(LocalDateTime dateTime) {
+    return isAfterOrEqualTo(DateTimeValue.from(dateTime));
   }
 
   /** {@inheritDoc} */
