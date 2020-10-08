@@ -66,15 +66,15 @@ public class AssertOnColumnContent_HasValues_TimeValue_Test extends AbstractTest
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 7 (column name : VAR8) of TEST table] %n"
                                                                     + "Expecting:%n"
-                                                                    + "  <[09:46:30.000000000,%n"
-                                                                    + "    12:29:49.000000000,%n"
-                                                                    + "    12:29:49.000000000,%n"
-                                                                    + "    12:29:49.000000000]>%n"
+                                                                    + "  <[09:46:30.000000000, "
+                                                                    + "12:29:49.000000000, "
+                                                                    + "12:29:49.000000000, "
+                                                                    + "12:29:49.000000000]>%n"
                                                                     + "to contain: %n"
-                                                                    + "  <[12:29:49.000000000,%n"
-                                                                    + "    12:29:49.000000000,%n"
-                                                                    + "    12:29:49.000000000,%n"
-                                                                    + "    12:29:49.000000000]>%n"
+                                                                    + "  <[12:29:49.000000000, "
+                                                                    + "12:29:49.000000000, "
+                                                                    + "12:29:49.000000000, "
+                                                                    + "12:29:49.000000000]>%n"
                                                                     + " (parameter <12:29:49.000000000> at index 3 is not found)"));
     }
     Table table2 = new Table(source, "test2");
