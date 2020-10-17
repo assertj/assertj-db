@@ -104,6 +104,7 @@ public class SoftAssertions_Test extends AbstractTest {
     final SoftAssertions softly = new SoftAssertions();
     softly.assertThat(changes).change().column("var1").hasValues(0);
     softly.assertThat(changes).change().rowAtStartPoint().changeOfModification().column("var1").hasValues(0);
+    softly.assertThat(changes).ofCreationOnTable("test").hasNumberOfChanges(1);
 
     assertThat(softly.wasSuccess()).isFalse();
     assertThat(softly.errorsCollected()).hasSize(2);
