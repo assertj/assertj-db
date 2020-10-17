@@ -125,7 +125,7 @@ public abstract class PositionWithChanges<E extends AbstractElement<E> & Navigat
     }
 
     try {
-      Class clazz = Class.forName(myself.getClass().getName().replaceAll("\\$\\$.*", ""));
+      Class clazz = Class.forName(myself.getClass().getName().replaceAll("\\$.*", ""));
       Constructor<E> constructor = actualElementClass.getDeclaredConstructor(clazz, Changes.class);
       instance = constructor.newInstance(myself, nextChanges);
       instance.as(getChangesDescription(changeType, tableName));
