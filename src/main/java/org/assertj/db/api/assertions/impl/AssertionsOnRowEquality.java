@@ -65,13 +65,13 @@ public class AssertionsOnRowEquality {
       if (!value.isComparisonPossible(object)) {
         throw failures.failure(info, shouldBeCompatible(value, object));
       }
-      if (!areEqual(value, expected[index])) {
+      if (!areEqual(value, object)) {
         if (value.getValueType() == ValueType.BYTES) {
           throw failures.failure(info, shouldBeEqual(index));
         } else {
           throw failures.failure(info, shouldBeEqual(index, Values.getRepresentationFromValueInFrontOfExpected(value,
-                                                                                                               expected[index]),
-                                                     expected[index]));
+                                                                                                               object),
+                                                     object));
         }
       }
       index++;

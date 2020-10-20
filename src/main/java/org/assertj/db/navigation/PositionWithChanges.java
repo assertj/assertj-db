@@ -125,7 +125,7 @@ public abstract class PositionWithChanges<E extends AbstractElement<E> & Navigat
     }
 
     try {
-      Class clazz = unProxy(myself.getClass());
+      Class<?> clazz = unProxy(myself.getClass());
       Constructor<E> constructor = actualElementClass.getDeclaredConstructor(clazz, Changes.class);
       instance = constructor.newInstance(myself, nextChanges);
       instance.as(getChangesDescription(changeType, tableName));
