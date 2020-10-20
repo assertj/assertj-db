@@ -447,10 +447,10 @@ public class AssertOnColumnContent_ContainsValues_String_Test extends AbstractTe
       Assertions.assertThat(e.getMessage())
                 .isEqualTo(String.format("[Column at index 7 (column name : VAR8) of TEST table] %n"
                                          + "Expecting:%n"
-                                         + "  <[09:46:30.000000000,%n"
-                                         + "    12:29:49.000000000,%n"
-                                         + "    12:29:49.000000000,%n"
-                                         + "    12:29:49.000000000]>%n"
+                                         + "  <[09:46:30.000000000, "
+                                         + "12:29:49.000000000, "
+                                         + "12:29:49.000000000, "
+                                         + "12:29:49.000000000]>%n"
                                          + "to contain: %n"
                                          + "  <[\"12:29:49\", \"12:29:49\", \"12:29:49\", \"12:29:49\"]>%n"
                                          + " (parameter <\"12:29:49\"> at index 3 is not found)"));
@@ -550,8 +550,8 @@ public class AssertOnColumnContent_ContainsValues_String_Test extends AbstractTe
                                          + "Expecting:%n"
                                          + "  <[30b443ae-c0c9-4790-9bec-ce1380808435, null]>%n"
                                          + "to contain: %n"
-                                         + "  <[\"30B443AE-C0C9-4790-9BEC-CE1380808435\",%n"
-                                         + "    \"30B443AE-C0C9-4790-9BEC-CE1380808435\"]>%n"
+                                         + "  <[\"30B443AE-C0C9-4790-9BEC-CE1380808435\", "
+                                         + "\"30B443AE-C0C9-4790-9BEC-CE1380808435\"]>%n"
                                          + " (parameter <\"30B443AE-C0C9-4790-9BEC-CE1380808435\"> at index 1 is not found)"));
     }
 
@@ -566,8 +566,8 @@ public class AssertOnColumnContent_ContainsValues_String_Test extends AbstractTe
                                          + "Expecting:%n"
                                          + "  <[30b443ae-c0c9-4790-9bec-ce1380808435, null]>%n"
                                          + "to contain: %n"
-                                         + "  <[\"88838129-291E-40A9-A94C-A15BE36CF7C3\",%n"
-                                         + "    \"30B443AE-C0C9-4790-9BEC-CE1380808435\"]>%n"
+                                         + "  <[\"88838129-291E-40A9-A94C-A15BE36CF7C3\", "
+                                         + "\"30B443AE-C0C9-4790-9BEC-CE1380808435\"]>%n"
                                          + " (parameter <\"88838129-291E-40A9-A94C-A15BE36CF7C3\"> at index 0 is not found)"));
     }
   }
