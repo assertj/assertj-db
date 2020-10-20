@@ -12,6 +12,7 @@
  */
 package org.assertj.db.type;
 
+import org.assertj.core.api.Condition;
 import org.assertj.db.type.lettercase.LetterCase;
 import org.assertj.db.type.lettercase.WithColumnLetterCase;
 
@@ -174,6 +175,9 @@ public class Value implements DbElement, WithColumnLetterCase {
    * @return {@code true} is comparison is possible.
    */
   public boolean isComparisonPossible(Object object) {
+    if (object instanceof Condition) {
+      return true;
+    }
     if (valueType == ValueType.BYTES) {
       return (object instanceof byte[]);
     }

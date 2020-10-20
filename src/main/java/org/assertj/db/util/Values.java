@@ -12,6 +12,7 @@
  */
 package org.assertj.db.util;
 
+import org.assertj.core.api.Condition;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.*;
 
@@ -127,6 +128,10 @@ public class Values {
       if (object != null) {
         return object.equals(expected);
       }
+    }
+    if (expected instanceof Condition) {
+      Condition<Object> condition = (Condition<Object>) expected;
+      return condition.matches(value.getValue());
     }
 
     return false;
