@@ -80,8 +80,8 @@ public class AssertOnValueCondition_DoesNotHave_Test extends AbstractTest {
           "[Value at end point of Column at index 2 (column name : VAR3) of Change at index 0 (with primary key : [1000]) of "
           + "Changes on TEST table of 'sa/jdbc:h2:mem:test' source] %n"
           + "Expecting:%n"
-          + " <0>%n"
-          + "not to be <isZero>"));
+          + "  0%n"
+          + "not to be  isZero"));
     }
     try {
       assertThat(table).column("var3").value(3).doesNotHave(zero);
@@ -90,8 +90,8 @@ public class AssertOnValueCondition_DoesNotHave_Test extends AbstractTest {
       Assertions.assertThat(e.getMessage())
                 .isEqualTo(String.format("[Value at index 3 of Column at index 2 (column name : VAR3) of TEST table] %n"
                                          + "Expecting:%n"
-                                         + " <0>%n"
-                                         + "not to be <isZero>"));
+                                         + "  0%n"
+                                         + "not to be  isZero"));
     }
   }
 }

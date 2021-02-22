@@ -66,8 +66,8 @@ public class AssertionsOnValueCondition_Is_Test extends AbstractTest {
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
                                                       + "Expecting:%n"
-                                                      + " <1>%n"
-                                                      + "to be <isZero>"));
+                                                      + "  1%n"
+                                                      + "to be isZero"));
     }
   }
 }
