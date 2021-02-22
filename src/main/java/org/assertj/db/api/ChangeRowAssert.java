@@ -13,9 +13,11 @@
 package org.assertj.db.api;
 
 import org.assertj.db.api.assertions.AssertOnNumberOfColumns;
+import org.assertj.db.api.assertions.AssertOnRowCondition;
 import org.assertj.db.api.assertions.AssertOnRowEquality;
 import org.assertj.db.api.assertions.AssertOnRowOfChangeExistence;
 import org.assertj.db.api.assertions.impl.AssertionsOnNumberOfColumns;
+import org.assertj.db.api.assertions.impl.AssertionsOnRowCondition;
 import org.assertj.db.api.assertions.impl.AssertionsOnRowEquality;
 import org.assertj.db.api.assertions.impl.AssertionsOnRowOfChangeExistence;
 import org.assertj.db.exception.AssertJDBException;
@@ -33,6 +35,7 @@ import static org.assertj.db.util.Descriptions.getRowValueDescription;
  * Assertion methods for a {@code Row} of a {@code Change}.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class ChangeRowAssert
         extends AbstractAssertWithOriginWithColumnsAndRowsFromChange<ChangeRowAssert, ChangeAssert>
@@ -40,7 +43,8 @@ public class ChangeRowAssert
                    OriginWithValuesFromRow<ChangesAssert, ChangeAssert, ChangeColumnAssert, ChangeRowAssert, ChangeRowValueAssert>,
                    AssertOnRowEquality<ChangeRowAssert>,
                    AssertOnNumberOfColumns<ChangeRowAssert>,
-                   AssertOnRowOfChangeExistence<ChangeRowAssert> {
+                   AssertOnRowOfChangeExistence<ChangeRowAssert>,
+                   AssertOnRowCondition<ChangeRowAssert> {
 
   /**
    * Position of navigation to value.
@@ -161,6 +165,13 @@ public class ChangeRowAssert
   @Override
   public ChangeRowAssert doesNotExist() {
     return AssertionsOnRowOfChangeExistence.doesNotExist(myself, info, row);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public ChangeRowAssert hasValuesSatisfying(Object... expected) {
+    exists();
+    return AssertionsOnRowCondition.hasValuesSatisfying(myself, info, row.getValuesList(), expected);
   }
 
   /**

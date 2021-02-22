@@ -81,7 +81,8 @@ public class AssertOnValueCondition_Satisfies_Test extends AbstractTest {
           + "Changes on TEST table of 'sa/jdbc:h2:mem:test' source] %n"
           + "Expecting:%n"
           + "  2%n"
-          + "to be isZero"));
+          + "to satisfy:%n"
+          + "  isZero"));
     }
     try {
       assertThat(table).column("var3").value().satisfies(zero);
@@ -91,7 +92,8 @@ public class AssertOnValueCondition_Satisfies_Test extends AbstractTest {
                 .isEqualTo(String.format("[Value at index 0 of Column at index 2 (column name : VAR3) of TEST table] %n"
                                          + "Expecting:%n"
                                          + "  2%n"
-                                         + "to be isZero"));
+                                         + "to satisfy:%n"
+                                         + "  isZero"));
     }
   }
 }

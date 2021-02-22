@@ -13,8 +13,10 @@
 package org.assertj.db.api;
 
 import org.assertj.db.api.assertions.AssertOnNumberOfColumns;
+import org.assertj.db.api.assertions.AssertOnRowCondition;
 import org.assertj.db.api.assertions.AssertOnRowEquality;
 import org.assertj.db.api.assertions.AssertOnRowNullity;
+import org.assertj.db.api.assertions.impl.AssertionsOnRowCondition;
 import org.assertj.db.api.assertions.impl.AssertionsOnValuesNullity;
 import org.assertj.db.api.assertions.impl.AssertionsOnNumberOfColumns;
 import org.assertj.db.api.assertions.impl.AssertionsOnRowEquality;
@@ -34,7 +36,8 @@ import static org.assertj.db.util.Descriptions.getRowValueDescription;
  * Base class for all {@link Row}s assertions.
  *
  * @author Régis Pouiller
- * 
+ * @author Julien Roy
+ *
  * @param <D> The class of the actual value (an sub-class of {@link AbstractDbData}).
  * @param <A> The class of the original assertion (an sub-class of {@link AbstractDbAssert}).
  * @param <C> The class of the equivalent column assertion (an sub-class of {@link AbstractColumnAssert}).
@@ -49,7 +52,8 @@ public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends A
                    ToValueFromRow<RV>,
                    AssertOnRowEquality<R>,
                    AssertOnNumberOfColumns<R>,
-                   AssertOnRowNullity<R> {
+                   AssertOnRowNullity<R>,
+                   AssertOnRowCondition<R> {
 
   /**
    * Position of navigation to value.
@@ -63,7 +67,7 @@ public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends A
 
   /**
    * Constructor.
-   * 
+   *
    * @param originalDbAssert The original assert. That could be a {@link RequestAssert} or a {@link TableAssert}.
    * @param selfType Type of this assertion class : a sub-class of {@code AbstractRowAssert}.
    * @param valueType Class of the assert on the value : a sub-class of {@code AbstractRowValueAssert}.
@@ -145,5 +149,11 @@ public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends A
   @Override
   public R hasOnlyNotNullValues() {
     return AssertionsOnValuesNullity.hasOnlyNotNullValues(myself, info, getValuesList());
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public R hasValuesSatisfying(Object... expected) {
+    return AssertionsOnRowCondition.hasValuesSatisfying(myself, info, getValuesList(), expected);
   }
 }

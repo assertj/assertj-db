@@ -125,7 +125,7 @@ public abstract class PositionWithChanges<E extends AbstractElement<E> & Navigat
     }
 
     try {
-      Class clazz = unProxy(myself.getClass());
+      Class<?> clazz = unProxy(myself.getClass());
       Constructor<E> constructor = actualElementClass.getDeclaredConstructor(clazz, Changes.class);
       instance = constructor.newInstance(myself, nextChanges);
       instance.as(getChangesDescription(changeType, tableName));
@@ -200,7 +200,7 @@ public abstract class PositionWithChanges<E extends AbstractElement<E> & Navigat
     }
 
     try {
-      Class clazz = unProxy(myself.getClass());
+      Class<?> clazz = unProxy(myself.getClass());
       Constructor<N> constructor = nextElementClass.getDeclaredConstructor(clazz, Change.class);
       instance = constructor.newInstance(myself, change);
       instance.as(getChangeDescription(changes, change, index, changeType, tableName));
@@ -248,8 +248,7 @@ public abstract class PositionWithChanges<E extends AbstractElement<E> & Navigat
       }
       index++;
     }
-    throw new AssertJDBException("No change found for table " + tableName + " and primary keys " + Arrays
-        .asList(pksValues));
+    throw new AssertJDBException("No change found for table " + tableName + " and primary keys " + Arrays.asList(pksValues));
   }
 
   /**

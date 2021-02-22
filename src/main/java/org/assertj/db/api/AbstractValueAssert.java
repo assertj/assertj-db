@@ -608,6 +608,6 @@ public abstract class AbstractValueAssert<D extends AbstractDbData<D>, A extends
   /** {@inheritDoc} */
   @Override
   public V satisfies(Condition<?> condition) {
-    return AssertionsOnValueCondition.is(myself, info, value, condition);
+    return AssertionsOnValueCondition.satisfies(myself, info, value, condition);
   }
 }

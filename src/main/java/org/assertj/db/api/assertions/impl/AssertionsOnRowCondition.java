@@ -12,6 +12,7 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import org.assertj.core.api.Condition;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
@@ -23,15 +24,18 @@ import java.util.List;
 
 import static org.assertj.db.error.ShouldBeCompatible.shouldBeCompatible;
 import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
+import static org.assertj.db.error.ShouldHaveColumnsSize.shouldHaveColumnsSize;
+import static org.assertj.db.error.ShouldSatisfy.shouldSatisfy;
 import static org.assertj.db.util.Values.areEqual;
 
 /**
- * Implements the assertion method on the equality of a row.
+ * Implements the assertion method on the matching with condition of a row.
  *
- * @author Régis Pouiller
- * @see org.assertj.db.api.assertions.AssertOnRowEquality
+ * @author Julien Roy
+ *
+ * @see org.assertj.db.api.assertions.AssertOnRowCondition
  */
-public class AssertionsOnRowEquality {
+public class AssertionsOnRowCondition {
 
   /**
    * To notice failures in the assertion.
@@ -41,40 +45,47 @@ public class AssertionsOnRowEquality {
   /**
    * Private constructor.
    */
-  private AssertionsOnRowEquality() {
+  private AssertionsOnRowCondition() {
     // Empty
   }
 
-  /**
-   * Verifies that the values of a column are equal to values in parameter.
-   *
-   * @param <A>        The type of the assertion which call this method.
-   * @param assertion  The assertion which call this method.
-   * @param info       Writable information about an assertion.
-   * @param valuesList The list of values.
-   * @param expected   The expected values.
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the value is not equal to the values in parameter.
-   */
-  public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
-                                                       List<Value> valuesList, Object... expected) {
-    AssertionsOnNumberOfColumns.hasNumberOfColumns(assertion, info, valuesList.size(), expected.length);
+  public static <A extends AbstractAssert<?>> A hasValuesSatisfying(A assertion, WritableAssertionInfo info,
+                                                                    List<Value> valuesList, Object... expected) {
+
+    if (valuesList.size() != expected.length) {
+      throw failures.failure(info, shouldHaveColumnsSize(valuesList.size(), expected.length));
+    }
+
     int index = 0;
     for (Value value : valuesList) {
       Object object = expected[index];
+
+      if (object instanceof Condition) {
+        Condition<Object> condition = (Condition<Object>) object;
+        if (!condition.matches(value.getValue())) {
+          Object actual = Values.getRepresentationFromValueInFrontOfExpected(value, object);
+          throw failures.failure(info, shouldSatisfy(index, actual, condition));
+        }
+        index++;
+        continue;
+      }
+
       if (!value.isComparisonPossible(object)) {
         throw failures.failure(info, shouldBeCompatible(value, object));
       }
-      if (!areEqual(value, expected[index])) {
+
+      if (!areEqual(value, object)) {
         if (value.getValueType() == ValueType.BYTES) {
           throw failures.failure(info, shouldBeEqual(index));
         } else {
-          Object actual = Values.getRepresentationFromValueInFrontOfExpected(value, expected[index]);
-          throw failures.failure(info, shouldBeEqual(index, actual, expected[index]));
+          Object actual = Values.getRepresentationFromValueInFrontOfExpected(value, object);
+          throw failures.failure(info, shouldBeEqual(index, actual, object));
         }
       }
+
       index++;
     }
+
     return assertion;
   }
 }

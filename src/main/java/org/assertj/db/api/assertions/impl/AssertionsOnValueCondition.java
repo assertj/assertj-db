@@ -71,4 +71,21 @@ public class AssertionsOnValueCondition {
     return assertion;
   }
 
+  /**
+   * Verifies that the value satisfies with condition.
+   *
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Writable information about an assertion.
+   * @param value     The value.
+   * @param condition The condition to use for validation.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not equal to the number in parameter.
+   */
+  @SuppressWarnings("unchecked")
+  public static <A extends AbstractAssert<?>> A satisfies(A assertion, WritableAssertionInfo info, Value value, Condition<?> condition) {
+    conditions.assertSatisfies(info, value.getValue(), (Condition<? super Object>) condition);
+    return assertion;
+  }
+
 }

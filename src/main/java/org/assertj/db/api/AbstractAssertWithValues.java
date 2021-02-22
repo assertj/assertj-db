@@ -590,6 +590,6 @@ public abstract class AbstractAssertWithValues<E extends AbstractAssertWithValue
   /** {@inheritDoc} */
   @Override
   public E satisfies(Condition<?> condition) {
-    return AssertionsOnValueCondition.is(myself, info, value, condition);
+    return AssertionsOnValueCondition.satisfies(myself, info, value, condition);
   }
 }
