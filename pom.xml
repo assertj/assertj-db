@@ -28,7 +28,6 @@
     <properties>
         <javadocAdditionalOptions>--allow-script-in-comments</javadocAdditionalOptions>
         <inceptionYear>2015</inceptionYear>
-        <currentYear>2020</currentYear>
         <maven.compiler.source>8</maven.compiler.source>
 
         <!-- SonarCloud -->
