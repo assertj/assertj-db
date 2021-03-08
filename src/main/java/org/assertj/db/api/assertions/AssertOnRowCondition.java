@@ -32,7 +32,7 @@ public interface AssertOnRowCondition<T extends AssertOnRowCondition<T>> {
    * </p>
    *
    * <pre><code class='java'>
-   * assertThat(table).row().hasValuesSatisfying(new Condition<String>(v -> v.equals("Weaver"), "isWeaver"));
+   * assertThat(table).row().hasValuesSatisfying(new Condition&lt;String&gt;(v -&gt; v.equals("Weaver"), "isWeaver"));
    * </code></pre>
    * <p>
    * Example where the assertion verifies that the values of the row at end point of the first change are equal to the
@@ -40,14 +40,14 @@ public interface AssertOnRowCondition<T extends AssertOnRowCondition<T>> {
    * </p>
    *
    * <pre><code class='java'>
-   * assertThat(changes).change().rowAtEndPoint().hasValuesSatisfying(new Condition<String>(v -> v.equals("Weaver"), "isWeaver"));
+   * assertThat(changes).change().rowAtEndPoint().hasValuesSatisfying(new Condition&lt;String&gt;(v -&gt; v.equals("Weaver"), "isWeaver"));
    * </code></pre>
    *
    * @param expected The expected conditions.
    * @return {@code this} assertion object.
    * @throws AssertionError If the values of the row are not satisfy to the conditions in parameters.
-   * @see org.assertj.db.api.AbstractRowAssert#hasValuesSatisfying(Condition)
-   * @see org.assertj.db.api.ChangeRowAssert#hasValuesSatisfying(Condition)
+   * @see org.assertj.db.api.AbstractRowAssert#hasValuesSatisfying(Object...)
+   * @see org.assertj.db.api.ChangeRowAssert#hasValuesSatisfying(Object...)
    */
   T hasValuesSatisfying(Object... expected);
 }
