@@ -29,6 +29,7 @@ import org.junit.Test;
  * {@link org.assertj.db.api.assertions.AssertOnValueNullity#isNull()} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class AssertOnValueNullity_IsNull_Test extends AbstractTest {
 
@@ -38,7 +39,7 @@ public class AssertOnValueNullity_IsNull_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_is_null() {
-    Table table = new Table(source, "test2");
+    Table table = new Table(jdbcConnectionProvider, "test2");
     Changes changes = new Changes(table).setStartPointNow();
     update("update test2 set var14 = 1 where var1 is null");
     changes.setEndPointNow();
@@ -58,7 +59,7 @@ public class AssertOnValueNullity_IsNull_Test extends AbstractTest {
   @Test
   @NeedReload
   public void should_fail_because_value_is_not_null() {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update("update test set var14 = 1 where var1 = 1");
     changes.setEndPointNow();
@@ -67,7 +68,7 @@ public class AssertOnValueNullity_IsNull_Test extends AbstractTest {
       assertThat(changes).change().column("var3").valueAtEndPoint().isNull();
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 2 (column name : VAR3) of Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:test' source] expected:<null> but was:<2>"));
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 2 (column name : VAR3) of Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:test'] expected:<null> but was:<2>"));
     }
     try {
       assertThat(table).column("var3").value().isNull();

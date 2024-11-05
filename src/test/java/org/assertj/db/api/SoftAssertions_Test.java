@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 import org.assertj.core.api.SoftAssertionError;
 import org.assertj.core.api.ThrowableAssert;
 import org.assertj.db.common.AbstractTest;
@@ -20,9 +23,6 @@ import org.assertj.db.type.Changes;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
 import org.junit.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * Test on the utility class {@code SoftAssertions}.
@@ -37,7 +37,7 @@ public class SoftAssertions_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_soft_assert_table() {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     final SoftAssertions softly = new SoftAssertions();
     softly.assertThat(table).as("Show be Zero").column("var1").value().isEqualTo(0);
     softly.assertThat(table).column("var2").value().isFalse();
@@ -67,7 +67,7 @@ public class SoftAssertions_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_soft_assert_request() {
-    Request request = new Request(source, "select * from test");
+    Request request = new Request(jdbcConnectionProvider, "select * from test");
     final SoftAssertions softly = new SoftAssertions();
     softly.assertThat(request).column("var1").value(0).isEqualTo(0);
     softly.assertThat(request).column("var2").value(0).isFalse();
@@ -97,7 +97,7 @@ public class SoftAssertions_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_soft_assert_changes() {
-    Changes changes = new Changes(source);
+    Changes changes = new Changes(jdbcConnectionProvider);
     changes.setStartPointNow();
     update("update test set var14 = 1 where var1 = 1");
     changes.setEndPointNow();

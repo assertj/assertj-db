@@ -12,23 +12,23 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import javax.sql.DataSource;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.AbstractDbAssert;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.common.AbstractTest;
-import org.assertj.db.type.Source;
+import org.assertj.db.type.JdbcUrlConnectionProvider;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import javax.sql.DataSource;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertionsOnTableExistence} class :
- * {@link AssertionsOnTableExistence#doesNotExists(AbstractDbAssert, WritableAssertionInfo, String, Source, DataSource)} method.
+ * {@link AssertionsOnTableExistence#doesNotExists(AbstractDbAssert, WritableAssertionInfo, String, JdbcUrlConnectionProvider, DataSource)} method.
  *
  * @author Julien Roy
  */
@@ -42,9 +42,9 @@ public class AssertionsOnTableExistence_DoesNotExist_Test extends AbstractTest {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    TableAssert tableAssert2 = AssertionsOnTableExistence.doesNotExists(tableAssert, info, "not-exist-test", source, null);
+    TableAssert tableAssert2 = AssertionsOnTableExistence.doesNotExists(tableAssert, info, "not-exist-test", jdbcConnectionProvider);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    TableAssert tableAssert3 = AssertionsOnTableExistence.doesNotExists(tableAssert, info, "not-exist-test", null, dataSource);
+    TableAssert tableAssert3 = AssertionsOnTableExistence.doesNotExists(tableAssert, info, "not-exist-test", dsConnectionProvider);
     Assertions.assertThat(tableAssert3).isSameAs(tableAssert);
   }
 
@@ -58,7 +58,7 @@ public class AssertionsOnTableExistence_DoesNotExist_Test extends AbstractTest {
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnTableExistence.doesNotExists(tableAssert, info, "TEST", source, null);
+      AssertionsOnTableExistence.doesNotExists(tableAssert, info, "TEST", jdbcConnectionProvider);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -66,7 +66,7 @@ public class AssertionsOnTableExistence_DoesNotExist_Test extends AbstractTest {
     }
 
     try {
-      AssertionsOnTableExistence.doesNotExists(tableAssert, info, "TEST", null, dataSource);
+      AssertionsOnTableExistence.doesNotExists(tableAssert, info, "TEST", dsConnectionProvider);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"

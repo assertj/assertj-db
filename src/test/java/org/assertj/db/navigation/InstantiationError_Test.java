@@ -35,6 +35,7 @@ import org.junit.Test;
  * Tests on instantiation errors.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class InstantiationError_Test extends AbstractTest {
 
@@ -43,7 +44,7 @@ public class InstantiationError_Test extends AbstractTest {
    */
   @Test
   public void should_fail_because_mistake_in_instantiation_of_column() throws Exception {
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
     TableAssert tableAssert = assertThat(table);
 
     Field field = AbstractDbAssert.class.getDeclaredField("columnPosition");
@@ -70,7 +71,7 @@ public class InstantiationError_Test extends AbstractTest {
    */
   @Test
   public void should_fail_because_mistake_in_instantiation_of_row() throws Exception {
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
     TableAssert tableAssert = assertThat(table);
 
     Field field = AbstractDbAssert.class.getDeclaredField("rowPosition");
@@ -97,7 +98,7 @@ public class InstantiationError_Test extends AbstractTest {
    */
   @Test
   public void should_fail_because_mistake_in_instantiation_of_value() throws Exception {
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
     TableColumnAssert tableColumnAssert = assertThat(table).column();
 
     Field field = AbstractColumnAssert.class.getDeclaredField("valuePosition");
@@ -125,7 +126,7 @@ public class InstantiationError_Test extends AbstractTest {
   @Test
   @NeedReload
   public void should_fail_because_mistake_in_instantiation_of_changes() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
     ChangesAssert changesAssert = assertThat(changes);
@@ -155,7 +156,7 @@ public class InstantiationError_Test extends AbstractTest {
   @Test
   @NeedReload
   public void should_fail_because_mistake_in_instantiation_of_change() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
     ChangesAssert changesAssert = assertThat(changes);
@@ -185,7 +186,7 @@ public class InstantiationError_Test extends AbstractTest {
   @Test
   @NeedReload
   public void should_fail_because_mistake_in_instantiation_of_columnchange() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
     ChangeAssert changeAssert = assertThat(changes).change();
@@ -215,7 +216,7 @@ public class InstantiationError_Test extends AbstractTest {
   @Test
   @NeedReload
   public void should_fail_because_mistake_in_instantiation_of_rowAtStartPoint() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
     ChangeAssert changeAssert = assertThat(changes).change();

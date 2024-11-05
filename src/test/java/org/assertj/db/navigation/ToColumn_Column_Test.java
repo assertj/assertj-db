@@ -56,6 +56,7 @@ import org.junit.Test;
  * {@link org.assertj.db.navigation.ToColumn#column()} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class ToColumn_Column_Test extends AbstractTest {
 
@@ -65,7 +66,7 @@ public class ToColumn_Column_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_column_from_change_with_assertions() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -172,7 +173,7 @@ public class ToColumn_Column_Test extends AbstractTest {
     Field fieldIndex = Position.class.getDeclaredField("nextIndex");
     fieldIndex.setAccessible(true);
 
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
     TableAssert tableAssert = assertThat(table);
     Position<TableAssert, TableColumnAssert, Column> position = (Position) fieldPosition.get(tableAssert);
     assertThat(fieldIndex.get(position)).isEqualTo(0);
@@ -259,7 +260,7 @@ public class ToColumn_Column_Test extends AbstractTest {
     Field fieldIndex = Position.class.getDeclaredField("nextIndex");
     fieldIndex.setAccessible(true);
 
-    Request request = new Request(source, "select * from actor");
+    Request request = new Request(jdbcConnectionProvider, "select * from actor");
     RequestAssert requestAssert = assertThat(request);
     Position<RequestAssert, RequestColumnAssert, Column> position = (Position) fieldPosition.get(requestAssert);
     assertThat(fieldIndex.get(position)).isEqualTo(0);
@@ -342,7 +343,7 @@ public class ToColumn_Column_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_column_from_change_with_displays() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -449,7 +450,7 @@ public class ToColumn_Column_Test extends AbstractTest {
     Field fieldIndex = Position.class.getDeclaredField("nextIndex");
     fieldIndex.setAccessible(true);
 
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
     TableOutputter tableOutputter = Outputs.output(table);
     Position<TableOutputter, TableColumnOutputter, Column> position =
       (Position) fieldPosition.get(tableOutputter);
@@ -538,7 +539,7 @@ public class ToColumn_Column_Test extends AbstractTest {
     Field fieldIndex = Position.class.getDeclaredField("nextIndex");
     fieldIndex.setAccessible(true);
 
-    Request request = new Request(source, "select * from actor");
+    Request request = new Request(jdbcConnectionProvider, "select * from actor");
     RequestOutputter requestOutputter = Outputs.output(request);
     Position position = (Position) fieldPosition.get(requestOutputter);
     assertThat(fieldIndex.get(position)).isEqualTo(0);

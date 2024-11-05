@@ -24,7 +24,8 @@ import org.junit.Test;
 /**
  * Tests on the {@code getChangesOfTable} and {@code getChangesOfType} methods together.
  *
- * @author Régis Pouiller.
+ * @author Régis Pouiller
+ * @author Julien Roy.
  */
 public class Changes_GetChanges_Test extends AbstractTest {
 
@@ -34,7 +35,7 @@ public class Changes_GetChanges_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_getChangesOfTableAndType() {
-    Changes changesSource = new Changes(source);
+    Changes changesSource = new Changes(jdbcConnectionProvider);
 
     changesSource.setStartPointNow();
     updateChangesForTests();
@@ -65,7 +66,7 @@ public class Changes_GetChanges_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_getChangesOfTypeAndTable() {
-    Changes changesSource = new Changes(source);
+    Changes changesSource = new Changes(jdbcConnectionProvider);
 
     changesSource.setStartPointNow();
     updateChangesForTests();

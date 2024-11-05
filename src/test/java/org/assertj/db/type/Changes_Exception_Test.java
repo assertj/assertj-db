@@ -27,9 +27,10 @@ import org.assertj.db.exception.AssertJDBException;
 import org.junit.Test;
 
 /**
- * Tests on the exceptions of Changes
+ * Tests on the exceptions to the Changes
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class Changes_Exception_Test extends AbstractTest {
 
@@ -38,8 +39,8 @@ public class Changes_Exception_Test extends AbstractTest {
    */
   @Test(expected = AssertJDBException.class)
   public void should_fail_because_connection_throws_exception_when_getting_an_object() {
-    DataSource ds = new DefaultDataSource(dataSource);
-    Table table = new Table(ds, "movi");
+    ConnectionProvider connectionProvider = ConnectionProviderFactory.of(new DefaultDataSource(dataSource)).create();
+    Table table = new Table(connectionProvider, "movi");
     Changes changes = new Changes().setTables(table);
     changes.setStartPointNow();
   }
@@ -62,7 +63,8 @@ public class Changes_Exception_Test extends AbstractTest {
         };
       }
     };
-    Table table = new Table(ds, "movi");
+    ConnectionProvider connectionProvider = ConnectionProviderFactory.of(ds).create();
+    Table table = new Table(connectionProvider, "movi");
     Changes changes = new Changes().setTables(table);
     changes.setStartPointNow();
   }
@@ -91,7 +93,8 @@ public class Changes_Exception_Test extends AbstractTest {
         };
       }
     };
-    Table table = new Table(ds, "movi");
+    ConnectionProvider connectionProvider = ConnectionProviderFactory.of(ds).create();
+    Table table = new Table(connectionProvider, "movi");
     Changes changes = new Changes().setTables(table);
     changes.setStartPointNow();
   }
@@ -113,7 +116,8 @@ public class Changes_Exception_Test extends AbstractTest {
         };
       }
     };
-    Table table = new Table(ds, "movi");
+    ConnectionProvider connectionProvider = ConnectionProviderFactory.of(ds).create();
+    Table table = new Table(connectionProvider, "movi");
     Changes changes = new Changes().setTables(table);
     changes.setStartPointNow();
   }
@@ -135,7 +139,8 @@ public class Changes_Exception_Test extends AbstractTest {
         };
       }
     };
-    Table table = new Table(ds, "movi");
+    ConnectionProvider connectionProvider = ConnectionProviderFactory.of(ds).create();
+    Table table = new Table(connectionProvider, "movi");
     Changes changes = new Changes().setTables(table);
     changes.setStartPointNow();
   }
@@ -151,7 +156,8 @@ public class Changes_Exception_Test extends AbstractTest {
         throw new SQLException();
       }
     };
-    Table table = new Table(ds, "movi");
+    ConnectionProvider connectionProvider = ConnectionProviderFactory.of(ds).create();
+    Table table = new Table(connectionProvider, "movi");
     Changes changes = new Changes().setTables(table);
     changes.setStartPointNow();
   }
@@ -177,7 +183,7 @@ public class Changes_Exception_Test extends AbstractTest {
    */
   @Test(expected = AssertJDBException.class)
   public void should_fail_because_end_before_start() {
-    Table table = new Table(dataSource, "test");
+    Table table = new Table(dsConnectionProvider, "test");
     Changes changes = new Changes().setTables(table);
     changes.setEndPointNow();
   }
@@ -187,7 +193,7 @@ public class Changes_Exception_Test extends AbstractTest {
    */
   @Test(expected = AssertJDBException.class)
   public void should_fail_because_getting_list_of_changes_before_end() {
-    Table table = new Table(dataSource, "test");
+    Table table = new Table(dsConnectionProvider, "test");
     Changes changes = new Changes().setTables(table);
     changes.setStartPointNow();
     changes.getChangesList();
@@ -198,7 +204,7 @@ public class Changes_Exception_Test extends AbstractTest {
    */
   @Test(expected = NullPointerException.class)
   public void should_fail_because_tablename_is_null() {
-    new Changes(source).getChangesOfTable(null);
+    new Changes(jdbcConnectionProvider).getChangesOfTable(null);
   }
 
   /**
@@ -206,6 +212,6 @@ public class Changes_Exception_Test extends AbstractTest {
    */
   @Test(expected = NullPointerException.class)
   public void should_fail_because_type_is_null() {
-    new Changes(source).getChangesOfType(null);
+    new Changes(jdbcConnectionProvider).getChangesOfType(null);
   }
 }

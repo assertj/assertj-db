@@ -34,23 +34,16 @@ import org.junit.Test;
  * Test on loading of the data for a table and exception during the different steps.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class Table_Exception_Test extends AbstractTest {
 
   /**
-   * This method should fail because setting the datasource to null.
+   * This method should fail because setting the connection provider to null.
    */
   @Test(expected = NullPointerException.class)
-  public void should_fail_because_setting_datasource_to_null() {
-    new Table().setDataSource(null);
-  }
-
-  /**
-   * This method should fail because setting the source to null.
-   */
-  @Test(expected = NullPointerException.class)
-  public void should_fail_because_setting_source_to_null() {
-    new Table().setSource(null);
+  public void should_fail_because_setting_connection_provider_to_null() {
+    new Table().setConnectionProvider(null);
   }
 
   /**
@@ -59,7 +52,8 @@ public class Table_Exception_Test extends AbstractTest {
   @Test(expected = AssertJDBException.class)
   public void should_fail_because_connection_throws_exception_when_getting_an_object() {
     DataSource ds = new DefaultDataSource(dataSource);
-    Table table = new Table(ds, "movi");
+    ConnectionProvider connectionProvider = ConnectionProviderFactory.of(ds).create();
+    Table table = new Table(connectionProvider, "movi");
     table.getColumnsNameList();
   }
 
@@ -72,7 +66,7 @@ public class Table_Exception_Test extends AbstractTest {
       new Table().setColumnsToCheck(new String[]{"test"});
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("The table name and the source or datasource must be set first"));
+      Assertions.assertThat(e.getMessage()).isEqualTo("The table name and the connectionProvider must be set first");
     }
   }
 
@@ -85,7 +79,7 @@ public class Table_Exception_Test extends AbstractTest {
       new Table().setColumnsToExclude(new String[]{"test"});
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("The table name and the source or datasource must be set first"));
+      Assertions.assertThat(e.getMessage()).isEqualTo("The table name and the connectionProvider must be set first");
     }
   }
 
@@ -98,7 +92,7 @@ public class Table_Exception_Test extends AbstractTest {
       new Table().setColumnsToOrder(new Order[]{Order.asc("test")});
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("The table name and the source or datasource must be set first"));
+      Assertions.assertThat(e.getMessage()).isEqualTo("The table name and the connectionProvider must be set first");
     }
   }
 
@@ -108,10 +102,10 @@ public class Table_Exception_Test extends AbstractTest {
   @Test
   public void should_fail_because_trying_to_set_columns_order_with_order_null() {
     try {
-      new Table(source, "test").setColumnsToOrder(new Order[]{null});
+      new Table(jdbcConnectionProvider, "test").setColumnsToOrder(new Order[]{null});
       fail("An exception must be raised");
     } catch (NullPointerException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("The order can not be null"));
+      Assertions.assertThat(e.getMessage()).isEqualTo("The order can not be null");
     }
   }
 
@@ -121,10 +115,10 @@ public class Table_Exception_Test extends AbstractTest {
   @Test
   public void should_fail_because_trying_to_set_columns_order_with_column_null() {
     try {
-      new Table(source, "test").setColumnsToOrder(new Order[]{Order.asc(null)});
+      new Table(jdbcConnectionProvider, "test").setColumnsToOrder(new Order[]{Order.asc(null)});
       fail("An exception must be raised");
     } catch (NullPointerException e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("The name of the column for order can not be null"));
+      Assertions.assertThat(e.getMessage()).isEqualTo("The name of the column for order can not be null");
     }
   }
 
@@ -151,7 +145,8 @@ public class Table_Exception_Test extends AbstractTest {
         };
       }
     };
-    Table table = new Table(ds, "movi");
+    ConnectionProvider connectionProvider = ConnectionProviderFactory.of(ds).create();
+    Table table = new Table(connectionProvider, "movi");
     table.getColumnsNameList();
   }
 
@@ -172,7 +167,8 @@ public class Table_Exception_Test extends AbstractTest {
         };
       }
     };
-    Table table = new Table(ds, "movi");
+    ConnectionProvider connectionProvider = ConnectionProviderFactory.of(ds).create();
+    Table table = new Table(connectionProvider, "movi");
     table.getColumnsNameList();
   }
 
@@ -193,7 +189,8 @@ public class Table_Exception_Test extends AbstractTest {
         };
       }
     };
-    Table table = new Table(ds, "movi");
+    ConnectionProvider connectionProvider = ConnectionProviderFactory.of(ds).create();
+    Table table = new Table(connectionProvider, "movi");
     table.getColumnsNameList();
   }
 
@@ -208,7 +205,8 @@ public class Table_Exception_Test extends AbstractTest {
         throw new SQLException();
       }
     };
-    Table table = new Table(ds, "movi");
+    ConnectionProvider connectionProvider = ConnectionProviderFactory.of(ds).create();
+    Table table = new Table(connectionProvider, "movi");
     table.getColumnsNameList();
   }
 }

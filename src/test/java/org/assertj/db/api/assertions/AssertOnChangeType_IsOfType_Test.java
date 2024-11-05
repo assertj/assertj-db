@@ -28,6 +28,7 @@ import org.junit.Test;
  * {@link AssertOnChangeType#isOfType(org.assertj.db.type.ChangeType)} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class AssertOnChangeType_IsOfType_Test extends AbstractTest {
 
@@ -37,7 +38,7 @@ public class AssertOnChangeType_IsOfType_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_is_of_type() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -52,7 +53,7 @@ public class AssertOnChangeType_IsOfType_Test extends AbstractTest {
   @Test
   @NeedReload
   public void should_fail_because_type_of_change_is_different() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -60,7 +61,7 @@ public class AssertOnChangeType_IsOfType_Test extends AbstractTest {
       assertThat(changes).change(3).isOfType(ChangeType.CREATION);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 3 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 3 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test'] %n"
         + "Expecting:%n"
         + "to be of type%n"
         + "  <CREATION>%n"

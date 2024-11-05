@@ -27,6 +27,7 @@ import org.junit.Test;
  * {@link org.assertj.db.api.assertions.AssertOnPrimaryKey#hasPksNames(String...)} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class AssertOnPrimaryKey_HasPksNames_Test extends AbstractTest {
 
@@ -36,7 +37,7 @@ public class AssertOnPrimaryKey_HasPksNames_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_has_pks_names() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -51,7 +52,7 @@ public class AssertOnPrimaryKey_HasPksNames_Test extends AbstractTest {
   @Test
   @NeedReload
   public void should_fail_because_pks_names_are_different() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -59,7 +60,7 @@ public class AssertOnPrimaryKey_HasPksNames_Test extends AbstractTest {
       assertThat(changes).change().hasPksNames("ID2");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test'] %n"
         + "Expecting :%n"
         + "  [\"ID2\"]%n"
         + "to be the name of the columns of the primary keys but was:%n"
@@ -73,7 +74,7 @@ public class AssertOnPrimaryKey_HasPksNames_Test extends AbstractTest {
   @Test
   @NeedReload
   public void should_fail_because_number_of_pks_names_are_different() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -81,7 +82,7 @@ public class AssertOnPrimaryKey_HasPksNames_Test extends AbstractTest {
       assertThat(changes).change().hasPksNames("ID", "ID2");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test'] %n"
         + "Expecting :%n"
         + "  [\"ID\", \"ID2\"]%n"
         + "to be the name of the columns of the primary keys but was:%n"

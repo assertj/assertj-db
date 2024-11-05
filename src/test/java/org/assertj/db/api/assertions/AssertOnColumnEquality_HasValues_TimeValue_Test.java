@@ -27,6 +27,7 @@ import org.junit.Test;
  * {@link org.assertj.db.api.assertions.AssertOnColumnEquality#hasValues(org.assertj.db.type.TimeValue...)} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class AssertOnColumnEquality_HasValues_TimeValue_Test extends AbstractTest {
 
@@ -35,7 +36,7 @@ public class AssertOnColumnEquality_HasValues_TimeValue_Test extends AbstractTes
    */
   @Test
   public void test_has_values() throws Exception {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     TableColumnAssert tableColumnAssert = assertThat(table).column("var8");
     TableColumnAssert tableColumnAssertReturn = tableColumnAssert.hasValues(TimeValue.of(9, 46, 30),
       TimeValue.of(12, 29, 49),
@@ -43,7 +44,7 @@ public class AssertOnColumnEquality_HasValues_TimeValue_Test extends AbstractTes
       TimeValue.of(12, 29, 49));
     Assertions.assertThat(tableColumnAssert).isSameAs(tableColumnAssertReturn);
 
-    Table table2 = new Table(source, "test2");
+    Table table2 = new Table(jdbcConnectionProvider, "test2");
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var8");
     TableColumnAssert tableColumnAssertReturn2 = tableColumnAssert2.hasValues(TimeValue.of(9, 46, 30), null);
     Assertions.assertThat(tableColumnAssert2).isSameAs(tableColumnAssertReturn2);
@@ -54,7 +55,7 @@ public class AssertOnColumnEquality_HasValues_TimeValue_Test extends AbstractTes
    */
   @Test
   public void should_fail_because_values_are_different() throws Exception {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     TableColumnAssert tableColumnAssert = assertThat(table).column("var8");
     try {
       tableColumnAssert.hasValues(TimeValue.of(12, 29, 49),
@@ -69,7 +70,7 @@ public class AssertOnColumnEquality_HasValues_TimeValue_Test extends AbstractTes
         + "to be equal to: %n"
         + "  <12:29:49.000000000>"));
     }
-    Table table2 = new Table(source, "test2");
+    Table table2 = new Table(jdbcConnectionProvider, "test2");
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var8");
     try {
       tableColumnAssert2.hasValues(TimeValue.of(9, 46, 30),

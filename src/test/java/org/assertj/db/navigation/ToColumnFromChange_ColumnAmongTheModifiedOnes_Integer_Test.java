@@ -40,6 +40,7 @@ import org.junit.Test;
  * {@link org.assertj.db.navigation.ToColumnFromChange#columnAmongTheModifiedOnes()} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class ToColumnFromChange_ColumnAmongTheModifiedOnes_Integer_Test extends AbstractTest {
 
@@ -49,7 +50,7 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_Integer_Test extends 
   @Test
   @NeedReload
   public void test_column_among_the_modified_ones_with_index_with_assertions() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -185,7 +186,7 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_Integer_Test extends 
   @Test
   @NeedReload
   public void test_column_among_the_modified_ones_with_index_with_displays() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 

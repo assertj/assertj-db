@@ -29,6 +29,7 @@ import org.junit.Test;
  * Test on {@code Descriptable} interface methods.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class Descriptable_Test extends AbstractTest {
 
@@ -39,7 +40,7 @@ public class Descriptable_Test extends AbstractTest {
   public void test_as() throws Exception {
     Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
 
     TableRowAssert assertion = assertThat(table).row();
     WritableAssertionInfo info1 = (WritableAssertionInfo) field.get(assertion);

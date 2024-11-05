@@ -40,7 +40,7 @@ public class AssertOnValueInequality_IsNotEqualTo_UUID_Test extends AbstractTest
   @Test
   @NeedReload
   public void test_is_not_equal_to() {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update("update test set var15 = 'F96EC595-CE91-47CC-9152-CCC8AC48AAD6' where var1 = 10");
     changes.setEndPointNow();
@@ -62,7 +62,7 @@ public class AssertOnValueInequality_IsNotEqualTo_UUID_Test extends AbstractTest
   @Test
   @NeedReload
   public void should_fail_because_value_is_equal_to() {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update("update test set var15 = 'F96EC595-CE91-47CC-9152-CCC8AC48AAD6' where var1 = 1");
     changes.setEndPointNow();
@@ -73,7 +73,7 @@ public class AssertOnValueInequality_IsNotEqualTo_UUID_Test extends AbstractTest
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format(
-        "[Value at end point of Column at index 14 (column name : VAR15) of Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:test' source] %n"
+        "[Value at end point of Column at index 14 (column name : VAR15) of Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:test'] %n"
           + "Expecting:%n"
           + "  <f96ec595-ce91-47cc-9152-ccc8ac48aad6>%n"
           + "not to be equal to: %n"

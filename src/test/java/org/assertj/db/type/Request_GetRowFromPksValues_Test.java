@@ -23,6 +23,7 @@ import org.junit.Test;
  * Tests on getting a {@code Row} in a {@code Request} from primary keys values.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class Request_GetRowFromPksValues_Test extends AbstractTest {
 
@@ -31,7 +32,7 @@ public class Request_GetRowFromPksValues_Test extends AbstractTest {
    */
   @Test
   public void test_getting_row_from_primary_keys_values_without_finding() throws Exception {
-    Request request = new Request(source,
+    Request request = new Request(jdbcConnectionProvider,
       "SELECT actor.name, actor.firstname, movie.year, interpretation.id, interpretation.character "
         + " FROM movie, actor, interpretation WHERE movie.id = interpretation.id_movie"
         + " AND interpretation.id_actor = actor.id ORDER BY actor.name, movie.year");
@@ -50,7 +51,7 @@ public class Request_GetRowFromPksValues_Test extends AbstractTest {
    */
   @Test
   public void test_getting_row_from_primary_keys_values_with_finding() throws Exception {
-    Request request = new Request(source,
+    Request request = new Request(jdbcConnectionProvider,
       "SELECT actor.name, actor.firstname, movie.year, interpretation.id, interpretation.character "
         + " FROM movie, actor, interpretation WHERE movie.id = interpretation.id_movie"
         + " AND interpretation.id_actor = actor.id ORDER BY actor.name, movie.year").setPksName("id");

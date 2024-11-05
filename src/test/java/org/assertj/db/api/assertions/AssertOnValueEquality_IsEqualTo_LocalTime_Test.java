@@ -40,7 +40,7 @@ public class AssertOnValueEquality_IsEqualTo_LocalTime_Test extends AbstractTest
   @Test
   @NeedReload
   public void test_is_equal_to() {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update("update test set var14 = 1 where var1 = 1");
     changes.setEndPointNow();
@@ -60,7 +60,7 @@ public class AssertOnValueEquality_IsEqualTo_LocalTime_Test extends AbstractTest
   @Test
   @NeedReload
   public void should_fail_because_value_is_not_equal_to() {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update("update test set var14 = 1 where var1 = 1");
     changes.setEndPointNow();
@@ -69,7 +69,7 @@ public class AssertOnValueEquality_IsEqualTo_LocalTime_Test extends AbstractTest
       assertThat(changes).change().column("var8").valueAtEndPoint().isEqualTo(LocalTime.of(9, 46, 31));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 7 (column name : VAR8) of Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:test' source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 7 (column name : VAR8) of Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:test'] %n"
         + "Expecting:%n"
         + "  <09:46:30.000000000>%n"
         + "to be equal to: %n"

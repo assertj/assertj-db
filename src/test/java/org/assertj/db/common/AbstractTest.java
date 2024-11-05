@@ -37,10 +37,11 @@ import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.Changes;
 import org.assertj.db.type.Column;
+import org.assertj.db.type.ConnectionProvider;
+import org.assertj.db.type.ConnectionProviderFactory;
 import org.assertj.db.type.DataType;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Row;
-import org.assertj.db.type.Source;
 import org.assertj.db.type.Table;
 import org.assertj.db.type.Value;
 import org.assertj.db.type.lettercase.LetterCase;
@@ -60,9 +61,10 @@ import com.ninja_squad.dbsetup.destination.DriverManagerDestination;
 import com.ninja_squad.dbsetup.operation.Operation;
 
 /**
- * Parent for all the tests. It contains the variables like a {@code DataSource} and a {@code Source}.
+ * Parent for all the tests. It contains the variables like a {@code DataSource} and a {@code ConnectionProvider}.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {TestsConfiguration.class})
@@ -129,11 +131,44 @@ public abstract class AbstractTest {
   private static final DbSetup DB_SETUP = new DbSetup(new DriverManagerDestination("jdbc:h2:mem:test", "SA", ""),
     OPERATIONS);
   private static final DbSetupTracker DB_SETUP_TRACKER = new DbSetupTracker();
-  protected final Source source = new Source("jdbc:h2:mem:test", "sa", "");
+  protected final ConnectionProvider jdbcConnectionProvider = ConnectionProviderFactory.of("jdbc:h2:mem:test", "sa", "").create();
   @Rule
   public TestName testNameRule = new TestName();
   @Autowired
   protected DataSource dataSource;
+  protected ConnectionProvider dsConnectionProvider;
+
+  /**
+   * Returns an instance of a {@code Value}.
+   *
+   * @param columnName The name of the column.
+   * @param object     The object in the value.
+   * @return An instance.
+   * @throws Exception Exception
+   */
+  protected static Value getValue(String columnName, Object object) throws Exception {
+    Constructor<Value> constructor = Value.class.getDeclaredConstructor(String.class, Object.class, LetterCase.class);
+    constructor.setAccessible(true);
+    Value value = constructor.newInstance(columnName, object, LetterCase.COLUMN_DEFAULT);
+    return value;
+  }
+
+  /**
+   * Returns an instance of a {@code Changes}.
+   *
+   * @param changesList The list of changes.
+   * @return An instance.
+   * @throws Exception Exception
+   */
+  protected static Changes getChanges(List<Change> changesList) throws Exception {
+    Constructor<Changes> constructor = Changes.class.getDeclaredConstructor(ConnectionProvider.class);
+    constructor.setAccessible(true);
+    Changes changes = constructor.newInstance((ConnectionProvider) null);
+    Field field = Changes.class.getDeclaredField("changesList");
+    field.setAccessible(true);
+    field.set(changes, changesList);
+    return changes;
+  }
 
   /**
    * Returns an instance of a {@code Column}.
@@ -226,38 +261,6 @@ public abstract class AbstractTest {
   }
 
   /**
-   * Returns an instance of a {@code Value}.
-   *
-   * @param columnName The name of the column.
-   * @param object     The object in the value.
-   * @return An instance.
-   * @throws Exception Exception
-   */
-  protected static Value getValue(String columnName, Object object) throws Exception {
-    Constructor<Value> constructor = Value.class.getDeclaredConstructor(String.class, Object.class, LetterCase.class);
-    constructor.setAccessible(true);
-    Value value = constructor.newInstance(columnName, object, LetterCase.COLUMN_DEFAULT);
-    return value;
-  }
-
-  /**
-   * Returns an instance of a {@code Changes}.
-   *
-   * @param changesList The list of changes.
-   * @return An instance.
-   * @throws Exception Exception
-   */
-  protected static Changes getChanges(List<Change> changesList) throws Exception {
-    Constructor<Changes> constructor = Changes.class.getDeclaredConstructor();
-    constructor.setAccessible(true);
-    Changes changes = constructor.newInstance();
-    Field field = Changes.class.getDeclaredField("changesList");
-    field.setAccessible(true);
-    field.set(changes, changesList);
-    return changes;
-  }
-
-  /**
    * Returns an instance of a {@code Change}.
    *
    * @param dataType        The type of the data on which is the change.
@@ -318,6 +321,11 @@ public abstract class AbstractTest {
   }
 
   @Before
+  public void initDsConnection() {
+    this.dsConnectionProvider = ConnectionProviderFactory.of(dataSource).create();
+  }
+
+  @Before
   public void initiate() {
     DB_SETUP_TRACKER.launchIfNecessary(DB_SETUP);
   }
@@ -344,7 +352,7 @@ public abstract class AbstractTest {
    * @param parameters The parameters of the request.
    */
   protected void update(String request, Object... parameters) {
-    try (Connection connection = dataSource.getConnection()) {
+    try (Connection connection = dsConnectionProvider.getConnection()) {
       try (PreparedStatement statement = connection.prepareStatement(request)) {
         for (int i = 0; i < parameters.length; i++) {
           statement.setObject(i + 1, parameters[i]);

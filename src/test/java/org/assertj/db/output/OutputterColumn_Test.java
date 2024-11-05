@@ -28,6 +28,7 @@ import org.junit.Test;
  * Test the output of columns.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class OutputterColumn_Test extends AbstractTest {
 
@@ -36,7 +37,7 @@ public class OutputterColumn_Test extends AbstractTest {
    */
   @Test
   public void test_output_for_table() throws Exception {
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
 
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
@@ -78,7 +79,7 @@ public class OutputterColumn_Test extends AbstractTest {
    */
   @Test
   public void test_output_for_request() throws Exception {
-    Request request = new Request(source, "select * from actor");
+    Request request = new Request(jdbcConnectionProvider, "select * from actor");
 
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
@@ -121,7 +122,7 @@ public class OutputterColumn_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_output_for_change() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -131,7 +132,7 @@ public class OutputterColumn_Test extends AbstractTest {
     output(changes).change().column().toStream(byteArrayOutputStream0)
       .column().toStream(byteArrayOutputStream1)
       .column().toStream(byteArrayOutputStream2);
-    Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Column at index 0 (column name : ID) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
+    Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Column at index 0 (column name : ID) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test']%n"
       + "|----------------|----------|%n"
       + "|                | ID       |%n"
       + "|                | (NUMBER) |%n"
@@ -140,7 +141,7 @@ public class OutputterColumn_Test extends AbstractTest {
       + "|----------------|----------|%n"
       + "| At end point   | 4        |%n"
       + "|----------------|----------|%n"));
-    Assertions.assertThat(byteArrayOutputStream1.toString()).isEqualTo(String.format("[Column at index 1 (column name : NAME) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
+    Assertions.assertThat(byteArrayOutputStream1.toString()).isEqualTo(String.format("[Column at index 1 (column name : NAME) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test']%n"
       + "|----------------|--------|%n"
       + "|                | NAME   |%n"
       + "|                | (TEXT) |%n"
@@ -149,7 +150,7 @@ public class OutputterColumn_Test extends AbstractTest {
       + "|----------------|--------|%n"
       + "| At end point   | Murray |%n"
       + "|----------------|--------|%n"));
-    Assertions.assertThat(byteArrayOutputStream2.toString()).isEqualTo(String.format("[Column at index 2 (column name : FIRSTNAME) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
+    Assertions.assertThat(byteArrayOutputStream2.toString()).isEqualTo(String.format("[Column at index 2 (column name : FIRSTNAME) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test']%n"
       + "|----------------|-----------|%n"
       + "|                | FIRSTNAME |%n"
       + "|                | (TEXT)    |%n"

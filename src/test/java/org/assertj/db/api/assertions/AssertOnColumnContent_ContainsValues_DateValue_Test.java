@@ -28,6 +28,7 @@ import org.junit.Test;
  * {@link AssertOnColumnContent#containsValues(org.assertj.db.type.DateValue...)} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class AssertOnColumnContent_ContainsValues_DateValue_Test extends AbstractTest {
 
@@ -38,7 +39,7 @@ public class AssertOnColumnContent_ContainsValues_DateValue_Test extends Abstrac
   @NeedReload
   public void test_has_values() throws Exception {
     update("update test2 set var10 = '2014-05-24' where var1 = 1");
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     TableColumnAssert tableColumnAssert = assertThat(table).column("var9");
     TableColumnAssert tableColumnAssertReturn = tableColumnAssert.containsValues(
       DateValue.of(2014, 5, 24),
@@ -47,7 +48,7 @@ public class AssertOnColumnContent_ContainsValues_DateValue_Test extends Abstrac
       DateValue.of(2014, 5, 30));
     Assertions.assertThat(tableColumnAssert).isSameAs(tableColumnAssertReturn);
 
-    Table table2 = new Table(source, "test2");
+    Table table2 = new Table(jdbcConnectionProvider, "test2");
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var9");
     TableColumnAssert tableColumnAssertReturn2 = tableColumnAssert2.containsValues(DateValue.of(2014, 5, 24),
       null);
@@ -63,7 +64,7 @@ public class AssertOnColumnContent_ContainsValues_DateValue_Test extends Abstrac
    */
   @Test
   public void should_fail_because_values_are_different() throws Exception {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     TableColumnAssert tableColumnAssert = assertThat(table).column("var9");
     try {
       tableColumnAssert.containsValues(DateValue.of(2014, 5, 24),
@@ -82,7 +83,7 @@ public class AssertOnColumnContent_ContainsValues_DateValue_Test extends Abstrac
         + "  <[2014-05-24, 2014-05-29, 2014-05-30, 2014-05-30]>%n"
         + " (parameter <2014-05-29> at index 1 is not found)"));
     }
-    Table table2 = new Table(source, "test2");
+    Table table2 = new Table(jdbcConnectionProvider, "test2");
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var9");
     try {
       tableColumnAssert2.containsValues(DateValue.of(2014, 5, 24),

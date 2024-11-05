@@ -36,7 +36,7 @@ public class AssertOnColumnEquality_HasValues_UUID_Test extends AbstractTest {
    */
   @Test
   public void test_has_values() throws Exception {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     TableColumnAssert tableColumnAssert = assertThat(table).column("var15");
     TableColumnAssert tableColumnAssertReturn = tableColumnAssert.hasValues(
       UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"),
@@ -46,7 +46,7 @@ public class AssertOnColumnEquality_HasValues_UUID_Test extends AbstractTest {
     );
     Assertions.assertThat(tableColumnAssert).isSameAs(tableColumnAssertReturn);
 
-    Table table2 = new Table(source, "test2");
+    Table table2 = new Table(jdbcConnectionProvider, "test2");
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var16");
     TableColumnAssert tableColumnAssertReturn2 = tableColumnAssert2
       .hasValues(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"), null);
@@ -58,7 +58,7 @@ public class AssertOnColumnEquality_HasValues_UUID_Test extends AbstractTest {
    */
   @Test
   public void should_fail_because_values_are_different() throws Exception {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     TableColumnAssert tableColumnAssert = assertThat(table).column("var15");
     try {
       tableColumnAssert.hasValues(UUID.fromString("F96EC595-CE91-47CC-9152-CCC8AC48AAD6"),
@@ -74,7 +74,7 @@ public class AssertOnColumnEquality_HasValues_UUID_Test extends AbstractTest {
           + "to be equal to: %n"
           + "  <f96ec595-ce91-47cc-9152-ccc8ac48aad6>"));
     }
-    Table table2 = new Table(source, "test2");
+    Table table2 = new Table(jdbcConnectionProvider, "test2");
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var16");
     try {
       tableColumnAssert2.hasValues(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"),

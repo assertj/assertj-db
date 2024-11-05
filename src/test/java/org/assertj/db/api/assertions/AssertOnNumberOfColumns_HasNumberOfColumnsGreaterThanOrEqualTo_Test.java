@@ -32,6 +32,7 @@ import org.junit.Test;
  * {@link org.assertj.db.api.assertions.AssertOnNumberOfColumns#hasNumberOfColumnsGreaterThanOrEqualTo(int)} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class AssertOnNumberOfColumns_HasNumberOfColumnsGreaterThanOrEqualTo_Test extends AbstractTest {
 
@@ -41,7 +42,7 @@ public class AssertOnNumberOfColumns_HasNumberOfColumnsGreaterThanOrEqualTo_Test
   @Test
   @NeedReload
   public void test_has_number_of_columns() {
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
     Changes changes = new Changes(table).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
@@ -69,7 +70,7 @@ public class AssertOnNumberOfColumns_HasNumberOfColumnsGreaterThanOrEqualTo_Test
   @Test
   @NeedReload
   public void should_fail_because_number_of_columns_is_greater() {
-    Request request = new Request(source, "select * from actor");
+    Request request = new Request(jdbcConnectionProvider, "select * from actor");
     Changes changes = new Changes(request).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
@@ -78,7 +79,7 @@ public class AssertOnNumberOfColumns_HasNumberOfColumnsGreaterThanOrEqualTo_Test
       assertThat(changes).change().hasNumberOfColumnsGreaterThanOrEqualTo(6);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 of Changes on 'select * from actor' request of 'sa/jdbc:h2:mem:test' source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 of Changes on 'select * from actor' request of 'sa/jdbc:h2:mem:test'] %n"
         + "Expecting size (number of columns) to be greater than or equal to :%n"
         + "   <6>%n"
         + "but was:%n"
@@ -88,7 +89,7 @@ public class AssertOnNumberOfColumns_HasNumberOfColumnsGreaterThanOrEqualTo_Test
       assertThat(changes).change().rowAtEndPoint().hasNumberOfColumnsGreaterThanOrEqualTo(6);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Row at end point of Change at index 0 of Changes on 'select * from actor' request of 'sa/jdbc:h2:mem:test' source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Row at end point of Change at index 0 of Changes on 'select * from actor' request of 'sa/jdbc:h2:mem:test'] %n"
         + "Expecting size (number of columns) to be greater than or equal to :%n"
         + "   <6>%n"
         + "but was:%n"

@@ -26,18 +26,18 @@ import org.junit.Test;
  * </p>
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class Table_Getters_Test extends AbstractTest {
 
   /**
-   * This method test the getters of a {@code Table} when only the source is set.
+   * This method test the getters of a {@code Table} when only the connection provider is set.
    */
   @Test
-  public void test_getters_with_only_source_set() {
-    Table table = new Table().setSource(source);
+  public void test_getters_with_only_connection_provider_set() {
+    Table table = new Table().setConnectionProvider(jdbcConnectionProvider);
 
-    assertThat(table.getSource()).as("Source of MOVIE table").isSameAs(source);
-    assertThat(table.getDataSource()).isNull();
+    assertThat(table.getConnectionProvider()).as("Source of MOVIE table").isSameAs(jdbcConnectionProvider);
     assertThat(table.getName()).isNull();
     assertThat(table.getColumnsToCheck()).isNull();
     assertThat(table.getColumnsToExclude()).isNull();
@@ -46,62 +46,13 @@ public class Table_Getters_Test extends AbstractTest {
   }
 
   /**
-   * This method test the getters of a {@code Table} when only the datasource is set.
+   * This method test the getters of a {@code Table} when the connection provider and the name are set.
    */
   @Test
-  public void test_getters_with_only_datasource_set() {
-    Table table = new Table().setDataSource(dataSource);
+  public void test_getters_with_connection_provider_and_name_set() {
+    Table table = new Table(jdbcConnectionProvider, "movie");
 
-    assertThat(table.getSource()).isNull();
-    assertThat(table.getDataSource()).as("DataSource of MOVIE table").isSameAs(dataSource);
-    assertThat(table.getName()).isNull();
-    assertThat(table.getColumnsToCheck()).isNull();
-    assertThat(table.getColumnsToExclude()).isNull();
-    assertThat(table.getStartDelimiter()).isNull();
-    assertThat(table.getEndDelimiter()).isNull();
-  }
-
-  /**
-   * This method test the getters of a {@code Table} when only the source is set after the datasource was set.
-   */
-  @Test
-  public void test_getters_with_only_datasource_set_and_after_only_source_set() {
-    Table table = new Table().setDataSource(dataSource).setSource(source);
-
-    assertThat(table.getSource()).as("Source of MOVIE table").isSameAs(source);
-    assertThat(table.getDataSource()).isNull();
-    assertThat(table.getName()).isNull();
-    assertThat(table.getColumnsToCheck()).isNull();
-    assertThat(table.getColumnsToExclude()).isNull();
-    assertThat(table.getStartDelimiter()).isNull();
-    assertThat(table.getEndDelimiter()).isNull();
-  }
-
-  /**
-   * This method test the getters of a {@code Table} when only the datasource is set after the source was set.
-   */
-  @Test
-  public void test_getters_with_only_source_set_and_after_only_datasource_set() {
-    Table table = new Table().setSource(source).setDataSource(dataSource);
-
-    assertThat(table.getSource()).isNull();
-    assertThat(table.getDataSource()).as("DataSource of MOVIE table").isSameAs(dataSource);
-    assertThat(table.getName()).isNull();
-    assertThat(table.getColumnsToCheck()).isNull();
-    assertThat(table.getColumnsToExclude()).isNull();
-    assertThat(table.getStartDelimiter()).isNull();
-    assertThat(table.getEndDelimiter()).isNull();
-  }
-
-  /**
-   * This method test the getters of a {@code Table} when the source and the name are set.
-   */
-  @Test
-  public void test_getters_with_source_and_name_set() {
-    Table table = new Table(source, "movie");
-
-    assertThat(table.getSource()).as("Source of MOVIE table").isSameAs(source);
-    assertThat(table.getDataSource()).isNull();
+    assertThat(table.getConnectionProvider()).as("Source of MOVIE table").isSameAs(jdbcConnectionProvider);
     assertThat(table.getName()).isEqualTo("MOVIE");
     assertThat(table.getColumnsToCheck()).isNull();
     assertThat(table.getColumnsToExclude()).isNull();
@@ -111,15 +62,14 @@ public class Table_Getters_Test extends AbstractTest {
   }
 
   /**
-   * This method test the getters of a {@code Table} when the source, the name and the information about the columns
+   * This method test the getters of a {@code Table} when the connection provider, the name and the information about the columns
    * are set.
    */
   @Test
-  public void test_getters_with_source_name_and_columns_set() {
-    Table table = new Table(source, "movie", new String[]{"title", "year"}, new String[]{"id"});
+  public void test_getters_with_connection_provider_name_and_columns_set() {
+    Table table = new Table(jdbcConnectionProvider, "movie", new String[]{"title", "year"}, new String[]{"id"});
 
-    assertThat(table.getSource()).as("Source of MOVIE table").isSameAs(source);
-    assertThat(table.getDataSource()).isNull();
+    assertThat(table.getConnectionProvider()).as("Source of MOVIE table").isSameAs(jdbcConnectionProvider);
     assertThat(table.getName()).isEqualTo("MOVIE");
     assertThat(table.getColumnsToCheck()).containsExactly("TITLE", "YEAR");
     assertThat(table.getColumnsToExclude()).containsExactly("ID");
@@ -129,17 +79,16 @@ public class Table_Getters_Test extends AbstractTest {
   }
 
   /**
-   * This method test the getters of a {@code Table} when the source, the name and the information about the columns
+   * This method test the getters of a {@code Table} when the connection provider, the name and the information about the columns
    * and the orders are set.
    */
   @Test
-  public void test_getters_with_source_name_columns_and_order_set() {
-    Table table = new Table(source, "movie",
+  public void test_getters_with_connection_provider_name_columns_and_order_set() {
+    Table table = new Table(jdbcConnectionProvider, "movie",
       new Table.Order[]{asc("title"), desc("year")},
       new String[]{"title", "year"}, new String[]{"id"});
 
-    assertThat(table.getSource()).as("Source of MOVIE table").isSameAs(source);
-    assertThat(table.getDataSource()).isNull();
+    assertThat(table.getConnectionProvider()).as("Source of MOVIE table").isSameAs(jdbcConnectionProvider);
     assertThat(table.getName()).isEqualTo("MOVIE");
     assertThat(table.getColumnsToCheck()).containsExactly("TITLE", "YEAR");
     assertThat(table.getColumnsToExclude()).containsExactly("ID");
@@ -150,16 +99,15 @@ public class Table_Getters_Test extends AbstractTest {
   }
 
   /**
-   * This method test the getters of a {@code Table} when the source, the name and the information about the orders
+   * This method test the getters of a {@code Table} when the connection provider, the name and the information about the orders
    * are set.
    */
   @Test
-  public void test_getters_with_source_name_and_order_set() {
-    Table table = new Table(source, "movie",
+  public void test_getters_with_connection_provider_name_and_order_set() {
+    Table table = new Table(jdbcConnectionProvider, "movie",
       new Table.Order[]{asc("title"), desc("year")});
 
-    assertThat(table.getSource()).as("Source of MOVIE table").isSameAs(source);
-    assertThat(table.getDataSource()).isNull();
+    assertThat(table.getConnectionProvider()).as("Source of MOVIE table").isSameAs(jdbcConnectionProvider);
     assertThat(table.getName()).isEqualTo("MOVIE");
     assertThat(table.getColumnsToCheck()).isNull();
     assertThat(table.getColumnsToExclude()).isNull();
@@ -170,14 +118,13 @@ public class Table_Getters_Test extends AbstractTest {
   }
 
   /**
-   * This method test the getters of a {@code Table} when the source, delimiteres and the name are set.
+   * This method test the getters of a {@code Table} when the connection provider, delimiters and the name are set.
    */
   @Test
-  public void test_getters_with_source_delimiters_and_name_set() {
-    Table table = new Table(source, "movie", '1', '2');
+  public void test_getters_with_connection_provider_delimiters_and_name_set() {
+    Table table = new Table(jdbcConnectionProvider, "movie", '1', '2');
 
-    assertThat(table.getSource()).as("Source of MOVIE table").isSameAs(source);
-    assertThat(table.getDataSource()).isNull();
+    assertThat(table.getConnectionProvider()).as("Source of MOVIE table").isSameAs(jdbcConnectionProvider);
     assertThat(table.getName()).isEqualTo("MOVIE");
     assertThat(table.getColumnsToCheck()).isNull();
     assertThat(table.getColumnsToExclude()).isNull();
@@ -187,16 +134,15 @@ public class Table_Getters_Test extends AbstractTest {
   }
 
   /**
-   * This method test the getters of a {@code Table} when the source, the name, the delimiters
+   * This method test the getters of a {@code Table} when the connection provider, the name, the delimiters
    * and the information about the columns are set.
    */
   @Test
-  public void test_getters_with_source_name_delimiters_and_columns_set() {
-    Table table = new Table(source, "movie", '1', '2',
+  public void test_getters_with_connection_provider_name_delimiters_and_columns_set() {
+    Table table = new Table(jdbcConnectionProvider, "movie", '1', '2',
       new String[]{"title", "year"}, new String[]{"id"});
 
-    assertThat(table.getSource()).as("Source of MOVIE table").isSameAs(source);
-    assertThat(table.getDataSource()).isNull();
+    assertThat(table.getConnectionProvider()).as("Source of MOVIE table").isSameAs(jdbcConnectionProvider);
     assertThat(table.getName()).isEqualTo("MOVIE");
     assertThat(table.getColumnsToCheck()).containsExactly("TITLE", "YEAR");
     assertThat(table.getColumnsToExclude()).containsExactly("ID");
@@ -206,17 +152,16 @@ public class Table_Getters_Test extends AbstractTest {
   }
 
   /**
-   * This method test the getters of a {@code Table} when the source, the name, the delimiters
+   * This method test the getters of a {@code Table} when the connection provider, the name, the delimiters
    * and the information about the columns and the orders are set.
    */
   @Test
-  public void test_getters_with_source_name_columns_delimiters_and_order_set() {
-    Table table = new Table(source, "movie", '1', '2',
+  public void test_getters_with_connection_provider_name_columns_delimiters_and_order_set() {
+    Table table = new Table(jdbcConnectionProvider, "movie", '1', '2',
       new Table.Order[]{asc("title"), desc("year")},
       new String[]{"title", "year"}, new String[]{"id"});
 
-    assertThat(table.getSource()).as("Source of MOVIE table").isSameAs(source);
-    assertThat(table.getDataSource()).isNull();
+    assertThat(table.getConnectionProvider()).as("Source of MOVIE table").isSameAs(jdbcConnectionProvider);
     assertThat(table.getName()).isEqualTo("MOVIE");
     assertThat(table.getColumnsToCheck()).containsExactly("TITLE", "YEAR");
     assertThat(table.getColumnsToExclude()).containsExactly("ID");
@@ -227,16 +172,15 @@ public class Table_Getters_Test extends AbstractTest {
   }
 
   /**
-   * This method test the getters of a {@code Table} when the source, the name, the delimiters
+   * This method test the getters of a {@code Table} when the connection provider, the name, the delimiters
    * and the information about the orders are set.
    */
   @Test
-  public void test_getters_with_source_name_delimiters_and_order_set() {
-    Table table = new Table(source, "movie", '1', '2',
+  public void test_getters_with_connection_provider_name_delimiters_and_order_set() {
+    Table table = new Table(jdbcConnectionProvider, "movie", '1', '2',
       new Table.Order[]{asc("title"), desc("year")});
 
-    assertThat(table.getSource()).as("Source of MOVIE table").isSameAs(source);
-    assertThat(table.getDataSource()).isNull();
+    assertThat(table.getConnectionProvider()).as("Source of MOVIE table").isSameAs(jdbcConnectionProvider);
     assertThat(table.getName()).isEqualTo("MOVIE");
     assertThat(table.getColumnsToCheck()).isNull();
     assertThat(table.getColumnsToExclude()).isNull();

@@ -26,8 +26,8 @@ import java.util.logging.Level;
 import javax.sql.DataSource;
 
 import org.assertj.db.database.AbstractDatabaseTest;
-import org.assertj.db.type.DataSourceWithLetterCase;
-import org.assertj.db.type.SourceWithLetterCase;
+import org.assertj.db.type.ConnectionProvider;
+import org.assertj.db.type.ConnectionProviderFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -40,6 +40,7 @@ import com.ninja_squad.dbsetup.operation.Operation;
  * Parent for all the tests which are specific for HSQLDB database.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 @ContextConfiguration(classes = {HsqldbConfiguration.class})
 public abstract class AbstractHsqldbTest extends AbstractDatabaseTest {
@@ -77,12 +78,12 @@ public abstract class AbstractHsqldbTest extends AbstractDatabaseTest {
   private static final DbSetup DB_SETUP = new DbSetup(new DriverManagerDestination("jdbc:hsqldb:mem:testHsqldb", "SA", ""),
     OPERATIONS);
 
-  protected final SourceWithLetterCase sourceUIUIUI = new SourceWithLetterCase("jdbc:hsqldb:mem:testHsqldb", "SA", "",
+  protected final ConnectionProvider jdbcConnectionUIUIUI = ConnectionProviderFactory.of("jdbc:hsqldb:mem:testHsqldb", "SA", "").letterCase(
     letterCaseUI,
     letterCaseUI,
-    letterCaseUI);
-  protected DataSourceWithLetterCase dataSourceUIUIUI;
-  protected DataSourceWithLetterCase dataSourceNSNSNS;
+    letterCaseUI).create();
+  protected ConnectionProvider dsConnectionUIUIUI;
+  protected ConnectionProvider dsConnectionNSNSNS;
 
   protected DbSetup getDbSetup() {
     return DB_SETUP;
@@ -94,8 +95,8 @@ public abstract class AbstractHsqldbTest extends AbstractDatabaseTest {
 
   @Autowired
   protected void setDataSource(DataSource dataSource) {
-    this.dataSourceUIUIUI = new DataSourceWithLetterCase(dataSource, letterCaseUI, letterCaseUI, letterCaseUI);
-    this.dataSourceNSNSNS = new DataSourceWithLetterCase(dataSource, letterCaseNS, letterCaseNS, letterCaseNS);
+    this.dsConnectionUIUIUI = ConnectionProviderFactory.of(dataSource).letterCase(letterCaseUI, letterCaseUI, letterCaseUI).create();
+    this.dsConnectionNSNSNS = ConnectionProviderFactory.of(dataSource).letterCase(letterCaseNS, letterCaseNS, letterCaseNS).create();
   }
 
   protected void update() {

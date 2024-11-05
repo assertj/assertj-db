@@ -44,7 +44,7 @@ public class SqliteDataBase_Test extends AbstractSqliteTest {
   }
 
   @Test
-  public void test_catalog_for_source() throws SQLException {
+  public void test_catalog_for_jdbc_connection() throws SQLException {
     try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
       String catalog = connection.getCatalog();
       assertThat(catalog).isNull();
@@ -60,7 +60,7 @@ public class SqliteDataBase_Test extends AbstractSqliteTest {
   }
 
   @Test
-  public void test_schema_for_source() throws SQLException {
+  public void test_schema_for_jdbc_connection() throws SQLException {
     try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
       String schema = connection.getSchema();
       assertThat(schema).isNull();
@@ -79,7 +79,7 @@ public class SqliteDataBase_Test extends AbstractSqliteTest {
   }
 
   @Test
-  public void test_tables_for_source() throws SQLException {
+  public void test_tables_for_jdbc_connection() throws SQLException {
     try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
       DatabaseMetaData databaseMetaData = connection.getMetaData();
       ResultSet resultSet = databaseMetaData.getTables(null, null, null, new String[]{"TABLE"});
@@ -109,7 +109,7 @@ public class SqliteDataBase_Test extends AbstractSqliteTest {
   }
 
   @Test
-  public void test_table_primary_keys_for_source() throws SQLException {
+  public void test_table_primary_keys_for_jdbc_connection() throws SQLException {
     try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
       DatabaseMetaData databaseMetaData = connection.getMetaData();
       {
@@ -223,7 +223,7 @@ public class SqliteDataBase_Test extends AbstractSqliteTest {
   }
 
   @Test
-  public void test_table_columns_for_source() throws SQLException {
+  public void test_table_columnsfor_jdbc_connection() throws SQLException {
     try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
       DatabaseMetaData databaseMetaData = connection.getMetaData();
       {
@@ -350,7 +350,7 @@ public class SqliteDataBase_Test extends AbstractSqliteTest {
   }
 
   @Test
-  public void test_request_columns_for_source() throws SQLException {
+  public void test_request_columnsfor_jdbc_connection() throws SQLException {
     try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
       try (Statement statement = connection.createStatement()) {
         try (ResultSet resultSet1 = statement.executeQuery("select * from test")) {

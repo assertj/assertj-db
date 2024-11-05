@@ -38,7 +38,7 @@ public class Changes_Request_GetChangesList_Test extends AbstractTest {
    */
   @Test
   public void test_when_there_is_no_change() {
-    Changes changes = new Changes(new Request(dataSource, "select * from test"));
+    Changes changes = new Changes(new Request(dsConnectionProvider, "select * from test"));
     changes.setStartPointNow();
     changes.setEndPointNow();
     assertThat(changes.getChangesList()).hasSize(0);
@@ -52,7 +52,7 @@ public class Changes_Request_GetChangesList_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_when_there_is_no_change_found() throws SQLException {
-    Changes changes = new Changes(new Request(dataSource, "select * from test"));
+    Changes changes = new Changes(new Request(dsConnectionProvider, "select * from test"));
     changes.setStartPointNow();
     update("delete from test2 where VAR1 is null");
     changes.setEndPointNow();
@@ -67,7 +67,7 @@ public class Changes_Request_GetChangesList_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_when_there_is_deletion_change() throws SQLException {
-    Changes changes = new Changes(new Request(dataSource, "select * from test2"));
+    Changes changes = new Changes(new Request(dsConnectionProvider, "select * from test2"));
     changes.setStartPointNow();
     update("delete from test2 where VAR1 is null");
     changes.setEndPointNow();
@@ -106,7 +106,7 @@ public class Changes_Request_GetChangesList_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_when_there_is_creation_change() throws SQLException {
-    Changes changes = new Changes(new Request(dataSource, "select * from test2"));
+    Changes changes = new Changes(new Request(dsConnectionProvider, "select * from test2"));
     changes.setStartPointNow();
     update("insert into test2(VAR1) values(200)");
     changes.setEndPointNow();
@@ -145,7 +145,7 @@ public class Changes_Request_GetChangesList_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_when_there_is_modification_change_without_primary_key() throws SQLException {
-    Changes changes = new Changes(new Request(dataSource, "select * from test2"));
+    Changes changes = new Changes(new Request(dsConnectionProvider, "select * from test2"));
     changes.setStartPointNow();
     update("update test2 set VAR12 = 'modification' where VAR1 = 1");
     changes.setEndPointNow();
@@ -212,7 +212,7 @@ public class Changes_Request_GetChangesList_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_when_there_is_modification_change_with_primary_key() throws SQLException {
-    Changes changes = new Changes(new Request(dataSource, "select * from interpretation").setPksName("id"));
+    Changes changes = new Changes(new Request(dsConnectionProvider, "select * from interpretation").setPksName("id"));
     changes.setStartPointNow();
     update("update interpretation set character = 'Doctor Grace Augustine' where id = 3");
     changes.setEndPointNow();
@@ -240,7 +240,7 @@ public class Changes_Request_GetChangesList_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_when_there_is_creation_change_with_primary_key() throws SQLException {
-    Changes changes = new Changes(new Request(dataSource, "select * from movie").setPksName("id"));
+    Changes changes = new Changes(new Request(dsConnectionProvider, "select * from movie").setPksName("id"));
     changes.setStartPointNow();
     update("insert into movie values(4, 'Ghostbusters', 1984, '16319617-AE95-4087-9264-D3D21BF611B6')");
     changes.setEndPointNow();
@@ -267,7 +267,7 @@ public class Changes_Request_GetChangesList_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_when_there_is_deletion_change_with_primary_key() throws SQLException {
-    Changes changes = new Changes(new Request(dataSource, "select * from interpretation").setPksName("id"));
+    Changes changes = new Changes(new Request(dsConnectionProvider, "select * from interpretation").setPksName("id"));
     changes.setStartPointNow();
     update("delete interpretation where id = 3");
     changes.setEndPointNow();

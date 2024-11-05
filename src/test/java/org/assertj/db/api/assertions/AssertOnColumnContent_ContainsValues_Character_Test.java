@@ -26,6 +26,7 @@ import org.junit.Test;
  * {@link AssertOnColumnContent#containsValues(Character...)} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class AssertOnColumnContent_ContainsValues_Character_Test extends AbstractTest {
 
@@ -34,12 +35,12 @@ public class AssertOnColumnContent_ContainsValues_Character_Test extends Abstrac
    */
   @Test
   public void test_has_values() throws Exception {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     TableColumnAssert tableColumnAssert = assertThat(table).column("var16");
     TableColumnAssert tableColumnAssertReturn = tableColumnAssert.containsValues('T', 'e', 's', 't');
     Assertions.assertThat(tableColumnAssert).isSameAs(tableColumnAssertReturn);
 
-    Table table2 = new Table(source, "test2");
+    Table table2 = new Table(jdbcConnectionProvider, "test2");
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var17");
     TableColumnAssert tableColumnAssertReturn2 = tableColumnAssert2.containsValues(null, 'T');
     Assertions.assertThat(tableColumnAssert2).isSameAs(tableColumnAssertReturn2);
@@ -50,7 +51,7 @@ public class AssertOnColumnContent_ContainsValues_Character_Test extends Abstrac
    */
   @Test
   public void should_fail_because_values_are_different() throws Exception {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     TableColumnAssert tableColumnAssert = assertThat(table).column("var16");
     try {
       tableColumnAssert.containsValues('t', 'e', 's', 't');
@@ -63,7 +64,7 @@ public class AssertOnColumnContent_ContainsValues_Character_Test extends Abstrac
         + "  <['t', 'e', 's', 't']>%n"
         + " (parameter <'t'> at index 3 is not found)"));
     }
-    Table table2 = new Table(source, "test2");
+    Table table2 = new Table(jdbcConnectionProvider, "test2");
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var17");
     try {
       tableColumnAssert2.containsValues('T', 'T');
