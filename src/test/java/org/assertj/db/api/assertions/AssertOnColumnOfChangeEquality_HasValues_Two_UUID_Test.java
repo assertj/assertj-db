@@ -39,7 +39,7 @@ public class AssertOnColumnOfChangeEquality_HasValues_Two_UUID_Test extends Abst
   @Test
   @NeedReload
   public void test_has_values() {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     update("update test set var15 = '0E2A1269-EFF0-4233-B87B-B53E8B6F164D' where var1 = 1");
     changes.setEndPointNow();
 
@@ -57,7 +57,7 @@ public class AssertOnColumnOfChangeEquality_HasValues_Two_UUID_Test extends Abst
   @Test
   @NeedReload
   public void should_fail_because_value_at_start_point_is_different() {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     update("insert into test(var1, var15) values(5, '0E2A1269-EFF0-4233-B87B-B53E8B6F164D')");
     changes.setEndPointNow();
 
@@ -67,7 +67,7 @@ public class AssertOnColumnOfChangeEquality_HasValues_Two_UUID_Test extends Abst
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format(
-        "[Column at index 14 (column name : VAR15) of Change at index 0 (on table : TEST and with primary key : [5]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
+        "[Column at index 14 (column name : VAR15) of Change at index 0 (on table : TEST and with primary key : [5]) of Changes on tables of 'sa/jdbc:h2:mem:test'] %n"
           + "Expecting that start point:%n"
           + "  <null>%n"
           + "to be equal to: %n"
@@ -81,7 +81,7 @@ public class AssertOnColumnOfChangeEquality_HasValues_Two_UUID_Test extends Abst
   @Test
   @NeedReload
   public void should_fail_because_value_at_end_point_is_different() {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     update("delete from test where var1 = 1");
     changes.setEndPointNow();
 
@@ -91,7 +91,7 @@ public class AssertOnColumnOfChangeEquality_HasValues_Two_UUID_Test extends Abst
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format(
-        "[Column at index 14 (column name : VAR15) of Change at index 0 (on table : TEST and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
+        "[Column at index 14 (column name : VAR15) of Change at index 0 (on table : TEST and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test'] %n"
           + "Expecting that end point:%n"
           + "  <null>%n"
           + "to be equal to: %n"

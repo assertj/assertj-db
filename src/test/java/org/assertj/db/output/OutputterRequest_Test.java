@@ -25,6 +25,7 @@ import org.junit.Test;
  * Test the output of requests.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class OutputterRequest_Test extends AbstractTest {
 
@@ -33,7 +34,7 @@ public class OutputterRequest_Test extends AbstractTest {
    */
   @Test
   public void test_output() throws Exception {
-    Request request = new Request(source, "select * from actor");
+    Request request = new Request(jdbcConnectionProvider, "select * from actor");
 
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
     output(request).toStream(byteArrayOutputStream);
@@ -55,7 +56,7 @@ public class OutputterRequest_Test extends AbstractTest {
    */
   @Test
   public void test_navigation() throws Exception {
-    Request request = new Request(source, "select * from actor");
+    Request request = new Request(jdbcConnectionProvider, "select * from actor");
 
     RequestOutputter requestOutputter = output(request);
 

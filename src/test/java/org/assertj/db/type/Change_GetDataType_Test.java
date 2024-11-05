@@ -21,7 +21,8 @@ import org.junit.Test;
 /**
  * Tests on the {@code getDataType} method.
  *
- * @author Régis Pouiller.
+ * @author Régis Pouiller
+ * @author Julien Roy.
  */
 public class Change_GetDataType_Test extends AbstractTest {
 
@@ -31,7 +32,7 @@ public class Change_GetDataType_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_getDataTypeOfTable() {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -44,7 +45,7 @@ public class Change_GetDataType_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_getDataTypeOfRequest() {
-    Changes changes = new Changes(new Request(source, "select * from movie")).setStartPointNow();
+    Changes changes = new Changes(new Request(jdbcConnectionProvider, "select * from movie")).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 

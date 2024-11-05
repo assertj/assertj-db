@@ -32,6 +32,7 @@ import org.junit.Test;
  * {@link org.assertj.db.api.assertions.AssertOnValueChronology#isAfterOrEqualTo(org.assertj.db.type.DateTimeValue)} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class AssertOnValueChronology_IsAfterOrEqualTo_DateTimeValue_Test extends AbstractTest {
 
@@ -41,7 +42,7 @@ public class AssertOnValueChronology_IsAfterOrEqualTo_DateTimeValue_Test extends
   @Test
   @NeedReload
   public void test_is_after_or_equal_to() throws ParseException {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update("update test set var14 = 1 where var1 = 1");
     changes.setEndPointNow();
@@ -63,7 +64,7 @@ public class AssertOnValueChronology_IsAfterOrEqualTo_DateTimeValue_Test extends
   @Test
   @NeedReload
   public void should_fail_because_value_is_before() throws ParseException {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update("update test set var14 = 1 where var1 = 1");
     changes.setEndPointNow();
@@ -73,7 +74,7 @@ public class AssertOnValueChronology_IsAfterOrEqualTo_DateTimeValue_Test extends
         DateTimeValue.parse("2014-05-24T09:46:31"));
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 9 (column name : VAR10) of Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:test' source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 9 (column name : VAR10) of Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:test'] %n"
         + "Expecting:%n"
         + "  <2014-05-24T09:46:30.000000000>%n"
         + "to be after or equal to %n"

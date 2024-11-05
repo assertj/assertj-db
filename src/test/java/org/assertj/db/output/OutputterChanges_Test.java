@@ -26,6 +26,7 @@ import org.junit.Test;
  * Test the output of changes.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class OutputterChanges_Test extends AbstractTest {
 
@@ -35,13 +36,13 @@ public class OutputterChanges_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_output() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
     output(changes).toStream(byteArrayOutputStream);
-    Assertions.assertThat(byteArrayOutputStream.toString()).isEqualTo(String.format("[Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
+    Assertions.assertThat(byteArrayOutputStream.toString()).isEqualTo(String.format("[Changes on tables of 'sa/jdbc:h2:mem:test']%n"
       + "|-----------|--------------|----------------|---------|----------------|-----------|-----------|-----------|------------|--------------------------------------|%n"
       + "|           |              |                |         |                | *         |           |           |            |                                      |%n"
       + "|           | TYPE         | TABLE          | PRIMARY |                | ID        | NAME      | FIRSTNAME | BIRTH      | ACTOR_IMDB                           |%n"

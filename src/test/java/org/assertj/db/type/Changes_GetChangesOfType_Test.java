@@ -25,7 +25,8 @@ import org.junit.Test;
 /**
  * Tests on the {@code getChangesOfType} method.
  *
- * @author Régis Pouiller.
+ * @author Régis Pouiller
+ * @author Julien Roy.
  */
 public class Changes_GetChangesOfType_Test extends AbstractTest {
 
@@ -35,8 +36,8 @@ public class Changes_GetChangesOfType_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_getChangesOfTable() {
-    Changes changesSource = new Changes(source);
-    Changes changesRequest = new Changes(new Request(source,
+    Changes changesSource = new Changes(jdbcConnectionProvider);
+    Changes changesRequest = new Changes(new Request(jdbcConnectionProvider,
       "select interpretation.id, character, movie.title, actor.name "
         + " from interpretation, movie, actor " + " where interpretation.id_movie = movie.id "
         + " and interpretation.id_actor = actor.id ").setPksName("id"));

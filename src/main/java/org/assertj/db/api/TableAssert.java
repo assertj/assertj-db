@@ -48,7 +48,7 @@ public class TableAssert
    */
   @Override
   public TableAssert exists() {
-    return AssertionsOnTableExistence.exists(this, info, actual.getName(), actual.getSource(), actual.getDataSource());
+    return AssertionsOnTableExistence.exists(this, info, actual.getName(), actual.getConnectionProvider());
   }
 
   /**
@@ -65,6 +65,6 @@ public class TableAssert
    */
   @Override
   public TableAssert doesNotExist() {
-    return AssertionsOnTableExistence.doesNotExists(this, info, actual.getName(), actual.getSource(), actual.getDataSource());
+    return AssertionsOnTableExistence.doesNotExists(this, info, actual.getName(), actual.getConnectionProvider());
   }
 }

@@ -24,15 +24,16 @@ import org.junit.Test;
  * </p>
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class Request_Columns_Test extends AbstractTest {
 
   /**
-   * This method test the columns got from a {@code Source}.
+   * This method test the columns got from a {@code ConnectionProvider}.
    */
   @Test
-  public void test_columns_with_source_set() {
-    Request request = new Request(source, "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
+  public void test_columns_with_jdbc_set() {
+    Request request = new Request(jdbcConnectionProvider, "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
       + " FROM movie, actor, interpretation"
       + " WHERE movie.id = interpretation.id_movie"
       + " AND interpretation.id_actor = actor.id"
@@ -54,7 +55,7 @@ public class Request_Columns_Test extends AbstractTest {
    */
   @Test
   public void test_columns_with_datasource_set() {
-    Request request = new Request(dataSource, "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
+    Request request = new Request(dsConnectionProvider, "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
       + " FROM movie, actor, interpretation"
       + " WHERE movie.id = interpretation.id_movie"
       + " AND interpretation.id_actor = actor.id"

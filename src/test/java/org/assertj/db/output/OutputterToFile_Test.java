@@ -25,6 +25,7 @@ import org.junit.Test;
  * Test the output to File.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class OutputterToFile_Test extends AbstractTest {
 
@@ -33,7 +34,7 @@ public class OutputterToFile_Test extends AbstractTest {
    */
   @Test
   public void test_output_to_file() throws Exception {
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
 
     Outputs.output(table).row().value().toFile("target" + File.separator + "test.txt");
     try (InputStream inputStream = new FileInputStream(new File("target" + File.separator + "test.txt"))) {

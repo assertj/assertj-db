@@ -22,8 +22,8 @@ import org.assertj.core.api.Assertions;
 import org.assertj.db.common.NeedReload;
 import org.assertj.db.output.Outputs;
 import org.assertj.db.type.Changes;
+import org.assertj.db.type.ConnectionProvider;
 import org.assertj.db.type.DateValue;
-import org.assertj.db.type.Source;
 import org.assertj.db.type.Table;
 import org.assertj.db.type.ValueType;
 import org.junit.Before;
@@ -33,20 +33,21 @@ import org.junit.Test;
  * Test on the Sqlite database.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
-public class SqliteDatabase_Source_DDD_Test extends AbstractSqliteTest {
+public class SqliteDatabase_JdbcUrl_UIUIUI_Test extends AbstractSqliteTest {
 
-  private Source source;
+  private ConnectionProvider connectionProvider;
 
   @Before
   public void init() {
-    source = sourceDDD;
+    connectionProvider = jdbcConnectionUIUIUI;
   }
 
   @Test
   @NeedReload
   public void test_Outputs_output() {
-    Table table = new Table(source, "test", null, new String[]{"var20"});
+    Table table = new Table(connectionProvider, "test", null, new String[]{"var20"});
     Changes changes = new Changes(table).setStartPointNow();
     update();
     changes.setEndPointNow();
@@ -75,7 +76,7 @@ public class SqliteDatabase_Source_DDD_Test extends AbstractSqliteTest {
       .column().toStream(byteArrayOutputStream9)
       .valueAtEndPoint().toStream(byteArrayOutputStream10);
 
-    Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[teSt table]%n"
+    Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[TEST table]%n"
       + "|-----------|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
       + "|           |         | *         |           |           |           |           |            |           |           |           |           |            |            |            |            |            |            |            |                       |            |%n"
       + "|           | PRIMARY | VAR1      | VAR2      | VAR3      | VAR4      | VAR5      | VAR6       | VAR7      | VAR8      | VAR9      | VAR10     | VAR11      | VAR12      | VAR13      | VAR14      | VAR15      | VAR16      | VAR17      | VAR18                 | VAR19      |%n"
@@ -84,21 +85,21 @@ public class SqliteDatabase_Source_DDD_Test extends AbstractSqliteTest {
       + "|-----------|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
       + "| Index : 0 | 1       | 1         | 13        | 2         | 14        | 15        | 2007-12-23 | 3.3       | 4.4       | 5.5       | 6.6       | 20         | 8          | 16         | 9          | 10.1       | 11         | 09:01:00   | 2007-12-23 09:01:00.0 | 12         |%n"
       + "|-----------|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"));
-    Assertions.assertThat(byteArrayOutputStream1.toString()).isEqualTo(String.format("[Column at index 0 (column name : VAR1) of teSt table]%n"
+    Assertions.assertThat(byteArrayOutputStream1.toString()).isEqualTo(String.format("[Column at index 0 (column name : VAR1) of TEST table]%n"
       + "|-----------|----------|%n"
       + "|           | VAR1     |%n"
       + "|           | (NUMBER) |%n"
       + "|-----------|----------|%n"
       + "| Index : 0 | 1        |%n"
       + "|-----------|----------|%n"));
-    Assertions.assertThat(byteArrayOutputStream2.toString()).isEqualTo(String.format("[Value at index 0 of Column at index 0 (column name : VAR1) of teSt table]%n"
+    Assertions.assertThat(byteArrayOutputStream2.toString()).isEqualTo(String.format("[Value at index 0 of Column at index 0 (column name : VAR1) of TEST table]%n"
       + "|----------|%n"
       + "| VAR1     |%n"
       + "| (NUMBER) |%n"
       + "|----------|%n"
       + "| 1        |%n"
       + "|----------|%n"));
-    Assertions.assertThat(byteArrayOutputStream3.toString()).isEqualTo(String.format("[Row at index 0 of teSt table]%n"
+    Assertions.assertThat(byteArrayOutputStream3.toString()).isEqualTo(String.format("[Row at index 0 of TEST table]%n"
       + "|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
       + "|         | *         |           |           |           |           |            |           |           |           |           |            |            |            |            |            |            |            |                       |            |%n"
       + "| PRIMARY | VAR1      | VAR2      | VAR3      | VAR4      | VAR5      | VAR6       | VAR7      | VAR8      | VAR9      | VAR10     | VAR11      | VAR12      | VAR13      | VAR14      | VAR15      | VAR16      | VAR17      | VAR18                 | VAR19      |%n"
@@ -107,14 +108,14 @@ public class SqliteDatabase_Source_DDD_Test extends AbstractSqliteTest {
       + "|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
       + "| 1       | 1         | 13        | 2         | 14        | 15        | 2007-12-23 | 3.3       | 4.4       | 5.5       | 6.6       | 20         | 8          | 16         | 9          | 10.1       | 11         | 09:01:00   | 2007-12-23 09:01:00.0 | 12         |%n"
       + "|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"));
-    Assertions.assertThat(byteArrayOutputStream4.toString()).isEqualTo(String.format("[Value at index 0 (column name : VAR1) of Row at index 0 of teSt table]%n"
+    Assertions.assertThat(byteArrayOutputStream4.toString()).isEqualTo(String.format("[Value at index 0 (column name : VAR1) of Row at index 0 of TEST table]%n"
       + "|----------|%n"
       + "| VAR1     |%n"
       + "| (NUMBER) |%n"
       + "|----------|%n"
       + "| 1        |%n"
       + "|----------|%n"));
-    Assertions.assertThat(byteArrayOutputStream5.toString()).isEqualTo(String.format("[Changes on teSt table of '/jdbc:sqlite:target/testDerby.db' source]%n"
+    Assertions.assertThat(byteArrayOutputStream5.toString()).isEqualTo(String.format("[Changes on TEST table of '/jdbc:sqlite:target/testDerby.db']%n"
       + "|-----------|--------------|-------|---------|----------------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
       + "|           |              |       |         |                | *         |           |           |           |           |            |           |           |           |           |            |            |            |            |            |            |            |                       |            |%n"
       + "|           | TYPE         | TABLE | PRIMARY |                | VAR1      | VAR2      | VAR3      | VAR4      | VAR5      | VAR6       | VAR7      | VAR8      | VAR9      | VAR10     | VAR11      | VAR12      | VAR13      | VAR14      | VAR15      | VAR16      | VAR17      | VAR18                 | VAR19      |%n"
@@ -122,10 +123,10 @@ public class SqliteDatabase_Source_DDD_Test extends AbstractSqliteTest {
       + "|           |              |       |         |                | Index : 0 | Index : 1 | Index : 2 | Index : 3 | Index : 4 | Index : 5  | Index : 6 | Index : 7 | Index : 8 | Index : 9 | Index : 10 | Index : 11 | Index : 12 | Index : 13 | Index : 14 | Index : 15 | Index : 16 | Index : 17            | Index : 18 |%n"
       + "|-----------|--------------|-------|---------|----------------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
       + "|           |              |       |         | At start point | 1         | 13        | 2         | 14        | 15        | 2007-12-23 | 3.3       | 4.4       | 5.5       | 6.6       | 7          | 8          | 16         | 9          | 10.1       | 11         | 09:01:00   | 2007-12-23 09:01:00.0 | 12         |%n"
-      + "| Index : 0 | MODIFICATION | teSt  | 1       |----------------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
+      + "| Index : 0 | MODIFICATION | TEST  | 1       |----------------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
       + "|           |              |       |         | At end point   | 1         | 13        | 2         | 14        | 15        | 2007-12-23 | 3.3       | 4.4       | 5.5       | 6.6       | 20         | 8          | 16         | 9          | 10.1       | 11         | 09:01:00   | 2007-12-23 09:01:00.0 | 12         |%n"
       + "|-----------|--------------|-------|---------|----------------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"));
-    Assertions.assertThat(byteArrayOutputStream6.toString()).isEqualTo(String.format("[Change at index 0 (with primary key : [1]) of Changes on teSt table of '/jdbc:sqlite:target/testDerby.db' source]%n"
+    Assertions.assertThat(byteArrayOutputStream6.toString()).isEqualTo(String.format("[Change at index 0 (with primary key : [1]) of Changes on TEST table of '/jdbc:sqlite:target/testDerby.db']%n"
       + "|--------------|-------|---------|----------------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
       + "|              |       |         |                | *         |           |           |           |           |            |           |           |           |           |            |            |            |            |            |            |            |                       |            |%n"
       + "| TYPE         | TABLE | PRIMARY |                | VAR1      | VAR2      | VAR3      | VAR4      | VAR5      | VAR6       | VAR7      | VAR8      | VAR9      | VAR10     | VAR11      | VAR12      | VAR13      | VAR14      | VAR15      | VAR16      | VAR17      | VAR18                 | VAR19      |%n"
@@ -133,10 +134,10 @@ public class SqliteDatabase_Source_DDD_Test extends AbstractSqliteTest {
       + "|              |       |         |                | Index : 0 | Index : 1 | Index : 2 | Index : 3 | Index : 4 | Index : 5  | Index : 6 | Index : 7 | Index : 8 | Index : 9 | Index : 10 | Index : 11 | Index : 12 | Index : 13 | Index : 14 | Index : 15 | Index : 16 | Index : 17            | Index : 18 |%n"
       + "|--------------|-------|---------|----------------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
       + "|              |       |         | At start point | 1         | 13        | 2         | 14        | 15        | 2007-12-23 | 3.3       | 4.4       | 5.5       | 6.6       | 7          | 8          | 16         | 9          | 10.1       | 11         | 09:01:00   | 2007-12-23 09:01:00.0 | 12         |%n"
-      + "| MODIFICATION | teSt  | 1       |----------------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
+      + "| MODIFICATION | TEST  | 1       |----------------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
       + "|              |       |         | At end point   | 1         | 13        | 2         | 14        | 15        | 2007-12-23 | 3.3       | 4.4       | 5.5       | 6.6       | 20         | 8          | 16         | 9          | 10.1       | 11         | 09:01:00   | 2007-12-23 09:01:00.0 | 12         |%n"
       + "|--------------|-------|---------|----------------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"));
-    Assertions.assertThat(byteArrayOutputStream7.toString()).isEqualTo(String.format("[Row at end point of Change at index 0 (with primary key : [1]) of Changes on teSt table of '/jdbc:sqlite:target/testDerby.db' source]%n"
+    Assertions.assertThat(byteArrayOutputStream7.toString()).isEqualTo(String.format("[Row at end point of Change at index 0 (with primary key : [1]) of Changes on TEST table of '/jdbc:sqlite:target/testDerby.db']%n"
       + "|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
       + "|         | *         |           |           |           |           |            |           |           |           |           |            |            |            |            |            |            |            |                       |            |%n"
       + "| PRIMARY | VAR1      | VAR2      | VAR3      | VAR4      | VAR5      | VAR6       | VAR7      | VAR8      | VAR9      | VAR10     | VAR11      | VAR12      | VAR13      | VAR14      | VAR15      | VAR16      | VAR17      | VAR18                 | VAR19      |%n"
@@ -145,14 +146,14 @@ public class SqliteDatabase_Source_DDD_Test extends AbstractSqliteTest {
       + "|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
       + "| 1       | 1         | 13        | 2         | 14        | 15        | 2007-12-23 | 3.3       | 4.4       | 5.5       | 6.6       | 20         | 8          | 16         | 9          | 10.1       | 11         | 09:01:00   | 2007-12-23 09:01:00.0 | 12         |%n"
       + "|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"));
-    Assertions.assertThat(byteArrayOutputStream8.toString()).isEqualTo(String.format("[Value at index 0 (column name : VAR1) of Row at end point of Change at index 0 (with primary key : [1]) of Changes on teSt table of '/jdbc:sqlite:target/testDerby.db' source]%n"
+    Assertions.assertThat(byteArrayOutputStream8.toString()).isEqualTo(String.format("[Value at index 0 (column name : VAR1) of Row at end point of Change at index 0 (with primary key : [1]) of Changes on TEST table of '/jdbc:sqlite:target/testDerby.db']%n"
       + "|----------|%n"
       + "| VAR1     |%n"
       + "| (NUMBER) |%n"
       + "|----------|%n"
       + "| 1        |%n"
       + "|----------|%n"));
-    Assertions.assertThat(byteArrayOutputStream9.toString()).isEqualTo(String.format("[Column at index 0 (column name : VAR1) of Change at index 0 (with primary key : [1]) of Changes on teSt table of '/jdbc:sqlite:target/testDerby.db' source]%n"
+    Assertions.assertThat(byteArrayOutputStream9.toString()).isEqualTo(String.format("[Column at index 0 (column name : VAR1) of Change at index 0 (with primary key : [1]) of Changes on TEST table of '/jdbc:sqlite:target/testDerby.db']%n"
       + "|----------------|----------|%n"
       + "|                | VAR1     |%n"
       + "|                | (NUMBER) |%n"
@@ -161,7 +162,7 @@ public class SqliteDatabase_Source_DDD_Test extends AbstractSqliteTest {
       + "|----------------|----------|%n"
       + "| At end point   | 1        |%n"
       + "|----------------|----------|%n"));
-    Assertions.assertThat(byteArrayOutputStream10.toString()).isEqualTo(String.format("[Value at end point of Column at index 0 (column name : VAR1) of Change at index 0 (with primary key : [1]) of Changes on teSt table of '/jdbc:sqlite:target/testDerby.db' source]%n"
+    Assertions.assertThat(byteArrayOutputStream10.toString()).isEqualTo(String.format("[Value at end point of Column at index 0 (column name : VAR1) of Change at index 0 (with primary key : [1]) of Changes on TEST table of '/jdbc:sqlite:target/testDerby.db']%n"
       + "|----------|%n"
       + "| VAR1     |%n"
       + "| (NUMBER) |%n"
@@ -173,7 +174,7 @@ public class SqliteDatabase_Source_DDD_Test extends AbstractSqliteTest {
   @Test
   @NeedReload
   public void test_PrimaryKey_hasPksNames() {
-    Table table = new Table(source, "test");
+    Table table = new Table(connectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update();
     changes.setEndPointNow();
@@ -185,7 +186,7 @@ public class SqliteDatabase_Source_DDD_Test extends AbstractSqliteTest {
   @Test
   @NeedReload
   public void test_ColumnName_hasColumnName() {
-    Table table = new Table(source, "test");
+    Table table = new Table(connectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update();
     changes.setEndPointNow();
@@ -240,7 +241,7 @@ public class SqliteDatabase_Source_DDD_Test extends AbstractSqliteTest {
   @Test
   @NeedReload
   public void test_ColumnClass_isOfClass() {
-    Table table = new Table(source, "test");
+    Table table = new Table(connectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update();
     changes.setEndPointNow();
@@ -295,7 +296,7 @@ public class SqliteDatabase_Source_DDD_Test extends AbstractSqliteTest {
   @Test
   @NeedReload
   public void test_ColumnEquality_hasValues() {
-    Table table = new Table(source, "test", null, new String[]{"var20"});
+    Table table = new Table(connectionProvider, "test", null, new String[]{"var20"});
     Changes changes = new Changes(table).setStartPointNow();
     update();
     changes.setEndPointNow();
@@ -347,7 +348,7 @@ public class SqliteDatabase_Source_DDD_Test extends AbstractSqliteTest {
   @Test
   @NeedReload
   public void test_ColumnEquality_containsValues() {
-    Table table = new Table(source, "test", null, new String[]{"var20"});
+    Table table = new Table(connectionProvider, "test", null, new String[]{"var20"});
     Changes changes = new Changes(table).setStartPointNow();
     update();
     changes.setEndPointNow();
@@ -377,7 +378,7 @@ public class SqliteDatabase_Source_DDD_Test extends AbstractSqliteTest {
   @Test
   @NeedReload
   public void test_ColumnType_isOfType() {
-    Table table = new Table(source, "test");
+    Table table = new Table(connectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update();
     changes.setEndPointNow();
@@ -431,7 +432,7 @@ public class SqliteDatabase_Source_DDD_Test extends AbstractSqliteTest {
   @Test
   @NeedReload
   public void test_ColumnOfChangeEquality_hasValues() {
-    Table table = new Table(source, "test", null, new String[]{"var20"});
+    Table table = new Table(connectionProvider, "test", null, new String[]{"var20"});
     Changes changes = new Changes(table).setStartPointNow();
     update();
     changes.setEndPointNow();
@@ -484,7 +485,7 @@ public class SqliteDatabase_Source_DDD_Test extends AbstractSqliteTest {
   @Test
   @NeedReload
   public void test_RowEquality_hasValues() {
-    Table table = new Table(source, "test", null, new String[]{"var20"});
+    Table table = new Table(connectionProvider, "test", null, new String[]{"var20"});
     Changes changes = new Changes(table).setStartPointNow();
     update();
     changes.setEndPointNow();
@@ -507,7 +508,7 @@ public class SqliteDatabase_Source_DDD_Test extends AbstractSqliteTest {
   @Test
   @NeedReload
   public void test_ValueClass_isOfClass() {
-    Table table = new Table(source, "test");
+    Table table = new Table(connectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update();
     changes.setEndPointNow();
@@ -562,7 +563,7 @@ public class SqliteDatabase_Source_DDD_Test extends AbstractSqliteTest {
   @Test
   @NeedReload
   public void test_ValueEquality_isEqualTo() {
-    Table table = new Table(source, "test");
+    Table table = new Table(connectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update();
     changes.setEndPointNow();
@@ -615,7 +616,7 @@ public class SqliteDatabase_Source_DDD_Test extends AbstractSqliteTest {
   @Test
   @NeedReload
   public void test_ValueNonEquality_isNotEqualTo() {
-    Table table = new Table(source, "test");
+    Table table = new Table(connectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update();
     changes.setEndPointNow();
@@ -668,7 +669,7 @@ public class SqliteDatabase_Source_DDD_Test extends AbstractSqliteTest {
   @Test
   @NeedReload
   public void test_ValueType_isOfType() {
-    Table table = new Table(source, "test");
+    Table table = new Table(connectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update();
     changes.setEndPointNow();

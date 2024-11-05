@@ -28,6 +28,7 @@ import org.junit.Test;
  * {@link org.assertj.db.api.assertions.AssertOnNumberOfRows#hasNumberOfRowsGreaterThan(int)} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class AssertOnNumberOfRows_HasNumberOfRowsGreaterThan_Test extends AbstractTest {
 
@@ -36,7 +37,7 @@ public class AssertOnNumberOfRows_HasNumberOfRowsGreaterThan_Test extends Abstra
    */
   @Test
   public void test_has_number_of_rows_greater_than() {
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = tableAssert.hasNumberOfRowsGreaterThan(2);
     Assertions.assertThat(tableAssert).isSameAs(tableAssert2);
@@ -50,7 +51,7 @@ public class AssertOnNumberOfRows_HasNumberOfRowsGreaterThan_Test extends Abstra
    */
   @Test
   public void should_fail_because_number_of_rows_is_less_or_equal() {
-    Request request = new Request(source, "select * from actor");
+    Request request = new Request(jdbcConnectionProvider, "select * from actor");
     try {
       assertThat(request).hasNumberOfRowsGreaterThan(9);
       fail("An exception must be raised");

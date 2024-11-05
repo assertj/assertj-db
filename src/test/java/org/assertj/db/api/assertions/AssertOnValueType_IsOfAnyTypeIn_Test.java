@@ -12,9 +12,6 @@
  */
 package org.assertj.db.api.assertions;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.ChangeColumnValueAssert;
 import org.assertj.db.api.TableColumnValueAssert;
@@ -25,11 +22,15 @@ import org.assertj.db.type.Table;
 import org.assertj.db.type.ValueType;
 import org.junit.Test;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 /**
  * Tests on {@link org.assertj.db.api.assertions.AssertOnValueType} class :
  * {@link org.assertj.db.api.assertions.AssertOnValueType#isOfAnyTypeIn(org.assertj.db.type.ValueType...)} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class AssertOnValueType_IsOfAnyTypeIn_Test extends AbstractTest {
 
@@ -39,7 +40,7 @@ public class AssertOnValueType_IsOfAnyTypeIn_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_is_of_any_of_types() {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update("update test set var14 = 1 where var1 = 1");
     changes.setEndPointNow();
@@ -59,7 +60,7 @@ public class AssertOnValueType_IsOfAnyTypeIn_Test extends AbstractTest {
   @Test
   @NeedReload
   public void should_fail_because_value_is_not_of_any_of_types() {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update("update test set var14 = 1 where var1 = 1");
     changes.setEndPointNow();
@@ -68,7 +69,7 @@ public class AssertOnValueType_IsOfAnyTypeIn_Test extends AbstractTest {
       assertThat(changes).change().column("var1").valueAtEndPoint().isOfAnyTypeIn(ValueType.BOOLEAN);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 0 (column name : VAR1) of Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:test' source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 0 (column name : VAR1) of Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:test'] %n"
         + "Expecting:%n"
         + "  <1>%n"
         + "to be of type%n"

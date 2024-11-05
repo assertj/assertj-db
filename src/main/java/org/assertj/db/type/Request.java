@@ -20,14 +20,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import javax.sql.DataSource;
 
 import org.assertj.db.type.lettercase.LetterCase;
 
 /**
  * A request in the database to get values.
  * <p>
- * The different information of the request are connection or data source, the SQL request and optionally the parameters
+ * The different information of the request are connectionProvider, the SQL request and optionally the parameters
  * of the SQL request.
  * </p>
  * <p>
@@ -37,30 +36,32 @@ import org.assertj.db.type.lettercase.LetterCase;
  * <li>
  * <p>
  * This {@link Request} point to a request without parameter in a H2 database in memory like indicated in the
- * {@link Source}.
+ * {@link ConnectionProvider}.
  * </p>
  *
  * <pre><code class='java'>
- * Source source = new Source(&quot;jdbc:h2:mem:test&quot;, &quot;sa&quot;, &quot;&quot;);
- * Request request = new Request(source, &quot;select title from movie;&quot;);
+ * ConnectionProvider connectionProvider = ConnectionProviderFactory.of(&quot;jdbc:h2:mem:test&quot;, &quot;sa&quot;, &quot;&quot;).create();
+ * Request request = new Request(connectionProvider, &quot;select title from movie;&quot;);
  * </code></pre>
  *
  * </li>
  * <li>
  * <p>
  * Below the {@link Request} point to a request with {@code 2000} in parameter.<br>
- * The {@link Request} use a {@code DataSource} instead of a {@link Source} like above.
+ * The {@link Request} use a {@code DataSource} in the factory of {@link ConnectionProvider} like above.
  * </p>
  *
  * <pre><code class='java'>
  * DataSource dataSource = ...;
- * Request request = new Request(dataSource, "select title from movie where year &gt; ?;", 2000);
+ * ConnectionProvider connectionProvider = ConnectionProviderFactory.of(dataSource).create();
+ * Request request = new Request(connectionProvider, "select title from movie where year &gt; ?;", 2000);
  * </code></pre>
  *
  * </li>
  * </ul>
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class Request extends AbstractDbData<Request> {
 
@@ -83,25 +84,13 @@ public class Request extends AbstractDbData<Request> {
   /**
    * Constructor with a connection.
    *
-   * @param source     Source to connect to the database.
-   * @param request    SQL Request to get the values.
-   * @param parameters Parameters of the SQL request.
+   * @param connectionProvider Connection provider to connect to the database.
+   * @param request            SQL Request to get the values.
+   * @param parameters         Parameters of the SQL request.
+   * @since 3.0.0
    */
-  public Request(Source source, String request, Object... parameters) {
-    super(Request.class, DataType.REQUEST, source);
-    setRequest(request);
-    this.parameters = parameters;
-  }
-
-  /**
-   * Constructor with a data source.
-   *
-   * @param dataSource Data source.
-   * @param request    SQL Request to get the values.
-   * @param parameters Parameters of the SQL request.
-   */
-  public Request(DataSource dataSource, String request, Object... parameters) {
-    super(Request.class, DataType.REQUEST, dataSource);
+  public Request(ConnectionProvider connectionProvider, String request, Object... parameters) {
+    super(Request.class, DataType.REQUEST, connectionProvider);
     setRequest(request);
     this.parameters = parameters;
   }

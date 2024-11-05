@@ -28,6 +28,7 @@ import org.junit.Test;
  * Test on {@code BDDAssertions} methods.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class BDDAssertions_Test extends AbstractTest {
 
@@ -36,7 +37,7 @@ public class BDDAssertions_Test extends AbstractTest {
    */
   @Test
   public void test_then_for_table() throws Exception {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     Assertions.assertThat(then(table)).isInstanceOf(TableAssert.class);
   }
 
@@ -45,7 +46,7 @@ public class BDDAssertions_Test extends AbstractTest {
    */
   @Test
   public void test_then_for_request() throws Exception {
-    Request request = new Request(source, "select * from test");
+    Request request = new Request(jdbcConnectionProvider, "select * from test");
     Assertions.assertThat(then(request)).isInstanceOf(RequestAssert.class);
   }
 
@@ -54,7 +55,7 @@ public class BDDAssertions_Test extends AbstractTest {
    */
   @Test
   public void test_then_for_changes() throws Exception {
-    Changes changes = new Changes(source);
+    Changes changes = new Changes(jdbcConnectionProvider);
     Assertions.assertThat(then(changes)).isInstanceOf(ChangesAssert.class);
   }
 }

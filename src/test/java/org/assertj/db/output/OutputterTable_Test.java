@@ -25,6 +25,7 @@ import org.junit.Test;
  * Test the output of tables.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class OutputterTable_Test extends AbstractTest {
 
@@ -33,7 +34,7 @@ public class OutputterTable_Test extends AbstractTest {
    */
   @Test
   public void test_output() throws Exception {
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
 
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
     output(table).toStream(byteArrayOutputStream);
@@ -55,7 +56,7 @@ public class OutputterTable_Test extends AbstractTest {
    */
   @Test
   public void test_navigation() throws Exception {
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
 
     TableOutputter tableOutputter = output(table);
 

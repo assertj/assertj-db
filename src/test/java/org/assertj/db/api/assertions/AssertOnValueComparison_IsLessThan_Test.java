@@ -29,6 +29,7 @@ import org.junit.Test;
  * {@link  org.assertj.db.api.assertions.AssertOnValueComparison#isLessThan(Number)} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class AssertOnValueComparison_IsLessThan_Test extends AbstractTest {
 
@@ -39,7 +40,7 @@ public class AssertOnValueComparison_IsLessThan_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_is_less_than() {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update("update test set var14 = 1 where var1 = 1");
     changes.setEndPointNow();
@@ -59,7 +60,7 @@ public class AssertOnValueComparison_IsLessThan_Test extends AbstractTest {
   @Test
   @NeedReload
   public void should_fail_because_value_is_greater_than_or_equal_to() {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update("update test set var14 = 1 where var1 = 1");
     changes.setEndPointNow();
@@ -68,7 +69,7 @@ public class AssertOnValueComparison_IsLessThan_Test extends AbstractTest {
       assertThat(changes).change().column("var3").valueAtEndPoint().isLessThan(2);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 2 (column name : VAR3) of Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:test' source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 2 (column name : VAR3) of Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:test'] %n"
         + "Expecting:%n"
         + "  <2>%n"
         + "to be less than %n"

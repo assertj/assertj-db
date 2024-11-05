@@ -27,6 +27,7 @@ import org.junit.Test;
  * {@link AssertOnColumnContent#containsValues(String...)} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class AssertOnColumnContent_ContainsValues_String_Test extends AbstractTest {
 
@@ -36,12 +37,12 @@ public class AssertOnColumnContent_ContainsValues_String_Test extends AbstractTe
   @Test
   @NeedReload
   public void test_has_values() throws Exception {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     TableColumnAssert tableColumnAssert = assertThat(table).column("var3");
     TableColumnAssert tableColumnAssertReturn = tableColumnAssert.containsValues("2", "20", "25", "0");
     Assertions.assertThat(tableColumnAssert).isSameAs(tableColumnAssertReturn);
 
-    Table table2 = new Table(source, "test2");
+    Table table2 = new Table(jdbcConnectionProvider, "test2");
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var3");
     TableColumnAssert tableColumnAssertReturn2 = tableColumnAssert2.containsValues("2", null);
     Assertions.assertThat(tableColumnAssert2).isSameAs(tableColumnAssertReturn2);
@@ -154,7 +155,7 @@ public class AssertOnColumnContent_ContainsValues_String_Test extends AbstractTe
     Assertions.assertThat(tableColumnAssert18).isSameAs(tableColumnAssertReturn18);
 
     update("update test2 set var10 = '2014-05-24' where var1 = 1");
-    table2 = new Table(source, "test2");
+    table2 = new Table(jdbcConnectionProvider, "test2");
     TableColumnAssert tableColumnAssert19 = assertThat(table2).column("var10");
     TableColumnAssert tableColumnAssertReturn19 = tableColumnAssert19.containsValues("2014-05-24",
       null);
@@ -172,7 +173,7 @@ public class AssertOnColumnContent_ContainsValues_String_Test extends AbstractTe
    */
   @Test
   public void should_fail_because_values_are_different() throws Exception {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     TableColumnAssert tableColumnAssert = assertThat(table).column("var3");
     try {
       tableColumnAssert.containsValues("2", "20", "35", "0");
@@ -185,7 +186,7 @@ public class AssertOnColumnContent_ContainsValues_String_Test extends AbstractTe
         + "  <[\"2\", \"20\", \"35\", \"0\"]>%n"
         + " (parameter <\"35\"> at index 2 is not found)"));
     }
-    Table table2 = new Table(source, "test2");
+    Table table2 = new Table(jdbcConnectionProvider, "test2");
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var3");
     try {
       tableColumnAssert2.containsValues("2", "2");

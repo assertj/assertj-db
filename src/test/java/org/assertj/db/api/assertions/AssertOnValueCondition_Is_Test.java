@@ -46,7 +46,7 @@ public class AssertOnValueCondition_Is_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_is() {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update("update test set var14 = 1 where var1 = 1000");
     changes.setEndPointNow();
@@ -66,7 +66,7 @@ public class AssertOnValueCondition_Is_Test extends AbstractTest {
   @Test
   @NeedReload
   public void should_fail_because_value_not_match_with_condition() {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update("update test set var14 = 1 where var1 = 1");
     changes.setEndPointNow();
@@ -77,7 +77,7 @@ public class AssertOnValueCondition_Is_Test extends AbstractTest {
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format(
         "[Value at end point of Column at index 2 (column name : VAR3) of Change at index 0 (with primary key : [1]) of "
-          + "Changes on TEST table of 'sa/jdbc:h2:mem:test' source] %n"
+          + "Changes on TEST table of 'sa/jdbc:h2:mem:test'] %n"
           + "Expecting actual:%n"
           + "  2%n"
           + "to be isZero"));
