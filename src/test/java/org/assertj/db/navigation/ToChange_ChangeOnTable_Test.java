@@ -38,6 +38,7 @@ import org.junit.Test;
  * {@link org.assertj.db.navigation.ToChange#changeOnTable(String)} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class ToChange_ChangeOnTable_Test extends AbstractTest {
 
@@ -47,7 +48,7 @@ public class ToChange_ChangeOnTable_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_change_on_table_with_assertions() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -122,7 +123,7 @@ public class ToChange_ChangeOnTable_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_change_on_table_with_displays() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 

@@ -26,6 +26,7 @@ import org.junit.Test;
  * {@link AssertOnColumnContent#containsValues(Boolean...)} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class AssertOnColumnContent_ContainsValues_Boolean_Test extends AbstractTest {
 
@@ -34,12 +35,12 @@ public class AssertOnColumnContent_ContainsValues_Boolean_Test extends AbstractT
    */
   @Test
   public void test_has_values() throws Exception {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     TableColumnAssert tableColumnAssert = assertThat(table).column("var2");
     TableColumnAssert tableColumnAssertReturn = tableColumnAssert.containsValues(true, false, false, false);
     Assertions.assertThat(tableColumnAssert).isSameAs(tableColumnAssertReturn);
 
-    Table table2 = new Table(source, "test2");
+    Table table2 = new Table(jdbcConnectionProvider, "test2");
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var2");
     TableColumnAssert tableColumnAssertReturn2 = tableColumnAssert2.containsValues(true, null);
     Assertions.assertThat(tableColumnAssert2).isSameAs(tableColumnAssertReturn2);
@@ -50,7 +51,7 @@ public class AssertOnColumnContent_ContainsValues_Boolean_Test extends AbstractT
    */
   @Test
   public void should_fail_because_values_are_different() throws Exception {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     TableColumnAssert tableColumnAssert = assertThat(table).column("var2");
     try {
       tableColumnAssert.containsValues(true, false, true, false);
@@ -63,7 +64,7 @@ public class AssertOnColumnContent_ContainsValues_Boolean_Test extends AbstractT
         + "  <[true, false, true, false]>%n"
         + " (parameter <true> at index 2 is not found)"));
     }
-    Table table2 = new Table(source, "test2");
+    Table table2 = new Table(jdbcConnectionProvider, "test2");
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var2");
     try {
       tableColumnAssert2.containsValues(true, true);

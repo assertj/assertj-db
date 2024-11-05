@@ -30,6 +30,7 @@ import org.junit.Test;
  * {@link  org.assertj.db.api.assertions.AssertOnValueEquality#isEqualTo(byte[])} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class AssertOnValueEquality_IsEqualTo_Bytes_Test extends AbstractTest {
 
@@ -41,7 +42,7 @@ public class AssertOnValueEquality_IsEqualTo_Bytes_Test extends AbstractTest {
   public void test_is_equal_to() {
     byte[] bytesH2 = bytesContentFromClassPathOf("h2-logo-2.png");
 
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update("update test set var14 = 1 where var1 = 1");
     changes.setEndPointNow();
@@ -61,7 +62,7 @@ public class AssertOnValueEquality_IsEqualTo_Bytes_Test extends AbstractTest {
   @Test
   @NeedReload
   public void should_fail_because_value_is_not_equal_to() {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update("update test set var14 = 1 where var1 = 1");
     changes.setEndPointNow();
@@ -70,7 +71,7 @@ public class AssertOnValueEquality_IsEqualTo_Bytes_Test extends AbstractTest {
       assertThat(changes).change().column("var11").valueAtEndPoint().isEqualTo(new byte[0]);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 10 (column name : VAR11) of Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:test' source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 10 (column name : VAR11) of Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:test'] %n"
         + "Expecting to be equal to the expected value but was not equal"));
     }
     try {

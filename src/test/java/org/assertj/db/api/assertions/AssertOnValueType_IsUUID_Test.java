@@ -38,7 +38,7 @@ public class AssertOnValueType_IsUUID_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_is_UUID() {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update("update test set var15 = 'F96EC595-CE91-47CC-9152-CCC8AC48AAD6' where var1 = 1");
     changes.setEndPointNow();
@@ -58,7 +58,7 @@ public class AssertOnValueType_IsUUID_Test extends AbstractTest {
   @Test
   @NeedReload
   public void should_fail_because_value_is_not_a_UUID() {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update("update test set var14 = 1 where var1 = 1");
     changes.setEndPointNow();
@@ -68,7 +68,7 @@ public class AssertOnValueType_IsUUID_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format(
-        "[Value at end point of Column at index 0 (column name : VAR1) of Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:test' source] %n"
+        "[Value at end point of Column at index 0 (column name : VAR1) of Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:test'] %n"
           + "Expecting:%n"
           + "  <1>%n"
           + "to be of type%n"

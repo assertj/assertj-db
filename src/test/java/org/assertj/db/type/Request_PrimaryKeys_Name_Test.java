@@ -25,15 +25,16 @@ import org.junit.Test;
  * </p>
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class Request_PrimaryKeys_Name_Test extends AbstractTest {
 
   /**
-   * This method test the primary keys name got from a {@code Source}.
+   * This method test the primary keys name got from a {@code JdbcUrlConnectionProvider}.
    */
   @Test
-  public void test_pks_name_with_source_set_but_not_primary_keys() {
-    Request request = new Request(source,
+  public void test_pks_name_with_jdbc_set_but_not_primary_keys() {
+    Request request = new Request(jdbcConnectionProvider,
       "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
         + " FROM movie, actor, interpretation"
         + " WHERE movie.id = interpretation.id_movie"
@@ -45,11 +46,11 @@ public class Request_PrimaryKeys_Name_Test extends AbstractTest {
   }
 
   /**
-   * This method test the primary keys name got from a {@code Source}.
+   * This method test the primary keys name got from a {@code JdbcUrlConnectionProvider}.
    */
   @Test
-  public void test_pks_name_with_source_set() {
-    Request request = new Request(source,
+  public void test_pks_name_with_jdbc_set() {
+    Request request = new Request(jdbcConnectionProvider,
       "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
         + " FROM movie, actor, interpretation"
         + " WHERE movie.id = interpretation.id_movie"
@@ -62,11 +63,11 @@ public class Request_PrimaryKeys_Name_Test extends AbstractTest {
   }
 
   /**
-   * This method test the primary keys name got from a {@code DataSource}.
+   * This method test the primary keys name got from a {@code DataSourceConnectionProvider}.
    */
   @Test
   public void test_pks_name_with_datasource_set() {
-    Request request = new Request(dataSource,
+    Request request = new Request(dsConnectionProvider,
       "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
         + " FROM movie, actor, interpretation"
         + " WHERE movie.id = interpretation.id_movie"
@@ -79,11 +80,11 @@ public class Request_PrimaryKeys_Name_Test extends AbstractTest {
   }
 
   /**
-   * This method test the primary keys name got from a {@code Source}.
+   * This method test the primary keys name got from a {@code DataSourceConnectionProvider}.
    */
   @Test
-  public void test_pks_name_with_source_and_parameters_set() {
-    Request request = new Request(source,
+  public void test_pks_name_with_jdbc_and_parameters_set() {
+    Request request = new Request(dsConnectionProvider,
       "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
         + " FROM movie, actor, interpretation"
         + " WHERE movie.id = interpretation.id_movie"
@@ -97,11 +98,11 @@ public class Request_PrimaryKeys_Name_Test extends AbstractTest {
   }
 
   /**
-   * This method test the primary keys name got from a {@code DataSource}.
+   * This method test the primary keys name got from a {@code DataSourceConnectionProvider}.
    */
   @Test
   public void test_pks_name_with_datasource_and_parameters_set() {
-    Request request = new Request(dataSource,
+    Request request = new Request(dsConnectionProvider,
       "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
         + " FROM movie, actor, interpretation"
         + " WHERE movie.id = interpretation.id_movie"
@@ -121,7 +122,7 @@ public class Request_PrimaryKeys_Name_Test extends AbstractTest {
    */
   @Test(expected = AssertJDBException.class)
   public void should_throw_AssertJDBException_because_SQLException_caused_by_table_not_found() {
-    Table table = new Table(dataSource, "select * from interpret");
+    Table table = new Table(dsConnectionProvider, "select * from interpret");
     table.getPksNameList();
   }
 

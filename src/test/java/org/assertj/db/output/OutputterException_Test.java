@@ -29,6 +29,7 @@ import org.junit.Test;
  * Test the exception of output.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  * @author Pascal Schumacher
  */
 public class OutputterException_Test extends AbstractTest {
@@ -38,7 +39,7 @@ public class OutputterException_Test extends AbstractTest {
    */
   @Test
   public void test_display_from_column_for_table() throws Exception {
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
 
     try {
       Outputs.output(table).column(null);
@@ -62,7 +63,7 @@ public class OutputterException_Test extends AbstractTest {
    */
   @Test
   public void test_display_from_column_for_request() throws Exception {
-    Request request = new Request(source, "select * from actor");
+    Request request = new Request(jdbcConnectionProvider, "select * from actor");
 
     try {
       Outputs.output(request).column(null);
@@ -87,7 +88,7 @@ public class OutputterException_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_output_for_row_from_change() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -118,7 +119,7 @@ public class OutputterException_Test extends AbstractTest {
    */
   @Test
   public void test_display_from_value_from_row_for_table() throws Exception {
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
 
     try {
       Outputs.output(table).row().value(null);
@@ -142,7 +143,7 @@ public class OutputterException_Test extends AbstractTest {
    */
   @Test
   public void test_display_from_value_from_row_for_request() throws Exception {
-    Request request = new Request(source, "select * from actor");
+    Request request = new Request(jdbcConnectionProvider, "select * from actor");
 
     try {
       Outputs.output(request).row().value(null);
@@ -163,7 +164,7 @@ public class OutputterException_Test extends AbstractTest {
 
   @Test
   public void test_display_to_file() {
-    Request request = new Request(source, "select * from actor");
+    Request request = new Request(jdbcConnectionProvider, "select * from actor");
 
     try {
       Outputs.output(request).toFile("test" + File.separator + "test.txt");

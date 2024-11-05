@@ -28,15 +28,16 @@ import org.junit.Test;
  * </p>
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class Table_Rows_Test extends AbstractTest {
 
   /**
-   * This method test the rows got from a {@code Source}.
+   * This method test the rows got from a {@code ConnectionProvider}.
    */
   @Test
-  public void test_rows_with_source_set() {
-    Table table = new Table(source, "movie");
+  public void test_rows_with_jdbc_set() {
+    Table table = new Table(jdbcConnectionProvider, "movie");
 
     assertThat(table.getRowsList()).as("Values of MOVIE table").hasSize(3);
 
@@ -73,7 +74,7 @@ public class Table_Rows_Test extends AbstractTest {
    */
   @Test
   public void test_rows_with_datasource_set() {
-    Table table = new Table(dataSource, "movie");
+    Table table = new Table(dsConnectionProvider, "movie");
 
     assertThat(table.getRowsList()).as("Values of MOVIE table").hasSize(3);
 
@@ -107,7 +108,7 @@ public class Table_Rows_Test extends AbstractTest {
    */
   @Test
   public void test_rows_with_datasource_and_order_set() {
-    Table table = new Table(dataSource, "movie", new Table.Order[]{asc("title")});
+    Table table = new Table(dsConnectionProvider, "movie", new Table.Order[]{asc("title")});
 
     assertThat(table.getRowsList()).as("Values of MOVIE table").hasSize(3);
 
@@ -141,7 +142,7 @@ public class Table_Rows_Test extends AbstractTest {
    */
   @Test(expected = NullPointerException.class)
   public void should_throw_NullPointerException_because_column_name_parameter_is_null_when_calling_getColumnValue() {
-    Table table = new Table(source, "movie");
+    Table table = new Table(jdbcConnectionProvider, "movie");
     table.getRow(0).getColumnValue(null);
   }
 
@@ -150,7 +151,7 @@ public class Table_Rows_Test extends AbstractTest {
    */
   @Test
   public void test_that_we_get_null_when_calling_getColumnValue_and_the_column_name_dont_exist() {
-    Table table = new Table(source, "movie");
+    Table table = new Table(jdbcConnectionProvider, "movie");
     assertThat(table.getRow(0).getColumnValue("not_exist")).isNull();
   }
 

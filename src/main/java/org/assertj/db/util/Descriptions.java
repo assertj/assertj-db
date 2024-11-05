@@ -20,7 +20,6 @@ import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.Changes;
 import org.assertj.db.type.Request;
-import org.assertj.db.type.Source;
 import org.assertj.db.type.Table;
 import org.assertj.db.type.Value;
 
@@ -91,12 +90,7 @@ public class Descriptions {
         stringBuilder.append("Changes");
       }
     }
-    if (changes.getSource() != null) {
-      Source source = changes.getSource();
-      stringBuilder.append(" of '").append(source.getUser()).append("/").append(source.getUrl()).append("' source");
-    } else {
-      stringBuilder.append(" of a data source");
-    }
+    stringBuilder.append(" of '").append(changes.getConnectionProvider().toString()).append("'");
     return stringBuilder.toString();
   }
 

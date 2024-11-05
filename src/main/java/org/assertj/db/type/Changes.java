@@ -16,15 +16,10 @@ import static org.assertj.db.type.Change.createCreationChange;
 import static org.assertj.db.type.Change.createDeletionChange;
 import static org.assertj.db.type.Change.createModificationChange;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import javax.sql.DataSource;
 
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.util.ChangeComparator;
@@ -33,6 +28,7 @@ import org.assertj.db.util.ChangeComparator;
  * Changes in the database.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class Changes extends AbstractDbElement<Changes> {
 
@@ -67,29 +63,13 @@ public class Changes extends AbstractDbElement<Changes> {
 
   /**
    * Constructor.
-   */
-  public Changes() {
-    super(Changes.class);
-  }
-
-  /**
-   * Constructor.
    *
-   * @param source The {@link Source} to connect to the database (must be not {@code null}).
-   * @throws NullPointerException If {@code source} is {@code null}.
+   * @param connectionProvider The {@link ConnectionProvider} to connect to the database (must be not {@code null}).
+   * @throws NullPointerException If {@code connectionProvider} is {@code null}.
+   * @since 3.0.0
    */
-  public Changes(Source source) {
-    super(Changes.class, source);
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param dataSource The {@link DataSource} (must be not {@code null}).
-   * @throws NullPointerException If {@code dataSource} is {@code null}.
-   */
-  public Changes(DataSource dataSource) {
-    super(Changes.class, dataSource);
+  public Changes(ConnectionProvider connectionProvider) {
+    super(Changes.class, connectionProvider);
   }
 
   /**
@@ -119,11 +99,8 @@ public class Changes extends AbstractDbElement<Changes> {
    * @param element       The {@link AbstractDbElement} on which is the copy
    */
   private static void copyElement(AbstractDbElement<?> elementToCopy, AbstractDbElement<?> element) {
-    if (elementToCopy.getSource() != null) {
-      element.setSource(elementToCopy.getSource());
-    }
-    if (elementToCopy.getDataSource() != null) {
-      element.setDataSource(elementToCopy.getDataSource());
+    if (elementToCopy.getConnectionProvider() != null) {
+      element.setConnectionProvider(elementToCopy.getConnectionProvider());
     }
   }
 
@@ -277,20 +254,12 @@ public class Changes extends AbstractDbElement<Changes> {
    */
   public Changes setStartPointNow() {
     if (request == null && tablesList == null) {
-      try (Connection connection = getConnection()) {
-        tablesList = new LinkedList<>();
-        DatabaseMetaData metaData = connection.getMetaData();
-        ResultSet resultSet = metaData.getTables(getCatalog(connection), getSchema(connection), null,
-          new String[]{"TABLE"});
-        while (resultSet.next()) {
-          String tableName = resultSet.getString("TABLE_NAME");
-          Table t = new Table().setLetterCases(getTableLetterCase(), getColumnLetterCase(), getPrimaryKeyLetterCase())
-            .setName(getTableLetterCase().convert(tableName));
-          copyElement(this, t);
-          tablesList.add(t);
-        }
-      } catch (SQLException e) {
-        throw new AssertJDBException(e);
+      tablesList = new LinkedList<>();
+      for (String tableName : getMetaData().getTablesName()) {
+        Table t = new Table().setLetterCases(getTableLetterCase(), getColumnLetterCase(), getPrimaryKeyLetterCase())
+          .setName(getTableLetterCase().convert(tableName));
+        copyElement(this, t);
+        tablesList.add(t);
       }
     }
 
@@ -538,7 +507,7 @@ public class Changes extends AbstractDbElement<Changes> {
    * @return The new instance.
    */
   private Changes createChangesFromThis() {
-    Changes changes = new Changes();
+    Changes changes = new Changes(this.getConnectionProvider());
     if (request != null) {
       changes.request = getDuplicatedRequest(request);
     }

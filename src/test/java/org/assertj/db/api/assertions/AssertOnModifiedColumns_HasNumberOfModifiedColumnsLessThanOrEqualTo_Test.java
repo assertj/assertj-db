@@ -27,6 +27,7 @@ import org.junit.Test;
  * {@link org.assertj.db.api.assertions.AssertOnModifiedColumns#hasNumberOfModifiedColumnsLessThanOrEqualTo(int)} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class AssertOnModifiedColumns_HasNumberOfModifiedColumnsLessThanOrEqualTo_Test extends AbstractTest {
 
@@ -36,7 +37,7 @@ public class AssertOnModifiedColumns_HasNumberOfModifiedColumnsLessThanOrEqualTo
   @Test
   @NeedReload
   public void test_has_number_of_modified_columns_less_than_or_equal_to() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -51,7 +52,7 @@ public class AssertOnModifiedColumns_HasNumberOfModifiedColumnsLessThanOrEqualTo
   @Test
   @NeedReload
   public void should_fail_because_number_of_modified_columns_is_greater() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -59,7 +60,7 @@ public class AssertOnModifiedColumns_HasNumberOfModifiedColumnsLessThanOrEqualTo
       assertThat(changes).change(3).hasNumberOfModifiedColumnsLessThanOrEqualTo(0);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 3 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 3 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test'] %n"
         + "Expecting :%n"
         + "  number of modifications is less than or equal to 0%n"
         + "but was:%n"

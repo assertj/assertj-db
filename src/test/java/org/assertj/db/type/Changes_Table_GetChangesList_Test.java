@@ -29,7 +29,8 @@ import org.junit.Test;
 /**
  * Tests on the list of changes on tables.
  *
- * @author Régis Pouiller.
+ * @author Régis Pouiller
+ * @author Julien Roy.
  */
 public class Changes_Table_GetChangesList_Test extends AbstractTest {
 
@@ -38,7 +39,7 @@ public class Changes_Table_GetChangesList_Test extends AbstractTest {
    */
   @Test
   public void test_when_there_is_no_change() {
-    Changes changes = new Changes(source);
+    Changes changes = new Changes(jdbcConnectionProvider);
     changes.setStartPointNow();
     changes.setEndPointNow();
     assertThat(changes.getChangesList()).hasSize(0);
@@ -52,7 +53,7 @@ public class Changes_Table_GetChangesList_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_when_there_is_no_change_found() throws SQLException {
-    Changes changes = new Changes(new Table(source, "test"));
+    Changes changes = new Changes(new Table(jdbcConnectionProvider, "test"));
     changes.setStartPointNow();
     update("delete from test2 where VAR1 is null");
     changes.setEndPointNow();
@@ -67,7 +68,7 @@ public class Changes_Table_GetChangesList_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_when_there_is_deletion_change() throws SQLException {
-    Changes changes = new Changes(source);
+    Changes changes = new Changes(jdbcConnectionProvider);
     changes.setStartPointNow();
     update("delete from test2 where VAR1 is null");
     changes.setEndPointNow();
@@ -106,7 +107,7 @@ public class Changes_Table_GetChangesList_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_when_there_is_creation_change() throws SQLException {
-    Changes changes = new Changes(source);
+    Changes changes = new Changes(jdbcConnectionProvider);
     changes.setStartPointNow();
     update("insert into test2(VAR1) values(200)");
     changes.setEndPointNow();
@@ -146,7 +147,7 @@ public class Changes_Table_GetChangesList_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_when_there_is_modification_change_without_primary_key() throws SQLException {
-    Changes changes = new Changes(source);
+    Changes changes = new Changes(jdbcConnectionProvider);
     changes.setStartPointNow();
     update("update test2 set VAR12 = 'modification' where VAR1 = 1");
     changes.setEndPointNow();
@@ -218,7 +219,7 @@ public class Changes_Table_GetChangesList_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_when_there_is_modification_change_with_primary_key() throws SQLException {
-    Changes changes = new Changes(source);
+    Changes changes = new Changes(jdbcConnectionProvider);
     changes.setStartPointNow();
     update("update interpretation set character = 'Doctor Grace Augustine' where id = 3");
     changes.setEndPointNow();
@@ -246,7 +247,7 @@ public class Changes_Table_GetChangesList_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_when_there_is_creation_change_with_primary_key() throws SQLException {
-    Changes changes = new Changes(new Table(source, "movie"));
+    Changes changes = new Changes(new Table(jdbcConnectionProvider, "movie"));
     changes.setStartPointNow();
     update("insert into movie values(4, 'Ghostbusters', 1984, '16319617-AE95-4087-9264-D3D21BF611B6')");
     changes.setEndPointNow();
@@ -273,7 +274,7 @@ public class Changes_Table_GetChangesList_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_when_there_is_deletion_change_with_primary_key() throws SQLException {
-    Changes changes = new Changes(new Table(source, "interpretation"));
+    Changes changes = new Changes(new Table(jdbcConnectionProvider, "interpretation"));
     changes.setStartPointNow();
     update("delete interpretation where id = 3");
     changes.setEndPointNow();

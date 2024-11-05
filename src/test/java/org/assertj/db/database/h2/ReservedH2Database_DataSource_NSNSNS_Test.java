@@ -14,10 +14,9 @@ package org.assertj.db.database.h2;
 
 import static org.assertj.db.api.Assertions.assertThat;
 
-import javax.sql.DataSource;
-
 import org.assertj.db.common.NeedReload;
 import org.assertj.db.type.Changes;
+import org.assertj.db.type.ConnectionProvider;
 import org.assertj.db.type.Table;
 import org.assertj.db.type.Table.Order;
 import org.junit.Before;
@@ -27,21 +26,22 @@ import org.junit.Test;
  * Test on the H2 database with reserved names in SQL structure.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class ReservedH2Database_DataSource_NSNSNS_Test extends AbstractReservedH2Test {
 
-  private DataSource dataSource;
+  private ConnectionProvider connectionProvider;
 
   @Before
   public void init() {
-    dataSource = dataSourceNSNSNS;
+    connectionProvider = dsConnectionNSNSNS;
   }
 
   @Test
   @NeedReload
   public void test_PrimaryKey_hasPksNames() {
-    Table table1 = new Table(dataSource, "GROUP", '`', '`');
-    Table table2 = new Table(dataSource, "TWO WORDS", '`', '`');
+    Table table1 = new Table(connectionProvider, "GROUP", '`', '`');
+    Table table2 = new Table(connectionProvider, "TWO WORDS", '`', '`');
     Changes changes1 = new Changes(table1).setStartPointNow();
     Changes changes2 = new Changes(table2).setStartPointNow();
     update();
@@ -57,8 +57,8 @@ public class ReservedH2Database_DataSource_NSNSNS_Test extends AbstractReservedH
   @Test
   @NeedReload
   public void test_ColumnName_hasColumnName() {
-    Table table1 = new Table(dataSource, "GROUP", '`', '`');
-    Table table2 = new Table(dataSource, "TWO WORDS", '`', '`');
+    Table table1 = new Table(connectionProvider, "GROUP", '`', '`');
+    Table table2 = new Table(connectionProvider, "TWO WORDS", '`', '`');
     Changes changes1 = new Changes(table1).setStartPointNow();
     Changes changes2 = new Changes(table2).setStartPointNow();
     update();
@@ -99,11 +99,11 @@ public class ReservedH2Database_DataSource_NSNSNS_Test extends AbstractReservedH
   @Test
   @NeedReload
   public void test_ColumnName_hasColumnName_with_columns_to_check() {
-    Table table1 = new Table(dataSource, "GROUP", '`', '`')
+    Table table1 = new Table(connectionProvider, "GROUP", '`', '`')
       .setColumnsToCheck(new String[]{
         "READ", "BY", "SELECT", "FROM"
       });
-    Table table2 = new Table(dataSource, "TWO WORDS", '`', '`')
+    Table table2 = new Table(connectionProvider, "TWO WORDS", '`', '`')
       .setColumnsToCheck(new String[]{
         "PRIMARY KEY", "COLUMN NAME", "TEST%TEST"
       });
@@ -143,11 +143,11 @@ public class ReservedH2Database_DataSource_NSNSNS_Test extends AbstractReservedH
   @Test
   @NeedReload
   public void test_ColumnName_hasColumnName_with_columns_to_exclude() {
-    Table table1 = new Table(dataSource, "GROUP", '`', '`')
+    Table table1 = new Table(connectionProvider, "GROUP", '`', '`')
       .setColumnsToExclude(new String[]{
         "READ", "BY", "FROM"
       });
-    Table table2 = new Table(dataSource, "TWO WORDS", '`', '`')
+    Table table2 = new Table(connectionProvider, "TWO WORDS", '`', '`')
       .setColumnsToExclude(new String[]{
         "COLUMN NAME"
       });
@@ -183,11 +183,11 @@ public class ReservedH2Database_DataSource_NSNSNS_Test extends AbstractReservedH
   @Test
   @NeedReload
   public void test_ColumnName_hasColumnName_with_order() {
-    Table table1 = new Table(dataSource, "GROUP", '`', '`')
+    Table table1 = new Table(connectionProvider, "GROUP", '`', '`')
       .setColumnsToOrder(new Order[]{
         Order.asc("WHERE")
       });
-    Table table2 = new Table(dataSource, "TWO WORDS", '`', '`')
+    Table table2 = new Table(connectionProvider, "TWO WORDS", '`', '`')
       .setColumnsToOrder(new Order[]{
         Order.asc("PRIMARY KEY")
       });

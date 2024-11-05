@@ -22,8 +22,8 @@ import java.io.InputStream;
 
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Changes;
+import org.assertj.db.type.ConnectionProvider;
 import org.assertj.db.type.Request;
-import org.assertj.db.type.Source;
 import org.assertj.db.type.Table;
 
 /**
@@ -33,14 +33,14 @@ import org.assertj.db.type.Table;
  * The assertion methods are defined in <a href="assertions/package-summary.html">assertions package</a>.
  * </p>
  * <p>
- * Example with a {@link Source} and a {@link Table} with test on the content on the first row of the {@code movie}
+ * Example with a {@link ConnectionProvider} and a {@link Table} with test on the content on the first row of the {@code movie}
  * table that the {@code title} column contains "Alien" like text and the next column contains 1979 like number :
  * </p>
  *
  * <pre>
  * <code class='java'>
- * Source source = new Source(&quot;jdbc:h2:mem:test&quot;, &quot;sa&quot;, &quot;&quot;);
- * Table table = new Table(source, &quot;movie&quot;);
+ * ConnectionProvider connectionProvider = ConnectionProviderFactory.of(&quot;jdbc:h2:mem:test&quot;, &quot;sa&quot;, &quot;&quot;).create();
+ * Table table = new Table(connectionProvider, &quot;movie&quot;);
  * assertThat(table)
  *     .row()
  *        .value("title")
@@ -71,8 +71,8 @@ import org.assertj.db.type.Table;
  *
  * <pre>
  * <code class='java'>
- * Source source = new Source(&quot;jdbc:h2:mem:test&quot;, &quot;sa&quot;, &quot;&quot;);
- * Table table = new Table(source, &quot;movie&quot;);
+ * ConnectionProvider connectionProvider = ConnectionProviderFactory.of(&quot;jdbc:h2:mem:test&quot;, &quot;sa&quot;, &quot;&quot;).create();
+ * Table table = new Table(connectionProvider, &quot;movie&quot;);
  * assertThat(table)
  *     .row()
  *        .value("title")

@@ -33,6 +33,7 @@ import org.junit.Test;
  * {@link AssertOnColumnName#hasColumnName(String)} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class AssertOnColumnName_HasColumnName_Test extends AbstractTest {
 
@@ -42,7 +43,7 @@ public class AssertOnColumnName_HasColumnName_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_has_column_name() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -54,7 +55,7 @@ public class AssertOnColumnName_HasColumnName_Test extends AbstractTest {
     ChangeRowValueAssert changeRowValueAssert2 = changeRowValueAssert.hasColumnName("id");
     Assertions.assertThat(changeRowValueAssert).isSameAs(changeRowValueAssert2);
 
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
     TableAssert tableAssert = assertThat(table);
     TableColumnAssert tableColumnAssert = tableAssert.column();
     TableColumnAssert tableColumnAssert2 = tableColumnAssert.hasColumnName("id");
@@ -70,7 +71,7 @@ public class AssertOnColumnName_HasColumnName_Test extends AbstractTest {
   @Test
   @NeedReload
   public void should_fail_because_column_name_is_different() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -79,7 +80,7 @@ public class AssertOnColumnName_HasColumnName_Test extends AbstractTest {
       changeAssert.column().hasColumnName("ID2");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 0 (column name : ID) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 0 (column name : ID) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test'] %n"
         + "Expecting :%n"
         + "  \"ID2\"%n"
         + "to be the name of the column but was:%n"
@@ -89,14 +90,14 @@ public class AssertOnColumnName_HasColumnName_Test extends AbstractTest {
       changeAssert.rowAtEndPoint().value().hasColumnName("ID2");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 0 (column name : ID) of Row at end point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 0 (column name : ID) of Row at end point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test'] %n"
         + "Expecting :%n"
         + "  \"ID2\"%n"
         + "to be the name of the column but was:%n"
         + "  \"ID\""));
     }
 
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
     TableAssert tableAssert = assertThat(table);
     try {
       tableAssert.column().hasColumnName("ID2");

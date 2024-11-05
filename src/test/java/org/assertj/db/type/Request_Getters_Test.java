@@ -24,49 +24,35 @@ import org.junit.Test;
  * </p>
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class Request_Getters_Test extends AbstractTest {
 
   /**
-   * This method test the getters of a {@code Table} when only the source is set.
+   * This method test the getters of a {@code Table} when only the jdbc connection is set.
    */
   @Test
-  public void test_getters_with_only_source_set() {
-    Request request = new Request().setSource(source);
+  public void test_getters_with_only_jdbc_connection_set() {
+    Request request = new Request().setConnectionProvider(jdbcConnectionProvider);
 
-    assertThat(request.getSource()).isSameAs(source);
-    assertThat(request.getDataSource()).isNull();
+    assertThat(request.getConnectionProvider()).isSameAs(jdbcConnectionProvider);
     assertThat(request.getRequest()).isNull();
     assertThat(request.getParameters()).isNull();
   }
 
   /**
-   * This method test the getters of a {@code Table} when only the datasource is set.
+   * This method test the getters of a {@code Table} when the jdbc connection and the name are set.
    */
   @Test
-  public void test_getters_with_only_datasource_set() {
-    Request request = new Request().setDataSource(dataSource);
-
-    assertThat(request.getSource()).isNull();
-    assertThat(request.getDataSource()).isSameAs(dataSource);
-    assertThat(request.getRequest()).isNull();
-    assertThat(request.getParameters()).isNull();
-  }
-
-  /**
-   * This method test the getters of a {@code Table} when the source and the name are set.
-   */
-  @Test
-  public void test_getters_with_source_and_name_set() {
-    Request request = new Request(source,
+  public void test_getters_with_jdbc_and_name_set() {
+    Request request = new Request(jdbcConnectionProvider,
       "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
         + " FROM movie, actor, interpretation"
         + " WHERE movie.id = interpretation.id_movie"
         + " AND interpretation.id_actor = actor.id"
         + " ORDER BY actor.name, movie.year");
 
-    assertThat(request.getSource()).as("Source of MOVIE table").isSameAs(source);
-    assertThat(request.getDataSource()).isNull();
+    assertThat(request.getConnectionProvider()).as("Source of MOVIE table").isSameAs(jdbcConnectionProvider);
     assertThat(request.getRequest()).isEqualTo("SELECT actor.name, actor.firstname, movie.year, interpretation.character "
       + " FROM movie, actor, interpretation"
       + " WHERE movie.id = interpretation.id_movie"
@@ -76,12 +62,12 @@ public class Request_Getters_Test extends AbstractTest {
   }
 
   /**
-   * This method test the getters of a {@code Table} when the source, the name and the information about the columns
+   * This method test the getters of a {@code Table} when the jdbc connection, the name and the information about the columns
    * are set.
    */
   @Test
-  public void test_getters_with_source_name_and_columns_set() {
-    Request request = new Request(source,
+  public void test_getters_with_jdbc_name_and_columns_set() {
+    Request request = new Request(jdbcConnectionProvider,
       "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
         + " FROM movie, actor, interpretation"
         + " WHERE movie.id = interpretation.id_movie"
@@ -89,8 +75,7 @@ public class Request_Getters_Test extends AbstractTest {
         + " AND movie.year > ?"
         + " ORDER BY actor.name, movie.year", 2000);
 
-    assertThat(request.getSource()).as("Source of MOVIE table").isSameAs(source);
-    assertThat(request.getDataSource()).isNull();
+    assertThat(request.getConnectionProvider()).as("Source of MOVIE table").isSameAs(jdbcConnectionProvider);
     assertThat(request.getRequest()).isEqualTo("SELECT actor.name, actor.firstname, movie.year, interpretation.character "
       + " FROM movie, actor, interpretation"
       + " WHERE movie.id = interpretation.id_movie"

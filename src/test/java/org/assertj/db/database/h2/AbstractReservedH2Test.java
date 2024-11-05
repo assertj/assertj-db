@@ -19,8 +19,8 @@ import static com.ninja_squad.dbsetup.Operations.sequenceOf;
 import javax.sql.DataSource;
 
 import org.assertj.db.database.AbstractDatabaseTest;
-import org.assertj.db.type.DataSourceWithLetterCase;
-import org.assertj.db.type.SourceWithLetterCase;
+import org.assertj.db.type.ConnectionProvider;
+import org.assertj.db.type.ConnectionProviderFactory;
 import org.assertj.db.type.lettercase.LetterCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -34,6 +34,7 @@ import com.ninja_squad.dbsetup.operation.Operation;
  * Parent for all the tests which are specific for H2 database with reserved names in SQL structure.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 @ContextConfiguration(classes = {ReservedH2Configuration.class})
 public abstract class AbstractReservedH2Test extends AbstractDatabaseTest {
@@ -50,22 +51,22 @@ public abstract class AbstractReservedH2Test extends AbstractDatabaseTest {
   private static final DbSetup DB_SETUP = new DbSetup(new DriverManagerDestination("jdbc:h2:mem:testReservedH2", "SA", ""),
     OPERATIONS);
   private static final DbSetupTracker DB_SETUP_TRACKER = new DbSetupTracker();
-  protected final SourceWithLetterCase sourceDDD = new SourceWithLetterCase("jdbc:h2:mem:testReservedH2", "sa", "",
+  protected final ConnectionProvider jdbcConnectionDDD = ConnectionProviderFactory.of("jdbc:h2:mem:testReservedH2", "sa", "").letterCase(
     LetterCase.TABLE_DEFAULT,
     LetterCase.COLUMN_DEFAULT,
-    LetterCase.PRIMARY_KEY_DEFAULT);
-  protected final SourceWithLetterCase sourceUIUIUI = new SourceWithLetterCase("jdbc:h2:mem:testReservedH2", "sa", "",
+    LetterCase.PRIMARY_KEY_DEFAULT).create();
+  protected final ConnectionProvider jdbcConnectionUIUIUI = ConnectionProviderFactory.of("jdbc:h2:mem:testReservedH2", "sa", "").letterCase(
     letterCaseUI,
     letterCaseUI,
-    letterCaseUI);
-  protected final SourceWithLetterCase sourceNSNSNS = new SourceWithLetterCase("jdbc:h2:mem:testReservedH2", "sa", "",
+    letterCaseUI).create();
+  protected final ConnectionProvider jdbcConnectionNSNSNS = ConnectionProviderFactory.of("jdbc:h2:mem:testReservedH2", "sa", "").letterCase(
     letterCaseNS,
     letterCaseNS,
-    letterCaseNS);
+    letterCaseNS).create();
   protected DataSource dataSource;
-  protected DataSourceWithLetterCase dataSourceDDD;
-  protected DataSourceWithLetterCase dataSourceUIUIUI;
-  protected DataSourceWithLetterCase dataSourceNSNSNS;
+  protected ConnectionProvider dsConnectionDDD;
+  protected ConnectionProvider dsConnectionUIUIUI;
+  protected ConnectionProvider dsConnectionNSNSNS;
 
   protected DbSetup getDbSetup() {
     return DB_SETUP;
@@ -78,11 +79,9 @@ public abstract class AbstractReservedH2Test extends AbstractDatabaseTest {
   @Autowired
   protected void setDataSource(DataSource dataSource) {
     this.dataSource = dataSource;
-    this.dataSourceDDD = new DataSourceWithLetterCase(dataSource, LetterCase.TABLE_DEFAULT,
-      LetterCase.COLUMN_DEFAULT,
-      LetterCase.PRIMARY_KEY_DEFAULT);
-    this.dataSourceUIUIUI = new DataSourceWithLetterCase(dataSource, letterCaseUI, letterCaseUI, letterCaseUI);
-    this.dataSourceNSNSNS = new DataSourceWithLetterCase(dataSource, letterCaseNS, letterCaseNS, letterCaseNS);
+    this.dsConnectionDDD = ConnectionProviderFactory.of(dataSource).letterCase(LetterCase.TABLE_DEFAULT, LetterCase.COLUMN_DEFAULT, LetterCase.PRIMARY_KEY_DEFAULT).create();
+    this.dsConnectionUIUIUI = ConnectionProviderFactory.of(dataSource).letterCase(letterCaseUI, letterCaseUI, letterCaseUI).create();
+    this.dsConnectionNSNSNS = ConnectionProviderFactory.of(dataSource).letterCase(letterCaseNS, letterCaseNS, letterCaseNS).create();
   }
 
   protected void update() {

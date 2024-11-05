@@ -30,6 +30,7 @@ import org.junit.Test;
  * {@link org.assertj.db.api.assertions.AssertOnRowEquality#hasValues(Object...)} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class AssertOnRowEquality_HasValues_Test extends AbstractTest {
 
@@ -39,7 +40,7 @@ public class AssertOnRowEquality_HasValues_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_has_values() {
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
     Changes changes = new Changes(table).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
@@ -62,7 +63,7 @@ public class AssertOnRowEquality_HasValues_Test extends AbstractTest {
   @Test
   @NeedReload
   public void should_fail_because_values_are_different() {
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
     Changes changes = new Changes(table).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
@@ -70,7 +71,7 @@ public class AssertOnRowEquality_HasValues_Test extends AbstractTest {
     try {
       assertThat(changes).change().rowAtEndPoint().hasValues(4, "Murray", "Billy", "1950-09-21", UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Row at end point of Change at index 0 (with primary key : [4]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test' source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Row at end point of Change at index 0 (with primary key : [4]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test'] %n"
         + "Expecting that the value at index 2:%n"
         + "  <\"Bill\">%n"
         + "to be equal to: %n"

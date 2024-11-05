@@ -28,6 +28,7 @@ import org.junit.Test;
  * {@link org.assertj.db.api.assertions.AssertOnNumberOfRows#hasNumberOfRows(int)} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class AssertOnNumberOfRows_HasNumberOfRows_Test extends AbstractTest {
 
@@ -36,7 +37,7 @@ public class AssertOnNumberOfRows_HasNumberOfRows_Test extends AbstractTest {
    */
   @Test
   public void test_has_number_of_rows() {
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = tableAssert.hasNumberOfRows(3);
     Assertions.assertThat(tableAssert).isSameAs(tableAssert2);
@@ -50,7 +51,7 @@ public class AssertOnNumberOfRows_HasNumberOfRows_Test extends AbstractTest {
    */
   @Test
   public void should_fail_because_number_of_rows_is_different() {
-    Request request = new Request(source, "select * from actor");
+    Request request = new Request(jdbcConnectionProvider, "select * from actor");
     try {
       assertThat(request).hasNumberOfRows(9);
       fail("An exception must be raised");

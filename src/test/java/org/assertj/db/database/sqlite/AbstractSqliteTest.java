@@ -24,8 +24,8 @@ import java.util.logging.Level;
 import javax.sql.DataSource;
 
 import org.assertj.db.database.AbstractDatabaseTest;
-import org.assertj.db.type.DataSourceWithLetterCase;
-import org.assertj.db.type.SourceWithLetterCase;
+import org.assertj.db.type.ConnectionProvider;
+import org.assertj.db.type.ConnectionProviderFactory;
 import org.assertj.db.type.lettercase.LetterCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -39,6 +39,7 @@ import com.ninja_squad.dbsetup.operation.Operation;
  * Parent for all the tests which are specific for Derby database.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 @ContextConfiguration(classes = {SqliteConfiguration.class})
 public abstract class AbstractSqliteTest extends AbstractDatabaseTest {
@@ -75,22 +76,22 @@ public abstract class AbstractSqliteTest extends AbstractDatabaseTest {
   private static final DbSetup DB_SETUP = new DbSetup(new DriverManagerDestination("jdbc:sqlite:target/testDerby.db", "", ""),
     OPERATIONS);
 
-  protected final SourceWithLetterCase sourceDDD = new SourceWithLetterCase("jdbc:sqlite:target/testDerby.db", "", "",
+  protected final ConnectionProvider jdbcConnectionDDD = ConnectionProviderFactory.of("jdbc:sqlite:target/testDerby.db", "", "").letterCase(
     LetterCase.TABLE_DEFAULT,
     LetterCase.COLUMN_DEFAULT,
-    LetterCase.PRIMARY_KEY_DEFAULT);
-  protected final SourceWithLetterCase sourceUIUIUI = new SourceWithLetterCase("jdbc:sqlite:target/testDerby.db", "", "",
+    LetterCase.PRIMARY_KEY_DEFAULT).create();
+  protected final ConnectionProvider jdbcConnectionUIUIUI = ConnectionProviderFactory.of("jdbc:sqlite:target/testDerby.db", "", "").letterCase(
     letterCaseUI,
     letterCaseUI,
-    letterCaseUI);
-  protected final SourceWithLetterCase sourceNSNSNS = new SourceWithLetterCase("jdbc:sqlite:target/testDerby.db", "", "",
+    letterCaseUI).create();
+  protected final ConnectionProvider jdbcConnectionNSNSNS = ConnectionProviderFactory.of("jdbc:sqlite:target/testDerby.db", "", "").letterCase(
     letterCaseNS,
     letterCaseNS,
-    letterCaseNS);
+    letterCaseNS).create();
   protected DataSource dataSource;
-  protected DataSourceWithLetterCase dataSourceDDD;
-  protected DataSourceWithLetterCase dataSourceUIUIUI;
-  protected DataSourceWithLetterCase dataSourceNSNSNS;
+  protected ConnectionProvider dsConnectionDDD;
+  protected ConnectionProvider dsConnectionUIUIUI;
+  protected ConnectionProvider dsConnectionNSNSNS;
 
   protected DbSetup getDbSetup() {
     return DB_SETUP;
@@ -103,11 +104,9 @@ public abstract class AbstractSqliteTest extends AbstractDatabaseTest {
   @Autowired
   protected void setDataSource(DataSource dataSource) {
     this.dataSource = dataSource;
-    this.dataSourceDDD = new DataSourceWithLetterCase(dataSource, LetterCase.TABLE_DEFAULT,
-      LetterCase.COLUMN_DEFAULT,
-      LetterCase.PRIMARY_KEY_DEFAULT);
-    this.dataSourceUIUIUI = new DataSourceWithLetterCase(dataSource, letterCaseUI, letterCaseUI, letterCaseUI);
-    this.dataSourceNSNSNS = new DataSourceWithLetterCase(dataSource, letterCaseNS, letterCaseNS, letterCaseNS);
+    this.dsConnectionDDD = ConnectionProviderFactory.of(dataSource).letterCase(LetterCase.TABLE_DEFAULT, LetterCase.COLUMN_DEFAULT, LetterCase.PRIMARY_KEY_DEFAULT).create();
+    this.dsConnectionUIUIUI = ConnectionProviderFactory.of(dataSource).letterCase(letterCaseUI, letterCaseUI, letterCaseUI).create();
+    this.dsConnectionNSNSNS = ConnectionProviderFactory.of(dataSource).letterCase(letterCaseNS, letterCaseNS, letterCaseNS).create();
   }
 
   protected void update() {

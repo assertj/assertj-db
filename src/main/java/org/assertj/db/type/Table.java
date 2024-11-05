@@ -30,7 +30,7 @@ import org.assertj.db.util.NameComparator;
 /**
  * A table in the database to read to get the values.
  * <p>
- * The different information of the table are {@link Source} or {@link DataSource}, name of the table and optionally
+ * The different information of the table are {@link ConnectionProvider} or {@link DataSource}, name of the table and optionally
  * the columns to check and to exclude.
  * </p>
  * <p>
@@ -40,13 +40,13 @@ import org.assertj.db.util.NameComparator;
  * <li>
  * <p>
  * This {@link Table} point to a table called {@code movie} in a H2 database in memory like indicated in the
- * {@link Source}.
+ * {@link ConnectionProvider}.
  * </p>
  *
  * <pre>
  * <code class='java'>
- * Source source = new Source(&quot;jdbc:h2:mem:test&quot;, &quot;sa&quot;, &quot;&quot;);
- * Table table = new Table(source, &quot;movie&quot;);
+ * ConnectionProvider connectionProvider = ConnectionProviderFactory.of(&quot;jdbc:h2:mem:test&quot;, &quot;sa&quot;, &quot;&quot;).create();
+ * Table table = new Table(connectionProvider, &quot;movie&quot;);
  * </code>
  * </pre>
  *
@@ -57,14 +57,15 @@ import org.assertj.db.util.NameComparator;
  * {@code number} and {@code title}).<br>
  * And the {@link Table} {@code table2} point to a table called {@code musician} (but ignore on the column called
  * {@code birthday}).<br>
- * The {@link Table} use a {@code DataSource} instead of a {@link Source} like above.
+ * The {@link Table} use a {@code DataSource} instead of a {@link ConnectionProvider} like above.
  * </p>
  *
  * <pre>
  * <code class='java'>
  * DataSource dataSource = ...;
- * Table table1 = new Table(dataSource, &quot;song&quot;, new String[] { &quot;number&quot;, &quot;title&quot; }, null);
- * Table table2 = new Table(dataSource, &quot;musician&quot;, null, new String[] { &quot;birthday&quot; });
+ * ConnectionProvider connectionProvider = ConnectionProviderFactory.of(dataSource).create();
+ * Table table1 = new Table(connectionProvider, &quot;song&quot;, new String[] { &quot;number&quot;, &quot;title&quot; }, null);
+ * Table table2 = new Table(connectionProvider, &quot;musician&quot;, null, new String[] { &quot;birthday&quot; });
  * </code>
  * </pre>
  *
@@ -72,6 +73,7 @@ import org.assertj.db.util.NameComparator;
  * </ul>
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class Table extends AbstractDbData<Table> {
 
@@ -118,241 +120,121 @@ public class Table extends AbstractDbData<Table> {
   }
 
   /**
-   * Constructor with a {@link Source} and the name of the table.
+   * Constructor with a {@link ConnectionProvider} and the name of the table.
    *
-   * @param source {@link Source} to connect to the database.
-   * @param name   Name of the table.
+   * @param connectionProvider {@link ConnectionProvider} to connect to the database.
+   * @param name               Name of the table.
+   * @since 3.0.0
    */
-  public Table(Source source, String name) {
-    this(source, name, null, (String[]) null);
+  public Table(ConnectionProvider connectionProvider, String name) {
+    this(connectionProvider, name, null, (String[]) null);
   }
 
   /**
-   * Constructor with a {@link Source}, the name of the table and the columns to check and to exclude.
+   * Constructor with a {@link ConnectionProvider}, the name of the table and the columns to check and to exclude.
    *
-   * @param source           {@link Source} to connect to the database.
-   * @param name             Name of the table.
-   * @param columnsToCheck   Array of the name of the columns to check. If {@code null} that means to check all the
-   *                         columns.
-   * @param columnsToExclude Array of the name of the columns to exclude. If {@code null} that means to exclude no
-   *                         column.
+   * @param connectionProvider {@link ConnectionProvider} to connect to the database.
+   * @param name               Name of the table.
+   * @param columnsToCheck     Array of the name of the columns to check. If {@code null} that means to check all the
+   *                           columns.
+   * @param columnsToExclude   Array of the name of the columns to exclude. If {@code null} that means to exclude no
+   *                           column.
+   * @since 3.0.0
    */
-  public Table(Source source, String name, String[] columnsToCheck, String[] columnsToExclude) {
-    this(source, name, null, columnsToCheck, columnsToExclude);
+  public Table(ConnectionProvider connectionProvider, String name, String[] columnsToCheck, String[] columnsToExclude) {
+    this(connectionProvider, name, null, columnsToCheck, columnsToExclude);
   }
 
   /**
-   * Constructor with a dataSource and the name of the table.
+   * Constructor with a {@link ConnectionProvider} and the name of the table.
    *
-   * @param dataSource DataSource of the database.
-   * @param name       Name of the table.
+   * @param connectionProvider {@link ConnectionProvider} to connect to the database.
+   * @param name               Name of the table.
+   * @param columnsToOrder     List of column to use as ORDER BY
+   * @since 3.0.0
    */
-  public Table(DataSource dataSource, String name) {
-    this(dataSource, name, null, (String[]) null);
+  public Table(ConnectionProvider connectionProvider, String name, Order[] columnsToOrder) {
+    this(connectionProvider, name, columnsToOrder, null, null);
   }
 
   /**
-   * Constructor with a connection, the name of the table and the columns to check and to exclude.
+   * Constructor with a {@link ConnectionProvider}, the name of the table and the columns to check and to exclude.
    *
-   * @param dataSource       DataSource of the database.
-   * @param name             Name of the table.
-   * @param columnsToCheck   Array of the name of the columns to check. If {@code null} that means to check all the
-   *                         columns.
-   * @param columnsToExclude Array of the name of the columns to exclude. If {@code null} that means to exclude no
-   *                         column.
+   * @param connectionProvider {@link ConnectionProvider} to connect to the database.
+   * @param name               Name of the table.
+   * @param columnsToOrder     List of column to use as ORDER BY
+   * @param columnsToCheck     Array of the name of the columns to check. If {@code null} that means to check all the
+   *                           columns.
+   * @param columnsToExclude   Array of the name of the columns to exclude. If {@code null} that means to exclude no
+   *                           column.
+   * @since 3.0.0
    */
-  public Table(DataSource dataSource, String name, String[] columnsToCheck, String[] columnsToExclude) {
-    this(dataSource, name, null, columnsToCheck, columnsToExclude);
+  public Table(ConnectionProvider connectionProvider, String name, Order[] columnsToOrder, String[] columnsToCheck, String[] columnsToExclude) {
+    this(connectionProvider, name, null, null, columnsToOrder, columnsToCheck, columnsToExclude);
   }
 
   /**
-   * Constructor with a {@link Source} and the name of the table.
+   * Constructor with a {@link ConnectionProvider} and the name of the table.
    *
-   * @param source         {@link Source} to connect to the database.
-   * @param name           Name of the table.
-   * @param columnsToOrder List of column to use as ORDER BY
-   * @since 1.2.0
+   * @param connectionProvider {@link ConnectionProvider} to connect to the database.
+   * @param name               Name of the table.
+   * @param startDelimiter     Start delimiter for column name and table name.
+   * @param endDelimiter       End delimiter for column name and table name.
+   * @since 3.0.0
    */
-  public Table(Source source, String name, Order[] columnsToOrder) {
-    this(source, name, columnsToOrder, null, null);
+  public Table(ConnectionProvider connectionProvider, String name, Character startDelimiter, Character endDelimiter) {
+    this(connectionProvider, name, startDelimiter, endDelimiter, null, null, null);
   }
 
   /**
-   * Constructor with a {@link Source}, the name of the table and the columns to check and to exclude.
+   * Constructor with a {@link ConnectionProvider}, the name of the table and the columns to check and to exclude.
    *
-   * @param source           {@link Source} to connect to the database.
-   * @param name             Name of the table.
-   * @param columnsToOrder   List of column to use as ORDER BY
-   * @param columnsToCheck   Array of the name of the columns to check. If {@code null} that means to check all the
-   *                         columns.
-   * @param columnsToExclude Array of the name of the columns to exclude. If {@code null} that means to exclude no
-   *                         column.
-   * @since 1.2.0
+   * @param connectionProvider {@link ConnectionProvider} to connect to the database.
+   * @param name               Name of the table.
+   * @param startDelimiter     Start delimiter for column name and table name.
+   * @param endDelimiter       End delimiter for column name and table name.
+   * @param columnsToCheck     Array of the name of the columns to check. If {@code null} that means to check all the
+   *                           columns.
+   * @param columnsToExclude   Array of the name of the columns to exclude. If {@code null} that means to exclude no
+   *                           column.
+   * @since 3.0.0
    */
-  public Table(Source source, String name, Order[] columnsToOrder, String[] columnsToCheck, String[] columnsToExclude) {
-    this(source, name, null, null, columnsToOrder, columnsToCheck, columnsToExclude);
-  }
-
-  /**
-   * Constructor with a dataSource and the name of the table.
-   *
-   * @param dataSource     DataSource of the database.
-   * @param name           Name of the table.
-   * @param columnsToOrder List of column to use as ORDER BY
-   * @since 1.2.0
-   */
-  public Table(DataSource dataSource, String name, Order[] columnsToOrder) {
-    this(dataSource, name, columnsToOrder, null, null);
-  }
-
-  /**
-   * Constructor with a connection, the name of the table and the columns to check and to exclude.
-   *
-   * @param dataSource       DataSource of the database.
-   * @param name             Name of the table.
-   * @param columnsToOrder   List of column to use as ORDER BY
-   * @param columnsToCheck   Array of the name of the columns to check. If {@code null} that means to check all the
-   *                         columns.
-   * @param columnsToExclude Array of the name of the columns to exclude. If {@code null} that means to exclude no
-   *                         column.
-   * @since 1.2.0
-   */
-  public Table(DataSource dataSource, String name, Order[] columnsToOrder, String[] columnsToCheck, String[] columnsToExclude) {
-    this(dataSource, name, null, null, columnsToOrder, columnsToCheck, columnsToExclude);
-  }
-
-  /**
-   * Constructor with a {@link Source} and the name of the table.
-   *
-   * @param source         {@link Source} to connect to the database.
-   * @param name           Name of the table.
-   * @param startDelimiter Start delimiter for column name and table name.
-   * @param endDelimiter   End delimiter for column name and table name.
-   * @since 1.2.0
-   */
-  public Table(Source source, String name, Character startDelimiter, Character endDelimiter) {
-    this(source, name, startDelimiter, endDelimiter, null, null, null);
-  }
-
-  /**
-   * Constructor with a {@link Source}, the name of the table and the columns to check and to exclude.
-   *
-   * @param source           {@link Source} to connect to the database.
-   * @param name             Name of the table.
-   * @param startDelimiter   Start delimiter for column name and table name.
-   * @param endDelimiter     End delimiter for column name and table name.
-   * @param columnsToCheck   Array of the name of the columns to check. If {@code null} that means to check all the
-   *                         columns.
-   * @param columnsToExclude Array of the name of the columns to exclude. If {@code null} that means to exclude no
-   *                         column.
-   * @since 1.2.0
-   */
-  public Table(Source source, String name, Character startDelimiter, Character endDelimiter, String[] columnsToCheck,
+  public Table(ConnectionProvider connectionProvider, String name, Character startDelimiter, Character endDelimiter, String[] columnsToCheck,
                String[] columnsToExclude) {
-    this(source, name, startDelimiter, endDelimiter, null, columnsToCheck, columnsToExclude);
+    this(connectionProvider, name, startDelimiter, endDelimiter, null, columnsToCheck, columnsToExclude);
   }
 
   /**
-   * Constructor with a dataSource and the name of the table.
+   * Constructor with a {@link ConnectionProvider} and the name of the table.
    *
-   * @param dataSource     DataSource of the database.
-   * @param name           Name of the table.
-   * @param startDelimiter Start delimiter for column name and table name.
-   * @param endDelimiter   End delimiter for column name and table name.
-   * @since 1.2.0
+   * @param connectionProvider {@link ConnectionProvider} to connect to the database.
+   * @param name               Name of the table.
+   * @param startDelimiter     Start delimiter for column name and table name.
+   * @param endDelimiter       End delimiter for column name and table name.
+   * @param columnsToOrder     List of column to use as ORDER BY
+   * @since 3.0.0
    */
-  public Table(DataSource dataSource, String name, Character startDelimiter, Character endDelimiter) {
-    this(dataSource, name, startDelimiter, endDelimiter, null, null, null);
+  public Table(ConnectionProvider connectionProvider, String name, Character startDelimiter, Character endDelimiter, Order[] columnsToOrder) {
+    this(connectionProvider, name, startDelimiter, endDelimiter, columnsToOrder, null, null);
   }
 
   /**
-   * Constructor with a connection, the name of the table and the columns to check and to exclude.
+   * Constructor with a {@link ConnectionProvider}, the name of the table and the columns to check and to exclude.
    *
-   * @param dataSource       DataSource of the database.
-   * @param name             Name of the table.
-   * @param startDelimiter   Start delimiter for column name and table name.
-   * @param endDelimiter     End delimiter for column name and table name.
-   * @param columnsToCheck   Array of the name of the columns to check. If {@code null} that means to check all the
-   *                         columns.
-   * @param columnsToExclude Array of the name of the columns to exclude. If {@code null} that means to exclude no
-   *                         column.
-   * @since 1.2.0
+   * @param connectionProvider {@link ConnectionProvider} to connect to the database.
+   * @param name               Name of the table.
+   * @param startDelimiter     Start delimiter for column name and table name.
+   * @param endDelimiter       End delimiter for column name and table name.
+   * @param columnsToOrder     List of column to use as ORDER BY
+   * @param columnsToCheck     Array of the name of the columns to check. If {@code null} that means to check all the
+   *                           columns.
+   * @param columnsToExclude   Array of the name of the columns to exclude. If {@code null} that means to exclude no
+   *                           column.
+   * @since 3.0.0
    */
-  public Table(DataSource dataSource, String name, Character startDelimiter, Character endDelimiter, String[] columnsToCheck,
-               String[] columnsToExclude) {
-    this(dataSource, name, startDelimiter, endDelimiter, null, columnsToCheck, columnsToExclude);
-  }
-
-  /**
-   * Constructor with a {@link Source} and the name of the table.
-   *
-   * @param source         {@link Source} to connect to the database.
-   * @param name           Name of the table.
-   * @param startDelimiter Start delimiter for column name and table name.
-   * @param endDelimiter   End delimiter for column name and table name.
-   * @param columnsToOrder List of column to use as ORDER BY
-   * @since 1.2.0
-   */
-  public Table(Source source, String name, Character startDelimiter, Character endDelimiter, Order[] columnsToOrder) {
-    this(source, name, startDelimiter, endDelimiter, columnsToOrder, null, null);
-  }
-
-  /**
-   * Constructor with a {@link Source}, the name of the table and the columns to check and to exclude.
-   *
-   * @param source           {@link Source} to connect to the database.
-   * @param name             Name of the table.
-   * @param startDelimiter   Start delimiter for column name and table name.
-   * @param endDelimiter     End delimiter for column name and table name.
-   * @param columnsToOrder   List of column to use as ORDER BY
-   * @param columnsToCheck   Array of the name of the columns to check. If {@code null} that means to check all the
-   *                         columns.
-   * @param columnsToExclude Array of the name of the columns to exclude. If {@code null} that means to exclude no
-   *                         column.
-   * @since 1.2.0
-   */
-  public Table(Source source, String name, Character startDelimiter, Character endDelimiter, Order[] columnsToOrder,
+  public Table(ConnectionProvider connectionProvider, String name, Character startDelimiter, Character endDelimiter, Order[] columnsToOrder,
                String[] columnsToCheck, String[] columnsToExclude) {
-    super(Table.class, DataType.TABLE, source);
-    setName(name);
-    setStartDelimiter(startDelimiter);
-    setEndDelimiter(endDelimiter);
-    setColumnsToOrder(columnsToOrder);
-    setColumnsToCheck(columnsToCheck);
-    setColumnsToExclude(columnsToExclude);
-  }
-
-  /**
-   * Constructor with a dataSource and the name of the table.
-   *
-   * @param dataSource     DataSource of the database.
-   * @param name           Name of the table.
-   * @param startDelimiter Start delimiter for column name and table name.
-   * @param endDelimiter   End delimiter for column name and table name.
-   * @param columnsToOrder List of column to use as ORDER BY
-   * @since 1.2.0
-   */
-  public Table(DataSource dataSource, String name, Character startDelimiter, Character endDelimiter, Order[] columnsToOrder) {
-    this(dataSource, name, startDelimiter, endDelimiter, columnsToOrder, null, null);
-  }
-
-  /**
-   * Constructor with a connection, the name of the table and the columns to check and to exclude.
-   *
-   * @param dataSource       DataSource of the database.
-   * @param name             Name of the table.
-   * @param startDelimiter   Start delimiter for column name and table name.
-   * @param endDelimiter     End delimiter for column name and table name.
-   * @param columnsToOrder   List of column to use as ORDER BY
-   * @param columnsToCheck   Array of the name of the columns to check. If {@code null} that means to check all the
-   *                         columns.
-   * @param columnsToExclude Array of the name of the columns to exclude. If {@code null} that means to exclude no
-   *                         column.
-   * @since 1.2.0
-   */
-  public Table(DataSource dataSource, String name, Character startDelimiter, Character endDelimiter, Order[] columnsToOrder,
-               String[] columnsToCheck, String[] columnsToExclude) {
-    super(Table.class, DataType.TABLE, dataSource);
+    super(Table.class, DataType.TABLE, connectionProvider);
     setName(name);
     setStartDelimiter(startDelimiter);
     setEndDelimiter(endDelimiter);
@@ -391,18 +273,8 @@ public class Table extends AbstractDbData<Table> {
    * {@inheritDoc}
    */
   @Override
-  public Table setDataSource(DataSource dataSource) {
-    Table table = super.setDataSource(dataSource);
-    setNameFromDb();
-    return table;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public Table setSource(Source source) {
-    Table table = super.setSource(source);
+  public Table setConnectionProvider(ConnectionProvider connectionProvider) {
+    Table table = super.setConnectionProvider(connectionProvider);
     setNameFromDb();
     return table;
   }
@@ -411,32 +283,21 @@ public class Table extends AbstractDbData<Table> {
    * Set the name from the corresponding name in the database.
    */
   private void setNameFromDb() {
-    if (name != null && (getSource() != null || getDataSource() != null)) {
-      try (Connection connection = getConnection()) {
-        LetterCase tableLetterCase = getTableLetterCase();
-        LetterCase columnLetterCase = getColumnLetterCase();
+    if (name != null && this.getConnectionProvider() != null) {
 
-        DatabaseMetaData metaData = connection.getMetaData();
-        try (ResultSet tableResultSet = metaData.getTables(getCatalog(connection), getSchema(connection), null,
-          new String[]{"TABLE"})) {
-          while (tableResultSet.next()) {
-            String tableName = tableResultSet.getString("TABLE_NAME");
-            if (tableLetterCase.isEqual(tableName, name)) {
-              name = tableLetterCase.convert(tableName);
-              break;
-            }
-          }
+      LetterCase tableLetterCase = getTableLetterCase();
+      LetterCase columnLetterCase = getColumnLetterCase();
+      SchemaMetadata metaData = getMetaData();
+      for (String tableName : metaData.getTablesName()) {
+        if (tableLetterCase.isEqual(tableName, name)) {
+          name = tableLetterCase.convert(tableName);
+          break;
         }
+      }
 
-        columnsList = new ArrayList<>();
-        try (ResultSet columnsResultSet = metaData.getColumns(getCatalog(connection), getSchema(connection), name, null)) {
-          while (columnsResultSet.next()) {
-            String column = columnsResultSet.getString("COLUMN_NAME");
-            columnsList.add(columnLetterCase.convert(column));
-          }
-        }
-      } catch (SQLException e) {
-        throw new AssertJDBException(e);
+      columnsList = new ArrayList<>();
+      for (String column : metaData.getColumnsName(name)) {
+        columnsList.add(columnLetterCase.convert(column));
       }
     }
   }
@@ -465,7 +326,7 @@ public class Table extends AbstractDbData<Table> {
    */
   public Table setColumnsToCheck(String[] columnsToCheck) {
     if (columnsList == null) {
-      throw new AssertJDBException("The table name and the source or datasource must be set first");
+      throw new AssertJDBException("The table name and the connectionProvider must be set first");
     }
     if (columnsToCheck != null) {
       LetterCase letterCase = getColumnLetterCase();
@@ -510,7 +371,7 @@ public class Table extends AbstractDbData<Table> {
    */
   public Table setColumnsToExclude(String[] columnsToExclude) {
     if (columnsList == null) {
-      throw new AssertJDBException("The table name and the source or datasource must be set first");
+      throw new AssertJDBException("The table name and the connectionProvider must be set first");
     }
     if (columnsToExclude != null) {
       LetterCase letterCase = getColumnLetterCase();
@@ -554,7 +415,7 @@ public class Table extends AbstractDbData<Table> {
    */
   public Table setColumnsToOrder(Order[] columnsToOrder) {
     if (columnsList == null) {
-      throw new AssertJDBException("The table name and the source or datasource must be set first");
+      throw new AssertJDBException("The table name and the connectionProvider must be set first");
     }
     if (columnsToOrder != null) {
       LetterCase letterCase = getColumnLetterCase();
@@ -725,38 +586,28 @@ public class Table extends AbstractDbData<Table> {
    * This method use the {@link DatabaseMetaData} from the {@code Connection} parameter to list the primary keys of the
    * table.
    * </p>
-   *
-   * @param connection The {@code Connection} to the database.
-   * @throws SQLException SQL Exception.
    */
-  private void collectPrimaryKeyName(Connection connection) throws SQLException {
-    String catalog = getCatalog(connection);
-    String schema = getSchema(connection);
+  private void collectPrimaryKeyName() {
     List<String> pksNameList = new ArrayList<>();
-    DatabaseMetaData metaData = connection.getMetaData();
+    SchemaMetadata metaData = getMetaData();
 
     String tableName = name;
-    try (ResultSet resultSet = metaData.getTables(catalog, schema, null, new String[]{"TABLE"})) {
-      LetterCase letterCase = getTableLetterCase();
-      while (resultSet.next()) {
-        String tableResult = resultSet.getString("TABLE_NAME");
-        if (letterCase.isEqual(tableName, tableResult)) {
-          tableName = tableResult;
-          break;
-        }
+    LetterCase letterCase = getTableLetterCase();
+    for (String tableResult : metaData.getTablesName()) {
+      if (letterCase.isEqual(tableName, tableResult)) {
+        tableName = tableResult;
+        break;
       }
     }
 
-    try (ResultSet resultSet = metaData.getPrimaryKeys(catalog, schema, tableName)) {
-      LetterCase letterCase = getPrimaryKeyLetterCase();
-      while (resultSet.next()) {
-        String columnName = resultSet.getString("COLUMN_NAME");
-        if (NameComparator.INSTANCE.contains(getColumnsNameList(), columnName, letterCase)) {
-          String pkName = letterCase.convert(columnName);
-          pksNameList.add(pkName);
-        }
+    LetterCase pkLetterCase = getPrimaryKeyLetterCase();
+    for (String primaryKey : metaData.getPrimaryKeys(tableName)) {
+      if (NameComparator.INSTANCE.contains(getColumnsNameList(), primaryKey, pkLetterCase)) {
+        String pkName = pkLetterCase.convert(primaryKey);
+        pksNameList.add(pkName);
       }
     }
+
     setPksNameList(pksNameList);
   }
 
@@ -780,7 +631,7 @@ public class Table extends AbstractDbData<Table> {
         collectRowsFromResultSet(resultSet);
       }
     }
-    collectPrimaryKeyName(connection);
+    collectPrimaryKeyName();
     if (columnsToOrder == null) {
       sortRows();
     }

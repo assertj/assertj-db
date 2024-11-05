@@ -24,6 +24,7 @@ import org.junit.Test;
  * Test the output to console.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class OutputterToConsole_Test extends AbstractTest {
 
@@ -32,7 +33,7 @@ public class OutputterToConsole_Test extends AbstractTest {
    */
   @Test
   public void test_output_to_console() throws Exception {
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
 
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     System.setOut(new PrintStream(byteArrayOutputStream0));

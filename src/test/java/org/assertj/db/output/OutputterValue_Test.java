@@ -28,6 +28,7 @@ import org.junit.Test;
  * Test the output of values.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class OutputterValue_Test extends AbstractTest {
 
@@ -36,7 +37,7 @@ public class OutputterValue_Test extends AbstractTest {
    */
   @Test
   public void test_output_for_row_from_table() throws Exception {
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
 
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
@@ -81,7 +82,7 @@ public class OutputterValue_Test extends AbstractTest {
    */
   @Test
   public void test_output_for_row_from_request() throws Exception {
-    Request request = new Request(source, "select * from actor");
+    Request request = new Request(jdbcConnectionProvider, "select * from actor");
 
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
@@ -127,7 +128,7 @@ public class OutputterValue_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_output_for_row_from_change() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -139,28 +140,28 @@ public class OutputterValue_Test extends AbstractTest {
       .changeOfModification().rowAtStartPoint().value().toStream(byteArrayOutputStream1)
       .rowAtEndPoint().value().toStream(byteArrayOutputStream2)
       .value("firstname").toStream(byteArrayOutputStream3);
-    Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Value at index 0 (column name : ID) of Row at end point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
+    Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Value at index 0 (column name : ID) of Row at end point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test']%n"
       + "|----------|%n"
       + "| ID       |%n"
       + "| (NUMBER) |%n"
       + "|----------|%n"
       + "| 4        |%n"
       + "|----------|%n"));
-    Assertions.assertThat(byteArrayOutputStream1.toString()).isEqualTo(String.format("[Value at index 0 (column name : ID) of Row at start point of Change at index 0 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source (only modification changes)]%n"
+    Assertions.assertThat(byteArrayOutputStream1.toString()).isEqualTo(String.format("[Value at index 0 (column name : ID) of Row at start point of Change at index 0 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' (only modification changes)]%n"
       + "|----------|%n"
       + "| ID       |%n"
       + "| (NUMBER) |%n"
       + "|----------|%n"
       + "| 1        |%n"
       + "|----------|%n"));
-    Assertions.assertThat(byteArrayOutputStream2.toString()).isEqualTo(String.format("[Value at index 0 (column name : ID) of Row at end point of Change at index 0 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source (only modification changes)]%n"
+    Assertions.assertThat(byteArrayOutputStream2.toString()).isEqualTo(String.format("[Value at index 0 (column name : ID) of Row at end point of Change at index 0 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' (only modification changes)]%n"
       + "|----------|%n"
       + "| ID       |%n"
       + "| (NUMBER) |%n"
       + "|----------|%n"
       + "| 1        |%n"
       + "|----------|%n"));
-    Assertions.assertThat(byteArrayOutputStream3.toString()).isEqualTo(String.format("[Value at index 2 (column name : FIRSTNAME) of Row at end point of Change at index 0 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source (only modification changes)]%n"
+    Assertions.assertThat(byteArrayOutputStream3.toString()).isEqualTo(String.format("[Value at index 2 (column name : FIRSTNAME) of Row at end point of Change at index 0 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' (only modification changes)]%n"
       + "|-----------------|%n"
       + "| FIRSTNAME       |%n"
       + "| (TEXT)          |%n"
@@ -174,7 +175,7 @@ public class OutputterValue_Test extends AbstractTest {
    */
   @Test
   public void test_output_for_column_from_table() throws Exception {
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
 
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
@@ -219,7 +220,7 @@ public class OutputterValue_Test extends AbstractTest {
    */
   @Test
   public void test_output_for_column_from_request() throws Exception {
-    Request request = new Request(source, "select * from actor");
+    Request request = new Request(jdbcConnectionProvider, "select * from actor");
 
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
@@ -266,7 +267,7 @@ public class OutputterValue_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_output_for_column_from_change() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -276,21 +277,21 @@ public class OutputterValue_Test extends AbstractTest {
     output(changes).change().column().valueAtStartPoint().toStream(byteArrayOutputStream0)
       .valueAtEndPoint().toStream(byteArrayOutputStream1)
       .column().valueAtEndPoint().toStream(byteArrayOutputStream2);
-    Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Value at start point of Column at index 0 (column name : ID) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
+    Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Value at start point of Column at index 0 (column name : ID) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test']%n"
       + "|------------------|%n"
       + "| ID               |%n"
       + "| (NOT_IDENTIFIED) |%n"
       + "|------------------|%n"
       + "| null             |%n"
       + "|------------------|%n"));
-    Assertions.assertThat(byteArrayOutputStream1.toString()).isEqualTo(String.format("[Value at end point of Column at index 0 (column name : ID) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
+    Assertions.assertThat(byteArrayOutputStream1.toString()).isEqualTo(String.format("[Value at end point of Column at index 0 (column name : ID) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test']%n"
       + "|----------|%n"
       + "| ID       |%n"
       + "| (NUMBER) |%n"
       + "|----------|%n"
       + "| 4        |%n"
       + "|----------|%n"));
-    Assertions.assertThat(byteArrayOutputStream2.toString()).isEqualTo(String.format("[Value at end point of Column at index 1 (column name : NAME) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
+    Assertions.assertThat(byteArrayOutputStream2.toString()).isEqualTo(String.format("[Value at end point of Column at index 1 (column name : NAME) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test']%n"
       + "|--------|%n"
       + "| NAME   |%n"
       + "| (TEXT) |%n"

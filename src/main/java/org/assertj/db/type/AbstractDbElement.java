@@ -12,22 +12,20 @@
  */
 package org.assertj.db.type;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 import org.assertj.db.type.lettercase.LetterCase;
 import org.assertj.db.type.lettercase.WithLetterCase;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
 /**
  * This class represents element from the database (either a {@link AbstractDbData} or a {@link Change}).
- * So this class contains : the way to access the database with {@link #getSource()} and {@link #getDataSource()} (one
- * of them need to be set before loading the data).<br>
+ * So this class contains : the way to access the database with {@link #getConnectionProvider()}.<br>
  *
  * @param <D> Class of the subclass (an implementation of {@link AbstractDbElement}) : useful for the fluent methods
  *            (setters).
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implements DbElement, WithLetterCase {
 
@@ -36,31 +34,27 @@ public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implemen
    */
   protected final D myself;
   /**
-   * Source of the data.
+   * Database connection provider.
    */
-  private Source source;
-  /**
-   * Data source.
-   */
-  private DataSource dataSource;
+  private ConnectionProvider connectionProvider;
   /**
    * Letter case of the tables.
    *
    * @since 1.1.0
    */
-  private LetterCase tableLetterCase;
+  private LetterCase tableLetterCase = LetterCase.TABLE_DEFAULT;
   /**
    * Letter case of the columns.
    *
    * @since 1.1.0
    */
-  private LetterCase columnLetterCase;
+  private LetterCase columnLetterCase = LetterCase.COLUMN_DEFAULT;
   /**
    * Letter case of the primary keys.
    *
    * @since 1.1.0
    */
-  private LetterCase primaryKeyLetterCase;
+  private LetterCase primaryKeyLetterCase = LetterCase.PRIMARY_KEY_DEFAULT;
 
   /**
    * Default constructor.
@@ -75,61 +69,14 @@ public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implemen
   /**
    * Constructor.
    *
-   * @param selfType Class of this element : a sub-class of {@code AbstractDbElement}.
-   * @param source   The {@link Source} to connect to the database (must be not {@code null}).
-   * @throws NullPointerException If {@code source} is {@code null}.
+   * @param selfType           Class of this element : a subclass of {@code AbstractDbElement}.
+   * @param connectionProvider The {@link ConnectionProvider} to connect to the database (must be not {@code null}).
+   * @throws NullPointerException If {@code connectionProvider} is {@code null}.
    */
-  AbstractDbElement(Class<D> selfType, Source source) {
+  AbstractDbElement(Class<D> selfType, ConnectionProvider connectionProvider) {
     this(selfType);
-    this.source = source;
+    this.connectionProvider = connectionProvider;
     setLetterCases();
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param selfType   Class of this element : a sub-class of {@code AbstractDbElement}.
-   * @param dataSource The {@link DataSource} (must be not {@code null}).
-   * @throws NullPointerException If {@code dataSource} is {@code null}.
-   */
-  AbstractDbElement(Class<D> selfType, DataSource dataSource) {
-    this(selfType);
-    this.dataSource = dataSource;
-    setLetterCases();
-  }
-
-  /**
-   * Returns the catalog from a connection.
-   *
-   * @param connection The connection with the catalog
-   * @return The catalog from a connection.
-   * @throws SQLException SQL Exception
-   */
-  protected static String getCatalog(Connection connection) throws SQLException {
-    try {
-      return connection.getCatalog();
-    } catch (SQLException exception) {
-      throw exception;
-    } catch (Exception throwable) {
-      return null;
-    }
-  }
-
-  /**
-   * Returns the schema from a connection.
-   *
-   * @param connection The connection with the catalog
-   * @return The schema from a connection.
-   * @throws SQLException SQL Exception
-   */
-  protected static String getSchema(Connection connection) throws SQLException {
-    try {
-      return connection.getSchema();
-    } catch (SQLException exception) {
-      throw exception;
-    } catch (Exception throwable) {
-      return null;
-    }
   }
 
   /**
@@ -148,24 +95,15 @@ public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implemen
   }
 
   /**
-   * Sets the letter cases from information in {@code dataSource} and {@code source}.
+   * Sets the letter cases from information in {@code connectionProvider}.
    */
   private void setLetterCases() {
-    if (dataSource instanceof WithLetterCase) {
-      WithLetterCase withLetterCase = (WithLetterCase) dataSource;
-      tableLetterCase = withLetterCase.getTableLetterCase();
-      columnLetterCase = withLetterCase.getColumnLetterCase();
-      primaryKeyLetterCase = withLetterCase.getPrimaryKeyLetterCase();
-    } else if (source instanceof WithLetterCase) {
-      WithLetterCase withLetterCase = (WithLetterCase) source;
-      tableLetterCase = withLetterCase.getTableLetterCase();
-      columnLetterCase = withLetterCase.getColumnLetterCase();
-      primaryKeyLetterCase = withLetterCase.getPrimaryKeyLetterCase();
-    } else {
-      tableLetterCase = LetterCase.TABLE_DEFAULT;
-      columnLetterCase = LetterCase.COLUMN_DEFAULT;
-      primaryKeyLetterCase = LetterCase.PRIMARY_KEY_DEFAULT;
+    if (connectionProvider == null) {
+      return;
     }
+    tableLetterCase = connectionProvider.getTableLetterCase();
+    columnLetterCase = connectionProvider.getColumnLetterCase();
+    primaryKeyLetterCase = connectionProvider.getPrimaryKeyLetterCase();
   }
 
   /**
@@ -193,77 +131,55 @@ public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implemen
   }
 
   /**
-   * Return the source.
+   * Return the connectionProvider.
    *
-   * @return The {@link Source} to connect.
-   * @see #setSource(Source)
+   * @return The {@link ConnectionProvider} to connect.
+   * @see #setConnectionProvider(ConnectionProvider)
    */
-  public Source getSource() {
-    return source;
+  public ConnectionProvider getConnectionProvider() {
+    return connectionProvider;
   }
 
   /**
-   * Sets the source.
+   * Sets the connectionProvider.
    *
-   * @param source {@link Source} to connect to the database (must be not {@code null}).
+   * @param connectionProvider {@link ConnectionProvider} to connect to the database (must be not {@code null}).
    * @return The actual instance.
-   * @throws NullPointerException If {@code source} is {@code null}.
-   * @see #getSource()
+   * @throws NullPointerException If {@code connectionProvider} is {@code null}.
    */
-  public D setSource(Source source) {
-    if (source == null) {
-      throw new NullPointerException("source must be not null");
+  public D setConnectionProvider(ConnectionProvider connectionProvider) {
+    if (connectionProvider == null) {
+      throw new NullPointerException("connectionProvider must be not null");
     }
-    this.source = source;
-    this.dataSource = null;
+    this.connectionProvider = connectionProvider;
     setLetterCases();
     return myself;
   }
 
   /**
-   * Return the data source.
+   * Returns a {@link Connection} from the {@link ConnectionProvider}
    *
-   * @return The data source.
-   * @see #setDataSource(DataSource)
-   */
-  public DataSource getDataSource() {
-    return dataSource;
-  }
-
-  /**
-   * Sets the data source.
-   *
-   * @param dataSource The {@link DataSource} (must be not {@code null}).
-   * @return The actual instance.
-   * @throws NullPointerException If {@code dataSource} is {@code null}.
-   * @see #getDataSource()
-   */
-  public D setDataSource(DataSource dataSource) {
-    if (dataSource == null) {
-      throw new NullPointerException("dataSource must be not null");
-    }
-    this.source = null;
-    this.dataSource = dataSource;
-    setLetterCases();
-    return myself;
-  }
-
-  /**
-   * Returns a {@link Connection} from a {@link DataSource} or from a {@link Source}.
-   *
-   * @return A {@link Connection} differently, depending if it is a {@link DataSource} or a {@link Source}.
-   * @throws SQLException SQL Exception
+   * @return A {@link Connection} from connectionProvider
+   * @throws SQLException         SQL Exception
+   * @throws NullPointerException this connection provider is null
    */
   protected Connection getConnection() throws SQLException {
-    if (dataSource == null && source == null) {
-      throw new NullPointerException("connection or dataSource must be not null");
+    if (connectionProvider == null) {
+      throw new NullPointerException("connectionProvider must be not null");
     }
+    return connectionProvider.getConnection();
+  }
 
-    // Get a Connection differently, depending if it is a DataSource or a Source.
-    if (dataSource != null) {
-      return dataSource.getConnection();
-    } else {
-      return DriverManager.getConnection(source.getUrl(), source.getUser(), source.getPassword());
+  /**
+   * Returns a {@link SchemaMetadata} from the {@link ConnectionProvider}
+   *
+   * @return A {@link SchemaMetadata} from connectionProvider
+   * @throws NullPointerException this connection provider is null
+   */
+  protected SchemaMetadata getMetaData() {
+    if (connectionProvider == null) {
+      throw new NullPointerException("connectionProvider must be not null");
     }
+    return connectionProvider.getMetaData();
   }
 }

@@ -28,6 +28,7 @@ import org.junit.Test;
  * Test the output of rows.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class OutputterRow_Test extends AbstractTest {
 
@@ -36,7 +37,7 @@ public class OutputterRow_Test extends AbstractTest {
    */
   @Test
   public void test_output_for_table() throws Exception {
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
 
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
@@ -78,7 +79,7 @@ public class OutputterRow_Test extends AbstractTest {
    */
   @Test
   public void test_output_for_request() throws Exception {
-    Request request = new Request(source, "select * from actor");
+    Request request = new Request(jdbcConnectionProvider, "select * from actor");
 
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
@@ -121,7 +122,7 @@ public class OutputterRow_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_output_for_change() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -131,9 +132,9 @@ public class OutputterRow_Test extends AbstractTest {
     output(changes).change().rowAtStartPoint().toStream(byteArrayOutputStream0)
       .rowAtEndPoint().toStream(byteArrayOutputStream1)
       .changeOfModification().rowAtStartPoint().toStream(byteArrayOutputStream2);
-    Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Row at start point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
+    Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Row at start point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test']%n"
       + "Row does not exist%n"));
-    Assertions.assertThat(byteArrayOutputStream1.toString()).isEqualTo(String.format("[Row at end point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source]%n"
+    Assertions.assertThat(byteArrayOutputStream1.toString()).isEqualTo(String.format("[Row at end point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test']%n"
       + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"
       + "|         | *         |           |           |            |                                      |%n"
       + "| PRIMARY | ID        | NAME      | FIRSTNAME | BIRTH      | ACTOR_IMDB                           |%n"
@@ -142,7 +143,7 @@ public class OutputterRow_Test extends AbstractTest {
       + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"
       + "| 4       | 4         | Murray    | Bill      | 1950-09-21 | 30b443ae-c0c9-4790-9bec-ce1380808435 |%n"
       + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"));
-    Assertions.assertThat(byteArrayOutputStream2.toString()).isEqualTo(String.format("[Row at start point of Change at index 0 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source (only modification changes)]%n"
+    Assertions.assertThat(byteArrayOutputStream2.toString()).isEqualTo(String.format("[Row at start point of Change at index 0 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' (only modification changes)]%n"
       + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"
       + "|         | *         |           |           |            |                                      |%n"
       + "| PRIMARY | ID        | NAME      | FIRSTNAME | BIRTH      | ACTOR_IMDB                           |%n"

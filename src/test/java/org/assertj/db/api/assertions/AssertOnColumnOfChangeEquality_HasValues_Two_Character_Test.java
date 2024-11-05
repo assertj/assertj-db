@@ -28,6 +28,7 @@ import org.junit.Test;
  * {@link org.assertj.db.api.assertions.AssertOnColumnOfChangeEquality#hasValues(Character, Character)} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class AssertOnColumnOfChangeEquality_HasValues_Two_Character_Test extends AbstractTest {
 
@@ -37,7 +38,7 @@ public class AssertOnColumnOfChangeEquality_HasValues_Two_Character_Test extends
   @Test
   @NeedReload
   public void test_has_values() {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     update("update test set var14 = 1 where var1 = 1");
     changes.setEndPointNow();
 
@@ -53,7 +54,7 @@ public class AssertOnColumnOfChangeEquality_HasValues_Two_Character_Test extends
   @Test
   @NeedReload
   public void should_fail_because_value_at_start_point_is_different() {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     update("insert into test(var1, var2) values(5, true)");
     changes.setEndPointNow();
 
@@ -61,7 +62,7 @@ public class AssertOnColumnOfChangeEquality_HasValues_Two_Character_Test extends
       assertThat(changes).change().column("var16").hasValues('T', 'T');
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 15 (column name : VAR16) of Change at index 0 (on table : TEST and with primary key : [5]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 15 (column name : VAR16) of Change at index 0 (on table : TEST and with primary key : [5]) of Changes on tables of 'sa/jdbc:h2:mem:test'] %n"
         + "Expecting that start point:%n"
         + "  <null>%n"
         + "to be equal to: %n"
@@ -75,7 +76,7 @@ public class AssertOnColumnOfChangeEquality_HasValues_Two_Character_Test extends
   @Test
   @NeedReload
   public void should_fail_because_value_at_end_point_is_different() {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     update("delete from test where var1 = 1");
     changes.setEndPointNow();
 
@@ -83,7 +84,7 @@ public class AssertOnColumnOfChangeEquality_HasValues_Two_Character_Test extends
       assertThat(changes).change().column("var16").hasValues('T', 'T');
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 15 (column name : VAR16) of Change at index 0 (on table : TEST and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 15 (column name : VAR16) of Change at index 0 (on table : TEST and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test'] %n"
         + "Expecting that end point:%n"
         + "  <null>%n"
         + "to be equal to: %n"

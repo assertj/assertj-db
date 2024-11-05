@@ -12,9 +12,6 @@
  */
 package org.assertj.db.api.assertions;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.ChangeAssert;
 import org.assertj.db.common.AbstractTest;
@@ -22,49 +19,53 @@ import org.assertj.db.common.NeedReload;
 import org.assertj.db.type.Changes;
 import org.junit.Test;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 /**
  * Tests on {@link AssertOnChangeType} class :
  * {@link AssertOnChangeType#isModification()}} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class AssertOnChangeType_IsModification_Test extends AbstractTest {
 
-  /**
-   * This method tests the {@code isModification} assertion method.
-   */
-  @Test
-  @NeedReload
-  public void test_is_modification() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
-    updateChangesForTests();
-    changes.setEndPointNow();
+    /**
+     * This method tests the {@code isModification} assertion method.
+     */
+    @Test
+    @NeedReload
+    public void test_is_modification() throws Exception {
+        Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+        updateChangesForTests();
+        changes.setEndPointNow();
 
-    ChangeAssert changeAssert = assertThat(changes).change(3);
-    ChangeAssert changeAssert2 = changeAssert.isModification();
-    Assertions.assertThat(changeAssert).isSameAs(changeAssert2);
-  }
-
-  /**
-   * This method should fail because the type of change is different.
-   */
-  @Test
-  @NeedReload
-  public void should_fail_because_type_of_change_is_different() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
-    updateChangesForTests();
-    changes.setEndPointNow();
-
-    try {
-      assertThat(changes).change().isModification();
-      fail("An exception must be raised");
-    } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
-        + "Expecting:%n"
-        + "to be of type%n"
-        + "  <MODIFICATION>%n"
-        + "but was of type%n"
-        + "  <CREATION>"));
+        ChangeAssert changeAssert = assertThat(changes).change(3);
+        ChangeAssert changeAssert2 = changeAssert.isModification();
+        Assertions.assertThat(changeAssert).isSameAs(changeAssert2);
     }
-  }
+
+    /**
+     * This method should fail because the type of change is different.
+     */
+    @Test
+    @NeedReload
+    public void should_fail_because_type_of_change_is_different() throws Exception {
+        Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+        updateChangesForTests();
+        changes.setEndPointNow();
+
+        try {
+            assertThat(changes).change().isModification();
+            fail("An exception must be raised");
+        } catch (AssertionError e) {
+            Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test'] %n"
+                    + "Expecting:%n"
+                    + "to be of type%n"
+                    + "  <MODIFICATION>%n"
+                    + "but was of type%n"
+                    + "  <CREATION>"));
+        }
+    }
 }

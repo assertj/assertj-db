@@ -47,6 +47,7 @@ import org.junit.Test;
  * {@link org.assertj.db.navigation.ToValueFromRow#value(String)} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class ToValueFromRow_Value_String_Test extends AbstractTest {
 
@@ -57,7 +58,7 @@ public class ToValueFromRow_Value_String_Test extends AbstractTest {
   @Test
   @NeedReload
   public void should_fail_because_row_does_not_exist() {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -75,7 +76,7 @@ public class ToValueFromRow_Value_String_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_value_from_row_of_change_with_column_name() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -165,7 +166,7 @@ public class ToValueFromRow_Value_String_Test extends AbstractTest {
     Field fieldIndex = Position.class.getDeclaredField("nextIndex");
     fieldIndex.setAccessible(true);
 
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
     TableAssert tableAssert = assertThat(table);
     TableRowAssert tableRowAssert = tableAssert.row();
     Position position = (Position) fieldPosition.get(tableRowAssert);
@@ -246,7 +247,7 @@ public class ToValueFromRow_Value_String_Test extends AbstractTest {
     Field fieldIndex = Position.class.getDeclaredField("nextIndex");
     fieldIndex.setAccessible(true);
 
-    Request request = new Request(source, "select * from actor");
+    Request request = new Request(jdbcConnectionProvider, "select * from actor");
     RequestAssert requestAssert = assertThat(request);
     RequestRowAssert requestRowAssert = requestAssert.row();
     Position position = (Position) fieldPosition.get(requestRowAssert);

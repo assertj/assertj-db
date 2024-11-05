@@ -26,6 +26,7 @@ import org.junit.Test;
  * {@link org.assertj.db.api.assertions.AssertOnColumnNullity#hasOnlyNullValues()} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class AssertOnColumnNullity_HasOnlyNullValues_Test extends AbstractTest {
 
@@ -34,7 +35,7 @@ public class AssertOnColumnNullity_HasOnlyNullValues_Test extends AbstractTest {
    */
   @Test
   public void test_has_only_null_values() {
-    Table table = new Table(source, "test2");
+    Table table = new Table(jdbcConnectionProvider, "test2");
     TableColumnAssert tableColumnAssert = assertThat(table).column("var15");
     TableColumnAssert tableColumnAssert2 = tableColumnAssert.hasOnlyNullValues();
     Assertions.assertThat(tableColumnAssert).isSameAs(tableColumnAssert2);
@@ -45,7 +46,7 @@ public class AssertOnColumnNullity_HasOnlyNullValues_Test extends AbstractTest {
    */
   @Test
   public void should_fail_because_column_has_not_null_value() throws Exception {
-    Table table = new Table(source, "test2");
+    Table table = new Table(jdbcConnectionProvider, "test2");
     TableColumnAssert tableColumnAssert = assertThat(table).column("var14");
     try {
       tableColumnAssert.hasOnlyNullValues();

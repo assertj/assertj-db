@@ -19,6 +19,7 @@ import org.junit.Test;
  * Tests on the setTables method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class Changes_SetTables_Test extends AbstractTest {
 
@@ -27,7 +28,7 @@ public class Changes_SetTables_Test extends AbstractTest {
    */
   @Test
   public void test_when_setting_tables_with_empty_parameters() {
-    Changes changes = new Changes(source);
+    Changes changes = new Changes(jdbcConnectionProvider);
     changes.setTables();
   }
 }

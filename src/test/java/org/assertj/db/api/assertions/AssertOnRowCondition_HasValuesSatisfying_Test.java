@@ -42,7 +42,7 @@ public class AssertOnRowCondition_HasValuesSatisfying_Test extends AbstractTest 
   @Test
   @NeedReload
   public void test_has_values() {
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
     Changes changes = new Changes(table).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
@@ -90,7 +90,7 @@ public class AssertOnRowCondition_HasValuesSatisfying_Test extends AbstractTest 
   @Test
   @NeedReload
   public void should_fail_because_values_are_different() {
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
     Changes changes = new Changes(table).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
@@ -106,7 +106,7 @@ public class AssertOnRowCondition_HasValuesSatisfying_Test extends AbstractTest 
         );
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format(
-        "[Row at end point of Change at index 0 (with primary key : [4]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test' source] %n"
+        "[Row at end point of Change at index 0 (with primary key : [4]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test'] %n"
           + "Expecting that the value at index 2:%n"
           + "  \"Bill\"%n"
           + "to satisfy: %n"

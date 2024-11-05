@@ -25,15 +25,16 @@ import org.junit.Test;
  * </p>
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class Table_Columns_Test extends AbstractTest {
 
   /**
-   * This method test the columns got from a {@code Source}.
+   * This method test the columns got from a {@code ConnectionProvider}.
    */
   @Test
-  public void test_columns_with_source_set() {
-    Table table = new Table(source, "movie");
+  public void test_columns_with_jdbc_set() {
+    Table table = new Table(jdbcConnectionProvider, "movie");
 
     Column columnFromIndex = table.getColumn(1);
 
@@ -49,7 +50,7 @@ public class Table_Columns_Test extends AbstractTest {
    */
   @Test
   public void test_columns_with_datasource_set() {
-    Table table = new Table(dataSource, "movie");
+    Table table = new Table(dsConnectionProvider, "movie");
 
     Column columnFromIndex = table.getColumn(1);
 
@@ -65,7 +66,7 @@ public class Table_Columns_Test extends AbstractTest {
    */
   @Test
   public void test_columns_to_check() {
-    Table table = new Table(source, "movie");
+    Table table = new Table(jdbcConnectionProvider, "movie");
 
     assertThat(table.getColumnsToCheck()).isNull();
 
@@ -80,7 +81,7 @@ public class Table_Columns_Test extends AbstractTest {
    */
   @Test
   public void test_columns_to_exclude() {
-    Table table = new Table(source, "movie");
+    Table table = new Table(jdbcConnectionProvider, "movie");
 
     assertThat(table.getColumnsToExclude()).isNull();
 
@@ -95,7 +96,7 @@ public class Table_Columns_Test extends AbstractTest {
    */
   @Test
   public void test_columns_to_order() {
-    Table table = new Table(source, "movie");
+    Table table = new Table(jdbcConnectionProvider, "movie");
 
     assertThat(table.getColumnsToOrder()).isNull();
 

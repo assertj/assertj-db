@@ -46,6 +46,7 @@ import org.junit.Test;
  * {@link org.assertj.db.navigation.ToRow#row()} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class ToRow_Row_Test extends AbstractTest {
 
@@ -61,7 +62,7 @@ public class ToRow_Row_Test extends AbstractTest {
     Field fieldIndex = Position.class.getDeclaredField("nextIndex");
     fieldIndex.setAccessible(true);
 
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
     TableAssert tableAssert = assertThat(table);
     Position<TableAssert, TableRowAssert, Row> position =
       (Position) fieldPosition.get(tableAssert);
@@ -147,7 +148,7 @@ public class ToRow_Row_Test extends AbstractTest {
     Field fieldIndex = Position.class.getDeclaredField("nextIndex");
     fieldIndex.setAccessible(true);
 
-    Request request = new Request(source, "select * from actor");
+    Request request = new Request(jdbcConnectionProvider, "select * from actor");
     RequestAssert requestAssert = assertThat(request);
     Position<RequestAssert, RequestRowAssert, Row> position =
       (Position) fieldPosition.get(requestAssert);
@@ -233,7 +234,7 @@ public class ToRow_Row_Test extends AbstractTest {
     Field fieldIndex = Position.class.getDeclaredField("nextIndex");
     fieldIndex.setAccessible(true);
 
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
     TableOutputter tableOutputter = Outputs.output(table);
     Position<TableOutputter, TableRowOutputter, Row> position =
       (Position) fieldPosition.get(tableOutputter);
@@ -319,7 +320,7 @@ public class ToRow_Row_Test extends AbstractTest {
     Field fieldIndex = Position.class.getDeclaredField("nextIndex");
     fieldIndex.setAccessible(true);
 
-    Request request = new Request(source, "select * from actor");
+    Request request = new Request(jdbcConnectionProvider, "select * from actor");
     RequestOutputter requestOutputter = Outputs.output(request);
     Position<RequestOutputter, RequestRowOutputter, Row> position =
       (Position) fieldPosition.get(requestOutputter);

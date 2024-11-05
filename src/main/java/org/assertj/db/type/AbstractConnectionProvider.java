@@ -12,70 +12,56 @@
  */
 package org.assertj.db.type;
 
+import java.lang.reflect.InvocationTargetException;
+
 import org.assertj.db.type.lettercase.LetterCase;
-import org.assertj.db.type.lettercase.WithLetterCase;
 
 /**
- * A source to indicates the information to connect to the database with letter case.
+ * Base implementation for ConnectionProvider that handle letter case and schema metadata management.
  *
- * @author Régis Pouiller
- * @since 1.1.0
+ * @author Julien Roy
+ * @since 3.0.0
  */
-public class SourceWithLetterCase extends Source implements WithLetterCase {
+abstract class AbstractConnectionProvider implements ConnectionProvider {
 
-  /**
-   * Letter case of the tables.
-   */
+  private final SchemaMetadata schemaMetadata;
+
   private final LetterCase tableLetterCase;
-  /**
-   * Letter case of the columns.
-   */
   private final LetterCase columnLetterCase;
-  /**
-   * Letter case of the primary keys.
-   */
   private final LetterCase primaryKeyLetterCase;
 
-  /**
-   * Constructor with the information.
-   *
-   * @param url                  URL to the database.
-   * @param user                 User to connect.
-   * @param password             Password to connect.
-   * @param tableLetterCase      Letter case of the tables.
-   * @param columnLetterCase     Letter case of the columns.
-   * @param primaryKeyLetterCase Letter case of the primary keys.
-   */
-  public SourceWithLetterCase(String url, String user, String password,
-                              LetterCase tableLetterCase, LetterCase columnLetterCase, LetterCase primaryKeyLetterCase) {
-
-    super(url, user, password);
+  protected AbstractConnectionProvider(Class<? extends SchemaMetadata> schemaMetadataType, LetterCase tableLetterCase, LetterCase columnLetterCase, LetterCase primaryKeyLetterCase) {
+    this.schemaMetadata = instantiateSchemaMetadata(schemaMetadataType);
     this.tableLetterCase = tableLetterCase;
     this.columnLetterCase = columnLetterCase;
     this.primaryKeyLetterCase = primaryKeyLetterCase;
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  private SchemaMetadata instantiateSchemaMetadata(Class<? extends SchemaMetadata> schemaMetadataType) {
+    try {
+      return schemaMetadataType.getConstructor(ConnectionProvider.class).newInstance(this);
+    } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+      throw new IllegalArgumentException("Schema metadata instantiation failure", e);
+    }
+  }
+
+  @Override
+  public LetterCase getTableLetterCase() {
+    return tableLetterCase;
+  }
+
   @Override
   public LetterCase getColumnLetterCase() {
     return columnLetterCase;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public LetterCase getPrimaryKeyLetterCase() {
     return primaryKeyLetterCase;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
-  public LetterCase getTableLetterCase() {
-    return tableLetterCase;
+  public SchemaMetadata getMetaData() {
+    return this.schemaMetadata;
   }
 }

@@ -23,6 +23,7 @@ import org.junit.Test;
  * Test the output to Stream.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class OutputterToStream_Test extends AbstractTest {
 
@@ -31,7 +32,7 @@ public class OutputterToStream_Test extends AbstractTest {
    */
   @Test
   public void test_output_to_stream() throws Exception {
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
 
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     Outputs.output(table).row().value().toStream(byteArrayOutputStream0);

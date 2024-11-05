@@ -36,7 +36,7 @@ public class AssertOnExistence_Exists_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_table_exists() {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssertExistReturn = tableAssert.exists();
     Assertions.assertThat(tableAssert).isSameAs(tableAssertExistReturn);
@@ -48,7 +48,7 @@ public class AssertOnExistence_Exists_Test extends AbstractTest {
   @Test
   @NeedReload
   public void should_fail_because_table_not_exist() {
-    Table table = new Table(source, "not-exist-test");
+    Table table = new Table(jdbcConnectionProvider, "not-exist-test");
 
     try {
       assertThat(table).exists();

@@ -26,6 +26,7 @@ import org.junit.Test;
  * {@link org.assertj.db.api.assertions.AssertOnColumnEquality#hasValues(Character...)} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class AssertOnColumnEquality_HasValues_Character_Test extends AbstractTest {
 
@@ -34,12 +35,12 @@ public class AssertOnColumnEquality_HasValues_Character_Test extends AbstractTes
    */
   @Test
   public void test_has_values() throws Exception {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     TableColumnAssert tableColumnAssert = assertThat(table).column("var16");
     TableColumnAssert tableColumnAssertReturn = tableColumnAssert.hasValues('T', 'e', 's', 't');
     Assertions.assertThat(tableColumnAssert).isSameAs(tableColumnAssertReturn);
 
-    Table table2 = new Table(source, "test2");
+    Table table2 = new Table(jdbcConnectionProvider, "test2");
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var17");
     TableColumnAssert tableColumnAssertReturn2 = tableColumnAssert2.hasValues('T', null);
     Assertions.assertThat(tableColumnAssert2).isSameAs(tableColumnAssertReturn2);
@@ -50,7 +51,7 @@ public class AssertOnColumnEquality_HasValues_Character_Test extends AbstractTes
    */
   @Test
   public void should_fail_because_values_are_different() throws Exception {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     TableColumnAssert tableColumnAssert = assertThat(table).column("var16");
     try {
       tableColumnAssert.hasValues('t', 'e', 's', 'T');
@@ -62,7 +63,7 @@ public class AssertOnColumnEquality_HasValues_Character_Test extends AbstractTes
         + "to be equal to: %n"
         + "  <'t'>"));
     }
-    Table table2 = new Table(source, "test2");
+    Table table2 = new Table(jdbcConnectionProvider, "test2");
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var17");
     try {
       tableColumnAssert2.hasValues('T', 'T');

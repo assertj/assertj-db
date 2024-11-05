@@ -12,8 +12,6 @@
  */
 package org.assertj.db.type;
 
-import javax.sql.DataSource;
-
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.exception.AssertJDBException;
 import org.junit.Test;
@@ -25,77 +23,61 @@ import org.junit.Test;
  * </p>
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class Request_Instantiation_Test extends AbstractTest {
 
   /**
-   * This method should throw a {@code NullPointerException}, because the {@code Source} parameter is {@code null}.
+   * This method should throw a {@code NullPointerException}, because the {@code ConnectionProvider} parameter is {@code null}.
    */
   @Test(expected = NullPointerException.class)
-  public void should_throw_NullPointerException_if_instantiate_with_Source_null() {
-    new Request((Source) null, null);
+  public void should_throw_NullPointerException_if_instantiate_with_connection_provider_null() {
+    new Request(null, null);
   }
 
   /**
-   * This method should throw a {@code NullPointerException}, because the {@code DataSource} parameter is {@code null}.
-   */
-  @Test(expected = NullPointerException.class)
-  public void should_throw_NullPointerException_if_instantiate_with_DataSource_null() {
-    new Request((DataSource) null, null);
-  }
-
-  /**
-   * This method should throw a {@code NullPointerException}, because the {@code Source} parameter is not {@code null}
+   * This method should throw a {@code NullPointerException}, because the {@code ConnectionProvider} parameter is not {@code null}
    * and request is {@code null}.
    */
   @Test(expected = NullPointerException.class)
-  public void should_throw_NullPointerException_if_instantiate_with_Source_not_null_and_table_name_null() {
-    new Request(source, null);
+  public void should_throw_NullPointerException_if_instantiate_with_jdbc_not_null_and_table_name_null() {
+    new Request(jdbcConnectionProvider, null);
   }
 
   /**
-   * This method should throw a {@code NullPointerException}, because the {@code DataSource} parameter is {@code null}
+   * This method should throw a {@code NullPointerException}, because the {@code ConnectionProvider} parameter is {@code null}
    * and request is {@code null}.
    */
   @Test(expected = NullPointerException.class)
-  public void should_throw_NullPointerException_if_instantiate_with_DataSource_not_null_and_table_name_null() {
-    new Request(dataSource, null);
+  public void should_throw_NullPointerException_if_instantiate_with_data_source_not_null_and_table_name_null() {
+    new Request(dsConnectionProvider, null);
   }
 
   /**
-   * This method should throw a {@code NullPointerException}, because the {@code DataSource} and the {@code Source}
+   * This method should throw a {@code NullPointerException}, because the {@code DataSource} and the {@code ConnectionProvider}
    * fields are not set when call {@code getColumnsNameList()}.
    */
   @Test(expected = NullPointerException.class)
-  public void should_throw_NullPointerException_if_get_list_of_columns_name_without_setting_source_or_datasource() {
+  public void should_throw_NullPointerException_if_get_list_of_columns_name_without_setting_connection_provider_or_datasource() {
     new Request().getColumnsNameList();
   }
 
   /**
-   * This method should throw a {@code NullPointerException}, because the {@code Source} field is set but not the table
+   * This method should throw a {@code NullPointerException}, because the {@code ConnectionProvider} field is set but not the table
    * name when call {@code getColumnsNameList()}.
    */
   @Test(expected = NullPointerException.class)
-  public void should_throw_NullPointerException_if_get_list_of_columns_name_with_setting_source_and_without_setting_table_name() {
-    new Request().setSource(source).getColumnsNameList();
+  public void should_throw_NullPointerException_if_get_list_of_columns_name_with_setting_connection_provider_and_without_setting_table_name() {
+    new Request().setConnectionProvider(jdbcConnectionProvider).getColumnsNameList();
   }
 
   /**
-   * This method should throw a {@code NullPointerException}, because the {@code DataSource} field is set but not the
-   * table name when call {@code getColumnsNameList()}.
-   */
-  @Test(expected = NullPointerException.class)
-  public void should_throw_NullPointerException_if_get_list_of_columns_name_with_setting_datasource_and_without_setting_table_name() {
-    new Request().setDataSource(dataSource).getColumnsNameList();
-  }
-
-  /**
-   * This method should throw a {@code AssertJDBException}, because the {@code Source} field is set but not
-   * all the information of the {@code Source}.
+   * This method should throw a {@code AssertJDBException}, because the {@code ConnectionProvider} field is set but not
+   * all the information of the {@code ConnectionProvider}.
    */
   @Test(expected = AssertJDBException.class)
-  public void should_throw_AssertJDBException_if_get_list_of_rows_with_setting_source_having_bad_user() {
-    Request request = new Request(new Source(source.getUrl(), "", ""), "");
+  public void should_throw_AssertJDBException_if_get_list_of_rows_with_setting_connection_provider_having_bad_user() {
+    Request request = new Request(ConnectionProviderFactory.of("jdbc:h2:mem:test", "", "").create(), "");
     request.getRowsList();
   }
 }

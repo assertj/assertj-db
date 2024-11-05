@@ -12,9 +12,6 @@
  */
 package org.assertj.db.api.assertions;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.ChangeAssert;
 import org.assertj.db.common.AbstractTest;
@@ -22,11 +19,15 @@ import org.assertj.db.common.NeedReload;
 import org.assertj.db.type.Changes;
 import org.junit.Test;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 /**
  * Tests on {@link org.assertj.db.api.assertions.AssertOnPrimaryKey} class :
  * {@link org.assertj.db.api.assertions.AssertOnPrimaryKey#hasPksValues(Object...)} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class AssertOnPrimaryKey_HasPksValues_Test extends AbstractTest {
 
@@ -36,7 +37,7 @@ public class AssertOnPrimaryKey_HasPksValues_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_has_pks_values() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -51,7 +52,7 @@ public class AssertOnPrimaryKey_HasPksValues_Test extends AbstractTest {
   @Test
   @NeedReload
   public void should_fail_because_pks_values_are_different() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -59,7 +60,7 @@ public class AssertOnPrimaryKey_HasPksValues_Test extends AbstractTest {
       assertThat(changes).change().hasPksValues(5);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test'] %n"
         + "Expecting :%n"
         + "  [5]%n"
         + "to be the values of the columns of the primary keys but was:%n"
@@ -73,7 +74,7 @@ public class AssertOnPrimaryKey_HasPksValues_Test extends AbstractTest {
   @Test
   @NeedReload
   public void should_fail_because_number_of_pks_values_are_different() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -81,7 +82,7 @@ public class AssertOnPrimaryKey_HasPksValues_Test extends AbstractTest {
       assertThat(changes).change().hasPksValues(4, "ID2");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test'] %n"
         + "Expecting :%n"
         + "  [4, \"ID2\"]%n"
         + "to be the values of the columns of the primary keys but was:%n"

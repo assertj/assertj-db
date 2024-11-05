@@ -28,6 +28,7 @@ import org.junit.Test;
  * {@link org.assertj.db.api.assertions.AssertOnColumnEquality#hasValues(org.assertj.db.type.DateValue...)} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class AssertOnColumnEquality_HasValues_DateValue_Test extends AbstractTest {
 
@@ -38,7 +39,7 @@ public class AssertOnColumnEquality_HasValues_DateValue_Test extends AbstractTes
   @NeedReload
   public void test_has_values() throws Exception {
     update("update test2 set var10 = '2014-05-24' where var1 = 1");
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     TableColumnAssert tableColumnAssert = assertThat(table).column("var9");
     TableColumnAssert tableColumnAssertReturn = tableColumnAssert.hasValues(
       DateValue.of(2014, 5, 24),
@@ -47,7 +48,7 @@ public class AssertOnColumnEquality_HasValues_DateValue_Test extends AbstractTes
       DateValue.of(2014, 5, 30));
     Assertions.assertThat(tableColumnAssert).isSameAs(tableColumnAssertReturn);
 
-    Table table2 = new Table(source, "test2");
+    Table table2 = new Table(jdbcConnectionProvider, "test2");
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var9");
     TableColumnAssert tableColumnAssertReturn2 = tableColumnAssert2.hasValues(DateValue.of(2014, 5, 24),
       null);
@@ -63,7 +64,7 @@ public class AssertOnColumnEquality_HasValues_DateValue_Test extends AbstractTes
    */
   @Test
   public void should_fail_because_values_are_different() throws Exception {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     TableColumnAssert tableColumnAssert = assertThat(table).column("var9");
     try {
       tableColumnAssert.hasValues(DateValue.of(2014, 5, 24),
@@ -78,7 +79,7 @@ public class AssertOnColumnEquality_HasValues_DateValue_Test extends AbstractTes
         + "to be equal to: %n"
         + "  <2014-05-29>"));
     }
-    Table table2 = new Table(source, "test2");
+    Table table2 = new Table(jdbcConnectionProvider, "test2");
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var9");
     try {
       tableColumnAssert2.hasValues(DateValue.of(2014, 5, 24),

@@ -17,16 +17,14 @@ import static org.assertj.db.error.ShouldNotExist.shouldNotExist;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.sql.DataSource;
 
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractDbAssert;
 import org.assertj.db.exception.AssertJDBException;
-import org.assertj.db.type.Source;
+import org.assertj.db.type.ConnectionProvider;
 
 /**
  * Implements the assertion method on the existence of a table.
@@ -47,18 +45,20 @@ public class AssertionsOnTableExistence {
   /**
    * Verifies that the table exists.
    *
-   * @param <A>        The type of the assertion which call this method.
-   * @param assertion  The assertion which call this method.
-   * @param info       Writable information about an assertion.
-   * @param table      The table name to search in DB.
-   * @param source     The source to connect to DB.
-   * @param dataSource The source to connect to DB.
+   * @param <A>                The type of the assertion which call this method.
+   * @param assertion          The assertion which call this method.
+   * @param info               Writable information about an assertion.
+   * @param table              The table name to search in DB.
+   * @param connectionProvider The provider to connect to DB.
    * @return {@code this} assertion object.
    * @throws AssertionError If the table does not exist.
    */
   public static <A extends AbstractDbAssert<?, ?, ?, ?, ?, ?>> A exists(A assertion, WritableAssertionInfo info,
-                                                                        String table, Source source, DataSource dataSource) {
-    try (Connection connection = getConnection(source, dataSource)) {
+                                                                        String table, ConnectionProvider connectionProvider) {
+    if (connectionProvider == null) {
+      throw new NullPointerException("connectionProvider must be not null");
+    }
+    try (Connection connection = connectionProvider.getConnection()) {
       DatabaseMetaData metaData = connection.getMetaData();
       ResultSet result = metaData.getTables(null, null, table, null);
       if (!result.next()) {
@@ -75,18 +75,20 @@ public class AssertionsOnTableExistence {
   /**
    * Verifies that the database not contains the table.
    *
-   * @param <A>        The type of the assertion which call this method.
-   * @param assertion  The assertion which call this method.
-   * @param info       Writable information about an assertion.
-   * @param table      The table name to search in DB.
-   * @param source     The source to connect to DB.
-   * @param dataSource The source to connect to DB.
+   * @param <A>                The type of the assertion which call this method.
+   * @param assertion          The assertion which call this method.
+   * @param info               Writable information about an assertion.
+   * @param table              The table name to search in DB.
+   * @param connectionProvider The provider to connect to DB.
    * @return {@code this} assertion object.
    * @throws AssertionError If the table does not exist.
    */
   public static <A extends AbstractDbAssert<?, ?, ?, ?, ?, ?>> A doesNotExists(A assertion, WritableAssertionInfo info,
-                                                                               String table, Source source, DataSource dataSource) {
-    try (Connection connection = getConnection(source, dataSource)) {
+                                                                               String table, ConnectionProvider connectionProvider) {
+    if (connectionProvider == null) {
+      throw new NullPointerException("connectionProvider must be not null");
+    }
+    try (Connection connection = connectionProvider.getConnection()) {
       DatabaseMetaData metaData = connection.getMetaData();
       ResultSet result = metaData.getTables(null, null, table, null);
       if (result.next()) {
@@ -97,15 +99,5 @@ public class AssertionsOnTableExistence {
       throw new AssertJDBException(e);
     }
     return assertion;
-  }
-
-  private static Connection getConnection(Source source, DataSource dataSource) throws SQLException {
-    if (source == null && dataSource == null) {
-      throw new NullPointerException("connection or dataSource must be not null");
-    }
-    if (dataSource != null) {
-      return dataSource.getConnection();
-    }
-    return DriverManager.getConnection(source.getUrl(), source.getUser(), source.getPassword());
   }
 }

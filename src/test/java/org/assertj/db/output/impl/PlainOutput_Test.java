@@ -12,14 +12,7 @@
  */
 package org.assertj.db.output.impl;
 
-import org.assertj.core.api.WritableAssertionInfo;
-import org.assertj.db.common.AbstractTest;
-import org.assertj.db.type.Change;
-import org.assertj.db.type.ChangeType;
-import org.assertj.db.type.DataType;
-import org.assertj.db.type.Row;
-import org.assertj.db.type.Value;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.sql.Date;
 import java.sql.Time;
@@ -29,7 +22,14 @@ import java.util.Arrays;
 import java.util.Locale;
 import java.util.UUID;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.WritableAssertionInfo;
+import org.assertj.db.common.AbstractTest;
+import org.assertj.db.type.Change;
+import org.assertj.db.type.ChangeType;
+import org.assertj.db.type.DataType;
+import org.assertj.db.type.Row;
+import org.assertj.db.type.Value;
+import org.junit.Test;
 
 /**
  * Test on the utility class {@code PlainRepresentation}.

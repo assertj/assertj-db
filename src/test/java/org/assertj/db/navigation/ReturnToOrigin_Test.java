@@ -60,6 +60,7 @@ import org.junit.Test;
  * Tests on the different methods linked on the {@code returnToOrigin()} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class ReturnToOrigin_Test extends AbstractTest {
 
@@ -68,7 +69,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
    */
   @Test
   public void test_return_to_table_from_column_with_assertions() throws Exception {
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
     TableAssert tableAssert = assertThat(table);
     TableColumnAssert tableColumnAssert = tableAssert.column();
     TableAssert tableAssertBis = tableColumnAssert.returnToTable();
@@ -81,7 +82,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
    */
   @Test
   public void test_return_to_table_from_row_with_assertions() throws Exception {
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
     TableAssert tableAssert = assertThat(table);
     TableRowAssert tableRowAssert = tableAssert.row();
     TableAssert tableAssertBis = tableRowAssert.returnToTable();
@@ -94,7 +95,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
    */
   @Test
   public void test_return_to_request_from_column_with_assertions() throws Exception {
-    Request request = new Request(source, "select * from actor");
+    Request request = new Request(jdbcConnectionProvider, "select * from actor");
     RequestAssert requestAssert = assertThat(request);
     RequestColumnAssert requestColumnAssert = requestAssert.column();
     RequestAssert requestAssertBis = requestColumnAssert.returnToRequest();
@@ -107,7 +108,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
    */
   @Test
   public void test_return_to_request_from_row_with_assertions() throws Exception {
-    Request request = new Request(source, "select * from actor");
+    Request request = new Request(jdbcConnectionProvider, "select * from actor");
     RequestAssert requestAssert = assertThat(request);
     RequestRowAssert requestRowAssert = requestAssert.row();
     RequestAssert requestAssertBis = requestRowAssert.returnToRequest();
@@ -120,7 +121,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
    */
   @Test
   public void test_return_to_column_from_value_for_table_with_assertions() throws Exception {
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
     TableAssert tableAssert = assertThat(table);
     TableColumnAssert tableColumnAssert = tableAssert.column();
     TableColumnValueAssert tableColumnValueAssert = tableColumnAssert.value();
@@ -134,7 +135,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
    */
   @Test
   public void test_return_to_row_from_value_for_table_with_assertions() throws Exception {
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
     TableAssert tableAssert = assertThat(table);
     TableRowAssert tableRowAssert = tableAssert.row();
     TableRowValueAssert tableRowValueAssert = tableRowAssert.value();
@@ -148,7 +149,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
    */
   @Test
   public void test_return_to_column_from_value_for_request_with_assertions() throws Exception {
-    Request request = new Request(source, "select * from actor");
+    Request request = new Request(jdbcConnectionProvider, "select * from actor");
     RequestAssert requestAssert = assertThat(request);
     RequestColumnAssert requestColumnAssert = requestAssert.column();
     RequestColumnValueAssert requestColumnValueAssert = requestColumnAssert.value();
@@ -162,7 +163,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
    */
   @Test
   public void test_return_to_row_from_value_for_request_with_assertions() throws Exception {
-    Request request = new Request(source, "select * from actor");
+    Request request = new Request(jdbcConnectionProvider, "select * from actor");
     RequestAssert requestAssert = assertThat(request);
     RequestRowAssert requestRowAssert = requestAssert.row();
     RequestRowValueAssert requestRowValueAssert = requestRowAssert.value();
@@ -177,7 +178,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_return_to_changes_from_change_with_assertions() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -194,7 +195,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_return_to_change_from_column_with_assertions() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -211,7 +212,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_return_to_change_from_row_with_assertions() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -228,7 +229,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_return_to_column_from_value_with_assertions() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -245,7 +246,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_return_to_row_from_value_with_assertions() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -261,7 +262,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
    */
   @Test
   public void test_return_to_table_from_column_with_displays() throws Exception {
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
     TableOutputter tableOutputter = Outputs.output(table);
     TableColumnOutputter tableColumnOutputter = tableOutputter.column();
     TableOutputter tableOutputterBis = tableColumnOutputter.returnToTable();
@@ -274,7 +275,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
    */
   @Test
   public void test_return_to_table_from_row_with_displays() throws Exception {
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
     TableOutputter tableOutputter = Outputs.output(table);
     TableRowOutputter tableRowOutputter = tableOutputter.row();
     TableOutputter tableOutputterBis = tableRowOutputter.returnToTable();
@@ -287,7 +288,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
    */
   @Test
   public void test_return_to_request_from_column_with_displays() throws Exception {
-    Request request = new Request(source, "select * from actor");
+    Request request = new Request(jdbcConnectionProvider, "select * from actor");
     RequestOutputter requestOutputter = Outputs.output(request);
     RequestColumnOutputter requestColumnOutputter = requestOutputter.column();
     RequestOutputter requestOutputterBis = requestColumnOutputter.returnToRequest();
@@ -300,7 +301,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
    */
   @Test
   public void test_return_to_request_from_row_with_displays() throws Exception {
-    Request request = new Request(source, "select * from actor");
+    Request request = new Request(jdbcConnectionProvider, "select * from actor");
     RequestOutputter requestOutputter = Outputs.output(request);
     RequestRowOutputter requestRowOutputter = requestOutputter.row();
     RequestOutputter requestOutputterBis = requestRowOutputter.returnToRequest();
@@ -313,7 +314,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
    */
   @Test
   public void test_return_to_column_from_value_for_table_with_displays() throws Exception {
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
     TableOutputter tableOutputter = Outputs.output(table);
     TableColumnOutputter tableColumnOutputter = tableOutputter.column();
     TableColumnValueOutputter tableColumnValueOutputter = tableColumnOutputter.value();
@@ -327,7 +328,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
    */
   @Test
   public void test_return_to_row_from_value_for_table_with_displays() throws Exception {
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
     TableOutputter tableOutputter = Outputs.output(table);
     TableRowOutputter tableRowOutputter = tableOutputter.row();
     TableRowValueOutputter tableRowValueOutputter = tableRowOutputter.value();
@@ -341,7 +342,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
    */
   @Test
   public void test_return_to_column_from_value_for_request_with_displays() throws Exception {
-    Request request = new Request(source, "select * from actor");
+    Request request = new Request(jdbcConnectionProvider, "select * from actor");
     RequestOutputter requestOutputter = Outputs.output(request);
     RequestColumnOutputter requestColumnOutputter = requestOutputter.column();
     RequestColumnValueOutputter requestColumnValueOutputter = requestColumnOutputter.value();
@@ -355,7 +356,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
    */
   @Test
   public void test_return_to_row_from_value_for_request_with_displays() throws Exception {
-    Request request = new Request(source, "select * from actor");
+    Request request = new Request(jdbcConnectionProvider, "select * from actor");
     RequestOutputter requestOutputter = Outputs.output(request);
     RequestRowOutputter requestRowOutputter = requestOutputter.row();
     RequestRowValueOutputter requestRowValueOutputter = requestRowOutputter.value();
@@ -370,7 +371,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_return_to_changes_from_change_with_displays() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -387,7 +388,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_return_to_change_from_column_with_displays() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -404,7 +405,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_return_to_change_from_row_with_displays() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -421,7 +422,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_return_to_column_from_value_with_displays() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -438,7 +439,7 @@ public class ReturnToOrigin_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_return_to_row_from_value_with_displays() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 

@@ -27,6 +27,7 @@ import org.junit.Test;
  * {@link org.assertj.db.api.assertions.AssertOnModifiedColumns(String...)} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class AssertOnModifiedColumns_HasModifiedColumns_String_Test extends AbstractTest {
 
@@ -36,7 +37,7 @@ public class AssertOnModifiedColumns_HasModifiedColumns_String_Test extends Abst
   @Test
   @NeedReload
   public void test_has_modified_columns() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -51,7 +52,7 @@ public class AssertOnModifiedColumns_HasModifiedColumns_String_Test extends Abst
   @Test
   @NeedReload
   public void should_fail_because_modified_columns_are_different() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -59,7 +60,7 @@ public class AssertOnModifiedColumns_HasModifiedColumns_String_Test extends Abst
       assertThat(changes).change(3).hasModifiedColumns("ID");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 3 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 3 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test'] %n"
         + "Expecting :%n"
         + "  [\"ID\"]%n"
         + "as modified columns but was:%n"

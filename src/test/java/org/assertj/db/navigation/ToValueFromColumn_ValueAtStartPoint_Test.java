@@ -40,6 +40,7 @@ import org.junit.Test;
  * {@link org.assertj.db.navigation.ToValueFromColumn#valueAtStartPoint()} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class ToValueFromColumn_ValueAtStartPoint_Test extends AbstractTest {
 
@@ -49,7 +50,7 @@ public class ToValueFromColumn_ValueAtStartPoint_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_value_at_start_point_with_assertions() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -107,7 +108,7 @@ public class ToValueFromColumn_ValueAtStartPoint_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_value_at_start_point_with_displays() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 

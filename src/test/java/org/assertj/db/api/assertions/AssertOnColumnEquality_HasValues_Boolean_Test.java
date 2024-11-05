@@ -26,6 +26,7 @@ import org.junit.Test;
  * {@link org.assertj.db.api.assertions.AssertOnColumnEquality#hasValues(Boolean...)} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class AssertOnColumnEquality_HasValues_Boolean_Test extends AbstractTest {
 
@@ -34,12 +35,12 @@ public class AssertOnColumnEquality_HasValues_Boolean_Test extends AbstractTest 
    */
   @Test
   public void test_has_values() throws Exception {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     TableColumnAssert tableColumnAssert = assertThat(table).column("var2");
     TableColumnAssert tableColumnAssertReturn = tableColumnAssert.hasValues(true, false, false, false);
     Assertions.assertThat(tableColumnAssert).isSameAs(tableColumnAssertReturn);
 
-    Table table2 = new Table(source, "test2");
+    Table table2 = new Table(jdbcConnectionProvider, "test2");
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var2");
     TableColumnAssert tableColumnAssertReturn2 = tableColumnAssert2.hasValues(true, null);
     Assertions.assertThat(tableColumnAssert2).isSameAs(tableColumnAssertReturn2);
@@ -50,7 +51,7 @@ public class AssertOnColumnEquality_HasValues_Boolean_Test extends AbstractTest 
    */
   @Test
   public void should_fail_because_values_are_different() throws Exception {
-    Table table = new Table(source, "test");
+    Table table = new Table(jdbcConnectionProvider, "test");
     TableColumnAssert tableColumnAssert = assertThat(table).column("var2");
     try {
       tableColumnAssert.hasValues(true, false, true, false);
@@ -62,7 +63,7 @@ public class AssertOnColumnEquality_HasValues_Boolean_Test extends AbstractTest 
         + "to be equal to: %n"
         + "  <true>"));
     }
-    Table table2 = new Table(source, "test2");
+    Table table2 = new Table(jdbcConnectionProvider, "test2");
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var2");
     try {
       tableColumnAssert2.hasValues(true, true);

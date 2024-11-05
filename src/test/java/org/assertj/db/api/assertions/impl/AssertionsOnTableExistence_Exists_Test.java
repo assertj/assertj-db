@@ -22,13 +22,13 @@ import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.AbstractDbAssert;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.common.AbstractTest;
-import org.assertj.db.type.Source;
+import org.assertj.db.type.JdbcUrlConnectionProvider;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
 /**
  * Tests on {@link AssertionsOnTableExistence} class :
- * {@link AssertionsOnTableExistence#exists(AbstractDbAssert, WritableAssertionInfo, String, Source, DataSource)} method.
+ * {@link AssertionsOnTableExistence#exists(AbstractDbAssert, WritableAssertionInfo, String, JdbcUrlConnectionProvider, DataSource)} method.
  *
  * @author Julien Roy
  */
@@ -42,9 +42,9 @@ public class AssertionsOnTableExistence_Exists_Test extends AbstractTest {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    TableAssert tableAssert2 = AssertionsOnTableExistence.exists(tableAssert, info, "TEST", source, null);
+    TableAssert tableAssert2 = AssertionsOnTableExistence.exists(tableAssert, info, "TEST", jdbcConnectionProvider);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    TableAssert tableAssert3 = AssertionsOnTableExistence.exists(tableAssert, info, "TEST", null, dataSource);
+    TableAssert tableAssert3 = AssertionsOnTableExistence.exists(tableAssert, info, "TEST", dsConnectionProvider);
     Assertions.assertThat(tableAssert3).isSameAs(tableAssert);
   }
 
@@ -58,7 +58,7 @@ public class AssertionsOnTableExistence_Exists_Test extends AbstractTest {
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnTableExistence.exists(tableAssert, info, "not-exist-test", source, null);
+      AssertionsOnTableExistence.exists(tableAssert, info, "not-exist-test", jdbcConnectionProvider);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
@@ -66,7 +66,7 @@ public class AssertionsOnTableExistence_Exists_Test extends AbstractTest {
     }
 
     try {
-      AssertionsOnTableExistence.exists(tableAssert, info, "not-exist-test", null, dataSource);
+      AssertionsOnTableExistence.exists(tableAssert, info, "not-exist-test", dsConnectionProvider);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"

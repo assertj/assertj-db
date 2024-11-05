@@ -21,14 +21,13 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Locale;
 import java.util.UUID;
-import javax.sql.DataSource;
 
 import org.assertj.core.api.Assertions;
 import org.assertj.db.common.NeedReload;
 import org.assertj.db.type.Change;
 import org.assertj.db.type.Changes;
 import org.assertj.db.type.Column;
-import org.assertj.db.type.DataSourceWithLetterCase;
+import org.assertj.db.type.ConnectionProvider;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.Request;
@@ -46,20 +45,21 @@ import org.junit.Test;
  * Test on the H2 database.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class H2Database_DataSource_UIUIUI_Test extends AbstractH2Test {
 
-  private DataSource dataSource;
+  private ConnectionProvider connectionProvider;
 
   @Before
   public void init() {
-    dataSource = dataSourceUIUIUI;
+    connectionProvider = dsConnectionUIUIUI;
   }
 
   @Test
   @NeedReload
   public void test_PrimaryKey_hasPksNames() {
-    Table table = new Table(dataSource, "test");
+    Table table = new Table(connectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update();
     changes.setEndPointNow();
@@ -71,7 +71,7 @@ public class H2Database_DataSource_UIUIUI_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void test_ColumnName_hasColumnName() {
-    Table table = new Table(dataSource, "test");
+    Table table = new Table(connectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update();
     changes.setEndPointNow();
@@ -208,7 +208,7 @@ public class H2Database_DataSource_UIUIUI_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void test_ColumnClass_isOfClass() {
-    Table table = new Table(dataSource, "test");
+    Table table = new Table(connectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update();
     changes.setEndPointNow();
@@ -345,7 +345,7 @@ public class H2Database_DataSource_UIUIUI_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void test_ColumnEquality_hasValues() {
-    Table table = new Table(dataSource, "test");
+    Table table = new Table(connectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update();
     changes.setEndPointNow();
@@ -481,7 +481,7 @@ public class H2Database_DataSource_UIUIUI_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void test_ColumnEquality_containsValues() {
-    Table table = new Table(dataSource, "test");
+    Table table = new Table(connectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update();
     changes.setEndPointNow();
@@ -553,7 +553,7 @@ public class H2Database_DataSource_UIUIUI_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void test_ColumnType_isOfType() {
-    Table table = new Table(dataSource, "test");
+    Table table = new Table(connectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update();
     changes.setEndPointNow();
@@ -689,7 +689,7 @@ public class H2Database_DataSource_UIUIUI_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void test_ColumnOfChangeEquality_hasValues() {
-    Table table = new Table(dataSource, "test");
+    Table table = new Table(connectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update();
     changes.setEndPointNow();
@@ -841,7 +841,7 @@ public class H2Database_DataSource_UIUIUI_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void test_RowEquality_hasValues() {
-    Table table = new Table(dataSource, "test");
+    Table table = new Table(connectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update();
     changes.setEndPointNow();
@@ -978,7 +978,7 @@ public class H2Database_DataSource_UIUIUI_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void test_ValueClass_isOfClass() {
-    Table table = new Table(dataSource, "test");
+    Table table = new Table(connectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update();
     changes.setEndPointNow();
@@ -1115,7 +1115,7 @@ public class H2Database_DataSource_UIUIUI_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void test_ValueEquality_isEqualTo() {
-    Table table = new Table(dataSource, "test");
+    Table table = new Table(connectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update();
     changes.setEndPointNow();
@@ -1252,7 +1252,7 @@ public class H2Database_DataSource_UIUIUI_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void test_ValueNonEquality_isNotEqualTo() {
-    Table table = new Table(dataSource, "test");
+    Table table = new Table(connectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update();
     changes.setEndPointNow();
@@ -1389,7 +1389,7 @@ public class H2Database_DataSource_UIUIUI_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void test_ValueType_isOfType() {
-    Table table = new Table(dataSource, "test");
+    Table table = new Table(connectionProvider, "test");
     Changes changes = new Changes(table).setStartPointNow();
     update();
     changes.setEndPointNow();
@@ -1526,11 +1526,9 @@ public class H2Database_DataSource_UIUIUI_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void test_getTableLetterCase() {
-    DataSourceWithLetterCase datasourceWithLetterCase = (DataSourceWithLetterCase) dataSource;
+    Table table = new Table(connectionProvider, "test");
 
-    Table table = new Table(dataSource, "test");
-
-    Request request = new Request(dataSource, "select * from test");
+    Request request = new Request(connectionProvider, "select * from test");
 
     Changes changes = new Changes(table).setStartPointNow();
     update();
@@ -1538,7 +1536,7 @@ public class H2Database_DataSource_UIUIUI_Test extends AbstractH2Test {
     Change change = changes.getChangesList().get(0);
 
 
-    Assertions.assertThat(datasourceWithLetterCase.getTableLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
+    Assertions.assertThat(connectionProvider.getTableLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
 
     Assertions.assertThat(table.getTableLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
 
@@ -1548,7 +1546,7 @@ public class H2Database_DataSource_UIUIUI_Test extends AbstractH2Test {
     Assertions.assertThat(change.getTableLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
 
 
-    Assertions.assertThat(datasourceWithLetterCase.getTableLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
+    Assertions.assertThat(connectionProvider.getTableLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
 
     Assertions.assertThat(table.getTableLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
 
@@ -1561,15 +1559,13 @@ public class H2Database_DataSource_UIUIUI_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void test_getColumnLetterCase() {
-    DataSourceWithLetterCase datasourceWithLetterCase = (DataSourceWithLetterCase) dataSource;
-
-    Table table = new Table(dataSource, "test");
+    Table table = new Table(connectionProvider, "test");
     Row tableRow = table.getRow(0);
     Column tableColumn = table.getColumn(0);
     Value tableRowValue = tableRow.getColumnValue(0);
     Value tableColumnValue = tableColumn.getRowValue(0);
 
-    Request request = new Request(dataSource, "select * from test");
+    Request request = new Request(connectionProvider, "select * from test");
     Row requestRow = request.getRow(0);
     Column requestColumn = request.getColumn(0);
     Value requestRowValue = requestRow.getColumnValue(0);
@@ -1585,7 +1581,7 @@ public class H2Database_DataSource_UIUIUI_Test extends AbstractH2Test {
     Value valueAtEndPoint = rowAtEndPoint.getColumnValue(0);
 
 
-    Assertions.assertThat(datasourceWithLetterCase.getColumnLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
+    Assertions.assertThat(connectionProvider.getColumnLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
 
     Assertions.assertThat(table.getColumnLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
     Assertions.assertThat(tableRow.getColumnLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
@@ -1607,7 +1603,7 @@ public class H2Database_DataSource_UIUIUI_Test extends AbstractH2Test {
     Assertions.assertThat(valueAtEndPoint.getColumnLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
 
 
-    Assertions.assertThat(datasourceWithLetterCase.getColumnLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
+    Assertions.assertThat(connectionProvider.getColumnLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
 
     Assertions.assertThat(table.getColumnLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
     Assertions.assertThat(tableRow.getColumnLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
@@ -1632,12 +1628,10 @@ public class H2Database_DataSource_UIUIUI_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void test_getPrimaryKeyLetterCase() {
-    DataSourceWithLetterCase datasourceWithLetterCase = (DataSourceWithLetterCase) dataSource;
-
-    Table table = new Table(dataSource, "test");
+    Table table = new Table(connectionProvider, "test");
     Row tableRow = table.getRow(0);
 
-    Request request = new Request(dataSource, "select * from test");
+    Request request = new Request(connectionProvider, "select * from test");
     Row requestRow = request.getRow(0);
 
     Changes changes = new Changes(table).setStartPointNow();
@@ -1648,7 +1642,7 @@ public class H2Database_DataSource_UIUIUI_Test extends AbstractH2Test {
     Row rowAtEndPoint = change.getRowAtEndPoint();
 
 
-    Assertions.assertThat(datasourceWithLetterCase.getPrimaryKeyLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
+    Assertions.assertThat(connectionProvider.getPrimaryKeyLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
 
     Assertions.assertThat(table.getPrimaryKeyLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
     Assertions.assertThat(tableRow.getPrimaryKeyLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
@@ -1662,7 +1656,7 @@ public class H2Database_DataSource_UIUIUI_Test extends AbstractH2Test {
     Assertions.assertThat(rowAtEndPoint.getPrimaryKeyLetterCase().getConversionName()).isSameAs(CaseConversions.UPPER.getConversionName());
 
 
-    Assertions.assertThat(datasourceWithLetterCase.getPrimaryKeyLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
+    Assertions.assertThat(connectionProvider.getPrimaryKeyLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
 
     Assertions.assertThat(table.getPrimaryKeyLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());
     Assertions.assertThat(tableRow.getPrimaryKeyLetterCase().getComparisonName()).isSameAs(CaseComparisons.IGNORE.getComparisonName());

@@ -26,6 +26,7 @@ import org.junit.Test;
  * {@link org.assertj.db.api.assertions.AssertOnRowOfChangeExistence#doesNotExist()} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class AssertOnRowOfChangeExistence_DoesNotExist_Test extends AbstractTest {
 
@@ -35,7 +36,7 @@ public class AssertOnRowOfChangeExistence_DoesNotExist_Test extends AbstractTest
   @Test
   @NeedReload
   public void test_does_not_exists() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -50,14 +51,14 @@ public class AssertOnRowOfChangeExistence_DoesNotExist_Test extends AbstractTest
   @Test
   @NeedReload
   public void should_fail_because_row_exists() throws Exception {
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
     try {
       assertThat(changes).change().rowAtEndPoint().doesNotExist();
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Row at end point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Row at end point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test'] %n"
         + "Expecting not exist but exists"));
     }
   }

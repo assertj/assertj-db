@@ -29,6 +29,7 @@ import org.junit.Test;
  * {@link org.assertj.db.api.assertions.AssertOnDataType#isOnRequest()} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class AssertOnDataType_IsOnRequest_Test extends AbstractTest {
 
@@ -38,7 +39,7 @@ public class AssertOnDataType_IsOnRequest_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_is_on_request() throws Exception {
-    Request request = new Request(source, "select * from actor");
+    Request request = new Request(jdbcConnectionProvider, "select * from actor");
     Changes changes = new Changes(request).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
@@ -54,7 +55,7 @@ public class AssertOnDataType_IsOnRequest_Test extends AbstractTest {
   @Test
   @NeedReload
   public void should_fail_because_data_type_is_different() throws Exception {
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
     Changes changes = new Changes(table).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
@@ -63,7 +64,7 @@ public class AssertOnDataType_IsOnRequest_Test extends AbstractTest {
       assertThat(changes).change().isOnRequest();
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 (with primary key : [4]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test' source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 (with primary key : [4]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test'] %n"
         + "Expecting:%n"
         + "to be on data type%n"
         + "  <REQUEST>%n"

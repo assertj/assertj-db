@@ -29,6 +29,7 @@ import org.junit.Test;
  * {@link org.assertj.db.api.assertions.AssertOnColumnOfChangeEquality#hasValues(byte[], byte[])} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class AssertOnColumnOfChangeEquality_HasValues_Two_Bytes_Test extends AbstractTest {
 
@@ -40,7 +41,7 @@ public class AssertOnColumnOfChangeEquality_HasValues_Two_Bytes_Test extends Abs
   public void test_has_values() {
     byte[] bytesH2 = bytesContentFromClassPathOf("h2-logo-2.png");
 
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     update("update test set var14 = 1 where var1 = 1");
     changes.setEndPointNow();
 
@@ -58,7 +59,7 @@ public class AssertOnColumnOfChangeEquality_HasValues_Two_Bytes_Test extends Abs
   public void should_fail_because_value_at_start_point_is_different() {
     byte[] bytesH2 = bytesContentFromClassPathOf("h2-logo-2.png");
 
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     update("insert into test(var1, var11) values(5, FILE_READ('classpath:h2-logo-2.png'))");
     changes.setEndPointNow();
 
@@ -66,7 +67,7 @@ public class AssertOnColumnOfChangeEquality_HasValues_Two_Bytes_Test extends Abs
       assertThat(changes).change().column("var11").hasValues(bytesH2, bytesH2);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 10 (column name : VAR11) of Change at index 0 (on table : TEST and with primary key : [5]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 10 (column name : VAR11) of Change at index 0 (on table : TEST and with primary key : [5]) of Changes on tables of 'sa/jdbc:h2:mem:test'] %n"
         + "Expecting that start point to be equal to the expected value but was not equal"));
     }
   }
@@ -79,7 +80,7 @@ public class AssertOnColumnOfChangeEquality_HasValues_Two_Bytes_Test extends Abs
   public void should_fail_because_value_at_end_point_is_different() {
     byte[] bytesH2 = bytesContentFromClassPathOf("h2-logo-2.png");
 
-    Changes changes = new Changes(source).setStartPointNow();
+    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
     update("delete from test where var1 = 1");
     changes.setEndPointNow();
 
@@ -87,7 +88,7 @@ public class AssertOnColumnOfChangeEquality_HasValues_Two_Bytes_Test extends Abs
       assertThat(changes).change().column("var11").hasValues(bytesH2, bytesH2);
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 10 (column name : VAR11) of Change at index 0 (on table : TEST and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 10 (column name : VAR11) of Change at index 0 (on table : TEST and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test'] %n"
         + "Expecting that end point to be equal to the expected value but was not equal"));
     }
   }

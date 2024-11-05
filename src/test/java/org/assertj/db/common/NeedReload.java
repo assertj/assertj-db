@@ -19,7 +19,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Indicates that after the tests it need to reload the data.
+ * Indicates that after the tests it needs to reload the data.
  *
  * @author Régis Pouiller
  */

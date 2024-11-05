@@ -12,9 +12,6 @@
  */
 package org.assertj.db.api.assertions;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.ChangeAssert;
 import org.assertj.db.common.AbstractTest;
@@ -24,11 +21,15 @@ import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 /**
  * Tests on {@link org.assertj.db.api.assertions.AssertOnDataType} class :
  * {@link org.assertj.db.api.assertions.AssertOnDataType#isOnTable(String)} method.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class AssertOnDataType_IsOnTable_Name_Test extends AbstractTest {
 
@@ -38,7 +39,7 @@ public class AssertOnDataType_IsOnTable_Name_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_is_on_table() throws Exception {
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
     Changes changes = new Changes(table).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
@@ -54,7 +55,7 @@ public class AssertOnDataType_IsOnTable_Name_Test extends AbstractTest {
   @Test
   @NeedReload
   public void should_fail_because_data_type_is_different() throws Exception {
-    Request request = new Request(source, "select * from actor");
+    Request request = new Request(jdbcConnectionProvider, "select * from actor");
     Changes changes = new Changes(request).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
@@ -63,7 +64,7 @@ public class AssertOnDataType_IsOnTable_Name_Test extends AbstractTest {
       assertThat(changes).change().isOnTable("actor");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 of Changes on 'select * from actor' request of 'sa/jdbc:h2:mem:test' source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 of Changes on 'select * from actor' request of 'sa/jdbc:h2:mem:test'] %n"
         + "Expecting:%n"
         + "to be on data type%n"
         + "  <TABLE>%n"
@@ -78,7 +79,7 @@ public class AssertOnDataType_IsOnTable_Name_Test extends AbstractTest {
   @Test
   @NeedReload
   public void should_fail_because_table_name_is_different() throws Exception {
-    Table table = new Table(source, "actor");
+    Table table = new Table(jdbcConnectionProvider, "actor");
     Changes changes = new Changes(table).setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
@@ -87,7 +88,7 @@ public class AssertOnDataType_IsOnTable_Name_Test extends AbstractTest {
       assertThat(changes).change().isOnTable("movie");
       fail("An exception must be raised");
     } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 (with primary key : [4]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test' source] %n"
+      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 (with primary key : [4]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test'] %n"
         + "Expecting to be on the table:%n"
         + "  <\"movie\">%n"
         + "but was on the table:%n"

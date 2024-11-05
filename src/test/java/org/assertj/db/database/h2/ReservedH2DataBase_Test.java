@@ -44,7 +44,7 @@ public class ReservedH2DataBase_Test extends AbstractReservedH2Test {
   }
 
   @Test
-  public void test_catalog_for_source() throws SQLException {
+  public void test_catalogfor_jdbc_connection() throws SQLException {
     try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
       String catalog = connection.getCatalog();
       assertThat(catalog).isEqualTo("TESTRESERVEDH2");
@@ -60,7 +60,7 @@ public class ReservedH2DataBase_Test extends AbstractReservedH2Test {
   }
 
   @Test
-  public void test_schema_for_source() throws SQLException {
+  public void test_schemafor_jdbc_connection() throws SQLException {
     try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
       String schema = connection.getSchema();
       assertThat(schema).isEqualTo("PUBLIC");
@@ -81,7 +81,7 @@ public class ReservedH2DataBase_Test extends AbstractReservedH2Test {
   }
 
   @Test
-  public void test_tables_for_source() throws SQLException {
+  public void test_tablesfor_jdbc_connection() throws SQLException {
     try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
       DatabaseMetaData databaseMetaData = connection.getMetaData();
       ResultSet resultSet = databaseMetaData.getTables("TESTRESERVEDH2", null, null, new String[]{"TABLE"});
@@ -117,7 +117,7 @@ public class ReservedH2DataBase_Test extends AbstractReservedH2Test {
   }
 
   @Test
-  public void test_table_primary_keys_for_source() throws SQLException {
+  public void test_table_primary_keysfor_jdbc_connection() throws SQLException {
     try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
       DatabaseMetaData databaseMetaData = connection.getMetaData();
       {
@@ -177,7 +177,7 @@ public class ReservedH2DataBase_Test extends AbstractReservedH2Test {
   }
 
   @Test
-  public void test_table_columns_for_source() throws SQLException {
+  public void test_table_columnsfor_jdbc_connection() throws SQLException {
     try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
       DatabaseMetaData databaseMetaData = connection.getMetaData();
       {
@@ -239,7 +239,7 @@ public class ReservedH2DataBase_Test extends AbstractReservedH2Test {
   }
 
   @Test
-  public void test_request_columns_for_source() throws SQLException {
+  public void test_request_columnsfor_jdbc_connection() throws SQLException {
     try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
       try (Statement statement = connection.createStatement()) {
         try (ResultSet resultSet1 = statement.executeQuery("select * from `group`")) {

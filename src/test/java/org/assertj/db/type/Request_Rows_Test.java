@@ -26,15 +26,16 @@ import org.junit.Test;
  * </p>
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class Request_Rows_Test extends AbstractTest {
 
   /**
-   * This method test the rows got from a {@code Source}.
+   * This method test the rows got from a {@code ConnectionProvider}.
    */
   @Test
-  public void test_rows_with_source_set() {
-    Request request = new Request(source, "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
+  public void test_rows_with_jdbc_set() {
+    Request request = new Request(jdbcConnectionProvider, "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
       + " FROM movie, actor, interpretation"
       + " WHERE movie.id = interpretation.id_movie"
       + " AND interpretation.id_actor = actor.id"
@@ -74,7 +75,7 @@ public class Request_Rows_Test extends AbstractTest {
    */
   @Test
   public void test_rows_with_datasource_set() {
-    Request request = new Request(dataSource, "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
+    Request request = new Request(dsConnectionProvider, "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
       + " FROM movie, actor, interpretation"
       + " WHERE movie.id = interpretation.id_movie"
       + " AND interpretation.id_actor = actor.id"
@@ -109,7 +110,7 @@ public class Request_Rows_Test extends AbstractTest {
    */
   @Test(expected = NullPointerException.class)
   public void should_throw_NullPointerException_because_column_name_parameter_is_null_when_calling_getColumnValue() {
-    Request request = new Request(dataSource, "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
+    Request request = new Request(dsConnectionProvider, "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
       + " FROM movie, actor, interpretation"
       + " WHERE movie.id = interpretation.id_movie"
       + " AND interpretation.id_actor = actor.id"
@@ -122,7 +123,7 @@ public class Request_Rows_Test extends AbstractTest {
    */
   @Test
   public void test_that_we_get_null_when_calling_getColumnValue_and_the_column_name_dont_exist() {
-    Request request = new Request(dataSource, "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
+    Request request = new Request(dsConnectionProvider, "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
       + " FROM movie, actor, interpretation"
       + " WHERE movie.id = interpretation.id_movie"
       + " AND interpretation.id_actor = actor.id"

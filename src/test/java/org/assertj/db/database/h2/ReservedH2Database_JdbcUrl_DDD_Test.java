@@ -16,7 +16,7 @@ import static org.assertj.db.api.Assertions.assertThat;
 
 import org.assertj.db.common.NeedReload;
 import org.assertj.db.type.Changes;
-import org.assertj.db.type.Source;
+import org.assertj.db.type.ConnectionProvider;
 import org.assertj.db.type.Table;
 import org.assertj.db.type.Table.Order;
 import org.junit.Before;
@@ -26,21 +26,22 @@ import org.junit.Test;
  * Test on the H2 database with reserved names in SQL structure.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
-public class ReservedH2Database_Source_DDD_Test extends AbstractReservedH2Test {
+public class ReservedH2Database_JdbcUrl_DDD_Test extends AbstractReservedH2Test {
 
-  private Source source;
+  private ConnectionProvider connectionProvider;
 
   @Before
   public void init() {
-    source = sourceDDD;
+    connectionProvider = jdbcConnectionDDD;
   }
 
   @Test
   @NeedReload
   public void test_PrimaryKey_hasPksNames() {
-    Table table1 = new Table(source, "group", '`', '`');
-    Table table2 = new Table(source, "two words", '`', '`');
+    Table table1 = new Table(connectionProvider, "group", '`', '`');
+    Table table2 = new Table(connectionProvider, "two words", '`', '`');
     Changes changes1 = new Changes(table1).setStartPointNow();
     Changes changes2 = new Changes(table2).setStartPointNow();
     update();
@@ -56,8 +57,8 @@ public class ReservedH2Database_Source_DDD_Test extends AbstractReservedH2Test {
   @Test
   @NeedReload
   public void test_ColumnName_hasColumnName() {
-    Table table1 = new Table(source, "group", '`', '`');
-    Table table2 = new Table(source, "two words", '`', '`');
+    Table table1 = new Table(connectionProvider, "group", '`', '`');
+    Table table2 = new Table(connectionProvider, "two words", '`', '`');
     Changes changes1 = new Changes(table1).setStartPointNow();
     Changes changes2 = new Changes(table2).setStartPointNow();
     update();
@@ -98,11 +99,11 @@ public class ReservedH2Database_Source_DDD_Test extends AbstractReservedH2Test {
   @Test
   @NeedReload
   public void test_ColumnName_hasColumnName_with_columns_to_check() {
-    Table table1 = new Table(source, "group", '`', '`')
+    Table table1 = new Table(connectionProvider, "group", '`', '`')
       .setColumnsToCheck(new String[]{
         "read", "by", "select", "from"
       });
-    Table table2 = new Table(source, "two words", '`', '`')
+    Table table2 = new Table(connectionProvider, "two words", '`', '`')
       .setColumnsToCheck(new String[]{
         "primary key", "column name", "test%test"
       });
@@ -142,11 +143,11 @@ public class ReservedH2Database_Source_DDD_Test extends AbstractReservedH2Test {
   @Test
   @NeedReload
   public void test_ColumnName_hasColumnName_with_columns_to_exclude() {
-    Table table1 = new Table(source, "group", '`', '`')
+    Table table1 = new Table(connectionProvider, "group", '`', '`')
       .setColumnsToExclude(new String[]{
         "read", "by", "from"
       });
-    Table table2 = new Table(source, "two words", '`', '`')
+    Table table2 = new Table(connectionProvider, "two words", '`', '`')
       .setColumnsToExclude(new String[]{
         "column name"
       });
@@ -182,11 +183,11 @@ public class ReservedH2Database_Source_DDD_Test extends AbstractReservedH2Test {
   @Test
   @NeedReload
   public void test_ColumnName_hasColumnName_with_order() {
-    Table table1 = new Table(source, "group", '`', '`')
+    Table table1 = new Table(connectionProvider, "group", '`', '`')
       .setColumnsToOrder(new Order[]{
         Order.asc("where")
       });
-    Table table2 = new Table(source, "two words", '`', '`')
+    Table table2 = new Table(connectionProvider, "two words", '`', '`')
       .setColumnsToOrder(new Order[]{
         Order.asc("primary key")
       });

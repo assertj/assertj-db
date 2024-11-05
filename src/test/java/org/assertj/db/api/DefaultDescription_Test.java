@@ -12,6 +12,11 @@
  */
 package org.assertj.db.api;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.db.api.Assertions.assertThat;
+
+import java.lang.reflect.Field;
+
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.common.NeedReload;
@@ -21,15 +26,11 @@ import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import java.lang.reflect.Field;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.db.api.Assertions.assertThat;
-
 /**
  * Test on default descriptions.
  *
  * @author Régis Pouiller
+ * @author Julien Roy
  */
 public class DefaultDescription_Test extends AbstractTest {
 
@@ -43,9 +44,9 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Table actorTable = new Table(dataSource, "actor");
-    Request request = new Request(dataSource, "select * from actor");
-    Changes changes = new Changes(dataSource).setStartPointNow();
+    Table actorTable = new Table(dsConnectionProvider, "actor");
+    Request request = new Request(dsConnectionProvider, "select * from actor");
+    Changes changes = new Changes(dsConnectionProvider).setStartPointNow();
     Changes changesOnActorTable = new Changes(actorTable).setStartPointNow();
     Changes changesOnRequest = new Changes(request).setStartPointNow();
     updateChangesForTests();
@@ -59,10 +60,10 @@ public class DefaultDescription_Test extends AbstractTest {
     WritableAssertionInfo infoOnActorTable = (WritableAssertionInfo) field.get(assertThat(changesOnActorTable).change());
     WritableAssertionInfo infoOnTestTable = (WritableAssertionInfo) field.get(assertThat(changes).change(8));
     WritableAssertionInfo infoOnRequest = (WritableAssertionInfo) field.get(assertThat(changesOnRequest).change());
-    assertThat(info.descriptionText()).isEqualTo("Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of a data source");
-    assertThat(infoOnActorTable.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on ACTOR table of a data source");
-    assertThat(infoOnTestTable.descriptionText()).isEqualTo("Change at index 8 (on table : TEST2) of Changes on tables of a data source");
-    assertThat(infoOnRequest.descriptionText()).isEqualTo("Change at index 0 of Changes on 'select * from actor' request of a data source");
+    assertThat(info.descriptionText()).isEqualTo("Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'data source'");
+    assertThat(infoOnActorTable.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on ACTOR table of 'data source'");
+    assertThat(infoOnTestTable.descriptionText()).isEqualTo("Change at index 8 (on table : TEST2) of Changes on tables of 'data source'");
+    assertThat(infoOnRequest.descriptionText()).isEqualTo("Change at index 0 of Changes on 'select * from actor' request of 'data source'");
   }
 
   /**
@@ -75,8 +76,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(source).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dataSource).setStartPointNow();
+    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -87,10 +88,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Changes on tables of 'sa/jdbc:h2:mem:test' source");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Changes on tables of 'sa/jdbc:h2:mem:test'");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Changes on tables of a data source");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Changes on tables of 'data source'");
   }
 
   /**
@@ -103,8 +104,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(source).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dataSource).setStartPointNow();
+    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -115,10 +116,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Changes on tables of 'sa/jdbc:h2:mem:test' source");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Changes on tables of 'sa/jdbc:h2:mem:test'");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Changes on tables of a data source");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Changes on tables of 'data source'");
   }
 
   /**
@@ -131,8 +132,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(source).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dataSource).setStartPointNow();
+    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -143,10 +144,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Changes on tables of 'sa/jdbc:h2:mem:test' source (only creation changes)");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Changes on tables of 'sa/jdbc:h2:mem:test' (only creation changes)");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Changes on tables of a data source (only creation changes)");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Changes on tables of 'data source' (only creation changes)");
   }
 
   /**
@@ -159,8 +160,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(source).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dataSource).setStartPointNow();
+    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -171,10 +172,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Changes on tables of 'sa/jdbc:h2:mem:test' source (only modification changes)");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Changes on tables of 'sa/jdbc:h2:mem:test' (only modification changes)");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Changes on tables of a data source (only modification changes)");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Changes on tables of 'data source' (only modification changes)");
   }
 
   /**
@@ -187,8 +188,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(source).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dataSource).setStartPointNow();
+    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -199,10 +200,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Changes on tables of 'sa/jdbc:h2:mem:test' source (only deletion changes)");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Changes on tables of 'sa/jdbc:h2:mem:test' (only deletion changes)");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Changes on tables of a data source (only deletion changes)");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Changes on tables of 'data source' (only deletion changes)");
   }
 
   /**
@@ -215,8 +216,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(source).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dataSource).setStartPointNow();
+    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -227,10 +228,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Changes on tables of 'sa/jdbc:h2:mem:test' source (only creation changes on actor table)");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Changes on tables of 'sa/jdbc:h2:mem:test' (only creation changes on actor table)");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Changes on tables of a data source (only creation changes on actor table)");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Changes on tables of 'data source' (only creation changes on actor table)");
   }
 
   /**
@@ -243,8 +244,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(source).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dataSource).setStartPointNow();
+    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -255,10 +256,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Changes on tables of 'sa/jdbc:h2:mem:test' source (only modification changes on actor table)");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Changes on tables of 'sa/jdbc:h2:mem:test' (only modification changes on actor table)");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Changes on tables of a data source (only modification changes on actor table)");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Changes on tables of 'data source' (only modification changes on actor table)");
   }
 
   /**
@@ -271,8 +272,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(source).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dataSource).setStartPointNow();
+    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -283,10 +284,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Changes on tables of 'sa/jdbc:h2:mem:test' source (only deletion changes on actor table)");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Changes on tables of 'sa/jdbc:h2:mem:test' (only deletion changes on actor table)");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Changes on tables of a data source (only deletion changes on actor table)");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Changes on tables of 'data source' (only deletion changes on actor table)");
   }
 
   /**
@@ -299,8 +300,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(source).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dataSource).setStartPointNow();
+    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -311,10 +312,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Changes on tables of 'sa/jdbc:h2:mem:test' source (only changes on actor table)");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Changes on tables of 'sa/jdbc:h2:mem:test' (only changes on actor table)");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Changes on tables of a data source (only changes on actor table)");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Changes on tables of 'data source' (only changes on actor table)");
   }
 
   /**
@@ -327,8 +328,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Table tableFromSource = new Table(source, "actor");
-    Table tableFromDataSource = new Table(dataSource, "actor");
+    Table tableFromSource = new Table(jdbcConnectionProvider, "actor");
+    Table tableFromDataSource = new Table(dsConnectionProvider, "actor");
     Changes changesFromSource = new Changes(tableFromSource).setStartPointNow();
     Changes changesFromDataSource = new Changes(tableFromDataSource).setStartPointNow();
     updateChangesForTests();
@@ -341,10 +342,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Changes on ACTOR table of 'sa/jdbc:h2:mem:test' source");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Changes on ACTOR table of 'sa/jdbc:h2:mem:test'");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Changes on ACTOR table of a data source");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Changes on ACTOR table of 'data source'");
   }
 
   /**
@@ -357,8 +358,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Request requestFromSource = new Request(source, "select * from actor").setPksName("ID");
-    Request requestFromDataSource = new Request(dataSource, "select * from actor").setPksName("ID");
+    Request requestFromSource = new Request(jdbcConnectionProvider, "select * from actor").setPksName("ID");
+    Request requestFromDataSource = new Request(dsConnectionProvider, "select * from actor").setPksName("ID");
     Changes changesFromSource = new Changes(requestFromSource).setStartPointNow();
     Changes changesFromDataSource = new Changes(requestFromDataSource).setStartPointNow();
     updateChangesForTests();
@@ -371,10 +372,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Changes on 'select * from actor' request of 'sa/jdbc:h2:mem:test' source");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Changes on 'select * from actor' request of 'sa/jdbc:h2:mem:test'");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Changes on 'select * from actor' request of a data source");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Changes on 'select * from actor' request of 'data source'");
   }
 
   /**
@@ -387,8 +388,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(source).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dataSource).setStartPointNow();
+    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -399,10 +400,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test'");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 1 (on table : INTERPRETATION and with primary key : [6]) of Changes on tables of a data source");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 1 (on table : INTERPRETATION and with primary key : [6]) of Changes on tables of 'data source'");
   }
 
   /**
@@ -415,8 +416,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Table tableFromSource = new Table(source, "actor");
-    Table tableFromDataSource = new Table(dataSource, "actor");
+    Table tableFromSource = new Table(jdbcConnectionProvider, "actor");
+    Table tableFromDataSource = new Table(dsConnectionProvider, "actor");
     Changes changesFromSource = new Changes(tableFromSource).setStartPointNow();
     Changes changesFromDataSource = new Changes(tableFromDataSource).setStartPointNow();
     updateChangesForTests();
@@ -428,10 +429,10 @@ public class DefaultDescription_Test extends AbstractTest {
     ChangeAssert assertionFromDataSource = assertThat(changesFromDataSource).change(2);
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test' source");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test'");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 2 (with primary key : [3]) of Changes on ACTOR table of a data source");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 2 (with primary key : [3]) of Changes on ACTOR table of 'data source'");
   }
 
   /**
@@ -444,8 +445,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Request requestFromSource = new Request(source, "select id, name, firstname, birth from actor where id = 1").setPksName("ID");
-    Request requestFromDataSource = new Request(dataSource, "select * from actor").setPksName("ID");
+    Request requestFromSource = new Request(jdbcConnectionProvider, "select id, name, firstname, birth from actor where id = 1").setPksName("ID");
+    Request requestFromDataSource = new Request(dsConnectionProvider, "select * from actor").setPksName("ID");
     Changes changesFromSource = new Changes(requestFromSource).setStartPointNow();
     Changes changesFromDataSource = new Changes(requestFromDataSource).setStartPointNow();
     updateChangesForTests();
@@ -458,10 +459,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [1]) of Changes on 'select id, name, firstname, bi...' request of 'sa/jdbc:h2:mem:test' source");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [1]) of Changes on 'select id, name, firstname, bi...' request of 'sa/jdbc:h2:mem:test'");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 2 (with primary key : [3]) of Changes on 'select * from actor' request of a data source");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 2 (with primary key : [3]) of Changes on 'select * from actor' request of 'data source'");
   }
 
   /**
@@ -474,8 +475,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(source).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dataSource).setStartPointNow();
+    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -486,10 +487,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source (only creation changes)");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' (only creation changes)");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of a data source (only creation changes)");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'data source' (only creation changes)");
   }
 
   /**
@@ -502,8 +503,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Table tableFromSource = new Table(source, "actor");
-    Table tableFromDataSource = new Table(dataSource, "actor");
+    Table tableFromSource = new Table(jdbcConnectionProvider, "actor");
+    Table tableFromDataSource = new Table(dsConnectionProvider, "actor");
     Changes changesFromSource = new Changes(tableFromSource).setStartPointNow();
     Changes changesFromDataSource = new Changes(tableFromDataSource).setStartPointNow();
     updateChangesForTests();
@@ -516,10 +517,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test' source (only creation changes)");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test' (only creation changes)");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on ACTOR table of a data source (only creation changes)");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on ACTOR table of 'data source' (only creation changes)");
   }
 
   /**
@@ -532,8 +533,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Request requestFromSource = new Request(source, "select * from actor").setPksName("ID");
-    Request requestFromDataSource = new Request(dataSource, "select * from actor").setPksName("ID");
+    Request requestFromSource = new Request(jdbcConnectionProvider, "select * from actor").setPksName("ID");
+    Request requestFromDataSource = new Request(dsConnectionProvider, "select * from actor").setPksName("ID");
     Changes changesFromSource = new Changes(requestFromSource).setStartPointNow();
     Changes changesFromDataSource = new Changes(requestFromDataSource).setStartPointNow();
     updateChangesForTests();
@@ -546,10 +547,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on 'select * from actor' request of 'sa/jdbc:h2:mem:test' source (only creation changes)");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on 'select * from actor' request of 'sa/jdbc:h2:mem:test' (only creation changes)");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on 'select * from actor' request of a data source (only creation changes)");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on 'select * from actor' request of 'data source' (only creation changes)");
   }
 
   /**
@@ -562,8 +563,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(source).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dataSource).setStartPointNow();
+    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -574,10 +575,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source (only modification changes)");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' (only modification changes)");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (on table : ACTOR and with primary key : [1]) of Changes on tables of a data source (only modification changes)");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'data source' (only modification changes)");
   }
 
   /**
@@ -590,8 +591,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Table tableFromSource = new Table(source, "actor");
-    Table tableFromDataSource = new Table(dataSource, "actor");
+    Table tableFromSource = new Table(jdbcConnectionProvider, "actor");
+    Table tableFromDataSource = new Table(dsConnectionProvider, "actor");
     Changes changesFromSource = new Changes(tableFromSource).setStartPointNow();
     Changes changesFromDataSource = new Changes(tableFromDataSource).setStartPointNow();
     updateChangesForTests();
@@ -604,10 +605,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [1]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test' source (only modification changes)");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [1]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test' (only modification changes)");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [1]) of Changes on ACTOR table of a data source (only modification changes)");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [1]) of Changes on ACTOR table of 'data source' (only modification changes)");
   }
 
   /**
@@ -620,8 +621,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Request requestFromSource = new Request(source, "select * from actor").setPksName("ID");
-    Request requestFromDataSource = new Request(dataSource, "select * from actor").setPksName("ID");
+    Request requestFromSource = new Request(jdbcConnectionProvider, "select * from actor").setPksName("ID");
+    Request requestFromDataSource = new Request(dsConnectionProvider, "select * from actor").setPksName("ID");
     Changes changesFromSource = new Changes(requestFromSource).setStartPointNow();
     Changes changesFromDataSource = new Changes(requestFromDataSource).setStartPointNow();
     updateChangesForTests();
@@ -633,10 +634,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [1]) of Changes on 'select * from actor' request of 'sa/jdbc:h2:mem:test' source (only modification changes)");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [1]) of Changes on 'select * from actor' request of 'sa/jdbc:h2:mem:test' (only modification changes)");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [1]) of Changes on 'select * from actor' request of a data source (only modification changes)");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [1]) of Changes on 'select * from actor' request of 'data source' (only modification changes)");
   }
 
   /**
@@ -649,8 +650,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(source).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dataSource).setStartPointNow();
+    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -661,10 +662,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (on table : ACTOR and with primary key : [3]) of Changes on tables of 'sa/jdbc:h2:mem:test' source (only deletion changes)");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (on table : ACTOR and with primary key : [3]) of Changes on tables of 'sa/jdbc:h2:mem:test' (only deletion changes)");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (on table : ACTOR and with primary key : [3]) of Changes on tables of a data source (only deletion changes)");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (on table : ACTOR and with primary key : [3]) of Changes on tables of 'data source' (only deletion changes)");
   }
 
   /**
@@ -677,8 +678,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Table tableFromSource = new Table(source, "actor");
-    Table tableFromDataSource = new Table(dataSource, "actor");
+    Table tableFromSource = new Table(jdbcConnectionProvider, "actor");
+    Table tableFromDataSource = new Table(dsConnectionProvider, "actor");
     Changes changesFromSource = new Changes(tableFromSource).setStartPointNow();
     Changes changesFromDataSource = new Changes(tableFromDataSource).setStartPointNow();
     updateChangesForTests();
@@ -691,10 +692,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [3]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test' source (only deletion changes)");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [3]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test' (only deletion changes)");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [3]) of Changes on ACTOR table of a data source (only deletion changes)");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [3]) of Changes on ACTOR table of 'data source' (only deletion changes)");
   }
 
   /**
@@ -707,8 +708,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Request requestFromSource = new Request(source, "select * from actor").setPksName("ID");
-    Request requestFromDataSource = new Request(dataSource, "select * from actor").setPksName("ID");
+    Request requestFromSource = new Request(jdbcConnectionProvider, "select * from actor").setPksName("ID");
+    Request requestFromDataSource = new Request(dsConnectionProvider, "select * from actor").setPksName("ID");
     Changes changesFromSource = new Changes(requestFromSource).setStartPointNow();
     Changes changesFromDataSource = new Changes(requestFromDataSource).setStartPointNow();
     updateChangesForTests();
@@ -721,10 +722,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [3]) of Changes on 'select * from actor' request of 'sa/jdbc:h2:mem:test' source (only deletion changes)");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [3]) of Changes on 'select * from actor' request of 'sa/jdbc:h2:mem:test' (only deletion changes)");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [3]) of Changes on 'select * from actor' request of a data source (only deletion changes)");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [3]) of Changes on 'select * from actor' request of 'data source' (only deletion changes)");
   }
 
   /**
@@ -737,8 +738,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(source).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dataSource).setStartPointNow();
+    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -749,10 +750,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source (only creation changes on actor table)");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' (only creation changes on actor table)");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of a data source (only creation changes on actor table)");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'data source' (only creation changes on actor table)");
   }
 
   /**
@@ -765,8 +766,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Table tableFromSource = new Table(source, "actor");
-    Table tableFromDataSource = new Table(dataSource, "actor");
+    Table tableFromSource = new Table(jdbcConnectionProvider, "actor");
+    Table tableFromDataSource = new Table(dsConnectionProvider, "actor");
     Changes changesFromSource = new Changes(tableFromSource).setStartPointNow();
     Changes changesFromDataSource = new Changes(tableFromDataSource).setStartPointNow();
     updateChangesForTests();
@@ -779,10 +780,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test' source (only creation changes on actor table)");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test' (only creation changes on actor table)");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on ACTOR table of a data source (only creation changes on actor table)");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on ACTOR table of 'data source' (only creation changes on actor table)");
   }
 
   /**
@@ -795,8 +796,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(source).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dataSource).setStartPointNow();
+    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -807,10 +808,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source (only modification changes on actor table)");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' (only modification changes on actor table)");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (on table : ACTOR and with primary key : [1]) of Changes on tables of a data source (only modification changes on actor table)");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'data source' (only modification changes on actor table)");
   }
 
   /**
@@ -823,8 +824,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Table tableFromSource = new Table(source, "actor");
-    Table tableFromDataSource = new Table(dataSource, "actor");
+    Table tableFromSource = new Table(jdbcConnectionProvider, "actor");
+    Table tableFromDataSource = new Table(dsConnectionProvider, "actor");
     Changes changesFromSource = new Changes(tableFromSource).setStartPointNow();
     Changes changesFromDataSource = new Changes(tableFromDataSource).setStartPointNow();
     updateChangesForTests();
@@ -837,10 +838,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [1]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test' source (only modification changes on actor table)");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [1]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test' (only modification changes on actor table)");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [1]) of Changes on ACTOR table of a data source (only modification changes on actor table)");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [1]) of Changes on ACTOR table of 'data source' (only modification changes on actor table)");
   }
 
   /**
@@ -853,8 +854,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(source).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dataSource).setStartPointNow();
+    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -865,10 +866,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (on table : ACTOR and with primary key : [3]) of Changes on tables of 'sa/jdbc:h2:mem:test' source (only deletion changes on actor table)");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (on table : ACTOR and with primary key : [3]) of Changes on tables of 'sa/jdbc:h2:mem:test' (only deletion changes on actor table)");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (on table : ACTOR and with primary key : [3]) of Changes on tables of a data source (only deletion changes on actor table)");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (on table : ACTOR and with primary key : [3]) of Changes on tables of 'data source' (only deletion changes on actor table)");
   }
 
   /**
@@ -881,8 +882,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Table tableFromSource = new Table(source, "actor");
-    Table tableFromDataSource = new Table(dataSource, "actor");
+    Table tableFromSource = new Table(jdbcConnectionProvider, "actor");
+    Table tableFromDataSource = new Table(dsConnectionProvider, "actor");
     Changes changesFromSource = new Changes(tableFromSource).setStartPointNow();
     Changes changesFromDataSource = new Changes(tableFromDataSource).setStartPointNow();
     updateChangesForTests();
@@ -895,10 +896,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [3]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test' source (only deletion changes on actor table)");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [3]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test' (only deletion changes on actor table)");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [3]) of Changes on ACTOR table of a data source (only deletion changes on actor table)");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [3]) of Changes on ACTOR table of 'data source' (only deletion changes on actor table)");
   }
 
   /**
@@ -911,8 +912,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(source).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dataSource).setStartPointNow();
+    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -922,10 +923,10 @@ public class DefaultDescription_Test extends AbstractTest {
     ChangeAssert assertionFromDataSource = assertThat(changesFromDataSource).changeOnTable("actor", 0);
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source (only changes on actor table)");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' (only changes on actor table)");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of a data source (only changes on actor table)");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'data source' (only changes on actor table)");
   }
 
   /**
@@ -938,8 +939,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Table tableFromSource = new Table(source, "actor");
-    Table tableFromDataSource = new Table(dataSource, "actor");
+    Table tableFromSource = new Table(jdbcConnectionProvider, "actor");
+    Table tableFromDataSource = new Table(dsConnectionProvider, "actor");
     Changes changesFromSource = new Changes(tableFromSource).setStartPointNow();
     Changes changesFromDataSource = new Changes(tableFromDataSource).setStartPointNow();
     updateChangesForTests();
@@ -952,10 +953,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test' source (only changes on actor table)");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test' (only changes on actor table)");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on ACTOR table of a data source (only changes on actor table)");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 0 (with primary key : [4]) of Changes on ACTOR table of 'data source' (only changes on actor table)");
   }
 
   /**
@@ -968,8 +969,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(source).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dataSource).setStartPointNow();
+    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -980,10 +981,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 1 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source (only changes on actor table)");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 1 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' (only changes on actor table)");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 1 (on table : ACTOR and with primary key : [1]) of Changes on tables of a data source (only changes on actor table)");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 1 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'data source' (only changes on actor table)");
   }
 
   /**
@@ -996,8 +997,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Table tableFromSource = new Table(source, "actor");
-    Table tableFromDataSource = new Table(dataSource, "actor");
+    Table tableFromSource = new Table(jdbcConnectionProvider, "actor");
+    Table tableFromDataSource = new Table(dsConnectionProvider, "actor");
     Changes changesFromSource = new Changes(tableFromSource).setStartPointNow();
     Changes changesFromDataSource = new Changes(tableFromDataSource).setStartPointNow();
     updateChangesForTests();
@@ -1010,10 +1011,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 1 (with primary key : [1]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test' source (only changes on actor table)");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Change at index 1 (with primary key : [1]) of Changes on ACTOR table of 'sa/jdbc:h2:mem:test' (only changes on actor table)");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 1 (with primary key : [1]) of Changes on ACTOR table of a data source (only changes on actor table)");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Change at index 1 (with primary key : [1]) of Changes on ACTOR table of 'data source' (only changes on actor table)");
   }
 
   /**
@@ -1026,8 +1027,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(source).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dataSource).setStartPointNow();
+    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -1038,10 +1039,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Column at index 0 (column name : ID) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Column at index 0 (column name : ID) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test'");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Column at index 0 (column name : ID) of Change at index 1 (on table : INTERPRETATION and with primary key : [6]) of Changes on tables of a data source");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Column at index 0 (column name : ID) of Change at index 1 (on table : INTERPRETATION and with primary key : [6]) of Changes on tables of 'data source'");
   }
 
   /**
@@ -1054,8 +1055,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(source).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dataSource).setStartPointNow();
+    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -1066,10 +1067,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Row at start point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Row at start point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test'");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Row at start point of Change at index 1 (on table : INTERPRETATION and with primary key : [6]) of Changes on tables of a data source");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Row at start point of Change at index 1 (on table : INTERPRETATION and with primary key : [6]) of Changes on tables of 'data source'");
   }
 
   /**
@@ -1082,8 +1083,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(source).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dataSource).setStartPointNow();
+    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -1094,10 +1095,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Row at end point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Row at end point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test'");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Row at end point of Change at index 1 (on table : INTERPRETATION and with primary key : [6]) of Changes on tables of a data source");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Row at end point of Change at index 1 (on table : INTERPRETATION and with primary key : [6]) of Changes on tables of 'data source'");
   }
 
   /**
@@ -1110,8 +1111,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(source).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dataSource).setStartPointNow();
+    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -1123,10 +1124,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Value at start point of Column at index 0 (column name : ID) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Value at start point of Column at index 0 (column name : ID) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test'");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Value at start point of Column at index 0 (column name : ID) of Change at index 1 (on table : INTERPRETATION and with primary key : [6]) of Changes on tables of a data source");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Value at start point of Column at index 0 (column name : ID) of Change at index 1 (on table : INTERPRETATION and with primary key : [6]) of Changes on tables of 'data source'");
   }
 
   /**
@@ -1139,8 +1140,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(source).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dataSource).setStartPointNow();
+    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -1152,10 +1153,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Value at end point of Column at index 0 (column name : ID) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Value at end point of Column at index 0 (column name : ID) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test'");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Value at end point of Column at index 0 (column name : ID) of Change at index 1 (on table : INTERPRETATION and with primary key : [6]) of Changes on tables of a data source");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Value at end point of Column at index 0 (column name : ID) of Change at index 1 (on table : INTERPRETATION and with primary key : [6]) of Changes on tables of 'data source'");
   }
 
   /**
@@ -1168,8 +1169,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(source).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dataSource).setStartPointNow();
+    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -1180,10 +1181,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Value at index 0 (column name : ID) of Row at start point of Change at index 3 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Value at index 0 (column name : ID) of Row at start point of Change at index 3 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test'");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Value at index 0 (column name : ID) of Row at start point of Change at index 3 (on table : ACTOR and with primary key : [1]) of Changes on tables of a data source");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Value at index 0 (column name : ID) of Row at start point of Change at index 3 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'data source'");
   }
 
   /**
@@ -1196,8 +1197,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(source).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dataSource).setStartPointNow();
+    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -1208,10 +1209,10 @@ public class DefaultDescription_Test extends AbstractTest {
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
-    assertThat(infoFromSource.descriptionText()).isEqualTo("Value at index 0 (column name : ID) of Row at end point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source");
+    assertThat(infoFromSource.descriptionText()).isEqualTo("Value at index 0 (column name : ID) of Row at end point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test'");
 
     WritableAssertionInfo infoFromDataSource = (WritableAssertionInfo) field.get(assertionFromDataSource);
-    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Value at index 0 (column name : ID) of Row at end point of Change at index 1 (on table : INTERPRETATION and with primary key : [6]) of Changes on tables of a data source");
+    assertThat(infoFromDataSource.descriptionText()).isEqualTo("Value at index 0 (column name : ID) of Row at end point of Change at index 1 (on table : INTERPRETATION and with primary key : [6]) of Changes on tables of 'data source'");
   }
 
   /**
@@ -1223,8 +1224,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Table tableFromSource = new Table(source, "actor");
-    Table tableFromDataSource = new Table(dataSource, "actor");
+    Table tableFromSource = new Table(jdbcConnectionProvider, "actor");
+    Table tableFromDataSource = new Table(dsConnectionProvider, "actor");
 
 
     TableAssert assertionFromSource = assertThat(tableFromSource);
@@ -1247,8 +1248,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Request requestFromSource = new Request(source, "select id, name, firstname, birth from actor where id = 1").setPksName("ID");
-    Request requestFromDataSource = new Request(dataSource, "select * from actor").setPksName("ID");
+    Request requestFromSource = new Request(jdbcConnectionProvider, "select id, name, firstname, birth from actor where id = 1").setPksName("ID");
+    Request requestFromDataSource = new Request(dsConnectionProvider, "select * from actor").setPksName("ID");
 
 
     RequestAssert assertionFromSource = assertThat(requestFromSource);
@@ -1271,8 +1272,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Table tableFromSource = new Table(source, "actor");
-    Table tableFromDataSource = new Table(dataSource, "actor");
+    Table tableFromSource = new Table(jdbcConnectionProvider, "actor");
+    Table tableFromDataSource = new Table(dsConnectionProvider, "actor");
 
 
     TableColumnAssert assertionFromSource = assertThat(tableFromSource).column();
@@ -1295,8 +1296,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Table tableFromSource = new Table(source, "actor");
-    Table tableFromDataSource = new Table(dataSource, "actor");
+    Table tableFromSource = new Table(jdbcConnectionProvider, "actor");
+    Table tableFromDataSource = new Table(dsConnectionProvider, "actor");
 
 
     TableRowAssert assertionFromSource = assertThat(tableFromSource).row();
@@ -1319,8 +1320,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Request requestFromSource = new Request(source, "select * from actor").setPksName("ID");
-    Request requestFromDataSource = new Request(dataSource, "select * from actor").setPksName("ID");
+    Request requestFromSource = new Request(jdbcConnectionProvider, "select * from actor").setPksName("ID");
+    Request requestFromDataSource = new Request(dsConnectionProvider, "select * from actor").setPksName("ID");
 
 
     RequestColumnAssert assertionFromSource = assertThat(requestFromSource).column();
@@ -1343,8 +1344,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Request requestFromSource = new Request(source, "select * from actor").setPksName("ID");
-    Request requestFromDataSource = new Request(dataSource, "select * from actor").setPksName("ID");
+    Request requestFromSource = new Request(jdbcConnectionProvider, "select * from actor").setPksName("ID");
+    Request requestFromDataSource = new Request(dsConnectionProvider, "select * from actor").setPksName("ID");
 
 
     RequestRowAssert assertionFromSource = assertThat(requestFromSource).row();
@@ -1367,8 +1368,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Table tableFromSource = new Table(source, "actor");
-    Table tableFromDataSource = new Table(dataSource, "actor");
+    Table tableFromSource = new Table(jdbcConnectionProvider, "actor");
+    Table tableFromDataSource = new Table(dsConnectionProvider, "actor");
 
 
     TableColumnValueAssert assertionFromSource = assertThat(tableFromSource).column().value();
@@ -1391,8 +1392,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Table tableFromSource = new Table(source, "actor");
-    Table tableFromDataSource = new Table(dataSource, "actor");
+    Table tableFromSource = new Table(jdbcConnectionProvider, "actor");
+    Table tableFromDataSource = new Table(dsConnectionProvider, "actor");
 
 
     TableRowValueAssert assertionFromSource = assertThat(tableFromSource).row().value();
@@ -1415,8 +1416,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Request requestFromSource = new Request(source, "select * from actor").setPksName("ID");
-    Request requestFromDataSource = new Request(dataSource, "select * from actor").setPksName("ID");
+    Request requestFromSource = new Request(jdbcConnectionProvider, "select * from actor").setPksName("ID");
+    Request requestFromDataSource = new Request(dsConnectionProvider, "select * from actor").setPksName("ID");
 
 
     RequestColumnValueAssert assertionFromSource = assertThat(requestFromSource).column().value();
@@ -1439,8 +1440,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Request requestFromSource = new Request(source, "select * from actor").setPksName("ID");
-    Request requestFromDataSource = new Request(dataSource, "select * from actor").setPksName("ID");
+    Request requestFromSource = new Request(jdbcConnectionProvider, "select * from actor").setPksName("ID");
+    Request requestFromDataSource = new Request(dsConnectionProvider, "select * from actor").setPksName("ID");
 
 
     RequestRowValueAssert assertionFromSource = assertThat(requestFromSource).row().value();
