@@ -65,9 +65,9 @@ public class AssertionsOnValueCondition_IsNot_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
+                                                      + "Expecting actual:%n"
                                                       + "  0%n"
-                                                      + "not to be  isZero"));
+                                                      + "not to be isZero"));
     }
   }
 }

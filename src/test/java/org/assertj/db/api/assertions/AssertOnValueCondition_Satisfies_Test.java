@@ -79,7 +79,7 @@ public class AssertOnValueCondition_Satisfies_Test extends AbstractTest {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format(
           "[Value at end point of Column at index 2 (column name : VAR3) of Change at index 0 (with primary key : [1]) of "
           + "Changes on TEST table of 'sa/jdbc:h2:mem:test' source] %n"
-          + "Expecting:%n"
+          + "Expecting actual:%n"
           + "  2%n"
           + "to satisfy:%n"
           + "  isZero"));
@@ -90,7 +90,7 @@ public class AssertOnValueCondition_Satisfies_Test extends AbstractTest {
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage())
                 .isEqualTo(String.format("[Value at index 0 of Column at index 2 (column name : VAR3) of TEST table] %n"
-                                         + "Expecting:%n"
+                                         + "Expecting actual:%n"
                                          + "  2%n"
                                          + "to satisfy:%n"
                                          + "  isZero"));
