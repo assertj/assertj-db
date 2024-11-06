@@ -24,23 +24,23 @@ import org.assertj.core.error.ErrorMessageFactory;
 public class ShouldHaveRowsSizeLess extends BasicErrorMessageFactory {
 
   /**
+   * Constructor.
+   *
+   * @param actualSize   the size of {@code actual}.
+   * @param expectedSize the expected size.
+   */
+  private ShouldHaveRowsSizeLess(int actualSize, int expectedSize) {
+    super("%nExpecting size (number of rows) to be less than :%n   <%s>%nbut was:%n   <%s>", expectedSize, actualSize);
+  }
+
+  /**
    * Creates a new <code>{@link ShouldHaveRowsSizeLess}</code>.
    *
-   * @param actualSize the size of {@code actual}.
+   * @param actualSize   the size of {@code actual}.
    * @param expectedSize the expected size.
    * @return the created {@code ErrorMessageFactory}.
    */
   public static ErrorMessageFactory shouldHaveRowsSizeLess(int actualSize, int expectedSize) {
     return new ShouldHaveRowsSizeLess(actualSize, expectedSize);
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param actualSize the size of {@code actual}.
-   * @param expectedSize the expected size.
-   */
-  private ShouldHaveRowsSizeLess(int actualSize, int expectedSize) {
-    super("%nExpecting size (number of rows) to be less than :%n   <%s>%nbut was:%n   <%s>", expectedSize, actualSize);
   }
 }

@@ -12,12 +12,17 @@
  */
 package org.assertj.db.util;
 
-import org.assertj.core.api.WritableAssertionInfo;
-import org.assertj.db.type.*;
-import org.assertj.db.type.Changes;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.assertj.core.api.WritableAssertionInfo;
+import org.assertj.db.type.Change;
+import org.assertj.db.type.ChangeType;
+import org.assertj.db.type.Changes;
+import org.assertj.db.type.Request;
+import org.assertj.db.type.Source;
+import org.assertj.db.type.Table;
+import org.assertj.db.type.Value;
 
 /**
  * Utility methods related to descriptions.
@@ -82,8 +87,7 @@ public class Descriptions {
           sql = sql.substring(0, 30) + "...";
         }
         stringBuilder.append("Changes on '").append(sql).append("' request");
-      }
-      else {
+      } else {
         stringBuilder.append("Changes");
       }
     }
@@ -110,7 +114,7 @@ public class Descriptions {
   /**
    * Returns the description of the {@code row}.
    *
-   * @param info  Writable information about an assertion.
+   * @param info Writable information about an assertion.
    * @return The description
    */
   public static String getRowAtStartPointDescription(WritableAssertionInfo info) {
@@ -120,7 +124,7 @@ public class Descriptions {
   /**
    * Returns the description of the {@code row}.
    *
-   * @param info  Writable information about an assertion.
+   * @param info Writable information about an assertion.
    * @return The description
    */
   public static String getRowAtEndPointDescription(WritableAssertionInfo info) {

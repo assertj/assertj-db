@@ -14,6 +14,7 @@ package org.assertj.db.type.lettercase;
 
 /**
  * Defines the method to get the letter case of the columns.
+ *
  * @author Régis Pouiller
  * @since 1.1.0
  */
@@ -21,6 +22,7 @@ public interface WithColumnLetterCase {
 
   /**
    * Returns the letter case of the columns.
+   *
    * @return The letter case of the columns.
    */
   LetterCase getColumnLetterCase();

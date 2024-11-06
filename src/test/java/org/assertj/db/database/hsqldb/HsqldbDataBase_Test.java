@@ -12,11 +12,17 @@
  */
 package org.assertj.db.database.hsqldb;
 
-import org.junit.Test;
-
-import java.sql.*;
-
 import static org.assertj.core.api.Assertions.assertThat;
+
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import org.junit.Test;
 
 /**
  * Test on the HSQLDB database.
@@ -65,7 +71,7 @@ public class HsqldbDataBase_Test extends AbstractHsqldbTest {
   public void test_tables_for_data_source() throws SQLException {
     try (Connection connection = dataSource.getConnection()) {
       DatabaseMetaData databaseMetaData = connection.getMetaData();
-      ResultSet resultSet = databaseMetaData.getTables("PUBLIC", "PUBLIC", null, new String[] { "TABLE" });
+      ResultSet resultSet = databaseMetaData.getTables("PUBLIC", "PUBLIC", null, new String[]{"TABLE"});
       assertThat(resultSet.next()).isTrue();
       assertThat(resultSet.getString("TABLE_NAME")).isEqualTo("TEST");
       assertThat(resultSet.next()).isFalse();
@@ -76,7 +82,7 @@ public class HsqldbDataBase_Test extends AbstractHsqldbTest {
   public void test_tables_for_source() throws SQLException {
     try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
       DatabaseMetaData databaseMetaData = connection.getMetaData();
-      ResultSet resultSet = databaseMetaData.getTables("PUBLIC", "PUBLIC", null, new String[] { "TABLE" });
+      ResultSet resultSet = databaseMetaData.getTables("PUBLIC", "PUBLIC", null, new String[]{"TABLE"});
       assertThat(resultSet.next()).isTrue();
       assertThat(resultSet.getString("TABLE_NAME")).isEqualTo("TEST");
       assertThat(resultSet.next()).isFalse();

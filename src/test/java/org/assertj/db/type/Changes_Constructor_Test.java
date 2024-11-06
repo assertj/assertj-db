@@ -12,16 +12,15 @@
  */
 package org.assertj.db.type;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.assertj.db.common.AbstractTest;
 import org.junit.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 /**
  * Tests on the constructors of Changes
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class Changes_Constructor_Test extends AbstractTest {
 

@@ -12,6 +12,11 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.sql.Timestamp;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -19,17 +24,11 @@ import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import java.sql.Timestamp;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertionsOnValueType} class :
  * {@link AssertionsOnValueType#isDateTime(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnValueType_IsDateTime_Test extends AbstractTest {
 
@@ -42,7 +41,7 @@ public class AssertionsOnValueType_IsDateTime_Test extends AbstractTest {
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnValueType.isDateTime(tableAssert, info, getValue(
-            null, Timestamp.valueOf("2007-12-23 09:01:00")));
+      null, Timestamp.valueOf("2007-12-23 09:01:00")));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -60,12 +59,12 @@ public class AssertionsOnValueType_IsDateTime_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <\"test\">%n"
-                                                      + "to be of type%n"
-                                                      + "  <DATE_TIME>%n"
-                                                      + "but was of type%n"
-                                                      + "  <TEXT>"));
+        + "Expecting:%n"
+        + "  <\"test\">%n"
+        + "to be of type%n"
+        + "  <DATE_TIME>%n"
+        + "but was of type%n"
+        + "  <TEXT>"));
     }
   }
 
@@ -83,12 +82,12 @@ public class AssertionsOnValueType_IsDateTime_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <text>%n"
-                                                                    + "to be of type%n"
-                                                                    + "  <DATE_TIME>%n"
-                                                                    + "but was of type%n"
-                                                                    + "  <NOT_IDENTIFIED> (java.lang.StringBuilder)"));
+        + "Expecting:%n"
+        + "  <text>%n"
+        + "to be of type%n"
+        + "  <DATE_TIME>%n"
+        + "but was of type%n"
+        + "  <NOT_IDENTIFIED> (java.lang.StringBuilder)"));
     }
   }
 }

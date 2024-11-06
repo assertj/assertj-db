@@ -33,13 +33,13 @@ public class Values_AreEqual_UUID_And_String_Test {
   @Test
   public void test_are_equal_for_UUIDs() {
     assertTrue(Values.areEqual(UUID.fromString("88838129-291E-40A9-A94C-A15BE36CF7C3"),
-                                "88838129-291E-40A9-A94C-A15BE36CF7C3"));
+      "88838129-291E-40A9-A94C-A15BE36CF7C3"));
     assertFalse(Values.areEqual(UUID.fromString("88838129-291E-40A9-A94C-A15BE36CF7C3"),
-                                null));
+      null));
     assertTrue(Values.areEqual((UUID) null,
-                                (String) null));
+      (String) null));
     assertFalse(Values.areEqual((UUID) null,
-                                "88838129-291E-40A9-A94C-A15BE36CF7C3"));
+      "88838129-291E-40A9-A94C-A15BE36CF7C3"));
   }
 
   /**

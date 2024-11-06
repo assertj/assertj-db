@@ -12,6 +12,13 @@
  */
 package org.assertj.db.type;
 
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.sql.DataSource;
+
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.common.DefaultConnection;
 import org.assertj.db.common.DefaultDataSource;
@@ -19,14 +26,10 @@ import org.assertj.db.common.DefaultStatement;
 import org.assertj.db.exception.AssertJDBException;
 import org.junit.Test;
 
-import javax.sql.DataSource;
-import java.sql.*;
-
 /**
  * Tests on the exceptions of Changes
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class Changes_Exception_Test extends AbstractTest {
 
@@ -51,7 +54,7 @@ public class Changes_Exception_Test extends AbstractTest {
       public Connection getConnection() throws SQLException {
         return new DefaultConnection(thisDataSource.getConnection()) {
 
-          
+
           @Override
           public DatabaseMetaData getMetaData() throws SQLException {
             throw new SQLException();

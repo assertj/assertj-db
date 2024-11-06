@@ -12,19 +12,18 @@
  */
 package org.assertj.db.util;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.sql.Time;
+
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.exception.AssertJDBException;
 import org.junit.Test;
 
-import java.sql.Time;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
 /**
  * Tests on {@code areEqual} method for {@code Time}s and {@code String}s.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class Values_AreEqual_Time_And_String_Test extends AbstractTest {
 

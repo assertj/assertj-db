@@ -12,6 +12,13 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -20,19 +27,11 @@ import org.assertj.db.type.Table;
 import org.assertj.db.type.Value;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertionsOnColumnEquality} class :
  * {@link AssertionsOnColumnEquality#hasValues(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, java.util.List, byte[]...)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnColumnEquality_HasValues_Bytes_Test extends AbstractTest {
 
@@ -44,9 +43,9 @@ public class AssertionsOnColumnEquality_HasValues_Bytes_Test extends AbstractTes
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, new byte[] {0, 1}), getValue(null, new byte[] {2, 3})));
-    TableAssert tableAssert2 = AssertionsOnColumnEquality.hasValues(tableAssert, info, list, new byte[] { 0, 1 },
-                                                                    new byte[] { 2, 3 });
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, new byte[]{0, 1}), getValue(null, new byte[]{2, 3})));
+    TableAssert tableAssert2 = AssertionsOnColumnEquality.hasValues(tableAssert, info, list, new byte[]{0, 1},
+      new byte[]{2, 3});
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -59,14 +58,14 @@ public class AssertionsOnColumnEquality_HasValues_Bytes_Test extends AbstractTes
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, new byte[] {0, 1}), getValue(null, new byte[] {2, 3}), getValue(
-            null, null)));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, new byte[]{0, 1}), getValue(null, new byte[]{2, 3}), getValue(
+      null, null)));
     try {
-      AssertionsOnColumnEquality.hasValues(tableAssert, info, list, new byte[] { 0, 1 }, new byte[] { 1, 3 }, null);
+      AssertionsOnColumnEquality.hasValues(tableAssert, info, list, new byte[]{0, 1}, new byte[]{1, 3}, null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that the value at index 1 to be equal to the expected value but was not equal"));
+        + "Expecting that the value at index 1 to be equal to the expected value but was not equal"));
     }
   }
 
@@ -79,18 +78,18 @@ public class AssertionsOnColumnEquality_HasValues_Bytes_Test extends AbstractTes
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "other"), getValue(null, new byte[] {2, 3})));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "other"), getValue(null, new byte[]{2, 3})));
     try {
-      AssertionsOnColumnEquality.hasValues(tableAssert, info, list, new byte[] { 0, 1 }, new byte[] { 2, 3 });
+      AssertionsOnColumnEquality.hasValues(tableAssert, info, list, new byte[]{0, 1}, new byte[]{2, 3});
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that the value at index 0:%n"
-                                                      + "  <\"other\">%n"
-                                                      + "to be of type%n"
-                                                      + "  <[BYTES, NOT_IDENTIFIED]>%n"
-                                                      + "but was of type%n"
-                                                      + "  <TEXT>"));
+        + "Expecting that the value at index 0:%n"
+        + "  <\"other\">%n"
+        + "to be of type%n"
+        + "  <[BYTES, NOT_IDENTIFIED]>%n"
+        + "but was of type%n"
+        + "  <TEXT>"));
     }
   }
 
@@ -103,17 +102,17 @@ public class AssertionsOnColumnEquality_HasValues_Bytes_Test extends AbstractTes
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, new byte[] {0, 1}), getValue(null, new byte[] {2, 3})));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, new byte[]{0, 1}), getValue(null, new byte[]{2, 3})));
     try {
-      AssertionsOnColumnEquality.hasValues(tableAssert, info, list, new byte[] { 0, 1 }, new byte[] { 2, 3 },
-                                           new byte[] { 4, 5 });
+      AssertionsOnColumnEquality.hasValues(tableAssert, info, list, new byte[]{0, 1}, new byte[]{2, 3},
+        new byte[]{4, 5});
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting size (number of rows) to be equal to :%n"
-                                                      + "   <3>%n"
-                                                      + "but was:%n"
-                                                      + "   <2>"));
+        + "Expecting size (number of rows) to be equal to :%n"
+        + "   <3>%n"
+        + "but was:%n"
+        + "   <2>"));
     }
   }
 }

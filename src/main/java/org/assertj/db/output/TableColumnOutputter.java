@@ -19,11 +19,10 @@ import org.assertj.db.type.Table;
  * Output methods for a {@link Column} of a {@link Table}.
  *
  * @author Régis Pouiller
- *
  */
 public class TableColumnOutputter
-        extends
-        AbstractColumnOutputter<Table, TableOutputter, TableColumnOutputter, TableColumnValueOutputter, TableRowOutputter, TableRowValueOutputter> {
+  extends
+  AbstractColumnOutputter<Table, TableOutputter, TableColumnOutputter, TableColumnValueOutputter, TableRowOutputter, TableRowValueOutputter> {
 
   /**
    * Constructor.

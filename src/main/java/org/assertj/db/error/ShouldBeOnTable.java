@@ -23,7 +23,17 @@ import org.assertj.core.error.ErrorMessageFactory;
 public class ShouldBeOnTable extends BasicErrorMessageFactory {
 
   private static final String EXPECTED_MESSAGE =
-          "%nExpecting to be on the table:%n" + "  <%s>%nbut was on the table:%n  <%s>";
+    "%nExpecting to be on the table:%n" + "  <%s>%nbut was on the table:%n  <%s>";
+
+  /**
+   * Constructor.
+   *
+   * @param expected The expected table.
+   * @param tested   The tested table.
+   */
+  private ShouldBeOnTable(String expected, String tested) {
+    super(EXPECTED_MESSAGE, expected, tested);
+  }
 
   /**
    * Creates a new <code>{@link ShouldBeOnTable}</code>.
@@ -34,15 +44,5 @@ public class ShouldBeOnTable extends BasicErrorMessageFactory {
    */
   public static ErrorMessageFactory shouldBeOnTable(String expected, String tested) {
     return new ShouldBeOnTable(expected, tested);
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param expected The expected table.
-   * @param tested   The tested table.
-   */
-  private ShouldBeOnTable(String expected, String tested) {
-    super(EXPECTED_MESSAGE, expected, tested);
   }
 }

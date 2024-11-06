@@ -50,9 +50,8 @@ import org.assertj.db.navigation.element.ChangeElement;
  * </code>
  * </pre>
  *
- * @author Régis Pouiller
- *
  * @param <CH> The class of a assertion on a change (an sub-class of {@link org.assertj.db.navigation.element.ChangeElement}).
+ * @author Régis Pouiller
  */
 public interface ToChange<CH extends ChangeElement> extends Navigation {
 
@@ -191,7 +190,7 @@ public interface ToChange<CH extends ChangeElement> extends Navigation {
    * Returns assertion methods on the {@link org.assertj.db.type.Change} on the table {@code tableName} at the {@code index} in parameter.
    *
    * @param tableName The table name
-   * @param index The index corresponding to the {@link org.assertj.db.type.Change}.
+   * @param index     The index corresponding to the {@link org.assertj.db.type.Change}.
    * @return An object to make assertions on the {@link org.assertj.db.type.Change}.
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
    * @see org.assertj.db.api.ChangesAssert#changeOnTable(String, int)
@@ -238,7 +237,7 @@ public interface ToChange<CH extends ChangeElement> extends Navigation {
    * Returns assertion methods on the {@link org.assertj.db.type.Change} of creation ({@link org.assertj.db.type.ChangeType#CREATION}) on the table {@code tableName} at the {@code index} in parameter.
    *
    * @param tableName The table name
-   * @param index The index corresponding to the {@link org.assertj.db.type.Change} of creation ({@link org.assertj.db.type.ChangeType#CREATION}).
+   * @param index     The index corresponding to the {@link org.assertj.db.type.Change} of creation ({@link org.assertj.db.type.ChangeType#CREATION}).
    * @return An object to make assertions on the {@link org.assertj.db.type.Change} of creation ({@link org.assertj.db.type.ChangeType#CREATION}).
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
    * @see org.assertj.db.api.ChangesAssert#changeOfCreationOnTable(String, int)
@@ -269,7 +268,7 @@ public interface ToChange<CH extends ChangeElement> extends Navigation {
    * Returns assertion methods on the {@link org.assertj.db.type.Change} of modification ({@link org.assertj.db.type.ChangeType#MODIFICATION}) on the table {@code tableName} at the {@code index} in parameter.
    *
    * @param tableName The table name
-   * @param index The index corresponding to the {@link org.assertj.db.type.Change} of modification ({@link org.assertj.db.type.ChangeType#MODIFICATION}).
+   * @param index     The index corresponding to the {@link org.assertj.db.type.Change} of modification ({@link org.assertj.db.type.ChangeType#MODIFICATION}).
    * @return An object to make assertions on the {@link org.assertj.db.type.Change} of modification ({@link org.assertj.db.type.ChangeType#MODIFICATION}).
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
    * @see org.assertj.db.api.ChangesAssert#changeOfModificationOnTable(String, int)
@@ -300,7 +299,7 @@ public interface ToChange<CH extends ChangeElement> extends Navigation {
    * Returns assertion methods on the {@link org.assertj.db.type.Change} of deletion ({@link org.assertj.db.type.ChangeType#DELETION}) on the table {@code tableName} at the {@code index} in parameter.
    *
    * @param tableName The table name
-   * @param index The index corresponding to the {@link org.assertj.db.type.Change} of deletion ({@link org.assertj.db.type.ChangeType#DELETION}).
+   * @param index     The index corresponding to the {@link org.assertj.db.type.Change} of deletion ({@link org.assertj.db.type.ChangeType#DELETION}).
    * @return An object to make assertions on the {@link org.assertj.db.type.Change} of deletion ({@link org.assertj.db.type.ChangeType#DELETION}).
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
    * @see org.assertj.db.api.ChangesAssert#changeOfDeletionOnTable(String, int)

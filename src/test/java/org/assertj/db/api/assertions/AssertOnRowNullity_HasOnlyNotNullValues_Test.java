@@ -12,19 +12,18 @@
  */
 package org.assertj.db.api.assertions;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.TableRowAssert;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertOnRowNullity} class :
  * {@link org.assertj.db.api.assertions.AssertOnRowNullity#hasOnlyNotNullValues()} method.
- *
  */
 public class AssertOnRowNullity_HasOnlyNotNullValues_Test extends AbstractTest {
 
@@ -47,12 +46,12 @@ public class AssertOnRowNullity_HasOnlyNotNullValues_Test extends AbstractTest {
     Table table = new Table(source, "test2");
     TableRowAssert tableRowAssert = assertThat(table).row().row();
     try {
-     tableRowAssert.hasOnlyNotNullValues();
+      tableRowAssert.hasOnlyNotNullValues();
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Row at index 1 of TEST2 table] %n"
-                                                      + "Expecting to contain only not null:%n"
-                                                      + "but contains null at index: 0"));
+        + "Expecting to contain only not null:%n"
+        + "but contains null at index: 0"));
     }
   }
 }

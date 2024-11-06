@@ -12,17 +12,21 @@
  */
 package org.assertj.db.api.assertions.impl;
 
-import org.assertj.core.api.WritableAssertionInfo;
-import org.assertj.core.internal.Failures;
-import org.assertj.db.api.AbstractAssert;
-import org.assertj.db.type.*;
+import static org.assertj.db.error.ShouldBeClose.shouldBeClose;
+import static org.assertj.db.util.Values.areClose;
 
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 
-import static org.assertj.db.error.ShouldBeClose.shouldBeClose;
-import static org.assertj.db.util.Values.areClose;
+import org.assertj.core.api.WritableAssertionInfo;
+import org.assertj.core.internal.Failures;
+import org.assertj.db.api.AbstractAssert;
+import org.assertj.db.type.DateTimeValue;
+import org.assertj.db.type.DateValue;
+import org.assertj.db.type.TimeValue;
+import org.assertj.db.type.Value;
+import org.assertj.db.type.ValueType;
 
 /**
  * Implements the assertion methods on the closeness of a value.
@@ -57,7 +61,7 @@ public class AssertionsOnValueCloseness {
    * @throws AssertionError If the value is not equal to the number in parameter.
    */
   public static <A extends AbstractAssert<?>> A isCloseTo(A assertion, WritableAssertionInfo info, Value value,
-                                                       Number expected, Number tolerance) {
+                                                          Number expected, Number tolerance) {
     if (expected != null) {
       AssertionsOnValueType.isNumber(assertion, info, value);
     }
@@ -80,7 +84,7 @@ public class AssertionsOnValueCloseness {
    * @throws AssertionError If the value is not equal to the date in parameter.
    */
   public static <A extends AbstractAssert<?>> A isCloseTo(A assertion, WritableAssertionInfo info, Value value,
-                                                       DateValue expected, DateValue tolerance) {
+                                                          DateValue expected, DateValue tolerance) {
     if (expected != null) {
       AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
     }
@@ -110,7 +114,7 @@ public class AssertionsOnValueCloseness {
    * @throws AssertionError If the value is not equal to the date in parameter.
    */
   public static <A extends AbstractAssert<?>> A isCloseTo(A assertion, WritableAssertionInfo info, Value value,
-                                                       DateValue expected, TimeValue tolerance) {
+                                                          DateValue expected, TimeValue tolerance) {
     if (expected != null) {
       AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
     }
@@ -140,7 +144,7 @@ public class AssertionsOnValueCloseness {
    * @throws AssertionError If the value is not equal to the date in parameter.
    */
   public static <A extends AbstractAssert<?>> A isCloseTo(A assertion, WritableAssertionInfo info, Value value,
-                                                       DateValue expected, DateTimeValue tolerance) {
+                                                          DateValue expected, DateTimeValue tolerance) {
     if (expected != null) {
       AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
     }
@@ -170,7 +174,7 @@ public class AssertionsOnValueCloseness {
    * @throws AssertionError If the value is not equal to the date in parameter.
    */
   public static <A extends AbstractAssert<?>> A isCloseTo(A assertion, WritableAssertionInfo info, Value value,
-                                                       TimeValue expected, TimeValue tolerance) {
+                                                          TimeValue expected, TimeValue tolerance) {
     if (expected != null) {
       AssertionsOnValueType.isTime(assertion, info, value);
     }
@@ -194,7 +198,7 @@ public class AssertionsOnValueCloseness {
    * @throws AssertionError If the value is not equal to the date in parameter.
    */
   public static <A extends AbstractAssert<?>> A isCloseTo(A assertion, WritableAssertionInfo info, Value value,
-                                                       DateTimeValue expected, DateValue tolerance) {
+                                                          DateTimeValue expected, DateValue tolerance) {
     if (expected != null) {
       AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
     }
@@ -221,7 +225,7 @@ public class AssertionsOnValueCloseness {
    * @throws AssertionError If the value is not equal to the date in parameter.
    */
   public static <A extends AbstractAssert<?>> A isCloseTo(A assertion, WritableAssertionInfo info, Value value,
-                                                       DateTimeValue expected, TimeValue tolerance) {
+                                                          DateTimeValue expected, TimeValue tolerance) {
     if (expected != null) {
       AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
     }
@@ -248,7 +252,7 @@ public class AssertionsOnValueCloseness {
    * @throws AssertionError If the value is not equal to the date in parameter.
    */
   public static <A extends AbstractAssert<?>> A isCloseTo(A assertion, WritableAssertionInfo info, Value value,
-                                                       DateTimeValue expected, DateTimeValue tolerance) {
+                                                          DateTimeValue expected, DateTimeValue tolerance) {
     if (expected != null) {
       AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
     }

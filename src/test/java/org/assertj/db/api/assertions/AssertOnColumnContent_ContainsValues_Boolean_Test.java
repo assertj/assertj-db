@@ -12,21 +12,20 @@
  */
 package org.assertj.db.api.assertions;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.TableColumnAssert;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link org.assertj.db.api.assertions.AssertOnColumnContent} class :
  * {@link AssertOnColumnContent#containsValues(Boolean...)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertOnColumnContent_ContainsValues_Boolean_Test extends AbstractTest {
 
@@ -58,11 +57,11 @@ public class AssertOnColumnContent_ContainsValues_Boolean_Test extends AbstractT
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 1 (column name : VAR2) of TEST table] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <[true, false, false, false]>%n"
-                                                                    + "to contain: %n"
-                                                                    + "  <[true, false, true, false]>%n"
-                                                                    + " (parameter <true> at index 2 is not found)"));
+        + "Expecting:%n"
+        + "  <[true, false, false, false]>%n"
+        + "to contain: %n"
+        + "  <[true, false, true, false]>%n"
+        + " (parameter <true> at index 2 is not found)"));
     }
     Table table2 = new Table(source, "test2");
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var2");
@@ -71,12 +70,12 @@ public class AssertOnColumnContent_ContainsValues_Boolean_Test extends AbstractT
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format(
-              "[Column at index 1 (column name : VAR2) of TEST2 table] %n"
-              + "Expecting:%n"
-              + "  <[true, null]>%n"
-              + "to contain: %n"
-              + "  <[true, true]>%n"
-              + " (parameter <true> at index 1 is not found)"));
+        "[Column at index 1 (column name : VAR2) of TEST2 table] %n"
+          + "Expecting:%n"
+          + "  <[true, null]>%n"
+          + "to contain: %n"
+          + "  <[true, true]>%n"
+          + " (parameter <true> at index 1 is not found)"));
     }
   }
 }

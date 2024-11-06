@@ -66,9 +66,8 @@ import org.assertj.db.navigation.element.ValueElement;
  * </code>
  * </pre>
  *
- * @author Régis Pouiller
- *
  * @param <V> The class of a assertion on a value (an sub-class of {@link org.assertj.db.navigation.element.ValueElement}).
+ * @author Régis Pouiller
  */
 public interface ToValueFromRow<V extends ValueElement> extends Navigation {
 
@@ -77,7 +76,7 @@ public interface ToValueFromRow<V extends ValueElement> extends Navigation {
    *
    * @param columnName The column name.
    * @return An object to make assertions on the value.
-   * @throws NullPointerException If the column name in parameter is {@code null}.
+   * @throws NullPointerException                        If the column name in parameter is {@code null}.
    * @throws org.assertj.db.exception.AssertJDBException If there is no column with this name.
    * @see org.assertj.db.api.AbstractRowAssert#value(String)
    * @see org.assertj.db.api.AbstractRowValueAssert#value(String)

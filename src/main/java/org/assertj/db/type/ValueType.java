@@ -14,10 +14,9 @@ package org.assertj.db.type;
 
 /**
  * Enumeration of the different type of value that are in the database.
- * 
+ *
  * @author Régis Pouiller
  * @author Otoniel Isidoro
- * 
  */
 public enum ValueType {
 
@@ -66,30 +65,30 @@ public enum ValueType {
    */
   public static ValueType[] getPossibleTypesForComparison(Object expected) {
     if (expected instanceof byte[]) {
-      return new ValueType[] { BYTES };
+      return new ValueType[]{BYTES};
     }
     if (expected instanceof Boolean) {
-      return new ValueType[] { BOOLEAN };
+      return new ValueType[]{BOOLEAN};
     }
     if (expected instanceof String) {
-      return new ValueType[] { ValueType.TEXT, ValueType.NUMBER, ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME,
-              ValueType.UUID };
+      return new ValueType[]{ValueType.TEXT, ValueType.NUMBER, ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME,
+        ValueType.UUID};
     }
     if (expected instanceof DateValue) {
-      return new ValueType[] { ValueType.DATE, ValueType.DATE_TIME };
+      return new ValueType[]{ValueType.DATE, ValueType.DATE_TIME};
     }
     if (expected instanceof TimeValue) {
-      return new ValueType[] { ValueType.TIME };
+      return new ValueType[]{ValueType.TIME};
     }
     if (expected instanceof DateTimeValue) {
-      return new ValueType[] { DATE_TIME };
+      return new ValueType[]{DATE_TIME};
     }
     if (expected instanceof Number) {
-      return new ValueType[] { NUMBER };
+      return new ValueType[]{NUMBER};
     }
     if (expected instanceof java.util.UUID) {
-      return new ValueType[] { UUID };
+      return new ValueType[]{UUID};
     }
-    return new ValueType[] { NOT_IDENTIFIED };
+    return new ValueType[]{NOT_IDENTIFIED};
   }
 }

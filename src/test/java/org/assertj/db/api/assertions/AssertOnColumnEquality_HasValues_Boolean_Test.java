@@ -12,21 +12,20 @@
  */
 package org.assertj.db.api.assertions;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.TableColumnAssert;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertOnColumnEquality} class :
  * {@link org.assertj.db.api.assertions.AssertOnColumnEquality#hasValues(Boolean...)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertOnColumnEquality_HasValues_Boolean_Test extends AbstractTest {
 
@@ -58,10 +57,10 @@ public class AssertOnColumnEquality_HasValues_Boolean_Test extends AbstractTest 
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 1 (column name : VAR2) of TEST table] %n"
-                                                      + "Expecting that the value at index 2:%n"
-                                                      + "  <false>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <true>"));
+        + "Expecting that the value at index 2:%n"
+        + "  <false>%n"
+        + "to be equal to: %n"
+        + "  <true>"));
     }
     Table table2 = new Table(source, "test2");
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var2");
@@ -70,10 +69,10 @@ public class AssertOnColumnEquality_HasValues_Boolean_Test extends AbstractTest 
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 1 (column name : VAR2) of TEST2 table] %n"
-                                                      + "Expecting that the value at index 1:%n"
-                                                      + "  <null>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <true>"));
+        + "Expecting that the value at index 1:%n"
+        + "  <null>%n"
+        + "to be equal to: %n"
+        + "  <true>"));
     }
   }
 }

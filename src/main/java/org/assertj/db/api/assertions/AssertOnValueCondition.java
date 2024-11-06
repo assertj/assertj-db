@@ -30,7 +30,7 @@ public interface AssertOnValueCondition<T extends AssertOnValueCondition<T>> {
    * @param condition the given condition.
    * @return {@code this} assertion object.
    * @throws NullPointerException if the given condition is {@code null}.
-   * @throws AssertionError if the actual value does not satisfy the given condition.
+   * @throws AssertionError       if the actual value does not satisfy the given condition.
    * @see org.assertj.db.api.AbstractValueAssert#is(Condition)
    * @see org.assertj.db.api.AbstractAssertWithValues#is(Condition)
    */
@@ -42,7 +42,7 @@ public interface AssertOnValueCondition<T extends AssertOnValueCondition<T>> {
    * @param condition the given condition.
    * @return {@code this} assertion object.
    * @throws NullPointerException if the given condition is {@code null}.
-   * @throws AssertionError if the actual value satisfies the given condition.
+   * @throws AssertionError       if the actual value satisfies the given condition.
    * @see org.assertj.db.api.AbstractValueAssert#isNot(Condition)
    * @see org.assertj.db.api.AbstractAssertWithValues#isNot(Condition)
    */
@@ -54,7 +54,7 @@ public interface AssertOnValueCondition<T extends AssertOnValueCondition<T>> {
    * @param condition the given condition.
    * @return {@code this} assertion object.
    * @throws NullPointerException if the given condition is {@code null}.
-   * @throws AssertionError if the actual value does not satisfy the given condition.
+   * @throws AssertionError       if the actual value does not satisfy the given condition.
    * @see org.assertj.db.api.AbstractValueAssert#has(Condition)
    * @see org.assertj.db.api.AbstractAssertWithValues#has(Condition)
    */
@@ -66,7 +66,7 @@ public interface AssertOnValueCondition<T extends AssertOnValueCondition<T>> {
    * @param condition the given condition.
    * @return {@code this} assertion object.
    * @throws NullPointerException if the given condition is {@code null}.
-   * @throws AssertionError if the actual value satisfies the given condition.
+   * @throws AssertionError       if the actual value satisfies the given condition.
    * @see org.assertj.db.api.AbstractValueAssert#doesNotHave(Condition)
    * @see org.assertj.db.api.AbstractAssertWithValues#doesNotHave(Condition)
    */
@@ -78,7 +78,7 @@ public interface AssertOnValueCondition<T extends AssertOnValueCondition<T>> {
    * @param condition the given condition.
    * @return {@code this} assertion object.
    * @throws NullPointerException if the given condition is {@code null}.
-   * @throws AssertionError if the actual value does not satisfy the given condition.
+   * @throws AssertionError       if the actual value does not satisfy the given condition.
    * @see org.assertj.db.api.AbstractValueAssert#satisfies(Condition)
    * @see org.assertj.db.api.AbstractAssertWithValues#satisfies(Condition)
    */

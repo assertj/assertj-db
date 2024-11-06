@@ -12,13 +12,13 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.error.ShouldBeChangeType.shouldBeChangeType;
+
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
 import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
-
-import static org.assertj.db.error.ShouldBeChangeType.shouldBeChangeType;
 
 /**
  * Implements the assertion methods on the type of a change (creation, modification or deletion of a row).
@@ -53,7 +53,7 @@ public class AssertionsOnChangeType {
    * @throws AssertionError If the type is different to the type in parameter.
    */
   public static <A extends AbstractAssert<?>> A isOfType(A assertion, WritableAssertionInfo info, Change change,
-                                                      ChangeType expected) {
+                                                         ChangeType expected) {
     ChangeType type = change.getChangeType();
     if (type != expected) {
       throw failures.failure(info, shouldBeChangeType(expected, type));

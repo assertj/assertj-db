@@ -12,20 +12,19 @@
  */
 package org.assertj.db.type;
 
-import org.assertj.db.common.AbstractTest;
-import org.assertj.db.common.NeedReload;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.db.common.AbstractTest;
+import org.assertj.db.common.NeedReload;
+import org.junit.Test;
 
 /**
  * Tests on the {@code getChangesOfTable} and {@code getChangesOfType} methods together.
- * 
+ *
  * @author Régis Pouiller.
- * 
  */
 public class Changes_GetChanges_Test extends AbstractTest {
 
@@ -51,13 +50,13 @@ public class Changes_GetChanges_Test extends AbstractTest {
     assertThat(changesMovieCreation.getChangesList().get(0).getColumnsNameList()).containsExactly("ID", "TITLE", "YEAR", "MOVIE_IMDB");
     assertThat(changesMovieCreation.getChangesList().get(0).getRowAtStartPoint()).isNull();
     assertThat(changesMovieCreation.getChangesList().get(0).getRowAtEndPoint().getValuesList().get(0).getValue()).isEqualTo(
-        new BigDecimal(4));
+      new BigDecimal(4));
     assertThat(changesMovieCreation.getChangesList().get(0).getRowAtEndPoint().getValuesList().get(1).getValue()).isEqualTo(
-            "Ghostbusters");
+      "Ghostbusters");
     assertThat(changesMovieCreation.getChangesList().get(0).getRowAtEndPoint().getValuesList().get(2).getValue()).isEqualTo(
-            new BigDecimal(1984));
+      new BigDecimal(1984));
     assertThat(changesMovieCreation.getChangesList().get(0).getRowAtEndPoint().getValuesList().get(3).getValue()).isEqualTo(
-            UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
+      UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
   }
 
   /**
@@ -82,12 +81,12 @@ public class Changes_GetChanges_Test extends AbstractTest {
     assertThat(changesCreationMovie.getChangesList().get(0).getColumnsNameList()).containsExactly("ID", "TITLE", "YEAR", "MOVIE_IMDB");
     assertThat(changesCreationMovie.getChangesList().get(0).getRowAtStartPoint()).isNull();
     assertThat(changesCreationMovie.getChangesList().get(0).getRowAtEndPoint().getValuesList().get(0).getValue()).isEqualTo(
-        new BigDecimal(4));
+      new BigDecimal(4));
     assertThat(changesCreationMovie.getChangesList().get(0).getRowAtEndPoint().getValuesList().get(1).getValue()).isEqualTo(
-            "Ghostbusters");
+      "Ghostbusters");
     assertThat(changesCreationMovie.getChangesList().get(0).getRowAtEndPoint().getValuesList().get(2).getValue()).isEqualTo(
-            new BigDecimal(1984));
+      new BigDecimal(1984));
     assertThat(changesCreationMovie.getChangesList().get(0).getRowAtEndPoint().getValuesList().get(3).getValue()).isEqualTo(
-            UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
+      UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
   }
 }

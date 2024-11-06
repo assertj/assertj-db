@@ -12,15 +12,20 @@
  */
 package org.assertj.db.type;
 
-import org.assertj.db.exception.AssertJDBException;
-import org.assertj.db.type.lettercase.LetterCase;
-import org.assertj.db.util.NameComparator;
-
-import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.sql.DataSource;
+
+import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.type.lettercase.LetterCase;
+import org.assertj.db.util.NameComparator;
 
 /**
  * A table in the database to read to get the values.
@@ -88,122 +93,22 @@ public class Table extends AbstractDbData<Table> {
   private String[] columnsToExclude;
   /**
    * The columns to order.
+   *
    * @since 1.2.0
    */
   private Order[] columnsToOrder;
   /**
    * Start delimiter for column name and table name.
+   *
    * @since 1.2.0
    */
   private Character startDelimiter = null;
   /**
    * End delimiter for column name and table name.
+   *
    * @since 1.2.0
    */
   private Character endDelimiter = null;
-
-  /**
-   * Indicates an order with the name on which is the order and the type.
-   * @see org.assertj.db.type.Table.Order.OrderType
-   */
-  public static class Order {
-    /**
-     * The name of the order.
-     */
-    private final String name;
-    /**
-     * The type of the order.
-     */
-    private final OrderType type;
-
-    /**
-     * Enumeration of the type of order.
-     */
-    public enum OrderType {
-      /**
-       * Ascending order.
-       */
-      ASC,
-      /**
-       * Descending order.
-       */
-      DESC
-    }
-
-    /**
-     * Builds an ascending order.
-     * @param name The name of the order.
-     * @return An ascending order.
-     */
-    public static Order asc(String name) {
-      return getOrder(name, OrderType.ASC);
-    }
-
-    /**
-     * Builds the descending order.
-     * @param name The name of the order.
-     * @return The descending order.
-     */
-    public static Order desc(String name) {
-      return getOrder(name, OrderType.DESC);
-    }
-
-    /**
-     * Builds an order.
-     * @param name The name of the order.
-     * @param type The type of the order.
-     * @return The instantiated order.
-     */
-    private static Order getOrder(String name, OrderType type) {
-      return new Order(name, type);
-    }
-
-    /**
-     * Constructor.
-     * @param name The name of the order.
-     * @param type The type of the order.
-     */
-    private Order(String name, OrderType type) {
-      this.name = name;
-      this.type = type;
-    }
-
-    /**
-     * Returns the name of the order.
-     * @return The name of the order.
-     */
-    public String getName() {
-      return name;
-    }
-
-    /**
-     * Returns the type of the order.
-     * @return The type of the order.
-     */
-    public OrderType getType() {
-      return type;
-    }
-
-    @Override
-    public int hashCode() {
-      int hash = 7;
-      hash = 31 * hash + (type == null ? 0 : type.hashCode());
-      hash = 31 * hash + (name == null ? 0 : name.hashCode());
-      return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-      if (obj instanceof Order) {
-        Order order = (Order) obj;
-        if (order.type == type) {
-          return (name == null && order.name == null) ||
-                 (name != null && name.equals(order.name));
-        }
-      }
-      return false;
-    }
-  }
 
   /**
    * Default constructor.
@@ -315,10 +220,10 @@ public class Table extends AbstractDbData<Table> {
   /**
    * Constructor with a {@link Source} and the name of the table.
    *
-   * @param source {@link Source} to connect to the database.
-   * @param name   Name of the table.
-   * @param startDelimiter   Start delimiter for column name and table name.
-   * @param endDelimiter     End delimiter for column name and table name.
+   * @param source         {@link Source} to connect to the database.
+   * @param name           Name of the table.
+   * @param startDelimiter Start delimiter for column name and table name.
+   * @param endDelimiter   End delimiter for column name and table name.
    * @since 1.2.0
    */
   public Table(Source source, String name, Character startDelimiter, Character endDelimiter) {
@@ -346,10 +251,10 @@ public class Table extends AbstractDbData<Table> {
   /**
    * Constructor with a dataSource and the name of the table.
    *
-   * @param dataSource DataSource of the database.
-   * @param name       Name of the table.
-   * @param startDelimiter   Start delimiter for column name and table name.
-   * @param endDelimiter     End delimiter for column name and table name.
+   * @param dataSource     DataSource of the database.
+   * @param name           Name of the table.
+   * @param startDelimiter Start delimiter for column name and table name.
+   * @param endDelimiter   End delimiter for column name and table name.
    * @since 1.2.0
    */
   public Table(DataSource dataSource, String name, Character startDelimiter, Character endDelimiter) {
@@ -377,10 +282,10 @@ public class Table extends AbstractDbData<Table> {
   /**
    * Constructor with a {@link Source} and the name of the table.
    *
-   * @param source {@link Source} to connect to the database.
-   * @param name   Name of the table.
-   * @param startDelimiter   Start delimiter for column name and table name.
-   * @param endDelimiter     End delimiter for column name and table name.
+   * @param source         {@link Source} to connect to the database.
+   * @param name           Name of the table.
+   * @param startDelimiter Start delimiter for column name and table name.
+   * @param endDelimiter   End delimiter for column name and table name.
    * @since 1.2.0
    */
   public Table(Source source, String name, Character startDelimiter, Character endDelimiter, Order[] columnsToOrder) {
@@ -414,10 +319,10 @@ public class Table extends AbstractDbData<Table> {
   /**
    * Constructor with a dataSource and the name of the table.
    *
-   * @param dataSource DataSource of the database.
-   * @param name       Name of the table.
-   * @param startDelimiter   Start delimiter for column name and table name.
-   * @param endDelimiter     End delimiter for column name and table name.
+   * @param dataSource     DataSource of the database.
+   * @param name           Name of the table.
+   * @param startDelimiter Start delimiter for column name and table name.
+   * @param endDelimiter   End delimiter for column name and table name.
    * @since 1.2.0
    */
   public Table(DataSource dataSource, String name, Character startDelimiter, Character endDelimiter, Order[] columnsToOrder) {
@@ -474,7 +379,9 @@ public class Table extends AbstractDbData<Table> {
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public Table setDataSource(DataSource dataSource) {
     Table table = super.setDataSource(dataSource);
@@ -482,7 +389,9 @@ public class Table extends AbstractDbData<Table> {
     return table;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public Table setSource(Source source) {
     Table table = super.setSource(source);
@@ -501,7 +410,7 @@ public class Table extends AbstractDbData<Table> {
 
         DatabaseMetaData metaData = connection.getMetaData();
         try (ResultSet tableResultSet = metaData.getTables(getCatalog(connection), getSchema(connection), null,
-                                                           new String[] { "TABLE" })) {
+          new String[]{"TABLE"})) {
           while (tableResultSet.next()) {
             String tableName = tableResultSet.getString("TABLE_NAME");
             if (tableLetterCase.isEqual(tableName, name)) {
@@ -712,8 +621,9 @@ public class Table extends AbstractDbData<Table> {
 
   /**
    * Encode the column name and table name.
+   *
    * @param name The column name or table name.
-   * The encoded column name or table name.
+   *             The encoded column name or table name.
    */
   private String encode(String name) {
     StringBuilder stringBuilder = new StringBuilder();
@@ -791,7 +701,7 @@ public class Table extends AbstractDbData<Table> {
     for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++) {
       String columnName = letterCase.convert(resultSetMetaData.getColumnLabel(i));
       if (columnsToExcludeList == null
-          || !NameComparator.INSTANCE.contains(columnsToExcludeList, columnName, letterCase)) {
+        || !NameComparator.INSTANCE.contains(columnsToExcludeList, columnName, letterCase)) {
 
         columnsNameList.add(columnName);
       }
@@ -816,7 +726,7 @@ public class Table extends AbstractDbData<Table> {
     DatabaseMetaData metaData = connection.getMetaData();
 
     String tableName = name;
-    try (ResultSet resultSet = metaData.getTables(catalog, schema, null, new String[] { "TABLE" })) {
+    try (ResultSet resultSet = metaData.getTables(catalog, schema, null, new String[]{"TABLE"})) {
       LetterCase letterCase = getTableLetterCase();
       while (resultSet.next()) {
         String tableResult = resultSet.getString("TABLE_NAME");
@@ -863,6 +773,116 @@ public class Table extends AbstractDbData<Table> {
     collectPrimaryKeyName(connection);
     if (columnsToOrder == null) {
       sortRows();
+    }
+  }
+
+  /**
+   * Indicates an order with the name on which is the order and the type.
+   *
+   * @see org.assertj.db.type.Table.Order.OrderType
+   */
+  public static class Order {
+    /**
+     * The name of the order.
+     */
+    private final String name;
+    /**
+     * The type of the order.
+     */
+    private final OrderType type;
+
+    /**
+     * Constructor.
+     *
+     * @param name The name of the order.
+     * @param type The type of the order.
+     */
+    private Order(String name, OrderType type) {
+      this.name = name;
+      this.type = type;
+    }
+
+    /**
+     * Builds an ascending order.
+     *
+     * @param name The name of the order.
+     * @return An ascending order.
+     */
+    public static Order asc(String name) {
+      return getOrder(name, OrderType.ASC);
+    }
+
+    /**
+     * Builds the descending order.
+     *
+     * @param name The name of the order.
+     * @return The descending order.
+     */
+    public static Order desc(String name) {
+      return getOrder(name, OrderType.DESC);
+    }
+
+    /**
+     * Builds an order.
+     *
+     * @param name The name of the order.
+     * @param type The type of the order.
+     * @return The instantiated order.
+     */
+    private static Order getOrder(String name, OrderType type) {
+      return new Order(name, type);
+    }
+
+    /**
+     * Returns the name of the order.
+     *
+     * @return The name of the order.
+     */
+    public String getName() {
+      return name;
+    }
+
+    /**
+     * Returns the type of the order.
+     *
+     * @return The type of the order.
+     */
+    public OrderType getType() {
+      return type;
+    }
+
+    @Override
+    public int hashCode() {
+      int hash = 7;
+      hash = 31 * hash + (type == null ? 0 : type.hashCode());
+      hash = 31 * hash + (name == null ? 0 : name.hashCode());
+      return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+      if (obj instanceof Order) {
+        Order order = (Order) obj;
+        if (order.type == type) {
+          return (name == null && order.name == null) ||
+            (name != null && name.equals(order.name));
+        }
+      }
+      return false;
+    }
+
+    /**
+     * Enumeration of the type of order.
+     */
+    public enum OrderType {
+      /**
+       * Ascending order.
+       */
+      ASC,
+      /**
+       * Descending order.
+       */
+      DESC
     }
   }
 }

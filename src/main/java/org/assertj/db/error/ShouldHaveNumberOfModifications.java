@@ -19,28 +19,27 @@ import org.assertj.core.error.ErrorMessageFactory;
  * Creates an error message indicating that an assertion that verifies the number of modified columns.
  *
  * @author Régis Pouiller
- *
  */
 public class ShouldHaveNumberOfModifications extends BasicErrorMessageFactory {
-
-  /**
-   * Creates a new <code>{@link ShouldHaveNumberOfModifications}</code>.
-   *
-   * @param numberOfModifications The number of modifications.
-   * @param expectedNumber The expected number of modifications.
-   * @return the created {@code ErrorMessageFactory}.
-   */
-  public static ErrorMessageFactory shouldHaveNumberOfModifications(int numberOfModifications, int expectedNumber) {
-    return new ShouldHaveNumberOfModifications(numberOfModifications, expectedNumber);
-  }
 
   /**
    * Constructor.
    *
    * @param numberOfModifications The number of modifications.
-   * @param expectedNumber The expected number of modifications.
+   * @param expectedNumber        The expected number of modifications.
    */
   private ShouldHaveNumberOfModifications(int numberOfModifications, int expectedNumber) {
     super("%nExpecting :%n  %s modifications%nbut was:%n  %s", expectedNumber, numberOfModifications);
+  }
+
+  /**
+   * Creates a new <code>{@link ShouldHaveNumberOfModifications}</code>.
+   *
+   * @param numberOfModifications The number of modifications.
+   * @param expectedNumber        The expected number of modifications.
+   * @return the created {@code ErrorMessageFactory}.
+   */
+  public static ErrorMessageFactory shouldHaveNumberOfModifications(int numberOfModifications, int expectedNumber) {
+    return new ShouldHaveNumberOfModifications(numberOfModifications, expectedNumber);
   }
 }

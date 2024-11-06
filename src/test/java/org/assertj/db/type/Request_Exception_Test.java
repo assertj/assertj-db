@@ -12,6 +12,13 @@
  */
 package org.assertj.db.type;
 
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.sql.DataSource;
+
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.common.DefaultConnection;
 import org.assertj.db.common.DefaultDataSource;
@@ -19,14 +26,10 @@ import org.assertj.db.common.DefaultPreparedStatement;
 import org.assertj.db.exception.AssertJDBException;
 import org.junit.Test;
 
-import javax.sql.DataSource;
-import java.sql.*;
-
 /**
  * Test on loading of the data for a request and exception during the different steps.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class Request_Exception_Test extends AbstractTest {
 

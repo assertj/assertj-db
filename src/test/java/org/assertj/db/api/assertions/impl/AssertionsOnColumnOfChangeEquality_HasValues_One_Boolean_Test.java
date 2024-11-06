@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -19,15 +22,11 @@ import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertionsOnColumnOfChangeEquality} class :
  * {@link AssertionsOnColumnOfChangeEquality#hasValues(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, org.assertj.db.type.Value, Boolean)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnColumnOfChangeEquality_HasValues_One_Boolean_Test extends AbstractTest {
 
@@ -40,9 +39,9 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_One_Boolean_Test exten
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                                            getValue(null, true),
-                                                                            getValue(null, true),
-                                                                            Boolean.TRUE);
+      getValue(null, true),
+      getValue(null, true),
+      Boolean.TRUE);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -57,16 +56,16 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_One_Boolean_Test exten
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   getValue(null, false),
-                                                   getValue(null, true),
-                                                   Boolean.TRUE);
+        getValue(null, false),
+        getValue(null, true),
+        Boolean.TRUE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that start point:%n"
-                                                      + "  <false>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <true>"));
+        + "Expecting that start point:%n"
+        + "  <false>%n"
+        + "to be equal to: %n"
+        + "  <true>"));
     }
   }
 
@@ -81,16 +80,16 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_One_Boolean_Test exten
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   getValue(null, false),
-                                                   getValue(null, true),
-                                                   Boolean.FALSE);
+        getValue(null, false),
+        getValue(null, true),
+        Boolean.FALSE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that end point:%n"
-                                                      + "  <true>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <false>"));
+        + "Expecting that end point:%n"
+        + "  <true>%n"
+        + "to be equal to: %n"
+        + "  <false>"));
     }
   }
 
@@ -105,18 +104,18 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_One_Boolean_Test exten
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   getValue(null, "other"),
-                                                   getValue(null, true),
-                                                   Boolean.FALSE);
+        getValue(null, "other"),
+        getValue(null, true),
+        Boolean.FALSE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that the value at start point:%n"
-                                                      + "  <\"other\">%n"
-                                                      + "to be of type%n"
-                                                      + "  <[BOOLEAN, NOT_IDENTIFIED]>%n"
-                                                      + "but was of type%n"
-                                                      + "  <TEXT>"));
+        + "Expecting that the value at start point:%n"
+        + "  <\"other\">%n"
+        + "to be of type%n"
+        + "  <[BOOLEAN, NOT_IDENTIFIED]>%n"
+        + "but was of type%n"
+        + "  <TEXT>"));
     }
   }
 }

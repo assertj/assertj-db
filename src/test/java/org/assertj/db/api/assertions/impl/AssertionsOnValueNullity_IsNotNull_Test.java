@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -19,15 +22,11 @@ import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertionsOnValueNullity} class :
  * {@link AssertionsOnValueNullity#isNotNull(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnValueNullity_IsNotNull_Test extends AbstractTest {
 
@@ -57,7 +56,7 @@ public class AssertionsOnValueNullity_IsNotNull_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format(String.format("[description] %n"
-                                                      + "Expecting actual not to be null")));
+        + "Expecting actual not to be null")));
     }
   }
 }

@@ -12,13 +12,13 @@
  */
 package org.assertj.db.util;
 
-import org.assertj.db.type.Change;
-import org.assertj.db.type.Row;
-import org.assertj.db.type.Value;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import org.assertj.db.type.Change;
+import org.assertj.db.type.Row;
+import org.assertj.db.type.Value;
 
 /**
  * Utility methods related to changes.
@@ -36,7 +36,8 @@ public class Changes {
 
   /**
    * Returns the indexes of the modified columns.
-   * @param change    The change.
+   *
+   * @param change The change.
    * @return The indexes.
    */
   public static Integer[] getIndexesOfModifiedColumns(Change change) {
@@ -49,19 +50,18 @@ public class Changes {
       Iterator<Value> iteratorAtEndPoint = valuesListAtEndPoint.iterator();
       int index = 0;
       for (Value valueAtStartPoint : valuesListAtStartPoint) {
-        Value valueAtEndPoint  = iteratorAtEndPoint.next();
+        Value valueAtEndPoint = iteratorAtEndPoint.next();
         Object objectAtStartPoint = valueAtStartPoint.getValue();
         Object objectAtEndPoint = valueAtEndPoint.getValue();
 
         if ((objectAtStartPoint == null && objectAtEndPoint != null) ||
-            (objectAtStartPoint != null && !objectAtStartPoint.equals(objectAtEndPoint))) {
+          (objectAtStartPoint != null && !objectAtStartPoint.equals(objectAtEndPoint))) {
 
           indexesList.add(index);
         }
         index++;
       }
-    }
-    else if (rowAtStartPoint != null) {
+    } else if (rowAtStartPoint != null) {
       List<Value> valuesListAtStartPoint = rowAtStartPoint.getValuesList();
       int index = 0;
       for (Value valueAtStartPoint : valuesListAtStartPoint) {
@@ -70,8 +70,7 @@ public class Changes {
         }
         index++;
       }
-    }
-    else {
+    } else {
       List<Value> valuesListAtEndPoint = rowAtEndPoint.getValuesList();
       int index = 0;
       for (Value valueAtEndPoint : valuesListAtEndPoint) {

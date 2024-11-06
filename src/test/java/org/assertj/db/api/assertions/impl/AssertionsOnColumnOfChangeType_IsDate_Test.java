@@ -12,6 +12,11 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.sql.Date;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -19,17 +24,11 @@ import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import java.sql.Date;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link org.assertj.db.api.assertions.impl.AssertionsOnColumnOfChangeType} class :
  * {@link org.assertj.db.api.assertions.impl.AssertionsOnColumnOfChangeType#isDate(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, Object, Object, boolean)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnColumnOfChangeType_IsDate_Test extends AbstractTest {
 
@@ -42,15 +41,15 @@ public class AssertionsOnColumnOfChangeType_IsDate_Test extends AbstractTest {
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnColumnOfChangeType.isDate(tableAssert, info,
-                                                                     getValue(null, Date.valueOf("2007-12-23")),
-                                                                     getValue(null, Date.valueOf("2002-07-25")), false);
+      getValue(null, Date.valueOf("2007-12-23")),
+      getValue(null, Date.valueOf("2002-07-25")), false);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnColumnOfChangeType.isDate(tableAssert, info,
-                                                         getValue(null, Date.valueOf("2007-12-23")),
-                                                         getValue(null, Date.valueOf("2002-07-25")), true);
+      getValue(null, Date.valueOf("2007-12-23")),
+      getValue(null, Date.valueOf("2002-07-25")), true);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnColumnOfChangeType.isDate(tableAssert, info, getValue(null, null),
-                                                         getValue(null, Date.valueOf("2007-12-23")), true);
+      getValue(null, Date.valueOf("2007-12-23")), true);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -65,17 +64,17 @@ public class AssertionsOnColumnOfChangeType_IsDate_Test extends AbstractTest {
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeType.isDate(tableAssert, info,
-                                            getValue(null, "test"),
-                                            getValue(null, Date.valueOf("2007-12-23")), false);
+        getValue(null, "test"),
+        getValue(null, Date.valueOf("2007-12-23")), false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that the value at start point:%n"
-                                                      + "  <\"test\">%n"
-                                                      + "to be of type%n"
-                                                      + "  <DATE>%n"
-                                                      + "but was of type%n"
-                                                      + "  <TEXT>"));
+        + "Expecting that the value at start point:%n"
+        + "  <\"test\">%n"
+        + "to be of type%n"
+        + "  <DATE>%n"
+        + "but was of type%n"
+        + "  <TEXT>"));
     }
   }
 
@@ -90,17 +89,17 @@ public class AssertionsOnColumnOfChangeType_IsDate_Test extends AbstractTest {
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeType.isDate(tableAssert, info,
-                                            getValue(null, Date.valueOf("2007-12-23")),
-                                            getValue(null, "test"), false);
+        getValue(null, Date.valueOf("2007-12-23")),
+        getValue(null, "test"), false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that the value at end point:%n"
-                                                      + "  <\"test\">%n"
-                                                      + "to be of type%n"
-                                                      + "  <DATE>%n"
-                                                      + "but was of type%n"
-                                                      + "  <TEXT>"));
+        + "Expecting that the value at end point:%n"
+        + "  <\"test\">%n"
+        + "to be of type%n"
+        + "  <DATE>%n"
+        + "but was of type%n"
+        + "  <TEXT>"));
     }
   }
 
@@ -115,17 +114,17 @@ public class AssertionsOnColumnOfChangeType_IsDate_Test extends AbstractTest {
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeType.isDate(tableAssert, info,
-                                            getValue(null, new StringBuilder("test")),
-                                            getValue(null, Date.valueOf("2007-12-23")), false);
+        getValue(null, new StringBuilder("test")),
+        getValue(null, Date.valueOf("2007-12-23")), false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at start point:%n"
-                                                                    + "  <test>%n"
-                                                                    + "to be of type%n"
-                                                                    + "  <DATE>%n"
-                                                                    + "but was of type%n"
-                                                                    + "  <NOT_IDENTIFIED> (java.lang.StringBuilder)"));
+        + "Expecting that the value at start point:%n"
+        + "  <test>%n"
+        + "to be of type%n"
+        + "  <DATE>%n"
+        + "but was of type%n"
+        + "  <NOT_IDENTIFIED> (java.lang.StringBuilder)"));
     }
   }
 
@@ -140,17 +139,17 @@ public class AssertionsOnColumnOfChangeType_IsDate_Test extends AbstractTest {
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeType.isDate(tableAssert, info,
-                                            getValue(null, Date.valueOf("2007-12-23")),
-                                            getValue(null, new StringBuilder("test")), false);
+        getValue(null, Date.valueOf("2007-12-23")),
+        getValue(null, new StringBuilder("test")), false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at end point:%n"
-                                                                    + "  <test>%n"
-                                                                    + "to be of type%n"
-                                                                    + "  <DATE>%n"
-                                                                    + "but was of type%n"
-                                                                    + "  <NOT_IDENTIFIED> (java.lang.StringBuilder)"));
+        + "Expecting that the value at end point:%n"
+        + "  <test>%n"
+        + "to be of type%n"
+        + "  <DATE>%n"
+        + "but was of type%n"
+        + "  <NOT_IDENTIFIED> (java.lang.StringBuilder)"));
     }
   }
 }

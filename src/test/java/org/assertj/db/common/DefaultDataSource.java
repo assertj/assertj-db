@@ -12,18 +12,17 @@
  */
 package org.assertj.db.common;
 
-import javax.sql.DataSource;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
 import java.util.logging.Logger;
+import javax.sql.DataSource;
 
 /**
  * Default DataSource.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class DefaultDataSource implements DataSource {
 
@@ -44,13 +43,13 @@ public class DefaultDataSource implements DataSource {
   }
 
   @Override
-  public void setLoginTimeout(int seconds) throws SQLException {
-    thisDataSource.setLoginTimeout(seconds);
+  public int getLoginTimeout() throws SQLException {
+    return thisDataSource.getLoginTimeout();
   }
 
   @Override
-  public int getLoginTimeout() throws SQLException {
-    return thisDataSource.getLoginTimeout();
+  public void setLoginTimeout(int seconds) throws SQLException {
+    thisDataSource.setLoginTimeout(seconds);
   }
 
   @Override

@@ -12,44 +12,43 @@
  */
 package org.assertj.db.type;
 
-import org.assertj.db.common.AbstractTest;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.db.common.AbstractTest;
+import org.junit.Test;
 
 /**
  * Tests on the primary keys name of {@code Row}.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class Row_GetPksNameList_Test extends AbstractTest {
 
   /**
    * This method test the result when getting the primary keys name with one primary key.
-   * 
+   *
    * @throws Exception Exception
    */
   @Test
   public void test_when_getpksnamelist_with_one_pk() throws Exception {
     assertThat(
-        getRow(Arrays.asList("col1"), Arrays.asList("col1", "col2", "col3"),
-            Arrays.asList(getValue(null, "val1"), getValue(null, "val2"), getValue(null, "val3"))).getPksNameList()).containsExactly(
-            "col1");
+      getRow(Arrays.asList("col1"), Arrays.asList("col1", "col2", "col3"),
+        Arrays.asList(getValue(null, "val1"), getValue(null, "val2"), getValue(null, "val3"))).getPksNameList()).containsExactly(
+      "col1");
   }
 
   /**
    * This method test the result when getting the primary keys name with two primary keys.
-   * 
+   *
    * @throws Exception Exception
    */
   @Test
   public void test_when_getpksnamelist_with_two_pks() throws Exception {
     assertThat(
-        getRow(Arrays.asList("col3", "col1"), Arrays.asList("col1", "col2", "col3"),
-            Arrays.asList(getValue(null, "val1"), getValue(null, 1), getValue(null, 2))).getPksNameList()).containsExactly("col3", "col1");
+      getRow(Arrays.asList("col3", "col1"), Arrays.asList("col1", "col2", "col3"),
+        Arrays.asList(getValue(null, "val1"), getValue(null, 1), getValue(null, 2))).getPksNameList()).containsExactly("col3", "col1");
   }
 
 }

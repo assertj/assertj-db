@@ -12,15 +12,15 @@
  */
 package org.assertj.db.type;
 
-import org.assertj.db.type.lettercase.LetterCase;
-import org.assertj.db.type.lettercase.WithColumnLetterCase;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.UUID;
+
+import org.assertj.db.type.lettercase.LetterCase;
+import org.assertj.db.type.lettercase.WithColumnLetterCase;
 
 /**
  * Value in a {@link Row} or a {@link Column}.
@@ -48,13 +48,29 @@ public class Value implements DbElement, WithColumnLetterCase {
   private final ValueType valueType;
   /**
    * Letter case of the columns.
+   *
    * @since 1.1.0
    */
   private final LetterCase columnLetterCase;
 
   /**
+   * Constructor.
+   *
+   * @param columnName       The name of the column.
+   * @param value            The value.
+   * @param columnLetterCase The letter case of the columns.
+   */
+  Value(String columnName, Object value, LetterCase columnLetterCase) {
+    this.columnName = columnName;
+    this.value = value;
+    this.columnLetterCase = columnLetterCase;
+    valueType = getType(value);
+  }
+
+  /**
    * Returns a NULL value.
-   * @param columnName The name of the column.
+   *
+   * @param columnName       The name of the column.
    * @param columnLetterCase The letter case of the columns.
    * @return A NULL value.
    */
@@ -76,7 +92,7 @@ public class Value implements DbElement, WithColumnLetterCase {
       return ValueType.BOOLEAN;
     }
     if (object instanceof String
-        || object instanceof Character) {
+      || object instanceof Character) {
 
       return ValueType.TEXT;
     }
@@ -93,31 +109,17 @@ public class Value implements DbElement, WithColumnLetterCase {
       return ValueType.UUID;
     }
     if (object instanceof Byte
-        || object instanceof Short
-        || object instanceof Integer
-        || object instanceof Long
-        || object instanceof Float
-        || object instanceof Double
-        || object instanceof BigDecimal
-        || object instanceof BigInteger) {
+      || object instanceof Short
+      || object instanceof Integer
+      || object instanceof Long
+      || object instanceof Float
+      || object instanceof Double
+      || object instanceof BigDecimal
+      || object instanceof BigInteger) {
 
       return ValueType.NUMBER;
     }
     return ValueType.NOT_IDENTIFIED;
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param columnName The name of the column.
-   * @param value      The value.
-   * @param columnLetterCase The letter case of the columns.
-   */
-  Value(String columnName, Object value, LetterCase columnLetterCase) {
-    this.columnName = columnName;
-    this.value = value;
-    this.columnLetterCase = columnLetterCase;
-    valueType = getType(value);
   }
 
   /**
@@ -176,30 +178,22 @@ public class Value implements DbElement, WithColumnLetterCase {
   public boolean isComparisonPossible(Object object) {
     if (valueType == ValueType.BYTES) {
       return (object instanceof byte[]);
-    }
-    else if (valueType == ValueType.BOOLEAN) {
+    } else if (valueType == ValueType.BOOLEAN) {
       return (object instanceof Boolean);
-    }
-    else if (valueType == ValueType.TEXT) {
+    } else if (valueType == ValueType.TEXT) {
       return (object instanceof String);
-    }
-    else if (valueType == ValueType.DATE || valueType == ValueType.DATE_TIME) {
-      return (object instanceof DateValue ||object instanceof DateTimeValue ||  object instanceof String);
-    }
-    else if (valueType == ValueType.TIME) {
+    } else if (valueType == ValueType.DATE || valueType == ValueType.DATE_TIME) {
+      return (object instanceof DateValue || object instanceof DateTimeValue || object instanceof String);
+    } else if (valueType == ValueType.TIME) {
       return (object instanceof TimeValue || object instanceof String);
-    }
-    else if (valueType == ValueType.NUMBER) {
+    } else if (valueType == ValueType.NUMBER) {
       return (object instanceof Number || object instanceof String);
-    }
-    else if (valueType == ValueType.UUID) {
+    } else if (valueType == ValueType.UUID) {
       return (object instanceof UUID || object instanceof String);
-    }
-    else if (valueType == ValueType.NOT_IDENTIFIED) {
+    } else if (valueType == ValueType.NOT_IDENTIFIED) {
       if (value == null) {
         return object == null;
-      }
-      else if (object != null) {
+      } else if (object != null) {
         return value.getClass().equals(object.getClass());
       }
     }

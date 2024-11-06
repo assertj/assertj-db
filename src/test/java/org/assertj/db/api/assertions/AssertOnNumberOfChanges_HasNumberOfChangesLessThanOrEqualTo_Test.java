@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api.assertions;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.ChangesAssert;
 import org.assertj.db.common.AbstractTest;
@@ -21,15 +24,11 @@ import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link org.assertj.db.api.assertions.AssertOnNumberOfChanges} class :
  * {@link org.assertj.db.api.assertions.AssertOnNumberOfChanges#hasNumberOfChangesLessThanOrEqualTo(int)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertOnNumberOfChanges_HasNumberOfChangesLessThanOrEqualTo_Test extends AbstractTest {
 
@@ -65,10 +64,10 @@ public class AssertOnNumberOfChanges_HasNumberOfChangesLessThanOrEqualTo_Test ex
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Changes on 'select * from actor' request of 'sa/jdbc:h2:mem:test' source] %n"
-                                                                    + "Expecting size (number of changes) to be less than or equal to :%n"
-                                                                    + "   <2>%n"
-                                                                    + "but was:%n"
-                                                                    + "   <4>"));
+        + "Expecting size (number of changes) to be less than or equal to :%n"
+        + "   <2>%n"
+        + "but was:%n"
+        + "   <4>"));
     }
   }
 }

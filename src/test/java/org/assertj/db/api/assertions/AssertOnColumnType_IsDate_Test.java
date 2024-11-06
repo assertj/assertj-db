@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api.assertions;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.ChangeColumnAssert;
 import org.assertj.db.api.TableColumnAssert;
@@ -21,15 +24,11 @@ import org.assertj.db.type.Changes;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link org.assertj.db.api.assertions.AssertOnColumnType} class :
  * {@link org.assertj.db.api.assertions.AssertOnColumnType#isDate(boolean)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertOnColumnType_IsDate_Test extends AbstractTest {
 
@@ -78,48 +77,48 @@ public class AssertOnColumnType_IsDate_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 8 (column name : VAR9) of Change at index 0 (on table : TEST and with primary key : [5]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
-                                                      + "Expecting that the value at start point:%n"
-                                                      + "  <null>%n"
-                                                      + "to be of type%n"
-                                                      + "  <DATE>%n"
-                                                      + "but was of type%n"
-                                                      + "  <NOT_IDENTIFIED>"));
+        + "Expecting that the value at start point:%n"
+        + "  <null>%n"
+        + "to be of type%n"
+        + "  <DATE>%n"
+        + "but was of type%n"
+        + "  <NOT_IDENTIFIED>"));
     }
     try {
       assertThat(changes).change(1).column("var1").isDate(true);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 0 (column name : VAR1) of Change at index 1 (on table : TEST and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
-                                                      + "Expecting that the value at start point:%n"
-                                                      + "  <1>%n"
-                                                      + "to be of type%n"
-                                                      + "  <[DATE, NOT_IDENTIFIED]>%n"
-                                                      + "but was of type%n"
-                                                      + "  <NUMBER>"));
+        + "Expecting that the value at start point:%n"
+        + "  <1>%n"
+        + "to be of type%n"
+        + "  <[DATE, NOT_IDENTIFIED]>%n"
+        + "but was of type%n"
+        + "  <NUMBER>"));
     }
     try {
       assertThat(table).column("var1").isDate(true);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 0 (column name : VAR1) of TEST table] %n"
-                                                      + "Expecting that the value at index 0:%n"
-                                                      + "  <1>%n"
-                                                      + "to be of type%n"
-                                                      + "  <[DATE, NOT_IDENTIFIED]>%n"
-                                                      + "but was of type%n"
-                                                      + "  <NUMBER>"));
+        + "Expecting that the value at index 0:%n"
+        + "  <1>%n"
+        + "to be of type%n"
+        + "  <[DATE, NOT_IDENTIFIED]>%n"
+        + "but was of type%n"
+        + "  <NUMBER>"));
     }
     try {
       assertThat(table2).column("var9").isDate(false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 8 (column name : VAR9) of TEST2 table] %n"
-                                                      + "Expecting that the value at index 1:%n"
-                                                      + "  <null>%n"
-                                                      + "to be of type%n"
-                                                      + "  <DATE>%n"
-                                                      + "but was of type%n"
-                                                      + "  <NOT_IDENTIFIED>"));
+        + "Expecting that the value at index 1:%n"
+        + "  <null>%n"
+        + "to be of type%n"
+        + "  <DATE>%n"
+        + "but was of type%n"
+        + "  <NOT_IDENTIFIED>"));
     }
   }
 }

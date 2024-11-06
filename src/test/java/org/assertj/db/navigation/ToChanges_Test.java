@@ -12,6 +12,12 @@
  */
 package org.assertj.db.navigation;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.assertj.db.output.Outputs.output;
+
+import java.lang.reflect.Field;
+import java.util.List;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.ChangeAssert;
 import org.assertj.db.api.ChangesAssert;
@@ -23,17 +29,10 @@ import org.assertj.db.type.Change;
 import org.assertj.db.type.Changes;
 import org.junit.Test;
 
-import java.lang.reflect.Field;
-import java.util.List;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.output.Outputs.output;
-
 /**
  * Tests on {@link org.assertj.db.navigation.ToChanges} interface.
  *
  * @author Régis Pouiller
- *
  */
 public class ToChanges_Test extends AbstractTest {
 
@@ -107,7 +106,7 @@ public class ToChanges_Test extends AbstractTest {
 
     Assertions.assertThat(changesAllList).containsExactlyElementsOf(changesList);
     Assertions.assertThat(changesCreationList).containsExactly(changesList.get(0), changesList.get(1),
-                                                               changesList.get(2));
+      changesList.get(2));
     Assertions.assertThat(changesModificationList).containsExactly(changesList.get(3), changesList.get(4), changesList.get(5));
     Assertions.assertThat(changesDeletionList).containsExactly(changesList.get(6), changesList.get(7));
     Assertions.assertThat(changesCreationOnTableList).containsExactly(changesList.get(0));
@@ -186,7 +185,7 @@ public class ToChanges_Test extends AbstractTest {
 
     Assertions.assertThat(changesAllList).containsExactlyElementsOf(changesList);
     Assertions.assertThat(changesCreationList).containsExactly(changesList.get(0), changesList.get(1),
-                                                               changesList.get(2));
+      changesList.get(2));
     Assertions.assertThat(changesModificationList).containsExactly(changesList.get(3), changesList.get(4), changesList.get(5));
     Assertions.assertThat(changesDeletionList).containsExactly(changesList.get(6), changesList.get(7));
     Assertions.assertThat(changesCreationOnTableList).containsExactly(changesList.get(0));

@@ -12,17 +12,16 @@
  */
 package org.assertj.db.type;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.common.NeedReload;
 import org.junit.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests on the {@code getDataType} method.
  *
  * @author Régis Pouiller.
- *
  */
 public class Change_GetDataType_Test extends AbstractTest {
 

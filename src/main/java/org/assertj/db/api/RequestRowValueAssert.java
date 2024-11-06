@@ -20,10 +20,9 @@ import org.assertj.db.type.Value;
  * Assertion methods for a value in a {@link Row} of a {@link Request}.
  *
  * @author Régis Pouiller
- *
  */
 public class RequestRowValueAssert
-        extends AbstractRowValueAssert<Request, RequestAssert, RequestColumnAssert, RequestColumnValueAssert, RequestRowAssert, RequestRowValueAssert> {
+  extends AbstractRowValueAssert<Request, RequestAssert, RequestColumnAssert, RequestColumnValueAssert, RequestRowAssert, RequestRowValueAssert> {
 
   /**
    * Constructor.

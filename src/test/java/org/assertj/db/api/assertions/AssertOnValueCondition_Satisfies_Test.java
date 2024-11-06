@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api.assertions;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.Condition;
 import org.assertj.db.api.ChangeColumnValueAssert;
@@ -22,15 +25,11 @@ import org.assertj.db.type.Changes;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link  AssertOnValueCondition} class :
  * {@link  AssertOnValueCondition#satisfies(Condition)} method.
  *
  * @author Julien Roy
- *
  */
 public class AssertOnValueCondition_Satisfies_Test extends AbstractTest {
 
@@ -77,7 +76,7 @@ public class AssertOnValueCondition_Satisfies_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format(
-          "[Value at end point of Column at index 2 (column name : VAR3) of Change at index 0 (with primary key : [1]) of "
+        "[Value at end point of Column at index 2 (column name : VAR3) of Change at index 0 (with primary key : [1]) of "
           + "Changes on TEST table of 'sa/jdbc:h2:mem:test' source] %n"
           + "Expecting actual:%n"
           + "  2%n"
@@ -89,11 +88,11 @@ public class AssertOnValueCondition_Satisfies_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage())
-                .isEqualTo(String.format("[Value at index 0 of Column at index 2 (column name : VAR3) of TEST table] %n"
-                                         + "Expecting actual:%n"
-                                         + "  2%n"
-                                         + "to satisfy:%n"
-                                         + "  isZero"));
+        .isEqualTo(String.format("[Value at index 0 of Column at index 2 (column name : VAR3) of TEST table] %n"
+          + "Expecting actual:%n"
+          + "  2%n"
+          + "to satisfy:%n"
+          + "  isZero"));
     }
   }
 }

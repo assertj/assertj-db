@@ -34,15 +34,15 @@ import org.assertj.db.type.AbstractDbData;
  * @author Régis Pouiller
  */
 public abstract class AbstractOutputterWithOriginWithColumnsAndRows<E extends AbstractOutputterWithOriginWithColumnsAndRows<E, O, D, A, C, CV, R, RV>, O extends OriginWithColumnsAndRows<C, R>, D extends AbstractDbData<D>, A extends AbstractDbOutputter<D, A, C, CV, R, RV>, C extends AbstractColumnOutputter<D, A, C, CV, R, RV>, CV extends AbstractColumnValueOutputter<D, A, C, CV, R, RV>, R extends AbstractRowOutputter<D, A, C, CV, R, RV>, RV extends AbstractRowValueOutputter<D, A, C, CV, R, RV>>
-        extends AbstractOutputterWithOrigin<E, O>
-        implements ToColumn<C>,
-        ToRow<R> {
+  extends AbstractOutputterWithOrigin<E, O>
+  implements ToColumn<C>,
+  ToRow<R> {
 
   /**
    * Constructor.
    *
    * @param selfType Type of this assertion class : a sub-class of {@code AbstractOutputterWithOriginWithColumnsAndRows}.
-   * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
+   * @param origin   The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    */
   AbstractOutputterWithOriginWithColumnsAndRows(Class<E> selfType, O origin) {
     super(selfType, origin);

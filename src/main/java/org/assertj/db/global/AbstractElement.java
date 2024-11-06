@@ -25,7 +25,7 @@ import org.assertj.core.description.Description;
  * @author Régis Pouiller
  */
 public abstract class AbstractElement<E extends AbstractElement<E>>
-        implements Descriptable<E> {
+  implements Descriptable<E> {
 
   /**
    * Writable information about an element.

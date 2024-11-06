@@ -12,6 +12,13 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -20,19 +27,11 @@ import org.assertj.db.type.Table;
 import org.assertj.db.type.Value;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertionsOnColumnContent} class :
  * {@link AssertionsOnColumnContent#containsValues(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, java.util.List, Boolean...)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnColumnContent_ContainsValues_Boolean_Test extends AbstractTest {
 
@@ -46,18 +45,18 @@ public class AssertionsOnColumnContent_ContainsValues_Boolean_Test extends Abstr
     TableAssert tableAssert = assertThat(table);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, true), getValue(null, false), getValue(null, null)));
     TableAssert tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list, Boolean.TRUE,
-                                                                        Boolean.FALSE, null);
+      Boolean.FALSE, null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list, Boolean.FALSE,
-                                                            Boolean.TRUE, null);
+      Boolean.TRUE, null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list, null, Boolean.FALSE,
-                                                            Boolean.TRUE);
+      Boolean.TRUE);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     list = new ArrayList<>(Arrays.asList(getValue(null, true), getValue(null, false), getValue(null, false), getValue(
-            null, null)));
+      null, null)));
     tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list, null, Boolean.FALSE,
-                                                            Boolean.TRUE, Boolean.FALSE);
+      Boolean.TRUE, Boolean.FALSE);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -73,29 +72,29 @@ public class AssertionsOnColumnContent_ContainsValues_Boolean_Test extends Abstr
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, true), getValue(null, false), getValue(null, null)));
     try {
       AssertionsOnColumnContent.containsValues(tableAssert, info, list, null, null,
-                                               Boolean.TRUE);
+        Boolean.TRUE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <[true, false, null]>%n"
-                                                                    + "to contain: %n"
-                                                                    + "  <[null, null, true]>%n"
-                                                                    + " (parameter <null> at index 1 is not found)"));
+        + "Expecting:%n"
+        + "  <[true, false, null]>%n"
+        + "to contain: %n"
+        + "  <[null, null, true]>%n"
+        + " (parameter <null> at index 1 is not found)"));
     }
     list = new ArrayList<>(Arrays.asList(getValue(null, true), getValue(null, false), getValue(null, false), getValue(
-            null, null)));
+      null, null)));
     try {
       AssertionsOnColumnContent.containsValues(tableAssert, info, list, null, Boolean.FALSE,
-                                               Boolean.TRUE, Boolean.TRUE);
+        Boolean.TRUE, Boolean.TRUE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <[true, false, false, null]>%n"
-                                                                    + "to contain: %n"
-                                                                    + "  <[null, false, true, true]>%n"
-                                                                    + " (parameter <true> at index 3 is not found)"));
+        + "Expecting:%n"
+        + "  <[true, false, false, null]>%n"
+        + "to contain: %n"
+        + "  <[null, false, true, true]>%n"
+        + " (parameter <true> at index 3 is not found)"));
     }
   }
 
@@ -114,12 +113,12 @@ public class AssertionsOnColumnContent_ContainsValues_Boolean_Test extends Abstr
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at index 0:%n"
-                                                                    + "  <\"other\">%n"
-                                                                    + "to be of type%n"
-                                                                    + "  <[BOOLEAN, NOT_IDENTIFIED]>%n"
-                                                                    + "but was of type%n"
-                                                                    + "  <TEXT>"));
+        + "Expecting that the value at index 0:%n"
+        + "  <\"other\">%n"
+        + "to be of type%n"
+        + "  <[BOOLEAN, NOT_IDENTIFIED]>%n"
+        + "but was of type%n"
+        + "  <TEXT>"));
     }
   }
 
@@ -138,10 +137,10 @@ public class AssertionsOnColumnContent_ContainsValues_Boolean_Test extends Abstr
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting size (number of rows) to be equal to :%n"
-                                                                    + "   <3>%n"
-                                                                    + "but was:%n"
-                                                                    + "   <2>"));
+        + "Expecting size (number of rows) to be equal to :%n"
+        + "   <3>%n"
+        + "but was:%n"
+        + "   <2>"));
     }
   }
 }

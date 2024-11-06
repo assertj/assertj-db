@@ -12,6 +12,10 @@
  */
 package org.assertj.db.output;
 
+import static org.assertj.db.util.Descriptions.getColumnDescription;
+import static org.assertj.db.util.Descriptions.getRowAtEndPointDescription;
+import static org.assertj.db.util.Descriptions.getRowAtStartPointDescription;
+
 import org.assertj.db.navigation.PositionWithColumnsChange;
 import org.assertj.db.navigation.PositionWithPoints;
 import org.assertj.db.navigation.element.ChangeElement;
@@ -21,17 +25,15 @@ import org.assertj.db.type.Change;
 import org.assertj.db.type.Row;
 import org.assertj.db.util.Changes;
 
-import static org.assertj.db.util.Descriptions.*;
-
 /**
  * Output methods for a {@link Change}.
  *
  * @author Régis Pouiller
  */
 public class ChangeOutputter
-        extends AbstractOutputterWithOriginWithChanges<ChangeOutputter, ChangesOutputter>
-        implements ChangeElement,
-        OriginWithColumnsAndRowsFromChange<ChangesOutputter, ChangeOutputter, ChangeColumnOutputter, ChangeRowOutputter> {
+  extends AbstractOutputterWithOriginWithChanges<ChangeOutputter, ChangesOutputter>
+  implements ChangeElement,
+  OriginWithColumnsAndRowsFromChange<ChangesOutputter, ChangeOutputter, ChangeColumnOutputter, ChangeRowOutputter> {
 
   /**
    * The actual change on which the output is.
@@ -59,70 +61,89 @@ public class ChangeOutputter
     this.change = change;
     rowPosition = new PositionWithPoints<ChangeOutputter, ChangeRowOutputter, Row>(this, ChangeRowOutputter.class, Row.class, change.getRowAtStartPoint(), change.getRowAtEndPoint()) {
 
-      @Override protected String getDescriptionAtStartPoint() {
+      @Override
+      protected String getDescriptionAtStartPoint() {
         return getRowAtStartPointDescription(info);
       }
 
-      @Override protected String getDescriptionAtEndPoint() {
+      @Override
+      protected String getDescriptionAtEndPoint() {
         return getRowAtEndPointDescription(info);
       }
     };
-    columnPosition = new PositionWithColumnsChange<ChangeOutputter, ChangeColumnOutputter>(this, ChangeColumnOutputter.class){
+    columnPosition = new PositionWithColumnsChange<ChangeOutputter, ChangeColumnOutputter>(this, ChangeColumnOutputter.class) {
 
-      @Override protected String getDescription(int index, String columnName) {
+      @Override
+      protected String getDescription(int index, String columnName) {
         return getColumnDescription(info, index, columnName);
       }
     };
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeRowOutputter rowAtStartPoint() {
     return rowPosition.getInstanceAtStartPoint().withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeRowOutputter rowAtEndPoint() {
     return rowPosition.getInstanceAtEndPoint().withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeColumnOutputter column() {
     return columnPosition.getChangeColumnInstance(change).withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeColumnOutputter column(int index) {
     return columnPosition.getChangeColumnInstance(change, index).withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeColumnOutputter column(String columnName) {
     return columnPosition.getChangeColumnInstance(change, columnName, change.getColumnLetterCase()).withType(
-            outputType);
+      outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeColumnOutputter columnAmongTheModifiedOnes() {
     return columnPosition.getModifiedChangeColumnInstance(change).withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeColumnOutputter columnAmongTheModifiedOnes(int index) {
     return columnPosition.getModifiedChangeColumnInstance(change, index).withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeColumnOutputter columnAmongTheModifiedOnes(String columnName) {
     return columnPosition.getModifiedChangeColumnInstance(change, columnName, change.getColumnLetterCase()).withType(
-            outputType);
+      outputType);
   }
 
   /**

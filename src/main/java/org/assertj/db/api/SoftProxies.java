@@ -12,17 +12,21 @@
  */
 package org.assertj.db.api;
 
+import static net.bytebuddy.matcher.ElementMatchers.any;
+import static net.bytebuddy.matcher.ElementMatchers.nameContains;
+import static net.bytebuddy.matcher.ElementMatchers.nameStartsWith;
+import static net.bytebuddy.matcher.ElementMatchers.named;
+import static net.bytebuddy.matcher.ElementMatchers.not;
+
+import java.lang.reflect.Constructor;
+import java.util.List;
+
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.description.method.MethodDescription;
 import net.bytebuddy.dynamic.scaffold.TypeValidation;
 import net.bytebuddy.implementation.MethodDelegation;
 import net.bytebuddy.implementation.auxiliary.AuxiliaryType;
 import net.bytebuddy.matcher.ElementMatcher;
-
-import java.lang.reflect.Constructor;
-import java.util.List;
-
-import static net.bytebuddy.matcher.ElementMatchers.*;
 
 /**
  * Proxy implementation utilities.
@@ -32,46 +36,46 @@ import static net.bytebuddy.matcher.ElementMatchers.*;
 class SoftProxies {
 
   private static final ByteBuddy BYTE_BUDDY = new ByteBuddy()
-      .with(new AuxiliaryType.NamingStrategy.SuffixingRandom("AssertJDb$SoftProxies"))
-      .with(TypeValidation.DISABLED);
+    .with(new AuxiliaryType.NamingStrategy.SuffixingRandom("AssertJDb$SoftProxies"))
+    .with(TypeValidation.DISABLED);
 
   private static final ElementMatcher.Junction<MethodDescription> METHODS_TO_EXTRACT_PROXY = nameContains("change")
-      .or(nameContains("column"))
-      .or(nameContains("row"))
-      .or(nameContains("value"))
-      .or(nameStartsWith("changeOf"))
-      .or(nameStartsWith("of"))
-      .or(nameStartsWith("rowAt"));
+    .or(nameContains("column"))
+    .or(nameContains("row"))
+    .or(nameContains("value"))
+    .or(nameStartsWith("changeOf"))
+    .or(nameStartsWith("of"))
+    .or(nameStartsWith("rowAt"));
 
   private static final ElementMatcher.Junction<MethodDescription> METHODS_NOT_TO_PROXY = METHODS_TO_EXTRACT_PROXY
-      .or(named("equals"))
-      .or(named("hashCode"))
-      .or(named("clone"))
-      .or(named("as"))
-      .or(named("toString"))
-      .or(named("describedAs"))
-      .or(named("descriptionText"))
-      .or(named("getWritableAssertionInfo"))
-      .or(named("inBinary"))
-      .or(named("inHexadecimal"))
-      .or(named("newAbstractIterableAssert"))
-      .or(named("newObjectArrayAssert"))
-      .or(named("removeCustomAssertRelatedElementsFromStackTraceIfNeeded"))
-      .or(named("overridingErrorMessage"))
-      .or(named("usingComparator"))
-      .or(named("usingDefaultComparator"))
-      .or(named("usingElementComparator"))
-      .or(named("withComparatorsForElementPropertyOrFieldNames"))
-      .or(named("withComparatorsForElementPropertyOrFieldTypes"))
-      .or(named("withIterables"))
-      .or(named("withFailMessage"))
-      .or(named("withAssertionInfo"))
-      .or(named("withAssertionState"))
-      .or(named("withRepresentation"))
-      .or(named("withTypeComparators"))
-      .or(named("withThreadDumpOnError"))
-      .or(named("succeedsWithin"))
-      .or(named("isEmpty"));
+    .or(named("equals"))
+    .or(named("hashCode"))
+    .or(named("clone"))
+    .or(named("as"))
+    .or(named("toString"))
+    .or(named("describedAs"))
+    .or(named("descriptionText"))
+    .or(named("getWritableAssertionInfo"))
+    .or(named("inBinary"))
+    .or(named("inHexadecimal"))
+    .or(named("newAbstractIterableAssert"))
+    .or(named("newObjectArrayAssert"))
+    .or(named("removeCustomAssertRelatedElementsFromStackTraceIfNeeded"))
+    .or(named("overridingErrorMessage"))
+    .or(named("usingComparator"))
+    .or(named("usingDefaultComparator"))
+    .or(named("usingElementComparator"))
+    .or(named("withComparatorsForElementPropertyOrFieldNames"))
+    .or(named("withComparatorsForElementPropertyOrFieldTypes"))
+    .or(named("withIterables"))
+    .or(named("withFailMessage"))
+    .or(named("withAssertionInfo"))
+    .or(named("withAssertionState"))
+    .or(named("withRepresentation"))
+    .or(named("withTypeComparators"))
+    .or(named("withThreadDumpOnError"))
+    .or(named("succeedsWithin"))
+    .or(named("isEmpty"));
 
   private final ErrorCollector collector = new ErrorCollector();
 
@@ -110,13 +114,13 @@ class SoftProxies {
   @SuppressWarnings("unchecked")
   private <V> Class<V> createProxyClass(Class<V> assertClass) {
     return (Class<V>) BYTE_BUDDY
-        .subclass(assertClass)
-        .method(any().and(not(METHODS_NOT_TO_PROXY)))
-        .intercept(MethodDelegation.to(collector))
-        .method(METHODS_TO_EXTRACT_PROXY)
-        .intercept(MethodDelegation.to(new ProxifyPositionResult(this)))
-        .make()
-        .load(assertClass.getClassLoader())
-        .getLoaded();
+      .subclass(assertClass)
+      .method(any().and(not(METHODS_NOT_TO_PROXY)))
+      .intercept(MethodDelegation.to(collector))
+      .method(METHODS_TO_EXTRACT_PROXY)
+      .intercept(MethodDelegation.to(new ProxifyPositionResult(this)))
+      .make()
+      .load(assertClass.getClassLoader())
+      .getLoaded();
   }
 }

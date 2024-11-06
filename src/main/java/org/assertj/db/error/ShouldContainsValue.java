@@ -17,9 +17,8 @@ import org.assertj.core.error.ErrorMessageFactory;
 
 /**
  * Creates an error message indicating that an assertion that verifies that values are contained in values.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class ShouldContainsValue extends BasicErrorMessageFactory {
 
@@ -27,12 +26,33 @@ public class ShouldContainsValue extends BasicErrorMessageFactory {
   private static final String EXPECTED_MESSAGE_BUT_NOT = "%nExpecting to contain values but not%n (parameter at index %s is not found)";
 
   /**
+   * Constructor.
+   *
+   * @param actual   The actual values in the failed assertion.
+   * @param expected The expected values to compare to.
+   * @param value    The value which is not found.
+   * @param index    The index of the value which is not found.
+   */
+  private ShouldContainsValue(Object actual, Object expected, Object value, int index) {
+    super(EXPECTED_MESSAGE, actual, expected, value, index);
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param index The index of the value which is not found.
+   */
+  private ShouldContainsValue(int index) {
+    super(EXPECTED_MESSAGE_BUT_NOT, index);
+  }
+
+  /**
    * Creates a new <code>{@link org.assertj.db.error.ShouldContainsValue}</code>.
    *
-   * @param actual The actual values in the failed assertion.
+   * @param actual   The actual values in the failed assertion.
    * @param expected The expected values to compare to.
-   * @param value The value which is not found.
-   * @param index The index of the value which is not found.
+   * @param value    The value which is not found.
+   * @param index    The index of the value which is not found.
    * @return the created {@code ErrorMessageFactory}.
    */
   public static ErrorMessageFactory shouldContainsValue(Object actual, Object expected, Object value, int index) {
@@ -47,26 +67,5 @@ public class ShouldContainsValue extends BasicErrorMessageFactory {
    */
   public static ErrorMessageFactory shouldContainsValue(int index) {
     return new ShouldContainsValue(index);
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param actual The actual values in the failed assertion.
-   * @param expected The expected values to compare to.
-   * @param value The value which is not found.
-   * @param index The index of the value which is not found.
-   */
-  private ShouldContainsValue(Object actual, Object expected, Object value, int index) {
-    super(EXPECTED_MESSAGE, actual, expected, value, index);
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param index The index of the value which is not found.
-   */
-  private ShouldContainsValue(int index) {
-    super(EXPECTED_MESSAGE_BUT_NOT, index);
   }
 }

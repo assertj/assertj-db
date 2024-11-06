@@ -28,7 +28,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
  * Test on the utility class {@code SoftAssertions}.
  *
  * @author Julien Roy
- *
  */
 public class SoftAssertions_Test extends AbstractTest {
 
@@ -47,15 +46,16 @@ public class SoftAssertions_Test extends AbstractTest {
     softly.assertThat(table).hasNumberOfRows(0);
     softly.assertThat(table).hasNumberOfColumns(0);
     softly.assertThat(table)
-          .row(0).column("var2").value().isFalse()
-          .returnToColumn()
-          .column("var1").value().isEqualTo(0);
+      .row(0).column("var2").value().isFalse()
+      .returnToColumn()
+      .column("var1").value().isEqualTo(0);
 
     assertThat(softly.wasSuccess()).isFalse();
     assertThat(softly.errorsCollected()).hasSize(8);
 
     assertThatThrownBy(new ThrowableAssert.ThrowingCallable() {
-      @Override public void call() {
+      @Override
+      public void call() {
         softly.assertAll();
       }
     }).isInstanceOf(SoftAssertionError.class);
@@ -76,15 +76,16 @@ public class SoftAssertions_Test extends AbstractTest {
     softly.assertThat(request).hasNumberOfRows(0);
     softly.assertThat(request).hasNumberOfColumns(0);
     softly.assertThat(request)
-          .row(0).column("var2").value().isFalse()
-          .returnToColumn()
-          .column("var1").value().isEqualTo(0);
+      .row(0).column("var2").value().isFalse()
+      .returnToColumn()
+      .column("var1").value().isEqualTo(0);
 
     assertThat(softly.wasSuccess()).isFalse();
     assertThat(softly.errorsCollected()).hasSize(8);
 
     assertThatThrownBy(new ThrowableAssert.ThrowingCallable() {
-      @Override public void call() {
+      @Override
+      public void call() {
         softly.assertAll();
       }
     }).isInstanceOf(SoftAssertionError.class);
@@ -110,7 +111,8 @@ public class SoftAssertions_Test extends AbstractTest {
     assertThat(softly.errorsCollected()).hasSize(2);
 
     assertThatThrownBy(new ThrowableAssert.ThrowingCallable() {
-      @Override public void call() {
+      @Override
+      public void call() {
         softly.assertAll();
       }
     }).isInstanceOf(SoftAssertionError.class);

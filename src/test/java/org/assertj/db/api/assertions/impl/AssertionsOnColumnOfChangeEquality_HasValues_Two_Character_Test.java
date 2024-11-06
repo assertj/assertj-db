@@ -27,7 +27,6 @@ import org.junit.Test;
  * {@link AssertionsOnColumnOfChangeEquality#hasValues(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, org.assertj.db.type.Value, Character, Character)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Character_Test extends AbstractTest {
 
@@ -40,10 +39,10 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Character_Test ext
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                                            getValue(null, 'T'),
-                                                                            getValue(null, "T"),
-                                                                            'T',
-                                                                            'T');
+      getValue(null, 'T'),
+      getValue(null, "T"),
+      'T',
+      'T');
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -58,29 +57,29 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Character_Test ext
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   getValue(null, 't'),
-                                                   getValue(null, 'T'),
-                                                   'T', 'T');
+        getValue(null, 't'),
+        getValue(null, 'T'),
+        'T', 'T');
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that start point:%n"
-                                                      + "  <'t'>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <'T'>"));
+        + "Expecting that start point:%n"
+        + "  <'t'>%n"
+        + "to be equal to: %n"
+        + "  <'T'>"));
     }
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   getValue(null, "t"),
-                                                   getValue(null, 'T'),
-                                                   'T', 'T');
+        getValue(null, "t"),
+        getValue(null, 'T'),
+        'T', 'T');
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that start point:%n"
-                                                      + "  <\"t\">%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <'T'>"));
+        + "Expecting that start point:%n"
+        + "  <\"t\">%n"
+        + "to be equal to: %n"
+        + "  <'T'>"));
     }
   }
 
@@ -95,29 +94,29 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Character_Test ext
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   getValue(null, 'T'),
-                                                   getValue(null, 't'),
-                                                   'T', 'T');
+        getValue(null, 'T'),
+        getValue(null, 't'),
+        'T', 'T');
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that end point:%n"
-                                                      + "  <'t'>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <'T'>"));
+        + "Expecting that end point:%n"
+        + "  <'t'>%n"
+        + "to be equal to: %n"
+        + "  <'T'>"));
     }
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   getValue(null, "T"),
-                                                   getValue(null, "t"),
-                                                   'T', 'T');
+        getValue(null, "T"),
+        getValue(null, "t"),
+        'T', 'T');
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that end point:%n"
-                                                      + "  <\"t\">%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <'T'>"));
+        + "Expecting that end point:%n"
+        + "  <\"t\">%n"
+        + "to be equal to: %n"
+        + "  <'T'>"));
     }
   }
 
@@ -132,33 +131,33 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Character_Test ext
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   getValue(null, true),
-                                                   getValue(null, "t"),
-                                                   'T', 't');
+        getValue(null, true),
+        getValue(null, "t"),
+        'T', 't');
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that the value at start point:%n"
-                                                      + "  <true>%n"
-                                                      + "to be of type%n"
-                                                      + "  <[TEXT, NOT_IDENTIFIED]>%n"
-                                                      + "but was of type%n"
-                                                      + "  <BOOLEAN>"));
+        + "Expecting that the value at start point:%n"
+        + "  <true>%n"
+        + "to be of type%n"
+        + "  <[TEXT, NOT_IDENTIFIED]>%n"
+        + "but was of type%n"
+        + "  <BOOLEAN>"));
     }
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   getValue(null, "T"),
-                                                   getValue(null, true),
-                                                   'T', 't');
+        getValue(null, "T"),
+        getValue(null, true),
+        'T', 't');
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that the value at end point:%n"
-                                                      + "  <true>%n"
-                                                      + "to be of type%n"
-                                                      + "  <[TEXT, NOT_IDENTIFIED]>%n"
-                                                      + "but was of type%n"
-                                                      + "  <BOOLEAN>"));
+        + "Expecting that the value at end point:%n"
+        + "  <true>%n"
+        + "to be of type%n"
+        + "  <[TEXT, NOT_IDENTIFIED]>%n"
+        + "but was of type%n"
+        + "  <BOOLEAN>"));
     }
   }
 }

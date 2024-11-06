@@ -20,11 +20,10 @@ import org.assertj.db.type.Table;
  * Assertion methods for a {@link Table}.
  *
  * @author Régis Pouiller
- *
  */
 public class TableAssert
-    extends AbstractDbAssert<Table, TableAssert, TableColumnAssert, TableColumnValueAssert, TableRowAssert, TableRowValueAssert>
-    implements AssertOnExistence<TableAssert> {
+  extends AbstractDbAssert<Table, TableAssert, TableColumnAssert, TableColumnValueAssert, TableRowAssert, TableRowValueAssert>
+  implements AssertOnExistence<TableAssert> {
 
   /**
    * Constructor.

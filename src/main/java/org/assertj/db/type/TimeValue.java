@@ -19,13 +19,26 @@ import java.util.Calendar;
 
 /**
  * This class represents a time value in the database.
- * 
+ *
  * @author Régis Pouiller
  * @author Julien Roy
- *
  */
 public class TimeValue implements Comparable<TimeValue> {
 
+  /**
+   * Indicates where there are the digits for {@code String} for {@link TimeValue#TimeValue(String)}.
+   */
+  private static final String TIME_FORMAT = "\\d\\d:\\d\\d";
+  /**
+   * Indicates where there are the digits in style with seconds for {@code String} for
+   * {@link TimeValue#TimeValue(String)}.
+   */
+  private static final String TIME_FORMAT_WITH_SECONDS = "\\d\\d:\\d\\d:\\d\\d";
+  /**
+   * Indicates where there are the digits in style with nanoseconds for {@code String} for
+   * {@link TimeValue#TimeValue(String)}.
+   */
+  private static final String TIME_FORMAT_WITH_NANO = "\\d\\d:\\d\\d:\\d\\d.\\d\\d\\d\\d\\d\\d\\d\\d\\d";
   /**
    * Hours.
    */
@@ -42,122 +55,13 @@ public class TimeValue implements Comparable<TimeValue> {
    * Nanoseconds.
    */
   private final int nanoSeconds;
-  /**
-   * Indicates where there are the digits for {@code String} for {@link TimeValue#TimeValue(String)}.
-   */
-  private static final String TIME_FORMAT = "\\d\\d:\\d\\d";
-  /**
-   * Indicates where there are the digits in style with seconds for {@code String} for
-   * {@link TimeValue#TimeValue(String)}.
-   */
-  private static final String TIME_FORMAT_WITH_SECONDS = "\\d\\d:\\d\\d:\\d\\d";
-  /**
-   * Indicates where there are the digits in style with nanoseconds for {@code String} for
-   * {@link TimeValue#TimeValue(String)}.
-   */
-  private static final String TIME_FORMAT_WITH_NANO = "\\d\\d:\\d\\d:\\d\\d.\\d\\d\\d\\d\\d\\d\\d\\d\\d";
-
-  /**
-   * Makes an instance of time value from a hours, minutes, seconds and nanoseconds.
-   * 
-   * @param hours Hours.
-   * @param minutes Minutes.
-   * @param seconds Seconds.
-   * @param nanoSeconds Nanoseconds.
-   * @return An instance of time value.
-   */
-  public static TimeValue of(int hours, int minutes, int seconds, int nanoSeconds) {
-    return new TimeValue(hours, minutes, seconds, nanoSeconds);
-  }
-
-  /**
-   * Makes an instance of time value from a hours, minutes and seconds.
-   * 
-   * @param hours Hours.
-   * @param minutes Minutes.
-   * @param seconds Seconds.
-   * @return An instance of time value.
-   */
-  public static TimeValue of(int hours, int minutes, int seconds) {
-    return new TimeValue(hours, minutes, seconds);
-  }
-
-  /**
-   * Makes an instance of time value from a hours and minutes.
-   * 
-   * @param hours Hours.
-   * @param minutes Minutes.
-   * @return An instance of time value.
-   */
-  public static TimeValue of(int hours, int minutes) {
-    return new TimeValue(hours, minutes);
-  }
-
-  /**
-   * Makes an instance of time value from a {@code String} in {@code hh:mm}, {@code hh:mm:ss} or
-   * {@code hh:mm:ss.nnnnnnnnn} format.
-   * 
-   * @param time Time in {@code String} format ({@code hh:mm}, {@code hh:mm:ss} or {@code hh:mm:ss.nnnnnnnnn}).
-   * @return An instance of time value.
-   * @throws NullPointerException If {@code time} is {@code null}.
-   * @throws ParseException If {@code time} don't respect the {@code hh:mm}, {@code hh:mm:ss} or
-   *           {@code hh:mm:ss.nnnnnnnnn} format.
-   */
-  public static TimeValue parse(String time) throws ParseException {
-    return new TimeValue(time);
-  }
-
-  /**
-   * Makes an instance of time value from a {@link Time}.
-   * 
-   * @param time Time.
-   * @throws NullPointerException If {@code time} is {@code null}.
-   * @return An instance of time value.
-   */
-  public static TimeValue from(Time time) {
-    return new TimeValue(time);
-  }
-
-  /**
-   * Makes an instance of time value from a {@link Calendar}.
-   *
-   * @param calendar Calendar.
-   * @throws NullPointerException If {@code calendar} is {@code null}.
-   * @return An instance of time value.
-   * @since 1.1.0
-   */
-  public static TimeValue from(Calendar calendar) {
-    return new TimeValue(calendar);
-  }
-
-  /**
-   * Makes an instance of time value from a {@link LocalTime}.
-   *
-   * @param localTime LocalTime.
-   * @throws NullPointerException If {@code localTime} is {@code null}.
-   * @return An instance of time value.
-   * @since 2.0.0
-   */
-  public static TimeValue from(LocalTime localTime) {
-    return new TimeValue(localTime);
-  }
-
-  /**
-   * Makes an instance of the time value corresponding to now.
-   *
-   * @return An instance of time value.
-   * @since 1.1.0
-   */
-  public static TimeValue now() {
-    return from(Calendar.getInstance());
-  }
 
   /**
    * Constructor.
-   * 
-   * @param hours Hours.
-   * @param minutes Minutes.
-   * @param seconds Seconds.
+   *
+   * @param hours       Hours.
+   * @param minutes     Minutes.
+   * @param seconds     Seconds.
    * @param nanoSeconds Nanoseconds.
    */
   public TimeValue(int hours, int minutes, int seconds, int nanoSeconds) {
@@ -169,8 +73,8 @@ public class TimeValue implements Comparable<TimeValue> {
 
   /**
    * Constructor.
-   * 
-   * @param hours Hours.
+   *
+   * @param hours   Hours.
    * @param minutes Minutes.
    * @param seconds Seconds.
    */
@@ -180,8 +84,8 @@ public class TimeValue implements Comparable<TimeValue> {
 
   /**
    * Constructor.
-   * 
-   * @param hours Hours.
+   *
+   * @param hours   Hours.
    * @param minutes Minutes.
    */
   public TimeValue(int hours, int minutes) {
@@ -190,11 +94,11 @@ public class TimeValue implements Comparable<TimeValue> {
 
   /**
    * Constructor.
-   * 
+   *
    * @param time Time in {@code String} format ({@code hh:mm}, {@code hh:mm:ss} or {@code hh:mm:ss.nnnnnnnnn}).
    * @throws NullPointerException If {@code time} is {@code null}.
-   * @throws ParseException If {@code time} don't respect the {@code hh:mm}, {@code hh:mm:ss} or
-   *           {@code hh:mm:ss.nnnnnnnnn} format.
+   * @throws ParseException       If {@code time} don't respect the {@code hh:mm}, {@code hh:mm:ss} or
+   *                              {@code hh:mm:ss.nnnnnnnnn} format.
    */
   public TimeValue(String time) throws ParseException {
     if (time == null) {
@@ -223,7 +127,7 @@ public class TimeValue implements Comparable<TimeValue> {
 
   /**
    * Constructor.
-   * 
+   *
    * @param time Time.
    * @throws NullPointerException If {@code time} is {@code null}.
    */
@@ -277,8 +181,103 @@ public class TimeValue implements Comparable<TimeValue> {
   }
 
   /**
+   * Makes an instance of time value from a hours, minutes, seconds and nanoseconds.
+   *
+   * @param hours       Hours.
+   * @param minutes     Minutes.
+   * @param seconds     Seconds.
+   * @param nanoSeconds Nanoseconds.
+   * @return An instance of time value.
+   */
+  public static TimeValue of(int hours, int minutes, int seconds, int nanoSeconds) {
+    return new TimeValue(hours, minutes, seconds, nanoSeconds);
+  }
+
+  /**
+   * Makes an instance of time value from a hours, minutes and seconds.
+   *
+   * @param hours   Hours.
+   * @param minutes Minutes.
+   * @param seconds Seconds.
+   * @return An instance of time value.
+   */
+  public static TimeValue of(int hours, int minutes, int seconds) {
+    return new TimeValue(hours, minutes, seconds);
+  }
+
+  /**
+   * Makes an instance of time value from a hours and minutes.
+   *
+   * @param hours   Hours.
+   * @param minutes Minutes.
+   * @return An instance of time value.
+   */
+  public static TimeValue of(int hours, int minutes) {
+    return new TimeValue(hours, minutes);
+  }
+
+  /**
+   * Makes an instance of time value from a {@code String} in {@code hh:mm}, {@code hh:mm:ss} or
+   * {@code hh:mm:ss.nnnnnnnnn} format.
+   *
+   * @param time Time in {@code String} format ({@code hh:mm}, {@code hh:mm:ss} or {@code hh:mm:ss.nnnnnnnnn}).
+   * @return An instance of time value.
+   * @throws NullPointerException If {@code time} is {@code null}.
+   * @throws ParseException       If {@code time} don't respect the {@code hh:mm}, {@code hh:mm:ss} or
+   *                              {@code hh:mm:ss.nnnnnnnnn} format.
+   */
+  public static TimeValue parse(String time) throws ParseException {
+    return new TimeValue(time);
+  }
+
+  /**
+   * Makes an instance of time value from a {@link Time}.
+   *
+   * @param time Time.
+   * @return An instance of time value.
+   * @throws NullPointerException If {@code time} is {@code null}.
+   */
+  public static TimeValue from(Time time) {
+    return new TimeValue(time);
+  }
+
+  /**
+   * Makes an instance of time value from a {@link Calendar}.
+   *
+   * @param calendar Calendar.
+   * @return An instance of time value.
+   * @throws NullPointerException If {@code calendar} is {@code null}.
+   * @since 1.1.0
+   */
+  public static TimeValue from(Calendar calendar) {
+    return new TimeValue(calendar);
+  }
+
+  /**
+   * Makes an instance of time value from a {@link LocalTime}.
+   *
+   * @param localTime LocalTime.
+   * @return An instance of time value.
+   * @throws NullPointerException If {@code localTime} is {@code null}.
+   * @since 2.0.0
+   */
+  public static TimeValue from(LocalTime localTime) {
+    return new TimeValue(localTime);
+  }
+
+  /**
+   * Makes an instance of the time value corresponding to now.
+   *
+   * @return An instance of time value.
+   * @since 1.1.0
+   */
+  public static TimeValue now() {
+    return from(Calendar.getInstance());
+  }
+
+  /**
    * Returns the hours.
-   * 
+   *
    * @return The hours.
    */
   public int getHours() {
@@ -287,7 +286,7 @@ public class TimeValue implements Comparable<TimeValue> {
 
   /**
    * Returns the minutes.
-   * 
+   *
    * @return The minutes.
    */
   public int getMinutes() {
@@ -296,7 +295,7 @@ public class TimeValue implements Comparable<TimeValue> {
 
   /**
    * Returns the seconds.
-   * 
+   *
    * @return The seconds.
    */
   public int getSeconds() {
@@ -305,7 +304,7 @@ public class TimeValue implements Comparable<TimeValue> {
 
   /**
    * Returns the nanoseconds.
-   * 
+   *
    * @return The nanoseconds.
    */
   public int getNanoSeconds() {
@@ -322,7 +321,7 @@ public class TimeValue implements Comparable<TimeValue> {
     if (obj instanceof TimeValue) {
       TimeValue timeValue = (TimeValue) obj;
       return hours == timeValue.hours && minutes == timeValue.minutes && seconds == timeValue.seconds
-          && nanoSeconds == timeValue.nanoSeconds;
+        && nanoSeconds == timeValue.nanoSeconds;
     }
     return false;
   }
@@ -342,26 +341,19 @@ public class TimeValue implements Comparable<TimeValue> {
   public int compareTo(TimeValue other) {
     if (hours < other.hours) {
       return -1;
-    }
-    else if (hours > other.hours) {
+    } else if (hours > other.hours) {
       return 1;
-    }
-    else if (minutes < other.minutes) {
+    } else if (minutes < other.minutes) {
       return -1;
-    }
-    else if (minutes > other.minutes) {
+    } else if (minutes > other.minutes) {
       return 1;
-    }
-    else if (seconds < other.seconds) {
+    } else if (seconds < other.seconds) {
       return -1;
-    }
-    else if (seconds > other.seconds) {
+    } else if (seconds > other.seconds) {
       return 1;
-    }
-    else if (nanoSeconds < other.nanoSeconds) {
+    } else if (nanoSeconds < other.nanoSeconds) {
       return -1;
-    }
-    else if (nanoSeconds > other.nanoSeconds) {
+    } else if (nanoSeconds > other.nanoSeconds) {
       return 1;
     }
     return 0;
@@ -369,6 +361,7 @@ public class TimeValue implements Comparable<TimeValue> {
 
   /**
    * Returns if this time value is before the time value in parameter.
+   *
    * @param time The time value to compare to.
    * @return If this time value is before the time value in parameter.
    */
@@ -378,6 +371,7 @@ public class TimeValue implements Comparable<TimeValue> {
 
   /**
    * Returns if this time value is after the time value in parameter.
+   *
    * @param time The time value to compare to.
    * @return If this time value is after the time value in parameter.
    */
@@ -387,6 +381,7 @@ public class TimeValue implements Comparable<TimeValue> {
 
   /**
    * Moves the time with the value in parameter.
+   *
    * @param time Value to move the date.
    * @return The date/time moved.
    */
@@ -403,8 +398,7 @@ public class TimeValue implements Comparable<TimeValue> {
 
     if (nanoSeconds >= 0 || thisNanoSeconds >= -nanoSeconds) {
       thisNanoSeconds += nanoSeconds;
-    }
-    else {
+    } else {
       thisNanoSeconds += 1000000000 + nanoSeconds;
       seconds--;
     }
@@ -412,23 +406,19 @@ public class TimeValue implements Comparable<TimeValue> {
     if (seconds > 0 && (thisSeconds + seconds >= 60)) {
       thisSeconds += seconds - 60;
       minutes++;
-    }
-    else if (seconds >= 0 || thisSeconds >= -seconds) {
+    } else if (seconds >= 0 || thisSeconds >= -seconds) {
       thisSeconds += seconds;
-    }
-    else {
+    } else {
       thisSeconds += 60 + seconds;
       minutes--;
     }
 
-    if ( minutes > 0 && (thisMinutes + minutes >= 60 )) {
+    if (minutes > 0 && (thisMinutes + minutes >= 60)) {
       thisMinutes += minutes - 60;
       hours++;
-    }
-    else if (minutes >= 0 || thisMinutes >= -minutes) {
+    } else if (minutes >= 0 || thisMinutes >= -minutes) {
       thisMinutes += minutes;
-    }
-    else {
+    } else {
       thisMinutes += 60 + minutes;
       hours--;
     }
@@ -440,6 +430,7 @@ public class TimeValue implements Comparable<TimeValue> {
 
   /**
    * Returns the reverse of the time.
+   *
    * @return The reverse.
    */
   public TimeValue reverse() {

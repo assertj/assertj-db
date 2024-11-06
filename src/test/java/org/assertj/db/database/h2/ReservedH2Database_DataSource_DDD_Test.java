@@ -67,33 +67,33 @@ public class ReservedH2Database_DataSource_DDD_Test extends AbstractReservedH2Te
     changes2.setEndPointNow();
 
     assertThat(table1)
-            .column().hasColumnName("read")
-            .column().hasColumnName("by")
-            .column().hasColumnName("select")
-            .column().hasColumnName("from")
-            .column().hasColumnName("where")
-            .column().hasColumnName("order")
+      .column().hasColumnName("read")
+      .column().hasColumnName("by")
+      .column().hasColumnName("select")
+      .column().hasColumnName("from")
+      .column().hasColumnName("where")
+      .column().hasColumnName("order")
     ;
 
     assertThat(changes1).change()
-            .column().hasColumnName("read")
-            .column().hasColumnName("by")
-            .column().hasColumnName("select")
-            .column().hasColumnName("from")
-            .column().hasColumnName("where")
-            .column().hasColumnName("order")
+      .column().hasColumnName("read")
+      .column().hasColumnName("by")
+      .column().hasColumnName("select")
+      .column().hasColumnName("from")
+      .column().hasColumnName("where")
+      .column().hasColumnName("order")
     ;
 
     assertThat(table2)
-            .column().hasColumnName("primary key")
-            .column().hasColumnName("column name")
-            .column().hasColumnName("test%test")
+      .column().hasColumnName("primary key")
+      .column().hasColumnName("column name")
+      .column().hasColumnName("test%test")
     ;
 
     assertThat(changes2).change()
-            .column().hasColumnName("primary key")
-            .column().hasColumnName("column name")
-            .column().hasColumnName("test%test")
+      .column().hasColumnName("primary key")
+      .column().hasColumnName("column name")
+      .column().hasColumnName("test%test")
     ;
   }
 
@@ -101,13 +101,13 @@ public class ReservedH2Database_DataSource_DDD_Test extends AbstractReservedH2Te
   @NeedReload
   public void test_ColumnName_hasColumnName_with_columns_to_check() {
     Table table1 = new Table(dataSource, "group", '`', '`')
-                      .setColumnsToCheck(new String[] {
-                          "read", "by", "select", "from" 
-                      });
+      .setColumnsToCheck(new String[]{
+        "read", "by", "select", "from"
+      });
     Table table2 = new Table(dataSource, "two words", '`', '`')
-                      .setColumnsToCheck(new String[] {
-                          "primary key", "column name", "test%test" 
-                      });
+      .setColumnsToCheck(new String[]{
+        "primary key", "column name", "test%test"
+      });
     Changes changes1 = new Changes(table1).setStartPointNow();
     Changes changes2 = new Changes(table2).setStartPointNow();
     update();
@@ -115,29 +115,29 @@ public class ReservedH2Database_DataSource_DDD_Test extends AbstractReservedH2Te
     changes2.setEndPointNow();
 
     assertThat(table1)
-            .column().hasColumnName("read")
-            .column().hasColumnName("by")
-            .column().hasColumnName("select")
-            .column().hasColumnName("from")
+      .column().hasColumnName("read")
+      .column().hasColumnName("by")
+      .column().hasColumnName("select")
+      .column().hasColumnName("from")
     ;
 
     assertThat(changes1).change()
-            .column().hasColumnName("read")
-            .column().hasColumnName("by")
-            .column().hasColumnName("select")
-            .column().hasColumnName("from")
+      .column().hasColumnName("read")
+      .column().hasColumnName("by")
+      .column().hasColumnName("select")
+      .column().hasColumnName("from")
     ;
 
     assertThat(table2)
-            .column().hasColumnName("primary key")
-            .column().hasColumnName("column name")
-            .column().hasColumnName("test%test")
+      .column().hasColumnName("primary key")
+      .column().hasColumnName("column name")
+      .column().hasColumnName("test%test")
     ;
 
     assertThat(changes2).change()
-            .column().hasColumnName("primary key")
-            .column().hasColumnName("column name")
-            .column().hasColumnName("test%test")
+      .column().hasColumnName("primary key")
+      .column().hasColumnName("column name")
+      .column().hasColumnName("test%test")
     ;
   }
 
@@ -145,13 +145,13 @@ public class ReservedH2Database_DataSource_DDD_Test extends AbstractReservedH2Te
   @NeedReload
   public void test_ColumnName_hasColumnName_with_columns_to_exclude() {
     Table table1 = new Table(dataSource, "group", '`', '`')
-                      .setColumnsToExclude(new String[] {
-                          "read", "by", "from" 
-                      });
+      .setColumnsToExclude(new String[]{
+        "read", "by", "from"
+      });
     Table table2 = new Table(dataSource, "two words", '`', '`')
-                      .setColumnsToExclude(new String[] {
-                          "column name" 
-                      });
+      .setColumnsToExclude(new String[]{
+        "column name"
+      });
     Changes changes1 = new Changes(table1).setStartPointNow();
     Changes changes2 = new Changes(table2).setStartPointNow();
     update();
@@ -159,25 +159,25 @@ public class ReservedH2Database_DataSource_DDD_Test extends AbstractReservedH2Te
     changes2.setEndPointNow();
 
     assertThat(table1)
-            .column().hasColumnName("select")
-            .column().hasColumnName("where")
-            .column().hasColumnName("order")
+      .column().hasColumnName("select")
+      .column().hasColumnName("where")
+      .column().hasColumnName("order")
     ;
 
     assertThat(changes1).change()
-            .column().hasColumnName("select")
-            .column().hasColumnName("where")
-            .column().hasColumnName("order")
+      .column().hasColumnName("select")
+      .column().hasColumnName("where")
+      .column().hasColumnName("order")
     ;
 
     assertThat(table2)
-            .column().hasColumnName("primary key")
-            .column().hasColumnName("test%test")
+      .column().hasColumnName("primary key")
+      .column().hasColumnName("test%test")
     ;
 
     assertThat(changes2).change()
-            .column().hasColumnName("primary key")
-            .column().hasColumnName("test%test")
+      .column().hasColumnName("primary key")
+      .column().hasColumnName("test%test")
     ;
   }
 
@@ -185,13 +185,13 @@ public class ReservedH2Database_DataSource_DDD_Test extends AbstractReservedH2Te
   @NeedReload
   public void test_ColumnName_hasColumnName_with_order() {
     Table table1 = new Table(dataSource, "group", '`', '`')
-                      .setColumnsToOrder(new Order[] {
-                          Order.asc("where")
-                      });
+      .setColumnsToOrder(new Order[]{
+        Order.asc("where")
+      });
     Table table2 = new Table(dataSource, "two words", '`', '`')
-                      .setColumnsToOrder(new Order[] {
-                          Order.asc("primary key")
-                      });
+      .setColumnsToOrder(new Order[]{
+        Order.asc("primary key")
+      });
     Changes changes1 = new Changes(table1).setStartPointNow();
     Changes changes2 = new Changes(table2).setStartPointNow();
     update();
@@ -199,33 +199,33 @@ public class ReservedH2Database_DataSource_DDD_Test extends AbstractReservedH2Te
     changes2.setEndPointNow();
 
     assertThat(table1)
-            .column().hasColumnName("read")
-            .column().hasColumnName("by")
-            .column().hasColumnName("select")
-            .column().hasColumnName("from")
-            .column().hasColumnName("where")
-            .column().hasColumnName("order")
+      .column().hasColumnName("read")
+      .column().hasColumnName("by")
+      .column().hasColumnName("select")
+      .column().hasColumnName("from")
+      .column().hasColumnName("where")
+      .column().hasColumnName("order")
     ;
 
     assertThat(changes1).change()
-            .column().hasColumnName("read")
-            .column().hasColumnName("by")
-            .column().hasColumnName("select")
-            .column().hasColumnName("from")
-            .column().hasColumnName("where")
-            .column().hasColumnName("order")
+      .column().hasColumnName("read")
+      .column().hasColumnName("by")
+      .column().hasColumnName("select")
+      .column().hasColumnName("from")
+      .column().hasColumnName("where")
+      .column().hasColumnName("order")
     ;
 
     assertThat(table2)
-            .column().hasColumnName("primary key")
-            .column().hasColumnName("column name")
-            .column().hasColumnName("test%test")
+      .column().hasColumnName("primary key")
+      .column().hasColumnName("column name")
+      .column().hasColumnName("test%test")
     ;
 
     assertThat(changes2).change()
-            .column().hasColumnName("primary key")
-            .column().hasColumnName("column name")
-            .column().hasColumnName("test%test")
+      .column().hasColumnName("primary key")
+      .column().hasColumnName("column name")
+      .column().hasColumnName("test%test")
     ;
   }
 

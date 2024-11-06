@@ -19,28 +19,27 @@ import org.assertj.core.error.ErrorMessageFactory;
  * Creates an error message indicating that an assertion that verifies the changes size a value failed.
  *
  * @author Régis Pouiller
- *
  */
 public class ShouldHaveChangesSizeGreater extends BasicErrorMessageFactory {
 
   /**
+   * Constructor.
+   *
+   * @param actualSize   the size of {@code actual}.
+   * @param expectedSize the expected size.
+   */
+  private ShouldHaveChangesSizeGreater(int actualSize, int expectedSize) {
+    super("%nExpecting size (number of changes) to be greater than :%n   <%s>%nbut was:%n   <%s>", expectedSize, actualSize);
+  }
+
+  /**
    * Creates a new <code>{@link ShouldHaveChangesSizeGreater}</code>.
    *
-   * @param actualSize the size of {@code actual}.
+   * @param actualSize   the size of {@code actual}.
    * @param expectedSize the expected size.
    * @return the created {@code ErrorMessageFactory}.
    */
   public static ErrorMessageFactory shouldHaveChangesSizeGreater(int actualSize, int expectedSize) {
     return new ShouldHaveChangesSizeGreater(actualSize, expectedSize);
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param actualSize the size of {@code actual}.
-   * @param expectedSize the expected size.
-   */
-  private ShouldHaveChangesSizeGreater(int actualSize, int expectedSize) {
-    super("%nExpecting size (number of changes) to be greater than :%n   <%s>%nbut was:%n   <%s>", expectedSize, actualSize);
   }
 }

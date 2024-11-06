@@ -12,27 +12,34 @@
  */
 package org.assertj.db.navigation;
 
-import org.assertj.core.api.Assertions;
-import org.assertj.db.api.*;
-import org.assertj.db.common.AbstractTest;
-import org.assertj.db.common.NeedReload;
-import org.assertj.db.output.*;
-import org.assertj.db.type.Changes;
-import org.assertj.db.type.Value;
-import org.junit.Test;
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.assertj.db.output.Outputs.output;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.output.Outputs.output;
+import org.assertj.core.api.Assertions;
+import org.assertj.db.api.AbstractAssertWithValues;
+import org.assertj.db.api.ChangeAssert;
+import org.assertj.db.api.ChangeColumnAssert;
+import org.assertj.db.api.ChangeColumnValueAssert;
+import org.assertj.db.api.ChangesAssert;
+import org.assertj.db.common.AbstractTest;
+import org.assertj.db.common.NeedReload;
+import org.assertj.db.output.AbstractOutputterWithValues;
+import org.assertj.db.output.ChangeColumnOutputter;
+import org.assertj.db.output.ChangeColumnValueOutputter;
+import org.assertj.db.output.ChangeOutputter;
+import org.assertj.db.output.ChangesOutputter;
+import org.assertj.db.type.Changes;
+import org.assertj.db.type.Value;
+import org.junit.Test;
 
 /**
  * Tests on {@link org.assertj.db.navigation.ToValueFromColumn} class :
  * {@link org.assertj.db.navigation.ToValueFromColumn#valueAtEndPoint()} method.
  *
  * @author Régis Pouiller
- *
  */
 public class ToValueFromColumn_ValueAtEndPoint_Test extends AbstractTest {
 
@@ -66,8 +73,8 @@ public class ToValueFromColumn_ValueAtEndPoint_Test extends AbstractTest {
     ChangeColumnValueAssert changeCreationRowValueAssertBis = changeColumnCreationAssert.valueAtEndPoint();
     Assertions.assertThat(changeColumnValueCreationAssert).isSameAs(changeCreationRowValueAssertBis);
     Assertions.assertThat(((Value) fieldValueFromColumnAssert.get(changeColumnCreationAssert)).getValue()).isSameAs(
-            ((Value) fieldValueFromValueAssert.get(changeColumnValueCreationAssert)).getValue()).isEqualTo(
-            new BigDecimal("4"));
+      ((Value) fieldValueFromValueAssert.get(changeColumnValueCreationAssert)).getValue()).isEqualTo(
+      new BigDecimal("4"));
 
     ChangeAssert changeModificationAssert = changesAssert.change(3);
     ChangeColumnAssert changeColumnModificationAssert = changeModificationAssert.column();
@@ -78,8 +85,8 @@ public class ToValueFromColumn_ValueAtEndPoint_Test extends AbstractTest {
     ChangeColumnValueAssert changeModificationRowValueAssertBis = changeColumnValueModificationAssert.valueAtEndPoint();
     Assertions.assertThat(changeColumnValueModificationAssert).isSameAs(changeModificationRowValueAssertBis);
     Assertions.assertThat(((Value) fieldValueFromColumnAssert.get(changeColumnModificationAssert)).getValue()).isSameAs(
-            ((Value) fieldValueFromValueAssert.get(changeColumnValueModificationAssert)).getValue()).isEqualTo(
-            new BigDecimal("1"));
+      ((Value) fieldValueFromValueAssert.get(changeColumnValueModificationAssert)).getValue()).isEqualTo(
+      new BigDecimal("1"));
 
     ChangeAssert changeDeletionAssert = changesAssert.change(6);
     ChangeColumnAssert changeColumnDeletionAssert = changeDeletionAssert.column();
@@ -123,8 +130,8 @@ public class ToValueFromColumn_ValueAtEndPoint_Test extends AbstractTest {
     ChangeColumnValueOutputter changeCreationRowValueOutputterBis = changeColumnCreationOutputter.valueAtEndPoint();
     Assertions.assertThat(changeColumnValueCreationOutputter).isSameAs(changeCreationRowValueOutputterBis);
     Assertions.assertThat(((Value) fieldValueFromColumnOutputter.get(changeColumnCreationOutputter)).getValue()).isSameAs(
-            ((Value) fieldValueFromValueOutputter.get(changeColumnValueCreationOutputter)).getValue()).isEqualTo(
-            new BigDecimal("4"));
+      ((Value) fieldValueFromValueOutputter.get(changeColumnValueCreationOutputter)).getValue()).isEqualTo(
+      new BigDecimal("4"));
 
     ChangeOutputter changeModificationOutputter = changesOutputter.change(3);
     ChangeColumnOutputter changeColumnModificationOutputter = changeModificationOutputter.column();
@@ -135,8 +142,8 @@ public class ToValueFromColumn_ValueAtEndPoint_Test extends AbstractTest {
     ChangeColumnValueOutputter changeModificationRowValueOutputterBis = changeColumnValueModificationOutputter.valueAtEndPoint();
     Assertions.assertThat(changeColumnValueModificationOutputter).isSameAs(changeModificationRowValueOutputterBis);
     Assertions.assertThat(((Value) fieldValueFromColumnOutputter.get(changeColumnModificationOutputter)).getValue()).isSameAs(
-            ((Value) fieldValueFromValueOutputter.get(changeColumnValueModificationOutputter)).getValue()).isEqualTo(
-            new BigDecimal("1"));
+      ((Value) fieldValueFromValueOutputter.get(changeColumnValueModificationOutputter)).getValue()).isEqualTo(
+      new BigDecimal("1"));
 
     ChangeOutputter changeDeletionOutputter = changesOutputter.change(6);
     ChangeColumnOutputter changeColumnDeletionOutputter = changeDeletionOutputter.column();

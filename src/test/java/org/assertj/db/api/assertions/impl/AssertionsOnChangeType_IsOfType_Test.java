@@ -12,22 +12,25 @@
  */
 package org.assertj.db.api.assertions.impl;
 
-import org.assertj.core.api.WritableAssertionInfo;
-import org.assertj.db.api.TableAssert;
-import org.assertj.db.common.AbstractTest;
-import org.assertj.db.type.*;
-import org.junit.Test;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
+
+import org.assertj.core.api.WritableAssertionInfo;
+import org.assertj.db.api.TableAssert;
+import org.assertj.db.common.AbstractTest;
+import org.assertj.db.type.Change;
+import org.assertj.db.type.ChangeType;
+import org.assertj.db.type.DataType;
+import org.assertj.db.type.Row;
+import org.assertj.db.type.Table;
+import org.junit.Test;
 
 /**
  * Tests on {@link AssertionsOnChangeType} class :
  * {@link AssertionsOnChangeType#isOfType(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Change, org.assertj.db.type.ChangeType)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnChangeType_IsOfType_Test extends AbstractTest {
 
@@ -63,11 +66,11 @@ public class AssertionsOnChangeType_IsOfType_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                           + "Expecting:%n"
-                                           + "to be of type%n"
-                                           + "  <MODIFICATION>%n"
-                                           + "but was of type%n"
-                                           + "  <CREATION>"));
+        + "Expecting:%n"
+        + "to be of type%n"
+        + "  <MODIFICATION>%n"
+        + "but was of type%n"
+        + "  <CREATION>"));
     }
   }
 }

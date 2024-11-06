@@ -13,7 +13,13 @@
 package org.assertj.db.output.impl;
 
 import org.assertj.core.api.WritableAssertionInfo;
-import org.assertj.db.type.*;
+import org.assertj.db.type.Change;
+import org.assertj.db.type.Changes;
+import org.assertj.db.type.Column;
+import org.assertj.db.type.Request;
+import org.assertj.db.type.Row;
+import org.assertj.db.type.Table;
+import org.assertj.db.type.Value;
 
 /**
  * Interface of the output of a output of assertj-db.
@@ -80,10 +86,10 @@ public interface Output {
   /**
    * Returns the output of a {@code Column} of a {@code Change}.
    *
-   * @param info   Writable information about an assertion.
-   * @param columnName Column name.
+   * @param info              Writable information about an assertion.
+   * @param columnName        Column name.
    * @param valueAtStartPoint Value at start point.
-   * @param valueAtEndPoint Value at end point.
+   * @param valueAtEndPoint   Value at end point.
    * @return The output of a {@code Column} of a {@code Change}.
    */
   String getChangeColumnOutput(WritableAssertionInfo info, String columnName,
@@ -92,8 +98,8 @@ public interface Output {
   /**
    * Returns the output of a value.
    *
-   * @param info       Writable information about an assertion.
-   * @param value      Value.
+   * @param info  Writable information about an assertion.
+   * @param value Value.
    * @return The output of a value.
    */
   String getValueOutput(WritableAssertionInfo info, Value value);

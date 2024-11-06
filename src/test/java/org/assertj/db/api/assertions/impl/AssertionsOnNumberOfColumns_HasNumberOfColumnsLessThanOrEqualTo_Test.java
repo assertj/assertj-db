@@ -12,21 +12,20 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertionsOnNumberOfColumns} class :
  * {@link AssertionsOnNumberOfColumns#hasNumberOfColumnsLessThanOrEqualTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, int, int)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnNumberOfColumns_HasNumberOfColumnsLessThanOrEqualTo_Test {
 
@@ -56,10 +55,10 @@ public class AssertionsOnNumberOfColumns_HasNumberOfColumnsLessThanOrEqualTo_Tes
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting size (number of columns) to be less than or equal to :%n"
-                                                                    + "   <2>%n"
-                                                                    + "but was:%n"
-                                                                    + "   <3>"));
+        + "Expecting size (number of columns) to be less than or equal to :%n"
+        + "   <2>%n"
+        + "but was:%n"
+        + "   <3>"));
     }
   }
 }

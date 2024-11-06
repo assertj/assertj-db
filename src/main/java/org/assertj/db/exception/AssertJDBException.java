@@ -14,9 +14,8 @@ package org.assertj.db.exception;
 
 /**
  * Exception during the assertion (for example : when getting the data in the database, or accessing to file system).
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class AssertJDBException extends RuntimeException {
 
@@ -27,7 +26,7 @@ public class AssertJDBException extends RuntimeException {
 
   /**
    * Constructor of the Exception.
-   * 
+   *
    * @param exception Exception inside this one.
    */
   public AssertJDBException(Exception exception) {
@@ -36,7 +35,7 @@ public class AssertJDBException extends RuntimeException {
 
   /**
    * Constructor of the Exception.
-   * 
+   *
    * @param message Message of the exception
    * @param objects Parameters of the message
    */

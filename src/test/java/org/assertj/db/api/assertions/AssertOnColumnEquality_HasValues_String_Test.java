@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api.assertions;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.TableColumnAssert;
 import org.assertj.db.common.AbstractTest;
@@ -19,15 +22,11 @@ import org.assertj.db.common.NeedReload;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertOnColumnEquality} class :
  * {@link org.assertj.db.api.assertions.AssertOnColumnEquality#hasValues(String...)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertOnColumnEquality_HasValues_String_Test extends AbstractTest {
 
@@ -97,8 +96,8 @@ public class AssertOnColumnEquality_HasValues_String_Test extends AbstractTest {
 
     TableColumnAssert tableColumnAssert15 = assertThat(table).column("var12");
     TableColumnAssert tableColumnAssertReturn15 = tableColumnAssert15.hasValues("text", "another text",
-                                                                                "another text again",
-                                                                                "another text again");
+      "another text again",
+      "another text again");
     Assertions.assertThat(tableColumnAssert15).isSameAs(tableColumnAssertReturn15);
 
     TableColumnAssert tableColumnAssert16 = assertThat(table2).column("var12");
@@ -107,9 +106,9 @@ public class AssertOnColumnEquality_HasValues_String_Test extends AbstractTest {
 
     TableColumnAssert tableColumnAssert20 = assertThat(table).column("var8");
     TableColumnAssert tableColumnAssertReturn20 = tableColumnAssert20.hasValues("09:46:30",
-                                                                                "12:29:49",
-                                                                                "12:29:49",
-                                                                                "12:29:49");
+      "12:29:49",
+      "12:29:49",
+      "12:29:49");
     Assertions.assertThat(tableColumnAssert20).isSameAs(tableColumnAssertReturn20);
 
     TableColumnAssert tableColumnAssert21 = assertThat(table2).column("var8");
@@ -118,52 +117,52 @@ public class AssertOnColumnEquality_HasValues_String_Test extends AbstractTest {
 
     TableColumnAssert tableColumnAssert22 = assertThat(table).column("var10");
     TableColumnAssert tableColumnAssertReturn22 = tableColumnAssert22.hasValues(
-            "2014-05-24T09:46:30",
-            "2014-05-30T12:29:49",
-            "2014-05-30T00:00:00",
-            "2014-05-30T00:00:00");
+      "2014-05-24T09:46:30",
+      "2014-05-30T12:29:49",
+      "2014-05-30T00:00:00",
+      "2014-05-30T00:00:00");
     Assertions.assertThat(tableColumnAssert22).isSameAs(tableColumnAssertReturn22);
 
     TableColumnAssert tableColumnAssert23 = assertThat(table2).column("var10");
     TableColumnAssert tableColumnAssertReturn23 = tableColumnAssert23.hasValues("2014-05-24T09:46:30",
-                                                                                null);
+      null);
     Assertions.assertThat(tableColumnAssert23).isSameAs(tableColumnAssertReturn23);
 
     TableColumnAssert tableColumnAssert24 = assertThat(table).column("var9");
     TableColumnAssert tableColumnAssertReturn24 = tableColumnAssert24.hasValues("2014-05-24T00:00:00",
-                                                                                "2014-05-30T00:00:00",
-                                                                                "2014-05-30T00:00:00",
-                                                                                "2014-05-30T00:00:00");
+      "2014-05-30T00:00:00",
+      "2014-05-30T00:00:00",
+      "2014-05-30T00:00:00");
     Assertions.assertThat(tableColumnAssert24).isSameAs(tableColumnAssertReturn24);
 
     TableColumnAssert tableColumnAssert25 = assertThat(table2).column("var9");
     TableColumnAssert tableColumnAssertReturn25 = tableColumnAssert25.hasValues("2014-05-24T00:00:00",
-                                                                                null);
+      null);
     Assertions.assertThat(tableColumnAssert25).isSameAs(tableColumnAssertReturn25);
 
     TableColumnAssert tableColumnAssert17 = assertThat(table).column("var9");
     TableColumnAssert tableColumnAssertReturn17 = tableColumnAssert17.hasValues(
-            "2014-05-24",
-            "2014-05-30",
-            "2014-05-30",
-            "2014-05-30");
+      "2014-05-24",
+      "2014-05-30",
+      "2014-05-30",
+      "2014-05-30");
     Assertions.assertThat(tableColumnAssert17).isSameAs(tableColumnAssertReturn17);
 
     TableColumnAssert tableColumnAssert18 = assertThat(table2).column("var9");
     TableColumnAssert tableColumnAssertReturn18 = tableColumnAssert18.hasValues("2014-05-24",
-                                                                                null);
+      null);
     Assertions.assertThat(tableColumnAssert18).isSameAs(tableColumnAssertReturn18);
 
     update("update test2 set var10 = '2014-05-24' where var1 = 1");
     table2 = new Table(source, "test2");
     TableColumnAssert tableColumnAssert19 = assertThat(table2).column("var10");
     TableColumnAssert tableColumnAssertReturn19 = tableColumnAssert19.hasValues("2014-05-24",
-                                                                                null);
+      null);
     Assertions.assertThat(tableColumnAssert19).isSameAs(tableColumnAssertReturn19);
 
     TableColumnAssert tableColumnAssert99 = assertThat(table2).column("var16");
     TableColumnAssert tableColumnAssertReturn99 = tableColumnAssert99.hasValues("30b443ae-c0c9-4790-9bec-ce1380808435",
-                                                                                null);
+      null);
     Assertions.assertThat(tableColumnAssert99).isSameAs(tableColumnAssertReturn99);
   }
 
@@ -179,10 +178,10 @@ public class AssertOnColumnEquality_HasValues_String_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 2 (column name : VAR3) of TEST table] %n"
-                                                      + "Expecting that the value at index 2:%n"
-                                                      + "  <\"25\">%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"35\">"));
+        + "Expecting that the value at index 2:%n"
+        + "  <\"25\">%n"
+        + "to be equal to: %n"
+        + "  <\"35\">"));
     }
     Table table2 = new Table(source, "test2");
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var3");
@@ -191,10 +190,10 @@ public class AssertOnColumnEquality_HasValues_String_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 2 (column name : VAR3) of TEST2 table] %n"
-                                                      + "Expecting that the value at index 1:%n"
-                                                      + "  <null>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"2\">"));
+        + "Expecting that the value at index 1:%n"
+        + "  <null>%n"
+        + "to be equal to: %n"
+        + "  <\"2\">"));
     }
 
     TableColumnAssert tableColumnAssert3 = assertThat(table).column("var4");
@@ -203,10 +202,10 @@ public class AssertOnColumnEquality_HasValues_String_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 3 (column name : VAR4) of TEST table] %n"
-                                                      + "Expecting that the value at index 1:%n"
-                                                      + "  <\"30\">%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"35\">"));
+        + "Expecting that the value at index 1:%n"
+        + "  <\"30\">%n"
+        + "to be equal to: %n"
+        + "  <\"35\">"));
     }
 
     TableColumnAssert tableColumnAssert4 = assertThat(table2).column("var4");
@@ -215,10 +214,10 @@ public class AssertOnColumnEquality_HasValues_String_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 3 (column name : VAR4) of TEST2 table] %n"
-                                                      + "Expecting that the value at index 1:%n"
-                                                      + "  <null>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"3\">"));
+        + "Expecting that the value at index 1:%n"
+        + "  <null>%n"
+        + "to be equal to: %n"
+        + "  <\"3\">"));
     }
 
     TableColumnAssert tableColumnAssert5 = assertThat(table).column("var5");
@@ -227,10 +226,10 @@ public class AssertOnColumnEquality_HasValues_String_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 4 (column name : VAR5) of TEST table] %n"
-                                                      + "Expecting that the value at index 1:%n"
-                                                      + "  <\"40\">%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"45\">"));
+        + "Expecting that the value at index 1:%n"
+        + "  <\"40\">%n"
+        + "to be equal to: %n"
+        + "  <\"45\">"));
     }
 
     TableColumnAssert tableColumnAssert6 = assertThat(table2).column("var5");
@@ -239,10 +238,10 @@ public class AssertOnColumnEquality_HasValues_String_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 4 (column name : VAR5) of TEST2 table] %n"
-                                                      + "Expecting that the value at index 1:%n"
-                                                      + "  <null>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"4\">"));
+        + "Expecting that the value at index 1:%n"
+        + "  <null>%n"
+        + "to be equal to: %n"
+        + "  <\"4\">"));
     }
 
     TableColumnAssert tableColumnAssert7 = assertThat(table).column("var6");
@@ -251,10 +250,10 @@ public class AssertOnColumnEquality_HasValues_String_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 5 (column name : VAR6) of TEST table] %n"
-                                                      + "Expecting that the value at index 1:%n"
-                                                      + "  <\"50.60\">%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"55.6\">"));
+        + "Expecting that the value at index 1:%n"
+        + "  <\"50.60\">%n"
+        + "to be equal to: %n"
+        + "  <\"55.6\">"));
     }
 
     TableColumnAssert tableColumnAssert8 = assertThat(table2).column("var6");
@@ -263,10 +262,10 @@ public class AssertOnColumnEquality_HasValues_String_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 5 (column name : VAR6) of TEST2 table] %n"
-                                                      + "Expecting that the value at index 1:%n"
-                                                      + "  <null>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"5.6\">"));
+        + "Expecting that the value at index 1:%n"
+        + "  <null>%n"
+        + "to be equal to: %n"
+        + "  <\"5.6\">"));
     }
 
     TableColumnAssert tableColumnAssert9 = assertThat(table).column("var7");
@@ -275,10 +274,10 @@ public class AssertOnColumnEquality_HasValues_String_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 6 (column name : VAR7) of TEST table] %n"
-                                                      + "Expecting that the value at index 1:%n"
-                                                      + "  <\"70.8\">%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"75.8\">"));
+        + "Expecting that the value at index 1:%n"
+        + "  <\"70.8\">%n"
+        + "to be equal to: %n"
+        + "  <\"75.8\">"));
     }
 
     TableColumnAssert tableColumnAssert10 = assertThat(table2).column("var7");
@@ -287,10 +286,10 @@ public class AssertOnColumnEquality_HasValues_String_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 6 (column name : VAR7) of TEST2 table] %n"
-                                                      + "Expecting that the value at index 1:%n"
-                                                      + "  <null>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"7.8\">"));
+        + "Expecting that the value at index 1:%n"
+        + "  <null>%n"
+        + "to be equal to: %n"
+        + "  <\"7.8\">"));
     }
 
     TableColumnAssert tableColumnAssert11 = assertThat(table).column("var13");
@@ -299,10 +298,10 @@ public class AssertOnColumnEquality_HasValues_String_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 12 (column name : VAR13) of TEST table] %n"
-                                                      + "Expecting that the value at index 2:%n"
-                                                      + "  <\"500.00\">%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"505\">"));
+        + "Expecting that the value at index 2:%n"
+        + "  <\"500.00\">%n"
+        + "to be equal to: %n"
+        + "  <\"505\">"));
     }
 
     TableColumnAssert tableColumnAssert12 = assertThat(table2).column("var13");
@@ -311,10 +310,10 @@ public class AssertOnColumnEquality_HasValues_String_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 12 (column name : VAR13) of TEST2 table] %n"
-                                                      + "Expecting that the value at index 1:%n"
-                                                      + "  <null>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"5\">"));
+        + "Expecting that the value at index 1:%n"
+        + "  <null>%n"
+        + "to be equal to: %n"
+        + "  <\"5\">"));
     }
 
     TableColumnAssert tableColumnAssert13 = assertThat(table).column("var14");
@@ -323,10 +322,10 @@ public class AssertOnColumnEquality_HasValues_String_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 13 (column name : VAR14) of TEST table] %n"
-                                                      + "Expecting that the value at index 2:%n"
-                                                      + "  <\"700.0\">%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"750\">"));
+        + "Expecting that the value at index 2:%n"
+        + "  <\"700.0\">%n"
+        + "to be equal to: %n"
+        + "  <\"750\">"));
     }
 
     TableColumnAssert tableColumnAssert14 = assertThat(table2).column("var14");
@@ -335,10 +334,10 @@ public class AssertOnColumnEquality_HasValues_String_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 13 (column name : VAR14) of TEST2 table] %n"
-                                                      + "Expecting that the value at index 1:%n"
-                                                      + "  <null>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"7\">"));
+        + "Expecting that the value at index 1:%n"
+        + "  <null>%n"
+        + "to be equal to: %n"
+        + "  <\"7\">"));
     }
 
     TableColumnAssert tableColumnAssert15 = assertThat(table).column("var12");
@@ -347,10 +346,10 @@ public class AssertOnColumnEquality_HasValues_String_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 11 (column name : VAR12) of TEST table] %n"
-                                                      + "Expecting that the value at index 2:%n"
-                                                      + "  <\"another text again\">%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"another text\">"));
+        + "Expecting that the value at index 2:%n"
+        + "  <\"another text again\">%n"
+        + "to be equal to: %n"
+        + "  <\"another text\">"));
     }
 
     TableColumnAssert tableColumnAssert16 = assertThat(table2).column("var12");
@@ -359,152 +358,152 @@ public class AssertOnColumnEquality_HasValues_String_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 11 (column name : VAR12) of TEST2 table] %n"
-                                                      + "Expecting that the value at index 1:%n"
-                                                      + "  <null>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"text\">"));
+        + "Expecting that the value at index 1:%n"
+        + "  <null>%n"
+        + "to be equal to: %n"
+        + "  <\"text\">"));
     }
     TableColumnAssert tableColumnAssert17 = assertThat(table).column("var9");
     try {
       tableColumnAssert17.hasValues("2014-05-24",
-                                    "2014-05-29",
-                                    "2014-05-30",
-                                    "2014-05-30");
+        "2014-05-29",
+        "2014-05-30",
+        "2014-05-30");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 8 (column name : VAR9) of TEST table] %n"
-                                                      + "Expecting that the value at index 1:%n"
-                                                      + "  <\"2014-05-30\">%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"2014-05-29\">"));
+        + "Expecting that the value at index 1:%n"
+        + "  <\"2014-05-30\">%n"
+        + "to be equal to: %n"
+        + "  <\"2014-05-29\">"));
     }
     TableColumnAssert tableColumnAssert18 = assertThat(table2).column("var9");
     try {
       tableColumnAssert18.hasValues("2014-05-24",
-                                    "2014-05-24");
+        "2014-05-24");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 8 (column name : VAR9) of TEST2 table] %n"
-                                                      + "Expecting that the value at index 1:%n"
-                                                      + "  <null>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"2014-05-24\">"));
+        + "Expecting that the value at index 1:%n"
+        + "  <null>%n"
+        + "to be equal to: %n"
+        + "  <\"2014-05-24\">"));
     }
     TableColumnAssert tableColumnAssert19 = assertThat(table2).column("var10");
     try {
       tableColumnAssert19.hasValues("2014-05-23",
-                                    null);
+        null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 9 (column name : VAR10) of TEST2 table] %n"
-                                                      + "Expecting that the value at index 0:%n"
-                                                      + "  <\"2014-05-24T09:46:30.000000000\">%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"2014-05-23\">"));
+        + "Expecting that the value at index 0:%n"
+        + "  <\"2014-05-24T09:46:30.000000000\">%n"
+        + "to be equal to: %n"
+        + "  <\"2014-05-23\">"));
     }
     TableColumnAssert tableColumnAssert20 = assertThat(table).column("var8");
     try {
       tableColumnAssert20.hasValues("12:29:49",
-                                    "12:29:49",
-                                    "12:29:49",
-                                    "12:29:49");
+        "12:29:49",
+        "12:29:49",
+        "12:29:49");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 7 (column name : VAR8) of TEST table] %n"
-                                                      + "Expecting that the value at index 0:%n"
-                                                      + "  <\"09:46:30.000000000\">%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"12:29:49\">"));
+        + "Expecting that the value at index 0:%n"
+        + "  <\"09:46:30.000000000\">%n"
+        + "to be equal to: %n"
+        + "  <\"12:29:49\">"));
     }
     TableColumnAssert tableColumnAssert21 = assertThat(table2).column("var8");
     try {
       tableColumnAssert21.hasValues("09:46:30",
-                                    "12:29:49");
+        "12:29:49");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 7 (column name : VAR8) of TEST2 table] %n"
-                                                      + "Expecting that the value at index 1:%n"
-                                                      + "  <null>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"12:29:49\">"));
+        + "Expecting that the value at index 1:%n"
+        + "  <null>%n"
+        + "to be equal to: %n"
+        + "  <\"12:29:49\">"));
     }
     TableColumnAssert tableColumnAssert22 = assertThat(table).column("var10");
     try {
       tableColumnAssert22.hasValues("2014-05-24T09:46:30",
-                                    "2014-05-30T13:29:49",
-                                    "2014-05-30T00:00:00",
-                                    "2014-05-30T00:00:00");
-                                           fail("An exception must be raised");
+        "2014-05-30T13:29:49",
+        "2014-05-30T00:00:00",
+        "2014-05-30T00:00:00");
+      fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 9 (column name : VAR10) of TEST table] %n"
-                                                      + "Expecting that the value at index 1:%n"
-                                                      + "  <\"2014-05-30T12:29:49.000000000\">%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"2014-05-30T13:29:49\">"));
+        + "Expecting that the value at index 1:%n"
+        + "  <\"2014-05-30T12:29:49.000000000\">%n"
+        + "to be equal to: %n"
+        + "  <\"2014-05-30T13:29:49\">"));
     }
     TableColumnAssert tableColumnAssert23 = assertThat(table2).column("var10");
     try {
       tableColumnAssert23.hasValues("2014-05-24T09:46:30",
-                                    "2014-05-24T09:46:30");
-                                           fail("An exception must be raised");
+        "2014-05-24T09:46:30");
+      fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 9 (column name : VAR10) of TEST2 table] %n"
-                                                      + "Expecting that the value at index 1:%n"
-                                                      + "  <null>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"2014-05-24T09:46:30\">"));
+        + "Expecting that the value at index 1:%n"
+        + "  <null>%n"
+        + "to be equal to: %n"
+        + "  <\"2014-05-24T09:46:30\">"));
     }
     TableColumnAssert tableColumnAssert24 = assertThat(table).column("var9");
     try {
       tableColumnAssert24.hasValues("2014-05-24T00:00:00",
-                                    "2014-05-24T00:00:00",
-                                    "2014-05-30T00:00:00",
-                                    "2014-05-30T00:00:00");
+        "2014-05-24T00:00:00",
+        "2014-05-30T00:00:00",
+        "2014-05-30T00:00:00");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 8 (column name : VAR9) of TEST table] %n"
-                                                      + "Expecting that the value at index 1:%n"
-                                                      + "  <\"2014-05-30T00:00:00.000000000\">%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"2014-05-24T00:00:00\">"));
+        + "Expecting that the value at index 1:%n"
+        + "  <\"2014-05-30T00:00:00.000000000\">%n"
+        + "to be equal to: %n"
+        + "  <\"2014-05-24T00:00:00\">"));
     }
     TableColumnAssert tableColumnAssert25 = assertThat(table2).column("var9");
     try {
       tableColumnAssert25.hasValues("2014-05-24T00:00:00",
-                                    "2014-05-24T00:00:00");
-                                           fail("An exception must be raised");
+        "2014-05-24T00:00:00");
+      fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 8 (column name : VAR9) of TEST2 table] %n"
-                                                      + "Expecting that the value at index 1:%n"
-                                                      + "  <null>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"2014-05-24T00:00:00\">"));
+        + "Expecting that the value at index 1:%n"
+        + "  <null>%n"
+        + "to be equal to: %n"
+        + "  <\"2014-05-24T00:00:00\">"));
     }
 
     TableColumnAssert tableColumnAssert26 = assertThat(table2).column("var16");
     try {
       tableColumnAssert26.hasValues("30B443AE-C0C9-4790-9BEC-CE1380808435",
-                                    "30B443AE-C0C9-4790-9BEC-CE1380808435");
+        "30B443AE-C0C9-4790-9BEC-CE1380808435");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 15 (column name : VAR16) of TEST2 table] %n"
-                                                                    + "Expecting that the value at index 1:%n"
-                                                                    + "  <null>%n"
-                                                                    + "to be equal to: %n"
-                                                                    + "  <\"30B443AE-C0C9-4790-9BEC-CE1380808435\">"));
+        + "Expecting that the value at index 1:%n"
+        + "  <null>%n"
+        + "to be equal to: %n"
+        + "  <\"30B443AE-C0C9-4790-9BEC-CE1380808435\">"));
     }
 
     TableColumnAssert tableColumnAssert27 = assertThat(table2).column("var16");
     try {
       tableColumnAssert27.hasValues("88838129-291E-40A9-A94C-A15BE36CF7C3",
-                                    "30B443AE-C0C9-4790-9BEC-CE1380808435");
+        "30B443AE-C0C9-4790-9BEC-CE1380808435");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 15 (column name : VAR16) of TEST2 table] %n"
-                                                                    + "Expecting that the value at index 0:%n"
-                                                                    + "  <\"30b443ae-c0c9-4790-9bec-ce1380808435\">%n"
-                                                                    + "to be equal to: %n"
-                                                                    + "  <\"88838129-291E-40A9-A94C-A15BE36CF7C3\">"));
+        + "Expecting that the value at index 0:%n"
+        + "  <\"30b443ae-c0c9-4790-9bec-ce1380808435\">%n"
+        + "to be equal to: %n"
+        + "  <\"88838129-291E-40A9-A94C-A15BE36CF7C3\">"));
     }
   }
 }

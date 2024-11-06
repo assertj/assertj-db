@@ -26,7 +26,6 @@ import org.junit.Test;
  * {@link org.assertj.db.api.assertions.AssertOnColumnEquality#hasValues(Character...)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertOnColumnEquality_HasValues_Character_Test extends AbstractTest {
 
@@ -58,10 +57,10 @@ public class AssertOnColumnEquality_HasValues_Character_Test extends AbstractTes
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 15 (column name : VAR16) of TEST table] %n"
-                                                      + "Expecting that the value at index 0:%n"
-                                                      + "  <\"T\">%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <'t'>"));
+        + "Expecting that the value at index 0:%n"
+        + "  <\"T\">%n"
+        + "to be equal to: %n"
+        + "  <'t'>"));
     }
     Table table2 = new Table(source, "test2");
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var17");
@@ -70,10 +69,10 @@ public class AssertOnColumnEquality_HasValues_Character_Test extends AbstractTes
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 16 (column name : VAR17) of TEST2 table] %n"
-                                                      + "Expecting that the value at index 1:%n"
-                                                      + "  <null>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <'T'>"));
+        + "Expecting that the value at index 1:%n"
+        + "  <null>%n"
+        + "to be equal to: %n"
+        + "  <'T'>"));
     }
   }
 }

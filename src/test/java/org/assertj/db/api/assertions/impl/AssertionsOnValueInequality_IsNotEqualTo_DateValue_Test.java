@@ -12,6 +12,12 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -20,18 +26,11 @@ import org.assertj.db.type.DateValue;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertionsOnValueInequality} class :
  * {@link AssertionsOnValueInequality#isNotEqualTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, org.assertj.db.type.DateValue)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnValueInequality_IsNotEqualTo_DateValue_Test extends AbstractTest {
 
@@ -44,20 +43,20 @@ public class AssertionsOnValueInequality_IsNotEqualTo_DateValue_Test extends Abs
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
-                                                                         getValue(null, Date.valueOf("2007-12-24")),
-                                                                         DateValue.of(2007, 12, 23));
+      getValue(null, Date.valueOf("2007-12-24")),
+      DateValue.of(2007, 12, 23));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
-                                                             getValue(null, Timestamp.valueOf("2007-12-23 00:00:05")),
-                                                             DateValue.of(2007, 12, 23));
+      getValue(null, Timestamp.valueOf("2007-12-23 00:00:05")),
+      DateValue.of(2007, 12, 23));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
-                                                             getValue(null, Date.valueOf("2007-12-24")),
-                                                             (DateValue) null);
+      getValue(null, Date.valueOf("2007-12-24")),
+      (DateValue) null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
-                                                             getValue(null, Timestamp.valueOf("2007-12-23 00:00:05")),
-                                                             (DateValue) null);
+      getValue(null, Timestamp.valueOf("2007-12-23 00:00:05")),
+      (DateValue) null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -72,37 +71,37 @@ public class AssertionsOnValueInequality_IsNotEqualTo_DateValue_Test extends Abs
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
-                                                getValue(null, Date.valueOf("2007-12-23")),
-                                                DateValue.of(2007, 12, 23));
+        getValue(null, Date.valueOf("2007-12-23")),
+        DateValue.of(2007, 12, 23));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <2007-12-23>%n"
-                                                      + "not to be equal to: %n"
-                                                      + "  <2007-12-23>"));
+        + "Expecting:%n"
+        + "  <2007-12-23>%n"
+        + "not to be equal to: %n"
+        + "  <2007-12-23>"));
     }
     try {
       AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
-                                                getValue(null, Timestamp.valueOf("2007-12-23 00:00:00")),
-                                                DateValue.of(2007, 12, 23));
+        getValue(null, Timestamp.valueOf("2007-12-23 00:00:00")),
+        DateValue.of(2007, 12, 23));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <2007-12-23T00:00:00.000000000>%n"
-                                                      + "not to be equal to: %n"
-                                                      + "  <2007-12-23T00:00:00.000000000>"));
+        + "Expecting:%n"
+        + "  <2007-12-23T00:00:00.000000000>%n"
+        + "not to be equal to: %n"
+        + "  <2007-12-23T00:00:00.000000000>"));
     }
     try {
       AssertionsOnValueInequality.isNotEqualTo(tableAssert, info, getValue(null, null), (DateValue) null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <null>%n"
-                                                                    + "not to be equal to: %n"
-                                                                    + "  <null>"));
+        + "Expecting:%n"
+        + "  <null>%n"
+        + "not to be equal to: %n"
+        + "  <null>"));
     }
   }
 
@@ -120,12 +119,12 @@ public class AssertionsOnValueInequality_IsNotEqualTo_DateValue_Test extends Abs
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <8>%n"
-                                                      + "to be of type%n"
-                                                      + "  <[DATE, DATE_TIME]>%n"
-                                                      + "but was of type%n"
-                                                      + "  <NUMBER>"));
+        + "Expecting:%n"
+        + "  <8>%n"
+        + "to be of type%n"
+        + "  <[DATE, DATE_TIME]>%n"
+        + "but was of type%n"
+        + "  <NUMBER>"));
     }
   }
 }

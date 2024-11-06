@@ -19,10 +19,9 @@ import org.assertj.db.type.Request;
  * Output methods for a {@link org.assertj.db.type.Request}.
  *
  * @author Régis Pouiller
- *
  */
 public class RequestOutputter extends
-        AbstractDbOutputter<Request, RequestOutputter, RequestColumnOutputter, RequestColumnValueOutputter, RequestRowOutputter, RequestRowValueOutputter> {
+  AbstractDbOutputter<Request, RequestOutputter, RequestColumnOutputter, RequestColumnValueOutputter, RequestRowOutputter, RequestRowValueOutputter> {
 
   /**
    * Constructor.

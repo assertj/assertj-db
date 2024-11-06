@@ -12,6 +12,14 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -20,20 +28,11 @@ import org.assertj.db.type.Table;
 import org.assertj.db.type.Value;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link org.assertj.db.api.assertions.impl.AssertionsOnColumnContent} class :
  * {@link org.assertj.db.api.assertions.impl.AssertionsOnColumnContent#containsValues(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, java.util.List, UUID...)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnColumnContent_ContainsValues_UUID_Test extends AbstractTest {
 
@@ -46,27 +45,27 @@ public class AssertionsOnColumnContent_ContainsValues_UUID_Test extends Abstract
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     List<Value> list = new ArrayList<>(Arrays.asList(
-            getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")),
-            getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")),
-            getValue(null, UUID.fromString("0E2A1269-EFF0-4233-B87B-B53E8B6F164D")),
-            getValue(null, null)));
+      getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")),
+      getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")),
+      getValue(null, UUID.fromString("0E2A1269-EFF0-4233-B87B-B53E8B6F164D")),
+      getValue(null, null)));
     TableAssert tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list,
-                                                                        UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"),
-                                                                        UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"),
-                                                                        UUID.fromString("0E2A1269-EFF0-4233-B87B-B53E8B6F164D"),
-                                                                        null);
+      UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"),
+      UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"),
+      UUID.fromString("0E2A1269-EFF0-4233-B87B-B53E8B6F164D"),
+      null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list,
-                                                            null,
-                                                            UUID.fromString("0E2A1269-EFF0-4233-B87B-B53E8B6F164D"),
-                                                            UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"),
-                                                            UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
+      null,
+      UUID.fromString("0E2A1269-EFF0-4233-B87B-B53E8B6F164D"),
+      UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"),
+      UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list,
-                                                            UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"),
-                                                            UUID.fromString("0E2A1269-EFF0-4233-B87B-B53E8B6F164D"),
-                                                            UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"),
-                                                            null);
+      UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"),
+      UUID.fromString("0E2A1269-EFF0-4233-B87B-B53E8B6F164D"),
+      UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"),
+      null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -80,51 +79,51 @@ public class AssertionsOnColumnContent_ContainsValues_UUID_Test extends Abstract
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     List<Value> list = new ArrayList<>(Arrays.asList(
-            getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")),
-            getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")),
-            getValue(null, UUID.fromString("0E2A1269-EFF0-4233-B87B-B53E8B6F164D")),
-            getValue(null, null)));
+      getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")),
+      getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")),
+      getValue(null, UUID.fromString("0E2A1269-EFF0-4233-B87B-B53E8B6F164D")),
+      getValue(null, null)));
     try {
       AssertionsOnColumnContent.containsValues(tableAssert, info, list,
-                                               UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"),
-                                               UUID.fromString("0E2A1269-EFF0-4233-B87B-B53E8B6F164D"),
-                                               UUID.fromString("0E2A1269-EFF0-4233-B87B-B53E8B6F164D"),
-                                               null);
+        UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"),
+        UUID.fromString("0E2A1269-EFF0-4233-B87B-B53E8B6F164D"),
+        UUID.fromString("0E2A1269-EFF0-4233-B87B-B53E8B6F164D"),
+        null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <[30b443ae-c0c9-4790-9bec-ce1380808435,%n"
-                                                                    + "    30b443ae-c0c9-4790-9bec-ce1380808435,%n"
-                                                                    + "    0e2a1269-eff0-4233-b87b-b53e8b6f164d,%n"
-                                                                    + "    null]>%n"
-                                                                    + "to contain: %n"
-                                                                    + "  <[30b443ae-c0c9-4790-9bec-ce1380808435,%n"
-                                                                    + "    0e2a1269-eff0-4233-b87b-b53e8b6f164d,%n"
-                                                                    + "    0e2a1269-eff0-4233-b87b-b53e8b6f164d,%n"
-                                                                    + "    null]>%n"
-                                                                    + " (parameter <0e2a1269-eff0-4233-b87b-b53e8b6f164d> at index 2 is not found)"));
+        + "Expecting:%n"
+        + "  <[30b443ae-c0c9-4790-9bec-ce1380808435,%n"
+        + "    30b443ae-c0c9-4790-9bec-ce1380808435,%n"
+        + "    0e2a1269-eff0-4233-b87b-b53e8b6f164d,%n"
+        + "    null]>%n"
+        + "to contain: %n"
+        + "  <[30b443ae-c0c9-4790-9bec-ce1380808435,%n"
+        + "    0e2a1269-eff0-4233-b87b-b53e8b6f164d,%n"
+        + "    0e2a1269-eff0-4233-b87b-b53e8b6f164d,%n"
+        + "    null]>%n"
+        + " (parameter <0e2a1269-eff0-4233-b87b-b53e8b6f164d> at index 2 is not found)"));
     }
     try {
       AssertionsOnColumnContent.containsValues(tableAssert, info, list,
-                                               null,
-                                               UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"),
-                                               UUID.fromString("0E2A1269-EFF0-4233-B87B-B53E8B6F164D"),
-                                               null);
+        null,
+        UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"),
+        UUID.fromString("0E2A1269-EFF0-4233-B87B-B53E8B6F164D"),
+        null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <[30b443ae-c0c9-4790-9bec-ce1380808435,%n"
-                                                                    + "    30b443ae-c0c9-4790-9bec-ce1380808435,%n"
-                                                                    + "    0e2a1269-eff0-4233-b87b-b53e8b6f164d,%n"
-                                                                    + "    null]>%n"
-                                                                    + "to contain: %n"
-                                                                    + "  <[null,%n"
-                                                                    + "    30b443ae-c0c9-4790-9bec-ce1380808435,%n"
-                                                                    + "    0e2a1269-eff0-4233-b87b-b53e8b6f164d,%n"
-                                                                    + "    null]>%n"
-                                                                    + " (parameter <null> at index 3 is not found)"));
+        + "Expecting:%n"
+        + "  <[30b443ae-c0c9-4790-9bec-ce1380808435,%n"
+        + "    30b443ae-c0c9-4790-9bec-ce1380808435,%n"
+        + "    0e2a1269-eff0-4233-b87b-b53e8b6f164d,%n"
+        + "    null]>%n"
+        + "to contain: %n"
+        + "  <[null,%n"
+        + "    30b443ae-c0c9-4790-9bec-ce1380808435,%n"
+        + "    0e2a1269-eff0-4233-b87b-b53e8b6f164d,%n"
+        + "    null]>%n"
+        + " (parameter <null> at index 3 is not found)"));
     }
   }
 
@@ -138,18 +137,18 @@ public class AssertionsOnColumnContent_ContainsValues_UUID_Test extends Abstract
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "other"),
-                                                     getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"))));
+      getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"))));
     try {
       AssertionsOnColumnContent.containsValues(tableAssert, info, list, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"), UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at index 0:%n"
-                                                                    + "  <\"other\">%n"
-                                                                    + "to be of type%n"
-                                                                    + "  <[UUID, NOT_IDENTIFIED]>%n"
-                                                                    + "but was of type%n"
-                                                                    + "  <TEXT>"));
+        + "Expecting that the value at index 0:%n"
+        + "  <\"other\">%n"
+        + "to be of type%n"
+        + "  <[UUID, NOT_IDENTIFIED]>%n"
+        + "but was of type%n"
+        + "  <TEXT>"));
     }
   }
 
@@ -163,16 +162,16 @@ public class AssertionsOnColumnContent_ContainsValues_UUID_Test extends Abstract
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")),
-                                                     getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"))));
+      getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"))));
     try {
       AssertionsOnColumnContent.containsValues(tableAssert, info, list, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"), UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"), UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting size (number of rows) to be equal to :%n"
-                                                                    + "   <3>%n"
-                                                                    + "but was:%n"
-                                                                    + "   <2>"));
+        + "Expecting size (number of rows) to be equal to :%n"
+        + "   <3>%n"
+        + "but was:%n"
+        + "   <2>"));
     }
   }
 }

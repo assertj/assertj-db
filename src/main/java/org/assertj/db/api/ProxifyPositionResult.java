@@ -12,18 +12,19 @@
  */
 package org.assertj.db.api;
 
-import net.bytebuddy.implementation.bind.annotation.RuntimeType;
-import net.bytebuddy.implementation.bind.annotation.SuperCall;
+import static org.assertj.db.util.Proxies.isProxified;
+import static org.assertj.db.util.Proxies.unProxy;
+
+import java.util.concurrent.Callable;
+
 import org.assertj.core.util.Arrays;
 import org.assertj.db.type.Change;
 import org.assertj.db.type.Column;
 import org.assertj.db.type.Row;
 import org.assertj.db.type.Value;
 
-import java.util.concurrent.Callable;
-
-import static org.assertj.db.util.Proxies.isProxified;
-import static org.assertj.db.util.Proxies.unProxy;
+import net.bytebuddy.implementation.bind.annotation.RuntimeType;
+import net.bytebuddy.implementation.bind.annotation.SuperCall;
 
 /**
  * Method interceptor that proxify result of assertions methods.
@@ -38,44 +39,34 @@ public class ProxifyPositionResult {
     this.proxies = proxies;
   }
 
-  @RuntimeType
-  public Object intercept(@SuperCall Callable<?> proxy) throws Exception {
-    Object result = proxy.call();
-
-    if (isProxified(result.getClass()) || Arrays.isNullOrEmpty(actual(result))) {
-      return result;
-    }
-    return this.proxies.create(result.getClass(), actualClass(result), actual(result));
-  }
-
   private static Class[] actualClass(Object result) {
 
     if (result instanceof AbstractColumnAssert) {
       return Arrays.array(
-          unProxy(((AbstractColumnAssert) result).origin.getClass()),
-          Column.class
+        unProxy(((AbstractColumnAssert) result).origin.getClass()),
+        Column.class
       );
     } else if (result instanceof AbstractRowAssert) {
       return Arrays.array(
-          unProxy(((AbstractRowAssert) result).origin.getClass()),
-          Row.class
+        unProxy(((AbstractRowAssert) result).origin.getClass()),
+        Row.class
       );
     } else if (result instanceof AbstractValueAssert) {
       return Arrays.array(
-          unProxy(((AbstractValueAssert) result).origin.getClass()),
-          Value.class
+        unProxy(((AbstractValueAssert) result).origin.getClass()),
+        Value.class
       );
     } else if (result instanceof ChangeAssert) {
       return Arrays.array(
-          unProxy(((ChangeAssert) result).origin.getClass()),
-          Change.class
+        unProxy(((ChangeAssert) result).origin.getClass()),
+        Change.class
       );
     } else if (result instanceof ChangeColumnAssert) {
       return Arrays.array(
-          unProxy(((ChangeColumnAssert) result).origin.getClass()),
-          String.class,
-          Value.class,
-          Value.class
+        unProxy(((ChangeColumnAssert) result).origin.getClass()),
+        String.class,
+        Value.class,
+        Value.class
       );
     } else {
       return Arrays.array();
@@ -85,33 +76,43 @@ public class ProxifyPositionResult {
   private static Object[] actual(Object result) {
     if (result instanceof AbstractColumnAssert) {
       return Arrays.array(
-          ((AbstractColumnAssert) result).origin,
-          ((AbstractColumnAssert) result).column
+        ((AbstractColumnAssert) result).origin,
+        ((AbstractColumnAssert) result).column
       );
     } else if (result instanceof AbstractRowAssert) {
       return Arrays.array(
-          ((AbstractRowAssert) result).origin,
-          ((AbstractRowAssert) result).row
+        ((AbstractRowAssert) result).origin,
+        ((AbstractRowAssert) result).row
       );
     } else if (result instanceof AbstractValueAssert) {
       return Arrays.array(
-          ((AbstractValueAssert) result).origin,
-          ((AbstractValueAssert) result).value
+        ((AbstractValueAssert) result).origin,
+        ((AbstractValueAssert) result).value
       );
     } else if (result instanceof ChangeAssert) {
       return Arrays.array(
-          ((ChangeAssert) result).origin,
-          ((ChangeAssert) result).change
+        ((ChangeAssert) result).origin,
+        ((ChangeAssert) result).change
       );
     } else if (result instanceof ChangeColumnAssert) {
       return Arrays.array(
-          ((ChangeColumnAssert) result).origin,
-          ((ChangeColumnAssert) result).columnName,
-          ((ChangeColumnAssert) result).valueAtStartPoint,
-          ((ChangeColumnAssert) result).valueAtEndPoint
+        ((ChangeColumnAssert) result).origin,
+        ((ChangeColumnAssert) result).columnName,
+        ((ChangeColumnAssert) result).valueAtStartPoint,
+        ((ChangeColumnAssert) result).valueAtEndPoint
       );
     } else {
       return Arrays.array();
     }
+  }
+
+  @RuntimeType
+  public Object intercept(@SuperCall Callable<?> proxy) throws Exception {
+    Object result = proxy.call();
+
+    if (isProxified(result.getClass()) || Arrays.isNullOrEmpty(actual(result))) {
+      return result;
+    }
+    return this.proxies.create(result.getClass(), actualClass(result), actual(result));
   }
 }

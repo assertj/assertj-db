@@ -20,17 +20,16 @@ import org.assertj.db.type.Value;
  * Output methods for a value in a {@link Column} of a {@link Table}.
  *
  * @author Régis Pouiller
- *
  */
 public class TableColumnValueOutputter
-        extends
-        AbstractColumnValueOutputter<Table, TableOutputter, TableColumnOutputter, TableColumnValueOutputter, TableRowOutputter, TableRowValueOutputter> {
+  extends
+  AbstractColumnValueOutputter<Table, TableOutputter, TableColumnOutputter, TableColumnValueOutputter, TableRowOutputter, TableRowValueOutputter> {
 
   /**
    * Constructor.
    *
    * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
-   * @param value The value to assert.
+   * @param value  The value to assert.
    */
   public TableColumnValueOutputter(TableColumnOutputter origin, Value value) {
     super(TableColumnValueOutputter.class, origin, value);

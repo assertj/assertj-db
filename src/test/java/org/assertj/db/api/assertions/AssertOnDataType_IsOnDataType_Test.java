@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api.assertions;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.ChangeAssert;
 import org.assertj.db.common.AbstractTest;
@@ -22,15 +25,11 @@ import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link org.assertj.db.api.assertions.AssertOnDataType} class :
  * {@link org.assertj.db.api.assertions.AssertOnDataType#isOnDataType(org.assertj.db.type.DataType)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertOnDataType_IsOnDataType_Test extends AbstractTest {
 
@@ -66,11 +65,11 @@ public class AssertOnDataType_IsOnDataType_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 of Changes on 'select * from actor' request of 'sa/jdbc:h2:mem:test' source] %n"
-                                                      + "Expecting:%n"
-                                                      + "to be on data type%n"
-                                                      + "  <TABLE>%n"
-                                                      + "but was on data type%n"
-                                                      + "  <REQUEST>"));
+        + "Expecting:%n"
+        + "to be on data type%n"
+        + "  <TABLE>%n"
+        + "but was on data type%n"
+        + "  <REQUEST>"));
     }
   }
 }

@@ -12,6 +12,11 @@
  */
 package org.assertj.db.output;
 
+import static org.assertj.db.util.Descriptions.getColumnDescription;
+import static org.assertj.db.util.Descriptions.getRowDescription;
+
+import java.util.List;
+
 import org.assertj.db.navigation.Position;
 import org.assertj.db.navigation.PositionWithColumns;
 import org.assertj.db.navigation.origin.OriginWithColumnsAndRows;
@@ -20,26 +25,20 @@ import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Column;
 import org.assertj.db.type.Row;
 
-import java.util.List;
-
-import static org.assertj.db.util.Descriptions.getColumnDescription;
-import static org.assertj.db.util.Descriptions.getRowDescription;
-
 /**
  * Base class for all data ({@code Table} or {@code Request}) outputs.
  *
- * @author Régis Pouiller
- *
- * @param <D> The class of the actual value (an sub-class of {@link AbstractDbData}).
- * @param <A> The class of the original assert (an sub-class of {@link AbstractDbOutputter}).
- * @param <C> The class of this assert (an sub-class of {@link AbstractColumnOutputter}).
+ * @param <D>  The class of the actual value (an sub-class of {@link AbstractDbData}).
+ * @param <A>  The class of the original assert (an sub-class of {@link AbstractDbOutputter}).
+ * @param <C>  The class of this assert (an sub-class of {@link AbstractColumnOutputter}).
  * @param <CV> The class of this assertion on the value (an sub-class of {@link AbstractColumnValueOutputter}).
- * @param <R> The class of the equivalent row assert (an sub-class of {@link AbstractRowOutputter}).
+ * @param <R>  The class of the equivalent row assert (an sub-class of {@link AbstractRowOutputter}).
  * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractRowValueOutputter}).
+ * @author Régis Pouiller
  */
 public abstract class AbstractDbOutputter<D extends AbstractDbData<D>, A extends AbstractDbOutputter<D, A, C, CV, R, RV>, C extends AbstractColumnOutputter<D, A, C, CV, R, RV>, CV extends AbstractColumnValueOutputter<D, A, C, CV, R, RV>, R extends AbstractRowOutputter<D, A, C, CV, R, RV>, RV extends AbstractRowValueOutputter<D, A, C, CV, R, RV>>
-        extends AbstractOutputter<A>
-        implements OriginWithColumnsAndRows<C, R> {
+  extends AbstractOutputter<A>
+  implements OriginWithColumnsAndRows<C, R> {
 
   /**
    * The actual value on which the assertion is.
@@ -58,58 +57,70 @@ public abstract class AbstractDbOutputter<D extends AbstractDbData<D>, A extends
   /**
    * Constructor of the database assertions.
    *
-   * @param actualValue The actual value on which the assertion is.
-   * @param selfType Type of this assertion class.
+   * @param actualValue      The actual value on which the assertion is.
+   * @param selfType         Type of this assertion class.
    * @param columnAssertType Class of the assertion on the column.
-   * @param rowAssertType Class of the assertion on the row.
+   * @param rowAssertType    Class of the assertion on the row.
    */
   AbstractDbOutputter(D actualValue, Class<A> selfType, Class<C> columnAssertType, Class<R> rowAssertType) {
     super(selfType);
     actual = actualValue;
     columnPosition = new PositionWithColumns<A, C, Column>(selfType.cast(this), columnAssertType) {
-      @Override protected String getDescription(int index) {
+      @Override
+      protected String getDescription(int index) {
         List<String> columnsNameList = actual.getColumnsNameList();
         String columnName = columnsNameList.get(index);
         return getColumnDescription(myself.getInfo(), index, columnName);
       }
     };
     rowPosition = new Position<A, R, Row>(selfType.cast(this), rowAssertType) {
-      @Override protected String getDescription(int index) {
+      @Override
+      protected String getDescription(int index) {
         return getRowDescription(myself.getInfo(), index);
       }
     };
     withType(OutputType.PLAIN);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public R row() {
     return rowPosition.getInstance(actual.getRowsList()).withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public R row(int index) {
     return rowPosition.getInstance(actual.getRowsList(), index).withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C column() {
     return columnPosition.getInstance(actual.getColumnsList()).withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C column(int index) {
     return columnPosition.getInstance(actual.getColumnsList(), index).withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C column(String columnName) {
     return columnPosition.getInstance(actual.getColumnsList(), actual.getColumnsNameList(),
-                                      columnName, actual.getColumnLetterCase())
-                         .withType(outputType);
+        columnName, actual.getColumnLetterCase())
+      .withType(outputType);
   }
 }

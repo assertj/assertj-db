@@ -24,23 +24,23 @@ import org.assertj.core.error.ErrorMessageFactory;
 public class ShouldHaveColumnsSizeGreater extends BasicErrorMessageFactory {
 
   /**
+   * Constructor.
+   *
+   * @param actualSize   the size of {@code actual}.
+   * @param expectedSize the expected size.
+   */
+  private ShouldHaveColumnsSizeGreater(int actualSize, int expectedSize) {
+    super("%nExpecting size (number of columns) to be greater than :%n   <%s>%nbut was:%n   <%s>", expectedSize, actualSize);
+  }
+
+  /**
    * Creates a new <code>{@link ShouldHaveColumnsSizeGreater}</code>.
    *
-   * @param actualSize the size of {@code actual}.
+   * @param actualSize   the size of {@code actual}.
    * @param expectedSize the expected size.
    * @return the created {@code ErrorMessageFactory}.
    */
   public static ErrorMessageFactory shouldHaveColumnsSizeGreater(int actualSize, int expectedSize) {
     return new ShouldHaveColumnsSizeGreater(actualSize, expectedSize);
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param actualSize the size of {@code actual}.
-   * @param expectedSize the expected size.
-   */
-  private ShouldHaveColumnsSizeGreater(int actualSize, int expectedSize) {
-    super("%nExpecting size (number of columns) to be greater than :%n   <%s>%nbut was:%n   <%s>", expectedSize, actualSize);
   }
 }

@@ -14,6 +14,7 @@ package org.assertj.db.type.lettercase;
 
 /**
  * Defines the method to get the letter case of the tables.
+ *
  * @author Régis Pouiller
  * @since 1.1.0
  */
@@ -21,6 +22,7 @@ public interface WithTableLetterCase {
 
   /**
    * Returns the letter case of the tables.
+   *
    * @return The letter case of the tables.
    */
   LetterCase getTableLetterCase();

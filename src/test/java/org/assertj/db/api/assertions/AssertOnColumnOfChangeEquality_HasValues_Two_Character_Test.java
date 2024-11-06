@@ -28,7 +28,6 @@ import org.junit.Test;
  * {@link org.assertj.db.api.assertions.AssertOnColumnOfChangeEquality#hasValues(Character, Character)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertOnColumnOfChangeEquality_HasValues_Two_Character_Test extends AbstractTest {
 
@@ -63,10 +62,10 @@ public class AssertOnColumnOfChangeEquality_HasValues_Two_Character_Test extends
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 15 (column name : VAR16) of Change at index 0 (on table : TEST and with primary key : [5]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
-                                                      + "Expecting that start point:%n"
-                                                      + "  <null>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <'T'>"));
+        + "Expecting that start point:%n"
+        + "  <null>%n"
+        + "to be equal to: %n"
+        + "  <'T'>"));
     }
   }
 
@@ -85,10 +84,10 @@ public class AssertOnColumnOfChangeEquality_HasValues_Two_Character_Test extends
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 15 (column name : VAR16) of Change at index 0 (on table : TEST and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
-                                                      + "Expecting that end point:%n"
-                                                      + "  <null>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <'T'>"));
+        + "Expecting that end point:%n"
+        + "  <null>%n"
+        + "to be equal to: %n"
+        + "  <'T'>"));
     }
   }
 }

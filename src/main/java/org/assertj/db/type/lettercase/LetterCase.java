@@ -17,11 +17,16 @@ import java.util.Map;
 
 /**
  * The letter case which indicates a case conversion and a case comparison.
+ *
  * @author Régis Pouiller
  * @since 1.1.0
  */
 public class LetterCase implements CaseConversion, CaseComparison {
 
+  /**
+   * The cache containing the different possible letter case after the first instantiation.
+   */
+  private static Map<CaseConversion, Map<CaseComparison, LetterCase>> cache;
   /**
    * The default letter case for table.
    */
@@ -34,24 +39,29 @@ public class LetterCase implements CaseConversion, CaseComparison {
    * The default letter case for table.
    */
   public static final LetterCase PRIMARY_KEY_DEFAULT = getLetterCase(CaseConversions.UPPER, CaseComparisons.IGNORE);
-
   /**
    * The conversion of the case of a {@link java.lang.String}.
    */
   private final CaseConversion conversion;
-
   /**
    * The comparison on {@link java.lang.String} which consider the case.
    */
   private final CaseComparison comparison;
 
   /**
-   * The cache containing the different possible letter case after the first instantiation.
+   * Constructor.
+   *
+   * @param conversion The conversion of the case of a {@link java.lang.String}.
+   * @param comparison The comparison on {@link java.lang.String} which consider the case.
    */
-  private static Map<CaseConversion, Map<CaseComparison, LetterCase>> cache;
+  private LetterCase(CaseConversion conversion, CaseComparison comparison) {
+    this.conversion = conversion;
+    this.comparison = comparison;
+  }
 
   /**
    * Returns a instance of a letter case.
+   *
    * @param conversion The conversion of the case of a {@link java.lang.String}.
    * @param comparison The comparison on {@link java.lang.String} which consider the case.
    * @return An instance of a letter case.
@@ -81,16 +91,6 @@ public class LetterCase implements CaseConversion, CaseComparison {
       map.put(comparison, letterCase);
     }
     return letterCase;
-  }
-
-  /**
-   * Constructor.
-   * @param conversion The conversion of the case of a {@link java.lang.String}.
-   * @param comparison The comparison on {@link java.lang.String} which consider the case.
-   */
-  private LetterCase(CaseConversion conversion, CaseComparison comparison) {
-    this.conversion = conversion;
-    this.comparison = comparison;
   }
 
   /**

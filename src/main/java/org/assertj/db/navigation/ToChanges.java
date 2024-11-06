@@ -48,9 +48,9 @@ import org.assertj.db.navigation.element.ChangesElement;
  * assertThat(changes).change().rowAtEndPoint().value().returnToRow().returnToChange().returnToChanges().ofAll()......;
  * </code>
  * </pre>
- * @author Régis Pouiller
  *
  * @param <CHS> The class of a assertion on changes (an sub-class of {@link org.assertj.db.navigation.element.ChangesElement}).
+ * @author Régis Pouiller
  */
 public interface ToChanges<CHS extends ChangesElement> extends Navigation {
 

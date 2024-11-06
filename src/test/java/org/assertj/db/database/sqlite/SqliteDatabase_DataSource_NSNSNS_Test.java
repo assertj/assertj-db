@@ -12,6 +12,13 @@
  */
 package org.assertj.db.database.sqlite;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.assertj.db.output.Outputs.output;
+import static org.junit.Assert.fail;
+
+import java.io.ByteArrayOutputStream;
+import javax.sql.DataSource;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.common.NeedReload;
 import org.assertj.db.exception.AssertJDBException;
@@ -20,13 +27,6 @@ import org.assertj.db.type.Changes;
 import org.assertj.db.type.Table;
 import org.junit.Before;
 import org.junit.Test;
-
-import javax.sql.DataSource;
-import java.io.ByteArrayOutputStream;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.output.Outputs.output;
-import static org.junit.Assert.fail;
 
 /**
  * Test on the Sqlite database.
@@ -45,7 +45,7 @@ public class SqliteDatabase_DataSource_NSNSNS_Test extends AbstractSqliteTest {
   @Test
   @NeedReload
   public void test_Outputs_output() {
-    Table table = new Table(dataSource, "test", null, new String[] {"var20"});
+    Table table = new Table(dataSource, "test", null, new String[]{"var20"});
     Changes changes = new Changes(table).setStartPointNow();
     update();
     changes.setEndPointNow();
@@ -62,110 +62,110 @@ public class SqliteDatabase_DataSource_NSNSNS_Test extends AbstractSqliteTest {
     ByteArrayOutputStream byteArrayOutputStream9 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream10 = new ByteArrayOutputStream();
     Outputs.output(table).toStream(byteArrayOutputStream0)
-           .column().toStream(byteArrayOutputStream1)
-           .value().toStream(byteArrayOutputStream2)
-           .row().toStream(byteArrayOutputStream3)
-           .value().toStream(byteArrayOutputStream4);
+      .column().toStream(byteArrayOutputStream1)
+      .value().toStream(byteArrayOutputStream2)
+      .row().toStream(byteArrayOutputStream3)
+      .value().toStream(byteArrayOutputStream4);
     output(changes).toStream(byteArrayOutputStream5)
-                   .change().toStream(byteArrayOutputStream6)
-                   .rowAtEndPoint().toStream(byteArrayOutputStream7)
-                   .value().toStream(byteArrayOutputStream8)
-                   .column().toStream(byteArrayOutputStream9)
-                   .valueAtEndPoint().toStream(byteArrayOutputStream10);
+      .change().toStream(byteArrayOutputStream6)
+      .rowAtEndPoint().toStream(byteArrayOutputStream7)
+      .value().toStream(byteArrayOutputStream8)
+      .column().toStream(byteArrayOutputStream9)
+      .valueAtEndPoint().toStream(byteArrayOutputStream10);
 
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[test table]%n"
-                                                                                     + "|-----------|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
-                                                                                     + "|           |         | *         |           |           |           |           |            |           |           |           |           |            |            |            |            |            |            |            |                       |            |%n"
-                                                                                     + "|           | PRIMARY | Var1      | vAr2      | vaR3      | var4      | var5      | var6       | var7      | var8      | var9      | var10     | var11      | var12      | var13      | var14      | var15      | var16      | var17      | var18                 | var19      |%n"
-                                                                                     + "|           | KEY     | (NUMBER)  | (TEXT)    | (TEXT)    | (TEXT)    | (TEXT)    | (DATE)     | (NUMBER)  | (NUMBER)  | (NUMBER)  | (NUMBER)  | (NUMBER)   | (TEXT)     | (TEXT)     | (NUMBER)   | (NUMBER)   | (NUMBER)   | (TEXT)     | (TEXT)                | (TEXT)     |%n"
-                                                                                     + "|           |         | Index : 0 | Index : 1 | Index : 2 | Index : 3 | Index : 4 | Index : 5  | Index : 6 | Index : 7 | Index : 8 | Index : 9 | Index : 10 | Index : 11 | Index : 12 | Index : 13 | Index : 14 | Index : 15 | Index : 16 | Index : 17            | Index : 18 |%n"
-                                                                                     + "|-----------|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
-                                                                                     + "| Index : 0 | 1       | 1         | 13        | 2         | 14        | 15        | 2007-12-23 | 3.3       | 4.4       | 5.5       | 6.6       | 20         | 8          | 16         | 9          | 10.1       | 11         | 09:01:00   | 2007-12-23 09:01:00.0 | 12         |%n"
-                                                                                     + "|-----------|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"));
+      + "|-----------|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
+      + "|           |         | *         |           |           |           |           |            |           |           |           |           |            |            |            |            |            |            |            |                       |            |%n"
+      + "|           | PRIMARY | Var1      | vAr2      | vaR3      | var4      | var5      | var6       | var7      | var8      | var9      | var10     | var11      | var12      | var13      | var14      | var15      | var16      | var17      | var18                 | var19      |%n"
+      + "|           | KEY     | (NUMBER)  | (TEXT)    | (TEXT)    | (TEXT)    | (TEXT)    | (DATE)     | (NUMBER)  | (NUMBER)  | (NUMBER)  | (NUMBER)  | (NUMBER)   | (TEXT)     | (TEXT)     | (NUMBER)   | (NUMBER)   | (NUMBER)   | (TEXT)     | (TEXT)                | (TEXT)     |%n"
+      + "|           |         | Index : 0 | Index : 1 | Index : 2 | Index : 3 | Index : 4 | Index : 5  | Index : 6 | Index : 7 | Index : 8 | Index : 9 | Index : 10 | Index : 11 | Index : 12 | Index : 13 | Index : 14 | Index : 15 | Index : 16 | Index : 17            | Index : 18 |%n"
+      + "|-----------|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
+      + "| Index : 0 | 1       | 1         | 13        | 2         | 14        | 15        | 2007-12-23 | 3.3       | 4.4       | 5.5       | 6.6       | 20         | 8          | 16         | 9          | 10.1       | 11         | 09:01:00   | 2007-12-23 09:01:00.0 | 12         |%n"
+      + "|-----------|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"));
     Assertions.assertThat(byteArrayOutputStream1.toString()).isEqualTo(String.format("[Column at index 0 (column name : Var1) of test table]%n"
-                                                                                     + "|-----------|----------|%n"
-                                                                                     + "|           | Var1     |%n"
-                                                                                     + "|           | (NUMBER) |%n"
-                                                                                     + "|-----------|----------|%n"
-                                                                                     + "| Index : 0 | 1        |%n"
-                                                                                     + "|-----------|----------|%n"));
+      + "|-----------|----------|%n"
+      + "|           | Var1     |%n"
+      + "|           | (NUMBER) |%n"
+      + "|-----------|----------|%n"
+      + "| Index : 0 | 1        |%n"
+      + "|-----------|----------|%n"));
     Assertions.assertThat(byteArrayOutputStream2.toString()).isEqualTo(String.format("[Value at index 0 of Column at index 0 (column name : Var1) of test table]%n"
-                                                                                     + "|----------|%n"
-                                                                                     + "| Var1     |%n"
-                                                                                     + "| (NUMBER) |%n"
-                                                                                     + "|----------|%n"
-                                                                                     + "| 1        |%n"
-                                                                                     + "|----------|%n"));
+      + "|----------|%n"
+      + "| Var1     |%n"
+      + "| (NUMBER) |%n"
+      + "|----------|%n"
+      + "| 1        |%n"
+      + "|----------|%n"));
     Assertions.assertThat(byteArrayOutputStream3.toString()).isEqualTo(String.format("[Row at index 0 of test table]%n"
-                                                                                     + "|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
-                                                                                     + "|         | *         |           |           |           |           |            |           |           |           |           |            |            |            |            |            |            |            |                       |            |%n"
-                                                                                     + "| PRIMARY | Var1      | vAr2      | vaR3      | var4      | var5      | var6       | var7      | var8      | var9      | var10     | var11      | var12      | var13      | var14      | var15      | var16      | var17      | var18                 | var19      |%n"
-                                                                                     + "| KEY     | (NUMBER)  | (TEXT)    | (TEXT)    | (TEXT)    | (TEXT)    | (DATE)     | (NUMBER)  | (NUMBER)  | (NUMBER)  | (NUMBER)  | (NUMBER)   | (TEXT)     | (TEXT)     | (NUMBER)   | (NUMBER)   | (NUMBER)   | (TEXT)     | (TEXT)                | (TEXT)     |%n"
-                                                                                     + "|         | Index : 0 | Index : 1 | Index : 2 | Index : 3 | Index : 4 | Index : 5  | Index : 6 | Index : 7 | Index : 8 | Index : 9 | Index : 10 | Index : 11 | Index : 12 | Index : 13 | Index : 14 | Index : 15 | Index : 16 | Index : 17            | Index : 18 |%n"
-                                                                                     + "|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
-                                                                                     + "| 1       | 1         | 13        | 2         | 14        | 15        | 2007-12-23 | 3.3       | 4.4       | 5.5       | 6.6       | 20         | 8          | 16         | 9          | 10.1       | 11         | 09:01:00   | 2007-12-23 09:01:00.0 | 12         |%n"
-                                                                                     + "|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"));
+      + "|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
+      + "|         | *         |           |           |           |           |            |           |           |           |           |            |            |            |            |            |            |            |                       |            |%n"
+      + "| PRIMARY | Var1      | vAr2      | vaR3      | var4      | var5      | var6       | var7      | var8      | var9      | var10     | var11      | var12      | var13      | var14      | var15      | var16      | var17      | var18                 | var19      |%n"
+      + "| KEY     | (NUMBER)  | (TEXT)    | (TEXT)    | (TEXT)    | (TEXT)    | (DATE)     | (NUMBER)  | (NUMBER)  | (NUMBER)  | (NUMBER)  | (NUMBER)   | (TEXT)     | (TEXT)     | (NUMBER)   | (NUMBER)   | (NUMBER)   | (TEXT)     | (TEXT)                | (TEXT)     |%n"
+      + "|         | Index : 0 | Index : 1 | Index : 2 | Index : 3 | Index : 4 | Index : 5  | Index : 6 | Index : 7 | Index : 8 | Index : 9 | Index : 10 | Index : 11 | Index : 12 | Index : 13 | Index : 14 | Index : 15 | Index : 16 | Index : 17            | Index : 18 |%n"
+      + "|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
+      + "| 1       | 1         | 13        | 2         | 14        | 15        | 2007-12-23 | 3.3       | 4.4       | 5.5       | 6.6       | 20         | 8          | 16         | 9          | 10.1       | 11         | 09:01:00   | 2007-12-23 09:01:00.0 | 12         |%n"
+      + "|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"));
     Assertions.assertThat(byteArrayOutputStream4.toString()).isEqualTo(String.format("[Value at index 0 (column name : Var1) of Row at index 0 of test table]%n"
-                                                                                     + "|----------|%n"
-                                                                                     + "| Var1     |%n"
-                                                                                     + "| (NUMBER) |%n"
-                                                                                     + "|----------|%n"
-                                                                                     + "| 1        |%n"
-                                                                                     + "|----------|%n"));
+      + "|----------|%n"
+      + "| Var1     |%n"
+      + "| (NUMBER) |%n"
+      + "|----------|%n"
+      + "| 1        |%n"
+      + "|----------|%n"));
     Assertions.assertThat(byteArrayOutputStream5.toString()).isEqualTo(String.format("[Changes on test table of a data source]%n"
-                                                                                     + "|-----------|--------------|-------|---------|----------------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
-                                                                                     + "|           |              |       |         |                | *         |           |           |           |           |            |           |           |           |           |            |            |            |            |            |            |            |                       |            |%n"
-                                                                                     + "|           | TYPE         | TABLE | PRIMARY |                | Var1      | vAr2      | vaR3      | var4      | var5      | var6       | var7      | var8      | var9      | var10     | var11      | var12      | var13      | var14      | var15      | var16      | var17      | var18                 | var19      |%n"
-                                                                                     + "|           |              |       | KEY     |                | (NUMBER)  | (TEXT)    | (TEXT)    | (TEXT)    | (TEXT)    | (DATE)     | (NUMBER)  | (NUMBER)  | (NUMBER)  | (NUMBER)  | (NUMBER)   | (TEXT)     | (TEXT)     | (NUMBER)   | (NUMBER)   | (NUMBER)   | (TEXT)     | (TEXT)                | (TEXT)     |%n"
-                                                                                     + "|           |              |       |         |                | Index : 0 | Index : 1 | Index : 2 | Index : 3 | Index : 4 | Index : 5  | Index : 6 | Index : 7 | Index : 8 | Index : 9 | Index : 10 | Index : 11 | Index : 12 | Index : 13 | Index : 14 | Index : 15 | Index : 16 | Index : 17            | Index : 18 |%n"
-                                                                                     + "|-----------|--------------|-------|---------|----------------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
-                                                                                     + "|           |              |       |         | At start point | 1         | 13        | 2         | 14        | 15        | 2007-12-23 | 3.3       | 4.4       | 5.5       | 6.6       | 7          | 8          | 16         | 9          | 10.1       | 11         | 09:01:00   | 2007-12-23 09:01:00.0 | 12         |%n"
-                                                                                     + "| Index : 0 | MODIFICATION | test  | 1       |----------------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
-                                                                                     + "|           |              |       |         | At end point   | 1         | 13        | 2         | 14        | 15        | 2007-12-23 | 3.3       | 4.4       | 5.5       | 6.6       | 20         | 8          | 16         | 9          | 10.1       | 11         | 09:01:00   | 2007-12-23 09:01:00.0 | 12         |%n"
-                                                                                     + "|-----------|--------------|-------|---------|----------------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"));
+      + "|-----------|--------------|-------|---------|----------------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
+      + "|           |              |       |         |                | *         |           |           |           |           |            |           |           |           |           |            |            |            |            |            |            |            |                       |            |%n"
+      + "|           | TYPE         | TABLE | PRIMARY |                | Var1      | vAr2      | vaR3      | var4      | var5      | var6       | var7      | var8      | var9      | var10     | var11      | var12      | var13      | var14      | var15      | var16      | var17      | var18                 | var19      |%n"
+      + "|           |              |       | KEY     |                | (NUMBER)  | (TEXT)    | (TEXT)    | (TEXT)    | (TEXT)    | (DATE)     | (NUMBER)  | (NUMBER)  | (NUMBER)  | (NUMBER)  | (NUMBER)   | (TEXT)     | (TEXT)     | (NUMBER)   | (NUMBER)   | (NUMBER)   | (TEXT)     | (TEXT)                | (TEXT)     |%n"
+      + "|           |              |       |         |                | Index : 0 | Index : 1 | Index : 2 | Index : 3 | Index : 4 | Index : 5  | Index : 6 | Index : 7 | Index : 8 | Index : 9 | Index : 10 | Index : 11 | Index : 12 | Index : 13 | Index : 14 | Index : 15 | Index : 16 | Index : 17            | Index : 18 |%n"
+      + "|-----------|--------------|-------|---------|----------------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
+      + "|           |              |       |         | At start point | 1         | 13        | 2         | 14        | 15        | 2007-12-23 | 3.3       | 4.4       | 5.5       | 6.6       | 7          | 8          | 16         | 9          | 10.1       | 11         | 09:01:00   | 2007-12-23 09:01:00.0 | 12         |%n"
+      + "| Index : 0 | MODIFICATION | test  | 1       |----------------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
+      + "|           |              |       |         | At end point   | 1         | 13        | 2         | 14        | 15        | 2007-12-23 | 3.3       | 4.4       | 5.5       | 6.6       | 20         | 8          | 16         | 9          | 10.1       | 11         | 09:01:00   | 2007-12-23 09:01:00.0 | 12         |%n"
+      + "|-----------|--------------|-------|---------|----------------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"));
     Assertions.assertThat(byteArrayOutputStream6.toString()).isEqualTo(String.format("[Change at index 0 (with primary key : [1]) of Changes on test table of a data source]%n"
-                                                                                     + "|--------------|-------|---------|----------------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
-                                                                                     + "|              |       |         |                | *         |           |           |           |           |            |           |           |           |           |            |            |            |            |            |            |            |                       |            |%n"
-                                                                                     + "| TYPE         | TABLE | PRIMARY |                | Var1      | vAr2      | vaR3      | var4      | var5      | var6       | var7      | var8      | var9      | var10     | var11      | var12      | var13      | var14      | var15      | var16      | var17      | var18                 | var19      |%n"
-                                                                                     + "|              |       | KEY     |                | (NUMBER)  | (TEXT)    | (TEXT)    | (TEXT)    | (TEXT)    | (DATE)     | (NUMBER)  | (NUMBER)  | (NUMBER)  | (NUMBER)  | (NUMBER)   | (TEXT)     | (TEXT)     | (NUMBER)   | (NUMBER)   | (NUMBER)   | (TEXT)     | (TEXT)                | (TEXT)     |%n"
-                                                                                     + "|              |       |         |                | Index : 0 | Index : 1 | Index : 2 | Index : 3 | Index : 4 | Index : 5  | Index : 6 | Index : 7 | Index : 8 | Index : 9 | Index : 10 | Index : 11 | Index : 12 | Index : 13 | Index : 14 | Index : 15 | Index : 16 | Index : 17            | Index : 18 |%n"
-                                                                                     + "|--------------|-------|---------|----------------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
-                                                                                     + "|              |       |         | At start point | 1         | 13        | 2         | 14        | 15        | 2007-12-23 | 3.3       | 4.4       | 5.5       | 6.6       | 7          | 8          | 16         | 9          | 10.1       | 11         | 09:01:00   | 2007-12-23 09:01:00.0 | 12         |%n"
-                                                                                     + "| MODIFICATION | test  | 1       |----------------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
-                                                                                     + "|              |       |         | At end point   | 1         | 13        | 2         | 14        | 15        | 2007-12-23 | 3.3       | 4.4       | 5.5       | 6.6       | 20         | 8          | 16         | 9          | 10.1       | 11         | 09:01:00   | 2007-12-23 09:01:00.0 | 12         |%n"
-                                                                                     + "|--------------|-------|---------|----------------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"));
+      + "|--------------|-------|---------|----------------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
+      + "|              |       |         |                | *         |           |           |           |           |            |           |           |           |           |            |            |            |            |            |            |            |                       |            |%n"
+      + "| TYPE         | TABLE | PRIMARY |                | Var1      | vAr2      | vaR3      | var4      | var5      | var6       | var7      | var8      | var9      | var10     | var11      | var12      | var13      | var14      | var15      | var16      | var17      | var18                 | var19      |%n"
+      + "|              |       | KEY     |                | (NUMBER)  | (TEXT)    | (TEXT)    | (TEXT)    | (TEXT)    | (DATE)     | (NUMBER)  | (NUMBER)  | (NUMBER)  | (NUMBER)  | (NUMBER)   | (TEXT)     | (TEXT)     | (NUMBER)   | (NUMBER)   | (NUMBER)   | (TEXT)     | (TEXT)                | (TEXT)     |%n"
+      + "|              |       |         |                | Index : 0 | Index : 1 | Index : 2 | Index : 3 | Index : 4 | Index : 5  | Index : 6 | Index : 7 | Index : 8 | Index : 9 | Index : 10 | Index : 11 | Index : 12 | Index : 13 | Index : 14 | Index : 15 | Index : 16 | Index : 17            | Index : 18 |%n"
+      + "|--------------|-------|---------|----------------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
+      + "|              |       |         | At start point | 1         | 13        | 2         | 14        | 15        | 2007-12-23 | 3.3       | 4.4       | 5.5       | 6.6       | 7          | 8          | 16         | 9          | 10.1       | 11         | 09:01:00   | 2007-12-23 09:01:00.0 | 12         |%n"
+      + "| MODIFICATION | test  | 1       |----------------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
+      + "|              |       |         | At end point   | 1         | 13        | 2         | 14        | 15        | 2007-12-23 | 3.3       | 4.4       | 5.5       | 6.6       | 20         | 8          | 16         | 9          | 10.1       | 11         | 09:01:00   | 2007-12-23 09:01:00.0 | 12         |%n"
+      + "|--------------|-------|---------|----------------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"));
     Assertions.assertThat(byteArrayOutputStream7.toString()).isEqualTo(String.format("[Row at end point of Change at index 0 (with primary key : [1]) of Changes on test table of a data source]%n"
-                                                                                     + "|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
-                                                                                     + "|         | *         |           |           |           |           |            |           |           |           |           |            |            |            |            |            |            |            |                       |            |%n"
-                                                                                     + "| PRIMARY | Var1      | vAr2      | vaR3      | var4      | var5      | var6       | var7      | var8      | var9      | var10     | var11      | var12      | var13      | var14      | var15      | var16      | var17      | var18                 | var19      |%n"
-                                                                                     + "| KEY     | (NUMBER)  | (TEXT)    | (TEXT)    | (TEXT)    | (TEXT)    | (DATE)     | (NUMBER)  | (NUMBER)  | (NUMBER)  | (NUMBER)  | (NUMBER)   | (TEXT)     | (TEXT)     | (NUMBER)   | (NUMBER)   | (NUMBER)   | (TEXT)     | (TEXT)                | (TEXT)     |%n"
-                                                                                     + "|         | Index : 0 | Index : 1 | Index : 2 | Index : 3 | Index : 4 | Index : 5  | Index : 6 | Index : 7 | Index : 8 | Index : 9 | Index : 10 | Index : 11 | Index : 12 | Index : 13 | Index : 14 | Index : 15 | Index : 16 | Index : 17            | Index : 18 |%n"
-                                                                                     + "|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
-                                                                                     + "| 1       | 1         | 13        | 2         | 14        | 15        | 2007-12-23 | 3.3       | 4.4       | 5.5       | 6.6       | 20         | 8          | 16         | 9          | 10.1       | 11         | 09:01:00   | 2007-12-23 09:01:00.0 | 12         |%n"
-                                                                                     + "|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"));
+      + "|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
+      + "|         | *         |           |           |           |           |            |           |           |           |           |            |            |            |            |            |            |            |                       |            |%n"
+      + "| PRIMARY | Var1      | vAr2      | vaR3      | var4      | var5      | var6       | var7      | var8      | var9      | var10     | var11      | var12      | var13      | var14      | var15      | var16      | var17      | var18                 | var19      |%n"
+      + "| KEY     | (NUMBER)  | (TEXT)    | (TEXT)    | (TEXT)    | (TEXT)    | (DATE)     | (NUMBER)  | (NUMBER)  | (NUMBER)  | (NUMBER)  | (NUMBER)   | (TEXT)     | (TEXT)     | (NUMBER)   | (NUMBER)   | (NUMBER)   | (TEXT)     | (TEXT)                | (TEXT)     |%n"
+      + "|         | Index : 0 | Index : 1 | Index : 2 | Index : 3 | Index : 4 | Index : 5  | Index : 6 | Index : 7 | Index : 8 | Index : 9 | Index : 10 | Index : 11 | Index : 12 | Index : 13 | Index : 14 | Index : 15 | Index : 16 | Index : 17            | Index : 18 |%n"
+      + "|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
+      + "| 1       | 1         | 13        | 2         | 14        | 15        | 2007-12-23 | 3.3       | 4.4       | 5.5       | 6.6       | 20         | 8          | 16         | 9          | 10.1       | 11         | 09:01:00   | 2007-12-23 09:01:00.0 | 12         |%n"
+      + "|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"));
     Assertions.assertThat(byteArrayOutputStream8.toString()).isEqualTo(String.format("[Value at index 0 (column name : Var1) of Row at end point of Change at index 0 (with primary key : [1]) of Changes on test table of a data source]%n"
-                                                                                     + "|----------|%n"
-                                                                                     + "| Var1     |%n"
-                                                                                     + "| (NUMBER) |%n"
-                                                                                     + "|----------|%n"
-                                                                                     + "| 1        |%n"
-                                                                                     + "|----------|%n"));
+      + "|----------|%n"
+      + "| Var1     |%n"
+      + "| (NUMBER) |%n"
+      + "|----------|%n"
+      + "| 1        |%n"
+      + "|----------|%n"));
     Assertions.assertThat(byteArrayOutputStream9.toString()).isEqualTo(String.format("[Column at index 0 (column name : Var1) of Change at index 0 (with primary key : [1]) of Changes on test table of a data source]%n"
-                                                                                     + "|----------------|----------|%n"
-                                                                                     + "|                | Var1     |%n"
-                                                                                     + "|                | (NUMBER) |%n"
-                                                                                     + "|----------------|----------|%n"
-                                                                                     + "| At start point | 1        |%n"
-                                                                                     + "|----------------|----------|%n"
-                                                                                     + "| At end point   | 1        |%n"
-                                                                                     + "|----------------|----------|%n"));
+      + "|----------------|----------|%n"
+      + "|                | Var1     |%n"
+      + "|                | (NUMBER) |%n"
+      + "|----------------|----------|%n"
+      + "| At start point | 1        |%n"
+      + "|----------------|----------|%n"
+      + "| At end point   | 1        |%n"
+      + "|----------------|----------|%n"));
     Assertions.assertThat(byteArrayOutputStream10.toString()).isEqualTo(String.format("[Value at end point of Column at index 0 (column name : Var1) of Change at index 0 (with primary key : [1]) of Changes on test table of a data source]%n"
-                                                                                      + "|----------|%n"
-                                                                                      + "| Var1     |%n"
-                                                                                      + "| (NUMBER) |%n"
-                                                                                      + "|----------|%n"
-                                                                                      + "| 1        |%n"
-                                                                                      + "|----------|%n"));
+      + "|----------|%n"
+      + "| Var1     |%n"
+      + "| (NUMBER) |%n"
+      + "|----------|%n"
+      + "| 1        |%n"
+      + "|----------|%n"));
   }
 
   @Test
@@ -181,25 +181,23 @@ public class SqliteDatabase_DataSource_NSNSNS_Test extends AbstractSqliteTest {
     try {
       assertThat(changes).change().hasPksNames("var1");
       fail("An exception must be raised");
-    }
-    catch (AssertionError e) {
+    } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 (with primary key : [1]) of Changes on test table of a data source] %n"
-                                                                    + "Expecting :%n"
-                                                                    + "  [\"var1\"]%n"
-                                                                    + "to be the name of the columns of the primary keys but was:%n"
-                                                                    + "  [\"Var1\"]"));
+        + "Expecting :%n"
+        + "  [\"var1\"]%n"
+        + "to be the name of the columns of the primary keys but was:%n"
+        + "  [\"Var1\"]"));
     }
 
     try {
       assertThat(changes2).change().hasPksNames("var1");
       fail("An exception must be raised");
-    }
-    catch (AssertionError e) {
+    } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 (with primary key : [1]) of Changes on teSt table of a data source] %n"
-                                                                    + "Expecting :%n"
-                                                                    + "  [\"var1\"]%n"
-                                                                    + "to be the name of the columns of the primary keys but was:%n"
-                                                                    + "  [\"Var1\"]"));
+        + "Expecting :%n"
+        + "  [\"var1\"]%n"
+        + "to be the name of the columns of the primary keys but was:%n"
+        + "  [\"Var1\"]"));
     }
   }
 
@@ -216,70 +214,64 @@ public class SqliteDatabase_DataSource_NSNSNS_Test extends AbstractSqliteTest {
     try {
       assertThat(table).column().hasColumnName("var1");
       fail("An exception must be raised");
-    }
-    catch (AssertionError e) {
+    } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 0 (column name : Var1) of test table] %n"
-                                                                    + "Expecting :%n"
-                                                                    + "  \"var1\"%n"
-                                                                    + "to be the name of the column but was:%n"
-                                                                    + "  \"Var1\""));
+        + "Expecting :%n"
+        + "  \"var1\"%n"
+        + "to be the name of the column but was:%n"
+        + "  \"Var1\""));
     }
     try {
       assertThat(table).row().value().hasColumnName("var1");
       fail("An exception must be raised");
-    }
-    catch (AssertionError e) {
+    } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 0 (column name : Var1) of Row at index 0 of test table] %n"
-                                                                    + "Expecting :%n"
-                                                                    + "  \"var1\"%n"
-                                                                    + "to be the name of the column but was:%n"
-                                                                    + "  \"Var1\""));
+        + "Expecting :%n"
+        + "  \"var1\"%n"
+        + "to be the name of the column but was:%n"
+        + "  \"Var1\""));
     }
 
     try {
       assertThat(changes).change().column().hasColumnName("var1");
       fail("An exception must be raised");
-    }
-    catch (AssertionError e) {
+    } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 0 (column name : Var1) of Change at index 0 (with primary key : [1]) of Changes on test table of a data source] %n"
-                                                                    + "Expecting :%n"
-                                                                    + "  \"var1\"%n"
-                                                                    + "to be the name of the column but was:%n"
-                                                                    + "  \"Var1\""));
+        + "Expecting :%n"
+        + "  \"var1\"%n"
+        + "to be the name of the column but was:%n"
+        + "  \"Var1\""));
     }
     try {
       assertThat(changes).change().rowAtEndPoint().value().hasColumnName("var1");
       fail("An exception must be raised");
-    }
-    catch (AssertionError e) {
+    } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 0 (column name : Var1) of Row at end point of Change at index 0 (with primary key : [1]) of Changes on test table of a data source] %n"
-                                                                    + "Expecting :%n"
-                                                                    + "  \"var1\"%n"
-                                                                    + "to be the name of the column but was:%n"
-                                                                    + "  \"Var1\""));
+        + "Expecting :%n"
+        + "  \"var1\"%n"
+        + "to be the name of the column but was:%n"
+        + "  \"Var1\""));
     }
 
     try {
       assertThat(changes2).change().column().hasColumnName("var1");
       fail("An exception must be raised");
-    }
-    catch (AssertionError e) {
+    } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 0 (column name : Var1) of Change at index 0 (with primary key : [1]) of Changes on teSt table of a data source] %n"
-                                                                    + "Expecting :%n"
-                                                                    + "  \"var1\"%n"
-                                                                    + "to be the name of the column but was:%n"
-                                                                    + "  \"Var1\""));
+        + "Expecting :%n"
+        + "  \"var1\"%n"
+        + "to be the name of the column but was:%n"
+        + "  \"Var1\""));
     }
     try {
       assertThat(changes2).change().rowAtEndPoint().value().hasColumnName("var1");
       fail("An exception must be raised");
-    }
-    catch (AssertionError e) {
+    } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 0 (column name : Var1) of Row at end point of Change at index 0 (with primary key : [1]) of Changes on teSt table of a data source] %n"
-                                                                    + "Expecting :%n"
-                                                                    + "  \"var1\"%n"
-                                                                    + "to be the name of the column but was:%n"
-                                                                    + "  \"Var1\""));
+        + "Expecting :%n"
+        + "  \"var1\"%n"
+        + "to be the name of the column but was:%n"
+        + "  \"Var1\""));
     }
   }
 
@@ -296,58 +288,52 @@ public class SqliteDatabase_DataSource_NSNSNS_Test extends AbstractSqliteTest {
     try {
       assertThat(table).column("var1");
       fail("An exception must be raised");
-    }
-    catch (AssertJDBException e) {
+    } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <var1> does not exist%n"
-                                                                    + "in <[Var1, vAr2, vaR3, var4, var5, var6, var7, var8, var9, var10, var11, var12, var13, var14, var15, var16, var17, var18, var19, var20]>%n"
-                                                                    + "with comparison STRICT - Strictly compare the case"));
+        + "in <[Var1, vAr2, vaR3, var4, var5, var6, var7, var8, var9, var10, var11, var12, var13, var14, var15, var16, var17, var18, var19, var20]>%n"
+        + "with comparison STRICT - Strictly compare the case"));
     }
     try {
       assertThat(table).row().value("var1");
       fail("An exception must be raised");
-    }
-    catch (AssertJDBException e) {
+    } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <var1> does not exist%n"
-                                                                    + "in <[Var1, vAr2, vaR3, var4, var5, var6, var7, var8, var9, var10, var11, var12, var13, var14, var15, var16, var17, var18, var19, var20]>%n"
-                                                                    + "with comparison STRICT - Strictly compare the case"));
+        + "in <[Var1, vAr2, vaR3, var4, var5, var6, var7, var8, var9, var10, var11, var12, var13, var14, var15, var16, var17, var18, var19, var20]>%n"
+        + "with comparison STRICT - Strictly compare the case"));
     }
 
     try {
       assertThat(changes).change().column("var1");
       fail("An exception must be raised");
-    }
-    catch (AssertJDBException e) {
+    } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <var1> does not exist%n"
-                                                                    + "in <[Var1, vAr2, vaR3, var4, var5, var6, var7, var8, var9, var10, var11, var12, var13, var14, var15, var16, var17, var18, var19, var20]>%n"
-                                                                    + "with comparison STRICT - Strictly compare the case"));
+        + "in <[Var1, vAr2, vaR3, var4, var5, var6, var7, var8, var9, var10, var11, var12, var13, var14, var15, var16, var17, var18, var19, var20]>%n"
+        + "with comparison STRICT - Strictly compare the case"));
     }
     try {
       assertThat(changes).change().rowAtEndPoint().value("var1");
       fail("An exception must be raised");
-    }
-    catch (AssertJDBException e) {
+    } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <var1> does not exist%n"
-                                                                    + "in <[Var1, vAr2, vaR3, var4, var5, var6, var7, var8, var9, var10, var11, var12, var13, var14, var15, var16, var17, var18, var19, var20]>%n"
-                                                                    + "with comparison STRICT - Strictly compare the case"));
+        + "in <[Var1, vAr2, vaR3, var4, var5, var6, var7, var8, var9, var10, var11, var12, var13, var14, var15, var16, var17, var18, var19, var20]>%n"
+        + "with comparison STRICT - Strictly compare the case"));
     }
 
     try {
       assertThat(changes2).change().column("var1");
       fail("An exception must be raised");
-    }
-    catch (AssertJDBException e) {
+    } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <var1> does not exist%n"
-                                                                    + "in <[Var1, vAr2, vaR3, var4, var5, var6, var7, var8, var9, var10, var11, var12, var13, var14, var15, var16, var17, var18, var19, var20]>%n"
-                                                                    + "with comparison STRICT - Strictly compare the case"));
+        + "in <[Var1, vAr2, vaR3, var4, var5, var6, var7, var8, var9, var10, var11, var12, var13, var14, var15, var16, var17, var18, var19, var20]>%n"
+        + "with comparison STRICT - Strictly compare the case"));
     }
     try {
       assertThat(changes2).change().rowAtEndPoint().value("var1");
       fail("An exception must be raised");
-    }
-    catch (AssertJDBException e) {
+    } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <var1> does not exist%n"
-                                                                    + "in <[Var1, vAr2, vaR3, var4, var5, var6, var7, var8, var9, var10, var11, var12, var13, var14, var15, var16, var17, var18, var19, var20]>%n"
-                                                                    + "with comparison STRICT - Strictly compare the case"));
+        + "in <[Var1, vAr2, vaR3, var4, var5, var6, var7, var8, var9, var10, var11, var12, var13, var14, var15, var16, var17, var18, var19, var20]>%n"
+        + "with comparison STRICT - Strictly compare the case"));
     }
   }
 
@@ -364,24 +350,22 @@ public class SqliteDatabase_DataSource_NSNSNS_Test extends AbstractSqliteTest {
     try {
       assertThat(changes).change().isOnTable("teSt");
       fail("An exception must be raised");
-    }
-    catch (AssertionError e) {
+    } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 (with primary key : [1]) of Changes on test table of a data source] %n"
-                                                                    + "Expecting to be on the table:%n"
-                                                                    + "  <\"teSt\">%n"
-                                                                    + "but was on the table:%n"
-                                                                    + "  <\"test\">"));
+        + "Expecting to be on the table:%n"
+        + "  <\"teSt\">%n"
+        + "but was on the table:%n"
+        + "  <\"test\">"));
     }
     try {
       assertThat(changes2).change().isOnTable("test");
       fail("An exception must be raised");
-    }
-    catch (AssertionError e) {
+    } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 (with primary key : [1]) of Changes on teSt table of a data source] %n"
-                                                                    + "Expecting to be on the table:%n"
-                                                                    + "  <\"test\">%n"
-                                                                    + "but was on the table:%n"
-                                                                    + "  <\"teSt\">"));
+        + "Expecting to be on the table:%n"
+        + "  <\"test\">%n"
+        + "but was on the table:%n"
+        + "  <\"teSt\">"));
     }
   }
 
@@ -398,44 +382,38 @@ public class SqliteDatabase_DataSource_NSNSNS_Test extends AbstractSqliteTest {
     try {
       assertThat(changes).changeOnTable("teSt");
       fail("An exception must be raised");
-    }
-    catch (AssertJDBException e) {
+    } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Index 0 out of the limits [0, 0["));
     }
     try {
       assertThat(changes).changeOnTable("teSt", 0);
       fail("An exception must be raised");
-    }
-    catch (AssertJDBException e) {
+    } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Index 0 out of the limits [0, 0["));
     }
     try {
       assertThat(changes).changeOnTableWithPks("teSt", 1);
       fail("An exception must be raised");
-    }
-    catch (AssertJDBException e) {
+    } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("No change found for table teSt and primary keys [1]"));
     }
 
     try {
       assertThat(changes2).changeOnTable("test");
       fail("An exception must be raised");
-    }
-    catch (AssertJDBException e) {
+    } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Index 0 out of the limits [0, 0["));
     }
     try {
       assertThat(changes2).changeOnTable("test", 0);
       fail("An exception must be raised");
-    }
-    catch (AssertJDBException e) {
+    } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Index 0 out of the limits [0, 0["));
     }
     try {
       assertThat(changes2).changeOnTableWithPks("test", 1);
       fail("An exception must be raised");
-    }
-    catch (AssertJDBException e) {
+    } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("No change found for table test and primary keys [1]"));
     }
   }

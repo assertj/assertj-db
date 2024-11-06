@@ -12,15 +12,21 @@
  */
 package org.assertj.db.api;
 
-import net.bytebuddy.implementation.bind.annotation.*;
-
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-/** Collects error messages of all AssertionErrors thrown by the proxied method. */
+import net.bytebuddy.implementation.bind.annotation.RuntimeType;
+import net.bytebuddy.implementation.bind.annotation.StubValue;
+import net.bytebuddy.implementation.bind.annotation.SuperCall;
+import net.bytebuddy.implementation.bind.annotation.SuperMethod;
+import net.bytebuddy.implementation.bind.annotation.This;
+
+/**
+ * Collects error messages of all AssertionErrors thrown by the proxied method.
+ */
 public class ErrorCollector {
 
   private static final String INTERCEPT_METHOD_NAME = "intercept";
@@ -32,12 +38,22 @@ public class ErrorCollector {
   // scope : the last assertion call (might be nested)
   private final LastResult lastResult = new LastResult();
 
+  private static int countErrorCollectorProxyCalls() {
+    int nbCalls = 0;
+    for (StackTraceElement stackTraceElement : Thread.currentThread().getStackTrace()) {
+      if (CLASS_NAME.equals(stackTraceElement.getClassName())
+        && INTERCEPT_METHOD_NAME.equals(stackTraceElement.getMethodName()))
+        nbCalls++;
+    }
+    return nbCalls;
+  }
+
   @RuntimeType
   public Object intercept(
-      @This Object assertion,
-      @SuperCall Callable<?> proxy,
-      @SuperMethod(nullIfImpossible = true) Method method,
-      @StubValue Object stub) throws Exception {
+    @This Object assertion,
+    @SuperCall Callable<?> proxy,
+    @SuperMethod(nullIfImpossible = true) Method method,
+    @StubValue Object stub) throws Exception {
     try {
       Object result = proxy.call();
       this.lastResult.setSuccess(true);
@@ -72,16 +88,6 @@ public class ErrorCollector {
 
   private boolean isNestedErrorCollectorProxyCall() {
     return countErrorCollectorProxyCalls() > 1;
-  }
-
-  private static int countErrorCollectorProxyCalls() {
-    int nbCalls = 0;
-    for (StackTraceElement stackTraceElement : Thread.currentThread().getStackTrace()) {
-      if (CLASS_NAME.equals(stackTraceElement.getClassName())
-          && INTERCEPT_METHOD_NAME.equals(stackTraceElement.getMethodName()))
-        nbCalls++;
-    }
-    return nbCalls;
   }
 
   private static class LastResult {

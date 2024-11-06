@@ -12,13 +12,13 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.error.ShouldBeModified.shouldBeModified;
+import static org.assertj.db.error.ShouldNotBeModified.shouldNotBeModified;
+
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
 import org.assertj.db.type.Value;
-
-import static org.assertj.db.error.ShouldBeModified.shouldBeModified;
-import static org.assertj.db.error.ShouldNotBeModified.shouldNotBeModified;
 
 /**
  * Implements the assertion methods on a modified column.
@@ -52,9 +52,9 @@ public class AssertionsOnModifiedColumn {
    * @throws AssertionError If the column is not modified between the start point and the end point.
    */
   public static <A extends AbstractAssert<?>> A isModified(A assertion, WritableAssertionInfo info,
-                                                        Value valueAtStartPoint, Value valueAtEndPoint) {
+                                                           Value valueAtStartPoint, Value valueAtEndPoint) {
     if ((valueAtStartPoint.getValue() == null && valueAtEndPoint.getValue() == null)
-        || (valueAtStartPoint.getValue() != null && valueAtStartPoint.getValue().equals(valueAtEndPoint.getValue()))) {
+      || (valueAtStartPoint.getValue() != null && valueAtStartPoint.getValue().equals(valueAtEndPoint.getValue()))) {
 
       throw failures.failure(info, shouldBeModified(valueAtStartPoint, valueAtEndPoint));
     }
@@ -73,9 +73,9 @@ public class AssertionsOnModifiedColumn {
    * @throws AssertionError If the column is modified between the start point and the end point.
    */
   public static <A extends AbstractAssert<?>> A isNotModified(A assertion, WritableAssertionInfo info,
-                                                           Value valueAtStartPoint, Value valueAtEndPoint) {
+                                                              Value valueAtStartPoint, Value valueAtEndPoint) {
     if ((valueAtStartPoint.getValue() == null && valueAtEndPoint.getValue() != null)
-        || (valueAtStartPoint.getValue() != null && !valueAtStartPoint.getValue().equals(valueAtEndPoint.getValue()))) {
+      || (valueAtStartPoint.getValue() != null && !valueAtStartPoint.getValue().equals(valueAtEndPoint.getValue()))) {
 
       throw failures.failure(info, shouldNotBeModified(valueAtStartPoint, valueAtEndPoint));
     }

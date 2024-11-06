@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -19,15 +22,11 @@ import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertionsOnModifiedColumn} class :
  * {@link AssertionsOnModifiedColumn#isNotModified(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, org.assertj.db.type.Value)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnModifiedColumn_IsNotModified_Test extends AbstractTest {
 
@@ -40,10 +39,10 @@ public class AssertionsOnModifiedColumn_IsNotModified_Test extends AbstractTest 
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnModifiedColumn.isNotModified(tableAssert, info, getValue(null, null), getValue(
-            null, null));
+      null, null));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnModifiedColumn.isNotModified(tableAssert, info, getValue(null, "test"), getValue(null,
-                                                                                                                "test"));
+      "test"));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -61,30 +60,30 @@ public class AssertionsOnModifiedColumn_IsNotModified_Test extends AbstractTest 
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting :%n"
-                                                      + "  <null>%n"
-                                                      + "is not modified but is :%n"
-                                                      + "  <\"test\">"));
+        + "Expecting :%n"
+        + "  <null>%n"
+        + "is not modified but is :%n"
+        + "  <\"test\">"));
     }
     try {
       AssertionsOnModifiedColumn.isNotModified(tableAssert, info, getValue(null, "test"), getValue(null, null));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting :%n"
-                                                      + "  <\"test\">%n"
-                                                      + "is not modified but is :%n"
-                                                      + "  <null>"));
+        + "Expecting :%n"
+        + "  <\"test\">%n"
+        + "is not modified but is :%n"
+        + "  <null>"));
     }
     try {
       AssertionsOnModifiedColumn.isNotModified(tableAssert, info, getValue(null, "test"), getValue(null, "test1"));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting :%n"
-                                                      + "  <\"test\">%n"
-                                                      + "is not modified but is :%n"
-                                                      + "  <\"test1\">"));
+        + "Expecting :%n"
+        + "  <\"test\">%n"
+        + "is not modified but is :%n"
+        + "  <\"test1\">"));
     }
   }
 }

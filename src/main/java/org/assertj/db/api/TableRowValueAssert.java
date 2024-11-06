@@ -18,16 +18,15 @@ import org.assertj.db.type.Value;
 
 /**
  * Assertion methods for a value in a {@link Row} of a {@link Table}.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class TableRowValueAssert
-        extends AbstractRowValueAssert<Table, TableAssert, TableColumnAssert, TableColumnValueAssert, TableRowAssert, TableRowValueAssert> {
+  extends AbstractRowValueAssert<Table, TableAssert, TableColumnAssert, TableColumnValueAssert, TableRowAssert, TableRowValueAssert> {
 
   /**
    * Constructor.
-   * 
+   *
    * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    * @param value  The value to assert.
    */

@@ -12,14 +12,14 @@
  */
 package org.assertj.db.output;
 
+import static org.assertj.db.util.Descriptions.getColumnValueAtEndPointDescription;
+import static org.assertj.db.util.Descriptions.getColumnValueAtStartPointDescription;
+
 import org.assertj.db.navigation.PositionWithPoints;
 import org.assertj.db.navigation.element.ColumnElement;
 import org.assertj.db.navigation.origin.OriginWithValuesFromColumn;
 import org.assertj.db.output.impl.Output;
 import org.assertj.db.type.Value;
-
-import static org.assertj.db.util.Descriptions.getColumnValueAtEndPointDescription;
-import static org.assertj.db.util.Descriptions.getColumnValueAtStartPointDescription;
 
 /**
  * Output methods for a {@code Column} of a {@code Change}.
@@ -27,9 +27,9 @@ import static org.assertj.db.util.Descriptions.getColumnValueAtStartPointDescrip
  * @author Régis Pouiller
  */
 public class ChangeColumnOutputter
-        extends AbstractOutputterWithOriginWithColumnsAndRowsFromChange<ChangeColumnOutputter, ChangeOutputter>
-        implements ColumnElement,
-        OriginWithValuesFromColumn<ChangesOutputter, ChangeOutputter, ChangeColumnOutputter, ChangeRowOutputter, ChangeColumnValueOutputter> {
+  extends AbstractOutputterWithOriginWithColumnsAndRowsFromChange<ChangeColumnOutputter, ChangeOutputter>
+  implements ColumnElement,
+  OriginWithValuesFromColumn<ChangesOutputter, ChangeOutputter, ChangeColumnOutputter, ChangeRowOutputter, ChangeColumnValueOutputter> {
 
   /**
    * The name of the column.
@@ -53,10 +53,10 @@ public class ChangeColumnOutputter
   /**
    * Constructor.
    *
-   * @param columnName The column name.
-   * @param origin The output of {@link org.assertj.db.navigation.origin.Origin}.
+   * @param columnName        The column name.
+   * @param origin            The output of {@link org.assertj.db.navigation.origin.Origin}.
    * @param valueAtStartPoint The value at start point.
-   * @param valueAtEndPoint The value at end point.
+   * @param valueAtEndPoint   The value at end point.
    */
   public ChangeColumnOutputter(ChangeOutputter origin, String columnName, Value valueAtStartPoint,
                                Value valueAtEndPoint) {
@@ -66,23 +66,29 @@ public class ChangeColumnOutputter
     this.valueAtEndPoint = valueAtEndPoint;
     valuePosition = new PositionWithPoints<ChangeColumnOutputter, ChangeColumnValueOutputter, Value>(this, ChangeColumnValueOutputter.class, Value.class, valueAtStartPoint, valueAtEndPoint) {
 
-      @Override protected String getDescriptionAtStartPoint() {
+      @Override
+      protected String getDescriptionAtStartPoint() {
         return getColumnValueAtStartPointDescription(info);
       }
 
-      @Override protected String getDescriptionAtEndPoint() {
+      @Override
+      protected String getDescriptionAtEndPoint() {
         return getColumnValueAtEndPointDescription(info);
       }
     };
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeColumnValueOutputter valueAtStartPoint() {
     return valuePosition.getInstanceAtStartPoint().withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeColumnValueOutputter valueAtEndPoint() {
     return valuePosition.getInstanceAtEndPoint().withType(outputType);

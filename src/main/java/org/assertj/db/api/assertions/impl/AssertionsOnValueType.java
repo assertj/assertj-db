@@ -12,14 +12,14 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.error.ShouldBeValueType.shouldBeValueType;
+
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
 import org.assertj.db.error.ShouldBeValueTypeOfAny;
 import org.assertj.db.type.Value;
 import org.assertj.db.type.ValueType;
-
-import static org.assertj.db.error.ShouldBeValueType.shouldBeValueType;
 
 /**
  * Implements the assertion methods on the type of a value.
@@ -55,7 +55,7 @@ public class AssertionsOnValueType {
    * @throws AssertionError If the type of the value is different to the type in parameter.
    */
   public static <A extends AbstractAssert<?>> A isOfType(A assertion, WritableAssertionInfo info, Value value,
-                                                      ValueType expected) {
+                                                         ValueType expected) {
     ValueType type = value.getValueType();
     if (type != expected) {
       throw failures.failure(info, shouldBeValueType(value, type, expected));
@@ -75,7 +75,7 @@ public class AssertionsOnValueType {
    * @throws AssertionError If the type of the value is different to all the types in parameters.
    */
   public static <A extends AbstractAssert<?>> A isOfAnyTypeIn(A assertion, WritableAssertionInfo info, Value value,
-                                                           ValueType... expected) {
+                                                              ValueType... expected) {
     ValueType type = value.getValueType();
     for (ValueType valueType : expected) {
       if (type == valueType) {

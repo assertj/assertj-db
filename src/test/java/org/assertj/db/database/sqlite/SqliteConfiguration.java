@@ -12,21 +12,20 @@
  */
 package org.assertj.db.database.sqlite;
 
+import java.sql.Connection;
+import java.sql.Statement;
+import javax.sql.DataSource;
+
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.Statement;
-
 /**
  * Provides the configuration for the tests.
  *
  * @author Régis Pouiller
- *
  */
 @Configuration
 public class SqliteConfiguration {
@@ -45,27 +44,27 @@ public class SqliteConfiguration {
         try (Statement statement = connection.createStatement()) {
           statement.executeUpdate("drop table if exists teSt;");
           statement.executeUpdate("create table teSt ("
-                                  + " Var1 BIGINT PRIMARY KEY,\n"
-                                  + " vAr2 BLOB,\n"
-                                  + " vaR3 CHAR,\n"
-                                  + " var4 CHAR FOR BIT DATA,\n"
-                                  + " var5 CLOB,\n"
-                                  + " var6 DATE,\n"
-                                  + " var7 DECIMAL,\n"
-                                  + " var8 DOUBLE,\n"
-                                  + " var9 DOUBLE PRECISION,\n"
-                                  + " var10 FLOAT,\n"
-                                  + " var11 INTEGER,\n"
-                                  + " var12 LONG VARCHAR,\n"
-                                  + " var13 LONG VARCHAR FOR BIT DATA,\n"
-                                  + " var14 NUMERIC,\n"
-                                  + " var15 REAL,\n"
-                                  + " var16 SMALLINT,\n"
-                                  + " var17 TIME,\n"
-                                  + " var18 TIMESTAMP,\n"
-                                  + " var19 VARCHAR,\n"
-                                  + " var20 VARCHAR FOR BIT DATA"
-                                  + " )");
+            + " Var1 BIGINT PRIMARY KEY,\n"
+            + " vAr2 BLOB,\n"
+            + " vaR3 CHAR,\n"
+            + " var4 CHAR FOR BIT DATA,\n"
+            + " var5 CLOB,\n"
+            + " var6 DATE,\n"
+            + " var7 DECIMAL,\n"
+            + " var8 DOUBLE,\n"
+            + " var9 DOUBLE PRECISION,\n"
+            + " var10 FLOAT,\n"
+            + " var11 INTEGER,\n"
+            + " var12 LONG VARCHAR,\n"
+            + " var13 LONG VARCHAR FOR BIT DATA,\n"
+            + " var14 NUMERIC,\n"
+            + " var15 REAL,\n"
+            + " var16 SMALLINT,\n"
+            + " var17 TIME,\n"
+            + " var18 TIMESTAMP,\n"
+            + " var19 VARCHAR,\n"
+            + " var20 VARCHAR FOR BIT DATA"
+            + " )");
         }
       }
     } catch (Exception e) {

@@ -39,15 +39,15 @@ public class SourceWithLetterCase extends Source implements WithLetterCase {
   /**
    * Constructor with the information.
    *
-   * @param url URL to the database.
-   * @param user User to connect.
-   * @param password Password to connect.
-   * @param tableLetterCase Letter case of the tables.
-   * @param columnLetterCase Letter case of the columns.
+   * @param url                  URL to the database.
+   * @param user                 User to connect.
+   * @param password             Password to connect.
+   * @param tableLetterCase      Letter case of the tables.
+   * @param columnLetterCase     Letter case of the columns.
    * @param primaryKeyLetterCase Letter case of the primary keys.
    */
   public SourceWithLetterCase(String url, String user, String password,
-                LetterCase tableLetterCase, LetterCase columnLetterCase, LetterCase primaryKeyLetterCase) {
+                              LetterCase tableLetterCase, LetterCase columnLetterCase, LetterCase primaryKeyLetterCase) {
 
     super(url, user, password);
     this.tableLetterCase = tableLetterCase;

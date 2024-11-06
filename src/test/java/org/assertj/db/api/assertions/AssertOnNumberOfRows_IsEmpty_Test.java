@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api.assertions;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.api.TableColumnAssert;
@@ -20,9 +23,6 @@ import org.assertj.db.common.NeedReload;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
 import org.junit.Test;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link org.assertj.db.api.assertions.AssertOnNumberOfRows} class :
@@ -57,20 +57,20 @@ public class AssertOnNumberOfRows_IsEmpty_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("['select * from actor' request] %n"
-                                                      + "Expecting size (number of rows) to be equal to :%n"
-                                                      + "   <0>%n"
-                                                      + "but was:%n"
-                                                      + "   <3>"));
+        + "Expecting size (number of rows) to be equal to :%n"
+        + "   <0>%n"
+        + "but was:%n"
+        + "   <3>"));
     }
     try {
       assertThat(request).column().isEmpty();
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 0 (column name : ID) of 'select * from actor' request] %n"
-                                                      + "Expecting size (number of rows) to be equal to :%n"
-                                                      + "   <0>%n"
-                                                      + "but was:%n"
-                                                      + "   <3>"));
+        + "Expecting size (number of rows) to be equal to :%n"
+        + "   <0>%n"
+        + "but was:%n"
+        + "   <3>"));
     }
   }
 }

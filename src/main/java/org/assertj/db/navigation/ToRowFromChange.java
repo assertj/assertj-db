@@ -46,9 +46,8 @@ import org.assertj.db.navigation.element.RowElement;
  * </code>
  * </pre>
  *
- * @author Régis Pouiller
- *
  * @param <R> The class of a assertion on a row (an sub-class of {@link org.assertj.db.navigation.element.RowElement}).
+ * @author Régis Pouiller
  */
 public interface ToRowFromChange<R extends RowElement> extends Navigation {
 

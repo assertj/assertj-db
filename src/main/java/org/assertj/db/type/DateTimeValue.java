@@ -19,21 +19,12 @@ import java.util.Calendar;
 
 /**
  * This class represents a date/time value in the database.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContainer {
 
   public static final String DATE_TIME_SHOULD_BE_NOT_NULL = "date/time should be not null";
-  /**
-   * The date part.
-   */
-  private final DateValue date;
-  /**
-   * The time part.
-   */
-  private final TimeValue time;
   /**
    * Indicates where there are the digits in the {@code String} for {@link DateValue#DateValue(String)}.
    */
@@ -52,90 +43,18 @@ public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContai
    * {@link TimeValue#TimeValue(String)}.
    */
   private static final String TIME_FORMAT_WITH_NANO = "\\d\\d\\d\\d-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d.\\d\\d\\d\\d\\d\\d\\d\\d\\d";
-
   /**
-   * Makes an instance of date/time value from a date with time at 00:00AM.
-   * 
-   * @param date The date.
-   * @return An instance of date/time.
+   * The date part.
    */
-  public static DateTimeValue of(DateValue date) {
-    return new DateTimeValue(date, TimeValue.of(0, 0));
-  }
-
+  private final DateValue date;
   /**
-   * Makes an instance of date/time value from a date and a time.
-   * 
-   * @param date The date.
-   * @param time The time.
-   * @return An instance of date/time.
+   * The time part.
    */
-  public static DateTimeValue of(DateValue date, TimeValue time) {
-    return new DateTimeValue(date, time);
-  }
-
-  /**
-   * Makes an instance of date/time value from a {@code String} in {@code yyyy-mm-dd}, {@code yyyy-mm-ddThh:mm},
-   * {@code yyyy-mm-ddThh:mm:ss} or {@code yyyy-mm-ddThh:mm:ss.nnnnnnnnn} format.
-   * 
-   * @param dateTime Date/time in {@code String} format ({@code yyyy-mm-dd}).
-   * @throws NullPointerException If {@code dateTime} is {@code null}.
-   * @throws ParseException If {@code date} don't respect the {@code yyyy-mm-dd}, {@code yyyy-mm-ddThh:mm},
-   *           {@code yyyy-mm-ddThh:mm:ss} or {@code yyyy-mm-ddThh:mm:ss.nnnnnnnnn} format.
-   * @return An instance of date/time value.
-   */
-  public static DateTimeValue parse(String dateTime) throws ParseException {
-    return new DateTimeValue(dateTime);
-  }
-
-  /**
-   * Makes an instance of date/time value from a {@link Timestamp}.
-   * 
-   * @param timestamp Timestamp.
-   * @throws NullPointerException If {@code timestamp} is {@code null}.
-   * @return An instance of date/time value.
-   */
-  public static DateTimeValue from(Timestamp timestamp) {
-    return new DateTimeValue(timestamp);
-  }
-
-  /**
-   * Makes an instance of date/time value from a {@link Calendar}.
-   *
-   * @param calendar Calendar.
-   * @throws NullPointerException If {@code calendar} is {@code null}.
-   * @return An instance of date/time value.
-   * @since 1.1.0
-   */
-  public static DateTimeValue from(Calendar calendar) {
-    return new DateTimeValue(calendar);
-  }
-
-  /**
-   * Makes an instance of date/time value from a {@link LocalDateTime}.
-   *
-   * @param localDateTime LocalDateTime.
-   * @throws NullPointerException If {@code localDateTime} is {@code null}.
-   * @return An instance of date/time value.
-   * @since 2.0.0
-   */
-  public static DateTimeValue from(LocalDateTime localDateTime) {
-    return new DateTimeValue(localDateTime);
-  }
-
-  /**
-   * Makes an instance of the date/time value corresponding to now.
-   *
-   * @return An instance of date/time value.
-   * @since 1.1.0
-   */
-  public static DateTimeValue now() {
-    return from(Calendar.getInstance());
-  }
+  private final TimeValue time;
 
   /**
    * Constructor.
-   * 
+   *
    * @param date The date.
    * @param time The time.
    * @throws NullPointerException If {@code date} or {@code time} is {@code null}.
@@ -153,12 +72,12 @@ public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContai
 
   /**
    * Constructor.
-   * 
+   *
    * @param dateTime Time in {@code String} format ({@code yyyy-mm-dd}, {@code yyyy-mm-ddThh:mm},
-   *          {@code yyyy-mm-ddThh:mm:ss} or {@code yyyy-mm-ddThh:mm:ss.nnnnnnnnn}).
+   *                 {@code yyyy-mm-ddThh:mm:ss} or {@code yyyy-mm-ddThh:mm:ss.nnnnnnnnn}).
    * @throws NullPointerException If {@code dateTime} is {@code null}.
-   * @throws ParseException If {@code date} don't respect the {@code yyyy-mm-dd}, {@code yyyy-mm-ddThh:mm},
-   *           {@code yyyy-mm-ddThh:mm:ss} or {@code yyyy-mm-ddThh:mm:ss.nnnnnnnnn} format.
+   * @throws ParseException       If {@code date} don't respect the {@code yyyy-mm-dd}, {@code yyyy-mm-ddThh:mm},
+   *                              {@code yyyy-mm-ddThh:mm:ss} or {@code yyyy-mm-ddThh:mm:ss.nnnnnnnnn} format.
    */
   public DateTimeValue(String dateTime) throws ParseException {
     if (dateTime == null) {
@@ -169,19 +88,19 @@ public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContai
       date = DateValue.parse(dateTime);
       time = new TimeValue(0, 0);
     } else if (dateTime.matches(TIME_FORMAT) || dateTime.matches(TIME_FORMAT_WITH_SECONDS)
-        || dateTime.matches(TIME_FORMAT_WITH_NANO)) {
+      || dateTime.matches(TIME_FORMAT_WITH_NANO)) {
 
       date = DateValue.parse(dateTime.substring(0, 10));
       time = TimeValue.parse(dateTime.substring(11));
     } else {
       throw new ParseException("date/time must respect yyyy-mm-dd, yyyy-mm-ddThh:mm, "
-          + "yyyy-mm-ddThh:mm:ss or yyyy-mm-ddThh:mm:ss.nnnnnnnnn format", dateTime.length());
+        + "yyyy-mm-ddThh:mm:ss or yyyy-mm-ddThh:mm:ss.nnnnnnnnn format", dateTime.length());
     }
   }
 
   /**
    * Constructor.
-   * 
+   *
    * @param timestamp Timestamp.
    * @throws NullPointerException If {@code dateTime} is {@code null}.
    */
@@ -194,9 +113,9 @@ public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContai
     calendar.setTimeInMillis(timestamp.getTime());
 
     date = DateValue.of(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1,
-        calendar.get(Calendar.DAY_OF_MONTH));
+      calendar.get(Calendar.DAY_OF_MONTH));
     time = TimeValue.of(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),
-        calendar.get(Calendar.SECOND), timestamp.getNanos());
+      calendar.get(Calendar.SECOND), timestamp.getNanos());
   }
 
   /**
@@ -230,7 +149,89 @@ public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContai
     time = TimeValue.from(localDateTime.toLocalTime());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Makes an instance of date/time value from a date with time at 00:00AM.
+   *
+   * @param date The date.
+   * @return An instance of date/time.
+   */
+  public static DateTimeValue of(DateValue date) {
+    return new DateTimeValue(date, TimeValue.of(0, 0));
+  }
+
+  /**
+   * Makes an instance of date/time value from a date and a time.
+   *
+   * @param date The date.
+   * @param time The time.
+   * @return An instance of date/time.
+   */
+  public static DateTimeValue of(DateValue date, TimeValue time) {
+    return new DateTimeValue(date, time);
+  }
+
+  /**
+   * Makes an instance of date/time value from a {@code String} in {@code yyyy-mm-dd}, {@code yyyy-mm-ddThh:mm},
+   * {@code yyyy-mm-ddThh:mm:ss} or {@code yyyy-mm-ddThh:mm:ss.nnnnnnnnn} format.
+   *
+   * @param dateTime Date/time in {@code String} format ({@code yyyy-mm-dd}).
+   * @return An instance of date/time value.
+   * @throws NullPointerException If {@code dateTime} is {@code null}.
+   * @throws ParseException       If {@code date} don't respect the {@code yyyy-mm-dd}, {@code yyyy-mm-ddThh:mm},
+   *                              {@code yyyy-mm-ddThh:mm:ss} or {@code yyyy-mm-ddThh:mm:ss.nnnnnnnnn} format.
+   */
+  public static DateTimeValue parse(String dateTime) throws ParseException {
+    return new DateTimeValue(dateTime);
+  }
+
+  /**
+   * Makes an instance of date/time value from a {@link Timestamp}.
+   *
+   * @param timestamp Timestamp.
+   * @return An instance of date/time value.
+   * @throws NullPointerException If {@code timestamp} is {@code null}.
+   */
+  public static DateTimeValue from(Timestamp timestamp) {
+    return new DateTimeValue(timestamp);
+  }
+
+  /**
+   * Makes an instance of date/time value from a {@link Calendar}.
+   *
+   * @param calendar Calendar.
+   * @return An instance of date/time value.
+   * @throws NullPointerException If {@code calendar} is {@code null}.
+   * @since 1.1.0
+   */
+  public static DateTimeValue from(Calendar calendar) {
+    return new DateTimeValue(calendar);
+  }
+
+  /**
+   * Makes an instance of date/time value from a {@link LocalDateTime}.
+   *
+   * @param localDateTime LocalDateTime.
+   * @return An instance of date/time value.
+   * @throws NullPointerException If {@code localDateTime} is {@code null}.
+   * @since 2.0.0
+   */
+  public static DateTimeValue from(LocalDateTime localDateTime) {
+    return new DateTimeValue(localDateTime);
+  }
+
+  /**
+   * Makes an instance of the date/time value corresponding to now.
+   *
+   * @return An instance of date/time value.
+   * @since 1.1.0
+   */
+  public static DateTimeValue now() {
+    return from(Calendar.getInstance());
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public DateValue getDate() {
     return date;
@@ -242,7 +243,7 @@ public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContai
 
   /**
    * Returns the time.
-   * 
+   *
    * @return The time.
    */
   public TimeValue getTime() {
@@ -252,7 +253,7 @@ public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContai
   @Override
   public String toString() {
     return String.format("%4d-%02d-%02dT%02d:%02d:%02d.%09d", date.getYear(), date.getMonth(), date.getDayOfTheMonth(),
-        time.getHours(), time.getMinutes(), time.getSeconds(), time.getNanoSeconds());
+      time.getHours(), time.getMinutes(), time.getSeconds(), time.getNanoSeconds());
   }
 
   @Override
@@ -287,7 +288,7 @@ public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContai
 
   /**
    * Returns if this date/time value is before the date/time value in parameter.
-   * 
+   *
    * @param dateTime The date/time value to compare to.
    * @return If this date/time value is before the date/time value in parameter.
    */
@@ -297,7 +298,7 @@ public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContai
 
   /**
    * Returns if this date/time value is after the date/time value in parameter.
-   * 
+   *
    * @param dateTime The date/time value to compare to.
    * @return If this date/time value is after the date/time value in parameter.
    */
@@ -307,6 +308,7 @@ public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContai
 
   /**
    * Moves the date/time with the value in parameter.
+   *
    * @param date Value to move the date.
    * @return The date/time moved.
    */
@@ -321,6 +323,7 @@ public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContai
 
   /**
    * Moves the date/time with the value in parameter.
+   *
    * @param time Value to move the date.
    * @return The date/time moved.
    */
@@ -332,8 +335,7 @@ public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContai
     int days = hours / 24;
     if (hours > 0) {
       hours -= days * 24;
-    }
-    else {
+    } else {
       hours += days * 24;
     }
     if (hours < 0) {
@@ -345,11 +347,12 @@ public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContai
     DateValue movedDateValue = dateValue.move(DateValue.of(0, 0, days));
 
     return of(movedDateValue, TimeValue.of(hours, movedTimeValue.getMinutes(),
-                                           movedTimeValue.getSeconds(), movedTimeValue.getNanoSeconds()));
+      movedTimeValue.getSeconds(), movedTimeValue.getNanoSeconds()));
   }
 
   /**
    * Moves the date/time with the value in parameter.
+   *
    * @param dateTime Value to move the date.
    * @return The date/time moved.
    */
@@ -360,6 +363,7 @@ public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContai
 
   /**
    * Returns the reverse of the date/time.
+   *
    * @return The reverse.
    */
   public DateTimeValue reverse() {

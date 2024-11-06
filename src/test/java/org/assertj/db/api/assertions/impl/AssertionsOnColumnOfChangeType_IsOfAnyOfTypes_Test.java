@@ -12,6 +12,11 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.util.Locale;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -20,17 +25,11 @@ import org.assertj.db.type.Table;
 import org.assertj.db.type.ValueType;
 import org.junit.Test;
 
-import java.util.Locale;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link org.assertj.db.api.assertions.impl.AssertionsOnColumnOfChangeType} class :
  * {@link org.assertj.db.api.assertions.impl.AssertionsOnColumnOfChangeType#isOfAnyTypeIn(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, Object, Object, org.assertj.db.type.ValueType...)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnColumnOfChangeType_IsOfAnyOfTypes_Test extends AbstractTest {
 
@@ -43,18 +42,18 @@ public class AssertionsOnColumnOfChangeType_IsOfAnyOfTypes_Test extends Abstract
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnColumnOfChangeType.isOfAnyTypeIn(tableAssert, info, getValue(null, "test"),
-                                                                            getValue(null, "test"),
-                                                                            ValueType.TEXT);
+      getValue(null, "test"),
+      ValueType.TEXT);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnColumnOfChangeType.isOfAnyTypeIn(tableAssert, info,
-                                                                getValue(null, "test"),
-                                                                getValue(null, "test"), ValueType.TEXT,
-                                                                ValueType.NUMBER);
+      getValue(null, "test"),
+      getValue(null, "test"), ValueType.TEXT,
+      ValueType.NUMBER);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnColumnOfChangeType.isOfAnyTypeIn(tableAssert, info,
-                                                                getValue(null, null),
-                                                                getValue(null, "test"), ValueType.TEXT,
-                                                                ValueType.NOT_IDENTIFIED);
+      getValue(null, null),
+      getValue(null, "test"), ValueType.TEXT,
+      ValueType.NOT_IDENTIFIED);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -69,45 +68,45 @@ public class AssertionsOnColumnOfChangeType_IsOfAnyOfTypes_Test extends Abstract
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeType.isOfAnyTypeIn(tableAssert, info,
-                                                   getValue(null, 8), getValue(null, "test"),
-                                                   ValueType.TEXT, ValueType.DATE);
+        getValue(null, 8), getValue(null, "test"),
+        ValueType.TEXT, ValueType.DATE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that the value at start point:%n"
-                                                      + "  <8>%n"
-                                                      + "to be of type%n"
-                                                      + "  <[TEXT, DATE]>%n"
-                                                      + "but was of type%n"
-                                                      + "  <NUMBER>"));
+        + "Expecting that the value at start point:%n"
+        + "  <8>%n"
+        + "to be of type%n"
+        + "  <[TEXT, DATE]>%n"
+        + "but was of type%n"
+        + "  <NUMBER>"));
     }
     try {
       AssertionsOnColumnOfChangeType.isOfAnyTypeIn(tableAssert, info,
-                                                   getValue(null, null),
-                                                   getValue(null, "test"), ValueType.TEXT, ValueType.DATE);
+        getValue(null, null),
+        getValue(null, "test"), ValueType.TEXT, ValueType.DATE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at start point:%n"
-                                                                    + "  <null>%n"
-                                                                    + "to be of type%n"
-                                                                    + "  <[TEXT, DATE]>%n"
-                                                                    + "but was of type%n"
-                                                                    + "  <NOT_IDENTIFIED>"));
+        + "Expecting that the value at start point:%n"
+        + "  <null>%n"
+        + "to be of type%n"
+        + "  <[TEXT, DATE]>%n"
+        + "but was of type%n"
+        + "  <NOT_IDENTIFIED>"));
     }
     try {
       AssertionsOnColumnOfChangeType.isOfAnyTypeIn(tableAssert, info,
-                                                   getValue(null, Locale.FRENCH),
-                                                   getValue(null, "test"), ValueType.TEXT, ValueType.DATE);
+        getValue(null, Locale.FRENCH),
+        getValue(null, "test"), ValueType.TEXT, ValueType.DATE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at start point:%n"
-                                                                    + "  <fr>%n"
-                                                                    + "to be of type%n"
-                                                                    + "  <[TEXT, DATE]>%n"
-                                                                    + "but was of type%n"
-                                                                    + "  <NOT_IDENTIFIED> (java.util.Locale)"));
+        + "Expecting that the value at start point:%n"
+        + "  <fr>%n"
+        + "to be of type%n"
+        + "  <[TEXT, DATE]>%n"
+        + "but was of type%n"
+        + "  <NOT_IDENTIFIED> (java.util.Locale)"));
     }
   }
 
@@ -122,45 +121,45 @@ public class AssertionsOnColumnOfChangeType_IsOfAnyOfTypes_Test extends Abstract
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeType.isOfAnyTypeIn(tableAssert, info,
-                                                   getValue(null, "test"),
-                                                   getValue(null, 8), ValueType.TEXT, ValueType.DATE);
+        getValue(null, "test"),
+        getValue(null, 8), ValueType.TEXT, ValueType.DATE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that the value at end point:%n"
-                                                      + "  <8>%n"
-                                                      + "to be of type%n"
-                                                      + "  <[TEXT, DATE]>%n"
-                                                      + "but was of type%n"
-                                                      + "  <NUMBER>"));
+        + "Expecting that the value at end point:%n"
+        + "  <8>%n"
+        + "to be of type%n"
+        + "  <[TEXT, DATE]>%n"
+        + "but was of type%n"
+        + "  <NUMBER>"));
     }
     try {
       AssertionsOnColumnOfChangeType.isOfAnyTypeIn(tableAssert, info,
-                                                   getValue(null, "test"),
-                                                   getValue(null, null), ValueType.TEXT, ValueType.DATE);
+        getValue(null, "test"),
+        getValue(null, null), ValueType.TEXT, ValueType.DATE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at end point:%n"
-                                                                    + "  <null>%n"
-                                                                    + "to be of type%n"
-                                                                    + "  <[TEXT, DATE]>%n"
-                                                                    + "but was of type%n"
-                                                                    + "  <NOT_IDENTIFIED>"));
+        + "Expecting that the value at end point:%n"
+        + "  <null>%n"
+        + "to be of type%n"
+        + "  <[TEXT, DATE]>%n"
+        + "but was of type%n"
+        + "  <NOT_IDENTIFIED>"));
     }
     try {
       AssertionsOnColumnOfChangeType.isOfAnyTypeIn(tableAssert, info,
-                                                   getValue(null, "test"),
-                                                   getValue(null, Locale.FRENCH), ValueType.TEXT, ValueType.DATE);
+        getValue(null, "test"),
+        getValue(null, Locale.FRENCH), ValueType.TEXT, ValueType.DATE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at end point:%n"
-                                                                    + "  <fr>%n"
-                                                                    + "to be of type%n"
-                                                                    + "  <[TEXT, DATE]>%n"
-                                                                    + "but was of type%n"
-                                                                    + "  <NOT_IDENTIFIED> (java.util.Locale)"));
+        + "Expecting that the value at end point:%n"
+        + "  <fr>%n"
+        + "to be of type%n"
+        + "  <[TEXT, DATE]>%n"
+        + "but was of type%n"
+        + "  <NOT_IDENTIFIED> (java.util.Locale)"));
     }
   }
 
@@ -175,17 +174,17 @@ public class AssertionsOnColumnOfChangeType_IsOfAnyOfTypes_Test extends Abstract
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeType.isOfAnyTypeIn(tableAssert, info,
-                                                   getValue(null, new StringBuilder("test")),
-                                                   getValue(null, "test"), ValueType.TEXT, ValueType.DATE);
+        getValue(null, new StringBuilder("test")),
+        getValue(null, "test"), ValueType.TEXT, ValueType.DATE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at start point:%n"
-                                                                    + "  <test>%n"
-                                                                    + "to be of type%n"
-                                                                    + "  <[TEXT, DATE]>%n"
-                                                                    + "but was of type%n"
-                                                                    + "  <NOT_IDENTIFIED> (java.lang.StringBuilder)"));
+        + "Expecting that the value at start point:%n"
+        + "  <test>%n"
+        + "to be of type%n"
+        + "  <[TEXT, DATE]>%n"
+        + "but was of type%n"
+        + "  <NOT_IDENTIFIED> (java.lang.StringBuilder)"));
     }
   }
 
@@ -200,17 +199,17 @@ public class AssertionsOnColumnOfChangeType_IsOfAnyOfTypes_Test extends Abstract
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeType.isOfAnyTypeIn(tableAssert, info,
-                                                   getValue(null, "test"),
-                                                   getValue(null, new StringBuilder("test")), ValueType.TEXT, ValueType.DATE);
+        getValue(null, "test"),
+        getValue(null, new StringBuilder("test")), ValueType.TEXT, ValueType.DATE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at end point:%n"
-                                                                    + "  <test>%n"
-                                                                    + "to be of type%n"
-                                                                    + "  <[TEXT, DATE]>%n"
-                                                                    + "but was of type%n"
-                                                                    + "  <NOT_IDENTIFIED> (java.lang.StringBuilder)"));
+        + "Expecting that the value at end point:%n"
+        + "  <test>%n"
+        + "to be of type%n"
+        + "  <[TEXT, DATE]>%n"
+        + "but was of type%n"
+        + "  <NOT_IDENTIFIED> (java.lang.StringBuilder)"));
     }
   }
 }

@@ -12,14 +12,18 @@
  */
 package org.assertj.db.api;
 
+import static org.assertj.db.util.Descriptions.getRowValueDescription;
+
+import java.util.List;
+
 import org.assertj.db.api.assertions.AssertOnNumberOfColumns;
 import org.assertj.db.api.assertions.AssertOnRowCondition;
 import org.assertj.db.api.assertions.AssertOnRowEquality;
 import org.assertj.db.api.assertions.AssertOnRowNullity;
-import org.assertj.db.api.assertions.impl.AssertionsOnRowCondition;
-import org.assertj.db.api.assertions.impl.AssertionsOnValuesNullity;
 import org.assertj.db.api.assertions.impl.AssertionsOnNumberOfColumns;
+import org.assertj.db.api.assertions.impl.AssertionsOnRowCondition;
 import org.assertj.db.api.assertions.impl.AssertionsOnRowEquality;
+import org.assertj.db.api.assertions.impl.AssertionsOnValuesNullity;
 import org.assertj.db.navigation.Position;
 import org.assertj.db.navigation.PositionWithColumns;
 import org.assertj.db.navigation.ToValueFromRow;
@@ -28,61 +32,58 @@ import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Row;
 import org.assertj.db.type.Value;
 
-import java.util.List;
-
-import static org.assertj.db.util.Descriptions.getRowValueDescription;
-
 /**
  * Base class for all {@link Row}s assertions.
  *
+ * @param <D>  The class of the actual value (an sub-class of {@link AbstractDbData}).
+ * @param <A>  The class of the original assertion (an sub-class of {@link AbstractDbAssert}).
+ * @param <C>  The class of the equivalent column assertion (an sub-class of {@link AbstractColumnAssert}).
+ * @param <CV> The class of the equivalent column assertion on the value (an sub-class of {@link AbstractColumnValueAssert}
+ *             ).
+ * @param <R>  The class of this assertion (an sub-class of {@link AbstractRowAssert}).
+ * @param <RV> The class of this assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  * @author Régis Pouiller
  * @author Julien Roy
- *
- * @param <D> The class of the actual value (an sub-class of {@link AbstractDbData}).
- * @param <A> The class of the original assertion (an sub-class of {@link AbstractDbAssert}).
- * @param <C> The class of the equivalent column assertion (an sub-class of {@link AbstractColumnAssert}).
- * @param <CV> The class of the equivalent column assertion on the value (an sub-class of {@link AbstractColumnValueAssert}
- *          ).
- * @param <R> The class of this assertion (an sub-class of {@link AbstractRowAssert}).
- * @param <RV> The class of this assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
 public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
-        extends AbstractSubAssert<D, A, R, RV, C, CV, R, RV>
-        implements RowElement,
-                   ToValueFromRow<RV>,
-                   AssertOnRowEquality<R>,
-                   AssertOnNumberOfColumns<R>,
-                   AssertOnRowNullity<R>,
-                   AssertOnRowCondition<R> {
+  extends AbstractSubAssert<D, A, R, RV, C, CV, R, RV>
+  implements RowElement,
+  ToValueFromRow<RV>,
+  AssertOnRowEquality<R>,
+  AssertOnNumberOfColumns<R>,
+  AssertOnRowNullity<R>,
+  AssertOnRowCondition<R> {
 
+  /**
+   * Row on which do the assertion.
+   */
+  protected final Row row;
   /**
    * Position of navigation to value.
    */
   private final PositionWithColumns<R, RV, Value> valuePosition;
 
   /**
-   * Row on which do the assertion.
-   */
-  protected final Row row;
-
-  /**
    * Constructor.
    *
    * @param originalDbAssert The original assert. That could be a {@link RequestAssert} or a {@link TableAssert}.
-   * @param selfType Type of this assertion class : a sub-class of {@code AbstractRowAssert}.
-   * @param valueType Class of the assert on the value : a sub-class of {@code AbstractRowValueAssert}.
+   * @param selfType         Type of this assertion class : a sub-class of {@code AbstractRowAssert}.
+   * @param valueType        Class of the assert on the value : a sub-class of {@code AbstractRowValueAssert}.
    */
   AbstractRowAssert(A originalDbAssert, Class<R> selfType, Class<RV> valueType, Row row) {
     super(originalDbAssert, selfType);
     this.row = row;
     valuePosition = new PositionWithColumns<R, RV, Value>(selfType.cast(this), valueType) {
-      @Override protected String getDescription(int index) {
+      @Override
+      protected String getDescription(int index) {
         return getValueDescription(index);
       }
     };
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected String getValueDescription(int index) {
     List<String> columnsNameList = row.getColumnsNameList();
@@ -90,68 +91,90 @@ public abstract class AbstractRowAssert<D extends AbstractDbData<D>, A extends A
     return getRowValueDescription(info, index, columnName);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected Position<R, RV, Value> getValuePosition() {
     return valuePosition;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected List<Value> getValuesList() {
     return row.getValuesList();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public RV value(String columnName) {
     return valuePosition.getInstance(getValuesList(), row.getColumnsNameList(), columnName, row.getColumnLetterCase());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public R hasNumberOfColumns(int expected) {
     return AssertionsOnNumberOfColumns.hasNumberOfColumns(myself, info, getValuesList().size(), expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public R hasNumberOfColumnsGreaterThan(int expected) {
     return AssertionsOnNumberOfColumns.hasNumberOfColumnsGreaterThan(myself, info, getValuesList().size(), expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public R hasNumberOfColumnsLessThan(int expected) {
     return AssertionsOnNumberOfColumns.hasNumberOfColumnsLessThan(myself, info, getValuesList().size(), expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public R hasNumberOfColumnsGreaterThanOrEqualTo(int expected) {
     return AssertionsOnNumberOfColumns.hasNumberOfColumnsGreaterThanOrEqualTo(myself, info, getValuesList().size(),
-                                                                              expected);
+      expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public R hasNumberOfColumnsLessThanOrEqualTo(int expected) {
     return AssertionsOnNumberOfColumns.hasNumberOfColumnsLessThanOrEqualTo(myself, info, getValuesList().size(), expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public R hasValues(Object... expected) {
     return AssertionsOnRowEquality.hasValues(myself, info, getValuesList(), expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public R hasOnlyNotNullValues() {
     return AssertionsOnValuesNullity.hasOnlyNotNullValues(myself, info, getValuesList());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public R hasValuesSatisfying(Object... expected) {
     return AssertionsOnRowCondition.hasValuesSatisfying(myself, info, getValuesList(), expected);

@@ -12,10 +12,11 @@
  */
 package org.assertj.db.util;
 
-import net.bytebuddy.ByteBuddy;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import net.bytebuddy.ByteBuddy;
 
 /**
  * Test for Proxies utility class.
@@ -38,10 +39,10 @@ public class Proxies_Test {
   @Test
   public void test_is_proxy_with_enhanced_class() {
     Class enhancedClass = new ByteBuddy()
-        .subclass(ClassForProxiesTest.class)
-        .make()
-        .load(ClassForProxiesTest.class.getClassLoader())
-        .getLoaded();
+      .subclass(ClassForProxiesTest.class)
+      .make()
+      .load(ClassForProxiesTest.class.getClassLoader())
+      .getLoaded();
     assertThat(Proxies.isProxified(enhancedClass)).isTrue();
   }
 
@@ -59,10 +60,10 @@ public class Proxies_Test {
   @Test
   public void test_unproxy_with_enhanced_class() {
     Class enhancedClass = new ByteBuddy()
-        .subclass(ClassForProxiesTest.class)
-        .make()
-        .load(ClassForProxiesTest.class.getClassLoader())
-        .getLoaded();
+      .subclass(ClassForProxiesTest.class)
+      .make()
+      .load(ClassForProxiesTest.class.getClassLoader())
+      .getLoaded();
     assertThat(Proxies.unProxy(enhancedClass)).isEqualTo(ClassForProxiesTest.class);
   }
 

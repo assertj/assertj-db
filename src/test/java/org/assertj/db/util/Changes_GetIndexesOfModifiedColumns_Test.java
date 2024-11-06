@@ -25,7 +25,6 @@ import org.junit.Test;
  * Tests on {@code getIndexesOfModifiedColumns} method.
  *
  * @author Régis Pouiller
- *
  */
 public class Changes_GetIndexesOfModifiedColumns_Test extends AbstractTest {
 
@@ -34,35 +33,35 @@ public class Changes_GetIndexesOfModifiedColumns_Test extends AbstractTest {
    */
   @Test
   public void test_get_indexes_of_modified_columns() throws Exception {
-    Change creationChange = getChange(DataType.TABLE, "test", ChangeType.CREATION, 
-                                      null, 
-                                      getRow(Arrays.asList("var1"), 
-                                             Arrays.asList("var1", "var2", "var3"), 
-                                             Arrays.asList(getValue("var1", 1), 
-                                                           getValue("var2", "test"), 
-                                                           getValue("var3", null))));
+    Change creationChange = getChange(DataType.TABLE, "test", ChangeType.CREATION,
+      null,
+      getRow(Arrays.asList("var1"),
+        Arrays.asList("var1", "var2", "var3"),
+        Arrays.asList(getValue("var1", 1),
+          getValue("var2", "test"),
+          getValue("var3", null))));
 
-    Change modificationChange = getChange(DataType.TABLE, "test", ChangeType.MODIFICATION, 
-                                      getRow(Arrays.asList("var1"), 
-                                             Arrays.asList("var1", "var2", "var3", "var4"), 
-                                             Arrays.asList(getValue("var1", 1), 
-                                                           getValue("var2", null), 
-                                                           getValue("var3", "text1"), 
-                                                           getValue("var4", null))), 
-                                      getRow(Arrays.asList("var1"), 
-                                             Arrays.asList("var1", "var2", "var3", "var4"), 
-                                             Arrays.asList(getValue("var1", 1), 
-                                                           getValue("var2", "test"), 
-                                                           getValue("var3", null), 
-                                                           getValue("var4", null))));
+    Change modificationChange = getChange(DataType.TABLE, "test", ChangeType.MODIFICATION,
+      getRow(Arrays.asList("var1"),
+        Arrays.asList("var1", "var2", "var3", "var4"),
+        Arrays.asList(getValue("var1", 1),
+          getValue("var2", null),
+          getValue("var3", "text1"),
+          getValue("var4", null))),
+      getRow(Arrays.asList("var1"),
+        Arrays.asList("var1", "var2", "var3", "var4"),
+        Arrays.asList(getValue("var1", 1),
+          getValue("var2", "test"),
+          getValue("var3", null),
+          getValue("var4", null))));
 
-    Change deletionChange = getChange(DataType.TABLE, "test", ChangeType.DELETION, 
-                                      getRow(Arrays.asList("var1"), 
-                                             Arrays.asList("var1", "var2", "var3"), 
-                                             Arrays.asList(getValue("var1", 1), 
-                                                           getValue("var2", "test1"), 
-                                                           getValue("var3", null))), 
-                                      null);
+    Change deletionChange = getChange(DataType.TABLE, "test", ChangeType.DELETION,
+      getRow(Arrays.asList("var1"),
+        Arrays.asList("var1", "var2", "var3"),
+        Arrays.asList(getValue("var1", 1),
+          getValue("var2", "test1"),
+          getValue("var3", null))),
+      null);
 
     Integer[] creationIndexes = Changes.getIndexesOfModifiedColumns(creationChange);
     Integer[] modificationIndexes = Changes.getIndexesOfModifiedColumns(modificationChange);

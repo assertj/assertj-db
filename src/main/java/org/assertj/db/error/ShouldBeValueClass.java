@@ -25,18 +25,62 @@ import org.assertj.db.type.Value;
 public class ShouldBeValueClass extends BasicErrorMessageFactory {
 
   private static final String EXPECTED_MESSAGE =
-          "%nExpecting:%n  <%s>%nto be of class%n  <%s>%nbut was of class%n  <%s>";
+    "%nExpecting:%n  <%s>%nto be of class%n  <%s>%nbut was of class%n  <%s>";
   private static final String EXPECTED_MESSAGE_WITH_INDEX =
-          "%nExpecting that the value at index %s:%n  <%s>%nto be of class%n  <%s>%nbut was of class%n  <%s>";
+    "%nExpecting that the value at index %s:%n  <%s>%nto be of class%n  <%s>%nbut was of class%n  <%s>";
   private static final String EXPECTED_MESSAGE_JUST_WITH_EXPECTED =
-          "%nExpecting:%n  <%s>%nto be of class%n  <%s>";
+    "%nExpecting:%n  <%s>%nto be of class%n  <%s>";
   private static final String EXPECTED_MESSAGE_JUST_WITH_EXPECTED_WITH_INDEX =
-          "%nExpecting that the value at index %s:%n  <%s>%nto be of class%n  <%s>";
+    "%nExpecting that the value at index %s:%n  <%s>%nto be of class%n  <%s>";
+
+  /**
+   * Constructor.
+   *
+   * @param actual   The actual value in the failed assertion.
+   * @param tested   The tested class.
+   * @param expected The expected class.
+   */
+  private ShouldBeValueClass(Value actual, Class<?> tested, Class<?> expected) {
+    super(EXPECTED_MESSAGE, actual.getValue(), expected, tested);
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param index    The index of the value.
+   * @param actual   The actual value in the failed assertion.
+   * @param tested   The tested class.
+   * @param expected The expected class.
+   */
+  private ShouldBeValueClass(int index, Value actual, Class<?> tested, Class<?> expected) {
+    super(EXPECTED_MESSAGE_WITH_INDEX, index, actual.getValue(), expected, tested);
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param actual   The actual value in the failed assertion.
+   * @param expected The expected class.
+   */
+  private ShouldBeValueClass(Value actual, Class<?> expected) {
+    super(EXPECTED_MESSAGE_JUST_WITH_EXPECTED, actual.getValue(), expected);
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param index    The index of the value.
+   * @param actual   The actual value in the failed assertion.
+   * @param expected The expected class.
+   */
+  private ShouldBeValueClass(int index, Value actual, Class<?> expected) {
+    super(EXPECTED_MESSAGE_JUST_WITH_EXPECTED_WITH_INDEX, index, actual.getValue(), expected);
+  }
 
   /**
    * Creates a new <code>{@link ShouldBeValueClass}</code>.
    *
-   * @param actual The actual value in the failed assertion.
+   * @param actual   The actual value in the failed assertion.
    * @param expected The expected class.
    * @return the created {@code ErrorMessageFactory}.
    */
@@ -50,8 +94,8 @@ public class ShouldBeValueClass extends BasicErrorMessageFactory {
   /**
    * Creates a new <code>{@link ShouldBeValueType}</code>.
    *
-   * @param index The index of the value.
-   * @param actual The actual value in the failed assertion.
+   * @param index    The index of the value.
+   * @param actual   The actual value in the failed assertion.
    * @param expected The expected type.
    * @return the created {@code ErrorMessageFactory}.
    */
@@ -60,49 +104,5 @@ public class ShouldBeValueClass extends BasicErrorMessageFactory {
       return new ShouldBeValueClass(index, actual, expected);
     }
     return new ShouldBeValueClass(index, actual, actual.getValue().getClass(), expected);
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param actual The actual value in the failed assertion.
-   * @param tested The tested class.
-   * @param expected The expected class.
-   */
-  private ShouldBeValueClass(Value actual, Class<?> tested, Class<?> expected) {
-    super(EXPECTED_MESSAGE, actual.getValue(), expected, tested);
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param index The index of the value.
-   * @param actual The actual value in the failed assertion.
-   * @param tested The tested class.
-   * @param expected The expected class.
-   */
-  private ShouldBeValueClass(int index, Value actual, Class<?> tested, Class<?> expected) {
-    super(EXPECTED_MESSAGE_WITH_INDEX, index, actual.getValue(), expected, tested);
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param actual The actual value in the failed assertion.
-   * @param expected The expected class.
-   */
-  private ShouldBeValueClass(Value actual, Class<?> expected) {
-    super(EXPECTED_MESSAGE_JUST_WITH_EXPECTED, actual.getValue(), expected);
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param index The index of the value.
-   * @param actual The actual value in the failed assertion.
-   * @param expected The expected class.
-   */
-  private ShouldBeValueClass(int index, Value actual, Class<?> expected) {
-    super(EXPECTED_MESSAGE_JUST_WITH_EXPECTED_WITH_INDEX, index, actual.getValue(), expected);
   }
 }

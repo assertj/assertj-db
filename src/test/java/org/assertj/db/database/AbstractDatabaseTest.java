@@ -12,8 +12,16 @@
  */
 package org.assertj.db.database;
 
-import com.ninja_squad.dbsetup.DbSetup;
-import com.ninja_squad.dbsetup.DbSetupTracker;
+import static org.assertj.db.type.lettercase.LetterCase.getLetterCase;
+
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sql.DataSource;
+
 import org.assertj.db.common.NeedReload;
 import org.assertj.db.type.lettercase.CaseComparisons;
 import org.assertj.db.type.lettercase.CaseConversions;
@@ -27,21 +35,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.sql.DataSource;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import static org.assertj.db.type.lettercase.LetterCase.getLetterCase;
+import com.ninja_squad.dbsetup.DbSetup;
+import com.ninja_squad.dbsetup.DbSetupTracker;
 
 /**
  * Parent for all the tests which are specific for databases.
  *
  * @author Régis Pouiller
- *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
@@ -85,7 +85,7 @@ public abstract class AbstractDatabaseTest {
   /**
    * Update the database.
    *
-   * @param request Request to update.
+   * @param request    Request to update.
    * @param parameters The parameters of the request.
    */
   protected void update(String request, Object... parameters) {

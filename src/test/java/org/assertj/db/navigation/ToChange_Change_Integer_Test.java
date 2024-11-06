@@ -12,6 +12,15 @@
  */
 package org.assertj.db.navigation;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.assertj.db.output.Outputs.output;
+import static org.junit.Assert.fail;
+
+import java.lang.reflect.Field;
+import java.util.List;
+import java.util.Map;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.ChangeAssert;
 import org.assertj.db.api.ChangesAssert;
@@ -24,21 +33,11 @@ import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.Changes;
 import org.junit.Test;
 
-import java.lang.reflect.Field;
-import java.util.List;
-import java.util.Map;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.output.Outputs.output;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link org.assertj.db.navigation.ToChange} class :
  * {@link org.assertj.db.navigation.ToChange#change(int)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class ToChange_Change_Integer_Test extends AbstractTest {
 
@@ -63,9 +62,9 @@ public class ToChange_Change_Integer_Test extends AbstractTest {
     fieldChange.setAccessible(true);
 
     ChangesAssert changesAssert = assertThat(changes);
-    PositionWithChanges<ChangesAssert, ChangeAssert> position = 
-              (PositionWithChanges<ChangesAssert, ChangeAssert>) fieldPosition.get(changesAssert);
-    Map<ChangeType, Map<String, Integer>> map = (Map<ChangeType, Map<String, Integer>>)fieldIndex.get(position);
+    PositionWithChanges<ChangesAssert, ChangeAssert> position =
+      (PositionWithChanges<ChangesAssert, ChangeAssert>) fieldPosition.get(changesAssert);
+    Map<ChangeType, Map<String, Integer>> map = (Map<ChangeType, Map<String, Integer>>) fieldIndex.get(position);
     assertThat(map).hasSize(0);
     assertThat(map.get(null)).isNull();
     ChangeAssert changeAssert0 = changesAssert.change(0);
@@ -116,9 +115,9 @@ public class ToChange_Change_Integer_Test extends AbstractTest {
     assertThat(changeAssert0).isSameAs(changeAssertAgain0);
 
     ChangesAssert changesAssertBis = assertThat(changes);
-    PositionWithChanges<ChangesAssert, ChangeAssert> positionBis = 
-              (PositionWithChanges<ChangesAssert, ChangeAssert>) fieldPosition.get(changesAssertBis);
-    map = (Map<ChangeType, Map<String, Integer>>)fieldIndex.get(positionBis);
+    PositionWithChanges<ChangesAssert, ChangeAssert> positionBis =
+      (PositionWithChanges<ChangesAssert, ChangeAssert>) fieldPosition.get(changesAssertBis);
+    map = (Map<ChangeType, Map<String, Integer>>) fieldIndex.get(positionBis);
     assertThat(map).hasSize(0);
     assertThat(map.get(null)).isNull();
     ChangeAssert changeAssertBis0 = changesAssertBis.change(0);
@@ -200,9 +199,9 @@ public class ToChange_Change_Integer_Test extends AbstractTest {
     fieldChange.setAccessible(true);
 
     ChangesOutputter changesOutputter = output(changes);
-    PositionWithChanges<ChangesAssert, ChangeAssert> position = 
-              (PositionWithChanges<ChangesAssert, ChangeAssert>) fieldPosition.get(changesOutputter);
-    Map<ChangeType, Map<String, Integer>> map = (Map<ChangeType, Map<String, Integer>>)fieldIndex.get(position);
+    PositionWithChanges<ChangesAssert, ChangeAssert> position =
+      (PositionWithChanges<ChangesAssert, ChangeAssert>) fieldPosition.get(changesOutputter);
+    Map<ChangeType, Map<String, Integer>> map = (Map<ChangeType, Map<String, Integer>>) fieldIndex.get(position);
     assertThat(map).hasSize(0);
     assertThat(map.get(null)).isNull();
     ChangeOutputter changeOutputter0 = changesOutputter.change(0);
@@ -253,9 +252,9 @@ public class ToChange_Change_Integer_Test extends AbstractTest {
     assertThat(changeOutputter0).isSameAs(changeOutputterAgain0);
 
     ChangesOutputter changesOutputterBis = output(changes);
-    PositionWithChanges<ChangesAssert, ChangeAssert> positionBis = 
-              (PositionWithChanges<ChangesAssert, ChangeAssert>) fieldPosition.get(changesOutputterBis);
-    map = (Map<ChangeType, Map<String, Integer>>)fieldIndex.get(positionBis);
+    PositionWithChanges<ChangesAssert, ChangeAssert> positionBis =
+      (PositionWithChanges<ChangesAssert, ChangeAssert>) fieldPosition.get(changesOutputterBis);
+    map = (Map<ChangeType, Map<String, Integer>>) fieldIndex.get(positionBis);
     assertThat(map).hasSize(0);
     assertThat(map.get(null)).isNull();
     ChangeOutputter changeOutputterBis0 = changesOutputterBis.change(0);

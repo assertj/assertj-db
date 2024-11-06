@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api.assertions;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.TableColumnAssert;
 import org.assertj.db.common.AbstractTest;
@@ -20,15 +23,11 @@ import org.assertj.db.type.DateValue;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertOnColumnEquality} class :
  * {@link org.assertj.db.api.assertions.AssertOnColumnEquality#hasValues(org.assertj.db.type.DateValue...)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertOnColumnEquality_HasValues_DateValue_Test extends AbstractTest {
 
@@ -42,20 +41,20 @@ public class AssertOnColumnEquality_HasValues_DateValue_Test extends AbstractTes
     Table table = new Table(source, "test");
     TableColumnAssert tableColumnAssert = assertThat(table).column("var9");
     TableColumnAssert tableColumnAssertReturn = tableColumnAssert.hasValues(
-            DateValue.of(2014, 5, 24),
-            DateValue.of(2014, 5, 30),
-            DateValue.of(2014, 5, 30),
-            DateValue.of(2014, 5, 30));
+      DateValue.of(2014, 5, 24),
+      DateValue.of(2014, 5, 30),
+      DateValue.of(2014, 5, 30),
+      DateValue.of(2014, 5, 30));
     Assertions.assertThat(tableColumnAssert).isSameAs(tableColumnAssertReturn);
 
     Table table2 = new Table(source, "test2");
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var9");
     TableColumnAssert tableColumnAssertReturn2 = tableColumnAssert2.hasValues(DateValue.of(2014, 5, 24),
-                                                                              null);
+      null);
     Assertions.assertThat(tableColumnAssert2).isSameAs(tableColumnAssertReturn2);
     TableColumnAssert tableColumnAssert3 = assertThat(table2).column("var10");
     TableColumnAssert tableColumnAssertReturn3 = tableColumnAssert3.hasValues(DateValue.of(2014, 5, 24),
-                                                                              null);
+      null);
     Assertions.assertThat(tableColumnAssert3).isSameAs(tableColumnAssertReturn3);
   }
 
@@ -68,41 +67,41 @@ public class AssertOnColumnEquality_HasValues_DateValue_Test extends AbstractTes
     TableColumnAssert tableColumnAssert = assertThat(table).column("var9");
     try {
       tableColumnAssert.hasValues(DateValue.of(2014, 5, 24),
-                                  DateValue.of(2014, 5, 29),
-                                  DateValue.of(2014, 5, 30),
-                                  DateValue.of(2014, 5, 30));
+        DateValue.of(2014, 5, 29),
+        DateValue.of(2014, 5, 30),
+        DateValue.of(2014, 5, 30));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 8 (column name : VAR9) of TEST table] %n"
-                                                      + "Expecting that the value at index 1:%n"
-                                                      + "  <2014-05-30>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <2014-05-29>"));
+        + "Expecting that the value at index 1:%n"
+        + "  <2014-05-30>%n"
+        + "to be equal to: %n"
+        + "  <2014-05-29>"));
     }
     Table table2 = new Table(source, "test2");
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var9");
     try {
       tableColumnAssert2.hasValues(DateValue.of(2014, 5, 24),
-                                   DateValue.of(2014, 5, 24));
+        DateValue.of(2014, 5, 24));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 8 (column name : VAR9) of TEST2 table] %n"
-                                                      + "Expecting that the value at index 1:%n"
-                                                      + "  <null>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <2014-05-24>"));
+        + "Expecting that the value at index 1:%n"
+        + "  <null>%n"
+        + "to be equal to: %n"
+        + "  <2014-05-24>"));
     }
     TableColumnAssert tableColumnAssert3 = assertThat(table2).column("var10");
     try {
       tableColumnAssert3.hasValues(DateValue.of(2014, 5, 23),
-                                   null);
+        null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 9 (column name : VAR10) of TEST2 table] %n"
-                                                      + "Expecting that the value at index 0:%n"
-                                                      + "  <2014-05-24T09:46:30.000000000>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <2014-05-23>"));
+        + "Expecting that the value at index 0:%n"
+        + "  <2014-05-24T09:46:30.000000000>%n"
+        + "to be equal to: %n"
+        + "  <2014-05-23>"));
     }
   }
 }

@@ -12,6 +12,11 @@
  */
 package org.assertj.db.api;
 
+import static org.assertj.db.util.Descriptions.getColumnDescription;
+import static org.assertj.db.util.Descriptions.getRowDescription;
+
+import java.util.List;
+
 import org.assertj.db.api.assertions.AssertOnNumberOfColumns;
 import org.assertj.db.api.assertions.AssertOnNumberOfRows;
 import org.assertj.db.api.assertions.impl.AssertionsOnNumberOfColumns;
@@ -23,28 +28,22 @@ import org.assertj.db.type.AbstractDbData;
 import org.assertj.db.type.Column;
 import org.assertj.db.type.Row;
 
-import java.util.List;
-
-import static org.assertj.db.util.Descriptions.getColumnDescription;
-import static org.assertj.db.util.Descriptions.getRowDescription;
-
 /**
  * Base class for all data ({@code Table} or {@code Request}) assertions.
  *
- * @author Régis Pouiller
- * 
- * @param <D> The class of the actual value (an sub-class of {@link AbstractDbData}).
- * @param <A> The class of the original assert (an sub-class of {@link AbstractDbAssert}).
- * @param <C> The class of this assert (an sub-class of {@link AbstractColumnAssert}).
+ * @param <D>  The class of the actual value (an sub-class of {@link AbstractDbData}).
+ * @param <A>  The class of the original assert (an sub-class of {@link AbstractDbAssert}).
+ * @param <C>  The class of this assert (an sub-class of {@link AbstractColumnAssert}).
  * @param <CV> The class of this assertion on the value (an sub-class of {@link AbstractColumnValueAssert}).
- * @param <R> The class of the equivalent row assert (an sub-class of {@link AbstractRowAssert}).
+ * @param <R>  The class of the equivalent row assert (an sub-class of {@link AbstractRowAssert}).
  * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
+ * @author Régis Pouiller
  */
 public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
-        extends AbstractAssert<A>
-        implements OriginWithColumnsAndRows<C, R>,
-                   AssertOnNumberOfColumns<A>,
-                   AssertOnNumberOfRows<A> {
+  extends AbstractAssert<A>
+  implements OriginWithColumnsAndRows<C, R>,
+  AssertOnNumberOfColumns<A>,
+  AssertOnNumberOfRows<A> {
 
   /**
    * The actual value on which the assertion is.
@@ -62,66 +61,82 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
 
   /**
    * Constructor of the database assertions.
-   * 
-   * @param actualValue The actual value on which the assertion is.
-   * @param selfType Type of this assertion class.
+   *
+   * @param actualValue      The actual value on which the assertion is.
+   * @param selfType         Type of this assertion class.
    * @param columnAssertType Class of the assertion on the column.
-   * @param rowAssertType Class of the assertion on the row.
+   * @param rowAssertType    Class of the assertion on the row.
    */
   AbstractDbAssert(D actualValue, Class<A> selfType, Class<C> columnAssertType, Class<R> rowAssertType) {
     super(selfType);
     actual = actualValue;
     columnPosition = new PositionWithColumns<A, C, Column>(selfType.cast(this), columnAssertType) {
-      @Override protected String getDescription(int index) {
+      @Override
+      protected String getDescription(int index) {
         List<String> columnsNameList = actual.getColumnsNameList();
         String columnName = columnsNameList.get(index);
         return getColumnDescription(myself.getInfo(), index, columnName);
       }
     };
     rowPosition = new Position<A, R, Row>(selfType.cast(this), rowAssertType) {
-      @Override protected String getDescription(int index) {
+      @Override
+      protected String getDescription(int index) {
         return getRowDescription(myself.getInfo(), index);
       }
     };
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public R row() {
     return rowPosition.getInstance(actual.getRowsList());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public R row(int index) {
     return rowPosition.getInstance(actual.getRowsList(), index);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C column() {
     return columnPosition.getInstance(actual.getColumnsList());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C column(int index) {
     return columnPosition.getInstance(actual.getColumnsList(), index);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C column(String columnName) {
     return columnPosition.getInstance(actual.getColumnsList(), actual.getColumnsNameList(), columnName, actual.getColumnLetterCase());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public A isEmpty() {
     return hasNumberOfRows(0);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public A hasNumberOfRows(int expected) {
     List<Row> rowsList = actual.getRowsList();
@@ -129,7 +144,9 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
     return AssertionsOnNumberOfRows.hasNumberOfRows(myself, info, size, expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public A hasNumberOfRowsGreaterThan(int expected) {
     List<Row> rowsList = actual.getRowsList();
@@ -137,7 +154,9 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
     return AssertionsOnNumberOfRows.hasNumberOfRowsGreaterThan(myself, info, size, expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public A hasNumberOfRowsLessThan(int expected) {
     List<Row> rowsList = actual.getRowsList();
@@ -145,7 +164,9 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
     return AssertionsOnNumberOfRows.hasNumberOfRowsLessThan(myself, info, size, expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public A hasNumberOfRowsGreaterThanOrEqualTo(int expected) {
     List<Row> rowsList = actual.getRowsList();
@@ -153,7 +174,9 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
     return AssertionsOnNumberOfRows.hasNumberOfRowsGreaterThanOrEqualTo(myself, info, size, expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public A hasNumberOfRowsLessThanOrEqualTo(int expected) {
     List<Row> rowsList = actual.getRowsList();
@@ -161,7 +184,9 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
     return AssertionsOnNumberOfRows.hasNumberOfRowsLessThanOrEqualTo(myself, info, size, expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public A hasNumberOfColumns(int expected) {
     List<String> columnsNameList = actual.getColumnsNameList();
@@ -169,7 +194,9 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
     return AssertionsOnNumberOfColumns.hasNumberOfColumns(myself, info, size, expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public A hasNumberOfColumnsGreaterThan(int expected) {
     List<String> columnsNameList = actual.getColumnsNameList();
@@ -177,7 +204,9 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
     return AssertionsOnNumberOfColumns.hasNumberOfColumnsGreaterThan(myself, info, size, expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public A hasNumberOfColumnsLessThan(int expected) {
     List<String> columnsNameList = actual.getColumnsNameList();
@@ -185,7 +214,9 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
     return AssertionsOnNumberOfColumns.hasNumberOfColumnsLessThan(myself, info, size, expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public A hasNumberOfColumnsGreaterThanOrEqualTo(int expected) {
     List<String> columnsNameList = actual.getColumnsNameList();
@@ -193,7 +224,9 @@ public abstract class AbstractDbAssert<D extends AbstractDbData<D>, A extends Ab
     return AssertionsOnNumberOfColumns.hasNumberOfColumnsGreaterThanOrEqualTo(myself, info, size, expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public A hasNumberOfColumnsLessThanOrEqualTo(int expected) {
     List<String> columnsNameList = actual.getColumnsNameList();

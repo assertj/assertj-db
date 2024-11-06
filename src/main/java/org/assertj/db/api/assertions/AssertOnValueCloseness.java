@@ -51,7 +51,7 @@ public interface AssertOnValueCloseness<T extends AssertOnValueCloseness<T>> {
    * </code>
    * </pre>
    *
-   * @param expected The expected number value.
+   * @param expected  The expected number value.
    * @param tolerance The tolerance of the closeness.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not close to the number in parameter.
@@ -83,7 +83,7 @@ public interface AssertOnValueCloseness<T extends AssertOnValueCloseness<T>> {
    * </code>
    * </pre>
    *
-   * @param expected The expected date value.
+   * @param expected  The expected date value.
    * @param tolerance The tolerance of the closeness.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not close to the date in parameter.
@@ -115,7 +115,7 @@ public interface AssertOnValueCloseness<T extends AssertOnValueCloseness<T>> {
    * </code>
    * </pre>
    *
-   * @param expected The expected date value.
+   * @param expected  The expected date value.
    * @param tolerance The tolerance of the closeness.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not close to the date in parameter.
@@ -149,7 +149,7 @@ public interface AssertOnValueCloseness<T extends AssertOnValueCloseness<T>> {
    * </code>
    * </pre>
    *
-   * @param expected The expected date value.
+   * @param expected  The expected date value.
    * @param tolerance The tolerance of the closeness.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not close to the date in parameter.
@@ -181,7 +181,7 @@ public interface AssertOnValueCloseness<T extends AssertOnValueCloseness<T>> {
    * </code>
    * </pre>
    *
-   * @param expected The expected time value.
+   * @param expected  The expected time value.
    * @param tolerance The tolerance of the closeness.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not close to the time in parameter.
@@ -216,7 +216,7 @@ public interface AssertOnValueCloseness<T extends AssertOnValueCloseness<T>> {
    * </code>
    * </pre>
    *
-   * @param expected The expected date/time value.
+   * @param expected  The expected date/time value.
    * @param tolerance The tolerance of the closeness.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not close to the date/time in parameter.
@@ -251,7 +251,7 @@ public interface AssertOnValueCloseness<T extends AssertOnValueCloseness<T>> {
    * </code>
    * </pre>
    *
-   * @param expected The expected date/time value.
+   * @param expected  The expected date/time value.
    * @param tolerance The tolerance of the closeness.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not close to the date/time in parameter.
@@ -286,7 +286,7 @@ public interface AssertOnValueCloseness<T extends AssertOnValueCloseness<T>> {
    * </code>
    * </pre>
    *
-   * @param expected The expected date/time value.
+   * @param expected  The expected date/time value.
    * @param tolerance The tolerance of the closeness.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not close to the date/time in parameter.

@@ -25,10 +25,9 @@ import java.sql.SQLException;
  * So this class contains : the way to access the database with {@link #getSource()} and {@link #getDataSource()} (one
  * of them need to be set before loading the data).<br>
  *
- * @author Régis Pouiller
- *
  * @param <D> Class of the subclass (an implementation of {@link AbstractDbElement}) : useful for the fluent methods
- *          (setters).
+ *            (setters).
+ * @author Régis Pouiller
  */
 public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implements DbElement, WithLetterCase {
 
@@ -46,22 +45,26 @@ public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implemen
   private DataSource dataSource;
   /**
    * Letter case of the tables.
+   *
    * @since 1.1.0
    */
   private LetterCase tableLetterCase;
   /**
    * Letter case of the columns.
+   *
    * @since 1.1.0
    */
   private LetterCase columnLetterCase;
   /**
    * Letter case of the primary keys.
+   *
    * @since 1.1.0
    */
   private LetterCase primaryKeyLetterCase;
 
   /**
    * Default constructor.
+   *
    * @param selfType Class of this element : a sub-class of {@code AbstractDbElement}.
    */
   AbstractDbElement(Class<D> selfType) {
@@ -71,8 +74,9 @@ public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implemen
 
   /**
    * Constructor.
+   *
    * @param selfType Class of this element : a sub-class of {@code AbstractDbElement}.
-   * @param source The {@link Source} to connect to the database (must be not {@code null}).
+   * @param source   The {@link Source} to connect to the database (must be not {@code null}).
    * @throws NullPointerException If {@code source} is {@code null}.
    */
   AbstractDbElement(Class<D> selfType, Source source) {
@@ -83,7 +87,8 @@ public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implemen
 
   /**
    * Constructor.
-   * @param selfType Class of this element : a sub-class of {@code AbstractDbElement}.
+   *
+   * @param selfType   Class of this element : a sub-class of {@code AbstractDbElement}.
    * @param dataSource The {@link DataSource} (must be not {@code null}).
    * @throws NullPointerException If {@code dataSource} is {@code null}.
    */
@@ -94,9 +99,44 @@ public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implemen
   }
 
   /**
+   * Returns the catalog from a connection.
+   *
+   * @param connection The connection with the catalog
+   * @return The catalog from a connection.
+   * @throws SQLException SQL Exception
+   */
+  protected static String getCatalog(Connection connection) throws SQLException {
+    try {
+      return connection.getCatalog();
+    } catch (SQLException exception) {
+      throw exception;
+    } catch (Exception throwable) {
+      return null;
+    }
+  }
+
+  /**
+   * Returns the schema from a connection.
+   *
+   * @param connection The connection with the catalog
+   * @return The schema from a connection.
+   * @throws SQLException SQL Exception
+   */
+  protected static String getSchema(Connection connection) throws SQLException {
+    try {
+      return connection.getSchema();
+    } catch (SQLException exception) {
+      throw exception;
+    } catch (Exception throwable) {
+      return null;
+    }
+  }
+
+  /**
    * Sets the letter cases from information in parameters.
-   * @param tableLetterCase Letter case of the tables.
-   * @param columnLetterCase Letter case of the columns.
+   *
+   * @param tableLetterCase      Letter case of the tables.
+   * @param columnLetterCase     Letter case of the columns.
    * @param primaryKeyLetterCase Letter case of the primary keys.
    * @return The actual instance.
    */
@@ -116,14 +156,12 @@ public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implemen
       tableLetterCase = withLetterCase.getTableLetterCase();
       columnLetterCase = withLetterCase.getColumnLetterCase();
       primaryKeyLetterCase = withLetterCase.getPrimaryKeyLetterCase();
-    }
-    else if (source instanceof WithLetterCase) {
+    } else if (source instanceof WithLetterCase) {
       WithLetterCase withLetterCase = (WithLetterCase) source;
       tableLetterCase = withLetterCase.getTableLetterCase();
       columnLetterCase = withLetterCase.getColumnLetterCase();
       primaryKeyLetterCase = withLetterCase.getPrimaryKeyLetterCase();
-    }
-    else {
+    } else {
       tableLetterCase = LetterCase.TABLE_DEFAULT;
       columnLetterCase = LetterCase.COLUMN_DEFAULT;
       primaryKeyLetterCase = LetterCase.PRIMARY_KEY_DEFAULT;
@@ -156,9 +194,9 @@ public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implemen
 
   /**
    * Return the source.
-   * 
-   * @see #setSource(Source)
+   *
    * @return The {@link Source} to connect.
+   * @see #setSource(Source)
    */
   public Source getSource() {
     return source;
@@ -166,11 +204,11 @@ public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implemen
 
   /**
    * Sets the source.
-   * 
-   * @see #getSource()
+   *
    * @param source {@link Source} to connect to the database (must be not {@code null}).
    * @return The actual instance.
    * @throws NullPointerException If {@code source} is {@code null}.
+   * @see #getSource()
    */
   public D setSource(Source source) {
     if (source == null) {
@@ -184,9 +222,9 @@ public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implemen
 
   /**
    * Return the data source.
-   * 
-   * @see #setDataSource(DataSource)
+   *
    * @return The data source.
+   * @see #setDataSource(DataSource)
    */
   public DataSource getDataSource() {
     return dataSource;
@@ -194,11 +232,11 @@ public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implemen
 
   /**
    * Sets the data source.
-   * 
-   * @see #getDataSource()
+   *
    * @param dataSource The {@link DataSource} (must be not {@code null}).
    * @return The actual instance.
    * @throws NullPointerException If {@code dataSource} is {@code null}.
+   * @see #getDataSource()
    */
   public D setDataSource(DataSource dataSource) {
     if (dataSource == null) {
@@ -212,7 +250,7 @@ public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implemen
 
   /**
    * Returns a {@link Connection} from a {@link DataSource} or from a {@link Source}.
-   * 
+   *
    * @return A {@link Connection} differently, depending if it is a {@link DataSource} or a {@link Source}.
    * @throws SQLException SQL Exception
    */
@@ -226,42 +264,6 @@ public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implemen
       return dataSource.getConnection();
     } else {
       return DriverManager.getConnection(source.getUrl(), source.getUser(), source.getPassword());
-    }
-  }
-
-  /**
-   * Returns the catalog from a connection.
-   * @param connection The connection with the catalog
-   * @return The catalog from a connection.
-   * @throws SQLException SQL Exception
-   */
-  protected static String getCatalog(Connection connection) throws SQLException {
-    try {
-      return connection.getCatalog();
-    }
-    catch (SQLException exception) {
-      throw exception;
-    }
-    catch (Exception throwable) {
-      return null;
-    }
-  }
-
-  /**
-   * Returns the schema from a connection.
-   * @param connection The connection with the catalog
-   * @return The schema from a connection.
-   * @throws SQLException SQL Exception
-   */
-  protected static String getSchema(Connection connection) throws SQLException {
-    try {
-      return connection.getSchema();
-    }
-    catch (SQLException exception) {
-      throw exception;
-    }
-    catch (Exception throwable) {
-      return null;
     }
   }
 }

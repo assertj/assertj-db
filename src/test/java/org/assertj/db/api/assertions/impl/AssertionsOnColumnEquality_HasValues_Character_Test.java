@@ -32,7 +32,6 @@ import org.junit.Test;
  * {@link AssertionsOnColumnEquality#hasValues(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, java.util.List, Character...)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnColumnEquality_HasValues_Character_Test extends AbstractTest {
 
@@ -46,7 +45,7 @@ public class AssertionsOnColumnEquality_HasValues_Character_Test extends Abstrac
     TableAssert tableAssert = assertThat(table);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, 'T'), getValue(null, "t"), getValue(null, null)));
     TableAssert tableAssert2 = AssertionsOnColumnEquality.hasValues(tableAssert, info, list, 'T',
-                                                                    't', null);
+      't', null);
     assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -65,10 +64,10 @@ public class AssertionsOnColumnEquality_HasValues_Character_Test extends Abstrac
       fail("An exception must be raised");
     } catch (AssertionError e) {
       assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                           + "Expecting that the value at index 0:%n"
-                                           + "  <'T'>%n"
-                                           + "to be equal to: %n"
-                                           + "  <'t'>"));
+        + "Expecting that the value at index 0:%n"
+        + "  <'T'>%n"
+        + "to be equal to: %n"
+        + "  <'t'>"));
     }
     list = new ArrayList<>(Arrays.asList(getValue(null, "T"), getValue(null, 'T')));
     try {
@@ -76,10 +75,10 @@ public class AssertionsOnColumnEquality_HasValues_Character_Test extends Abstrac
       fail("An exception must be raised");
     } catch (AssertionError e) {
       assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                           + "Expecting that the value at index 0:%n"
-                                           + "  <\"T\">%n"
-                                           + "to be equal to: %n"
-                                           + "  <'t'>"));
+        + "Expecting that the value at index 0:%n"
+        + "  <\"T\">%n"
+        + "to be equal to: %n"
+        + "  <'t'>"));
     }
     list = new ArrayList<>(Arrays.asList(getValue(null, 'T'), getValue(null, "t")));
     try {
@@ -87,10 +86,10 @@ public class AssertionsOnColumnEquality_HasValues_Character_Test extends Abstrac
       fail("An exception must be raised");
     } catch (AssertionError e) {
       assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                           + "Expecting that the value at index 1:%n"
-                                           + "  <\"t\">%n"
-                                           + "to be equal to: %n"
-                                           + "  <'T'>"));
+        + "Expecting that the value at index 1:%n"
+        + "  <\"t\">%n"
+        + "to be equal to: %n"
+        + "  <'T'>"));
     }
   }
 
@@ -109,12 +108,12 @@ public class AssertionsOnColumnEquality_HasValues_Character_Test extends Abstrac
       fail("An exception must be raised");
     } catch (AssertionError e) {
       assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                           + "Expecting that the value at index 1:%n"
-                                           + "  <false>%n"
-                                           + "to be of type%n"
-                                           + "  <[TEXT, NOT_IDENTIFIED]>%n"
-                                           + "but was of type%n"
-                                           + "  <BOOLEAN>"));
+        + "Expecting that the value at index 1:%n"
+        + "  <false>%n"
+        + "to be of type%n"
+        + "  <[TEXT, NOT_IDENTIFIED]>%n"
+        + "but was of type%n"
+        + "  <BOOLEAN>"));
     }
   }
 
@@ -133,10 +132,10 @@ public class AssertionsOnColumnEquality_HasValues_Character_Test extends Abstrac
       fail("An exception must be raised");
     } catch (AssertionError e) {
       assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                           + "Expecting size (number of rows) to be equal to :%n"
-                                           + "   <3>%n"
-                                           + "but was:%n"
-                                           + "   <2>"));
+        + "Expecting size (number of rows) to be equal to :%n"
+        + "   <3>%n"
+        + "but was:%n"
+        + "   <2>"));
     }
   }
 }

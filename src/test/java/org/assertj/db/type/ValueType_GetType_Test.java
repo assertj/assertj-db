@@ -12,8 +12,7 @@
  */
 package org.assertj.db.type;
 
-import org.assertj.db.common.AbstractTest;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -21,13 +20,13 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.UUID;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.db.common.AbstractTest;
+import org.junit.Test;
 
 /**
  * Test on the type got from {@code getType} method from {@code ValueType} enum.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class ValueType_GetType_Test extends AbstractTest {
 
@@ -36,7 +35,7 @@ public class ValueType_GetType_Test extends AbstractTest {
    */
   @Test
   public void test_result_when_getting_type() throws Exception {
-    assertThat(getValue(null, new byte[] { 1 }).getValueType()).isEqualTo(ValueType.BYTES);
+    assertThat(getValue(null, new byte[]{1}).getValueType()).isEqualTo(ValueType.BYTES);
     assertThat(getValue(null, true).getValueType()).isEqualTo(ValueType.BOOLEAN);
     assertThat(getValue(null, "").getValueType()).isEqualTo(ValueType.TEXT);
     assertThat(getValue(null, new Date(10)).getValueType()).isEqualTo(ValueType.DATE);

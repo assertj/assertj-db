@@ -12,6 +12,14 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -20,20 +28,11 @@ import org.assertj.db.type.Table;
 import org.assertj.db.type.Value;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertionsOnColumnType} class :
  * {@link AssertionsOnColumnType#isUUID(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, java.util.List, boolean)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnColumnType_IsUUID_Test extends AbstractTest {
 
@@ -46,16 +45,16 @@ public class AssertionsOnColumnType_IsUUID_Test extends AbstractTest {
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")),
-                                                           getValue(null, UUID.fromString(
-                                                                   "30B443AE-C0C9-4790-9BEC-CE1380808435"))));
+      getValue(null, UUID.fromString(
+        "30B443AE-C0C9-4790-9BEC-CE1380808435"))));
     TableAssert tableAssert2 = AssertionsOnColumnType.isUUID(tableAssert, info, list, false);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     list = new ArrayList<>(Arrays.asList(getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")),
-                                               getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"))));
+      getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"))));
     tableAssert2 = AssertionsOnColumnType.isUUID(tableAssert, info, list, true);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     list = new ArrayList<>(Arrays.asList(getValue(null, null),
-                                         getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"))));
+      getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"))));
     tableAssert2 = AssertionsOnColumnType.isUUID(tableAssert, info, list, true);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
@@ -71,18 +70,18 @@ public class AssertionsOnColumnType_IsUUID_Test extends AbstractTest {
     TableAssert tableAssert = assertThat(table);
     try {
       List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "test"),
-                                                       getValue(null, UUID.fromString(
-                                                                     "30B443AE-C0C9-4790-9BEC-CE1380808435"))));
+        getValue(null, UUID.fromString(
+          "30B443AE-C0C9-4790-9BEC-CE1380808435"))));
       AssertionsOnColumnType.isUUID(tableAssert, info, list, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at index 0:%n"
-                                                                    + "  <\"test\">%n"
-                                                                    + "to be of type%n"
-                                                                    + "  <UUID>%n"
-                                                                    + "but was of type%n"
-                                                                    + "  <TEXT>"));
+        + "Expecting that the value at index 0:%n"
+        + "  <\"test\">%n"
+        + "to be of type%n"
+        + "  <UUID>%n"
+        + "but was of type%n"
+        + "  <TEXT>"));
     }
   }
 
@@ -97,17 +96,17 @@ public class AssertionsOnColumnType_IsUUID_Test extends AbstractTest {
     TableAssert tableAssert = assertThat(table);
     try {
       List<Value> list = new ArrayList<>(Arrays.asList(getValue(
-              null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")), getValue(null, "test")));
+        null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")), getValue(null, "test")));
       AssertionsOnColumnType.isUUID(tableAssert, info, list, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at index 1:%n"
-                                                                    + "  <\"test\">%n"
-                                                                    + "to be of type%n"
-                                                                    + "  <UUID>%n"
-                                                                    + "but was of type%n"
-                                                                    + "  <TEXT>"));
+        + "Expecting that the value at index 1:%n"
+        + "  <\"test\">%n"
+        + "to be of type%n"
+        + "  <UUID>%n"
+        + "but was of type%n"
+        + "  <TEXT>"));
     }
   }
 
@@ -126,12 +125,12 @@ public class AssertionsOnColumnType_IsUUID_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at index 0:%n"
-                                                                    + "  <test>%n"
-                                                                    + "to be of type%n"
-                                                                    + "  <UUID>%n"
-                                                                    + "but was of type%n"
-                                                                    + "  <NOT_IDENTIFIED> (java.lang.StringBuilder)"));
+        + "Expecting that the value at index 0:%n"
+        + "  <test>%n"
+        + "to be of type%n"
+        + "  <UUID>%n"
+        + "but was of type%n"
+        + "  <NOT_IDENTIFIED> (java.lang.StringBuilder)"));
     }
   }
 }

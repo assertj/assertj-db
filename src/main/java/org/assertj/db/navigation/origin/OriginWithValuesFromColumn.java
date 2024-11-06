@@ -13,21 +13,24 @@
 package org.assertj.db.navigation.origin;
 
 import org.assertj.db.navigation.ToValueFromColumn;
-import org.assertj.db.navigation.element.*;
+import org.assertj.db.navigation.element.ChangeElement;
+import org.assertj.db.navigation.element.ChangesElement;
+import org.assertj.db.navigation.element.ColumnElement;
+import org.assertj.db.navigation.element.RowElement;
+import org.assertj.db.navigation.element.ValueElement;
 
 /**
  * Defines a class which is the {@link Origin} of another
  * and have values from a {@link org.assertj.db.type.Column} of a {@link org.assertj.db.type.Change}.
  *
- * @author Régis Pouiller
- *
  * @param <CHS> The class of a element of navigation on changes (an sub-class of {@link org.assertj.db.navigation.element.ChangesElement}).
- * @param <CH> The class of a element of navigation on a change (an sub-class of {@link org.assertj.db.navigation.element.ChangeElement}).
- * @param <C> The class of a element of navigation on column (an sub-class of {@link org.assertj.db.navigation.element.ColumnElement}).
- * @param <R> The class of a element of navigation on a row (an sub-class of {@link org.assertj.db.navigation.element.RowElement}).
- * @param <V> The class of a element of navigation on a value (an sub-class of {@link org.assertj.db.navigation.element.ValueElement}).
+ * @param <CH>  The class of a element of navigation on a change (an sub-class of {@link org.assertj.db.navigation.element.ChangeElement}).
+ * @param <C>   The class of a element of navigation on column (an sub-class of {@link org.assertj.db.navigation.element.ColumnElement}).
+ * @param <R>   The class of a element of navigation on a row (an sub-class of {@link org.assertj.db.navigation.element.RowElement}).
+ * @param <V>   The class of a element of navigation on a value (an sub-class of {@link org.assertj.db.navigation.element.ValueElement}).
+ * @author Régis Pouiller
  */
 public interface OriginWithValuesFromColumn<CHS extends ChangesElement, CH extends ChangeElement, C extends ColumnElement, R extends RowElement, V extends ValueElement>
-        extends OriginWithColumnsAndRowsFromChange<CHS, CH, C, R>,
-                ToValueFromColumn<V> {
+  extends OriginWithColumnsAndRowsFromChange<CHS, CH, C, R>,
+  ToValueFromColumn<V> {
 }

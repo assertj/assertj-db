@@ -34,15 +34,15 @@ import org.assertj.db.type.AbstractDbData;
  * @author Régis Pouiller
  */
 public abstract class AbstractAssertWithOriginWithColumnsAndRows<E extends AbstractAssertWithOriginWithColumnsAndRows<E, O, D, A, C, CV, R, RV>, O extends OriginWithColumnsAndRows<C, R>, D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
-        extends AbstractAssertWithOrigin<E, O>
-        implements ToColumn<C>,
-                   ToRow<R> {
+  extends AbstractAssertWithOrigin<E, O>
+  implements ToColumn<C>,
+  ToRow<R> {
 
   /**
    * Constructor.
    *
    * @param selfType Type of this assertion class : a sub-class of {@code AbstractAssertWithOriginWithColumnsAndRows}.
-   * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
+   * @param origin   The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    */
   AbstractAssertWithOriginWithColumnsAndRows(Class<E> selfType, O origin) {
     super(selfType, origin);

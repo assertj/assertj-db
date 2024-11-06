@@ -19,28 +19,27 @@ import org.assertj.core.error.ErrorMessageFactory;
  * Creates an error message indicating that an assertion that verifies the values of the columns of the primary key.
  *
  * @author Régis Pouiller
- *
  */
 public class ShouldHavePksValues extends BasicErrorMessageFactory {
 
   /**
+   * Constructor.
+   *
+   * @param values         The values of the columns.
+   * @param expectedValues The expected values of the columns.
+   */
+  private ShouldHavePksValues(Object[] values, Object[] expectedValues) {
+    super("%nExpecting :%n  %s%nto be the values of the columns of the primary keys but was:%n  %s", expectedValues, values);
+  }
+
+  /**
    * Creates a new <code>{@link ShouldHavePksValues}</code>.
    *
-   * @param values The values of the columns.
+   * @param values         The values of the columns.
    * @param expectedValues The expected values of the columns.
    * @return the created {@code ErrorMessageFactory}.
    */
   public static ErrorMessageFactory shouldHavePksValues(Object[] values, Object[] expectedValues) {
     return new ShouldHavePksValues(values, expectedValues);
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param values The values of the columns.
-   * @param expectedValues The expected values of the columns.
-   */
-  private ShouldHavePksValues(Object[] values, Object[] expectedValues) {
-    super("%nExpecting :%n  %s%nto be the values of the columns of the primary keys but was:%n  %s", expectedValues, values);
   }
 }

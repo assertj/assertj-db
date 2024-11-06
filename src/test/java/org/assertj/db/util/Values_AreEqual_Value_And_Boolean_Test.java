@@ -12,16 +12,15 @@
  */
 package org.assertj.db.util;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.assertj.db.common.AbstractTest;
 import org.junit.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 /**
  * Tests on {@code areEqual} method for {@code Boolean}s.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class Values_AreEqual_Value_And_Boolean_Test extends AbstractTest {
 

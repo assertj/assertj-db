@@ -12,12 +12,20 @@
  */
 package org.assertj.db.output.impl;
 
-import org.assertj.core.api.WritableAssertionInfo;
-import org.assertj.db.type.*;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import org.assertj.core.api.WritableAssertionInfo;
+import org.assertj.db.type.Change;
+import org.assertj.db.type.ChangeType;
+import org.assertj.db.type.Changes;
+import org.assertj.db.type.Column;
+import org.assertj.db.type.DataType;
+import org.assertj.db.type.Request;
+import org.assertj.db.type.Row;
+import org.assertj.db.type.Table;
+import org.assertj.db.type.Value;
 
 /**
  * Implementation of plain output of assertj-db.
@@ -83,7 +91,7 @@ enum PlainOutput implements Output {
    * the length of the text of the index and the length of the texts representing the objects.
    *
    * @param columnName The column name.
-   * @param objects     The objects.
+   * @param objects    The objects.
    * @return The size.
    */
   private static int getColumnSize(String columnName, Object... objects) {
@@ -132,7 +140,7 @@ enum PlainOutput implements Output {
    * Returns a {@code StringBuilder} representing a complete line corresponding to the {@code row} in parameter.
    *
    * @param sizesList           The list of sizes.
-   *                            @param row The row
+   * @param row                 The row
    * @param otherColumnsContent Other content in the column (var-args) : the columns before the values.
    * @return The line.
    */
@@ -144,13 +152,11 @@ enum PlainOutput implements Output {
       if (index < otherColumnsContent.length) {
         stringBuilder.append(getFilledText("" + otherColumnsContent[index], size));
         stringBuilder.append("|");
-      }
-      else {
+      } else {
         if (row != null) {
           Value value = row.getValuesList().get(index - otherColumnsContent.length);
           stringBuilder.append(getFilledText(OutputType.getText(value), size)).append("|");
-        }
-        else {
+        } else {
           stringBuilder.append(getFilledText("", size)).append("|");
         }
       }
@@ -185,26 +191,11 @@ enum PlainOutput implements Output {
   }
 
   /**
-   * Returns the columns sizes in array.
-   *
-   * @param columnSizesList List of column sizes (the columns with the values).
-   * @param sizes           Sizes (var-args) : the columns before the values.
-   * @return An array with the sizes.
-   */
-  private List<Integer> getSizesList(List<Integer> columnSizesList, Integer... sizes) {
-    List<Integer> sizesList = new ArrayList<>(Arrays.asList(sizes));
-    if (columnSizesList != null) {
-      sizesList.addAll(columnSizesList);
-    }
-    return sizesList;
-  }
-
-  /**
    * Returns a {@code StringBuilder} representing a complete line corresponding to the indication about the primary key.
    *
-   * @param sizesList           The list of sizes of the column.
-   * @param pksNameList         The list of the primary key name.
-   * @param columnsNameList     The list of the column name.
+   * @param sizesList       The list of sizes of the column.
+   * @param pksNameList     The list of the primary key name.
+   * @param columnsNameList The list of the column name.
    * @return The output.
    */
   private static StringBuilder getCompletePrimaryKey(List<Integer> sizesList, List<String> pksNameList,
@@ -291,7 +282,7 @@ enum PlainOutput implements Output {
   /**
    * Returns a {@code StringBuilder} representing a complete line corresponding to the indication about the index.
    *
-   * @param sizesList                  The list of sizes of the column.
+   * @param sizesList                 The list of sizes of the column.
    * @param numberOfAdditionalColumns The number of additional columns.
    * @return The output.
    */
@@ -314,6 +305,7 @@ enum PlainOutput implements Output {
 
   /**
    * Returns the size of the column of index.
+   *
    * @param size The size of the rows/changes.
    * @return The size.
    */
@@ -323,6 +315,7 @@ enum PlainOutput implements Output {
 
   /**
    * Returns the size of the column of change type.
+   *
    * @param changes The changes.
    * @return The size.
    */
@@ -340,6 +333,7 @@ enum PlainOutput implements Output {
 
   /**
    * Returns the size of the column of change type.
+   *
    * @param changes The changes.
    * @return The size.
    */
@@ -414,6 +408,21 @@ enum PlainOutput implements Output {
   }
 
   /**
+   * Returns the columns sizes in array.
+   *
+   * @param columnSizesList List of column sizes (the columns with the values).
+   * @param sizes           Sizes (var-args) : the columns before the values.
+   * @return An array with the sizes.
+   */
+  private List<Integer> getSizesList(List<Integer> columnSizesList, Integer... sizes) {
+    List<Integer> sizesList = new ArrayList<>(Arrays.asList(sizes));
+    if (columnSizesList != null) {
+      sizesList.addAll(columnSizesList);
+    }
+    return sizesList;
+  }
+
+  /**
    * {@inheritDoc}
    */
   @Override
@@ -428,8 +437,8 @@ enum PlainOutput implements Output {
     StringBuilder[] pksValueStringBuilders = OutputType.getPksValueStringBuilder(rows);
     int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
     List<Integer> sizesList = getSizesList(rows.length == 0 ? getColumnSizesList(columnsNameList) : getColumnSizesList(rows),
-                                           indexColumnSize,
-                                           primaryKeyColumnSize);
+      indexColumnSize,
+      primaryKeyColumnSize);
 
     StringBuilder stringBuilder = new StringBuilder();
     // Description
@@ -450,7 +459,7 @@ enum PlainOutput implements Output {
     int index = 0;
     for (Row row : rows) {
       stringBuilder.append(getCompleteRow(sizesList, row,
-                                          "Index : " + index, pksValueStringBuilders[index]));
+        "Index : " + index, pksValueStringBuilders[index]));
       index++;
     }
     // Line
@@ -474,8 +483,8 @@ enum PlainOutput implements Output {
     StringBuilder[] pksValueStringBuilders = OutputType.getPksValueStringBuilder(rows);
     int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
     List<Integer> sizesList = getSizesList(rows.length == 0 ? getColumnSizesList(columnsNameList) : getColumnSizesList(rows),
-                                           indexColumnSize,
-                                           primaryKeyColumnSize);
+      indexColumnSize,
+      primaryKeyColumnSize);
 
     StringBuilder stringBuilder = new StringBuilder();
     // Description
@@ -487,10 +496,10 @@ enum PlainOutput implements Output {
     ));
     // Column name
     stringBuilder.append(getCompleteColumnName(sizesList, columnsNameList,
-                                               "", "PRIMARY"));
+      "", "PRIMARY"));
     // Type
     stringBuilder.append(getCompleteType(sizesList, typesList,
-                                         "", "KEY"));
+      "", "KEY"));
     // Index
     stringBuilder.append(getCompleteIndex(sizesList, 2));
     // Line
@@ -499,7 +508,7 @@ enum PlainOutput implements Output {
     int index = 0;
     for (Row row : rows) {
       stringBuilder.append(getCompleteRow(sizesList, row,
-                                          "Index : " + index, pksValueStringBuilders[index]));
+        "Index : " + index, pksValueStringBuilders[index]));
       index++;
     }
     // Line
@@ -535,10 +544,10 @@ enum PlainOutput implements Output {
       List<String> typesList = OutputType.getTypesList(rowAtStartPoint, rowAtEndPoint);
 
       List<Integer> sizesList = getSizesList(getColumnSizesList(rowAtStartPoint, rowAtEndPoint),
-                                             indexColumnSize,
-                                             changeTypeColumnSize,
-                                             dataTypeColumnSize,
-                                             primaryKeyColumnSize, 16);
+        indexColumnSize,
+        changeTypeColumnSize,
+        dataTypeColumnSize,
+        primaryKeyColumnSize, 16);
       // Line
       stringBuilder.append(getCompleteLine(sizesList));
       // Primary key
@@ -546,23 +555,23 @@ enum PlainOutput implements Output {
       ));
       // Column name
       stringBuilder.append(getCompleteColumnName(sizesList, columnsNameList,
-                                                 "", "TYPE", "" + dataType, "PRIMARY", ""));
+        "", "TYPE", "" + dataType, "PRIMARY", ""));
       // Type
       stringBuilder.append(getCompleteType(sizesList, typesList,
-                                           "", "", "", "KEY", ""));
+        "", "", "", "KEY", ""));
       // Index
       stringBuilder.append(getCompleteIndex(sizesList, 5));
       // Line
       stringBuilder.append(getCompleteLine(sizesList));
       // Value at start point
       stringBuilder.append(getCompleteRow(sizesList, rowAtStartPoint,
-                                          "", "", "", "", "At start point"));
+        "", "", "", "", "At start point"));
       // Line
       stringBuilder.append(getCompleteLine(sizesList,
-                                           "Index : " + index, changeType, dataName, pksValueStringBuilders[index]));
+        "Index : " + index, changeType, dataName, pksValueStringBuilders[index]));
       // Value at end point
       stringBuilder.append(getCompleteRow(sizesList, rowAtEndPoint,
-                                          "", "", "", "", "At end point"));
+        "", "", "", "", "At end point"));
       // Line
       stringBuilder.append(getCompleteLine(sizesList));
 
@@ -591,38 +600,38 @@ enum PlainOutput implements Output {
     int dataTypeColumnSize = getColumnSize("" + dataType, dataName);
     int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
     List<Integer> sizesList = getSizesList(getColumnSizesList(rowAtStartPoint, rowAtEndPoint),
-                                           changeTypeColumnSize,
-                                           dataTypeColumnSize,
-                                           primaryKeyColumnSize, 16);
+      changeTypeColumnSize,
+      dataTypeColumnSize,
+      primaryKeyColumnSize, 16);
 
     // Description
 
     return "[" + info.descriptionText() + "]" + EOL
-           // Line
-           + getCompleteLine(sizesList)
-           // Primary key
-           + getCompletePrimaryKey(sizesList, change.getPksNameList(), columnsNameList
+      // Line
+      + getCompleteLine(sizesList)
+      // Primary key
+      + getCompletePrimaryKey(sizesList, change.getPksNameList(), columnsNameList
     )
-           // Column name
-           + getCompleteColumnName(sizesList, columnsNameList,
-                                                   "TYPE", "" + dataType, "PRIMARY", "")
-           // Type
-           + getCompleteType(sizesList, typesList,
-                                             "", "", "KEY", "")
-           // Index
-           + getCompleteIndex(sizesList, 4)
-           // Line
-           + getCompleteLine(sizesList)
-           // Value at start point
-           + getCompleteRow(sizesList, rowAtStartPoint,
-                                            "", "", "", "At start point")
-           // Line
-           + getCompleteLine(sizesList, changeType, dataName, pksValueStringBuilders[0])
-           // Value at end point
-           + getCompleteRow(sizesList, rowAtEndPoint,
-                                            "", "", "", "At end point")
-           // Line
-           + getCompleteLine(sizesList);
+      // Column name
+      + getCompleteColumnName(sizesList, columnsNameList,
+      "TYPE", "" + dataType, "PRIMARY", "")
+      // Type
+      + getCompleteType(sizesList, typesList,
+      "", "", "KEY", "")
+      // Index
+      + getCompleteIndex(sizesList, 4)
+      // Line
+      + getCompleteLine(sizesList)
+      // Value at start point
+      + getCompleteRow(sizesList, rowAtStartPoint,
+      "", "", "", "At start point")
+      // Line
+      + getCompleteLine(sizesList, changeType, dataName, pksValueStringBuilders[0])
+      // Value at end point
+      + getCompleteRow(sizesList, rowAtEndPoint,
+      "", "", "", "At end point")
+      // Line
+      + getCompleteLine(sizesList);
   }
 
   /**
@@ -632,34 +641,34 @@ enum PlainOutput implements Output {
   public String getRowOutput(WritableAssertionInfo info, Row row) {
     if (row == null) {
       return "[" + info.descriptionText() + "]" + EOL
-             + "Row does not exist" + EOL;
+        + "Row does not exist" + EOL;
     }
     List<String> columnsNameList = row.getColumnsNameList();
     List<String> typesList = OutputType.getTypesList(row);
     StringBuilder[] pksValueStringBuilders = OutputType.getPksValueStringBuilder(row);
     int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
     List<Integer> sizesList = getSizesList(getColumnSizesList(row),
-                                           primaryKeyColumnSize);
+      primaryKeyColumnSize);
 
     // Description
 
     return "[" + info.descriptionText() + "]" + EOL
-           // Line
-           + getCompleteLine(sizesList)
-           // Primary key
-           + getCompletePrimaryKey(sizesList, row.getPksNameList(), columnsNameList)
-           // Column name
-           + getCompleteColumnName(sizesList, columnsNameList, "PRIMARY")
-           // Type
-           + getCompleteType(sizesList, typesList, "KEY")
-           // Index
-           + getCompleteIndex(sizesList, 1)
-           // Line
-           + getCompleteLine(sizesList)
-           // Value
-           + getCompleteRow(sizesList, row, pksValueStringBuilders[0])
-           // Line
-           + getCompleteLine(sizesList);
+      // Line
+      + getCompleteLine(sizesList)
+      // Primary key
+      + getCompletePrimaryKey(sizesList, row.getPksNameList(), columnsNameList)
+      // Column name
+      + getCompleteColumnName(sizesList, columnsNameList, "PRIMARY")
+      // Type
+      + getCompleteType(sizesList, typesList, "KEY")
+      // Index
+      + getCompleteIndex(sizesList, 1)
+      // Line
+      + getCompleteLine(sizesList)
+      // Value
+      + getCompleteRow(sizesList, row, pksValueStringBuilders[0])
+      // Line
+      + getCompleteLine(sizesList);
   }
 
   /**
@@ -674,8 +683,8 @@ enum PlainOutput implements Output {
     String type = OutputType.getType(values);
     int columnSize = getColumnSize(columnName, type, null, values);
     List<Integer> sizesList = getSizesList(null,
-                                           indexColumnSize,
-                                           columnSize);
+      indexColumnSize,
+      columnSize);
 
     StringBuilder stringBuilder = new StringBuilder();
     // Description
@@ -684,18 +693,18 @@ enum PlainOutput implements Output {
     stringBuilder.append(getCompleteLine(sizesList));
     // Column name
     stringBuilder.append("|").append(getFilledText("", indexColumnSize)).append("|").append(getFilledText(columnName, columnSize))
-                .append("|").append(EOL);
+      .append("|").append(EOL);
     // Type
     stringBuilder.append("|").append(getFilledText("", indexColumnSize)).append("|").append(getFilledText(type, columnSize))
-                .append("|").append(EOL);
+      .append("|").append(EOL);
     // Line
     stringBuilder.append(getCompleteLine(sizesList));
     // Value
     int index = 0;
     for (Value value : values) {
       stringBuilder.append("|").append(getFilledText(getText("Index : " + index), indexColumnSize))
-                   .append("|").append(getFilledText(OutputType.getText(value), columnSize))
-                   .append("|").append(EOL);
+        .append("|").append(getFilledText(OutputType.getText(value), columnSize))
+        .append("|").append(EOL);
       index++;
     }
     // Line
@@ -720,30 +729,30 @@ enum PlainOutput implements Output {
     // Description
 
     return "[" + info.descriptionText() + "]" + EOL
-           // Line
-           + "|----------------|" + getCellLine(columnSize)
-           + "|" + EOL
-           // Column name
-           + "|                |" + getFilledText(columnName, columnSize)
-           + "|" + EOL
-           // Type
-           + "|                |" + getFilledText(type, columnSize)
-           + "|" + EOL
-           // Line
-           + "|----------------|" + getCellLine(columnSize)
-           + "|" + EOL
-           // Value at start point
-           + "| At start point |" + getFilledText(OutputType.getText(valueAtStartPoint), columnSize)
-           + "|" + EOL
-           // Line
-           + "|----------------|" + getCellLine(columnSize)
-           + "|" + EOL
-           // Value at end point
-           + "| At end point   |" + getFilledText(OutputType.getText(valueAtEndPoint), columnSize)
-           + "|" + EOL
-           // Line
-           + "|----------------|" + getCellLine(columnSize)
-           + "|" + EOL;
+      // Line
+      + "|----------------|" + getCellLine(columnSize)
+      + "|" + EOL
+      // Column name
+      + "|                |" + getFilledText(columnName, columnSize)
+      + "|" + EOL
+      // Type
+      + "|                |" + getFilledText(type, columnSize)
+      + "|" + EOL
+      // Line
+      + "|----------------|" + getCellLine(columnSize)
+      + "|" + EOL
+      // Value at start point
+      + "| At start point |" + getFilledText(OutputType.getText(valueAtStartPoint), columnSize)
+      + "|" + EOL
+      // Line
+      + "|----------------|" + getCellLine(columnSize)
+      + "|" + EOL
+      // Value at end point
+      + "| At end point   |" + getFilledText(OutputType.getText(valueAtEndPoint), columnSize)
+      + "|" + EOL
+      // Line
+      + "|----------------|" + getCellLine(columnSize)
+      + "|" + EOL;
   }
 
   /**
@@ -758,23 +767,23 @@ enum PlainOutput implements Output {
     // Description
 
     return "[" + info.descriptionText() + "]" + EOL
-           // Line
-           + "|" + getCellLine(columnSize)
-           + "|" + EOL
-           // Column name
-           + "|" + getFilledText(columnName, columnSize)
-           + "|" + EOL
-           // Type
-           + "|" + getFilledText(type, columnSize)
-           + "|" + EOL
-           // Line
-           + "|" + getCellLine(columnSize)
-           + "|" + EOL
-           // Value
-           + "|" + getFilledText(OutputType.getText(value), columnSize)
-           + "|" + EOL
-           // Line
-           + "|" + getCellLine(columnSize)
-           + "|" + EOL;
+      // Line
+      + "|" + getCellLine(columnSize)
+      + "|" + EOL
+      // Column name
+      + "|" + getFilledText(columnName, columnSize)
+      + "|" + EOL
+      // Type
+      + "|" + getFilledText(type, columnSize)
+      + "|" + EOL
+      // Line
+      + "|" + getCellLine(columnSize)
+      + "|" + EOL
+      // Value
+      + "|" + getFilledText(OutputType.getText(value), columnSize)
+      + "|" + EOL
+      // Line
+      + "|" + getCellLine(columnSize)
+      + "|" + EOL;
   }
 }

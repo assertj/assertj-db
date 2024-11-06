@@ -12,6 +12,8 @@
  */
 package org.assertj.db.database.h2;
 
+import javax.sql.DataSource;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -19,13 +21,10 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import javax.sql.DataSource;
-
 /**
  * Provides the configuration for the tests.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 @Configuration
 public class H2Configuration {
@@ -33,7 +32,7 @@ public class H2Configuration {
   @Bean
   public DataSource dataSource() {
     return new EmbeddedDatabaseBuilder().setName("testH2").setType(EmbeddedDatabaseType.H2).addScript("schemaH2.sql")
-        .build();
+      .build();
   }
 
   @Bean

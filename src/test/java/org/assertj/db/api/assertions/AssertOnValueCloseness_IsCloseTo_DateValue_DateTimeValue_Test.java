@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api.assertions;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.ChangeColumnValueAssert;
 import org.assertj.db.api.TableColumnValueAssert;
@@ -23,15 +26,11 @@ import org.assertj.db.type.DateValue;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link org.assertj.db.api.assertions.AssertOnValueCloseness} class :
  * {@link org.assertj.db.api.assertions.AssertOnValueCloseness#isCloseTo(org.assertj.db.type.DateValue, org.assertj.db.type.DateTimeValue)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertOnValueCloseness_IsCloseTo_DateValue_DateTimeValue_Test extends AbstractTest {
 
@@ -48,7 +47,7 @@ public class AssertOnValueCloseness_IsCloseTo_DateValue_DateTimeValue_Test exten
 
     ChangeColumnValueAssert changeColumnValueAssert = assertThat(changes).change().column("var9").valueAtEndPoint();
     ChangeColumnValueAssert changeColumnValueAssert2 = changeColumnValueAssert.isCloseTo(DateValue.of(2014, 5, 24), DateTimeValue
-            .of(DateValue.of(0, 0, 0)));
+      .of(DateValue.of(0, 0, 0)));
     Assertions.assertThat(changeColumnValueAssert).isSameAs(changeColumnValueAssert2);
 
     TableColumnValueAssert tableColumnValueAssert = assertThat(table).column("var9").value();
@@ -72,22 +71,22 @@ public class AssertOnValueCloseness_IsCloseTo_DateValue_DateTimeValue_Test exten
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 8 (column name : VAR9) of Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:test' source] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <2014-05-24>%n"
-                                                                    + "to be close to: %n"
-                                                                    + "  <2014-05-23> %n"
-                                                                    + " with tolerance <   0-00-00T00:00:00.000000000>"));
+        + "Expecting:%n"
+        + "  <2014-05-24>%n"
+        + "to be close to: %n"
+        + "  <2014-05-23> %n"
+        + " with tolerance <   0-00-00T00:00:00.000000000>"));
     }
     try {
       assertThat(table).column("var9").value().isCloseTo(DateValue.of(2014, 5, 23), DateTimeValue.of(DateValue.of(0, 0, 0)));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 0 of Column at index 8 (column name : VAR9) of TEST table] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <2014-05-24>%n"
-                                                                    + "to be close to: %n"
-                                                                    + "  <2014-05-23> %n"
-                                                                    + " with tolerance <   0-00-00T00:00:00.000000000>"));
+        + "Expecting:%n"
+        + "  <2014-05-24>%n"
+        + "to be close to: %n"
+        + "  <2014-05-23> %n"
+        + " with tolerance <   0-00-00T00:00:00.000000000>"));
     }
   }
 }

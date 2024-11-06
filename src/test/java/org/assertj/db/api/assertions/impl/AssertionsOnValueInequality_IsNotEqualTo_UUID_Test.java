@@ -12,17 +12,17 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.util.UUID;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
-
-import java.util.UUID;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link AssertionsOnValueInequality} class :
@@ -41,15 +41,15 @@ public class AssertionsOnValueInequality_IsNotEqualTo_UUID_Test extends Abstract
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
-                                                                         getValue(null, UUID.fromString(
-                                                                                 "30B443AE-C0C9-4790-9BEC-CE1380808435")),
-                                                                         UUID.fromString(
-                                                                                 "0E2A1269-EFF0-4233-B87B-B53E8B6F164D"));
+      getValue(null, UUID.fromString(
+        "30B443AE-C0C9-4790-9BEC-CE1380808435")),
+      UUID.fromString(
+        "0E2A1269-EFF0-4233-B87B-B53E8B6F164D"));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
-                                                             getValue(null, UUID.fromString(
-                                                                     "30B443AE-C0C9-4790-9BEC-CE1380808435")),
-                                                             (UUID) null);
+      getValue(null, UUID.fromString(
+        "30B443AE-C0C9-4790-9BEC-CE1380808435")),
+      (UUID) null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -64,27 +64,27 @@ public class AssertionsOnValueInequality_IsNotEqualTo_UUID_Test extends Abstract
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
-                                                getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")),
-                                                UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
+        getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")),
+        UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <30b443ae-c0c9-4790-9bec-ce1380808435>%n"
-                                                                    + "not to be equal to: %n"
-                                                                    + "  <30b443ae-c0c9-4790-9bec-ce1380808435>"));
+        + "Expecting:%n"
+        + "  <30b443ae-c0c9-4790-9bec-ce1380808435>%n"
+        + "not to be equal to: %n"
+        + "  <30b443ae-c0c9-4790-9bec-ce1380808435>"));
     }
     try {
       AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
-                                                getValue(null, null),
-                                                (UUID) null);
+        getValue(null, null),
+        (UUID) null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <null>%n"
-                                                                    + "not to be equal to: %n"
-                                                                    + "  <null>"));
+        + "Expecting:%n"
+        + "  <null>%n"
+        + "not to be equal to: %n"
+        + "  <null>"));
     }
   }
 
@@ -99,16 +99,16 @@ public class AssertionsOnValueInequality_IsNotEqualTo_UUID_Test extends Abstract
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnValueInequality.isNotEqualTo(tableAssert, info, getValue(null, 8),
-                                                UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
+        UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <8>%n"
-                                                                    + "to be of type%n"
-                                                                    + "  <UUID>%n"
-                                                                    + "but was of type%n"
-                                                                    + "  <NUMBER>"));
+        + "Expecting:%n"
+        + "  <8>%n"
+        + "to be of type%n"
+        + "  <UUID>%n"
+        + "but was of type%n"
+        + "  <NUMBER>"));
     }
   }
 }

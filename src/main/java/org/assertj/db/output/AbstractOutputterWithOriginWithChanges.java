@@ -27,15 +27,15 @@ import org.assertj.db.navigation.origin.OriginWithChanges;
  * @author Régis Pouiller
  */
 public abstract class AbstractOutputterWithOriginWithChanges<E extends AbstractOutputterWithOriginWithChanges<E, O>, O extends OriginWithChanges<ChangesOutputter, ChangeOutputter>>
-        extends AbstractOutputterWithOrigin<E, O>
-        implements ToChanges<ChangesOutputter>,
-        ToChange<ChangeOutputter> {
+  extends AbstractOutputterWithOrigin<E, O>
+  implements ToChanges<ChangesOutputter>,
+  ToChange<ChangeOutputter> {
 
   /**
    * Constructor.
    *
    * @param selfType Type of this output class : a sub-class of {@code AbstractOutputterWithOriginWithChanges}.
-   * @param origin The output of {@link org.assertj.db.navigation.origin.Origin}.
+   * @param origin   The output of {@link org.assertj.db.navigation.origin.Origin}.
    */
   AbstractOutputterWithOriginWithChanges(Class<E> selfType, O origin) {
     super(selfType, origin);

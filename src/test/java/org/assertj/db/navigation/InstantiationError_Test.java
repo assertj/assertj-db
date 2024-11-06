@@ -35,7 +35,6 @@ import org.junit.Test;
  * Tests on instantiation errors.
  *
  * @author Régis Pouiller
- *
  */
 public class InstantiationError_Test extends AbstractTest {
 
@@ -58,11 +57,11 @@ public class InstantiationError_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("There is an exception 'org.assertj.db.navigation.InstantiationError_Test.<init>(org.assertj.db.api.TableAssert,org.assertj.db.type.Column)'%n"
-                                                      + "\t in the instantiation of the element org.assertj.db.navigation.InstantiationError_Test%n"
-                                                      + "\t on class org.assertj.db.type.Column with class org.assertj.db.api.TableAssert.%n"
-                                                      + " It is normally impossible.%n"
-                                                      + " That means there is a big mistake in the development of AssertJDB.%n"
-                                                      + " Please write an issue for that if you meet this problem."));
+        + "\t in the instantiation of the element org.assertj.db.navigation.InstantiationError_Test%n"
+        + "\t on class org.assertj.db.type.Column with class org.assertj.db.api.TableAssert.%n"
+        + " It is normally impossible.%n"
+        + " That means there is a big mistake in the development of AssertJDB.%n"
+        + " Please write an issue for that if you meet this problem."));
     }
   }
 
@@ -85,11 +84,11 @@ public class InstantiationError_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("There is an exception 'org.assertj.db.navigation.InstantiationError_Test.<init>(org.assertj.db.api.TableAssert,org.assertj.db.type.Row)'%n"
-                                                      + "\t in the instantiation of the element org.assertj.db.navigation.InstantiationError_Test%n"
-                                                      + "\t on class org.assertj.db.type.Row with class org.assertj.db.api.TableAssert.%n"
-                                                      + " It is normally impossible.%n"
-                                                      + " That means there is a big mistake in the development of AssertJDB.%n"
-                                                      + " Please write an issue for that if you meet this problem."));
+        + "\t in the instantiation of the element org.assertj.db.navigation.InstantiationError_Test%n"
+        + "\t on class org.assertj.db.type.Row with class org.assertj.db.api.TableAssert.%n"
+        + " It is normally impossible.%n"
+        + " That means there is a big mistake in the development of AssertJDB.%n"
+        + " Please write an issue for that if you meet this problem."));
     }
   }
 
@@ -112,11 +111,11 @@ public class InstantiationError_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("There is an exception 'org.assertj.db.navigation.InstantiationError_Test.<init>(org.assertj.db.api.TableColumnAssert,org.assertj.db.type.Value)'%n"
-                                                      + "\t in the instantiation of the element org.assertj.db.navigation.InstantiationError_Test%n"
-                                                      + "\t on class org.assertj.db.type.Value with class org.assertj.db.api.TableColumnAssert.%n"
-                                                      + " It is normally impossible.%n"
-                                                      + " That means there is a big mistake in the development of AssertJDB.%n"
-                                                      + " Please write an issue for that if you meet this problem."));
+        + "\t in the instantiation of the element org.assertj.db.navigation.InstantiationError_Test%n"
+        + "\t on class org.assertj.db.type.Value with class org.assertj.db.api.TableColumnAssert.%n"
+        + " It is normally impossible.%n"
+        + " That means there is a big mistake in the development of AssertJDB.%n"
+        + " Please write an issue for that if you meet this problem."));
     }
   }
 
@@ -142,11 +141,11 @@ public class InstantiationError_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("There is an exception 'org.assertj.db.navigation.InstantiationError_Test.<init>(org.assertj.db.api.ChangesAssert,org.assertj.db.type.Changes)'%n"
-                                                      + "\t in the instantiation of the element org.assertj.db.navigation.InstantiationError_Test%n"
-                                                      + "\t on class org.assertj.db.type.Changes with class org.assertj.db.api.ChangesAssert.%n"
-                                                      + " It is normally impossible.%n"
-                                                      + " That means there is a big mistake in the development of AssertJDB.%n"
-                                                      + " Please write an issue for that if you meet this problem."));
+        + "\t in the instantiation of the element org.assertj.db.navigation.InstantiationError_Test%n"
+        + "\t on class org.assertj.db.type.Changes with class org.assertj.db.api.ChangesAssert.%n"
+        + " It is normally impossible.%n"
+        + " That means there is a big mistake in the development of AssertJDB.%n"
+        + " Please write an issue for that if you meet this problem."));
     }
   }
 
@@ -172,11 +171,11 @@ public class InstantiationError_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("There is an exception 'org.assertj.db.navigation.InstantiationError_Test.<init>(org.assertj.db.api.ChangesAssert,org.assertj.db.type.Change)'%n"
-                                                      + "\t in the instantiation of the element org.assertj.db.navigation.InstantiationError_Test%n"
-                                                      + "\t on class org.assertj.db.type.Change with class org.assertj.db.api.ChangesAssert.%n"
-                                                      + " It is normally impossible.%n"
-                                                      + " That means there is a big mistake in the development of AssertJDB.%n"
-                                                      + " Please write an issue for that if you meet this problem."));
+        + "\t in the instantiation of the element org.assertj.db.navigation.InstantiationError_Test%n"
+        + "\t on class org.assertj.db.type.Change with class org.assertj.db.api.ChangesAssert.%n"
+        + " It is normally impossible.%n"
+        + " That means there is a big mistake in the development of AssertJDB.%n"
+        + " Please write an issue for that if you meet this problem."));
     }
   }
 
@@ -202,11 +201,11 @@ public class InstantiationError_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("There is an exception 'org.assertj.db.navigation.InstantiationError_Test.<init>(org.assertj.db.api.ChangeAssert,java.lang.String,org.assertj.db.type.Value,org.assertj.db.type.Value)'%n"
-                                                      + "\t in the instantiation of the element org.assertj.db.navigation.InstantiationError_Test%n"
-                                                      + "\t with class org.assertj.db.api.ChangeAssert.%n"
-                                                      + " It is normally impossible.%n"
-                                                      + " That means there is a big mistake in the development of AssertJDB.%n"
-                                                      + " Please write an issue for that if you meet this problem."));
+        + "\t in the instantiation of the element org.assertj.db.navigation.InstantiationError_Test%n"
+        + "\t with class org.assertj.db.api.ChangeAssert.%n"
+        + " It is normally impossible.%n"
+        + " That means there is a big mistake in the development of AssertJDB.%n"
+        + " Please write an issue for that if you meet this problem."));
     }
   }
 
@@ -232,11 +231,11 @@ public class InstantiationError_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("There is an exception 'org.assertj.db.navigation.InstantiationError_Test.<init>(org.assertj.db.api.ChangeAssert,org.assertj.db.type.Row)'%n"
-                                                      + "\t in the instantiation of the element org.assertj.db.navigation.InstantiationError_Test%n"
-                                                      + "\t on class org.assertj.db.type.Row with class org.assertj.db.api.ChangeAssert.%n"
-                                                      + " It is normally impossible.%n"
-                                                      + " That means there is a big mistake in the development of AssertJDB.%n"
-                                                      + " Please write an issue for that if you meet this problem."));
+        + "\t in the instantiation of the element org.assertj.db.navigation.InstantiationError_Test%n"
+        + "\t on class org.assertj.db.type.Row with class org.assertj.db.api.ChangeAssert.%n"
+        + " It is normally impossible.%n"
+        + " That means there is a big mistake in the development of AssertJDB.%n"
+        + " Please write an issue for that if you meet this problem."));
     }
   }
 }

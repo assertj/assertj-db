@@ -12,19 +12,18 @@
  */
 package org.assertj.db.type;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.assertj.db.common.AbstractTest;
 import org.junit.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests on the getters of {@code Request}.
  * <p>
  * These tests are on the return from the getters of {@code Request}.
  * </p>
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class Request_Getters_Test extends AbstractTest {
 
@@ -59,8 +58,8 @@ public class Request_Getters_Test extends AbstractTest {
    */
   @Test
   public void test_getters_with_source_and_name_set() {
-    Request request = new Request(source, 
-        "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
+    Request request = new Request(source,
+      "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
         + " FROM movie, actor, interpretation"
         + " WHERE movie.id = interpretation.id_movie"
         + " AND interpretation.id_actor = actor.id"
@@ -69,10 +68,10 @@ public class Request_Getters_Test extends AbstractTest {
     assertThat(request.getSource()).as("Source of MOVIE table").isSameAs(source);
     assertThat(request.getDataSource()).isNull();
     assertThat(request.getRequest()).isEqualTo("SELECT actor.name, actor.firstname, movie.year, interpretation.character "
-        + " FROM movie, actor, interpretation"
-        + " WHERE movie.id = interpretation.id_movie"
-        + " AND interpretation.id_actor = actor.id"
-        + " ORDER BY actor.name, movie.year");
+      + " FROM movie, actor, interpretation"
+      + " WHERE movie.id = interpretation.id_movie"
+      + " AND interpretation.id_actor = actor.id"
+      + " ORDER BY actor.name, movie.year");
     assertThat(request.getParameters()).containsExactly();
   }
 
@@ -82,22 +81,22 @@ public class Request_Getters_Test extends AbstractTest {
    */
   @Test
   public void test_getters_with_source_name_and_columns_set() {
-    Request request = new Request(source, 
-        "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
-            + " FROM movie, actor, interpretation"
-            + " WHERE movie.id = interpretation.id_movie"
-            + " AND interpretation.id_actor = actor.id"
-            + " AND movie.year > ?"
-            + " ORDER BY actor.name, movie.year", 2000);
-
-    assertThat(request.getSource()).as("Source of MOVIE table").isSameAs(source);
-    assertThat(request.getDataSource()).isNull();
-    assertThat(request.getRequest()).isEqualTo("SELECT actor.name, actor.firstname, movie.year, interpretation.character "
+    Request request = new Request(source,
+      "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
         + " FROM movie, actor, interpretation"
         + " WHERE movie.id = interpretation.id_movie"
         + " AND interpretation.id_actor = actor.id"
         + " AND movie.year > ?"
-        + " ORDER BY actor.name, movie.year");
+        + " ORDER BY actor.name, movie.year", 2000);
+
+    assertThat(request.getSource()).as("Source of MOVIE table").isSameAs(source);
+    assertThat(request.getDataSource()).isNull();
+    assertThat(request.getRequest()).isEqualTo("SELECT actor.name, actor.firstname, movie.year, interpretation.character "
+      + " FROM movie, actor, interpretation"
+      + " WHERE movie.id = interpretation.id_movie"
+      + " AND interpretation.id_actor = actor.id"
+      + " AND movie.year > ?"
+      + " ORDER BY actor.name, movie.year");
     assertThat(request.getParameters()).containsExactly(2000);
   }
 

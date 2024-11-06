@@ -16,6 +16,7 @@ import java.util.Comparator;
 
 /**
  * Comparison on {@link java.lang.String} which consider the case.
+ *
  * @author Régis Pouiller
  * @since 1.1.0
  */
@@ -23,12 +24,14 @@ public interface CaseComparison extends Comparator<String> {
 
   /**
    * Returns the name of the comparison.
+   *
    * @return The name of the comparison.
    */
   String getComparisonName();
 
   /**
    * Returns if {@code value1} is equal to {@code value2}.
+   *
    * @param value1 The first value to compare.
    * @param value2 The second value to compare.
    * @return If the two values are equal.

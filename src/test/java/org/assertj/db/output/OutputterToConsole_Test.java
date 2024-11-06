@@ -39,11 +39,11 @@ public class OutputterToConsole_Test extends AbstractTest {
     Outputs.output(table).row().value().toConsole();
     System.setOut(System.out);
     Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Value at index 0 (column name : ID) of Row at index 0 of ACTOR table]%n"
-                                                                                     + "|----------|%n"
-                                                                                     + "| ID       |%n"
-                                                                                     + "| (NUMBER) |%n"
-                                                                                     + "|----------|%n"
-                                                                                     + "| 1        |%n"
-                                                                                     + "|----------|%n"));
+      + "|----------|%n"
+      + "| ID       |%n"
+      + "| (NUMBER) |%n"
+      + "|----------|%n"
+      + "| 1        |%n"
+      + "|----------|%n"));
   }
 }

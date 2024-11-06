@@ -12,20 +12,19 @@
  */
 package org.assertj.db.util;
 
-import org.assertj.db.common.AbstractTest;
-import org.assertj.db.exception.AssertJDBException;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.db.common.AbstractTest;
+import org.assertj.db.exception.AssertJDBException;
+import org.junit.Test;
 
 /**
  * Tests on {@code compare} method for {@code Number}s.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class Values_Compare_Value_And_Number_Test extends AbstractTest {
 

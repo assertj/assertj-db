@@ -12,6 +12,11 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.sql.Time;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -20,17 +25,11 @@ import org.assertj.db.type.Table;
 import org.assertj.db.type.TimeValue;
 import org.junit.Test;
 
-import java.sql.Time;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertionsOnValueChronology} class :
  * {@link AssertionsOnValueChronology#isAfter(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, org.assertj.db.type.TimeValue)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnValueChronology_IsAfter_TimeValue_Test extends AbstractTest {
 
@@ -43,8 +42,8 @@ public class AssertionsOnValueChronology_IsAfter_TimeValue_Test extends Abstract
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnValueChronology.isAfter(tableAssert, info,
-                                                                   getValue(null, Time.valueOf("09:01:05")),
-                                                                   TimeValue.of(9, 1, 0));
+      getValue(null, Time.valueOf("09:01:05")),
+      TimeValue.of(9, 1, 0));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -59,27 +58,27 @@ public class AssertionsOnValueChronology_IsAfter_TimeValue_Test extends Abstract
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnValueChronology.isAfter(tableAssert, info,
-                                          getValue(null, Time.valueOf("09:01:05")),
-                                          TimeValue.of(9, 1, 5));
+        getValue(null, Time.valueOf("09:01:05")),
+        TimeValue.of(9, 1, 5));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <09:01:05.000000000>%n"
-                                                      + "to be after %n"
-                                                      + "  <09:01:05.000000000>"));
+        + "Expecting:%n"
+        + "  <09:01:05.000000000>%n"
+        + "to be after %n"
+        + "  <09:01:05.000000000>"));
     }
     try {
       AssertionsOnValueChronology.isAfter(tableAssert, info,
-                                          getValue(null, Time.valueOf("09:01:05")),
-                                          TimeValue.of(9, 1, 6));
+        getValue(null, Time.valueOf("09:01:05")),
+        TimeValue.of(9, 1, 6));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <09:01:05.000000000>%n"
-                                                      + "to be after %n"
-                                                      + "  <09:01:06.000000000>"));
+        + "Expecting:%n"
+        + "  <09:01:05.000000000>%n"
+        + "to be after %n"
+        + "  <09:01:06.000000000>"));
     }
   }
 
@@ -94,17 +93,17 @@ public class AssertionsOnValueChronology_IsAfter_TimeValue_Test extends Abstract
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnValueChronology.isAfter(tableAssert, info,
-                                          getValue(null, "test"),
-                                          TimeValue.of(9, 1, 0));
+        getValue(null, "test"),
+        TimeValue.of(9, 1, 0));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <\"test\">%n"
-                                                      + "to be of type%n"
-                                                      + "  <TIME>%n"
-                                                      + "but was of type%n"
-                                                      + "  <TEXT>"));
+        + "Expecting:%n"
+        + "  <\"test\">%n"
+        + "to be of type%n"
+        + "  <TIME>%n"
+        + "but was of type%n"
+        + "  <TEXT>"));
     }
   }
 }

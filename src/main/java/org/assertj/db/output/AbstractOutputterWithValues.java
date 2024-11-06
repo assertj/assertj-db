@@ -26,8 +26,8 @@ import org.assertj.db.type.Value;
  * @author Régis Pouiller
  */
 public abstract class AbstractOutputterWithValues<E extends AbstractOutputterWithValues<E, O>, O extends OriginWithColumnsAndRowsFromChange<ChangesOutputter, ChangeOutputter, ChangeColumnOutputter, ChangeRowOutputter>>
-        extends AbstractOutputterWithOriginWithColumnsAndRowsFromChange<E, O>
-        implements ValueElement {
+  extends AbstractOutputterWithOriginWithColumnsAndRowsFromChange<E, O>
+  implements ValueElement {
   /**
    * The actual value on which the assertion is.
    */
@@ -37,8 +37,8 @@ public abstract class AbstractOutputterWithValues<E extends AbstractOutputterWit
    * Constructor.
    *
    * @param selfType Type of this assertion class : a sub-class of {@code AbstractOutputterWithValues}.
-   * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
-   * @param value The value on which are the assertion methods.
+   * @param origin   The assertion of {@link org.assertj.db.navigation.origin.Origin}.
+   * @param value    The value on which are the assertion methods.
    */
   AbstractOutputterWithValues(Class<E> selfType, O origin, Value value) {
     super(selfType, origin);

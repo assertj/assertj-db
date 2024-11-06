@@ -12,13 +12,13 @@
  */
 package org.assertj.db.api.assertions;
 
-import org.assertj.db.type.DateTimeValue;
-import org.assertj.db.type.DateValue;
-import org.assertj.db.type.TimeValue;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+
+import org.assertj.db.type.DateTimeValue;
+import org.assertj.db.type.DateValue;
+import org.assertj.db.type.TimeValue;
 
 /**
  * Defines the assertion methods on the chronology of a value.

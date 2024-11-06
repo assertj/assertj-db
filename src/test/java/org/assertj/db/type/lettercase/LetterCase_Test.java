@@ -12,16 +12,15 @@
  */
 package org.assertj.db.type.lettercase;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.assertj.db.common.AbstractTest;
 import org.junit.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests on LetterCase
  *
  * @author Régis Pouiller
- *
  */
 public class LetterCase_Test extends AbstractTest {
 

@@ -20,29 +20,32 @@ import org.assertj.db.type.Value;
  * Output methods for a value of a {@code Column} of a {@code Change}.
  *
  * @author Régis Pouiller
- *
  */
 public class ChangeColumnValueOutputter
-        extends AbstractOutputterWithValues<ChangeColumnValueOutputter, ChangeColumnOutputter>
-        implements ToValueFromColumn<ChangeColumnValueOutputter> {
+  extends AbstractOutputterWithValues<ChangeColumnValueOutputter, ChangeColumnOutputter>
+  implements ToValueFromColumn<ChangeColumnValueOutputter> {
 
   /**
    * Constructor.
    *
    * @param origin The output of {@link org.assertj.db.navigation.origin.Origin}.
-   * @param value The value on which are the displays.
+   * @param value  The value on which are the displays.
    */
   public ChangeColumnValueOutputter(ChangeColumnOutputter origin, Value value) {
     super(ChangeColumnValueOutputter.class, origin, value);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeColumnValueOutputter valueAtStartPoint() {
     return origin.valueAtStartPoint();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeColumnValueOutputter valueAtEndPoint() {
     return origin.valueAtEndPoint();

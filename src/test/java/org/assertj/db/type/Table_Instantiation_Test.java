@@ -12,20 +12,19 @@
  */
 package org.assertj.db.type;
 
+import javax.sql.DataSource;
+
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.exception.AssertJDBException;
 import org.junit.Test;
-
-import javax.sql.DataSource;
 
 /**
  * Tests on the instantiation of {@code Table}.
  * <p>
  * These tests are on the raise of some Exception depending of the case of test.
  * </p>
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class Table_Instantiation_Test extends AbstractTest {
 
@@ -125,7 +124,7 @@ public class Table_Instantiation_Test extends AbstractTest {
    */
   @Test(expected = NullPointerException.class)
   public void should_throw_NullPointerException_if_one_of_the_columns_to_check_is_null() {
-    new Table(source, "movie", new String[] { "id", null, "birth" }, null);
+    new Table(source, "movie", new String[]{"id", null, "birth"}, null);
   }
 
   /**
@@ -133,6 +132,6 @@ public class Table_Instantiation_Test extends AbstractTest {
    */
   @Test(expected = NullPointerException.class)
   public void should_throw_NullPointerException_if_one_of_the_columns_to_exclude_is_null() {
-    new Table(source, "movie", new String[] { "id", "name", "birth" }, new String[] { null });
+    new Table(source, "movie", new String[]{"id", "name", "birth"}, new String[]{null});
   }
 }

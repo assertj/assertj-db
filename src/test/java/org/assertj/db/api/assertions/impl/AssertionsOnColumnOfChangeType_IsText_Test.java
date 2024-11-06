@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -19,15 +22,11 @@ import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link org.assertj.db.api.assertions.impl.AssertionsOnColumnOfChangeType} class :
  * {@link org.assertj.db.api.assertions.impl.AssertionsOnColumnOfChangeType#isText(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, org.assertj.db.type.Value, boolean)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnColumnOfChangeType_IsText_Test extends AbstractTest {
 
@@ -40,10 +39,10 @@ public class AssertionsOnColumnOfChangeType_IsText_Test extends AbstractTest {
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnColumnOfChangeType.isText(tableAssert, info, getValue(null, "test"), getValue(
-            null, "test"), false);
+      null, "test"), false);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnColumnOfChangeType.isText(tableAssert, info, getValue(null, "test"), getValue(null,
-                                                                                                             "test"), true);
+      "test"), true);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnColumnOfChangeType.isText(tableAssert, info, getValue(null, null), getValue(null, "test"), true);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
@@ -60,16 +59,16 @@ public class AssertionsOnColumnOfChangeType_IsText_Test extends AbstractTest {
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeType.isText(tableAssert, info,
-                                            getValue(null, true), getValue(null, "test"), false);
+        getValue(null, true), getValue(null, "test"), false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that the value at start point:%n"
-                                                      + "  <true>%n"
-                                                      + "to be of type%n"
-                                                      + "  <TEXT>%n"
-                                                      + "but was of type%n"
-                                                      + "  <BOOLEAN>"));
+        + "Expecting that the value at start point:%n"
+        + "  <true>%n"
+        + "to be of type%n"
+        + "  <TEXT>%n"
+        + "but was of type%n"
+        + "  <BOOLEAN>"));
     }
   }
 
@@ -84,16 +83,16 @@ public class AssertionsOnColumnOfChangeType_IsText_Test extends AbstractTest {
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeType.isText(tableAssert, info,
-                                            getValue(null, "test"), getValue(null, false), false);
+        getValue(null, "test"), getValue(null, false), false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that the value at end point:%n"
-                                                      + "  <false>%n"
-                                                      + "to be of type%n"
-                                                      + "  <TEXT>%n"
-                                                      + "but was of type%n"
-                                                      + "  <BOOLEAN>"));
+        + "Expecting that the value at end point:%n"
+        + "  <false>%n"
+        + "to be of type%n"
+        + "  <TEXT>%n"
+        + "but was of type%n"
+        + "  <BOOLEAN>"));
     }
   }
 
@@ -108,16 +107,16 @@ public class AssertionsOnColumnOfChangeType_IsText_Test extends AbstractTest {
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeType.isTime(tableAssert, info,
-                                            getValue(null, new StringBuilder("test")), getValue(null, "test"), false);
+        getValue(null, new StringBuilder("test")), getValue(null, "test"), false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at start point:%n"
-                                                                    + "  <test>%n"
-                                                                    + "to be of type%n"
-                                                                    + "  <TIME>%n"
-                                                                    + "but was of type%n"
-                                                                    + "  <NOT_IDENTIFIED> (java.lang.StringBuilder)"));
+        + "Expecting that the value at start point:%n"
+        + "  <test>%n"
+        + "to be of type%n"
+        + "  <TIME>%n"
+        + "but was of type%n"
+        + "  <NOT_IDENTIFIED> (java.lang.StringBuilder)"));
     }
   }
 
@@ -132,16 +131,16 @@ public class AssertionsOnColumnOfChangeType_IsText_Test extends AbstractTest {
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeType.isText(tableAssert, info,
-                                            getValue(null, "test"), getValue(null, new StringBuilder("test")), false);
+        getValue(null, "test"), getValue(null, new StringBuilder("test")), false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at end point:%n"
-                                                                    + "  <test>%n"
-                                                                    + "to be of type%n"
-                                                                    + "  <TEXT>%n"
-                                                                    + "but was of type%n"
-                                                                    + "  <NOT_IDENTIFIED> (java.lang.StringBuilder)"));
+        + "Expecting that the value at end point:%n"
+        + "  <test>%n"
+        + "to be of type%n"
+        + "  <TEXT>%n"
+        + "but was of type%n"
+        + "  <NOT_IDENTIFIED> (java.lang.StringBuilder)"));
     }
   }
 }

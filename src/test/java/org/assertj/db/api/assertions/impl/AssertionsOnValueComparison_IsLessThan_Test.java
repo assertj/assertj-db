@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -19,15 +22,11 @@ import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link  AssertionsOnValueComparison} class :
  * {@link  AssertionsOnValueComparison#isLessThan(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, Number)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnValueComparison_IsLessThan_Test extends AbstractTest {
 
@@ -57,20 +56,20 @@ public class AssertionsOnValueComparison_IsLessThan_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <8>%n"
-                                                      + "to be less than %n"
-                                                      + "  <8>"));
+        + "Expecting:%n"
+        + "  <8>%n"
+        + "to be less than %n"
+        + "  <8>"));
     }
     try {
       AssertionsOnValueComparison.isLessThan(tableAssert, info, getValue(null, 8), 7);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <8>%n"
-                                                      + "to be less than %n"
-                                                      + "  <7>"));
+        + "Expecting:%n"
+        + "  <8>%n"
+        + "to be less than %n"
+        + "  <7>"));
     }
   }
 
@@ -88,12 +87,12 @@ public class AssertionsOnValueComparison_IsLessThan_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <\"8\">%n"
-                                                      + "to be of type%n"
-                                                      + "  <NUMBER>%n"
-                                                      + "but was of type%n"
-                                                      + "  <TEXT>"));
+        + "Expecting:%n"
+        + "  <\"8\">%n"
+        + "to be of type%n"
+        + "  <NUMBER>%n"
+        + "but was of type%n"
+        + "  <TEXT>"));
     }
   }
 }

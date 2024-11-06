@@ -12,6 +12,11 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.util.Locale;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -20,17 +25,11 @@ import org.assertj.db.type.Table;
 import org.assertj.db.type.ValueType;
 import org.junit.Test;
 
-import java.util.Locale;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertionsOnValueType} class :
  * {@link AssertionsOnValueType#isOfAnyTypeIn(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, org.assertj.db.type.ValueType...)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnValueType_IsOfAnyTypeIn_Test extends AbstractTest {
 
@@ -43,7 +42,7 @@ public class AssertionsOnValueType_IsOfAnyTypeIn_Test extends AbstractTest {
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnValueType.isOfAnyTypeIn(tableAssert, info, getValue(null, "test"),
-                                                                   ValueType.TEXT);
+      ValueType.TEXT);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnValueType.isOfAnyTypeIn(tableAssert, info, getValue(null, "test"), ValueType.TEXT, ValueType.NUMBER);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
@@ -63,36 +62,36 @@ public class AssertionsOnValueType_IsOfAnyTypeIn_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <8>%n"
-                                                      + "to be of type%n"
-                                                      + "  <[TEXT, DATE]>%n"
-                                                      + "but was of type%n"
-                                                      + "  <NUMBER>"));
+        + "Expecting:%n"
+        + "  <8>%n"
+        + "to be of type%n"
+        + "  <[TEXT, DATE]>%n"
+        + "but was of type%n"
+        + "  <NUMBER>"));
     }
     try {
       AssertionsOnValueType.isOfAnyTypeIn(tableAssert, info, getValue(null, null), ValueType.TEXT, ValueType.DATE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <null>%n"
-                                                                    + "to be of type%n"
-                                                                    + "  <[TEXT, DATE]>%n"
-                                                                    + "but was of type%n"
-                                                                    + "  <NOT_IDENTIFIED>"));
+        + "Expecting:%n"
+        + "  <null>%n"
+        + "to be of type%n"
+        + "  <[TEXT, DATE]>%n"
+        + "but was of type%n"
+        + "  <NOT_IDENTIFIED>"));
     }
     try {
       AssertionsOnValueType.isOfAnyTypeIn(tableAssert, info, getValue(null, Locale.FRENCH), ValueType.TEXT, ValueType.DATE);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <fr>%n"
-                                                                    + "to be of type%n"
-                                                                    + "  <[TEXT, DATE]>%n"
-                                                                    + "but was of type%n"
-                                                                    + "  <NOT_IDENTIFIED> (java.util.Locale)"));
+        + "Expecting:%n"
+        + "  <fr>%n"
+        + "to be of type%n"
+        + "  <[TEXT, DATE]>%n"
+        + "but was of type%n"
+        + "  <NOT_IDENTIFIED> (java.util.Locale)"));
     }
   }
 
@@ -110,12 +109,12 @@ public class AssertionsOnValueType_IsOfAnyTypeIn_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <text>%n"
-                                                                    + "to be of type%n"
-                                                                    + "  <[TEXT, DATE]>%n"
-                                                                    + "but was of type%n"
-                                                                    + "  <NOT_IDENTIFIED> (java.lang.StringBuilder)"));
+        + "Expecting:%n"
+        + "  <text>%n"
+        + "to be of type%n"
+        + "  <[TEXT, DATE]>%n"
+        + "but was of type%n"
+        + "  <NOT_IDENTIFIED> (java.lang.StringBuilder)"));
     }
   }
 }

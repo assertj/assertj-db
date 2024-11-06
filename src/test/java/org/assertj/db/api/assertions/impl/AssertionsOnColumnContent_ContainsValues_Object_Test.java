@@ -12,6 +12,14 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -20,20 +28,11 @@ import org.assertj.db.type.Table;
 import org.assertj.db.type.Value;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link org.assertj.db.api.assertions.impl.AssertionsOnColumnContent} class :
  * {@link org.assertj.db.api.assertions.impl.AssertionsOnColumnContent#containsValues(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, java.util.List, Object...)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnColumnContent_ContainsValues_Object_Test extends AbstractTest {
 
@@ -46,7 +45,7 @@ public class AssertionsOnColumnContent_ContainsValues_Object_Test extends Abstra
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, Locale.FRENCH), getValue(null, Locale.ENGLISH), getValue(
-            null, Locale.FRENCH), getValue(null, null)));
+      null, Locale.FRENCH), getValue(null, null)));
     TableAssert tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list, Locale.FRENCH, Locale.ENGLISH, Locale.FRENCH, null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list, Locale.FRENCH, Locale.FRENCH, Locale.ENGLISH, null);
@@ -54,10 +53,10 @@ public class AssertionsOnColumnContent_ContainsValues_Object_Test extends Abstra
     tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list, Locale.ENGLISH, null, Locale.FRENCH, Locale.FRENCH);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     list = new ArrayList<>(Arrays.asList(getValue(null, Locale.FRENCH), getValue(null, Locale.ENGLISH), getValue(null,
-                                                                                                                 Locale.ENGLISH), getValue(
-            null, null)));
+      Locale.ENGLISH), getValue(
+      null, null)));
     tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list, null, Locale.ENGLISH,
-                                                            Locale.FRENCH, Locale.ENGLISH);
+      Locale.FRENCH, Locale.ENGLISH);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -71,32 +70,32 @@ public class AssertionsOnColumnContent_ContainsValues_Object_Test extends Abstra
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, Locale.FRENCH), getValue(null, Locale.ENGLISH), getValue(
-            null, Locale.FRENCH), getValue(null, null)));
+      null, Locale.FRENCH), getValue(null, null)));
     try {
       AssertionsOnColumnContent.containsValues(tableAssert, info, list, null, null,
-                                               Locale.FRENCH, Locale.ENGLISH);
+        Locale.FRENCH, Locale.ENGLISH);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <[fr, en, fr, null]>%n"
-                                                                    + "to contain: %n"
-                                                                    + "  <[null, null, fr, en]>%n"
-                                                                    + " (parameter <null> at index 1 is not found)"));
+        + "Expecting:%n"
+        + "  <[fr, en, fr, null]>%n"
+        + "to contain: %n"
+        + "  <[null, null, fr, en]>%n"
+        + " (parameter <null> at index 1 is not found)"));
     }
     list = new ArrayList<>(Arrays.asList(getValue(null, true), getValue(null, false), getValue(null, false), getValue(
-            null, null)));
+      null, null)));
     try {
       AssertionsOnColumnContent.containsValues(tableAssert, info, list, null, Locale.ENGLISH,
-                                               Locale.FRENCH, Locale.ENGLISH);
+        Locale.FRENCH, Locale.ENGLISH);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <[true, false, false, null]>%n"
-                                                                    + "to contain: %n"
-                                                                    + "  <[null, en, fr, en]>%n"
-                                                                    + " (parameter <en> at index 1 is not found)"));
+        + "Expecting:%n"
+        + "  <[true, false, false, null]>%n"
+        + "to contain: %n"
+        + "  <[null, en, fr, en]>%n"
+        + " (parameter <en> at index 1 is not found)"));
     }
   }
 
@@ -115,11 +114,11 @@ public class AssertionsOnColumnContent_ContainsValues_Object_Test extends Abstra
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <[\"other\", fr]>%n"
-                                                                    + "to contain: %n"
-                                                                    + "  <[fr, fr]>%n"
-                                                                    + " (parameter <fr> at index 1 is not found)"));
+        + "Expecting:%n"
+        + "  <[\"other\", fr]>%n"
+        + "to contain: %n"
+        + "  <[fr, fr]>%n"
+        + " (parameter <fr> at index 1 is not found)"));
     }
   }
 
@@ -138,10 +137,10 @@ public class AssertionsOnColumnContent_ContainsValues_Object_Test extends Abstra
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting size (number of rows) to be equal to :%n"
-                                                                    + "   <3>%n"
-                                                                    + "but was:%n"
-                                                                    + "   <2>"));
+        + "Expecting size (number of rows) to be equal to :%n"
+        + "   <3>%n"
+        + "but was:%n"
+        + "   <2>"));
     }
   }
 }

@@ -27,15 +27,15 @@ import org.assertj.db.navigation.origin.OriginWithChanges;
  * @author Régis Pouiller
  */
 public abstract class AbstractAssertWithOriginWithChanges<E extends AbstractAssertWithOriginWithChanges<E, O>, O extends OriginWithChanges<ChangesAssert, ChangeAssert>>
-        extends AbstractAssertWithOrigin<E, O>
-        implements ToChanges<ChangesAssert>,
-                   ToChange<ChangeAssert> {
+  extends AbstractAssertWithOrigin<E, O>
+  implements ToChanges<ChangesAssert>,
+  ToChange<ChangeAssert> {
 
   /**
    * Constructor.
    *
    * @param selfType Type of this assertion class : a sub-class of {@code AbstractAssertWithOriginWithChanges}.
-   * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
+   * @param origin   The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    */
   AbstractAssertWithOriginWithChanges(Class<E> selfType, O origin) {
     super(selfType, origin);

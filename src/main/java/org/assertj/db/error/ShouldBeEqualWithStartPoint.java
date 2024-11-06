@@ -17,9 +17,8 @@ import org.assertj.core.error.ErrorMessageFactory;
 
 /**
  * Creates an error message indicating that an assertion that verifies that a value at start point is equal to another value.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class ShouldBeEqualWithStartPoint extends BasicErrorMessageFactory {
 
@@ -27,9 +26,26 @@ public class ShouldBeEqualWithStartPoint extends BasicErrorMessageFactory {
   private static final String EXPECTED_MESSAGE_WITHOUT_VALUES = "%nExpecting that start point to be equal to the expected value but was not equal";
 
   /**
+   * Constructor.
+   *
+   * @param actual   The actual value in the failed assertion.
+   * @param expected The expected value to compare to.
+   */
+  public ShouldBeEqualWithStartPoint(Object actual, Object expected) {
+    super(EXPECTED_MESSAGE, actual, expected);
+  }
+
+  /**
+   * Constructor.
+   */
+  private ShouldBeEqualWithStartPoint() {
+    super(EXPECTED_MESSAGE_WITHOUT_VALUES);
+  }
+
+  /**
    * Creates a new <code>{@link org.assertj.db.error.ShouldBeEqualWithStartPoint}</code>.
    *
-   * @param actual The actual value in the failed assertion.
+   * @param actual   The actual value in the failed assertion.
    * @param expected The expected value to compare to.
    * @return the created {@code ErrorMessageFactory}.
    */
@@ -44,22 +60,5 @@ public class ShouldBeEqualWithStartPoint extends BasicErrorMessageFactory {
    */
   public static ErrorMessageFactory shouldBeEqualWithStartPoint() {
     return new ShouldBeEqualWithStartPoint();
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param actual The actual value in the failed assertion.
-   * @param expected The expected value to compare to.
-   */
-  public ShouldBeEqualWithStartPoint(Object actual, Object expected) {
-    super(EXPECTED_MESSAGE, actual, expected);
-  }
-
-  /**
-   * Constructor.
-   */
-  private ShouldBeEqualWithStartPoint() {
-    super(EXPECTED_MESSAGE_WITHOUT_VALUES);
   }
 }

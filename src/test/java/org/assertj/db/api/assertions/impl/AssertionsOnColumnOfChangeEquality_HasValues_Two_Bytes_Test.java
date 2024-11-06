@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -19,15 +22,11 @@ import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link org.assertj.db.api.assertions.impl.AssertionsOnColumnOfChangeEquality} class :
  * {@link org.assertj.db.api.assertions.impl.AssertionsOnColumnOfChangeEquality#hasValues(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, Object, Object, byte[], byte[])} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Bytes_Test extends AbstractTest {
 
@@ -40,10 +39,10 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Bytes_Test extends
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                                            getValue(null, new byte[] { 0, 1 }),
-                                                                            getValue(null, new byte[] { 2, 3 }),
-                                                                            new byte[] { 0, 1 },
-                                                                            new byte[] { 2, 3 });
+      getValue(null, new byte[]{0, 1}),
+      getValue(null, new byte[]{2, 3}),
+      new byte[]{0, 1},
+      new byte[]{2, 3});
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -58,13 +57,13 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Bytes_Test extends
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   getValue(null, new byte[] { 0, 1 }),
-                                                   getValue(null, new byte[] { 2, 3 }),
-                                                   new byte[] { 0, 0 }, new byte[] { 2, 3 });
+        getValue(null, new byte[]{0, 1}),
+        getValue(null, new byte[]{2, 3}),
+        new byte[]{0, 0}, new byte[]{2, 3});
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that start point to be equal to the expected value but was not equal"));
+        + "Expecting that start point to be equal to the expected value but was not equal"));
     }
   }
 
@@ -79,13 +78,13 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Bytes_Test extends
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   getValue(null, new byte[] { 0, 1 }),
-                                                   getValue(null, new byte[] { 2, 3 }),
-                                                   new byte[] { 0, 1 }, new byte[] { 2, 2 });
+        getValue(null, new byte[]{0, 1}),
+        getValue(null, new byte[]{2, 3}),
+        new byte[]{0, 1}, new byte[]{2, 2});
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that end point to be equal to the expected value but was not equal"));
+        + "Expecting that end point to be equal to the expected value but was not equal"));
     }
   }
 
@@ -100,19 +99,19 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Bytes_Test extends
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   getValue(null, "other"),
-                                                   getValue(null, new byte[] { 2, 3 }),
-                                                   new byte[] { 0, 1 },
-                                                   new byte[] { 2, 3 });
+        getValue(null, "other"),
+        getValue(null, new byte[]{2, 3}),
+        new byte[]{0, 1},
+        new byte[]{2, 3});
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that the value at start point:%n"
-                                                      + "  <\"other\">%n"
-                                                      + "to be of type%n"
-                                                      + "  <[BYTES, NOT_IDENTIFIED]>%n"
-                                                      + "but was of type%n"
-                                                      + "  <TEXT>"));
+        + "Expecting that the value at start point:%n"
+        + "  <\"other\">%n"
+        + "to be of type%n"
+        + "  <[BYTES, NOT_IDENTIFIED]>%n"
+        + "but was of type%n"
+        + "  <TEXT>"));
     }
   }
 }

@@ -12,6 +12,10 @@
  */
 package org.assertj.db.api;
 
+import static org.assertj.db.util.Descriptions.getRowValueDescription;
+
+import java.util.List;
+
 import org.assertj.db.api.assertions.AssertOnNumberOfColumns;
 import org.assertj.db.api.assertions.AssertOnRowCondition;
 import org.assertj.db.api.assertions.AssertOnRowEquality;
@@ -27,10 +31,6 @@ import org.assertj.db.navigation.origin.OriginWithValuesFromRow;
 import org.assertj.db.type.Row;
 import org.assertj.db.type.Value;
 
-import java.util.List;
-
-import static org.assertj.db.util.Descriptions.getRowValueDescription;
-
 /**
  * Assertion methods for a {@code Row} of a {@code Change}.
  *
@@ -38,13 +38,13 @@ import static org.assertj.db.util.Descriptions.getRowValueDescription;
  * @author Julien Roy
  */
 public class ChangeRowAssert
-        extends AbstractAssertWithOriginWithColumnsAndRowsFromChange<ChangeRowAssert, ChangeAssert>
-        implements RowElement,
-                   OriginWithValuesFromRow<ChangesAssert, ChangeAssert, ChangeColumnAssert, ChangeRowAssert, ChangeRowValueAssert>,
-                   AssertOnRowEquality<ChangeRowAssert>,
-                   AssertOnNumberOfColumns<ChangeRowAssert>,
-                   AssertOnRowOfChangeExistence<ChangeRowAssert>,
-                   AssertOnRowCondition<ChangeRowAssert> {
+  extends AbstractAssertWithOriginWithColumnsAndRowsFromChange<ChangeRowAssert, ChangeAssert>
+  implements RowElement,
+  OriginWithValuesFromRow<ChangesAssert, ChangeAssert, ChangeColumnAssert, ChangeRowAssert, ChangeRowValueAssert>,
+  AssertOnRowEquality<ChangeRowAssert>,
+  AssertOnNumberOfColumns<ChangeRowAssert>,
+  AssertOnRowOfChangeExistence<ChangeRowAssert>,
+  AssertOnRowCondition<ChangeRowAssert> {
 
   /**
    * Position of navigation to value.
@@ -60,13 +60,14 @@ public class ChangeRowAssert
    * Constructor.
    *
    * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
-   * @param row The {@link Row} on which are the assertions.
+   * @param row    The {@link Row} on which are the assertions.
    */
   public ChangeRowAssert(ChangeAssert origin, Row row) {
     super(ChangeRowAssert.class, origin);
     this.row = row;
     valuePosition = new PositionWithColumns<ChangeRowAssert, ChangeRowValueAssert, Value>(this, ChangeRowValueAssert.class) {
-      @Override protected String getDescription(int index) {
+      @Override
+      protected String getDescription(int index) {
         List<String> columnsNameList = ChangeRowAssert.this.row.getColumnsNameList();
         String columnName = columnsNameList.get(index);
         return getRowValueDescription(info, index, columnName);
@@ -74,7 +75,9 @@ public class ChangeRowAssert
     };
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeRowValueAssert value() {
     if (row == null) {
@@ -83,7 +86,9 @@ public class ChangeRowAssert
     return valuePosition.getInstance(row.getValuesList());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeRowValueAssert value(int index) {
     if (row == null) {
@@ -92,17 +97,21 @@ public class ChangeRowAssert
     return valuePosition.getInstance(row.getValuesList(), index);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeRowValueAssert value(String columnName) {
     if (row == null) {
       throw new AssertJDBException("Row do not exist");
     }
     return valuePosition.getInstance(row.getValuesList(), row.getColumnsNameList(),
-                                     columnName, row.getColumnLetterCase());
+      columnName, row.getColumnLetterCase());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeRowAssert hasNumberOfColumns(int expected) {
     exists();
@@ -111,7 +120,9 @@ public class ChangeRowAssert
     return AssertionsOnNumberOfColumns.hasNumberOfColumns(myself, info, size, expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeRowAssert hasNumberOfColumnsGreaterThan(int expected) {
     exists();
@@ -120,7 +131,9 @@ public class ChangeRowAssert
     return AssertionsOnNumberOfColumns.hasNumberOfColumnsGreaterThan(myself, info, size, expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeRowAssert hasNumberOfColumnsLessThan(int expected) {
     exists();
@@ -129,17 +142,21 @@ public class ChangeRowAssert
     return AssertionsOnNumberOfColumns.hasNumberOfColumnsLessThan(myself, info, size, expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeRowAssert hasNumberOfColumnsGreaterThanOrEqualTo(int expected) {
     exists();
     List<String> columnsNameList = row.getColumnsNameList();
     int size = columnsNameList.size();
     return AssertionsOnNumberOfColumns.hasNumberOfColumnsGreaterThanOrEqualTo(myself, info, size,
-                                                                              expected);
+      expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeRowAssert hasNumberOfColumnsLessThanOrEqualTo(int expected) {
     exists();
@@ -148,26 +165,34 @@ public class ChangeRowAssert
     return AssertionsOnNumberOfColumns.hasNumberOfColumnsLessThanOrEqualTo(myself, info, size, expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeRowAssert hasValues(Object... expected) {
     exists();
     return AssertionsOnRowEquality.hasValues(myself, info, row.getValuesList(), expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeRowAssert exists() {
     return AssertionsOnRowOfChangeExistence.exists(myself, info, row);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeRowAssert doesNotExist() {
     return AssertionsOnRowOfChangeExistence.doesNotExist(myself, info, row);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeRowAssert hasValuesSatisfying(Object... expected) {
     exists();

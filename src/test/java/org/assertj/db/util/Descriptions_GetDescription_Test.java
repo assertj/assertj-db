@@ -12,6 +12,8 @@
  */
 package org.assertj.db.util;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.common.NeedReload;
@@ -19,8 +21,6 @@ import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
 import org.junit.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests on {@code getDescription} method from utility class {@code Descriptions}.
@@ -91,9 +91,9 @@ public class Descriptions_GetDescription_Test extends AbstractTest {
   @NeedReload
   public void test_get_description_for_changes_from_table() {
     org.assertj.db.type.Changes fromSource = new org.assertj.db.type.Changes(new Table(source, "actor"))
-            .setStartPointNow();
+      .setStartPointNow();
     org.assertj.db.type.Changes fromDataSource = new org.assertj.db.type.Changes(new Table(dataSource, "actor"))
-            .setStartPointNow();
+      .setStartPointNow();
     updateChangesForTests();
     fromSource.setEndPointNow();
     fromDataSource.setEndPointNow();
@@ -112,13 +112,13 @@ public class Descriptions_GetDescription_Test extends AbstractTest {
   @NeedReload
   public void test_get_description_for_changes_from_request() {
     org.assertj.db.type.Changes fromSource = new org.assertj.db.type.Changes(new Request(source, "select * from actor"))
-            .setStartPointNow();
+      .setStartPointNow();
     org.assertj.db.type.Changes fromDataSource = new org.assertj.db.type.Changes(
-            new Request(dataSource, "select * from actor")).setStartPointNow();
+      new Request(dataSource, "select * from actor")).setStartPointNow();
     org.assertj.db.type.Changes fromSourceLong = new org.assertj.db.type.Changes(
-            new Request(source, "select id, name, firstname, birth, actor_imdb from actor")).setStartPointNow();
+      new Request(source, "select id, name, firstname, birth, actor_imdb from actor")).setStartPointNow();
     org.assertj.db.type.Changes fromDataSourceLong = new org.assertj.db.type.Changes(
-            new Request(dataSource, "select id, name, firstname, birth, actor_imdb from actor")).setStartPointNow();
+      new Request(dataSource, "select id, name, firstname, birth, actor_imdb from actor")).setStartPointNow();
     updateChangesForTests();
     fromSource.setEndPointNow();
     fromDataSource.setEndPointNow();
@@ -261,9 +261,9 @@ public class Descriptions_GetDescription_Test extends AbstractTest {
   @NeedReload
   public void test_get_description_for_change_from_changes_from_table() {
     org.assertj.db.type.Changes fromSource = new org.assertj.db.type.Changes(new Table(source, "actor"))
-            .setStartPointNow();
+      .setStartPointNow();
     org.assertj.db.type.Changes fromDataSource = new org.assertj.db.type.Changes(new Table(dataSource, "actor"))
-            .setStartPointNow();
+      .setStartPointNow();
     updateChangesForTests();
     fromSource.setEndPointNow();
     fromDataSource.setEndPointNow();
@@ -297,13 +297,13 @@ public class Descriptions_GetDescription_Test extends AbstractTest {
   @NeedReload
   public void test_get_description_for_change_from_changes_from_request() {
     org.assertj.db.type.Changes fromSource = new org.assertj.db.type.Changes(new Request(source, "select * from actor"))
-            .setStartPointNow();
+      .setStartPointNow();
     org.assertj.db.type.Changes fromDataSource = new org.assertj.db.type.Changes(
-            new Request(dataSource, "select * from actor")).setStartPointNow();
+      new Request(dataSource, "select * from actor")).setStartPointNow();
     org.assertj.db.type.Changes fromSourceLong = new org.assertj.db.type.Changes(
-            new Request(source, "select id, name, firstname, birth, actor_imdb from actor")).setStartPointNow();
+      new Request(source, "select id, name, firstname, birth, actor_imdb from actor")).setStartPointNow();
     org.assertj.db.type.Changes fromDataSourceLong = new org.assertj.db.type.Changes(
-            new Request(dataSource, "select id, name, firstname, birth, actor_imdb from actor")).setStartPointNow();
+      new Request(dataSource, "select id, name, firstname, birth, actor_imdb from actor")).setStartPointNow();
     updateChangesForTests();
     fromSource.setEndPointNow();
     fromDataSource.setEndPointNow();

@@ -21,7 +21,7 @@ package org.assertj.db.api.assertions;
  * @author Régis Pouiller
  */
 public interface AssertOnRowOfChangeExistence<T extends AssertOnRowOfChangeExistence<T>> extends
-    AssertOnExistence<T> {
+  AssertOnExistence<T> {
 
   /**
    * Verifies that the row of the change exists.

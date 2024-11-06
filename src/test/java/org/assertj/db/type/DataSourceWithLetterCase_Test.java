@@ -19,7 +19,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
 import java.util.logging.Logger;
-
 import javax.sql.DataSource;
 
 import org.assertj.db.common.AbstractTest;
@@ -30,11 +29,90 @@ import org.junit.Test;
 
 /**
  * Tests on the {@code DataSourceWithLetterCase_Test}.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class DataSourceWithLetterCase_Test extends AbstractTest {
+
+  private DataSource delegate;
+
+  ;
+  private DataSourceWithLetterCase dataSourceWithLetterCase;
+
+  @Before
+  public void init() throws SQLException {
+    delegate = new MyDataSource(dataSource);
+    dataSourceWithLetterCase = new DataSourceWithLetterCase(delegate, LetterCase.TABLE_DEFAULT, LetterCase.COLUMN_DEFAULT, LetterCase.PRIMARY_KEY_DEFAULT);
+  }
+
+  /**
+   * This method test the {@code getConnection} method.
+   *
+   * @throws SQLException
+   */
+  @Test
+  public void test_getConnection() throws SQLException {
+    assertThat(dataSourceWithLetterCase.getConnection()).isSameAs(delegate.getConnection());
+    assertThat(dataSourceWithLetterCase.getConnection("SA", "")).isSameAs(delegate.getConnection("SA", ""));
+  }
+
+  /**
+   * This method test the {@code getLogWriter} and {@code setLogWriter} method.
+   *
+   * @throws SQLException
+   */
+  @Test
+  public void test_LogWriter() throws SQLException {
+    assertThat(dataSourceWithLetterCase.getLogWriter()).isSameAs(delegate.getLogWriter());
+    PrintWriter printWriter = new PrintWriter(System.out);
+    dataSourceWithLetterCase.setLogWriter(printWriter);
+    assertThat(dataSourceWithLetterCase.getLogWriter()).isSameAs(delegate.getLogWriter()).isSameAs(printWriter);
+  }
+
+  /**
+   * This method test the {@code getLoginTimeout} and {@code setLoginTimeout} method.
+   *
+   * @throws SQLException
+   */
+  @Test
+  public void test_LoginTimeout() throws SQLException {
+    assertThat(dataSourceWithLetterCase.getLoginTimeout()).isEqualTo(delegate.getLoginTimeout()).isEqualTo(0);
+    dataSourceWithLetterCase.setLoginTimeout(10);
+    assertThat(dataSourceWithLetterCase.getLoginTimeout()).isEqualTo(delegate.getLoginTimeout()).isEqualTo(10);
+  }
+
+  /**
+   * This method test the {@code getParentLogger} method.
+   *
+   * @throws SQLException
+   */
+  @Test
+  public void test_getParentLogger() throws SQLException {
+    assertThat(dataSourceWithLetterCase.getParentLogger()).isSameAs(delegate.getParentLogger());
+  }
+
+  /**
+   * This method test the {@code isWrapperFor} method.
+   *
+   * @throws SQLException
+   */
+  @Test
+  public void test_isWrapperFor() throws SQLException {
+    assertThat(dataSourceWithLetterCase.isWrapperFor(Boolean.class)).isEqualTo(delegate.isWrapperFor(Boolean.class)).isTrue();
+    assertThat(dataSourceWithLetterCase.isWrapperFor(Integer.class)).isEqualTo(delegate.isWrapperFor(Integer.class)).isFalse();
+  }
+
+  /**
+   * This method test the {@code unwrap} method.
+   *
+   * @throws SQLException
+   */
+  @Test
+  public void test_unwrap() throws SQLException {
+    assertThat(dataSourceWithLetterCase.unwrap(Boolean.class)).isEqualTo(delegate.unwrap(Boolean.class)).isTrue();
+    assertThat(dataSourceWithLetterCase.unwrap(String.class)).isEqualTo(delegate.unwrap(String.class)).isEqualTo("test");
+    assertThat(dataSourceWithLetterCase.unwrap(Integer.class)).isEqualTo(delegate.unwrap(Integer.class)).isNull();
+  }
 
   private static class MyDataSource implements DataSource {
 
@@ -56,23 +134,23 @@ public class DataSourceWithLetterCase_Test extends AbstractTest {
     }
 
     @Override
-    public int getLoginTimeout() throws SQLException {
-      return loginTimeout;
-    }
-
-    @Override
-    public Logger getParentLogger() throws SQLFeatureNotSupportedException {
-      return logger;
-    }
-
-    @Override
     public void setLogWriter(PrintWriter arg0) throws SQLException {
       printWriter = arg0;
     }
 
     @Override
+    public int getLoginTimeout() throws SQLException {
+      return loginTimeout;
+    }
+
+    @Override
     public void setLoginTimeout(int arg0) throws SQLException {
       loginTimeout = arg0;
+    }
+
+    @Override
+    public Logger getParentLogger() throws SQLFeatureNotSupportedException {
+      return logger;
     }
 
     @Override
@@ -88,8 +166,7 @@ public class DataSourceWithLetterCase_Test extends AbstractTest {
     public <T> T unwrap(Class<T> iface) throws SQLException {
       if (Boolean.class.equals(iface)) {
         return (T) Boolean.TRUE;
-      }
-      else if (String.class.equals(iface)) {
+      } else if (String.class.equals(iface)) {
         return (T) "test";
       }
       return null;
@@ -104,78 +181,6 @@ public class DataSourceWithLetterCase_Test extends AbstractTest {
     public Connection getConnection(String arg0, String arg1) throws SQLException {
       return connection;
     }
-    
-  };
 
-  private DataSource delegate;
-  private DataSourceWithLetterCase dataSourceWithLetterCase;
-
-  @Before
-  public void init() throws SQLException {
-    delegate = new MyDataSource(dataSource);
-    dataSourceWithLetterCase = new DataSourceWithLetterCase(delegate, LetterCase.TABLE_DEFAULT, LetterCase.COLUMN_DEFAULT, LetterCase.PRIMARY_KEY_DEFAULT);
-  }
-
-  /**
-   * This method test the {@code getConnection} method.
-   * @throws SQLException 
-   */
-  @Test
-  public void test_getConnection() throws SQLException {
-    assertThat(dataSourceWithLetterCase.getConnection()).isSameAs(delegate.getConnection());
-    assertThat(dataSourceWithLetterCase.getConnection("SA", "")).isSameAs(delegate.getConnection("SA", ""));
-  }
-
-  /**
-   * This method test the {@code getLogWriter} and {@code setLogWriter} method.
-   * @throws SQLException 
-   */
-  @Test
-  public void test_LogWriter() throws SQLException {
-    assertThat(dataSourceWithLetterCase.getLogWriter()).isSameAs(delegate.getLogWriter());
-    PrintWriter printWriter = new PrintWriter(System.out);
-    dataSourceWithLetterCase.setLogWriter(printWriter);
-    assertThat(dataSourceWithLetterCase.getLogWriter()).isSameAs(delegate.getLogWriter()).isSameAs(printWriter);
-  }
-
-  /**
-   * This method test the {@code getLoginTimeout} and {@code setLoginTimeout} method.
-   * @throws SQLException 
-   */
-  @Test
-  public void test_LoginTimeout() throws SQLException {
-    assertThat(dataSourceWithLetterCase.getLoginTimeout()).isEqualTo(delegate.getLoginTimeout()).isEqualTo(0);
-    dataSourceWithLetterCase.setLoginTimeout(10);
-    assertThat(dataSourceWithLetterCase.getLoginTimeout()).isEqualTo(delegate.getLoginTimeout()).isEqualTo(10);
-  }
-
-  /**
-   * This method test the {@code getParentLogger} method.
-   * @throws SQLException 
-   */
-  @Test
-  public void test_getParentLogger() throws SQLException {
-    assertThat(dataSourceWithLetterCase.getParentLogger()).isSameAs(delegate.getParentLogger());
-  }
-
-  /**
-   * This method test the {@code isWrapperFor} method.
-   * @throws SQLException 
-   */
-  @Test
-  public void test_isWrapperFor() throws SQLException {
-    assertThat(dataSourceWithLetterCase.isWrapperFor(Boolean.class)).isEqualTo(delegate.isWrapperFor(Boolean.class)).isTrue();
-    assertThat(dataSourceWithLetterCase.isWrapperFor(Integer.class)).isEqualTo(delegate.isWrapperFor(Integer.class)).isFalse();
-  }
-
-  /**
-   * This method test the {@code unwrap} method.
-   * @throws SQLException 
-   */
-  @Test
-  public void test_unwrap() throws SQLException {
-    assertThat(dataSourceWithLetterCase.unwrap(Boolean.class)).isEqualTo(delegate.unwrap(Boolean.class)).isTrue();
-    assertThat(dataSourceWithLetterCase.unwrap(String.class)).isEqualTo(delegate.unwrap(String.class)).isEqualTo("test");
-    assertThat(dataSourceWithLetterCase.unwrap(Integer.class)).isEqualTo(delegate.unwrap(Integer.class)).isNull();
   }
 }

@@ -12,14 +12,25 @@
  */
 package org.assertj.db.output.impl;
 
-import org.assertj.core.api.WritableAssertionInfo;
-import org.assertj.db.type.*;
-
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.assertj.core.api.WritableAssertionInfo;
+import org.assertj.db.type.Change;
+import org.assertj.db.type.Changes;
+import org.assertj.db.type.Column;
+import org.assertj.db.type.DataType;
+import org.assertj.db.type.DateTimeValue;
+import org.assertj.db.type.DateValue;
+import org.assertj.db.type.Request;
+import org.assertj.db.type.Row;
+import org.assertj.db.type.Table;
+import org.assertj.db.type.TimeValue;
+import org.assertj.db.type.Value;
+import org.assertj.db.type.ValueType;
 
 /**
  * Enumeration of the different types of output.
@@ -31,17 +42,34 @@ public enum OutputType implements Output {
 
   /**
    * Plain output.
+   *
    * @see PlainOutput
    */
   PLAIN(PlainOutput.INSTANCE),
   /**
    * Html output.
+   *
    * @see HtmlOutput
    */
   HTML(HtmlOutput.INSTANCE);
 
   /**
+   * The implementation of the output.
+   */
+  private final Output displayer;
+
+  /**
+   * Constructor.
+   *
+   * @param displayer The implementation of the output.
+   */
+  OutputType(Output displayer) {
+    this.displayer = displayer;
+  }
+
+  /**
    * Returns the data name of the change.
+   *
    * @param change The change.
    * @return The data name.
    */
@@ -171,49 +199,48 @@ public enum OutputType implements Output {
   }
 
   /**
-   * The implementation of the output.
+   * {@inheritDoc}
    */
-  private final Output displayer;
-
-  /**
-   * Constructor.
-   * @param displayer The implementation of the output.
-   */
-  OutputType(Output displayer) {
-    this.displayer = displayer;
-  }
-
-  /** {@inheritDoc} */
   @Override
   public String getTableOutput(WritableAssertionInfo info, Table table) {
     return displayer.getTableOutput(info, table);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public String getRequestOutput(WritableAssertionInfo info, Request request) {
     return displayer.getRequestOutput(info, request);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public String getChangesOutput(WritableAssertionInfo info, Changes changes) {
     return displayer.getChangesOutput(info, changes);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public String getChangeOutput(WritableAssertionInfo info, Change change) {
     return displayer.getChangeOutput(info, change);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public String getRowOutput(WritableAssertionInfo info, Row row) {
     return displayer.getRowOutput(info, row);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public String getColumnOutput(WritableAssertionInfo info, Column column) {
     return displayer.getColumnOutput(info, column);
@@ -229,7 +256,9 @@ public enum OutputType implements Output {
     return displayer.getChangeColumnOutput(info, columnName, valueAtStartPoint, valueAtEndPoint);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public String getValueOutput(WritableAssertionInfo info, Value value) {
     return displayer.getValueOutput(info, value);

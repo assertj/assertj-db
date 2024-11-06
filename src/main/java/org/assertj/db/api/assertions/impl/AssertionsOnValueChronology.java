@@ -12,22 +12,26 @@
  */
 package org.assertj.db.api.assertions.impl;
 
-import org.assertj.core.api.WritableAssertionInfo;
-import org.assertj.core.internal.Failures;
-import org.assertj.db.api.AbstractAssert;
-import org.assertj.db.exception.AssertJDBException;
-import org.assertj.db.type.*;
+import static org.assertj.db.error.ShouldBeAfter.shouldBeAfter;
+import static org.assertj.db.error.ShouldBeAfterOrEqual.shouldBeAfterOrEqual;
+import static org.assertj.db.error.ShouldBeBefore.shouldBeBefore;
+import static org.assertj.db.error.ShouldBeBeforeOrEqual.shouldBeBeforeOrEqual;
+import static org.assertj.db.util.Values.areEqual;
 
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.ParseException;
 
-import static org.assertj.db.error.ShouldBeAfter.shouldBeAfter;
-import static org.assertj.db.error.ShouldBeAfterOrEqual.shouldBeAfterOrEqual;
-import static org.assertj.db.error.ShouldBeBefore.shouldBeBefore;
-import static org.assertj.db.error.ShouldBeBeforeOrEqual.shouldBeBeforeOrEqual;
-import static org.assertj.db.util.Values.areEqual;
+import org.assertj.core.api.WritableAssertionInfo;
+import org.assertj.core.internal.Failures;
+import org.assertj.db.api.AbstractAssert;
+import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.type.DateTimeValue;
+import org.assertj.db.type.DateValue;
+import org.assertj.db.type.TimeValue;
+import org.assertj.db.type.Value;
+import org.assertj.db.type.ValueType;
 
 /**
  * Implements the assertion methods on the chronology of a value.
@@ -61,7 +65,7 @@ public class AssertionsOnValueChronology {
    * @throws AssertionError If the value is not before to the date value in parameter.
    */
   public static <A extends AbstractAssert<?>> A isBefore(A assertion, WritableAssertionInfo info, Value value,
-                                                      DateValue date) {
+                                                         DateValue date) {
     Object object = value.getValue();
     AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
     if (object instanceof Date) {
@@ -91,7 +95,7 @@ public class AssertionsOnValueChronology {
    * @throws AssertionError If the value is not before to the time value in parameter.
    */
   public static <A extends AbstractAssert<?>> A isBefore(A assertion, WritableAssertionInfo info, Value value,
-                                                      TimeValue time) {
+                                                         TimeValue time) {
     Object object = value.getValue();
     AssertionsOnValueType.isTime(assertion, info, value);
     if (TimeValue.from((Time) object).isBefore(time)) {
@@ -112,7 +116,7 @@ public class AssertionsOnValueChronology {
    * @throws AssertionError If the value is not before to the date/time value in parameter.
    */
   public static <A extends AbstractAssert<?>> A isBefore(A assertion, WritableAssertionInfo info, Value value,
-                                                      DateTimeValue dateTime) {
+                                                         DateTimeValue dateTime) {
     Object object = value.getValue();
     AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
     DateTimeValue dateTimeValue;
@@ -139,7 +143,7 @@ public class AssertionsOnValueChronology {
    * @throws AssertionError If the value is not before the date, time or date/time represented in parameter.
    */
   public static <A extends AbstractAssert<?>> A isBefore(A assertion, WritableAssertionInfo info, Value value,
-                                                      String expected) {
+                                                         String expected) {
     Object object = value.getValue();
     AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME);
 
@@ -191,7 +195,7 @@ public class AssertionsOnValueChronology {
    * @throws AssertionError If the value is not before or equal to the date value in parameter.
    */
   public static <A extends AbstractAssert<?>> A isBeforeOrEqualTo(A assertion, WritableAssertionInfo info, Value value,
-                                                               DateValue date) {
+                                                                  DateValue date) {
     Object object = value.getValue();
     AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
     if (object instanceof Date) {
@@ -220,7 +224,7 @@ public class AssertionsOnValueChronology {
    * @throws AssertionError If the value is not before or equal to the time value in parameter.
    */
   public static <A extends AbstractAssert<?>> A isBeforeOrEqualTo(A assertion, WritableAssertionInfo info, Value value,
-                                                               TimeValue time) {
+                                                                  TimeValue time) {
     Object object = value.getValue();
     AssertionsOnValueType.isTime(assertion, info, value);
     if (TimeValue.from((Time) object).isBefore(time) || areEqual(value, time)) {
@@ -241,7 +245,7 @@ public class AssertionsOnValueChronology {
    * @throws AssertionError If the value is not before or equal to the date/time value in parameter.
    */
   public static <A extends AbstractAssert<?>> A isBeforeOrEqualTo(A assertion, WritableAssertionInfo info, Value value,
-                                                               DateTimeValue dateTime) {
+                                                                  DateTimeValue dateTime) {
     Object object = value.getValue();
     AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
     DateTimeValue dateTimeValue;
@@ -268,7 +272,7 @@ public class AssertionsOnValueChronology {
    * @throws AssertionError If the value is not before or equal to the date, time or date/time represented in parameter.
    */
   public static <A extends AbstractAssert<?>> A isBeforeOrEqualTo(A assertion, WritableAssertionInfo info, Value value,
-                                                               String expected) {
+                                                                  String expected) {
     Object object = value.getValue();
     AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME);
 
@@ -320,7 +324,7 @@ public class AssertionsOnValueChronology {
    * @throws AssertionError If the value is not after to the date value in parameter.
    */
   public static <A extends AbstractAssert<?>> A isAfter(A assertion, WritableAssertionInfo info, Value value,
-                                                     DateValue date) {
+                                                        DateValue date) {
     Object object = value.getValue();
     AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
     if (object instanceof Date) {
@@ -349,7 +353,7 @@ public class AssertionsOnValueChronology {
    * @throws AssertionError If the value is not after to the time value in parameter.
    */
   public static <A extends AbstractAssert<?>> A isAfter(A assertion, WritableAssertionInfo info, Value value,
-                                                     TimeValue time) {
+                                                        TimeValue time) {
     Object object = value.getValue();
     AssertionsOnValueType.isTime(assertion, info, value);
     if (TimeValue.from((Time) object).isAfter(time)) {
@@ -370,7 +374,7 @@ public class AssertionsOnValueChronology {
    * @throws AssertionError If the value is not after to the date/time value in parameter.
    */
   public static <A extends AbstractAssert<?>> A isAfter(A assertion, WritableAssertionInfo info, Value value,
-                                                     DateTimeValue dateTime) {
+                                                        DateTimeValue dateTime) {
     Object object = value.getValue();
     AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
     DateTimeValue dateTimeValue;
@@ -397,7 +401,7 @@ public class AssertionsOnValueChronology {
    * @throws AssertionError If the value is not after the date, time or date/time represented in parameter.
    */
   public static <A extends AbstractAssert<?>> A isAfter(A assertion, WritableAssertionInfo info, Value value,
-                                                     String expected) {
+                                                        String expected) {
     Object object = value.getValue();
     AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.TIME, ValueType.DATE_TIME);
 
@@ -449,7 +453,7 @@ public class AssertionsOnValueChronology {
    * @throws AssertionError If the value is not after or equal to the time value in parameter.
    */
   public static <A extends AbstractAssert<?>> A isAfterOrEqualTo(A assertion, WritableAssertionInfo info, Value value,
-                                                              DateValue date) {
+                                                                 DateValue date) {
     Object object = value.getValue();
     AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
     if (object instanceof Date) {
@@ -478,7 +482,7 @@ public class AssertionsOnValueChronology {
    * @throws AssertionError If the value is not after or equal to the time value in parameter.
    */
   public static <A extends AbstractAssert<?>> A isAfterOrEqualTo(A assertion, WritableAssertionInfo info, Value value,
-                                                              TimeValue time) {
+                                                                 TimeValue time) {
     Object object = value.getValue();
     AssertionsOnValueType.isTime(assertion, info, value);
     if (TimeValue.from((Time) object).isAfter(time) || areEqual(value, time)) {
@@ -499,7 +503,7 @@ public class AssertionsOnValueChronology {
    * @throws AssertionError If the value is not after or equal to the date/time value in parameter.
    */
   public static <A extends AbstractAssert<?>> A isAfterOrEqualTo(A assertion, WritableAssertionInfo info, Value value,
-                                                              DateTimeValue dateTime) {
+                                                                 DateTimeValue dateTime) {
     Object object = value.getValue();
     AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
     DateTimeValue dateTimeValue;
@@ -521,7 +525,7 @@ public class AssertionsOnValueChronology {
    * @param assertion The assertion which call this method.
    * @param info      Writable information about an assertion.
    * @param value     The value.
-   * @param expected The {@code String} representing a date, time or date/time to compare to.
+   * @param expected  The {@code String} representing a date, time or date/time to compare to.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is not after or equal to the date, time or date/time represented in parameter.
    */

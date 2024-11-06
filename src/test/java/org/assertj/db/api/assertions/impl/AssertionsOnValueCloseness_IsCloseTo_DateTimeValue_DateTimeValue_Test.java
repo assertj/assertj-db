@@ -12,6 +12,12 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -22,18 +28,11 @@ import org.assertj.db.type.Table;
 import org.assertj.db.type.TimeValue;
 import org.junit.Test;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link  AssertionsOnValueCloseness} class :
  * {@link  AssertionsOnValueCloseness#isCloseTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, org.assertj.db.type.DateTimeValue, org.assertj.db.type.DateTimeValue)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnValueCloseness_IsCloseTo_DateTimeValue_DateTimeValue_Test extends AbstractTest {
 
@@ -46,11 +45,11 @@ public class AssertionsOnValueCloseness_IsCloseTo_DateTimeValue_DateTimeValue_Te
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnValueCloseness.isCloseTo(tableAssert, info, getValue(
-            null, Date.valueOf("2007-12-23")), DateTimeValue.of(DateValue.of(2007, 12, 23)), DateTimeValue.of(DateValue.of(0, 0, 0)));
+      null, Date.valueOf("2007-12-23")), DateTimeValue.of(DateValue.of(2007, 12, 23)), DateTimeValue.of(DateValue.of(0, 0, 0)));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnValueCloseness.isCloseTo(tableAssert, info, getValue(
-            null, Timestamp.valueOf("2007-12-23 09:01:00")), DateTimeValue.of(
-            DateValue.of(2007, 12, 23), TimeValue.of(9, 1)), DateTimeValue.of(DateValue.of(0, 0, 0)));
+      null, Timestamp.valueOf("2007-12-23 09:01:00")), DateTimeValue.of(
+      DateValue.of(2007, 12, 23), TimeValue.of(9, 1)), DateTimeValue.of(DateValue.of(0, 0, 0)));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnValueCloseness.isCloseTo(tableAssert, info, getValue(null, null), (DateTimeValue) null, DateTimeValue.of(DateValue.of(0, 0, 0)));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
@@ -67,52 +66,52 @@ public class AssertionsOnValueCloseness_IsCloseTo_DateTimeValue_DateTimeValue_Te
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnValueCloseness.isCloseTo(tableAssert, info, getValue(null, Date.valueOf("2007-12-24")),
-                                           DateTimeValue.of(DateValue.of(2007, 12, 23)), DateTimeValue.of(DateValue.of(0, 0, 0)));
+        DateTimeValue.of(DateValue.of(2007, 12, 23)), DateTimeValue.of(DateValue.of(0, 0, 0)));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <2007-12-24T00:00:00.000000000>%n"
-                                                                    + "to be close to: %n"
-                                                                    + "  <2007-12-23T00:00:00.000000000> %n"
-                                                                    + " with tolerance <   0-00-00T00:00:00.000000000>"));
+        + "Expecting:%n"
+        + "  <2007-12-24T00:00:00.000000000>%n"
+        + "to be close to: %n"
+        + "  <2007-12-23T00:00:00.000000000> %n"
+        + " with tolerance <   0-00-00T00:00:00.000000000>"));
     }
     try {
       AssertionsOnValueCloseness.isCloseTo(tableAssert, info, getValue(null, Timestamp.valueOf("2007-12-23 09:01:05")),
-                                           DateTimeValue.of(
-                                                   DateValue.of(2007, 12, 23), TimeValue.of(9, 1)), DateTimeValue.of(DateValue.of(0, 0, 0)));
+        DateTimeValue.of(
+          DateValue.of(2007, 12, 23), TimeValue.of(9, 1)), DateTimeValue.of(DateValue.of(0, 0, 0)));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <2007-12-23T09:01:05.000000000>%n"
-                                                                    + "to be close to: %n"
-                                                                    + "  <2007-12-23T09:01:00.000000000> %n"
-                                                                    + " with tolerance <   0-00-00T00:00:00.000000000>"));
+        + "Expecting:%n"
+        + "  <2007-12-23T09:01:05.000000000>%n"
+        + "to be close to: %n"
+        + "  <2007-12-23T09:01:00.000000000> %n"
+        + " with tolerance <   0-00-00T00:00:00.000000000>"));
     }
     try {
       AssertionsOnValueCloseness.isCloseTo(tableAssert, info, getValue(null, Date.valueOf("2007-12-24")),
-                                           (DateTimeValue) null, DateTimeValue.of(DateValue.of(0, 1, 0)));
+        (DateTimeValue) null, DateTimeValue.of(DateValue.of(0, 1, 0)));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <2007-12-24T00:00:00.000000000>%n"
-                                                                    + "to be close to: %n"
-                                                                    + "  <null> %n"
-                                                                    + " with tolerance <   0-01-00T00:00:00.000000000>"));
+        + "Expecting:%n"
+        + "  <2007-12-24T00:00:00.000000000>%n"
+        + "to be close to: %n"
+        + "  <null> %n"
+        + " with tolerance <   0-01-00T00:00:00.000000000>"));
     }
     try {
       AssertionsOnValueCloseness.isCloseTo(tableAssert, info, getValue(null, Timestamp.valueOf("2007-12-23 09:01:05")),
-                                           (DateTimeValue) null, DateTimeValue.of(DateValue.of(1, 0, 0)));
+        (DateTimeValue) null, DateTimeValue.of(DateValue.of(1, 0, 0)));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <2007-12-23T09:01:05.000000000>%n"
-                                                                    + "to be close to: %n"
-                                                                    + "  <null> %n"
-                                                                    + " with tolerance <   1-00-00T00:00:00.000000000>"));
+        + "Expecting:%n"
+        + "  <2007-12-23T09:01:05.000000000>%n"
+        + "to be close to: %n"
+        + "  <null> %n"
+        + " with tolerance <   1-00-00T00:00:00.000000000>"));
     }
   }
 
@@ -127,16 +126,16 @@ public class AssertionsOnValueCloseness_IsCloseTo_DateTimeValue_DateTimeValue_Te
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnValueCloseness.isCloseTo(tableAssert, info, getValue(null, 8),
-                                           DateTimeValue.of(DateValue.of(2007, 12, 23)), DateTimeValue.of(DateValue.of(0, 0, 1)));
+        DateTimeValue.of(DateValue.of(2007, 12, 23)), DateTimeValue.of(DateValue.of(0, 0, 1)));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <8>%n"
-                                                                    + "to be of type%n"
-                                                                    + "  <[DATE, DATE_TIME]>%n"
-                                                                    + "but was of type%n"
-                                                                    + "  <NUMBER>"));
+        + "Expecting:%n"
+        + "  <8>%n"
+        + "to be of type%n"
+        + "  <[DATE, DATE_TIME]>%n"
+        + "but was of type%n"
+        + "  <NUMBER>"));
     }
   }
 }

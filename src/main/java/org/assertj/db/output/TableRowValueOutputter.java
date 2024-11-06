@@ -20,11 +20,10 @@ import org.assertj.db.type.Value;
  * Output methods for a value in a {@link Row} of a {@link Table}.
  *
  * @author Régis Pouiller
- *
  */
 public class TableRowValueOutputter
-        extends
-        AbstractRowValueOutputter<Table, TableOutputter, TableColumnOutputter, TableColumnValueOutputter, TableRowOutputter, TableRowValueOutputter> {
+  extends
+  AbstractRowValueOutputter<Table, TableOutputter, TableColumnOutputter, TableColumnValueOutputter, TableRowOutputter, TableRowValueOutputter> {
 
   /**
    * Constructor.

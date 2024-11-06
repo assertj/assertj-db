@@ -12,33 +12,67 @@
  */
 package org.assertj.db.navigation;
 
-import org.assertj.core.api.Assertions;
-import org.assertj.db.api.*;
-import org.assertj.db.common.AbstractTest;
-import org.assertj.db.common.NeedReload;
-import org.assertj.db.exception.AssertJDBException;
-import org.assertj.db.output.*;
-import org.assertj.db.type.Changes;
-import org.assertj.db.type.Request;
-import org.assertj.db.type.Table;
-import org.assertj.db.type.Value;
-import org.junit.Test;
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.assertj.db.output.Outputs.output;
+import static org.junit.Assert.fail;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.UUID;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.output.Outputs.output;
-import static org.junit.Assert.fail;
+import org.assertj.core.api.Assertions;
+import org.assertj.db.api.AbstractAssertWithValues;
+import org.assertj.db.api.AbstractColumnAssert;
+import org.assertj.db.api.AbstractRowAssert;
+import org.assertj.db.api.AbstractValueAssert;
+import org.assertj.db.api.ChangeAssert;
+import org.assertj.db.api.ChangeRowAssert;
+import org.assertj.db.api.ChangeRowValueAssert;
+import org.assertj.db.api.ChangesAssert;
+import org.assertj.db.api.RequestAssert;
+import org.assertj.db.api.RequestColumnAssert;
+import org.assertj.db.api.RequestColumnValueAssert;
+import org.assertj.db.api.RequestRowAssert;
+import org.assertj.db.api.RequestRowValueAssert;
+import org.assertj.db.api.TableAssert;
+import org.assertj.db.api.TableColumnAssert;
+import org.assertj.db.api.TableColumnValueAssert;
+import org.assertj.db.api.TableRowAssert;
+import org.assertj.db.api.TableRowValueAssert;
+import org.assertj.db.common.AbstractTest;
+import org.assertj.db.common.NeedReload;
+import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.output.AbstractColumnOutputter;
+import org.assertj.db.output.AbstractOutputterWithValues;
+import org.assertj.db.output.AbstractRowOutputter;
+import org.assertj.db.output.AbstractValueOutputter;
+import org.assertj.db.output.ChangeOutputter;
+import org.assertj.db.output.ChangeRowOutputter;
+import org.assertj.db.output.ChangeRowValueOutputter;
+import org.assertj.db.output.ChangesOutputter;
+import org.assertj.db.output.Outputs;
+import org.assertj.db.output.RequestColumnOutputter;
+import org.assertj.db.output.RequestColumnValueOutputter;
+import org.assertj.db.output.RequestOutputter;
+import org.assertj.db.output.RequestRowOutputter;
+import org.assertj.db.output.RequestRowValueOutputter;
+import org.assertj.db.output.TableColumnOutputter;
+import org.assertj.db.output.TableColumnValueOutputter;
+import org.assertj.db.output.TableOutputter;
+import org.assertj.db.output.TableRowOutputter;
+import org.assertj.db.output.TableRowValueOutputter;
+import org.assertj.db.type.Changes;
+import org.assertj.db.type.Request;
+import org.assertj.db.type.Table;
+import org.assertj.db.type.Value;
+import org.junit.Test;
 
 /**
  * Tests on {@link org.assertj.db.navigation.ToValue} class :
  * {@link org.assertj.db.navigation.ToValue#value(int)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class ToValue_Value_Integer_Test extends AbstractTest {
 
@@ -62,8 +96,8 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     ChangesAssert changesAssert = assertThat(changes);
     ChangeAssert changeAssert = changesAssert.change();
     ChangeRowAssert changeRowAssert = changeAssert.rowAtEndPoint();
-    PositionWithColumns<ChangeRowAssert, ChangeRowValueAssert, Value> position = 
-              (PositionWithColumns) fieldPosition.get(changeRowAssert);
+    PositionWithColumns<ChangeRowAssert, ChangeRowValueAssert, Value> position =
+      (PositionWithColumns) fieldPosition.get(changeRowAssert);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     ChangeRowValueAssert changeRowValueAssert0 = changeRowAssert.value(0);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
@@ -98,8 +132,8 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     ChangesAssert changesAssertBis = assertThat(changes);
     ChangeAssert changeAssertBis = changesAssertBis.change();
     ChangeRowAssert changeRowAssertBis = changeAssertBis.rowAtEndPoint();
-    PositionWithColumns<ChangeRowAssert, ChangeRowValueAssert, Value> positionBis = 
-              (PositionWithColumns) fieldPosition.get(changeRowAssertBis);
+    PositionWithColumns<ChangeRowAssert, ChangeRowValueAssert, Value> positionBis =
+      (PositionWithColumns) fieldPosition.get(changeRowAssertBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     ChangeRowValueAssert changeRowValueAssertBis0 = changeRowAssertBis.value(0);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
@@ -132,20 +166,20 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     Assertions.assertThat(changeRowValueAssertBis0).isSameAs(changeRowValueAssertBisAgain0);
 
     Assertions.assertThat(((Value) fieldValue.get(changeRowValueAssert0)).getValue())
-    .isSameAs(((Value) fieldValue.get(changeRowValueAssertBis0)).getValue())
-            .isEqualTo(new BigDecimal("4"));
+      .isSameAs(((Value) fieldValue.get(changeRowValueAssertBis0)).getValue())
+      .isEqualTo(new BigDecimal("4"));
     Assertions.assertThat(((Value) fieldValue.get(changeRowValueAssert1)).getValue())
-              .isSameAs(((Value) fieldValue.get(changeRowValueAssertBis1)).getValue())
-              .isEqualTo("Murray");
+      .isSameAs(((Value) fieldValue.get(changeRowValueAssertBis1)).getValue())
+      .isEqualTo("Murray");
     Assertions.assertThat(((Value) fieldValue.get(changeRowValueAssert2)).getValue())
-              .isSameAs(((Value) fieldValue.get(changeRowValueAssertBis2)).getValue())
-              .isEqualTo("Bill");
+      .isSameAs(((Value) fieldValue.get(changeRowValueAssertBis2)).getValue())
+      .isEqualTo("Bill");
     Assertions.assertThat(((Value) fieldValue.get(changeRowValueAssert3)).getValue())
-              .isSameAs(((Value) fieldValue.get(changeRowValueAssertBis3)).getValue())
-              .isEqualTo(Date.valueOf("1950-09-21"));
+      .isSameAs(((Value) fieldValue.get(changeRowValueAssertBis3)).getValue())
+      .isEqualTo(Date.valueOf("1950-09-21"));
     Assertions.assertThat(((Value) fieldValue.get(changeRowValueAssert4)).getValue())
-              .isSameAs(((Value) fieldValue.get(changeRowValueAssertBis4)).getValue())
-              .isEqualTo(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
+      .isSameAs(((Value) fieldValue.get(changeRowValueAssertBis4)).getValue())
+      .isEqualTo(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
   }
 
   /**
@@ -163,8 +197,8 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     Table table = new Table(source, "actor");
     TableAssert tableAssert = assertThat(table);
     TableColumnAssert tableColumnAssert = tableAssert.column();
-    Position<TableColumnAssert, TableColumnValueAssert, Value> position = 
-            (Position) fieldPosition.get(tableColumnAssert);
+    Position<TableColumnAssert, TableColumnValueAssert, Value> position =
+      (Position) fieldPosition.get(tableColumnAssert);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     TableColumnValueAssert tableColumnValueAssert0 = tableColumnAssert.value(0);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
@@ -189,8 +223,8 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
 
     TableAssert tableAssertBis = assertThat(table);
     TableColumnAssert tableColumnAssertBis = tableAssertBis.column();
-    Position<TableColumnAssert, TableColumnValueAssert, Value> positionBis = 
-            (Position) fieldPosition.get(tableColumnAssertBis);
+    Position<TableColumnAssert, TableColumnValueAssert, Value> positionBis =
+      (Position) fieldPosition.get(tableColumnAssertBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     TableColumnValueAssert tableColumnValueAssertBis0 = tableColumnAssertBis.value(0);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
@@ -214,14 +248,14 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     Assertions.assertThat(tableColumnValueAssertBis0).isSameAs(tableColumnValueAssertBisAgain0);
 
     Assertions.assertThat(((Value) fieldValue.get(tableColumnValueAssert0)).getValue())
-    .isSameAs(((Value) fieldValue.get(tableColumnValueAssertBis0)).getValue())
-            .isEqualTo(new BigDecimal("1"));
+      .isSameAs(((Value) fieldValue.get(tableColumnValueAssertBis0)).getValue())
+      .isEqualTo(new BigDecimal("1"));
     Assertions.assertThat(((Value) fieldValue.get(tableColumnValueAssert1)).getValue())
-              .isSameAs(((Value) fieldValue.get(tableColumnValueAssertBis1)).getValue())
-              .isEqualTo(new BigDecimal("2"));
+      .isSameAs(((Value) fieldValue.get(tableColumnValueAssertBis1)).getValue())
+      .isEqualTo(new BigDecimal("2"));
     Assertions.assertThat(((Value) fieldValue.get(tableColumnValueAssert2)).getValue())
-    .isSameAs(((Value) fieldValue.get(tableColumnValueAssertBis2)).getValue())
-              .isEqualTo(new BigDecimal("3"));
+      .isSameAs(((Value) fieldValue.get(tableColumnValueAssertBis2)).getValue())
+      .isEqualTo(new BigDecimal("3"));
   }
 
   /**
@@ -239,8 +273,8 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     Table table = new Table(source, "actor");
     TableAssert tableAssert = assertThat(table);
     TableRowAssert tableRowAssert = tableAssert.row();
-    Position<TableRowAssert, TableRowValueAssert, Value> position = 
-            (Position) fieldPosition.get(tableRowAssert);
+    Position<TableRowAssert, TableRowValueAssert, Value> position =
+      (Position) fieldPosition.get(tableRowAssert);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     TableRowValueAssert tableRowValueAssert0 = tableRowAssert.value(0);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
@@ -269,8 +303,8 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
 
     TableAssert tableAssertBis = assertThat(table);
     TableRowAssert tableRowAssertBis = tableAssertBis.row();
-    Position<TableRowAssert, TableRowValueAssert, Value> positionBis = 
-            (Position) fieldPosition.get(tableRowAssertBis);
+    Position<TableRowAssert, TableRowValueAssert, Value> positionBis =
+      (Position) fieldPosition.get(tableRowAssertBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     TableRowValueAssert tableRowValueAssertBis0 = tableRowAssertBis.value(0);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
@@ -298,20 +332,20 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     Assertions.assertThat(tableRowValueAssertBis0).isSameAs(tableRowValueAssertBisAgain0);
 
     Assertions.assertThat(((Value) fieldValue.get(tableRowValueAssert0)).getValue())
-    .isSameAs(((Value) fieldValue.get(tableRowValueAssertBis0)).getValue())
-            .isEqualTo(new BigDecimal("1"));
+      .isSameAs(((Value) fieldValue.get(tableRowValueAssertBis0)).getValue())
+      .isEqualTo(new BigDecimal("1"));
     Assertions.assertThat(((Value) fieldValue.get(tableRowValueAssert1)).getValue())
-              .isSameAs(((Value) fieldValue.get(tableRowValueAssertBis1)).getValue())
-              .isEqualTo("Weaver");
+      .isSameAs(((Value) fieldValue.get(tableRowValueAssertBis1)).getValue())
+      .isEqualTo("Weaver");
     Assertions.assertThat(((Value) fieldValue.get(tableRowValueAssert2)).getValue())
-              .isSameAs(((Value) fieldValue.get(tableRowValueAssertBis2)).getValue())
-              .isEqualTo("Sigourney");
+      .isSameAs(((Value) fieldValue.get(tableRowValueAssertBis2)).getValue())
+      .isEqualTo("Sigourney");
     Assertions.assertThat(((Value) fieldValue.get(tableRowValueAssert3)).getValue())
-              .isSameAs(((Value) fieldValue.get(tableRowValueAssertBis3)).getValue())
-              .isEqualTo(Date.valueOf("1949-10-08"));
+      .isSameAs(((Value) fieldValue.get(tableRowValueAssertBis3)).getValue())
+      .isEqualTo(Date.valueOf("1949-10-08"));
     Assertions.assertThat(((Value) fieldValue.get(tableRowValueAssert4)).getValue())
-              .isSameAs(((Value) fieldValue.get(tableRowValueAssertBis4)).getValue())
-              .isEqualTo(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
+      .isSameAs(((Value) fieldValue.get(tableRowValueAssertBis4)).getValue())
+      .isEqualTo(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
   }
 
   /**
@@ -378,14 +412,14 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     Assertions.assertThat(requestColumnValueAssertBis0).isSameAs(requestColumnValueAssertBisAgain0);
 
     Assertions.assertThat(((Value) fieldValue.get(requestColumnValueAssert0)).getValue())
-    .isSameAs(((Value) fieldValue.get(requestColumnValueAssertBis0)).getValue())
-            .isEqualTo(new BigDecimal("1"));
+      .isSameAs(((Value) fieldValue.get(requestColumnValueAssertBis0)).getValue())
+      .isEqualTo(new BigDecimal("1"));
     Assertions.assertThat(((Value) fieldValue.get(requestColumnValueAssert1)).getValue())
-              .isSameAs(((Value) fieldValue.get(requestColumnValueAssertBis1)).getValue())
-              .isEqualTo(new BigDecimal("2"));
+      .isSameAs(((Value) fieldValue.get(requestColumnValueAssertBis1)).getValue())
+      .isEqualTo(new BigDecimal("2"));
     Assertions.assertThat(((Value) fieldValue.get(requestColumnValueAssert2)).getValue())
-              .isSameAs(((Value) fieldValue.get(requestColumnValueAssertBis2)).getValue())
-              .isEqualTo(new BigDecimal("3"));
+      .isSameAs(((Value) fieldValue.get(requestColumnValueAssertBis2)).getValue())
+      .isEqualTo(new BigDecimal("3"));
   }
 
   /**
@@ -460,20 +494,20 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     Assertions.assertThat(requestRowValueAssertBis0).isSameAs(requestRowValueAssertBisAgain0);
 
     Assertions.assertThat(((Value) fieldValue.get(requestRowValueAssert0)).getValue())
-    .isSameAs(((Value) fieldValue.get(requestRowValueAssertBis0)).getValue())
-            .isEqualTo(new BigDecimal("1"));
+      .isSameAs(((Value) fieldValue.get(requestRowValueAssertBis0)).getValue())
+      .isEqualTo(new BigDecimal("1"));
     Assertions.assertThat(((Value) fieldValue.get(requestRowValueAssert1)).getValue())
-              .isSameAs(((Value) fieldValue.get(requestRowValueAssertBis1)).getValue())
-              .isEqualTo("Weaver");
+      .isSameAs(((Value) fieldValue.get(requestRowValueAssertBis1)).getValue())
+      .isEqualTo("Weaver");
     Assertions.assertThat(((Value) fieldValue.get(requestRowValueAssert2)).getValue())
-              .isSameAs(((Value) fieldValue.get(requestRowValueAssertBis2)).getValue())
-              .isEqualTo("Sigourney");
+      .isSameAs(((Value) fieldValue.get(requestRowValueAssertBis2)).getValue())
+      .isEqualTo("Sigourney");
     Assertions.assertThat(((Value) fieldValue.get(requestRowValueAssert3)).getValue())
-              .isSameAs(((Value) fieldValue.get(requestRowValueAssertBis3)).getValue())
-              .isEqualTo(Date.valueOf("1949-10-08"));
+      .isSameAs(((Value) fieldValue.get(requestRowValueAssertBis3)).getValue())
+      .isEqualTo(Date.valueOf("1949-10-08"));
     Assertions.assertThat(((Value) fieldValue.get(requestRowValueAssert4)).getValue())
-              .isSameAs(((Value) fieldValue.get(requestRowValueAssertBis4)).getValue())
-              .isEqualTo(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
+      .isSameAs(((Value) fieldValue.get(requestRowValueAssertBis4)).getValue())
+      .isEqualTo(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
   }
 
   /**
@@ -564,20 +598,20 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     Assertions.assertThat(changeRowValueOutputterBis0).isSameAs(changeRowValueOutputterBisAgain0);
 
     Assertions.assertThat(((Value) fieldValue.get(changeRowValueOutputter0)).getValue())
-              .isSameAs(((Value) fieldValue.get(changeRowValueOutputterBis0)).getValue())
-              .isEqualTo(new BigDecimal("4"));
+      .isSameAs(((Value) fieldValue.get(changeRowValueOutputterBis0)).getValue())
+      .isEqualTo(new BigDecimal("4"));
     Assertions.assertThat(((Value) fieldValue.get(changeRowValueOutputter1)).getValue())
-              .isSameAs(((Value) fieldValue.get(changeRowValueOutputterBis1)).getValue())
-              .isEqualTo("Murray");
+      .isSameAs(((Value) fieldValue.get(changeRowValueOutputterBis1)).getValue())
+      .isEqualTo("Murray");
     Assertions.assertThat(((Value) fieldValue.get(changeRowValueOutputter2)).getValue())
-              .isSameAs(((Value) fieldValue.get(changeRowValueOutputterBis2)).getValue())
-              .isEqualTo("Bill");
+      .isSameAs(((Value) fieldValue.get(changeRowValueOutputterBis2)).getValue())
+      .isEqualTo("Bill");
     Assertions.assertThat(((Value) fieldValue.get(changeRowValueOutputter3)).getValue())
-              .isSameAs(((Value) fieldValue.get(changeRowValueOutputterBis3)).getValue())
-              .isEqualTo(Date.valueOf("1950-09-21"));
+      .isSameAs(((Value) fieldValue.get(changeRowValueOutputterBis3)).getValue())
+      .isEqualTo(Date.valueOf("1950-09-21"));
     Assertions.assertThat(((Value) fieldValue.get(changeRowValueOutputter4)).getValue())
-              .isSameAs(((Value) fieldValue.get(changeRowValueOutputterBis4)).getValue())
-              .isEqualTo(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
+      .isSameAs(((Value) fieldValue.get(changeRowValueOutputterBis4)).getValue())
+      .isEqualTo(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
   }
 
   /**
@@ -644,14 +678,14 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     Assertions.assertThat(tableColumnValueOutputterBis0).isSameAs(tableColumnValueOutputterBisAgain0);
 
     Assertions.assertThat(((Value) fieldValue.get(tableColumnValueOutputter0)).getValue())
-              .isSameAs(((Value) fieldValue.get(tableColumnValueOutputterBis0)).getValue())
-              .isEqualTo(new BigDecimal("1"));
+      .isSameAs(((Value) fieldValue.get(tableColumnValueOutputterBis0)).getValue())
+      .isEqualTo(new BigDecimal("1"));
     Assertions.assertThat(((Value) fieldValue.get(tableColumnValueOutputter1)).getValue())
-              .isSameAs(((Value) fieldValue.get(tableColumnValueOutputterBis1)).getValue())
-              .isEqualTo(new BigDecimal("2"));
+      .isSameAs(((Value) fieldValue.get(tableColumnValueOutputterBis1)).getValue())
+      .isEqualTo(new BigDecimal("2"));
     Assertions.assertThat(((Value) fieldValue.get(tableColumnValueOutputter2)).getValue())
-              .isSameAs(((Value) fieldValue.get(tableColumnValueOutputterBis2)).getValue())
-              .isEqualTo(new BigDecimal("3"));
+      .isSameAs(((Value) fieldValue.get(tableColumnValueOutputterBis2)).getValue())
+      .isEqualTo(new BigDecimal("3"));
   }
 
   /**
@@ -726,20 +760,20 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     Assertions.assertThat(tableRowValueOutputterBis0).isSameAs(tableRowValueOutputterBisAgain0);
 
     Assertions.assertThat(((Value) fieldValue.get(tableRowValueOutputter0)).getValue())
-              .isSameAs(((Value) fieldValue.get(tableRowValueOutputterBis0)).getValue())
-              .isEqualTo(new BigDecimal("1"));
+      .isSameAs(((Value) fieldValue.get(tableRowValueOutputterBis0)).getValue())
+      .isEqualTo(new BigDecimal("1"));
     Assertions.assertThat(((Value) fieldValue.get(tableRowValueOutputter1)).getValue())
-              .isSameAs(((Value) fieldValue.get(tableRowValueOutputterBis1)).getValue())
-              .isEqualTo("Weaver");
+      .isSameAs(((Value) fieldValue.get(tableRowValueOutputterBis1)).getValue())
+      .isEqualTo("Weaver");
     Assertions.assertThat(((Value) fieldValue.get(tableRowValueOutputter2)).getValue())
-              .isSameAs(((Value) fieldValue.get(tableRowValueOutputterBis2)).getValue())
-              .isEqualTo("Sigourney");
+      .isSameAs(((Value) fieldValue.get(tableRowValueOutputterBis2)).getValue())
+      .isEqualTo("Sigourney");
     Assertions.assertThat(((Value) fieldValue.get(tableRowValueOutputter3)).getValue())
-              .isSameAs(((Value) fieldValue.get(tableRowValueOutputterBis3)).getValue())
-              .isEqualTo(Date.valueOf("1949-10-08"));
+      .isSameAs(((Value) fieldValue.get(tableRowValueOutputterBis3)).getValue())
+      .isEqualTo(Date.valueOf("1949-10-08"));
     Assertions.assertThat(((Value) fieldValue.get(tableRowValueOutputter4)).getValue())
-              .isSameAs(((Value) fieldValue.get(tableRowValueOutputterBis4)).getValue())
-              .isEqualTo(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
+      .isSameAs(((Value) fieldValue.get(tableRowValueOutputterBis4)).getValue())
+      .isEqualTo(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
   }
 
   /**
@@ -806,14 +840,14 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     Assertions.assertThat(requestColumnValueOutputterBis0).isSameAs(requestColumnValueOutputterBisAgain0);
 
     Assertions.assertThat(((Value) fieldValue.get(requestColumnValueOutputter0)).getValue())
-              .isSameAs(((Value) fieldValue.get(requestColumnValueOutputterBis0)).getValue())
-              .isEqualTo(new BigDecimal("1"));
+      .isSameAs(((Value) fieldValue.get(requestColumnValueOutputterBis0)).getValue())
+      .isEqualTo(new BigDecimal("1"));
     Assertions.assertThat(((Value) fieldValue.get(requestColumnValueOutputter1)).getValue())
-              .isSameAs(((Value) fieldValue.get(requestColumnValueOutputterBis1)).getValue())
-              .isEqualTo(new BigDecimal("2"));
+      .isSameAs(((Value) fieldValue.get(requestColumnValueOutputterBis1)).getValue())
+      .isEqualTo(new BigDecimal("2"));
     Assertions.assertThat(((Value) fieldValue.get(requestColumnValueOutputter2)).getValue())
-              .isSameAs(((Value) fieldValue.get(requestColumnValueOutputterBis2)).getValue())
-              .isEqualTo(new BigDecimal("3"));
+      .isSameAs(((Value) fieldValue.get(requestColumnValueOutputterBis2)).getValue())
+      .isEqualTo(new BigDecimal("3"));
   }
 
   /**
@@ -888,19 +922,19 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     Assertions.assertThat(requestRowValueOutputterBis0).isSameAs(requestRowValueOutputterBisAgain0);
 
     Assertions.assertThat(((Value) fieldValue.get(requestRowValueOutputter0)).getValue())
-              .isSameAs(((Value) fieldValue.get(requestRowValueOutputterBis0)).getValue())
-              .isEqualTo(new BigDecimal("1"));
+      .isSameAs(((Value) fieldValue.get(requestRowValueOutputterBis0)).getValue())
+      .isEqualTo(new BigDecimal("1"));
     Assertions.assertThat(((Value) fieldValue.get(requestRowValueOutputter1)).getValue())
-              .isSameAs(((Value) fieldValue.get(requestRowValueOutputterBis1)).getValue())
-              .isEqualTo("Weaver");
+      .isSameAs(((Value) fieldValue.get(requestRowValueOutputterBis1)).getValue())
+      .isEqualTo("Weaver");
     Assertions.assertThat(((Value) fieldValue.get(requestRowValueOutputter2)).getValue())
-              .isSameAs(((Value) fieldValue.get(requestRowValueOutputterBis2)).getValue())
-              .isEqualTo("Sigourney");
+      .isSameAs(((Value) fieldValue.get(requestRowValueOutputterBis2)).getValue())
+      .isEqualTo("Sigourney");
     Assertions.assertThat(((Value) fieldValue.get(requestRowValueOutputter3)).getValue())
-              .isSameAs(((Value) fieldValue.get(requestRowValueOutputterBis3)).getValue())
-              .isEqualTo(Date.valueOf("1949-10-08"));
+      .isSameAs(((Value) fieldValue.get(requestRowValueOutputterBis3)).getValue())
+      .isEqualTo(Date.valueOf("1949-10-08"));
     Assertions.assertThat(((Value) fieldValue.get(requestRowValueOutputter4)).getValue())
-              .isSameAs(((Value) fieldValue.get(requestRowValueOutputterBis4)).getValue())
-              .isEqualTo(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
+      .isSameAs(((Value) fieldValue.get(requestRowValueOutputterBis4)).getValue())
+      .isEqualTo(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
   }
 }

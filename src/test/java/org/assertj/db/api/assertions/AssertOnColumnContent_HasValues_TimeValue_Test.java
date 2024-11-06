@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api.assertions;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.TableColumnAssert;
 import org.assertj.db.common.AbstractTest;
@@ -19,15 +22,11 @@ import org.assertj.db.type.Table;
 import org.assertj.db.type.TimeValue;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link org.assertj.db.api.assertions.AssertOnColumnContent} class :
  * {@link AssertOnColumnContent#containsValues(org.assertj.db.type.TimeValue...)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertOnColumnContent_HasValues_TimeValue_Test extends AbstractTest {
 
@@ -39,9 +38,9 @@ public class AssertOnColumnContent_HasValues_TimeValue_Test extends AbstractTest
     Table table = new Table(source, "test");
     TableColumnAssert tableColumnAssert = assertThat(table).column("var8");
     TableColumnAssert tableColumnAssertReturn = tableColumnAssert.containsValues(TimeValue.of(9, 46, 30),
-                                                                                 TimeValue.of(12, 29, 49),
-                                                                                 TimeValue.of(12, 29, 49),
-                                                                                 TimeValue.of(12, 29, 49));
+      TimeValue.of(12, 29, 49),
+      TimeValue.of(12, 29, 49),
+      TimeValue.of(12, 29, 49));
     Assertions.assertThat(tableColumnAssert).isSameAs(tableColumnAssertReturn);
 
     Table table2 = new Table(source, "test2");
@@ -59,37 +58,37 @@ public class AssertOnColumnContent_HasValues_TimeValue_Test extends AbstractTest
     TableColumnAssert tableColumnAssert = assertThat(table).column("var8");
     try {
       tableColumnAssert.containsValues(TimeValue.of(12, 29, 49),
-                                       TimeValue.of(12, 29, 49),
-                                       TimeValue.of(12, 29, 49),
-                                       TimeValue.of(12, 29, 49));
+        TimeValue.of(12, 29, 49),
+        TimeValue.of(12, 29, 49),
+        TimeValue.of(12, 29, 49));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 7 (column name : VAR8) of TEST table] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <[09:46:30.000000000, "
-                                                                    + "12:29:49.000000000, "
-                                                                    + "12:29:49.000000000, "
-                                                                    + "12:29:49.000000000]>%n"
-                                                                    + "to contain: %n"
-                                                                    + "  <[12:29:49.000000000, "
-                                                                    + "12:29:49.000000000, "
-                                                                    + "12:29:49.000000000, "
-                                                                    + "12:29:49.000000000]>%n"
-                                                                    + " (parameter <12:29:49.000000000> at index 3 is not found)"));
+        + "Expecting:%n"
+        + "  <[09:46:30.000000000, "
+        + "12:29:49.000000000, "
+        + "12:29:49.000000000, "
+        + "12:29:49.000000000]>%n"
+        + "to contain: %n"
+        + "  <[12:29:49.000000000, "
+        + "12:29:49.000000000, "
+        + "12:29:49.000000000, "
+        + "12:29:49.000000000]>%n"
+        + " (parameter <12:29:49.000000000> at index 3 is not found)"));
     }
     Table table2 = new Table(source, "test2");
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var8");
     try {
       tableColumnAssert2.containsValues(TimeValue.of(9, 46, 30),
-                                        TimeValue.of(12, 29, 49));
+        TimeValue.of(12, 29, 49));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 7 (column name : VAR8) of TEST2 table] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <[09:46:30.000000000, null]>%n"
-                                                                    + "to contain: %n"
-                                                                    + "  <[09:46:30.000000000, 12:29:49.000000000]>%n"
-                                                                    + " (parameter <12:29:49.000000000> at index 1 is not found)"));
+        + "Expecting:%n"
+        + "  <[09:46:30.000000000, null]>%n"
+        + "to contain: %n"
+        + "  <[09:46:30.000000000, 12:29:49.000000000]>%n"
+        + " (parameter <12:29:49.000000000> at index 1 is not found)"));
     }
   }
 }

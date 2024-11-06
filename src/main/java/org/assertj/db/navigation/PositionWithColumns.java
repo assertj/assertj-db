@@ -12,13 +12,13 @@
  */
 package org.assertj.db.navigation;
 
+import java.util.List;
+
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.global.AbstractElement;
 import org.assertj.db.type.DbElement;
 import org.assertj.db.type.lettercase.CaseComparison;
 import org.assertj.db.util.NameComparator;
-
-import java.util.List;
 
 /**
  * Position with columns during navigation.
@@ -26,7 +26,6 @@ import java.util.List;
  * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
  * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
  * @param <D> The class of the database element on which is the next position (an sub-class of {@link org.assertj.db.type.DbElement}).
- *
  * @author Régis Pouiller
  * @since 1.1.0
  */
@@ -35,7 +34,7 @@ public abstract class PositionWithColumns<E extends AbstractElement<E> & Navigat
   /**
    * Constructor.
    *
-   * @param myself Actual value.
+   * @param myself       Actual value.
    * @param elementClass Class of the element of navigation (used to make instance).
    */
   public PositionWithColumns(E myself, Class<N> elementClass) {
@@ -59,7 +58,7 @@ public abstract class PositionWithColumns<E extends AbstractElement<E> & Navigat
     int index = NameComparator.INSTANCE.indexOf(columnsNameList, columnName, comparison);
     if (index == -1) {
       throw new AssertJDBException(String.format("Column <%s> does not exist%nin <%s>%nwith comparison %s",
-                                                 columnName, columnsNameList, comparison.getComparisonName()));
+        columnName, columnsNameList, comparison.getComparisonName()));
     }
     return getInstance(elementsList, index);
   }

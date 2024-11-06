@@ -12,21 +12,20 @@
  */
 package org.assertj.db.api.assertions;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.TableColumnAssert;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link org.assertj.db.api.assertions.AssertOnColumnContent} class :
  * {@link AssertOnColumnContent#containsValues(Number...)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertOnColumnContent_ContainsValues_Number_Test extends AbstractTest {
 
@@ -106,11 +105,11 @@ public class AssertOnColumnContent_ContainsValues_Number_Test extends AbstractTe
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 2 (column name : VAR3) of TEST table] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <[2, 20, 25, 0]>%n"
-                                                                    + "to contain: %n"
-                                                                    + "  <[2, 20, 35, 0]>%n"
-                                                                    + " (parameter <35> at index 2 is not found)"));
+        + "Expecting:%n"
+        + "  <[2, 20, 25, 0]>%n"
+        + "to contain: %n"
+        + "  <[2, 20, 35, 0]>%n"
+        + " (parameter <35> at index 2 is not found)"));
     }
     Table table2 = new Table(source, "test2");
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var3");
@@ -119,11 +118,11 @@ public class AssertOnColumnContent_ContainsValues_Number_Test extends AbstractTe
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 2 (column name : VAR3) of TEST2 table] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <[2, null]>%n"
-                                                                    + "to contain: %n"
-                                                                    + "  <[2, 2]>%n"
-                                                                    + " (parameter <2> at index 1 is not found)"));
+        + "Expecting:%n"
+        + "  <[2, null]>%n"
+        + "to contain: %n"
+        + "  <[2, 2]>%n"
+        + " (parameter <2> at index 1 is not found)"));
     }
 
     TableColumnAssert tableColumnAssert3 = assertThat(table).column("var4");
@@ -132,11 +131,11 @@ public class AssertOnColumnContent_ContainsValues_Number_Test extends AbstractTe
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 3 (column name : VAR4) of TEST table] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <[3, 30, 300, 0]>%n"
-                                                                    + "to contain: %n"
-                                                                    + "  <[3, 35, 300, 0]>%n"
-                                                                    + " (parameter <35> at index 1 is not found)"));
+        + "Expecting:%n"
+        + "  <[3, 30, 300, 0]>%n"
+        + "to contain: %n"
+        + "  <[3, 35, 300, 0]>%n"
+        + " (parameter <35> at index 1 is not found)"));
     }
 
     TableColumnAssert tableColumnAssert4 = assertThat(table2).column("var4");
@@ -145,11 +144,11 @@ public class AssertOnColumnContent_ContainsValues_Number_Test extends AbstractTe
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 3 (column name : VAR4) of TEST2 table] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <[3, null]>%n"
-                                                                    + "to contain: %n"
-                                                                    + "  <[3, 3]>%n"
-                                                                    + " (parameter <3> at index 1 is not found)"));
+        + "Expecting:%n"
+        + "  <[3, null]>%n"
+        + "to contain: %n"
+        + "  <[3, 3]>%n"
+        + " (parameter <3> at index 1 is not found)"));
     }
 
     TableColumnAssert tableColumnAssert5 = assertThat(table).column("var5");
@@ -158,11 +157,11 @@ public class AssertOnColumnContent_ContainsValues_Number_Test extends AbstractTe
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 4 (column name : VAR5) of TEST table] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <[4L, 40L, 400L, 0L]>%n"
-                                                                    + "to contain: %n"
-                                                                    + "  <[4, 45, 400, 0]>%n"
-                                                                    + " (parameter <45> at index 1 is not found)"));
+        + "Expecting:%n"
+        + "  <[4L, 40L, 400L, 0L]>%n"
+        + "to contain: %n"
+        + "  <[4, 45, 400, 0]>%n"
+        + " (parameter <45> at index 1 is not found)"));
     }
 
     TableColumnAssert tableColumnAssert6 = assertThat(table2).column("var5");
@@ -171,11 +170,11 @@ public class AssertOnColumnContent_ContainsValues_Number_Test extends AbstractTe
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 4 (column name : VAR5) of TEST2 table] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <[4L, null]>%n"
-                                                                    + "to contain: %n"
-                                                                    + "  <[4, 4]>%n"
-                                                                    + " (parameter <4> at index 1 is not found)"));
+        + "Expecting:%n"
+        + "  <[4L, null]>%n"
+        + "to contain: %n"
+        + "  <[4, 4]>%n"
+        + " (parameter <4> at index 1 is not found)"));
     }
 
     TableColumnAssert tableColumnAssert7 = assertThat(table).column("var6");
@@ -184,11 +183,11 @@ public class AssertOnColumnContent_ContainsValues_Number_Test extends AbstractTe
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 5 (column name : VAR6) of TEST table] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <[5.60, 50.60, 500.60, 0.00]>%n"
-                                                                    + "to contain: %n"
-                                                                    + "  <[5.6, 55.6, 500.6, 0]>%n"
-                                                                    + " (parameter <55.6> at index 1 is not found)"));
+        + "Expecting:%n"
+        + "  <[5.60, 50.60, 500.60, 0.00]>%n"
+        + "to contain: %n"
+        + "  <[5.6, 55.6, 500.6, 0]>%n"
+        + " (parameter <55.6> at index 1 is not found)"));
     }
 
     TableColumnAssert tableColumnAssert8 = assertThat(table2).column("var6");
@@ -197,11 +196,11 @@ public class AssertOnColumnContent_ContainsValues_Number_Test extends AbstractTe
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 5 (column name : VAR6) of TEST2 table] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <[5.60, null]>%n"
-                                                                    + "to contain: %n"
-                                                                    + "  <[5.6, 5.6]>%n"
-                                                                    + " (parameter <5.6> at index 1 is not found)"));
+        + "Expecting:%n"
+        + "  <[5.60, null]>%n"
+        + "to contain: %n"
+        + "  <[5.6, 5.6]>%n"
+        + " (parameter <5.6> at index 1 is not found)"));
     }
 
     TableColumnAssert tableColumnAssert9 = assertThat(table).column("var7");
@@ -210,11 +209,11 @@ public class AssertOnColumnContent_ContainsValues_Number_Test extends AbstractTe
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 6 (column name : VAR7) of TEST table] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <[7.8f, 70.8f, 700.8f, 0.0f]>%n"
-                                                                    + "to contain: %n"
-                                                                    + "  <[7.8, 75.8, 700.8, 0]>%n"
-                                                                    + " (parameter <75.8> at index 1 is not found)"));
+        + "Expecting:%n"
+        + "  <[7.8f, 70.8f, 700.8f, 0.0f]>%n"
+        + "to contain: %n"
+        + "  <[7.8, 75.8, 700.8, 0]>%n"
+        + " (parameter <75.8> at index 1 is not found)"));
     }
 
     TableColumnAssert tableColumnAssert10 = assertThat(table2).column("var7");
@@ -223,11 +222,11 @@ public class AssertOnColumnContent_ContainsValues_Number_Test extends AbstractTe
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 6 (column name : VAR7) of TEST2 table] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <[7.8f, null]>%n"
-                                                                    + "to contain: %n"
-                                                                    + "  <[7.8, 7.8]>%n"
-                                                                    + " (parameter <7.8> at index 1 is not found)"));
+        + "Expecting:%n"
+        + "  <[7.8f, null]>%n"
+        + "to contain: %n"
+        + "  <[7.8, 7.8]>%n"
+        + " (parameter <7.8> at index 1 is not found)"));
     }
 
     TableColumnAssert tableColumnAssert11 = assertThat(table).column("var13");
@@ -236,11 +235,11 @@ public class AssertOnColumnContent_ContainsValues_Number_Test extends AbstractTe
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 12 (column name : VAR13) of TEST table] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <[5.00, 50.00, 500.00, 500.00]>%n"
-                                                                    + "to contain: %n"
-                                                                    + "  <[5, 50, 505, 500]>%n"
-                                                                    + " (parameter <505> at index 2 is not found)"));
+        + "Expecting:%n"
+        + "  <[5.00, 50.00, 500.00, 500.00]>%n"
+        + "to contain: %n"
+        + "  <[5, 50, 505, 500]>%n"
+        + " (parameter <505> at index 2 is not found)"));
     }
 
     TableColumnAssert tableColumnAssert12 = assertThat(table2).column("var13");
@@ -249,11 +248,11 @@ public class AssertOnColumnContent_ContainsValues_Number_Test extends AbstractTe
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 12 (column name : VAR13) of TEST2 table] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <[5.00, null]>%n"
-                                                                    + "to contain: %n"
-                                                                    + "  <[5, 5]>%n"
-                                                                    + " (parameter <5> at index 1 is not found)"));
+        + "Expecting:%n"
+        + "  <[5.00, null]>%n"
+        + "to contain: %n"
+        + "  <[5, 5]>%n"
+        + " (parameter <5> at index 1 is not found)"));
     }
 
     TableColumnAssert tableColumnAssert13 = assertThat(table).column("var14");
@@ -262,11 +261,11 @@ public class AssertOnColumnContent_ContainsValues_Number_Test extends AbstractTe
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 13 (column name : VAR14) of TEST table] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <[7.0f, 70.0f, 700.0f, 700.0f]>%n"
-                                                                    + "to contain: %n"
-                                                                    + "  <[7, 70, 750, 700]>%n"
-                                                                    + " (parameter <750> at index 2 is not found)"));
+        + "Expecting:%n"
+        + "  <[7.0f, 70.0f, 700.0f, 700.0f]>%n"
+        + "to contain: %n"
+        + "  <[7, 70, 750, 700]>%n"
+        + " (parameter <750> at index 2 is not found)"));
     }
 
     TableColumnAssert tableColumnAssert14 = assertThat(table2).column("var14");
@@ -275,11 +274,11 @@ public class AssertOnColumnContent_ContainsValues_Number_Test extends AbstractTe
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 13 (column name : VAR14) of TEST2 table] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <[7.0f, null]>%n"
-                                                                    + "to contain: %n"
-                                                                    + "  <[7, 7]>%n"
-                                                                    + " (parameter <7> at index 1 is not found)"));
+        + "Expecting:%n"
+        + "  <[7.0f, null]>%n"
+        + "to contain: %n"
+        + "  <[7, 7]>%n"
+        + " (parameter <7> at index 1 is not found)"));
     }
   }
 }

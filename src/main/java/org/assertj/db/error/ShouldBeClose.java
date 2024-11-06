@@ -19,32 +19,31 @@ import org.assertj.core.error.ErrorMessageFactory;
  * Creates an error message indicating that an assertion that verifies that a value is close to another value.
  *
  * @author Régis Pouiller
- *
  */
 public class ShouldBeClose extends BasicErrorMessageFactory {
 
-    private static final String EXPECTED_MESSAGE = "%nExpecting:%n  <%s>%nto be close to: %n  <%s> %n with tolerance <%s>";
+  private static final String EXPECTED_MESSAGE = "%nExpecting:%n  <%s>%nto be close to: %n  <%s> %n with tolerance <%s>";
+
+  /**
+   * Constructor.
+   *
+   * @param actual    The actual value in the failed assertion.
+   * @param expected  The expected value to compare to.
+   * @param tolerance The tolerance of the closeness.
+   */
+  private ShouldBeClose(Object actual, Object expected, Object tolerance) {
+    super(EXPECTED_MESSAGE, actual, expected, tolerance);
+  }
 
   /**
    * Creates a new <code>{@link ShouldBeClose}</code>.
    *
-   * @param actual The actual value in the failed assertion.
-   * @param expected The expected value to compare to.
+   * @param actual    The actual value in the failed assertion.
+   * @param expected  The expected value to compare to.
    * @param tolerance The tolerance of the closeness.
    * @return the created {@code ErrorMessageFactory}.
    */
   public static ErrorMessageFactory shouldBeClose(Object actual, Object expected, Object tolerance) {
     return new ShouldBeClose(actual, expected, tolerance);
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param actual The actual value in the failed assertion.
-   * @param expected The expected value to compare to.
-   * @param tolerance The tolerance of the closeness.
-   */
-  private ShouldBeClose(Object actual, Object expected, Object tolerance) {
-    super(EXPECTED_MESSAGE, actual, expected, tolerance);
   }
 }

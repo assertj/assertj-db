@@ -12,19 +12,18 @@
  */
 package org.assertj.db.type;
 
-import org.assertj.db.common.AbstractTest;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.db.common.AbstractTest;
+import org.junit.Test;
 
 /**
  * Tests on getting a {@code Row} in a {@code Table} from primary keys values.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class Table_GetRowFromPksValues_Test extends AbstractTest {
 
@@ -50,15 +49,15 @@ public class Table_GetRowFromPksValues_Test extends AbstractTest {
     assertThat(table.getRowFromPksValues(getValue(null, 3)).getValuesList().get(1).getValue()).isEqualTo("Avatar");
     assertThat(table.getRowFromPksValues(getValue(null, 3)).getValuesList().get(2).getValue()).isEqualTo(new BigDecimal(2009));
     assertThat(table.getRowFromPksValues(getValue(null, 3)).getValuesList().get(3).getValue()).isEqualTo(UUID.fromString(
-                                                                                                           "D735221B-5DE5-4112-AA1E-49090CB75ADA"));
+      "D735221B-5DE5-4112-AA1E-49090CB75ADA"));
     assertThat(table.getRowFromPksValues(getValue(null, 1L)).getValuesList().get(0).getValue())
-            .isEqualTo(new BigDecimal(1));
+      .isEqualTo(new BigDecimal(1));
     assertThat(table.getRowFromPksValues(getValue(null, 1L)).getValuesList().get(1).getValue())
-            .isEqualTo("Alien");
+      .isEqualTo("Alien");
     assertThat(table.getRowFromPksValues(getValue(null, 1L)).getValuesList().get(2).getValue())
-            .isEqualTo(new BigDecimal(1979));
+      .isEqualTo(new BigDecimal(1979));
     assertThat(table.getRowFromPksValues(getValue(null, 1L)).getValuesList().get(3).getValue())
-            .isEqualTo(UUID.fromString(
-                               "30B443AE-C0C9-4790-9BEC-CE1380808435"));
+      .isEqualTo(UUID.fromString(
+        "30B443AE-C0C9-4790-9BEC-CE1380808435"));
   }
 }

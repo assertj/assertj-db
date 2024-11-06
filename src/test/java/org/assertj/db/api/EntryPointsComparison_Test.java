@@ -29,15 +29,6 @@ public class EntryPointsComparison_Test {
   private static final int ACCESS_MODIFIERS = Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE;
   private static final Comparator<Method> IGNORING_DECLARING_CLASS_AND_METHOD_NAME = internalMethodComparator(true, false, true);
 
-  @Test
-  public void assertions_and_bdd_assertions_should_have_the_same_methods() {
-    Method[] thenMethods = findMethodsWithName(BDDAssertions.class, "then");
-    Method[] assertThatMethods = findMethodsWithName(Assertions.class, "assertThat");
-
-    assertThat(thenMethods).usingElementComparator(IGNORING_DECLARING_CLASS_AND_METHOD_NAME)
-                           .containsExactlyInAnyOrder(assertThatMethods);
-  }
-
   private static Method[] findMethodsWithName(Class<?> clazz, String name, Class<?>... ignoredReturnTypes) {
     List<Method> matchingMethods = new ArrayList<>();
     Set<Class<?>> ignoredReturnTypesSet = Sets.newLinkedHashSet(ignoredReturnTypes);
@@ -73,5 +64,14 @@ public class EntryPointsComparison_Test {
         return equal ? 0 : 1;
       }
     };
+  }
+
+  @Test
+  public void assertions_and_bdd_assertions_should_have_the_same_methods() {
+    Method[] thenMethods = findMethodsWithName(BDDAssertions.class, "then");
+    Method[] assertThatMethods = findMethodsWithName(Assertions.class, "assertThat");
+
+    assertThat(thenMethods).usingElementComparator(IGNORING_DECLARING_CLASS_AND_METHOD_NAME)
+      .containsExactlyInAnyOrder(assertThatMethods);
   }
 }

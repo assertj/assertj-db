@@ -32,7 +32,6 @@ import org.junit.Test;
  * {@link AssertionsOnColumnContent#containsValues(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, java.util.List, Character...)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnColumnContent_ContainsValues_Character_Test extends AbstractTest {
 
@@ -46,13 +45,13 @@ public class AssertionsOnColumnContent_ContainsValues_Character_Test extends Abs
     TableAssert tableAssert = assertThat(table);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, 'T'), getValue(null, "t"), getValue(null, null)));
     TableAssert tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list, 'T',
-                                                                        't', null);
+      't', null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list, 't',
-                                                            'T', null);
+      'T', null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list, null, 'T',
-                                                            't');
+      't');
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -68,29 +67,29 @@ public class AssertionsOnColumnContent_ContainsValues_Character_Test extends Abs
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, 'T'), getValue(null, "t"), getValue(null, null)));
     try {
       AssertionsOnColumnContent.containsValues(tableAssert, info, list, null, null,
-                                               'T');
+        'T');
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <['T', \"t\", null]>%n"
-                                                                    + "to contain: %n"
-                                                                    + "  <[null, null, 'T']>%n"
-                                                                    + " (parameter <null> at index 1 is not found)"));
+        + "Expecting:%n"
+        + "  <['T', \"t\", null]>%n"
+        + "to contain: %n"
+        + "  <[null, null, 'T']>%n"
+        + " (parameter <null> at index 1 is not found)"));
     }
     list = new ArrayList<>(Arrays.asList(getValue(null, 'T'), getValue(null, "T"), getValue(null, 't'), getValue(
-            null, null)));
+      null, null)));
     try {
       AssertionsOnColumnContent.containsValues(tableAssert, info, list, null, 'T',
-                                               'T', 'T');
+        'T', 'T');
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <['T', \"T\", 't', null]>%n"
-                                                                    + "to contain: %n"
-                                                                    + "  <[null, 'T', 'T', 'T']>%n"
-                                                                    + " (parameter <'T'> at index 3 is not found)"));
+        + "Expecting:%n"
+        + "  <['T', \"T\", 't', null]>%n"
+        + "to contain: %n"
+        + "  <[null, 'T', 'T', 'T']>%n"
+        + " (parameter <'T'> at index 3 is not found)"));
     }
   }
 
@@ -109,12 +108,12 @@ public class AssertionsOnColumnContent_ContainsValues_Character_Test extends Abs
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at index 1:%n"
-                                                                    + "  <false>%n"
-                                                                    + "to be of type%n"
-                                                                    + "  <[TEXT, NOT_IDENTIFIED]>%n"
-                                                                    + "but was of type%n"
-                                                                    + "  <BOOLEAN>"));
+        + "Expecting that the value at index 1:%n"
+        + "  <false>%n"
+        + "to be of type%n"
+        + "  <[TEXT, NOT_IDENTIFIED]>%n"
+        + "but was of type%n"
+        + "  <BOOLEAN>"));
     }
   }
 
@@ -133,10 +132,10 @@ public class AssertionsOnColumnContent_ContainsValues_Character_Test extends Abs
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting size (number of rows) to be equal to :%n"
-                                                                    + "   <3>%n"
-                                                                    + "but was:%n"
-                                                                    + "   <2>"));
+        + "Expecting size (number of rows) to be equal to :%n"
+        + "   <3>%n"
+        + "but was:%n"
+        + "   <2>"));
     }
   }
 }

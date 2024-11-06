@@ -12,11 +12,17 @@
  */
 package org.assertj.db.database.sqlite;
 
-import org.junit.Test;
-
-import java.sql.*;
-
 import static org.assertj.core.api.Assertions.assertThat;
+
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import org.junit.Test;
 
 /**
  * Test on the Sqlite database.
@@ -65,7 +71,7 @@ public class SqliteDataBase_Test extends AbstractSqliteTest {
   public void test_tables_for_data_source() throws SQLException {
     try (Connection connection = dataSource.getConnection()) {
       DatabaseMetaData databaseMetaData = connection.getMetaData();
-      ResultSet resultSet = databaseMetaData.getTables(null, null, null, new String[] { "TABLE" });
+      ResultSet resultSet = databaseMetaData.getTables(null, null, null, new String[]{"TABLE"});
       assertThat(resultSet.next()).isTrue();
       assertThat(resultSet.getString("TABLE_NAME")).isEqualTo("teSt");
       assertThat(resultSet.next()).isFalse();
@@ -76,7 +82,7 @@ public class SqliteDataBase_Test extends AbstractSqliteTest {
   public void test_tables_for_source() throws SQLException {
     try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
       DatabaseMetaData databaseMetaData = connection.getMetaData();
-      ResultSet resultSet = databaseMetaData.getTables(null, null, null, new String[] { "TABLE" });
+      ResultSet resultSet = databaseMetaData.getTables(null, null, null, new String[]{"TABLE"});
       assertThat(resultSet.next()).isTrue();
       assertThat(resultSet.getString("TABLE_NAME")).isEqualTo("teSt");
       assertThat(resultSet.next()).isFalse();

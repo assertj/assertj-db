@@ -12,6 +12,11 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.util.Locale;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -19,17 +24,11 @@ import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import java.util.Locale;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link org.assertj.db.api.assertions.impl.AssertionsOnValueInequality} class :
  * {@link org.assertj.db.api.assertions.impl.AssertionsOnValueInequality#isNotEqualTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, Object)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnValueInequality_IsNotEqualTo_Object_Test extends AbstractTest {
 
@@ -42,21 +41,21 @@ public class AssertionsOnValueInequality_IsNotEqualTo_Object_Test extends Abstra
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
-                                                                         getValue(null, new Locale("fr")),
-                                                                         new Locale("en"));
+      getValue(null, new Locale("fr")),
+      new Locale("en"));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
-                                                             getValue(null, new Locale("fr")),
-                                                             (Object) null);
+      getValue(null, new Locale("fr")),
+      (Object) null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
-                                                            getValue(null, null),
-                                                            new Locale("en"));
-   Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-   tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
-                                                           getValue(null, null),
-                                                           new Locale("en"));
-  Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
+      getValue(null, null),
+      new Locale("en"));
+    Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
+    tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
+      getValue(null, null),
+      new Locale("en"));
+    Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
   /**
@@ -70,27 +69,27 @@ public class AssertionsOnValueInequality_IsNotEqualTo_Object_Test extends Abstra
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
-                                                getValue(null, new Locale("fr")),
-                                                Locale.FRENCH);
+        getValue(null, new Locale("fr")),
+        Locale.FRENCH);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                         + "Expecting:%n"
-                                                         + "  <fr>%n"
-                                                         + "not to be equal to: %n"
-                                                         + "  <fr>"));
+        + "Expecting:%n"
+        + "  <fr>%n"
+        + "not to be equal to: %n"
+        + "  <fr>"));
     }
     try {
       AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
-                                                getValue(null, null),
-                                                (Object) null);
+        getValue(null, null),
+        (Object) null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <null>%n"
-                                                      + "not to be equal to: %n"
-                                                      + "  <null>"));
+        + "Expecting:%n"
+        + "  <null>%n"
+        + "not to be equal to: %n"
+        + "  <null>"));
     }
   }
 
@@ -105,17 +104,17 @@ public class AssertionsOnValueInequality_IsNotEqualTo_Object_Test extends Abstra
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
-                                                getValue(null, new StringBuilder("test1")),
-                                                new StringBuffer("test2"));
+        getValue(null, new StringBuilder("test1")),
+        new StringBuffer("test2"));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <test1>%n"
-                                                      + "to be of class%n"
-                                                      + "  <java.lang.StringBuffer>%n"
-                                                      + "but was of class%n"
-                                                      + "  <java.lang.StringBuilder>"));
+        + "Expecting:%n"
+        + "  <test1>%n"
+        + "to be of class%n"
+        + "  <java.lang.StringBuffer>%n"
+        + "but was of class%n"
+        + "  <java.lang.StringBuilder>"));
     }
   }
 }

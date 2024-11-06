@@ -14,9 +14,8 @@ package org.assertj.db.type;
 
 /**
  * Enumeration of the different type of data.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public enum DataType {
 

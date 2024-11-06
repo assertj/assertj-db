@@ -12,9 +12,9 @@
  */
 package org.assertj.db.util;
 
-import org.assertj.db.type.lettercase.CaseComparison;
-
 import java.util.List;
+
+import org.assertj.db.type.lettercase.CaseComparison;
 
 /**
  * Comparator for the names.
@@ -31,8 +31,9 @@ public enum NameComparator {
 
   /**
    * Returns if {@code namesList} contains {@code name} by comparing using {@code comparison}.
-   * @param namesList List of names which can contain the {@code name}.
-   * @param name The name to search.
+   *
+   * @param namesList  List of names which can contain the {@code name}.
+   * @param name       The name to search.
    * @param comparison Case comparison to compare the name.
    * @return The result.
    */
@@ -47,8 +48,9 @@ public enum NameComparator {
 
   /**
    * Returns the index of {@code name}in {@code namesList} by comparing using {@code comparison}.
-   * @param namesList List of names which can contain the {@code name}.
-   * @param name The name to search.
+   *
+   * @param namesList  List of names which can contain the {@code name}.
+   * @param name       The name to search.
    * @param comparison Case comparison to compare the name.
    * @return The result.
    */

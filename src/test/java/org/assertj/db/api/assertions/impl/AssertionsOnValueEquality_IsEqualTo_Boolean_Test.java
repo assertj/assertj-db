@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -19,15 +22,11 @@ import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link  AssertionsOnValueEquality} class :
  * {@link  AssertionsOnValueEquality#isEqualTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, Boolean)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnValueEquality_IsEqualTo_Boolean_Test extends AbstractTest {
 
@@ -59,20 +58,20 @@ public class AssertionsOnValueEquality_IsEqualTo_Boolean_Test extends AbstractTe
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <true>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <false>"));
+        + "Expecting:%n"
+        + "  <true>%n"
+        + "to be equal to: %n"
+        + "  <false>"));
     }
     try {
       AssertionsOnValueEquality.isEqualTo(tableAssert, info, getValue(null, true), (Boolean) null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <true>%n"
-                                                                    + "to be equal to: %n"
-                                                                    + "  <null>"));
+        + "Expecting:%n"
+        + "  <true>%n"
+        + "to be equal to: %n"
+        + "  <null>"));
     }
   }
 
@@ -90,12 +89,12 @@ public class AssertionsOnValueEquality_IsEqualTo_Boolean_Test extends AbstractTe
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <8>%n"
-                                                      + "to be of type%n"
-                                                      + "  <BOOLEAN>%n"
-                                                      + "but was of type%n"
-                                                      + "  <NUMBER>"));
+        + "Expecting:%n"
+        + "  <8>%n"
+        + "to be of type%n"
+        + "  <BOOLEAN>%n"
+        + "but was of type%n"
+        + "  <NUMBER>"));
     }
   }
 }

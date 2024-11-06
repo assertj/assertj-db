@@ -12,23 +12,27 @@
  */
 package org.assertj.db.api.assertions;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
-import org.assertj.db.api.*;
+import org.assertj.db.api.ChangeAssert;
+import org.assertj.db.api.ChangeColumnAssert;
+import org.assertj.db.api.ChangeRowValueAssert;
+import org.assertj.db.api.TableAssert;
+import org.assertj.db.api.TableColumnAssert;
+import org.assertj.db.api.TableRowValueAssert;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.common.NeedReload;
 import org.assertj.db.type.Changes;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertOnColumnName} class :
  * {@link AssertOnColumnName#hasColumnName(String)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertOnColumnName_HasColumnName_Test extends AbstractTest {
 
@@ -76,20 +80,20 @@ public class AssertOnColumnName_HasColumnName_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 0 (column name : ID) of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
-                                                      + "Expecting :%n"
-                                                      + "  \"ID2\"%n"
-                                                      + "to be the name of the column but was:%n"
-                                                      + "  \"ID\""));
+        + "Expecting :%n"
+        + "  \"ID2\"%n"
+        + "to be the name of the column but was:%n"
+        + "  \"ID\""));
     }
     try {
       changeAssert.rowAtEndPoint().value().hasColumnName("ID2");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 0 (column name : ID) of Row at end point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
-                                                      + "Expecting :%n"
-                                                      + "  \"ID2\"%n"
-                                                      + "to be the name of the column but was:%n"
-                                                      + "  \"ID\""));
+        + "Expecting :%n"
+        + "  \"ID2\"%n"
+        + "to be the name of the column but was:%n"
+        + "  \"ID\""));
     }
 
     Table table = new Table(source, "actor");
@@ -99,20 +103,20 @@ public class AssertOnColumnName_HasColumnName_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 0 (column name : ID) of ACTOR table] %n"
-                                                      + "Expecting :%n"
-                                                      + "  \"ID2\"%n"
-                                                      + "to be the name of the column but was:%n"
-                                                      + "  \"ID\""));
+        + "Expecting :%n"
+        + "  \"ID2\"%n"
+        + "to be the name of the column but was:%n"
+        + "  \"ID\""));
     }
     try {
       tableAssert.row().value().hasColumnName("ID2");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 0 (column name : ID) of Row at index 0 of ACTOR table] %n"
-                                                      + "Expecting :%n"
-                                                      + "  \"ID2\"%n"
-                                                      + "to be the name of the column but was:%n"
-                                                      + "  \"ID\""));
+        + "Expecting :%n"
+        + "  \"ID2\"%n"
+        + "to be the name of the column but was:%n"
+        + "  \"ID\""));
     }
   }
 }

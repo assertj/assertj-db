@@ -14,6 +14,7 @@ package org.assertj.db.type.lettercase;
 
 /**
  * Conversion of the case of a {@link java.lang.String}.
+ *
  * @author Régis Pouiller
  * @since 1.1.0
  */
@@ -21,12 +22,14 @@ public interface CaseConversion {
 
   /**
    * Returns the name of the conversion.
+   *
    * @return The name of the conversion.
    */
   String getConversionName();
 
   /**
    * Converts the {@link java.lang.String} in parameter to another.
+   *
    * @param value The {@link java.lang.String} to convert.
    * @return The result.
    */

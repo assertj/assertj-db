@@ -17,15 +17,14 @@ import org.assertj.db.navigation.origin.Origin;
 /**
  * Base class for all outputs with an {@link org.assertj.db.navigation.origin.Origin}.
  *
- * @author Régis Pouiller
- *
  * @param <E> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/1IZIRcY"
- *          target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
- *          for more details.
+ *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
+ *            for more details.
  * @param <O> The type of the assertion class of {@link org.assertj.db.navigation.origin.Origin}.
+ * @author Régis Pouiller
  */
 public abstract class AbstractOutputterWithOrigin<E extends AbstractOutputterWithOrigin<E, O>, O extends Origin>
-        extends AbstractOutputter<E> {
+  extends AbstractOutputter<E> {
 
   /**
    * The assertion of origin.
@@ -36,7 +35,7 @@ public abstract class AbstractOutputterWithOrigin<E extends AbstractOutputterWit
    * Constructor.
    *
    * @param selfType Type of this assertion class : a sub-class of {@code AbstractOutputterWithOrigin}.
-   * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
+   * @param origin   The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    */
   AbstractOutputterWithOrigin(Class<E> selfType, O origin) {
     super(selfType);

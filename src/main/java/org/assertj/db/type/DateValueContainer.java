@@ -14,21 +14,21 @@ package org.assertj.db.type;
 
 /**
  * This interface indicates container of {@link DateValue}.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public interface DateValueContainer {
 
   /**
    * Returns the date.
-   * 
+   *
    * @return The date.
    */
   DateValue getDate();
 
   /**
    * Returns if it is midnight.
+   *
    * @return {@code true} if it is midnight.
    */
   boolean isMidnight();

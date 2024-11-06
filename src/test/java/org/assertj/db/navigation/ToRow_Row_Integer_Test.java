@@ -12,30 +12,40 @@
  */
 package org.assertj.db.navigation;
 
-import org.assertj.core.api.Assertions;
-import org.assertj.db.api.*;
-import org.assertj.db.common.AbstractTest;
-import org.assertj.db.exception.AssertJDBException;
-import org.assertj.db.output.*;
-import org.assertj.db.type.Request;
-import org.assertj.db.type.Row;
-import org.assertj.db.type.Table;
-import org.junit.Test;
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.UUID;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import org.assertj.core.api.Assertions;
+import org.assertj.db.api.AbstractDbAssert;
+import org.assertj.db.api.AbstractRowAssert;
+import org.assertj.db.api.RequestAssert;
+import org.assertj.db.api.RequestRowAssert;
+import org.assertj.db.api.TableAssert;
+import org.assertj.db.api.TableRowAssert;
+import org.assertj.db.common.AbstractTest;
+import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.output.AbstractDbOutputter;
+import org.assertj.db.output.AbstractRowOutputter;
+import org.assertj.db.output.Outputs;
+import org.assertj.db.output.RequestOutputter;
+import org.assertj.db.output.RequestRowOutputter;
+import org.assertj.db.output.TableOutputter;
+import org.assertj.db.output.TableRowOutputter;
+import org.assertj.db.type.Request;
+import org.assertj.db.type.Row;
+import org.assertj.db.type.Table;
+import org.junit.Test;
 
 /**
  * Tests on {@link org.assertj.db.navigation.ToRow} class :
  * {@link org.assertj.db.navigation.ToRow#row(int)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class ToRow_Row_Integer_Test extends AbstractTest {
 
@@ -53,8 +63,8 @@ public class ToRow_Row_Integer_Test extends AbstractTest {
 
     Table table = new Table(source, "actor");
     TableAssert tableAssert = assertThat(table);
-    Position<TableAssert, TableRowAssert, Row> position = 
-            (Position) fieldPosition.get(tableAssert);
+    Position<TableAssert, TableRowAssert, Row> position =
+      (Position) fieldPosition.get(tableAssert);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     TableRowAssert tableRowAssert0 = tableAssert.row(0);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
@@ -72,8 +82,8 @@ public class ToRow_Row_Integer_Test extends AbstractTest {
     Assertions.assertThat(tableRowAssert0).isSameAs(tableRowAssertAgain0);
 
     TableAssert tableAssertBis = assertThat(table);
-    Position<TableAssert, TableRowAssert, Row> positionBis = 
-            (Position) fieldPosition.get(tableAssertBis);
+    Position<TableAssert, TableRowAssert, Row> positionBis =
+      (Position) fieldPosition.get(tableAssertBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     TableRowAssert tableRowAssertBis0 = tableAssertBis.row(0);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
@@ -104,35 +114,35 @@ public class ToRow_Row_Integer_Test extends AbstractTest {
     Row rowIdBis2 = (Row) fieldRow.get(tableRowAssertBis2);
 
     Assertions.assertThat(rowId0.getValuesList().get(0).getValue()).isEqualTo(rowIdBis0.getValuesList().get(0).getValue())
-              .isEqualTo(new BigDecimal("1"));
+      .isEqualTo(new BigDecimal("1"));
     Assertions.assertThat(rowId0.getValuesList().get(1).getValue()).isEqualTo(rowIdBis0.getValuesList().get(1).getValue())
-              .isEqualTo("Weaver");
+      .isEqualTo("Weaver");
     Assertions.assertThat(rowId0.getValuesList().get(2).getValue()).isEqualTo(rowIdBis0.getValuesList().get(2).getValue())
-              .isEqualTo("Sigourney");
+      .isEqualTo("Sigourney");
     Assertions.assertThat(rowId0.getValuesList().get(3).getValue()).isEqualTo(rowIdBis0.getValuesList().get(3).getValue())
-              .isEqualTo(Date.valueOf("1949-10-08"));
+      .isEqualTo(Date.valueOf("1949-10-08"));
     Assertions.assertThat(rowId0.getValuesList().get(4).getValue()).isEqualTo(rowIdBis0.getValuesList().get(4).getValue())
-              .isEqualTo(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
+      .isEqualTo(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
     Assertions.assertThat(rowId1.getValuesList().get(0).getValue()).isEqualTo(rowIdBis1.getValuesList().get(0).getValue())
-              .isEqualTo(new BigDecimal("2"));
+      .isEqualTo(new BigDecimal("2"));
     Assertions.assertThat(rowId1.getValuesList().get(1).getValue()).isEqualTo(rowIdBis1.getValuesList().get(1).getValue())
-              .isEqualTo("Phoenix");
+      .isEqualTo("Phoenix");
     Assertions.assertThat(rowId1.getValuesList().get(2).getValue()).isEqualTo(rowIdBis1.getValuesList().get(2).getValue())
-              .isEqualTo("Joaquim");
+      .isEqualTo("Joaquim");
     Assertions.assertThat(rowId1.getValuesList().get(3).getValue()).isEqualTo(rowIdBis1.getValuesList().get(3).getValue())
-              .isEqualTo(Date.valueOf("1974-10-28"));
+      .isEqualTo(Date.valueOf("1974-10-28"));
     Assertions.assertThat(rowId1.getValuesList().get(4).getValue()).isEqualTo(rowIdBis1.getValuesList().get(4).getValue())
-              .isEqualTo(UUID.fromString("16319617-AE95-4087-9264-D3D21BF611B6"));
+      .isEqualTo(UUID.fromString("16319617-AE95-4087-9264-D3D21BF611B6"));
     Assertions.assertThat(rowId2.getValuesList().get(0).getValue()).isEqualTo(rowIdBis2.getValuesList().get(0).getValue())
-              .isEqualTo(new BigDecimal("3"));
+      .isEqualTo(new BigDecimal("3"));
     Assertions.assertThat(rowId2.getValuesList().get(1).getValue()).isEqualTo(rowIdBis2.getValuesList().get(1).getValue())
-              .isEqualTo("Worthington");
+      .isEqualTo("Worthington");
     Assertions.assertThat(rowId2.getValuesList().get(2).getValue()).isEqualTo(rowIdBis2.getValuesList().get(2).getValue())
-              .isEqualTo("Sam");
+      .isEqualTo("Sam");
     Assertions.assertThat(rowId2.getValuesList().get(3).getValue()).isEqualTo(rowIdBis2.getValuesList().get(3).getValue())
-              .isEqualTo(Date.valueOf("1976-08-02"));
+      .isEqualTo(Date.valueOf("1976-08-02"));
     Assertions.assertThat(rowId2.getValuesList().get(4).getValue()).isEqualTo(rowIdBis2.getValuesList().get(4).getValue())
-              .isEqualTo(UUID.fromString("D735221B-5DE5-4112-AA1E-49090CB75ADA"));
+      .isEqualTo(UUID.fromString("D735221B-5DE5-4112-AA1E-49090CB75ADA"));
   }
 
   /**
@@ -149,8 +159,8 @@ public class ToRow_Row_Integer_Test extends AbstractTest {
 
     Request request = new Request(source, "select * from actor");
     RequestAssert requestAssert = assertThat(request);
-    Position<RequestAssert, RequestRowAssert, Row> position = 
-            (Position) fieldPosition.get(requestAssert);
+    Position<RequestAssert, RequestRowAssert, Row> position =
+      (Position) fieldPosition.get(requestAssert);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     RequestRowAssert requestRowAssert0 = requestAssert.row(0);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
@@ -174,8 +184,8 @@ public class ToRow_Row_Integer_Test extends AbstractTest {
     Assertions.assertThat(requestRowAssert0).isSameAs(requestRowAssertAgain0);
 
     RequestAssert requestAssertBis = assertThat(request);
-    Position<RequestAssert, RequestRowAssert, Row> positionBis = 
-            (Position) fieldPosition.get(requestAssertBis);
+    Position<RequestAssert, RequestRowAssert, Row> positionBis =
+      (Position) fieldPosition.get(requestAssertBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     RequestRowAssert requestRowAssertBis0 = requestAssertBis.row(0);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
@@ -206,35 +216,35 @@ public class ToRow_Row_Integer_Test extends AbstractTest {
     Row rowIdBis2 = (Row) fieldRow.get(requestRowAssertBis2);
 
     Assertions.assertThat(rowId0.getValuesList().get(0).getValue()).isEqualTo(rowIdBis0.getValuesList().get(0).getValue())
-              .isEqualTo(new BigDecimal("1"));
+      .isEqualTo(new BigDecimal("1"));
     Assertions.assertThat(rowId0.getValuesList().get(1).getValue()).isEqualTo(rowIdBis0.getValuesList().get(1).getValue())
-              .isEqualTo("Weaver");
+      .isEqualTo("Weaver");
     Assertions.assertThat(rowId0.getValuesList().get(2).getValue()).isEqualTo(rowIdBis0.getValuesList().get(2).getValue())
-              .isEqualTo("Sigourney");
+      .isEqualTo("Sigourney");
     Assertions.assertThat(rowId0.getValuesList().get(3).getValue()).isEqualTo(rowIdBis0.getValuesList().get(3).getValue())
-              .isEqualTo(Date.valueOf("1949-10-08"));
+      .isEqualTo(Date.valueOf("1949-10-08"));
     Assertions.assertThat(rowId0.getValuesList().get(4).getValue()).isEqualTo(rowIdBis0.getValuesList().get(4).getValue())
-              .isEqualTo(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
+      .isEqualTo(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
     Assertions.assertThat(rowId1.getValuesList().get(0).getValue()).isEqualTo(rowIdBis1.getValuesList().get(0).getValue())
-              .isEqualTo(new BigDecimal("2"));
+      .isEqualTo(new BigDecimal("2"));
     Assertions.assertThat(rowId1.getValuesList().get(1).getValue()).isEqualTo(rowIdBis1.getValuesList().get(1).getValue())
-              .isEqualTo("Phoenix");
+      .isEqualTo("Phoenix");
     Assertions.assertThat(rowId1.getValuesList().get(2).getValue()).isEqualTo(rowIdBis1.getValuesList().get(2).getValue())
-              .isEqualTo("Joaquim");
+      .isEqualTo("Joaquim");
     Assertions.assertThat(rowId1.getValuesList().get(3).getValue()).isEqualTo(rowIdBis1.getValuesList().get(3).getValue())
-              .isEqualTo(Date.valueOf("1974-10-28"));
+      .isEqualTo(Date.valueOf("1974-10-28"));
     Assertions.assertThat(rowId1.getValuesList().get(4).getValue()).isEqualTo(rowIdBis1.getValuesList().get(4).getValue())
-              .isEqualTo(UUID.fromString("16319617-AE95-4087-9264-D3D21BF611B6"));
+      .isEqualTo(UUID.fromString("16319617-AE95-4087-9264-D3D21BF611B6"));
     Assertions.assertThat(rowId2.getValuesList().get(0).getValue()).isEqualTo(rowIdBis2.getValuesList().get(0).getValue())
-              .isEqualTo(new BigDecimal("3"));
+      .isEqualTo(new BigDecimal("3"));
     Assertions.assertThat(rowId2.getValuesList().get(1).getValue()).isEqualTo(rowIdBis2.getValuesList().get(1).getValue())
-              .isEqualTo("Worthington");
+      .isEqualTo("Worthington");
     Assertions.assertThat(rowId2.getValuesList().get(2).getValue()).isEqualTo(rowIdBis2.getValuesList().get(2).getValue())
-              .isEqualTo("Sam");
+      .isEqualTo("Sam");
     Assertions.assertThat(rowId2.getValuesList().get(3).getValue()).isEqualTo(rowIdBis2.getValuesList().get(3).getValue())
-              .isEqualTo(Date.valueOf("1976-08-02"));
+      .isEqualTo(Date.valueOf("1976-08-02"));
     Assertions.assertThat(rowId2.getValuesList().get(4).getValue()).isEqualTo(rowIdBis2.getValuesList().get(4).getValue())
-              .isEqualTo(UUID.fromString("D735221B-5DE5-4112-AA1E-49090CB75ADA"));
+      .isEqualTo(UUID.fromString("D735221B-5DE5-4112-AA1E-49090CB75ADA"));
   }
 
   /**
@@ -251,8 +261,8 @@ public class ToRow_Row_Integer_Test extends AbstractTest {
 
     Table table = new Table(source, "actor");
     TableOutputter tableOutputter = Outputs.output(table);
-    Position<TableOutputter, TableRowOutputter, Row> position = 
-            (Position) fieldPosition.get(tableOutputter);
+    Position<TableOutputter, TableRowOutputter, Row> position =
+      (Position) fieldPosition.get(tableOutputter);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     TableRowOutputter tableRowOutputter0 = tableOutputter.row(0);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
@@ -270,8 +280,8 @@ public class ToRow_Row_Integer_Test extends AbstractTest {
     Assertions.assertThat(tableRowOutputter0).isSameAs(tableRowOutputterAgain0);
 
     TableOutputter tableOutputterBis = Outputs.output(table);
-    Position<TableOutputter, TableRowOutputter, Row> positionBis = 
-            (Position) fieldPosition.get(tableOutputterBis);
+    Position<TableOutputter, TableRowOutputter, Row> positionBis =
+      (Position) fieldPosition.get(tableOutputterBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     TableRowOutputter tableRowOutputterBis0 = tableOutputterBis.row(0);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
@@ -302,35 +312,35 @@ public class ToRow_Row_Integer_Test extends AbstractTest {
     Row rowIdBis2 = (Row) fieldRow.get(tableRowOutputterBis2);
 
     Assertions.assertThat(rowId0.getValuesList().get(0).getValue()).isEqualTo(rowIdBis0.getValuesList().get(0).getValue())
-              .isEqualTo(new BigDecimal("1"));
+      .isEqualTo(new BigDecimal("1"));
     Assertions.assertThat(rowId0.getValuesList().get(1).getValue()).isEqualTo(rowIdBis0.getValuesList().get(1).getValue())
-              .isEqualTo("Weaver");
+      .isEqualTo("Weaver");
     Assertions.assertThat(rowId0.getValuesList().get(2).getValue()).isEqualTo(rowIdBis0.getValuesList().get(2).getValue())
-              .isEqualTo("Sigourney");
+      .isEqualTo("Sigourney");
     Assertions.assertThat(rowId0.getValuesList().get(3).getValue()).isEqualTo(rowIdBis0.getValuesList().get(3).getValue())
-              .isEqualTo(Date.valueOf("1949-10-08"));
+      .isEqualTo(Date.valueOf("1949-10-08"));
     Assertions.assertThat(rowId0.getValuesList().get(4).getValue()).isEqualTo(rowIdBis0.getValuesList().get(4).getValue())
-              .isEqualTo(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
+      .isEqualTo(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
     Assertions.assertThat(rowId1.getValuesList().get(0).getValue()).isEqualTo(rowIdBis1.getValuesList().get(0).getValue())
-              .isEqualTo(new BigDecimal("2"));
+      .isEqualTo(new BigDecimal("2"));
     Assertions.assertThat(rowId1.getValuesList().get(1).getValue()).isEqualTo(rowIdBis1.getValuesList().get(1).getValue())
-              .isEqualTo("Phoenix");
+      .isEqualTo("Phoenix");
     Assertions.assertThat(rowId1.getValuesList().get(2).getValue()).isEqualTo(rowIdBis1.getValuesList().get(2).getValue())
-              .isEqualTo("Joaquim");
+      .isEqualTo("Joaquim");
     Assertions.assertThat(rowId1.getValuesList().get(3).getValue()).isEqualTo(rowIdBis1.getValuesList().get(3).getValue())
-              .isEqualTo(Date.valueOf("1974-10-28"));
+      .isEqualTo(Date.valueOf("1974-10-28"));
     Assertions.assertThat(rowId1.getValuesList().get(4).getValue()).isEqualTo(rowIdBis1.getValuesList().get(4).getValue())
-              .isEqualTo(UUID.fromString("16319617-AE95-4087-9264-D3D21BF611B6"));
+      .isEqualTo(UUID.fromString("16319617-AE95-4087-9264-D3D21BF611B6"));
     Assertions.assertThat(rowId2.getValuesList().get(0).getValue()).isEqualTo(rowIdBis2.getValuesList().get(0).getValue())
-              .isEqualTo(new BigDecimal("3"));
+      .isEqualTo(new BigDecimal("3"));
     Assertions.assertThat(rowId2.getValuesList().get(1).getValue()).isEqualTo(rowIdBis2.getValuesList().get(1).getValue())
-              .isEqualTo("Worthington");
+      .isEqualTo("Worthington");
     Assertions.assertThat(rowId2.getValuesList().get(2).getValue()).isEqualTo(rowIdBis2.getValuesList().get(2).getValue())
-              .isEqualTo("Sam");
+      .isEqualTo("Sam");
     Assertions.assertThat(rowId2.getValuesList().get(3).getValue()).isEqualTo(rowIdBis2.getValuesList().get(3).getValue())
-              .isEqualTo(Date.valueOf("1976-08-02"));
+      .isEqualTo(Date.valueOf("1976-08-02"));
     Assertions.assertThat(rowId2.getValuesList().get(4).getValue()).isEqualTo(rowIdBis2.getValuesList().get(4).getValue())
-              .isEqualTo(UUID.fromString("D735221B-5DE5-4112-AA1E-49090CB75ADA"));
+      .isEqualTo(UUID.fromString("D735221B-5DE5-4112-AA1E-49090CB75ADA"));
   }
 
   /**
@@ -347,8 +357,8 @@ public class ToRow_Row_Integer_Test extends AbstractTest {
 
     Request request = new Request(source, "select * from actor");
     RequestOutputter requestOutputter = Outputs.output(request);
-    Position<RequestOutputter, RequestRowOutputter, Row> position = 
-            (Position) fieldPosition.get(requestOutputter);
+    Position<RequestOutputter, RequestRowOutputter, Row> position =
+      (Position) fieldPosition.get(requestOutputter);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     RequestRowOutputter requestRowOutputter0 = requestOutputter.row(0);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
@@ -372,8 +382,8 @@ public class ToRow_Row_Integer_Test extends AbstractTest {
     Assertions.assertThat(requestRowOutputter0).isSameAs(requestRowOutputterAgain0);
 
     RequestOutputter requestOutputterBis = Outputs.output(request);
-    Position<RequestOutputter, RequestRowOutputter, Row> positionBis = 
-            (Position) fieldPosition.get(requestOutputterBis);
+    Position<RequestOutputter, RequestRowOutputter, Row> positionBis =
+      (Position) fieldPosition.get(requestOutputterBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     RequestRowOutputter requestRowOutputterBis0 = requestOutputterBis.row(0);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
@@ -404,34 +414,34 @@ public class ToRow_Row_Integer_Test extends AbstractTest {
     Row rowIdBis2 = (Row) fieldRow.get(requestRowOutputterBis2);
 
     Assertions.assertThat(rowId0.getValuesList().get(0).getValue()).isEqualTo(rowIdBis0.getValuesList().get(0).getValue())
-              .isEqualTo(new BigDecimal("1"));
+      .isEqualTo(new BigDecimal("1"));
     Assertions.assertThat(rowId0.getValuesList().get(1).getValue()).isEqualTo(rowIdBis0.getValuesList().get(1).getValue())
-              .isEqualTo("Weaver");
+      .isEqualTo("Weaver");
     Assertions.assertThat(rowId0.getValuesList().get(2).getValue()).isEqualTo(rowIdBis0.getValuesList().get(2).getValue())
-              .isEqualTo("Sigourney");
+      .isEqualTo("Sigourney");
     Assertions.assertThat(rowId0.getValuesList().get(3).getValue()).isEqualTo(rowIdBis0.getValuesList().get(3).getValue())
-              .isEqualTo(Date.valueOf("1949-10-08"));
+      .isEqualTo(Date.valueOf("1949-10-08"));
     Assertions.assertThat(rowId0.getValuesList().get(4).getValue()).isEqualTo(rowIdBis0.getValuesList().get(4).getValue())
-              .isEqualTo(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
+      .isEqualTo(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
     Assertions.assertThat(rowId1.getValuesList().get(0).getValue()).isEqualTo(rowIdBis1.getValuesList().get(0).getValue())
-              .isEqualTo(new BigDecimal("2"));
+      .isEqualTo(new BigDecimal("2"));
     Assertions.assertThat(rowId1.getValuesList().get(1).getValue()).isEqualTo(rowIdBis1.getValuesList().get(1).getValue())
-              .isEqualTo("Phoenix");
+      .isEqualTo("Phoenix");
     Assertions.assertThat(rowId1.getValuesList().get(2).getValue()).isEqualTo(rowIdBis1.getValuesList().get(2).getValue())
-              .isEqualTo("Joaquim");
+      .isEqualTo("Joaquim");
     Assertions.assertThat(rowId1.getValuesList().get(3).getValue()).isEqualTo(rowIdBis1.getValuesList().get(3).getValue())
-              .isEqualTo(Date.valueOf("1974-10-28"));
+      .isEqualTo(Date.valueOf("1974-10-28"));
     Assertions.assertThat(rowId1.getValuesList().get(4).getValue()).isEqualTo(rowIdBis1.getValuesList().get(4).getValue())
-              .isEqualTo(UUID.fromString("16319617-AE95-4087-9264-D3D21BF611B6"));
+      .isEqualTo(UUID.fromString("16319617-AE95-4087-9264-D3D21BF611B6"));
     Assertions.assertThat(rowId2.getValuesList().get(0).getValue()).isEqualTo(rowIdBis2.getValuesList().get(0).getValue())
-              .isEqualTo(new BigDecimal("3"));
+      .isEqualTo(new BigDecimal("3"));
     Assertions.assertThat(rowId2.getValuesList().get(1).getValue()).isEqualTo(rowIdBis2.getValuesList().get(1).getValue())
-              .isEqualTo("Worthington");
+      .isEqualTo("Worthington");
     Assertions.assertThat(rowId2.getValuesList().get(2).getValue()).isEqualTo(rowIdBis2.getValuesList().get(2).getValue())
-              .isEqualTo("Sam");
+      .isEqualTo("Sam");
     Assertions.assertThat(rowId2.getValuesList().get(3).getValue()).isEqualTo(rowIdBis2.getValuesList().get(3).getValue())
-              .isEqualTo(Date.valueOf("1976-08-02"));
+      .isEqualTo(Date.valueOf("1976-08-02"));
     Assertions.assertThat(rowId2.getValuesList().get(4).getValue()).isEqualTo(rowIdBis2.getValuesList().get(4).getValue())
-              .isEqualTo(UUID.fromString("D735221B-5DE5-4112-AA1E-49090CB75ADA"));
+      .isEqualTo(UUID.fromString("D735221B-5DE5-4112-AA1E-49090CB75ADA"));
   }
 }

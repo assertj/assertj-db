@@ -19,9 +19,8 @@ import org.junit.Test;
 
 /**
  * Tests on {@code areEqual} method for {@code Character}s.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class Values_AreEqual_Value_And_Character_Test extends AbstractTest {
 

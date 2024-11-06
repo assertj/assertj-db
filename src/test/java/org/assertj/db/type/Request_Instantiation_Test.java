@@ -12,20 +12,19 @@
  */
 package org.assertj.db.type;
 
+import javax.sql.DataSource;
+
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.exception.AssertJDBException;
 import org.junit.Test;
-
-import javax.sql.DataSource;
 
 /**
  * Tests on the instantiation of {@code Request}.
  * <p>
  * These tests are on the raise of some Exception depending of the case of test.
  * </p>
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class Request_Instantiation_Test extends AbstractTest {
 

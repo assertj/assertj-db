@@ -12,9 +12,9 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.core.util.Lists;
-
 import java.util.List;
+
+import org.assertj.core.util.Lists;
 
 /**
  * Base class of AssertJ-DB SoftAssertions.

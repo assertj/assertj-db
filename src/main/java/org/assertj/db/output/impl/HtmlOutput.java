@@ -12,10 +12,18 @@
  */
 package org.assertj.db.output.impl;
 
-import org.assertj.core.api.WritableAssertionInfo;
-import org.assertj.db.type.*;
-
 import java.util.List;
+
+import org.assertj.core.api.WritableAssertionInfo;
+import org.assertj.db.type.Change;
+import org.assertj.db.type.ChangeType;
+import org.assertj.db.type.Changes;
+import org.assertj.db.type.Column;
+import org.assertj.db.type.DataType;
+import org.assertj.db.type.Request;
+import org.assertj.db.type.Row;
+import org.assertj.db.type.Table;
+import org.assertj.db.type.Value;
 
 /**
  * Implementation of html output of assertj-db.
@@ -32,18 +40,19 @@ enum HtmlOutput implements Output {
 
   /**
    * Returns the html document for output.
-   * @param info  Writable information about an assertion.
+   *
+   * @param info    Writable information about an assertion.
    * @param content Content of the html document.
    * @return The html document.
    */
   private static String getHtml(WritableAssertionInfo info, String content) {
 
     return "<html><head><title>description</title></head>"
-           + "<body><h1>"
-           + info.descriptionText()
-           + "</h1>"
-           + content
-           + "</body></html>";
+      + "<body><h1>"
+      + info.descriptionText()
+      + "</h1>"
+      + content
+      + "</body></html>";
   }
 
   /**
@@ -508,28 +517,28 @@ enum HtmlOutput implements Output {
     String type = valueAtStartPoint.getValue() != null ? typeAtStartPoint : typeAtEndPoint;
 
     String stringBuilder = "<table border=\"1\" cellspacing=\"0\">"
-                           + "<tr>"
-                           + "<th>"
-                           + "</th>"
-                           + "<th>"
-                           + columnName
-                           + "<br/>"
-                           + type
-                           + "</th>"
-                           + "</tr>"
-                           + "<tr>"
-                           + "<td>At start point</td>"
-                           + "<td>"
-                           + OutputType.getText(valueAtStartPoint)
-                           + "</td>"
-                           + "</tr>"
-                           + "<tr>"
-                           + "<td>At end point</td>"
-                           + "<td>"
-                           + OutputType.getText(valueAtEndPoint)
-                           + "</td>"
-                           + "</tr>"
-                           + "</table>";
+      + "<tr>"
+      + "<th>"
+      + "</th>"
+      + "<th>"
+      + columnName
+      + "<br/>"
+      + type
+      + "</th>"
+      + "</tr>"
+      + "<tr>"
+      + "<td>At start point</td>"
+      + "<td>"
+      + OutputType.getText(valueAtStartPoint)
+      + "</td>"
+      + "</tr>"
+      + "<tr>"
+      + "<td>At end point</td>"
+      + "<td>"
+      + OutputType.getText(valueAtEndPoint)
+      + "</td>"
+      + "</tr>"
+      + "</table>";
     return getHtml(info, stringBuilder);
   }
 
@@ -542,19 +551,19 @@ enum HtmlOutput implements Output {
     String type = OutputType.getType(value);
 
     String stringBuilder = "<table border=\"1\" cellspacing=\"0\">"
-                           + "<tr>"
-                           + "<th>"
-                           + columnName
-                           + "<br/>"
-                           + type
-                           + "</th>"
-                           + "</tr>"
-                           + "<tr>"
-                           + "<td>"
-                           + OutputType.getText(value)
-                           + "</td>"
-                           + "</tr>"
-                           + "</table>";
+      + "<tr>"
+      + "<th>"
+      + columnName
+      + "<br/>"
+      + type
+      + "</th>"
+      + "</tr>"
+      + "<tr>"
+      + "<td>"
+      + OutputType.getText(value)
+      + "</td>"
+      + "</tr>"
+      + "</table>";
     return getHtml(info, stringBuilder);
   }
 }

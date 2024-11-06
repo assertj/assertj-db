@@ -12,12 +12,12 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.error.ShouldHaveName.shouldHaveName;
+
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
 import org.assertj.db.type.lettercase.LetterCase;
-
-import static org.assertj.db.error.ShouldHaveName.shouldHaveName;
 
 /**
  * Implements the assertion method on the name of a column.
@@ -42,17 +42,17 @@ public class AssertionsOnColumnName {
   /**
    * Verifies that the name of a column is equal to the parameter.
    *
-   * @param <A>        The type of the assertion which call this method.
-   * @param assertion  The assertion which call this method.
-   * @param info       Writable information about an assertion.
-   * @param columnName The column name.
-   * @param expected   The expected column name.
+   * @param <A>              The type of the assertion which call this method.
+   * @param assertion        The assertion which call this method.
+   * @param info             Writable information about an assertion.
+   * @param columnName       The column name.
+   * @param expected         The expected column name.
    * @param columnLetterCase The letter case of column.
    * @return {@code this} assertion object.
    * @throws AssertionError If the column name is not equal to the parameter.
    */
   public static <A extends AbstractAssert<?>> A hasColumnName(A assertion, WritableAssertionInfo info, String columnName,
-                                                           String expected, LetterCase columnLetterCase) {
+                                                              String expected, LetterCase columnLetterCase) {
     if (expected == null) {
       throw new NullPointerException("Column name must be not null");
     }

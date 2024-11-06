@@ -12,6 +12,13 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.error.ShouldHavePksNames.shouldHavePksNames;
+import static org.assertj.db.error.ShouldHavePksValues.shouldHavePksValues;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
@@ -19,13 +26,6 @@ import org.assertj.db.type.Change;
 import org.assertj.db.type.Value;
 import org.assertj.db.type.lettercase.LetterCase;
 import org.assertj.db.util.Values;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import static org.assertj.db.error.ShouldHavePksNames.shouldHavePksNames;
-import static org.assertj.db.error.ShouldHavePksValues.shouldHavePksValues;
 
 /**
  * Implements the assertion methods on a primary key.
@@ -50,18 +50,18 @@ public class AssertionsOnPrimaryKey {
   /**
    * Verifies that the columns og the primary key of the rows of the change is the same as the parameters.
    *
-   * @param <A>       The type of the assertion which call this method.
-   * @param assertion The assertion which call this method.
-   * @param info      Writable information about an assertion.
-   * @param change    The change.
+   * @param <A>                  The type of the assertion which call this method.
+   * @param assertion            The assertion which call this method.
+   * @param info                 Writable information about an assertion.
+   * @param change               The change.
    * @param primaryKeyLetterCase Letter case of the primary keys.
-   * @param names     The names of the primary key associated with the rows of the change.
+   * @param names                The names of the primary key associated with the rows of the change.
    * @return {@code this} assertion object.
    * @throws AssertionError                 If the columns of the primary key are different to the names in parameters.
    * @throws java.lang.NullPointerException If one of the names in parameters is {@code null}.
    */
   public static <A extends AbstractAssert<?>> A hasPksNames(A assertion, WritableAssertionInfo info, Change change,
-                                                         LetterCase primaryKeyLetterCase, String... names) {
+                                                            LetterCase primaryKeyLetterCase, String... names) {
     if (names == null) {
       throw new NullPointerException("Columns names must be not null");
     }
@@ -112,7 +112,7 @@ public class AssertionsOnPrimaryKey {
    * @throws AssertionError If the values of the primary key are different to the values in parameters.
    */
   public static <A extends AbstractAssert<?>> A hasPksValues(A assertion, WritableAssertionInfo info, Change change,
-                                                          Object... values) {
+                                                             Object... values) {
     // Create a array from the primary keys columns
     List<Value> pksValueList = change.getPksValueList();
     Value[] pksValues = pksValueList.toArray(new Value[0]);

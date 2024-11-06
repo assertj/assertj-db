@@ -12,6 +12,14 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -21,20 +29,11 @@ import org.assertj.db.type.TimeValue;
 import org.assertj.db.type.Value;
 import org.junit.Test;
 
-import java.sql.Time;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertionsOnColumnEquality} class :
  * {@link AssertionsOnColumnEquality#hasValues(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, java.util.List, org.assertj.db.type.TimeValue...)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnColumnEquality_HasValues_TimeValue_Test extends AbstractTest {
 
@@ -47,9 +46,9 @@ public class AssertionsOnColumnEquality_HasValues_TimeValue_Test extends Abstrac
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, Time.valueOf("09:01:00")), getValue(
-            null, Time.valueOf("03:30:05")), getValue(null, null)));
+      null, Time.valueOf("03:30:05")), getValue(null, null)));
     TableAssert tableAssert2 = AssertionsOnColumnEquality.hasValues(tableAssert, info, list,
-                                                                    TimeValue.of(9, 1), TimeValue.of(3, 30, 5), null);
+      TimeValue.of(9, 1), TimeValue.of(3, 30, 5), null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -64,15 +63,15 @@ public class AssertionsOnColumnEquality_HasValues_TimeValue_Test extends Abstrac
     TableAssert tableAssert = assertThat(table);
     try {
       List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, Time.valueOf("09:01:00")), getValue(null, Time.valueOf(
-              "03:30:05"))));
+        "03:30:05"))));
       AssertionsOnColumnEquality.hasValues(tableAssert, info, list, TimeValue.of(9, 1), TimeValue.of(3, 30, 6));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that the value at index 1:%n"
-                                                      + "  <03:30:05.000000000>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <03:30:06.000000000>"));
+        + "Expecting that the value at index 1:%n"
+        + "  <03:30:05.000000000>%n"
+        + "to be equal to: %n"
+        + "  <03:30:06.000000000>"));
     }
   }
 
@@ -91,12 +90,12 @@ public class AssertionsOnColumnEquality_HasValues_TimeValue_Test extends Abstrac
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that the value at index 0:%n"
-                                                      + "  <false>%n"
-                                                      + "to be of type%n"
-                                                      + "  <[TIME, NOT_IDENTIFIED]>%n"
-                                                      + "but was of type%n"
-                                                      + "  <BOOLEAN>"));
+        + "Expecting that the value at index 0:%n"
+        + "  <false>%n"
+        + "to be of type%n"
+        + "  <[TIME, NOT_IDENTIFIED]>%n"
+        + "but was of type%n"
+        + "  <BOOLEAN>"));
     }
   }
 
@@ -110,17 +109,17 @@ public class AssertionsOnColumnEquality_HasValues_TimeValue_Test extends Abstrac
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, Time.valueOf("09:01:00")), getValue(null, Time.valueOf(
-            "03:30:05"))));
+      "03:30:05"))));
     try {
       AssertionsOnColumnEquality.hasValues(tableAssert, info, list, TimeValue.of(9, 1), TimeValue.of(3, 30, 5),
-                                           TimeValue.of(22, 27));
+        TimeValue.of(22, 27));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting size (number of rows) to be equal to :%n"
-                                                      + "   <3>%n"
-                                                      + "but was:%n"
-                                                      + "   <2>"));
+        + "Expecting size (number of rows) to be equal to :%n"
+        + "   <3>%n"
+        + "but was:%n"
+        + "   <2>"));
     }
   }
 }

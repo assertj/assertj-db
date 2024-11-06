@@ -12,6 +12,11 @@
  */
 package org.assertj.db.api.assertions;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.text.ParseException;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.ChangeColumnValueAssert;
 import org.assertj.db.api.TableColumnValueAssert;
@@ -22,17 +27,11 @@ import org.assertj.db.type.Table;
 import org.assertj.db.type.TimeValue;
 import org.junit.Test;
 
-import java.text.ParseException;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link org.assertj.db.api.assertions.AssertOnValueChronology} class :
  * {@link org.assertj.db.api.assertions.AssertOnValueChronology#isAfterOrEqualTo(org.assertj.db.type.TimeValue)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertOnValueChronology_IsAfterOrEqualTo_TimeValue_Test extends AbstractTest {
 
@@ -49,12 +48,12 @@ public class AssertOnValueChronology_IsAfterOrEqualTo_TimeValue_Test extends Abs
 
     ChangeColumnValueAssert changeColumnValueAssert = assertThat(changes).change().column("var8").valueAtEndPoint();
     ChangeColumnValueAssert changeColumnValueAssert2 = changeColumnValueAssert.isAfterOrEqualTo(
-            TimeValue.parse("09:46:29"));
+      TimeValue.parse("09:46:29"));
     Assertions.assertThat(changeColumnValueAssert).isSameAs(changeColumnValueAssert2);
 
     TableColumnValueAssert tableColumnValueAssert = assertThat(table).column("var8").value();
     TableColumnValueAssert tableColumnValueAssert2 = tableColumnValueAssert.isAfterOrEqualTo(
-            TimeValue.parse("09:46:29"));
+      TimeValue.parse("09:46:29"));
     Assertions.assertThat(tableColumnValueAssert).isSameAs(tableColumnValueAssert2);
   }
 
@@ -74,20 +73,20 @@ public class AssertOnValueChronology_IsAfterOrEqualTo_TimeValue_Test extends Abs
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 7 (column name : VAR8) of Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:test' source] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <09:46:30.000000000>%n"
-                                                      + "to be after or equal to %n"
-                                                      + "  <09:46:31.000000000>"));
+        + "Expecting:%n"
+        + "  <09:46:30.000000000>%n"
+        + "to be after or equal to %n"
+        + "  <09:46:31.000000000>"));
     }
     try {
       assertThat(table).column("var8").value().isAfterOrEqualTo(TimeValue.parse("09:46:31"));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 0 of Column at index 7 (column name : VAR8) of TEST table] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <09:46:30.000000000>%n"
-                                                      + "to be after or equal to %n"
-                                                      + "  <09:46:31.000000000>"));
+        + "Expecting:%n"
+        + "  <09:46:30.000000000>%n"
+        + "to be after or equal to %n"
+        + "  <09:46:31.000000000>"));
     }
   }
 }

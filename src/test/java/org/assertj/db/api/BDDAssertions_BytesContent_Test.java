@@ -29,9 +29,8 @@ import org.junit.Test;
 
 /**
  * Tests on {@code bytesContentOf} and {@code bytesContentFromClassPathOf} methods of {@code BDDAssertions}.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class BDDAssertions_BytesContent_Test {
 
@@ -77,7 +76,7 @@ public class BDDAssertions_BytesContent_Test {
   @Test
   public void test_bytesContentOf() {
     byte[] bytes = bytesContentOf(new File("target/test-classes/test.txt"));
-    assertThat(bytes).isEqualTo(new byte[] { 'T', 'e', 'x', 't', ' ', 'f', 'o', 'r', ' ', 't', 'e', 's', 't', 's' });
+    assertThat(bytes).isEqualTo(new byte[]{'T', 'e', 'x', 't', ' ', 'f', 'o', 'r', ' ', 't', 'e', 's', 't', 's'});
   }
 
   /**
@@ -86,13 +85,13 @@ public class BDDAssertions_BytesContent_Test {
   @Test
   public void test_bytesContentFromClassPathOf() {
     byte[] bytes = bytesContentFromClassPathOf("test.txt");
-    assertThat(bytes).isEqualTo(new byte[] { 'T', 'e', 'x', 't', ' ', 'f', 'o', 'r', ' ', 't', 'e', 's', 't', 's' });
+    assertThat(bytes).isEqualTo(new byte[]{'T', 'e', 'x', 't', ' ', 'f', 'o', 'r', ' ', 't', 'e', 's', 't', 's'});
   }
 
   /**
    * This method should throw an {@code AssertJDBException} when the {@code InputStream} throw an {@code IOException}
    * during the reading.
-   * 
+   *
    * @throws Throwable
    */
   @Test(expected = AssertJDBException.class)
@@ -109,7 +108,7 @@ public class BDDAssertions_BytesContent_Test {
         throw new IOException();
       }
     };
-    
+
     Class<?> assertionClass = Assertions.class;
     Method method = assertionClass.getDeclaredMethod("read", InputStream.class);
     method.setAccessible(true);
@@ -123,7 +122,7 @@ public class BDDAssertions_BytesContent_Test {
   /**
    * This method should throw an {@code AssertJDBException} when the {@code InputStream} throw an {@code IOException}
    * during the reading.
-   * 
+   *
    * @throws Throwable
    */
   @Test(expected = AssertJDBException.class)
@@ -135,7 +134,7 @@ public class BDDAssertions_BytesContent_Test {
         throw new IOException();
       }
     };
-    
+
     Class<?> assertionClass = Assertions.class;
     Method method = assertionClass.getDeclaredMethod("read", InputStream.class);
     method.setAccessible(true);

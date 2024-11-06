@@ -24,7 +24,17 @@ import org.assertj.db.type.DataType;
 public class ShouldBeDataType extends BasicErrorMessageFactory {
 
   private static final String EXPECTED_MESSAGE =
-          "%nExpecting:%nto be on data type%n" + "  <%s>%nbut was on data type%n  <%s>";
+    "%nExpecting:%nto be on data type%n" + "  <%s>%nbut was on data type%n  <%s>";
+
+  /**
+   * Constructor.
+   *
+   * @param expected The expected type.
+   * @param tested   The tested type.
+   */
+  private ShouldBeDataType(DataType expected, DataType tested) {
+    super(EXPECTED_MESSAGE, expected, tested);
+  }
 
   /**
    * Creates a new <code>{@link ShouldBeDataType}</code>.
@@ -35,15 +45,5 @@ public class ShouldBeDataType extends BasicErrorMessageFactory {
    */
   public static ErrorMessageFactory shouldBeDataType(DataType expected, DataType tested) {
     return new ShouldBeDataType(expected, tested);
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param expected The expected type.
-   * @param tested   The tested type.
-   */
-  private ShouldBeDataType(DataType expected, DataType tested) {
-    super(EXPECTED_MESSAGE, expected, tested);
   }
 }

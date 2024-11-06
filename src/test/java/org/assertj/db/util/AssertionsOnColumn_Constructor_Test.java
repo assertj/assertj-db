@@ -12,14 +12,14 @@
  */
 package org.assertj.db.util;
 
-import org.assertj.db.api.assertions.impl.AssertionsOnColumnEquality;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.db.api.assertions.impl.AssertionsOnColumnEquality;
+import org.junit.Test;
 
 /**
  * Test on the utility class {@code AssertionsOnColumn} : the private constructor.
@@ -40,8 +40,8 @@ public class AssertionsOnColumn_Constructor_Test {
    */
   @Test
   public void test_private_constructor_for_the_tests_coverage()
-          throws SecurityException, NoSuchMethodException, IllegalArgumentException, InstantiationException,
-          IllegalAccessException, InvocationTargetException {
+    throws SecurityException, NoSuchMethodException, IllegalArgumentException, InstantiationException,
+    IllegalAccessException, InvocationTargetException {
 
     Constructor<AssertionsOnColumnEquality> constructor = AssertionsOnColumnEquality.class.getDeclaredConstructor();
     assertThat(Modifier.isPrivate(constructor.getModifiers())).isTrue();

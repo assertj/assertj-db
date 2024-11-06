@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -19,15 +22,11 @@ import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertionsOnValueInequality} class :
  * {@link AssertionsOnValueInequality#isNotEqualTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, Number)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnValueInequality_IsNotEqualTo_Number_Test extends AbstractTest {
 
@@ -59,20 +58,20 @@ public class AssertionsOnValueInequality_IsNotEqualTo_Number_Test extends Abstra
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <8>%n"
-                                                      + "not to be equal to: %n"
-                                                      + "  <8>"));
+        + "Expecting:%n"
+        + "  <8>%n"
+        + "not to be equal to: %n"
+        + "  <8>"));
     }
     try {
       AssertionsOnValueInequality.isNotEqualTo(tableAssert, info, getValue(null, null), (Number) null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <null>%n"
-                                                                    + "not to be equal to: %n"
-                                                                    + "  <null>"));
+        + "Expecting:%n"
+        + "  <null>%n"
+        + "not to be equal to: %n"
+        + "  <null>"));
     }
   }
 
@@ -90,12 +89,12 @@ public class AssertionsOnValueInequality_IsNotEqualTo_Number_Test extends Abstra
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <false>%n"
-                                                      + "to be of type%n"
-                                                      + "  <NUMBER>%n"
-                                                      + "but was of type%n"
-                                                      + "  <BOOLEAN>"));
+        + "Expecting:%n"
+        + "  <false>%n"
+        + "to be of type%n"
+        + "  <NUMBER>%n"
+        + "but was of type%n"
+        + "  <BOOLEAN>"));
     }
   }
 }

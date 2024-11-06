@@ -12,22 +12,25 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.db.exception.AssertJDBException;
-import org.junit.Test;
-
-import java.io.*;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.db.api.Assertions.bytesContentFromClassPathOf;
 import static org.assertj.db.api.Assertions.bytesContentOf;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import org.assertj.db.exception.AssertJDBException;
+import org.junit.Test;
+
 /**
  * Tests on {@code bytesContentOf} and {@code bytesContentFromClassPathOf} methods of {@code Assertions}.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class Assertions_BytesContent_Test {
 
@@ -73,7 +76,7 @@ public class Assertions_BytesContent_Test {
   @Test
   public void test_bytesContentOf() {
     byte[] bytes = bytesContentOf(new File("target/test-classes/test.txt"));
-    assertThat(bytes).isEqualTo(new byte[] { 'T', 'e', 'x', 't', ' ', 'f', 'o', 'r', ' ', 't', 'e', 's', 't', 's' });
+    assertThat(bytes).isEqualTo(new byte[]{'T', 'e', 'x', 't', ' ', 'f', 'o', 'r', ' ', 't', 'e', 's', 't', 's'});
   }
 
   /**
@@ -82,13 +85,13 @@ public class Assertions_BytesContent_Test {
   @Test
   public void test_bytesContentFromClassPathOf() {
     byte[] bytes = bytesContentFromClassPathOf("test.txt");
-    assertThat(bytes).isEqualTo(new byte[] { 'T', 'e', 'x', 't', ' ', 'f', 'o', 'r', ' ', 't', 'e', 's', 't', 's' });
+    assertThat(bytes).isEqualTo(new byte[]{'T', 'e', 'x', 't', ' ', 'f', 'o', 'r', ' ', 't', 'e', 's', 't', 's'});
   }
 
   /**
    * This method should throw an {@code AssertJDBException} when the {@code InputStream} throw an {@code IOException}
    * during the reading.
-   * 
+   *
    * @throws Throwable
    */
   @Test(expected = AssertJDBException.class)
@@ -105,7 +108,7 @@ public class Assertions_BytesContent_Test {
         throw new IOException();
       }
     };
-    
+
     Class<?> assertionClass = Assertions.class;
     Method method = assertionClass.getDeclaredMethod("read", InputStream.class);
     method.setAccessible(true);
@@ -119,7 +122,7 @@ public class Assertions_BytesContent_Test {
   /**
    * This method should throw an {@code AssertJDBException} when the {@code InputStream} throw an {@code IOException}
    * during the reading.
-   * 
+   *
    * @throws Throwable
    */
   @Test(expected = AssertJDBException.class)
@@ -131,7 +134,7 @@ public class Assertions_BytesContent_Test {
         throw new IOException();
       }
     };
-    
+
     Class<?> assertionClass = Assertions.class;
     Method method = assertionClass.getDeclaredMethod("read", InputStream.class);
     method.setAccessible(true);

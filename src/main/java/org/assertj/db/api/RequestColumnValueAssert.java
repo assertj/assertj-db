@@ -18,18 +18,17 @@ import org.assertj.db.type.Value;
 
 /**
  * Assertion methods for a value in a {@link Column} of a {@link Request}.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class RequestColumnValueAssert
-        extends AbstractColumnValueAssert<Request, RequestAssert, RequestColumnAssert, RequestColumnValueAssert, RequestRowAssert, RequestRowValueAssert> {
+  extends AbstractColumnValueAssert<Request, RequestAssert, RequestColumnAssert, RequestColumnValueAssert, RequestRowAssert, RequestRowValueAssert> {
 
   /**
    * Constructor.
-   * 
+   *
    * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
-   * @param value The value to assert.
+   * @param value  The value to assert.
    */
   public RequestColumnValueAssert(RequestColumnAssert origin, Value value) {
     super(RequestColumnValueAssert.class, origin, value);

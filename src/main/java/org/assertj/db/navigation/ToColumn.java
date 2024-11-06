@@ -76,9 +76,8 @@ import org.assertj.db.navigation.element.ColumnElement;
  * </code>
  * </pre>
  *
- * @author Régis Pouiller
- *
  * @param <C> The class of a assertion on a column (an sub-class of {@link org.assertj.db.navigation.element.ColumnElement}).
+ * @author Régis Pouiller
  */
 public interface ToColumn<C extends ColumnElement> extends Navigation {
 
@@ -126,7 +125,7 @@ public interface ToColumn<C extends ColumnElement> extends Navigation {
    *
    * @param columnName The column name.
    * @return An object to make assertions on the {@link org.assertj.db.type.Column}.
-   * @throws NullPointerException If the column name in parameter is {@code null}.
+   * @throws NullPointerException                        If the column name in parameter is {@code null}.
    * @throws org.assertj.db.exception.AssertJDBException If there is no {@link org.assertj.db.type.Column} with this name.
    * @see org.assertj.db.api.TableAssert#column(String)
    * @see org.assertj.db.api.RequestAssert#column(String)

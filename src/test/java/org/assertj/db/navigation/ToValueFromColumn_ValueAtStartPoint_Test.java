@@ -12,27 +12,34 @@
  */
 package org.assertj.db.navigation;
 
-import org.assertj.core.api.Assertions;
-import org.assertj.db.api.*;
-import org.assertj.db.common.AbstractTest;
-import org.assertj.db.common.NeedReload;
-import org.assertj.db.output.*;
-import org.assertj.db.type.Changes;
-import org.assertj.db.type.Value;
-import org.junit.Test;
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.assertj.db.output.Outputs.output;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.output.Outputs.output;
+import org.assertj.core.api.Assertions;
+import org.assertj.db.api.AbstractAssertWithValues;
+import org.assertj.db.api.ChangeAssert;
+import org.assertj.db.api.ChangeColumnAssert;
+import org.assertj.db.api.ChangeColumnValueAssert;
+import org.assertj.db.api.ChangesAssert;
+import org.assertj.db.common.AbstractTest;
+import org.assertj.db.common.NeedReload;
+import org.assertj.db.output.AbstractOutputterWithValues;
+import org.assertj.db.output.ChangeColumnOutputter;
+import org.assertj.db.output.ChangeColumnValueOutputter;
+import org.assertj.db.output.ChangeOutputter;
+import org.assertj.db.output.ChangesOutputter;
+import org.assertj.db.type.Changes;
+import org.assertj.db.type.Value;
+import org.junit.Test;
 
 /**
  * Tests on {@link org.assertj.db.navigation.ToValueFromColumn} class :
  * {@link org.assertj.db.navigation.ToValueFromColumn#valueAtStartPoint()} method.
  *
  * @author Régis Pouiller
- *
  */
 public class ToValueFromColumn_ValueAtStartPoint_Test extends AbstractTest {
 
@@ -65,7 +72,7 @@ public class ToValueFromColumn_ValueAtStartPoint_Test extends AbstractTest {
     Assertions.assertThat(fieldRowAssert.get(positionCreation)).isNotNull();
     ChangeColumnValueAssert changeCreationRowValueAssertBis = changeColumnCreationAssert.valueAtStartPoint();
     Assertions.assertThat(changeColumnValueCreationAssert).isSameAs(
-            changeCreationRowValueAssertBis);
+      changeCreationRowValueAssertBis);
     Assertions.assertThat(((Value) fieldValueFromColumnAssert.get(changeColumnCreationAssert)).getValue()).isNull();
     Assertions.assertThat(((Value) fieldValueFromValueAssert.get(changeColumnValueCreationAssert)).getValue()).isNull();
 
@@ -78,8 +85,8 @@ public class ToValueFromColumn_ValueAtStartPoint_Test extends AbstractTest {
     ChangeColumnValueAssert changeModificationRowValueAssertBis = changeColumnValueModificationAssert.valueAtStartPoint();
     Assertions.assertThat(changeColumnValueModificationAssert).isSameAs(changeModificationRowValueAssertBis);
     Assertions.assertThat(((Value) fieldValueFromColumnAssert.get(changeColumnModificationAssert)).getValue()).isSameAs(
-            ((Value) fieldValueFromValueAssert.get(changeColumnValueModificationAssert)).getValue()).isEqualTo(
-            new BigDecimal("1"));
+      ((Value) fieldValueFromValueAssert.get(changeColumnValueModificationAssert)).getValue()).isEqualTo(
+      new BigDecimal("1"));
 
     ChangeAssert changeDeletionAssert = changesAssert.change(6);
     ChangeColumnAssert changeColumnDeletionAssert = changeDeletionAssert.column();
@@ -90,8 +97,8 @@ public class ToValueFromColumn_ValueAtStartPoint_Test extends AbstractTest {
     ChangeColumnValueAssert changeDeletionRowValueAssertBis = changeColumnDeletionAssert.valueAtStartPoint();
     Assertions.assertThat(changeColumnValueDeletionAssert).isSameAs(changeDeletionRowValueAssertBis);
     Assertions.assertThat(((Value) fieldValueFromColumnAssert.get(changeColumnDeletionAssert)).getValue()).isSameAs(
-            ((Value) fieldValueFromValueAssert.get(changeColumnValueDeletionAssert)).getValue()).isEqualTo(
-            new BigDecimal("3"));
+      ((Value) fieldValueFromValueAssert.get(changeColumnValueDeletionAssert)).getValue()).isEqualTo(
+      new BigDecimal("3"));
   }
 
   /**
@@ -123,7 +130,7 @@ public class ToValueFromColumn_ValueAtStartPoint_Test extends AbstractTest {
     Assertions.assertThat(fieldRowOutputter.get(positionCreation)).isNotNull();
     ChangeColumnValueOutputter changeCreationRowValueOutputterBis = changeColumnCreationOutputter.valueAtStartPoint();
     Assertions.assertThat(changeColumnValueCreationOutputter).isSameAs(
-            changeCreationRowValueOutputterBis);
+      changeCreationRowValueOutputterBis);
     Assertions.assertThat(((Value) fieldValueFromColumnOutputter.get(changeColumnCreationOutputter)).getValue()).isNull();
     Assertions.assertThat(((Value) fieldValueFromValueOutputter.get(changeColumnValueCreationOutputter)).getValue()).isNull();
 
@@ -136,8 +143,8 @@ public class ToValueFromColumn_ValueAtStartPoint_Test extends AbstractTest {
     ChangeColumnValueOutputter changeModificationRowValueOutputterBis = changeColumnValueModificationOutputter.valueAtStartPoint();
     Assertions.assertThat(changeColumnValueModificationOutputter).isSameAs(changeModificationRowValueOutputterBis);
     Assertions.assertThat(((Value) fieldValueFromColumnOutputter.get(changeColumnModificationOutputter)).getValue()).isSameAs(
-            ((Value) fieldValueFromValueOutputter.get(changeColumnValueModificationOutputter)).getValue()).isEqualTo(
-            new BigDecimal("1"));
+      ((Value) fieldValueFromValueOutputter.get(changeColumnValueModificationOutputter)).getValue()).isEqualTo(
+      new BigDecimal("1"));
 
     ChangeOutputter changeDeletionOutputter = changesOutputter.change(6);
     ChangeColumnOutputter changeColumnDeletionOutputter = changeDeletionOutputter.column();
@@ -148,7 +155,7 @@ public class ToValueFromColumn_ValueAtStartPoint_Test extends AbstractTest {
     ChangeColumnValueOutputter changeDeletionRowValueOutputterBis = changeColumnDeletionOutputter.valueAtStartPoint();
     Assertions.assertThat(changeColumnValueDeletionOutputter).isSameAs(changeDeletionRowValueOutputterBis);
     Assertions.assertThat(((Value) fieldValueFromColumnOutputter.get(changeColumnDeletionOutputter)).getValue()).isSameAs(
-            ((Value) fieldValueFromValueOutputter.get(changeColumnValueDeletionOutputter)).getValue()).isEqualTo(
-            new BigDecimal("3"));
+      ((Value) fieldValueFromValueOutputter.get(changeColumnValueDeletionOutputter)).getValue()).isEqualTo(
+      new BigDecimal("3"));
   }
 }

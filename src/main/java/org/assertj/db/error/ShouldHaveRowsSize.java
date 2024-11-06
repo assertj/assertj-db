@@ -17,30 +17,29 @@ import org.assertj.core.error.ErrorMessageFactory;
 
 /**
  * Creates an error message indicating that an assertion that verifies the rows size a value failed.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class ShouldHaveRowsSize extends BasicErrorMessageFactory {
 
   /**
+   * Constructor.
+   *
+   * @param actualSize   the size of {@code actual}.
+   * @param expectedSize the expected size.
+   */
+  private ShouldHaveRowsSize(int actualSize, int expectedSize) {
+    super("%nExpecting size (number of rows) to be equal to :%n   <%s>%nbut was:%n   <%s>", expectedSize, actualSize);
+  }
+
+  /**
    * Creates a new <code>{@link ShouldHaveRowsSize}</code>.
-   * 
-   * @param actualSize the size of {@code actual}.
+   *
+   * @param actualSize   the size of {@code actual}.
    * @param expectedSize the expected size.
    * @return the created {@code ErrorMessageFactory}.
    */
   public static ErrorMessageFactory shouldHaveRowsSize(int actualSize, int expectedSize) {
     return new ShouldHaveRowsSize(actualSize, expectedSize);
-  }
-
-  /**
-   * Constructor.
-   * 
-   * @param actualSize the size of {@code actual}.
-   * @param expectedSize the expected size.
-   */
-  private ShouldHaveRowsSize(int actualSize, int expectedSize) {
-    super("%nExpecting size (number of rows) to be equal to :%n   <%s>%nbut was:%n   <%s>", expectedSize, actualSize);
   }
 }

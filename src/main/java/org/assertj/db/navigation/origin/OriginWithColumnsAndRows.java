@@ -21,13 +21,12 @@ import org.assertj.db.navigation.element.RowElement;
  * Defines a class which is the {@link Origin} of another
  * and have {@link org.assertj.db.type.Column}s and {@link org.assertj.db.type.Row}s.
  *
- * @author Régis Pouiller
- *
  * @param <C> The class of a element of navigation on column (an sub-class of {@link org.assertj.db.navigation.element.ColumnElement}).
  * @param <R> The class of a element of navigation on a row (an sub-class of {@link org.assertj.db.navigation.element.RowElement}).
+ * @author Régis Pouiller
  */
 public interface OriginWithColumnsAndRows<C extends ColumnElement, R extends RowElement>
-        extends Origin,
-                ToColumn<C>,
-                ToRow<R> {
+  extends Origin,
+  ToColumn<C>,
+  ToRow<R> {
 }

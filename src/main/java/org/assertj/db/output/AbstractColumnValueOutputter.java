@@ -19,17 +19,16 @@ import org.assertj.db.type.Value;
 /**
  * Output methods about a value in a {@link Column}.
  *
- * @author Régis Pouiller
- *
- * @param <D> The class of the actual value (an sub-class of {@link AbstractDbData}).
- * @param <A> The class of the original assertion (an sub-class of {@link AbstractDbOutputter}).
- * @param <C> The class of this assertion (an sub-class of {@link AbstractColumnOutputter}).
+ * @param <D>  The class of the actual value (an sub-class of {@link AbstractDbData}).
+ * @param <A>  The class of the original assertion (an sub-class of {@link AbstractDbOutputter}).
+ * @param <C>  The class of this assertion (an sub-class of {@link AbstractColumnOutputter}).
  * @param <CV> The class of this assertion on the value (an sub-class of {@link AbstractColumnValueOutputter}).
- * @param <R> The class of the equivalent row assertion (an sub-class of {@link AbstractRowOutputter}).
+ * @param <R>  The class of the equivalent row assertion (an sub-class of {@link AbstractRowOutputter}).
  * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractRowValueOutputter}).
+ * @author Régis Pouiller
  */
 public abstract class AbstractColumnValueOutputter<D extends AbstractDbData<D>, A extends AbstractDbOutputter<D, A, C, CV, R, RV>, C extends AbstractColumnOutputter<D, A, C, CV, R, RV>, CV extends AbstractColumnValueOutputter<D, A, C, CV, R, RV>, R extends AbstractRowOutputter<D, A, C, CV, R, RV>, RV extends AbstractRowValueOutputter<D, A, C, CV, R, RV>>
-        extends AbstractValueOutputter<D, A, C, CV, C, CV, R, RV> {
+  extends AbstractValueOutputter<D, A, C, CV, C, CV, R, RV> {
 
   /**
    * Constructor.

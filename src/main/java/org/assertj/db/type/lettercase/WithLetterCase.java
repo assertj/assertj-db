@@ -14,6 +14,7 @@ package org.assertj.db.type.lettercase;
 
 /**
  * Defines the method to get the letter cases.
+ *
  * @author Régis Pouiller
  * @since 1.1.0
  */
