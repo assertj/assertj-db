@@ -65,33 +65,33 @@ public class ReservedH2Database_Source_NSNSNS_Test extends AbstractReservedH2Tes
     changes2.setEndPointNow();
 
     assertThat(table1)
-            .column().hasColumnName("READ")
-            .column().hasColumnName("BY")
-            .column().hasColumnName("SELECT")
-            .column().hasColumnName("FROM")
-            .column().hasColumnName("WHERE")
-            .column().hasColumnName("ORDER")
+      .column().hasColumnName("READ")
+      .column().hasColumnName("BY")
+      .column().hasColumnName("SELECT")
+      .column().hasColumnName("FROM")
+      .column().hasColumnName("WHERE")
+      .column().hasColumnName("ORDER")
     ;
 
     assertThat(changes1).change()
-            .column().hasColumnName("READ")
-            .column().hasColumnName("BY")
-            .column().hasColumnName("SELECT")
-            .column().hasColumnName("FROM")
-            .column().hasColumnName("WHERE")
-            .column().hasColumnName("ORDER")
+      .column().hasColumnName("READ")
+      .column().hasColumnName("BY")
+      .column().hasColumnName("SELECT")
+      .column().hasColumnName("FROM")
+      .column().hasColumnName("WHERE")
+      .column().hasColumnName("ORDER")
     ;
 
     assertThat(table2)
-            .column().hasColumnName("PRIMARY KEY")
-            .column().hasColumnName("COLUMN NAME")
-            .column().hasColumnName("TEST%TEST")
+      .column().hasColumnName("PRIMARY KEY")
+      .column().hasColumnName("COLUMN NAME")
+      .column().hasColumnName("TEST%TEST")
     ;
 
     assertThat(changes2).change()
-            .column().hasColumnName("PRIMARY KEY")
-            .column().hasColumnName("COLUMN NAME")
-            .column().hasColumnName("TEST%TEST")
+      .column().hasColumnName("PRIMARY KEY")
+      .column().hasColumnName("COLUMN NAME")
+      .column().hasColumnName("TEST%TEST")
     ;
   }
 
@@ -99,13 +99,13 @@ public class ReservedH2Database_Source_NSNSNS_Test extends AbstractReservedH2Tes
   @NeedReload
   public void test_ColumnName_hasColumnName_with_columns_to_check() {
     Table table1 = new Table(source, "GROUP", '`', '`')
-                      .setColumnsToCheck(new String[] {
-                          "READ", "BY", "SELECT", "FROM" 
-                      });
+      .setColumnsToCheck(new String[]{
+        "READ", "BY", "SELECT", "FROM"
+      });
     Table table2 = new Table(source, "TWO WORDS", '`', '`')
-                      .setColumnsToCheck(new String[] {
-                          "PRIMARY KEY", "COLUMN NAME", "TEST%TEST" 
-                      });
+      .setColumnsToCheck(new String[]{
+        "PRIMARY KEY", "COLUMN NAME", "TEST%TEST"
+      });
     Changes changes1 = new Changes(table1).setStartPointNow();
     Changes changes2 = new Changes(table2).setStartPointNow();
     update();
@@ -113,29 +113,29 @@ public class ReservedH2Database_Source_NSNSNS_Test extends AbstractReservedH2Tes
     changes2.setEndPointNow();
 
     assertThat(table1)
-            .column().hasColumnName("READ")
-            .column().hasColumnName("BY")
-            .column().hasColumnName("SELECT")
-            .column().hasColumnName("FROM")
+      .column().hasColumnName("READ")
+      .column().hasColumnName("BY")
+      .column().hasColumnName("SELECT")
+      .column().hasColumnName("FROM")
     ;
 
     assertThat(changes1).change()
-            .column().hasColumnName("READ")
-            .column().hasColumnName("BY")
-            .column().hasColumnName("SELECT")
-            .column().hasColumnName("FROM")
+      .column().hasColumnName("READ")
+      .column().hasColumnName("BY")
+      .column().hasColumnName("SELECT")
+      .column().hasColumnName("FROM")
     ;
 
     assertThat(table2)
-            .column().hasColumnName("PRIMARY KEY")
-            .column().hasColumnName("COLUMN NAME")
-            .column().hasColumnName("TEST%TEST")
+      .column().hasColumnName("PRIMARY KEY")
+      .column().hasColumnName("COLUMN NAME")
+      .column().hasColumnName("TEST%TEST")
     ;
 
     assertThat(changes2).change()
-            .column().hasColumnName("PRIMARY KEY")
-            .column().hasColumnName("COLUMN NAME")
-            .column().hasColumnName("TEST%TEST")
+      .column().hasColumnName("PRIMARY KEY")
+      .column().hasColumnName("COLUMN NAME")
+      .column().hasColumnName("TEST%TEST")
     ;
   }
 
@@ -143,13 +143,13 @@ public class ReservedH2Database_Source_NSNSNS_Test extends AbstractReservedH2Tes
   @NeedReload
   public void test_ColumnName_hasColumnName_with_columns_to_exclude() {
     Table table1 = new Table(source, "GROUP", '`', '`')
-                      .setColumnsToExclude(new String[] {
-                          "READ", "BY", "FROM" 
-                      });
+      .setColumnsToExclude(new String[]{
+        "READ", "BY", "FROM"
+      });
     Table table2 = new Table(source, "TWO WORDS", '`', '`')
-                      .setColumnsToExclude(new String[] {
-                          "COLUMN NAME" 
-                      });
+      .setColumnsToExclude(new String[]{
+        "COLUMN NAME"
+      });
     Changes changes1 = new Changes(table1).setStartPointNow();
     Changes changes2 = new Changes(table2).setStartPointNow();
     update();
@@ -157,25 +157,25 @@ public class ReservedH2Database_Source_NSNSNS_Test extends AbstractReservedH2Tes
     changes2.setEndPointNow();
 
     assertThat(table1)
-            .column().hasColumnName("SELECT")
-            .column().hasColumnName("WHERE")
-            .column().hasColumnName("ORDER")
+      .column().hasColumnName("SELECT")
+      .column().hasColumnName("WHERE")
+      .column().hasColumnName("ORDER")
     ;
 
     assertThat(changes1).change()
-            .column().hasColumnName("SELECT")
-            .column().hasColumnName("WHERE")
-            .column().hasColumnName("ORDER")
+      .column().hasColumnName("SELECT")
+      .column().hasColumnName("WHERE")
+      .column().hasColumnName("ORDER")
     ;
 
     assertThat(table2)
-            .column().hasColumnName("PRIMARY KEY")
-            .column().hasColumnName("TEST%TEST")
+      .column().hasColumnName("PRIMARY KEY")
+      .column().hasColumnName("TEST%TEST")
     ;
 
     assertThat(changes2).change()
-            .column().hasColumnName("PRIMARY KEY")
-            .column().hasColumnName("TEST%TEST")
+      .column().hasColumnName("PRIMARY KEY")
+      .column().hasColumnName("TEST%TEST")
     ;
   }
 
@@ -183,13 +183,13 @@ public class ReservedH2Database_Source_NSNSNS_Test extends AbstractReservedH2Tes
   @NeedReload
   public void test_ColumnName_hasColumnName_with_order() {
     Table table1 = new Table(source, "GROUP", '`', '`')
-                      .setColumnsToOrder(new Order[] {
-                          Order.asc("WHERE")
-                      });
+      .setColumnsToOrder(new Order[]{
+        Order.asc("WHERE")
+      });
     Table table2 = new Table(source, "TWO WORDS", '`', '`')
-                      .setColumnsToOrder(new Order[] {
-                          Order.asc("PRIMARY KEY")
-                      });
+      .setColumnsToOrder(new Order[]{
+        Order.asc("PRIMARY KEY")
+      });
     Changes changes1 = new Changes(table1).setStartPointNow();
     Changes changes2 = new Changes(table2).setStartPointNow();
     update();
@@ -197,33 +197,33 @@ public class ReservedH2Database_Source_NSNSNS_Test extends AbstractReservedH2Tes
     changes2.setEndPointNow();
 
     assertThat(table1)
-            .column().hasColumnName("READ")
-            .column().hasColumnName("BY")
-            .column().hasColumnName("SELECT")
-            .column().hasColumnName("FROM")
-            .column().hasColumnName("WHERE")
-            .column().hasColumnName("ORDER")
+      .column().hasColumnName("READ")
+      .column().hasColumnName("BY")
+      .column().hasColumnName("SELECT")
+      .column().hasColumnName("FROM")
+      .column().hasColumnName("WHERE")
+      .column().hasColumnName("ORDER")
     ;
 
     assertThat(changes1).change()
-            .column().hasColumnName("READ")
-            .column().hasColumnName("BY")
-            .column().hasColumnName("SELECT")
-            .column().hasColumnName("FROM")
-            .column().hasColumnName("WHERE")
-            .column().hasColumnName("ORDER")
+      .column().hasColumnName("READ")
+      .column().hasColumnName("BY")
+      .column().hasColumnName("SELECT")
+      .column().hasColumnName("FROM")
+      .column().hasColumnName("WHERE")
+      .column().hasColumnName("ORDER")
     ;
 
     assertThat(table2)
-            .column().hasColumnName("PRIMARY KEY")
-            .column().hasColumnName("COLUMN NAME")
-            .column().hasColumnName("TEST%TEST")
+      .column().hasColumnName("PRIMARY KEY")
+      .column().hasColumnName("COLUMN NAME")
+      .column().hasColumnName("TEST%TEST")
     ;
 
     assertThat(changes2).change()
-            .column().hasColumnName("PRIMARY KEY")
-            .column().hasColumnName("COLUMN NAME")
-            .column().hasColumnName("TEST%TEST")
+      .column().hasColumnName("PRIMARY KEY")
+      .column().hasColumnName("COLUMN NAME")
+      .column().hasColumnName("TEST%TEST")
     ;
   }
 

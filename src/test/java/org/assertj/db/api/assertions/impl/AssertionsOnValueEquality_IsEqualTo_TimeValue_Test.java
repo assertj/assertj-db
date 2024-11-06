@@ -12,6 +12,11 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.sql.Time;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -20,17 +25,11 @@ import org.assertj.db.type.Table;
 import org.assertj.db.type.TimeValue;
 import org.junit.Test;
 
-import java.sql.Time;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link  AssertionsOnValueEquality} class :
  * {@link  AssertionsOnValueEquality#isEqualTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, org.assertj.db.type.TimeValue)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnValueEquality_IsEqualTo_TimeValue_Test extends AbstractTest {
 
@@ -62,20 +61,20 @@ public class AssertionsOnValueEquality_IsEqualTo_TimeValue_Test extends Abstract
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <09:01:05.000000000>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <09:01:00.000000000>"));
+        + "Expecting:%n"
+        + "  <09:01:05.000000000>%n"
+        + "to be equal to: %n"
+        + "  <09:01:00.000000000>"));
     }
     try {
       AssertionsOnValueEquality.isEqualTo(tableAssert, info, getValue(null, Time.valueOf("09:01:05")), (TimeValue) null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <09:01:05.000000000>%n"
-                                                                    + "to be equal to: %n"
-                                                                    + "  <null>"));
+        + "Expecting:%n"
+        + "  <09:01:05.000000000>%n"
+        + "to be equal to: %n"
+        + "  <null>"));
     }
   }
 
@@ -93,12 +92,12 @@ public class AssertionsOnValueEquality_IsEqualTo_TimeValue_Test extends Abstract
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <8>%n"
-                                                      + "to be of type%n"
-                                                      + "  <TIME>%n"
-                                                      + "but was of type%n"
-                                                      + "  <NUMBER>"));
+        + "Expecting:%n"
+        + "  <8>%n"
+        + "to be of type%n"
+        + "  <TIME>%n"
+        + "but was of type%n"
+        + "  <NUMBER>"));
     }
   }
 }

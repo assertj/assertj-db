@@ -21,40 +21,43 @@ import org.assertj.db.type.Value;
 
 /**
  * Assertion methods about a value in a {@link Row}.
- * 
- * @author Régis Pouiller
- * 
- * @param <D> The class of the actual value (an sub-class of {@link AbstractDbData}).
- * @param <A> The class of the original assertion (an sub-class of {@link AbstractDbAssert}).
- * @param <C> The class of the equivalent row assertion (an sub-class of {@link AbstractColumnAssert}).
+ *
+ * @param <D>  The class of the actual value (an sub-class of {@link AbstractDbData}).
+ * @param <A>  The class of the original assertion (an sub-class of {@link AbstractDbAssert}).
+ * @param <C>  The class of the equivalent row assertion (an sub-class of {@link AbstractColumnAssert}).
  * @param <CV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractColumnValueAssert}
- *          ).
- * @param <R> The class of this assertion (an sub-class of {@link AbstractRowAssert}).
+ *             ).
+ * @param <R>  The class of this assertion (an sub-class of {@link AbstractRowAssert}).
  * @param <RV> The class of this assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
+ * @author Régis Pouiller
  */
 public abstract class AbstractRowValueAssert<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
-        extends AbstractValueAssert<D, A, R, RV, C, CV, R, RV>
-        implements ToValueFromRow<RV>,
-                   AssertOnColumnName<RV> {
+  extends AbstractValueAssert<D, A, R, RV, C, CV, R, RV>
+  implements ToValueFromRow<RV>,
+  AssertOnColumnName<RV> {
 
   /**
    * Constructor.
-   * 
-   * @param selfType Type of this assertion class : a sub-class of {@code AbstractValueAssert}.
-   * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
+   *
+   * @param selfType    Type of this assertion class : a sub-class of {@code AbstractValueAssert}.
+   * @param origin      The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    * @param actualValue The value on which are the assertion methods.
    */
   AbstractRowValueAssert(Class<RV> selfType, R origin, Value actualValue) {
     super(selfType, origin, actualValue);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public RV value(String columnName) {
     return returnToOrigin().value(columnName);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public RV hasColumnName(String columnName) {
     return AssertionsOnColumnName.hasColumnName(myself, info, value.getColumnName(), columnName, value.getColumnLetterCase());

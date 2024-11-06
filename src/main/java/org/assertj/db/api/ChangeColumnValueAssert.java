@@ -19,29 +19,32 @@ import org.assertj.db.type.Value;
  * Assertion methods for a value of a {@code Column} of a {@code Change}.
  *
  * @author Régis Pouiller
- *
  */
 public class ChangeColumnValueAssert
-        extends AbstractAssertWithValues<ChangeColumnValueAssert, ChangeColumnAssert>
-        implements ToValueFromColumn<ChangeColumnValueAssert> {
+  extends AbstractAssertWithValues<ChangeColumnValueAssert, ChangeColumnAssert>
+  implements ToValueFromColumn<ChangeColumnValueAssert> {
 
   /**
    * Constructor.
    *
    * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
-   * @param value The value on which are the assertions.
+   * @param value  The value on which are the assertions.
    */
   public ChangeColumnValueAssert(ChangeColumnAssert origin, Value value) {
     super(ChangeColumnValueAssert.class, origin, value);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeColumnValueAssert valueAtStartPoint() {
     return origin.valueAtStartPoint();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeColumnValueAssert valueAtEndPoint() {
     return origin.valueAtEndPoint();

@@ -71,7 +71,7 @@ public class H2DataBase_Test extends AbstractH2Test {
   public void test_tables_for_data_source() throws SQLException {
     try (Connection connection = dataSource.getConnection()) {
       DatabaseMetaData databaseMetaData = connection.getMetaData();
-      ResultSet resultSet = databaseMetaData.getTables("TESTH2", null, null, new String[] { "TABLE" });
+      ResultSet resultSet = databaseMetaData.getTables("TESTH2", null, null, new String[]{"TABLE"});
       assertThat(resultSet.next()).isTrue();
       assertThat(resultSet.getString("TABLE_NAME")).isEqualTo("TEST");
       assertThat(resultSet.next()).isFalse();
@@ -82,7 +82,7 @@ public class H2DataBase_Test extends AbstractH2Test {
   public void test_tables_for_source() throws SQLException {
     try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
       DatabaseMetaData databaseMetaData = connection.getMetaData();
-      ResultSet resultSet = databaseMetaData.getTables("TESTH2", null, null, new String[] { "TABLE" });
+      ResultSet resultSet = databaseMetaData.getTables("TESTH2", null, null, new String[]{"TABLE"});
       assertThat(resultSet.next()).isTrue();
       assertThat(resultSet.getString("TABLE_NAME")).isEqualTo("TEST");
       assertThat(resultSet.next()).isFalse();

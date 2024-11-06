@@ -12,20 +12,19 @@
  */
 package org.assertj.db.util;
 
-import org.assertj.db.common.AbstractTest;
-import org.assertj.db.type.DateValue;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.db.common.AbstractTest;
+import org.assertj.db.type.DateValue;
+import org.junit.Test;
 
 /**
  * Tests on {@code areEqual} method for {@code DateValue}s.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class Values_AreEqual_Value_And_DateValue_Test extends AbstractTest {
 

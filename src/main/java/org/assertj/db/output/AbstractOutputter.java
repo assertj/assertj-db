@@ -12,11 +12,14 @@
  */
 package org.assertj.db.output;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
+
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.global.AbstractElement;
 import org.assertj.db.output.impl.Output;
-
-import java.io.*;
 
 /**
  * Base class for all output of assertj-db.
@@ -28,7 +31,7 @@ import java.io.*;
  * @since 1.1.0
  */
 public abstract class AbstractOutputter<E extends AbstractOutputter<E>>
-        extends AbstractElement<E> {
+  extends AbstractElement<E> {
 
   /**
    * Type of output.
@@ -38,7 +41,7 @@ public abstract class AbstractOutputter<E extends AbstractOutputter<E>>
   /**
    * Constructor.
    *
-   * @param selfType    Class of this assertion class : a sub-class of {@code AbstractOutputter}.
+   * @param selfType Class of this assertion class : a sub-class of {@code AbstractOutputter}.
    */
   AbstractOutputter(Class<E> selfType) {
     super(selfType);

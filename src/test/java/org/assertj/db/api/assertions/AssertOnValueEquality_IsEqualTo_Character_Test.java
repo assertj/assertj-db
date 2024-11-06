@@ -29,7 +29,6 @@ import org.junit.Test;
  * {@link  org.assertj.db.api.assertions.AssertOnValueEquality#isEqualTo(Character)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertOnValueEquality_IsEqualTo_Character_Test extends AbstractTest {
 
@@ -69,20 +68,20 @@ public class AssertOnValueEquality_IsEqualTo_Character_Test extends AbstractTest
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 15 (column name : VAR16) of Change at index 0 (with primary key : [10]) of Changes on TEST table of 'sa/jdbc:h2:mem:test' source] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <\"e\">%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <'t'>"));
+        + "Expecting:%n"
+        + "  <\"e\">%n"
+        + "to be equal to: %n"
+        + "  <'t'>"));
     }
     try {
       assertThat(table).column("var16").value(1).isEqualTo('t');
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 1 of Column at index 15 (column name : VAR16) of TEST table] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <\"e\">%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <'t'>"));
+        + "Expecting:%n"
+        + "  <\"e\">%n"
+        + "to be equal to: %n"
+        + "  <'t'>"));
     }
   }
 }

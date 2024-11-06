@@ -22,43 +22,50 @@ import org.assertj.db.type.Value;
  * Assertion methods for a value of a {@code Row} of a {@code Change}.
  *
  * @author Régis Pouiller
- *
  */
 public class ChangeRowValueAssert
-        extends AbstractAssertWithValues<ChangeRowValueAssert, ChangeRowAssert>
-        implements ToValue<ChangeRowValueAssert>,
-                   ToValueFromRow<ChangeRowValueAssert>,
-                   AssertOnColumnName<ChangeRowValueAssert> {
+  extends AbstractAssertWithValues<ChangeRowValueAssert, ChangeRowAssert>
+  implements ToValue<ChangeRowValueAssert>,
+  ToValueFromRow<ChangeRowValueAssert>,
+  AssertOnColumnName<ChangeRowValueAssert> {
 
   /**
    * Constructor.
    *
    * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
-   * @param value The value on which are the assertions.
+   * @param value  The value on which are the assertions.
    */
   public ChangeRowValueAssert(ChangeRowAssert origin, Value value) {
     super(ChangeRowValueAssert.class, origin, value);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeRowValueAssert value() {
     return origin.value();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeRowValueAssert value(int index) {
     return origin.value(index);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeRowValueAssert value(String columnName) {
     return origin.value(columnName);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeRowValueAssert hasColumnName(String columnName) {
     return AssertionsOnColumnName.hasColumnName(myself, info, value.getColumnName(), columnName, value.getColumnLetterCase());

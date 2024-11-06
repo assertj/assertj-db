@@ -12,15 +12,14 @@
  */
 package org.assertj.db.type;
 
-import org.junit.Test;
-
 import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.Test;
 
 /**
  * Test on the type got from {@code valueOf} method from {@code ChangeType} enum.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class ChangeType_ValueOf_Test {
 

@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -19,15 +22,11 @@ import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertionsOnValueInequality} class :
  * {@link AssertionsOnValueInequality#isNotEqualTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, byte[])} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnValueInequality_IsNotEqualTo_Bytes_Test extends AbstractTest {
 
@@ -55,18 +54,18 @@ public class AssertionsOnValueInequality_IsNotEqualTo_Bytes_Test extends Abstrac
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnValueInequality.isNotEqualTo(tableAssert, info, getValue(null, new byte[] {0, 1}), new byte[] {0, 1});
+      AssertionsOnValueInequality.isNotEqualTo(tableAssert, info, getValue(null, new byte[]{0, 1}), new byte[]{0, 1});
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting to be not equal to the value but was equal"));
+        + "Expecting to be not equal to the value but was equal"));
     }
     try {
       AssertionsOnValueInequality.isNotEqualTo(tableAssert, info, getValue(null, null), (byte[]) null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting to be not equal to the value but was equal"));
+        + "Expecting to be not equal to the value but was equal"));
     }
   }
 
@@ -80,16 +79,16 @@ public class AssertionsOnValueInequality_IsNotEqualTo_Bytes_Test extends Abstrac
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnValueInequality.isNotEqualTo(tableAssert, info, getValue(null, 8), new byte[] { 0, 1});
+      AssertionsOnValueInequality.isNotEqualTo(tableAssert, info, getValue(null, 8), new byte[]{0, 1});
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <8>%n"
-                                                      + "to be of type%n"
-                                                      + "  <BYTES>%n"
-                                                      + "but was of type%n"
-                                                      + "  <NUMBER>"));
+        + "Expecting:%n"
+        + "  <8>%n"
+        + "to be of type%n"
+        + "  <BYTES>%n"
+        + "but was of type%n"
+        + "  <NUMBER>"));
     }
   }
 }

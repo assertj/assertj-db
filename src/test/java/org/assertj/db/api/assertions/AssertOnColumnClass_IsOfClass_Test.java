@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api.assertions;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.ChangeColumnAssert;
 import org.assertj.db.api.TableColumnAssert;
@@ -21,15 +24,11 @@ import org.assertj.db.type.Changes;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertOnColumnClass} class :
  * {@link AssertOnColumnClass#isOfClass(Class, boolean)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertOnColumnClass_IsOfClass_Test extends AbstractTest {
 
@@ -78,44 +77,44 @@ public class AssertOnColumnClass_IsOfClass_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 1 (column name : VAR2) of Change at index 0 (on table : TEST and with primary key : [5]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
-                                                                    + "Expecting that the value at start point:%n"
-                                                                    + "  <null>%n"
-                                                                    + "to be of class%n"
-                                                                    + "  <java.lang.Boolean>"));
+        + "Expecting that the value at start point:%n"
+        + "  <null>%n"
+        + "to be of class%n"
+        + "  <java.lang.Boolean>"));
     }
     try {
       assertThat(changes).change(1).column("var1").isOfClass(Boolean.class, true);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 0 (column name : VAR1) of Change at index 1 (on table : TEST and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
-                                                                    + "Expecting that the value at start point:%n"
-                                                                    + "  <1>%n"
-                                                                    + "to be of class%n"
-                                                                    + "  <java.lang.Boolean>%n"
-                                                                    + "but was of class%n"
-                                                                    + "  <java.lang.Integer>"));
+        + "Expecting that the value at start point:%n"
+        + "  <1>%n"
+        + "to be of class%n"
+        + "  <java.lang.Boolean>%n"
+        + "but was of class%n"
+        + "  <java.lang.Integer>"));
     }
     try {
       assertThat(table).column("var1").isOfClass(Boolean.class, true);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 0 (column name : VAR1) of TEST table] %n"
-                                                                    + "Expecting that the value at index 0:%n"
-                                                                    + "  <1>%n"
-                                                                    + "to be of class%n"
-                                                                    + "  <java.lang.Boolean>%n"
-                                                                    + "but was of class%n"
-                                                                    + "  <java.lang.Integer>"));
+        + "Expecting that the value at index 0:%n"
+        + "  <1>%n"
+        + "to be of class%n"
+        + "  <java.lang.Boolean>%n"
+        + "but was of class%n"
+        + "  <java.lang.Integer>"));
     }
     try {
       assertThat(table2).column("var2").isOfClass(Boolean.class, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 1 (column name : VAR2) of TEST2 table] %n"
-                                                                    + "Expecting that the value at index 1:%n"
-                                                                    + "  <null>%n"
-                                                                    + "to be of class%n"
-                                                                    + "  <java.lang.Boolean>"));
+        + "Expecting that the value at index 1:%n"
+        + "  <null>%n"
+        + "to be of class%n"
+        + "  <java.lang.Boolean>"));
     }
   }
 }

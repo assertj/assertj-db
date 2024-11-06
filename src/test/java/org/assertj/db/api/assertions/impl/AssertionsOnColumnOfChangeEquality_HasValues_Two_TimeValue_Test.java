@@ -12,6 +12,11 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.sql.Time;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -20,17 +25,11 @@ import org.assertj.db.type.Table;
 import org.assertj.db.type.TimeValue;
 import org.junit.Test;
 
-import java.sql.Time;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertionsOnColumnOfChangeEquality} class :
  * {@link AssertionsOnColumnOfChangeEquality#hasValues(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, Object, Object, TimeValue, TimeValue)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnColumnOfChangeEquality_HasValues_Two_TimeValue_Test extends AbstractTest {
 
@@ -43,9 +42,9 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_TimeValue_Test ext
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                                            getValue(null, Time.valueOf("09:01:00")),
-                                                                            getValue(null, Time.valueOf("03:30:05")),
-                                                                            TimeValue.of(9, 1), TimeValue.of(3, 30, 5));
+      getValue(null, Time.valueOf("09:01:00")),
+      getValue(null, Time.valueOf("03:30:05")),
+      TimeValue.of(9, 1), TimeValue.of(3, 30, 5));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -60,16 +59,16 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_TimeValue_Test ext
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   getValue(null, Time.valueOf("09:01:05")),
-                                                   getValue(null, Time.valueOf("03:30:05")),
-                                                   TimeValue.of(9, 1), TimeValue.of(3, 30, 5));
+        getValue(null, Time.valueOf("09:01:05")),
+        getValue(null, Time.valueOf("03:30:05")),
+        TimeValue.of(9, 1), TimeValue.of(3, 30, 5));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that start point:%n"
-                                                      + "  <09:01:05.000000000>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <09:01:00.000000000>"));
+        + "Expecting that start point:%n"
+        + "  <09:01:05.000000000>%n"
+        + "to be equal to: %n"
+        + "  <09:01:00.000000000>"));
     }
   }
 
@@ -84,16 +83,16 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_TimeValue_Test ext
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   getValue(null, Time.valueOf("09:01:00")),
-                                                   getValue(null, Time.valueOf("03:30:00")),
-                                                   TimeValue.of(9, 1), TimeValue.of(3, 30, 5));
+        getValue(null, Time.valueOf("09:01:00")),
+        getValue(null, Time.valueOf("03:30:00")),
+        TimeValue.of(9, 1), TimeValue.of(3, 30, 5));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that end point:%n"
-                                                      + "  <03:30:00.000000000>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <03:30:05.000000000>"));
+        + "Expecting that end point:%n"
+        + "  <03:30:00.000000000>%n"
+        + "to be equal to: %n"
+        + "  <03:30:05.000000000>"));
     }
   }
 
@@ -108,18 +107,18 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_TimeValue_Test ext
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   getValue(null, "other"),
-                                                   getValue(null, Time.valueOf("03:30:05")),
-                                                   TimeValue.of(9, 1), TimeValue.of(3, 30, 5));
+        getValue(null, "other"),
+        getValue(null, Time.valueOf("03:30:05")),
+        TimeValue.of(9, 1), TimeValue.of(3, 30, 5));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that the value at start point:%n"
-                                                      + "  <\"other\">%n"
-                                                      + "to be of type%n"
-                                                      + "  <[TIME, NOT_IDENTIFIED]>%n"
-                                                      + "but was of type%n"
-                                                      + "  <TEXT>"));
+        + "Expecting that the value at start point:%n"
+        + "  <\"other\">%n"
+        + "to be of type%n"
+        + "  <[TIME, NOT_IDENTIFIED]>%n"
+        + "but was of type%n"
+        + "  <TEXT>"));
     }
   }
 }

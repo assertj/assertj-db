@@ -12,13 +12,16 @@
  */
 package org.assertj.db.common;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.SQLWarning;
+import java.sql.Statement;
 
 /**
  * Default Statement.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class DefaultStatement implements Statement {
 
@@ -129,23 +132,23 @@ public class DefaultStatement implements Statement {
   }
 
   @Override
-  public void setFetchDirection(int direction) throws SQLException {
-    thisStatement.setFetchDirection(direction);
-  }
-
-  @Override
   public int getFetchDirection() throws SQLException {
     return thisStatement.getFetchDirection();
   }
 
   @Override
-  public void setFetchSize(int rows) throws SQLException {
-    thisStatement.setFetchSize(rows);
+  public void setFetchDirection(int direction) throws SQLException {
+    thisStatement.setFetchDirection(direction);
   }
 
   @Override
   public int getFetchSize() throws SQLException {
     return thisStatement.getFetchSize();
+  }
+
+  @Override
+  public void setFetchSize(int rows) throws SQLException {
+    thisStatement.setFetchSize(rows);
   }
 
   @Override
@@ -229,13 +232,13 @@ public class DefaultStatement implements Statement {
   }
 
   @Override
-  public void setPoolable(boolean poolable) throws SQLException {
-    thisStatement.setPoolable(poolable);
+  public boolean isPoolable() throws SQLException {
+    return thisStatement.isPoolable();
   }
 
   @Override
-  public boolean isPoolable() throws SQLException {
-    return thisStatement.isPoolable();
+  public void setPoolable(boolean poolable) throws SQLException {
+    thisStatement.setPoolable(poolable);
   }
 
   @Override

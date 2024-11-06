@@ -12,21 +12,20 @@
  */
 package org.assertj.db.type;
 
-import org.assertj.db.common.AbstractTest;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.sql.Date;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.Calendar;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.db.common.AbstractTest;
+import org.junit.Test;
 
 /**
  * Tests on the date value.
  *
  * @author Régis Pouiller
- *
  */
 public class DateValue_Test extends AbstractTest {
 
@@ -150,11 +149,11 @@ public class DateValue_Test extends AbstractTest {
     DateValue dateValue = DateValue.now();
     Calendar calendarSecond = Calendar.getInstance();
     assertThat(dateValue.getDayOfTheMonth()).isBetween(calendarFirst.get(Calendar.DAY_OF_MONTH),
-                                                       calendarSecond.get(Calendar.DAY_OF_MONTH));
+      calendarSecond.get(Calendar.DAY_OF_MONTH));
     assertThat(dateValue.getMonth()).isBetween(calendarFirst.get(Calendar.MONTH) + 1,
-                                               calendarSecond.get(Calendar.MONTH) + 1);
+      calendarSecond.get(Calendar.MONTH) + 1);
     assertThat(dateValue.getYear()).isBetween(calendarFirst.get(Calendar.YEAR),
-                                              calendarSecond.get(Calendar.YEAR));
+      calendarSecond.get(Calendar.YEAR));
   }
 
   /**
@@ -295,33 +294,33 @@ public class DateValue_Test extends AbstractTest {
     assertThat(DateValue.of(2007, 12, 23).equals(DateValue.of(2007, 12, 23))).isTrue();
     assertThat(DateValue.of(2007, 12, 23).equals(DateTimeValue.of(DateValue.of(2007, 12, 23)))).isTrue();
     assertThat(DateValue.of(2007, 12, 23).equals(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 0))))
-        .isTrue();
+      .isTrue();
     assertThat(DateValue.of(2007, 12, 23).equals(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 0, 0))))
-        .isTrue();
+      .isTrue();
     assertThat(
-        DateValue.of(2007, 12, 23).equals(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 0, 0, 0))))
-        .isTrue();
+      DateValue.of(2007, 12, 23).equals(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 0, 0, 0))))
+      .isTrue();
 
     assertThat(DateValue.of(2007, 12, 23).equals(DateValue.of(2008, 12, 23))).isFalse();
     assertThat(DateValue.of(2007, 12, 23).equals(DateValue.of(2007, 1, 23))).isFalse();
     assertThat(DateValue.of(2007, 12, 23).equals(DateValue.of(2007, 12, 24))).isFalse();
     assertThat(DateValue.of(2007, 12, 23).equals(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 0))))
-        .isFalse();
+      .isFalse();
     assertThat(DateValue.of(2007, 12, 23).equals(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 1))))
-        .isFalse();
+      .isFalse();
     assertThat(DateValue.of(2007, 12, 23).equals(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 0, 6))))
-        .isFalse();
+      .isFalse();
     assertThat(
-        DateValue.of(2007, 12, 23).equals(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 0, 0, 3))))
-        .isFalse();
+      DateValue.of(2007, 12, 23).equals(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 0, 0, 3))))
+      .isFalse();
     assertThat(
-        DateValue.of(2007, 12, 23).equals(DateTimeValue.of(DateValue.of(2008, 12, 23), TimeValue.of(0, 0, 0, 0))))
-        .isFalse();
+      DateValue.of(2007, 12, 23).equals(DateTimeValue.of(DateValue.of(2008, 12, 23), TimeValue.of(0, 0, 0, 0))))
+      .isFalse();
     assertThat(DateValue.of(2007, 12, 23).equals(DateTimeValue.of(DateValue.of(2007, 1, 23), TimeValue.of(0, 0, 0, 0))))
-        .isFalse();
+      .isFalse();
     assertThat(
-        DateValue.of(2007, 12, 23).equals(DateTimeValue.of(DateValue.of(2007, 12, 24), TimeValue.of(0, 0, 0, 0))))
-        .isFalse();
+      DateValue.of(2007, 12, 23).equals(DateTimeValue.of(DateValue.of(2007, 12, 24), TimeValue.of(0, 0, 0, 0))))
+      .isFalse();
     assertThat(DateValue.of(2007, 12, 23).equals(DateTimeValue.of(DateValue.of(2007, 12, 24)))).isFalse();
     assertThat(DateValue.of(2007, 12, 23).equals("")).isFalse();
   }
@@ -408,14 +407,14 @@ public class DateValue_Test extends AbstractTest {
   @Test
   public void test_move_date() {
     assertThat(DateValue.of(2007, 12, 23).move(DateValue.of(0, 0, 1))).as("add 1 day").isEqualTo(
-            DateValue.of(2007, 12, 24));
+      DateValue.of(2007, 12, 24));
     assertThat(DateValue.of(2007, 12, 23).move(DateValue.of(0, 0, 2))).as("add 2 days").isEqualTo(
-            DateValue.of(2007, 12, 25));
+      DateValue.of(2007, 12, 25));
 
     assertThat(DateValue.of(2007, 12, 23).move(DateValue.of(0, 0, -1))).as("substract 1 day").isEqualTo(
-            DateValue.of(2007, 12, 22));
+      DateValue.of(2007, 12, 22));
     assertThat(DateValue.of(2007, 12, 23).move(DateValue.of(0, 0, -2))).as("substract 2 days").isEqualTo(
-            DateValue.of(2007, 12, 21));
+      DateValue.of(2007, 12, 21));
 
     assertThat(DateValue.of(2007, 12, 23).move(DateValue.of(0, 1, 0))).as("add 1 month").isEqualTo(DateValue.of(2008, 1, 23));
     assertThat(DateValue.of(2007, 12, 23).move(DateValue.of(0, 2, 0))).as("add 2 months").isEqualTo(DateValue.of(2008, 2, 23));
@@ -442,54 +441,54 @@ public class DateValue_Test extends AbstractTest {
   @Test
   public void test_move_time() {
     assertThat(DateValue.of(2007, 12, 23).move(TimeValue.of(0, 0, 0, 1000000))).as("add 1 milli").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 0, 0, 1000000)));
+      DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 0, 0, 1000000)));
     assertThat(DateValue.of(2007, 12, 23).move(TimeValue.of(0, 0, 0, 2000000))).as("add 2 millis").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 0, 0, 2000000)));
+      DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 0, 0, 2000000)));
 
     assertThat(DateValue.of(2007, 12, 23).move(TimeValue.of(0, 0, 0, -1000000))).as("substract 1 milli").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(23, 59, 59, 999000000)));
+      DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(23, 59, 59, 999000000)));
     assertThat(DateValue.of(2007, 12, 23).move(TimeValue.of(0, 0, 0, -2000000))).as("substract 2 millis").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(23, 59, 59, 998000000)));
+      DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(23, 59, 59, 998000000)));
 
     assertThat(DateValue.of(2007, 12, 23).move(TimeValue.of(0, 0, 1))).as("add 1 second").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 0, 1)));
+      DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 0, 1)));
     assertThat(DateValue.of(2007, 12, 23).move(TimeValue.of(0, 0, 2))).as("add 2 seconds").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 0, 2)));
+      DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 0, 2)));
 
     assertThat(DateValue.of(2007, 12, 23).move(TimeValue.of(0, 0, -1))).as("substract 1 second").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(23, 59, 59, 0)));
+      DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(23, 59, 59, 0)));
     assertThat(DateValue.of(2007, 12, 23).move(TimeValue.of(0, 0, -2))).as("substract 2 seconds").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(23, 59, 58, 0)));
+      DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(23, 59, 58, 0)));
 
     assertThat(DateValue.of(2007, 12, 23).move(TimeValue.of(0, 1, 0))).as("add 1 minute").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 1)));
+      DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 1)));
     assertThat(DateValue.of(2007, 12, 23).move(TimeValue.of(0, 2, 0))).as("add 2 minutes").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 2)));
+      DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 2)));
 
     assertThat(DateValue.of(2007, 12, 23).move(TimeValue.of(0, -1, 0))).as("substract 1 minute").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(23, 59, 0, 0)));
+      DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(23, 59, 0, 0)));
     assertThat(DateValue.of(2007, 12, 23).move(TimeValue.of(0, -2, 0))).as("substract 2 minutes").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(23, 58, 0, 0)));
+      DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(23, 58, 0, 0)));
 
     assertThat(DateValue.of(2007, 12, 23).move(TimeValue.of(1, 0, 0))).as("add 1 hour").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(1, 0)));
+      DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(1, 0)));
     assertThat(DateValue.of(2007, 12, 23).move(TimeValue.of(2, 0, 0))).as("add 2 hours").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(2, 0)));
+      DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(2, 0)));
 
     assertThat(DateValue.of(2007, 12, 23).move(TimeValue.of(-1, 0, 0))).as("substract 1 hour").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(23, 0, 0, 0)));
+      DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(23, 0, 0, 0)));
     assertThat(DateValue.of(2007, 12, 23).move(TimeValue.of(-2, 0, 0))).as("substract 2 hours").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(22, 0, 0, 0)));
+      DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(22, 0, 0, 0)));
 
     assertThat(DateValue.of(2007, 12, 23).move(TimeValue.of(1, 1, 1, 1000000))).as("add 1 all").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(1, 1, 1, 1000000)));
+      DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(1, 1, 1, 1000000)));
     assertThat(DateValue.of(2007, 12, 23).move(TimeValue.of(2, 2, 2, 2000000))).as("add 2 all").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(2, 2, 2, 2000000)));
+      DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(2, 2, 2, 2000000)));
 
     assertThat(DateValue.of(2007, 12, 23).move(TimeValue.of(-1, -1, -1, -1000000))).as("substract 1 all").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(22, 58, 58, 999000000)));
+      DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(22, 58, 58, 999000000)));
     assertThat(DateValue.of(2007, 12, 23).move(TimeValue.of(-2, -2, -2, -2000000))).as("substract 2 all").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(21, 57, 57, 998000000)));
+      DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(21, 57, 57, 998000000)));
   }
 
   /**
@@ -498,108 +497,108 @@ public class DateValue_Test extends AbstractTest {
   @Test
   public void test_move_datetime() {
     assertThat(DateValue.of(2007, 12, 23)
-                        .move(DateTimeValue.of(DateValue.of(0, 0, 0), TimeValue.of(0, 0, 0, 1000000)))).as("add 1 milli")
-                                           .isEqualTo(
-                                                   DateTimeValue.of(DateValue.of(2007, 12, 23),
-                                                                    TimeValue.of(0, 0, 0, 1000000)));
+      .move(DateTimeValue.of(DateValue.of(0, 0, 0), TimeValue.of(0, 0, 0, 1000000)))).as("add 1 milli")
+      .isEqualTo(
+        DateTimeValue.of(DateValue.of(2007, 12, 23),
+          TimeValue.of(0, 0, 0, 1000000)));
     assertThat(DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(0, 0, 0), TimeValue.of(0, 0, 0, 2000000)))).as(
-            "add 2 millis").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 0, 0, 2000000)));
+      "add 2 millis").isEqualTo(
+      DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 0, 0, 2000000)));
 
     assertThat(DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(0, 0, 0), TimeValue.of(0, 0, 0, -1000000)))).as(
-            "substract 1 milli").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(23, 59, 59, 999000000)));
+      "substract 1 milli").isEqualTo(
+      DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(23, 59, 59, 999000000)));
     assertThat(DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(0, 0, 0), TimeValue.of(0, 0, 0, -2000000)))).as(
-            "substract 2 millis").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(23, 59, 59, 998000000)));
+      "substract 2 millis").isEqualTo(
+      DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(23, 59, 59, 998000000)));
 
     assertThat(DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(0, 0, 0), TimeValue.of(0, 0, 1)))).as(
-            "add 1 second").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 0, 1)));
+      "add 1 second").isEqualTo(
+      DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 0, 1)));
     assertThat(DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(0, 0, 0), TimeValue.of(0, 0, 2)))).as(
-            "add 2 seconds").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 0, 2)));
+      "add 2 seconds").isEqualTo(
+      DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 0, 2)));
 
     assertThat(DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(0, 0, 0), TimeValue.of(0, 0, -1)))).as(
-            "substract 1 second").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(23, 59, 59, 0)));
+      "substract 1 second").isEqualTo(
+      DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(23, 59, 59, 0)));
     assertThat(DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(0, 0, 0), TimeValue.of(0, 0, -2)))).as(
-            "substract 2 seconds").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(23, 59, 58, 0)));
+      "substract 2 seconds").isEqualTo(
+      DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(23, 59, 58, 0)));
 
     assertThat(DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(0, 0, 0), TimeValue.of(0, 1, 0)))).as(
-            "add 1 minute").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 1)));
+      "add 1 minute").isEqualTo(
+      DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 1)));
     assertThat(DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(0, 0, 0), TimeValue.of(0, 2, 0)))).as(
-            "add 2 minutes").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 2)));
+      "add 2 minutes").isEqualTo(
+      DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(0, 2)));
 
     assertThat(DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(0, 0, 0), TimeValue.of(0, -1, 0)))).as(
-            "substract 1 minute").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(23, 59, 0, 0)));
+      "substract 1 minute").isEqualTo(
+      DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(23, 59, 0, 0)));
     assertThat(DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(0, 0, 0), TimeValue.of(0, -2, 0)))).as(
-            "substract 2 minutes").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(23, 58, 0, 0)));
+      "substract 2 minutes").isEqualTo(
+      DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(23, 58, 0, 0)));
 
     assertThat(DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(0, 0, 0), TimeValue.of(1, 0, 0)))).as(
-            "add 1 hour").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(1, 0)));
+      "add 1 hour").isEqualTo(
+      DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(1, 0)));
     assertThat(DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(0, 0, 0), TimeValue.of(2, 0, 0)))).as(
-            "add 2 hours").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(2, 0)));
+      "add 2 hours").isEqualTo(
+      DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(2, 0)));
 
     assertThat(DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(0, 0, 0), TimeValue.of(-1, 0, 0)))).as(
-            "substract 1 hour").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(23, 0, 0, 0)));
+      "substract 1 hour").isEqualTo(
+      DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(23, 0, 0, 0)));
     assertThat(DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(0, 0, 0), TimeValue.of(-2, 0, 0)))).as(
-            "substract 2 hours").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(22, 0, 0, 0)));
+      "substract 2 hours").isEqualTo(
+      DateTimeValue.of(DateValue.of(2007, 12, 22), TimeValue.of(22, 0, 0, 0)));
 
     assertThat(DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(0, 0, 1), TimeValue.of(0, 0)))).as("add 1 day").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 24)));
+      DateTimeValue.of(DateValue.of(2007, 12, 24)));
     assertThat(DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(0, 0, 2), TimeValue.of(0, 0)))).as("add 2 days").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 25)));
+      DateTimeValue.of(DateValue.of(2007, 12, 25)));
 
     assertThat(
-            DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(0, 0, -1), TimeValue.of(0, 0)))).as("substract 1 day").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 22)));
+      DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(0, 0, -1), TimeValue.of(0, 0)))).as("substract 1 day").isEqualTo(
+      DateTimeValue.of(DateValue.of(2007, 12, 22)));
     assertThat(
-            DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(0, 0, -2), TimeValue.of(0, 0)))).as("substract 2 days").isEqualTo(
-            DateTimeValue.of(DateValue.of(2007, 12, 21)));
+      DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(0, 0, -2), TimeValue.of(0, 0)))).as("substract 2 days").isEqualTo(
+      DateTimeValue.of(DateValue.of(2007, 12, 21)));
 
     assertThat(DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(0, 1, 0), TimeValue.of(0, 0)))).as("add 1 month")
-                        .isEqualTo(DateTimeValue.of(DateValue.of(2008, 1, 23)));
+      .isEqualTo(DateTimeValue.of(DateValue.of(2008, 1, 23)));
     assertThat(DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(0, 2, 0), TimeValue.of(0, 0)))).as("add 2 months")
-                        .isEqualTo(DateTimeValue.of(DateValue.of(2008, 2, 23)));
+      .isEqualTo(DateTimeValue.of(DateValue.of(2008, 2, 23)));
 
     assertThat(DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(0, -1, 0), TimeValue.of(0, 0)))).as("substract 1 month")
-                        .isEqualTo(DateTimeValue.of(DateValue.of(2007, 11, 23)));
+      .isEqualTo(DateTimeValue.of(DateValue.of(2007, 11, 23)));
     assertThat(DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(0, -2, 0), TimeValue.of(0, 0)))).as("substract 2 months")
-                        .isEqualTo(DateTimeValue.of(DateValue.of(2007, 10, 23)));
+      .isEqualTo(DateTimeValue.of(DateValue.of(2007, 10, 23)));
 
     assertThat(DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(1, 0, 0), TimeValue.of(0, 0)))).as("add 1 year")
-                        .isEqualTo(DateTimeValue.of(DateValue.of(2008, 12, 23)));
+      .isEqualTo(DateTimeValue.of(DateValue.of(2008, 12, 23)));
     assertThat(DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(2, 0, 0), TimeValue.of(0, 0)))).as("add 2 years")
-                        .isEqualTo(DateTimeValue.of(DateValue.of(2009, 12, 23)));
+      .isEqualTo(DateTimeValue.of(DateValue.of(2009, 12, 23)));
 
     assertThat(DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(-1, 0, 0), TimeValue.of(0, 0)))).as("substract 1 year")
-                        .isEqualTo(DateTimeValue.of(DateValue.of(2006, 12, 23)));
+      .isEqualTo(DateTimeValue.of(DateValue.of(2006, 12, 23)));
     assertThat(DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(-2, 0, 0), TimeValue.of(0, 0)))).as("substract 2 years")
-                        .isEqualTo(DateTimeValue.of(DateValue.of(2005, 12, 23)));
+      .isEqualTo(DateTimeValue.of(DateValue.of(2005, 12, 23)));
 
     assertThat(DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(1, 1, 1), TimeValue.of(1, 1, 1, 1000000)))).as(
-            "add 1 all").isEqualTo(
-            DateTimeValue.of(DateValue.of(2009, 1, 24), TimeValue.of(1, 1, 1, 1000000)));
+      "add 1 all").isEqualTo(
+      DateTimeValue.of(DateValue.of(2009, 1, 24), TimeValue.of(1, 1, 1, 1000000)));
     assertThat(DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(2, 2, 2), TimeValue.of(2, 2, 2, 2000000)))).as(
-            "add 2 all").isEqualTo(
-            DateTimeValue.of(DateValue.of(2010, 2, 25), TimeValue.of(2, 2, 2, 2000000)));
+      "add 2 all").isEqualTo(
+      DateTimeValue.of(DateValue.of(2010, 2, 25), TimeValue.of(2, 2, 2, 2000000)));
 
     assertThat(DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(-1, -1, -1), TimeValue.of(-1, -1, -1, -1000000)))).as(
-            "substract 1 all").isEqualTo(
-            DateTimeValue.of(DateValue.of(2006, 11, 21), TimeValue.of(22, 58, 58, 999000000)));
+      "substract 1 all").isEqualTo(
+      DateTimeValue.of(DateValue.of(2006, 11, 21), TimeValue.of(22, 58, 58, 999000000)));
     assertThat(DateValue.of(2007, 12, 23).move(DateTimeValue.of(DateValue.of(-2, -2, -2), TimeValue.of(-2, -2, -2, -2000000)))).as(
-            "substract 2 all").isEqualTo(
-            DateTimeValue.of(DateValue.of(2005, 10, 20), TimeValue.of(21, 57, 57, 998000000)));
+      "substract 2 all").isEqualTo(
+      DateTimeValue.of(DateValue.of(2005, 10, 20), TimeValue.of(21, 57, 57, 998000000)));
   }
 
   /**

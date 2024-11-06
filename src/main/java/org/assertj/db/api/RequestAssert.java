@@ -16,16 +16,15 @@ import org.assertj.db.type.Request;
 
 /**
  * Assertion methods for a {@link Request}.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class RequestAssert
-        extends AbstractDbAssert<Request, RequestAssert, RequestColumnAssert, RequestColumnValueAssert, RequestRowAssert, RequestRowValueAssert> {
+  extends AbstractDbAssert<Request, RequestAssert, RequestColumnAssert, RequestColumnValueAssert, RequestRowAssert, RequestRowValueAssert> {
 
   /**
    * Constructor.
-   * 
+   *
    * @param request Request on which the assertion is.
    */
   public RequestAssert(Request request) {

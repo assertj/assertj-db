@@ -14,6 +14,7 @@ package org.assertj.db.type.lettercase;
 
 /**
  * Comparisons on {@link java.lang.String} which consider the case.
+ *
  * @author Régis Pouiller
  * @since 1.1.0
  */
@@ -23,7 +24,6 @@ public enum CaseComparisons implements CaseComparison {
    * Comparison on {@link java.lang.String} which ignore the case.
    */
   IGNORE {
-
     /**
      * {@inheritDoc}
      */
@@ -40,12 +40,10 @@ public enum CaseComparisons implements CaseComparison {
       if (value1 == null) {
         if (value2 == null) {
           return 0;
-        }
-        else {
+        } else {
           return -1;
         }
-      }
-      else if (value2 == null) {
+      } else if (value2 == null) {
         return 1;
       }
       return value1.compareToIgnoreCase(value2);
@@ -66,7 +64,6 @@ public enum CaseComparisons implements CaseComparison {
    * Comparison on {@link java.lang.String} which strictly consider the case.
    */
   STRICT {
-
     /**
      * {@inheritDoc}
      */
@@ -83,12 +80,10 @@ public enum CaseComparisons implements CaseComparison {
       if (value1 == null) {
         if (value2 == null) {
           return 0;
-        }
-        else {
+        } else {
           return -1;
         }
-      }
-      else if (value2 == null) {
+      } else if (value2 == null) {
         return 1;
       }
       return value1.compareTo(value2);

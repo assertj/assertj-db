@@ -12,18 +12,17 @@
  */
 package org.assertj.db.type;
 
-import org.assertj.db.common.AbstractTest;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.db.common.AbstractTest;
+import org.junit.Test;
 
 /**
  * Tests on getting a {@code Row} in a {@code Request} from primary keys values.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class Request_GetRowFromPksValues_Test extends AbstractTest {
 
@@ -33,9 +32,9 @@ public class Request_GetRowFromPksValues_Test extends AbstractTest {
   @Test
   public void test_getting_row_from_primary_keys_values_without_finding() throws Exception {
     Request request = new Request(source,
-        "SELECT actor.name, actor.firstname, movie.year, interpretation.id, interpretation.character "
-            + " FROM movie, actor, interpretation WHERE movie.id = interpretation.id_movie"
-            + " AND interpretation.id_actor = actor.id ORDER BY actor.name, movie.year");
+      "SELECT actor.name, actor.firstname, movie.year, interpretation.id, interpretation.character "
+        + " FROM movie, actor, interpretation WHERE movie.id = interpretation.id_movie"
+        + " AND interpretation.id_actor = actor.id ORDER BY actor.name, movie.year");
 
     assertThat(request.getRowFromPksValues(getValue(null, 1L))).isNull();
     assertThat(request.getRowFromPksValues(getValue(null, 3))).isNull();
@@ -52,9 +51,9 @@ public class Request_GetRowFromPksValues_Test extends AbstractTest {
   @Test
   public void test_getting_row_from_primary_keys_values_with_finding() throws Exception {
     Request request = new Request(source,
-        "SELECT actor.name, actor.firstname, movie.year, interpretation.id, interpretation.character "
-            + " FROM movie, actor, interpretation WHERE movie.id = interpretation.id_movie"
-            + " AND interpretation.id_actor = actor.id ORDER BY actor.name, movie.year").setPksName("id");
+      "SELECT actor.name, actor.firstname, movie.year, interpretation.id, interpretation.character "
+        + " FROM movie, actor, interpretation WHERE movie.id = interpretation.id_movie"
+        + " AND interpretation.id_actor = actor.id ORDER BY actor.name, movie.year").setPksName("id");
 
     assertThat(request.getRowFromPksValues(getValue(null, 3)).getValuesList().get(0).getValue()).isEqualTo("Weaver");
     assertThat(request.getRowFromPksValues(getValue(null, 3)).getValuesList().get(1).getValue()).isEqualTo("Sigourney");

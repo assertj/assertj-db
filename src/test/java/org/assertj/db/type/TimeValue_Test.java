@@ -12,22 +12,21 @@
  */
 package org.assertj.db.type;
 
-import org.assertj.db.common.AbstractTest;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.sql.Time;
 import java.text.ParseException;
 import java.time.LocalTime;
 import java.util.Calendar;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.db.common.AbstractTest;
+import org.junit.Test;
 
 /**
  * Tests on the time value.
  *
  * @author Régis Pouiller
  * @author Julien Roy
- *
  */
 public class TimeValue_Test extends AbstractTest {
 
@@ -278,35 +277,31 @@ public class TimeValue_Test extends AbstractTest {
     Calendar calendarSecond = Calendar.getInstance();
     if (calendarFirst.get(Calendar.DAY_OF_YEAR) == calendarSecond.get(Calendar.DAY_OF_YEAR)) {
       assertThat(timeValue.getHours()).isBetween(calendarFirst.get(Calendar.HOUR_OF_DAY),
-                                                calendarSecond.get(Calendar.HOUR_OF_DAY));
-    }
-    else {
+        calendarSecond.get(Calendar.HOUR_OF_DAY));
+    } else {
       assertThat(timeValue.getHours()).isBetween(calendarFirst.get(Calendar.HOUR_OF_DAY) - 24,
-                                                calendarSecond.get(Calendar.HOUR_OF_DAY) + 24);
+        calendarSecond.get(Calendar.HOUR_OF_DAY) + 24);
     }
     if (calendarFirst.get(Calendar.DAY_OF_YEAR) == calendarSecond.get(Calendar.HOUR_OF_DAY)) {
       assertThat(timeValue.getMinutes()).isBetween(calendarFirst.get(Calendar.MINUTE),
-                                                   calendarSecond.get(Calendar.MINUTE));
-    }
-    else {
+        calendarSecond.get(Calendar.MINUTE));
+    } else {
       assertThat(timeValue.getMinutes()).isBetween(calendarFirst.get(Calendar.MINUTE) - 60,
-                                                   calendarSecond.get(Calendar.MINUTE) + 60);
+        calendarSecond.get(Calendar.MINUTE) + 60);
     }
     if (calendarFirst.get(Calendar.MINUTE) == calendarSecond.get(Calendar.MINUTE)) {
       assertThat(timeValue.getSeconds()).isBetween(calendarFirst.get(Calendar.SECOND),
-                                                   calendarSecond.get(Calendar.SECOND));
-    }
-    else {
+        calendarSecond.get(Calendar.SECOND));
+    } else {
       assertThat(timeValue.getSeconds()).isBetween(calendarFirst.get(Calendar.SECOND) - 60,
-                                                   calendarSecond.get(Calendar.SECOND) + 60);
+        calendarSecond.get(Calendar.SECOND) + 60);
     }
     if (calendarFirst.get(Calendar.SECOND) == calendarSecond.get(Calendar.SECOND)) {
       assertThat(timeValue.getNanoSeconds()).isBetween(calendarFirst.get(Calendar.MILLISECOND) * 1000000,
-                                                       calendarSecond.get(Calendar.MILLISECOND) * 1000000);
-    }
-    else {
+        calendarSecond.get(Calendar.MILLISECOND) * 1000000);
+    } else {
       assertThat(timeValue.getNanoSeconds()).isBetween(calendarFirst.get(Calendar.MILLISECOND) * 1000000 - 1000000000,
-                                                       calendarSecond.get(Calendar.MILLISECOND) * 1000000 + 1000000000);
+        calendarSecond.get(Calendar.MILLISECOND) * 1000000 + 1000000000);
     }
   }
 
@@ -543,73 +538,73 @@ public class TimeValue_Test extends AbstractTest {
   @Test
   public void test_move_time() {
     assertThat(TimeValue.of(9, 1).move(TimeValue.of(0, 0, 0, 1))).as("add 1 nano").isEqualTo(
-            TimeValue.of(9, 1, 0, 1));
+      TimeValue.of(9, 1, 0, 1));
     assertThat(TimeValue.of(9, 1).move(TimeValue.of(0, 0, 0, 2))).as("add 2 nanos").isEqualTo(
-            TimeValue.of(9, 1, 0, 2));
+      TimeValue.of(9, 1, 0, 2));
 
     assertThat(TimeValue.of(9, 1).move(TimeValue.of(0, 0, 0, -1))).as("substract 1 nano").isEqualTo(
-            TimeValue.of(9, 0, 59, 999999999));
+      TimeValue.of(9, 0, 59, 999999999));
     assertThat(TimeValue.of(9, 1).move(TimeValue.of(0, 0, 0, -2))).as("substract 2 nanos").isEqualTo(
-            TimeValue.of(9, 0, 59, 999999998));
+      TimeValue.of(9, 0, 59, 999999998));
 
     assertThat(TimeValue.of(9, 1).move(TimeValue.of(0, 0, 0, 1000000))).as("add 1 milli").isEqualTo(
-            TimeValue.of(9, 1, 0, 1000000));
+      TimeValue.of(9, 1, 0, 1000000));
     assertThat(TimeValue.of(9, 1).move(TimeValue.of(0, 0, 0, 2000000))).as("add 2 millis").isEqualTo(
-            TimeValue.of(9, 1, 0, 2000000));
+      TimeValue.of(9, 1, 0, 2000000));
 
     assertThat(TimeValue.of(9, 1).move(TimeValue.of(0, 0, 0, -1000000))).as("substract 1 milli").isEqualTo(
-            TimeValue.of(9, 0, 59, 999000000));
+      TimeValue.of(9, 0, 59, 999000000));
     assertThat(TimeValue.of(9, 1).move(TimeValue.of(0, 0, 0, -2000000))).as("substract 2 millis").isEqualTo(
-            TimeValue.of(9, 0, 59, 998000000));
+      TimeValue.of(9, 0, 59, 998000000));
 
     assertThat(TimeValue.of(9, 1).move(TimeValue.of(0, 0, 1))).as("add 1 second").isEqualTo(
-            TimeValue.of(9, 1, 1));
+      TimeValue.of(9, 1, 1));
     assertThat(TimeValue.of(9, 1).move(TimeValue.of(0, 0, 2))).as("add 2 seconds").isEqualTo(
-            TimeValue.of(9, 1, 2));
+      TimeValue.of(9, 1, 2));
 
-    assertThat(TimeValue.of(9, 1, 58).move(TimeValue.of(0, 0,  10))).as("add 10 seconds to 58").isEqualTo(
-        TimeValue.of(9, 2, 8));
+    assertThat(TimeValue.of(9, 1, 58).move(TimeValue.of(0, 0, 10))).as("add 10 seconds to 58").isEqualTo(
+      TimeValue.of(9, 2, 8));
 
-    assertThat(TimeValue.of(9, 59, 58).move(TimeValue.of(0, 0,  50))).as("add 50 seconds to 58").isEqualTo(
-        TimeValue.of(10, 00, 48));
+    assertThat(TimeValue.of(9, 59, 58).move(TimeValue.of(0, 0, 50))).as("add 50 seconds to 58").isEqualTo(
+      TimeValue.of(10, 00, 48));
 
-    assertThat(TimeValue.of(9, 0, 0).move(TimeValue.of(0, 0,  -10))).as("substract 10 seconds to 0").isEqualTo(
-        TimeValue.of(8, 59, 50));
+    assertThat(TimeValue.of(9, 0, 0).move(TimeValue.of(0, 0, -10))).as("substract 10 seconds to 0").isEqualTo(
+      TimeValue.of(8, 59, 50));
 
     assertThat(TimeValue.of(9, 1).move(TimeValue.of(0, 0, -1))).as("substract 1 second").isEqualTo(
-            TimeValue.of(9, 0, 59, 0));
+      TimeValue.of(9, 0, 59, 0));
     assertThat(TimeValue.of(9, 1).move(TimeValue.of(0, 0, -2))).as("substract 2 seconds").isEqualTo(
-            TimeValue.of(9, 0, 58, 0));
+      TimeValue.of(9, 0, 58, 0));
 
     assertThat(TimeValue.of(9, 1).move(TimeValue.of(0, 1, 0))).as("add 1 minute").isEqualTo(
-            TimeValue.of(9, 2));
+      TimeValue.of(9, 2));
     assertThat(TimeValue.of(9, 1).move(TimeValue.of(0, 2, 0))).as("add 2 minutes").isEqualTo(
-            TimeValue.of(9, 3));
+      TimeValue.of(9, 3));
 
     assertThat(TimeValue.of(9, 1).move(TimeValue.of(0, -1, 0))).as("substract 1 minute").isEqualTo(
-            TimeValue.of(9, 0, 0, 0));
+      TimeValue.of(9, 0, 0, 0));
     assertThat(TimeValue.of(9, 1).move(TimeValue.of(0, -2, 0))).as("substract 2 minutes").isEqualTo(
-            TimeValue.of(8, 59, 0, 0));
+      TimeValue.of(8, 59, 0, 0));
 
     assertThat(TimeValue.of(9, 1).move(TimeValue.of(1, 0, 0))).as("add 1 hour").isEqualTo(
-            TimeValue.of(10, 1));
+      TimeValue.of(10, 1));
     assertThat(TimeValue.of(9, 1).move(TimeValue.of(2, 0, 0))).as("add 2 hours").isEqualTo(
-            TimeValue.of(11, 1));
+      TimeValue.of(11, 1));
 
     assertThat(TimeValue.of(9, 1).move(TimeValue.of(-1, 0, 0))).as("substract 1 hour").isEqualTo(
-            TimeValue.of(8, 1, 0, 0));
+      TimeValue.of(8, 1, 0, 0));
     assertThat(TimeValue.of(9, 1).move(TimeValue.of(-2, 0, 0))).as("substract 2 hours").isEqualTo(
-            TimeValue.of(7, 1, 0, 0));
+      TimeValue.of(7, 1, 0, 0));
 
     assertThat(TimeValue.of(9, 1).move(TimeValue.of(1, 1, 1, 1000000))).as("add 1 all").isEqualTo(
-            TimeValue.of(10, 2, 1, 1000000));
+      TimeValue.of(10, 2, 1, 1000000));
     assertThat(TimeValue.of(9, 1).move(TimeValue.of(2, 2, 2, 2000000))).as("add 2 all").isEqualTo(
-            TimeValue.of(11, 3, 2, 2000000));
+      TimeValue.of(11, 3, 2, 2000000));
 
     assertThat(TimeValue.of(9, 1).move(TimeValue.of(-1, -1, -1, -1000000))).as("substract 1 all").isEqualTo(
-            TimeValue.of(7, 59, 58, 999000000));
+      TimeValue.of(7, 59, 58, 999000000));
     assertThat(TimeValue.of(9, 1).move(TimeValue.of(-2, -2, -2, -2000000))).as("substract 2 all").isEqualTo(
-            TimeValue.of(6, 58, 57, 998000000));
+      TimeValue.of(6, 58, 57, 998000000));
   }
 
   /**

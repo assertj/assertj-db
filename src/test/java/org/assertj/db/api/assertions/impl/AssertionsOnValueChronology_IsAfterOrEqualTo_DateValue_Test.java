@@ -12,6 +12,12 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -20,18 +26,11 @@ import org.assertj.db.type.DateValue;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertionsOnValueChronology} class :
  * {@link AssertionsOnValueChronology#isAfterOrEqualTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, org.assertj.db.type.DateValue)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnValueChronology_IsAfterOrEqualTo_DateValue_Test extends AbstractTest {
 
@@ -44,20 +43,20 @@ public class AssertionsOnValueChronology_IsAfterOrEqualTo_DateValue_Test extends
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnValueChronology.isAfterOrEqualTo(tableAssert, info,
-                                                                            getValue(null, Timestamp.valueOf("2007-12-23 00:00:00")),
-                                                                            DateValue.of(2007, 12, 23));
+      getValue(null, Timestamp.valueOf("2007-12-23 00:00:00")),
+      DateValue.of(2007, 12, 23));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnValueChronology.isAfterOrEqualTo(tableAssert, info,
-                                                                getValue(null, Timestamp.valueOf("2007-12-23 09:01:05")),
-                                                                DateValue.of(2007, 12, 23));
+      getValue(null, Timestamp.valueOf("2007-12-23 09:01:05")),
+      DateValue.of(2007, 12, 23));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnValueChronology.isAfterOrEqualTo(tableAssert, info,
-                                                                getValue(null, Date.valueOf("2007-12-23")),
-                                                                DateValue.of(2007, 12, 23));
+      getValue(null, Date.valueOf("2007-12-23")),
+      DateValue.of(2007, 12, 23));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnValueChronology.isAfterOrEqualTo(tableAssert, info,
-                                                                getValue(null, Date.valueOf("2007-12-24")),
-                                                                DateValue.of(2007, 12, 23));
+      getValue(null, Date.valueOf("2007-12-24")),
+      DateValue.of(2007, 12, 23));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -72,27 +71,27 @@ public class AssertionsOnValueChronology_IsAfterOrEqualTo_DateValue_Test extends
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnValueChronology.isAfterOrEqualTo(tableAssert, info,
-                                                   getValue(null, Timestamp.valueOf("2007-12-23 09:01:05")),
-                                                   DateValue.of(2007, 12, 24));
+        getValue(null, Timestamp.valueOf("2007-12-23 09:01:05")),
+        DateValue.of(2007, 12, 24));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <2007-12-23T09:01:05.000000000>%n"
-                                                      + "to be after or equal to %n"
-                                                      + "  <2007-12-24T00:00:00.000000000>"));
+        + "Expecting:%n"
+        + "  <2007-12-23T09:01:05.000000000>%n"
+        + "to be after or equal to %n"
+        + "  <2007-12-24T00:00:00.000000000>"));
     }
     try {
       AssertionsOnValueChronology.isAfterOrEqualTo(tableAssert, info,
-                                                   getValue(null, Date.valueOf("2007-12-23")),
-                                                   DateValue.of(2007, 12, 24));
+        getValue(null, Date.valueOf("2007-12-23")),
+        DateValue.of(2007, 12, 24));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <2007-12-23>%n"
-                                                      + "to be after or equal to %n"
-                                                      + "  <2007-12-24>"));
+        + "Expecting:%n"
+        + "  <2007-12-23>%n"
+        + "to be after or equal to %n"
+        + "  <2007-12-24>"));
     }
   }
 
@@ -107,17 +106,17 @@ public class AssertionsOnValueChronology_IsAfterOrEqualTo_DateValue_Test extends
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnValueChronology.isAfterOrEqualTo(tableAssert, info,
-                                                   getValue(null, "test"),
-                                                   DateValue.of(2007, 12, 23));
+        getValue(null, "test"),
+        DateValue.of(2007, 12, 23));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <\"test\">%n"
-                                                      + "to be of type%n"
-                                                      + "  <[DATE, DATE_TIME]>%n"
-                                                      + "but was of type%n"
-                                                      + "  <TEXT>"));
+        + "Expecting:%n"
+        + "  <\"test\">%n"
+        + "to be of type%n"
+        + "  <[DATE, DATE_TIME]>%n"
+        + "but was of type%n"
+        + "  <TEXT>"));
     }
   }
 }

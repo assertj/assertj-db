@@ -12,24 +12,27 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.AbstractAssert;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.common.AbstractTest;
-import org.assertj.db.type.*;
+import org.assertj.db.type.Change;
+import org.assertj.db.type.ChangeType;
+import org.assertj.db.type.DataType;
+import org.assertj.db.type.Row;
+import org.assertj.db.type.Table;
 import org.assertj.db.type.lettercase.LetterCase;
 import org.junit.Test;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link AssertionsOnDataType} class :
  * {@link AssertionsOnDataType#isOnTable(AbstractAssert, WritableAssertionInfo, Change, LetterCase, String)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnDataType_IsOnTable_Name_Test extends AbstractTest {
 
@@ -65,11 +68,11 @@ public class AssertionsOnDataType_IsOnTable_Name_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "to be on data type%n"
-                                                      + "  <TABLE>%n"
-                                                      + "but was on data type%n"
-                                                      + "  <REQUEST>"));
+        + "Expecting:%n"
+        + "to be on data type%n"
+        + "  <TABLE>%n"
+        + "but was on data type%n"
+        + "  <REQUEST>"));
     }
   }
 
@@ -90,10 +93,10 @@ public class AssertionsOnDataType_IsOnTable_Name_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting to be on the table:%n"
-                                                      + "  <\"test2\">%n"
-                                                      + "but was on the table:%n"
-                                                      + "  <\"test\">"));
+        + "Expecting to be on the table:%n"
+        + "  <\"test2\">%n"
+        + "but was on the table:%n"
+        + "  <\"test\">"));
     }
   }
 

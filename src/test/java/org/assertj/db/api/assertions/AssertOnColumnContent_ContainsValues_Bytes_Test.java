@@ -12,22 +12,21 @@
  */
 package org.assertj.db.api.assertions;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.assertj.db.api.Assertions.bytesContentFromClassPathOf;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.TableColumnAssert;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.api.Assertions.bytesContentFromClassPathOf;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link org.assertj.db.api.assertions.AssertOnColumnContent} class :
  * {@link AssertOnColumnContent#containsValues(byte[]...)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertOnColumnContent_ContainsValues_Bytes_Test extends AbstractTest {
 
@@ -64,8 +63,8 @@ public class AssertOnColumnContent_ContainsValues_Bytes_Test extends AbstractTes
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 10 (column name : VAR11) of TEST table] %n"
-                                                      + "Expecting to contain values but not%n"
-                                                      + " (parameter at index 1 is not found)"));
+        + "Expecting to contain values but not%n"
+        + " (parameter at index 1 is not found)"));
     }
 
     Table table2 = new Table(source, "test2");
@@ -75,8 +74,8 @@ public class AssertOnColumnContent_ContainsValues_Bytes_Test extends AbstractTes
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 10 (column name : VAR11) of TEST2 table] %n"
-                                                      + "Expecting to contain values but not%n"
-                                                      + " (parameter at index 1 is not found)"));
+        + "Expecting to contain values but not%n"
+        + " (parameter at index 1 is not found)"));
     }
   }
 }

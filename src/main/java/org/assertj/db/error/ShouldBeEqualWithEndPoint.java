@@ -17,9 +17,8 @@ import org.assertj.core.error.ErrorMessageFactory;
 
 /**
  * Creates an error message indicating that an assertion that verifies that a value at end point is equal to another value.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class ShouldBeEqualWithEndPoint extends BasicErrorMessageFactory {
 
@@ -27,9 +26,26 @@ public class ShouldBeEqualWithEndPoint extends BasicErrorMessageFactory {
   private static final String EXPECTED_MESSAGE_WITHOUT_VALUES = "%nExpecting that end point to be equal to the expected value but was not equal";
 
   /**
+   * Constructor.
+   *
+   * @param actual   The actual value in the failed assertion.
+   * @param expected The expected value to compare to.
+   */
+  private ShouldBeEqualWithEndPoint(Object actual, Object expected) {
+    super(EXPECTED_MESSAGE, actual, expected);
+  }
+
+  /**
+   * Constructor.
+   */
+  private ShouldBeEqualWithEndPoint() {
+    super(EXPECTED_MESSAGE_WITHOUT_VALUES);
+  }
+
+  /**
    * Creates a new <code>{@link org.assertj.db.error.ShouldBeEqualWithEndPoint}</code>.
    *
-   * @param actual The actual value in the failed assertion.
+   * @param actual   The actual value in the failed assertion.
    * @param expected The expected value to compare to.
    * @return the created {@code ErrorMessageFactory}.
    */
@@ -44,22 +60,5 @@ public class ShouldBeEqualWithEndPoint extends BasicErrorMessageFactory {
    */
   public static ErrorMessageFactory shouldBeEqualWithEndPoint() {
     return new ShouldBeEqualWithEndPoint();
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param actual The actual value in the failed assertion.
-   * @param expected The expected value to compare to.
-   */
-  private ShouldBeEqualWithEndPoint(Object actual, Object expected) {
-    super(EXPECTED_MESSAGE, actual, expected);
-  }
-
-  /**
-   * Constructor.
-   */
-  private ShouldBeEqualWithEndPoint() {
-    super(EXPECTED_MESSAGE_WITHOUT_VALUES);
   }
 }

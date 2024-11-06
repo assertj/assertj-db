@@ -20,9 +20,8 @@ package org.assertj.db.type;
  * Source source = new Source("jdbc:h2:mem:test", "sa", "");
  * </code></pre>
  * <p>That creates a source to a H2 database in memory.</p>
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class Source {
 
@@ -41,9 +40,9 @@ public class Source {
 
   /**
    * Constructor with the information.
-   * 
-   * @param url URL to the database.
-   * @param user User to connect.
+   *
+   * @param url      URL to the database.
+   * @param user     User to connect.
    * @param password Password to connect.
    */
   public Source(String url, String user, String password) {
@@ -54,7 +53,7 @@ public class Source {
 
   /**
    * Returns the URL to the database.
-   * 
+   *
    * @return The URL to the database.
    */
   public String getUrl() {
@@ -63,7 +62,7 @@ public class Source {
 
   /**
    * Returns the user to connect.
-   * 
+   *
    * @return The user to connect.
    */
   public String getUser() {
@@ -72,7 +71,7 @@ public class Source {
 
   /**
    * Returns the password to connect.
-   * 
+   *
    * @return The password to connect.
    */
   public String getPassword() {

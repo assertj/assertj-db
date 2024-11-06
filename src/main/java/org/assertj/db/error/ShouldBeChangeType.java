@@ -24,7 +24,17 @@ import org.assertj.db.type.ChangeType;
 public class ShouldBeChangeType extends BasicErrorMessageFactory {
 
   private static final String EXPECTED_MESSAGE =
-          "%nExpecting:%nto be of type%n" + "  <%s>%nbut was of type%n  <%s>";
+    "%nExpecting:%nto be of type%n" + "  <%s>%nbut was of type%n  <%s>";
+
+  /**
+   * Constructor.
+   *
+   * @param expected The expected type.
+   * @param tested   The tested type.
+   */
+  private ShouldBeChangeType(ChangeType expected, ChangeType tested) {
+    super(EXPECTED_MESSAGE, expected, tested);
+  }
 
   /**
    * Creates a new <code>{@link ShouldBeChangeType}</code>.
@@ -35,15 +45,5 @@ public class ShouldBeChangeType extends BasicErrorMessageFactory {
    */
   public static ErrorMessageFactory shouldBeChangeType(ChangeType expected, ChangeType tested) {
     return new ShouldBeChangeType(expected, tested);
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param expected The expected type.
-   * @param tested   The tested type.
-   */
-  private ShouldBeChangeType(ChangeType expected, ChangeType tested) {
-    super(EXPECTED_MESSAGE, expected, tested);
   }
 }

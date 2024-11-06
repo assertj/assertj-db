@@ -12,20 +12,19 @@
  */
 package org.assertj.db.type;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table.Order;
 import org.junit.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests on the {@code Column} of {@code Table}.
  * <p>
  * These tests are on the values in the {@code Column} got from a {@code Table}.
  * </p>
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class Table_Columns_Test extends AbstractTest {
 
@@ -70,7 +69,7 @@ public class Table_Columns_Test extends AbstractTest {
 
     assertThat(table.getColumnsToCheck()).isNull();
 
-    table.setColumnsToCheck(new String[] { "title" , "test" });
+    table.setColumnsToCheck(new String[]{"title", "test"});
 
     assertThat(table.getColumnsToCheck()).hasSize(1);
     assertThat(table.getColumnsToCheck()).contains("TITLE");
@@ -85,7 +84,7 @@ public class Table_Columns_Test extends AbstractTest {
 
     assertThat(table.getColumnsToExclude()).isNull();
 
-    table.setColumnsToExclude(new String[] { "title" , "test" });
+    table.setColumnsToExclude(new String[]{"title", "test"});
 
     assertThat(table.getColumnsToExclude()).hasSize(1);
     assertThat(table.getColumnsToExclude()).contains("TITLE");
@@ -100,7 +99,7 @@ public class Table_Columns_Test extends AbstractTest {
 
     assertThat(table.getColumnsToOrder()).isNull();
 
-    table.setColumnsToOrder(new Order[] { Order.asc("title") , Order.asc("test") });
+    table.setColumnsToOrder(new Order[]{Order.asc("title"), Order.asc("test")});
 
     assertThat(table.getColumnsToOrder()).hasSize(1);
     assertThat(table.getColumnsToOrder()).contains(Order.asc("TITLE"));

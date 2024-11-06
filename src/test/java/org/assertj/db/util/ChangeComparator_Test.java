@@ -12,13 +12,13 @@
  */
 package org.assertj.db.util;
 
-import org.assertj.db.common.AbstractTest;
-import org.assertj.db.type.Row;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.db.common.AbstractTest;
+import org.assertj.db.type.Row;
+import org.junit.Test;
 
 /**
  * Tests on the comparator for {@code Change}
@@ -44,31 +44,31 @@ public class ChangeComparator_Test extends AbstractTest {
   static {
     try {
       ROW_ID_PK_1_TEST = getRow(Arrays.asList("id"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(
-              null, "test")));
+        null, "test")));
       ROW_ID_PK_1_TEST1 = getRow(Arrays.asList("id"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(
-              null, "test1")));
+        null, "test1")));
       ROW_ID_PK_1_TEST2 = getRow(Arrays.asList("id"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(
-              null, "test2")));
+        null, "test2")));
       ROW_ID_PK_2_TEST1 = getRow(Arrays.asList("id"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 2), getValue(
-              null, "test1")));
+        null, "test1")));
       ROW_ID_PK_2_TEST2 = getRow(Arrays.asList("id"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 2), getValue(
-              null, "test2")));
+        null, "test2")));
       ROW_NAME_PK_1_TEST1 = getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(
-              null, "test1")));
+        null, "test1")));
       ROW_NAME_PK_1_TEST2 = getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(
-              null, "test2")));
+        null, "test2")));
       ROW_NAME_PK_1_NULL = getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(
-              null, null)));
+        null, null)));
       ROW_NAME_PK_1_BYTES_0 = getRow(Arrays.asList("name"), Arrays.asList("id", "name"),
-                                     Arrays.asList(getValue(null, 1), getValue(null, new byte[] { 0 })));
+        Arrays.asList(getValue(null, 1), getValue(null, new byte[]{0})));
       ROW_NAME_PK_1_BYTES_1 = getRow(Arrays.asList("name"), Arrays.asList("id", "name"),
-                                     Arrays.asList(getValue(null, 1), getValue(null, new byte[] { 1 })));
+        Arrays.asList(getValue(null, 1), getValue(null, new byte[]{1})));
       ROW_NAME_PK_2_TEST1 = getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 2), getValue(
-              null, "test1")));
+        null, "test1")));
       ROW_NAME_PK_2_TEST2 = getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 2), getValue(
-              null, "test2")));
-      ROW_NAME_PK_2_NULL = getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 2),getValue(
-              null, null)));
+        null, "test2")));
+      ROW_NAME_PK_2_NULL = getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 2), getValue(
+        null, null)));
     } catch (Exception e) {
       throw new ExceptionInInitializerError(e);
     }
@@ -91,7 +91,7 @@ public class ChangeComparator_Test extends AbstractTest {
   @Test
   public void test_compareTo_zero_because_the_change_are_equals_with_id_as_pk() throws Exception {
     assertThat(ChangeComparator.INSTANCE.compare(getTableCreationChange("table", ROW_ID_PK_1_TEST1),
-                                                 getTableCreationChange("table", ROW_ID_PK_1_TEST1))).isEqualTo(0);
+      getTableCreationChange("table", ROW_ID_PK_1_TEST1))).isEqualTo(0);
   }
 
   /**
@@ -103,7 +103,7 @@ public class ChangeComparator_Test extends AbstractTest {
   @Test
   public void test_compareTo_zero_because_the_change_are_equals_with_name_as_pk() throws Exception {
     assertThat(ChangeComparator.INSTANCE.compare(getTableCreationChange("table", ROW_NAME_PK_1_TEST1),
-                                                 getTableCreationChange("table", ROW_NAME_PK_1_TEST1))).isEqualTo(0);
+      getTableCreationChange("table", ROW_NAME_PK_1_TEST1))).isEqualTo(0);
   }
 
   /**
@@ -115,7 +115,7 @@ public class ChangeComparator_Test extends AbstractTest {
   @Test
   public void test_compareTo_zero_because_the_change_are_equals_with_name_as_pk_null() throws Exception {
     assertThat(ChangeComparator.INSTANCE.compare(getTableCreationChange("table", ROW_NAME_PK_1_NULL),
-                                                 getTableCreationChange("table", ROW_NAME_PK_1_NULL))).isEqualTo(0);
+      getTableCreationChange("table", ROW_NAME_PK_1_NULL))).isEqualTo(0);
   }
 
 
@@ -128,12 +128,12 @@ public class ChangeComparator_Test extends AbstractTest {
   @Test
   public void test_compareTo_zero_because_() throws Exception {
     assertThat(ChangeComparator.INSTANCE.compare(getTableCreationChange("table", getRow(Arrays.asList("id", "name"),
-                                                                                        Arrays.asList("id", "name",
-                                                                                                      "plus"),
-                                                                                        Arrays.asList(getValue(null, 1), getValue(
-                                                                                                null, "test1"), getValue(
-                                                                                                null, null)))),
-                                                 getTableCreationChange("table", ROW_NAME_PK_1_TEST2))).isEqualTo(0);
+        Arrays.asList("id", "name",
+          "plus"),
+        Arrays.asList(getValue(null, 1), getValue(
+          null, "test1"), getValue(
+          null, null)))),
+      getTableCreationChange("table", ROW_NAME_PK_1_TEST2))).isEqualTo(0);
   }
 
   /**
@@ -145,7 +145,7 @@ public class ChangeComparator_Test extends AbstractTest {
   @Test
   public void test_compareTo_zero_because_the_change_are_equals_dont_care_of_differences_with_bytes() throws Exception {
     assertThat(ChangeComparator.INSTANCE.compare(getTableCreationChange("table", ROW_NAME_PK_1_BYTES_0),
-                                                 getTableCreationChange("table", ROW_NAME_PK_1_BYTES_1))).isEqualTo(0);
+      getTableCreationChange("table", ROW_NAME_PK_1_BYTES_1))).isEqualTo(0);
   }
 
   /**
@@ -157,7 +157,7 @@ public class ChangeComparator_Test extends AbstractTest {
   @Test
   public void test_compareTo_zero_because_the_change_are_equals_dont_care_of_differences_with_bytes_2() throws Exception {
     assertThat(ChangeComparator.INSTANCE.compare(getTableCreationChange("table", ROW_NAME_PK_1_BYTES_0),
-                                                 getTableCreationChange("table", ROW_ID_PK_1_TEST))).isEqualTo(0);
+      getTableCreationChange("table", ROW_ID_PK_1_TEST))).isEqualTo(0);
   }
 
   /**
@@ -169,7 +169,7 @@ public class ChangeComparator_Test extends AbstractTest {
   @Test
   public void test_compareTo_zero_because_the_change_are_equals_dont_care_of_differences_with_bytes_3() throws Exception {
     assertThat(ChangeComparator.INSTANCE.compare(getTableCreationChange("table", ROW_ID_PK_1_TEST),
-                                                 getTableCreationChange("table", ROW_NAME_PK_1_BYTES_1))).isEqualTo(0);
+      getTableCreationChange("table", ROW_NAME_PK_1_BYTES_1))).isEqualTo(0);
   }
 
   /**
@@ -181,7 +181,7 @@ public class ChangeComparator_Test extends AbstractTest {
   @Test
   public void test_compareTo_negative_because_pk_is_id() throws Exception {
     assertThat(ChangeComparator.INSTANCE.compare(getTableCreationChange("table", ROW_ID_PK_1_TEST1),
-                                                 getTableCreationChange("table", ROW_ID_PK_2_TEST1))).isEqualTo(-1);
+      getTableCreationChange("table", ROW_ID_PK_2_TEST1))).isEqualTo(-1);
   }
 
   /**
@@ -193,7 +193,7 @@ public class ChangeComparator_Test extends AbstractTest {
   @Test
   public void test_compareTo_negative_because_pk_is_id_2() throws Exception {
     assertThat(ChangeComparator.INSTANCE.compare(getTableCreationChange("table", ROW_ID_PK_1_TEST1),
-                                                 getTableCreationChange("table", ROW_ID_PK_2_TEST2))).isEqualTo(-1);
+      getTableCreationChange("table", ROW_ID_PK_2_TEST2))).isEqualTo(-1);
   }
 
   /**
@@ -205,7 +205,7 @@ public class ChangeComparator_Test extends AbstractTest {
   @Test
   public void test_compareTo_negative_because_pk_is_name() throws Exception {
     assertThat(ChangeComparator.INSTANCE.compare(getTableCreationChange("table", ROW_NAME_PK_1_TEST1),
-                                                 getTableCreationChange("table", ROW_NAME_PK_2_TEST2))).isEqualTo(-1);
+      getTableCreationChange("table", ROW_NAME_PK_2_TEST2))).isEqualTo(-1);
   }
 
   /**
@@ -217,7 +217,7 @@ public class ChangeComparator_Test extends AbstractTest {
   @Test
   public void test_compareTo_negative_because_pk_is_name_2() throws Exception {
     assertThat(ChangeComparator.INSTANCE.compare(getTableCreationChange("table", ROW_NAME_PK_1_TEST1),
-                                                 getTableCreationChange("table", ROW_NAME_PK_2_TEST1))).isEqualTo(-1);
+      getTableCreationChange("table", ROW_NAME_PK_2_TEST1))).isEqualTo(-1);
   }
 
   /**
@@ -229,7 +229,7 @@ public class ChangeComparator_Test extends AbstractTest {
   @Test
   public void test_compareTo_negative_because_pk_is_name_3() throws Exception {
     assertThat(ChangeComparator.INSTANCE.compare(getTableCreationChange("table", ROW_NAME_PK_1_TEST2),
-                                                 getTableCreationChange("table", ROW_NAME_PK_2_NULL))).isEqualTo(-1);
+      getTableCreationChange("table", ROW_NAME_PK_2_NULL))).isEqualTo(-1);
   }
 
   /**
@@ -241,7 +241,7 @@ public class ChangeComparator_Test extends AbstractTest {
   @Test
   public void test_compareTo_negative_because_table_name() throws Exception {
     assertThat(ChangeComparator.INSTANCE.compare(getTableCreationChange("table1", ROW_NAME_PK_1_NULL),
-                                                 getTableCreationChange("table2", ROW_NAME_PK_1_NULL))).isEqualTo(-1);
+      getTableCreationChange("table2", ROW_NAME_PK_1_NULL))).isEqualTo(-1);
   }
 
   /**
@@ -253,7 +253,7 @@ public class ChangeComparator_Test extends AbstractTest {
   @Test
   public void test_compareTo_negative_because_pk_are_equals_but_name_is_different() throws Exception {
     assertThat(ChangeComparator.INSTANCE.compare(getTableCreationChange("table", ROW_ID_PK_1_TEST1),
-                                                 getTableCreationChange("table", ROW_ID_PK_1_TEST2))).isEqualTo(-1);
+      getTableCreationChange("table", ROW_ID_PK_1_TEST2))).isEqualTo(-1);
   }
 
   /**
@@ -265,7 +265,7 @@ public class ChangeComparator_Test extends AbstractTest {
   @Test
   public void test_compareTo_positive_because_pk_is_id() throws Exception {
     assertThat(ChangeComparator.INSTANCE.compare(getTableCreationChange("table", ROW_ID_PK_2_TEST1),
-                                                 getTableCreationChange("table", ROW_ID_PK_1_TEST2))).isEqualTo(1);
+      getTableCreationChange("table", ROW_ID_PK_1_TEST2))).isEqualTo(1);
   }
 
   /**
@@ -277,7 +277,7 @@ public class ChangeComparator_Test extends AbstractTest {
   @Test
   public void test_compareTo_positive_because_pk_is_id_2() throws Exception {
     assertThat(ChangeComparator.INSTANCE.compare(getTableCreationChange("table", ROW_NAME_PK_1_TEST2),
-                                                 getTableCreationChange("table", ROW_NAME_PK_2_TEST1))).isEqualTo(1);
+      getTableCreationChange("table", ROW_NAME_PK_2_TEST1))).isEqualTo(1);
   }
 
   /**
@@ -289,7 +289,7 @@ public class ChangeComparator_Test extends AbstractTest {
   @Test
   public void test_compareTo_positive_because_pk_is_name() throws Exception {
     assertThat(ChangeComparator.INSTANCE.compare(getTableCreationChange("table", ROW_NAME_PK_1_NULL),
-                                                 getTableCreationChange("table", ROW_NAME_PK_2_TEST1))).isEqualTo(1);
+      getTableCreationChange("table", ROW_NAME_PK_2_TEST1))).isEqualTo(1);
   }
 
   /**
@@ -301,7 +301,7 @@ public class ChangeComparator_Test extends AbstractTest {
   @Test
   public void test_compareTo_positive_because_pk_is_name_2() throws Exception {
     assertThat(ChangeComparator.INSTANCE.compare(getTableDeletionChange("table", ROW_NAME_PK_1_NULL),
-                                                 getTableDeletionChange("table", ROW_NAME_PK_2_TEST1))).isEqualTo(1);
+      getTableDeletionChange("table", ROW_NAME_PK_2_TEST1))).isEqualTo(1);
   }
 
   /**
@@ -313,7 +313,7 @@ public class ChangeComparator_Test extends AbstractTest {
   @Test
   public void test_compareTo_positive_because_table_name() throws Exception {
     assertThat(ChangeComparator.INSTANCE.compare(getTableCreationChange("table2", ROW_NAME_PK_1_NULL),
-                                                 getTableCreationChange("table1", ROW_NAME_PK_1_NULL))).isEqualTo(1);
+      getTableCreationChange("table1", ROW_NAME_PK_1_NULL))).isEqualTo(1);
   }
 
   /**
@@ -325,7 +325,7 @@ public class ChangeComparator_Test extends AbstractTest {
   @Test
   public void test_compareTo_less_than_zero() throws Exception {
     assertThat(ChangeComparator.INSTANCE.compare(getTableCreationChange("table", ROW_ID_PK_1_TEST),
-                                                 getTableDeletionChange("table", ROW_ID_PK_1_TEST))).isLessThan(0);
+      getTableDeletionChange("table", ROW_ID_PK_1_TEST))).isLessThan(0);
   }
 
   /**
@@ -337,7 +337,7 @@ public class ChangeComparator_Test extends AbstractTest {
   @Test
   public void test_compareTo_greater_than_zero() throws Exception {
     assertThat(ChangeComparator.INSTANCE.compare(getTableDeletionChange("table", ROW_ID_PK_1_TEST),
-                                                 getTableModificationChange("table", ROW_ID_PK_1_TEST,
-                                                                            ROW_ID_PK_1_TEST))).isGreaterThan(0);
+      getTableModificationChange("table", ROW_ID_PK_1_TEST,
+        ROW_ID_PK_1_TEST))).isGreaterThan(0);
   }
 }

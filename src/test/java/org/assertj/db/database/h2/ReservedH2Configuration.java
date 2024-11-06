@@ -23,9 +23,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 /**
  * Provides the configuration for the tests with reserved names in SQL structure.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 @Configuration
 public class ReservedH2Configuration {
@@ -33,7 +32,7 @@ public class ReservedH2Configuration {
   @Bean
   public DataSource dataSource() {
     return new EmbeddedDatabaseBuilder().setName("testReservedH2").setType(EmbeddedDatabaseType.H2).addScript("schemaReservedH2.sql")
-        .build();
+      .build();
   }
 
   @Bean

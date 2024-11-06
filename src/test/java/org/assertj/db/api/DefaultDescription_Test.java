@@ -30,7 +30,6 @@ import static org.assertj.db.api.Assertions.assertThat;
  * Test on default descriptions.
  *
  * @author Régis Pouiller
- *
  */
 public class DefaultDescription_Test extends AbstractTest {
 
@@ -1120,7 +1119,7 @@ public class DefaultDescription_Test extends AbstractTest {
 
     ChangeColumnValueAssert assertionFromSource = assertThat(changesFromSource).change().column().valueAtStartPoint();
     ChangeColumnValueAssert assertionFromDataSource = assertThat(changesFromDataSource).change(
-            1).column().valueAtStartPoint();
+      1).column().valueAtStartPoint();
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);
@@ -1149,7 +1148,7 @@ public class DefaultDescription_Test extends AbstractTest {
 
     ChangeColumnValueAssert assertionFromSource = assertThat(changesFromSource).change().column().valueAtEndPoint();
     ChangeColumnValueAssert assertionFromDataSource = assertThat(changesFromDataSource).change(
-            1).column().valueAtEndPoint();
+      1).column().valueAtEndPoint();
 
 
     WritableAssertionInfo infoFromSource = (WritableAssertionInfo) field.get(assertionFromSource);

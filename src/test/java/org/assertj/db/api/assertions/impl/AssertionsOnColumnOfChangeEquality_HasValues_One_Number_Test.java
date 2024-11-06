@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -19,15 +22,11 @@ import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link org.assertj.db.api.assertions.impl.AssertionsOnColumnOfChangeEquality} class :
  * {@link org.assertj.db.api.assertions.impl.AssertionsOnColumnOfChangeEquality#hasValues(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, Object, Object, Number)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnColumnOfChangeEquality_HasValues_One_Number_Test extends AbstractTest {
 
@@ -40,9 +39,9 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_One_Number_Test extend
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                                            getValue(null, 1),
-                                                                            getValue(null, 1),
-                                                                            1);
+      getValue(null, 1),
+      getValue(null, 1),
+      1);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -57,15 +56,15 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_One_Number_Test extend
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   getValue(null, 0),
-                                                   getValue(null, 1), 1);
+        getValue(null, 0),
+        getValue(null, 1), 1);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that start point:%n"
-                                                      + "  <0>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <1>"));
+        + "Expecting that start point:%n"
+        + "  <0>%n"
+        + "to be equal to: %n"
+        + "  <1>"));
     }
   }
 
@@ -80,15 +79,15 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_One_Number_Test extend
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   getValue(null, 1),
-                                                   getValue(null, 2), 1);
+        getValue(null, 1),
+        getValue(null, 2), 1);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that end point:%n"
-                                                      + "  <2>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <1>"));
+        + "Expecting that end point:%n"
+        + "  <2>%n"
+        + "to be equal to: %n"
+        + "  <1>"));
     }
   }
 
@@ -103,17 +102,17 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_One_Number_Test extend
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   getValue(null, "other"),
-                                                   getValue(null, 1), 1);
+        getValue(null, "other"),
+        getValue(null, 1), 1);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that the value at start point:%n"
-                                                      + "  <\"other\">%n"
-                                                      + "to be of type%n"
-                                                      + "  <[NUMBER, NOT_IDENTIFIED]>%n"
-                                                      + "but was of type%n"
-                                                      + "  <TEXT>"));
+        + "Expecting that the value at start point:%n"
+        + "  <\"other\">%n"
+        + "to be of type%n"
+        + "  <[NUMBER, NOT_IDENTIFIED]>%n"
+        + "but was of type%n"
+        + "  <TEXT>"));
     }
   }
 }

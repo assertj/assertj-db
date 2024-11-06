@@ -12,6 +12,11 @@
  */
 package org.assertj.db.navigation;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.assertj.db.output.Outputs.output;
+
+import java.lang.reflect.Field;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.ChangeAssert;
 import org.assertj.db.api.ChangesAssert;
@@ -22,16 +27,10 @@ import org.assertj.db.output.ChangesOutputter;
 import org.assertj.db.type.Changes;
 import org.junit.Test;
 
-import java.lang.reflect.Field;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.output.Outputs.output;
-
 /**
  * Tests on {@link ToChange} interface.
  *
  * @author Régis Pouiller
- *
  */
 public class ToChange_Test extends AbstractTest {
 
@@ -87,7 +86,7 @@ public class ToChange_Test extends AbstractTest {
 
     ChangeAssert changeAssertModificationOnTable0 = changesAssert.changeOfModificationOnTable("actor");
     ChangeAssert changeAssertModificationOnTable1 = changesAssertModification.changeOfModificationOnTable(
-            "interpretation");
+      "interpretation");
     ChangeAssert changeAssertModificationOnTable0Bis = changesAssertModification.changeOfModificationOnTable("actor", 0);
     ChangeAssert changeAssertModificationOnTable1Bis = changesAssert.changeOfModificationOnTable("interpretation", 0);
 
@@ -171,7 +170,7 @@ public class ToChange_Test extends AbstractTest {
 
     ChangeOutputter changeDisplayModificationOnTable0 = changesDisplay.changeOfModificationOnTable("actor");
     ChangeOutputter changeDisplayModificationOnTable1 = changesDisplayModification.changeOfModificationOnTable(
-            "interpretation");
+      "interpretation");
     ChangeOutputter changeDisplayModificationOnTable0Bis = changesDisplayModification.changeOfModificationOnTable("actor", 0);
     ChangeOutputter changeDisplayModificationOnTable1Bis = changesDisplay.changeOfModificationOnTable("interpretation", 0);
 

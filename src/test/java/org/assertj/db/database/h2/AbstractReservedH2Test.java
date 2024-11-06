@@ -12,10 +12,12 @@
  */
 package org.assertj.db.database.h2;
 
-import com.ninja_squad.dbsetup.DbSetup;
-import com.ninja_squad.dbsetup.DbSetupTracker;
-import com.ninja_squad.dbsetup.destination.DriverManagerDestination;
-import com.ninja_squad.dbsetup.operation.Operation;
+import static com.ninja_squad.dbsetup.Operations.deleteAllFrom;
+import static com.ninja_squad.dbsetup.Operations.insertInto;
+import static com.ninja_squad.dbsetup.Operations.sequenceOf;
+
+import javax.sql.DataSource;
+
 import org.assertj.db.database.AbstractDatabaseTest;
 import org.assertj.db.type.DataSourceWithLetterCase;
 import org.assertj.db.type.SourceWithLetterCase;
@@ -23,53 +25,47 @@ import org.assertj.db.type.lettercase.LetterCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
-import javax.sql.DataSource;
-
-import static com.ninja_squad.dbsetup.Operations.*;
+import com.ninja_squad.dbsetup.DbSetup;
+import com.ninja_squad.dbsetup.DbSetupTracker;
+import com.ninja_squad.dbsetup.destination.DriverManagerDestination;
+import com.ninja_squad.dbsetup.operation.Operation;
 
 /**
  * Parent for all the tests which are specific for H2 database with reserved names in SQL structure.
  *
  * @author Régis Pouiller
- *
  */
-@ContextConfiguration(classes = { ReservedH2Configuration.class })
+@ContextConfiguration(classes = {ReservedH2Configuration.class})
 public abstract class AbstractReservedH2Test extends AbstractDatabaseTest {
 
+  private static final Operation DELETE_ALL = deleteAllFrom("`group`", "`Two Words`");
+  private static final Operation INSERT_TEST = insertInto("`group`")
+    .columns("read", "by", "`select`", "`from`", "`where`", "`order`")
+    .values(1, 2, 3, 4, '5', '6').build();
+  private static final Operation INSERT_TWO_WORDS = insertInto("`Two Words`")
+    .columns("`Primary Key`", "`Column Name`", "`Test%Test`")
+    .values(1, "Nom 1", "Test 1")
+    .values(2, "Nom 2", "Test 2").build();
+  private static final Operation OPERATIONS = sequenceOf(DELETE_ALL, INSERT_TEST, INSERT_TWO_WORDS);
+  private static final DbSetup DB_SETUP = new DbSetup(new DriverManagerDestination("jdbc:h2:mem:testReservedH2", "SA", ""),
+    OPERATIONS);
+  private static final DbSetupTracker DB_SETUP_TRACKER = new DbSetupTracker();
+  protected final SourceWithLetterCase sourceDDD = new SourceWithLetterCase("jdbc:h2:mem:testReservedH2", "sa", "",
+    LetterCase.TABLE_DEFAULT,
+    LetterCase.COLUMN_DEFAULT,
+    LetterCase.PRIMARY_KEY_DEFAULT);
+  protected final SourceWithLetterCase sourceUIUIUI = new SourceWithLetterCase("jdbc:h2:mem:testReservedH2", "sa", "",
+    letterCaseUI,
+    letterCaseUI,
+    letterCaseUI);
+  protected final SourceWithLetterCase sourceNSNSNS = new SourceWithLetterCase("jdbc:h2:mem:testReservedH2", "sa", "",
+    letterCaseNS,
+    letterCaseNS,
+    letterCaseNS);
   protected DataSource dataSource;
   protected DataSourceWithLetterCase dataSourceDDD;
   protected DataSourceWithLetterCase dataSourceUIUIUI;
   protected DataSourceWithLetterCase dataSourceNSNSNS;
-
-  protected final SourceWithLetterCase sourceDDD = new SourceWithLetterCase("jdbc:h2:mem:testReservedH2", "sa", "",
-                                                                            LetterCase.TABLE_DEFAULT,
-                                                                            LetterCase.COLUMN_DEFAULT,
-                                                                            LetterCase.PRIMARY_KEY_DEFAULT);
-  protected final SourceWithLetterCase sourceUIUIUI = new SourceWithLetterCase("jdbc:h2:mem:testReservedH2", "sa", "",
-                                                                               letterCaseUI,
-                                                                               letterCaseUI,
-                                                                               letterCaseUI);
-  protected final SourceWithLetterCase sourceNSNSNS = new SourceWithLetterCase("jdbc:h2:mem:testReservedH2", "sa", "",
-                                                                               letterCaseNS,
-                                                                               letterCaseNS,
-                                                                               letterCaseNS);
-
-  private static final Operation DELETE_ALL = deleteAllFrom("`group`", "`Two Words`");
-
-  private static final Operation INSERT_TEST = insertInto("`group`")
-      .columns("read", "by", "`select`", "`from`", "`where`", "`order`")
-      .values(1, 2, 3, 4, '5', '6').build();
-
-  private static final Operation INSERT_TWO_WORDS = insertInto("`Two Words`")
-      .columns("`Primary Key`", "`Column Name`", "`Test%Test`")
-      .values(1, "Nom 1", "Test 1")
-      .values(2, "Nom 2", "Test 2").build();
-
-  private static final Operation OPERATIONS = sequenceOf(DELETE_ALL, INSERT_TEST, INSERT_TWO_WORDS);
-
-  private static final DbSetup DB_SETUP = new DbSetup(new DriverManagerDestination("jdbc:h2:mem:testReservedH2", "SA", ""),
-                                                      OPERATIONS);
-  private static final DbSetupTracker DB_SETUP_TRACKER = new DbSetupTracker();
 
   protected DbSetup getDbSetup() {
     return DB_SETUP;
@@ -83,8 +79,8 @@ public abstract class AbstractReservedH2Test extends AbstractDatabaseTest {
   protected void setDataSource(DataSource dataSource) {
     this.dataSource = dataSource;
     this.dataSourceDDD = new DataSourceWithLetterCase(dataSource, LetterCase.TABLE_DEFAULT,
-                                                      LetterCase.COLUMN_DEFAULT,
-                                                      LetterCase.PRIMARY_KEY_DEFAULT);
+      LetterCase.COLUMN_DEFAULT,
+      LetterCase.PRIMARY_KEY_DEFAULT);
     this.dataSourceUIUIUI = new DataSourceWithLetterCase(dataSource, letterCaseUI, letterCaseUI, letterCaseUI);
     this.dataSourceNSNSNS = new DataSourceWithLetterCase(dataSource, letterCaseNS, letterCaseNS, letterCaseNS);
   }

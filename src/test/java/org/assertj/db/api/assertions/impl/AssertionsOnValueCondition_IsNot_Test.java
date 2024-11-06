@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.Condition;
 import org.assertj.core.api.WritableAssertionInfo;
@@ -20,15 +23,11 @@ import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link  AssertionsOnValueCondition} class :
  * {@link  AssertionsOnValueCondition#isNot(org.assertj.db.api.AbstractAssert, WritableAssertionInfo, org.assertj.db.type.Value, Condition)} method.
  *
  * @author Julien Roy
- *
  */
 public class AssertionsOnValueCondition_IsNot_Test extends AbstractTest {
 
@@ -65,9 +64,9 @@ public class AssertionsOnValueCondition_IsNot_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting actual:%n"
-                                                      + "  0%n"
-                                                      + "not to be isZero"));
+        + "Expecting actual:%n"
+        + "  0%n"
+        + "not to be isZero"));
     }
   }
 }

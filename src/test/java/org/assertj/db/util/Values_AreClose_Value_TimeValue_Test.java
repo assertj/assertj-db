@@ -12,19 +12,18 @@
  */
 package org.assertj.db.util;
 
-import org.assertj.db.common.AbstractTest;
-import org.assertj.db.type.TimeValue;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.sql.Time;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.db.common.AbstractTest;
+import org.assertj.db.type.TimeValue;
+import org.junit.Test;
 
 /**
  * Tests on {@code areClose} method for {@code TimeValue}s.
  *
  * @author Régis Pouiller
- *
  */
 public class Values_AreClose_Value_TimeValue_Test extends AbstractTest {
 
@@ -34,7 +33,7 @@ public class Values_AreClose_Value_TimeValue_Test extends AbstractTest {
   @Test
   public void test_are_close_for_times() throws Exception {
     assertThat(Values.areClose(getValue(null, Time.valueOf("09:01:06")), TimeValue.of(9, 1, 6), TimeValue.of(0,
-                                                                                                             0))).isTrue();
+      0))).isTrue();
     assertThat(Values.areClose(getValue(null, Time.valueOf("09:01:06")), TimeValue.of(9, 1, 5), TimeValue.of(0, 0))).isFalse();
     assertThat(Values.areClose(getValue(null, ""), TimeValue.of(9, 1, 6), TimeValue.of(0, 0))).isFalse();
     assertThat(Values.areClose(getValue(null, Time.valueOf("09:01:06")), (TimeValue) null, TimeValue.of(0, 0))).isFalse();

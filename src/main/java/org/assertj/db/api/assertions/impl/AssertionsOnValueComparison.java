@@ -12,16 +12,16 @@
  */
 package org.assertj.db.api.assertions.impl;
 
-import org.assertj.core.api.WritableAssertionInfo;
-import org.assertj.core.internal.Failures;
-import org.assertj.db.api.AbstractAssert;
-import org.assertj.db.type.Value;
-
 import static org.assertj.db.error.ShouldBeGreater.shouldBeGreater;
 import static org.assertj.db.error.ShouldBeGreaterOrEqual.shouldBeGreaterOrEqual;
 import static org.assertj.db.error.ShouldBeLess.shouldBeLess;
 import static org.assertj.db.error.ShouldBeLessOrEqual.shouldBeLessOrEqual;
 import static org.assertj.db.util.Values.compare;
+
+import org.assertj.core.api.WritableAssertionInfo;
+import org.assertj.core.internal.Failures;
+import org.assertj.db.api.AbstractAssert;
+import org.assertj.db.type.Value;
 
 /**
  * Implements the assertion methods on comparisons with a value.
@@ -50,7 +50,7 @@ public class AssertionsOnValueComparison {
    * @param assertion The assertion which call this method.
    * @param info      Writable information about an assertion.
    * @param value     The value.
-   * @param expected The expected number value.
+   * @param expected  The expected number value.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is less than or equal to the number in parameter.
    */
@@ -69,7 +69,7 @@ public class AssertionsOnValueComparison {
    * @param assertion The assertion which call this method.
    * @param info      Writable information about an assertion.
    * @param value     The value.
-   * @param expected The expected number value.
+   * @param expected  The expected number value.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is greater than or equal to the number in parameter.
    */
@@ -88,7 +88,7 @@ public class AssertionsOnValueComparison {
    * @param assertion The assertion which call this method.
    * @param info      Writable information about an assertion.
    * @param value     The value.
-   * @param expected The expected number value.
+   * @param expected  The expected number value.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is less than the number in parameter.
    */
@@ -107,7 +107,7 @@ public class AssertionsOnValueComparison {
    * @param assertion The assertion which call this method.
    * @param info      Writable information about an assertion.
    * @param value     The value.
-   * @param expected The expected number value.
+   * @param expected  The expected number value.
    * @return {@code this} assertion object.
    * @throws AssertionError If the value is greater than the number in parameter.
    */

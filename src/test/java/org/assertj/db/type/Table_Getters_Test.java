@@ -12,21 +12,20 @@
  */
 package org.assertj.db.type;
 
-import org.assertj.db.common.AbstractTest;
-import org.junit.Test;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.db.type.Table.Order.asc;
 import static org.assertj.db.type.Table.Order.desc;
+
+import org.assertj.db.common.AbstractTest;
+import org.junit.Test;
 
 /**
  * Tests on the getters of {@code Table}.
  * <p>
  * These tests are on the return from the getters of {@code Table}.
  * </p>
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class Table_Getters_Test extends AbstractTest {
 
@@ -117,7 +116,7 @@ public class Table_Getters_Test extends AbstractTest {
    */
   @Test
   public void test_getters_with_source_name_and_columns_set() {
-    Table table = new Table(source, "movie", new String[] { "title", "year" }, new String[] { "id" });
+    Table table = new Table(source, "movie", new String[]{"title", "year"}, new String[]{"id"});
 
     assertThat(table.getSource()).as("Source of MOVIE table").isSameAs(source);
     assertThat(table.getDataSource()).isNull();
@@ -136,8 +135,8 @@ public class Table_Getters_Test extends AbstractTest {
   @Test
   public void test_getters_with_source_name_columns_and_order_set() {
     Table table = new Table(source, "movie",
-                            new Table.Order[]{ asc("title"), desc("year") },
-                            new String[] { "title", "year" }, new String[] { "id" });
+      new Table.Order[]{asc("title"), desc("year")},
+      new String[]{"title", "year"}, new String[]{"id"});
 
     assertThat(table.getSource()).as("Source of MOVIE table").isSameAs(source);
     assertThat(table.getDataSource()).isNull();
@@ -157,7 +156,7 @@ public class Table_Getters_Test extends AbstractTest {
   @Test
   public void test_getters_with_source_name_and_order_set() {
     Table table = new Table(source, "movie",
-                            new Table.Order[]{ asc("title"), desc("year") });
+      new Table.Order[]{asc("title"), desc("year")});
 
     assertThat(table.getSource()).as("Source of MOVIE table").isSameAs(source);
     assertThat(table.getDataSource()).isNull();
@@ -194,7 +193,7 @@ public class Table_Getters_Test extends AbstractTest {
   @Test
   public void test_getters_with_source_name_delimiters_and_columns_set() {
     Table table = new Table(source, "movie", '1', '2',
-                            new String[] { "title", "year" }, new String[] { "id" });
+      new String[]{"title", "year"}, new String[]{"id"});
 
     assertThat(table.getSource()).as("Source of MOVIE table").isSameAs(source);
     assertThat(table.getDataSource()).isNull();
@@ -213,8 +212,8 @@ public class Table_Getters_Test extends AbstractTest {
   @Test
   public void test_getters_with_source_name_columns_delimiters_and_order_set() {
     Table table = new Table(source, "movie", '1', '2',
-                            new Table.Order[]{ asc("title"), desc("year") },
-                            new String[] { "title", "year" }, new String[] { "id" });
+      new Table.Order[]{asc("title"), desc("year")},
+      new String[]{"title", "year"}, new String[]{"id"});
 
     assertThat(table.getSource()).as("Source of MOVIE table").isSameAs(source);
     assertThat(table.getDataSource()).isNull();
@@ -234,7 +233,7 @@ public class Table_Getters_Test extends AbstractTest {
   @Test
   public void test_getters_with_source_name_delimiters_and_order_set() {
     Table table = new Table(source, "movie", '1', '2',
-                            new Table.Order[]{ asc("title"), desc("year") });
+      new Table.Order[]{asc("title"), desc("year")});
 
     assertThat(table.getSource()).as("Source of MOVIE table").isSameAs(source);
     assertThat(table.getDataSource()).isNull();

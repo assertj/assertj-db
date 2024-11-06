@@ -12,8 +12,6 @@
  */
 package org.assertj.db.api.assertions;
 
-import org.assertj.core.api.Condition;
-
 /**
  * Defines the assertion method on the a row satisfy conditions.
  *

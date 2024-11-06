@@ -22,20 +22,20 @@ import org.junit.Test;
 
 /**
  * Test on the utility class {@code BDDAssertions} : the private constructor.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class BDDAssertions_Constructor_Test {
 
   /**
    * This method tests the private constructor of {@code BDDAssertions} for the tests coverage..
-   * @throws NoSuchMethodException 
-   * @throws SecurityException 
+   *
+   * @throws NoSuchMethodException
+   * @throws SecurityException
    * @throws java.lang.reflect.InvocationTargetException
-   * @throws IllegalAccessException 
-   * @throws InstantiationException 
-   * @throws IllegalArgumentException 
+   * @throws IllegalAccessException
+   * @throws InstantiationException
+   * @throws IllegalArgumentException
    */
   @Test
   public void test_private_constructor_for_the_tests_coverage() throws SecurityException, NoSuchMethodException, IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException {

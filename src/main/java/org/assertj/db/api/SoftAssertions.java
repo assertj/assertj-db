@@ -12,20 +12,20 @@
  */
 package org.assertj.db.api;
 
+import java.util.List;
+
 import org.assertj.core.api.SoftAssertionError;
 import org.assertj.core.groups.Properties;
 import org.assertj.db.type.Changes;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
 
-import java.util.List;
-
 /**
  * Implementation of AssertJ SoftAssertions for {@link Table}, {@link Request} and {@link Changes}.
- *
+ * <p>
  * This implementation works like AssertJ SoftAssertions implementation by providing you with
  * proxies of the AssertJ-DB assertion objects.
- *
+ * <p>
  * For more details see AssertJ implementation : {@link org.assertj.core.api.SoftAssertions}
  *
  * @author Julien Roy

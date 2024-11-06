@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api.assertions;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.ChangeAssert;
 import org.assertj.db.api.ChangeRowAssert;
@@ -24,15 +27,11 @@ import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link org.assertj.db.api.assertions.AssertOnNumberOfColumns} class :
  * {@link org.assertj.db.api.assertions.AssertOnNumberOfColumns#hasNumberOfColumnsLessThanOrEqualTo(int)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertOnNumberOfColumns_HasNumberOfColumnsLessThanOrEqualTo_Test extends AbstractTest {
 
@@ -80,40 +79,40 @@ public class AssertOnNumberOfColumns_HasNumberOfColumnsLessThanOrEqualTo_Test ex
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 0 of Changes on 'select * from actor' request of 'sa/jdbc:h2:mem:test' source] %n"
-                                                                    + "Expecting size (number of columns) to be less than or equal to :%n"
-                                                                    + "   <4>%n"
-                                                                    + "but was:%n"
-                                                                    + "   <5>"));
+        + "Expecting size (number of columns) to be less than or equal to :%n"
+        + "   <4>%n"
+        + "but was:%n"
+        + "   <5>"));
     }
     try {
       assertThat(changes).change().rowAtEndPoint().hasNumberOfColumnsLessThanOrEqualTo(4);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Row at end point of Change at index 0 of Changes on 'select * from actor' request of 'sa/jdbc:h2:mem:test' source] %n"
-                                                                    + "Expecting size (number of columns) to be less than or equal to :%n"
-                                                                    + "   <4>%n"
-                                                                    + "but was:%n"
-                                                                    + "   <5>"));
+        + "Expecting size (number of columns) to be less than or equal to :%n"
+        + "   <4>%n"
+        + "but was:%n"
+        + "   <5>"));
     }
     try {
       assertThat(request).hasNumberOfColumnsLessThanOrEqualTo(4);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("['select * from actor' request] %n"
-                                                                    + "Expecting size (number of columns) to be less than or equal to :%n"
-                                                                    + "   <4>%n"
-                                                                    + "but was:%n"
-                                                                    + "   <5>"));
+        + "Expecting size (number of columns) to be less than or equal to :%n"
+        + "   <4>%n"
+        + "but was:%n"
+        + "   <5>"));
     }
     try {
       assertThat(request).row().hasNumberOfColumnsLessThanOrEqualTo(4);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Row at index 0 of 'select * from actor' request] %n"
-                                                                    + "Expecting size (number of columns) to be less than or equal to :%n"
-                                                                    + "   <4>%n"
-                                                                    + "but was:%n"
-                                                                    + "   <5>"));
+        + "Expecting size (number of columns) to be less than or equal to :%n"
+        + "   <4>%n"
+        + "but was:%n"
+        + "   <5>"));
     }
   }
 }

@@ -12,18 +12,17 @@
  */
 package org.assertj.db.util;
 
-import org.assertj.db.common.AbstractTest;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.db.common.AbstractTest;
+import org.junit.Test;
 
 /**
  * Tests on the comparator for {@code Row}
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class RowComparator_Test extends AbstractTest {
 
@@ -37,105 +36,105 @@ public class RowComparator_Test extends AbstractTest {
 
   /**
    * Test the {@code compareTo} method.
-   * 
+   *
    * @throws Exception Exception
    */
   @Test
   public void test_compareTo() throws Exception {
     assertThat(
-        RowComparator.INSTANCE.compare(
-            getRow(Arrays.asList("id"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
-                                                                                                               "test1"))),
-            getRow(Arrays.asList("id"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 2), getValue(null,
-                                                                                                               "test2"))))).isEqualTo(
-            -1);
+      RowComparator.INSTANCE.compare(
+        getRow(Arrays.asList("id"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
+          "test1"))),
+        getRow(Arrays.asList("id"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 2), getValue(null,
+          "test2"))))).isEqualTo(
+      -1);
     assertThat(
-        RowComparator.INSTANCE.compare(
-            getRow(Arrays.asList("id"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
-                                                                                                               "test1"))),
-            getRow(Arrays.asList("id"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
-                                                                                                               "test2"))))).isEqualTo(
-            -1);
+      RowComparator.INSTANCE.compare(
+        getRow(Arrays.asList("id"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
+          "test1"))),
+        getRow(Arrays.asList("id"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
+          "test2"))))).isEqualTo(
+      -1);
     assertThat(
-        RowComparator.INSTANCE.compare(
-            getRow(Arrays.asList("id"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
-                                                                                                               "test1"))),
-            getRow(Arrays.asList("id"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
-                                                                                                               "test1"))))).isEqualTo(
-            0);
+      RowComparator.INSTANCE.compare(
+        getRow(Arrays.asList("id"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
+          "test1"))),
+        getRow(Arrays.asList("id"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
+          "test1"))))).isEqualTo(
+      0);
     assertThat(
-        RowComparator.INSTANCE.compare(
-            getRow(Arrays.asList("id"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 2), getValue(null,
-                                                                                                               "test1"))),
-            getRow(Arrays.asList("id"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
-                                                                                                               "test2"))))).isEqualTo(1);
+      RowComparator.INSTANCE.compare(
+        getRow(Arrays.asList("id"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 2), getValue(null,
+          "test1"))),
+        getRow(Arrays.asList("id"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
+          "test2"))))).isEqualTo(1);
     assertThat(
-        RowComparator.INSTANCE.compare(
-            getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
-                                                                                                                 "test1"))),
-            getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 2), getValue(null,
-                                                                                                                 "test2"))))).isEqualTo(-1);
+      RowComparator.INSTANCE.compare(
+        getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
+          "test1"))),
+        getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 2), getValue(null,
+          "test2"))))).isEqualTo(-1);
     assertThat(
-        RowComparator.INSTANCE.compare(
-            getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
-                                                                                                                 "test1"))),
-            getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 2), getValue(null,
-                                                                                                                 "test1"))))).isEqualTo(-1);
+      RowComparator.INSTANCE.compare(
+        getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
+          "test1"))),
+        getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 2), getValue(null,
+          "test1"))))).isEqualTo(-1);
     assertThat(
-        RowComparator.INSTANCE.compare(
-            getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
-                                                                                                                 "test1"))),
-            getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
-                                                                                                                 "test1"))))).isEqualTo(0);
+      RowComparator.INSTANCE.compare(
+        getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
+          "test1"))),
+        getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
+          "test1"))))).isEqualTo(0);
     assertThat(
-        RowComparator.INSTANCE.compare(
-            getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
-                                                                                                                 "test2"))),
-            getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 2), getValue(null,
-                                                                                                                 "test1"))))).isEqualTo(1);
+      RowComparator.INSTANCE.compare(
+        getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
+          "test2"))),
+        getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 2), getValue(null,
+          "test1"))))).isEqualTo(1);
     assertThat(
-        RowComparator.INSTANCE.compare(
-            getRow(Arrays.asList("id", "name"), Arrays.asList("id", "name", "plus"), Arrays.asList(getValue(null, 1), getValue(
-                    null, "test1"), getValue(null, null))),
-            getRow(Arrays.asList("id"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 2), getValue(null,
-                                                                                                               "test2"))))).isEqualTo(0);
+      RowComparator.INSTANCE.compare(
+        getRow(Arrays.asList("id", "name"), Arrays.asList("id", "name", "plus"), Arrays.asList(getValue(null, 1), getValue(
+          null, "test1"), getValue(null, null))),
+        getRow(Arrays.asList("id"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 2), getValue(null,
+          "test2"))))).isEqualTo(0);
     assertThat(
-        RowComparator.INSTANCE.compare(
-            getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
-                                                                                                                 "test2"))),
-            getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 2), getValue(null,
-                                                                                                                 null))))).isEqualTo(-1);
+      RowComparator.INSTANCE.compare(
+        getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
+          "test2"))),
+        getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 2), getValue(null,
+          null))))).isEqualTo(-1);
     assertThat(
-        RowComparator.INSTANCE.compare(
-            getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
-                                                                                                                 null))),
-            getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 2), getValue(null,
-                                                                                                                 "test1"))))).isEqualTo(1);
+      RowComparator.INSTANCE.compare(
+        getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
+          null))),
+        getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 2), getValue(null,
+          "test1"))))).isEqualTo(1);
     assertThat(
-        RowComparator.INSTANCE.compare(
-            getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
-                                                                                                                 null))),
-            getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
-                                                                                                                 null))))).isEqualTo(0);
+      RowComparator.INSTANCE.compare(
+        getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
+          null))),
+        getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
+          null))))).isEqualTo(0);
     assertThat(
-        RowComparator.INSTANCE.compare(
-            getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
-                                                                                                                 new byte[] {0}))),
-            getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
-                                                                                                                 new byte[] {1}))))).isEqualTo(
-            0);
+      RowComparator.INSTANCE.compare(
+        getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
+          new byte[]{0}))),
+        getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
+          new byte[]{1}))))).isEqualTo(
+      0);
     assertThat(
-        RowComparator.INSTANCE.compare(
-            getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
-                                                                                                                 new byte[] {0}))),
-            getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
-                                                                                                                 "test"))))).isEqualTo(
-            0);
+      RowComparator.INSTANCE.compare(
+        getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
+          new byte[]{0}))),
+        getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
+          "test"))))).isEqualTo(
+      0);
     assertThat(
-        RowComparator.INSTANCE.compare(
-            getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
-                                                                                                                 "test"))),
-            getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
-                                                                                                                 new byte[] {1}))))).isEqualTo(0);
+      RowComparator.INSTANCE.compare(
+        getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
+          "test"))),
+        getRow(Arrays.asList("name"), Arrays.asList("id", "name"), Arrays.asList(getValue(null, 1), getValue(null,
+          new byte[]{1}))))).isEqualTo(0);
   }
 }

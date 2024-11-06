@@ -12,6 +12,14 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.error.ShouldBeCompatible.shouldBeCompatible;
+import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
+import static org.assertj.db.error.ShouldHaveColumnsSize.shouldHaveColumnsSize;
+import static org.assertj.db.error.ShouldSatisfy.shouldSatisfy;
+import static org.assertj.db.util.Values.areEqual;
+
+import java.util.List;
+
 import org.assertj.core.api.Condition;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
@@ -20,19 +28,10 @@ import org.assertj.db.type.Value;
 import org.assertj.db.type.ValueType;
 import org.assertj.db.util.Values;
 
-import java.util.List;
-
-import static org.assertj.db.error.ShouldBeCompatible.shouldBeCompatible;
-import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
-import static org.assertj.db.error.ShouldHaveColumnsSize.shouldHaveColumnsSize;
-import static org.assertj.db.error.ShouldSatisfy.shouldSatisfy;
-import static org.assertj.db.util.Values.areEqual;
-
 /**
  * Implements the assertion method on the matching with condition of a row.
  *
  * @author Julien Roy
- *
  * @see org.assertj.db.api.assertions.AssertOnRowCondition
  */
 public class AssertionsOnRowCondition {

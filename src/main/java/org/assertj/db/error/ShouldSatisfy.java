@@ -20,18 +20,17 @@ import org.assertj.core.error.ErrorMessageFactory;
  * Creates an error message indicating that an assertion that verifies that a value does not satisfying condition.
  *
  * @author Julien Roy
- *
  */
 public class ShouldSatisfy extends BasicErrorMessageFactory {
 
   private static final String EXPECTED_MESSAGE_WITH_INDEX = "%nExpecting that the value at index %s:%n  %s%nto satisfy: %n  %s";
 
-  public static ErrorMessageFactory shouldSatisfy(int index, Object actual, Condition<?> condition) {
-    return new ShouldSatisfy(index, actual, condition);
-  }
-
   private ShouldSatisfy(int index, Object actual, Condition<?> condition) {
     super(EXPECTED_MESSAGE_WITH_INDEX, index, actual, condition);
+  }
+
+  public static ErrorMessageFactory shouldSatisfy(int index, Object actual, Condition<?> condition) {
+    return new ShouldSatisfy(index, actual, condition);
   }
 
 }

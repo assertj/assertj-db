@@ -12,25 +12,24 @@
  */
 package org.assertj.db.util;
 
-import org.assertj.db.common.AbstractTest;
-import org.assertj.db.type.DateTimeValue;
-import org.assertj.db.type.DateValue;
-import org.assertj.db.type.TimeValue;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.UUID;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.db.common.AbstractTest;
+import org.assertj.db.type.DateTimeValue;
+import org.assertj.db.type.DateValue;
+import org.assertj.db.type.TimeValue;
+import org.junit.Test;
 
 /**
-* Tests on {@code getRepresentationFromValueInFrontOfExpected} method from utility class {@code Values}.
-*
-* @author Régis Pouiller
-*
-*/
+ * Tests on {@code getRepresentationFromValueInFrontOfExpected} method from utility class {@code Values}.
+ *
+ * @author Régis Pouiller
+ */
 public class Values_GetOutputFromValueInFrontOfExpected_Test extends AbstractTest {
 
   /**
@@ -40,12 +39,12 @@ public class Values_GetOutputFromValueInFrontOfExpected_Test extends AbstractTes
   public void test_getRepresentationFromValueInFrontOfExpected_for_dates() throws Exception {
     Date date = Date.valueOf("2007-12-23");
     assertThat(Values.getRepresentationFromValueInFrontOfExpected(getValue(null, date), DateValue.of(2007, 12, 23))).isEqualTo(
-            DateValue.from(date));
+      DateValue.from(date));
     assertThat(Values.getRepresentationFromValueInFrontOfExpected(getValue(null, date), DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1)))).isEqualTo(
-            DateTimeValue.of(DateValue.from(date)));
+      DateTimeValue.of(DateValue.from(date)));
     assertThat(Values.getRepresentationFromValueInFrontOfExpected(getValue(null, date), "")).isEqualTo("2007-12-23");
     assertThat(Values.getRepresentationFromValueInFrontOfExpected(getValue(null, date), "T")).isEqualTo(
-            "2007-12-23T00:00:00.000000000");
+      "2007-12-23T00:00:00.000000000");
     assertThat(Values.getRepresentationFromValueInFrontOfExpected(getValue(null, date), null)).isEqualTo(date);
   }
 
@@ -66,9 +65,9 @@ public class Values_GetOutputFromValueInFrontOfExpected_Test extends AbstractTes
   public void test_getRepresentationFromValueInFrontOfExpected_for_datetime() throws Exception {
     Timestamp timestamp = Timestamp.valueOf("2007-12-23 09:01:06.000000003");
     assertThat(Values.getRepresentationFromValueInFrontOfExpected(getValue(null, timestamp), null)).isEqualTo(
-            DateTimeValue.from(timestamp));
+      DateTimeValue.from(timestamp));
     assertThat(Values.getRepresentationFromValueInFrontOfExpected(getValue(null, timestamp), "")).isEqualTo(
-            "2007-12-23T09:01:06.000000003");
+      "2007-12-23T09:01:06.000000003");
   }
 
   /**
@@ -76,8 +75,8 @@ public class Values_GetOutputFromValueInFrontOfExpected_Test extends AbstractTes
    */
   @Test
   public void test_getRepresentationFromValueInFrontOfExpected_for_bytes() throws Exception {
-    assertThat(Values.getRepresentationFromValueInFrontOfExpected(getValue(null, new byte[] {1, 2}), null)).isEqualTo(
-            new byte[] { 1, 2 });
+    assertThat(Values.getRepresentationFromValueInFrontOfExpected(getValue(null, new byte[]{1, 2}), null)).isEqualTo(
+      new byte[]{1, 2});
   }
 
   /**
@@ -94,9 +93,9 @@ public class Values_GetOutputFromValueInFrontOfExpected_Test extends AbstractTes
   @Test
   public void test_getRepresentationFromValueInFrontOfExpected_for_UUID() throws Exception {
     assertThat(Values.getRepresentationFromValueInFrontOfExpected(getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")), "30B443AE-C0C9-4790-9BEC-CE1380808435")).isEqualTo(
-            "30b443ae-c0c9-4790-9bec-ce1380808435");
+      "30b443ae-c0c9-4790-9bec-ce1380808435");
     assertThat(Values.getRepresentationFromValueInFrontOfExpected(getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")), null)).isEqualTo(
-            UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
+      UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
   }
 
   /**

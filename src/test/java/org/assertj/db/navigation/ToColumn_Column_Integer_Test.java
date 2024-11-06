@@ -12,30 +12,50 @@
  */
 package org.assertj.db.navigation;
 
-import org.assertj.core.api.Assertions;
-import org.assertj.db.api.*;
-import org.assertj.db.common.AbstractTest;
-import org.assertj.db.common.NeedReload;
-import org.assertj.db.exception.AssertJDBException;
-import org.assertj.db.output.*;
-import org.assertj.db.type.*;
-import org.junit.Test;
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.assertj.db.output.Outputs.output;
+import static org.junit.Assert.fail;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.UUID;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.output.Outputs.output;
-import static org.junit.Assert.fail;
+import org.assertj.core.api.Assertions;
+import org.assertj.db.api.AbstractColumnAssert;
+import org.assertj.db.api.AbstractDbAssert;
+import org.assertj.db.api.ChangeAssert;
+import org.assertj.db.api.ChangeColumnAssert;
+import org.assertj.db.api.ChangesAssert;
+import org.assertj.db.api.RequestAssert;
+import org.assertj.db.api.RequestColumnAssert;
+import org.assertj.db.api.TableAssert;
+import org.assertj.db.api.TableColumnAssert;
+import org.assertj.db.common.AbstractTest;
+import org.assertj.db.common.NeedReload;
+import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.output.AbstractColumnOutputter;
+import org.assertj.db.output.AbstractDbOutputter;
+import org.assertj.db.output.ChangeColumnOutputter;
+import org.assertj.db.output.ChangeOutputter;
+import org.assertj.db.output.ChangesOutputter;
+import org.assertj.db.output.Outputs;
+import org.assertj.db.output.RequestColumnOutputter;
+import org.assertj.db.output.RequestOutputter;
+import org.assertj.db.output.TableColumnOutputter;
+import org.assertj.db.output.TableOutputter;
+import org.assertj.db.type.Changes;
+import org.assertj.db.type.Column;
+import org.assertj.db.type.Request;
+import org.assertj.db.type.Table;
+import org.assertj.db.type.Value;
+import org.junit.Test;
 
 /**
  * Tests on {@link org.assertj.db.navigation.ToColumn} class :
  * {@link org.assertj.db.navigation.ToColumn#column(int)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class ToColumn_Column_Integer_Test extends AbstractTest {
 
@@ -62,8 +82,8 @@ public class ToColumn_Column_Integer_Test extends AbstractTest {
 
     ChangesAssert changesAssert = assertThat(changes);
     ChangeAssert changeAssert = changesAssert.change(6);
-    PositionWithColumnsChange<ChangeAssert, ChangeColumnAssert> position = 
-              (PositionWithColumnsChange) fieldPosition.get(changeAssert);
+    PositionWithColumnsChange<ChangeAssert, ChangeColumnAssert> position =
+      (PositionWithColumnsChange) fieldPosition.get(changeAssert);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     ChangeColumnAssert changeColumnAssert0 = changeAssert.column(0);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
@@ -92,8 +112,8 @@ public class ToColumn_Column_Integer_Test extends AbstractTest {
 
     ChangesAssert changesAssertBis = assertThat(changes);
     ChangeAssert changeAssertBis = changesAssertBis.change(6);
-    PositionWithColumnsChange<ChangeAssert, ChangeColumnAssert> positionBis = 
-              (PositionWithColumnsChange) fieldPosition.get(changeAssertBis);
+    PositionWithColumnsChange<ChangeAssert, ChangeColumnAssert> positionBis =
+      (PositionWithColumnsChange) fieldPosition.get(changeAssertBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     ChangeColumnAssert changeColumnAssertBis0 = changeAssertBis.column(0);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
@@ -121,33 +141,33 @@ public class ToColumn_Column_Integer_Test extends AbstractTest {
     Assertions.assertThat(changeColumnAssertBis0).isSameAs(changeColumnAssertBisAgain0);
 
     Assertions.assertThat(fieldColumnName.get(changeColumnAssert0)).isEqualTo(fieldColumnName.get(changeColumnAssertBis0)).isEqualTo(
-            "ID");
+      "ID");
     Assertions.assertThat(fieldColumnName.get(changeColumnAssert1)).isEqualTo(fieldColumnName.get(changeColumnAssertBis1)).isEqualTo(
-            "NAME");
+      "NAME");
     Assertions.assertThat(fieldColumnName.get(changeColumnAssert2)).isEqualTo(fieldColumnName.get(changeColumnAssertBis2)).isEqualTo(
-            "FIRSTNAME");
+      "FIRSTNAME");
     Assertions.assertThat(fieldColumnName.get(changeColumnAssert3)).isEqualTo(
-            fieldColumnName.get(changeColumnAssertBis3)).isEqualTo(
-            "BIRTH");
+      fieldColumnName.get(changeColumnAssertBis3)).isEqualTo(
+      "BIRTH");
     Assertions.assertThat(fieldColumnName.get(changeColumnAssert4)).isEqualTo(
-            fieldColumnName.get(changeColumnAssertBis4)).isEqualTo(
-            "ACTOR_IMDB");
+      fieldColumnName.get(changeColumnAssertBis4)).isEqualTo(
+      "ACTOR_IMDB");
 
     Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnAssert0)).getValue())
-              .isEqualTo(((Value) fieldValueAtStartPoint.get(changeColumnAssertBis0)).getValue())
-    .isEqualTo(new BigDecimal("3"));
+      .isEqualTo(((Value) fieldValueAtStartPoint.get(changeColumnAssertBis0)).getValue())
+      .isEqualTo(new BigDecimal("3"));
     Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnAssert1)).getValue())
-    .isEqualTo(((Value) fieldValueAtStartPoint.get(changeColumnAssertBis1)).getValue())
-    .isEqualTo("Worthington");
+      .isEqualTo(((Value) fieldValueAtStartPoint.get(changeColumnAssertBis1)).getValue())
+      .isEqualTo("Worthington");
     Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnAssert2)).getValue())
-    .isEqualTo(((Value) fieldValueAtStartPoint.get(changeColumnAssertBis2)).getValue())
-    .isEqualTo("Sam");
+      .isEqualTo(((Value) fieldValueAtStartPoint.get(changeColumnAssertBis2)).getValue())
+      .isEqualTo("Sam");
     Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnAssert3)).getValue())
-    .isEqualTo(((Value) fieldValueAtStartPoint.get(changeColumnAssertBis3)).getValue())
-    .isEqualTo(Date.valueOf("1976-08-02"));
+      .isEqualTo(((Value) fieldValueAtStartPoint.get(changeColumnAssertBis3)).getValue())
+      .isEqualTo(Date.valueOf("1976-08-02"));
     Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnAssert4)).getValue())
-    .isEqualTo(((Value) fieldValueAtStartPoint.get(changeColumnAssertBis4)).getValue())
-    .isEqualTo(UUID.fromString("D735221B-5DE5-4112-AA1E-49090CB75ADA"));
+      .isEqualTo(((Value) fieldValueAtStartPoint.get(changeColumnAssertBis4)).getValue())
+      .isEqualTo(UUID.fromString("D735221B-5DE5-4112-AA1E-49090CB75ADA"));
 
     Assertions.assertThat(((Value) fieldValueAtEndPoint.get(changeColumnAssert0)).getValue()).isNull();
     Assertions.assertThat(((Value) fieldValueAtEndPoint.get(changeColumnAssert1)).getValue()).isNull();
@@ -175,8 +195,8 @@ public class ToColumn_Column_Integer_Test extends AbstractTest {
 
     Table table = new Table(source, "actor");
     TableAssert tableAssert = assertThat(table);
-    Position<TableAssert, TableColumnAssert, Column> position = 
-            (Position<TableAssert, TableColumnAssert, Column>) fieldPosition.get(tableAssert);
+    Position<TableAssert, TableColumnAssert, Column> position =
+      (Position<TableAssert, TableColumnAssert, Column>) fieldPosition.get(tableAssert);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     TableColumnAssert tableColumnAssert0 = tableAssert.column(0);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
@@ -362,16 +382,16 @@ public class ToColumn_Column_Integer_Test extends AbstractTest {
     Assertions.assertThat(columnId2.getValuesList().get(2).getValue()).isEqualTo(columnIdBis2.getValuesList().get(2).getValue()).isEqualTo("Sam");
     Assertions.assertThat(columnId3.getValuesList().get(0).getValue()).isEqualTo(columnIdBis3.getValuesList().get(0).getValue()).isEqualTo(Date.valueOf("1949-10-08"));
     Assertions.assertThat(columnId3.getValuesList().get(1).getValue()).isEqualTo(columnIdBis3.getValuesList().get(1).getValue()).isEqualTo(
-            Date.valueOf("1974-10-28"));
+      Date.valueOf("1974-10-28"));
     Assertions.assertThat(columnId3.getValuesList().get(2).getValue()).isEqualTo(columnIdBis3.getValuesList().get(2).getValue()).isEqualTo(
-            Date.valueOf("1976-08-02"));
+      Date.valueOf("1976-08-02"));
     Assertions.assertThat(
-            columnId4.getValuesList().get(0).getValue()).isEqualTo(columnIdBis4.getValuesList().get(0).getValue()).isEqualTo(
-            UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
+      columnId4.getValuesList().get(0).getValue()).isEqualTo(columnIdBis4.getValuesList().get(0).getValue()).isEqualTo(
+      UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
     Assertions.assertThat(columnId4.getValuesList().get(1).getValue()).isEqualTo(columnIdBis4.getValuesList().get(1).getValue()).isEqualTo(
-            UUID.fromString("16319617-AE95-4087-9264-D3D21BF611B6"));
+      UUID.fromString("16319617-AE95-4087-9264-D3D21BF611B6"));
     Assertions.assertThat(columnId4.getValuesList().get(2).getValue()).isEqualTo(columnIdBis4.getValuesList().get(2).getValue()).isEqualTo(
-            UUID.fromString("D735221B-5DE5-4112-AA1E-49090CB75ADA"));
+      UUID.fromString("D735221B-5DE5-4112-AA1E-49090CB75ADA"));
   }
 
   /**
@@ -397,8 +417,8 @@ public class ToColumn_Column_Integer_Test extends AbstractTest {
 
     ChangesOutputter changesOutputter = output(changes);
     ChangeOutputter changeOutputter = changesOutputter.change(6);
-    PositionWithColumnsChange<ChangeOutputter, ChangeColumnOutputter> position = 
-              (PositionWithColumnsChange) fieldPosition.get(changeOutputter);
+    PositionWithColumnsChange<ChangeOutputter, ChangeColumnOutputter> position =
+      (PositionWithColumnsChange) fieldPosition.get(changeOutputter);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     ChangeColumnOutputter changeColumnOutputter0 = changeOutputter.column(0);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
@@ -427,8 +447,8 @@ public class ToColumn_Column_Integer_Test extends AbstractTest {
 
     ChangesOutputter changesOutputterBis = output(changes);
     ChangeOutputter changeOutputterBis = changesOutputterBis.change(6);
-    PositionWithColumnsChange<ChangeOutputter, ChangeColumnOutputter> positionBis = 
-              (PositionWithColumnsChange) fieldPosition.get(changeOutputterBis);
+    PositionWithColumnsChange<ChangeOutputter, ChangeColumnOutputter> positionBis =
+      (PositionWithColumnsChange) fieldPosition.get(changeOutputterBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     ChangeColumnOutputter changeColumnOutputterBis0 = changeOutputterBis.column(0);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
@@ -456,33 +476,33 @@ public class ToColumn_Column_Integer_Test extends AbstractTest {
     Assertions.assertThat(changeColumnOutputterBis0).isSameAs(changeColumnOutputterBisAgain0);
 
     Assertions.assertThat(fieldColumnName.get(changeColumnOutputter0)).isEqualTo(fieldColumnName.get(changeColumnOutputterBis0)).isEqualTo(
-            "ID");
+      "ID");
     Assertions.assertThat(fieldColumnName.get(changeColumnOutputter1)).isEqualTo(fieldColumnName.get(changeColumnOutputterBis1)).isEqualTo(
-            "NAME");
+      "NAME");
     Assertions.assertThat(fieldColumnName.get(changeColumnOutputter2)).isEqualTo(fieldColumnName.get(changeColumnOutputterBis2)).isEqualTo(
-            "FIRSTNAME");
+      "FIRSTNAME");
     Assertions.assertThat(fieldColumnName.get(changeColumnOutputter3)).isEqualTo(
-            fieldColumnName.get(changeColumnOutputterBis3)).isEqualTo(
-            "BIRTH");
+      fieldColumnName.get(changeColumnOutputterBis3)).isEqualTo(
+      "BIRTH");
     Assertions.assertThat(fieldColumnName.get(changeColumnOutputter4)).isEqualTo(
-            fieldColumnName.get(changeColumnOutputterBis4)).isEqualTo(
-            "ACTOR_IMDB");
+      fieldColumnName.get(changeColumnOutputterBis4)).isEqualTo(
+      "ACTOR_IMDB");
 
     Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnOutputter0)).getValue())
-              .isEqualTo(((Value) fieldValueAtStartPoint.get(changeColumnOutputterBis0)).getValue())
-              .isEqualTo(new BigDecimal("3"));
+      .isEqualTo(((Value) fieldValueAtStartPoint.get(changeColumnOutputterBis0)).getValue())
+      .isEqualTo(new BigDecimal("3"));
     Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnOutputter1)).getValue())
-              .isEqualTo(((Value) fieldValueAtStartPoint.get(changeColumnOutputterBis1)).getValue())
-              .isEqualTo("Worthington");
+      .isEqualTo(((Value) fieldValueAtStartPoint.get(changeColumnOutputterBis1)).getValue())
+      .isEqualTo("Worthington");
     Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnOutputter2)).getValue())
-              .isEqualTo(((Value) fieldValueAtStartPoint.get(changeColumnOutputterBis2)).getValue())
-              .isEqualTo("Sam");
+      .isEqualTo(((Value) fieldValueAtStartPoint.get(changeColumnOutputterBis2)).getValue())
+      .isEqualTo("Sam");
     Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnOutputter3)).getValue())
-              .isEqualTo(((Value) fieldValueAtStartPoint.get(changeColumnOutputterBis3)).getValue())
-              .isEqualTo(Date.valueOf("1976-08-02"));
+      .isEqualTo(((Value) fieldValueAtStartPoint.get(changeColumnOutputterBis3)).getValue())
+      .isEqualTo(Date.valueOf("1976-08-02"));
     Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnOutputter4)).getValue())
-              .isEqualTo(((Value) fieldValueAtStartPoint.get(changeColumnOutputterBis4)).getValue())
-              .isEqualTo(UUID.fromString("D735221B-5DE5-4112-AA1E-49090CB75ADA"));
+      .isEqualTo(((Value) fieldValueAtStartPoint.get(changeColumnOutputterBis4)).getValue())
+      .isEqualTo(UUID.fromString("D735221B-5DE5-4112-AA1E-49090CB75ADA"));
 
     Assertions.assertThat(((Value) fieldValueAtEndPoint.get(changeColumnOutputter0)).getValue()).isNull();
     Assertions.assertThat(((Value) fieldValueAtEndPoint.get(changeColumnOutputter1)).getValue()).isNull();
@@ -696,15 +716,15 @@ public class ToColumn_Column_Integer_Test extends AbstractTest {
     Assertions.assertThat(columnId2.getValuesList().get(2).getValue()).isEqualTo(columnIdBis2.getValuesList().get(2).getValue()).isEqualTo("Sam");
     Assertions.assertThat(columnId3.getValuesList().get(0).getValue()).isEqualTo(columnIdBis3.getValuesList().get(0).getValue()).isEqualTo(Date.valueOf("1949-10-08"));
     Assertions.assertThat(columnId3.getValuesList().get(1).getValue()).isEqualTo(columnIdBis3.getValuesList().get(1).getValue()).isEqualTo(
-            Date.valueOf("1974-10-28"));
+      Date.valueOf("1974-10-28"));
     Assertions.assertThat(columnId3.getValuesList().get(2).getValue()).isEqualTo(columnIdBis3.getValuesList().get(2).getValue()).isEqualTo(
-            Date.valueOf("1976-08-02"));
+      Date.valueOf("1976-08-02"));
     Assertions.assertThat(
-            columnId4.getValuesList().get(0).getValue()).isEqualTo(columnIdBis4.getValuesList().get(0).getValue()).isEqualTo(
-            UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
+      columnId4.getValuesList().get(0).getValue()).isEqualTo(columnIdBis4.getValuesList().get(0).getValue()).isEqualTo(
+      UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
     Assertions.assertThat(columnId4.getValuesList().get(1).getValue()).isEqualTo(columnIdBis4.getValuesList().get(1).getValue()).isEqualTo(
-            UUID.fromString("16319617-AE95-4087-9264-D3D21BF611B6"));
+      UUID.fromString("16319617-AE95-4087-9264-D3D21BF611B6"));
     Assertions.assertThat(columnId4.getValuesList().get(2).getValue()).isEqualTo(columnIdBis4.getValuesList().get(2).getValue()).isEqualTo(
-            UUID.fromString("D735221B-5DE5-4112-AA1E-49090CB75ADA"));
+      UUID.fromString("D735221B-5DE5-4112-AA1E-49090CB75ADA"));
   }
 }

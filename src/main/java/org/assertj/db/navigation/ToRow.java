@@ -53,15 +53,14 @@ import org.assertj.db.type.Row;
  * </code>
  * </pre>
  *
- * @author Régis Pouiller
- *
  * @param <R> The class of a assertion on a row (an sub-class of {@link org.assertj.db.navigation.element.RowElement}).
+ * @author Régis Pouiller
  */
 public interface ToRow<R extends RowElement> extends Navigation {
 
   /**
    * Returns assertion methods on the next {@link org.assertj.db.type.Row} in the list of {@link org.assertj.db.type.Row}.
-   * 
+   *
    * @return An object to make assertions on the next {@link Row}.
    * @throws AssertJDBException If there are no more {@link org.assertj.db.type.Row} in the list of {@link org.assertj.db.type.Row}s.
    * @see org.assertj.db.api.TableAssert#row()
@@ -75,7 +74,7 @@ public interface ToRow<R extends RowElement> extends Navigation {
 
   /**
    * Returns assertion methods on the {@link org.assertj.db.type.Row} at the {@code index} in parameter.
-   * 
+   *
    * @param index The index corresponding to the {@link org.assertj.db.type.Row}.
    * @return An object to make assertions on the {@link org.assertj.db.type.Row}.
    * @throws AssertJDBException If the {@code index} is out of the bounds.

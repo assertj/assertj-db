@@ -18,18 +18,17 @@ import org.assertj.db.type.Table;
 
 /**
  * Assertion methods for a {@link Row} of a {@link Table}.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class RequestRowAssert
-        extends AbstractRowAssert<Request, RequestAssert, RequestColumnAssert, RequestColumnValueAssert, RequestRowAssert, RequestRowValueAssert> {
+  extends AbstractRowAssert<Request, RequestAssert, RequestColumnAssert, RequestColumnValueAssert, RequestRowAssert, RequestRowValueAssert> {
 
   /**
    * Constructor.
-   * 
+   *
    * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
-   * @param row The row on which do assertion.
+   * @param row    The row on which do assertion.
    */
   public RequestRowAssert(RequestAssert origin, Row row) {
     super(origin, RequestRowAssert.class, RequestRowValueAssert.class, row);
@@ -37,7 +36,7 @@ public class RequestRowAssert
 
   /**
    * Returns to level of assertion methods on a {@link Request}.
-   * 
+   *
    * @return a object of assertion methods on a {@link Request}.
    */
   public RequestAssert returnToRequest() {

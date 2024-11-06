@@ -19,37 +19,21 @@ import org.assertj.db.type.ValueType;
 
 /**
  * Creates an error message indicating that an assertion that verifies that a value is of a type.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class ShouldBeValueTypeWithStartPoint extends BasicErrorMessageFactory {
 
   private static final String EXPECTED_MESSAGE =
-          "%nExpecting that the value at start point:%n  <%s>%nto be of type%n  <%s>%nbut was of type%n  <%s>";
+    "%nExpecting that the value at start point:%n  <%s>%nto be of type%n  <%s>%nbut was of type%n  <%s>";
   private static final String EXPECTED_MESSAGE_NOT_IDENTIFIED =
-          "%nExpecting that the value at start point:%n  <%s>%nto be of type%n  <%s>%nbut was of type%n  <%s> (%s)";
-
-  /**
-   * Creates a new <code>{@link org.assertj.db.error.ShouldBeValueTypeWithStartPoint}</code>.
-   *
-   * @param actual The actual value in the failed assertion.
-   * @param tested The tested type.
-   * @param expected The expected type.
-   * @return the created {@code ErrorMessageFactory}.
-   */
-  public static ErrorMessageFactory shouldBeValueTypeWithStartPoint(Value actual, ValueType tested, ValueType expected) {
-    if (actual.getValue() != null && tested == ValueType.NOT_IDENTIFIED) {
-      return  new ShouldBeValueTypeWithStartPoint(actual, actual.getValue().getClass(), tested, expected);
-    }
-    return new ShouldBeValueTypeWithStartPoint(actual, tested, expected);
-  }
+    "%nExpecting that the value at start point:%n  <%s>%nto be of type%n  <%s>%nbut was of type%n  <%s> (%s)";
 
   /**
    * Constructor.
    *
-   * @param actual The actual value in the failed assertion.
-   * @param tested The tested type.
+   * @param actual   The actual value in the failed assertion.
+   * @param tested   The tested type.
    * @param expected The expected type.
    */
   private ShouldBeValueTypeWithStartPoint(Value actual, ValueType tested, ValueType expected) {
@@ -59,12 +43,27 @@ public class ShouldBeValueTypeWithStartPoint extends BasicErrorMessageFactory {
   /**
    * Constructor.
    *
-   * @param actual The actual value in the failed assertion.
+   * @param actual        The actual value in the failed assertion.
    * @param classOfActual Class of the actual value (for not identified type).
-   * @param tested The tested type.
-   * @param expected The expected type.
+   * @param tested        The tested type.
+   * @param expected      The expected type.
    */
   private ShouldBeValueTypeWithStartPoint(Value actual, Class<?> classOfActual, ValueType tested, ValueType expected) {
     super(EXPECTED_MESSAGE_NOT_IDENTIFIED, actual.getValue(), expected, tested, classOfActual);
+  }
+
+  /**
+   * Creates a new <code>{@link org.assertj.db.error.ShouldBeValueTypeWithStartPoint}</code>.
+   *
+   * @param actual   The actual value in the failed assertion.
+   * @param tested   The tested type.
+   * @param expected The expected type.
+   * @return the created {@code ErrorMessageFactory}.
+   */
+  public static ErrorMessageFactory shouldBeValueTypeWithStartPoint(Value actual, ValueType tested, ValueType expected) {
+    if (actual.getValue() != null && tested == ValueType.NOT_IDENTIFIED) {
+      return new ShouldBeValueTypeWithStartPoint(actual, actual.getValue().getClass(), tested, expected);
+    }
+    return new ShouldBeValueTypeWithStartPoint(actual, tested, expected);
   }
 }

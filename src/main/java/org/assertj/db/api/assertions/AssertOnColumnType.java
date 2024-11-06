@@ -46,8 +46,8 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * </code></pre>
    *
    * @param expected The expected type to compare to.
-   * @param lenient {@code true} if the test is lenient : if the type of a value is not identified (for example when the
-   *          value is {@code null}), it consider that it is ok.
+   * @param lenient  {@code true} if the test is lenient : if the type of a value is not identified (for example when the
+   *                 value is {@code null}), it consider that it is ok.
    * @return {@code this} assertion object.
    * @throws AssertionError If the type of the column is different to the type in parameter.
    * @see org.assertj.db.api.AbstractColumnAssert#isOfType(org.assertj.db.type.ValueType, boolean)
@@ -94,7 +94,7 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * </pre>
    *
    * @param lenient {@code true} if the test is lenient : if the type of a value is not identified (for example when the
-   *          value is {@code null}), it consider that it is ok.
+   *                value is {@code null}), it consider that it is ok.
    * @return {@code this} assertion object.
    * @throws AssertionError If the type of the column is not number.
    * @see org.assertj.db.type.ValueType#NUMBER
@@ -123,7 +123,7 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * </pre>
    *
    * @param lenient {@code true} if the test is lenient : if the type of a value is not identified (for example when the
-   *          value is {@code null}), it consider that it is ok.
+   *                value is {@code null}), it consider that it is ok.
    * @return {@code this} assertion object.
    * @throws AssertionError If the type of the column is not boolean.
    * @see org.assertj.db.type.ValueType#BOOLEAN
@@ -152,7 +152,7 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * </pre>
    *
    * @param lenient {@code true} if the test is lenient : if the type of a value is not identified (for example when the
-   *          value is {@code null}), it consider that it is ok.
+   *                value is {@code null}), it consider that it is ok.
    * @return {@code this} assertion object.
    * @throws AssertionError If the type of the column is not date.
    * @see org.assertj.db.type.ValueType#DATE
@@ -181,7 +181,7 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * </pre>
    *
    * @param lenient {@code true} if the test is lenient : if the type of a value is not identified (for example when the
-   *          value is {@code null}), it consider that it is ok.
+   *                value is {@code null}), it consider that it is ok.
    * @return {@code this} assertion object.
    * @throws AssertionError If the type of the column is not time.
    * @see org.assertj.db.type.ValueType#TIME
@@ -210,7 +210,7 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * </pre>
    *
    * @param lenient {@code true} if the test is lenient : if the type of a value is not identified (for example when the
-   *          value is {@code null}), it consider that it is ok.
+   *                value is {@code null}), it consider that it is ok.
    * @return {@code this} assertion object.
    * @throws AssertionError If the type of the column is not date/time.
    * @see org.assertj.db.type.ValueType#DATE_TIME
@@ -239,7 +239,7 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * </pre>
    *
    * @param lenient {@code true} if the test is lenient : if the type of a value is not identified (for example when the
-   *          value is {@code null}), it consider that it is ok.
+   *                value is {@code null}), it consider that it is ok.
    * @return {@code this} assertion object.
    * @throws AssertionError If the type of the column is not array of bytes.
    * @see org.assertj.db.type.ValueType#BYTES
@@ -268,7 +268,7 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * </pre>
    *
    * @param lenient {@code true} if the test is lenient : if the type of a value is not identified (for example when the
-   *          value is {@code null}), it consider that it is ok.
+   *                value is {@code null}), it consider that it is ok.
    * @return {@code this} assertion object.
    * @throws AssertionError If the type of the column is not text.
    * @see org.assertj.db.type.ValueType#TEXT
@@ -297,7 +297,7 @@ public interface AssertOnColumnType<T extends AssertOnColumnType<T>> {
    * </pre>
    *
    * @param lenient {@code true} if the test is lenient : if the type of a value is not identified (for example when the
-   *          value is {@code null}), it consider that it is ok.
+   *                value is {@code null}), it consider that it is ok.
    * @return {@code this} assertion object.
    * @throws AssertionError If the type of the column is not UUID.
    * @see org.assertj.db.type.ValueType#UUID

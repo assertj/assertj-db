@@ -12,17 +12,17 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.util.UUID;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
-
-import java.util.UUID;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link AssertionsOnValueType} class :
@@ -41,7 +41,7 @@ public class AssertionsOnValueType_IsUUID_Test extends AbstractTest {
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnValueType.isUUID(tableAssert, info, getValue(null, UUID
-            .fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")));
+      .fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -59,12 +59,12 @@ public class AssertionsOnValueType_IsUUID_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <\"test\">%n"
-                                                                    + "to be of type%n"
-                                                                    + "  <UUID>%n"
-                                                                    + "but was of type%n"
-                                                                    + "  <TEXT>"));
+        + "Expecting:%n"
+        + "  <\"test\">%n"
+        + "to be of type%n"
+        + "  <UUID>%n"
+        + "but was of type%n"
+        + "  <TEXT>"));
     }
   }
 
@@ -82,12 +82,12 @@ public class AssertionsOnValueType_IsUUID_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <text>%n"
-                                                                    + "to be of type%n"
-                                                                    + "  <UUID>%n"
-                                                                    + "but was of type%n"
-                                                                    + "  <NOT_IDENTIFIED> (java.lang.StringBuilder)"));
+        + "Expecting:%n"
+        + "  <text>%n"
+        + "to be of type%n"
+        + "  <UUID>%n"
+        + "but was of type%n"
+        + "  <NOT_IDENTIFIED> (java.lang.StringBuilder)"));
     }
   }
 }

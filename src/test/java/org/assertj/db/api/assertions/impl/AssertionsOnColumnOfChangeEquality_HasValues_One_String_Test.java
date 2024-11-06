@@ -12,6 +12,13 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -19,19 +26,11 @@ import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import java.sql.Date;
-import java.sql.Time;
-import java.sql.Timestamp;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertionsOnColumnOfChangeEquality} class :
  * {@link AssertionsOnColumnOfChangeEquality#hasValues(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, Object, Object, String)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnColumnOfChangeEquality_HasValues_One_String_Test extends AbstractTest {
 
@@ -44,29 +43,29 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_One_String_Test extend
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                                            getValue(null, "test1"),
-                                                                            getValue(null, "test1"),
-                                                                            "test1");
+      getValue(null, "test1"),
+      getValue(null, "test1"),
+      "test1");
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                                getValue(null, 8),
-                                                                getValue(null, 8),
-                                                                "8");
+      getValue(null, 8),
+      getValue(null, 8),
+      "8");
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                                getValue(null, Date.valueOf("2007-12-23")),
-                                                                getValue(null, Date.valueOf("2007-12-23")),
-                                                                "2007-12-23");
+      getValue(null, Date.valueOf("2007-12-23")),
+      getValue(null, Date.valueOf("2007-12-23")),
+      "2007-12-23");
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                                getValue(null, Time.valueOf("09:01:00")),
-                                                                getValue(null, Time.valueOf("09:01:00")),
-                                                                "09:01");
+      getValue(null, Time.valueOf("09:01:00")),
+      getValue(null, Time.valueOf("09:01:00")),
+      "09:01");
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                                getValue(null, Timestamp.valueOf("2007-12-23 09:01:00")),
-                                                                getValue(null, Timestamp.valueOf("2007-12-23 09:01:00")),
-                                                                "2007-12-23T09:01");
+      getValue(null, Timestamp.valueOf("2007-12-23 09:01:00")),
+      getValue(null, Timestamp.valueOf("2007-12-23 09:01:00")),
+      "2007-12-23T09:01");
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -81,68 +80,68 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_One_String_Test extend
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   getValue(null, "test1"),
-                                                   getValue(null, "test2"),
-                                                   "test2");
+        getValue(null, "test1"),
+        getValue(null, "test2"),
+        "test2");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that start point:%n"
-                                                      + "  <\"test1\">%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"test2\">"));
+        + "Expecting that start point:%n"
+        + "  <\"test1\">%n"
+        + "to be equal to: %n"
+        + "  <\"test2\">"));
     }
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   getValue(null, 8),
-                                                   getValue(null, 9),
-                                                   "9");
+        getValue(null, 8),
+        getValue(null, 9),
+        "9");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that start point:%n"
-                                                      + "  <\"8\">%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"9\">"));
+        + "Expecting that start point:%n"
+        + "  <\"8\">%n"
+        + "to be equal to: %n"
+        + "  <\"9\">"));
     }
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   getValue(null, Date.valueOf("2007-12-23")),
-                                                   getValue(null, Date.valueOf("2002-07-25")),
-                                                   "2002-07-25");
+        getValue(null, Date.valueOf("2007-12-23")),
+        getValue(null, Date.valueOf("2002-07-25")),
+        "2002-07-25");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that start point:%n"
-                                                      + "  <\"2007-12-23\">%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"2002-07-25\">"));
+        + "Expecting that start point:%n"
+        + "  <\"2007-12-23\">%n"
+        + "to be equal to: %n"
+        + "  <\"2002-07-25\">"));
     }
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   getValue(null, Time.valueOf("09:01:00")),
-                                                   getValue(null, Time.valueOf("03:30:05")),
-                                                   "03:30:05");
+        getValue(null, Time.valueOf("09:01:00")),
+        getValue(null, Time.valueOf("03:30:05")),
+        "03:30:05");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that start point:%n"
-                                                      + "  <\"09:01:00.000000000\">%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"03:30:05\">"));
+        + "Expecting that start point:%n"
+        + "  <\"09:01:00.000000000\">%n"
+        + "to be equal to: %n"
+        + "  <\"03:30:05\">"));
     }
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   getValue(null, Timestamp.valueOf("2007-12-23 09:01:00")),
-                                                   getValue(null, Timestamp.valueOf("2002-07-25 03:30:05")),
-                                                   "2002-07-25T03:30:05");
+        getValue(null, Timestamp.valueOf("2007-12-23 09:01:00")),
+        getValue(null, Timestamp.valueOf("2002-07-25 03:30:05")),
+        "2002-07-25T03:30:05");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that start point:%n"
-                                                      + "  <\"2007-12-23T09:01:00.000000000\">%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"2002-07-25T03:30:05\">"));
+        + "Expecting that start point:%n"
+        + "  <\"2007-12-23T09:01:00.000000000\">%n"
+        + "to be equal to: %n"
+        + "  <\"2002-07-25T03:30:05\">"));
     }
   }
 
@@ -157,68 +156,68 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_One_String_Test extend
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   getValue(null, "test1"),
-                                                   getValue(null, "test2"),
-                                                   "test1");
+        getValue(null, "test1"),
+        getValue(null, "test2"),
+        "test1");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that end point:%n"
-                                                      + "  <\"test2\">%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"test1\">"));
+        + "Expecting that end point:%n"
+        + "  <\"test2\">%n"
+        + "to be equal to: %n"
+        + "  <\"test1\">"));
     }
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   getValue(null, 8),
-                                                   getValue(null, 9),
-                                                   "8");
+        getValue(null, 8),
+        getValue(null, 9),
+        "8");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that end point:%n"
-                                                      + "  <\"9\">%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"8\">"));
+        + "Expecting that end point:%n"
+        + "  <\"9\">%n"
+        + "to be equal to: %n"
+        + "  <\"8\">"));
     }
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   getValue(null, Date.valueOf("2007-12-23")),
-                                                   getValue(null, Date.valueOf("2002-07-25")),
-                                                   "2007-12-23");
+        getValue(null, Date.valueOf("2007-12-23")),
+        getValue(null, Date.valueOf("2002-07-25")),
+        "2007-12-23");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that end point:%n"
-                                                      + "  <\"2002-07-25\">%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"2007-12-23\">"));
+        + "Expecting that end point:%n"
+        + "  <\"2002-07-25\">%n"
+        + "to be equal to: %n"
+        + "  <\"2007-12-23\">"));
     }
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   getValue(null, Time.valueOf("09:01:00")),
-                                                   getValue(null, Time.valueOf("03:30:05")),
-                                                   "09:01");
+        getValue(null, Time.valueOf("09:01:00")),
+        getValue(null, Time.valueOf("03:30:05")),
+        "09:01");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that end point:%n"
-                                                      + "  <\"03:30:05.000000000\">%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"09:01\">"));
+        + "Expecting that end point:%n"
+        + "  <\"03:30:05.000000000\">%n"
+        + "to be equal to: %n"
+        + "  <\"09:01\">"));
     }
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   getValue(null, Timestamp.valueOf("2007-12-23 09:01:00")),
-                                                   getValue(null, Timestamp.valueOf("2002-07-25 03:30:05")),
-                                                   "2007-12-23T09:01");
+        getValue(null, Timestamp.valueOf("2007-12-23 09:01:00")),
+        getValue(null, Timestamp.valueOf("2002-07-25 03:30:05")),
+        "2007-12-23T09:01");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that end point:%n"
-                                                      + "  <\"2002-07-25T03:30:05.000000000\">%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <\"2007-12-23T09:01\">"));
+        + "Expecting that end point:%n"
+        + "  <\"2002-07-25T03:30:05.000000000\">%n"
+        + "to be equal to: %n"
+        + "  <\"2007-12-23T09:01\">"));
     }
   }
 
@@ -233,18 +232,18 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_One_String_Test extend
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   getValue(null, false),
-                                                   getValue(null, "test2"),
-                                                   "test2");
+        getValue(null, false),
+        getValue(null, "test2"),
+        "test2");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that the value at start point:%n"
-                                                      + "  <false>%n"
-                                                      + "to be of type%n"
-                                                      + "  <[TEXT, NUMBER, DATE, TIME, DATE_TIME, UUID, NOT_IDENTIFIED]>%n"
-                                                      + "but was of type%n"
-                                                      + "  <BOOLEAN>"));
+        + "Expecting that the value at start point:%n"
+        + "  <false>%n"
+        + "to be of type%n"
+        + "  <[TEXT, NUMBER, DATE, TIME, DATE_TIME, UUID, NOT_IDENTIFIED]>%n"
+        + "but was of type%n"
+        + "  <BOOLEAN>"));
     }
   }
 }

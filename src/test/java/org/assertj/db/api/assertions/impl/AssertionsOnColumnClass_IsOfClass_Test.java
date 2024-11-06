@@ -12,6 +12,13 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -21,19 +28,11 @@ import org.assertj.db.type.Table;
 import org.assertj.db.type.Value;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertionsOnColumnClass} class :
  * {@link AssertionsOnColumnClass#isOfClass(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, java.util.List, Class, boolean)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnColumnClass_IsOfClass_Test extends AbstractTest {
 
@@ -71,12 +70,12 @@ public class AssertionsOnColumnClass_IsOfClass_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at index 0:%n"
-                                                                    + "  <8>%n"
-                                                                    + "to be of class%n"
-                                                                    + "  <java.lang.String>%n"
-                                                                    + "but was of class%n"
-                                                                    + "  <java.lang.Integer>"));
+        + "Expecting that the value at index 0:%n"
+        + "  <8>%n"
+        + "to be of class%n"
+        + "  <java.lang.String>%n"
+        + "but was of class%n"
+        + "  <java.lang.Integer>"));
     }
     try {
       List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, null), getValue(null, "test")));
@@ -84,10 +83,10 @@ public class AssertionsOnColumnClass_IsOfClass_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at index 0:%n"
-                                                                    + "  <null>%n"
-                                                                    + "to be of class%n"
-                                                                    + "  <java.lang.String>"));
+        + "Expecting that the value at index 0:%n"
+        + "  <null>%n"
+        + "to be of class%n"
+        + "  <java.lang.String>"));
     }
   }
 
@@ -106,12 +105,12 @@ public class AssertionsOnColumnClass_IsOfClass_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at index 1:%n"
-                                                                    + "  <8>%n"
-                                                                    + "to be of class%n"
-                                                                    + "  <java.lang.String>%n"
-                                                                    + "but was of class%n"
-                                                                    + "  <java.lang.Integer>"));
+        + "Expecting that the value at index 1:%n"
+        + "  <8>%n"
+        + "to be of class%n"
+        + "  <java.lang.String>%n"
+        + "but was of class%n"
+        + "  <java.lang.Integer>"));
     }
   }
 
@@ -130,12 +129,12 @@ public class AssertionsOnColumnClass_IsOfClass_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at index 0:%n"
-                                                                    + "  <test>%n"
-                                                                    + "to be of class%n"
-                                                                    + "  <java.lang.String>%n"
-                                                                    + "but was of class%n"
-                                                                    + "  <java.lang.StringBuilder>"));
+        + "Expecting that the value at index 0:%n"
+        + "  <test>%n"
+        + "to be of class%n"
+        + "  <java.lang.String>%n"
+        + "but was of class%n"
+        + "  <java.lang.StringBuilder>"));
     }
   }
 

@@ -23,9 +23,8 @@ import org.junit.Test;
 
 /**
  * Tests on the exceptions of {@code AbstractDbElement}
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class AbstractDbElement_Exception_Test extends AbstractTest {
 
@@ -40,7 +39,7 @@ public class AbstractDbElement_Exception_Test extends AbstractTest {
         @Override
         public String getCatalog() throws SQLException {
           throw new SQLException("test");
-        }        
+        }
       });
       fail("An exception must be raised");
     } catch (SQLException exception) {
@@ -50,17 +49,18 @@ public class AbstractDbElement_Exception_Test extends AbstractTest {
 
   /**
    * Tests if returns {@code null} because {@code getCatalog} throws an Exception.
-   * @throws SQLException 
+   *
+   * @throws SQLException
    */
   @Test
   public void test_if_returns_null_because_getCatalog_throws_an_Exception() throws SQLException {
     String catalog = AbstractDbElement.getCatalog(new DefaultConnection(null) {
 
-        @Override
-        public String getCatalog() throws SQLException {
-          throw new RuntimeException("test");
-        }        
-      });
+      @Override
+      public String getCatalog() throws SQLException {
+        throw new RuntimeException("test");
+      }
+    });
     assertThat(catalog).isNull();
   }
 
@@ -75,7 +75,7 @@ public class AbstractDbElement_Exception_Test extends AbstractTest {
         @Override
         public String getSchema() throws SQLException {
           throw new SQLException("test");
-        }        
+        }
       });
       fail("An exception must be raised");
     } catch (SQLException exception) {
@@ -85,17 +85,18 @@ public class AbstractDbElement_Exception_Test extends AbstractTest {
 
   /**
    * Tests if returns {@code null} because {@code getSchema} throws an Exception.
-   * @throws SQLException 
+   *
+   * @throws SQLException
    */
   @Test
   public void test_if_returns_null_because_getSchema_throws_an_Exception() throws SQLException {
     String schema = AbstractDbElement.getSchema(new DefaultConnection(null) {
 
-        @Override
-        public String getCatalog() throws SQLException {
-          throw new RuntimeException("test");
-        }        
-      });
+      @Override
+      public String getCatalog() throws SQLException {
+        throw new RuntimeException("test");
+      }
+    });
     assertThat(schema).isNull();
   }
 }

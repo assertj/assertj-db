@@ -19,11 +19,10 @@ import org.assertj.db.type.Request;
  * Output methods for a {@link Column} of a {@link Request}.
  *
  * @author Régis Pouiller
- *
  */
 public class RequestColumnOutputter
-        extends
-        AbstractColumnOutputter<Request, RequestOutputter, RequestColumnOutputter, RequestColumnValueOutputter, RequestRowOutputter, RequestRowValueOutputter> {
+  extends
+  AbstractColumnOutputter<Request, RequestOutputter, RequestColumnOutputter, RequestColumnValueOutputter, RequestRowOutputter, RequestRowValueOutputter> {
 
   /**
    * Constructor.

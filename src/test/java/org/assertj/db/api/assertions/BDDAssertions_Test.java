@@ -28,7 +28,6 @@ import org.junit.Test;
  * Test on {@code BDDAssertions} methods.
  *
  * @author Régis Pouiller
- *
  */
 public class BDDAssertions_Test extends AbstractTest {
 

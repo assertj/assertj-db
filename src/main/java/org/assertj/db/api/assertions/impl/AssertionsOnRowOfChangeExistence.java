@@ -12,13 +12,13 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.error.ShouldExist.shouldExist;
+import static org.assertj.db.error.ShouldNotExist.shouldNotExist;
+
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
 import org.assertj.db.type.Row;
-
-import static org.assertj.db.error.ShouldExist.shouldExist;
-import static org.assertj.db.error.ShouldNotExist.shouldNotExist;
 
 /**
  * Implements the assertion method on the existence of a row of a change.
@@ -43,10 +43,10 @@ public class AssertionsOnRowOfChangeExistence {
   /**
    * Verifies that the row of the change exists.
    *
-   * @param <A>               The type of the assertion which call this method.
-   * @param assertion         The assertion which call this method.
-   * @param info              Writable information about an assertion.
-   * @param row               The row.
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Writable information about an assertion.
+   * @param row       The row.
    * @return {@code this} assertion object.
    * @throws AssertionError If the row of the change does not exist.
    * @see org.assertj.db.api.ChangeRowAssert#exists()
@@ -61,10 +61,10 @@ public class AssertionsOnRowOfChangeExistence {
   /**
    * Verifies that the row of the change does not exist.
    *
-   * @param <A>               The type of the assertion which call this method.
-   * @param assertion         The assertion which call this method.
-   * @param info              Writable information about an assertion.
-   * @param row               The row.
+   * @param <A>       The type of the assertion which call this method.
+   * @param assertion The assertion which call this method.
+   * @param info      Writable information about an assertion.
+   * @param row       The row.
    * @return {@code this} assertion object.
    * @throws AssertionError If the row of the change exists.
    * @see org.assertj.db.api.ChangeRowAssert#doesNotExist()

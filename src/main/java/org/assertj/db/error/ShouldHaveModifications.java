@@ -19,14 +19,33 @@ import org.assertj.core.error.ErrorMessageFactory;
  * Creates an error message indicating that an assertion that verifies the modified columns.
  *
  * @author Régis Pouiller
- *
  */
 public class ShouldHaveModifications extends BasicErrorMessageFactory {
 
   /**
+   * Constructor.
+   *
+   * @param modifications         The modifications.
+   * @param expectedModifications The expected modifications.
+   */
+  private ShouldHaveModifications(Integer[] modifications, Integer[] expectedModifications) {
+    super("%nExpecting :%n  %s%nas indexes of modified columns but was:%n  %s", expectedModifications, modifications);
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param modifications         The modifications.
+   * @param expectedModifications The expected modifications.
+   */
+  private ShouldHaveModifications(String[] modifications, String[] expectedModifications) {
+    super("%nExpecting :%n  %s%nas modified columns but was:%n  %s", expectedModifications, modifications);
+  }
+
+  /**
    * Creates a new <code>{@link ShouldHaveModifications}</code>.
    *
-   * @param modifications The modifications.
+   * @param modifications         The modifications.
    * @param expectedModifications The expected modifications.
    * @return the created {@code ErrorMessageFactory}.
    */
@@ -37,31 +56,11 @@ public class ShouldHaveModifications extends BasicErrorMessageFactory {
   /**
    * Creates a new <code>{@link ShouldHaveModifications}</code>.
    *
-   * @param modifications The modifications.
+   * @param modifications         The modifications.
    * @param expectedModifications The expected modifications.
    * @return the created {@code ErrorMessageFactory}.
    */
   public static ErrorMessageFactory shouldHaveModifications(String[] modifications, String[] expectedModifications) {
     return new ShouldHaveModifications(modifications, expectedModifications);
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param modifications The modifications.
-   * @param expectedModifications The expected modifications.
-   */
-  private ShouldHaveModifications(Integer[] modifications, Integer[] expectedModifications) {
-    super("%nExpecting :%n  %s%nas indexes of modified columns but was:%n  %s", expectedModifications, modifications);
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param modifications The modifications.
-   * @param expectedModifications The expected modifications.
-   */
-  private ShouldHaveModifications(String[] modifications, String[] expectedModifications) {
-    super("%nExpecting :%n  %s%nas modified columns but was:%n  %s", expectedModifications, modifications);
   }
 }

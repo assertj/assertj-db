@@ -12,24 +12,24 @@
  */
 package org.assertj.db.output;
 
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.Test;
 
 /**
  * Test on the utility class {@code Displaying} : the private constructor.
  *
  * @author Régis Pouiller
- *
  */
 public class Outputs_Constructor_Test {
 
   /**
    * This method tests the private constructor of {@code Displaying} for the tests coverage..
+   *
    * @throws NoSuchMethodException
    * @throws SecurityException
    * @throws java.lang.reflect.InvocationTargetException
@@ -39,7 +39,7 @@ public class Outputs_Constructor_Test {
    */
   @Test
   public void test_private_constructor_for_the_tests_coverage() throws SecurityException, NoSuchMethodException, IllegalArgumentException, InstantiationException, IllegalAccessException,
-          InvocationTargetException {
+    InvocationTargetException {
     Constructor<Outputs> constructor = Outputs.class.getDeclaredConstructor();
     assertThat(Modifier.isPrivate(constructor.getModifiers())).isTrue();
     constructor.setAccessible(true);

@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api.assertions;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.ChangeAssert;
 import org.assertj.db.common.AbstractTest;
@@ -19,15 +22,11 @@ import org.assertj.db.common.NeedReload;
 import org.assertj.db.type.Changes;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link org.assertj.db.api.assertions.AssertOnModifiedColumns} class :
  * {@link org.assertj.db.api.assertions.AssertOnModifiedColumns#hasModifiedColumns(Integer...)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertOnModifiedColumns_HasModifiedColumns_Integer_Test extends AbstractTest {
 
@@ -61,10 +60,10 @@ public class AssertOnModifiedColumns_HasModifiedColumns_Integer_Test extends Abs
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 3 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
-                                                      + "Expecting :%n"
-                                                      + "  [1]%n"
-                                                      + "as indexes of modified columns but was:%n"
-                                                      + "  [2]"));
+        + "Expecting :%n"
+        + "  [1]%n"
+        + "as indexes of modified columns but was:%n"
+        + "  [2]"));
     }
   }
 }

@@ -12,6 +12,13 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -20,19 +27,11 @@ import org.assertj.db.type.Table;
 import org.assertj.db.type.Value;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertionsOnValuesNullity} class :
  * {@link AssertionsOnValuesNullity#hasOnlyNotNullValues(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, java.util.List)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnValuesNullity_HasOnlyNotNullValues_Test extends AbstractTest {
 
@@ -64,8 +63,8 @@ public class AssertionsOnValuesNullity_HasOnlyNotNullValues_Test extends Abstrac
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting to contain only not null:%n"
-                                                      + "but contains null at index: 0"));
+        + "Expecting to contain only not null:%n"
+        + "but contains null at index: 0"));
     }
   }
 }

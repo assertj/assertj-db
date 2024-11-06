@@ -12,10 +12,10 @@
  */
 package org.assertj.db.type;
 
+import java.util.List;
+
 import org.assertj.db.type.lettercase.LetterCase;
 import org.assertj.db.type.lettercase.WithColumnLetterCase;
-
-import java.util.List;
 
 /**
  * Column in a {@link AbstractDbData}.
@@ -26,9 +26,8 @@ import java.util.List;
  * Note : you never instantiate directly this class. You will get an object of this class from a {@link Table} or a
  * {@link Request} by using {@link AbstractDbData#getColumn(int)}.
  * </p>
- * 
+ *
  * @author Régis Pouiller.
- * 
  */
 public class Column implements DbElement, WithColumnLetterCase {
 
@@ -42,15 +41,16 @@ public class Column implements DbElement, WithColumnLetterCase {
   private final List<Value> valuesList;
   /**
    * Letter case of the columns.
+   *
    * @since 1.1.0
    */
   private final LetterCase columnLetterCase;
 
   /**
    * Constructor of the column with visibility in the package.
-   * 
-   * @param name The name of the column.
-   * @param valuesList The values in the column.
+   *
+   * @param name             The name of the column.
+   * @param valuesList       The values in the column.
    * @param columnLetterCase The letter case of the columns.
    */
   Column(String name, List<Value> valuesList, LetterCase columnLetterCase) {
@@ -69,7 +69,7 @@ public class Column implements DbElement, WithColumnLetterCase {
 
   /**
    * Returns the name of the column.
-   * 
+   *
    * @return The name of the column.
    */
   public String getName() {
@@ -78,7 +78,7 @@ public class Column implements DbElement, WithColumnLetterCase {
 
   /**
    * Returns the values of the column.
-   * 
+   *
    * @return The values of the column.
    */
   public List<Value> getValuesList() {
@@ -87,7 +87,7 @@ public class Column implements DbElement, WithColumnLetterCase {
 
   /**
    * Returns the value corresponding to the row index.
-   * 
+   *
    * @param index The index
    * @return The value
    */

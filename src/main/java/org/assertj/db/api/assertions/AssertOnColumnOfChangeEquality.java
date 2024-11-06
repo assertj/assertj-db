@@ -12,11 +12,11 @@
  */
 package org.assertj.db.api.assertions;
 
+import java.util.UUID;
+
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.TimeValue;
-
-import java.util.UUID;
 
 /**
  * Defines the assertion methods on the equality of a column of a change.

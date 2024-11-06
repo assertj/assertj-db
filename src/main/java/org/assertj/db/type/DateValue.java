@@ -19,13 +19,16 @@ import java.util.Calendar;
 
 /**
  * This class represents a date value in the database.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class DateValue implements Comparable<DateValue>, DateValueContainer {
 
   public static final String DATE_SHOULD_BE_NOT_NULL = "date should be not null";
+  /**
+   * Indicates where there are the digits in the {@code String} for {@link DateValue#DateValue(String)}.
+   */
+  private static final String DATE_FORMAT = "\\d\\d\\d\\d-\\d\\d-\\d\\d";
   /**
    * Day of the month.
    */
@@ -38,85 +41,12 @@ public class DateValue implements Comparable<DateValue>, DateValueContainer {
    * Year.
    */
   private final int year;
-  /**
-   * Indicates where there are the digits in the {@code String} for {@link DateValue#DateValue(String)}.
-   */
-  private static final String DATE_FORMAT = "\\d\\d\\d\\d-\\d\\d-\\d\\d";
-
-  /**
-   * Makes an instance of date value from a day of month, a month and an year.
-   * 
-   * @param year Year.
-   * @param month Month.
-   * @param dayOfTheMonth Day of the month.
-   * @return An instance of date value.
-   */
-  public static DateValue of(int year, int month, int dayOfTheMonth) {
-    return new DateValue(year, month, dayOfTheMonth);
-  }
-
-  /**
-   * Makes an instance of date value from a {@code String} in format {@code yyyy-mm-dd}.
-   * 
-   * @param date Date in {@code String} format ({@code yyyy-mm-dd}).
-   * @throws NullPointerException If {@code date} is {@code null}.
-   * @throws ParseException If {@code date} don't respect the {@code yyyy-mm-dd} format.
-   * @return An instance of date value.
-   */
-  public static DateValue parse(String date) throws ParseException {
-    return new DateValue(date);
-  }
-
-  /**
-   * Makes an instance of date value from a {@link Date}.
-   * 
-   * @param date Date.
-   * @throws NullPointerException If {@code date} is {@code null}.
-   * @return An instance of date value.
-   */
-  public static DateValue from(Date date) {
-    return new DateValue(date);
-  }
-
-  /**
-   * Makes an instance of date value from a {@link Calendar}.
-   *
-   * @param calendar Calendar.
-   * @throws NullPointerException If {@code calendar} is {@code null}.
-   * @return An instance of date value.
-   * @since 1.1.0
-   */
-  public static DateValue from(Calendar calendar) {
-    return new DateValue(calendar);
-  }
-
-  /**
-   * Makes an instance of date value from a {@link LocalDate}.
-   *
-   * @param localDate LocalDate.
-   * @throws NullPointerException If {@code localDate} is {@code null}.
-   * @return An instance of date value.
-   * @since 2.0.0
-   */
-  public static DateValue from(LocalDate localDate) {
-    return new DateValue(localDate);
-  }
-
-  /**
-   * Makes an instance of the date value corresponding to now.
-   *
-   * @return An instance of date value.
-   * @since 1.1.0
-   */
-  public static DateValue now() {
-    return from(Calendar.getInstance());
-  }
 
   /**
    * Constructor.
-   * 
-   * @param year Year.
-   * @param month Month.
+   *
+   * @param year          Year.
+   * @param month         Month.
    * @param dayOfTheMonth Day of the month.
    */
   public DateValue(int year, int month, int dayOfTheMonth) {
@@ -127,10 +57,10 @@ public class DateValue implements Comparable<DateValue>, DateValueContainer {
 
   /**
    * Constructor.
-   * 
+   *
    * @param date Date in {@code String} format ({@code yyyy-mm-dd}).
    * @throws NullPointerException If {@code date} is {@code null}.
-   * @throws ParseException If {@code date} don't respect the {@code yyyy-mm-dd} format.
+   * @throws ParseException       If {@code date} don't respect the {@code yyyy-mm-dd} format.
    */
   public DateValue(String date) throws ParseException {
     if (date == null) {
@@ -148,7 +78,7 @@ public class DateValue implements Comparable<DateValue>, DateValueContainer {
 
   /**
    * Constructor.
-   * 
+   *
    * @param date Date.
    * @throws NullPointerException If {@code date} is {@code null}.
    */
@@ -198,7 +128,78 @@ public class DateValue implements Comparable<DateValue>, DateValueContainer {
     year = localDate.getYear();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * Makes an instance of date value from a day of month, a month and an year.
+   *
+   * @param year          Year.
+   * @param month         Month.
+   * @param dayOfTheMonth Day of the month.
+   * @return An instance of date value.
+   */
+  public static DateValue of(int year, int month, int dayOfTheMonth) {
+    return new DateValue(year, month, dayOfTheMonth);
+  }
+
+  /**
+   * Makes an instance of date value from a {@code String} in format {@code yyyy-mm-dd}.
+   *
+   * @param date Date in {@code String} format ({@code yyyy-mm-dd}).
+   * @return An instance of date value.
+   * @throws NullPointerException If {@code date} is {@code null}.
+   * @throws ParseException       If {@code date} don't respect the {@code yyyy-mm-dd} format.
+   */
+  public static DateValue parse(String date) throws ParseException {
+    return new DateValue(date);
+  }
+
+  /**
+   * Makes an instance of date value from a {@link Date}.
+   *
+   * @param date Date.
+   * @return An instance of date value.
+   * @throws NullPointerException If {@code date} is {@code null}.
+   */
+  public static DateValue from(Date date) {
+    return new DateValue(date);
+  }
+
+  /**
+   * Makes an instance of date value from a {@link Calendar}.
+   *
+   * @param calendar Calendar.
+   * @return An instance of date value.
+   * @throws NullPointerException If {@code calendar} is {@code null}.
+   * @since 1.1.0
+   */
+  public static DateValue from(Calendar calendar) {
+    return new DateValue(calendar);
+  }
+
+  /**
+   * Makes an instance of date value from a {@link LocalDate}.
+   *
+   * @param localDate LocalDate.
+   * @return An instance of date value.
+   * @throws NullPointerException If {@code localDate} is {@code null}.
+   * @since 2.0.0
+   */
+  public static DateValue from(LocalDate localDate) {
+    return new DateValue(localDate);
+  }
+
+  /**
+   * Makes an instance of the date value corresponding to now.
+   *
+   * @return An instance of date value.
+   * @since 1.1.0
+   */
+  public static DateValue now() {
+    return from(Calendar.getInstance());
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public DateValue getDate() {
     return this;
@@ -210,7 +211,7 @@ public class DateValue implements Comparable<DateValue>, DateValueContainer {
 
   /**
    * Returns the day of the month.
-   * 
+   *
    * @return The day of the month.
    */
   public int getDayOfTheMonth() {
@@ -219,7 +220,7 @@ public class DateValue implements Comparable<DateValue>, DateValueContainer {
 
   /**
    * Returns the month.
-   * 
+   *
    * @return The month.
    */
   public int getMonth() {
@@ -228,7 +229,7 @@ public class DateValue implements Comparable<DateValue>, DateValueContainer {
 
   /**
    * Returns the year.
-   * 
+   *
    * @return The year.
    */
   public int getYear() {
@@ -266,20 +267,15 @@ public class DateValue implements Comparable<DateValue>, DateValueContainer {
   public int compareTo(DateValue other) {
     if (year < other.year) {
       return -1;
-    }
-    else if (year > other.year) {
+    } else if (year > other.year) {
       return 1;
-    }
-    else if (month < other.month) {
+    } else if (month < other.month) {
       return -1;
-    }
-    else if (month > other.month) {
+    } else if (month > other.month) {
       return 1;
-    }
-    else if (dayOfTheMonth < other.dayOfTheMonth) {
+    } else if (dayOfTheMonth < other.dayOfTheMonth) {
       return -1;
-    }
-    else if (dayOfTheMonth > other.dayOfTheMonth) {
+    } else if (dayOfTheMonth > other.dayOfTheMonth) {
       return 1;
     }
     return 0;
@@ -287,6 +283,7 @@ public class DateValue implements Comparable<DateValue>, DateValueContainer {
 
   /**
    * Returns if this date value is before the date value in parameter.
+   *
    * @param date The date value to compare to.
    * @return If this date value is before the date value in parameter.
    */
@@ -296,6 +293,7 @@ public class DateValue implements Comparable<DateValue>, DateValueContainer {
 
   /**
    * Returns if this date value is after the date value in parameter.
+   *
    * @param date The date value to compare to.
    * @return If this date value is after the date value in parameter.
    */
@@ -305,6 +303,7 @@ public class DateValue implements Comparable<DateValue>, DateValueContainer {
 
   /**
    * Moves the date with the value in parameter.
+   *
    * @param date Value to move the date.
    * @return The date moved.
    */
@@ -333,6 +332,7 @@ public class DateValue implements Comparable<DateValue>, DateValueContainer {
 
   /**
    * Moves the date with the value in parameter.
+   *
    * @param time Value to move the date.
    * @return The date/time moved.
    */
@@ -344,8 +344,7 @@ public class DateValue implements Comparable<DateValue>, DateValueContainer {
     int days = hours / 24;
     if (hours > 0) {
       hours -= days * 24;
-    }
-    else {
+    } else {
       hours += days * 24;
     }
     if (hours < 0) {
@@ -357,11 +356,12 @@ public class DateValue implements Comparable<DateValue>, DateValueContainer {
     DateValue movedDateValue = dateValue.move(DateValue.of(0, 0, days));
 
     return DateTimeValue.of(movedDateValue, TimeValue.of(hours, movedTimeValue.getMinutes(),
-                                                         movedTimeValue.getSeconds(), movedTimeValue.getNanoSeconds()));
+      movedTimeValue.getSeconds(), movedTimeValue.getNanoSeconds()));
   }
 
   /**
    * Moves the date with the value in parameter.
+   *
    * @param dateTime Value to move the date.
    * @return The date/time moved.
    */
@@ -372,6 +372,7 @@ public class DateValue implements Comparable<DateValue>, DateValueContainer {
 
   /**
    * Returns the reverse of the date.
+   *
    * @return The reverse.
    */
   public DateValue reverse() {

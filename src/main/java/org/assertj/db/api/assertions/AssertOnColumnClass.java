@@ -43,8 +43,8 @@ public interface AssertOnColumnClass<T extends AssertOnColumnClass<T>> {
    * </code></pre>
    *
    * @param expected The expected class to compare to.
-   * @param lenient {@code true} if the test is lenient : if the class of a value is not identified (for example when the
-   *          value is {@code null}), it consider that it is ok.
+   * @param lenient  {@code true} if the test is lenient : if the class of a value is not identified (for example when the
+   *                 value is {@code null}), it consider that it is ok.
    * @return {@code this} assertion object.
    * @throws AssertionError If the class of the column is different to the class in parameter.
    * @see org.assertj.db.api.AbstractColumnAssert#isOfClass(Class, boolean)

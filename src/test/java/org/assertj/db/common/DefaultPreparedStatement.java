@@ -16,14 +16,29 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.math.BigDecimal;
 import java.net.URL;
-import java.sql.*;
+import java.sql.Array;
+import java.sql.Blob;
+import java.sql.Clob;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.NClob;
+import java.sql.ParameterMetaData;
+import java.sql.PreparedStatement;
+import java.sql.Ref;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.RowId;
+import java.sql.SQLException;
+import java.sql.SQLWarning;
+import java.sql.SQLXML;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Calendar;
 
 /**
  * Default PreparedStatement.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class DefaultPreparedStatement implements PreparedStatement {
 
@@ -124,23 +139,23 @@ public class DefaultPreparedStatement implements PreparedStatement {
   }
 
   @Override
-  public void setFetchDirection(int direction) throws SQLException {
-    thisPreparedStatement.setFetchDirection(direction);
-  }
-
-  @Override
   public int getFetchDirection() throws SQLException {
     return thisPreparedStatement.getFetchDirection();
   }
 
   @Override
-  public void setFetchSize(int rows) throws SQLException {
-    thisPreparedStatement.setFetchSize(rows);
+  public void setFetchDirection(int direction) throws SQLException {
+    thisPreparedStatement.setFetchDirection(direction);
   }
 
   @Override
   public int getFetchSize() throws SQLException {
     return thisPreparedStatement.getFetchSize();
+  }
+
+  @Override
+  public void setFetchSize(int rows) throws SQLException {
+    thisPreparedStatement.setFetchSize(rows);
   }
 
   @Override
@@ -224,13 +239,13 @@ public class DefaultPreparedStatement implements PreparedStatement {
   }
 
   @Override
-  public void setPoolable(boolean poolable) throws SQLException {
-    thisPreparedStatement.setPoolable(poolable);
+  public boolean isPoolable() throws SQLException {
+    return thisPreparedStatement.isPoolable();
   }
 
   @Override
-  public boolean isPoolable() throws SQLException {
-    return thisPreparedStatement.isPoolable();
+  public void setPoolable(boolean poolable) throws SQLException {
+    thisPreparedStatement.setPoolable(poolable);
   }
 
   @Override

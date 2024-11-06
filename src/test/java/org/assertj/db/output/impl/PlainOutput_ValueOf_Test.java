@@ -18,9 +18,8 @@ import org.junit.Test;
 
 /**
  * Test on the type got from {@code valueOf} method from {@code PlainOutput} enum.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class PlainOutput_ValueOf_Test {
 

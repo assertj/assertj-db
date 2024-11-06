@@ -12,6 +12,8 @@
  */
 package org.assertj.db.api.assertions;
 
+import static org.assertj.db.api.Assertions.assertThat;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.ChangeRowAssert;
 import org.assertj.db.common.AbstractTest;
@@ -19,14 +21,11 @@ import org.assertj.db.common.NeedReload;
 import org.assertj.db.type.Changes;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-
 /**
  * Tests on {@link org.assertj.db.api.assertions.AssertOnRowOfChangeExistence} class :
  * {@link org.assertj.db.api.assertions.AssertOnRowOfChangeExistence#doesNotExist()} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertOnRowOfChangeExistence_DoesNotExist_Test extends AbstractTest {
 
@@ -59,7 +58,7 @@ public class AssertOnRowOfChangeExistence_DoesNotExist_Test extends AbstractTest
       assertThat(changes).change().rowAtEndPoint().doesNotExist();
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Row at end point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
-                                                      + "Expecting not exist but exists"));
+        + "Expecting not exist but exists"));
     }
   }
 }

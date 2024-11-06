@@ -12,40 +12,57 @@
  */
 package org.assertj.db.api;
 
-import org.assertj.db.api.assertions.*;
-import org.assertj.db.api.assertions.impl.*;
-import org.assertj.db.navigation.Position;
-import org.assertj.db.navigation.element.ColumnElement;
-import org.assertj.db.type.*;
+import static org.assertj.db.util.Descriptions.getColumnValueDescription;
 
 import java.util.List;
 import java.util.UUID;
 
-import static org.assertj.db.util.Descriptions.getColumnValueDescription;
+import org.assertj.db.api.assertions.AssertOnColumnClass;
+import org.assertj.db.api.assertions.AssertOnColumnContent;
+import org.assertj.db.api.assertions.AssertOnColumnEquality;
+import org.assertj.db.api.assertions.AssertOnColumnName;
+import org.assertj.db.api.assertions.AssertOnColumnNullity;
+import org.assertj.db.api.assertions.AssertOnColumnType;
+import org.assertj.db.api.assertions.AssertOnNumberOfRows;
+import org.assertj.db.api.assertions.impl.AssertionsOnColumnClass;
+import org.assertj.db.api.assertions.impl.AssertionsOnColumnContent;
+import org.assertj.db.api.assertions.impl.AssertionsOnColumnEquality;
+import org.assertj.db.api.assertions.impl.AssertionsOnColumnName;
+import org.assertj.db.api.assertions.impl.AssertionsOnColumnType;
+import org.assertj.db.api.assertions.impl.AssertionsOnNumberOfRows;
+import org.assertj.db.api.assertions.impl.AssertionsOnValuesNullity;
+import org.assertj.db.navigation.Position;
+import org.assertj.db.navigation.element.ColumnElement;
+import org.assertj.db.type.AbstractDbData;
+import org.assertj.db.type.Column;
+import org.assertj.db.type.DateTimeValue;
+import org.assertj.db.type.DateValue;
+import org.assertj.db.type.TimeValue;
+import org.assertj.db.type.Value;
+import org.assertj.db.type.ValueType;
 
 /**
  * Base class for all {@link Column}s assertions.
  *
+ * @param <D>  The class of the actual value (an sub-class of {@link AbstractDbData}).
+ * @param <A>  The class of the original assertion (an sub-class of {@link AbstractDbAssert}).
+ * @param <C>  The class of this assertion (an sub-class of {@link AbstractColumnAssert}).
+ * @param <CV> The class of this assertion on the value (an sub-class of {@link AbstractColumnValueAssert}).
+ * @param <R>  The class of the equivalent row assertion (an sub-class of {@link AbstractRowAssert}).
+ * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  * @author Régis Pouiller
  * @author Otoniel Isidoro
- * 
- * @param <D> The class of the actual value (an sub-class of {@link AbstractDbData}).
- * @param <A> The class of the original assertion (an sub-class of {@link AbstractDbAssert}).
- * @param <C> The class of this assertion (an sub-class of {@link AbstractColumnAssert}).
- * @param <CV> The class of this assertion on the value (an sub-class of {@link AbstractColumnValueAssert}).
- * @param <R> The class of the equivalent row assertion (an sub-class of {@link AbstractRowAssert}).
- * @param <RV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractRowValueAssert}).
  */
 public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extends AbstractDbAssert<D, A, C, CV, R, RV>, C extends AbstractColumnAssert<D, A, C, CV, R, RV>, CV extends AbstractColumnValueAssert<D, A, C, CV, R, RV>, R extends AbstractRowAssert<D, A, C, CV, R, RV>, RV extends AbstractRowValueAssert<D, A, C, CV, R, RV>>
-        extends AbstractSubAssert<D, A, C, CV, C, CV, R, RV>
-        implements ColumnElement,
-                   AssertOnColumnClass<C>,
-                   AssertOnColumnEquality<C>,
-                   AssertOnColumnContent<C>,
-                   AssertOnNumberOfRows<C>,
-                   AssertOnColumnName<C>,
-                   AssertOnColumnType<C>,
-                   AssertOnColumnNullity<C> {
+  extends AbstractSubAssert<D, A, C, CV, C, CV, R, RV>
+  implements ColumnElement,
+  AssertOnColumnClass<C>,
+  AssertOnColumnEquality<C>,
+  AssertOnColumnContent<C>,
+  AssertOnNumberOfRows<C>,
+  AssertOnColumnName<C>,
+  AssertOnColumnType<C>,
+  AssertOnColumnNullity<C> {
 
   /**
    * Position of navigation to value.
@@ -59,275 +76,362 @@ public abstract class AbstractColumnAssert<D extends AbstractDbData<D>, A extend
 
   /**
    * Constructor.
-   * 
+   *
    * @param originalDbAssert The original assert. That could be a {@link RequestAssert} or a {@link TableAssert}.
-   * @param selfType Type of this assertion class : a sub-class of {@code AbstractColumnAssert}.
-   * @param valueType Class of the assert on the value : a sub-class of {@code AbstractColumnValueAssert}.
-   * @param column The column.
+   * @param selfType         Type of this assertion class : a sub-class of {@code AbstractColumnAssert}.
+   * @param valueType        Class of the assert on the value : a sub-class of {@code AbstractColumnValueAssert}.
+   * @param column           The column.
    */
   AbstractColumnAssert(A originalDbAssert, Class<C> selfType, Class<CV> valueType, Column column) {
     super(originalDbAssert, selfType);
     this.column = column;
     valuePosition = new Position<C, CV, Value>(selfType.cast(this), valueType) {
-      @Override protected String getDescription(int index) {
+      @Override
+      protected String getDescription(int index) {
         return getValueDescription(index);
       }
     };
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected String getValueDescription(int index) {
     return getColumnValueDescription(info, index);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected Position<C, CV, Value> getValuePosition() {
     return valuePosition;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected List<Value> getValuesList() {
     return column.getValuesList();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C isEmpty() {
     return hasNumberOfRows(0);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C hasNumberOfRows(int expected) {
     return AssertionsOnNumberOfRows.hasNumberOfRows(myself, info, column.getValuesList().size(), expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C hasNumberOfRowsGreaterThan(int expected) {
     return AssertionsOnNumberOfRows.hasNumberOfRowsGreaterThan(myself, info, column.getValuesList().size(), expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C hasNumberOfRowsLessThan(int expected) {
     return AssertionsOnNumberOfRows.hasNumberOfRowsLessThan(myself, info, column.getValuesList().size(), expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C hasNumberOfRowsGreaterThanOrEqualTo(int expected) {
     return AssertionsOnNumberOfRows.hasNumberOfRowsGreaterThanOrEqualTo(myself, info, column.getValuesList().size(), expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C hasNumberOfRowsLessThanOrEqualTo(int expected) {
     return AssertionsOnNumberOfRows.hasNumberOfRowsLessThanOrEqualTo(myself, info, column.getValuesList().size(), expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C isOfClass(Class<?> expected, boolean lenient) {
     return AssertionsOnColumnClass.isOfClass(myself, info, getValuesList(), expected, lenient);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C isOfType(ValueType expected, boolean lenient) {
     return AssertionsOnColumnType.isOfType(myself, info, getValuesList(), expected, lenient);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C isOfAnyTypeIn(ValueType... expected) {
     return AssertionsOnColumnType.isOfAnyTypeIn(myself, info, getValuesList(), expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C isNumber(boolean lenient) {
     return AssertionsOnColumnType.isNumber(myself, info, getValuesList(), lenient);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C isBoolean(boolean lenient) {
     return AssertionsOnColumnType.isBoolean(myself, info, getValuesList(), lenient);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C isDate(boolean lenient) {
     return AssertionsOnColumnType.isDate(myself, info, getValuesList(), lenient);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C isTime(boolean lenient) {
     return AssertionsOnColumnType.isTime(myself, info, getValuesList(), lenient);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C isDateTime(boolean lenient) {
     return AssertionsOnColumnType.isDateTime(myself, info, getValuesList(), lenient);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C isBytes(boolean lenient) {
     return AssertionsOnColumnType.isBytes(myself, info, getValuesList(), lenient);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C isText(boolean lenient) {
     return AssertionsOnColumnType.isText(myself, info, getValuesList(), lenient);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C isUUID(boolean lenient) {
     return AssertionsOnColumnType.isUUID(myself, info, getValuesList(), lenient);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C hasOnlyNullValues() {
     return AssertionsOnValuesNullity.hasOnlyNullValues(myself, info, getValuesList());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C hasOnlyNotNullValues() {
     return AssertionsOnValuesNullity.hasOnlyNotNullValues(myself, info, getValuesList());
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C hasValues(Object... expected) {
     return AssertionsOnColumnEquality.hasValues(myself, info, getValuesList(), expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C hasValues(Boolean... expected) {
     return AssertionsOnColumnEquality.hasValues(myself, info, getValuesList(), expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C hasValues(Number... expected) {
     return AssertionsOnColumnEquality.hasValues(myself, info, getValuesList(), expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C hasValues(byte[]... expected) {
     return AssertionsOnColumnEquality.hasValues(myself, info, getValuesList(), expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C hasValues(String... expected) {
     return AssertionsOnColumnEquality.hasValues(myself, info, getValuesList(), expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C hasValues(Character... expected) {
     return AssertionsOnColumnEquality.hasValues(myself, info, getValuesList(), expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C hasValues(UUID... expected) {
     return AssertionsOnColumnEquality.hasValues(myself, info, getValuesList(), expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C hasValues(DateValue... expected) {
     return AssertionsOnColumnEquality.hasValues(myself, info, getValuesList(), expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C hasValues(TimeValue... expected) {
     return AssertionsOnColumnEquality.hasValues(myself, info, getValuesList(), expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C hasValues(DateTimeValue... expected) {
     return AssertionsOnColumnEquality.hasValues(myself, info, getValuesList(), expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C containsValues(Object... expected) {
     return AssertionsOnColumnContent.containsValues(myself, info, getValuesList(), expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C containsValues(Boolean... expected) {
     return AssertionsOnColumnContent.containsValues(myself, info, getValuesList(), expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C containsValues(Number... expected) {
     return AssertionsOnColumnContent.containsValues(myself, info, getValuesList(), expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C containsValues(byte[]... expected) {
     return AssertionsOnColumnContent.containsValues(myself, info, getValuesList(), expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C containsValues(String... expected) {
     return AssertionsOnColumnContent.containsValues(myself, info, getValuesList(), expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C containsValues(Character... expected) {
     return AssertionsOnColumnContent.containsValues(myself, info, getValuesList(), expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C containsValues(UUID... expected) {
     return AssertionsOnColumnContent.containsValues(myself, info, getValuesList(), expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C containsValues(DateValue... expected) {
     return AssertionsOnColumnContent.containsValues(myself, info, getValuesList(), expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C containsValues(TimeValue... expected) {
     return AssertionsOnColumnContent.containsValues(myself, info, getValuesList(), expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C containsValues(DateTimeValue... expected) {
     return AssertionsOnColumnContent.containsValues(myself, info, getValuesList(), expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public C hasColumnName(String columnName) {
     String name = column.getName();

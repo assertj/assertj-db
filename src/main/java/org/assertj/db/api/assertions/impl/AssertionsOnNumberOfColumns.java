@@ -12,15 +12,15 @@
  */
 package org.assertj.db.api.assertions.impl;
 
-import org.assertj.core.api.WritableAssertionInfo;
-import org.assertj.core.internal.Failures;
-import org.assertj.db.api.AbstractAssert;
-
 import static org.assertj.db.error.ShouldHaveColumnsSize.shouldHaveColumnsSize;
 import static org.assertj.db.error.ShouldHaveColumnsSizeGreater.shouldHaveColumnsSizeGreater;
 import static org.assertj.db.error.ShouldHaveColumnsSizeGreaterOrEqual.shouldHaveColumnsSizeGreaterOrEqual;
 import static org.assertj.db.error.ShouldHaveColumnsSizeLess.shouldHaveColumnsSizeLess;
 import static org.assertj.db.error.ShouldHaveColumnsSizeLessOrEqual.shouldHaveColumnsSizeLessOrEqual;
+
+import org.assertj.core.api.WritableAssertionInfo;
+import org.assertj.core.internal.Failures;
+import org.assertj.db.api.AbstractAssert;
 
 /**
  * Implements the assertion method on the number of columns.
@@ -54,7 +54,7 @@ public class AssertionsOnNumberOfColumns {
    * @throws AssertionError If the number of columns is different to the number in parameter.
    */
   public static <A extends AbstractAssert<?>> A hasNumberOfColumns(A assertion, WritableAssertionInfo info, int size,
-                                                                int expected) {
+                                                                   int expected) {
     if (size != expected) {
       throw failures.failure(info, shouldHaveColumnsSize(size, expected));
     }
@@ -74,7 +74,7 @@ public class AssertionsOnNumberOfColumns {
    * @since 1.1.0
    */
   public static <A extends AbstractAssert<?>> A hasNumberOfColumnsGreaterThan(A assertion, WritableAssertionInfo info, int size,
-                                                                int expected) {
+                                                                              int expected) {
     if (size <= expected) {
       throw failures.failure(info, shouldHaveColumnsSizeGreater(size, expected));
     }
@@ -114,7 +114,7 @@ public class AssertionsOnNumberOfColumns {
    * @since 1.1.0
    */
   public static <A extends AbstractAssert<?>> A hasNumberOfColumnsGreaterThanOrEqualTo(A assertion, WritableAssertionInfo info, int size,
-                                                                           int expected) {
+                                                                                       int expected) {
     if (size < expected) {
       throw failures.failure(info, shouldHaveColumnsSizeGreaterOrEqual(size, expected));
     }
@@ -134,7 +134,7 @@ public class AssertionsOnNumberOfColumns {
    * @since 1.1.0
    */
   public static <A extends AbstractAssert<?>> A hasNumberOfColumnsLessThanOrEqualTo(A assertion, WritableAssertionInfo info, int size,
-                                                                        int expected) {
+                                                                                    int expected) {
     if (size > expected) {
       throw failures.failure(info, shouldHaveColumnsSizeLessOrEqual(size, expected));
     }

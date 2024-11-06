@@ -18,27 +18,26 @@ package org.assertj.db.api.assertions;
  * @param <T> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/1IZIRcY"
  *            target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
  *            for more details.
- *
  * @author fiery-phoenix
  * @since 1.2.0
  */
 public interface AssertOnRowNullity<T extends AssertOnRowNullity<T>> {
 
-    /**
-     * Verifies that all the values of the row are not {@code null}.
-     * <p>
-     * Example where the assertion verifies that all the values in the first {@code Row} of the {@code Table} are not
-     * {@code null} :
-     * </p>
-     *
-     * <pre><code class='java'>
-     * assertThat(table).row().hasOnlyNotNullValues();
-     * </code></pre>
-     *
-     * @return {@code this} assertion object.
-     * @throws AssertionError If at least one of the values of the row is {@code null}.
-     * @see org.assertj.db.api.AbstractRowAssert#hasOnlyNotNullValues()
-     */
-    T hasOnlyNotNullValues();
+  /**
+   * Verifies that all the values of the row are not {@code null}.
+   * <p>
+   * Example where the assertion verifies that all the values in the first {@code Row} of the {@code Table} are not
+   * {@code null} :
+   * </p>
+   *
+   * <pre><code class='java'>
+   * assertThat(table).row().hasOnlyNotNullValues();
+   * </code></pre>
+   *
+   * @return {@code this} assertion object.
+   * @throws AssertionError If at least one of the values of the row is {@code null}.
+   * @see org.assertj.db.api.AbstractRowAssert#hasOnlyNotNullValues()
+   */
+  T hasOnlyNotNullValues();
 
 }

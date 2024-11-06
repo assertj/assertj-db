@@ -27,7 +27,6 @@ import org.junit.Test;
  * {@link AssertionsOnValueEquality#isEqualTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, Character)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnValueEquality_IsEqualTo_Character_Test extends AbstractTest {
 
@@ -61,30 +60,30 @@ public class AssertionsOnValueEquality_IsEqualTo_Character_Test extends Abstract
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <'t'>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <'T'>"));
+        + "Expecting:%n"
+        + "  <'t'>%n"
+        + "to be equal to: %n"
+        + "  <'T'>"));
     }
     try {
       AssertionsOnValueEquality.isEqualTo(tableAssert, info, getValue(null, "t"), 'T');
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <\"t\">%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <'T'>"));
+        + "Expecting:%n"
+        + "  <\"t\">%n"
+        + "to be equal to: %n"
+        + "  <'T'>"));
     }
     try {
       AssertionsOnValueEquality.isEqualTo(tableAssert, info, getValue(null, 'T'), (Character) null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <'T'>%n"
-                                                                    + "to be equal to: %n"
-                                                                    + "  <null>"));
+        + "Expecting:%n"
+        + "  <'T'>%n"
+        + "to be equal to: %n"
+        + "  <null>"));
     }
   }
 
@@ -102,12 +101,12 @@ public class AssertionsOnValueEquality_IsEqualTo_Character_Test extends Abstract
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <8>%n"
-                                                      + "to be of type%n"
-                                                      + "  <TEXT>%n"
-                                                      + "but was of type%n"
-                                                      + "  <NUMBER>"));
+        + "Expecting:%n"
+        + "  <8>%n"
+        + "to be of type%n"
+        + "  <TEXT>%n"
+        + "but was of type%n"
+        + "  <NUMBER>"));
     }
   }
 }

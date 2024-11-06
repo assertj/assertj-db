@@ -28,10 +28,10 @@ import org.assertj.db.util.Descriptions;
  * @author Régis Pouiller
  */
 public class ChangesAssert
-        extends AbstractAssertWithOrigin<ChangesAssert, ChangesAssert>
-        implements ChangesElement,
-                   OriginWithChanges<ChangesAssert, ChangeAssert>,
-                   AssertOnNumberOfChanges<ChangesAssert> {
+  extends AbstractAssertWithOrigin<ChangesAssert, ChangesAssert>
+  implements ChangesElement,
+  OriginWithChanges<ChangesAssert, ChangeAssert>,
+  AssertOnNumberOfChanges<ChangesAssert> {
 
   /**
    * The actual changes on which the assertion is.
@@ -55,14 +55,14 @@ public class ChangesAssert
   /**
    * Constructor.
    *
-   * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
+   * @param origin  The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    * @param changes The {@link Changes} on which are the assertions.
    */
   public ChangesAssert(ChangesAssert origin, Changes changes) {
     super(ChangesAssert.class, origin);
     this.changes = changes;
-    changesPosition = new PositionWithChanges<ChangesAssert, ChangeAssert>(this, 
-                                                ChangesAssert.class, ChangeAssert.class) {
+    changesPosition = new PositionWithChanges<ChangesAssert, ChangeAssert>(this,
+      ChangesAssert.class, ChangeAssert.class) {
 
       @Override
       protected String getChangesDescription(ChangeType changeType, String tableName) {
@@ -78,7 +78,9 @@ public class ChangesAssert
     };
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangesAssert ofAll() {
     if (origin != null) {
@@ -87,7 +89,9 @@ public class ChangesAssert
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangesAssert ofCreation() {
     if (origin != null) {
@@ -96,7 +100,9 @@ public class ChangesAssert
     return changesPosition.getChangesInstance(changes, ChangeType.CREATION, null);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangesAssert ofModification() {
     if (origin != null) {
@@ -105,7 +111,9 @@ public class ChangesAssert
     return changesPosition.getChangesInstance(changes, ChangeType.MODIFICATION, null);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangesAssert ofDeletion() {
     if (origin != null) {
@@ -114,7 +122,9 @@ public class ChangesAssert
     return changesPosition.getChangesInstance(changes, ChangeType.DELETION, null);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangesAssert ofCreationOnTable(String tableName) {
     if (origin != null) {
@@ -123,7 +133,9 @@ public class ChangesAssert
     return changesPosition.getChangesInstance(changes, ChangeType.CREATION, tableName);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangesAssert ofModificationOnTable(String tableName) {
     if (origin != null) {
@@ -132,7 +144,9 @@ public class ChangesAssert
     return changesPosition.getChangesInstance(changes, ChangeType.MODIFICATION, tableName);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangesAssert ofDeletionOnTable(String tableName) {
     if (origin != null) {
@@ -141,7 +155,9 @@ public class ChangesAssert
     return changesPosition.getChangesInstance(changes, ChangeType.DELETION, tableName);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangesAssert onTable(String tableName) {
     if (origin != null) {
@@ -150,19 +166,25 @@ public class ChangesAssert
     return changesPosition.getChangesInstance(changes, null, tableName);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeAssert change() {
     return changesPosition.getChangeInstance(changes, null, null);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeAssert change(int index) {
     return changesPosition.getChangeInstance(changes, null, null, index);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeAssert changeOfCreation() {
     if (origin != null) {
@@ -171,7 +193,9 @@ public class ChangesAssert
     return changesPosition.getChangeInstance(changes, ChangeType.CREATION, null);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeAssert changeOfCreation(int index) {
     if (origin != null) {
@@ -180,7 +204,9 @@ public class ChangesAssert
     return changesPosition.getChangeInstance(changes, ChangeType.CREATION, null, index);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeAssert changeOfModification() {
     if (origin != null) {
@@ -189,7 +215,9 @@ public class ChangesAssert
     return changesPosition.getChangeInstance(changes, ChangeType.MODIFICATION, null);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeAssert changeOfModification(int index) {
     if (origin != null) {
@@ -198,7 +226,9 @@ public class ChangesAssert
     return changesPosition.getChangeInstance(changes, ChangeType.MODIFICATION, null, index);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeAssert changeOfDeletion() {
     if (origin != null) {
@@ -207,7 +237,9 @@ public class ChangesAssert
     return changesPosition.getChangeInstance(changes, ChangeType.DELETION, null);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeAssert changeOfDeletion(int index) {
     if (origin != null) {
@@ -216,7 +248,9 @@ public class ChangesAssert
     return changesPosition.getChangeInstance(changes, ChangeType.DELETION, null, index);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeAssert changeOnTable(String tableName) {
     if (origin != null) {
@@ -225,7 +259,9 @@ public class ChangesAssert
     return changesPosition.getChangeInstance(changes, null, tableName);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeAssert changeOnTable(String tableName, int index) {
     if (origin != null) {
@@ -234,7 +270,9 @@ public class ChangesAssert
     return changesPosition.getChangeInstance(changes, null, tableName, index);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeAssert changeOnTableWithPks(String tableName, Object... pksValues) {
     if (origin != null) {
@@ -243,7 +281,9 @@ public class ChangesAssert
     return changesPosition.getChangeInstanceWithPK(changes, tableName, pksValues);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeAssert changeOfCreationOnTable(String tableName) {
     if (origin != null) {
@@ -252,7 +292,9 @@ public class ChangesAssert
     return changesPosition.getChangeInstance(changes, ChangeType.CREATION, tableName);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeAssert changeOfCreationOnTable(String tableName, int index) {
     if (origin != null) {
@@ -261,7 +303,9 @@ public class ChangesAssert
     return changesPosition.getChangeInstance(changes, ChangeType.CREATION, tableName, index);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeAssert changeOfModificationOnTable(String tableName) {
     if (origin != null) {
@@ -270,7 +314,9 @@ public class ChangesAssert
     return changesPosition.getChangeInstance(changes, ChangeType.MODIFICATION, tableName);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeAssert changeOfModificationOnTable(String tableName, int index) {
     if (origin != null) {
@@ -279,7 +325,9 @@ public class ChangesAssert
     return changesPosition.getChangeInstance(changes, ChangeType.MODIFICATION, tableName, index);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeAssert changeOfDeletionOnTable(String tableName) {
     if (origin != null) {
@@ -288,7 +336,9 @@ public class ChangesAssert
     return changesPosition.getChangeInstance(changes, ChangeType.DELETION, tableName);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeAssert changeOfDeletionOnTable(String tableName, int index) {
     if (origin != null) {
@@ -297,31 +347,41 @@ public class ChangesAssert
     return changesPosition.getChangeInstance(changes, ChangeType.DELETION, tableName, index);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangesAssert hasNumberOfChanges(int expected) {
     return AssertionsOnNumberOfChanges.hasNumberOfChanges(myself, info, changes, expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangesAssert hasNumberOfChangesGreaterThan(int expected) {
     return AssertionsOnNumberOfChanges.hasNumberOfChangesGreaterThan(myself, info, changes, expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangesAssert hasNumberOfChangesLessThan(int expected) {
     return AssertionsOnNumberOfChanges.hasNumberOfChangesLessThan(myself, info, changes, expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangesAssert hasNumberOfChangesGreaterThanOrEqualTo(int expected) {
     return AssertionsOnNumberOfChanges.hasNumberOfChangesGreaterThanOrEqualTo(myself, info, changes, expected);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangesAssert hasNumberOfChangesLessThanOrEqualTo(int expected) {
     return AssertionsOnNumberOfChanges.hasNumberOfChangesLessThanOrEqualTo(myself, info, changes, expected);

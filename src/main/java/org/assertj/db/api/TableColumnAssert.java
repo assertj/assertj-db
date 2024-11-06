@@ -17,16 +17,15 @@ import org.assertj.db.type.Table;
 
 /**
  * Assertion methods for a {@link Column} of a {@link Table}.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class TableColumnAssert
-        extends AbstractColumnAssert<Table, TableAssert, TableColumnAssert, TableColumnValueAssert, TableRowAssert, TableRowValueAssert> {
+  extends AbstractColumnAssert<Table, TableAssert, TableColumnAssert, TableColumnValueAssert, TableRowAssert, TableRowValueAssert> {
 
   /**
    * Constructor.
-   * 
+   *
    * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    * @param column The column on which do assertion.
    */
@@ -36,7 +35,7 @@ public class TableColumnAssert
 
   /**
    * Returns to level of assertion methods on a {@link Table}.
-   * 
+   *
    * @return a object of assertion methods on a {@link Table}.
    */
   public TableAssert returnToTable() {

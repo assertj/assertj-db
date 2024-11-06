@@ -18,36 +18,21 @@ import org.assertj.db.type.Value;
 
 /**
  * Creates an error message indicating that an assertion that verifies that a value is of a class.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class ShouldBeValueClassWithStartPoint extends BasicErrorMessageFactory {
 
   private static final String EXPECTED_MESSAGE =
-          "%nExpecting that the value at start point:%n  <%s>%nto be of class%n  <%s>%nbut was of class%n  <%s>";
+    "%nExpecting that the value at start point:%n  <%s>%nto be of class%n  <%s>%nbut was of class%n  <%s>";
   private static final String EXPECTED_MESSAGE_JUST_WITH_EXPECTED =
-          "%nExpecting that the value at start point:%n  <%s>%nto be of class%n  <%s>";
-
-  /**
-   * Creates a new <code>{@link org.assertj.db.error.ShouldBeValueClassWithStartPoint}</code>.
-   *
-   * @param actual The actual value in the failed assertion.
-   * @param expected The expected class.
-   * @return the created {@code ErrorMessageFactory}.
-   */
-  public static ErrorMessageFactory shouldBeValueClassWithStartPoint(Value actual, Class<?> expected) {
-    if (actual.getValue() == null) {
-      return new ShouldBeValueClassWithStartPoint(actual, expected);
-    }
-    return new ShouldBeValueClassWithStartPoint(actual, actual.getValue().getClass(), expected);
-  }
+    "%nExpecting that the value at start point:%n  <%s>%nto be of class%n  <%s>";
 
   /**
    * Constructor.
    *
-   * @param actual The actual value in the failed assertion.
-   * @param tested The tested class.
+   * @param actual   The actual value in the failed assertion.
+   * @param tested   The tested class.
    * @param expected The expected class.
    */
   private ShouldBeValueClassWithStartPoint(Value actual, Class<?> tested, Class<?> expected) {
@@ -57,10 +42,24 @@ public class ShouldBeValueClassWithStartPoint extends BasicErrorMessageFactory {
   /**
    * Constructor.
    *
-   * @param actual The actual value in the failed assertion.
+   * @param actual   The actual value in the failed assertion.
    * @param expected The expected class.
    */
   private ShouldBeValueClassWithStartPoint(Value actual, Class<?> expected) {
     super(EXPECTED_MESSAGE_JUST_WITH_EXPECTED, actual.getValue(), expected);
+  }
+
+  /**
+   * Creates a new <code>{@link org.assertj.db.error.ShouldBeValueClassWithStartPoint}</code>.
+   *
+   * @param actual   The actual value in the failed assertion.
+   * @param expected The expected class.
+   * @return the created {@code ErrorMessageFactory}.
+   */
+  public static ErrorMessageFactory shouldBeValueClassWithStartPoint(Value actual, Class<?> expected) {
+    if (actual.getValue() == null) {
+      return new ShouldBeValueClassWithStartPoint(actual, expected);
+    }
+    return new ShouldBeValueClassWithStartPoint(actual, actual.getValue().getClass(), expected);
   }
 }

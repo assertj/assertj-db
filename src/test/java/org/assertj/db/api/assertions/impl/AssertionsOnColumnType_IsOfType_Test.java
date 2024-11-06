@@ -12,6 +12,14 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -21,20 +29,11 @@ import org.assertj.db.type.Value;
 import org.assertj.db.type.ValueType;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertionsOnColumnType} class :
  * {@link AssertionsOnColumnType#isOfType(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, java.util.List, org.assertj.db.type.ValueType, boolean)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnColumnType_IsOfType_Test extends AbstractTest {
 
@@ -72,12 +71,12 @@ public class AssertionsOnColumnType_IsOfType_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that the value at index 0:%n"
-                                                      + "  <8>%n"
-                                                      + "to be of type%n"
-                                                      + "  <TEXT>%n"
-                                                      + "but was of type%n"
-                                                      + "  <NUMBER>"));
+        + "Expecting that the value at index 0:%n"
+        + "  <8>%n"
+        + "to be of type%n"
+        + "  <TEXT>%n"
+        + "but was of type%n"
+        + "  <NUMBER>"));
     }
     try {
       List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, null), getValue(null, "test")));
@@ -85,12 +84,12 @@ public class AssertionsOnColumnType_IsOfType_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at index 0:%n"
-                                                                    + "  <null>%n"
-                                                                    + "to be of type%n"
-                                                                    + "  <TEXT>%n"
-                                                                    + "but was of type%n"
-                                                                    + "  <NOT_IDENTIFIED>"));
+        + "Expecting that the value at index 0:%n"
+        + "  <null>%n"
+        + "to be of type%n"
+        + "  <TEXT>%n"
+        + "but was of type%n"
+        + "  <NOT_IDENTIFIED>"));
     }
     try {
       List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, Locale.FRENCH), getValue(null, "test")));
@@ -98,12 +97,12 @@ public class AssertionsOnColumnType_IsOfType_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at index 0:%n"
-                                                                    + "  <fr>%n"
-                                                                    + "to be of type%n"
-                                                                    + "  <TEXT>%n"
-                                                                    + "but was of type%n"
-                                                                    + "  <NOT_IDENTIFIED> (java.util.Locale)"));
+        + "Expecting that the value at index 0:%n"
+        + "  <fr>%n"
+        + "to be of type%n"
+        + "  <TEXT>%n"
+        + "but was of type%n"
+        + "  <NOT_IDENTIFIED> (java.util.Locale)"));
     }
   }
 
@@ -122,12 +121,12 @@ public class AssertionsOnColumnType_IsOfType_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that the value at index 1:%n"
-                                                      + "  <8>%n"
-                                                      + "to be of type%n"
-                                                      + "  <TEXT>%n"
-                                                      + "but was of type%n"
-                                                      + "  <NUMBER>"));
+        + "Expecting that the value at index 1:%n"
+        + "  <8>%n"
+        + "to be of type%n"
+        + "  <TEXT>%n"
+        + "but was of type%n"
+        + "  <NUMBER>"));
     }
   }
 
@@ -146,12 +145,12 @@ public class AssertionsOnColumnType_IsOfType_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at index 0:%n"
-                                                                    + "  <test>%n"
-                                                                    + "to be of type%n"
-                                                                    + "  <TEXT>%n"
-                                                                    + "but was of type%n"
-                                                                    + "  <NOT_IDENTIFIED> (java.lang.StringBuilder)"));
+        + "Expecting that the value at index 0:%n"
+        + "  <test>%n"
+        + "to be of type%n"
+        + "  <TEXT>%n"
+        + "but was of type%n"
+        + "  <NOT_IDENTIFIED> (java.lang.StringBuilder)"));
     }
   }
 }

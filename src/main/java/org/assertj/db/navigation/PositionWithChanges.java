@@ -12,6 +12,14 @@
  */
 package org.assertj.db.navigation;
 
+import static org.assertj.db.util.Proxies.unProxy;
+
+import java.lang.reflect.Constructor;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.global.AbstractElement;
 import org.assertj.db.type.Change;
@@ -20,17 +28,11 @@ import org.assertj.db.type.Changes;
 import org.assertj.db.type.Value;
 import org.assertj.db.util.Values;
 
-import java.lang.reflect.Constructor;
-import java.util.*;
-
-import static org.assertj.db.util.Proxies.unProxy;
-
 /**
  * Position during navigation.
  *
  * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
  * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- *
  * @author Régis Pouiller
  * @since 1.1.0
  */
@@ -65,9 +67,9 @@ public abstract class PositionWithChanges<E extends AbstractElement<E> & Navigat
   /**
    * Constructor.
    *
-   * @param myself Actual value.
+   * @param myself             Actual value.
    * @param actualElementClass Class of the actual element of navigation (used to make instance).
-   * @param nextElementClass Class of the next element of navigation (used to make instance).
+   * @param nextElementClass   Class of the next element of navigation (used to make instance).
    */
   public PositionWithChanges(E myself, Class<E> actualElementClass, Class<N> nextElementClass) {
     this.myself = myself;
@@ -93,8 +95,8 @@ public abstract class PositionWithChanges<E extends AbstractElement<E> & Navigat
   /**
    * Sets an instance of changes in the cache.
    *
-   * @param changeType   Type of the change on which is the instance of change.
-   * @param tableName    Name of the table on which is the instance of change.
+   * @param changeType      Type of the change on which is the instance of change.
+   * @param tableName       Name of the table on which is the instance of change.
    * @param changesInstance Changes to add in the cache.
    */
   private void setInCache(ChangeType changeType, String tableName, E changesInstance) {
@@ -106,7 +108,7 @@ public abstract class PositionWithChanges<E extends AbstractElement<E> & Navigat
    * Gets an instance of changes corresponding to the index and the type of change. If this instance is already instanced, the method
    * returns it from the cache.
    *
-   * @param changes The changes
+   * @param changes    The changes
    * @param changeType Type of the change on which is the instance of change.
    * @param tableName  Name of the table on which is the instance of change.
    * @return The changes implementation.
@@ -133,19 +135,19 @@ public abstract class PositionWithChanges<E extends AbstractElement<E> & Navigat
       return instance;
     } catch (Exception e) {
       throw new AssertJDBException(String.format("There is an exception '" + e.getMessage()
-                                                 + "'%n\t in the instantiation of the element " + actualElementClass.getName()
-                                                 + "%n\t on "
-                                                 + Changes.class
-                                                 + " with " + myself.getClass() + ".%n "
-                                                 + "It is normally impossible.%n That means there is a big mistake in the development of AssertJDB.%n "
-                                                 + "Please write an issue for that if you meet this problem."));
+        + "'%n\t in the instantiation of the element " + actualElementClass.getName()
+        + "%n\t on "
+        + Changes.class
+        + " with " + myself.getClass() + ".%n "
+        + "It is normally impossible.%n That means there is a big mistake in the development of AssertJDB.%n "
+        + "Please write an issue for that if you meet this problem."));
     }
   }
 
   /**
    * Returns the change of the {@code changeType} on the {@code tableName} at the {@code index} in parameter.
    *
-   * @param changes The changes
+   * @param changes    The changes
    * @param index      The index corresponding to the change.
    * @param changeType The change type corresponding to the change.
    * @param tableName  The table name
@@ -173,7 +175,7 @@ public abstract class PositionWithChanges<E extends AbstractElement<E> & Navigat
    * Gets an instance of change assert corresponding to the index and the type of change. If this instance is already instanced, the method
    * returns it from the cache.
    *
-   * @param changes The changes
+   * @param changes    The changes
    * @param changeType Type of the change on which is the instance of change assert.
    * @param tableName  Name of the table on which is the instance of change assert.
    * @return The change assert implementation.
@@ -186,7 +188,7 @@ public abstract class PositionWithChanges<E extends AbstractElement<E> & Navigat
    * Gets an instance of change assert corresponding to the index and the type of change. If this instance is already instanced, the method
    * returns it from the cache.
    *
-   * @param changes The changes
+   * @param changes    The changes
    * @param changeType Type of the change on which is the instance of change assert.
    * @param tableName  Name of the table on which is the instance of change assert.
    * @param index      Index of the change on which is the instance of change assert.
@@ -209,12 +211,12 @@ public abstract class PositionWithChanges<E extends AbstractElement<E> & Navigat
       return instance;
     } catch (Exception e) {
       throw new AssertJDBException(String.format("There is an exception '" + e.getMessage()
-                                                 + "'%n\t in the instantiation of the element " + nextElementClass.getName()
-                                                 + "%n\t on "
-                                                 + Change.class
-                                                 + " with " + myself.getClass() + ".%n "
-                                                 + "It is normally impossible.%n That means there is a big mistake in the development of AssertJDB.%n "
-                                                 + "Please write an issue for that if you meet this problem."));
+        + "'%n\t in the instantiation of the element " + nextElementClass.getName()
+        + "%n\t on "
+        + Change.class
+        + " with " + myself.getClass() + ".%n "
+        + "It is normally impossible.%n That means there is a big mistake in the development of AssertJDB.%n "
+        + "Please write an issue for that if you meet this problem."));
     }
   }
 
@@ -222,8 +224,8 @@ public abstract class PositionWithChanges<E extends AbstractElement<E> & Navigat
    * Gets an instance of change assert corresponding to the table and the primary keys.
    * If this instance is already instanced, the method returns it from the cache.
    *
-   * @param changes The changes
-   * @param tableName  Name of the table on which is the instance of change assert.
+   * @param changes   The changes
+   * @param tableName Name of the table on which is the instance of change assert.
    * @param pksValues The values of the primary key corresponding to the {@link org.assertj.db.type.Change}.
    * @return The change assert implementation.
    */
@@ -253,8 +255,9 @@ public abstract class PositionWithChanges<E extends AbstractElement<E> & Navigat
 
   /**
    * Returns the index of the next change of the type and the table in parameter.
+   *
    * @param changeType Type of the change ({@code null} if there is no filter on the type of change)
-   * @param tableName Name of the table ({@code null} if there is no filter on the table)
+   * @param tableName  Name of the table ({@code null} if there is no filter on the table)
    * @return The index of the next change.
    */
   private Integer getIndexNextChange(ChangeType changeType, String tableName) {
@@ -270,9 +273,10 @@ public abstract class PositionWithChanges<E extends AbstractElement<E> & Navigat
 
   /**
    * Sets the index of the next change of the type and the table in parameter.
+   *
    * @param changeType Type of the change ({@code null} if there is no filter on the type of change)
-   * @param tableName Name of the table ({@code null} if there is no filter on the table)
-   * @param index The index of the next change.
+   * @param tableName  Name of the table ({@code null} if there is no filter on the table)
+   * @param index      The index of the next change.
    */
   private void setIndexNextChange(ChangeType changeType, String tableName, int index) {
     Map<String, Integer> map = indexNextChangeMap.computeIfAbsent(changeType, k -> new HashMap<>());

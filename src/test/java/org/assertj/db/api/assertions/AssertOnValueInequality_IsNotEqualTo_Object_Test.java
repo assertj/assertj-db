@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api.assertions;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.ChangeColumnValueAssert;
 import org.assertj.db.api.TableColumnValueAssert;
@@ -21,15 +24,11 @@ import org.assertj.db.type.Changes;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link org.assertj.db.api.assertions.AssertOnValueInequality} class :
  * {@link org.assertj.db.api.assertions.AssertOnValueInequality#isNotEqualTo(Object)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertOnValueInequality_IsNotEqualTo_Object_Test extends AbstractTest {
 
@@ -69,20 +68,20 @@ public class AssertOnValueInequality_IsNotEqualTo_Object_Test extends AbstractTe
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at end point of Column at index 2 (column name : VAR3) of Change at index 0 of Changes on TEST2 table of 'sa/jdbc:h2:mem:test' source] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <null>%n"
-                                                                    + "not to be equal to: %n"
-                                                                    + "  <null>"));
+        + "Expecting:%n"
+        + "  <null>%n"
+        + "not to be equal to: %n"
+        + "  <null>"));
     }
     try {
       assertThat(table).column("var3").value(1).isNotEqualTo((Object) null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Value at index 1 of Column at index 2 (column name : VAR3) of TEST2 table] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <null>%n"
-                                                                    + "not to be equal to: %n"
-                                                                    + "  <null>"));
+        + "Expecting:%n"
+        + "  <null>%n"
+        + "not to be equal to: %n"
+        + "  <null>"));
     }
   }
 }

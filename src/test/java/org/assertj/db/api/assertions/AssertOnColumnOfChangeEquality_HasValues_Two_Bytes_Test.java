@@ -12,6 +12,10 @@
  */
 package org.assertj.db.api.assertions;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.assertj.db.api.Assertions.bytesContentFromClassPathOf;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.ChangeAssert;
 import org.assertj.db.api.ChangeColumnAssert;
@@ -20,16 +24,11 @@ import org.assertj.db.common.NeedReload;
 import org.assertj.db.type.Changes;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.api.Assertions.bytesContentFromClassPathOf;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link org.assertj.db.api.assertions.AssertOnColumnOfChangeEquality} class :
  * {@link org.assertj.db.api.assertions.AssertOnColumnOfChangeEquality#hasValues(byte[], byte[])} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertOnColumnOfChangeEquality_HasValues_Two_Bytes_Test extends AbstractTest {
 
@@ -68,7 +67,7 @@ public class AssertOnColumnOfChangeEquality_HasValues_Two_Bytes_Test extends Abs
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 10 (column name : VAR11) of Change at index 0 (on table : TEST and with primary key : [5]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
-                                                      + "Expecting that start point to be equal to the expected value but was not equal"));
+        + "Expecting that start point to be equal to the expected value but was not equal"));
     }
   }
 
@@ -89,7 +88,7 @@ public class AssertOnColumnOfChangeEquality_HasValues_Two_Bytes_Test extends Abs
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 10 (column name : VAR11) of Change at index 0 (on table : TEST and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
-                                                      + "Expecting that end point to be equal to the expected value but was not equal"));
+        + "Expecting that end point to be equal to the expected value but was not equal"));
     }
   }
 }

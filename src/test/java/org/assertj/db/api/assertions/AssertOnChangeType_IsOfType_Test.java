@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api.assertions;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.ChangeAssert;
 import org.assertj.db.common.AbstractTest;
@@ -20,15 +23,11 @@ import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.Changes;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertOnChangeType} class :
  * {@link AssertOnChangeType#isOfType(org.assertj.db.type.ChangeType)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertOnChangeType_IsOfType_Test extends AbstractTest {
 
@@ -62,11 +61,11 @@ public class AssertOnChangeType_IsOfType_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Change at index 3 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
-                                                      + "Expecting:%n"
-                                                      + "to be of type%n"
-                                                      + "  <CREATION>%n"
-                                                      + "but was of type%n"
-                                                      + "  <MODIFICATION>"));
+        + "Expecting:%n"
+        + "to be of type%n"
+        + "  <CREATION>%n"
+        + "but was of type%n"
+        + "  <MODIFICATION>"));
     }
   }
 }

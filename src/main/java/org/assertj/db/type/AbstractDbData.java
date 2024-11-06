@@ -32,10 +32,9 @@ import java.util.List;
  * The first call to one of these methods triggers a loading from the database.
  * </p>
  *
- * @author Régis Pouiller
- *
  * @param <D> Class of the subclass (an implementation of {@link AbstractDbData}) : useful for the fluent methods
- *          (setters).
+ *            (setters).
+ * @author Régis Pouiller
  */
 public abstract class AbstractDbData<D extends AbstractDbData<D>> extends AbstractDbElement<D> {
 
@@ -76,7 +75,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    *
    * @param dataType The type of the data on which is the change.
    * @param selfType Class of this element : a sub-class of {@code AbstractDbData}.
-   * @param source The {@link Source} to connect to the database (must be not {@code null}).
+   * @param source   The {@link Source} to connect to the database (must be not {@code null}).
    * @throws NullPointerException If {@code source} is {@code null}.
    */
   AbstractDbData(Class<D> selfType, DataType dataType, Source source) {
@@ -87,8 +86,8 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
   /**
    * Constructor with a {@link DataSource}.
    *
-   * @param dataType The type of the data on which is the change.
-   * @param selfType Class of this element : a sub-class of {@code AbstractDbData}.
+   * @param dataType   The type of the data on which is the change.
+   * @param selfType   Class of this element : a sub-class of {@code AbstractDbData}.
    * @param dataSource The {@link DataSource} (must be not {@code null}).
    * @throws NullPointerException If {@code dataSource} is {@code null}.
    */
@@ -109,9 +108,9 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
   /**
    * Returns the SQL request.
    *
+   * @return The SQL request.
    * @see Table#getRequest()
    * @see Request#getRequest()
-   * @return The SQL request.
    */
   public abstract String getRequest();
 
@@ -123,7 +122,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    * </p>
    *
    * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
-   * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
+   * @throws AssertJDBException   If triggered, this exception wrap a possible {@link SQLException} during the loading.
    */
   private void load() {
     try (Connection connection = getConnection()) {
@@ -152,10 +151,10 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    * the sub-class.
    * </p>
    *
-   * @see Table#loadImpl(Connection)
-   * @see Request#loadImpl(Connection)
    * @param connection {@link Connection} to the database provided by {@link #load()} method.
    * @throws SQLException SQL Exception.
+   * @see Table#loadImpl(Connection)
+   * @see Request#loadImpl(Connection)
    */
   protected abstract void loadImpl(Connection connection) throws SQLException;
 
@@ -186,25 +185,25 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
         Object object;
         int type = metaData.getColumnType(index);
         switch (type) {
-        case Types.DATE:
-          object = resultSet.getDate(columnName);
-          break;
-        case Types.TIME:
-          object = resultSet.getTime(columnName);
-          break;
-        case Types.TIMESTAMP:
-          object = resultSet.getTimestamp(columnName);
-          break;
-        case Types.BLOB:
-          object = resultSet.getBytes(columnName);
-          break;
-        case Types.CLOB:
-          object = resultSet.getString(columnName);
-          break;
+          case Types.DATE:
+            object = resultSet.getDate(columnName);
+            break;
+          case Types.TIME:
+            object = resultSet.getTime(columnName);
+            break;
+          case Types.TIMESTAMP:
+            object = resultSet.getTimestamp(columnName);
+            break;
+          case Types.BLOB:
+            object = resultSet.getBytes(columnName);
+            break;
+          case Types.CLOB:
+            object = resultSet.getString(columnName);
+            break;
 
-        default:
-          object = resultSet.getObject(columnName);
-          break;
+          default:
+            object = resultSet.getObject(columnName);
+            break;
         }
         valuesList.add(new Value(columnName, object, getColumnLetterCase()));
       }
@@ -221,7 +220,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    *
    * @return The list of the columns name.
    * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
-   * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
+   * @throws AssertJDBException   If triggered, this exception wrap a possible {@link SQLException} during the loading.
    */
   public List<String> getColumnsNameList() {
     if (columnsNameList == null) {
@@ -248,28 +247,13 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    *
    * @return The list of the primary key name.
    * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
-   * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
+   * @throws AssertJDBException   If triggered, this exception wrap a possible {@link SQLException} during the loading.
    */
   public List<String> getPksNameList() {
     if (pksNameList == null) {
       load();
     }
     return pksNameList;
-  }
-
-  /**
-   * Controls that all the primary keys name exist in the columns.
-   */
-  protected void controlIfAllThePksNameExistInTheColumns() {
-    LetterCase letterCase = getPrimaryKeyLetterCase();
-    if (pksNameList != null) {
-      for (String pkName : pksNameList) {
-        // If the list of columns name is not set, the presence of the column is not tested
-        if (columnsNameList != null && !NameComparator.INSTANCE.contains(columnsNameList, pkName, letterCase)) {
-          throw new AssertJDBException("Primary key %s do not exist in the columns %s", pkName, columnsNameList);
-        }
-      }
-    }
   }
 
   /**
@@ -290,6 +274,21 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
   }
 
   /**
+   * Controls that all the primary keys name exist in the columns.
+   */
+  protected void controlIfAllThePksNameExistInTheColumns() {
+    LetterCase letterCase = getPrimaryKeyLetterCase();
+    if (pksNameList != null) {
+      for (String pkName : pksNameList) {
+        // If the list of columns name is not set, the presence of the column is not tested
+        if (columnsNameList != null && !NameComparator.INSTANCE.contains(columnsNameList, pkName, letterCase)) {
+          throw new AssertJDBException("Primary key %s do not exist in the columns %s", pkName, columnsNameList);
+        }
+      }
+    }
+  }
+
+  /**
    * Returns the list of the values in rows for the data from database.
    * <p>
    * If it is the first call to {@code getRowsList()}, the data are loaded from database by calling the {@link #load()}
@@ -298,7 +297,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    *
    * @return The list of the values.
    * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
-   * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
+   * @throws AssertJDBException   If triggered, this exception wrap a possible {@link SQLException} during the loading.
    */
   public List<Row> getRowsList() {
     if (rowsList == null) {
@@ -318,7 +317,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    *
    * @return The list of the values in columns.
    * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
-   * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
+   * @throws AssertJDBException   If triggered, this exception wrap a possible {@link SQLException} during the loading.
    */
   public List<Column> getColumnsList() {
     if (columnsList == null) {
@@ -347,7 +346,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    * @param index The column index.
    * @return The column and the values
    * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
-   * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
+   * @throws AssertJDBException   If triggered, this exception wrap a possible {@link SQLException} during the loading.
    */
   public Column getColumn(int index) {
     return getColumnsList().get(index);
@@ -364,7 +363,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    * @param index The index
    * @return The {@link Row}
    * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
-   * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
+   * @throws AssertJDBException   If triggered, this exception wrap a possible {@link SQLException} during the loading.
    */
   public Row getRow(int index) {
     return getRowsList().get(index);
@@ -381,7 +380,7 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    * @param index The column index
    * @return The values
    * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
-   * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
+   * @throws AssertJDBException   If triggered, this exception wrap a possible {@link SQLException} during the loading.
    */
   private List<Value> getValuesList(int index) {
     List<Value> valuesList = new ArrayList<>();

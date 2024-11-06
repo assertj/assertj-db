@@ -12,6 +12,11 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.sql.Time;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -20,17 +25,11 @@ import org.assertj.db.type.Table;
 import org.assertj.db.type.TimeValue;
 import org.junit.Test;
 
-import java.sql.Time;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link  AssertionsOnValueCloseness} class :
  * {@link  AssertionsOnValueCloseness#isCloseTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, org.assertj.db.type.TimeValue, org.assertj.db.type.TimeValue)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnValueCloseness_IsCloseTo_TimeValue_TimeValue_Test extends AbstractTest {
 
@@ -43,7 +42,7 @@ public class AssertionsOnValueCloseness_IsCloseTo_TimeValue_TimeValue_Test exten
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnValueCloseness.isCloseTo(tableAssert, info, getValue(null, Time
-            .valueOf("09:01:00")), TimeValue.of(9, 1, 1), TimeValue.of(0, 0, 1));
+      .valueOf("09:01:00")), TimeValue.of(9, 1, 1), TimeValue.of(0, 0, 1));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnValueCloseness.isCloseTo(tableAssert, info, getValue(null, null), (TimeValue) null, TimeValue.of(0, 0));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
@@ -60,27 +59,27 @@ public class AssertionsOnValueCloseness_IsCloseTo_TimeValue_TimeValue_Test exten
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnValueCloseness.isCloseTo(tableAssert, info, getValue(null, Time.valueOf("09:01:05")),
-                                           TimeValue.of(9, 1), TimeValue.of(0, 0, 1));
+        TimeValue.of(9, 1), TimeValue.of(0, 0, 1));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <09:01:05.000000000>%n"
-                                                                    + "to be close to: %n"
-                                                                    + "  <09:01:00.000000000> %n"
-                                                                    + " with tolerance <00:00:01.000000000>"));
+        + "Expecting:%n"
+        + "  <09:01:05.000000000>%n"
+        + "to be close to: %n"
+        + "  <09:01:00.000000000> %n"
+        + " with tolerance <00:00:01.000000000>"));
     }
     try {
       AssertionsOnValueCloseness.isCloseTo(tableAssert, info, getValue(null, Time.valueOf("09:01:05")),
-                                           (TimeValue) null, TimeValue.of(0, 0, 1));
+        (TimeValue) null, TimeValue.of(0, 0, 1));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <09:01:05.000000000>%n"
-                                                                    + "to be close to: %n"
-                                                                    + "  <null> %n"
-                                                                    + " with tolerance <00:00:01.000000000>"));
+        + "Expecting:%n"
+        + "  <09:01:05.000000000>%n"
+        + "to be close to: %n"
+        + "  <null> %n"
+        + " with tolerance <00:00:01.000000000>"));
     }
   }
 
@@ -98,12 +97,12 @@ public class AssertionsOnValueCloseness_IsCloseTo_TimeValue_TimeValue_Test exten
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <8>%n"
-                                                                    + "to be of type%n"
-                                                                    + "  <TIME>%n"
-                                                                    + "but was of type%n"
-                                                                    + "  <NUMBER>"));
+        + "Expecting:%n"
+        + "  <8>%n"
+        + "to be of type%n"
+        + "  <TIME>%n"
+        + "but was of type%n"
+        + "  <NUMBER>"));
     }
   }
 }

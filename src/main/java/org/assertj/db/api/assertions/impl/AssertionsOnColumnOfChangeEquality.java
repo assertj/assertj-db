@@ -12,17 +12,21 @@
  */
 package org.assertj.db.api.assertions.impl;
 
-import org.assertj.core.api.WritableAssertionInfo;
-import org.assertj.core.internal.Failures;
-import org.assertj.db.api.AbstractAssert;
-import org.assertj.db.type.*;
-import org.assertj.db.util.Values;
-
-import java.util.UUID;
-
 import static org.assertj.db.error.ShouldBeEqualWithEndPoint.shouldBeEqualWithEndPoint;
 import static org.assertj.db.error.ShouldBeEqualWithStartPoint.shouldBeEqualWithStartPoint;
 import static org.assertj.db.util.Values.areEqual;
+
+import java.util.UUID;
+
+import org.assertj.core.api.WritableAssertionInfo;
+import org.assertj.core.internal.Failures;
+import org.assertj.db.api.AbstractAssert;
+import org.assertj.db.type.DateTimeValue;
+import org.assertj.db.type.DateValue;
+import org.assertj.db.type.TimeValue;
+import org.assertj.db.type.Value;
+import org.assertj.db.type.ValueType;
+import org.assertj.db.util.Values;
 
 /**
  * Implements the assertion methods on the equality of a column of a change.
@@ -58,8 +62,8 @@ public class AssertionsOnColumnOfChangeEquality {
    * @throws AssertionError If the values at start point and at end point are not equal to the object.
    */
   public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
-                                                       Value valueAtStartPoint, Value valueAtEndPoint,
-                                                       Object expected) {
+                                                          Value valueAtStartPoint, Value valueAtEndPoint,
+                                                          Object expected) {
 
     if (expected != null) {
       AssertionsOnColumnOfChangeClass.isOfClass(assertion, info, valueAtStartPoint, valueAtEndPoint, expected.getClass(), true);
@@ -87,20 +91,20 @@ public class AssertionsOnColumnOfChangeEquality {
    * @throws AssertionError If the values at start point and at end point are not equal to the corresponding objects.
    */
   public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
-                                                       Value valueAtStartPoint, Value valueAtEndPoint,
-                                                       Object expectedAtStartPoint, Object expectedAtEndPoint) {
+                                                          Value valueAtStartPoint, Value valueAtEndPoint,
+                                                          Object expectedAtStartPoint, Object expectedAtEndPoint) {
 
     if (expectedAtStartPoint != null) {
       AssertionsOnColumnOfChangeClass.isOfClass(assertion, info, valueAtStartPoint,
-                                                Value.getNullValue(valueAtEndPoint.getColumnName(),
-                                                                   valueAtEndPoint.getColumnLetterCase()),
-                                                expectedAtStartPoint.getClass(), true);
+        Value.getNullValue(valueAtEndPoint.getColumnName(),
+          valueAtEndPoint.getColumnLetterCase()),
+        expectedAtStartPoint.getClass(), true);
     }
     if (expectedAtEndPoint != null) {
       AssertionsOnColumnOfChangeClass.isOfClass(assertion, info,
-                                                Value.getNullValue(valueAtStartPoint.getColumnName(),
-                                                                   valueAtStartPoint.getColumnLetterCase()),
-                                                valueAtEndPoint, expectedAtEndPoint.getClass(), true);
+        Value.getNullValue(valueAtStartPoint.getColumnName(),
+          valueAtStartPoint.getColumnLetterCase()),
+        valueAtEndPoint, expectedAtEndPoint.getClass(), true);
     }
     if (!areEqual(valueAtStartPoint, expectedAtStartPoint)) {
       throw failures.failure(info, shouldBeEqualWithStartPoint(valueAtStartPoint.getValue(), expectedAtStartPoint));
@@ -124,8 +128,8 @@ public class AssertionsOnColumnOfChangeEquality {
    * @throws AssertionError If the values at start point and at end point are not equal to the boolean.
    */
   public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
-                                                       Value valueAtStartPoint, Value valueAtEndPoint,
-                                                       Boolean expected) {
+                                                          Value valueAtStartPoint, Value valueAtEndPoint,
+                                                          Boolean expected) {
 
     AssertionsOnColumnOfChangeType.isBoolean(assertion, info, valueAtStartPoint, valueAtEndPoint, true);
     if (!areEqual(valueAtStartPoint, expected)) {
@@ -151,8 +155,8 @@ public class AssertionsOnColumnOfChangeEquality {
    * @throws AssertionError If the values at start point and at end point are not equal to the corresponding booleans.
    */
   public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
-                                                       Value valueAtStartPoint, Value valueAtEndPoint,
-                                                       Boolean expectedAtStartPoint, Boolean expectedAtEndPoint) {
+                                                          Value valueAtStartPoint, Value valueAtEndPoint,
+                                                          Boolean expectedAtStartPoint, Boolean expectedAtEndPoint) {
 
     AssertionsOnColumnOfChangeType.isBoolean(assertion, info, valueAtStartPoint, valueAtEndPoint, true);
     if (!areEqual(valueAtStartPoint, expectedAtStartPoint)) {
@@ -177,17 +181,17 @@ public class AssertionsOnColumnOfChangeEquality {
    * @throws AssertionError If the values at start point and at end point are not equal to the number.
    */
   public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
-                                                       Value valueAtStartPoint, Value valueAtEndPoint,
-                                                       Number expected) {
+                                                          Value valueAtStartPoint, Value valueAtEndPoint,
+                                                          Number expected) {
 
     AssertionsOnColumnOfChangeType.isNumber(assertion, info, valueAtStartPoint, valueAtEndPoint, true);
     if (!areEqual(valueAtStartPoint, expected)) {
       throw failures.failure(info, shouldBeEqualWithStartPoint(
-              Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expected), expected));
+        Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expected), expected));
     }
     if (!areEqual(valueAtEndPoint, expected)) {
       throw failures.failure(info, shouldBeEqualWithEndPoint(
-              Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expected), expected));
+        Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expected), expected));
     }
     return assertion;
   }
@@ -206,17 +210,17 @@ public class AssertionsOnColumnOfChangeEquality {
    * @throws AssertionError If the values at start point and at end point are not equal to the corresponding numbers.
    */
   public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
-                                                       Value valueAtStartPoint, Value valueAtEndPoint,
-                                                       Number expectedAtStartPoint, Number expectedAtEndPoint) {
+                                                          Value valueAtStartPoint, Value valueAtEndPoint,
+                                                          Number expectedAtStartPoint, Number expectedAtEndPoint) {
 
     AssertionsOnColumnOfChangeType.isNumber(assertion, info, valueAtStartPoint, valueAtEndPoint, true);
     if (!areEqual(valueAtStartPoint, expectedAtStartPoint)) {
       throw failures.failure(info, shouldBeEqualWithStartPoint(
-              Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expectedAtStartPoint), expectedAtStartPoint));
+        Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expectedAtStartPoint), expectedAtStartPoint));
     }
     if (!areEqual(valueAtEndPoint, expectedAtEndPoint)) {
       throw failures.failure(info, shouldBeEqualWithEndPoint(
-              Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expectedAtEndPoint), expectedAtEndPoint));
+        Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expectedAtEndPoint), expectedAtEndPoint));
     }
     return assertion;
   }
@@ -234,8 +238,8 @@ public class AssertionsOnColumnOfChangeEquality {
    * @throws AssertionError If the values at start point and at end point are not equal to the bytes.
    */
   public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
-                                                       Value valueAtStartPoint, Value valueAtEndPoint,
-                                                       byte[] expected) {
+                                                          Value valueAtStartPoint, Value valueAtEndPoint,
+                                                          byte[] expected) {
 
     AssertionsOnColumnOfChangeType.isBytes(assertion, info, valueAtStartPoint, valueAtEndPoint, true);
     if (!areEqual(valueAtStartPoint, expected)) {
@@ -261,8 +265,8 @@ public class AssertionsOnColumnOfChangeEquality {
    * @throws AssertionError If the values at start point and at end point are not equal to the corresponding bytes.
    */
   public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
-                                                       Value valueAtStartPoint, Value valueAtEndPoint,
-                                                       byte[] expectedAtStartPoint, byte[] expectedAtEndPoint) {
+                                                          Value valueAtStartPoint, Value valueAtEndPoint,
+                                                          byte[] expectedAtStartPoint, byte[] expectedAtEndPoint) {
 
     AssertionsOnColumnOfChangeType.isBytes(assertion, info, valueAtStartPoint, valueAtEndPoint, true);
     if (!areEqual(valueAtStartPoint, expectedAtStartPoint)) {
@@ -287,19 +291,19 @@ public class AssertionsOnColumnOfChangeEquality {
    * @throws AssertionError If the values at start point and at end point are not equal to the text.
    */
   public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
-                                                       Value valueAtStartPoint, Value valueAtEndPoint,
-                                                       String expected) {
+                                                          Value valueAtStartPoint, Value valueAtEndPoint,
+                                                          String expected) {
 
     AssertionsOnColumnOfChangeType.isOfAnyTypeIn(assertion, info, valueAtStartPoint, valueAtEndPoint,
-                                                 ValueType.TEXT, ValueType.NUMBER, ValueType.DATE,
-                                                 ValueType.TIME, ValueType.DATE_TIME, ValueType.UUID, ValueType.NOT_IDENTIFIED);
+      ValueType.TEXT, ValueType.NUMBER, ValueType.DATE,
+      ValueType.TIME, ValueType.DATE_TIME, ValueType.UUID, ValueType.NOT_IDENTIFIED);
     if (!areEqual(valueAtStartPoint, expected)) {
       throw failures.failure(info, shouldBeEqualWithStartPoint(
-              Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expected), expected));
+        Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expected), expected));
     }
     if (!areEqual(valueAtEndPoint, expected)) {
       throw failures.failure(info, shouldBeEqualWithEndPoint(
-              Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expected), expected));
+        Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expected), expected));
     }
     return assertion;
   }
@@ -318,19 +322,19 @@ public class AssertionsOnColumnOfChangeEquality {
    * @throws AssertionError If the values at start point and at end point are not equal to the corresponding texts.
    */
   public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
-                                                       Value valueAtStartPoint, Value valueAtEndPoint,
-                                                       String expectedAtStartPoint, String expectedAtEndPoint) {
+                                                          Value valueAtStartPoint, Value valueAtEndPoint,
+                                                          String expectedAtStartPoint, String expectedAtEndPoint) {
 
     AssertionsOnColumnOfChangeType.isOfAnyTypeIn(assertion, info, valueAtStartPoint, valueAtEndPoint,
-                                                 ValueType.TEXT, ValueType.NUMBER, ValueType.DATE,
-                                                 ValueType.TIME, ValueType.DATE_TIME, ValueType.UUID, ValueType.NOT_IDENTIFIED);
+      ValueType.TEXT, ValueType.NUMBER, ValueType.DATE,
+      ValueType.TIME, ValueType.DATE_TIME, ValueType.UUID, ValueType.NOT_IDENTIFIED);
     if (!areEqual(valueAtStartPoint, expectedAtStartPoint)) {
       throw failures.failure(info, shouldBeEqualWithStartPoint(
-              Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expectedAtStartPoint), expectedAtStartPoint));
+        Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expectedAtStartPoint), expectedAtStartPoint));
     }
     if (!areEqual(valueAtEndPoint, expectedAtEndPoint)) {
       throw failures.failure(info, shouldBeEqualWithEndPoint(
-              Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expectedAtEndPoint), expectedAtEndPoint));
+        Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expectedAtEndPoint), expectedAtEndPoint));
     }
     return assertion;
   }
@@ -349,8 +353,8 @@ public class AssertionsOnColumnOfChangeEquality {
    * @since 1.2.0
    */
   public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
-                                                       Value valueAtStartPoint, Value valueAtEndPoint,
-                                                       Character expected) {
+                                                          Value valueAtStartPoint, Value valueAtEndPoint,
+                                                          Character expected) {
 
     AssertionsOnColumnOfChangeType.isText(assertion, info, valueAtStartPoint, valueAtEndPoint, true);
     if (!areEqual(valueAtStartPoint, expected)) {
@@ -377,8 +381,8 @@ public class AssertionsOnColumnOfChangeEquality {
    * @since 1.2.0
    */
   public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
-                                                       Value valueAtStartPoint, Value valueAtEndPoint,
-                                                       Character expectedAtStartPoint, Character expectedAtEndPoint) {
+                                                          Value valueAtStartPoint, Value valueAtEndPoint,
+                                                          Character expectedAtStartPoint, Character expectedAtEndPoint) {
 
     AssertionsOnColumnOfChangeType.isText(assertion, info, valueAtStartPoint, valueAtEndPoint, true);
     if (!areEqual(valueAtStartPoint, expectedAtStartPoint)) {
@@ -403,18 +407,18 @@ public class AssertionsOnColumnOfChangeEquality {
    * @throws AssertionError If the values at start point and at end point are not equal to the date.
    */
   public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
-                                                       Value valueAtStartPoint, Value valueAtEndPoint,
-                                                       DateValue expected) {
+                                                          Value valueAtStartPoint, Value valueAtEndPoint,
+                                                          DateValue expected) {
     AssertionsOnColumnOfChangeType
-        .isOfAnyTypeIn(assertion, info, valueAtStartPoint, valueAtEndPoint, ValueType.DATE,
-                       ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
+      .isOfAnyTypeIn(assertion, info, valueAtStartPoint, valueAtEndPoint, ValueType.DATE,
+        ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
     if (!areEqual(valueAtStartPoint, expected)) {
       throw failures.failure(info, shouldBeEqualWithStartPoint(
-          Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expected), expected));
+        Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expected), expected));
     }
     if (!areEqual(valueAtEndPoint, expected)) {
       throw failures.failure(info, shouldBeEqualWithEndPoint(
-          Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expected), expected));
+        Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expected), expected));
     }
     return assertion;
   }
@@ -433,18 +437,18 @@ public class AssertionsOnColumnOfChangeEquality {
    * @throws AssertionError If the values at start point and at end point are not equal to the corresponding dates.
    */
   public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
-                                                       Value valueAtStartPoint, Value valueAtEndPoint,
-                                                       DateValue expectedAtStartPoint, DateValue expectedAtEndPoint) {
+                                                          Value valueAtStartPoint, Value valueAtEndPoint,
+                                                          DateValue expectedAtStartPoint, DateValue expectedAtEndPoint) {
 
     AssertionsOnColumnOfChangeType.isOfAnyTypeIn(assertion, info, valueAtStartPoint, valueAtEndPoint, ValueType.DATE,
-                                                 ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
+      ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
     if (!areEqual(valueAtStartPoint, expectedAtStartPoint)) {
       throw failures.failure(info, shouldBeEqualWithStartPoint(
-              Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expectedAtStartPoint), expectedAtStartPoint));
+        Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expectedAtStartPoint), expectedAtStartPoint));
     }
     if (!areEqual(valueAtEndPoint, expectedAtEndPoint)) {
       throw failures.failure(info, shouldBeEqualWithEndPoint(
-              Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expectedAtEndPoint), expectedAtEndPoint));
+        Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expectedAtEndPoint), expectedAtEndPoint));
     }
     return assertion;
   }
@@ -462,18 +466,18 @@ public class AssertionsOnColumnOfChangeEquality {
    * @throws AssertionError If the values at start point and at end point are not equal to the time.
    */
   public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
-                                                       Value valueAtStartPoint, Value valueAtEndPoint,
-                                                       TimeValue expected) {
+                                                          Value valueAtStartPoint, Value valueAtEndPoint,
+                                                          TimeValue expected) {
 
     AssertionsOnColumnOfChangeType.isOfAnyTypeIn(assertion, info, valueAtStartPoint, valueAtEndPoint, ValueType.TIME,
-                                                 ValueType.NOT_IDENTIFIED);
+      ValueType.NOT_IDENTIFIED);
     if (!areEqual(valueAtStartPoint, expected)) {
       throw failures.failure(info, shouldBeEqualWithStartPoint(
-              Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expected), expected));
+        Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expected), expected));
     }
     if (!areEqual(valueAtEndPoint, expected)) {
       throw failures.failure(info, shouldBeEqualWithEndPoint(
-              Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expected), expected));
+        Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expected), expected));
     }
     return assertion;
   }
@@ -492,18 +496,18 @@ public class AssertionsOnColumnOfChangeEquality {
    * @throws AssertionError If the values at start point and at end point are not equal to the corresponding times.
    */
   public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
-                                                       Value valueAtStartPoint, Value valueAtEndPoint,
-                                                       TimeValue expectedAtStartPoint, TimeValue expectedAtEndPoint) {
+                                                          Value valueAtStartPoint, Value valueAtEndPoint,
+                                                          TimeValue expectedAtStartPoint, TimeValue expectedAtEndPoint) {
 
     AssertionsOnColumnOfChangeType.isOfAnyTypeIn(assertion, info, valueAtStartPoint, valueAtEndPoint, ValueType.TIME,
-                                                 ValueType.NOT_IDENTIFIED);
+      ValueType.NOT_IDENTIFIED);
     if (!areEqual(valueAtStartPoint, expectedAtStartPoint)) {
       throw failures.failure(info, shouldBeEqualWithStartPoint(
-              Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expectedAtStartPoint), expectedAtStartPoint));
+        Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expectedAtStartPoint), expectedAtStartPoint));
     }
     if (!areEqual(valueAtEndPoint, expectedAtEndPoint)) {
       throw failures.failure(info, shouldBeEqualWithEndPoint(
-              Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expectedAtEndPoint), expectedAtEndPoint));
+        Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expectedAtEndPoint), expectedAtEndPoint));
     }
     return assertion;
   }
@@ -521,18 +525,18 @@ public class AssertionsOnColumnOfChangeEquality {
    * @throws AssertionError If the values at start point and at end point are not equal to the date/time.
    */
   public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
-                                                       Value valueAtStartPoint, Value valueAtEndPoint,
-                                                       DateTimeValue expected) {
+                                                          Value valueAtStartPoint, Value valueAtEndPoint,
+                                                          DateTimeValue expected) {
 
     AssertionsOnColumnOfChangeType.isOfAnyTypeIn(assertion, info, valueAtStartPoint, valueAtEndPoint,
-                                                 ValueType.DATE, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
+      ValueType.DATE, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
     if (!areEqual(valueAtStartPoint, expected)) {
       throw failures.failure(info, shouldBeEqualWithStartPoint(
-              Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expected), expected));
+        Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expected), expected));
     }
     if (!areEqual(valueAtEndPoint, expected)) {
       throw failures.failure(info, shouldBeEqualWithEndPoint(
-              Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expected), expected));
+        Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expected), expected));
     }
     return assertion;
   }
@@ -551,19 +555,19 @@ public class AssertionsOnColumnOfChangeEquality {
    * @throws AssertionError If the values at start point and at end point are not equal to the corresponding dates/times.
    */
   public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
-                                                       Value valueAtStartPoint, Value valueAtEndPoint,
-                                                       DateTimeValue expectedAtStartPoint,
-                                                       DateTimeValue expectedAtEndPoint) {
+                                                          Value valueAtStartPoint, Value valueAtEndPoint,
+                                                          DateTimeValue expectedAtStartPoint,
+                                                          DateTimeValue expectedAtEndPoint) {
 
     AssertionsOnColumnOfChangeType.isOfAnyTypeIn(assertion, info, valueAtStartPoint, valueAtEndPoint,
-                                                 ValueType.DATE, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
+      ValueType.DATE, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
     if (!areEqual(valueAtStartPoint, expectedAtStartPoint)) {
       throw failures.failure(info, shouldBeEqualWithStartPoint(
-              Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expectedAtStartPoint), expectedAtStartPoint));
+        Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expectedAtStartPoint), expectedAtStartPoint));
     }
     if (!areEqual(valueAtEndPoint, expectedAtEndPoint)) {
       throw failures.failure(info, shouldBeEqualWithEndPoint(
-              Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expectedAtEndPoint), expectedAtEndPoint));
+        Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expectedAtEndPoint), expectedAtEndPoint));
     }
     return assertion;
   }
@@ -582,18 +586,18 @@ public class AssertionsOnColumnOfChangeEquality {
    * @since 1.1.0
    */
   public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
-                                                       Value valueAtStartPoint, Value valueAtEndPoint,
-                                                       UUID expected) {
+                                                          Value valueAtStartPoint, Value valueAtEndPoint,
+                                                          UUID expected) {
 
     AssertionsOnColumnOfChangeType.isOfAnyTypeIn(assertion, info, valueAtStartPoint, valueAtEndPoint,
-                                                 ValueType.UUID, ValueType.NOT_IDENTIFIED);
+      ValueType.UUID, ValueType.NOT_IDENTIFIED);
     if (!areEqual(valueAtStartPoint, expected)) {
       throw failures.failure(info, shouldBeEqualWithStartPoint(
-          Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expected), expected));
+        Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expected), expected));
     }
     if (!areEqual(valueAtEndPoint, expected)) {
       throw failures.failure(info, shouldBeEqualWithEndPoint(
-          Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expected), expected));
+        Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expected), expected));
     }
     return assertion;
   }
@@ -613,19 +617,19 @@ public class AssertionsOnColumnOfChangeEquality {
    * @since 1.1.0
    */
   public static <A extends AbstractAssert<?>> A hasValues(A assertion, WritableAssertionInfo info,
-                                                       Value valueAtStartPoint, Value valueAtEndPoint,
-                                                       UUID expectedAtStartPoint, UUID expectedAtEndPoint) {
+                                                          Value valueAtStartPoint, Value valueAtEndPoint,
+                                                          UUID expectedAtStartPoint, UUID expectedAtEndPoint) {
 
     AssertionsOnColumnOfChangeType.isOfAnyTypeIn(assertion, info, valueAtStartPoint, valueAtEndPoint,
-                                                 ValueType.UUID, ValueType.NOT_IDENTIFIED);
+      ValueType.UUID, ValueType.NOT_IDENTIFIED);
     if (!areEqual(valueAtStartPoint, expectedAtStartPoint)) {
       throw failures.failure(info, shouldBeEqualWithStartPoint(
-          Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expectedAtStartPoint),
-          expectedAtStartPoint));
+        Values.getRepresentationFromValueInFrontOfExpected(valueAtStartPoint, expectedAtStartPoint),
+        expectedAtStartPoint));
     }
     if (!areEqual(valueAtEndPoint, expectedAtEndPoint)) {
       throw failures.failure(info, shouldBeEqualWithEndPoint(
-          Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expectedAtEndPoint), expectedAtEndPoint));
+        Values.getRepresentationFromValueInFrontOfExpected(valueAtEndPoint, expectedAtEndPoint), expectedAtEndPoint));
     }
     return assertion;
   }

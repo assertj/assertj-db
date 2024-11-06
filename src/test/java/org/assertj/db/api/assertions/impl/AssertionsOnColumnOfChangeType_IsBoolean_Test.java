@@ -27,7 +27,6 @@ import static org.junit.Assert.fail;
  * {@link AssertionsOnColumnOfChangeType#isBoolean(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, org.assertj.db.type.Value, boolean)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnColumnOfChangeType_IsBoolean_Test extends AbstractTest {
 
@@ -40,7 +39,7 @@ public class AssertionsOnColumnOfChangeType_IsBoolean_Test extends AbstractTest 
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnColumnOfChangeType.isBoolean(tableAssert, info, getValue(null, true), getValue(
-            null, true), false);
+      null, true), false);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnColumnOfChangeType.isBoolean(tableAssert, info, getValue(null, true), getValue(null, true), true);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
@@ -59,16 +58,16 @@ public class AssertionsOnColumnOfChangeType_IsBoolean_Test extends AbstractTest 
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeType.isBoolean(tableAssert, info,
-                                               getValue(null, "test"), getValue(null, true), false);
+        getValue(null, "test"), getValue(null, true), false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that the value at start point:%n"
-                                                      + "  <\"test\">%n"
-                                                      + "to be of type%n"
-                                                      + "  <BOOLEAN>%n"
-                                                      + "but was of type%n"
-                                                      + "  <TEXT>"));
+        + "Expecting that the value at start point:%n"
+        + "  <\"test\">%n"
+        + "to be of type%n"
+        + "  <BOOLEAN>%n"
+        + "but was of type%n"
+        + "  <TEXT>"));
     }
   }
 
@@ -83,16 +82,16 @@ public class AssertionsOnColumnOfChangeType_IsBoolean_Test extends AbstractTest 
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeType.isBoolean(tableAssert, info,
-                                               getValue(null, false), getValue(null, "test"), false);
+        getValue(null, false), getValue(null, "test"), false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting that the value at end point:%n"
-                                                      + "  <\"test\">%n"
-                                                      + "to be of type%n"
-                                                      + "  <BOOLEAN>%n"
-                                                      + "but was of type%n"
-                                                      + "  <TEXT>"));
+        + "Expecting that the value at end point:%n"
+        + "  <\"test\">%n"
+        + "to be of type%n"
+        + "  <BOOLEAN>%n"
+        + "but was of type%n"
+        + "  <TEXT>"));
     }
   }
 
@@ -107,16 +106,16 @@ public class AssertionsOnColumnOfChangeType_IsBoolean_Test extends AbstractTest 
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeType.isBoolean(tableAssert, info,
-                                               getValue(null, new StringBuilder("test")), getValue(null, true), false);
+        getValue(null, new StringBuilder("test")), getValue(null, true), false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at start point:%n"
-                                                                    + "  <test>%n"
-                                                                    + "to be of type%n"
-                                                                    + "  <BOOLEAN>%n"
-                                                                    + "but was of type%n"
-                                                                    + "  <NOT_IDENTIFIED> (java.lang.StringBuilder)"));
+        + "Expecting that the value at start point:%n"
+        + "  <test>%n"
+        + "to be of type%n"
+        + "  <BOOLEAN>%n"
+        + "but was of type%n"
+        + "  <NOT_IDENTIFIED> (java.lang.StringBuilder)"));
     }
   }
 
@@ -131,16 +130,16 @@ public class AssertionsOnColumnOfChangeType_IsBoolean_Test extends AbstractTest 
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeType.isBoolean(tableAssert, info,
-                                               getValue(null, false), getValue(null, new StringBuilder("test")), false);
+        getValue(null, false), getValue(null, new StringBuilder("test")), false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at end point:%n"
-                                                                    + "  <test>%n"
-                                                                    + "to be of type%n"
-                                                                    + "  <BOOLEAN>%n"
-                                                                    + "but was of type%n"
-                                                                    + "  <NOT_IDENTIFIED> (java.lang.StringBuilder)"));
+        + "Expecting that the value at end point:%n"
+        + "  <test>%n"
+        + "to be of type%n"
+        + "  <BOOLEAN>%n"
+        + "but was of type%n"
+        + "  <NOT_IDENTIFIED> (java.lang.StringBuilder)"));
     }
   }
 }

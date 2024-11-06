@@ -12,14 +12,14 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.error.ShouldBeValueClassWithEndPoint.shouldBeValueClassWithEndPoint;
+import static org.assertj.db.error.ShouldBeValueClassWithStartPoint.shouldBeValueClassWithStartPoint;
+
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Value;
-
-import static org.assertj.db.error.ShouldBeValueClassWithEndPoint.shouldBeValueClassWithEndPoint;
-import static org.assertj.db.error.ShouldBeValueClassWithStartPoint.shouldBeValueClassWithStartPoint;
 
 /**
  * Implements the assertion methods on the class of a column of a change.
@@ -44,21 +44,21 @@ public class AssertionsOnColumnOfChangeClass {
   /**
    * Verifies that the class of the values of the column is equal to the class in parameter.
    *
-   * @param <A>        The type of the assertion which call this method.
-   * @param assertion  The assertion which call this method.
-   * @param info       Writable information about an assertion.
+   * @param <A>               The type of the assertion which call this method.
+   * @param assertion         The assertion which call this method.
+   * @param info              Writable information about an assertion.
    * @param valueAtStartPoint The value at start point.
    * @param valueAtEndPoint   The value at end point.
-   * @param expected The expected class to compare to.
-   * @param lenient {@code true} if the test is lenient : if the class of a value is not identified (for example when the
-   *          value is {@code null}), it consider that it is ok.
+   * @param expected          The expected class to compare to.
+   * @param lenient           {@code true} if the test is lenient : if the class of a value is not identified (for example when the
+   *                          value is {@code null}), it consider that it is ok.
    * @return {@code this} assertion object.
    * @throws AssertionError If the class of the column is different to the class in parameter.
    * @since 1.1.0
    */
   public static <A extends AbstractAssert<?>> A isOfClass(A assertion, WritableAssertionInfo info,
-                                                       Value valueAtStartPoint, Value valueAtEndPoint,
-                                                       Class<?> expected, boolean lenient) {
+                                                          Value valueAtStartPoint, Value valueAtEndPoint,
+                                                          Class<?> expected, boolean lenient) {
 
     if (expected == null) {
       throw new AssertJDBException("Class of the column is null");

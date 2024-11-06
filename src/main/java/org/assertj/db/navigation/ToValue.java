@@ -70,9 +70,8 @@ import org.assertj.db.navigation.element.ValueElement;
  * </code>
  * </pre>
  *
- * @author Régis Pouiller
- *
  * @param <V> The class of a assertion on a value (an sub-class of {@link org.assertj.db.navigation.element.ValueElement}).
+ * @author Régis Pouiller
  */
 public interface ToValue<V extends ValueElement> extends Navigation {
 

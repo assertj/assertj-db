@@ -14,6 +14,7 @@ package org.assertj.db.type.lettercase;
 
 /**
  * Conversions of the case of a {@link java.lang.String}.
+ *
  * @author Régis Pouiller
  * @since 1.1.0
  */
@@ -23,7 +24,6 @@ public enum CaseConversions implements CaseConversion {
    * Lower conversion of the case of a {@link java.lang.String}.
    */
   LOWER {
-
     /**
      * {@inheritDoc}
      */
@@ -47,7 +47,6 @@ public enum CaseConversions implements CaseConversion {
    * Upper conversion of the case of a {@link java.lang.String}.
    */
   UPPER {
-
     /**
      * {@inheritDoc}
      */
@@ -71,7 +70,6 @@ public enum CaseConversions implements CaseConversion {
    * No conversion of the case of a {@link java.lang.String}.
    */
   NO {
-
     /**
      * {@inheritDoc}
      */

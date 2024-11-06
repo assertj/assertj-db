@@ -12,19 +12,19 @@
  */
 package org.assertj.db.api.assertions.impl;
 
-import org.assertj.core.api.WritableAssertionInfo;
-import org.assertj.core.internal.Failures;
-import org.assertj.db.api.AbstractAssert;
-import org.assertj.db.type.Change;
-import org.assertj.db.type.Changes;
-
-import java.util.List;
-
 import static org.assertj.db.error.ShouldHaveChangesSize.shouldHaveChangesSize;
 import static org.assertj.db.error.ShouldHaveChangesSizeGreater.shouldHaveChangesSizeGreater;
 import static org.assertj.db.error.ShouldHaveChangesSizeGreaterOrEqual.shouldHaveChangesSizeGreaterOrEqual;
 import static org.assertj.db.error.ShouldHaveChangesSizeLess.shouldHaveChangesSizeLess;
 import static org.assertj.db.error.ShouldHaveChangesSizeLessOrEqual.shouldHaveChangesSizeLessOrEqual;
+
+import java.util.List;
+
+import org.assertj.core.api.WritableAssertionInfo;
+import org.assertj.core.internal.Failures;
+import org.assertj.db.api.AbstractAssert;
+import org.assertj.db.type.Change;
+import org.assertj.db.type.Changes;
 
 /**
  * Implements the assertion method on the number of changes.
@@ -58,7 +58,7 @@ public class AssertionsOnNumberOfChanges {
    * @throws AssertionError If the number of changes is different to the number in parameter.
    */
   public static <A extends AbstractAssert<?>> A hasNumberOfChanges(A assertion, WritableAssertionInfo info,
-                                                                Changes changes, int expected) {
+                                                                   Changes changes, int expected) {
     List<Change> changesList = changes.getChangesList();
     int size = changesList.size();
     if (size != expected) {
@@ -79,7 +79,7 @@ public class AssertionsOnNumberOfChanges {
    * @throws AssertionError If the number of changes is less than or equal to the number in parameter.
    */
   public static <A extends AbstractAssert<?>> A hasNumberOfChangesGreaterThan(A assertion, WritableAssertionInfo info,
-                                                                Changes changes, int expected) {
+                                                                              Changes changes, int expected) {
     List<Change> changesList = changes.getChangesList();
     int size = changesList.size();
     if (size <= expected) {
@@ -100,7 +100,7 @@ public class AssertionsOnNumberOfChanges {
    * @throws AssertionError If the number of changes is greater than or equal to the number in parameter.
    */
   public static <A extends AbstractAssert<?>> A hasNumberOfChangesLessThan(A assertion, WritableAssertionInfo info,
-                                                                Changes changes, int expected) {
+                                                                           Changes changes, int expected) {
     List<Change> changesList = changes.getChangesList();
     int size = changesList.size();
     if (size >= expected) {
@@ -121,7 +121,7 @@ public class AssertionsOnNumberOfChanges {
    * @throws AssertionError If the number of changes is less than the number in parameter.
    */
   public static <A extends AbstractAssert<?>> A hasNumberOfChangesGreaterThanOrEqualTo(A assertion, WritableAssertionInfo info,
-                                                                Changes changes, int expected) {
+                                                                                       Changes changes, int expected) {
     List<Change> changesList = changes.getChangesList();
     int size = changesList.size();
     if (size < expected) {
@@ -142,7 +142,7 @@ public class AssertionsOnNumberOfChanges {
    * @throws AssertionError If the number of changes is greater than the number in parameter.
    */
   public static <A extends AbstractAssert<?>> A hasNumberOfChangesLessThanOrEqualTo(A assertion, WritableAssertionInfo info,
-                                                                Changes changes, int expected) {
+                                                                                    Changes changes, int expected) {
     List<Change> changesList = changes.getChangesList();
     int size = changesList.size();
     if (size > expected) {

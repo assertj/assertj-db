@@ -12,26 +12,26 @@
  */
 package org.assertj.db.api.assertions.impl.constructor;
 
-import org.assertj.db.api.assertions.impl.AssertionsOnColumnOfChangeType;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.db.api.assertions.impl.AssertionsOnColumnOfChangeType;
+import org.junit.Test;
 
 /**
  * Tests on {@link AssertionsOnColumnOfChangeType} class :
  * {@link AssertionsOnColumnOfChangeType#AssertionsOnColumnOfChangeType()} private constructor.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnColumnOfChangeType_Constructor_Test {
 
   /**
    * This method tests the private constructor of {@code AssertionsOnColumnOfChangeType} for the tests coverage..
+   *
    * @throws NoSuchMethodException
    * @throws SecurityException
    * @throws java.lang.reflect.InvocationTargetException
@@ -41,8 +41,8 @@ public class AssertionsOnColumnOfChangeType_Constructor_Test {
    */
   @Test
   public void test_private_constructor_for_the_tests_coverage()
-          throws SecurityException, NoSuchMethodException, IllegalArgumentException,
-          InstantiationException, IllegalAccessException, InvocationTargetException {
+    throws SecurityException, NoSuchMethodException, IllegalArgumentException,
+    InstantiationException, IllegalAccessException, InvocationTargetException {
 
     Constructor<AssertionsOnColumnOfChangeType> constructor = AssertionsOnColumnOfChangeType.class.getDeclaredConstructor();
     assertThat(Modifier.isPrivate(constructor.getModifiers())).isTrue();

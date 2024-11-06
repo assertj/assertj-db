@@ -28,9 +28,9 @@ import org.assertj.db.util.Descriptions;
  * @author Régis Pouiller
  */
 public class ChangesOutputter
-        extends AbstractOutputterWithOrigin<ChangesOutputter, ChangesOutputter>
-        implements ChangesElement,
-        OriginWithChanges<ChangesOutputter, ChangeOutputter> {
+  extends AbstractOutputterWithOrigin<ChangesOutputter, ChangesOutputter>
+  implements ChangesElement,
+  OriginWithChanges<ChangesOutputter, ChangeOutputter> {
 
   /**
    * The actual changes on which the output is.
@@ -54,14 +54,14 @@ public class ChangesOutputter
   /**
    * Constructor.
    *
-   * @param origin The output of {@link org.assertj.db.navigation.origin.Origin}.
+   * @param origin  The output of {@link org.assertj.db.navigation.origin.Origin}.
    * @param changes The {@link Changes} on which are the displays.
    */
   public ChangesOutputter(ChangesOutputter origin, Changes changes) {
     super(ChangesOutputter.class, origin);
     this.changes = changes;
-    changesPosition = new PositionWithChanges<ChangesOutputter, ChangeOutputter>(this, 
-                                                ChangesOutputter.class, ChangeOutputter.class) {
+    changesPosition = new PositionWithChanges<ChangesOutputter, ChangeOutputter>(this,
+      ChangesOutputter.class, ChangeOutputter.class) {
       @Override
       protected String getChangesDescription(ChangeType changeType, String tableName) {
         return Descriptions.getChangesDescription(info, changeType, tableName);
@@ -77,7 +77,9 @@ public class ChangesOutputter
     withType(OutputType.PLAIN);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangesOutputter ofAll() {
     if (origin != null) {
@@ -86,7 +88,9 @@ public class ChangesOutputter
     return this;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangesOutputter ofCreation() {
     if (origin != null) {
@@ -95,7 +99,9 @@ public class ChangesOutputter
     return changesPosition.getChangesInstance(changes, ChangeType.CREATION, null).withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangesOutputter ofModification() {
     if (origin != null) {
@@ -104,7 +110,9 @@ public class ChangesOutputter
     return changesPosition.getChangesInstance(changes, ChangeType.MODIFICATION, null).withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangesOutputter ofDeletion() {
     if (origin != null) {
@@ -113,7 +121,9 @@ public class ChangesOutputter
     return changesPosition.getChangesInstance(changes, ChangeType.DELETION, null).withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangesOutputter ofCreationOnTable(String tableName) {
     if (origin != null) {
@@ -122,7 +132,9 @@ public class ChangesOutputter
     return changesPosition.getChangesInstance(changes, ChangeType.CREATION, tableName).withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangesOutputter ofModificationOnTable(String tableName) {
     if (origin != null) {
@@ -131,7 +143,9 @@ public class ChangesOutputter
     return changesPosition.getChangesInstance(changes, ChangeType.MODIFICATION, tableName).withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangesOutputter ofDeletionOnTable(String tableName) {
     if (origin != null) {
@@ -140,7 +154,9 @@ public class ChangesOutputter
     return changesPosition.getChangesInstance(changes, ChangeType.DELETION, tableName).withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangesOutputter onTable(String tableName) {
     if (origin != null) {
@@ -149,19 +165,25 @@ public class ChangesOutputter
     return changesPosition.getChangesInstance(changes, null, tableName).withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeOutputter change() {
     return changesPosition.getChangeInstance(changes, null, null).withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeOutputter change(int index) {
     return changesPosition.getChangeInstance(changes, null, null, index).withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeOutputter changeOfCreation() {
     if (origin != null) {
@@ -170,7 +192,9 @@ public class ChangesOutputter
     return changesPosition.getChangeInstance(changes, ChangeType.CREATION, null).withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeOutputter changeOfCreation(int index) {
     if (origin != null) {
@@ -179,7 +203,9 @@ public class ChangesOutputter
     return changesPosition.getChangeInstance(changes, ChangeType.CREATION, null, index).withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeOutputter changeOfModification() {
     if (origin != null) {
@@ -188,7 +214,9 @@ public class ChangesOutputter
     return changesPosition.getChangeInstance(changes, ChangeType.MODIFICATION, null).withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeOutputter changeOfModification(int index) {
     if (origin != null) {
@@ -197,7 +225,9 @@ public class ChangesOutputter
     return changesPosition.getChangeInstance(changes, ChangeType.MODIFICATION, null, index).withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeOutputter changeOfDeletion() {
     if (origin != null) {
@@ -206,7 +236,9 @@ public class ChangesOutputter
     return changesPosition.getChangeInstance(changes, ChangeType.DELETION, null).withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeOutputter changeOfDeletion(int index) {
     if (origin != null) {
@@ -215,7 +247,9 @@ public class ChangesOutputter
     return changesPosition.getChangeInstance(changes, ChangeType.DELETION, null, index).withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeOutputter changeOnTable(String tableName) {
     if (origin != null) {
@@ -224,7 +258,9 @@ public class ChangesOutputter
     return changesPosition.getChangeInstance(changes, null, tableName).withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeOutputter changeOnTable(String tableName, int index) {
     if (origin != null) {
@@ -233,7 +269,9 @@ public class ChangesOutputter
     return changesPosition.getChangeInstance(changes, null, tableName, index).withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeOutputter changeOnTableWithPks(String tableName, Object... pksValues) {
     if (origin != null) {
@@ -242,7 +280,9 @@ public class ChangesOutputter
     return changesPosition.getChangeInstanceWithPK(changes, tableName, pksValues).withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeOutputter changeOfCreationOnTable(String tableName) {
     if (origin != null) {
@@ -251,7 +291,9 @@ public class ChangesOutputter
     return changesPosition.getChangeInstance(changes, ChangeType.CREATION, tableName).withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeOutputter changeOfCreationOnTable(String tableName, int index) {
     if (origin != null) {
@@ -260,7 +302,9 @@ public class ChangesOutputter
     return changesPosition.getChangeInstance(changes, ChangeType.CREATION, tableName, index).withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeOutputter changeOfModificationOnTable(String tableName) {
     if (origin != null) {
@@ -269,7 +313,9 @@ public class ChangesOutputter
     return changesPosition.getChangeInstance(changes, ChangeType.MODIFICATION, tableName).withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeOutputter changeOfModificationOnTable(String tableName, int index) {
     if (origin != null) {
@@ -278,7 +324,9 @@ public class ChangesOutputter
     return changesPosition.getChangeInstance(changes, ChangeType.MODIFICATION, tableName, index).withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeOutputter changeOfDeletionOnTable(String tableName) {
     if (origin != null) {
@@ -287,7 +335,9 @@ public class ChangesOutputter
     return changesPosition.getChangeInstance(changes, ChangeType.DELETION, tableName).withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeOutputter changeOfDeletionOnTable(String tableName, int index) {
     if (origin != null) {

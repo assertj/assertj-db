@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -19,15 +22,11 @@ import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link  AssertionsOnValueCloseness} class :
  * {@link  AssertionsOnValueCloseness#isCloseTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, Number, Number)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnValueCloseness_IsCloseTo_Number_Test extends AbstractTest {
 
@@ -59,22 +58,22 @@ public class AssertionsOnValueCloseness_IsCloseTo_Number_Test extends AbstractTe
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <9>%n"
-                                                                    + "to be close to: %n"
-                                                                    + "  <8> %n"
-                                                                    + " with tolerance <0.5>"));
+        + "Expecting:%n"
+        + "  <9>%n"
+        + "to be close to: %n"
+        + "  <8> %n"
+        + " with tolerance <0.5>"));
     }
     try {
       AssertionsOnValueCloseness.isCloseTo(tableAssert, info, getValue(null, 9), (Number) null, 1);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <9>%n"
-                                                                    + "to be close to: %n"
-                                                                    + "  <null> %n"
-                                                                    + " with tolerance <1>"));
+        + "Expecting:%n"
+        + "  <9>%n"
+        + "to be close to: %n"
+        + "  <null> %n"
+        + " with tolerance <1>"));
     }
   }
 
@@ -92,12 +91,12 @@ public class AssertionsOnValueCloseness_IsCloseTo_Number_Test extends AbstractTe
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <false>%n"
-                                                                    + "to be of type%n"
-                                                                    + "  <NUMBER>%n"
-                                                                    + "but was of type%n"
-                                                                    + "  <BOOLEAN>"));
+        + "Expecting:%n"
+        + "  <false>%n"
+        + "to be of type%n"
+        + "  <NUMBER>%n"
+        + "but was of type%n"
+        + "  <BOOLEAN>"));
     }
   }
 }

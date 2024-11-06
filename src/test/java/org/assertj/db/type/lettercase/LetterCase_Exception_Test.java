@@ -12,17 +12,16 @@
  */
 package org.assertj.db.type.lettercase;
 
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.common.AbstractTest;
 import org.junit.Test;
-
-import static org.junit.Assert.fail;
 
 /**
  * Tests on the exceptions of LetterCase
  *
  * @author Régis Pouiller
- *
  */
 public class LetterCase_Exception_Test extends AbstractTest {
 

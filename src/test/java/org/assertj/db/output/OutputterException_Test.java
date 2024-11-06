@@ -12,6 +12,10 @@
  */
 package org.assertj.db.output;
 
+import static org.junit.Assert.fail;
+
+import java.io.File;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.common.NeedReload;
@@ -20,10 +24,6 @@ import org.assertj.db.type.Changes;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
 import org.junit.Test;
-
-import java.io.File;
-
-import static org.junit.Assert.fail;
 
 /**
  * Test the exception of output.
@@ -52,8 +52,8 @@ public class OutputterException_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
-                                                                    + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
-                                                                    + "with comparison IGNORE - Ignore the case"));
+        + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+        + "with comparison IGNORE - Ignore the case"));
     }
   }
 
@@ -76,8 +76,8 @@ public class OutputterException_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
-                                                                    + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
-                                                                    + "with comparison IGNORE - Ignore the case"));
+        + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+        + "with comparison IGNORE - Ignore the case"));
     }
   }
 
@@ -132,8 +132,8 @@ public class OutputterException_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
-                                                                    + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
-                                                                    + "with comparison IGNORE - Ignore the case"));
+        + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+        + "with comparison IGNORE - Ignore the case"));
     }
   }
 
@@ -156,8 +156,8 @@ public class OutputterException_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
-                                                                    + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
-                                                                    + "with comparison IGNORE - Ignore the case"));
+        + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+        + "with comparison IGNORE - Ignore the case"));
     }
   }
 

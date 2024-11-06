@@ -12,6 +12,11 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.sql.Time;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -20,17 +25,11 @@ import org.assertj.db.type.Table;
 import org.assertj.db.type.TimeValue;
 import org.junit.Test;
 
-import java.sql.Time;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertionsOnValueInequality} class :
  * {@link AssertionsOnValueInequality#isNotEqualTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, org.assertj.db.type.TimeValue)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnValueInequality_IsNotEqualTo_TimeValue_Test extends AbstractTest {
 
@@ -43,12 +42,12 @@ public class AssertionsOnValueInequality_IsNotEqualTo_TimeValue_Test extends Abs
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
-                                                                         getValue(null, Time.valueOf("09:01:05")),
-                                                                      TimeValue.of(9, 1));
+      getValue(null, Time.valueOf("09:01:05")),
+      TimeValue.of(9, 1));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
-                                                             getValue(null, Time.valueOf("09:01:05")),
-                                                             (TimeValue) null);
+      getValue(null, Time.valueOf("09:01:05")),
+      (TimeValue) null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -63,25 +62,25 @@ public class AssertionsOnValueInequality_IsNotEqualTo_TimeValue_Test extends Abs
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnValueInequality.isNotEqualTo(tableAssert, info,
-                                                getValue(null, Time.valueOf("09:01:00")),
-                                                         TimeValue.of(9, 1));
+        getValue(null, Time.valueOf("09:01:00")),
+        TimeValue.of(9, 1));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <09:01:00.000000000>%n"
-                                                      + "not to be equal to: %n"
-                                                      + "  <09:01:00.000000000>"));
+        + "Expecting:%n"
+        + "  <09:01:00.000000000>%n"
+        + "not to be equal to: %n"
+        + "  <09:01:00.000000000>"));
     }
     try {
       AssertionsOnValueInequality.isNotEqualTo(tableAssert, info, getValue(null, null), (TimeValue) null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <null>%n"
-                                                                    + "not to be equal to: %n"
-                                                                    + "  <null>"));
+        + "Expecting:%n"
+        + "  <null>%n"
+        + "not to be equal to: %n"
+        + "  <null>"));
     }
   }
 
@@ -99,12 +98,12 @@ public class AssertionsOnValueInequality_IsNotEqualTo_TimeValue_Test extends Abs
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <8>%n"
-                                                      + "to be of type%n"
-                                                      + "  <TIME>%n"
-                                                      + "but was of type%n"
-                                                      + "  <NUMBER>"));
+        + "Expecting:%n"
+        + "  <8>%n"
+        + "to be of type%n"
+        + "  <TIME>%n"
+        + "but was of type%n"
+        + "  <NUMBER>"));
     }
   }
 }

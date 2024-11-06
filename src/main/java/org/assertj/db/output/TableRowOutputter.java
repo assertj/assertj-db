@@ -19,17 +19,16 @@ import org.assertj.db.type.Table;
  * Output methods for a {@link Row} of a {@link Table}.
  *
  * @author Régis Pouiller
- *
  */
 public class TableRowOutputter
-        extends
-        AbstractRowOutputter<Table, TableOutputter, TableColumnOutputter, TableColumnValueOutputter, TableRowOutputter, TableRowValueOutputter> {
+  extends
+  AbstractRowOutputter<Table, TableOutputter, TableColumnOutputter, TableColumnValueOutputter, TableRowOutputter, TableRowValueOutputter> {
 
   /**
    * Constructor.
    *
    * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
-   * @param row The row on which do assertion.
+   * @param row    The row on which do assertion.
    */
   public TableRowOutputter(TableOutputter origin, Row row) {
     super(origin, TableRowOutputter.class, TableRowValueOutputter.class, row);

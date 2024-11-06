@@ -12,6 +12,11 @@
  */
 package org.assertj.db.api;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.db.api.Assertions.assertThat;
+
+import java.lang.reflect.Field;
+
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.description.Description;
 import org.assertj.core.description.TextDescription;
@@ -20,16 +25,10 @@ import org.assertj.db.global.AbstractElement;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import java.lang.reflect.Field;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.db.api.Assertions.assertThat;
-
 /**
  * Test on {@code Descriptable} interface methods.
  *
  * @author Régis Pouiller
- *
  */
 public class Descriptable_Test extends AbstractTest {
 

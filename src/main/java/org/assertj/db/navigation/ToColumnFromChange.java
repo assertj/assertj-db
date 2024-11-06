@@ -52,9 +52,8 @@ import org.assertj.db.navigation.element.ColumnElement;
  * </code>
  * </pre>
  *
- * @author Régis Pouiller
- *
  * @param <C> The class of a assertion on a column (an sub-class of {@link org.assertj.db.navigation.element.ColumnElement}).
+ * @author Régis Pouiller
  */
 public interface ToColumnFromChange<C extends ColumnElement> extends Navigation {
 

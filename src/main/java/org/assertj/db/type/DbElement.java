@@ -16,7 +16,6 @@ package org.assertj.db.type;
  * Element in a database.
  *
  * @author Régis Pouiller
- *
  */
 public interface DbElement {
 }

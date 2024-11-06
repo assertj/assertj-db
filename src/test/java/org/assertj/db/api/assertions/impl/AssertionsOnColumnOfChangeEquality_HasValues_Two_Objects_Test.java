@@ -12,6 +12,11 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.util.Locale;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -19,19 +24,13 @@ import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import java.util.Locale;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link org.assertj.db.api.assertions.impl.AssertionsOnColumnOfChangeEquality} class :
  * {@link org.assertj.db.api.assertions.impl.AssertionsOnColumnOfChangeEquality#hasValues(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, Object, Object, Object, Object)} method.
  *
  * @author Régis Pouiller
- *
  */
-public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Objects_Test extends AbstractTest{
+public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Objects_Test extends AbstractTest {
 
   /**
    * This method tests the {@code hasValues} assertion method.
@@ -42,16 +41,16 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Objects_Test exten
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info, getValue(null, Locale.FRENCH),
-                                                                            getValue(null, Locale.ENGLISH), Locale.FRENCH,
-                                                                            Locale.ENGLISH);
+      getValue(null, Locale.ENGLISH), Locale.FRENCH,
+      Locale.ENGLISH);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info, getValue(null, null),
-                                                                getValue(null, Locale.ENGLISH), null,
-                                                                Locale.ENGLISH);
+      getValue(null, Locale.ENGLISH), null,
+      Locale.ENGLISH);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info, getValue(null, Locale.FRENCH),
-                                                                getValue(null, null), Locale.FRENCH,
-                                                                null);
+      getValue(null, null), Locale.FRENCH,
+      null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -65,52 +64,52 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Objects_Test exten
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     try {
-      AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info, getValue(null, Locale.FRENCH), 
-                                                   getValue(null, Locale.ENGLISH), 
-                                                   Locale.ENGLISH, Locale.ENGLISH);
+      AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info, getValue(null, Locale.FRENCH),
+        getValue(null, Locale.ENGLISH),
+        Locale.ENGLISH, Locale.ENGLISH);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that start point:%n"
-                                                                    + "  <fr>%n"
-                                                                    + "to be equal to: %n"
-                                                                    + "  <en>"));
+        + "Expecting that start point:%n"
+        + "  <fr>%n"
+        + "to be equal to: %n"
+        + "  <en>"));
     }
     try {
-      AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info, getValue(null, Locale.FRENCH), 
-                                                   getValue(null, Locale.ENGLISH), 
-                                                   Locale.FRENCH, Locale.FRENCH);
+      AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info, getValue(null, Locale.FRENCH),
+        getValue(null, Locale.ENGLISH),
+        Locale.FRENCH, Locale.FRENCH);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that end point:%n"
-                                                                    + "  <en>%n"
-                                                                    + "to be equal to: %n"
-                                                                    + "  <fr>"));
+        + "Expecting that end point:%n"
+        + "  <en>%n"
+        + "to be equal to: %n"
+        + "  <fr>"));
     }
     try {
-      AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info, getValue(null, Locale.FRENCH), 
-                                                   getValue(null, Locale.ENGLISH), 
-                                                   null, Locale.ENGLISH);
+      AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info, getValue(null, Locale.FRENCH),
+        getValue(null, Locale.ENGLISH),
+        null, Locale.ENGLISH);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that start point:%n"
-                                                                    + "  <fr>%n"
-                                                                    + "to be equal to: %n"
-                                                                    + "  <null>"));
+        + "Expecting that start point:%n"
+        + "  <fr>%n"
+        + "to be equal to: %n"
+        + "  <null>"));
     }
     try {
-      AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info, getValue(null, Locale.FRENCH), 
-                                                   getValue(null, Locale.ENGLISH), 
-                                                   Locale.FRENCH, null);
+      AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info, getValue(null, Locale.FRENCH),
+        getValue(null, Locale.ENGLISH),
+        Locale.FRENCH, null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that end point:%n"
-                                                                    + "  <en>%n"
-                                                                    + "to be equal to: %n"
-                                                                    + "  <null>"));
+        + "Expecting that end point:%n"
+        + "  <en>%n"
+        + "to be equal to: %n"
+        + "  <null>"));
     }
   }
 
@@ -125,14 +124,14 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Objects_Test exten
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info, getValue(null, Locale.FRENCH), getValue(null,
-                                                                                                              Locale.ENGLISH), Locale.FRENCH, Locale.FRENCH);
+        Locale.ENGLISH), Locale.FRENCH, Locale.FRENCH);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that end point:%n"
-                                                                    + "  <en>%n"
-                                                                    + "to be equal to: %n"
-                                                                    + "  <fr>"));
+        + "Expecting that end point:%n"
+        + "  <en>%n"
+        + "to be equal to: %n"
+        + "  <fr>"));
     }
   }
 
@@ -150,12 +149,12 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Objects_Test exten
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at start point:%n"
-                                                                    + "  <\"other\">%n"
-                                                                    + "to be of class%n"
-                                                                    + "  <java.util.Locale>%n"
-                                                                    + "but was of class%n"
-                                                                    + "  <java.lang.String>"));
+        + "Expecting that the value at start point:%n"
+        + "  <\"other\">%n"
+        + "to be of class%n"
+        + "  <java.util.Locale>%n"
+        + "but was of class%n"
+        + "  <java.lang.String>"));
     }
   }
 }

@@ -20,32 +20,33 @@ import org.assertj.db.type.Value;
 /**
  * Output methods about a value in a {@link Row}.
  *
- * @author Régis Pouiller
- *
- * @param <D> The class of the actual value (an sub-class of {@link AbstractDbData}).
- * @param <A> The class of the original assertion (an sub-class of {@link AbstractDbOutputter}).
- * @param <C> The class of the equivalent row assertion (an sub-class of {@link AbstractColumnOutputter}).
+ * @param <D>  The class of the actual value (an sub-class of {@link AbstractDbData}).
+ * @param <A>  The class of the original assertion (an sub-class of {@link AbstractDbOutputter}).
+ * @param <C>  The class of the equivalent row assertion (an sub-class of {@link AbstractColumnOutputter}).
  * @param <CV> The class of the equivalent row assertion on the value (an sub-class of {@link AbstractColumnValueOutputter}
- *          ).
- * @param <R> The class of this assertion (an sub-class of {@link AbstractRowOutputter}).
+ *             ).
+ * @param <R>  The class of this assertion (an sub-class of {@link AbstractRowOutputter}).
  * @param <RV> The class of this assertion on the value (an sub-class of {@link AbstractRowValueOutputter}).
+ * @author Régis Pouiller
  */
 public abstract class AbstractRowValueOutputter<D extends AbstractDbData<D>, A extends AbstractDbOutputter<D, A, C, CV, R, RV>, C extends AbstractColumnOutputter<D, A, C, CV, R, RV>, CV extends AbstractColumnValueOutputter<D, A, C, CV, R, RV>, R extends AbstractRowOutputter<D, A, C, CV, R, RV>, RV extends AbstractRowValueOutputter<D, A, C, CV, R, RV>>
-        extends AbstractValueOutputter<D, A, R, RV, C, CV, R, RV>
-        implements ToValueFromRow<RV> {
+  extends AbstractValueOutputter<D, A, R, RV, C, CV, R, RV>
+  implements ToValueFromRow<RV> {
 
   /**
    * Constructor.
    *
-   * @param selfType Type of this assertion class : a sub-class of {@code AbstractValueOutputter}.
-   * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
+   * @param selfType    Type of this assertion class : a sub-class of {@code AbstractValueOutputter}.
+   * @param origin      The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    * @param actualValue The value on which are the assertion methods.
    */
   AbstractRowValueOutputter(Class<RV> selfType, R origin, Value actualValue) {
     super(selfType, origin, actualValue);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public RV value(String columnName) {
     return returnToOrigin().value(columnName);

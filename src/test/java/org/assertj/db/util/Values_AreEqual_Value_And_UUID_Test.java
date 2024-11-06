@@ -12,12 +12,12 @@
  */
 package org.assertj.db.util;
 
-import org.assertj.db.common.AbstractTest;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.UUID;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.db.common.AbstractTest;
+import org.junit.Test;
 
 /**
  * Tests on {@code areEqual} method for {@code UUID}s.
@@ -32,9 +32,9 @@ public class Values_AreEqual_Value_And_UUID_Test extends AbstractTest {
   @Test
   public void test_are_equal_for_UUID() throws Exception {
     assertThat(Values.areEqual(getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")),
-                               UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"))).isTrue();
+      UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"))).isTrue();
     assertThat(Values.areEqual(getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")),
-                               UUID.fromString("16319617-AE95-4087-9264-D3D21BF611B6"))).isFalse();
+      UUID.fromString("16319617-AE95-4087-9264-D3D21BF611B6"))).isFalse();
     assertThat(Values.areEqual(getValue(null, null), (UUID) null)).isTrue();
     assertThat(Values.areEqual(getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")), (UUID) null)).isFalse();
     assertThat(Values.areEqual(getValue(null, null), UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"))).isFalse();

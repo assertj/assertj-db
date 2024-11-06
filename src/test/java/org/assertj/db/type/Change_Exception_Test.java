@@ -12,17 +12,16 @@
  */
 package org.assertj.db.type;
 
-import org.assertj.db.common.AbstractTest;
-import org.junit.Test;
-
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+import org.assertj.db.common.AbstractTest;
+import org.junit.Test;
 
 /**
  * Tests on the exceptions of Change
  *
  * @author Régis Pouiller
- *
  */
 public class Change_Exception_Test extends AbstractTest {
 
@@ -36,9 +35,9 @@ public class Change_Exception_Test extends AbstractTest {
     Row end = getRow(singletonList(""), singletonList(""), singletonList(getValue(null, null)));
 
     assertThatThrownBy(() -> getChange(null, "name", ChangeType.CREATION, start, end))
-        .isInstanceOf(Exception.class)
-        .getCause()
-        .hasMessage("The type of the data must be not null");
+      .isInstanceOf(Exception.class)
+      .getCause()
+      .hasMessage("The type of the data must be not null");
   }
 
   /**
@@ -51,8 +50,8 @@ public class Change_Exception_Test extends AbstractTest {
     Row end = getRow(singletonList(""), singletonList(""), singletonList(getValue(null, null)));
 
     assertThatThrownBy(() -> getChange(DataType.TABLE, null, ChangeType.CREATION, start, end))
-        .isInstanceOf(Exception.class)
-        .getCause()
-        .hasMessage("The name of the data must be not null");
+      .isInstanceOf(Exception.class)
+      .getCause()
+      .hasMessage("The name of the data must be not null");
   }
 }

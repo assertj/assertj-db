@@ -12,19 +12,18 @@
  */
 package org.assertj.db.util;
 
-import org.assertj.db.type.Row;
-import org.assertj.db.type.Value;
-
 import java.util.Comparator;
 import java.util.List;
 
+import org.assertj.db.type.Row;
+import org.assertj.db.type.Value;
+
 /**
  * Comparator for the {@code Row}.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
-public enum RowComparator implements Comparator<Row>{
+public enum RowComparator implements Comparator<Row> {
 
   /**
    * The singleton
@@ -33,6 +32,7 @@ public enum RowComparator implements Comparator<Row>{
 
   /**
    * Compare one array of values to another.
+   *
    * @param values1 The first array of values.
    * @param values2 The second array of values.
    * @return The result.
@@ -64,7 +64,9 @@ public enum RowComparator implements Comparator<Row>{
     return 0;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public int compare(Row row1, Row row2) {
     Value[] pksValues1 = row1.getPksValues();

@@ -27,7 +27,6 @@ import org.junit.Test;
  * {@link AssertionsOnValueInequality#isNotEqualTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, Character)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnValueInequality_IsNotEqualTo_Character_Test extends AbstractTest {
 
@@ -61,30 +60,30 @@ public class AssertionsOnValueInequality_IsNotEqualTo_Character_Test extends Abs
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <'T'>%n"
-                                                      + "not to be equal to: %n"
-                                                      + "  <'T'>"));
+        + "Expecting:%n"
+        + "  <'T'>%n"
+        + "not to be equal to: %n"
+        + "  <'T'>"));
     }
     try {
       AssertionsOnValueInequality.isNotEqualTo(tableAssert, info, getValue(null, "T"), 'T');
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <\"T\">%n"
-                                                      + "not to be equal to: %n"
-                                                      + "  <'T'>"));
+        + "Expecting:%n"
+        + "  <\"T\">%n"
+        + "not to be equal to: %n"
+        + "  <'T'>"));
     }
     try {
       AssertionsOnValueInequality.isNotEqualTo(tableAssert, info, getValue(null, null), (Character) null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <null>%n"
-                                                                    + "not to be equal to: %n"
-                                                                    + "  <null>"));
+        + "Expecting:%n"
+        + "  <null>%n"
+        + "not to be equal to: %n"
+        + "  <null>"));
     }
   }
 
@@ -102,12 +101,12 @@ public class AssertionsOnValueInequality_IsNotEqualTo_Character_Test extends Abs
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <8>%n"
-                                                      + "to be of type%n"
-                                                      + "  <TEXT>%n"
-                                                      + "but was of type%n"
-                                                      + "  <NUMBER>"));
+        + "Expecting:%n"
+        + "  <8>%n"
+        + "to be of type%n"
+        + "  <TEXT>%n"
+        + "but was of type%n"
+        + "  <NUMBER>"));
     }
   }
 }

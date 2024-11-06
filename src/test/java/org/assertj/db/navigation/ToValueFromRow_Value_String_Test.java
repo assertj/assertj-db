@@ -12,8 +12,27 @@
  */
 package org.assertj.db.navigation;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.lang.reflect.Field;
+import java.math.BigDecimal;
+import java.sql.Date;
+
 import org.assertj.core.api.Assertions;
-import org.assertj.db.api.*;
+import org.assertj.db.api.AbstractAssertWithValues;
+import org.assertj.db.api.AbstractRowAssert;
+import org.assertj.db.api.AbstractValueAssert;
+import org.assertj.db.api.ChangeAssert;
+import org.assertj.db.api.ChangeRowAssert;
+import org.assertj.db.api.ChangeRowValueAssert;
+import org.assertj.db.api.ChangesAssert;
+import org.assertj.db.api.RequestAssert;
+import org.assertj.db.api.RequestRowAssert;
+import org.assertj.db.api.RequestRowValueAssert;
+import org.assertj.db.api.TableAssert;
+import org.assertj.db.api.TableRowAssert;
+import org.assertj.db.api.TableRowValueAssert;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.common.NeedReload;
 import org.assertj.db.exception.AssertJDBException;
@@ -23,19 +42,11 @@ import org.assertj.db.type.Table;
 import org.assertj.db.type.Value;
 import org.junit.Test;
 
-import java.lang.reflect.Field;
-import java.math.BigDecimal;
-import java.sql.Date;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link org.assertj.db.navigation.ToValueFromRow} class :
  * {@link org.assertj.db.navigation.ToValueFromRow#value(String)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class ToValueFromRow_Value_String_Test extends AbstractTest {
 
@@ -58,9 +69,9 @@ public class ToValueFromRow_Value_String_Test extends AbstractTest {
     }
   }
 
-    /**
-     * This method tests the {@code value} navigation method.
-     */
+  /**
+   * This method tests the {@code value} navigation method.
+   */
   @Test
   @NeedReload
   public void test_value_from_row_of_change_with_column_name() throws Exception {
@@ -92,8 +103,8 @@ public class ToValueFromRow_Value_String_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
-                                                                    + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
-                                                                    + "with comparison IGNORE - Ignore the case"));
+        + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+        + "with comparison IGNORE - Ignore the case"));
     }
     try {
       changeRowAssert.value(null);
@@ -119,8 +130,8 @@ public class ToValueFromRow_Value_String_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
-                                                                    + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
-                                                                    + "with comparison IGNORE - Ignore the case"));
+        + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+        + "with comparison IGNORE - Ignore the case"));
     }
     try {
       changeRowValueAssertBis3.value(null);
@@ -130,16 +141,16 @@ public class ToValueFromRow_Value_String_Test extends AbstractTest {
     }
 
     Assertions.assertThat(((Value) fieldValue.get(changeRowValueAssert0)).getValue())
-              .isSameAs(((Value) fieldValue.get(changeRowValueAssertBis0)).getValue())
-              .isEqualTo(new BigDecimal("4"));
+      .isSameAs(((Value) fieldValue.get(changeRowValueAssertBis0)).getValue())
+      .isEqualTo(new BigDecimal("4"));
     Assertions.assertThat(((Value) fieldValue.get(changeRowValueAssert1)).getValue())
-              .isSameAs(((Value) fieldValue.get(changeRowValueAssertBis1)).getValue()).isEqualTo("Murray");
+      .isSameAs(((Value) fieldValue.get(changeRowValueAssertBis1)).getValue()).isEqualTo("Murray");
     Assertions.assertThat(((Value) fieldValue.get(changeRowValueAssert2)).getValue())
-              .isSameAs(((Value) fieldValue.get(changeRowValueAssertBis2)).getValue())
-    .isEqualTo("Bill");
+      .isSameAs(((Value) fieldValue.get(changeRowValueAssertBis2)).getValue())
+      .isEqualTo("Bill");
     Assertions.assertThat(((Value) fieldValue.get(changeRowValueAssert3)).getValue())
-              .isSameAs(((Value) fieldValue.get(changeRowValueAssertBis3)).getValue())
-              .isEqualTo(Date.valueOf("1950-09-21"));
+      .isSameAs(((Value) fieldValue.get(changeRowValueAssertBis3)).getValue())
+      .isEqualTo(Date.valueOf("1950-09-21"));
   }
 
   /**
@@ -172,8 +183,8 @@ public class ToValueFromRow_Value_String_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
-                                                                    + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
-                                                                    + "with comparison IGNORE - Ignore the case"));
+        + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+        + "with comparison IGNORE - Ignore the case"));
     }
     try {
       tableRowAssert.value(null);
@@ -199,8 +210,8 @@ public class ToValueFromRow_Value_String_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
-                                                                    + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
-                                                                    + "with comparison IGNORE - Ignore the case"));
+        + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+        + "with comparison IGNORE - Ignore the case"));
     }
     try {
       tableRowValueAssertBis3.value(null);
@@ -210,17 +221,17 @@ public class ToValueFromRow_Value_String_Test extends AbstractTest {
     }
 
     Assertions.assertThat(((Value) fieldValue.get(tableRowValueAssert0)).getValue())
-              .isSameAs(((Value) fieldValue.get(tableRowValueAssertBis0)).getValue())
-              .isEqualTo(new BigDecimal("1"));
+      .isSameAs(((Value) fieldValue.get(tableRowValueAssertBis0)).getValue())
+      .isEqualTo(new BigDecimal("1"));
     Assertions.assertThat(((Value) fieldValue.get(tableRowValueAssert1)).getValue())
-              .isSameAs(((Value) fieldValue.get(tableRowValueAssertBis1)).getValue())
-              .isEqualTo("Weaver");
+      .isSameAs(((Value) fieldValue.get(tableRowValueAssertBis1)).getValue())
+      .isEqualTo("Weaver");
     Assertions.assertThat(((Value) fieldValue.get(tableRowValueAssert2)).getValue())
-              .isSameAs(((Value) fieldValue.get(tableRowValueAssertBis2)).getValue())
-              .isEqualTo("Sigourney");
+      .isSameAs(((Value) fieldValue.get(tableRowValueAssertBis2)).getValue())
+      .isEqualTo("Sigourney");
     Assertions.assertThat(((Value) fieldValue.get(tableRowValueAssert3)).getValue())
-              .isSameAs(((Value) fieldValue.get(tableRowValueAssertBis3)).getValue())
-              .isEqualTo(Date.valueOf("1949-10-08"));
+      .isSameAs(((Value) fieldValue.get(tableRowValueAssertBis3)).getValue())
+      .isEqualTo(Date.valueOf("1949-10-08"));
   }
 
   /**
@@ -253,8 +264,8 @@ public class ToValueFromRow_Value_String_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
-                                                                    + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
-                                                                    + "with comparison IGNORE - Ignore the case"));
+        + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+        + "with comparison IGNORE - Ignore the case"));
     }
     try {
       requestRowAssert.value(null);
@@ -280,8 +291,8 @@ public class ToValueFromRow_Value_String_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist%n"
-                                                                    + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
-                                                                    + "with comparison IGNORE - Ignore the case"));
+        + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+        + "with comparison IGNORE - Ignore the case"));
     }
     try {
       requestRowValueAssertBis3.value(null);
@@ -291,16 +302,16 @@ public class ToValueFromRow_Value_String_Test extends AbstractTest {
     }
 
     Assertions.assertThat(((Value) fieldValue.get(requestRowValueAssert0)).getValue())
-              .isSameAs(((Value) fieldValue.get(requestRowValueAssertBis0)).getValue())
-              .isEqualTo(new BigDecimal("1"));
+      .isSameAs(((Value) fieldValue.get(requestRowValueAssertBis0)).getValue())
+      .isEqualTo(new BigDecimal("1"));
     Assertions.assertThat(((Value) fieldValue.get(requestRowValueAssert1)).getValue())
-              .isSameAs(((Value) fieldValue.get(requestRowValueAssertBis1)).getValue())
-              .isEqualTo("Weaver");
+      .isSameAs(((Value) fieldValue.get(requestRowValueAssertBis1)).getValue())
+      .isEqualTo("Weaver");
     Assertions.assertThat(((Value) fieldValue.get(requestRowValueAssert2)).getValue())
-              .isSameAs(((Value) fieldValue.get(requestRowValueAssertBis2)).getValue())
-              .isEqualTo("Sigourney");
+      .isSameAs(((Value) fieldValue.get(requestRowValueAssertBis2)).getValue())
+      .isEqualTo("Sigourney");
     Assertions.assertThat(((Value) fieldValue.get(requestRowValueAssert3)).getValue())
-              .isSameAs(((Value) fieldValue.get(requestRowValueAssertBis3)).getValue())
-              .isEqualTo(Date.valueOf("1949-10-08"));
+      .isSameAs(((Value) fieldValue.get(requestRowValueAssertBis3)).getValue())
+      .isEqualTo(Date.valueOf("1949-10-08"));
   }
 }

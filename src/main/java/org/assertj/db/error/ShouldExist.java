@@ -17,13 +17,19 @@ import org.assertj.core.error.ErrorMessageFactory;
 
 /**
  * Creates an error message indicating that an assertion that verifies that a row exists.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class ShouldExist extends BasicErrorMessageFactory {
 
   private static final String EXPECTED_MESSAGE = "%nExpecting exist but do not exist";
+
+  /**
+   * Constructor.
+   */
+  private ShouldExist() {
+    super(EXPECTED_MESSAGE);
+  }
 
   /**
    * Creates a new <code>{@link org.assertj.db.error.ShouldExist}</code>.
@@ -32,12 +38,5 @@ public class ShouldExist extends BasicErrorMessageFactory {
    */
   public static ErrorMessageFactory shouldExist() {
     return new ShouldExist();
-  }
-
-  /**
-   * Constructor.
-   */
-  private ShouldExist() {
-    super(EXPECTED_MESSAGE);
   }
 }

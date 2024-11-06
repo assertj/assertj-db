@@ -12,26 +12,26 @@
  */
 package org.assertj.db.api.assertions.impl.constructor;
 
-import org.assertj.db.api.assertions.impl.AssertionsOnValueComparison;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.db.api.assertions.impl.AssertionsOnValueComparison;
+import org.junit.Test;
 
 /**
  * Tests on {@link AssertionsOnValueComparison} class :
  * {@link AssertionsOnValueComparison#AssertionsOnValueComparison()} private constructor.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnValueComparison_Constructor_Test {
 
   /**
    * This method tests the private constructor of {@code AssertionsOnValueComparison} for the tests coverage..
+   *
    * @throws NoSuchMethodException
    * @throws SecurityException
    * @throws java.lang.reflect.InvocationTargetException
@@ -41,8 +41,8 @@ public class AssertionsOnValueComparison_Constructor_Test {
    */
   @Test
   public void test_private_constructor_for_the_tests_coverage()
-          throws SecurityException, NoSuchMethodException, IllegalArgumentException,
-          InstantiationException, IllegalAccessException, InvocationTargetException {
+    throws SecurityException, NoSuchMethodException, IllegalArgumentException,
+    InstantiationException, IllegalAccessException, InvocationTargetException {
 
     Constructor<AssertionsOnValueComparison> constructor = AssertionsOnValueComparison.class.getDeclaredConstructor();
     assertThat(Modifier.isPrivate(constructor.getModifiers())).isTrue();

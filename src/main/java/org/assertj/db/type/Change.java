@@ -12,12 +12,12 @@
  */
 package org.assertj.db.type;
 
+import java.util.List;
+
 import org.assertj.db.type.lettercase.LetterCase;
 import org.assertj.db.type.lettercase.WithColumnLetterCase;
 import org.assertj.db.type.lettercase.WithPrimaryKeyLetterCase;
 import org.assertj.db.type.lettercase.WithTableLetterCase;
-
-import java.util.List;
 
 /**
  * Change in the database.
@@ -29,7 +29,6 @@ import java.util.List;
  * </p>
  *
  * @author Régis Pouiller.
- * 
  */
 public class Change implements DbElement, WithTableLetterCase, WithColumnLetterCase, WithPrimaryKeyLetterCase {
 
@@ -64,87 +63,35 @@ public class Change implements DbElement, WithTableLetterCase, WithColumnLetterC
 
   /**
    * Letter case of the tables.
+   *
    * @since 1.1.0
    */
   private final LetterCase tableLetterCase;
 
   /**
    * Letter case of the columns.
+   *
    * @since 1.1.0
    */
   private final LetterCase columnLetterCase;
 
   /**
    * Letter case of the primary keys.
+   *
    * @since 1.1.0
    */
   private final LetterCase primaryKeyLetterCase;
 
   /**
-   * Returns a new instance of a creation change.
-   * 
-   * @param dataType The type of the data on which is the change.
-   * @param dataName The name of the data.
-   * @param rowAtEndPoint The row at end point.
-   * @param tableLetterCase Letter case of the tables.
-   * @param columnLetterCase Letter case of the columns.
-   * @param primaryKeyLetterCase Letter case of the primary keys.
-   * @return The new instance of a creation change.
-   * @throws NullPointerException If the name of the date is {@code null}.
-   */
-  static Change createCreationChange(DataType dataType, String dataName, Row rowAtEndPoint,
-                                     LetterCase tableLetterCase, LetterCase columnLetterCase, LetterCase primaryKeyLetterCase) {
-    return new Change(dataType, dataName, ChangeType.CREATION, null, rowAtEndPoint,
-                      tableLetterCase, columnLetterCase, primaryKeyLetterCase);
-  }
-
-  /**
-   * Returns a new instance of a modification change.
-   * 
-   * @param dataType The type of the data on which is the change.
-   * @param dataName The name of the data.
-   * @param rowAtStartPoint The row at start point.
-   * @param rowAtEndPoint The row at end point.
-   * @param tableLetterCase Letter case of the tables.
-   * @param columnLetterCase Letter case of the columns.
-   * @param primaryKeyLetterCase Letter case of the primary keys.
-   * @return The new instance of a modification change.
-   * @throws NullPointerException If the name of the date is {@code null}.
-   */
-  static Change createModificationChange(DataType dataType, String dataName, Row rowAtStartPoint, Row rowAtEndPoint,
-                                         LetterCase tableLetterCase, LetterCase columnLetterCase, LetterCase primaryKeyLetterCase) {
-    return new Change(dataType, dataName, ChangeType.MODIFICATION, rowAtStartPoint, rowAtEndPoint,
-                      tableLetterCase, columnLetterCase, primaryKeyLetterCase);
-  }
-
-  /**
-   * Returns a new instance of a deletion change.
-   * 
-   * @param dataType The type of the data on which is the change.
-   * @param dataName The name of the data.
-   * @param rowAtStartPoint The row at start point.
-   * @param tableLetterCase Letter case of the tables.
-   * @param columnLetterCase Letter case of the columns.
-   * @param primaryKeyLetterCase Letter case of the primary keys.
-   * @return The new instance of a deletion change.
-   * @throws NullPointerException If the name of the date is {@code null}.
-   */
-  static Change createDeletionChange(DataType dataType, String dataName, Row rowAtStartPoint,
-                                     LetterCase tableLetterCase, LetterCase columnLetterCase, LetterCase primaryKeyLetterCase) {
-    return new Change(dataType, dataName, ChangeType.DELETION, rowAtStartPoint, null,
-                      tableLetterCase, columnLetterCase, primaryKeyLetterCase);
-  }
-
-  /**
    * Constructor.
-   * 
-   * @param dataType The type of the data on which is the change.
-   * @param dataName The name of the data on which is the change.
-   * @param changeType The type of the change.
-   * @param rowAtStartPoint The row at start point.
-   * @param rowAtEndPoint The row at end point.
-   * @param tableLetterCase Letter case of the tables.
-   * @param columnLetterCase Letter case of the columns.
+   *
+   * @param dataType             The type of the data on which is the change.
+   * @param dataName             The name of the data on which is the change.
+   * @param changeType           The type of the change.
+   * @param rowAtStartPoint      The row at start point.
+   * @param rowAtEndPoint        The row at end point.
+   * @param tableLetterCase      Letter case of the tables.
+   * @param columnLetterCase     Letter case of the columns.
    * @param primaryKeyLetterCase Letter case of the primary keys.
    * @throws NullPointerException If the type of the data is {@code null} or if the name of the data is {@code null}.
    */
@@ -175,6 +122,61 @@ public class Change implements DbElement, WithTableLetterCase, WithColumnLetterC
   }
 
   /**
+   * Returns a new instance of a creation change.
+   *
+   * @param dataType             The type of the data on which is the change.
+   * @param dataName             The name of the data.
+   * @param rowAtEndPoint        The row at end point.
+   * @param tableLetterCase      Letter case of the tables.
+   * @param columnLetterCase     Letter case of the columns.
+   * @param primaryKeyLetterCase Letter case of the primary keys.
+   * @return The new instance of a creation change.
+   * @throws NullPointerException If the name of the date is {@code null}.
+   */
+  static Change createCreationChange(DataType dataType, String dataName, Row rowAtEndPoint,
+                                     LetterCase tableLetterCase, LetterCase columnLetterCase, LetterCase primaryKeyLetterCase) {
+    return new Change(dataType, dataName, ChangeType.CREATION, null, rowAtEndPoint,
+      tableLetterCase, columnLetterCase, primaryKeyLetterCase);
+  }
+
+  /**
+   * Returns a new instance of a modification change.
+   *
+   * @param dataType             The type of the data on which is the change.
+   * @param dataName             The name of the data.
+   * @param rowAtStartPoint      The row at start point.
+   * @param rowAtEndPoint        The row at end point.
+   * @param tableLetterCase      Letter case of the tables.
+   * @param columnLetterCase     Letter case of the columns.
+   * @param primaryKeyLetterCase Letter case of the primary keys.
+   * @return The new instance of a modification change.
+   * @throws NullPointerException If the name of the date is {@code null}.
+   */
+  static Change createModificationChange(DataType dataType, String dataName, Row rowAtStartPoint, Row rowAtEndPoint,
+                                         LetterCase tableLetterCase, LetterCase columnLetterCase, LetterCase primaryKeyLetterCase) {
+    return new Change(dataType, dataName, ChangeType.MODIFICATION, rowAtStartPoint, rowAtEndPoint,
+      tableLetterCase, columnLetterCase, primaryKeyLetterCase);
+  }
+
+  /**
+   * Returns a new instance of a deletion change.
+   *
+   * @param dataType             The type of the data on which is the change.
+   * @param dataName             The name of the data.
+   * @param rowAtStartPoint      The row at start point.
+   * @param tableLetterCase      Letter case of the tables.
+   * @param columnLetterCase     Letter case of the columns.
+   * @param primaryKeyLetterCase Letter case of the primary keys.
+   * @return The new instance of a deletion change.
+   * @throws NullPointerException If the name of the date is {@code null}.
+   */
+  static Change createDeletionChange(DataType dataType, String dataName, Row rowAtStartPoint,
+                                     LetterCase tableLetterCase, LetterCase columnLetterCase, LetterCase primaryKeyLetterCase) {
+    return new Change(dataType, dataName, ChangeType.DELETION, rowAtStartPoint, null,
+      tableLetterCase, columnLetterCase, primaryKeyLetterCase);
+  }
+
+  /**
    * {@inheritDoc}
    */
   @Override
@@ -200,7 +202,7 @@ public class Change implements DbElement, WithTableLetterCase, WithColumnLetterC
 
   /**
    * Returns the type of the data on which is the change.
-   * 
+   *
    * @return The type of the data on which is the change.
    */
   public DataType getDataType() {
@@ -209,7 +211,7 @@ public class Change implements DbElement, WithTableLetterCase, WithColumnLetterC
 
   /**
    * Returns the name of the data on which is the change.
-   * 
+   *
    * @return The name of the data on which is the change.
    */
   public String getDataName() {
@@ -239,7 +241,7 @@ public class Change implements DbElement, WithTableLetterCase, WithColumnLetterC
 
   /**
    * Returns the list of the column names.
-   * 
+   *
    * @return The list of the column names.
    */
   public List<String> getColumnsNameList() {
@@ -248,7 +250,7 @@ public class Change implements DbElement, WithTableLetterCase, WithColumnLetterC
 
   /**
    * Returns the type of the change.
-   * 
+   *
    * @return The type of the change.
    */
   public ChangeType getChangeType() {
@@ -257,7 +259,7 @@ public class Change implements DbElement, WithTableLetterCase, WithColumnLetterC
 
   /**
    * Returns the row at start point.
-   * 
+   *
    * @return The row at start point.
    */
   public Row getRowAtStartPoint() {
@@ -266,7 +268,7 @@ public class Change implements DbElement, WithTableLetterCase, WithColumnLetterC
 
   /**
    * Returns the row at end point.
-   * 
+   *
    * @return The row at end point.
    */
   public Row getRowAtEndPoint() {

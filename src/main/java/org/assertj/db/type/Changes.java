@@ -12,23 +12,27 @@
  */
 package org.assertj.db.type;
 
-import org.assertj.db.exception.AssertJDBException;
-import org.assertj.db.util.ChangeComparator;
+import static org.assertj.db.type.Change.createCreationChange;
+import static org.assertj.db.type.Change.createDeletionChange;
+import static org.assertj.db.type.Change.createModificationChange;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import javax.sql.DataSource;
 
-import static org.assertj.db.type.Change.*;
+import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.util.ChangeComparator;
 
 /**
  * Changes in the database.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class Changes extends AbstractDbElement<Changes> {
 
@@ -70,7 +74,7 @@ public class Changes extends AbstractDbElement<Changes> {
 
   /**
    * Constructor.
-   * 
+   *
    * @param source The {@link Source} to connect to the database (must be not {@code null}).
    * @throws NullPointerException If {@code source} is {@code null}.
    */
@@ -80,7 +84,7 @@ public class Changes extends AbstractDbElement<Changes> {
 
   /**
    * Constructor.
-   * 
+   *
    * @param dataSource The {@link DataSource} (must be not {@code null}).
    * @throws NullPointerException If {@code dataSource} is {@code null}.
    */
@@ -90,7 +94,7 @@ public class Changes extends AbstractDbElement<Changes> {
 
   /**
    * Constructor.
-   * 
+   *
    * @param tables Table on which are the comparison.
    */
   public Changes(Table... tables) {
@@ -100,7 +104,7 @@ public class Changes extends AbstractDbElement<Changes> {
 
   /**
    * Constructor.
-   * 
+   *
    * @param request Request on which are the comparison.
    */
   public Changes(Request request) {
@@ -109,8 +113,60 @@ public class Changes extends AbstractDbElement<Changes> {
   }
 
   /**
+   * Copy a {@link AbstractDbElement} in parameter on another.
+   *
+   * @param elementToCopy The {@link AbstractDbElement} to copy
+   * @param element       The {@link AbstractDbElement} on which is the copy
+   */
+  private static void copyElement(AbstractDbElement<?> elementToCopy, AbstractDbElement<?> element) {
+    if (elementToCopy.getSource() != null) {
+      element.setSource(elementToCopy.getSource());
+    }
+    if (elementToCopy.getDataSource() != null) {
+      element.setDataSource(elementToCopy.getDataSource());
+    }
+  }
+
+  /**
+   * Duplicate the {@link Request} in parameter and returns it.
+   *
+   * @param request The {@link Request} to duplicate
+   * @return The Duplication
+   */
+  private static Request getDuplicatedRequest(Request request) {
+    Request r = new Request();
+    copyElement(request, r);
+    return r.setLetterCases(request.getTableLetterCase(),
+        request.getColumnLetterCase(),
+        request.getPrimaryKeyLetterCase())
+      .setRequest(request.getRequest())
+      .setParameters(request.getParameters())
+      .setPksName(request.getPksNameList().toArray(new String[0]));
+  }
+
+  /**
+   * Duplicate the {@link Table} in parameter and returns it.
+   *
+   * @param table The {@link Table} to duplicate
+   * @return The Duplication
+   */
+  private static Table getDuplicatedTable(Table table) {
+    Table t = new Table();
+    copyElement(table, t);
+    return t.setLetterCases(table.getTableLetterCase(),
+        table.getColumnLetterCase(),
+        table.getPrimaryKeyLetterCase())
+      .setName(table.getName())
+      .setStartDelimiter(table.getStartDelimiter())
+      .setEndDelimiter(table.getEndDelimiter())
+      .setColumnsToCheck(table.getColumnsToCheck())
+      .setColumnsToExclude(table.getColumnsToExclude())
+      .setColumnsToOrder(table.getColumnsToOrder());
+  }
+
+  /**
    * Sets the table on which are the comparison.
-   * 
+   *
    * @param tables Table on which are the comparison.
    * @return {@code this} actual instance.
    */
@@ -137,6 +193,7 @@ public class Changes extends AbstractDbElement<Changes> {
 
   /**
    * Returns the list of {@link Table}.
+   *
    * @return The list of {@link Table}.
    */
   public List<Table> getTablesList() {
@@ -144,8 +201,17 @@ public class Changes extends AbstractDbElement<Changes> {
   }
 
   /**
+   * Returns the {@link Request}.
+   *
+   * @return The {@link Request}.
+   */
+  public Request getRequest() {
+    return request;
+  }
+
+  /**
    * Sets the {@link Request}.
-   * 
+   *
    * @param request The {@link Request}.
    * @return {@code this} actual instance.
    */
@@ -165,16 +231,8 @@ public class Changes extends AbstractDbElement<Changes> {
   }
 
   /**
-   * Returns the {@link Request}.
-   * @return The {@link Request}.
-   */
-  public Request getRequest() {
-    return request;
-  }
-
-  /**
    * Returns the list of the {@link Table}s at start point.
-   * 
+   *
    * @return The list of the {@link Table}s at start point.
    * @see Changes#setStartPointNow()
    */
@@ -184,7 +242,7 @@ public class Changes extends AbstractDbElement<Changes> {
 
   /**
    * Returns the list of the {@link Table}s at end point.
-   * 
+   *
    * @return The list of the {@link Table}s at end point.
    * @see Changes#setEndPointNow()
    */
@@ -194,7 +252,7 @@ public class Changes extends AbstractDbElement<Changes> {
 
   /**
    * Returns the {@link Request} at start point.
-   * 
+   *
    * @return The {@link Request} at start point.
    * @see Changes#setStartPointNow()
    */
@@ -204,7 +262,7 @@ public class Changes extends AbstractDbElement<Changes> {
 
   /**
    * Returns the {@link Request} at end point.
-   * 
+   *
    * @return The {@link Request} at end point.
    * @see Changes#setEndPointNow()
    */
@@ -213,60 +271,8 @@ public class Changes extends AbstractDbElement<Changes> {
   }
 
   /**
-   * Copy a {@link AbstractDbElement} in parameter on another.
-   * 
-   * @param elementToCopy The {@link AbstractDbElement} to copy
-   * @param element The {@link AbstractDbElement} on which is the copy
-   */
-  private static void copyElement(AbstractDbElement<?> elementToCopy, AbstractDbElement<?> element) {
-    if (elementToCopy.getSource() != null) {
-      element.setSource(elementToCopy.getSource());
-    }
-    if (elementToCopy.getDataSource() != null) {
-      element.setDataSource(elementToCopy.getDataSource());
-    }
-  }
-
-  /**
-   * Duplicate the {@link Request} in parameter and returns it.
-   * 
-   * @param request The {@link Request} to duplicate
-   * @return The Duplication
-   */
-  private static Request getDuplicatedRequest(Request request) {
-    Request r = new Request();
-    copyElement(request, r);
-    return r.setLetterCases(request.getTableLetterCase(),
-                            request.getColumnLetterCase(),
-                            request.getPrimaryKeyLetterCase())
-            .setRequest(request.getRequest())
-            .setParameters(request.getParameters())
-            .setPksName(request.getPksNameList().toArray(new String[0]));
-  }
-
-  /**
-   * Duplicate the {@link Table} in parameter and returns it.
-   * 
-   * @param table The {@link Table} to duplicate
-   * @return The Duplication
-   */
-  private static Table getDuplicatedTable(Table table) {
-    Table t = new Table();
-    copyElement(table, t);
-    return t.setLetterCases(table.getTableLetterCase(),
-                            table.getColumnLetterCase(),
-                            table.getPrimaryKeyLetterCase())
-            .setName(table.getName())
-            .setStartDelimiter(table.getStartDelimiter())
-            .setEndDelimiter(table.getEndDelimiter())
-            .setColumnsToCheck(table.getColumnsToCheck())
-            .setColumnsToExclude(table.getColumnsToExclude())
-            .setColumnsToOrder(table.getColumnsToOrder());
-  }
-
-  /**
    * Sets the start point for comparison.
-   * 
+   *
    * @return {@code this} actual instance.
    */
   public Changes setStartPointNow() {
@@ -275,11 +281,11 @@ public class Changes extends AbstractDbElement<Changes> {
         tablesList = new LinkedList<>();
         DatabaseMetaData metaData = connection.getMetaData();
         ResultSet resultSet = metaData.getTables(getCatalog(connection), getSchema(connection), null,
-            new String[] { "TABLE" });
+          new String[]{"TABLE"});
         while (resultSet.next()) {
           String tableName = resultSet.getString("TABLE_NAME");
           Table t = new Table().setLetterCases(getTableLetterCase(), getColumnLetterCase(), getPrimaryKeyLetterCase())
-                               .setName(getTableLetterCase().convert(tableName));
+            .setName(getTableLetterCase().convert(tableName));
           copyElement(this, t);
           tablesList.add(t);
         }
@@ -310,7 +316,7 @@ public class Changes extends AbstractDbElement<Changes> {
 
   /**
    * Sets the end point for comparison.
-   * 
+   *
    * @return {@code this} actual instance.
    * @throws AssertJDBException If the start point is not set
    */
@@ -337,14 +343,14 @@ public class Changes extends AbstractDbElement<Changes> {
 
   /**
    * Returns the list of changes for the data when there have primary keys.
-   * 
-   * @param dataName The name of the data.
+   *
+   * @param dataName         The name of the data.
    * @param dataAtStartPoint The data at start point.
-   * @param dataAtEndPoint The data at end point.
+   * @param dataAtEndPoint   The data at end point.
    * @return The list of changes for the data.
    */
   private List<Change> getChangesListWithPks(String dataName, AbstractDbData<?> dataAtStartPoint,
-      AbstractDbData<?> dataAtEndPoint) {
+                                             AbstractDbData<?> dataAtEndPoint) {
 
     List<Change> changesListWithPks = new ArrayList<>();
 
@@ -353,7 +359,7 @@ public class Changes extends AbstractDbElement<Changes> {
       Row rowAtStartPoint = dataAtStartPoint.getRowFromPksValues(row.getPksValues());
       if (rowAtStartPoint == null) {
         Change change = createCreationChange(dataAtEndPoint.getDataType(), dataName, row,
-                                             getTableLetterCase(), getColumnLetterCase(), getPrimaryKeyLetterCase());
+          getTableLetterCase(), getColumnLetterCase(), getPrimaryKeyLetterCase());
         changesListWithPks.add(change);
       }
     }
@@ -362,14 +368,14 @@ public class Changes extends AbstractDbElement<Changes> {
       if (rowAtEndPoint == null) {
         // List the deleted rows : the row is not present at the end point
         Change change = createDeletionChange(dataAtStartPoint.getDataType(), dataName, row,
-                                             getTableLetterCase(), getColumnLetterCase(), getPrimaryKeyLetterCase());
+          getTableLetterCase(), getColumnLetterCase(), getPrimaryKeyLetterCase());
         changesListWithPks.add(change);
       } else {
         // List the modified rows
         if (!row.hasValues(rowAtEndPoint)) {
           // If at least one value in the rows is different, add the change
           Change change = createModificationChange(dataAtStartPoint.getDataType(), dataName, row, rowAtEndPoint,
-                                                   getTableLetterCase(), getColumnLetterCase(), getPrimaryKeyLetterCase());
+            getTableLetterCase(), getColumnLetterCase(), getPrimaryKeyLetterCase());
           changesListWithPks.add(change);
         }
       }
@@ -380,14 +386,14 @@ public class Changes extends AbstractDbElement<Changes> {
 
   /**
    * Returns the list of changes for the data when there is no primary key.
-   * 
-   * @param dataName The name of the data.
+   *
+   * @param dataName         The name of the data.
    * @param dataAtStartPoint The data at start point.
-   * @param dataAtEndPoint The data at end point.
+   * @param dataAtEndPoint   The data at end point.
    * @return The list of changes for the data.
    */
   private List<Change> getChangesListWithoutPks(String dataName, AbstractDbData<?> dataAtStartPoint,
-      AbstractDbData<?> dataAtEndPoint) {
+                                                AbstractDbData<?> dataAtEndPoint) {
 
     List<Change> changesListWithoutPks = new ArrayList<>();
 
@@ -405,7 +411,7 @@ public class Changes extends AbstractDbElement<Changes> {
       }
       if (index == -1) {
         Change change = createCreationChange(dataAtStartPoint.getDataType(), dataName, rowAtEndPoint,
-                                             getTableLetterCase(), getColumnLetterCase(), getPrimaryKeyLetterCase());
+          getTableLetterCase(), getColumnLetterCase(), getPrimaryKeyLetterCase());
         changesListWithoutPks.add(change);
       } else {
         rowsAtStartPointList.remove(index);
@@ -425,7 +431,7 @@ public class Changes extends AbstractDbElement<Changes> {
       }
       if (index == -1) {
         Change change = createDeletionChange(dataAtStartPoint.getDataType(), dataName, rowAtStartPoint,
-                                             getTableLetterCase(), getColumnLetterCase(), getPrimaryKeyLetterCase());
+          getTableLetterCase(), getColumnLetterCase(), getPrimaryKeyLetterCase());
         changesListWithoutPks.add(change);
       } else {
         rowsAtEndPointList.remove(index);
@@ -437,14 +443,14 @@ public class Changes extends AbstractDbElement<Changes> {
 
   /**
    * Returns the list of changes for the data.
-   * 
-   * @param dataName The name of the data.
+   *
+   * @param dataName         The name of the data.
    * @param dataAtStartPoint The data at start point.
-   * @param dataAtEndPoint The data at end point.
+   * @param dataAtEndPoint   The data at end point.
    * @return The list of changes for the data.
    */
   private List<Change> getChangesList(String dataName, AbstractDbData<?> dataAtStartPoint,
-      AbstractDbData<?> dataAtEndPoint) {
+                                      AbstractDbData<?> dataAtEndPoint) {
 
     if (dataAtStartPoint.getPksNameList().isEmpty()) {
       return getChangesListWithoutPks(dataName, dataAtStartPoint, dataAtEndPoint);
@@ -455,10 +461,10 @@ public class Changes extends AbstractDbElement<Changes> {
 
   /**
    * Returns the list of the changes.
-   * 
+   *
    * @return The list of the changes.
    * @throws AssertJDBException If the changes are on all the tables and if the number of tables change between the
-   *           start point and the end point. It is normally impossible.
+   *                            start point and the end point. It is normally impossible.
    */
   public List<Change> getChangesList() {
     if (changesList == null) {
@@ -486,6 +492,7 @@ public class Changes extends AbstractDbElement<Changes> {
 
   /**
    * Returns {@code Changes} only on the table name in parameter.
+   *
    * @param tableName The table name
    * @return {@code Changes} instance.
    */
@@ -507,6 +514,7 @@ public class Changes extends AbstractDbElement<Changes> {
 
   /**
    * Returns {@code Changes} only on the change type in parameter.
+   *
    * @param changeType The change type
    * @return {@code Changes} instance.
    */
@@ -526,6 +534,7 @@ public class Changes extends AbstractDbElement<Changes> {
 
   /**
    * Creates a new instance of {@code Changes} from {@code this} one.
+   *
    * @return The new instance.
    */
   private Changes createChangesFromThis() {

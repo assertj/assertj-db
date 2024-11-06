@@ -12,6 +12,10 @@
  */
 package org.assertj.db.output;
 
+import static org.assertj.db.util.Descriptions.getRowValueDescription;
+
+import java.util.List;
+
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.navigation.PositionWithColumns;
 import org.assertj.db.navigation.element.RowElement;
@@ -20,19 +24,15 @@ import org.assertj.db.output.impl.Output;
 import org.assertj.db.type.Row;
 import org.assertj.db.type.Value;
 
-import java.util.List;
-
-import static org.assertj.db.util.Descriptions.getRowValueDescription;
-
 /**
  * Output methods for a {@code Row} of a {@code Change}.
  *
  * @author Régis Pouiller
  */
 public class ChangeRowOutputter
-        extends AbstractOutputterWithOriginWithColumnsAndRowsFromChange<ChangeRowOutputter, ChangeOutputter>
-        implements RowElement,
-        OriginWithValuesFromRow<ChangesOutputter, ChangeOutputter, ChangeColumnOutputter, ChangeRowOutputter, ChangeRowValueOutputter> {
+  extends AbstractOutputterWithOriginWithColumnsAndRowsFromChange<ChangeRowOutputter, ChangeOutputter>
+  implements RowElement,
+  OriginWithValuesFromRow<ChangesOutputter, ChangeOutputter, ChangeColumnOutputter, ChangeRowOutputter, ChangeRowValueOutputter> {
 
   /**
    * Position of navigation to value.
@@ -48,13 +48,14 @@ public class ChangeRowOutputter
    * Constructor.
    *
    * @param origin The output of {@link org.assertj.db.navigation.origin.Origin}.
-   * @param row The {@link Row} on which are the displays.
+   * @param row    The {@link Row} on which are the displays.
    */
   public ChangeRowOutputter(ChangeOutputter origin, Row row) {
     super(ChangeRowOutputter.class, origin);
     this.row = row;
     valuePosition = new PositionWithColumns<ChangeRowOutputter, ChangeRowValueOutputter, Value>(this, ChangeRowValueOutputter.class) {
-      @Override protected String getDescription(int index) {
+      @Override
+      protected String getDescription(int index) {
         List<String> columnsNameList = ChangeRowOutputter.this.row.getColumnsNameList();
         String columnName = columnsNameList.get(index);
         return getRowValueDescription(info, index, columnName);
@@ -62,7 +63,9 @@ public class ChangeRowOutputter
     };
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeRowValueOutputter value() {
     if (row == null) {
@@ -71,7 +74,9 @@ public class ChangeRowOutputter
     return valuePosition.getInstance(row.getValuesList()).withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeRowValueOutputter value(int index) {
     if (row == null) {
@@ -80,14 +85,16 @@ public class ChangeRowOutputter
     return valuePosition.getInstance(row.getValuesList(), index).withType(outputType);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeRowValueOutputter value(String columnName) {
     if (row == null) {
       throw new AssertJDBException("Row do not exist");
     }
     return valuePosition.getInstance(row.getValuesList(), row.getColumnsNameList(),
-                                     columnName, row.getColumnLetterCase()).withType(outputType);
+      columnName, row.getColumnLetterCase()).withType(outputType);
   }
 
   /**

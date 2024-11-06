@@ -31,7 +31,6 @@ import static org.junit.Assert.fail;
  * {@link AssertionsOnTableExistence#doesNotExists(AbstractDbAssert, WritableAssertionInfo, String, Source, DataSource)} method.
  *
  * @author Julien Roy
- *
  */
 public class AssertionsOnTableExistence_DoesNotExist_Test extends AbstractTest {
 
@@ -63,7 +62,7 @@ public class AssertionsOnTableExistence_DoesNotExist_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting not exist but exists"));
+        + "Expecting not exist but exists"));
     }
 
     try {
@@ -71,7 +70,7 @@ public class AssertionsOnTableExistence_DoesNotExist_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting not exist but exists"));
+        + "Expecting not exist but exists"));
     }
   }
 }

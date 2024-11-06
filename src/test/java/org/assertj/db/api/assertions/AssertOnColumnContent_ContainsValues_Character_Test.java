@@ -26,7 +26,6 @@ import org.junit.Test;
  * {@link AssertOnColumnContent#containsValues(Character...)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertOnColumnContent_ContainsValues_Character_Test extends AbstractTest {
 
@@ -58,11 +57,11 @@ public class AssertOnColumnContent_ContainsValues_Character_Test extends Abstrac
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 15 (column name : VAR16) of TEST table] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  <[\"T\", \"e\", \"s\", \"t\"]>%n"
-                                                                    + "to contain: %n"
-                                                                    + "  <['t', 'e', 's', 't']>%n"
-                                                                    + " (parameter <'t'> at index 3 is not found)"));
+        + "Expecting:%n"
+        + "  <[\"T\", \"e\", \"s\", \"t\"]>%n"
+        + "to contain: %n"
+        + "  <['t', 'e', 's', 't']>%n"
+        + " (parameter <'t'> at index 3 is not found)"));
     }
     Table table2 = new Table(source, "test2");
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var17");
@@ -71,12 +70,12 @@ public class AssertOnColumnContent_ContainsValues_Character_Test extends Abstrac
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format(
-              "[Column at index 16 (column name : VAR17) of TEST2 table] %n"
-              + "Expecting:%n"
-              + "  <[\"T\", null]>%n"
-              + "to contain: %n"
-              + "  <['T', 'T']>%n"
-              + " (parameter <'T'> at index 1 is not found)"));
+        "[Column at index 16 (column name : VAR17) of TEST2 table] %n"
+          + "Expecting:%n"
+          + "  <[\"T\", null]>%n"
+          + "to contain: %n"
+          + "  <['T', 'T']>%n"
+          + " (parameter <'T'> at index 1 is not found)"));
     }
   }
 }

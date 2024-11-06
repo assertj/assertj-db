@@ -17,9 +17,8 @@ import org.junit.Test;
 
 /**
  * Tests on the setTables method.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class Changes_SetTables_Test extends AbstractTest {
 

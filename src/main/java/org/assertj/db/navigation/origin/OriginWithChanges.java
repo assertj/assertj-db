@@ -21,13 +21,12 @@ import org.assertj.db.navigation.element.ChangesElement;
  * Defines a class which is the {@link Origin} of another
  * and have {@link org.assertj.db.navigation.element.ChangesElement}.
  *
- * @author Régis Pouiller
- *
  * @param <CHS> The class of a element of navigation on changes (an sub-class of {@link org.assertj.db.navigation.element.ChangesElement}).
- * @param <CH> The class of a element of navigation on a change (an sub-class of {@link org.assertj.db.navigation.element.ChangeElement}).
+ * @param <CH>  The class of a element of navigation on a change (an sub-class of {@link org.assertj.db.navigation.element.ChangeElement}).
+ * @author Régis Pouiller
  */
 public interface OriginWithChanges<CHS extends ChangesElement, CH extends ChangeElement>
-        extends Origin,
-                ToChanges<CHS>,
-                ToChange<CH> {
+  extends Origin,
+  ToChanges<CHS>,
+  ToChange<CH> {
 }

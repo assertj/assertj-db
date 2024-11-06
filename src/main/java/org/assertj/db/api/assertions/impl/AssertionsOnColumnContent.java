@@ -12,17 +12,21 @@
  */
 package org.assertj.db.api.assertions.impl;
 
-import org.assertj.core.api.WritableAssertionInfo;
-import org.assertj.core.internal.Failures;
-import org.assertj.db.api.AbstractAssert;
-import org.assertj.db.type.*;
-import org.assertj.db.util.Values;
+import static org.assertj.db.error.ShouldContainsValue.shouldContainsValue;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static org.assertj.db.error.ShouldContainsValue.shouldContainsValue;
+import org.assertj.core.api.WritableAssertionInfo;
+import org.assertj.core.internal.Failures;
+import org.assertj.db.api.AbstractAssert;
+import org.assertj.db.type.DateTimeValue;
+import org.assertj.db.type.DateValue;
+import org.assertj.db.type.TimeValue;
+import org.assertj.db.type.Value;
+import org.assertj.db.type.ValueType;
+import org.assertj.db.util.Values;
 
 /**
  * Implements the assertion methods on the content of a column.
@@ -52,12 +56,12 @@ public class AssertionsOnColumnContent {
    * @param assertion  The assertion which call this method.
    * @param info       Writable information about an assertion.
    * @param valuesList The list of values.
-   * @param expected The expected object values.
+   * @param expected   The expected object values.
    * @return {@code this} assertion object.
    * @throws AssertionError If the column are not containing the objects in parameter.
    */
   public static <A extends AbstractAssert<?>> A containsValues(A assertion, WritableAssertionInfo info,
-                                                       List<Value> valuesList, Object... expected) {
+                                                               List<Value> valuesList, Object... expected) {
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
     List<Value> list = new ArrayList<>(valuesList);
     int index = 0;
@@ -67,8 +71,7 @@ public class AssertionsOnColumnContent {
       for (Value obj : list) {
         if (found || !Values.areEqual(obj, val)) {
           newList.add(obj);
-        }
-        else {
+        } else {
           found = true;
         }
       }
@@ -92,12 +95,12 @@ public class AssertionsOnColumnContent {
    * @param assertion  The assertion which call this method.
    * @param info       Writable information about an assertion.
    * @param valuesList The list of values.
-   * @param expected The expected boolean values.
+   * @param expected   The expected boolean values.
    * @return {@code this} assertion object.
    * @throws AssertionError If the column are not containing the booleans in parameter.
    */
   public static <A extends AbstractAssert<?>> A containsValues(A assertion, WritableAssertionInfo info,
-                                                       List<Value> valuesList, Boolean... expected) {
+                                                               List<Value> valuesList, Boolean... expected) {
     AssertionsOnColumnType.isBoolean(assertion, info, valuesList, true);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
     List<Value> list = new ArrayList<>(valuesList);
@@ -108,8 +111,7 @@ public class AssertionsOnColumnContent {
       for (Value obj : list) {
         if (found || !Values.areEqual(obj, val)) {
           newList.add(obj);
-        }
-        else {
+        } else {
           found = true;
         }
       }
@@ -133,12 +135,12 @@ public class AssertionsOnColumnContent {
    * @param assertion  The assertion which call this method.
    * @param info       Writable information about an assertion.
    * @param valuesList The list of values.
-   * @param expected The expected numbers values.
+   * @param expected   The expected numbers values.
    * @return {@code this} assertion object.
    * @throws AssertionError If the column are not containing the numbers in parameter.
    */
   public static <A extends AbstractAssert<?>> A containsValues(A assertion, WritableAssertionInfo info,
-                                                       List<Value> valuesList, Number... expected) {
+                                                               List<Value> valuesList, Number... expected) {
     AssertionsOnColumnType.isNumber(assertion, info, valuesList, true);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
     List<Value> list = new ArrayList<>(valuesList);
@@ -149,8 +151,7 @@ public class AssertionsOnColumnContent {
       for (Value obj : list) {
         if (found || !Values.areEqual(obj, val)) {
           newList.add(obj);
-        }
-        else {
+        } else {
           found = true;
         }
       }
@@ -174,12 +175,12 @@ public class AssertionsOnColumnContent {
    * @param assertion  The assertion which call this method.
    * @param info       Writable information about an assertion.
    * @param valuesList The list of values.
-   * @param expected The expected bytes values.
+   * @param expected   The expected bytes values.
    * @return {@code this} assertion object.
    * @throws AssertionError If the column are not containing the bytes in parameter.
    */
   public static <A extends AbstractAssert<?>> A containsValues(A assertion, WritableAssertionInfo info,
-                                                       List<Value> valuesList, byte[]... expected) {
+                                                               List<Value> valuesList, byte[]... expected) {
     AssertionsOnColumnType.isBytes(assertion, info, valuesList, true);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
     List<Value> list = new ArrayList<>(valuesList);
@@ -190,8 +191,7 @@ public class AssertionsOnColumnContent {
       for (Value obj : list) {
         if (found || !Values.areEqual(obj, val)) {
           newList.add(obj);
-        }
-        else {
+        } else {
           found = true;
         }
       }
@@ -211,14 +211,14 @@ public class AssertionsOnColumnContent {
    * @param assertion  The assertion which call this method.
    * @param info       Writable information about an assertion.
    * @param valuesList The list of values.
-   * @param expected The expected text values.
+   * @param expected   The expected text values.
    * @return {@code this} assertion object.
    * @throws AssertionError If the column are not containing the texts in parameter.
    */
   public static <A extends AbstractAssert<?>> A containsValues(A assertion, WritableAssertionInfo info,
-                                                       List<Value> valuesList, String... expected) {
+                                                               List<Value> valuesList, String... expected) {
     AssertionsOnColumnType.isOfAnyTypeIn(assertion, info, valuesList, ValueType.TEXT, ValueType.NUMBER, ValueType.DATE,
-                                         ValueType.TIME, ValueType.DATE_TIME, ValueType.UUID, ValueType.NOT_IDENTIFIED);
+      ValueType.TIME, ValueType.DATE_TIME, ValueType.UUID, ValueType.NOT_IDENTIFIED);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
     List<Value> list = new ArrayList<>(valuesList);
     int index = 0;
@@ -228,8 +228,7 @@ public class AssertionsOnColumnContent {
       for (Value obj : list) {
         if (found || !Values.areEqual(obj, val)) {
           newList.add(obj);
-        }
-        else {
+        } else {
           found = true;
         }
       }
@@ -253,13 +252,13 @@ public class AssertionsOnColumnContent {
    * @param assertion  The assertion which call this method.
    * @param info       Writable information about an assertion.
    * @param valuesList The list of values.
-   * @param expected The expected character values.
+   * @param expected   The expected character values.
    * @return {@code this} assertion object.
    * @throws AssertionError If the column are not containing the characters in parameter.
    * @since 1.2.0
    */
   public static <A extends AbstractAssert<?>> A containsValues(A assertion, WritableAssertionInfo info,
-                                                       List<Value> valuesList, Character... expected) {
+                                                               List<Value> valuesList, Character... expected) {
     AssertionsOnColumnType.isText(assertion, info, valuesList, true);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
     List<Value> list = new ArrayList<>(valuesList);
@@ -270,8 +269,7 @@ public class AssertionsOnColumnContent {
       for (Value obj : list) {
         if (found || !Values.areEqual(obj, val)) {
           newList.add(obj);
-        }
-        else {
+        } else {
           found = true;
         }
       }
@@ -295,12 +293,12 @@ public class AssertionsOnColumnContent {
    * @param assertion  The assertion which call this method.
    * @param info       Writable information about an assertion.
    * @param valuesList The list of values.
-   * @param expected The expected UUIDs values.
+   * @param expected   The expected UUIDs values.
    * @return {@code this} assertion object.
    * @throws AssertionError If the column are not containing the UUIDs in parameter.
    */
   public static <A extends AbstractAssert<?>> A containsValues(A assertion, WritableAssertionInfo info,
-                                                       List<Value> valuesList, UUID... expected) {
+                                                               List<Value> valuesList, UUID... expected) {
     AssertionsOnColumnType.isOfAnyTypeIn(assertion, info, valuesList, ValueType.UUID, ValueType.NOT_IDENTIFIED);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
     List<Value> list = new ArrayList<>(valuesList);
@@ -311,8 +309,7 @@ public class AssertionsOnColumnContent {
       for (Value obj : list) {
         if (found || !Values.areEqual(obj, val)) {
           newList.add(obj);
-        }
-        else {
+        } else {
           found = true;
         }
       }
@@ -336,14 +333,14 @@ public class AssertionsOnColumnContent {
    * @param assertion  The assertion which call this method.
    * @param info       Writable information about an assertion.
    * @param valuesList The list of values.
-   * @param expected The expected date values.
+   * @param expected   The expected date values.
    * @return {@code this} assertion object.
    * @throws AssertionError If the column are not containing the date values in parameter.
    */
   public static <A extends AbstractAssert<?>> A containsValues(A assertion, WritableAssertionInfo info,
-                                                       List<Value> valuesList, DateValue... expected) {
+                                                               List<Value> valuesList, DateValue... expected) {
     AssertionsOnColumnType
-            .isOfAnyTypeIn(assertion, info, valuesList, ValueType.DATE, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
+      .isOfAnyTypeIn(assertion, info, valuesList, ValueType.DATE, ValueType.DATE_TIME, ValueType.NOT_IDENTIFIED);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
     List<Value> list = new ArrayList<>(valuesList);
     int index = 0;
@@ -353,8 +350,7 @@ public class AssertionsOnColumnContent {
       for (Value obj : list) {
         if (found || !Values.areEqual(obj, val)) {
           newList.add(obj);
-        }
-        else {
+        } else {
           found = true;
         }
       }
@@ -378,12 +374,12 @@ public class AssertionsOnColumnContent {
    * @param assertion  The assertion which call this method.
    * @param info       Writable information about an assertion.
    * @param valuesList The list of values.
-   * @param expected The expected time values.
+   * @param expected   The expected time values.
    * @return {@code this} assertion object.
    * @throws AssertionError If the column are not containing the time values in parameter.
    */
   public static <A extends AbstractAssert<?>> A containsValues(A assertion, WritableAssertionInfo info,
-                                                       List<Value> valuesList, TimeValue... expected) {
+                                                               List<Value> valuesList, TimeValue... expected) {
     AssertionsOnColumnType.isOfAnyTypeIn(assertion, info, valuesList, ValueType.TIME, ValueType.NOT_IDENTIFIED);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
     List<Value> list = new ArrayList<>(valuesList);
@@ -394,8 +390,7 @@ public class AssertionsOnColumnContent {
       for (Value obj : list) {
         if (found || !Values.areEqual(obj, val)) {
           newList.add(obj);
-        }
-        else {
+        } else {
           found = true;
         }
       }
@@ -419,14 +414,14 @@ public class AssertionsOnColumnContent {
    * @param assertion  The assertion which call this method.
    * @param info       Writable information about an assertion.
    * @param valuesList The list of values.
-   * @param expected The expected date/time values.
+   * @param expected   The expected date/time values.
    * @return {@code this} assertion object.
    * @throws AssertionError If the column are not containing the date/time values in parameter.
    */
   public static <A extends AbstractAssert<?>> A containsValues(A assertion, WritableAssertionInfo info,
-                                                       List<Value> valuesList, DateTimeValue... expected) {
+                                                               List<Value> valuesList, DateTimeValue... expected) {
     AssertionsOnColumnType.isOfAnyTypeIn(assertion, info, valuesList, ValueType.DATE, ValueType.DATE_TIME,
-                                         ValueType.NOT_IDENTIFIED);
+      ValueType.NOT_IDENTIFIED);
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
     List<Value> list = new ArrayList<>(valuesList);
     int index = 0;
@@ -436,8 +431,7 @@ public class AssertionsOnColumnContent {
       for (Value obj : list) {
         if (found || !Values.areEqual(obj, val)) {
           newList.add(obj);
-        }
-        else {
+        } else {
           found = true;
         }
       }

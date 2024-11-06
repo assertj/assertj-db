@@ -12,24 +12,54 @@
  */
 package org.assertj.db.navigation;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.assertj.db.output.Outputs.output;
+
 import org.assertj.core.api.Assertions;
-import org.assertj.db.api.*;
+import org.assertj.db.api.ChangeAssert;
+import org.assertj.db.api.ChangeColumnAssert;
+import org.assertj.db.api.ChangeColumnValueAssert;
+import org.assertj.db.api.ChangeRowAssert;
+import org.assertj.db.api.ChangeRowValueAssert;
+import org.assertj.db.api.ChangesAssert;
+import org.assertj.db.api.RequestAssert;
+import org.assertj.db.api.RequestColumnAssert;
+import org.assertj.db.api.RequestColumnValueAssert;
+import org.assertj.db.api.RequestRowAssert;
+import org.assertj.db.api.RequestRowValueAssert;
+import org.assertj.db.api.TableAssert;
+import org.assertj.db.api.TableColumnAssert;
+import org.assertj.db.api.TableColumnValueAssert;
+import org.assertj.db.api.TableRowAssert;
+import org.assertj.db.api.TableRowValueAssert;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.common.NeedReload;
-import org.assertj.db.output.*;
+import org.assertj.db.output.ChangeColumnOutputter;
+import org.assertj.db.output.ChangeColumnValueOutputter;
+import org.assertj.db.output.ChangeOutputter;
+import org.assertj.db.output.ChangeRowOutputter;
+import org.assertj.db.output.ChangeRowValueOutputter;
+import org.assertj.db.output.ChangesOutputter;
+import org.assertj.db.output.Outputs;
+import org.assertj.db.output.RequestColumnOutputter;
+import org.assertj.db.output.RequestColumnValueOutputter;
+import org.assertj.db.output.RequestOutputter;
+import org.assertj.db.output.RequestRowOutputter;
+import org.assertj.db.output.RequestRowValueOutputter;
+import org.assertj.db.output.TableColumnOutputter;
+import org.assertj.db.output.TableColumnValueOutputter;
+import org.assertj.db.output.TableOutputter;
+import org.assertj.db.output.TableRowOutputter;
+import org.assertj.db.output.TableRowValueOutputter;
 import org.assertj.db.type.Changes;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.output.Outputs.output;
-
 /**
  * Tests on the different methods linked on the {@code returnToOrigin()} method.
  *
  * @author Régis Pouiller
- *
  */
 public class ReturnToOrigin_Test extends AbstractTest {
 

@@ -12,19 +12,18 @@
  */
 package org.assertj.db.util;
 
-import org.assertj.db.common.AbstractTest;
-import org.assertj.db.type.lettercase.CaseComparisons;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.db.common.AbstractTest;
+import org.assertj.db.type.lettercase.CaseComparisons;
+import org.junit.Test;
 
 /**
  * Tests on the comparator for the names.
  *
  * @author Régis Pouiller
- *
  */
 public class NameComparator_Test extends AbstractTest {
 

@@ -12,25 +12,24 @@
  */
 package org.assertj.db.util;
 
-import org.assertj.db.common.AbstractTest;
-import org.assertj.db.type.DateTimeValue;
-import org.assertj.db.type.DateValue;
-import org.assertj.db.type.TimeValue;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.UUID;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.db.common.AbstractTest;
+import org.assertj.db.type.DateTimeValue;
+import org.assertj.db.type.DateValue;
+import org.assertj.db.type.TimeValue;
+import org.junit.Test;
 
 /**
-* Tests on {@code getRepresentationFromValueInFrontOfClass} method from utility class {@code Values}.
-*
-* @author Régis Pouiller
-*
-*/
+ * Tests on {@code getRepresentationFromValueInFrontOfClass} method from utility class {@code Values}.
+ *
+ * @author Régis Pouiller
+ */
 public class Values_GetOutputFromValueInFrontOfClass_Test extends AbstractTest {
 
   /**
@@ -40,13 +39,13 @@ public class Values_GetOutputFromValueInFrontOfClass_Test extends AbstractTest {
   public void test_getRepresentationFromValueInFrontOfClass_for_dates() throws Exception {
     Date date = Date.valueOf("2007-12-23");
     assertThat(Values.getRepresentationFromValueInFrontOfClass(getValue(null, date), DateValue.class))
-                     .isEqualTo(DateValue.from(date));
+      .isEqualTo(DateValue.from(date));
     assertThat(Values.getRepresentationFromValueInFrontOfClass(getValue(null, date), DateTimeValue.class))
-                     .isEqualTo(DateTimeValue.of(DateValue.from(date)));
+      .isEqualTo(DateTimeValue.of(DateValue.from(date)));
     assertThat(Values.getRepresentationFromValueInFrontOfClass(getValue(null, date), String.class))
-                     .isEqualTo("2007-12-23T00:00:00.000000000");
+      .isEqualTo("2007-12-23T00:00:00.000000000");
     assertThat(Values.getRepresentationFromValueInFrontOfClass(getValue(null, date), null))
-            .isEqualTo(date);
+      .isEqualTo(date);
   }
 
   /**
@@ -57,7 +56,7 @@ public class Values_GetOutputFromValueInFrontOfClass_Test extends AbstractTest {
     Time time = Time.valueOf("09:01:06");
     assertThat(Values.getRepresentationFromValueInFrontOfClass(getValue(null, time), null)).isEqualTo(TimeValue.from(time));
     assertThat(Values.getRepresentationFromValueInFrontOfClass(getValue(null, time), String.class)).isEqualTo(
-            "09:01:06.000000000");
+      "09:01:06.000000000");
   }
 
   /**
@@ -67,9 +66,9 @@ public class Values_GetOutputFromValueInFrontOfClass_Test extends AbstractTest {
   public void test_getRepresentationFromValueInFrontOfClass_for_datetime() throws Exception {
     Timestamp timestamp = Timestamp.valueOf("2007-12-23 09:01:06.000000003");
     assertThat(Values.getRepresentationFromValueInFrontOfClass(getValue(null, timestamp), null)).isEqualTo(
-            DateTimeValue.from(timestamp));
+      DateTimeValue.from(timestamp));
     assertThat(Values.getRepresentationFromValueInFrontOfClass(getValue(null, timestamp), String.class)).isEqualTo(
-            "2007-12-23T09:01:06.000000003");
+      "2007-12-23T09:01:06.000000003");
   }
 
   /**
@@ -78,9 +77,9 @@ public class Values_GetOutputFromValueInFrontOfClass_Test extends AbstractTest {
   @Test
   public void test_getRepresentationFromValueInFrontOfClass_for_numbers() throws Exception {
     assertThat(Values.getRepresentationFromValueInFrontOfClass(getValue(null, 8),
-                                                                        String.class)).isEqualTo("8");
+      String.class)).isEqualTo("8");
     assertThat(Values.getRepresentationFromValueInFrontOfClass(getValue(null, 8),
-                                                               null)).isEqualTo(8);
+      null)).isEqualTo(8);
   }
 
   /**
@@ -89,11 +88,11 @@ public class Values_GetOutputFromValueInFrontOfClass_Test extends AbstractTest {
   @Test
   public void test_getRepresentationFromValueInFrontOfClass_for_UUID() throws Exception {
     assertThat(Values.getRepresentationFromValueInFrontOfClass(getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")),
-                                                               String.class)).isEqualTo(
-            "30b443ae-c0c9-4790-9bec-ce1380808435");
+      String.class)).isEqualTo(
+      "30b443ae-c0c9-4790-9bec-ce1380808435");
     assertThat(Values.getRepresentationFromValueInFrontOfClass(getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")),
-                                                               null)).isEqualTo(
-            UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
+      null)).isEqualTo(
+      UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
   }
 
   /**
@@ -101,8 +100,8 @@ public class Values_GetOutputFromValueInFrontOfClass_Test extends AbstractTest {
    */
   @Test
   public void test_getRepresentationFromValueInFrontOfClass_for_bytes() throws Exception {
-    assertThat(Values.getRepresentationFromValueInFrontOfClass(getValue(null, new byte[] { 1, 2 }), null)).isEqualTo(
-            new byte[] { 1, 2 });
+    assertThat(Values.getRepresentationFromValueInFrontOfClass(getValue(null, new byte[]{1, 2}), null)).isEqualTo(
+      new byte[]{1, 2});
   }
 
   /**

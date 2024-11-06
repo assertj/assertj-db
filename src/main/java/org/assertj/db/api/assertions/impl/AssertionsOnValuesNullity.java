@@ -12,15 +12,15 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.error.ShouldContainsOnlyNotNull.shouldContainsOnlyNotNull;
+import static org.assertj.db.error.ShouldContainsOnlyNull.shouldContainsOnlyNull;
+
+import java.util.List;
+
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
 import org.assertj.db.type.Value;
-
-import java.util.List;
-
-import static org.assertj.db.error.ShouldContainsOnlyNotNull.shouldContainsOnlyNotNull;
-import static org.assertj.db.error.ShouldContainsOnlyNull.shouldContainsOnlyNull;
 
 /**
  * Implements the assertion methods on the nullity of a values of a column/row.
@@ -54,7 +54,7 @@ public class AssertionsOnValuesNullity {
    * @throws AssertionError If at least one of the values of the column are not {@code null}.
    */
   public static <A extends AbstractAssert<?>> A hasOnlyNullValues(A assertion, WritableAssertionInfo info,
-                                                               List<Value> valuesList) {
+                                                                  List<Value> valuesList) {
     int index = 0;
     for (Value value : valuesList) {
       if (value.getValue() != null) {
@@ -76,7 +76,7 @@ public class AssertionsOnValuesNullity {
    * @throws AssertionError If at least one of the values of the column are {@code null}.
    */
   public static <A extends AbstractAssert<?>> A hasOnlyNotNullValues(A assertion, WritableAssertionInfo info,
-                                                                  List<Value> valuesList) {
+                                                                     List<Value> valuesList) {
     int index = 0;
     for (Value value : valuesList) {
       if (value.getValue() == null) {

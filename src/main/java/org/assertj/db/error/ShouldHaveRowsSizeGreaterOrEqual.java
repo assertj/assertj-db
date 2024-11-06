@@ -24,23 +24,23 @@ import org.assertj.core.error.ErrorMessageFactory;
 public class ShouldHaveRowsSizeGreaterOrEqual extends BasicErrorMessageFactory {
 
   /**
+   * Constructor.
+   *
+   * @param actualSize   the size of {@code actual}.
+   * @param expectedSize the expected size.
+   */
+  private ShouldHaveRowsSizeGreaterOrEqual(int actualSize, int expectedSize) {
+    super("%nExpecting size (number of rows) to be greater than or equal to :%n   <%s>%nbut was:%n   <%s>", expectedSize, actualSize);
+  }
+
+  /**
    * Creates a new <code>{@link ShouldHaveRowsSizeGreaterOrEqual}</code>.
    *
-   * @param actualSize the size of {@code actual}.
+   * @param actualSize   the size of {@code actual}.
    * @param expectedSize the expected size.
    * @return the created {@code ErrorMessageFactory}.
    */
   public static ErrorMessageFactory shouldHaveRowsSizeGreaterOrEqual(int actualSize, int expectedSize) {
     return new ShouldHaveRowsSizeGreaterOrEqual(actualSize, expectedSize);
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param actualSize the size of {@code actual}.
-   * @param expectedSize the expected size.
-   */
-  private ShouldHaveRowsSizeGreaterOrEqual(int actualSize, int expectedSize) {
-    super("%nExpecting size (number of rows) to be greater than or equal to :%n   <%s>%nbut was:%n   <%s>", expectedSize, actualSize);
   }
 }

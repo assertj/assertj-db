@@ -12,16 +12,16 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.error.ShouldBeValueTypeOfAny.shouldBeValueTypeOfAny;
+
+import java.util.List;
+
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
 import org.assertj.db.error.ShouldBeValueType;
 import org.assertj.db.type.Value;
 import org.assertj.db.type.ValueType;
-
-import java.util.List;
-
-import static org.assertj.db.error.ShouldBeValueTypeOfAny.shouldBeValueTypeOfAny;
 
 /**
  * Implements the assertion methods on the type of a column.
@@ -46,7 +46,7 @@ public class AssertionsOnColumnType {
   }
 
   /**
-   /**
+   * /**
    * Verifies that the type of the values of the column is equal to the type in parameter.
    *
    * @param <A>        The type of the assertion which call this method.
@@ -60,7 +60,7 @@ public class AssertionsOnColumnType {
    * @throws AssertionError If the type of the column is different to the type in parameter.
    */
   public static <A extends AbstractAssert<?>> A isOfType(A assertion, WritableAssertionInfo info, List<Value> valuesList,
-                                                      ValueType expected, boolean lenient) {
+                                                         ValueType expected, boolean lenient) {
     if (lenient) {
       return isOfAnyTypeIn(assertion, info, valuesList, expected, ValueType.NOT_IDENTIFIED);
     }
@@ -70,7 +70,7 @@ public class AssertionsOnColumnType {
       ValueType type = value.getValueType();
       if (type != expected) {
         throw failures.failure(info, ShouldBeValueType
-                .shouldBeValueType(index, value, type, expected));
+          .shouldBeValueType(index, value, type, expected));
       }
       index++;
     }
@@ -89,7 +89,7 @@ public class AssertionsOnColumnType {
    * @throws AssertionError If the type of the column is different to all the types in parameters.
    */
   public static <A extends AbstractAssert<?>> A isOfAnyTypeIn(A assertion, WritableAssertionInfo info,
-                                                           List<Value> valuesList, ValueType... expected) {
+                                                              List<Value> valuesList, ValueType... expected) {
     int index = 0;
     loop:
     for (Value value : valuesList) {
@@ -118,7 +118,7 @@ public class AssertionsOnColumnType {
    * @throws AssertionError If the type of the column is not number.
    */
   public static <A extends AbstractAssert<?>> A isNumber(A assertion, WritableAssertionInfo info, List<Value> valuesList,
-                                                      boolean lenient) {
+                                                         boolean lenient) {
     return isOfType(assertion, info, valuesList, ValueType.NUMBER, lenient);
   }
 
@@ -135,7 +135,7 @@ public class AssertionsOnColumnType {
    * @throws AssertionError If the type of the column is not boolean.
    */
   public static <A extends AbstractAssert<?>> A isBoolean(A assertion, WritableAssertionInfo info, List<Value> valuesList,
-                                                       boolean lenient) {
+                                                          boolean lenient) {
     return isOfType(assertion, info, valuesList, ValueType.BOOLEAN, lenient);
   }
 
@@ -152,7 +152,7 @@ public class AssertionsOnColumnType {
    * @throws AssertionError If the type of the column is not date.
    */
   public static <A extends AbstractAssert<?>> A isDate(A assertion, WritableAssertionInfo info, List<Value> valuesList,
-                                                    boolean lenient) {
+                                                       boolean lenient) {
     return isOfType(assertion, info, valuesList, ValueType.DATE, lenient);
   }
 
@@ -169,7 +169,7 @@ public class AssertionsOnColumnType {
    * @throws AssertionError If the type of the column is not time.
    */
   public static <A extends AbstractAssert<?>> A isTime(A assertion, WritableAssertionInfo info, List<Value> valuesList,
-                                                    boolean lenient) {
+                                                       boolean lenient) {
     return isOfType(assertion, info, valuesList, ValueType.TIME, lenient);
   }
 
@@ -186,7 +186,7 @@ public class AssertionsOnColumnType {
    * @throws AssertionError If the type of the column is not date/time.
    */
   public static <A extends AbstractAssert<?>> A isDateTime(A assertion, WritableAssertionInfo info,
-                                                        List<Value> valuesList, boolean lenient) {
+                                                           List<Value> valuesList, boolean lenient) {
     return isOfType(assertion, info, valuesList, ValueType.DATE_TIME, lenient);
   }
 
@@ -203,7 +203,7 @@ public class AssertionsOnColumnType {
    * @throws AssertionError If the type of the column is not array of bytes.
    */
   public static <A extends AbstractAssert<?>> A isBytes(A assertion, WritableAssertionInfo info, List<Value> valuesList,
-                                                     boolean lenient) {
+                                                        boolean lenient) {
     return isOfType(assertion, info, valuesList, ValueType.BYTES, lenient);
   }
 
@@ -220,7 +220,7 @@ public class AssertionsOnColumnType {
    * @throws AssertionError If the type of the column is not text.
    */
   public static <A extends AbstractAssert<?>> A isText(A assertion, WritableAssertionInfo info, List<Value> valuesList,
-                                                    boolean lenient) {
+                                                       boolean lenient) {
     return isOfType(assertion, info, valuesList, ValueType.TEXT, lenient);
   }
 
@@ -238,7 +238,7 @@ public class AssertionsOnColumnType {
    * @since 1.1.0
    */
   public static <A extends AbstractAssert<?>> A isUUID(A assertion, WritableAssertionInfo info, List<Value> valuesList,
-                                                    boolean lenient) {
+                                                       boolean lenient) {
     return isOfType(assertion, info, valuesList, ValueType.UUID, lenient);
   }
 

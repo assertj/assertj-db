@@ -12,15 +12,15 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.error.ShouldBeValueClass.shouldBeValueClass;
+
+import java.util.List;
+
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Value;
-
-import java.util.List;
-
-import static org.assertj.db.error.ShouldBeValueClass.shouldBeValueClass;
 
 /**
  * Implements the assertion methods on the class of a column.
@@ -68,7 +68,7 @@ public class AssertionsOnColumnClass {
     for (Value value : valuesList) {
       Object object = value.getValue();
       if (
-          (object == null || !expected.isAssignableFrom(object.getClass())) &&
+        (object == null || !expected.isAssignableFrom(object.getClass())) &&
           (!lenient || object != null)
       ) {
 

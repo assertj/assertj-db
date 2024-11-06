@@ -12,19 +12,23 @@
  */
 package org.assertj.db.api.assertions.impl;
 
-import org.assertj.core.api.WritableAssertionInfo;
-import org.assertj.core.internal.Failures;
-import org.assertj.db.api.AbstractAssert;
-import org.assertj.db.type.*;
-import org.assertj.db.util.Values;
+import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
+import static org.assertj.db.util.Values.areEqual;
 
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.UUID;
 
-import static org.assertj.db.error.ShouldBeEqual.shouldBeEqual;
-import static org.assertj.db.util.Values.areEqual;
+import org.assertj.core.api.WritableAssertionInfo;
+import org.assertj.core.internal.Failures;
+import org.assertj.db.api.AbstractAssert;
+import org.assertj.db.type.DateTimeValue;
+import org.assertj.db.type.DateValue;
+import org.assertj.db.type.TimeValue;
+import org.assertj.db.type.Value;
+import org.assertj.db.type.ValueType;
+import org.assertj.db.util.Values;
 
 /**
  * Implements the assertion methods on the equality of a value.
@@ -60,7 +64,7 @@ public class AssertionsOnValueEquality {
    * @since 1.1.0
    */
   public static <A extends AbstractAssert<?>> A isEqualTo(A assertion, WritableAssertionInfo info, Value value,
-                                                       Object expected) {
+                                                          Object expected) {
     if (value.getValue() != null && expected != null) {
       AssertionsOnValueClass.isOfClass(assertion, info, value, expected.getClass());
     }
@@ -82,7 +86,7 @@ public class AssertionsOnValueEquality {
    * @throws AssertionError If the value is not equal to the boolean in parameter.
    */
   public static <A extends AbstractAssert<?>> A isEqualTo(A assertion, WritableAssertionInfo info, Value value,
-                                                       Boolean expected) {
+                                                          Boolean expected) {
     if (expected != null) {
       AssertionsOnValueType.isBoolean(assertion, info, value);
     }
@@ -132,7 +136,7 @@ public class AssertionsOnValueEquality {
    * @throws AssertionError If the value is not equal to the number in parameter.
    */
   public static <A extends AbstractAssert<?>> A isEqualTo(A assertion, WritableAssertionInfo info, Value value,
-                                                       Number expected) {
+                                                          Number expected) {
     if (expected != null) {
       AssertionsOnValueType.isNumber(assertion, info, value);
     }
@@ -154,7 +158,7 @@ public class AssertionsOnValueEquality {
    * @throws AssertionError If the value is not equal to the array of bytes in parameter.
    */
   public static <A extends AbstractAssert<?>> A isEqualTo(A assertion, WritableAssertionInfo info, Value value,
-                                                       byte[] expected) {
+                                                          byte[] expected) {
     if (expected != null) {
       AssertionsOnValueType.isBytes(assertion, info, value);
     }
@@ -177,18 +181,18 @@ public class AssertionsOnValueEquality {
    * @since 1.1.0
    */
   public static <A extends AbstractAssert<?>> A isEqualTo(A assertion, WritableAssertionInfo info, Value value,
-                                                       String expected) {
+                                                          String expected) {
     if (expected != null) {
       AssertionsOnValueType
-              .isOfAnyTypeIn(assertion, info, value, ValueType.TEXT, ValueType.NUMBER, ValueType.DATE, ValueType.TIME,
-                             ValueType.DATE_TIME, ValueType.UUID);
+        .isOfAnyTypeIn(assertion, info, value, ValueType.TEXT, ValueType.NUMBER, ValueType.DATE, ValueType.TIME,
+          ValueType.DATE_TIME, ValueType.UUID);
     }
     if (areEqual(value, expected)) {
       return assertion;
     }
     throw failures.failure(info, shouldBeEqual(
-            Values.getRepresentationFromValueInFrontOfExpected(value, expected),
-                                               expected));
+      Values.getRepresentationFromValueInFrontOfExpected(value, expected),
+      expected));
   }
 
   /**
@@ -204,7 +208,7 @@ public class AssertionsOnValueEquality {
    * @since 1.2.0
    */
   public static <A extends AbstractAssert<?>> A isEqualTo(A assertion, WritableAssertionInfo info, Value value,
-                                                       Character expected) {
+                                                          Character expected) {
     if (expected != null) {
       AssertionsOnValueType.isText(assertion, info, value);
     }
@@ -212,8 +216,8 @@ public class AssertionsOnValueEquality {
       return assertion;
     }
     throw failures.failure(info, shouldBeEqual(
-            Values.getRepresentationFromValueInFrontOfExpected(value, expected),
-                                               expected));
+      Values.getRepresentationFromValueInFrontOfExpected(value, expected),
+      expected));
   }
 
   /**
@@ -229,7 +233,7 @@ public class AssertionsOnValueEquality {
    * @since 1.1.0
    */
   public static <A extends AbstractAssert<?>> A isEqualTo(A assertion, WritableAssertionInfo info, Value value,
-                                                       UUID expected) {
+                                                          UUID expected) {
     if (expected != null) {
       AssertionsOnValueType.isUUID(assertion, info, value);
     }
@@ -237,8 +241,8 @@ public class AssertionsOnValueEquality {
       return assertion;
     }
     throw failures.failure(info, shouldBeEqual(
-            Values.getRepresentationFromValueInFrontOfExpected(value, expected),
-            expected));
+      Values.getRepresentationFromValueInFrontOfExpected(value, expected),
+      expected));
   }
 
   /**
@@ -253,7 +257,7 @@ public class AssertionsOnValueEquality {
    * @throws AssertionError If the value is not equal to the date value in parameter.
    */
   public static <A extends AbstractAssert<?>> A isEqualTo(A assertion, WritableAssertionInfo info, Value value,
-                                                       DateValue expected) {
+                                                          DateValue expected) {
     if (expected != null) {
       AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
     }
@@ -282,7 +286,7 @@ public class AssertionsOnValueEquality {
    * @throws AssertionError If the value is not equal to the time value in parameter.
    */
   public static <A extends AbstractAssert<?>> A isEqualTo(A assertion, WritableAssertionInfo info, Value value,
-                                                       TimeValue expected) {
+                                                          TimeValue expected) {
     if (expected != null) {
       AssertionsOnValueType.isTime(assertion, info, value);
     }
@@ -305,7 +309,7 @@ public class AssertionsOnValueEquality {
    * @throws AssertionError If the value is not equal to the date/time value in parameter.
    */
   public static <A extends AbstractAssert<?>> A isEqualTo(A assertion, WritableAssertionInfo info, Value value,
-                                                       DateTimeValue expected) {
+                                                          DateTimeValue expected) {
     if (expected != null) {
       AssertionsOnValueType.isOfAnyTypeIn(assertion, info, value, ValueType.DATE, ValueType.DATE_TIME);
     }

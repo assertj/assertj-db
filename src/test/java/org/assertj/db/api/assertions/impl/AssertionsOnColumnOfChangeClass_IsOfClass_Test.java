@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -20,15 +23,11 @@ import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertionsOnColumnOfChangeClass} class :
  * {@link AssertionsOnColumnOfChangeClass#isOfClass(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, org.assertj.db.type.Value, Class, boolean)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnColumnOfChangeClass_IsOfClass_Test extends AbstractTest {
 
@@ -41,24 +40,24 @@ public class AssertionsOnColumnOfChangeClass_IsOfClass_Test extends AbstractTest
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnColumnOfChangeClass.isOfClass(tableAssert, info,
-                                                                         getValue(null, "test"),
-                                                                         getValue(null, "test"),
-                                                                         String.class, false);
+      getValue(null, "test"),
+      getValue(null, "test"),
+      String.class, false);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnColumnOfChangeClass.isOfClass(tableAssert, info,
-                                                             getValue(null, "test"),
-                                                             getValue(null, "test"),
-                                                             String.class, true);
+      getValue(null, "test"),
+      getValue(null, "test"),
+      String.class, true);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnColumnOfChangeClass.isOfClass(tableAssert, info,
-                                                             getValue(null, null),
-                                                             getValue(null, "test"),
-                                                             String.class, true);
+      getValue(null, null),
+      getValue(null, "test"),
+      String.class, true);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnColumnOfChangeClass.isOfClass(tableAssert, info,
-                                                             getValue(null, "test"),
-                                                             getValue(null, null),
-                                                             String.class, true);
+      getValue(null, "test"),
+      getValue(null, null),
+      String.class, true);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -73,44 +72,44 @@ public class AssertionsOnColumnOfChangeClass_IsOfClass_Test extends AbstractTest
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeClass.isOfClass(tableAssert, info,
-                                                getValue(null, 8),
-                                                getValue(null, "test"),
-                                                String.class, false);
+        getValue(null, 8),
+        getValue(null, "test"),
+        String.class, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at start point:%n"
-                                                                    + "  <8>%n"
-                                                                    + "to be of class%n"
-                                                                    + "  <java.lang.String>%n"
-                                                                    + "but was of class%n"
-                                                                    + "  <java.lang.Integer>"));
+        + "Expecting that the value at start point:%n"
+        + "  <8>%n"
+        + "to be of class%n"
+        + "  <java.lang.String>%n"
+        + "but was of class%n"
+        + "  <java.lang.Integer>"));
     }
     try {
       AssertionsOnColumnOfChangeClass.isOfClass(tableAssert, info,
-                                                getValue(null, null),
-                                                getValue(null, "test"),
-                                                String.class, false);
+        getValue(null, null),
+        getValue(null, "test"),
+        String.class, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at start point:%n"
-                                                                    + "  <null>%n"
-                                                                    + "to be of class%n"
-                                                                    + "  <java.lang.String>"));
+        + "Expecting that the value at start point:%n"
+        + "  <null>%n"
+        + "to be of class%n"
+        + "  <java.lang.String>"));
     }
     try {
       AssertionsOnColumnOfChangeClass.isOfClass(tableAssert, info,
-                                                getValue(null, "test"),
-                                                getValue(null, null),
-                                                String.class, false);
+        getValue(null, "test"),
+        getValue(null, null),
+        String.class, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at end point:%n"
-                                                                    + "  <null>%n"
-                                                                    + "to be of class%n"
-                                                                    + "  <java.lang.String>"));
+        + "Expecting that the value at end point:%n"
+        + "  <null>%n"
+        + "to be of class%n"
+        + "  <java.lang.String>"));
     }
   }
 
@@ -125,44 +124,44 @@ public class AssertionsOnColumnOfChangeClass_IsOfClass_Test extends AbstractTest
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeClass.isOfClass(tableAssert, info,
-                                                getValue(null, "test"),
-                                                getValue(null, 8),
-                                                String.class, false);
+        getValue(null, "test"),
+        getValue(null, 8),
+        String.class, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at end point:%n"
-                                                                    + "  <8>%n"
-                                                                    + "to be of class%n"
-                                                                    + "  <java.lang.String>%n"
-                                                                    + "but was of class%n"
-                                                                    + "  <java.lang.Integer>"));
+        + "Expecting that the value at end point:%n"
+        + "  <8>%n"
+        + "to be of class%n"
+        + "  <java.lang.String>%n"
+        + "but was of class%n"
+        + "  <java.lang.Integer>"));
     }
     try {
       AssertionsOnColumnOfChangeClass.isOfClass(tableAssert, info,
-                                                getValue(null, "test"),
-                                                getValue(null, null),
-                                                String.class, false);
+        getValue(null, "test"),
+        getValue(null, null),
+        String.class, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at end point:%n"
-                                                                    + "  <null>%n"
-                                                                    + "to be of class%n"
-                                                                    + "  <java.lang.String>"));
+        + "Expecting that the value at end point:%n"
+        + "  <null>%n"
+        + "to be of class%n"
+        + "  <java.lang.String>"));
     }
     try {
       AssertionsOnColumnOfChangeClass.isOfClass(tableAssert, info,
-                                                getValue(null, null),
-                                                getValue(null, "test"),
-                                                String.class, false);
+        getValue(null, null),
+        getValue(null, "test"),
+        String.class, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at start point:%n"
-                                                                    + "  <null>%n"
-                                                                    + "to be of class%n"
-                                                                    + "  <java.lang.String>"));
+        + "Expecting that the value at start point:%n"
+        + "  <null>%n"
+        + "to be of class%n"
+        + "  <java.lang.String>"));
     }
   }
 
@@ -177,33 +176,33 @@ public class AssertionsOnColumnOfChangeClass_IsOfClass_Test extends AbstractTest
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeClass.isOfClass(tableAssert, info,
-                                                getValue(null, new StringBuilder("test")),
-                                                getValue(null, "test"),
-                                                String.class, false);
+        getValue(null, new StringBuilder("test")),
+        getValue(null, "test"),
+        String.class, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at start point:%n"
-                                                                    + "  <test>%n"
-                                                                    + "to be of class%n"
-                                                                    + "  <java.lang.String>%n"
-                                                                    + "but was of class%n"
-                                                                    + "  <java.lang.StringBuilder>"));
+        + "Expecting that the value at start point:%n"
+        + "  <test>%n"
+        + "to be of class%n"
+        + "  <java.lang.String>%n"
+        + "but was of class%n"
+        + "  <java.lang.StringBuilder>"));
     }
     try {
       AssertionsOnColumnOfChangeClass.isOfClass(tableAssert, info,
-                                                getValue(null, new StringBuilder("test")),
-                                                getValue(null, "test"),
-                                                String.class, true);
+        getValue(null, new StringBuilder("test")),
+        getValue(null, "test"),
+        String.class, true);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at start point:%n"
-                                                                    + "  <test>%n"
-                                                                    + "to be of class%n"
-                                                                    + "  <java.lang.String>%n"
-                                                                    + "but was of class%n"
-                                                                    + "  <java.lang.StringBuilder>"));
+        + "Expecting that the value at start point:%n"
+        + "  <test>%n"
+        + "to be of class%n"
+        + "  <java.lang.String>%n"
+        + "but was of class%n"
+        + "  <java.lang.StringBuilder>"));
     }
   }
 
@@ -218,33 +217,33 @@ public class AssertionsOnColumnOfChangeClass_IsOfClass_Test extends AbstractTest
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeClass.isOfClass(tableAssert, info,
-                                                getValue(null, "test"),
-                                                getValue(null, new StringBuilder("test")),
-                                                String.class, false);
+        getValue(null, "test"),
+        getValue(null, new StringBuilder("test")),
+        String.class, false);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at end point:%n"
-                                                                    + "  <test>%n"
-                                                                    + "to be of class%n"
-                                                                    + "  <java.lang.String>%n"
-                                                                    + "but was of class%n"
-                                                                    + "  <java.lang.StringBuilder>"));
+        + "Expecting that the value at end point:%n"
+        + "  <test>%n"
+        + "to be of class%n"
+        + "  <java.lang.String>%n"
+        + "but was of class%n"
+        + "  <java.lang.StringBuilder>"));
     }
     try {
       AssertionsOnColumnOfChangeClass.isOfClass(tableAssert, info,
-                                                getValue(null, "test"),
-                                                getValue(null, new StringBuilder("test")),
-                                                String.class, true);
+        getValue(null, "test"),
+        getValue(null, new StringBuilder("test")),
+        String.class, true);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at end point:%n"
-                                                                    + "  <test>%n"
-                                                                    + "to be of class%n"
-                                                                    + "  <java.lang.String>%n"
-                                                                    + "but was of class%n"
-                                                                    + "  <java.lang.StringBuilder>"));
+        + "Expecting that the value at end point:%n"
+        + "  <test>%n"
+        + "to be of class%n"
+        + "  <java.lang.String>%n"
+        + "but was of class%n"
+        + "  <java.lang.StringBuilder>"));
     }
   }
 
@@ -259,9 +258,9 @@ public class AssertionsOnColumnOfChangeClass_IsOfClass_Test extends AbstractTest
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeClass.isOfClass(tableAssert, info,
-                                                getValue(null, "test"),
-                                                getValue(null, "test"),
-                                                null, false);
+        getValue(null, "test"),
+        getValue(null, "test"),
+        null, false);
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Class of the column is null"));

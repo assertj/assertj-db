@@ -20,28 +20,27 @@ import org.assertj.db.type.Value;
  * Creates an error message indicating that an assertion that verifies that a column is modified.
  *
  * @author Régis Pouiller
- *
  */
 public class ShouldBeModified extends BasicErrorMessageFactory {
-
-  /**
-   * Creates a new <code>{@link ShouldBeModified}</code>.
-   *
-   * @param valueAtStartPoint The value at start point.
-   * @param valueAtEndPoint The value at end point.
-   * @return the created {@code ErrorMessageFactory}.
-   */
-  public static ErrorMessageFactory shouldBeModified(Value valueAtStartPoint, Value valueAtEndPoint) {
-    return new ShouldBeModified(valueAtStartPoint, valueAtEndPoint);
-  }
 
   /**
    * Constructor.
    *
    * @param valueAtStartPoint The value at start point.
-   * @param valueAtEndPoint The value at end point.
+   * @param valueAtEndPoint   The value at end point.
    */
   private ShouldBeModified(Value valueAtStartPoint, Value valueAtEndPoint) {
     super("%nExpecting :%n  <%s>%nis modified but is still:%n  <%s>", valueAtStartPoint.getValue(), valueAtEndPoint.getValue());
+  }
+
+  /**
+   * Creates a new <code>{@link ShouldBeModified}</code>.
+   *
+   * @param valueAtStartPoint The value at start point.
+   * @param valueAtEndPoint   The value at end point.
+   * @return the created {@code ErrorMessageFactory}.
+   */
+  public static ErrorMessageFactory shouldBeModified(Value valueAtStartPoint, Value valueAtEndPoint) {
+    return new ShouldBeModified(valueAtStartPoint, valueAtEndPoint);
   }
 }

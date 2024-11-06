@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api.assertions;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.ChangeAssert;
 import org.assertj.db.api.ChangeColumnAssert;
@@ -21,15 +24,11 @@ import org.assertj.db.type.Changes;
 import org.assertj.db.type.TimeValue;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link org.assertj.db.api.assertions.AssertOnColumnOfChangeEquality} class :
  * {@link org.assertj.db.api.assertions.AssertOnColumnOfChangeEquality#hasValues(org.assertj.db.type.TimeValue, org.assertj.db.type.TimeValue)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertOnColumnOfChangeEquality_HasValues_Two_TimeValue_Test extends AbstractTest {
 
@@ -46,7 +45,7 @@ public class AssertOnColumnOfChangeEquality_HasValues_Two_TimeValue_Test extends
     ChangeAssert changeAssert = assertThat(changes).change();
     ChangeColumnAssert changeColumnAssert = changeAssert.column("var8");
     ChangeColumnAssert changeColumnAssert2 = changeColumnAssert.hasValues(TimeValue.of(9, 46, 30),
-                                                                          TimeValue.of(9, 46, 30));
+      TimeValue.of(9, 46, 30));
     Assertions.assertThat(changeColumnAssert).isSameAs(changeColumnAssert2);
   }
 
@@ -65,10 +64,10 @@ public class AssertOnColumnOfChangeEquality_HasValues_Two_TimeValue_Test extends
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 7 (column name : VAR8) of Change at index 0 (on table : TEST and with primary key : [5]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
-                                                      + "Expecting that start point:%n"
-                                                      + "  <null>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <09:46:30.000000000>"));
+        + "Expecting that start point:%n"
+        + "  <null>%n"
+        + "to be equal to: %n"
+        + "  <09:46:30.000000000>"));
     }
   }
 
@@ -87,10 +86,10 @@ public class AssertOnColumnOfChangeEquality_HasValues_Two_TimeValue_Test extends
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 7 (column name : VAR8) of Change at index 0 (on table : TEST and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' source] %n"
-                                                      + "Expecting that end point:%n"
-                                                      + "  <null>%n"
-                                                      + "to be equal to: %n"
-                                                      + "  <09:46:30.000000000>"));
+        + "Expecting that end point:%n"
+        + "  <null>%n"
+        + "to be equal to: %n"
+        + "  <09:46:30.000000000>"));
     }
   }
 }

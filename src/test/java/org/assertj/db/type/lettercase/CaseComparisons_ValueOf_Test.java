@@ -12,16 +12,15 @@
  */
 package org.assertj.db.type.lettercase;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.assertj.db.common.AbstractTest;
 import org.junit.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test on the type got from {@code valueOf} method from {@code CaseComparisons} enum.
  *
  * @author Régis Pouiller
- *
  */
 public class CaseComparisons_ValueOf_Test extends AbstractTest {
 

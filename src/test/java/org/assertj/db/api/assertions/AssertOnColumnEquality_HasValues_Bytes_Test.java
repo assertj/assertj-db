@@ -12,22 +12,21 @@
  */
 package org.assertj.db.api.assertions;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.assertj.db.api.Assertions.bytesContentFromClassPathOf;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.TableColumnAssert;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.api.Assertions.bytesContentFromClassPathOf;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertOnColumnEquality} class :
  * {@link org.assertj.db.api.assertions.AssertOnColumnEquality#hasValues(byte[]...)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertOnColumnEquality_HasValues_Bytes_Test extends AbstractTest {
 
@@ -64,7 +63,7 @@ public class AssertOnColumnEquality_HasValues_Bytes_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 10 (column name : VAR11) of TEST table] %n"
-                                                      + "Expecting that the value at index 1 to be equal to the expected value but was not equal"));
+        + "Expecting that the value at index 1 to be equal to the expected value but was not equal"));
     }
 
     Table table2 = new Table(source, "test2");
@@ -74,7 +73,7 @@ public class AssertOnColumnEquality_HasValues_Bytes_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[Column at index 10 (column name : VAR11) of TEST2 table] %n"
-                                                      + "Expecting that the value at index 1 to be equal to the expected value but was not equal"));
+        + "Expecting that the value at index 1 to be equal to the expected value but was not equal"));
     }
   }
 }

@@ -19,57 +19,25 @@ import org.assertj.db.type.ValueType;
 
 /**
  * Creates an error message indicating that an assertion that verifies that a value is of a type.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class ShouldBeValueType extends BasicErrorMessageFactory {
 
   private static final String EXPECTED_MESSAGE =
-          "%nExpecting:%n  <%s>%nto be of type%n  <%s>%nbut was of type%n  <%s>";
+    "%nExpecting:%n  <%s>%nto be of type%n  <%s>%nbut was of type%n  <%s>";
   private static final String EXPECTED_MESSAGE_WITH_INDEX =
-          "%nExpecting that the value at index %s:%n  <%s>%nto be of type%n  <%s>%nbut was of type%n  <%s>";
+    "%nExpecting that the value at index %s:%n  <%s>%nto be of type%n  <%s>%nbut was of type%n  <%s>";
   private static final String EXPECTED_MESSAGE_NOT_IDENTIFIED =
-          "%nExpecting:%n  <%s>%nto be of type%n  <%s>%nbut was of type%n  <%s> (%s)";
+    "%nExpecting:%n  <%s>%nto be of type%n  <%s>%nbut was of type%n  <%s> (%s)";
   private static final String EXPECTED_MESSAGE_NOT_IDENTIFIED_WITH_INDEX =
-          "%nExpecting that the value at index %s:%n  <%s>%nto be of type%n  <%s>%nbut was of type%n  <%s> (%s)";
-
-  /**
-   * Creates a new <code>{@link ShouldBeValueType}</code>.
-   * 
-   * @param actual The actual value in the failed assertion.
-   * @param tested The tested type.
-   * @param expected The expected type.
-   * @return the created {@code ErrorMessageFactory}.
-   */
-  public static ErrorMessageFactory shouldBeValueType(Value actual, ValueType tested, ValueType expected) {
-    if (actual.getValue() != null && tested == ValueType.NOT_IDENTIFIED) {
-      return  new ShouldBeValueType(actual, actual.getValue().getClass(), tested, expected);
-    }
-    return new ShouldBeValueType(actual, tested, expected);
-  }
-
-  /**
-   * Creates a new <code>{@link ShouldBeValueType}</code>.
-   * 
-   * @param index The index of the value.
-   * @param actual The actual value in the failed assertion.
-   * @param tested The tested type.
-   * @param expected The expected type.
-   * @return the created {@code ErrorMessageFactory}.
-   */
-  public static ErrorMessageFactory shouldBeValueType(int index, Value actual, ValueType tested, ValueType expected) {
-    if (actual.getValue() != null && tested == ValueType.NOT_IDENTIFIED) {
-      return  new ShouldBeValueType(index, actual, actual.getValue().getClass(), tested, expected);
-    }
-    return new ShouldBeValueType(index, actual, tested, expected);
-  }
+    "%nExpecting that the value at index %s:%n  <%s>%nto be of type%n  <%s>%nbut was of type%n  <%s> (%s)";
 
   /**
    * Constructor.
-   * 
-   * @param actual The actual value in the failed assertion.
-   * @param tested The tested type.
+   *
+   * @param actual   The actual value in the failed assertion.
+   * @param tested   The tested type.
    * @param expected The expected type.
    */
   private ShouldBeValueType(Value actual, ValueType tested, ValueType expected) {
@@ -78,10 +46,10 @@ public class ShouldBeValueType extends BasicErrorMessageFactory {
 
   /**
    * Constructor.
-   * 
-   * @param index The index of the value.
-   * @param actual The actual value in the failed assertion.
-   * @param tested The tested type.
+   *
+   * @param index    The index of the value.
+   * @param actual   The actual value in the failed assertion.
+   * @param tested   The tested type.
    * @param expected The expected type.
    */
   private ShouldBeValueType(int index, Value actual, ValueType tested, ValueType expected) {
@@ -91,10 +59,10 @@ public class ShouldBeValueType extends BasicErrorMessageFactory {
   /**
    * Constructor.
    *
-   * @param actual The actual value in the failed assertion.
+   * @param actual        The actual value in the failed assertion.
    * @param classOfActual Class of the actual value (for not identified type).
-   * @param tested The tested type.
-   * @param expected The expected type.
+   * @param tested        The tested type.
+   * @param expected      The expected type.
    */
   private ShouldBeValueType(Value actual, Class<?> classOfActual, ValueType tested, ValueType expected) {
     super(EXPECTED_MESSAGE_NOT_IDENTIFIED, actual.getValue(), expected, tested, classOfActual);
@@ -103,13 +71,44 @@ public class ShouldBeValueType extends BasicErrorMessageFactory {
   /**
    * Constructor.
    *
-   * @param index The index of the value.
-   * @param actual The actual value in the failed assertion.
+   * @param index         The index of the value.
+   * @param actual        The actual value in the failed assertion.
    * @param classOfActual Class of the actual value (for not identified type).
-   * @param tested The tested type.
-   * @param expected The expected type.
+   * @param tested        The tested type.
+   * @param expected      The expected type.
    */
   private ShouldBeValueType(int index, Value actual, Class<?> classOfActual, ValueType tested, ValueType expected) {
     super(EXPECTED_MESSAGE_NOT_IDENTIFIED_WITH_INDEX, index, actual.getValue(), expected, tested, classOfActual);
+  }
+
+  /**
+   * Creates a new <code>{@link ShouldBeValueType}</code>.
+   *
+   * @param actual   The actual value in the failed assertion.
+   * @param tested   The tested type.
+   * @param expected The expected type.
+   * @return the created {@code ErrorMessageFactory}.
+   */
+  public static ErrorMessageFactory shouldBeValueType(Value actual, ValueType tested, ValueType expected) {
+    if (actual.getValue() != null && tested == ValueType.NOT_IDENTIFIED) {
+      return new ShouldBeValueType(actual, actual.getValue().getClass(), tested, expected);
+    }
+    return new ShouldBeValueType(actual, tested, expected);
+  }
+
+  /**
+   * Creates a new <code>{@link ShouldBeValueType}</code>.
+   *
+   * @param index    The index of the value.
+   * @param actual   The actual value in the failed assertion.
+   * @param tested   The tested type.
+   * @param expected The expected type.
+   * @return the created {@code ErrorMessageFactory}.
+   */
+  public static ErrorMessageFactory shouldBeValueType(int index, Value actual, ValueType tested, ValueType expected) {
+    if (actual.getValue() != null && tested == ValueType.NOT_IDENTIFIED) {
+      return new ShouldBeValueType(index, actual, actual.getValue().getClass(), tested, expected);
+    }
+    return new ShouldBeValueType(index, actual, tested, expected);
   }
 }

@@ -19,10 +19,9 @@ import org.assertj.db.type.Table;
  * Output methods for a {@link org.assertj.db.type.Table}.
  *
  * @author Régis Pouiller
- *
  */
 public class TableOutputter extends
-        AbstractDbOutputter<Table, TableOutputter, TableColumnOutputter, TableColumnValueOutputter, TableRowOutputter, TableRowValueOutputter> {
+  AbstractDbOutputter<Table, TableOutputter, TableColumnOutputter, TableColumnValueOutputter, TableRowOutputter, TableRowValueOutputter> {
 
   /**
    * Constructor.

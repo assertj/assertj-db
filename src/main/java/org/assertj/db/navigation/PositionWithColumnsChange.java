@@ -12,6 +12,14 @@
  */
 package org.assertj.db.navigation;
 
+import static org.assertj.db.util.Proxies.unProxy;
+
+import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.global.AbstractElement;
 import org.assertj.db.type.Change;
@@ -21,20 +29,11 @@ import org.assertj.db.type.lettercase.CaseComparison;
 import org.assertj.db.util.Changes;
 import org.assertj.db.util.NameComparator;
 
-import java.lang.reflect.Constructor;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static org.assertj.db.util.Proxies.unProxy;
-
 /**
  * Position during navigation.
  *
  * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
  * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- *
  * @author Régis Pouiller
  * @since 1.1.0
  */
@@ -45,10 +44,6 @@ public abstract class PositionWithColumnsChange<E extends AbstractElement<E> & N
    */
   private final E myself;
   /**
-   * Index of the next to get.
-   */
-  private int nextIndex;
-  /**
    * Class of the element of navigation (used to make instance).
    */
   private final Class<N> elementClass;
@@ -56,11 +51,15 @@ public abstract class PositionWithColumnsChange<E extends AbstractElement<E> & N
    * Map the elements of navigation with their index in key (contains the elements of navigation already generated).
    */
   private final Map<Integer, N> elementsMap = new HashMap<>();
+  /**
+   * Index of the next to get.
+   */
+  private int nextIndex;
 
   /**
    * Constructor.
    *
-   * @param myself Actual value.
+   * @param myself       Actual value.
    * @param elementClass Class of the element of navigation (used to make instance).
    */
   public PositionWithColumnsChange(E myself, Class<N> elementClass) {
@@ -85,7 +84,7 @@ public abstract class PositionWithColumnsChange<E extends AbstractElement<E> & N
    * returns it from the cache.
    *
    * @param change The change
-   * @param index Index of the instance.
+   * @param index  Index of the instance.
    * @return The instance.
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
    */
@@ -128,10 +127,10 @@ public abstract class PositionWithColumnsChange<E extends AbstractElement<E> & N
       return instance;
     } catch (Exception e) {
       throw new AssertJDBException(String.format("There is an exception '" + e.getMessage()
-                                                 + "'%n\t in the instantiation of the element " + elementClass.getName() + "%n"
-                                                 + "\t with " + myself.getClass() + ".%n "
-                                                 + "It is normally impossible.%n That means there is a big mistake in the development of AssertJDB.%n "
-                                                 + "Please write an issue for that if you meet this problem."));
+        + "'%n\t in the instantiation of the element " + elementClass.getName() + "%n"
+        + "\t with " + myself.getClass() + ".%n "
+        + "It is normally impossible.%n That means there is a big mistake in the development of AssertJDB.%n "
+        + "Please write an issue for that if you meet this problem."));
     }
   }
 
@@ -139,9 +138,9 @@ public abstract class PositionWithColumnsChange<E extends AbstractElement<E> & N
    * Gets an instance of element corresponding to the column name in parameter.
    * If this instance is already instanced, the method returns it from the cache.
    *
-   * @param change The change
-   * @param columnName      Name of the column of the element on which is the instance of element of navigation.
-   * @param comparison      Case comparison for column name.
+   * @param change     The change
+   * @param columnName Name of the column of the element on which is the instance of element of navigation.
+   * @param comparison Case comparison for column name.
    * @return The instance.
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
    */
@@ -153,7 +152,7 @@ public abstract class PositionWithColumnsChange<E extends AbstractElement<E> & N
     int index = NameComparator.INSTANCE.indexOf(columnsNameList, columnName, comparison);
     if (index == -1) {
       throw new AssertJDBException(String.format("Column <%s> does not exist%nin <%s>%nwith comparison %s",
-                                                 columnName, columnsNameList, comparison.getComparisonName()));
+        columnName, columnsNameList, comparison.getComparisonName()));
     }
     return getChangeColumnInstance(change, index);
   }
@@ -181,7 +180,7 @@ public abstract class PositionWithColumnsChange<E extends AbstractElement<E> & N
    * returns it from the cache.
    *
    * @param change The change
-   * @param index Index of the instance.
+   * @param index  Index of the instance.
    * @return The instance.
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
    */
@@ -199,9 +198,9 @@ public abstract class PositionWithColumnsChange<E extends AbstractElement<E> & N
    * Gets an instance of modified element corresponding to the column name in parameter.
    * If this instance is already instanced, the method returns it from the cache.
    *
-   * @param change The change
-   * @param columnName      Name of the column of the element on which is the instance of element of navigation.
-   * @param comparison      Case comparison for column name.
+   * @param change     The change
+   * @param columnName Name of the column of the element on which is the instance of element of navigation.
+   * @param comparison Case comparison for column name.
    * @return The instance.
    * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
    */
@@ -220,15 +219,15 @@ public abstract class PositionWithColumnsChange<E extends AbstractElement<E> & N
       }
     }
     throw new AssertJDBException(
-        String.format("Column <%s> does not exist among the modified columns%nin <%s>%nwith comparison %s",
-                      columnName, modifiedColumnsNameList, comparison.getComparisonName()));
+      String.format("Column <%s> does not exist among the modified columns%nin <%s>%nwith comparison %s",
+        columnName, modifiedColumnsNameList, comparison.getComparisonName()));
   }
 
   /**
    * Returns the description.
    *
-   * @param index Index of the value.
-   * @param columnName      Name of the column of the element.
+   * @param index      Index of the value.
+   * @param columnName Name of the column of the element.
    * @return The description
    */
   protected abstract String getDescription(int index, String columnName);

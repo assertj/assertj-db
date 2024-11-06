@@ -12,20 +12,19 @@
  */
 package org.assertj.db.type;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.exception.AssertJDBException;
 import org.junit.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests on the columns name of {@code Table}.
  * <p>
  * These tests are on the name of the columns got from a {@code Table}.
  * </p>
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class Table_Columns_Name_Test extends AbstractTest {
 
@@ -37,7 +36,7 @@ public class Table_Columns_Name_Test extends AbstractTest {
     Table table = new Table(source, "movie");
 
     assertThat(table.getColumnsNameList()).as("Columns of MOVIE table").hasSize(4)
-        .containsExactly("ID", "TITLE", "YEAR", "MOVIE_IMDB");
+      .containsExactly("ID", "TITLE", "YEAR", "MOVIE_IMDB");
   }
 
   /**
@@ -48,7 +47,7 @@ public class Table_Columns_Name_Test extends AbstractTest {
     Table table = new Table(dataSource, "movie");
 
     assertThat(table.getColumnsNameList()).as("Columns of MOVIE table").hasSize(4)
-        .containsExactly("ID", "TITLE", "YEAR", "MOVIE_IMDB");
+      .containsExactly("ID", "TITLE", "YEAR", "MOVIE_IMDB");
   }
 
   /**
@@ -56,10 +55,10 @@ public class Table_Columns_Name_Test extends AbstractTest {
    */
   @Test
   public void test_columns_name_to_check_with_source_set() {
-    Table table = new Table(source, "actor", new String[] { "id", "name", "birth" }, null);
+    Table table = new Table(source, "actor", new String[]{"id", "name", "birth"}, null);
 
     assertThat(table.getColumnsNameList()).as("Columns of ACTOR table").hasSize(3)
-        .containsExactly("ID", "NAME", "BIRTH");
+      .containsExactly("ID", "NAME", "BIRTH");
   }
 
   /**
@@ -67,10 +66,10 @@ public class Table_Columns_Name_Test extends AbstractTest {
    */
   @Test
   public void test_columns_name_to_check_with_datasource_set() {
-    Table table = new Table(dataSource, "actor", new String[] { "id", "name", "birth" }, null);
+    Table table = new Table(dataSource, "actor", new String[]{"id", "name", "birth"}, null);
 
     assertThat(table.getColumnsNameList()).as("Columns of ACTOR table").hasSize(3)
-        .containsExactly("ID", "NAME", "BIRTH");
+      .containsExactly("ID", "NAME", "BIRTH");
   }
 
   /**
@@ -78,10 +77,10 @@ public class Table_Columns_Name_Test extends AbstractTest {
    */
   @Test
   public void test_columns_name_to_exclude_with_source_set() {
-    Table table = new Table(source, "interpretation", null, new String[] { "id" });
+    Table table = new Table(source, "interpretation", null, new String[]{"id"});
 
     assertThat(table.getColumnsNameList()).as("Columns of INTERPRETATION table").hasSize(3)
-        .containsExactly("ID_MOVIE", "ID_ACTOR", "CHARACTER");
+      .containsExactly("ID_MOVIE", "ID_ACTOR", "CHARACTER");
   }
 
   /**
@@ -89,10 +88,10 @@ public class Table_Columns_Name_Test extends AbstractTest {
    */
   @Test
   public void test_columns_name_to_exclude_with_datasource_set() {
-    Table table = new Table(dataSource, "interpretation", null, new String[] { "id" });
+    Table table = new Table(dataSource, "interpretation", null, new String[]{"id"});
 
     assertThat(table.getColumnsNameList()).as("Columns of INTERPRETATION table").hasSize(3)
-        .containsExactly("ID_MOVIE", "ID_ACTOR", "CHARACTER");
+      .containsExactly("ID_MOVIE", "ID_ACTOR", "CHARACTER");
   }
 
   /**

@@ -12,6 +12,12 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -22,18 +28,11 @@ import org.assertj.db.type.Table;
 import org.assertj.db.type.TimeValue;
 import org.junit.Test;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertionsOnValueChronology} class :
  * {@link AssertionsOnValueChronology#isBeforeOrEqualTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, org.assertj.db.type.DateTimeValue)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnValueChronology_IsBeforeOrEqualTo_DateTimeValue_Test extends AbstractTest {
 
@@ -46,24 +45,24 @@ public class AssertionsOnValueChronology_IsBeforeOrEqualTo_DateTimeValue_Test ex
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnValueChronology.isBeforeOrEqualTo(tableAssert, info,
-                                                                             getValue(null, Timestamp.valueOf("2007-12-23 09:01:05")),
-                                                                             DateTimeValue
-                                                                                     .of(DateValue.of(2007, 12, 23),
-                                                                                         TimeValue.of(9, 1, 5)));
+      getValue(null, Timestamp.valueOf("2007-12-23 09:01:05")),
+      DateTimeValue
+        .of(DateValue.of(2007, 12, 23),
+          TimeValue.of(9, 1, 5)));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnValueChronology.isBeforeOrEqualTo(tableAssert, info,
-                                                                 getValue(null, Timestamp.valueOf("2007-12-23 09:01:05")),
-                                                                 DateTimeValue.of(DateValue.of(2007, 12, 23),
-                                                                                  TimeValue.of(9, 1, 6)));
+      getValue(null, Timestamp.valueOf("2007-12-23 09:01:05")),
+      DateTimeValue.of(DateValue.of(2007, 12, 23),
+        TimeValue.of(9, 1, 6)));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnValueChronology.isBeforeOrEqualTo(tableAssert, info,
-                                                                 getValue(null, Date.valueOf("2007-12-23")),
-                                                                 DateTimeValue.of(DateValue.of(2007, 12, 23)));
+      getValue(null, Date.valueOf("2007-12-23")),
+      DateTimeValue.of(DateValue.of(2007, 12, 23)));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnValueChronology.isBeforeOrEqualTo(tableAssert, info,
-                                                                 getValue(null, Date.valueOf("2007-12-23")),
-                                                                 DateTimeValue.of(DateValue.of(2007, 12, 23),
-                                                                                  TimeValue.of(9, 1, 5)));
+      getValue(null, Date.valueOf("2007-12-23")),
+      DateTimeValue.of(DateValue.of(2007, 12, 23),
+        TimeValue.of(9, 1, 5)));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -78,28 +77,28 @@ public class AssertionsOnValueChronology_IsBeforeOrEqualTo_DateTimeValue_Test ex
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnValueChronology.isBeforeOrEqualTo(tableAssert, info,
-                                                    getValue(null, Timestamp.valueOf("2007-12-23 09:01:05")),
-                                                    DateTimeValue.of(DateValue.of(2007, 12, 23),
-                                                                     TimeValue.of(9, 1, 0)));
+        getValue(null, Timestamp.valueOf("2007-12-23 09:01:05")),
+        DateTimeValue.of(DateValue.of(2007, 12, 23),
+          TimeValue.of(9, 1, 0)));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <2007-12-23T09:01:05.000000000>%n"
-                                                      + "to be before or equal to %n"
-                                                      + "  <2007-12-23T09:01:00.000000000>"));
+        + "Expecting:%n"
+        + "  <2007-12-23T09:01:05.000000000>%n"
+        + "to be before or equal to %n"
+        + "  <2007-12-23T09:01:00.000000000>"));
     }
     try {
       AssertionsOnValueChronology.isBeforeOrEqualTo(tableAssert, info,
-                                                    getValue(null, Date.valueOf("2007-12-24")),
-                                          DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 5)));
+        getValue(null, Date.valueOf("2007-12-24")),
+        DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 5)));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <2007-12-24T00:00:00.000000000>%n"
-                                                      + "to be before or equal to %n"
-                                                      + "  <2007-12-23T09:01:05.000000000>"));
+        + "Expecting:%n"
+        + "  <2007-12-24T00:00:00.000000000>%n"
+        + "to be before or equal to %n"
+        + "  <2007-12-23T09:01:05.000000000>"));
     }
   }
 
@@ -114,19 +113,19 @@ public class AssertionsOnValueChronology_IsBeforeOrEqualTo_DateTimeValue_Test ex
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnValueChronology.isBeforeOrEqualTo(tableAssert, info,
-                                                    getValue(null, "test"),
-                                                    DateTimeValue
-                                                            .of(DateValue.of(2007, 12, 23),
-                                                                TimeValue.of(9, 1, 5)));
+        getValue(null, "test"),
+        DateTimeValue
+          .of(DateValue.of(2007, 12, 23),
+            TimeValue.of(9, 1, 5)));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <\"test\">%n"
-                                                      + "to be of type%n"
-                                                      + "  <[DATE, DATE_TIME]>%n"
-                                                      + "but was of type%n"
-                                                      + "  <TEXT>"));
+        + "Expecting:%n"
+        + "  <\"test\">%n"
+        + "to be of type%n"
+        + "  <[DATE, DATE_TIME]>%n"
+        + "but was of type%n"
+        + "  <TEXT>"));
     }
   }
 }

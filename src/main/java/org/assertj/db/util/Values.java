@@ -12,9 +12,6 @@
  */
 package org.assertj.db.util;
 
-import org.assertj.db.exception.AssertJDBException;
-import org.assertj.db.type.*;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Date;
@@ -25,6 +22,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.UUID;
+
+import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.type.DateTimeValue;
+import org.assertj.db.type.DateValue;
+import org.assertj.db.type.TimeValue;
+import org.assertj.db.type.Value;
+import org.assertj.db.type.ValueType;
 
 /**
  * Utility methods related to values.
@@ -54,35 +58,29 @@ public class Values {
       if (expected instanceof Boolean) {
         return areEqual(value, (Boolean) expected);
       }
-    }
-    else if (valueType == ValueType.NUMBER) {
+    } else if (valueType == ValueType.NUMBER) {
       if (expected instanceof Number) {
         return areEqual(value, (Number) expected);
       } else if (expected instanceof String) {
         return areEqual(value, (String) expected);
       }
-    }
-    else if (valueType == ValueType.BYTES) {
+    } else if (valueType == ValueType.BYTES) {
       if (expected instanceof byte[]) {
         return areEqual(value, (byte[]) expected);
       }
-    }
-    else if (valueType == ValueType.TEXT) {
+    } else if (valueType == ValueType.TEXT) {
       if (expected instanceof String) {
         return areEqual(value, (String) expected);
-      }
-      else if (expected instanceof Character) {
+      } else if (expected instanceof Character) {
         return areEqual(value, (Character) expected);
       }
-    }
-    else if (valueType == ValueType.UUID) {
+    } else if (valueType == ValueType.UUID) {
       if (expected instanceof UUID) {
         return areEqual(value, (UUID) expected);
       } else if (expected instanceof String) {
         return areEqual(value, (String) expected);
       }
-    }
-    else if (valueType == ValueType.DATE) {
+    } else if (valueType == ValueType.DATE) {
       if (expected instanceof DateValue) {
         return areEqual(value, (DateValue) expected);
       } else if (expected instanceof String) {
@@ -92,8 +90,7 @@ public class Values {
       } else if (expected instanceof LocalDate) {
         return areEqual(value, DateValue.from((LocalDate) expected));
       }
-    }
-    else if (valueType == ValueType.TIME) {
+    } else if (valueType == ValueType.TIME) {
       if (expected instanceof TimeValue) {
         return areEqual(value, (TimeValue) expected);
       } else if (expected instanceof String) {
@@ -103,8 +100,7 @@ public class Values {
       } else if (expected instanceof LocalTime) {
         return areEqual(value, TimeValue.from((LocalTime) expected));
       }
-    }
-    else if (valueType == ValueType.DATE_TIME) {
+    } else if (valueType == ValueType.DATE_TIME) {
       if (expected instanceof DateTimeValue) {
         return areEqual(value, (DateTimeValue) expected);
       } else if (expected instanceof DateValue) {
@@ -118,8 +114,7 @@ public class Values {
       } else if (expected instanceof LocalDate) {
         return areEqual(value, DateValue.from((LocalDate) expected));
       }
-    }
-    else {
+    } else {
       Object object = value.getValue();
       if (expected == null && object == null) {
         return true;
@@ -704,8 +699,8 @@ public class Values {
   /**
    * Returns a representation of the value (this representation is used for error message).
    *
-   * @param value    Value in the database.
-   * @param clazz    Class for comparison.
+   * @param value Value in the database.
+   * @param clazz Class for comparison.
    * @return A representation of the value.
    */
   public static Object getRepresentationFromValueInFrontOfClass(Value value, Class<?> clazz) {
@@ -720,22 +715,19 @@ public class Values {
         return DateTimeValue.of(DateValue.from((Date) object)).toString();
       }
       return object;
-    }
-    else if (valueType == ValueType.TIME) {
+    } else if (valueType == ValueType.TIME) {
       if (clazz == String.class) {
         return TimeValue.from((Time) object).toString();
       } else {
         return TimeValue.from((Time) object);
       }
-    }
-    else if (valueType == ValueType.DATE_TIME) {
+    } else if (valueType == ValueType.DATE_TIME) {
       if (clazz == String.class) {
         return DateTimeValue.from((Timestamp) object).toString();
       } else {
         return DateTimeValue.from((Timestamp) object);
       }
-    }
-    else if (valueType == ValueType.NUMBER || valueType == ValueType.UUID) {
+    } else if (valueType == ValueType.NUMBER || valueType == ValueType.UUID) {
       if (clazz == String.class) {
         return object.toString();
       } else {
@@ -748,8 +740,8 @@ public class Values {
   /**
    * Returns if object is close to the {@code BigInteger} in parameter with the tolerance in parameter.
    *
-   * @param object The object.
-   * @param expected The {@code BigInteger} to compare.
+   * @param object    The object.
+   * @param expected  The {@code BigInteger} to compare.
    * @param tolerance The tolerance of the closeness.
    * @return {@code true} if the value is close to the {@code BigInteger} parameter, {@code false} otherwise.
    */
@@ -775,8 +767,8 @@ public class Values {
   /**
    * Returns if object is close to the {@code BigDecimal} in parameter with the tolerance in parameter.
    *
-   * @param object The object.
-   * @param expected The {@code BigDecimal} to compare.
+   * @param object    The object.
+   * @param expected  The {@code BigDecimal} to compare.
    * @param tolerance The tolerance of the closeness.
    * @return {@code true} if the value is close to the {@code BigDecimal} parameter, {@code false} otherwise.
    */
@@ -802,8 +794,8 @@ public class Values {
   /**
    * Returns if nb is close to the {@code Number} in parameter with the tolerance in parameter.
    *
-   * @param nb The {@code Float}.
-   * @param expected The {@code Number} to compare.
+   * @param nb        The {@code Float}.
+   * @param expected  The {@code Number} to compare.
    * @param tolerance The tolerance of the closeness.
    * @return {@code true} if the value is close to the {@code Number} parameter, {@code false} otherwise.
    */
@@ -816,8 +808,8 @@ public class Values {
   /**
    * Returns if nb is close to the {@code Number} in parameter with the tolerance in parameter.
    *
-   * @param nb The {@code Double}.
-   * @param expected The {@code Number} to compare.
+   * @param nb        The {@code Double}.
+   * @param expected  The {@code Number} to compare.
    * @param tolerance The tolerance of the closeness.
    * @return {@code true} if the value is close to the {@code Number} parameter, {@code false} otherwise.
    */
@@ -830,8 +822,8 @@ public class Values {
   /**
    * Returns if nb is close to the {@code Number} in parameter with the tolerance in parameter.
    *
-   * @param nb The {@code BigInteger}.
-   * @param expected The {@code Number} to compare.
+   * @param nb        The {@code BigInteger}.
+   * @param expected  The {@code Number} to compare.
    * @param tolerance The tolerance of the closeness.
    * @return {@code true} if the value is close to the {@code Number} parameter, {@code false} otherwise.
    */
@@ -846,8 +838,8 @@ public class Values {
   /**
    * Returns if nb is close to the {@code Number} in parameter with the tolerance in parameter.
    *
-   * @param nb The {@code BigDecimal}.
-   * @param expected The {@code Number} to compare.
+   * @param nb        The {@code BigDecimal}.
+   * @param expected  The {@code Number} to compare.
    * @param tolerance The tolerance of the closeness.
    * @return {@code true} if the value is close to the {@code Number} parameter, {@code false} otherwise.
    */
@@ -881,63 +873,63 @@ public class Values {
   /**
    * Returns if nb is close to the {@code Float} in parameter with the tolerance in parameter.
    *
-   * @param nb The {@code Long}.
-   * @param expected The {@code Float} to compare.
+   * @param nb        The {@code Long}.
+   * @param expected  The {@code Float} to compare.
    * @param tolerance The tolerance of the closeness.
    * @return {@code true} if the value is close to the {@code Float} parameter, {@code false} otherwise.
    */
   private static boolean isLongCloseToFloat(Long nb, Float expected, Number tolerance) {
     if (tolerance instanceof Float) {
       return nb >= expected - tolerance.floatValue() &&
-             nb <= expected + tolerance.floatValue();
+        nb <= expected + tolerance.floatValue();
     } else if (tolerance instanceof Double) {
       return nb >= expected - tolerance.doubleValue() &&
-             nb <= expected + tolerance.doubleValue();
+        nb <= expected + tolerance.doubleValue();
     } else {
       return nb >= expected - tolerance.longValue() &&
-             nb <= expected + tolerance.longValue();
+        nb <= expected + tolerance.longValue();
     }
   }
 
   /**
    * Returns if nb is close to the {@code Double} in parameter with the tolerance in parameter.
    *
-   * @param nb The {@code Long}.
-   * @param expected The {@code Double} to compare.
+   * @param nb        The {@code Long}.
+   * @param expected  The {@code Double} to compare.
    * @param tolerance The tolerance of the closeness.
    * @return {@code true} if the value is close to the {@code Double} parameter, {@code false} otherwise.
    */
   private static boolean isLongCloseToDouble(Long nb, Double expected, Number tolerance) {
     if (tolerance instanceof Float) {
       return nb >= expected - tolerance.floatValue() &&
-             nb <= expected + tolerance.floatValue();
+        nb <= expected + tolerance.floatValue();
     } else if (tolerance instanceof Double) {
       return nb >= expected - tolerance.doubleValue() &&
-             nb <= expected + tolerance.doubleValue();
+        nb <= expected + tolerance.doubleValue();
     } else {
       return nb >= expected - tolerance.longValue() &&
-             nb <= expected + tolerance.longValue();
+        nb <= expected + tolerance.longValue();
     }
   }
 
   /**
    * Returns if nb is close to the {@code Number} in parameter with the tolerance in parameter.
    *
-   * @param nb The {@code Long}.
-   * @param expected The {@code Number} to compare.
+   * @param nb        The {@code Long}.
+   * @param expected  The {@code Number} to compare.
    * @param tolerance The tolerance of the closeness.
    * @return {@code true} if the value is close to the {@code Number} parameter, {@code false} otherwise.
    */
   private static boolean isLongCloseToNumber(Long nb, Number expected, Number tolerance) {
     if (tolerance instanceof Float) {
       return nb >= expected.longValue() - tolerance.floatValue() &&
-             nb <= expected.longValue() + tolerance.floatValue();
+        nb <= expected.longValue() + tolerance.floatValue();
     } else if (tolerance instanceof Double) {
       return nb >= expected.longValue() - tolerance.doubleValue() &&
-             nb <= expected.longValue() + tolerance.doubleValue();
+        nb <= expected.longValue() + tolerance.doubleValue();
     } else {
       return nb >= expected.longValue() - tolerance.longValue() &&
-             nb <= expected.longValue() + tolerance.longValue();
+        nb <= expected.longValue() + tolerance.longValue();
     }
   }
 

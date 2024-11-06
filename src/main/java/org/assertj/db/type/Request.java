@@ -12,13 +12,17 @@
  */
 package org.assertj.db.type;
 
-import org.assertj.db.type.lettercase.LetterCase;
-
-import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.sql.DataSource;
+
+import org.assertj.db.type.lettercase.LetterCase;
 
 /**
  * A request in the database to get values.
@@ -35,29 +39,28 @@ import java.util.List;
  * This {@link Request} point to a request without parameter in a H2 database in memory like indicated in the
  * {@link Source}.
  * </p>
- * 
+ *
  * <pre><code class='java'>
  * Source source = new Source(&quot;jdbc:h2:mem:test&quot;, &quot;sa&quot;, &quot;&quot;);
  * Request request = new Request(source, &quot;select title from movie;&quot;);
  * </code></pre>
- * 
+ *
  * </li>
  * <li>
  * <p>
  * Below the {@link Request} point to a request with {@code 2000} in parameter.<br>
  * The {@link Request} use a {@code DataSource} instead of a {@link Source} like above.
  * </p>
- * 
+ *
  * <pre><code class='java'>
  * DataSource dataSource = ...;
  * Request request = new Request(dataSource, "select title from movie where year &gt; ?;", 2000);
  * </code></pre>
- * 
+ *
  * </li>
  * </ul>
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class Request extends AbstractDbData<Request> {
 
@@ -79,9 +82,9 @@ public class Request extends AbstractDbData<Request> {
 
   /**
    * Constructor with a connection.
-   * 
-   * @param source Source to connect to the database.
-   * @param request SQL Request to get the values.
+   *
+   * @param source     Source to connect to the database.
+   * @param request    SQL Request to get the values.
    * @param parameters Parameters of the SQL request.
    */
   public Request(Source source, String request, Object... parameters) {
@@ -92,9 +95,9 @@ public class Request extends AbstractDbData<Request> {
 
   /**
    * Constructor with a data source.
-   * 
+   *
    * @param dataSource Data source.
-   * @param request SQL Request to get the values.
+   * @param request    SQL Request to get the values.
    * @param parameters Parameters of the SQL request.
    */
   public Request(DataSource dataSource, String request, Object... parameters) {
@@ -105,7 +108,7 @@ public class Request extends AbstractDbData<Request> {
 
   /**
    * Returns the SQL request.
-   * 
+   *
    * @return The SQL request.
    */
   public String getRequest() {
@@ -114,7 +117,7 @@ public class Request extends AbstractDbData<Request> {
 
   /**
    * Sets the SQL request.
-   * 
+   *
    * @param request The SQL request.
    * @return The SQL request.
    * @throws NullPointerException If the {@link #request} field is {@code null}.
@@ -130,7 +133,7 @@ public class Request extends AbstractDbData<Request> {
 
   /**
    * The parameters of the SQL request.
-   * 
+   *
    * @return The SQL request.
    */
   public Object[] getParameters() {
@@ -142,7 +145,7 @@ public class Request extends AbstractDbData<Request> {
 
   /**
    * Sets the parameters of the SQL request.
-   * 
+   *
    * @param parameters The parameters of the SQL request.
    * @return The parameters of the SQL request.
    */
@@ -153,7 +156,7 @@ public class Request extends AbstractDbData<Request> {
 
   /**
    * Sets the primary keys name.
-   * 
+   *
    * @param pksName The primary keys name.
    * @return {@code this} instance.
    */
@@ -169,7 +172,7 @@ public class Request extends AbstractDbData<Request> {
    * This method use the {@link ResultSetMetaData} from the <code>resultSet</code> parameter to list the name of the
    * columns.
    * </p>
-   * 
+   *
    * @param resultSet The {@code ResultSet}.
    * @throws SQLException A SQL Exception
    */
@@ -187,11 +190,11 @@ public class Request extends AbstractDbData<Request> {
 
   /**
    * Specific implementation of the loading for a {@code Request}.
-   * 
-   * @see AbstractDbData#loadImpl(Connection)
+   *
    * @param connection {@link Connection} to the database provided by {@link AbstractDbData#load()} private method.
    * @throws NullPointerException If the {@link #request} field is {@code null}.
-   * @throws SQLException SQL Exception.
+   * @throws SQLException         SQL Exception.
+   * @see AbstractDbData#loadImpl(Connection)
    */
   @Override
   protected void loadImpl(Connection connection) throws SQLException {

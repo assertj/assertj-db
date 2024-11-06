@@ -12,6 +12,15 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.Condition;
 import org.assertj.core.api.HamcrestCondition;
@@ -23,21 +32,11 @@ import org.assertj.db.type.Value;
 import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertionsOnRowCondition} class :
  * {@link AssertionsOnRowCondition#hasValuesSatisfying(org.assertj.db.api.AbstractAssert, WritableAssertionInfo, List, Object...)} method.
  *
  * @author Julien Roy
- *
  */
 public class AssertionsOnRowCondition_HasValues_Satisfying_Test extends AbstractTest {
 
@@ -50,19 +49,19 @@ public class AssertionsOnRowCondition_HasValues_Satisfying_Test extends Abstract
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     List<Value> list = Arrays.asList(getValue(null, 1),
-                                     getValue(null, "Weaver"),
-                                     getValue(null, "Sigourney"),
-                                     getValue(null, Date.valueOf("1949-10-08")),
-                                     getValue(null, new Locale("fr")));
+      getValue(null, "Weaver"),
+      getValue(null, "Sigourney"),
+      getValue(null, Date.valueOf("1949-10-08")),
+      getValue(null, new Locale("fr")));
 
     TableAssert tableAssert2 = AssertionsOnRowCondition
-        .hasValuesSatisfying(tableAssert, info, list,
-                             1,
-                             new Condition<String>(v -> v.equals("Weaver"), "isWeaver"),
-                             new HamcrestCondition<>(CoreMatchers.is("Sigourney")),
-                             "1949-10-08",
-                             Locale.FRENCH
-        );
+      .hasValuesSatisfying(tableAssert, info, list,
+        1,
+        new Condition<String>(v -> v.equals("Weaver"), "isWeaver"),
+        new HamcrestCondition<>(CoreMatchers.is("Sigourney")),
+        "1949-10-08",
+        Locale.FRENCH
+      );
 
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
@@ -77,22 +76,22 @@ public class AssertionsOnRowCondition_HasValues_Satisfying_Test extends Abstract
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, 1),
-                                                     getValue(null, "Weaver"),
-                                                     getValue(null, "Sigourney"),
-                                                     getValue(null, Date.valueOf("1949-10-08"))));
+      getValue(null, "Weaver"),
+      getValue(null, "Sigourney"),
+      getValue(null, Date.valueOf("1949-10-08"))));
     try {
       AssertionsOnRowCondition.hasValuesSatisfying(tableAssert, info, list, 1,
-                                                   new Condition<String>(v -> v.equals("Weaverr"), "isWeaverr"),
-                                                   "Sigourney",
-                                                   "1949-10-08"
+        new Condition<String>(v -> v.equals("Weaverr"), "isWeaverr"),
+        "Sigourney",
+        "1949-10-08"
       );
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at index 1:%n"
-                                                                    + "  \"Weaver\"%n"
-                                                                    + "to satisfy: %n"
-                                                                    + "  isWeaverr"));
+        + "Expecting that the value at index 1:%n"
+        + "  \"Weaver\"%n"
+        + "to satisfy: %n"
+        + "  isWeaverr"));
     }
   }
 
@@ -106,18 +105,18 @@ public class AssertionsOnRowCondition_HasValues_Satisfying_Test extends Abstract
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, 1),
-                                                     getValue(null, "Weaver"),
-                                                     getValue(null, "Sigourney"),
-                                                     getValue(null, Date.valueOf("1949-10-08"))));
+      getValue(null, "Weaver"),
+      getValue(null, "Sigourney"),
+      getValue(null, Date.valueOf("1949-10-08"))));
     try {
       AssertionsOnRowCondition.hasValuesSatisfying(tableAssert, info, list, 1, "Weaverr", "Sigourney", "1949-10-08");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at index 1:%n"
-                                                                    + "  <\"Weaver\">%n"
-                                                                    + "to be equal to: %n"
-                                                                    + "  <\"Weaverr\">"));
+        + "Expecting that the value at index 1:%n"
+        + "  <\"Weaver\">%n"
+        + "to be equal to: %n"
+        + "  <\"Weaverr\">"));
     }
   }
 
@@ -131,38 +130,38 @@ public class AssertionsOnRowCondition_HasValues_Satisfying_Test extends Abstract
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, 1),
-                                                     getValue(null, "Weaver"),
-                                                     getValue(null, null),
-                                                     getValue(null, Date.valueOf("1949-10-08"))));
+      getValue(null, "Weaver"),
+      getValue(null, null),
+      getValue(null, Date.valueOf("1949-10-08"))));
     try {
       AssertionsOnRowCondition.hasValuesSatisfying(tableAssert, info, list, 1, true, "Sigourney", "1949-10-08");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  \"TEXT\" : <\"Weaver\">%n"
-                                                                    + "to be compatible with %n"
-                                                                    + "  java.lang.Boolean : <true>"));
+        + "Expecting:%n"
+        + "  \"TEXT\" : <\"Weaver\">%n"
+        + "to be compatible with %n"
+        + "  java.lang.Boolean : <true>"));
     }
     try {
       AssertionsOnRowCondition.hasValuesSatisfying(tableAssert, info, list, 1, "Weaver", "Sigourney", "1949-10-08");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  \"NOT_IDENTIFIED\" : <null>%n"
-                                                                    + "to be compatible with %n"
-                                                                    + "  java.lang.String : <\"Sigourney\">"));
+        + "Expecting:%n"
+        + "  \"NOT_IDENTIFIED\" : <null>%n"
+        + "to be compatible with %n"
+        + "  java.lang.String : <\"Sigourney\">"));
     }
     try {
       AssertionsOnRowCondition.hasValuesSatisfying(tableAssert, info, list, 1, null, "Sigourney", "1949-10-08");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting:%n"
-                                                                    + "  \"TEXT\" : <\"Weaver\">%n"
-                                                                    + "to be compatible with %n"
-                                                                    + "  <null>"));
+        + "Expecting:%n"
+        + "  \"TEXT\" : <\"Weaver\">%n"
+        + "to be compatible with %n"
+        + "  <null>"));
     }
   }
 
@@ -175,15 +174,15 @@ public class AssertionsOnRowCondition_HasValues_Satisfying_Test extends Abstract
     info.description("description");
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, 1), getValue(null, new byte[] { 0, 1 }),
-                                                     getValue(null, "Sigourney"),
-                                                     getValue(null, Date.valueOf("1949-10-08"))));
+    List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, 1), getValue(null, new byte[]{0, 1}),
+      getValue(null, "Sigourney"),
+      getValue(null, Date.valueOf("1949-10-08"))));
     try {
-      AssertionsOnRowCondition.hasValuesSatisfying(tableAssert, info, list, 1, new byte[] { 2, 3 }, "Sigourney", "1949-10-08");
+      AssertionsOnRowCondition.hasValuesSatisfying(tableAssert, info, list, 1, new byte[]{2, 3}, "Sigourney", "1949-10-08");
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at index 1 to be equal to the expected value but was not equal"));
+        + "Expecting that the value at index 1 to be equal to the expected value but was not equal"));
     }
   }
 }

@@ -28,16 +28,16 @@ import org.assertj.db.navigation.origin.OriginWithColumnsAndRowsFromChange;
  * @author Régis Pouiller
  */
 public abstract class AbstractAssertWithOriginWithColumnsAndRowsFromChange<E extends AbstractAssertWithOriginWithColumnsAndRowsFromChange<E, O>, O extends OriginWithColumnsAndRowsFromChange<ChangesAssert, ChangeAssert, ChangeColumnAssert, ChangeRowAssert>>
-        extends AbstractAssertWithOriginWithChanges<E, O>
-        implements ToColumn<ChangeColumnAssert>,
-                   ToColumnFromChange<ChangeColumnAssert>,
-                   ToRowFromChange<ChangeRowAssert> {
+  extends AbstractAssertWithOriginWithChanges<E, O>
+  implements ToColumn<ChangeColumnAssert>,
+  ToColumnFromChange<ChangeColumnAssert>,
+  ToRowFromChange<ChangeRowAssert> {
 
   /**
    * Constructor.
    *
    * @param selfType Type of this assertion class : a sub-class of {@code AbstractAssertWithOriginWithColumnsAndRowsFromChange}.
-   * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
+   * @param origin   The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    */
   AbstractAssertWithOriginWithColumnsAndRowsFromChange(Class<E> selfType, O origin) {
     super(selfType, origin);
@@ -59,37 +59,49 @@ public abstract class AbstractAssertWithOriginWithColumnsAndRowsFromChange<E ext
     return origin.rowAtEndPoint();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeColumnAssert column() {
     return origin.column();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeColumnAssert column(int index) {
     return origin.column(index);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeColumnAssert column(String columnName) {
     return origin.column(columnName);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeColumnAssert columnAmongTheModifiedOnes() {
     return origin.columnAmongTheModifiedOnes();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeColumnAssert columnAmongTheModifiedOnes(int index) {
     return origin.columnAmongTheModifiedOnes(index);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeColumnAssert columnAmongTheModifiedOnes(String columnName) {
     return origin.columnAmongTheModifiedOnes(columnName);

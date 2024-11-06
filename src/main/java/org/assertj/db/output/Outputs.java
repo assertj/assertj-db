@@ -12,11 +12,11 @@
  */
 package org.assertj.db.output;
 
+import static org.assertj.db.util.Descriptions.getDescription;
+
 import org.assertj.db.type.Changes;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
-
-import static org.assertj.db.util.Descriptions.getDescription;
 
 /**
  * Entry point of all the outputs.

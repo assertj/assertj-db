@@ -31,7 +31,6 @@ import static org.junit.Assert.fail;
  * {@link AssertionsOnRowOfChangeExistence#exists(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Row)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnRowOfChangeExistence_Exists_Test extends AbstractTest {
 
@@ -43,9 +42,9 @@ public class AssertionsOnRowOfChangeExistence_Exists_Test extends AbstractTest {
     WritableAssertionInfo info = new WritableAssertionInfo();
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
-    Row row = getRow(null,Arrays.asList("ID", "NAME", "FIRSTNAME", "BIRTH"),
-                          Arrays.asList(getValue(null, 1), getValue(null, "Weaver"), getValue(null, "Sigourney"),
-                                        getValue(null, Date.valueOf("1949-10-08"))));
+    Row row = getRow(null, Arrays.asList("ID", "NAME", "FIRSTNAME", "BIRTH"),
+      Arrays.asList(getValue(null, 1), getValue(null, "Weaver"), getValue(null, "Sigourney"),
+        getValue(null, Date.valueOf("1949-10-08"))));
     TableAssert tableAssert2 = AssertionsOnRowOfChangeExistence.exists(tableAssert, info, row);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
@@ -64,7 +63,7 @@ public class AssertionsOnRowOfChangeExistence_Exists_Test extends AbstractTest {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting exist but do not exist"));
+        + "Expecting exist but do not exist"));
     }
   }
 }

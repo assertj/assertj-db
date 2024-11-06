@@ -12,6 +12,14 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -21,20 +29,11 @@ import org.assertj.db.type.Table;
 import org.assertj.db.type.Value;
 import org.junit.Test;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link org.assertj.db.api.assertions.impl.AssertionsOnColumnContent} class :
  * {@link org.assertj.db.api.assertions.impl.AssertionsOnColumnContent#containsValues(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, java.util.List, org.assertj.db.type.DateValue...)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnColumnContent_ContainsValues_DateValue_Test extends AbstractTest {
 
@@ -47,17 +46,17 @@ public class AssertionsOnColumnContent_ContainsValues_DateValue_Test extends Abs
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, Date.valueOf("2007-12-23")),
-                                                     getValue(null, Date.valueOf("2002-07-25")),
-                                                     getValue(null, null)));
+      getValue(null, Date.valueOf("2002-07-25")),
+      getValue(null, null)));
     TableAssert tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list,
-                                                                        DateValue.of(2007, 12, 23),
-                                                                        DateValue.of(2002, 7, 25),
-                                                                        null);
+      DateValue.of(2007, 12, 23),
+      DateValue.of(2002, 7, 25),
+      null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnColumnContent.containsValues(tableAssert, info, list,
-                                                            DateValue.of(2002, 7, 25),
-                                                            DateValue.of(2007, 12, 23),
-                                                            null);
+      DateValue.of(2002, 7, 25),
+      DateValue.of(2007, 12, 23),
+      null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -71,23 +70,23 @@ public class AssertionsOnColumnContent_ContainsValues_DateValue_Test extends Abs
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, Date.valueOf("2007-12-23")),
-                                                     getValue(null, Date.valueOf("2002-07-25")),
-                                                     getValue(null, null)));
+      getValue(null, Date.valueOf("2002-07-25")),
+      getValue(null, null)));
     try {
       AssertionsOnColumnContent.containsValues(tableAssert, info, list,
-                                               DateValue.of(2007, 12, 23),
-                                               DateValue.of(2007, 12, 23),
-                                               null);
+        DateValue.of(2007, 12, 23),
+        DateValue.of(2007, 12, 23),
+        null);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n" +
-                                                                    "Expecting:%n" +
-                                                                    "  <[2007-12-23T00:00:00.000 (java.sql.Date),%n" +
-                                                                    "    2002-07-25T00:00:00.000 (java.sql.Date),%n" +
-                                                                    "    null]>%n" +
-                                                                    "to contain: %n" +
-                                                                    "  <[2007-12-23, 2007-12-23, null]>%n" +
-                                                                    " (parameter <2007-12-23> at index 1 is not found)"));
+        "Expecting:%n" +
+        "  <[2007-12-23T00:00:00.000 (java.sql.Date),%n" +
+        "    2002-07-25T00:00:00.000 (java.sql.Date),%n" +
+        "    null]>%n" +
+        "to contain: %n" +
+        "  <[2007-12-23, 2007-12-23, null]>%n" +
+        " (parameter <2007-12-23> at index 1 is not found)"));
     }
   }
 
@@ -101,20 +100,20 @@ public class AssertionsOnColumnContent_ContainsValues_DateValue_Test extends Abs
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "other"),
-                                                     getValue(null, Date.valueOf("2002-07-25"))));
+      getValue(null, Date.valueOf("2002-07-25"))));
     try {
       AssertionsOnColumnContent.containsValues(tableAssert, info, list,
-                                               DateValue.of(2007, 12, 23),
-                                               DateValue.of(2007, 12, 23));
+        DateValue.of(2007, 12, 23),
+        DateValue.of(2007, 12, 23));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at index 0:%n"
-                                                                    + "  <\"other\">%n"
-                                                                    + "to be of type%n"
-                                                                    + "  <[DATE, DATE_TIME, NOT_IDENTIFIED]>%n"
-                                                                    + "but was of type%n"
-                                                                    + "  <TEXT>"));
+        + "Expecting that the value at index 0:%n"
+        + "  <\"other\">%n"
+        + "to be of type%n"
+        + "  <[DATE, DATE_TIME, NOT_IDENTIFIED]>%n"
+        + "but was of type%n"
+        + "  <TEXT>"));
     }
   }
 
@@ -128,19 +127,19 @@ public class AssertionsOnColumnContent_ContainsValues_DateValue_Test extends Abs
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, Date.valueOf("2007-12-23")),
-                                                     getValue(null, Date.valueOf("2002-07-25"))));
+      getValue(null, Date.valueOf("2002-07-25"))));
     try {
       AssertionsOnColumnContent.containsValues(tableAssert, info, list,
-                                               DateValue.of(2007, 12, 23),
-                                               DateValue.of(2007, 12, 23),
-                                               DateValue.of(2007, 12, 23));
+        DateValue.of(2007, 12, 23),
+        DateValue.of(2007, 12, 23),
+        DateValue.of(2007, 12, 23));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting size (number of rows) to be equal to :%n"
-                                                                    + "   <3>%n"
-                                                                    + "but was:%n"
-                                                                    + "   <2>"));
+        + "Expecting size (number of rows) to be equal to :%n"
+        + "   <3>%n"
+        + "but was:%n"
+        + "   <2>"));
     }
   }
 }

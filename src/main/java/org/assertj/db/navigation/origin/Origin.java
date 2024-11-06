@@ -14,7 +14,7 @@ package org.assertj.db.navigation.origin;
 
 /**
  * Defines a class which is the origin of another.
- * 
+ *
  * @author Régis Pouiller
  */
 public interface Origin {

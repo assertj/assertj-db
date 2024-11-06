@@ -19,28 +19,27 @@ import org.assertj.core.error.ErrorMessageFactory;
  * Creates an error message indicating that an assertion that verifies the number of modified columns.
  *
  * @author Régis Pouiller
- *
  */
 public class ShouldHaveNumberOfModificationsLessOrEqual extends BasicErrorMessageFactory {
-
-  /**
-   * Creates a new <code>{@link ShouldHaveNumberOfModificationsLessOrEqual}</code>.
-   *
-   * @param numberOfModifications The number of modifications.
-   * @param expectedNumber The expected number of modifications.
-   * @return the created {@code ErrorMessageFactory}.
-   */
-  public static ErrorMessageFactory shouldHaveNumberOfModificationsLessOrEqual(int numberOfModifications, int expectedNumber) {
-    return new ShouldHaveNumberOfModificationsLessOrEqual(numberOfModifications, expectedNumber);
-  }
 
   /**
    * Constructor.
    *
    * @param numberOfModifications The number of modifications.
-   * @param expectedNumber The expected number of modifications.
+   * @param expectedNumber        The expected number of modifications.
    */
   private ShouldHaveNumberOfModificationsLessOrEqual(int numberOfModifications, int expectedNumber) {
     super("%nExpecting :%n  number of modifications is less than or equal to %s%nbut was:%n  %s", expectedNumber, numberOfModifications);
+  }
+
+  /**
+   * Creates a new <code>{@link ShouldHaveNumberOfModificationsLessOrEqual}</code>.
+   *
+   * @param numberOfModifications The number of modifications.
+   * @param expectedNumber        The expected number of modifications.
+   * @return the created {@code ErrorMessageFactory}.
+   */
+  public static ErrorMessageFactory shouldHaveNumberOfModificationsLessOrEqual(int numberOfModifications, int expectedNumber) {
+    return new ShouldHaveNumberOfModificationsLessOrEqual(numberOfModifications, expectedNumber);
   }
 }

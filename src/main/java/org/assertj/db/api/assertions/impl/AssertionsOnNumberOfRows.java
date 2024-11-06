@@ -12,15 +12,15 @@
  */
 package org.assertj.db.api.assertions.impl;
 
-import org.assertj.core.api.WritableAssertionInfo;
-import org.assertj.core.internal.Failures;
-import org.assertj.db.api.AbstractAssert;
-
 import static org.assertj.db.error.ShouldHaveRowsSize.shouldHaveRowsSize;
 import static org.assertj.db.error.ShouldHaveRowsSizeGreater.shouldHaveRowsSizeGreater;
 import static org.assertj.db.error.ShouldHaveRowsSizeGreaterOrEqual.shouldHaveRowsSizeGreaterOrEqual;
 import static org.assertj.db.error.ShouldHaveRowsSizeLess.shouldHaveRowsSizeLess;
 import static org.assertj.db.error.ShouldHaveRowsSizeLessOrEqual.shouldHaveRowsSizeLessOrEqual;
+
+import org.assertj.core.api.WritableAssertionInfo;
+import org.assertj.core.internal.Failures;
+import org.assertj.db.api.AbstractAssert;
 
 /**
  * Implements the assertion method on the number of rows.
@@ -54,7 +54,7 @@ public class AssertionsOnNumberOfRows {
    * @throws AssertionError If the number of rows is different to the number in parameter.
    */
   public static <A extends AbstractAssert<?>> A hasNumberOfRows(A assertion, WritableAssertionInfo info, int size,
-                                                             int expected) {
+                                                                int expected) {
     if (size != expected) {
       throw failures.failure(info, shouldHaveRowsSize(size, expected));
     }

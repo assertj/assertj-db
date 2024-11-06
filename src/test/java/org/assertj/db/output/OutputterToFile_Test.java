@@ -12,14 +12,14 @@
  */
 package org.assertj.db.output;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 
 /**
  * Test the output to File.
@@ -40,13 +40,13 @@ public class OutputterToFile_Test extends AbstractTest {
       byte[] bytes = new byte[2048];
       int nb = inputStream.read(bytes);
       Assertions.assertThat(new String(bytes, 0, nb))
-                .isEqualTo(String.format("[Value at index 0 (column name : ID) of Row at index 0 of ACTOR table]%n"
-                                         + "|----------|%n"
-                                         + "| ID       |%n"
-                                         + "| (NUMBER) |%n"
-                                         + "|----------|%n"
-                                         + "| 1        |%n"
-                                         + "|----------|%n"));
+        .isEqualTo(String.format("[Value at index 0 (column name : ID) of Row at index 0 of ACTOR table]%n"
+          + "|----------|%n"
+          + "| ID       |%n"
+          + "| (NUMBER) |%n"
+          + "|----------|%n"
+          + "| 1        |%n"
+          + "|----------|%n"));
     }
   }
 }

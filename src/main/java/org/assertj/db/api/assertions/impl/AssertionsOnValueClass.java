@@ -12,13 +12,13 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.error.ShouldBeValueClass.shouldBeValueClass;
+
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.core.internal.Failures;
 import org.assertj.db.api.AbstractAssert;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.Value;
-
-import static org.assertj.db.error.ShouldBeValueClass.shouldBeValueClass;
 
 /**
  * Implements the assertion method on the class of a value.
@@ -55,7 +55,7 @@ public class AssertionsOnValueClass {
    * @since 1.1.0
    */
   public static <A extends AbstractAssert<?>> A isOfClass(A assertion, WritableAssertionInfo info, Value value,
-                                                       Class<?> classOfValue) {
+                                                          Class<?> classOfValue) {
 
     if (value.getValue() == null) {
       throw failures.failure(info, shouldBeValueClass(value, classOfValue));

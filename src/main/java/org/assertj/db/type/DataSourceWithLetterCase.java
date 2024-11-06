@@ -12,15 +12,15 @@
  */
 package org.assertj.db.type;
 
-import org.assertj.db.type.lettercase.LetterCase;
-import org.assertj.db.type.lettercase.WithLetterCase;
-
-import javax.sql.DataSource;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
 import java.util.logging.Logger;
+import javax.sql.DataSource;
+
+import org.assertj.db.type.lettercase.LetterCase;
+import org.assertj.db.type.lettercase.WithLetterCase;
 
 /**
  * A data source to connect to the database with letter case.
@@ -49,9 +49,10 @@ public class DataSourceWithLetterCase implements DataSource, WithLetterCase {
 
   /**
    * Constructor.
-   * @param dataSource The data source.
-   * @param tableLetterCase Letter case of the tables.
-   * @param columnLetterCase Letter case of the columns.
+   *
+   * @param dataSource           The data source.
+   * @param tableLetterCase      Letter case of the tables.
+   * @param columnLetterCase     Letter case of the columns.
    * @param primaryKeyLetterCase Letter case of the primary keys.
    */
   public DataSourceWithLetterCase(DataSource dataSource, LetterCase tableLetterCase,
@@ -123,16 +124,16 @@ public class DataSourceWithLetterCase implements DataSource, WithLetterCase {
    * {@inheritDoc}
    */
   @Override
-  public void setLoginTimeout(int seconds) throws SQLException {
-    dataSource.setLoginTimeout(seconds);
+  public int getLoginTimeout() throws SQLException {
+    return dataSource.getLoginTimeout();
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public int getLoginTimeout() throws SQLException {
-    return dataSource.getLoginTimeout();
+  public void setLoginTimeout(int seconds) throws SQLException {
+    dataSource.setLoginTimeout(seconds);
   }
 
   /**

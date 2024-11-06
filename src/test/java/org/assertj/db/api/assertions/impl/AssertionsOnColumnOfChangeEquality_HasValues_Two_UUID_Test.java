@@ -12,6 +12,11 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.util.UUID;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -19,17 +24,11 @@ import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import java.util.UUID;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertionsOnColumnOfChangeEquality} class :
  * {@link AssertionsOnColumnOfChangeEquality#hasValues(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, org.assertj.db.type.Value, java.util.UUID, java.util.UUID)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnColumnOfChangeEquality_HasValues_Two_UUID_Test extends AbstractTest {
 
@@ -42,12 +41,12 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_UUID_Test extends 
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                                            getValue(null, UUID.fromString(
-                                                                                    "30B443AE-C0C9-4790-9BEC-CE1380808435")),
-                                                                            getValue(null, UUID.fromString(
-                                                                                    "0E2A1269-EFF0-4233-B87B-B53E8B6F164D")),
-                                                                            UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"),
-                                                                            UUID.fromString("0E2A1269-EFF0-4233-B87B-B53E8B6F164D"));
+      getValue(null, UUID.fromString(
+        "30B443AE-C0C9-4790-9BEC-CE1380808435")),
+      getValue(null, UUID.fromString(
+        "0E2A1269-EFF0-4233-B87B-B53E8B6F164D")),
+      UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"),
+      UUID.fromString("0E2A1269-EFF0-4233-B87B-B53E8B6F164D"));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -62,20 +61,20 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_UUID_Test extends 
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   getValue(null, UUID.fromString("0E2A1269-EFF0-4233-B87B-B53E8B6F164D")),
-                                                   getValue(null, UUID.fromString(
-                                                           "0E2A1269-EFF0-4233-B87B-B53E8B6F164D")),
-                                                   UUID.fromString(
-                                                           "30B443AE-C0C9-4790-9BEC-CE1380808435"),
-                                                   UUID.fromString(
-                                                           "0E2A1269-EFF0-4233-B87B-B53E8B6F164D"));
+        getValue(null, UUID.fromString("0E2A1269-EFF0-4233-B87B-B53E8B6F164D")),
+        getValue(null, UUID.fromString(
+          "0E2A1269-EFF0-4233-B87B-B53E8B6F164D")),
+        UUID.fromString(
+          "30B443AE-C0C9-4790-9BEC-CE1380808435"),
+        UUID.fromString(
+          "0E2A1269-EFF0-4233-B87B-B53E8B6F164D"));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that start point:%n"
-                                                                    + "  <0e2a1269-eff0-4233-b87b-b53e8b6f164d>%n"
-                                                                    + "to be equal to: %n"
-                                                                    + "  <30b443ae-c0c9-4790-9bec-ce1380808435>"));
+        + "Expecting that start point:%n"
+        + "  <0e2a1269-eff0-4233-b87b-b53e8b6f164d>%n"
+        + "to be equal to: %n"
+        + "  <30b443ae-c0c9-4790-9bec-ce1380808435>"));
     }
   }
 
@@ -90,20 +89,20 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_UUID_Test extends 
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")),
-                                                   getValue(null, UUID.fromString(
-                                                           "30B443AE-C0C9-4790-9BEC-CE1380808435")),
-                                                   UUID.fromString(
-                                                           "30B443AE-C0C9-4790-9BEC-CE1380808435"),
-                                                   UUID.fromString(
-                                                           "0E2A1269-EFF0-4233-B87B-B53E8B6F164D"));
+        getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")),
+        getValue(null, UUID.fromString(
+          "30B443AE-C0C9-4790-9BEC-CE1380808435")),
+        UUID.fromString(
+          "30B443AE-C0C9-4790-9BEC-CE1380808435"),
+        UUID.fromString(
+          "0E2A1269-EFF0-4233-B87B-B53E8B6F164D"));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that end point:%n"
-                                                                    + "  <30b443ae-c0c9-4790-9bec-ce1380808435>%n"
-                                                                    + "to be equal to: %n"
-                                                                    + "  <0e2a1269-eff0-4233-b87b-b53e8b6f164d>"));
+        + "Expecting that end point:%n"
+        + "  <30b443ae-c0c9-4790-9bec-ce1380808435>%n"
+        + "to be equal to: %n"
+        + "  <0e2a1269-eff0-4233-b87b-b53e8b6f164d>"));
     }
   }
 
@@ -118,22 +117,22 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_UUID_Test extends 
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
-                                                   getValue(null, "other"),
-                                                   getValue(null, UUID.fromString(
-                      "0E2A1269-EFF0-4233-B87B-B53E8B6F164D")),
-                                                   UUID.fromString(
-                                                           "30B443AE-C0C9-4790-9BEC-CE1380808435"),
-                                                   UUID.fromString(
-                                                           "0E2A1269-EFF0-4233-B87B-B53E8B6F164D"));
+        getValue(null, "other"),
+        getValue(null, UUID.fromString(
+          "0E2A1269-EFF0-4233-B87B-B53E8B6F164D")),
+        UUID.fromString(
+          "30B443AE-C0C9-4790-9BEC-CE1380808435"),
+        UUID.fromString(
+          "0E2A1269-EFF0-4233-B87B-B53E8B6F164D"));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting that the value at start point:%n"
-                                                                    + "  <\"other\">%n"
-                                                                    + "to be of type%n"
-                                                                    + "  <[UUID, NOT_IDENTIFIED]>%n"
-                                                                    + "but was of type%n"
-                                                                    + "  <TEXT>"));
+        + "Expecting that the value at start point:%n"
+        + "  <\"other\">%n"
+        + "to be of type%n"
+        + "  <[UUID, NOT_IDENTIFIED]>%n"
+        + "but was of type%n"
+        + "  <TEXT>"));
     }
   }
 }

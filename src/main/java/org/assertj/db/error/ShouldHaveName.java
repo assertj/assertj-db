@@ -19,28 +19,27 @@ import org.assertj.core.error.ErrorMessageFactory;
  * Creates an error message indicating that an assertion that verifies the name of the column.
  *
  * @author Régis Pouiller
- *
  */
 public class ShouldHaveName extends BasicErrorMessageFactory {
 
   /**
+   * Constructor.
+   *
+   * @param name         The name of the column.
+   * @param expectedName The expected name of the column.
+   */
+  private ShouldHaveName(String name, String expectedName) {
+    super("%nExpecting :%n  %s%nto be the name of the column but was:%n  %s", expectedName, name);
+  }
+
+  /**
    * Creates a new <code>{@link org.assertj.db.error.ShouldHaveName}</code>.
    *
-   * @param name The name of the column.
+   * @param name         The name of the column.
    * @param expectedName The expected name of the column.
    * @return the created {@code ErrorMessageFactory}.
    */
   public static ErrorMessageFactory shouldHaveName(String name, String expectedName) {
     return new ShouldHaveName(name, expectedName);
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param name The name of the column.
-   * @param expectedName The expected name of the column.
-   */
-  private ShouldHaveName(String name, String expectedName) {
-    super("%nExpecting :%n  %s%nto be the name of the column but was:%n  %s", expectedName, name);
   }
 }

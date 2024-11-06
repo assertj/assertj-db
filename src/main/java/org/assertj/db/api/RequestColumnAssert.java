@@ -17,16 +17,15 @@ import org.assertj.db.type.Request;
 
 /**
  * Assertion methods for a {@link Column} of a {@link Request}.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class RequestColumnAssert
-        extends AbstractColumnAssert<Request, RequestAssert, RequestColumnAssert, RequestColumnValueAssert, RequestRowAssert, RequestRowValueAssert> {
+  extends AbstractColumnAssert<Request, RequestAssert, RequestColumnAssert, RequestColumnValueAssert, RequestRowAssert, RequestRowValueAssert> {
 
   /**
    * Constructor.
-   * 
+   *
    * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
    * @param column The column on which do assertion.
    */
@@ -36,7 +35,7 @@ public class RequestColumnAssert
 
   /**
    * Returns to level of assertion methods on a {@link Request}.
-   * 
+   *
    * @return a object of assertion methods on a {@link Request}.
    */
   public RequestAssert returnToRequest() {

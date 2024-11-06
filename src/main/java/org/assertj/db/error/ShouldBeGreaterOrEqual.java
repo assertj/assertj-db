@@ -19,30 +19,29 @@ import org.assertj.db.type.Value;
 /**
  * Creates an error message indicating that an assertion that verifies that a value is greater than or equal to another
  * value.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class ShouldBeGreaterOrEqual extends BasicErrorMessageFactory {
 
   /**
+   * Constructor.
+   *
+   * @param actual   The actual value in the failed assertion.
+   * @param expected The expected value to compare to.
+   */
+  private ShouldBeGreaterOrEqual(Value actual, Object expected) {
+    super("%nExpecting:%n  <%s>%nto be greater than or equal to %n  <%s>", actual.getValue(), expected);
+  }
+
+  /**
    * Creates a new <code>{@link ShouldBeGreaterOrEqual}</code>.
-   * 
-   * @param actual The actual value in the failed assertion.
+   *
+   * @param actual   The actual value in the failed assertion.
    * @param expected The expected value to compare to.
    * @return the created {@code ErrorMessageFactory}.
    */
   public static ErrorMessageFactory shouldBeGreaterOrEqual(Value actual, Object expected) {
     return new ShouldBeGreaterOrEqual(actual, expected);
-  }
-
-  /**
-   * Constructor.
-   * 
-   * @param actual The actual value in the failed assertion.
-   * @param expected The expected value to compare to.
-   */
-  private ShouldBeGreaterOrEqual(Value actual, Object expected) {
-    super("%nExpecting:%n  <%s>%nto be greater than or equal to %n  <%s>", actual.getValue(), expected);
   }
 }

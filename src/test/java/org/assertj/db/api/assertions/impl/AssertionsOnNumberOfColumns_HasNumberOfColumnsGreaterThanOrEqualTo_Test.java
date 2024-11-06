@@ -12,21 +12,20 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertionsOnNumberOfColumns} class :
  * {@link AssertionsOnNumberOfColumns#hasNumberOfColumnsGreaterThanOrEqualTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, int, int)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnNumberOfColumns_HasNumberOfColumnsGreaterThanOrEqualTo_Test {
 
@@ -39,7 +38,7 @@ public class AssertionsOnNumberOfColumns_HasNumberOfColumnsGreaterThanOrEqualTo_
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnNumberOfColumns.hasNumberOfColumnsGreaterThanOrEqualTo(tableAssert, info, 3,
-                                                                                                  3);
+      3);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -57,10 +56,10 @@ public class AssertionsOnNumberOfColumns_HasNumberOfColumnsGreaterThanOrEqualTo_
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                                    + "Expecting size (number of columns) to be greater than or equal to :%n"
-                                                                    + "   <4>%n"
-                                                                    + "but was:%n"
-                                                                    + "   <3>"));
+        + "Expecting size (number of columns) to be greater than or equal to :%n"
+        + "   <4>%n"
+        + "but was:%n"
+        + "   <3>"));
     }
   }
 }

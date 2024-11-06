@@ -12,17 +12,10 @@
  */
 package org.assertj.db.database.hsqldb;
 
-import com.ninja_squad.dbsetup.DbSetup;
-import com.ninja_squad.dbsetup.DbSetupTracker;
-import com.ninja_squad.dbsetup.destination.DriverManagerDestination;
-import com.ninja_squad.dbsetup.operation.Operation;
-import org.assertj.db.database.AbstractDatabaseTest;
-import org.assertj.db.type.DataSourceWithLetterCase;
-import org.assertj.db.type.SourceWithLetterCase;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
+import static com.ninja_squad.dbsetup.Operations.deleteAllFrom;
+import static com.ninja_squad.dbsetup.Operations.insertInto;
+import static com.ninja_squad.dbsetup.Operations.sequenceOf;
 
-import javax.sql.DataSource;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.sql.Date;
@@ -30,17 +23,29 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Locale;
 import java.util.logging.Level;
+import javax.sql.DataSource;
 
-import static com.ninja_squad.dbsetup.Operations.*;
+import org.assertj.db.database.AbstractDatabaseTest;
+import org.assertj.db.type.DataSourceWithLetterCase;
+import org.assertj.db.type.SourceWithLetterCase;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+
+import com.ninja_squad.dbsetup.DbSetup;
+import com.ninja_squad.dbsetup.DbSetupTracker;
+import com.ninja_squad.dbsetup.destination.DriverManagerDestination;
+import com.ninja_squad.dbsetup.operation.Operation;
 
 /**
  * Parent for all the tests which are specific for HSQLDB database.
  *
  * @author Régis Pouiller
  */
-@ContextConfiguration(classes = { HsqldbConfiguration.class })
+@ContextConfiguration(classes = {HsqldbConfiguration.class})
 public abstract class AbstractHsqldbTest extends AbstractDatabaseTest {
 
+  private static final Operation DELETE_ALL = deleteAllFrom("teSt");
+  private static final DbSetupTracker DB_SETUP_TRACKER = new DbSetupTracker();
   private static byte[] BYTES;
 
   static {
@@ -59,31 +64,25 @@ public abstract class AbstractHsqldbTest extends AbstractDatabaseTest {
     }
   }
 
-  protected DataSourceWithLetterCase dataSourceUIUIUI;
-  protected DataSourceWithLetterCase dataSourceNSNSNS;
+  private static final Operation INSERT_TEST = insertInto("teSt")
+    .columns("Var1", "vAr2", "vaR3", "var4", "var5", "var6", "var7", "var8", "var9", "var10",
+      "var11", "var12", "var13", "var14", "var15", "var16", "var17", "var18", "var19", "var20",
+      "var21", "var22", "var23", "var24", "var25", "var26")
+    .values(1, 2, 3.3, 4.4, "5", "6", "7", "8", "9", Date.valueOf("2007-12-23"),
+      Time.valueOf("09:01:00"), Timestamp.valueOf("2007-12-23 09:01:00"),
+      Timestamp.valueOf("2007-12-23 09:01:00"), 10, 11, true, false, 12, 13, 14,
+      15, BYTES, BYTES, BYTES, Locale.FRENCH, Locale.FRENCH)
+    .build();
+  private static final Operation OPERATIONS = sequenceOf(DELETE_ALL, INSERT_TEST);
+  private static final DbSetup DB_SETUP = new DbSetup(new DriverManagerDestination("jdbc:hsqldb:mem:testHsqldb", "SA", ""),
+    OPERATIONS);
 
   protected final SourceWithLetterCase sourceUIUIUI = new SourceWithLetterCase("jdbc:hsqldb:mem:testHsqldb", "SA", "",
-                                                                               letterCaseUI,
-                                                                               letterCaseUI,
-                                                                               letterCaseUI);
-
-  private static final Operation DELETE_ALL = deleteAllFrom("teSt");
-
-  private static final Operation INSERT_TEST = insertInto("teSt")
-      .columns("Var1", "vAr2", "vaR3", "var4", "var5", "var6", "var7", "var8", "var9", "var10",
-               "var11", "var12", "var13", "var14", "var15", "var16", "var17", "var18", "var19", "var20",
-               "var21", "var22", "var23", "var24", "var25", "var26")
-      .values(1, 2, 3.3, 4.4, "5", "6", "7", "8", "9", Date.valueOf("2007-12-23"),
-              Time.valueOf("09:01:00"), Timestamp.valueOf("2007-12-23 09:01:00"),
-              Timestamp.valueOf("2007-12-23 09:01:00"), 10, 11, true, false, 12, 13, 14,
-              15, BYTES, BYTES, BYTES, Locale.FRENCH, Locale.FRENCH)
-      .build();
-
-  private static final Operation OPERATIONS = sequenceOf(DELETE_ALL, INSERT_TEST);
-
-  private static final DbSetup DB_SETUP = new DbSetup(new DriverManagerDestination("jdbc:hsqldb:mem:testHsqldb", "SA", ""),
-                                                      OPERATIONS);
-  private static final DbSetupTracker DB_SETUP_TRACKER = new DbSetupTracker();
+    letterCaseUI,
+    letterCaseUI,
+    letterCaseUI);
+  protected DataSourceWithLetterCase dataSourceUIUIUI;
+  protected DataSourceWithLetterCase dataSourceNSNSNS;
 
   protected DbSetup getDbSetup() {
     return DB_SETUP;

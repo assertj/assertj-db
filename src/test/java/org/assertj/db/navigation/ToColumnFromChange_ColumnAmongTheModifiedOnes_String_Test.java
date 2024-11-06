@@ -12,6 +12,14 @@
  */
 package org.assertj.db.navigation;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.assertj.db.output.Outputs.output;
+import static org.junit.Assert.fail;
+
+import java.lang.reflect.Field;
+import java.math.BigDecimal;
+import java.sql.Date;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.ChangeAssert;
 import org.assertj.db.api.ChangeColumnAssert;
@@ -26,20 +34,11 @@ import org.assertj.db.type.Changes;
 import org.assertj.db.type.Value;
 import org.junit.Test;
 
-import java.lang.reflect.Field;
-import java.math.BigDecimal;
-import java.sql.Date;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.output.Outputs.output;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link org.assertj.db.navigation.ToColumnFromChange} class :
  * {@link org.assertj.db.navigation.ToColumnFromChange#columnAmongTheModifiedOnes()} method.
  *
  * @author Régis Pouiller
- *
  */
 public class ToColumnFromChange_ColumnAmongTheModifiedOnes_String_Test extends AbstractTest {
 
@@ -66,8 +65,8 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_String_Test extends A
 
     ChangesAssert changesAssert = assertThat(changes);
     ChangeAssert changeAssert = changesAssert.change();
-    PositionWithColumnsChange<ChangeAssert, ChangeColumnAssert> position = 
-              (PositionWithColumnsChange) fieldPosition.get(changeAssert);
+    PositionWithColumnsChange<ChangeAssert, ChangeColumnAssert> position =
+      (PositionWithColumnsChange) fieldPosition.get(changeAssert);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     ChangeColumnAssert changeColumnAssert0 = changeAssert.columnAmongTheModifiedOnes("ID");
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
@@ -82,8 +81,8 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_String_Test extends A
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist among the modified columns%n"
-                                                      + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
-                                                      + "with comparison IGNORE - Ignore the case"));
+        + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+        + "with comparison IGNORE - Ignore the case"));
     }
     try {
       changeAssert.columnAmongTheModifiedOnes(null);
@@ -94,8 +93,8 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_String_Test extends A
 
     ChangesAssert changesAssertBis = assertThat(changes);
     ChangeAssert changeAssertBis = changesAssertBis.change();
-    PositionWithColumnsChange<ChangeAssert, ChangeColumnAssert> positionBis = 
-              (PositionWithColumnsChange) fieldPosition.get(changeAssertBis);
+    PositionWithColumnsChange<ChangeAssert, ChangeColumnAssert> positionBis =
+      (PositionWithColumnsChange) fieldPosition.get(changeAssertBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     ChangeColumnAssert changeColumnAssertBis0 = changeAssertBis.columnAmongTheModifiedOnes("ID");
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
@@ -110,8 +109,8 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_String_Test extends A
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist among the modified columns%n"
-                                                                    + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
-                                                                    + "with comparison IGNORE - Ignore the case"));
+        + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+        + "with comparison IGNORE - Ignore the case"));
     }
     try {
       changeColumnAssertBis3.columnAmongTheModifiedOnes(null);
@@ -121,13 +120,13 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_String_Test extends A
     }
 
     Assertions.assertThat(fieldColumnName.get(changeColumnAssert0)).isEqualTo(fieldColumnName.get(changeColumnAssertBis0)).isEqualTo(
-            "ID");
+      "ID");
     Assertions.assertThat(fieldColumnName.get(changeColumnAssert1)).isEqualTo(fieldColumnName.get(changeColumnAssertBis1)).isEqualTo(
-            "NAME");
+      "NAME");
     Assertions.assertThat(fieldColumnName.get(changeColumnAssert2)).isEqualTo(fieldColumnName.get(changeColumnAssertBis2)).isEqualTo(
-            "FIRSTNAME");
+      "FIRSTNAME");
     Assertions.assertThat(fieldColumnName.get(changeColumnAssert3)).isEqualTo(fieldColumnName.get(changeColumnAssertBis3)).isEqualTo(
-            "BIRTH");
+      "BIRTH");
 
     Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnAssert0)).getValue()).isNull();
     Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnAssert1)).getValue()).isNull();
@@ -139,18 +138,18 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_String_Test extends A
     Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnAssertBis3)).getValue()).isNull();
 
     Assertions.assertThat(((Value) fieldValueAtEndPoint.get(changeColumnAssert0)).getValue()).isEqualTo(
-            ((Value) fieldValueAtEndPoint.get(changeColumnAssertBis0)).getValue()).isEqualTo(
-            new BigDecimal("4"));
+      ((Value) fieldValueAtEndPoint.get(changeColumnAssertBis0)).getValue()).isEqualTo(
+      new BigDecimal("4"));
     Assertions.assertThat(((Value) fieldValueAtEndPoint.get(changeColumnAssert1)).getValue()).
-    isEqualTo(((Value) fieldValueAtEndPoint.get(changeColumnAssertBis1)).getValue()).
-    isEqualTo("Murray");
+      isEqualTo(((Value) fieldValueAtEndPoint.get(changeColumnAssertBis1)).getValue()).
+      isEqualTo("Murray");
     Assertions.assertThat(((Value) fieldValueAtEndPoint.get(changeColumnAssert2)).getValue()).
-    isEqualTo(((Value) fieldValueAtEndPoint.get(changeColumnAssertBis2)).getValue()).
-    isEqualTo("Bill");
+      isEqualTo(((Value) fieldValueAtEndPoint.get(changeColumnAssertBis2)).getValue()).
+      isEqualTo("Bill");
     Assertions.assertThat(((Value) fieldValueAtEndPoint.get(changeColumnAssert3)).getValue()).
-    isEqualTo(((Value) fieldValueAtEndPoint.get(changeColumnAssertBis3)).getValue()).
-    isEqualTo(
-            Date.valueOf("1950-09-21"));
+      isEqualTo(((Value) fieldValueAtEndPoint.get(changeColumnAssertBis3)).getValue()).
+      isEqualTo(
+        Date.valueOf("1950-09-21"));
 
     ChangeColumnAssert changeColumnAssert = assertThat(changes).change(3).columnAmongTheModifiedOnes("firstname");
     try {
@@ -158,12 +157,12 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_String_Test extends A
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <birth> does not exist among the modified columns%n"
-                                                                    + "in <[FIRSTNAME]>%n"
-                                                                    + "with comparison IGNORE - Ignore the case"));
+        + "in <[FIRSTNAME]>%n"
+        + "with comparison IGNORE - Ignore the case"));
     }
     Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnAssert)).getValue()).isEqualTo("Sigourney");
     Assertions.assertThat(((Value) fieldValueAtEndPoint.get(changeColumnAssert)).getValue()).isEqualTo(
-            "Susan Alexandra");
+      "Susan Alexandra");
   }
 
   /**
@@ -189,8 +188,8 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_String_Test extends A
 
     ChangesOutputter changesDisplay = output(changes);
     ChangeOutputter changeDisplay = changesDisplay.change();
-    PositionWithColumnsChange<ChangeAssert, ChangeColumnAssert> position = 
-              (PositionWithColumnsChange) fieldPosition.get(changeDisplay);
+    PositionWithColumnsChange<ChangeAssert, ChangeColumnAssert> position =
+      (PositionWithColumnsChange) fieldPosition.get(changeDisplay);
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(0);
     ChangeColumnOutputter changeColumnDisplay0 = changeDisplay.columnAmongTheModifiedOnes("ID");
     Assertions.assertThat(fieldIndex.get(position)).isEqualTo(1);
@@ -205,8 +204,8 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_String_Test extends A
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist among the modified columns%n"
-                                                      + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
-                                                      + "with comparison IGNORE - Ignore the case"));
+        + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+        + "with comparison IGNORE - Ignore the case"));
     }
     try {
       changeDisplay.columnAmongTheModifiedOnes(null);
@@ -217,8 +216,8 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_String_Test extends A
 
     ChangesOutputter changesDisplayBis = output(changes);
     ChangeOutputter changeDisplayBis = changesDisplayBis.change();
-    PositionWithColumnsChange<ChangeAssert, ChangeColumnAssert> positionBis = 
-              (PositionWithColumnsChange) fieldPosition.get(changeDisplayBis);
+    PositionWithColumnsChange<ChangeAssert, ChangeColumnAssert> positionBis =
+      (PositionWithColumnsChange) fieldPosition.get(changeDisplayBis);
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(0);
     ChangeColumnOutputter changeColumnDisplayBis0 = changeDisplayBis.columnAmongTheModifiedOnes("ID");
     Assertions.assertThat(fieldIndex.get(positionBis)).isEqualTo(1);
@@ -233,8 +232,8 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_String_Test extends A
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <TEST> does not exist among the modified columns%n"
-                                                                    + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
-                                                                    + "with comparison IGNORE - Ignore the case"));
+        + "in <[ID, NAME, FIRSTNAME, BIRTH, ACTOR_IMDB]>%n"
+        + "with comparison IGNORE - Ignore the case"));
     }
     try {
       changeColumnDisplayBis3.columnAmongTheModifiedOnes(null);
@@ -244,13 +243,13 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_String_Test extends A
     }
 
     Assertions.assertThat(fieldColumnName.get(changeColumnDisplay0)).isEqualTo(fieldColumnName.get(changeColumnDisplayBis0)).isEqualTo(
-            "ID");
+      "ID");
     Assertions.assertThat(fieldColumnName.get(changeColumnDisplay1)).isEqualTo(fieldColumnName.get(changeColumnDisplayBis1)).isEqualTo(
-            "NAME");
+      "NAME");
     Assertions.assertThat(fieldColumnName.get(changeColumnDisplay2)).isEqualTo(fieldColumnName.get(changeColumnDisplayBis2)).isEqualTo(
-            "FIRSTNAME");
+      "FIRSTNAME");
     Assertions.assertThat(fieldColumnName.get(changeColumnDisplay3)).isEqualTo(fieldColumnName.get(changeColumnDisplayBis3)).isEqualTo(
-            "BIRTH");
+      "BIRTH");
 
     Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnDisplay0)).getValue()).isNull();
     Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnDisplay1)).getValue()).isNull();
@@ -262,18 +261,18 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_String_Test extends A
     Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnDisplayBis3)).getValue()).isNull();
 
     Assertions.assertThat(((Value) fieldValueAtEndPoint.get(changeColumnDisplay0)).getValue()).isEqualTo(
-            ((Value) fieldValueAtEndPoint.get(changeColumnDisplayBis0)).getValue()).isEqualTo(
-            new BigDecimal("4"));
+      ((Value) fieldValueAtEndPoint.get(changeColumnDisplayBis0)).getValue()).isEqualTo(
+      new BigDecimal("4"));
     Assertions.assertThat(((Value) fieldValueAtEndPoint.get(changeColumnDisplay1)).getValue()).
-            isEqualTo(((Value) fieldValueAtEndPoint.get(changeColumnDisplayBis1)).getValue()).
-                      isEqualTo("Murray");
+      isEqualTo(((Value) fieldValueAtEndPoint.get(changeColumnDisplayBis1)).getValue()).
+      isEqualTo("Murray");
     Assertions.assertThat(((Value) fieldValueAtEndPoint.get(changeColumnDisplay2)).getValue()).
-            isEqualTo(((Value) fieldValueAtEndPoint.get(changeColumnDisplayBis2)).getValue()).
-                      isEqualTo("Bill");
+      isEqualTo(((Value) fieldValueAtEndPoint.get(changeColumnDisplayBis2)).getValue()).
+      isEqualTo("Bill");
     Assertions.assertThat(((Value) fieldValueAtEndPoint.get(changeColumnDisplay3)).getValue()).
-            isEqualTo(((Value) fieldValueAtEndPoint.get(changeColumnDisplayBis3)).getValue()).
-                      isEqualTo(
-                              Date.valueOf("1950-09-21"));
+      isEqualTo(((Value) fieldValueAtEndPoint.get(changeColumnDisplayBis3)).getValue()).
+      isEqualTo(
+        Date.valueOf("1950-09-21"));
 
     ChangeColumnOutputter changeColumnDisplay = output(changes).change(3).columnAmongTheModifiedOnes("firstname");
     try {
@@ -281,11 +280,11 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_String_Test extends A
       fail("An exception must be raised");
     } catch (AssertJDBException e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("Column <birth> does not exist among the modified columns%n"
-                                                                    + "in <[FIRSTNAME]>%n"
-                                                                    + "with comparison IGNORE - Ignore the case"));
+        + "in <[FIRSTNAME]>%n"
+        + "with comparison IGNORE - Ignore the case"));
     }
     Assertions.assertThat(((Value) fieldValueAtStartPoint.get(changeColumnDisplay)).getValue()).isEqualTo("Sigourney");
     Assertions.assertThat(((Value) fieldValueAtEndPoint.get(changeColumnDisplay)).getValue()).isEqualTo(
-            "Susan Alexandra");
+      "Susan Alexandra");
   }
 }

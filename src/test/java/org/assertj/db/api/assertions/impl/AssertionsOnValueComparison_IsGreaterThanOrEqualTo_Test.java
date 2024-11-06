@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -19,15 +22,11 @@ import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link  AssertionsOnValueComparison} class :
  * {@link  AssertionsOnValueComparison#isGreaterThanOrEqualTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, Number)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnValueComparison_IsGreaterThanOrEqualTo_Test extends AbstractTest {
 
@@ -59,10 +58,10 @@ public class AssertionsOnValueComparison_IsGreaterThanOrEqualTo_Test extends Abs
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <8>%n"
-                                                      + "to be greater than or equal to %n"
-                                                      + "  <9>"));
+        + "Expecting:%n"
+        + "  <8>%n"
+        + "to be greater than or equal to %n"
+        + "  <9>"));
     }
   }
 
@@ -80,12 +79,12 @@ public class AssertionsOnValueComparison_IsGreaterThanOrEqualTo_Test extends Abs
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <\"8\">%n"
-                                                      + "to be of type%n"
-                                                      + "  <NUMBER>%n"
-                                                      + "but was of type%n"
-                                                      + "  <TEXT>"));
+        + "Expecting:%n"
+        + "  <\"8\">%n"
+        + "to be of type%n"
+        + "  <NUMBER>%n"
+        + "but was of type%n"
+        + "  <TEXT>"));
     }
   }
 }

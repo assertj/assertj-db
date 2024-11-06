@@ -28,16 +28,16 @@ import org.assertj.db.navigation.origin.OriginWithColumnsAndRowsFromChange;
  * @author Régis Pouiller
  */
 public abstract class AbstractOutputterWithOriginWithColumnsAndRowsFromChange<E extends AbstractOutputterWithOriginWithColumnsAndRowsFromChange<E, O>, O extends OriginWithColumnsAndRowsFromChange<ChangesOutputter, ChangeOutputter, ChangeColumnOutputter, ChangeRowOutputter>>
-        extends AbstractOutputterWithOriginWithChanges<E, O>
-        implements ToColumn<ChangeColumnOutputter>,
-        ToColumnFromChange<ChangeColumnOutputter>,
-        ToRowFromChange<ChangeRowOutputter> {
+  extends AbstractOutputterWithOriginWithChanges<E, O>
+  implements ToColumn<ChangeColumnOutputter>,
+  ToColumnFromChange<ChangeColumnOutputter>,
+  ToRowFromChange<ChangeRowOutputter> {
 
   /**
    * Constructor.
    *
    * @param selfType Type of this output class : a sub-class of {@code AbstractOutputterWithOriginWithColumnsAndRowsFromChange}.
-   * @param origin The output of {@link org.assertj.db.navigation.origin.Origin}.
+   * @param origin   The output of {@link org.assertj.db.navigation.origin.Origin}.
    */
   AbstractOutputterWithOriginWithColumnsAndRowsFromChange(Class<E> selfType, O origin) {
     super(selfType, origin);
@@ -59,37 +59,49 @@ public abstract class AbstractOutputterWithOriginWithColumnsAndRowsFromChange<E 
     return origin.rowAtEndPoint();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeColumnOutputter column() {
     return origin.column();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeColumnOutputter column(int index) {
     return origin.column(index);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeColumnOutputter column(String columnName) {
     return origin.column(columnName);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeColumnOutputter columnAmongTheModifiedOnes() {
     return origin.columnAmongTheModifiedOnes();
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeColumnOutputter columnAmongTheModifiedOnes(int index) {
     return origin.columnAmongTheModifiedOnes(index);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ChangeColumnOutputter columnAmongTheModifiedOnes(String columnName) {
     return origin.columnAmongTheModifiedOnes(columnName);

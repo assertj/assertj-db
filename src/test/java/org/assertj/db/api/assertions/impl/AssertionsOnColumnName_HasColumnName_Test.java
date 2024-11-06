@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -19,15 +22,11 @@ import org.assertj.db.type.Table;
 import org.assertj.db.type.lettercase.LetterCase;
 import org.junit.Test;
 
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertionsOnColumnName} class :
  * {@link AssertionsOnColumnName#hasColumnName(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, String, String)}  method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnColumnName_HasColumnName_Test {
 
@@ -57,10 +56,10 @@ public class AssertionsOnColumnName_HasColumnName_Test {
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting :%n"
-                                                      + "  \"test\"%n"
-                                                      + "to be the name of the column but was:%n"
-                                                      + "  \"test1\""));
+        + "Expecting :%n"
+        + "  \"test\"%n"
+        + "to be the name of the column but was:%n"
+        + "  \"test1\""));
     }
   }
 

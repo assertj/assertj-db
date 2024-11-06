@@ -12,13 +12,13 @@
  */
 package org.assertj.db.navigation;
 
-import org.assertj.db.exception.AssertJDBException;
-import org.assertj.db.global.AbstractElement;
-import org.assertj.db.type.DbElement;
+import static org.assertj.db.util.Proxies.unProxy;
 
 import java.lang.reflect.Constructor;
 
-import static org.assertj.db.util.Proxies.unProxy;
+import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.global.AbstractElement;
+import org.assertj.db.type.DbElement;
 
 /**
  * Position with point (start point and end point) during navigation.
@@ -26,7 +26,6 @@ import static org.assertj.db.util.Proxies.unProxy;
  * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
  * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
  * @param <D> The class of the database element on which is the next position (an sub-class of {@link org.assertj.db.type.DbElement}).
- *
  * @author Régis Pouiller
  * @since 1.1.0
  */
@@ -67,11 +66,11 @@ public abstract class PositionWithPoints<E extends AbstractElement<E> & Navigati
   /**
    * Constructor.
    *
-   * @param myself Actual value.
+   * @param myself       Actual value.
    * @param elementClass Class of the element of navigation (used to make instance).
-   * @param pointClass Class of the database element at the next point (used to make instance).
+   * @param pointClass   Class of the database element at the next point (used to make instance).
    * @param atStartPoint The element at start point
-   * @param atEndPoint The element at end point
+   * @param atEndPoint   The element at end point
    */
   public PositionWithPoints(E myself, Class<N> elementClass, Class<D> pointClass, D atStartPoint, D atEndPoint) {
     this.myself = myself;
@@ -122,23 +121,25 @@ public abstract class PositionWithPoints<E extends AbstractElement<E> & Navigati
       return constructor.newInstance(myself, element);
     } catch (Exception e) {
       throw new AssertJDBException(String.format("There is an exception '" + e.getMessage()
-                                                 + "'%n\t in the instantiation of the element " + elementClass.getName()
-                                                 + "%n\t on "
-                                                 + pointClass
-                                                 + " with " + myself.getClass() + ".%n "
-                                                 + "It is normally impossible.%n That means there is a big mistake in the development of AssertJDB.%n "
-                                                 + "Please write an issue for that if you meet this problem."));
+        + "'%n\t in the instantiation of the element " + elementClass.getName()
+        + "%n\t on "
+        + pointClass
+        + " with " + myself.getClass() + ".%n "
+        + "It is normally impossible.%n That means there is a big mistake in the development of AssertJDB.%n "
+        + "Please write an issue for that if you meet this problem."));
     }
   }
 
   /**
    * Returns the description at start point.
+   *
    * @return The description at start point
    */
   protected abstract String getDescriptionAtStartPoint();
 
   /**
    * Returns the description at end point.
+   *
    * @return The description at end point
    */
   protected abstract String getDescriptionAtEndPoint();

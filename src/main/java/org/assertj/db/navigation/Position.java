@@ -12,17 +12,17 @@
  */
 package org.assertj.db.navigation;
 
-import org.assertj.db.exception.AssertJDBException;
-import org.assertj.db.global.AbstractElement;
-import org.assertj.db.type.DbElement;
-import org.assertj.db.type.Row;
+import static org.assertj.db.util.Proxies.unProxy;
 
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.assertj.db.util.Proxies.unProxy;
+import org.assertj.db.exception.AssertJDBException;
+import org.assertj.db.global.AbstractElement;
+import org.assertj.db.type.DbElement;
+import org.assertj.db.type.Row;
 
 /**
  * Position during navigation.
@@ -30,7 +30,6 @@ import static org.assertj.db.util.Proxies.unProxy;
  * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
  * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
  * @param <D> The class of the database element on which is the next position (an sub-class of {@link org.assertj.db.type.DbElement}).
- *
  * @author Régis Pouiller
  * @since 1.1.0
  */
@@ -41,10 +40,6 @@ public abstract class Position<E extends AbstractElement<E> & Navigation, N exte
    */
   private final E myself;
   /**
-   * Index of the next to get.
-   */
-  private int nextIndex;
-  /**
    * Class of the element of navigation (used to make instance).
    */
   private final Class<N> elementClass;
@@ -52,11 +47,15 @@ public abstract class Position<E extends AbstractElement<E> & Navigation, N exte
    * Map the elements of navigation with their index in key (contains the elements of navigation already generated).
    */
   private final Map<Integer, N> elementsMap = new HashMap<>();
+  /**
+   * Index of the next to get.
+   */
+  private int nextIndex;
 
   /**
    * Constructor.
    *
-   * @param myself Actual value.
+   * @param myself       Actual value.
    * @param elementClass Class of the element of navigation (used to make instance).
    */
   public Position(E myself, Class<N> elementClass) {
@@ -120,12 +119,12 @@ public abstract class Position<E extends AbstractElement<E> & Navigation, N exte
       return instance;
     } catch (Exception e) {
       throw new AssertJDBException(String.format("There is an exception '" + e.getMessage()
-                                                 + "'%n\t in the instantiation of the element " + elementClass.getName()
-                                                 + "%n\t on "
-                                                 + element.getClass()
-                                                 + " with " + myself.getClass() + ".%n "
-                                                 + "It is normally impossible.%n That means there is a big mistake in the development of AssertJDB.%n "
-                                                 + "Please write an issue for that if you meet this problem."));
+        + "'%n\t in the instantiation of the element " + elementClass.getName()
+        + "%n\t on "
+        + element.getClass()
+        + " with " + myself.getClass() + ".%n "
+        + "It is normally impossible.%n That means there is a big mistake in the development of AssertJDB.%n "
+        + "Please write an issue for that if you meet this problem."));
     }
   }
 

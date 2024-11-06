@@ -12,14 +12,14 @@
  */
 package org.assertj.db.type;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.assertj.db.type.lettercase.LetterCase;
 import org.assertj.db.type.lettercase.WithColumnLetterCase;
 import org.assertj.db.type.lettercase.WithPrimaryKeyLetterCase;
 import org.assertj.db.util.NameComparator;
 import org.assertj.db.util.Values;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Row in a {@link AbstractDbData}.
@@ -31,16 +31,11 @@ import java.util.List;
  * {@link Request} by using {@link AbstractDbData#getRow(int)} or with the list by using
  * {@link AbstractDbData#getRowsList()}.
  * </p>
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class Row implements DbElement, WithColumnLetterCase, WithPrimaryKeyLetterCase {
 
-  /**
-   * List of the primary key names.
-   */
-  private List<String> pksNameList;
   /**
    * The list of columns name.
    */
@@ -51,22 +46,28 @@ public class Row implements DbElement, WithColumnLetterCase, WithPrimaryKeyLette
   private final List<Value> valuesList;
   /**
    * Letter case of the columns.
+   *
    * @since 1.1.0
    */
   private final LetterCase columnLetterCase;
   /**
    * Letter case of the primary keys.
+   *
    * @since 1.1.0
    */
   private final LetterCase primaryKeyLetterCase;
+  /**
+   * List of the primary key names.
+   */
+  private List<String> pksNameList;
 
   /**
    * Constructor of the row with visibility in the package.
-   * 
-   * @param pksNameList The list of the primary keys name.
-   * @param columnsNameList The list of the columns name.
-   * @param valuesList The values in the row.
-   * @param columnLetterCase The letter case of the columns.
+   *
+   * @param pksNameList          The list of the primary keys name.
+   * @param columnsNameList      The list of the columns name.
+   * @param valuesList           The values in the row.
+   * @param columnLetterCase     The letter case of the columns.
    * @param primaryKeyLetterCase The letter case of the primary keys.
    */
   Row(List<String> pksNameList, List<String> columnsNameList, List<Value> valuesList,
@@ -97,11 +98,20 @@ public class Row implements DbElement, WithColumnLetterCase, WithPrimaryKeyLette
 
   /**
    * Return the list of the primary keys name.
-   * 
+   *
    * @return The list of the primary keys name.
    */
   public List<String> getPksNameList() {
     return pksNameList;
+  }
+
+  /**
+   * Sets the list of the primary keys name.
+   *
+   * @param pksNameList The list of the primary keys name.
+   */
+  void setPksNameList(List<String> pksNameList) {
+    this.pksNameList = pksNameList;
   }
 
   /**
@@ -122,17 +132,8 @@ public class Row implements DbElement, WithColumnLetterCase, WithPrimaryKeyLette
   }
 
   /**
-   * Sets the list of the primary keys name.
-   *
-   * @param pksNameList The list of the primary keys name.
-   */
-  void setPksNameList(List<String> pksNameList) {
-    this.pksNameList = pksNameList;
-  }
-
-  /**
    * Returns the list of the columns name.
-   * 
+   *
    * @return The list of the columns name.
    */
   public List<String> getColumnsNameList() {
@@ -141,7 +142,7 @@ public class Row implements DbElement, WithColumnLetterCase, WithPrimaryKeyLette
 
   /**
    * Returns the list of the values for the data from database.
-   * 
+   *
    * @return The list of the values.
    */
   public List<Value> getValuesList() {
@@ -150,7 +151,7 @@ public class Row implements DbElement, WithColumnLetterCase, WithPrimaryKeyLette
 
   /**
    * Returns the primary keys value.
-   * 
+   *
    * @return The primary keys value.
    */
   public Value[] getPksValues() {
@@ -167,7 +168,7 @@ public class Row implements DbElement, WithColumnLetterCase, WithPrimaryKeyLette
 
   /**
    * Returns if the values of the primary keys are equal to the values in parameter.
-   * 
+   *
    * @param pksValues The values of the primary keys to compare.
    * @return If the values of the primary keys are equal.
    */
@@ -187,6 +188,7 @@ public class Row implements DbElement, WithColumnLetterCase, WithPrimaryKeyLette
 
   /**
    * Returns if the values are equal to the value of the {@code Row} in parameter.
+   *
    * @param row The {@code Row} to compare with.
    * @return If the values are equal.
    */
@@ -206,7 +208,7 @@ public class Row implements DbElement, WithColumnLetterCase, WithPrimaryKeyLette
 
   /**
    * Returns the value corresponding to the column index.
-   * 
+   *
    * @param index The index
    * @return The value
    */
@@ -216,7 +218,7 @@ public class Row implements DbElement, WithColumnLetterCase, WithPrimaryKeyLette
 
   /**
    * Returns the value corresponding to the column name in the {@code Row}.
-   * 
+   *
    * @param columnName The column name (must be not {@code null}).
    * @return The value
    * @throws NullPointerException If the {@code columnName} parameter is {@code null}.

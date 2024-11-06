@@ -12,6 +12,11 @@
  */
 package org.assertj.db.api.assertions.impl;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+import java.sql.Time;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
@@ -20,17 +25,11 @@ import org.assertj.db.type.Table;
 import org.assertj.db.type.TimeValue;
 import org.junit.Test;
 
-import java.sql.Time;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Tests on {@link AssertionsOnValueChronology} class :
  * {@link AssertionsOnValueChronology#isBeforeOrEqualTo(org.assertj.db.api.AbstractAssert, org.assertj.core.api.WritableAssertionInfo, org.assertj.db.type.Value, org.assertj.db.type.TimeValue)} method.
  *
  * @author Régis Pouiller
- *
  */
 public class AssertionsOnValueChronology_IsBeforeOrEqualTo_TimeValue_Test extends AbstractTest {
 
@@ -43,12 +42,12 @@ public class AssertionsOnValueChronology_IsBeforeOrEqualTo_TimeValue_Test extend
     Table table = new Table();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = AssertionsOnValueChronology.isBeforeOrEqualTo(tableAssert, info,
-                                                                             getValue(null, Time.valueOf("09:01:05")),
-                                                                             TimeValue.of(9, 1, 5));
+      getValue(null, Time.valueOf("09:01:05")),
+      TimeValue.of(9, 1, 5));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
     tableAssert2 = AssertionsOnValueChronology.isBeforeOrEqualTo(tableAssert, info,
-                                                                 getValue(null, Time.valueOf("09:01:05")),
-                                                                 TimeValue.of(9, 1, 6));
+      getValue(null, Time.valueOf("09:01:05")),
+      TimeValue.of(9, 1, 6));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
 
@@ -63,15 +62,15 @@ public class AssertionsOnValueChronology_IsBeforeOrEqualTo_TimeValue_Test extend
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnValueChronology.isBeforeOrEqualTo(tableAssert, info,
-                                                    getValue(null, Time.valueOf("09:01:05")),
-                                                    TimeValue.of(9, 1, 0));
+        getValue(null, Time.valueOf("09:01:05")),
+        TimeValue.of(9, 1, 0));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <09:01:05.000000000>%n"
-                                                      + "to be before or equal to %n"
-                                                      + "  <09:01:00.000000000>"));
+        + "Expecting:%n"
+        + "  <09:01:05.000000000>%n"
+        + "to be before or equal to %n"
+        + "  <09:01:00.000000000>"));
     }
   }
 
@@ -86,17 +85,17 @@ public class AssertionsOnValueChronology_IsBeforeOrEqualTo_TimeValue_Test extend
     TableAssert tableAssert = assertThat(table);
     try {
       AssertionsOnValueChronology.isBeforeOrEqualTo(tableAssert, info,
-                                                    getValue(null, "test"),
-                                                    TimeValue.of(9, 1, 5));
+        getValue(null, "test"),
+        TimeValue.of(9, 1, 5));
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-                                                      + "Expecting:%n"
-                                                      + "  <\"test\">%n"
-                                                      + "to be of type%n"
-                                                      + "  <TIME>%n"
-                                                      + "but was of type%n"
-                                                      + "  <TEXT>"));
+        + "Expecting:%n"
+        + "  <\"test\">%n"
+        + "to be of type%n"
+        + "  <TIME>%n"
+        + "but was of type%n"
+        + "  <TEXT>"));
     }
   }
 }

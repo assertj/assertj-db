@@ -12,43 +12,42 @@
  */
 package org.assertj.db.type;
 
-import org.assertj.db.common.AbstractTest;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.db.common.AbstractTest;
+import org.junit.Test;
 
 /**
  * Tests on the primary keys value of {@code Row}.
- * 
+ *
  * @author Régis Pouiller
- * 
  */
 public class Row_GetPksValues_Test extends AbstractTest {
 
   /**
    * This method test the result when getting the primary keys value with one primary key.
-   * 
+   *
    * @throws Exception Exception
    */
   @Test
   public void test_when_getprimarykeysvalue_with_one_pk() throws Exception {
     Value[] primaryKeysValue = getRow(Arrays.asList("col1"), Arrays.asList("col1", "col2", "col3"),
-        Arrays.asList(getValue(null, "val1"), getValue(null, "val2"), getValue(null, "val3"))).getPksValues();
+      Arrays.asList(getValue(null, "val1"), getValue(null, "val2"), getValue(null, "val3"))).getPksValues();
     assertThat(primaryKeysValue).hasSize(1);
     assertThat(primaryKeysValue[0].getValue()).isEqualTo("val1");
   }
 
   /**
    * This method test the result when getting the primary keys value with two primary keys.
-   * 
+   *
    * @throws Exception Exception
    */
   @Test
   public void test_when_getprimarykeysvalue_with_two_pks() throws Exception {
     Value[] primaryKeysValue = getRow(Arrays.asList("col3", "col1"), Arrays.asList("col1", "col2", "col3"),
-        Arrays.asList(getValue(null, "val1"), getValue(null, 1), getValue(null, 2))).getPksValues();
+      Arrays.asList(getValue(null, "val1"), getValue(null, 1), getValue(null, 2))).getPksValues();
     assertThat(primaryKeysValue).hasSize(2);
     assertThat(primaryKeysValue[0].getValue()).isEqualTo(2);
     assertThat(primaryKeysValue[1].getValue()).isEqualTo("val1");
