@@ -24,7 +24,7 @@ import java.util.Calendar;
  */
 public class DateTimeValue implements Comparable<DateTimeValue>, DateValueContainer {
 
-  public static final String DATE_TIME_SHOULD_BE_NOT_NULL = "date/time should be not null";
+  private static final String DATE_TIME_SHOULD_BE_NOT_NULL = "date/time should be not null";
   /**
    * Indicates where there are the digits in the {@code String} for {@link DateValue#DateValue(String)}.
    */

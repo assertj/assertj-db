@@ -26,12 +26,20 @@ import net.bytebuddy.implementation.bind.annotation.This;
 
 /**
  * Collects error messages of all AssertionErrors thrown by the proxied method.
+ *
+ * @author Julien Roy
  */
 public class ErrorCollector {
 
   private static final String INTERCEPT_METHOD_NAME = "intercept";
 
   private static final String CLASS_NAME = ErrorCollector.class.getName();
+
+  /**
+   * Construct empty error collector.
+   */
+  public ErrorCollector() {
+  }
 
   // scope : the current soft-assertion object
   private final List<Throwable> errors = new ArrayList<>();
@@ -48,6 +56,16 @@ public class ErrorCollector {
     return nbCalls;
   }
 
+  /**
+   * Apply interception of assertion method to collect exception and avoid stop the assertion flow on the first error.
+   *
+   * @param assertion The assertion object proxied
+   * @param proxy     The proxy of assertion
+   * @param method    The method of assertion called
+   * @param stub      The sub value if not assert method is found
+   * @return The current assertion object.
+   * @throws Exception When interception fail
+   */
   @RuntimeType
   public Object intercept(
     @This Object assertion,
@@ -73,15 +91,30 @@ public class ErrorCollector {
     return assertion;
   }
 
+  /**
+   * Append new error to collection of errors.
+   *
+   * @param error Any throwable
+   */
   public void addError(Throwable error) {
     errors.add(error);
     lastResult.recordError();
   }
 
+  /**
+   * Return all errors collected.
+   *
+   * @return List of exception
+   */
   public List<Throwable> errors() {
     return Collections.unmodifiableList(errors);
   }
 
+  /**
+   * Return if no error collected in this instance.
+   *
+   * @return true if no errors.
+   */
   public boolean wasSuccess() {
     return lastResult.wasSuccess();
   }
