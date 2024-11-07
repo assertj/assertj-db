@@ -48,6 +48,18 @@ public class AssertionsOnRowCondition {
     // Empty
   }
 
+  /**
+   * Verifies that the values of a row satisfy to conditions in parameter.
+   *
+   * @param <A>        The type of the assertion which call this method.
+   * @param assertion  The assertion which call this method.
+   * @param info       Writable information about an assertion.
+   * @param valuesList The actual value to validate.
+   * @param expected   The expected conditions.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the columns of the primary key are different to the names in parameters.
+   */
+  @SuppressWarnings("unchecked")
   public static <A extends AbstractAssert<?>> A hasValuesSatisfying(A assertion, WritableAssertionInfo info,
                                                                     List<Value> valuesList, Object... expected) {
 

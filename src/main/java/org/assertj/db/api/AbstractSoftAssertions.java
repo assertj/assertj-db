@@ -21,19 +21,19 @@ import org.assertj.core.util.Lists;
  *
  * @author Julien Roy
  */
-public class AbstractSoftAssertions {
+class AbstractSoftAssertions {
 
-  protected final SoftProxies proxies = new SoftProxies();
+  private final SoftProxies proxies = new SoftProxies();
 
-  public <T, V> V proxy(Class<V> assertClass, Class<T> actualClass, T actual) {
+  <T, V> V proxy(Class<V> assertClass, Class<T> actualClass, T actual) {
     return this.proxies.create(assertClass, actualClass, actual);
   }
 
-  public List<Throwable> errorsCollected() {
+  List<Throwable> errorsCollected() {
     return Lists.newArrayList(this.proxies.errorsCollected());
   }
 
-  public boolean wasSuccess() {
+  boolean wasSuccess() {
     return this.proxies.wasSuccess();
   }
 }

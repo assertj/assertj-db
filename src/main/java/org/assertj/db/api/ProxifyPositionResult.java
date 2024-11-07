@@ -12,7 +12,7 @@
  */
 package org.assertj.db.api;
 
-import static org.assertj.db.util.Proxies.isProxified;
+import static org.assertj.db.util.Proxies.isProxied;
 import static org.assertj.db.util.Proxies.unProxy;
 
 import java.util.concurrent.Callable;
@@ -106,11 +106,18 @@ public class ProxifyPositionResult {
     }
   }
 
+  /**
+   * Method called during interception of positional method.
+   *
+   * @param proxy Proxy method to use
+   * @return the object result proxied
+   * @throws Exception When method call fail
+   */
   @RuntimeType
   public Object intercept(@SuperCall Callable<?> proxy) throws Exception {
     Object result = proxy.call();
 
-    if (isProxified(result.getClass()) || Arrays.isNullOrEmpty(actual(result))) {
+    if (isProxied(result.getClass()) || Arrays.isNullOrEmpty(actual(result))) {
       return result;
     }
     return this.proxies.create(result.getClass(), actualClass(result), actual(result));

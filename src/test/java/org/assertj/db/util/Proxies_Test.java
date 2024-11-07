@@ -30,7 +30,7 @@ public class Proxies_Test {
    */
   @Test
   public void test_is_proxy_with_classic_class() {
-    assertThat(Proxies.isProxified(String.class)).isFalse();
+    assertThat(Proxies.isProxied(String.class)).isFalse();
   }
 
   /**
@@ -43,7 +43,7 @@ public class Proxies_Test {
       .make()
       .load(ClassForProxiesTest.class.getClassLoader())
       .getLoaded();
-    assertThat(Proxies.isProxified(enhancedClass)).isTrue();
+    assertThat(Proxies.isProxied(enhancedClass)).isTrue();
   }
 
   /**

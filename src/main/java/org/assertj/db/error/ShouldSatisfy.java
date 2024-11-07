@@ -29,6 +29,14 @@ public class ShouldSatisfy extends BasicErrorMessageFactory {
     super(EXPECTED_MESSAGE_WITH_INDEX, index, actual, condition);
   }
 
+  /**
+   * Verifies that the values of a row satisfy to conditions in parameter.
+   *
+   * @param index     The index of properties
+   * @param actual    The actual value that triggered assertion error.
+   * @param condition The condition that triggered assertion error.
+   * @return {@code this} condition not satisfied error message.
+   */
   public static ErrorMessageFactory shouldSatisfy(int index, Object actual, Condition<?> condition) {
     return new ShouldSatisfy(index, actual, condition);
   }

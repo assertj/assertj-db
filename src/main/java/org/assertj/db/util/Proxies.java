@@ -19,15 +19,19 @@ package org.assertj.db.util;
  */
 public class Proxies {
 
-  public static final String BYTE_BUDDY_PATTERN = "$ByteBuddy$";
+  private static final String BYTE_BUDDY_PATTERN = "$ByteBuddy$";
+
+  private Proxies() {
+    throw new IllegalStateException("Utility class");
+  }
 
   /**
-   * Check if class is proxified.
+   * Check if class is proxied.
    *
    * @param clazz Class to check
-   * @return True if class is proxified by CGLIB
+   * @return True if class is proxied by CGLIB
    */
-  public static boolean isProxified(Class clazz) {
+  public static boolean isProxied(Class<?> clazz) {
     return clazz.getName().contains(BYTE_BUDDY_PATTERN);
   }
 
@@ -37,8 +41,8 @@ public class Proxies {
    * @param clazz Clazz to evaluate
    * @return Class based of proxified
    */
-  public static Class unProxy(Class clazz) {
-    if (isProxified(clazz)) {
+  public static Class<?> unProxy(Class<?> clazz) {
+    if (isProxied(clazz)) {
       return clazz.getSuperclass();
     }
     return clazz;

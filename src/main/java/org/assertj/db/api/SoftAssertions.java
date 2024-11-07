@@ -33,6 +33,13 @@ import org.assertj.db.type.Table;
 public final class SoftAssertions extends AbstractSoftAssertions {
 
   /**
+   * Create a new SoftAssertions class that allow chain many assertion and detect all assertion failure ( not only the first one ).
+   */
+  public SoftAssertions() {
+    super();
+  }
+
+  /**
    * Creates a new instance of {@link TableAssert}.
    *
    * @param table The table to assert on.
@@ -62,6 +69,11 @@ public final class SoftAssertions extends AbstractSoftAssertions {
     return proxy(ChangesAssert.class, Changes.class, changes);
   }
 
+  /**
+   * Assert that all assertions succeed.
+   *
+   * @throws SoftAssertionError If any assertion failed.
+   */
   public void assertAll() {
     List<Throwable> errors = this.errorsCollected();
     if (!errors.isEmpty()) {

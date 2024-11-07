@@ -124,7 +124,7 @@ public class Table extends AbstractDbData<Table> {
    * @param name   Name of the table.
    */
   public Table(Source source, String name) {
-    this(source, name, (String[]) null, (String[]) null);
+    this(source, name, null, (String[]) null);
   }
 
   /**
@@ -148,7 +148,7 @@ public class Table extends AbstractDbData<Table> {
    * @param name       Name of the table.
    */
   public Table(DataSource dataSource, String name) {
-    this(dataSource, name, (String[]) null, (String[]) null);
+    this(dataSource, name, null, (String[]) null);
   }
 
   /**
@@ -168,8 +168,9 @@ public class Table extends AbstractDbData<Table> {
   /**
    * Constructor with a {@link Source} and the name of the table.
    *
-   * @param source {@link Source} to connect to the database.
-   * @param name   Name of the table.
+   * @param source         {@link Source} to connect to the database.
+   * @param name           Name of the table.
+   * @param columnsToOrder List of column to use as ORDER BY
    * @since 1.2.0
    */
   public Table(Source source, String name, Order[] columnsToOrder) {
@@ -181,6 +182,7 @@ public class Table extends AbstractDbData<Table> {
    *
    * @param source           {@link Source} to connect to the database.
    * @param name             Name of the table.
+   * @param columnsToOrder   List of column to use as ORDER BY
    * @param columnsToCheck   Array of the name of the columns to check. If {@code null} that means to check all the
    *                         columns.
    * @param columnsToExclude Array of the name of the columns to exclude. If {@code null} that means to exclude no
@@ -194,8 +196,9 @@ public class Table extends AbstractDbData<Table> {
   /**
    * Constructor with a dataSource and the name of the table.
    *
-   * @param dataSource DataSource of the database.
-   * @param name       Name of the table.
+   * @param dataSource     DataSource of the database.
+   * @param name           Name of the table.
+   * @param columnsToOrder List of column to use as ORDER BY
    * @since 1.2.0
    */
   public Table(DataSource dataSource, String name, Order[] columnsToOrder) {
@@ -207,6 +210,7 @@ public class Table extends AbstractDbData<Table> {
    *
    * @param dataSource       DataSource of the database.
    * @param name             Name of the table.
+   * @param columnsToOrder   List of column to use as ORDER BY
    * @param columnsToCheck   Array of the name of the columns to check. If {@code null} that means to check all the
    *                         columns.
    * @param columnsToExclude Array of the name of the columns to exclude. If {@code null} that means to exclude no
@@ -286,6 +290,7 @@ public class Table extends AbstractDbData<Table> {
    * @param name           Name of the table.
    * @param startDelimiter Start delimiter for column name and table name.
    * @param endDelimiter   End delimiter for column name and table name.
+   * @param columnsToOrder List of column to use as ORDER BY
    * @since 1.2.0
    */
   public Table(Source source, String name, Character startDelimiter, Character endDelimiter, Order[] columnsToOrder) {
@@ -299,6 +304,7 @@ public class Table extends AbstractDbData<Table> {
    * @param name             Name of the table.
    * @param startDelimiter   Start delimiter for column name and table name.
    * @param endDelimiter     End delimiter for column name and table name.
+   * @param columnsToOrder   List of column to use as ORDER BY
    * @param columnsToCheck   Array of the name of the columns to check. If {@code null} that means to check all the
    *                         columns.
    * @param columnsToExclude Array of the name of the columns to exclude. If {@code null} that means to exclude no
@@ -323,6 +329,7 @@ public class Table extends AbstractDbData<Table> {
    * @param name           Name of the table.
    * @param startDelimiter Start delimiter for column name and table name.
    * @param endDelimiter   End delimiter for column name and table name.
+   * @param columnsToOrder List of column to use as ORDER BY
    * @since 1.2.0
    */
   public Table(DataSource dataSource, String name, Character startDelimiter, Character endDelimiter, Order[] columnsToOrder) {
@@ -336,6 +343,7 @@ public class Table extends AbstractDbData<Table> {
    * @param name             Name of the table.
    * @param startDelimiter   Start delimiter for column name and table name.
    * @param endDelimiter     End delimiter for column name and table name.
+   * @param columnsToOrder   List of column to use as ORDER BY
    * @param columnsToCheck   Array of the name of the columns to check. If {@code null} that means to check all the
    *                         columns.
    * @param columnsToExclude Array of the name of the columns to exclude. If {@code null} that means to exclude no
@@ -588,6 +596,7 @@ public class Table extends AbstractDbData<Table> {
    * Sets the start delimiter for column name and table name.
    *
    * @param startDelimiter The start delimiter for column name and table name.
+   * @return The actual instance.
    * @see #getStartDelimiter()
    * @since 1.2.0
    */
@@ -611,6 +620,7 @@ public class Table extends AbstractDbData<Table> {
    * Sets the end delimiter for column name and table name.
    *
    * @param endDelimiter The end delimiter for column name and table name.
+   * @return The actual instance.
    * @see #getEndDelimiter()
    * @since 1.2.0
    */

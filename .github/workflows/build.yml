@@ -27,7 +27,7 @@ jobs:
         run: ./mvnw -B verify javadoc:javadoc
       - name: Sonar Analysis
         if: ${{ github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository }}
-        run: ./mvnw -B sonar:sonar --file pom.xml
+        run: ./mvnw -B sonar:sonar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

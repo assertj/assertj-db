@@ -44,6 +44,18 @@ public class AssertionsOnTableExistence {
     // Empty
   }
 
+  /**
+   * Verifies that the table exists.
+   *
+   * @param <A>        The type of the assertion which call this method.
+   * @param assertion  The assertion which call this method.
+   * @param info       Writable information about an assertion.
+   * @param table      The table name to search in DB.
+   * @param source     The source to connect to DB.
+   * @param dataSource The source to connect to DB.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the table does not exist.
+   */
   public static <A extends AbstractDbAssert<?, ?, ?, ?, ?, ?>> A exists(A assertion, WritableAssertionInfo info,
                                                                         String table, Source source, DataSource dataSource) {
     try (Connection connection = getConnection(source, dataSource)) {
@@ -59,6 +71,19 @@ public class AssertionsOnTableExistence {
     return assertion;
   }
 
+
+  /**
+   * Verifies that the database not contains the table.
+   *
+   * @param <A>        The type of the assertion which call this method.
+   * @param assertion  The assertion which call this method.
+   * @param info       Writable information about an assertion.
+   * @param table      The table name to search in DB.
+   * @param source     The source to connect to DB.
+   * @param dataSource The source to connect to DB.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the table does not exist.
+   */
   public static <A extends AbstractDbAssert<?, ?, ?, ?, ?, ?>> A doesNotExists(A assertion, WritableAssertionInfo info,
                                                                                String table, Source source, DataSource dataSource) {
     try (Connection connection = getConnection(source, dataSource)) {
