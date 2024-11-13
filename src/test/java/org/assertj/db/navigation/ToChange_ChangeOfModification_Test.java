@@ -12,6 +12,15 @@
  */
 package org.assertj.db.navigation;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.assertj.db.output.Outputs.output;
+import static org.junit.Assert.fail;
+
+import java.lang.reflect.Field;
+import java.util.List;
+import java.util.Map;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.ChangeAssert;
 import org.assertj.db.api.ChangesAssert;
@@ -23,15 +32,6 @@ import org.assertj.db.output.ChangesOutputter;
 import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.Changes;
 import org.junit.Test;
-
-import java.lang.reflect.Field;
-import java.util.List;
-import java.util.Map;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.assertj.db.output.Outputs.output;
-import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link org.assertj.db.navigation.ToChange} class :
@@ -48,7 +48,7 @@ public class ToChange_ChangeOfModification_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_change_of_modification_with_assertions() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -129,7 +129,7 @@ public class ToChange_ChangeOfModification_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_change_of_modification_with_displays() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 

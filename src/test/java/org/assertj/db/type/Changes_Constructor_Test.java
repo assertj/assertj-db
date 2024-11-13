@@ -30,7 +30,7 @@ public class Changes_Constructor_Test extends AbstractTest {
    */
   @Test
   public void test_constructor_jdbc() {
-    Changes changes = new Changes(jdbcConnectionProvider);
+    Changes changes = assertDbConnection.changes().build();
 
     assertThat(changes.getRequestAtStartPoint()).isNull();
     assertThat(changes.getRequestAtEndPoint()).isNull();
@@ -43,19 +43,19 @@ public class Changes_Constructor_Test extends AbstractTest {
     assertThat(changes.getRequestAtEndPoint()).isNull();
     assertThat(changes.getTablesAtStartPointList()).isNotNull();
     assertThat(changes.getTablesAtStartPointList()).hasSize(5);
-    assertThat(changes.getTablesAtStartPointList().get(0).getConnectionProvider()).isSameAs(jdbcConnectionProvider);
+    assertThat(changes.getTablesAtStartPointList().get(0).getConnectionProvider()).isNotNull();
     assertThat(changes.getTablesAtStartPointList().get(0).getName()).isEqualTo("ACTOR");
     assertThat(changes.getTablesAtStartPointList().get(0).getRequest()).isEqualTo("SELECT * FROM ACTOR");
-    assertThat(changes.getTablesAtStartPointList().get(1).getConnectionProvider()).isSameAs(jdbcConnectionProvider);
+    assertThat(changes.getTablesAtStartPointList().get(1).getConnectionProvider()).isNotNull();
     assertThat(changes.getTablesAtStartPointList().get(1).getName()).isEqualTo("INTERPRETATION");
     assertThat(changes.getTablesAtStartPointList().get(1).getRequest()).isEqualTo("SELECT * FROM INTERPRETATION");
-    assertThat(changes.getTablesAtStartPointList().get(2).getConnectionProvider()).isSameAs(jdbcConnectionProvider);
+    assertThat(changes.getTablesAtStartPointList().get(2).getConnectionProvider()).isNotNull();
     assertThat(changes.getTablesAtStartPointList().get(2).getName()).isEqualTo("MOVIE");
     assertThat(changes.getTablesAtStartPointList().get(2).getRequest()).isEqualTo("SELECT * FROM MOVIE");
-    assertThat(changes.getTablesAtStartPointList().get(3).getConnectionProvider()).isSameAs(jdbcConnectionProvider);
+    assertThat(changes.getTablesAtStartPointList().get(3).getConnectionProvider()).isNotNull();
     assertThat(changes.getTablesAtStartPointList().get(3).getName()).isEqualTo("TEST");
     assertThat(changes.getTablesAtStartPointList().get(3).getRequest()).isEqualTo("SELECT * FROM TEST");
-    assertThat(changes.getTablesAtStartPointList().get(4).getConnectionProvider()).isSameAs(jdbcConnectionProvider);
+    assertThat(changes.getTablesAtStartPointList().get(4).getConnectionProvider()).isNotNull();
     assertThat(changes.getTablesAtStartPointList().get(4).getName()).isEqualTo("TEST2");
     assertThat(changes.getTablesAtStartPointList().get(4).getRequest()).isEqualTo("SELECT * FROM TEST2");
     assertThat(changes.getTablesAtEndPointList()).isNull();
@@ -66,111 +66,36 @@ public class Changes_Constructor_Test extends AbstractTest {
     assertThat(changes.getRequestAtEndPoint()).isNull();
     assertThat(changes.getTablesAtStartPointList()).isNotNull();
     assertThat(changes.getTablesAtStartPointList()).hasSize(5);
-    assertThat(changes.getTablesAtStartPointList().get(0).getConnectionProvider()).isSameAs(jdbcConnectionProvider);
+    assertThat(changes.getTablesAtStartPointList().get(0).getConnectionProvider()).isNotNull();
     assertThat(changes.getTablesAtStartPointList().get(0).getName()).isEqualTo("ACTOR");
     assertThat(changes.getTablesAtStartPointList().get(0).getRequest()).isEqualTo("SELECT * FROM ACTOR");
-    assertThat(changes.getTablesAtStartPointList().get(1).getConnectionProvider()).isSameAs(jdbcConnectionProvider);
+    assertThat(changes.getTablesAtStartPointList().get(1).getConnectionProvider()).isNotNull();
     assertThat(changes.getTablesAtStartPointList().get(1).getName()).isEqualTo("INTERPRETATION");
     assertThat(changes.getTablesAtStartPointList().get(1).getRequest()).isEqualTo("SELECT * FROM INTERPRETATION");
-    assertThat(changes.getTablesAtStartPointList().get(2).getConnectionProvider()).isSameAs(jdbcConnectionProvider);
+    assertThat(changes.getTablesAtStartPointList().get(2).getConnectionProvider()).isNotNull();
     assertThat(changes.getTablesAtStartPointList().get(2).getName()).isEqualTo("MOVIE");
     assertThat(changes.getTablesAtStartPointList().get(2).getRequest()).isEqualTo("SELECT * FROM MOVIE");
-    assertThat(changes.getTablesAtStartPointList().get(3).getConnectionProvider()).isSameAs(jdbcConnectionProvider);
+    assertThat(changes.getTablesAtStartPointList().get(3).getConnectionProvider()).isNotNull();
     assertThat(changes.getTablesAtStartPointList().get(3).getName()).isEqualTo("TEST");
     assertThat(changes.getTablesAtStartPointList().get(3).getRequest()).isEqualTo("SELECT * FROM TEST");
-    assertThat(changes.getTablesAtStartPointList().get(4).getConnectionProvider()).isSameAs(jdbcConnectionProvider);
+    assertThat(changes.getTablesAtStartPointList().get(4).getConnectionProvider()).isNotNull();
     assertThat(changes.getTablesAtStartPointList().get(4).getName()).isEqualTo("TEST2");
     assertThat(changes.getTablesAtStartPointList().get(4).getRequest()).isEqualTo("SELECT * FROM TEST2");
     assertThat(changes.getTablesAtEndPointList()).isNotNull();
     assertThat(changes.getTablesAtEndPointList()).hasSize(5);
-    assertThat(changes.getTablesAtEndPointList().get(0).getConnectionProvider()).isSameAs(jdbcConnectionProvider);
+    assertThat(changes.getTablesAtEndPointList().get(0).getConnectionProvider()).isNotNull();
     assertThat(changes.getTablesAtEndPointList().get(0).getName()).isEqualTo("ACTOR");
     assertThat(changes.getTablesAtEndPointList().get(0).getRequest()).isEqualTo("SELECT * FROM ACTOR");
-    assertThat(changes.getTablesAtEndPointList().get(1).getConnectionProvider()).isSameAs(jdbcConnectionProvider);
+    assertThat(changes.getTablesAtEndPointList().get(1).getConnectionProvider()).isNotNull();
     assertThat(changes.getTablesAtEndPointList().get(1).getName()).isEqualTo("INTERPRETATION");
     assertThat(changes.getTablesAtEndPointList().get(1).getRequest()).isEqualTo("SELECT * FROM INTERPRETATION");
-    assertThat(changes.getTablesAtEndPointList().get(2).getConnectionProvider()).isSameAs(jdbcConnectionProvider);
+    assertThat(changes.getTablesAtEndPointList().get(2).getConnectionProvider()).isNotNull();
     assertThat(changes.getTablesAtEndPointList().get(2).getName()).isEqualTo("MOVIE");
     assertThat(changes.getTablesAtEndPointList().get(2).getRequest()).isEqualTo("SELECT * FROM MOVIE");
-    assertThat(changes.getTablesAtEndPointList().get(3).getConnectionProvider()).isSameAs(jdbcConnectionProvider);
+    assertThat(changes.getTablesAtEndPointList().get(3).getConnectionProvider()).isNotNull();
     assertThat(changes.getTablesAtEndPointList().get(3).getName()).isEqualTo("TEST");
     assertThat(changes.getTablesAtEndPointList().get(3).getRequest()).isEqualTo("SELECT * FROM TEST");
-    assertThat(changes.getTablesAtEndPointList().get(4).getConnectionProvider()).isSameAs(jdbcConnectionProvider);
-    assertThat(changes.getTablesAtEndPointList().get(4).getName()).isEqualTo("TEST2");
-    assertThat(changes.getTablesAtEndPointList().get(4).getRequest()).isEqualTo("SELECT * FROM TEST2");
-  }
-
-  /**
-   * This method test the constructor with datasource.
-   */
-  @Test
-  public void test_constructor_datasource() {
-    Changes changes = new Changes(dsConnectionProvider);
-
-    assertThat(changes.getRequestAtStartPoint()).isNull();
-    assertThat(changes.getRequestAtEndPoint()).isNull();
-    assertThat(changes.getTablesAtStartPointList()).isNull();
-    assertThat(changes.getTablesAtEndPointList()).isNull();
-
-    changes.setStartPointNow();
-
-    assertThat(changes.getRequestAtStartPoint()).isNull();
-    assertThat(changes.getRequestAtEndPoint()).isNull();
-    assertThat(changes.getTablesAtStartPointList()).isNotNull();
-    assertThat(changes.getTablesAtStartPointList()).hasSize(5);
-    assertThat(changes.getTablesAtStartPointList().get(0).getConnectionProvider()).isSameAs(dsConnectionProvider);
-    assertThat(changes.getTablesAtStartPointList().get(0).getName()).isEqualTo("ACTOR");
-    assertThat(changes.getTablesAtStartPointList().get(0).getRequest()).isEqualTo("SELECT * FROM ACTOR");
-    assertThat(changes.getTablesAtStartPointList().get(1).getConnectionProvider()).isSameAs(dsConnectionProvider);
-    assertThat(changes.getTablesAtStartPointList().get(1).getName()).isEqualTo("INTERPRETATION");
-    assertThat(changes.getTablesAtStartPointList().get(1).getRequest()).isEqualTo("SELECT * FROM INTERPRETATION");
-    assertThat(changes.getTablesAtStartPointList().get(2).getConnectionProvider()).isSameAs(dsConnectionProvider);
-    assertThat(changes.getTablesAtStartPointList().get(2).getName()).isEqualTo("MOVIE");
-    assertThat(changes.getTablesAtStartPointList().get(2).getRequest()).isEqualTo("SELECT * FROM MOVIE");
-    assertThat(changes.getTablesAtStartPointList().get(3).getConnectionProvider()).isSameAs(dsConnectionProvider);
-    assertThat(changes.getTablesAtStartPointList().get(3).getName()).isEqualTo("TEST");
-    assertThat(changes.getTablesAtStartPointList().get(3).getRequest()).isEqualTo("SELECT * FROM TEST");
-    assertThat(changes.getTablesAtStartPointList().get(4).getConnectionProvider()).isSameAs(dsConnectionProvider);
-    assertThat(changes.getTablesAtStartPointList().get(4).getName()).isEqualTo("TEST2");
-    assertThat(changes.getTablesAtStartPointList().get(4).getRequest()).isEqualTo("SELECT * FROM TEST2");
-    assertThat(changes.getTablesAtEndPointList()).isNull();
-
-    changes.setEndPointNow();
-
-    assertThat(changes.getRequestAtStartPoint()).isNull();
-    assertThat(changes.getRequestAtEndPoint()).isNull();
-    assertThat(changes.getTablesAtStartPointList()).isNotNull();
-    assertThat(changes.getTablesAtStartPointList()).hasSize(5);
-    assertThat(changes.getTablesAtStartPointList().get(0).getConnectionProvider()).isSameAs(dsConnectionProvider);
-    assertThat(changes.getTablesAtStartPointList().get(0).getName()).isEqualTo("ACTOR");
-    assertThat(changes.getTablesAtStartPointList().get(0).getRequest()).isEqualTo("SELECT * FROM ACTOR");
-    assertThat(changes.getTablesAtStartPointList().get(1).getConnectionProvider()).isSameAs(dsConnectionProvider);
-    assertThat(changes.getTablesAtStartPointList().get(1).getName()).isEqualTo("INTERPRETATION");
-    assertThat(changes.getTablesAtStartPointList().get(1).getRequest()).isEqualTo("SELECT * FROM INTERPRETATION");
-    assertThat(changes.getTablesAtStartPointList().get(2).getConnectionProvider()).isSameAs(dsConnectionProvider);
-    assertThat(changes.getTablesAtStartPointList().get(2).getName()).isEqualTo("MOVIE");
-    assertThat(changes.getTablesAtStartPointList().get(2).getRequest()).isEqualTo("SELECT * FROM MOVIE");
-    assertThat(changes.getTablesAtStartPointList().get(3).getConnectionProvider()).isSameAs(dsConnectionProvider);
-    assertThat(changes.getTablesAtStartPointList().get(3).getName()).isEqualTo("TEST");
-    assertThat(changes.getTablesAtStartPointList().get(3).getRequest()).isEqualTo("SELECT * FROM TEST");
-    assertThat(changes.getTablesAtStartPointList().get(4).getConnectionProvider()).isSameAs(dsConnectionProvider);
-    assertThat(changes.getTablesAtStartPointList().get(4).getName()).isEqualTo("TEST2");
-    assertThat(changes.getTablesAtStartPointList().get(4).getRequest()).isEqualTo("SELECT * FROM TEST2");
-    assertThat(changes.getTablesAtEndPointList()).isNotNull();
-    assertThat(changes.getTablesAtEndPointList()).hasSize(5);
-    assertThat(changes.getTablesAtEndPointList().get(0).getConnectionProvider()).isSameAs(dsConnectionProvider);
-    assertThat(changes.getTablesAtEndPointList().get(0).getName()).isEqualTo("ACTOR");
-    assertThat(changes.getTablesAtEndPointList().get(0).getRequest()).isEqualTo("SELECT * FROM ACTOR");
-    assertThat(changes.getTablesAtEndPointList().get(1).getConnectionProvider()).isSameAs(dsConnectionProvider);
-    assertThat(changes.getTablesAtEndPointList().get(1).getName()).isEqualTo("INTERPRETATION");
-    assertThat(changes.getTablesAtEndPointList().get(1).getRequest()).isEqualTo("SELECT * FROM INTERPRETATION");
-    assertThat(changes.getTablesAtEndPointList().get(2).getConnectionProvider()).isSameAs(dsConnectionProvider);
-    assertThat(changes.getTablesAtEndPointList().get(2).getName()).isEqualTo("MOVIE");
-    assertThat(changes.getTablesAtEndPointList().get(2).getRequest()).isEqualTo("SELECT * FROM MOVIE");
-    assertThat(changes.getTablesAtEndPointList().get(3).getConnectionProvider()).isSameAs(dsConnectionProvider);
-    assertThat(changes.getTablesAtEndPointList().get(3).getName()).isEqualTo("TEST");
-    assertThat(changes.getTablesAtEndPointList().get(3).getRequest()).isEqualTo("SELECT * FROM TEST");
-    assertThat(changes.getTablesAtEndPointList().get(4).getConnectionProvider()).isSameAs(dsConnectionProvider);
+    assertThat(changes.getTablesAtEndPointList().get(4).getConnectionProvider()).isNotNull();
     assertThat(changes.getTablesAtEndPointList().get(4).getName()).isEqualTo("TEST2");
     assertThat(changes.getTablesAtEndPointList().get(4).getRequest()).isEqualTo("SELECT * FROM TEST2");
   }
@@ -180,7 +105,7 @@ public class Changes_Constructor_Test extends AbstractTest {
    */
   @Test
   public void test_constructor_one_table() {
-    Changes changes = new Changes(new Table(jdbcConnectionProvider, "test"));
+    Changes changes = assertDbConnection.changes().tables(assertDbConnection.table("test").build()).build();
 
     assertThat(changes.getRequestAtStartPoint()).isNull();
     assertThat(changes.getRequestAtEndPoint()).isNull();
@@ -189,7 +114,8 @@ public class Changes_Constructor_Test extends AbstractTest {
     changes.setStartPointNow();
     assertThat(changes.getTablesAtStartPointList()).isNotNull();
     assertThat(changes.getTablesAtStartPointList()).hasSize(1);
-    assertThat(changes.getTablesAtStartPointList().get(0).getConnectionProvider()).isSameAs(jdbcConnectionProvider);
+    assertThat(changes.getTablesAtStartPointList().get(0).getConnectionProvider()).isNotNull();
+    assertThat(changes.getTablesAtStartPointList().get(0).getConnectionProvider()).isNotNull();
     assertThat(changes.getTablesAtStartPointList().get(0).getName()).isEqualTo("TEST");
     assertThat(changes.getTablesAtStartPointList().get(0).getRequest()).isEqualTo("SELECT * FROM TEST");
 
@@ -197,7 +123,7 @@ public class Changes_Constructor_Test extends AbstractTest {
     changes.setEndPointNow();
     assertThat(changes.getTablesAtEndPointList()).isNotNull();
     assertThat(changes.getTablesAtEndPointList()).hasSize(1);
-    assertThat(changes.getTablesAtEndPointList().get(0).getConnectionProvider()).isSameAs(jdbcConnectionProvider);
+    assertThat(changes.getTablesAtEndPointList().get(0).getConnectionProvider()).isNotNull();
     assertThat(changes.getTablesAtEndPointList().get(0).getName()).isEqualTo("TEST");
     assertThat(changes.getTablesAtEndPointList().get(0).getRequest()).isEqualTo("SELECT * FROM TEST");
   }
@@ -207,7 +133,9 @@ public class Changes_Constructor_Test extends AbstractTest {
    */
   @Test
   public void test_constructor_two_tables() {
-    Changes changes = new Changes(new Table(jdbcConnectionProvider, "test"), new Table(dsConnectionProvider, "test2"));
+    Changes changes = assertDbConnection.changes()
+      .tables(assertDbConnection.table("test").build(), assertDbConnection.table("test2").build())
+      .build();
 
     assertThat(changes.getRequestAtStartPoint()).isNull();
     assertThat(changes.getRequestAtEndPoint()).isNull();
@@ -216,10 +144,10 @@ public class Changes_Constructor_Test extends AbstractTest {
     changes.setStartPointNow();
     assertThat(changes.getTablesAtStartPointList()).isNotNull();
     assertThat(changes.getTablesAtStartPointList()).hasSize(2);
-    assertThat(changes.getTablesAtStartPointList().get(0).getConnectionProvider()).isSameAs(jdbcConnectionProvider);
+    assertThat(changes.getTablesAtStartPointList().get(0)).isNotNull();
     assertThat(changes.getTablesAtStartPointList().get(0).getName()).isEqualTo("TEST");
     assertThat(changes.getTablesAtStartPointList().get(0).getRequest()).isEqualTo("SELECT * FROM TEST");
-    assertThat(changes.getTablesAtStartPointList().get(1).getConnectionProvider()).isSameAs(dsConnectionProvider);
+    assertThat(changes.getTablesAtStartPointList().get(1).getName()).isNotNull();
     assertThat(changes.getTablesAtStartPointList().get(1).getName()).isEqualTo("TEST2");
     assertThat(changes.getTablesAtStartPointList().get(1).getRequest()).isEqualTo("SELECT * FROM TEST2");
 
@@ -227,10 +155,10 @@ public class Changes_Constructor_Test extends AbstractTest {
     changes.setEndPointNow();
     assertThat(changes.getTablesAtEndPointList()).isNotNull();
     assertThat(changes.getTablesAtEndPointList()).hasSize(2);
-    assertThat(changes.getTablesAtEndPointList().get(0).getConnectionProvider()).isSameAs(jdbcConnectionProvider);
+    assertThat(changes.getTablesAtEndPointList().get(0).getName()).isNotNull();
     assertThat(changes.getTablesAtEndPointList().get(0).getName()).isEqualTo("TEST");
     assertThat(changes.getTablesAtEndPointList().get(0).getRequest()).isEqualTo("SELECT * FROM TEST");
-    assertThat(changes.getTablesAtEndPointList().get(1).getConnectionProvider()).isSameAs(dsConnectionProvider);
+    assertThat(changes.getTablesAtEndPointList().get(1).getName()).isNotNull();
     assertThat(changes.getTablesAtEndPointList().get(1).getName()).isEqualTo("TEST2");
     assertThat(changes.getTablesAtEndPointList().get(1).getRequest()).isEqualTo("SELECT * FROM TEST2");
   }
@@ -240,7 +168,7 @@ public class Changes_Constructor_Test extends AbstractTest {
    */
   @Test
   public void test_constructor_request() {
-    Changes changes = new Changes(new Request(jdbcConnectionProvider, "select * from test"));
+    Changes changes = assertDbConnection.changes().request(assertDbConnection.request("select * from test").build()).build();
 
     assertThat(changes.getRequestAtStartPoint()).isNull();
     assertThat(changes.getRequestAtEndPoint()).isNull();
@@ -250,7 +178,7 @@ public class Changes_Constructor_Test extends AbstractTest {
     changes.setStartPointNow();
 
     assertThat(changes.getRequestAtStartPoint()).isNotNull();
-    assertThat(changes.getRequestAtStartPoint().getConnectionProvider()).isSameAs(jdbcConnectionProvider);
+    assertThat(changes.getRequestAtStartPoint().getConnectionProvider()).isNotNull();
     assertThat(changes.getRequestAtStartPoint().getRequest()).isEqualTo("select * from test");
     assertThat(changes.getRequestAtEndPoint()).isNull();
     assertThat(changes.getTablesAtStartPointList()).isNull();
@@ -260,7 +188,7 @@ public class Changes_Constructor_Test extends AbstractTest {
 
     assertThat(changes.getRequestAtStartPoint()).isNotNull();
     assertThat(changes.getRequestAtEndPoint()).isNotNull();
-    assertThat(changes.getRequestAtEndPoint().getConnectionProvider()).isSameAs(jdbcConnectionProvider);
+    assertThat(changes.getRequestAtEndPoint().getConnectionProvider()).isNotNull();
     assertThat(changes.getRequestAtEndPoint().getRequest()).isEqualTo("select * from test");
     assertThat(changes.getTablesAtStartPointList()).isNull();
     assertThat(changes.getTablesAtEndPointList()).isNull();

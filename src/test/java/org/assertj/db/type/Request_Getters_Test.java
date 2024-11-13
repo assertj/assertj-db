@@ -29,30 +29,17 @@ import org.junit.Test;
 public class Request_Getters_Test extends AbstractTest {
 
   /**
-   * This method test the getters of a {@code Table} when only the jdbc connection is set.
-   */
-  @Test
-  public void test_getters_with_only_jdbc_connection_set() {
-    Request request = new Request().setConnectionProvider(jdbcConnectionProvider);
-
-    assertThat(request.getConnectionProvider()).isSameAs(jdbcConnectionProvider);
-    assertThat(request.getRequest()).isNull();
-    assertThat(request.getParameters()).isNull();
-  }
-
-  /**
    * This method test the getters of a {@code Table} when the jdbc connection and the name are set.
    */
   @Test
-  public void test_getters_with_jdbc_and_name_set() {
-    Request request = new Request(jdbcConnectionProvider,
-      "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
-        + " FROM movie, actor, interpretation"
-        + " WHERE movie.id = interpretation.id_movie"
-        + " AND interpretation.id_actor = actor.id"
-        + " ORDER BY actor.name, movie.year");
+  public void test_getters_with_name_set() {
+    Request request = assertDbConnection.request("SELECT actor.name, actor.firstname, movie.year, interpretation.character "
+      + " FROM movie, actor, interpretation"
+      + " WHERE movie.id = interpretation.id_movie"
+      + " AND interpretation.id_actor = actor.id"
+      + " ORDER BY actor.name, movie.year").build();
 
-    assertThat(request.getConnectionProvider()).as("Source of MOVIE table").isSameAs(jdbcConnectionProvider);
+    assertThat(request.getConnectionProvider()).isNotNull();
     assertThat(request.getRequest()).isEqualTo("SELECT actor.name, actor.firstname, movie.year, interpretation.character "
       + " FROM movie, actor, interpretation"
       + " WHERE movie.id = interpretation.id_movie"
@@ -66,16 +53,18 @@ public class Request_Getters_Test extends AbstractTest {
    * are set.
    */
   @Test
-  public void test_getters_with_jdbc_name_and_columns_set() {
-    Request request = new Request(jdbcConnectionProvider,
-      "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
-        + " FROM movie, actor, interpretation"
-        + " WHERE movie.id = interpretation.id_movie"
-        + " AND interpretation.id_actor = actor.id"
-        + " AND movie.year > ?"
-        + " ORDER BY actor.name, movie.year", 2000);
+  public void test_getters_with_name_and_columns_set() {
+    Request request = assertDbConnection.request(
+        "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
+          + " FROM movie, actor, interpretation"
+          + " WHERE movie.id = interpretation.id_movie"
+          + " AND interpretation.id_actor = actor.id"
+          + " AND movie.year > ?"
+          + " ORDER BY actor.name, movie.year")
+      .parameters(2000)
+      .build();
 
-    assertThat(request.getConnectionProvider()).as("Source of MOVIE table").isSameAs(jdbcConnectionProvider);
+    assertThat(request.getConnectionProvider()).isNotNull();
     assertThat(request.getRequest()).isEqualTo("SELECT actor.name, actor.firstname, movie.year, interpretation.character "
       + " FROM movie, actor, interpretation"
       + " WHERE movie.id = interpretation.id_movie"

@@ -33,24 +33,8 @@ public class Table_Columns_Test extends AbstractTest {
    * This method test the columns got from a {@code ConnectionProvider}.
    */
   @Test
-  public void test_columns_with_jdbc_set() {
-    Table table = new Table(jdbcConnectionProvider, "movie");
-
-    Column columnFromIndex = table.getColumn(1);
-
-    assertThat(columnFromIndex.getName()).isEqualTo("TITLE");
-    assertThat(columnFromIndex.getValuesList().get(0).getValue()).isEqualTo("Alien");
-    assertThat(columnFromIndex.getValuesList().get(1).getValue()).isEqualTo("The Village");
-    assertThat(columnFromIndex.getValuesList().get(2).getValue()).isEqualTo("Avatar");
-    assertThat(columnFromIndex.getRowValue(1).getValue()).isEqualTo("The Village");
-  }
-
-  /**
-   * This method test the columns got from a {@code DataSource}.
-   */
-  @Test
-  public void test_columns_with_datasource_set() {
-    Table table = new Table(dsConnectionProvider, "movie");
+  public void test_columns() {
+    Table table = assertDbConnection.table("movie").build();
 
     Column columnFromIndex = table.getColumn(1);
 
@@ -66,14 +50,16 @@ public class Table_Columns_Test extends AbstractTest {
    */
   @Test
   public void test_columns_to_check() {
-    Table table = new Table(jdbcConnectionProvider, "movie");
+    Table table = assertDbConnection.table("movie").build();
 
     assertThat(table.getColumnsToCheck()).isNull();
 
-    table.setColumnsToCheck(new String[]{"title", "test"});
+    Table tableWithCheck = assertDbConnection.table("movie")
+      .columnsToCheck(new String[]{"title", "test"})
+      .build();
 
-    assertThat(table.getColumnsToCheck()).hasSize(1);
-    assertThat(table.getColumnsToCheck()).contains("TITLE");
+    assertThat(tableWithCheck.getColumnsToCheck()).hasSize(1);
+    assertThat(tableWithCheck.getColumnsToCheck()).contains("TITLE");
   }
 
   /**
@@ -81,14 +67,17 @@ public class Table_Columns_Test extends AbstractTest {
    */
   @Test
   public void test_columns_to_exclude() {
-    Table table = new Table(jdbcConnectionProvider, "movie");
+    Table table = assertDbConnection.table("movie").build();
 
     assertThat(table.getColumnsToExclude()).isNull();
 
-    table.setColumnsToExclude(new String[]{"title", "test"});
 
-    assertThat(table.getColumnsToExclude()).hasSize(1);
-    assertThat(table.getColumnsToExclude()).contains("TITLE");
+    Table tableWithExclude = assertDbConnection.table("movie")
+      .columnsToExclude(new String[]{"title", "test"})
+      .build();
+
+    assertThat(tableWithExclude.getColumnsToExclude()).hasSize(1);
+    assertThat(tableWithExclude.getColumnsToExclude()).contains("TITLE");
   }
 
   /**
@@ -96,13 +85,15 @@ public class Table_Columns_Test extends AbstractTest {
    */
   @Test
   public void test_columns_to_order() {
-    Table table = new Table(jdbcConnectionProvider, "movie");
+    Table table = assertDbConnection.table("movie").build();
 
     assertThat(table.getColumnsToOrder()).isNull();
 
-    table.setColumnsToOrder(new Order[]{Order.asc("title"), Order.asc("test")});
+    Table tableWithOrder = assertDbConnection.table("movie")
+      .columnsToOrder(new Order[]{Order.asc("title"), Order.asc("test")})
+      .build();
 
-    assertThat(table.getColumnsToOrder()).hasSize(1);
-    assertThat(table.getColumnsToOrder()).contains(Order.asc("TITLE"));
+    assertThat(tableWithOrder.getColumnsToOrder()).hasSize(1);
+    assertThat(tableWithOrder.getColumnsToOrder()).contains(Order.asc("TITLE"));
   }
 }

@@ -38,9 +38,9 @@ public class AssertOnNumberOfChanges_HasNumberOfChangesGreaterThan_Test extends 
    */
   @Test
   @NeedReload
-  public void test_has_number_of_changes_greater_than() throws Exception {
-    Table table = new Table(jdbcConnectionProvider, "actor");
-    Changes changes = new Changes(table).setStartPointNow();
+  public void test_has_number_of_changes_greater_than() {
+    Table table = assertDbConnection.table("actor").build();
+    Changes changes = assertDbConnection.changes().tables(table).build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -54,9 +54,9 @@ public class AssertOnNumberOfChanges_HasNumberOfChangesGreaterThan_Test extends 
    */
   @Test
   @NeedReload
-  public void should_fail_because_number_of_changes_is_less_or_equal() throws Exception {
-    Request request = new Request(jdbcConnectionProvider, "select * from actor");
-    Changes changes = new Changes(request).setStartPointNow();
+  public void should_fail_because_number_of_changes_is_less_or_equal() {
+    Request request = assertDbConnection.request("select * from actor").build();
+    Changes changes = assertDbConnection.changes().request(request).build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 

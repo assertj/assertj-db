@@ -37,8 +37,8 @@ public class AssertOnChangeType_IsOfType_Test extends AbstractTest {
    */
   @Test
   @NeedReload
-  public void test_is_of_type() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+  public void test_is_of_type() {
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -52,8 +52,8 @@ public class AssertOnChangeType_IsOfType_Test extends AbstractTest {
    */
   @Test
   @NeedReload
-  public void should_fail_because_type_of_change_is_different() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+  public void should_fail_because_type_of_change_is_different() {
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 

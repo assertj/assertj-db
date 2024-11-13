@@ -38,9 +38,9 @@ public class AssertOnNumberOfChanges_HasNumberOfChanges_Test extends AbstractTes
    */
   @Test
   @NeedReload
-  public void test_has_number_of_changes() throws Exception {
-    Table table = new Table(jdbcConnectionProvider, "actor");
-    Changes changes = new Changes(table).setStartPointNow();
+  public void test_has_number_of_changes() {
+    Table table = assertDbConnection.table("actor").build();
+    Changes changes = assertDbConnection.changes().tables(table).build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -48,7 +48,7 @@ public class AssertOnNumberOfChanges_HasNumberOfChanges_Test extends AbstractTes
     ChangesAssert changesAssert2 = changesAssert.hasNumberOfChanges(3);
     Assertions.assertThat(changesAssert).isSameAs(changesAssert2);
 
-    assertThat(new Changes(table).setStartPointNow().setEndPointNow()).hasNumberOfChanges(0);
+    assertThat(assertDbConnection.changes().tables(table).build().setStartPointNow().setEndPointNow()).hasNumberOfChanges(0);
   }
 
   /**
@@ -56,9 +56,9 @@ public class AssertOnNumberOfChanges_HasNumberOfChanges_Test extends AbstractTes
    */
   @Test
   @NeedReload
-  public void should_fail_because_number_of_changes_is_different() throws Exception {
-    Request request = new Request(jdbcConnectionProvider, "select * from actor");
-    Changes changes = new Changes(request).setStartPointNow();
+  public void should_fail_because_number_of_changes_is_different() {
+    Request request = assertDbConnection.request("select * from actor").build();
+    Changes changes = assertDbConnection.changes().request(request).build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 

@@ -37,7 +37,7 @@ public class AssertOnNumberOfRows_IsEmpty_Test extends AbstractTest {
   @Test
   public void test_is_empty() {
     update("delete from test");
-    Table table = new Table(jdbcConnectionProvider, "test");
+    Table table = assertDbConnection.table("test").build();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = tableAssert.isEmpty();
     Assertions.assertThat(tableAssert).isSameAs(tableAssert2);
@@ -51,7 +51,7 @@ public class AssertOnNumberOfRows_IsEmpty_Test extends AbstractTest {
    */
   @Test
   public void should_fail_because_table_is_not_empty() {
-    Request request = new Request(jdbcConnectionProvider, "select * from actor");
+    Request request = assertDbConnection.request("select * from actor").build();
     try {
       assertThat(request).isEmpty();
       fail("An exception must be raised");

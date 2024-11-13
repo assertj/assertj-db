@@ -12,7 +12,6 @@
  */
 package org.assertj.db.api.assertions.impl;
 
-import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
@@ -24,7 +23,6 @@ import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.exception.AssertJDBException;
-import org.assertj.db.type.Table;
 import org.assertj.db.type.Value;
 import org.junit.Test;
 
@@ -42,8 +40,7 @@ public class AssertionsOnColumnClass_IsOfClass_Test extends AbstractTest {
   @Test
   public void test_is_of_type() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "test"), getValue(null, "test")));
     TableAssert tableAssert2 = AssertionsOnColumnClass.isOfClass(tableAssert, info, list, String.class, false);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
@@ -62,8 +59,7 @@ public class AssertionsOnColumnClass_IsOfClass_Test extends AbstractTest {
   public void should_fail_because_value_is_not_of_class() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, 8), getValue(null, "test")));
       AssertionsOnColumnClass.isOfClass(tableAssert, info, list, String.class, false);
@@ -97,8 +93,7 @@ public class AssertionsOnColumnClass_IsOfClass_Test extends AbstractTest {
   public void should_fail_because_value_is_not_of_type_with_lenience() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "test"), getValue(null, 8)));
       AssertionsOnColumnClass.isOfClass(tableAssert, info, list, String.class, true);
@@ -121,8 +116,7 @@ public class AssertionsOnColumnClass_IsOfClass_Test extends AbstractTest {
   public void should_fail_because_value_is_a_stringbuilder() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, new StringBuilder("test")), getValue(null, true)));
       AssertionsOnColumnClass.isOfClass(tableAssert, info, list, String.class, false);
@@ -145,8 +139,7 @@ public class AssertionsOnColumnClass_IsOfClass_Test extends AbstractTest {
   public void should_fail_because_class_value_is_null() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "test"), getValue(null, "test")));
     try {
       AssertionsOnColumnClass.isOfClass(tableAssert, info, list, null, false);

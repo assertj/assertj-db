@@ -34,11 +34,11 @@ public class OutputterTable_Test extends AbstractTest {
    */
   @Test
   public void test_output() throws Exception {
-    Table table = new Table(jdbcConnectionProvider, "actor");
+    Table table = assertDbConnection.table("actor").build();
 
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
     output(table).toStream(byteArrayOutputStream);
-    Assertions.assertThat(byteArrayOutputStream.toString()).isEqualTo(String.format("[ACTOR table]%n"
+    Assertions.assertThat(byteArrayOutputStream).hasToString(String.format("[ACTOR table]%n"
       + "|-----------|---------|-----------|-------------|-----------|------------|--------------------------------------|%n"
       + "|           |         | *         |             |           |            |                                      |%n"
       + "|           | PRIMARY | ID        | NAME        | FIRSTNAME | BIRTH      | ACTOR_IMDB                           |%n"
@@ -56,7 +56,7 @@ public class OutputterTable_Test extends AbstractTest {
    */
   @Test
   public void test_navigation() throws Exception {
-    Table table = new Table(jdbcConnectionProvider, "actor");
+    Table table = assertDbConnection.table("actor").build();
 
     TableOutputter tableOutputter = output(table);
 

@@ -83,7 +83,7 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_value_from_row_of_change_with_index_with_assertions() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -195,7 +195,7 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     Field fieldIndex = Position.class.getDeclaredField("nextIndex");
     fieldIndex.setAccessible(true);
 
-    Table table = new Table(jdbcConnectionProvider, "actor");
+    Table table = assertDbConnection.table("actor").build();
     TableAssert tableAssert = assertThat(table);
     TableColumnAssert tableColumnAssert = tableAssert.column();
     Position<TableColumnAssert, TableColumnValueAssert, Value> position =
@@ -271,7 +271,7 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     Field fieldIndex = Position.class.getDeclaredField("nextIndex");
     fieldIndex.setAccessible(true);
 
-    Table table = new Table(jdbcConnectionProvider, "actor");
+    Table table = assertDbConnection.table("actor").build();
     TableAssert tableAssert = assertThat(table);
     TableRowAssert tableRowAssert = tableAssert.row();
     Position<TableRowAssert, TableRowValueAssert, Value> position =
@@ -361,7 +361,7 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     Field fieldIndex = Position.class.getDeclaredField("nextIndex");
     fieldIndex.setAccessible(true);
 
-    Request request = new Request(jdbcConnectionProvider, "select * from actor");
+    Request request = assertDbConnection.request("select * from actor").build();
     RequestAssert requestAssert = assertThat(request);
     RequestColumnAssert requestColumnAssert = requestAssert.column();
     Position position = (Position) fieldPosition.get(requestColumnAssert);
@@ -435,7 +435,7 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     Field fieldIndex = Position.class.getDeclaredField("nextIndex");
     fieldIndex.setAccessible(true);
 
-    Request request = new Request(jdbcConnectionProvider, "select * from actor");
+    Request request = assertDbConnection.request("select * from actor").build();
     RequestAssert requestAssert = assertThat(request);
     RequestRowAssert requestRowAssert = requestAssert.row();
     Position position = (Position) fieldPosition.get(requestRowAssert);
@@ -517,7 +517,7 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_value_from_row_of_change_with_index_with_displays() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -627,7 +627,7 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     Field fieldIndex = Position.class.getDeclaredField("nextIndex");
     fieldIndex.setAccessible(true);
 
-    Table table = new Table(jdbcConnectionProvider, "actor");
+    Table table = assertDbConnection.table("actor").build();
     TableOutputter tableOutputter = Outputs.output(table);
     TableColumnOutputter tableColumnOutputter = tableOutputter.column();
     Position position = (Position) fieldPosition.get(tableColumnOutputter);
@@ -701,7 +701,7 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     Field fieldIndex = Position.class.getDeclaredField("nextIndex");
     fieldIndex.setAccessible(true);
 
-    Table table = new Table(jdbcConnectionProvider, "actor");
+    Table table = assertDbConnection.table("actor").build();
     TableOutputter tableOutputter = Outputs.output(table);
     TableRowOutputter tableRowOutputter = tableOutputter.row();
     Position position = (Position) fieldPosition.get(tableRowOutputter);
@@ -789,7 +789,7 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     Field fieldIndex = Position.class.getDeclaredField("nextIndex");
     fieldIndex.setAccessible(true);
 
-    Request request = new Request(jdbcConnectionProvider, "select * from actor");
+    Request request = assertDbConnection.request("select * from actor").build();
     RequestOutputter requestOutputter = Outputs.output(request);
     RequestColumnOutputter requestColumnOutputter = requestOutputter.column();
     Position position = (Position) fieldPosition.get(requestColumnOutputter);
@@ -863,7 +863,7 @@ public class ToValue_Value_Integer_Test extends AbstractTest {
     Field fieldIndex = Position.class.getDeclaredField("nextIndex");
     fieldIndex.setAccessible(true);
 
-    Request request = new Request(jdbcConnectionProvider, "select * from actor");
+    Request request = assertDbConnection.request("select * from actor").build();
     RequestOutputter requestOutputter = Outputs.output(request);
     RequestRowOutputter requestRowOutputter = requestOutputter.row();
     Position position = (Position) fieldPosition.get(requestRowOutputter);

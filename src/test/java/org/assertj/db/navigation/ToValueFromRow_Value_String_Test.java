@@ -58,7 +58,7 @@ public class ToValueFromRow_Value_String_Test extends AbstractTest {
   @Test
   @NeedReload
   public void should_fail_because_row_does_not_exist() {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -76,7 +76,7 @@ public class ToValueFromRow_Value_String_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_value_from_row_of_change_with_column_name() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -166,7 +166,7 @@ public class ToValueFromRow_Value_String_Test extends AbstractTest {
     Field fieldIndex = Position.class.getDeclaredField("nextIndex");
     fieldIndex.setAccessible(true);
 
-    Table table = new Table(jdbcConnectionProvider, "actor");
+    Table table = assertDbConnection.table("actor").build();
     TableAssert tableAssert = assertThat(table);
     TableRowAssert tableRowAssert = tableAssert.row();
     Position position = (Position) fieldPosition.get(tableRowAssert);
@@ -247,7 +247,7 @@ public class ToValueFromRow_Value_String_Test extends AbstractTest {
     Field fieldIndex = Position.class.getDeclaredField("nextIndex");
     fieldIndex.setAccessible(true);
 
-    Request request = new Request(jdbcConnectionProvider, "select * from actor");
+    Request request = assertDbConnection.request("select * from actor").build();
     RequestAssert requestAssert = assertThat(request);
     RequestRowAssert requestRowAssert = requestAssert.row();
     Position position = (Position) fieldPosition.get(requestRowAssert);

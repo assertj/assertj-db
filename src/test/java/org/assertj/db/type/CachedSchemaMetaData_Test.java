@@ -12,16 +12,14 @@
  */
 package org.assertj.db.type;
 
-import org.assertj.db.common.AbstractTest;
-import org.junit.Test;
-
-import javax.xml.validation.Schema;
-import java.sql.Time;
-import java.text.ParseException;
-import java.time.LocalTime;
-import java.util.Calendar;
-
 import static org.assertj.core.api.Assertions.assertThat;
+
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+import org.assertj.db.common.AbstractTest;
+import org.assertj.db.common.DefaultConnectionProvider;
+import org.junit.Test;
 
 /**
  * Tests on the cached schema metadata.
@@ -30,21 +28,27 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class CachedSchemaMetaData_Test extends AbstractTest {
 
+  final DefaultConnectionProvider provider;
+
+  public CachedSchemaMetaData_Test() throws SQLException {
+    this.provider = new DefaultConnectionProvider(DriverManager.getConnection("jdbc:h2:mem:test", "sa", ""));
+  }
+
   @Test
   public void test_get_tables() {
-    CachedSchemaMetaData metaData = new CachedSchemaMetaData(jdbcConnectionProvider);
+    CachedSchemaMetaData metaData = new CachedSchemaMetaData(provider);
     assertThat(metaData.getTablesName()).containsExactly("ACTOR", "INTERPRETATION", "MOVIE", "TEST", "TEST2");
   }
 
   @Test
   public void test_get_columns() {
-    CachedSchemaMetaData metaData = new CachedSchemaMetaData(jdbcConnectionProvider);
+    CachedSchemaMetaData metaData = new CachedSchemaMetaData(provider);
     assertThat(metaData.getColumnsName("ACTOR")).containsExactly("ID", "NAME", "FIRSTNAME", "BIRTH", "ACTOR_IMDB");
   }
 
   @Test
   public void test_get_primary_keys() {
-    CachedSchemaMetaData metaData = new CachedSchemaMetaData(jdbcConnectionProvider);
+    CachedSchemaMetaData metaData = new CachedSchemaMetaData(provider);
     assertThat(metaData.getPrimaryKeys("ACTOR")).containsExactly("ID");
   }
 }

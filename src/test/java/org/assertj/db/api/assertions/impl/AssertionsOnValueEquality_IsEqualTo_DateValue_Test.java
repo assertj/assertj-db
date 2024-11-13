@@ -12,7 +12,6 @@
  */
 package org.assertj.db.api.assertions.impl;
 
-import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 import java.sql.Date;
@@ -23,7 +22,6 @@ import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.DateValue;
-import org.assertj.db.type.Table;
 import org.junit.Test;
 
 /**
@@ -40,8 +38,7 @@ public class AssertionsOnValueEquality_IsEqualTo_DateValue_Test extends Abstract
   @Test
   public void test_is_equal_to() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     TableAssert tableAssert2 = AssertionsOnValueEquality.isEqualTo(tableAssert, info, getValue(
       null, Date.valueOf("2007-12-23")), DateValue.of(2007, 12, 23));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
@@ -59,8 +56,7 @@ public class AssertionsOnValueEquality_IsEqualTo_DateValue_Test extends Abstract
   public void should_fail_because_value_is_not_equal_to() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       AssertionsOnValueEquality.isEqualTo(tableAssert, info, getValue(null, Date.valueOf("2007-12-24")), DateValue.of(2007, 12, 23));
       fail("An exception must be raised");
@@ -110,8 +106,7 @@ public class AssertionsOnValueEquality_IsEqualTo_DateValue_Test extends Abstract
   public void should_fail_because_value_is_not_a_date() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       AssertionsOnValueEquality.isEqualTo(tableAssert, info, getValue(null, 8), DateValue.of(2007, 12, 23));
       fail("An exception must be raised");

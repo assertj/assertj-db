@@ -32,7 +32,7 @@ public class AssertOnRowNullity_HasOnlyNotNullValues_Test extends AbstractTest {
    */
   @Test
   public void test_has_only_not_null_values() {
-    Table table = new Table(jdbcConnectionProvider, "test");
+    Table table = assertDbConnection.table("test").build();
     TableRowAssert tableRowAssert = assertThat(table).row();
     TableRowAssert tableRowAssert2 = tableRowAssert.hasOnlyNotNullValues();
     Assertions.assertThat(tableRowAssert).isSameAs(tableRowAssert2);
@@ -42,8 +42,8 @@ public class AssertOnRowNullity_HasOnlyNotNullValues_Test extends AbstractTest {
    * This method should fail because the row has a null value.
    */
   @Test
-  public void should_fail_because_row_has_null_value() throws Exception {
-    Table table = new Table(jdbcConnectionProvider, "test2");
+  public void should_fail_because_row_has_null_value() {
+    Table table = assertDbConnection.table("test2").build();
     TableRowAssert tableRowAssert = assertThat(table).row().row();
     try {
       tableRowAssert.hasOnlyNotNullValues();

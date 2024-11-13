@@ -12,7 +12,6 @@
  */
 package org.assertj.db.api.assertions.impl;
 
-import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 import java.sql.Date;
@@ -23,7 +22,6 @@ import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Row;
-import org.assertj.db.type.Table;
 import org.junit.Test;
 
 /**
@@ -40,8 +38,7 @@ public class AssertionsOnRowOfChangeExistence_DoesNotExist_Test extends Abstract
   @Test
   public void test_does_not_exists() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     TableAssert tableAssert2 = AssertionsOnRowOfChangeExistence.doesNotExist(tableAssert, info, null);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
@@ -53,8 +50,7 @@ public class AssertionsOnRowOfChangeExistence_DoesNotExist_Test extends Abstract
   public void should_fail_because_row_exists() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     Row row = getRow(null, Arrays.asList("ID", "NAME", "FIRSTNAME", "BIRTH"),
       Arrays.asList(getValue(null, 1), getValue(null, "Weaver"), getValue(null, "Sigourney"),
         getValue(null, Date.valueOf("1949-10-08"))));

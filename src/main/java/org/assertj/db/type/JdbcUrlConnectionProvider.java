@@ -20,7 +20,7 @@ import org.assertj.db.type.lettercase.LetterCase;
 
 /**
  * The implementation of {@link ConnectionProvider} from JDBC url connection info.
- * Use {@link ConnectionProviderFactory} for instantiate.
+ * Use {@link AssertDbConnectionFactory} for instantiate.
  *
  * @author Julien Roy
  * @since 3.0.0

@@ -282,8 +282,8 @@ public class DateValue_Test extends AbstractTest {
    */
   @Test
   public void test_toString() {
-    assertThat(DateValue.of(2007, 12, 23).toString()).isEqualTo("2007-12-23");
-    assertThat(DateValue.of(2007, 2, 3).toString()).isEqualTo("2007-02-03");
+    assertThat(DateValue.of(2007, 12, 23)).hasToString("2007-12-23");
+    assertThat(DateValue.of(2007, 2, 3)).hasToString("2007-02-03");
   }
 
   /**

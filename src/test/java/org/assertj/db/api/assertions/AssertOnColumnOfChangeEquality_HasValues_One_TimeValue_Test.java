@@ -39,7 +39,7 @@ public class AssertOnColumnOfChangeEquality_HasValues_One_TimeValue_Test extends
   @Test
   @NeedReload
   public void test_has_values() {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     update("update test set var14 = 1 where var1 = 1");
     changes.setEndPointNow();
 
@@ -55,7 +55,7 @@ public class AssertOnColumnOfChangeEquality_HasValues_One_TimeValue_Test extends
   @Test
   @NeedReload
   public void should_fail_because_value_at_start_point_is_different() {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     update("insert into test(var1, var8) values(5, '09:46:30')");
     changes.setEndPointNow();
 
@@ -77,7 +77,7 @@ public class AssertOnColumnOfChangeEquality_HasValues_One_TimeValue_Test extends
   @Test
   @NeedReload
   public void should_fail_because_value_at_end_point_is_different() {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     update("delete from test where var1 = 1");
     changes.setEndPointNow();
 

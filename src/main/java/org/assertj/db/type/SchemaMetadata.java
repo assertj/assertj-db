@@ -14,12 +14,35 @@ package org.assertj.db.type;
 
 import java.util.Collection;
 
-interface SchemaMetadata {
+/**
+ * Represent access to a database schema metadata.
+ *
+ * @author Julien Roy
+ * @since 3.0.0
+ */
+public interface SchemaMetadata {
 
+  /**
+   * Return list of name of tables discovered in database schema.
+   *
+   * @return List of table names
+   */
   Collection<String> getTablesName();
 
+  /**
+   * Return list of name of columns discovered in database schema.
+   *
+   * @param tableName Name of table to discover.
+   * @return List of table names
+   */
   Collection<String> getColumnsName(String tableName);
 
+  /**
+   * Return list of primary keys discovered in database schema.
+   *
+   * @param tableName Name of table to discover.
+   * @return List of  primary keys
+   */
   Collection<String> getPrimaryKeys(String tableName);
 
 }

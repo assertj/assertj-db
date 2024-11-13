@@ -28,47 +28,11 @@ import org.junit.Test;
 public class Request_Instantiation_Test extends AbstractTest {
 
   /**
-   * This method should throw a {@code NullPointerException}, because the {@code ConnectionProvider} parameter is {@code null}.
+   * This method should throw a {@code IllegalArgumentException}, because request is {@code null}.
    */
-  @Test(expected = NullPointerException.class)
-  public void should_throw_NullPointerException_if_instantiate_with_connection_provider_null() {
-    new Request(null, null);
-  }
-
-  /**
-   * This method should throw a {@code NullPointerException}, because the {@code ConnectionProvider} parameter is not {@code null}
-   * and request is {@code null}.
-   */
-  @Test(expected = NullPointerException.class)
-  public void should_throw_NullPointerException_if_instantiate_with_jdbc_not_null_and_table_name_null() {
-    new Request(jdbcConnectionProvider, null);
-  }
-
-  /**
-   * This method should throw a {@code NullPointerException}, because the {@code ConnectionProvider} parameter is {@code null}
-   * and request is {@code null}.
-   */
-  @Test(expected = NullPointerException.class)
-  public void should_throw_NullPointerException_if_instantiate_with_data_source_not_null_and_table_name_null() {
-    new Request(dsConnectionProvider, null);
-  }
-
-  /**
-   * This method should throw a {@code NullPointerException}, because the {@code DataSource} and the {@code ConnectionProvider}
-   * fields are not set when call {@code getColumnsNameList()}.
-   */
-  @Test(expected = NullPointerException.class)
-  public void should_throw_NullPointerException_if_get_list_of_columns_name_without_setting_connection_provider_or_datasource() {
-    new Request().getColumnsNameList();
-  }
-
-  /**
-   * This method should throw a {@code NullPointerException}, because the {@code ConnectionProvider} field is set but not the table
-   * name when call {@code getColumnsNameList()}.
-   */
-  @Test(expected = NullPointerException.class)
-  public void should_throw_NullPointerException_if_get_list_of_columns_name_with_setting_connection_provider_and_without_setting_table_name() {
-    new Request().setConnectionProvider(jdbcConnectionProvider).getColumnsNameList();
+  @Test(expected = IllegalArgumentException.class)
+  public void should_throw_IllegalArgumentException_if_instantiate_with_table_name_null() {
+    assertDbConnection.request(null).build();
   }
 
   /**
@@ -77,7 +41,7 @@ public class Request_Instantiation_Test extends AbstractTest {
    */
   @Test(expected = AssertJDBException.class)
   public void should_throw_AssertJDBException_if_get_list_of_rows_with_setting_connection_provider_having_bad_user() {
-    Request request = new Request(ConnectionProviderFactory.of("jdbc:h2:mem:test", "", "").create(), "");
+    Request request = AssertDbConnectionFactory.of("jdbc:h2:mem:test", "", "").create().request("").build();
     request.getRowsList();
   }
 }

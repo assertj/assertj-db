@@ -12,7 +12,6 @@
  */
 package org.assertj.db.api.assertions.impl;
 
-import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 import java.util.Locale;
@@ -21,7 +20,6 @@ import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.common.AbstractTest;
-import org.assertj.db.type.Table;
 import org.assertj.db.type.ValueType;
 import org.junit.Test;
 
@@ -39,8 +37,7 @@ public class AssertionsOnColumnOfChangeType_IsOfType_Test extends AbstractTest {
   @Test
   public void test_is_of_type() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     TableAssert tableAssert2 = AssertionsOnColumnOfChangeType.isOfType(tableAssert, info,
       getValue(null, "test"),
       getValue(null, "test"), ValueType.TEXT, false);
@@ -62,8 +59,7 @@ public class AssertionsOnColumnOfChangeType_IsOfType_Test extends AbstractTest {
   public void should_fail_because_value_at_start_point_have_different_type() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       AssertionsOnColumnOfChangeType.isOfType(tableAssert, info,
         getValue(null, 8), getValue(null, "test"), ValueType.TEXT, false);
@@ -112,8 +108,7 @@ public class AssertionsOnColumnOfChangeType_IsOfType_Test extends AbstractTest {
   public void should_fail_because_value_at_end_point_have_different_type() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       AssertionsOnColumnOfChangeType.isOfType(tableAssert, info,
         getValue(null, "test"), getValue(null, 8), ValueType.TEXT, false);
@@ -162,8 +157,7 @@ public class AssertionsOnColumnOfChangeType_IsOfType_Test extends AbstractTest {
   public void should_fail_because_value_at_start_point_is_a_stringbuilder() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       AssertionsOnColumnOfChangeType.isOfType(tableAssert, info,
         getValue(null, new StringBuilder("test")), getValue(null, "test"), ValueType.TEXT, false);
@@ -186,8 +180,7 @@ public class AssertionsOnColumnOfChangeType_IsOfType_Test extends AbstractTest {
   public void should_fail_because_value_at_end_point_is_a_stringbuilder() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       AssertionsOnColumnOfChangeType.isOfType(tableAssert, info,
         getValue(null, "test"), getValue(null, new StringBuilder("test")), ValueType.TEXT, false);

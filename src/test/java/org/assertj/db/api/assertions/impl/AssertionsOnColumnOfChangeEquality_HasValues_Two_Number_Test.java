@@ -12,14 +12,12 @@
  */
 package org.assertj.db.api.assertions.impl;
 
-import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.common.AbstractTest;
-import org.assertj.db.type.Table;
 import org.junit.Test;
 
 /**
@@ -36,8 +34,7 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Number_Test extend
   @Test
   public void test_has_values() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     TableAssert tableAssert2 = AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
       getValue(null, 1),
       getValue(null, 2), 1, 2);
@@ -51,8 +48,7 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Number_Test extend
   public void should_fail_because_value_at_start_point_is_different() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
         getValue(null, 1),
@@ -74,8 +70,7 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Number_Test extend
   public void should_fail_because_value_at_end_point_is_different() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
         getValue(null, 1),
@@ -97,8 +92,7 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Number_Test extend
   public void should_fail_because_one_value_is_not_a_number() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
         getValue(null, "other"),

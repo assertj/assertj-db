@@ -12,7 +12,6 @@
  */
 package org.assertj.db.api.assertions.impl;
 
-import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 import java.util.UUID;
@@ -21,7 +20,6 @@ import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.common.AbstractTest;
-import org.assertj.db.type.Table;
 import org.junit.Test;
 
 /**
@@ -38,8 +36,7 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_UUID_Test extends 
   @Test
   public void test_has_values() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     TableAssert tableAssert2 = AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
       getValue(null, UUID.fromString(
         "30B443AE-C0C9-4790-9BEC-CE1380808435")),
@@ -57,8 +54,7 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_UUID_Test extends 
   public void should_fail_because_value_at_start_point_is_different() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
         getValue(null, UUID.fromString("0E2A1269-EFF0-4233-B87B-B53E8B6F164D")),
@@ -85,8 +81,7 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_UUID_Test extends 
   public void should_fail_because_value_at_end_point_is_different() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
         getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")),
@@ -113,8 +108,7 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_UUID_Test extends 
   public void should_fail_because_one_value_is_not_a_uuid() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info,
         getValue(null, "other"),

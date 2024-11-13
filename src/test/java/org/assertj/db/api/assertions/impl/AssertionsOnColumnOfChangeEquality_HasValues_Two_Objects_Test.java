@@ -12,7 +12,6 @@
  */
 package org.assertj.db.api.assertions.impl;
 
-import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 import java.util.Locale;
@@ -21,7 +20,6 @@ import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.common.AbstractTest;
-import org.assertj.db.type.Table;
 import org.junit.Test;
 
 /**
@@ -38,8 +36,7 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Objects_Test exten
   @Test
   public void test_has_values() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     TableAssert tableAssert2 = AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info, getValue(null, Locale.FRENCH),
       getValue(null, Locale.ENGLISH), Locale.FRENCH,
       Locale.ENGLISH);
@@ -61,8 +58,7 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Objects_Test exten
   public void should_fail_because_value_at_start_point_is_different() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info, getValue(null, Locale.FRENCH),
         getValue(null, Locale.ENGLISH),
@@ -120,8 +116,7 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Objects_Test exten
   public void should_fail_because_value_at_end_point_is_different() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info, getValue(null, Locale.FRENCH), getValue(null,
         Locale.ENGLISH), Locale.FRENCH, Locale.FRENCH);
@@ -142,8 +137,7 @@ public class AssertionsOnColumnOfChangeEquality_HasValues_Two_Objects_Test exten
   public void should_fail_because_one_value_is_not_a_object() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       AssertionsOnColumnOfChangeEquality.hasValues(tableAssert, info, getValue(null, "other"), getValue(null, Locale.ENGLISH), Locale.FRENCH, Locale.ENGLISH);
       fail("An exception must be raised");

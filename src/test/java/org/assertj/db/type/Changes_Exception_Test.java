@@ -39,9 +39,9 @@ public class Changes_Exception_Test extends AbstractTest {
    */
   @Test(expected = AssertJDBException.class)
   public void should_fail_because_connection_throws_exception_when_getting_an_object() {
-    ConnectionProvider connectionProvider = ConnectionProviderFactory.of(new DefaultDataSource(dataSource)).create();
-    Table table = new Table(connectionProvider, "movi");
-    Changes changes = new Changes().setTables(table);
+    AssertDbConnection connectionProvider = AssertDbConnectionFactory.of(new DefaultDataSource(dataSource)).create();
+    Table table = connectionProvider.table("movi").build();
+    Changes changes = connectionProvider.changes().tables(table).build();
     changes.setStartPointNow();
   }
 
@@ -63,9 +63,9 @@ public class Changes_Exception_Test extends AbstractTest {
         };
       }
     };
-    ConnectionProvider connectionProvider = ConnectionProviderFactory.of(ds).create();
-    Table table = new Table(connectionProvider, "movi");
-    Changes changes = new Changes().setTables(table);
+    AssertDbConnection connectionProvider = AssertDbConnectionFactory.of(ds).create();
+    Table table = connectionProvider.table("movi").build();
+    Changes changes = connectionProvider.changes().tables(table).build();
     changes.setStartPointNow();
   }
 
@@ -93,9 +93,9 @@ public class Changes_Exception_Test extends AbstractTest {
         };
       }
     };
-    ConnectionProvider connectionProvider = ConnectionProviderFactory.of(ds).create();
-    Table table = new Table(connectionProvider, "movi");
-    Changes changes = new Changes().setTables(table);
+    AssertDbConnection connectionProvider = AssertDbConnectionFactory.of(ds).create();
+    Table table = connectionProvider.table("movi").build();
+    Changes changes = connectionProvider.changes().tables(table).build();
     changes.setStartPointNow();
   }
 
@@ -116,9 +116,9 @@ public class Changes_Exception_Test extends AbstractTest {
         };
       }
     };
-    ConnectionProvider connectionProvider = ConnectionProviderFactory.of(ds).create();
-    Table table = new Table(connectionProvider, "movi");
-    Changes changes = new Changes().setTables(table);
+    AssertDbConnection connectionProvider = AssertDbConnectionFactory.of(ds).create();
+    Table table = connectionProvider.table("movi").build();
+    Changes changes = connectionProvider.changes().tables(table).build();
     changes.setStartPointNow();
   }
 
@@ -139,9 +139,9 @@ public class Changes_Exception_Test extends AbstractTest {
         };
       }
     };
-    ConnectionProvider connectionProvider = ConnectionProviderFactory.of(ds).create();
-    Table table = new Table(connectionProvider, "movi");
-    Changes changes = new Changes().setTables(table);
+    AssertDbConnection connectionProvider = AssertDbConnectionFactory.of(ds).create();
+    Table table = connectionProvider.table("movi").build();
+    Changes changes = connectionProvider.changes().tables(table).build();
     changes.setStartPointNow();
   }
 
@@ -156,26 +156,10 @@ public class Changes_Exception_Test extends AbstractTest {
         throw new SQLException();
       }
     };
-    ConnectionProvider connectionProvider = ConnectionProviderFactory.of(ds).create();
-    Table table = new Table(connectionProvider, "movi");
-    Changes changes = new Changes().setTables(table);
+    AssertDbConnection connectionProvider = AssertDbConnectionFactory.of(ds).create();
+    Table table = connectionProvider.table("movi").build();
+    Changes changes = connectionProvider.changes().tables(table).build();
     changes.setStartPointNow();
-  }
-
-  /**
-   * This method should fail because the table is null.
-   */
-  @Test(expected = NullPointerException.class)
-  public void should_fail_because_table_is_null() {
-    new Changes().setTables((Table) null);
-  }
-
-  /**
-   * This method should fail because the request is null.
-   */
-  @Test(expected = NullPointerException.class)
-  public void should_fail_because_request_is_null() {
-    new Changes().setRequest(null);
   }
 
   /**
@@ -183,8 +167,8 @@ public class Changes_Exception_Test extends AbstractTest {
    */
   @Test(expected = AssertJDBException.class)
   public void should_fail_because_end_before_start() {
-    Table table = new Table(dsConnectionProvider, "test");
-    Changes changes = new Changes().setTables(table);
+    Table table = assertDbConnection.table("test").build();
+    Changes changes = assertDbConnection.changes().tables(table).build();
     changes.setEndPointNow();
   }
 
@@ -193,8 +177,8 @@ public class Changes_Exception_Test extends AbstractTest {
    */
   @Test(expected = AssertJDBException.class)
   public void should_fail_because_getting_list_of_changes_before_end() {
-    Table table = new Table(dsConnectionProvider, "test");
-    Changes changes = new Changes().setTables(table);
+    Table table = assertDbConnection.table("test").build();
+    Changes changes = assertDbConnection.changes().tables(table).build();
     changes.setStartPointNow();
     changes.getChangesList();
   }
@@ -204,7 +188,7 @@ public class Changes_Exception_Test extends AbstractTest {
    */
   @Test(expected = NullPointerException.class)
   public void should_fail_because_tablename_is_null() {
-    new Changes(jdbcConnectionProvider).getChangesOfTable(null);
+    assertDbConnection.changes().build().getChangesOfTable(null);
   }
 
   /**
@@ -212,6 +196,6 @@ public class Changes_Exception_Test extends AbstractTest {
    */
   @Test(expected = NullPointerException.class)
   public void should_fail_because_type_is_null() {
-    new Changes(jdbcConnectionProvider).getChangesOfType(null);
+    assertDbConnection.changes().build().getChangesOfType(null);
   }
 }

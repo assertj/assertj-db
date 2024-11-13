@@ -36,8 +36,8 @@ public class BDDAssertions_Test extends AbstractTest {
    * This method tests the {@code then} method for {@code Table}.
    */
   @Test
-  public void test_then_for_table() throws Exception {
-    Table table = new Table(jdbcConnectionProvider, "test");
+  public void test_then_for_table() {
+    Table table = assertDbConnection.table("test").build();
     Assertions.assertThat(then(table)).isInstanceOf(TableAssert.class);
   }
 
@@ -45,8 +45,8 @@ public class BDDAssertions_Test extends AbstractTest {
    * This method tests the {@code then} method for {@code Request}.
    */
   @Test
-  public void test_then_for_request() throws Exception {
-    Request request = new Request(jdbcConnectionProvider, "select * from test");
+  public void test_then_for_request() {
+    Request request = assertDbConnection.request("select * from test").build();
     Assertions.assertThat(then(request)).isInstanceOf(RequestAssert.class);
   }
 
@@ -54,8 +54,8 @@ public class BDDAssertions_Test extends AbstractTest {
    * This method tests the {@code then} method for {@code Changes}.
    */
   @Test
-  public void test_then_for_changes() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider);
+  public void test_then_for_changes() {
+    Changes changes = assertDbConnection.changes().build();
     Assertions.assertThat(then(changes)).isInstanceOf(ChangesAssert.class);
   }
 }

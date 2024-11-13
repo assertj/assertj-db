@@ -50,7 +50,7 @@ public class ToValueFromColumn_ValueAtEndPoint_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_value_at_end_point_with_assertions() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -107,7 +107,7 @@ public class ToValueFromColumn_ValueAtEndPoint_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_value_at_end_point_with_displays() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 

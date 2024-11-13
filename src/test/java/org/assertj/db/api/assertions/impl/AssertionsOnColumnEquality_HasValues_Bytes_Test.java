@@ -12,7 +12,6 @@
  */
 package org.assertj.db.api.assertions.impl;
 
-import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
@@ -23,7 +22,6 @@ import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.common.AbstractTest;
-import org.assertj.db.type.Table;
 import org.assertj.db.type.Value;
 import org.junit.Test;
 
@@ -41,8 +39,7 @@ public class AssertionsOnColumnEquality_HasValues_Bytes_Test extends AbstractTes
   @Test
   public void test_has_values() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, new byte[]{0, 1}), getValue(null, new byte[]{2, 3})));
     TableAssert tableAssert2 = AssertionsOnColumnEquality.hasValues(tableAssert, info, list, new byte[]{0, 1},
       new byte[]{2, 3});
@@ -56,8 +53,7 @@ public class AssertionsOnColumnEquality_HasValues_Bytes_Test extends AbstractTes
   public void should_fail_because_values_are_different() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, new byte[]{0, 1}), getValue(null, new byte[]{2, 3}), getValue(
       null, null)));
     try {
@@ -76,8 +72,7 @@ public class AssertionsOnColumnEquality_HasValues_Bytes_Test extends AbstractTes
   public void should_fail_because_one_value_is_not_bytes() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "other"), getValue(null, new byte[]{2, 3})));
     try {
       AssertionsOnColumnEquality.hasValues(tableAssert, info, list, new byte[]{0, 1}, new byte[]{2, 3});
@@ -100,8 +95,7 @@ public class AssertionsOnColumnEquality_HasValues_Bytes_Test extends AbstractTes
   public void should_fail_because_the_number_of_values_is_different() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, new byte[]{0, 1}), getValue(null, new byte[]{2, 3})));
     try {
       AssertionsOnColumnEquality.hasValues(tableAssert, info, list, new byte[]{0, 1}, new byte[]{2, 3},

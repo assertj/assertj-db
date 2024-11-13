@@ -37,7 +37,7 @@ public class AssertOnModifiedColumn_IsNotModified_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_is_not_modified() {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -52,7 +52,7 @@ public class AssertOnModifiedColumn_IsNotModified_Test extends AbstractTest {
   @Test
   @NeedReload
   public void should_fail_because_column_is_modified() {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 

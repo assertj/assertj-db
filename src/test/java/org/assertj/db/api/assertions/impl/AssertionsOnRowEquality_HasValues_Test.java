@@ -12,7 +12,6 @@
  */
 package org.assertj.db.api.assertions.impl;
 
-import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 import java.sql.Date;
@@ -25,7 +24,6 @@ import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.common.AbstractTest;
-import org.assertj.db.type.Table;
 import org.assertj.db.type.Value;
 import org.junit.Test;
 
@@ -43,8 +41,7 @@ public class AssertionsOnRowEquality_HasValues_Test extends AbstractTest {
   @Test
   public void test_has_values() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, 1), getValue(null, "Weaver"), getValue(null,
         "Sigourney"),
       getValue(null, Date.valueOf("1949-10-08")), getValue(null, new Locale("fr"))));
@@ -60,8 +57,7 @@ public class AssertionsOnRowEquality_HasValues_Test extends AbstractTest {
   public void should_fail_because_values_are_different() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, 1), getValue(null, "Weaver"), getValue(null,
         "Sigourney"),
       getValue(null, Date.valueOf("1949-10-08"))));
@@ -84,8 +80,7 @@ public class AssertionsOnRowEquality_HasValues_Test extends AbstractTest {
   public void should_fail_because_types_are_not_compatible() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, 1), getValue(null, "Weaver"), getValue(null,
         null),
       getValue(null, Date.valueOf("1949-10-08"))));
@@ -128,8 +123,7 @@ public class AssertionsOnRowEquality_HasValues_Test extends AbstractTest {
   public void should_fail_because_bytes_values_are_different() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, 1), getValue(null, new byte[]{0, 1}),
       getValue(null, "Sigourney"),
       getValue(null, Date.valueOf("1949-10-08"))));

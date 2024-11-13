@@ -36,8 +36,8 @@ public class Table_Rows_Test extends AbstractTest {
    * This method test the rows got from a {@code ConnectionProvider}.
    */
   @Test
-  public void test_rows_with_jdbc_set() {
-    Table table = new Table(jdbcConnectionProvider, "movie");
+  public void test_rows() {
+    Table table = assertDbConnection.table("movie").build();
 
     assertThat(table.getRowsList()).as("Values of MOVIE table").hasSize(3);
 
@@ -73,42 +73,8 @@ public class Table_Rows_Test extends AbstractTest {
    * This method test the rows got from a {@code DataSource}.
    */
   @Test
-  public void test_rows_with_datasource_set() {
-    Table table = new Table(dsConnectionProvider, "movie");
-
-    assertThat(table.getRowsList()).as("Values of MOVIE table").hasSize(3);
-
-    assertThat(table.getRow(0).getValuesList().get(0).getValue()).as("Row 1 of MOVIE table").isEqualTo(
-      new BigDecimal(1));
-    assertThat(table.getRow(0).getValuesList().get(1).getValue()).as("Row 1 of MOVIE table").isEqualTo("Alien");
-    assertThat(table.getRow(0).getValuesList().get(2).getValue()).as("Row 1 of MOVIE table").isEqualTo(
-      new BigDecimal(1979));
-    assertThat(table.getRow(0).getValuesList().get(3).getValue()).as("Row 1 of MOVIE table").isEqualTo(
-      UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"));
-    assertThat(table.getRow(1).getValuesList().get(0).getValue()).as("Row 2 of MOVIE table").isEqualTo(
-      new BigDecimal(2));
-    assertThat(table.getRow(1).getValuesList().get(1).getValue()).as("Row 2 of MOVIE table").isEqualTo("The Village");
-    assertThat(table.getRow(1).getValuesList().get(2).getValue()).as("Row 2 of MOVIE table").isEqualTo(
-      new BigDecimal(2004));
-    assertThat(table.getRow(1).getValuesList().get(3).getValue()).as("Row 2 of MOVIE table").isEqualTo(
-      UUID.fromString("16319617-AE95-4087-9264-D3D21BF611B6"));
-    assertThat(table.getRow(2).getValuesList().get(0).getValue()).as("Row 3 of MOVIE table")
-      .isEqualTo(new BigDecimal(3));
-    assertThat(table.getRow(2).getValuesList().get(1).getValue()).as("Row 3 of MOVIE table")
-      .isEqualTo("Avatar");
-    assertThat(table.getRow(2).getValuesList().get(2).getValue()).as("Row 3 of MOVIE table")
-      .isEqualTo(new BigDecimal(2009));
-    assertThat(table.getRow(2).getValuesList().get(3).getValue()).as("Row 3 of MOVIE table")
-      .isEqualTo(UUID.fromString(
-        "D735221B-5DE5-4112-AA1E-49090CB75ADA"));
-  }
-
-  /**
-   * This method test the rows got from a {@code DataSource}.
-   */
-  @Test
-  public void test_rows_with_datasource_and_order_set() {
-    Table table = new Table(dsConnectionProvider, "movie", new Table.Order[]{asc("title")});
+  public void test_rows_with_order_set() {
+    Table table = assertDbConnection.table("movie").columnsToOrder(new Table.Order[]{asc("title")}).build();
 
     assertThat(table.getRowsList()).as("Values of MOVIE table").hasSize(3);
 
@@ -142,7 +108,7 @@ public class Table_Rows_Test extends AbstractTest {
    */
   @Test(expected = NullPointerException.class)
   public void should_throw_NullPointerException_because_column_name_parameter_is_null_when_calling_getColumnValue() {
-    Table table = new Table(jdbcConnectionProvider, "movie");
+    Table table = assertDbConnection.table("movie").build();
     table.getRow(0).getColumnValue(null);
   }
 
@@ -151,7 +117,7 @@ public class Table_Rows_Test extends AbstractTest {
    */
   @Test
   public void test_that_we_get_null_when_calling_getColumnValue_and_the_column_name_dont_exist() {
-    Table table = new Table(jdbcConnectionProvider, "movie");
+    Table table = assertDbConnection.table("movie").build();
     assertThat(table.getRow(0).getColumnValue("not_exist")).isNull();
   }
 

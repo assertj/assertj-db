@@ -36,7 +36,7 @@ public class OutputterChange_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_output() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -56,7 +56,7 @@ public class OutputterChange_Test extends AbstractTest {
       .change().toStream(byteArrayOutputStream5)
       .change().toStream(byteArrayOutputStream6)
       .change().toStream(byteArrayOutputStream7);
-    Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test']%n"
+    Assertions.assertThat(byteArrayOutputStream0).hasToString(String.format("[Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test']%n"
       + "|----------|-------|---------|----------------|-----------|-----------|-----------|------------|--------------------------------------|%n"
       + "|          |       |         |                | *         |           |           |            |                                      |%n"
       + "| TYPE     | TABLE | PRIMARY |                | ID        | NAME      | FIRSTNAME | BIRTH      | ACTOR_IMDB                           |%n"
@@ -67,7 +67,7 @@ public class OutputterChange_Test extends AbstractTest {
       + "| CREATION | ACTOR | 4       |----------------|-----------|-----------|-----------|------------|--------------------------------------|%n"
       + "|          |       |         | At end point   | 4         | Murray    | Bill      | 1950-09-21 | 30b443ae-c0c9-4790-9bec-ce1380808435 |%n"
       + "|----------|-------|---------|----------------|-----------|-----------|-----------|------------|--------------------------------------|%n"));
-    Assertions.assertThat(byteArrayOutputStream1.toString()).isEqualTo(String.format("[Change at index 1 (on table : INTERPRETATION and with primary key : [6]) of Changes on tables of 'sa/jdbc:h2:mem:test']%n"
+    Assertions.assertThat(byteArrayOutputStream1).hasToString(String.format("[Change at index 1 (on table : INTERPRETATION and with primary key : [6]) of Changes on tables of 'sa/jdbc:h2:mem:test']%n"
       + "|----------|----------------|---------|----------------|-----------|-----------|-----------|------------------|%n"
       + "|          |                |         |                | *         |           |           |                  |%n"
       + "| TYPE     | TABLE          | PRIMARY |                | ID        | ID_MOVIE  | ID_ACTOR  | CHARACTER        |%n"
@@ -78,7 +78,7 @@ public class OutputterChange_Test extends AbstractTest {
       + "| CREATION | INTERPRETATION | 6       |----------------|-----------|-----------|-----------|------------------|%n"
       + "|          |                |         | At end point   | 6         | 4         | 4         | Dr Peter Venkman |%n"
       + "|----------|----------------|---------|----------------|-----------|-----------|-----------|------------------|%n"));
-    Assertions.assertThat(byteArrayOutputStream2.toString()).isEqualTo(String.format("[Change at index 2 (on table : MOVIE and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test']%n"
+    Assertions.assertThat(byteArrayOutputStream2).hasToString(String.format("[Change at index 2 (on table : MOVIE and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test']%n"
       + "|----------|-------|---------|----------------|-----------|--------------|-----------|--------------------------------------|%n"
       + "|          |       |         |                | *         |              |           |                                      |%n"
       + "| TYPE     | TABLE | PRIMARY |                | ID        | TITLE        | YEAR      | MOVIE_IMDB                           |%n"
@@ -89,7 +89,7 @@ public class OutputterChange_Test extends AbstractTest {
       + "| CREATION | MOVIE | 4       |----------------|-----------|--------------|-----------|--------------------------------------|%n"
       + "|          |       |         | At end point   | 4         | Ghostbusters | 1984      | 30b443ae-c0c9-4790-9bec-ce1380808435 |%n"
       + "|----------|-------|---------|----------------|-----------|--------------|-----------|--------------------------------------|%n"));
-    Assertions.assertThat(byteArrayOutputStream3.toString()).isEqualTo(String.format("[Change at index 3 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test']%n"
+    Assertions.assertThat(byteArrayOutputStream3).hasToString(String.format("[Change at index 3 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test']%n"
       + "|--------------|-------|---------|----------------|-----------|-----------|-----------------|------------|--------------------------------------|%n"
       + "|              |       |         |                | *         |           |                 |            |                                      |%n"
       + "| TYPE         | TABLE | PRIMARY |                | ID        | NAME      | FIRSTNAME       | BIRTH      | ACTOR_IMDB                           |%n"
@@ -100,7 +100,7 @@ public class OutputterChange_Test extends AbstractTest {
       + "| MODIFICATION | ACTOR | 1       |----------------|-----------|-----------|-----------------|------------|--------------------------------------|%n"
       + "|              |       |         | At end point   | 1         | Weaver    | Susan Alexandra | 1949-10-08 | 30b443ae-c0c9-4790-9bec-ce1380808435 |%n"
       + "|--------------|-------|---------|----------------|-----------|-----------|-----------------|------------|--------------------------------------|%n"));
-    Assertions.assertThat(byteArrayOutputStream4.toString()).isEqualTo(String.format("[Change at index 4 (on table : INTERPRETATION and with primary key : [3]) of Changes on tables of 'sa/jdbc:h2:mem:test']%n"
+    Assertions.assertThat(byteArrayOutputStream4).hasToString(String.format("[Change at index 4 (on table : INTERPRETATION and with primary key : [3]) of Changes on tables of 'sa/jdbc:h2:mem:test']%n"
       + "|--------------|----------------|---------|----------------|-----------|-----------|-----------|------------------------|%n"
       + "|              |                |         |                | *         |           |           |                        |%n"
       + "| TYPE         | TABLE          | PRIMARY |                | ID        | ID_MOVIE  | ID_ACTOR  | CHARACTER              |%n"
@@ -111,7 +111,7 @@ public class OutputterChange_Test extends AbstractTest {
       + "| MODIFICATION | INTERPRETATION | 3       |----------------|-----------|-----------|-----------|------------------------|%n"
       + "|              |                |         | At end point   | 3         | 3         | 1         | Doctor Grace Augustine |%n"
       + "|--------------|----------------|---------|----------------|-----------|-----------|-----------|------------------------|%n"));
-    Assertions.assertThat(byteArrayOutputStream5.toString()).isEqualTo(String.format("[Change at index 5 (on table : MOVIE and with primary key : [3]) of Changes on tables of 'sa/jdbc:h2:mem:test']%n"
+    Assertions.assertThat(byteArrayOutputStream5).hasToString(String.format("[Change at index 5 (on table : MOVIE and with primary key : [3]) of Changes on tables of 'sa/jdbc:h2:mem:test']%n"
       + "|--------------|-------|---------|----------------|-----------|------------|-----------|--------------------------------------|%n"
       + "|              |       |         |                | *         |            |           |                                      |%n"
       + "| TYPE         | TABLE | PRIMARY |                | ID        | TITLE      | YEAR      | MOVIE_IMDB                           |%n"
@@ -122,7 +122,7 @@ public class OutputterChange_Test extends AbstractTest {
       + "| MODIFICATION | MOVIE | 3       |----------------|-----------|------------|-----------|--------------------------------------|%n"
       + "|              |       |         | At end point   | 3         | The Avatar | 2009      | d735221b-5de5-4112-aa1e-49090cb75ada |%n"
       + "|--------------|-------|---------|----------------|-----------|------------|-----------|--------------------------------------|%n"));
-    Assertions.assertThat(byteArrayOutputStream6.toString()).isEqualTo(String.format("[Change at index 6 (on table : ACTOR and with primary key : [3]) of Changes on tables of 'sa/jdbc:h2:mem:test']%n"
+    Assertions.assertThat(byteArrayOutputStream6).hasToString(String.format("[Change at index 6 (on table : ACTOR and with primary key : [3]) of Changes on tables of 'sa/jdbc:h2:mem:test']%n"
       + "|----------|-------|---------|----------------|-----------|-------------|-----------|------------|--------------------------------------|%n"
       + "|          |       |         |                | *         |             |           |            |                                      |%n"
       + "| TYPE     | TABLE | PRIMARY |                | ID        | NAME        | FIRSTNAME | BIRTH      | ACTOR_IMDB                           |%n"
@@ -133,7 +133,7 @@ public class OutputterChange_Test extends AbstractTest {
       + "| DELETION | ACTOR | 3       |----------------|-----------|-------------|-----------|------------|--------------------------------------|%n"
       + "|          |       |         | At end point   |           |             |           |            |                                      |%n"
       + "|----------|-------|---------|----------------|-----------|-------------|-----------|------------|--------------------------------------|%n"));
-    Assertions.assertThat(byteArrayOutputStream7.toString()).isEqualTo(String.format("[Change at index 7 (on table : INTERPRETATION and with primary key : [5]) of Changes on tables of 'sa/jdbc:h2:mem:test']%n"
+    Assertions.assertThat(byteArrayOutputStream7).hasToString(String.format("[Change at index 7 (on table : INTERPRETATION and with primary key : [5]) of Changes on tables of 'sa/jdbc:h2:mem:test']%n"
       + "|----------|----------------|---------|----------------|-----------|-----------|-----------|------------|%n"
       + "|          |                |         |                | *         |           |           |            |%n"
       + "| TYPE     | TABLE          | PRIMARY |                | ID        | ID_MOVIE  | ID_ACTOR  | CHARACTER  |%n"

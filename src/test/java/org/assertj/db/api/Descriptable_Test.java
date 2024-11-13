@@ -40,7 +40,7 @@ public class Descriptable_Test extends AbstractTest {
   public void test_as() throws Exception {
     Field field = AbstractElement.class.getDeclaredField("info");
     field.setAccessible(true);
-    Table table = new Table(jdbcConnectionProvider, "actor");
+    Table table = assertDbConnection.table("actor").build();
 
     TableRowAssert assertion = assertThat(table).row();
     WritableAssertionInfo info1 = (WritableAssertionInfo) field.get(assertion);

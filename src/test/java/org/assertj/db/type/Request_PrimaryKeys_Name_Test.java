@@ -34,12 +34,11 @@ public class Request_PrimaryKeys_Name_Test extends AbstractTest {
    */
   @Test
   public void test_pks_name_with_jdbc_set_but_not_primary_keys() {
-    Request request = new Request(jdbcConnectionProvider,
-      "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
-        + " FROM movie, actor, interpretation"
-        + " WHERE movie.id = interpretation.id_movie"
-        + " AND interpretation.id_actor = actor.id"
-        + " ORDER BY actor.name, movie.year");
+    Request request = assertDbConnection.request("SELECT actor.name, actor.firstname, movie.year, interpretation.character "
+      + " FROM movie, actor, interpretation"
+      + " WHERE movie.id = interpretation.id_movie"
+      + " AND interpretation.id_actor = actor.id"
+      + " ORDER BY actor.name, movie.year").build();
 
     assertThat(request.getPksNameList()).as("Primary Keys of the request")
       .hasSize(0);
@@ -49,13 +48,12 @@ public class Request_PrimaryKeys_Name_Test extends AbstractTest {
    * This method test the primary keys name got from a {@code JdbcUrlConnectionProvider}.
    */
   @Test
-  public void test_pks_name_with_jdbc_set() {
-    Request request = new Request(jdbcConnectionProvider,
-      "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
-        + " FROM movie, actor, interpretation"
-        + " WHERE movie.id = interpretation.id_movie"
-        + " AND interpretation.id_actor = actor.id"
-        + " ORDER BY actor.name, movie.year").setPksName("NAME");
+  public void test_pks_name() {
+    Request request = assertDbConnection.request("SELECT actor.name, actor.firstname, movie.year, interpretation.character "
+      + " FROM movie, actor, interpretation"
+      + " WHERE movie.id = interpretation.id_movie"
+      + " AND interpretation.id_actor = actor.id"
+      + " ORDER BY actor.name, movie.year").pksName("NAME").build();
 
     assertThat(request.getPksNameList()).as("Primary Keys of the request")
       .hasSize(1)
@@ -66,31 +64,17 @@ public class Request_PrimaryKeys_Name_Test extends AbstractTest {
    * This method test the primary keys name got from a {@code DataSourceConnectionProvider}.
    */
   @Test
-  public void test_pks_name_with_datasource_set() {
-    Request request = new Request(dsConnectionProvider,
-      "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
-        + " FROM movie, actor, interpretation"
-        + " WHERE movie.id = interpretation.id_movie"
-        + " AND interpretation.id_actor = actor.id"
-        + " ORDER BY actor.name, movie.year").setPksName("NAME");
-
-    assertThat(request.getPksNameList()).as("Primary Keys of the request")
-      .hasSize(1)
-      .containsExactly("NAME");
-  }
-
-  /**
-   * This method test the primary keys name got from a {@code DataSourceConnectionProvider}.
-   */
-  @Test
-  public void test_pks_name_with_jdbc_and_parameters_set() {
-    Request request = new Request(dsConnectionProvider,
-      "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
-        + " FROM movie, actor, interpretation"
-        + " WHERE movie.id = interpretation.id_movie"
-        + " AND interpretation.id_actor = actor.id"
-        + " AND movie.year > ?"
-        + " ORDER BY actor.name, movie.year", 2000).setPksName("NAME", "ID");
+  public void test_pks_name_with_parameters_set() {
+    Request request = assertDbConnection.request(
+        "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
+          + " FROM movie, actor, interpretation"
+          + " WHERE movie.id = interpretation.id_movie"
+          + " AND interpretation.id_actor = actor.id"
+          + " AND movie.year > ?"
+          + " ORDER BY actor.name, movie.year")
+      .parameters(2000)
+      .pksName("NAME", "ID")
+      .build();
 
     assertThat(request.getPksNameList()).as("Primary Keys of the request")
       .hasSize(2)
@@ -102,14 +86,15 @@ public class Request_PrimaryKeys_Name_Test extends AbstractTest {
    */
   @Test
   public void test_pks_name_with_datasource_and_parameters_set() {
-    Request request = new Request(dsConnectionProvider,
-      "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
+    Request request = assertDbConnection.request("SELECT actor.name, actor.firstname, movie.year, interpretation.character "
         + " FROM movie, actor, interpretation"
         + " WHERE movie.id = interpretation.id_movie"
         + " AND interpretation.id_actor = actor.id"
         + " AND movie.year > ?"
         + " ORDER BY actor.name, movie.year")
-      .setParameters(2000).setPksName("NAME", "ID");
+      .parameters(2000)
+      .pksName("NAME", "ID")
+      .build();
 
     assertThat(request.getPksNameList()).as("Primary Keys of the request")
       .hasSize(2)
@@ -122,8 +107,8 @@ public class Request_PrimaryKeys_Name_Test extends AbstractTest {
    */
   @Test(expected = AssertJDBException.class)
   public void should_throw_AssertJDBException_because_SQLException_caused_by_table_not_found() {
-    Table table = new Table(dsConnectionProvider, "select * from interpret");
-    table.getPksNameList();
+    Request request = assertDbConnection.request("select * from interpret").build();
+    request.getPksNameList();
   }
 
 }

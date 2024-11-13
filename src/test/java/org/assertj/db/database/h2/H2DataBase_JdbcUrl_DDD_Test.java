@@ -27,10 +27,10 @@ import java.util.UUID;
 import org.assertj.core.api.Assertions;
 import org.assertj.db.common.NeedReload;
 import org.assertj.db.output.Outputs;
+import org.assertj.db.type.AssertDbConnection;
 import org.assertj.db.type.Change;
 import org.assertj.db.type.Changes;
 import org.assertj.db.type.Column;
-import org.assertj.db.type.ConnectionProvider;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.Request;
@@ -51,18 +51,18 @@ import org.junit.Test;
  */
 public class H2DataBase_JdbcUrl_DDD_Test extends AbstractH2Test {
 
-  private ConnectionProvider connectionProvider;
+  private AssertDbConnection connection;
 
   @Before
   public void init() {
-    connectionProvider = jdbcConnectionDDD;
+    connection = jdbcConnectionDDD;
   }
 
   @Test
   @NeedReload
   public void test_Outputs_output() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
     update();
     changes.setEndPointNow();
 
@@ -90,7 +90,7 @@ public class H2DataBase_JdbcUrl_DDD_Test extends AbstractH2Test {
       .column().toStream(byteArrayOutputStream9)
       .valueAtEndPoint().toStream(byteArrayOutputStream10);
 
-    Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[TEST table]%n"
+    Assertions.assertThat(byteArrayOutputStream0).hasToString(String.format("[TEST table]%n"
       + "|-----------|---------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|--------------------|------------|-------------------------------|-------------------------------|-------------------------------|------------|------------|------------|------------|------------|-------------------------------------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|--------------------------------------|------------------|------------------|%n"
       + "|           |         | *         |           |           |           |           |           |           |           |           |           |            |            |            |            |            |            |            |            |            |            |            |            |            |            |                    |            |                               |                               |                               |            |            |            |            |            |                                           |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |                                      |                  |                  |%n"
       + "|           | PRIMARY | VAR1      | VAR2      | VAR3      | VAR4      | VAR5      | VAR6      | VAR7      | VAR8      | VAR9      | VAR10     | VAR11      | VAR12      | VAR13      | VAR14      | VAR15      | VAR16      | VAR17      | VAR18      | VAR19      | VAR20      | VAR21      | VAR22      | VAR23      | VAR24      | VAR25              | VAR26      | VAR27                         | VAR28                         | VAR29                         | VAR30      | VAR31      | VAR32      | VAR33      | VAR34      | VAR35                                     | VAR36      | VAR37      | VAR38      | VAR39      | VAR40      | VAR41      | VAR42      | VAR43      | VAR44      | VAR45      | VAR46      | VAR47      | VAR48      | VAR49      | VAR50      | VAR51      | VAR52      | VAR53      | VAR54      | VAR55      | VAR56      | VAR57      | VAR58      | VAR59                                | VAR60            | VAR61            |%n"
@@ -99,21 +99,21 @@ public class H2DataBase_JdbcUrl_DDD_Test extends AbstractH2Test {
       + "|-----------|---------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|--------------------|------------|-------------------------------|-------------------------------|-------------------------------|------------|------------|------------|------------|------------|-------------------------------------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|--------------------------------------|------------------|------------------|%n"
       + "| Index : 0 | 1       | 1         | 20        | 3         | 4         | 5         | 6         | true      | false     | true      | 7         | 8          | 9          | 10         | 11         | 12         | 13.13      | 14.14      | 15.15      | 16.16      | 17.17      | 18.18      | 19.19      | 20.2       | 21.21      | 09:01:00.000000000 | 2007-12-23 | 2007-12-23T09:01:00.000000000 | 2007-12-23T09:01:00.000000000 | 2007-12-23T09:01:00.000000000 | ...        | ...        | ...        | ...        | ...        | fr                                        | 22         | 23         | 24         | 25         | 26         | 27         | 28         | 29         | 30         | 31         | ...        | ...        | ...        | ...        | ...        | ...        | 32         | 33         | 34         | 35         | 36         | 37         | 38         | 30b443ae-c0c9-4790-9bec-ce1380808435 | null             | null             |%n"
       + "|-----------|---------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|--------------------|------------|-------------------------------|-------------------------------|-------------------------------|------------|------------|------------|------------|------------|-------------------------------------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|--------------------------------------|------------------|------------------|%n"));
-    Assertions.assertThat(byteArrayOutputStream1.toString()).isEqualTo(String.format("[Column at index 0 (column name : VAR1) of TEST table]%n"
+    Assertions.assertThat(byteArrayOutputStream1).hasToString(String.format("[Column at index 0 (column name : VAR1) of TEST table]%n"
       + "|-----------|----------|%n"
       + "|           | VAR1     |%n"
       + "|           | (NUMBER) |%n"
       + "|-----------|----------|%n"
       + "| Index : 0 | 1        |%n"
       + "|-----------|----------|%n"));
-    Assertions.assertThat(byteArrayOutputStream2.toString()).isEqualTo(String.format("[Value at index 0 of Column at index 0 (column name : VAR1) of TEST table]%n"
+    Assertions.assertThat(byteArrayOutputStream2).hasToString(String.format("[Value at index 0 of Column at index 0 (column name : VAR1) of TEST table]%n"
       + "|----------|%n"
       + "| VAR1     |%n"
       + "| (NUMBER) |%n"
       + "|----------|%n"
       + "| 1        |%n"
       + "|----------|%n"));
-    Assertions.assertThat(byteArrayOutputStream3.toString()).isEqualTo(String.format("[Row at index 0 of TEST table]%n"
+    Assertions.assertThat(byteArrayOutputStream3).hasToString(String.format("[Row at index 0 of TEST table]%n"
       + "|---------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|--------------------|------------|-------------------------------|-------------------------------|-------------------------------|------------|------------|------------|------------|------------|-------------------------------------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|--------------------------------------|------------------|------------------|%n"
       + "|         | *         |           |           |           |           |           |           |           |           |           |            |            |            |            |            |            |            |            |            |            |            |            |            |            |                    |            |                               |                               |                               |            |            |            |            |            |                                           |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |                                      |                  |                  |%n"
       + "| PRIMARY | VAR1      | VAR2      | VAR3      | VAR4      | VAR5      | VAR6      | VAR7      | VAR8      | VAR9      | VAR10     | VAR11      | VAR12      | VAR13      | VAR14      | VAR15      | VAR16      | VAR17      | VAR18      | VAR19      | VAR20      | VAR21      | VAR22      | VAR23      | VAR24      | VAR25              | VAR26      | VAR27                         | VAR28                         | VAR29                         | VAR30      | VAR31      | VAR32      | VAR33      | VAR34      | VAR35                                     | VAR36      | VAR37      | VAR38      | VAR39      | VAR40      | VAR41      | VAR42      | VAR43      | VAR44      | VAR45      | VAR46      | VAR47      | VAR48      | VAR49      | VAR50      | VAR51      | VAR52      | VAR53      | VAR54      | VAR55      | VAR56      | VAR57      | VAR58      | VAR59                                | VAR60            | VAR61            |%n"
@@ -122,14 +122,14 @@ public class H2DataBase_JdbcUrl_DDD_Test extends AbstractH2Test {
       + "|---------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|--------------------|------------|-------------------------------|-------------------------------|-------------------------------|------------|------------|------------|------------|------------|-------------------------------------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|--------------------------------------|------------------|------------------|%n"
       + "| 1       | 1         | 20        | 3         | 4         | 5         | 6         | true      | false     | true      | 7         | 8          | 9          | 10         | 11         | 12         | 13.13      | 14.14      | 15.15      | 16.16      | 17.17      | 18.18      | 19.19      | 20.2       | 21.21      | 09:01:00.000000000 | 2007-12-23 | 2007-12-23T09:01:00.000000000 | 2007-12-23T09:01:00.000000000 | 2007-12-23T09:01:00.000000000 | ...        | ...        | ...        | ...        | ...        | fr                                        | 22         | 23         | 24         | 25         | 26         | 27         | 28         | 29         | 30         | 31         | ...        | ...        | ...        | ...        | ...        | ...        | 32         | 33         | 34         | 35         | 36         | 37         | 38         | 30b443ae-c0c9-4790-9bec-ce1380808435 | null             | null             |%n"
       + "|---------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|--------------------|------------|-------------------------------|-------------------------------|-------------------------------|------------|------------|------------|------------|------------|-------------------------------------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|--------------------------------------|------------------|------------------|%n"));
-    Assertions.assertThat(byteArrayOutputStream4.toString()).isEqualTo(String.format("[Value at index 0 (column name : VAR1) of Row at index 0 of TEST table]%n"
+    Assertions.assertThat(byteArrayOutputStream4).hasToString(String.format("[Value at index 0 (column name : VAR1) of Row at index 0 of TEST table]%n"
       + "|----------|%n"
       + "| VAR1     |%n"
       + "| (NUMBER) |%n"
       + "|----------|%n"
       + "| 1        |%n"
       + "|----------|%n"));
-    Assertions.assertThat(byteArrayOutputStream5.toString()).isEqualTo(String.format("[Changes on TEST table of 'sa/jdbc:h2:mem:testH2']%n"
+    Assertions.assertThat(byteArrayOutputStream5).hasToString(String.format("[Changes on TEST table of 'sa/jdbc:h2:mem:testH2']%n"
       + "|-----------|--------------|-------|---------|----------------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|--------------------|------------|-------------------------------|-------------------------------|-------------------------------|------------|------------|------------|------------|------------|-------------------------------------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|--------------------------------------|------------------|------------------|%n"
       + "|           |              |       |         |                | *         |           |           |           |           |           |           |           |           |           |            |            |            |            |            |            |            |            |            |            |            |            |            |            |                    |            |                               |                               |                               |            |            |            |            |            |                                           |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |                                      |                  |                  |%n"
       + "|           | TYPE         | TABLE | PRIMARY |                | VAR1      | VAR2      | VAR3      | VAR4      | VAR5      | VAR6      | VAR7      | VAR8      | VAR9      | VAR10     | VAR11      | VAR12      | VAR13      | VAR14      | VAR15      | VAR16      | VAR17      | VAR18      | VAR19      | VAR20      | VAR21      | VAR22      | VAR23      | VAR24      | VAR25              | VAR26      | VAR27                         | VAR28                         | VAR29                         | VAR30      | VAR31      | VAR32      | VAR33      | VAR34      | VAR35                                     | VAR36      | VAR37      | VAR38      | VAR39      | VAR40      | VAR41      | VAR42      | VAR43      | VAR44      | VAR45      | VAR46      | VAR47      | VAR48      | VAR49      | VAR50      | VAR51      | VAR52      | VAR53      | VAR54      | VAR55      | VAR56      | VAR57      | VAR58      | VAR59                                | VAR60            | VAR61            |%n"
@@ -140,7 +140,7 @@ public class H2DataBase_JdbcUrl_DDD_Test extends AbstractH2Test {
       + "| Index : 0 | MODIFICATION | TEST  | 1       |----------------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|--------------------|------------|-------------------------------|-------------------------------|-------------------------------|------------|------------|------------|------------|------------|-------------------------------------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|--------------------------------------|------------------|------------------|%n"
       + "|           |              |       |         | At end point   | 1         | 20        | 3         | 4         | 5         | 6         | true      | false     | true      | 7         | 8          | 9          | 10         | 11         | 12         | 13.13      | 14.14      | 15.15      | 16.16      | 17.17      | 18.18      | 19.19      | 20.2       | 21.21      | 09:01:00.000000000 | 2007-12-23 | 2007-12-23T09:01:00.000000000 | 2007-12-23T09:01:00.000000000 | 2007-12-23T09:01:00.000000000 | ...        | ...        | ...        | ...        | ...        | fr                                        | 22         | 23         | 24         | 25         | 26         | 27         | 28         | 29         | 30         | 31         | ...        | ...        | ...        | ...        | ...        | ...        | 32         | 33         | 34         | 35         | 36         | 37         | 38         | 30b443ae-c0c9-4790-9bec-ce1380808435 | null             | null             |%n"
       + "|-----------|--------------|-------|---------|----------------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|--------------------|------------|-------------------------------|-------------------------------|-------------------------------|------------|------------|------------|------------|------------|-------------------------------------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|--------------------------------------|------------------|------------------|%n"));
-    Assertions.assertThat(byteArrayOutputStream6.toString()).isEqualTo(String.format("[Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:testH2']%n"
+    Assertions.assertThat(byteArrayOutputStream6).hasToString(String.format("[Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:testH2']%n"
       + "|--------------|-------|---------|----------------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|--------------------|------------|-------------------------------|-------------------------------|-------------------------------|------------|------------|------------|------------|------------|-------------------------------------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|--------------------------------------|------------------|------------------|%n"
       + "|              |       |         |                | *         |           |           |           |           |           |           |           |           |           |            |            |            |            |            |            |            |            |            |            |            |            |            |            |                    |            |                               |                               |                               |            |            |            |            |            |                                           |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |                                      |                  |                  |%n"
       + "| TYPE         | TABLE | PRIMARY |                | VAR1      | VAR2      | VAR3      | VAR4      | VAR5      | VAR6      | VAR7      | VAR8      | VAR9      | VAR10     | VAR11      | VAR12      | VAR13      | VAR14      | VAR15      | VAR16      | VAR17      | VAR18      | VAR19      | VAR20      | VAR21      | VAR22      | VAR23      | VAR24      | VAR25              | VAR26      | VAR27                         | VAR28                         | VAR29                         | VAR30      | VAR31      | VAR32      | VAR33      | VAR34      | VAR35                                     | VAR36      | VAR37      | VAR38      | VAR39      | VAR40      | VAR41      | VAR42      | VAR43      | VAR44      | VAR45      | VAR46      | VAR47      | VAR48      | VAR49      | VAR50      | VAR51      | VAR52      | VAR53      | VAR54      | VAR55      | VAR56      | VAR57      | VAR58      | VAR59                                | VAR60            | VAR61            |%n"
@@ -151,7 +151,7 @@ public class H2DataBase_JdbcUrl_DDD_Test extends AbstractH2Test {
       + "| MODIFICATION | TEST  | 1       |----------------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|--------------------|------------|-------------------------------|-------------------------------|-------------------------------|------------|------------|------------|------------|------------|-------------------------------------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|--------------------------------------|------------------|------------------|%n"
       + "|              |       |         | At end point   | 1         | 20        | 3         | 4         | 5         | 6         | true      | false     | true      | 7         | 8          | 9          | 10         | 11         | 12         | 13.13      | 14.14      | 15.15      | 16.16      | 17.17      | 18.18      | 19.19      | 20.2       | 21.21      | 09:01:00.000000000 | 2007-12-23 | 2007-12-23T09:01:00.000000000 | 2007-12-23T09:01:00.000000000 | 2007-12-23T09:01:00.000000000 | ...        | ...        | ...        | ...        | ...        | fr                                        | 22         | 23         | 24         | 25         | 26         | 27         | 28         | 29         | 30         | 31         | ...        | ...        | ...        | ...        | ...        | ...        | 32         | 33         | 34         | 35         | 36         | 37         | 38         | 30b443ae-c0c9-4790-9bec-ce1380808435 | null             | null             |%n"
       + "|--------------|-------|---------|----------------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|--------------------|------------|-------------------------------|-------------------------------|-------------------------------|------------|------------|------------|------------|------------|-------------------------------------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|--------------------------------------|------------------|------------------|%n"));
-    Assertions.assertThat(byteArrayOutputStream7.toString()).isEqualTo(String.format("[Row at end point of Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:testH2']%n"
+    Assertions.assertThat(byteArrayOutputStream7).hasToString(String.format("[Row at end point of Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:testH2']%n"
       + "|---------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|--------------------|------------|-------------------------------|-------------------------------|-------------------------------|------------|------------|------------|------------|------------|-------------------------------------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|--------------------------------------|------------------|------------------|%n"
       + "|         | *         |           |           |           |           |           |           |           |           |           |            |            |            |            |            |            |            |            |            |            |            |            |            |            |                    |            |                               |                               |                               |            |            |            |            |            |                                           |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |            |                                      |                  |                  |%n"
       + "| PRIMARY | VAR1      | VAR2      | VAR3      | VAR4      | VAR5      | VAR6      | VAR7      | VAR8      | VAR9      | VAR10     | VAR11      | VAR12      | VAR13      | VAR14      | VAR15      | VAR16      | VAR17      | VAR18      | VAR19      | VAR20      | VAR21      | VAR22      | VAR23      | VAR24      | VAR25              | VAR26      | VAR27                         | VAR28                         | VAR29                         | VAR30      | VAR31      | VAR32      | VAR33      | VAR34      | VAR35                                     | VAR36      | VAR37      | VAR38      | VAR39      | VAR40      | VAR41      | VAR42      | VAR43      | VAR44      | VAR45      | VAR46      | VAR47      | VAR48      | VAR49      | VAR50      | VAR51      | VAR52      | VAR53      | VAR54      | VAR55      | VAR56      | VAR57      | VAR58      | VAR59                                | VAR60            | VAR61            |%n"
@@ -160,14 +160,14 @@ public class H2DataBase_JdbcUrl_DDD_Test extends AbstractH2Test {
       + "|---------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|--------------------|------------|-------------------------------|-------------------------------|-------------------------------|------------|------------|------------|------------|------------|-------------------------------------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|--------------------------------------|------------------|------------------|%n"
       + "| 1       | 1         | 20        | 3         | 4         | 5         | 6         | true      | false     | true      | 7         | 8          | 9          | 10         | 11         | 12         | 13.13      | 14.14      | 15.15      | 16.16      | 17.17      | 18.18      | 19.19      | 20.2       | 21.21      | 09:01:00.000000000 | 2007-12-23 | 2007-12-23T09:01:00.000000000 | 2007-12-23T09:01:00.000000000 | 2007-12-23T09:01:00.000000000 | ...        | ...        | ...        | ...        | ...        | fr                                        | 22         | 23         | 24         | 25         | 26         | 27         | 28         | 29         | 30         | 31         | ...        | ...        | ...        | ...        | ...        | ...        | 32         | 33         | 34         | 35         | 36         | 37         | 38         | 30b443ae-c0c9-4790-9bec-ce1380808435 | null             | null             |%n"
       + "|---------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|--------------------|------------|-------------------------------|-------------------------------|-------------------------------|------------|------------|------------|------------|------------|-------------------------------------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|--------------------------------------|------------------|------------------|%n"));
-    Assertions.assertThat(byteArrayOutputStream8.toString()).isEqualTo(String.format("[Value at index 0 (column name : VAR1) of Row at end point of Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:testH2']%n"
+    Assertions.assertThat(byteArrayOutputStream8).hasToString(String.format("[Value at index 0 (column name : VAR1) of Row at end point of Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:testH2']%n"
       + "|----------|%n"
       + "| VAR1     |%n"
       + "| (NUMBER) |%n"
       + "|----------|%n"
       + "| 1        |%n"
       + "|----------|%n"));
-    Assertions.assertThat(byteArrayOutputStream9.toString()).isEqualTo(String.format("[Column at index 0 (column name : VAR1) of Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:testH2']%n"
+    Assertions.assertThat(byteArrayOutputStream9).hasToString(String.format("[Column at index 0 (column name : VAR1) of Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:testH2']%n"
       + "|----------------|----------|%n"
       + "|                | VAR1     |%n"
       + "|                | (NUMBER) |%n"
@@ -176,7 +176,7 @@ public class H2DataBase_JdbcUrl_DDD_Test extends AbstractH2Test {
       + "|----------------|----------|%n"
       + "| At end point   | 1        |%n"
       + "|----------------|----------|%n"));
-    Assertions.assertThat(byteArrayOutputStream10.toString()).isEqualTo(String.format("[Value at end point of Column at index 0 (column name : VAR1) of Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:testH2']%n"
+    Assertions.assertThat(byteArrayOutputStream10).hasToString(String.format("[Value at end point of Column at index 0 (column name : VAR1) of Change at index 0 (with primary key : [1]) of Changes on TEST table of 'sa/jdbc:h2:mem:testH2']%n"
       + "|----------|%n"
       + "| VAR1     |%n"
       + "| (NUMBER) |%n"
@@ -188,8 +188,8 @@ public class H2DataBase_JdbcUrl_DDD_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void test_PrimaryKey_hasPksNames() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
     update();
     changes.setEndPointNow();
 
@@ -200,8 +200,8 @@ public class H2DataBase_JdbcUrl_DDD_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void test_ColumnName_hasColumnName() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
     update();
     changes.setEndPointNow();
 
@@ -337,8 +337,8 @@ public class H2DataBase_JdbcUrl_DDD_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void test_ColumnClass_isOfClass() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
     update();
     changes.setEndPointNow();
 
@@ -474,8 +474,8 @@ public class H2DataBase_JdbcUrl_DDD_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void test_ColumnEquality_hasValues() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
     update();
     changes.setEndPointNow();
 
@@ -610,8 +610,8 @@ public class H2DataBase_JdbcUrl_DDD_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void test_ColumnEquality_containsValues() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
     update();
     changes.setEndPointNow();
 
@@ -682,8 +682,8 @@ public class H2DataBase_JdbcUrl_DDD_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void test_ColumnType_isOfType() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
     update();
     changes.setEndPointNow();
 
@@ -818,8 +818,8 @@ public class H2DataBase_JdbcUrl_DDD_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void test_ColumnOfChangeEquality_hasValues() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
     update();
     changes.setEndPointNow();
 
@@ -970,8 +970,8 @@ public class H2DataBase_JdbcUrl_DDD_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void test_RowEquality_hasValues() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
     update();
     changes.setEndPointNow();
 
@@ -1107,8 +1107,8 @@ public class H2DataBase_JdbcUrl_DDD_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void test_ValueClass_isOfClass() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
     update();
     changes.setEndPointNow();
 
@@ -1244,8 +1244,8 @@ public class H2DataBase_JdbcUrl_DDD_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void test_ValueEquality_isEqualTo() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
     update();
     changes.setEndPointNow();
 
@@ -1381,8 +1381,8 @@ public class H2DataBase_JdbcUrl_DDD_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void test_ValueNonEquality_isNotEqualTo() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
     update();
     changes.setEndPointNow();
 
@@ -1518,8 +1518,8 @@ public class H2DataBase_JdbcUrl_DDD_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void test_ValueType_isOfType() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
     update();
     changes.setEndPointNow();
 
@@ -1655,17 +1655,15 @@ public class H2DataBase_JdbcUrl_DDD_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void test_getTableLetterCase() {
-    Table table = new Table(connectionProvider, "test");
+    Table table = connection.table("test").build();
 
-    Request request = new Request(connectionProvider, "select * from test");
+    Request request = connection.request("select * from test").build();
 
-    Changes changes = new Changes(table).setStartPointNow();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
     update();
     changes.setEndPointNow();
     Change change = changes.getChangesList().get(0);
 
-
-    Assertions.assertThat(connectionProvider.getTableLetterCase().getConversionName()).isSameAs(LetterCase.TABLE_DEFAULT.getConversionName());
 
     Assertions.assertThat(table.getTableLetterCase().getConversionName()).isSameAs(LetterCase.TABLE_DEFAULT.getConversionName());
 
@@ -1673,9 +1671,6 @@ public class H2DataBase_JdbcUrl_DDD_Test extends AbstractH2Test {
 
     Assertions.assertThat(changes.getTableLetterCase().getConversionName()).isSameAs(LetterCase.TABLE_DEFAULT.getConversionName());
     Assertions.assertThat(change.getTableLetterCase().getConversionName()).isSameAs(LetterCase.TABLE_DEFAULT.getConversionName());
-
-
-    Assertions.assertThat(connectionProvider.getTableLetterCase().getComparisonName()).isSameAs(LetterCase.TABLE_DEFAULT.getComparisonName());
 
     Assertions.assertThat(table.getTableLetterCase().getComparisonName()).isSameAs(LetterCase.TABLE_DEFAULT.getComparisonName());
 
@@ -1688,19 +1683,19 @@ public class H2DataBase_JdbcUrl_DDD_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void test_getColumnLetterCase() {
-    Table table = new Table(connectionProvider, "test");
+    Table table = connection.table("test").build();
     Row tableRow = table.getRow(0);
     Column tableColumn = table.getColumn(0);
     Value tableRowValue = tableRow.getColumnValue(0);
     Value tableColumnValue = tableColumn.getRowValue(0);
 
-    Request request = new Request(connectionProvider, "select * from test");
+    Request request = connection.request("select * from test").build();
     Row requestRow = request.getRow(0);
     Column requestColumn = request.getColumn(0);
     Value requestRowValue = requestRow.getColumnValue(0);
     Value requestColumnValue = requestColumn.getRowValue(0);
 
-    Changes changes = new Changes(table).setStartPointNow();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
     update();
     changes.setEndPointNow();
     Change change = changes.getChangesList().get(0);
@@ -1708,9 +1703,6 @@ public class H2DataBase_JdbcUrl_DDD_Test extends AbstractH2Test {
     Row rowAtEndPoint = change.getRowAtEndPoint();
     Value valueAtStartPoint = rowAtStartPoint.getColumnValue(0);
     Value valueAtEndPoint = rowAtEndPoint.getColumnValue(0);
-
-
-    Assertions.assertThat(connectionProvider.getColumnLetterCase().getConversionName()).isSameAs(LetterCase.COLUMN_DEFAULT.getConversionName());
 
     Assertions.assertThat(table.getColumnLetterCase().getConversionName()).isSameAs(LetterCase.COLUMN_DEFAULT.getConversionName());
     Assertions.assertThat(tableRow.getColumnLetterCase().getConversionName()).isSameAs(LetterCase.COLUMN_DEFAULT.getConversionName());
@@ -1730,9 +1722,6 @@ public class H2DataBase_JdbcUrl_DDD_Test extends AbstractH2Test {
     Assertions.assertThat(rowAtEndPoint.getColumnLetterCase().getConversionName()).isSameAs(LetterCase.COLUMN_DEFAULT.getConversionName());
     Assertions.assertThat(valueAtStartPoint.getColumnLetterCase().getConversionName()).isSameAs(LetterCase.COLUMN_DEFAULT.getConversionName());
     Assertions.assertThat(valueAtEndPoint.getColumnLetterCase().getConversionName()).isSameAs(LetterCase.COLUMN_DEFAULT.getConversionName());
-
-
-    Assertions.assertThat(connectionProvider.getColumnLetterCase().getComparisonName()).isSameAs(LetterCase.COLUMN_DEFAULT.getComparisonName());
 
     Assertions.assertThat(table.getColumnLetterCase().getComparisonName()).isSameAs(LetterCase.COLUMN_DEFAULT.getComparisonName());
     Assertions.assertThat(tableRow.getColumnLetterCase().getComparisonName()).isSameAs(LetterCase.COLUMN_DEFAULT.getComparisonName());
@@ -1757,21 +1746,19 @@ public class H2DataBase_JdbcUrl_DDD_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void test_getPrimaryKeyLetterCase() {
-    Table table = new Table(connectionProvider, "test");
+    Table table = connection.table("test").build();
     Row tableRow = table.getRow(0);
 
-    Request request = new Request(connectionProvider, "select * from test");
+    Request request = connection.request("select * from test").build();
     Row requestRow = request.getRow(0);
 
-    Changes changes = new Changes(table).setStartPointNow();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
     update();
     changes.setEndPointNow();
     Change change = changes.getChangesList().get(0);
     Row rowAtStartPoint = change.getRowAtStartPoint();
     Row rowAtEndPoint = change.getRowAtEndPoint();
 
-
-    Assertions.assertThat(connectionProvider.getPrimaryKeyLetterCase().getConversionName()).isSameAs(LetterCase.PRIMARY_KEY_DEFAULT.getConversionName());
 
     Assertions.assertThat(table.getPrimaryKeyLetterCase().getConversionName()).isSameAs(LetterCase.PRIMARY_KEY_DEFAULT.getConversionName());
     Assertions.assertThat(tableRow.getPrimaryKeyLetterCase().getConversionName()).isSameAs(LetterCase.PRIMARY_KEY_DEFAULT.getConversionName());
@@ -1784,8 +1771,6 @@ public class H2DataBase_JdbcUrl_DDD_Test extends AbstractH2Test {
     Assertions.assertThat(rowAtStartPoint.getPrimaryKeyLetterCase().getConversionName()).isSameAs(LetterCase.PRIMARY_KEY_DEFAULT.getConversionName());
     Assertions.assertThat(rowAtEndPoint.getPrimaryKeyLetterCase().getConversionName()).isSameAs(LetterCase.PRIMARY_KEY_DEFAULT.getConversionName());
 
-
-    Assertions.assertThat(connectionProvider.getPrimaryKeyLetterCase().getComparisonName()).isSameAs(LetterCase.PRIMARY_KEY_DEFAULT.getComparisonName());
 
     Assertions.assertThat(table.getPrimaryKeyLetterCase().getComparisonName()).isSameAs(LetterCase.PRIMARY_KEY_DEFAULT.getComparisonName());
     Assertions.assertThat(tableRow.getPrimaryKeyLetterCase().getComparisonName()).isSameAs(LetterCase.PRIMARY_KEY_DEFAULT.getComparisonName());

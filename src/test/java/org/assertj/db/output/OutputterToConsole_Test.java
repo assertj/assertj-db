@@ -33,13 +33,13 @@ public class OutputterToConsole_Test extends AbstractTest {
    */
   @Test
   public void test_output_to_console() throws Exception {
-    Table table = new Table(jdbcConnectionProvider, "actor");
+    Table table = assertDbConnection.table("actor").build();
 
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     System.setOut(new PrintStream(byteArrayOutputStream0));
     Outputs.output(table).row().value().toConsole();
     System.setOut(System.out);
-    Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Value at index 0 (column name : ID) of Row at index 0 of ACTOR table]%n"
+    Assertions.assertThat(byteArrayOutputStream0).hasToString(String.format("[Value at index 0 (column name : ID) of Row at index 0 of ACTOR table]%n"
       + "|----------|%n"
       + "| ID       |%n"
       + "| (NUMBER) |%n"

@@ -12,7 +12,6 @@
  */
 package org.assertj.db.api.assertions.impl;
 
-import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 import java.sql.Date;
@@ -21,7 +20,6 @@ import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.common.AbstractTest;
-import org.assertj.db.type.Table;
 import org.junit.Test;
 
 /**
@@ -38,8 +36,7 @@ public class AssertionsOnValueType_IsDate_Test extends AbstractTest {
   @Test
   public void test_is_date() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     TableAssert tableAssert2 = AssertionsOnValueType.isDate(tableAssert, info, getValue(null, Date.valueOf("2007-12-23")));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
@@ -51,8 +48,7 @@ public class AssertionsOnValueType_IsDate_Test extends AbstractTest {
   public void should_fail_because_value_is_not_a_date() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       AssertionsOnValueType.isDate(tableAssert, info, getValue(null, "test"));
       fail("An exception must be raised");
@@ -74,8 +70,7 @@ public class AssertionsOnValueType_IsDate_Test extends AbstractTest {
   public void should_fail_because_value_is_a_stringbuilder() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       AssertionsOnValueType.isDate(tableAssert, info, getValue(null, new StringBuilder("text")));
       fail("An exception must be raised");

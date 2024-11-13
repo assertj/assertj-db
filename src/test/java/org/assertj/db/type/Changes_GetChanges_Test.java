@@ -35,7 +35,7 @@ public class Changes_GetChanges_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_getChangesOfTableAndType() {
-    Changes changesSource = new Changes(jdbcConnectionProvider);
+    Changes changesSource = assertDbConnection.changes().build();
 
     changesSource.setStartPointNow();
     updateChangesForTests();
@@ -66,7 +66,7 @@ public class Changes_GetChanges_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_getChangesOfTypeAndTable() {
-    Changes changesSource = new Changes(jdbcConnectionProvider);
+    Changes changesSource = assertDbConnection.changes().build();
 
     changesSource.setStartPointNow();
     updateChangesForTests();

@@ -37,7 +37,7 @@ public class SoftAssertions_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_soft_assert_table() {
-    Table table = new Table(jdbcConnectionProvider, "test");
+    Table table = assertDbConnection.table("test").build();
     final SoftAssertions softly = new SoftAssertions();
     softly.assertThat(table).as("Show be Zero").column("var1").value().isEqualTo(0);
     softly.assertThat(table).column("var2").value().isFalse();
@@ -67,7 +67,7 @@ public class SoftAssertions_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_soft_assert_request() {
-    Request request = new Request(jdbcConnectionProvider, "select * from test");
+    Request request = assertDbConnection.request("select * from test").build();
     final SoftAssertions softly = new SoftAssertions();
     softly.assertThat(request).column("var1").value(0).isEqualTo(0);
     softly.assertThat(request).column("var2").value(0).isFalse();
@@ -97,7 +97,7 @@ public class SoftAssertions_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_soft_assert_changes() {
-    Changes changes = new Changes(jdbcConnectionProvider);
+    Changes changes = assertDbConnection.changes().build();
     changes.setStartPointNow();
     update("update test set var14 = 1 where var1 = 1");
     changes.setEndPointNow();

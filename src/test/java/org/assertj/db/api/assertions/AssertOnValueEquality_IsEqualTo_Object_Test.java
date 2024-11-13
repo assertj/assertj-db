@@ -39,8 +39,8 @@ public class AssertOnValueEquality_IsEqualTo_Object_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_is_null() {
-    Table table = new Table(jdbcConnectionProvider, "test2");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = assertDbConnection.table("test2").build();
+    Changes changes = assertDbConnection.changes().tables(table).build().setStartPointNow();
     update("update test2 set var14 = 1 where var1 is null");
     changes.setEndPointNow();
 
@@ -59,8 +59,8 @@ public class AssertOnValueEquality_IsEqualTo_Object_Test extends AbstractTest {
   @Test
   @NeedReload
   public void should_fail_because_value_is_not_null() {
-    Table table = new Table(jdbcConnectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = assertDbConnection.table("test").build();
+    Changes changes = assertDbConnection.changes().tables(table).build().setStartPointNow();
     update("update test set var14 = 1 where var1 = 1");
     changes.setEndPointNow();
 

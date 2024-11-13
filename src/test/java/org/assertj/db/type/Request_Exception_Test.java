@@ -38,15 +38,7 @@ public class Request_Exception_Test extends AbstractTest {
    */
   @Test(expected = AssertJDBException.class)
   public void should_fail_because_setting_primarykey_which_donot_exist() {
-    new Request(dsConnectionProvider, "select var1 from test").setPksName("var2").getRowsList();
-  }
-
-  /**
-   * This method should fail because setting the connection provider to null.
-   */
-  @Test(expected = NullPointerException.class)
-  public void should_fail_because_setting_connection_provider_to_null() {
-    new Request().setConnectionProvider(null);
+    assertDbConnection.request("select var1 from test").pksName("var2").build().getRowsList();
   }
 
   /**
@@ -55,8 +47,8 @@ public class Request_Exception_Test extends AbstractTest {
   @Test(expected = AssertJDBException.class)
   public void should_fail_because_connection_throws_exception_when_getting_an_object() {
     DataSource ds = new DefaultDataSource(dataSource);
-    ConnectionProvider connectionProvider = ConnectionProviderFactory.of(ds).create();
-    Request request = new Request(connectionProvider, "select * from movi where id = ?", 1);
+    AssertDbConnection connection = AssertDbConnectionFactory.of(ds).create();
+    Request request = connection.request("select * from movi where id = ?").parameters(1).build();
     request.getColumnsNameList();
   }
 
@@ -83,8 +75,8 @@ public class Request_Exception_Test extends AbstractTest {
         };
       }
     };
-    ConnectionProvider connectionProvider = ConnectionProviderFactory.of(ds).create();
-    Request request = new Request(connectionProvider, "select * from movi where id = ?", 1);
+    AssertDbConnection connection = AssertDbConnectionFactory.of(ds).create();
+    Request request = connection.request("select * from movi where id = ?").parameters(1).build();
     request.getColumnsNameList();
   }
 
@@ -105,8 +97,8 @@ public class Request_Exception_Test extends AbstractTest {
         };
       }
     };
-    ConnectionProvider connectionProvider = ConnectionProviderFactory.of(ds).create();
-    Request request = new Request(connectionProvider, "select * from movi where id = ?", 1);
+    AssertDbConnection connection = AssertDbConnectionFactory.of(ds).create();
+    Request request = connection.request("select * from movi where id = ?").parameters(1).build();
     request.getColumnsNameList();
   }
 
@@ -127,8 +119,8 @@ public class Request_Exception_Test extends AbstractTest {
         };
       }
     };
-    ConnectionProvider connectionProvider = ConnectionProviderFactory.of(ds).create();
-    Request request = new Request(connectionProvider, "select * from movi where id = ?", 1);
+    AssertDbConnection connection = AssertDbConnectionFactory.of(ds).create();
+    Request request = connection.request("select * from movi where id = ?").parameters(1).build();
     request.getColumnsNameList();
   }
 
@@ -143,8 +135,8 @@ public class Request_Exception_Test extends AbstractTest {
         throw new SQLException();
       }
     };
-    ConnectionProvider connectionProvider = ConnectionProviderFactory.of(ds).create();
-    Request request = new Request(connectionProvider, "select * from movi where id = ?", 1);
+    AssertDbConnection connection = AssertDbConnectionFactory.of(ds).create();
+    Request request = connection.request("select * from movi where id = ?").parameters(1).build();
     request.getColumnsNameList();
   }
 }

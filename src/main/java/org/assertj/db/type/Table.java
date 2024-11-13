@@ -21,7 +21,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import javax.sql.DataSource;
 
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.lettercase.LetterCase;
@@ -30,8 +29,8 @@ import org.assertj.db.util.NameComparator;
 /**
  * A table in the database to read to get the values.
  * <p>
- * The different information of the table are {@link ConnectionProvider} or {@link DataSource}, name of the table and optionally
- * the columns to check and to exclude.
+ * The different information of the table are  name of the table and optionally the columns to check and to exclude.
+ * A table should be constructed by the fluent builder {@link Table.Builder} from a AssertDbConnection instance.
  * </p>
  * <p>
  * Examples of instantiation :
@@ -39,14 +38,13 @@ import org.assertj.db.util.NameComparator;
  * <ul>
  * <li>
  * <p>
- * This {@link Table} point to a table called {@code movie} in a H2 database in memory like indicated in the
- * {@link ConnectionProvider}.
+ * This {@link Table} point to a table called {@code movie} in a H2 database in memory.
  * </p>
  *
  * <pre>
  * <code class='java'>
- * ConnectionProvider connectionProvider = ConnectionProviderFactory.of(&quot;jdbc:h2:mem:test&quot;, &quot;sa&quot;, &quot;&quot;).create();
- * Table table = new Table(connectionProvider, &quot;movie&quot;);
+ * AssertDbConnection connection = AssertDbConnectionFactory.of(&quot;jdbc:h2:mem:test&quot;, &quot;sa&quot;, &quot;&quot;).create();
+ * Table table = connection.table(&quot;movie&quot;).build();
  * </code>
  * </pre>
  *
@@ -57,15 +55,15 @@ import org.assertj.db.util.NameComparator;
  * {@code number} and {@code title}).<br>
  * And the {@link Table} {@code table2} point to a table called {@code musician} (but ignore on the column called
  * {@code birthday}).<br>
- * The {@link Table} use a {@code DataSource} instead of a {@link ConnectionProvider} like above.
+ * The {@link AssertDbConnection} use a {@code DataSource} instead of a JDBC url like above.
  * </p>
  *
  * <pre>
  * <code class='java'>
  * DataSource dataSource = ...;
- * ConnectionProvider connectionProvider = ConnectionProviderFactory.of(dataSource).create();
- * Table table1 = new Table(connectionProvider, &quot;song&quot;, new String[] { &quot;number&quot;, &quot;title&quot; }, null);
- * Table table2 = new Table(connectionProvider, &quot;musician&quot;, null, new String[] { &quot;birthday&quot; });
+ * AssertDbConnection connection = AssertDbConnectionFactory.of(dataSource).create();
+ * Table table1 = connection.table(&quot;song&quot;).columnsToCheck(new String[] { &quot;number&quot;, &quot;title&quot; }).build();
+ * Table table2 = connection..table(&quot;musician&quot;).columnsToExclude(new String[] { &quot;birthday&quot; }).build();
  * </code>
  * </pre>
  *
@@ -112,111 +110,6 @@ public class Table extends AbstractDbData<Table> {
    */
   private Character endDelimiter = null;
 
-  /**
-   * Default constructor.
-   */
-  public Table() {
-    super(Table.class, DataType.TABLE);
-  }
-
-  /**
-   * Constructor with a {@link ConnectionProvider} and the name of the table.
-   *
-   * @param connectionProvider {@link ConnectionProvider} to connect to the database.
-   * @param name               Name of the table.
-   * @since 3.0.0
-   */
-  public Table(ConnectionProvider connectionProvider, String name) {
-    this(connectionProvider, name, null, (String[]) null);
-  }
-
-  /**
-   * Constructor with a {@link ConnectionProvider}, the name of the table and the columns to check and to exclude.
-   *
-   * @param connectionProvider {@link ConnectionProvider} to connect to the database.
-   * @param name               Name of the table.
-   * @param columnsToCheck     Array of the name of the columns to check. If {@code null} that means to check all the
-   *                           columns.
-   * @param columnsToExclude   Array of the name of the columns to exclude. If {@code null} that means to exclude no
-   *                           column.
-   * @since 3.0.0
-   */
-  public Table(ConnectionProvider connectionProvider, String name, String[] columnsToCheck, String[] columnsToExclude) {
-    this(connectionProvider, name, null, columnsToCheck, columnsToExclude);
-  }
-
-  /**
-   * Constructor with a {@link ConnectionProvider} and the name of the table.
-   *
-   * @param connectionProvider {@link ConnectionProvider} to connect to the database.
-   * @param name               Name of the table.
-   * @param columnsToOrder     List of column to use as ORDER BY
-   * @since 3.0.0
-   */
-  public Table(ConnectionProvider connectionProvider, String name, Order[] columnsToOrder) {
-    this(connectionProvider, name, columnsToOrder, null, null);
-  }
-
-  /**
-   * Constructor with a {@link ConnectionProvider}, the name of the table and the columns to check and to exclude.
-   *
-   * @param connectionProvider {@link ConnectionProvider} to connect to the database.
-   * @param name               Name of the table.
-   * @param columnsToOrder     List of column to use as ORDER BY
-   * @param columnsToCheck     Array of the name of the columns to check. If {@code null} that means to check all the
-   *                           columns.
-   * @param columnsToExclude   Array of the name of the columns to exclude. If {@code null} that means to exclude no
-   *                           column.
-   * @since 3.0.0
-   */
-  public Table(ConnectionProvider connectionProvider, String name, Order[] columnsToOrder, String[] columnsToCheck, String[] columnsToExclude) {
-    this(connectionProvider, name, null, null, columnsToOrder, columnsToCheck, columnsToExclude);
-  }
-
-  /**
-   * Constructor with a {@link ConnectionProvider} and the name of the table.
-   *
-   * @param connectionProvider {@link ConnectionProvider} to connect to the database.
-   * @param name               Name of the table.
-   * @param startDelimiter     Start delimiter for column name and table name.
-   * @param endDelimiter       End delimiter for column name and table name.
-   * @since 3.0.0
-   */
-  public Table(ConnectionProvider connectionProvider, String name, Character startDelimiter, Character endDelimiter) {
-    this(connectionProvider, name, startDelimiter, endDelimiter, null, null, null);
-  }
-
-  /**
-   * Constructor with a {@link ConnectionProvider}, the name of the table and the columns to check and to exclude.
-   *
-   * @param connectionProvider {@link ConnectionProvider} to connect to the database.
-   * @param name               Name of the table.
-   * @param startDelimiter     Start delimiter for column name and table name.
-   * @param endDelimiter       End delimiter for column name and table name.
-   * @param columnsToCheck     Array of the name of the columns to check. If {@code null} that means to check all the
-   *                           columns.
-   * @param columnsToExclude   Array of the name of the columns to exclude. If {@code null} that means to exclude no
-   *                           column.
-   * @since 3.0.0
-   */
-  public Table(ConnectionProvider connectionProvider, String name, Character startDelimiter, Character endDelimiter, String[] columnsToCheck,
-               String[] columnsToExclude) {
-    this(connectionProvider, name, startDelimiter, endDelimiter, null, columnsToCheck, columnsToExclude);
-  }
-
-  /**
-   * Constructor with a {@link ConnectionProvider} and the name of the table.
-   *
-   * @param connectionProvider {@link ConnectionProvider} to connect to the database.
-   * @param name               Name of the table.
-   * @param startDelimiter     Start delimiter for column name and table name.
-   * @param endDelimiter       End delimiter for column name and table name.
-   * @param columnsToOrder     List of column to use as ORDER BY
-   * @since 3.0.0
-   */
-  public Table(ConnectionProvider connectionProvider, String name, Character startDelimiter, Character endDelimiter, Order[] columnsToOrder) {
-    this(connectionProvider, name, startDelimiter, endDelimiter, columnsToOrder, null, null);
-  }
 
   /**
    * Constructor with a {@link ConnectionProvider}, the name of the table and the columns to check and to exclude.
@@ -232,8 +125,8 @@ public class Table extends AbstractDbData<Table> {
    *                           column.
    * @since 3.0.0
    */
-  public Table(ConnectionProvider connectionProvider, String name, Character startDelimiter, Character endDelimiter, Order[] columnsToOrder,
-               String[] columnsToCheck, String[] columnsToExclude) {
+  private Table(ConnectionProvider connectionProvider, String name, Character startDelimiter, Character endDelimiter, Order[] columnsToOrder,
+                String[] columnsToCheck, String[] columnsToExclude) {
     super(Table.class, DataType.TABLE, connectionProvider);
     setName(name);
     setStartDelimiter(startDelimiter);
@@ -241,6 +134,13 @@ public class Table extends AbstractDbData<Table> {
     setColumnsToOrder(columnsToOrder);
     setColumnsToCheck(columnsToCheck);
     setColumnsToExclude(columnsToExclude);
+  }
+
+  /**
+   * Only used for tests.
+   */
+  private Table() {
+    super(Table.class, DataType.TABLE);
   }
 
   /**
@@ -260,23 +160,13 @@ public class Table extends AbstractDbData<Table> {
    * @return The actual instance.
    * @see #getName()
    */
-  public Table setName(String name) {
+  private Table setName(String name) {
     if (name == null) {
-      throw new NullPointerException("name can not be null");
+      throw new IllegalArgumentException("name can not be null");
     }
     this.name = name;
     setNameFromDb();
     return this;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public Table setConnectionProvider(ConnectionProvider connectionProvider) {
-    Table table = super.setConnectionProvider(connectionProvider);
-    setNameFromDb();
-    return table;
   }
 
   /**
@@ -324,28 +214,30 @@ public class Table extends AbstractDbData<Table> {
    * @throws NullPointerException If one of the name in {@code columnsToCheck} is {@code null}.
    * @see #getColumnsToCheck()
    */
-  public Table setColumnsToCheck(String[] columnsToCheck) {
+  private Table setColumnsToCheck(String[] columnsToCheck) {
+    if (columnsToCheck == null) {
+      this.columnsToCheck = null;
+      return this;
+    }
+
     if (columnsList == null) {
       throw new AssertJDBException("The table name and the connectionProvider must be set first");
     }
-    if (columnsToCheck != null) {
-      LetterCase letterCase = getColumnLetterCase();
-      // If the parameter is not null, all the names are convert
-      // before setting the instance field
-      List<String> columnsToCheckList = new ArrayList<>();
-      for (String column : columnsToCheck) {
-        if (column == null) {
-          throw new NullPointerException("The name of the column can not be null");
-        }
-        int indexOf = NameComparator.INSTANCE.indexOf(columnsList, column, letterCase);
-        if (indexOf != -1) {
-          columnsToCheckList.add(columnsList.get(indexOf));
-        }
+
+    LetterCase letterCase = getColumnLetterCase();
+    // If the parameter is not null, all the names are convert
+    // before setting the instance field
+    List<String> columnsToCheckList = new ArrayList<>();
+    for (String column : columnsToCheck) {
+      if (column == null) {
+        throw new NullPointerException("The name of the column can not be null");
       }
-      this.columnsToCheck = columnsToCheckList.toArray(new String[0]);
-    } else {
-      this.columnsToCheck = null;
+      int indexOf = NameComparator.INSTANCE.indexOf(columnsList, column, letterCase);
+      if (indexOf != -1) {
+        columnsToCheckList.add(columnsList.get(indexOf));
+      }
     }
+    this.columnsToCheck = columnsToCheckList.toArray(new String[0]);
     return this;
   }
 
@@ -369,27 +261,29 @@ public class Table extends AbstractDbData<Table> {
    * @return The actual instance.
    * @see #getColumnsToExclude()
    */
-  public Table setColumnsToExclude(String[] columnsToExclude) {
+  private Table setColumnsToExclude(String[] columnsToExclude) {
+    if (columnsToExclude == null) {
+      this.columnsToExclude = null;
+      return this;
+    }
+
     if (columnsList == null) {
       throw new AssertJDBException("The table name and the connectionProvider must be set first");
     }
-    if (columnsToExclude != null) {
-      LetterCase letterCase = getColumnLetterCase();
-      this.columnsToExclude = new String[columnsToExclude.length];
-      List<String> columnsToExcludeList = new ArrayList<>();
-      for (String column : columnsToExclude) {
-        if (column == null) {
-          throw new NullPointerException("The name of the column can not be null");
-        }
-        int indexOf = NameComparator.INSTANCE.indexOf(columnsList, column, letterCase);
-        if (indexOf != -1) {
-          columnsToExcludeList.add(columnsList.get(indexOf));
-        }
+
+    LetterCase letterCase = getColumnLetterCase();
+    this.columnsToExclude = new String[columnsToExclude.length];
+    List<String> columnsToExcludeList = new ArrayList<>();
+    for (String column : columnsToExclude) {
+      if (column == null) {
+        throw new NullPointerException("The name of the column can not be null");
       }
-      this.columnsToExclude = columnsToExcludeList.toArray(new String[0]);
-    } else {
-      this.columnsToExclude = null;
+      int indexOf = NameComparator.INSTANCE.indexOf(columnsList, column, letterCase);
+      if (indexOf != -1) {
+        columnsToExcludeList.add(columnsList.get(indexOf));
+      }
     }
+    this.columnsToExclude = columnsToExcludeList.toArray(new String[0]);
     return this;
   }
 
@@ -413,32 +307,34 @@ public class Table extends AbstractDbData<Table> {
    * @return The actual instance.
    * @see #getColumnsToOrder()
    */
-  public Table setColumnsToOrder(Order[] columnsToOrder) {
+  private Table setColumnsToOrder(Order[] columnsToOrder) {
+    if (columnsToOrder == null) {
+      this.columnsToOrder = null;
+      return this;
+    }
+
     if (columnsList == null) {
       throw new AssertJDBException("The table name and the connectionProvider must be set first");
     }
-    if (columnsToOrder != null) {
-      LetterCase letterCase = getColumnLetterCase();
-      this.columnsToOrder = new Order[columnsToOrder.length];
-      List<Order> columnsToOrderList = new ArrayList<>();
-      for (Order order : columnsToOrder) {
-        if (order == null) {
-          throw new NullPointerException("The order can not be null");
-        }
-        String column = order.getName();
-        if (column == null) {
-          throw new NullPointerException("The name of the column for order can not be null");
-        }
-        int indexOf = NameComparator.INSTANCE.indexOf(columnsList, column, letterCase);
-        if (indexOf != -1) {
-          String columnName = columnsList.get(indexOf);
-          columnsToOrderList.add(Order.getOrder(columnName, order.getType()));
-        }
+
+    LetterCase letterCase = getColumnLetterCase();
+    this.columnsToOrder = new Order[columnsToOrder.length];
+    List<Order> columnsToOrderList = new ArrayList<>();
+    for (Order order : columnsToOrder) {
+      if (order == null) {
+        throw new NullPointerException("The order can not be null");
       }
-      this.columnsToOrder = columnsToOrderList.toArray(new Order[0]);
-    } else {
-      this.columnsToOrder = null;
+      String column = order.getName();
+      if (column == null) {
+        throw new NullPointerException("The name of the column for order can not be null");
+      }
+      int indexOf = NameComparator.INSTANCE.indexOf(columnsList, column, letterCase);
+      if (indexOf != -1) {
+        String columnName = columnsList.get(indexOf);
+        columnsToOrderList.add(Order.getOrder(columnName, order.getType()));
+      }
     }
+    this.columnsToOrder = columnsToOrderList.toArray(new Order[0]);
     return this;
   }
 
@@ -461,7 +357,7 @@ public class Table extends AbstractDbData<Table> {
    * @see #getStartDelimiter()
    * @since 1.2.0
    */
-  public Table setStartDelimiter(Character startDelimiter) {
+  private Table setStartDelimiter(Character startDelimiter) {
     this.startDelimiter = startDelimiter;
     return this;
   }
@@ -485,7 +381,7 @@ public class Table extends AbstractDbData<Table> {
    * @see #getEndDelimiter()
    * @since 1.2.0
    */
-  public Table setEndDelimiter(Character endDelimiter) {
+  private Table setEndDelimiter(Character endDelimiter) {
     this.endDelimiter = endDelimiter;
     return this;
   }
@@ -634,6 +530,90 @@ public class Table extends AbstractDbData<Table> {
     collectPrimaryKeyName();
     if (columnsToOrder == null) {
       sortRows();
+    }
+  }
+
+  /**
+   * Fluent {@link Table} builder.
+   * Use {@link AssertDbConnection} to construct new instance of this builder.
+   * <pre>
+   * <code class='java'>
+   * AssertDbConnection connection = ....;
+   * Table table = connection.table(&quot;movie&quot;).build();
+   * Table table2 = connection.table(&quot;movie&quot;).columnToCheck(new String[] { &quot;number&quot;, &quot;title&quot; }).build();
+   * </code>
+   * </pre>
+   *
+   * @author Julien Roy
+   * @since 3.0.0
+   */
+  public static class Builder {
+    private final ConnectionProvider connectionProvider;
+    private final String name;
+    private Order[] columnsToOrder;
+    private Character startDelimiter;
+    private Character endDelimiter;
+    private String[] columnsToCheck;
+    private String[] columnsToExclude;
+
+    Builder(ConnectionProvider connectionProvider, String name) {
+      this.connectionProvider = connectionProvider;
+      this.name = name;
+    }
+
+    /**
+     * Set order to use in SQL queries.
+     *
+     * @param columnsToOrder List of column to use as ORDER BY.
+     * @return Current builder instance.
+     */
+    public Builder columnsToOrder(Order[] columnsToOrder) {
+      this.columnsToOrder = columnsToOrder;
+      return this;
+    }
+
+    /**
+     * Set delimiters to use in SQL queries.
+     *
+     * @param startDelimiter Start delimiter for column name and table name.
+     * @param endDelimiter   End delimiter for column name and table name.
+     * @return Current builder instance
+     */
+    public Builder delimiters(Character startDelimiter, Character endDelimiter) {
+      this.startDelimiter = startDelimiter;
+      this.endDelimiter = endDelimiter;
+      return this;
+    }
+
+    /**
+     * Set the columns to check.
+     *
+     * @param columnsToCheck Array of the name of the columns to check. If {@code null} that means to check all the columns.
+     * @return Current builder instance.
+     */
+    public Builder columnsToCheck(String[] columnsToCheck) {
+      this.columnsToCheck = columnsToCheck;
+      return this;
+    }
+
+    /**
+     * Set the columns to exclude.
+     *
+     * @param columnsToExclude Array of the name of the columns to exclude. If {@code null} that means to exclude no column.
+     * @return Current builder instance.
+     */
+    public Builder columnsToExclude(String[] columnsToExclude) {
+      this.columnsToExclude = columnsToExclude;
+      return this;
+    }
+
+    /**
+     * Build the Table instance.
+     *
+     * @return Table instance to use in assertThat.
+     */
+    public Table build() {
+      return new Table(this.connectionProvider, this.name, this.startDelimiter, this.endDelimiter, this.columnsToOrder, this.columnsToCheck, this.columnsToExclude);
     }
   }
 

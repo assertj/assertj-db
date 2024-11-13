@@ -21,9 +21,12 @@ import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.common.NeedReload;
 import org.assertj.db.global.AbstractElement;
+import org.assertj.db.type.AssertDbConnection;
+import org.assertj.db.type.AssertDbConnectionFactory;
 import org.assertj.db.type.Changes;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -33,6 +36,16 @@ import org.junit.Test;
  * @author Julien Roy
  */
 public class DefaultDescription_Test extends AbstractTest {
+
+  AssertDbConnection assertDbConnectionFromDs;
+
+  @Before
+  public void initAssertDbConnectionFromDs() {
+    if (assertDbConnectionFromDs != null) {
+      return;
+    }
+    assertDbConnectionFromDs = AssertDbConnectionFactory.of(this.dataSource).create();
+  }
 
   /**
    * This method tests the description of change with different information.
@@ -44,11 +57,11 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Table actorTable = new Table(dsConnectionProvider, "actor");
-    Request request = new Request(dsConnectionProvider, "select * from actor");
-    Changes changes = new Changes(dsConnectionProvider).setStartPointNow();
-    Changes changesOnActorTable = new Changes(actorTable).setStartPointNow();
-    Changes changesOnRequest = new Changes(request).setStartPointNow();
+    Table actorTable = assertDbConnectionFromDs.table("actor").build();
+    Request request = assertDbConnectionFromDs.request("select * from actor").build();
+    Changes changes = assertDbConnectionFromDs.changes().build().setStartPointNow();
+    Changes changesOnActorTable = assertDbConnectionFromDs.changes().tables(actorTable).build().setStartPointNow();
+    Changes changesOnRequest = assertDbConnectionFromDs.changes().request(request).build().setStartPointNow();
     updateChangesForTests();
     update("delete from test2 where var1 = 1");
     changes.setEndPointNow();
@@ -76,8 +89,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
+    Changes changesFromSource = assertDbConnection.changes().build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -104,8 +117,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
+    Changes changesFromSource = assertDbConnection.changes().build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -132,8 +145,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
+    Changes changesFromSource = assertDbConnection.changes().build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -160,8 +173,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
+    Changes changesFromSource = assertDbConnection.changes().build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -188,8 +201,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
+    Changes changesFromSource = assertDbConnection.changes().build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -216,8 +229,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
+    Changes changesFromSource = assertDbConnection.changes().build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -244,8 +257,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
+    Changes changesFromSource = assertDbConnection.changes().build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -272,8 +285,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
+    Changes changesFromSource = assertDbConnection.changes().build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -300,8 +313,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
+    Changes changesFromSource = assertDbConnection.changes().build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -328,10 +341,10 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Table tableFromSource = new Table(jdbcConnectionProvider, "actor");
-    Table tableFromDataSource = new Table(dsConnectionProvider, "actor");
-    Changes changesFromSource = new Changes(tableFromSource).setStartPointNow();
-    Changes changesFromDataSource = new Changes(tableFromDataSource).setStartPointNow();
+    Table tableFromSource = assertDbConnection.table("actor").build();
+    Table tableFromDataSource = assertDbConnectionFromDs.table("actor").build();
+    Changes changesFromSource = assertDbConnection.changes().tables(tableFromSource).build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().tables(tableFromDataSource).build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -358,10 +371,10 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Request requestFromSource = new Request(jdbcConnectionProvider, "select * from actor").setPksName("ID");
-    Request requestFromDataSource = new Request(dsConnectionProvider, "select * from actor").setPksName("ID");
-    Changes changesFromSource = new Changes(requestFromSource).setStartPointNow();
-    Changes changesFromDataSource = new Changes(requestFromDataSource).setStartPointNow();
+    Request requestFromSource = assertDbConnection.request("select * from actor").pksName("ID").build();
+    Request requestFromDataSource = assertDbConnectionFromDs.request("select * from actor").pksName("ID").build();
+    Changes changesFromSource = assertDbConnection.changes().request(requestFromSource).build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().request(requestFromDataSource).build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -388,8 +401,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
+    Changes changesFromSource = assertDbConnection.changes().build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -416,10 +429,10 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Table tableFromSource = new Table(jdbcConnectionProvider, "actor");
-    Table tableFromDataSource = new Table(dsConnectionProvider, "actor");
-    Changes changesFromSource = new Changes(tableFromSource).setStartPointNow();
-    Changes changesFromDataSource = new Changes(tableFromDataSource).setStartPointNow();
+    Table tableFromSource = assertDbConnection.table("actor").build();
+    Table tableFromDataSource = assertDbConnectionFromDs.table("actor").build();
+    Changes changesFromSource = assertDbConnection.changes().tables(tableFromSource).build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().tables(tableFromDataSource).build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -445,10 +458,10 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Request requestFromSource = new Request(jdbcConnectionProvider, "select id, name, firstname, birth from actor where id = 1").setPksName("ID");
-    Request requestFromDataSource = new Request(dsConnectionProvider, "select * from actor").setPksName("ID");
-    Changes changesFromSource = new Changes(requestFromSource).setStartPointNow();
-    Changes changesFromDataSource = new Changes(requestFromDataSource).setStartPointNow();
+    Request requestFromSource = assertDbConnection.request("select id, name, firstname, birth from actor where id = 1").pksName("ID").build();
+    Request requestFromDataSource = assertDbConnectionFromDs.request("select * from actor").pksName("ID").build();
+    Changes changesFromSource = assertDbConnection.changes().request(requestFromSource).build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().request(requestFromDataSource).build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -475,8 +488,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
+    Changes changesFromSource = assertDbConnection.changes().build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -503,10 +516,10 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Table tableFromSource = new Table(jdbcConnectionProvider, "actor");
-    Table tableFromDataSource = new Table(dsConnectionProvider, "actor");
-    Changes changesFromSource = new Changes(tableFromSource).setStartPointNow();
-    Changes changesFromDataSource = new Changes(tableFromDataSource).setStartPointNow();
+    Table tableFromSource = assertDbConnection.table("actor").build();
+    Table tableFromDataSource = assertDbConnectionFromDs.table("actor").build();
+    Changes changesFromSource = assertDbConnection.changes().tables(tableFromSource).build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().tables(tableFromDataSource).build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -533,10 +546,10 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Request requestFromSource = new Request(jdbcConnectionProvider, "select * from actor").setPksName("ID");
-    Request requestFromDataSource = new Request(dsConnectionProvider, "select * from actor").setPksName("ID");
-    Changes changesFromSource = new Changes(requestFromSource).setStartPointNow();
-    Changes changesFromDataSource = new Changes(requestFromDataSource).setStartPointNow();
+    Request requestFromSource = assertDbConnection.request("select * from actor").pksName("ID").build();
+    Request requestFromDataSource = assertDbConnectionFromDs.request("select * from actor").pksName("ID").build();
+    Changes changesFromSource = assertDbConnection.changes().request(requestFromSource).build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().request(requestFromDataSource).build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -563,8 +576,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
+    Changes changesFromSource = assertDbConnection.changes().build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -591,10 +604,10 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Table tableFromSource = new Table(jdbcConnectionProvider, "actor");
-    Table tableFromDataSource = new Table(dsConnectionProvider, "actor");
-    Changes changesFromSource = new Changes(tableFromSource).setStartPointNow();
-    Changes changesFromDataSource = new Changes(tableFromDataSource).setStartPointNow();
+    Table tableFromSource = assertDbConnection.table("actor").build();
+    Table tableFromDataSource = assertDbConnectionFromDs.table("actor").build();
+    Changes changesFromSource = assertDbConnection.changes().tables(tableFromSource).build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().tables(tableFromDataSource).build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -621,10 +634,10 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Request requestFromSource = new Request(jdbcConnectionProvider, "select * from actor").setPksName("ID");
-    Request requestFromDataSource = new Request(dsConnectionProvider, "select * from actor").setPksName("ID");
-    Changes changesFromSource = new Changes(requestFromSource).setStartPointNow();
-    Changes changesFromDataSource = new Changes(requestFromDataSource).setStartPointNow();
+    Request requestFromSource = assertDbConnection.request("select * from actor").pksName("ID").build();
+    Request requestFromDataSource = assertDbConnectionFromDs.request("select * from actor").pksName("ID").build();
+    Changes changesFromSource = assertDbConnection.changes().request(requestFromSource).build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().request(requestFromDataSource).build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -650,8 +663,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
+    Changes changesFromSource = assertDbConnection.changes().build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -678,10 +691,10 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Table tableFromSource = new Table(jdbcConnectionProvider, "actor");
-    Table tableFromDataSource = new Table(dsConnectionProvider, "actor");
-    Changes changesFromSource = new Changes(tableFromSource).setStartPointNow();
-    Changes changesFromDataSource = new Changes(tableFromDataSource).setStartPointNow();
+    Table tableFromSource = assertDbConnection.table("actor").build();
+    Table tableFromDataSource = assertDbConnectionFromDs.table("actor").build();
+    Changes changesFromSource = assertDbConnection.changes().tables(tableFromSource).build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().tables(tableFromDataSource).build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -708,10 +721,10 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Request requestFromSource = new Request(jdbcConnectionProvider, "select * from actor").setPksName("ID");
-    Request requestFromDataSource = new Request(dsConnectionProvider, "select * from actor").setPksName("ID");
-    Changes changesFromSource = new Changes(requestFromSource).setStartPointNow();
-    Changes changesFromDataSource = new Changes(requestFromDataSource).setStartPointNow();
+    Request requestFromSource = assertDbConnection.request("select * from actor").pksName("ID").build();
+    Request requestFromDataSource = assertDbConnectionFromDs.request("select * from actor").pksName("ID").build();
+    Changes changesFromSource = assertDbConnection.changes().request(requestFromSource).build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().request(requestFromDataSource).build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -738,8 +751,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
+    Changes changesFromSource = assertDbConnection.changes().build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -766,10 +779,10 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Table tableFromSource = new Table(jdbcConnectionProvider, "actor");
-    Table tableFromDataSource = new Table(dsConnectionProvider, "actor");
-    Changes changesFromSource = new Changes(tableFromSource).setStartPointNow();
-    Changes changesFromDataSource = new Changes(tableFromDataSource).setStartPointNow();
+    Table tableFromSource = assertDbConnection.table("actor").build();
+    Table tableFromDataSource = assertDbConnectionFromDs.table("actor").build();
+    Changes changesFromSource = assertDbConnection.changes().tables(tableFromSource).build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().tables(tableFromDataSource).build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -796,8 +809,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
+    Changes changesFromSource = assertDbConnection.changes().build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -824,10 +837,10 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Table tableFromSource = new Table(jdbcConnectionProvider, "actor");
-    Table tableFromDataSource = new Table(dsConnectionProvider, "actor");
-    Changes changesFromSource = new Changes(tableFromSource).setStartPointNow();
-    Changes changesFromDataSource = new Changes(tableFromDataSource).setStartPointNow();
+    Table tableFromSource = assertDbConnection.table("actor").build();
+    Table tableFromDataSource = assertDbConnectionFromDs.table("actor").build();
+    Changes changesFromSource = assertDbConnection.changes().tables(tableFromSource).build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().tables(tableFromDataSource).build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -854,8 +867,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
+    Changes changesFromSource = assertDbConnection.changes().build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -882,10 +895,10 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Table tableFromSource = new Table(jdbcConnectionProvider, "actor");
-    Table tableFromDataSource = new Table(dsConnectionProvider, "actor");
-    Changes changesFromSource = new Changes(tableFromSource).setStartPointNow();
-    Changes changesFromDataSource = new Changes(tableFromDataSource).setStartPointNow();
+    Table tableFromSource = assertDbConnection.table("actor").build();
+    Table tableFromDataSource = assertDbConnectionFromDs.table("actor").build();
+    Changes changesFromSource = assertDbConnection.changes().tables(tableFromSource).build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().tables(tableFromDataSource).build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -912,8 +925,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
+    Changes changesFromSource = assertDbConnection.changes().build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -939,10 +952,10 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Table tableFromSource = new Table(jdbcConnectionProvider, "actor");
-    Table tableFromDataSource = new Table(dsConnectionProvider, "actor");
-    Changes changesFromSource = new Changes(tableFromSource).setStartPointNow();
-    Changes changesFromDataSource = new Changes(tableFromDataSource).setStartPointNow();
+    Table tableFromSource = assertDbConnection.table("actor").build();
+    Table tableFromDataSource = assertDbConnectionFromDs.table("actor").build();
+    Changes changesFromSource = assertDbConnection.changes().tables(tableFromSource).build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().tables(tableFromDataSource).build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -969,8 +982,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
+    Changes changesFromSource = assertDbConnection.changes().build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -997,10 +1010,10 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Table tableFromSource = new Table(jdbcConnectionProvider, "actor");
-    Table tableFromDataSource = new Table(dsConnectionProvider, "actor");
-    Changes changesFromSource = new Changes(tableFromSource).setStartPointNow();
-    Changes changesFromDataSource = new Changes(tableFromDataSource).setStartPointNow();
+    Table tableFromSource = assertDbConnection.table("actor").build();
+    Table tableFromDataSource = assertDbConnectionFromDs.table("actor").build();
+    Changes changesFromSource = assertDbConnection.changes().tables(tableFromSource).build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().tables(tableFromDataSource).build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -1027,8 +1040,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
+    Changes changesFromSource = assertDbConnection.changes().build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -1055,8 +1068,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
+    Changes changesFromSource = assertDbConnection.changes().build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -1083,8 +1096,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
+    Changes changesFromSource = assertDbConnection.changes().build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -1111,8 +1124,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
+    Changes changesFromSource = assertDbConnection.changes().build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -1140,8 +1153,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
+    Changes changesFromSource = assertDbConnection.changes().build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -1169,8 +1182,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
+    Changes changesFromSource = assertDbConnection.changes().build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -1197,8 +1210,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Changes changesFromSource = new Changes(jdbcConnectionProvider).setStartPointNow();
-    Changes changesFromDataSource = new Changes(dsConnectionProvider).setStartPointNow();
+    Changes changesFromSource = assertDbConnection.changes().build().setStartPointNow();
+    Changes changesFromDataSource = assertDbConnectionFromDs.changes().build().setStartPointNow();
     updateChangesForTests();
     changesFromSource.setEndPointNow();
     changesFromDataSource.setEndPointNow();
@@ -1224,8 +1237,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Table tableFromSource = new Table(jdbcConnectionProvider, "actor");
-    Table tableFromDataSource = new Table(dsConnectionProvider, "actor");
+    Table tableFromSource = assertDbConnection.table("actor").build();
+    Table tableFromDataSource = assertDbConnectionFromDs.table("actor").build();
 
 
     TableAssert assertionFromSource = assertThat(tableFromSource);
@@ -1248,8 +1261,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Request requestFromSource = new Request(jdbcConnectionProvider, "select id, name, firstname, birth from actor where id = 1").setPksName("ID");
-    Request requestFromDataSource = new Request(dsConnectionProvider, "select * from actor").setPksName("ID");
+    Request requestFromSource = assertDbConnection.request("select id, name, firstname, birth from actor where id = 1").pksName("ID").build();
+    Request requestFromDataSource = assertDbConnectionFromDs.request("select * from actor").pksName("ID").build();
 
 
     RequestAssert assertionFromSource = assertThat(requestFromSource);
@@ -1272,8 +1285,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Table tableFromSource = new Table(jdbcConnectionProvider, "actor");
-    Table tableFromDataSource = new Table(dsConnectionProvider, "actor");
+    Table tableFromSource = assertDbConnection.table("actor").build();
+    Table tableFromDataSource = assertDbConnectionFromDs.table("actor").build();
 
 
     TableColumnAssert assertionFromSource = assertThat(tableFromSource).column();
@@ -1296,8 +1309,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Table tableFromSource = new Table(jdbcConnectionProvider, "actor");
-    Table tableFromDataSource = new Table(dsConnectionProvider, "actor");
+    Table tableFromSource = assertDbConnection.table("actor").build();
+    Table tableFromDataSource = assertDbConnectionFromDs.table("actor").build();
 
 
     TableRowAssert assertionFromSource = assertThat(tableFromSource).row();
@@ -1320,8 +1333,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Request requestFromSource = new Request(jdbcConnectionProvider, "select * from actor").setPksName("ID");
-    Request requestFromDataSource = new Request(dsConnectionProvider, "select * from actor").setPksName("ID");
+    Request requestFromSource = assertDbConnection.request("select * from actor").pksName("ID").build();
+    Request requestFromDataSource = assertDbConnectionFromDs.request("select * from actor").pksName("ID").build();
 
 
     RequestColumnAssert assertionFromSource = assertThat(requestFromSource).column();
@@ -1344,8 +1357,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Request requestFromSource = new Request(jdbcConnectionProvider, "select * from actor").setPksName("ID");
-    Request requestFromDataSource = new Request(dsConnectionProvider, "select * from actor").setPksName("ID");
+    Request requestFromSource = assertDbConnection.request("select * from actor").pksName("ID").build();
+    Request requestFromDataSource = assertDbConnectionFromDs.request("select * from actor").pksName("ID").build();
 
 
     RequestRowAssert assertionFromSource = assertThat(requestFromSource).row();
@@ -1368,8 +1381,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Table tableFromSource = new Table(jdbcConnectionProvider, "actor");
-    Table tableFromDataSource = new Table(dsConnectionProvider, "actor");
+    Table tableFromSource = assertDbConnection.table("actor").build();
+    Table tableFromDataSource = assertDbConnectionFromDs.table("actor").build();
 
 
     TableColumnValueAssert assertionFromSource = assertThat(tableFromSource).column().value();
@@ -1392,8 +1405,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Table tableFromSource = new Table(jdbcConnectionProvider, "actor");
-    Table tableFromDataSource = new Table(dsConnectionProvider, "actor");
+    Table tableFromSource = assertDbConnection.table("actor").build();
+    Table tableFromDataSource = assertDbConnectionFromDs.table("actor").build();
 
 
     TableRowValueAssert assertionFromSource = assertThat(tableFromSource).row().value();
@@ -1416,8 +1429,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Request requestFromSource = new Request(jdbcConnectionProvider, "select * from actor").setPksName("ID");
-    Request requestFromDataSource = new Request(dsConnectionProvider, "select * from actor").setPksName("ID");
+    Request requestFromSource = assertDbConnection.request("select * from actor").pksName("ID").build();
+    Request requestFromDataSource = assertDbConnectionFromDs.request("select * from actor").pksName("ID").build();
 
 
     RequestColumnValueAssert assertionFromSource = assertThat(requestFromSource).column().value();
@@ -1440,8 +1453,8 @@ public class DefaultDescription_Test extends AbstractTest {
     field.setAccessible(true);
 
 
-    Request requestFromSource = new Request(jdbcConnectionProvider, "select * from actor").setPksName("ID");
-    Request requestFromDataSource = new Request(dsConnectionProvider, "select * from actor").setPksName("ID");
+    Request requestFromSource = assertDbConnection.request("select * from actor").pksName("ID").build();
+    Request requestFromDataSource = assertDbConnectionFromDs.request("select * from actor").pksName("ID").build();
 
 
     RequestRowValueAssert assertionFromSource = assertThat(requestFromSource).row().value();

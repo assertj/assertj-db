@@ -42,8 +42,8 @@ public class AssertOnColumnName_HasColumnName_Test extends AbstractTest {
    */
   @Test
   @NeedReload
-  public void test_has_column_name() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+  public void test_has_column_name() {
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -55,7 +55,7 @@ public class AssertOnColumnName_HasColumnName_Test extends AbstractTest {
     ChangeRowValueAssert changeRowValueAssert2 = changeRowValueAssert.hasColumnName("id");
     Assertions.assertThat(changeRowValueAssert).isSameAs(changeRowValueAssert2);
 
-    Table table = new Table(jdbcConnectionProvider, "actor");
+    Table table = assertDbConnection.table("actor").build();
     TableAssert tableAssert = assertThat(table);
     TableColumnAssert tableColumnAssert = tableAssert.column();
     TableColumnAssert tableColumnAssert2 = tableColumnAssert.hasColumnName("id");
@@ -70,8 +70,8 @@ public class AssertOnColumnName_HasColumnName_Test extends AbstractTest {
    */
   @Test
   @NeedReload
-  public void should_fail_because_column_name_is_different() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+  public void should_fail_because_column_name_is_different() {
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -97,7 +97,7 @@ public class AssertOnColumnName_HasColumnName_Test extends AbstractTest {
         + "  \"ID\""));
     }
 
-    Table table = new Table(jdbcConnectionProvider, "actor");
+    Table table = assertDbConnection.table("actor").build();
     TableAssert tableAssert = assertThat(table);
     try {
       tableAssert.column().hasColumnName("ID2");

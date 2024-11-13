@@ -26,8 +26,8 @@ import java.util.logging.Level;
 import javax.sql.DataSource;
 
 import org.assertj.db.database.AbstractDatabaseTest;
-import org.assertj.db.type.ConnectionProvider;
-import org.assertj.db.type.ConnectionProviderFactory;
+import org.assertj.db.type.AssertDbConnection;
+import org.assertj.db.type.AssertDbConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -78,12 +78,12 @@ public abstract class AbstractHsqldbTest extends AbstractDatabaseTest {
   private static final DbSetup DB_SETUP = new DbSetup(new DriverManagerDestination("jdbc:hsqldb:mem:testHsqldb", "SA", ""),
     OPERATIONS);
 
-  protected final ConnectionProvider jdbcConnectionUIUIUI = ConnectionProviderFactory.of("jdbc:hsqldb:mem:testHsqldb", "SA", "").letterCase(
+  protected final AssertDbConnection jdbcConnectionUIUIUI = AssertDbConnectionFactory.of("jdbc:hsqldb:mem:testHsqldb", "SA", "").letterCase(
     letterCaseUI,
     letterCaseUI,
     letterCaseUI).create();
-  protected ConnectionProvider dsConnectionUIUIUI;
-  protected ConnectionProvider dsConnectionNSNSNS;
+  protected AssertDbConnection dsConnectionUIUIUI;
+  protected AssertDbConnection dsConnectionNSNSNS;
 
   protected DbSetup getDbSetup() {
     return DB_SETUP;
@@ -95,8 +95,8 @@ public abstract class AbstractHsqldbTest extends AbstractDatabaseTest {
 
   @Autowired
   protected void setDataSource(DataSource dataSource) {
-    this.dsConnectionUIUIUI = ConnectionProviderFactory.of(dataSource).letterCase(letterCaseUI, letterCaseUI, letterCaseUI).create();
-    this.dsConnectionNSNSNS = ConnectionProviderFactory.of(dataSource).letterCase(letterCaseNS, letterCaseNS, letterCaseNS).create();
+    this.dsConnectionUIUIUI = AssertDbConnectionFactory.of(dataSource).letterCase(letterCaseUI, letterCaseUI, letterCaseUI).create();
+    this.dsConnectionNSNSNS = AssertDbConnectionFactory.of(dataSource).letterCase(letterCaseNS, letterCaseNS, letterCaseNS).create();
   }
 
   protected void update() {

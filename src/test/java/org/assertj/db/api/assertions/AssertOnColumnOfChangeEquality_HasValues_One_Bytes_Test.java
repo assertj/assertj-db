@@ -41,7 +41,7 @@ public class AssertOnColumnOfChangeEquality_HasValues_One_Bytes_Test extends Abs
   public void test_have_values_equal_to() {
     byte[] bytesH2 = bytesContentFromClassPathOf("h2-logo-2.png");
 
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     update("update test set var14 = 1 where var1 = 1");
     changes.setEndPointNow();
 
@@ -59,7 +59,7 @@ public class AssertOnColumnOfChangeEquality_HasValues_One_Bytes_Test extends Abs
   public void should_fail_because_value_at_start_point_is_different() {
     byte[] bytesH2 = bytesContentFromClassPathOf("h2-logo-2.png");
 
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     update("insert into test(var1, var11) values(5, FILE_READ('classpath:h2-logo-2.png'))");
     changes.setEndPointNow();
 
@@ -80,7 +80,7 @@ public class AssertOnColumnOfChangeEquality_HasValues_One_Bytes_Test extends Abs
   public void should_fail_because_value_at_end_point_is_different() {
     byte[] bytesH2 = bytesContentFromClassPathOf("h2-logo-2.png");
 
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     update("delete from test where var1 = 1");
     changes.setEndPointNow();
 

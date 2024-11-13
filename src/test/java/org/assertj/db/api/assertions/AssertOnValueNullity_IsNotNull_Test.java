@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api.assertions;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.ChangeColumnValueAssert;
 import org.assertj.db.api.TableColumnValueAssert;
@@ -20,9 +23,6 @@ import org.assertj.db.common.NeedReload;
 import org.assertj.db.type.Changes;
 import org.assertj.db.type.Table;
 import org.junit.Test;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link org.assertj.db.api.assertions.AssertOnValueNullity} class :
@@ -39,8 +39,8 @@ public class AssertOnValueNullity_IsNotNull_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_is_not_null() {
-    Table table = new Table(jdbcConnectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = assertDbConnection.table("test").build();
+    Changes changes = assertDbConnection.changes().tables(table).build().setStartPointNow();
     update("update test set var14 = 1 where var1 = 1");
     changes.setEndPointNow();
 
@@ -59,8 +59,8 @@ public class AssertOnValueNullity_IsNotNull_Test extends AbstractTest {
   @Test
   @NeedReload
   public void should_fail_because_value_is_null() {
-    Table table = new Table(jdbcConnectionProvider, "test2");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = assertDbConnection.table("test2").build();
+    Changes changes = assertDbConnection.changes().tables(table).build().setStartPointNow();
     update("update test2 set var14 = 1 where var1 is null");
     changes.setEndPointNow();
 

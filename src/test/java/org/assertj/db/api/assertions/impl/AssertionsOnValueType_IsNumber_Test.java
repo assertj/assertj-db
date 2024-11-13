@@ -12,14 +12,12 @@
  */
 package org.assertj.db.api.assertions.impl;
 
-import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.common.AbstractTest;
-import org.assertj.db.type.Table;
 import org.junit.Test;
 
 /**
@@ -36,8 +34,7 @@ public class AssertionsOnValueType_IsNumber_Test extends AbstractTest {
   @Test
   public void test_is_number() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     TableAssert tableAssert2 = AssertionsOnValueType.isNumber(tableAssert, info, getValue(null, 8));
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
@@ -49,8 +46,7 @@ public class AssertionsOnValueType_IsNumber_Test extends AbstractTest {
   public void should_fail_because_value_is_not_a_number() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       AssertionsOnValueType.isNumber(tableAssert, info, getValue(null, "test"));
       fail("An exception must be raised");
@@ -72,8 +68,7 @@ public class AssertionsOnValueType_IsNumber_Test extends AbstractTest {
   public void should_fail_because_value_is_a_stringbuilder() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       AssertionsOnValueType.isNumber(tableAssert, info, getValue(null, new StringBuilder("text")));
       fail("An exception must be raised");

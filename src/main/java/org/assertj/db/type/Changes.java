@@ -17,16 +17,71 @@ import static org.assertj.db.type.Change.createDeletionChange;
 import static org.assertj.db.type.Change.createModificationChange;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.util.ChangeComparator;
 
 /**
  * Changes in the database.
+ * <p>
+ * A Changes should be constructed by the fluent builder {@link Changes.Builder} from a AssertDbConnection instance.
+ * </p>
+ * <p>
+ * Examples of instantiation :
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * This {@link Changes} detect all changes in database.
+ * </p>
  *
+ * <pre>
+ * <code class='java'>
+ * AssertDbConnection connection = AssertDbConnectionFactory.of(dataSource).create();
+ * Changes changes = connection.changes().build();
+ * changes.setStartPointNow();
+ * ....
+ * do some DB updates
+ * ....
+ * changes.setEndPointNow();
+ * assertThat(changes).....
+ * </code>
+ * </pre>
+ *
+ * </li>
+ * <li>
+ * <p>
+ * This {@link Changes} detect changes for only two table.
+ * </p>
+ *
+ * <pre>
+ * <code class='java'>
+ * AssertDbConnection connection = AssertDbConnectionFactory.of(dataSource).create();
+ * Changes changes = connection.changes().table(&quot;movie&quot;).table(&quot;song&quot;).build();
+ * </code>
+ * </pre>
+ *
+ * </li>
+ * <li>
+ * <p>
+ * This {@link Changes} detect changes for row returned by a SQL query.
+ * </p>
+ *
+ * <pre>
+ * <code class='java'>
+ * AssertDbConnection connection = AssertDbConnectionFactory.of(dataSource).create();
+ * Changes changes = connection.changes().request(&quot;select * from movie;&quot;).build();
+ * </code>
+ * </pre>
+ *
+ * </li>
+ * </ul>
  * @author Régis Pouiller
  * @author Julien Roy
  */
@@ -68,7 +123,7 @@ public class Changes extends AbstractDbElement<Changes> {
    * @throws NullPointerException If {@code connectionProvider} is {@code null}.
    * @since 3.0.0
    */
-  public Changes(ConnectionProvider connectionProvider) {
+  private Changes(ConnectionProvider connectionProvider) {
     super(Changes.class, connectionProvider);
   }
 
@@ -77,8 +132,8 @@ public class Changes extends AbstractDbElement<Changes> {
    *
    * @param tables Table on which are the comparison.
    */
-  public Changes(Table... tables) {
-    super(Changes.class);
+  private Changes(ConnectionProvider connectionProvider, Collection<Table> tables) {
+    super(Changes.class, connectionProvider);
     setTables(tables);
   }
 
@@ -87,21 +142,16 @@ public class Changes extends AbstractDbElement<Changes> {
    *
    * @param request Request on which are the comparison.
    */
-  public Changes(Request request) {
-    super(Changes.class);
+  private Changes(ConnectionProvider connectionProvider, Request request) {
+    super(Changes.class, connectionProvider);
     setRequest(request);
   }
 
   /**
-   * Copy a {@link AbstractDbElement} in parameter on another.
-   *
-   * @param elementToCopy The {@link AbstractDbElement} to copy
-   * @param element       The {@link AbstractDbElement} on which is the copy
+   * Only used for tests.
    */
-  private static void copyElement(AbstractDbElement<?> elementToCopy, AbstractDbElement<?> element) {
-    if (elementToCopy.getConnectionProvider() != null) {
-      element.setConnectionProvider(elementToCopy.getConnectionProvider());
-    }
+  private Changes() {
+    super(Changes.class);
   }
 
   /**
@@ -110,15 +160,11 @@ public class Changes extends AbstractDbElement<Changes> {
    * @param request The {@link Request} to duplicate
    * @return The Duplication
    */
-  private static Request getDuplicatedRequest(Request request) {
-    Request r = new Request();
-    copyElement(request, r);
-    return r.setLetterCases(request.getTableLetterCase(),
-        request.getColumnLetterCase(),
-        request.getPrimaryKeyLetterCase())
-      .setRequest(request.getRequest())
-      .setParameters(request.getParameters())
-      .setPksName(request.getPksNameList().toArray(new String[0]));
+  private Request getDuplicatedRequest(Request request) {
+    return new Request.Builder(this.getConnectionProvider(), request.getRequest())
+      .parameters(request.getParameters())
+      .pksName(request.getPksNameList().toArray(new String[0]))
+      .build();
   }
 
   /**
@@ -127,27 +173,21 @@ public class Changes extends AbstractDbElement<Changes> {
    * @param table The {@link Table} to duplicate
    * @return The Duplication
    */
-  private static Table getDuplicatedTable(Table table) {
-    Table t = new Table();
-    copyElement(table, t);
-    return t.setLetterCases(table.getTableLetterCase(),
-        table.getColumnLetterCase(),
-        table.getPrimaryKeyLetterCase())
-      .setName(table.getName())
-      .setStartDelimiter(table.getStartDelimiter())
-      .setEndDelimiter(table.getEndDelimiter())
-      .setColumnsToCheck(table.getColumnsToCheck())
-      .setColumnsToExclude(table.getColumnsToExclude())
-      .setColumnsToOrder(table.getColumnsToOrder());
+  private Table getDuplicatedTable(Table table) {
+    return new Table.Builder(this.getConnectionProvider(), table.getName())
+      .delimiters(table.getStartDelimiter(), table.getEndDelimiter())
+      .columnsToCheck(table.getColumnsToCheck())
+      .columnsToExclude(table.getColumnsToExclude())
+      .columnsToOrder(table.getColumnsToOrder())
+      .build();
   }
 
   /**
    * Sets the table on which are the comparison.
    *
    * @param tables Table on which are the comparison.
-   * @return {@code this} actual instance.
    */
-  public Changes setTables(Table... tables) {
+  private void setTables(Collection<Table> tables) {
     request = null;
     requestAtStartPoint = null;
     requestAtEndPoint = null;
@@ -162,10 +202,6 @@ public class Changes extends AbstractDbElement<Changes> {
       Table t = getDuplicatedTable(table);
       tablesList.add(t);
     }
-    if (tables.length > 0) {
-      copyElement(tables[0], this);
-    }
-    return myself;
   }
 
   /**
@@ -190,9 +226,8 @@ public class Changes extends AbstractDbElement<Changes> {
    * Sets the {@link Request}.
    *
    * @param request The {@link Request}.
-   * @return {@code this} actual instance.
    */
-  public Changes setRequest(Request request) {
+  private void setRequest(Request request) {
     if (request == null) {
       throw new NullPointerException("The request must be not null");
     }
@@ -200,11 +235,9 @@ public class Changes extends AbstractDbElement<Changes> {
     tablesAtStartPointList = null;
     tablesAtEndPointList = null;
     this.request = getDuplicatedRequest(request);
-    copyElement(request, this);
     requestAtStartPoint = null;
     requestAtEndPoint = null;
     changesList = null;
-    return myself;
   }
 
   /**
@@ -256,10 +289,7 @@ public class Changes extends AbstractDbElement<Changes> {
     if (request == null && tablesList == null) {
       tablesList = new LinkedList<>();
       for (String tableName : getMetaData().getTablesName()) {
-        Table t = new Table().setLetterCases(getTableLetterCase(), getColumnLetterCase(), getPrimaryKeyLetterCase())
-          .setName(getTableLetterCase().convert(tableName));
-        copyElement(this, t);
-        tablesList.add(t);
+        tablesList.add(new Table.Builder(this.getConnectionProvider(), getTableLetterCase().convert(tableName)).build());
       }
     }
 
@@ -519,5 +549,134 @@ public class Changes extends AbstractDbElement<Changes> {
     }
     changes.changesList = new ArrayList<>();
     return changes;
+  }
+
+  /**
+   * Fluent {@link Changes} builder.
+   * Use {@link AssertDbConnection} to construct new instance of this builder.
+   * <pre>
+   * <code class='java'>
+   * AssertDbConnection connection = ....;
+   * Changes changes = connection.changes().build();
+   * Changes changes = connection.changes().table(&quot;movie&quot;, t -> t.columnToCheck(new String[] { &quot;number&quot;, &quot;title&quot; })).build();
+   * </code>
+   * </pre>
+   *
+   * @author Julien Roy
+   * @since 3.0.0
+   */
+  public static class Builder {
+    private final ConnectionProvider connectionProvider;
+    private Request request;
+    private List<Table> tables = new ArrayList<>();
+
+    Builder(ConnectionProvider connectionProvider) {
+      this.connectionProvider = connectionProvider;
+    }
+
+    /**
+     * Force usage of {@link Request} for this {@link Changes} instead load all database objects.
+     *
+     * @param request Request to use to retrieve changes from DB.
+     * @return Current builder instance.
+     */
+    public Changes.Builder request(Request request) {
+      this.request = request;
+      return this;
+    }
+
+    /**
+     * Force usage of SQL request for this {@link Changes} instead load all database objects.
+     *
+     * @param request SQL Request to use to retrieve changes from DB.
+     * @return Current builder instance.
+     */
+    public Changes.Builder request(String request) {
+      this.request = new Request.Builder(this.connectionProvider, request).build();
+      return this;
+    }
+
+    /**
+     * Force usage of SQL request for this {@link Changes} instead load all database objects.
+     * <pre>
+     * <code class='java'>
+     * AssertDbConnection connection = ....;
+     * Changes changes = connection.changes()
+     *  .request(&quot;select * from actor where id = ?&quot;, r -> r.parameters(1))
+     *  .build();
+     * </code>
+     * </pre>
+     *
+     * @param request    SQL Request to use to retrieve changes from DB.
+     * @param customizer Method that allow to customize the {@link Request} instance created.
+     * @return Current builder instance.
+     */
+    public Changes.Builder request(String request, Consumer<Request.Builder> customizer) {
+      Request.Builder builder = new Request.Builder(this.connectionProvider, request);
+      customizer.accept(builder);
+      this.request = builder.build();
+      return this;
+    }
+
+    /**
+     * Add new table to table list to use for this {@link Changes} instead load all database objects.
+     * Each call to this method add new table to list.
+     *
+     * @param name Table name to use to retrieve changes from DB.
+     * @return Current builder instance.
+     */
+    public Changes.Builder table(String name) {
+      this.tables.add(new Table.Builder(this.connectionProvider, name).build());
+      return this;
+    }
+
+    /**
+     * Add new table to table list to use for this {@link Changes} instead load all database objects.
+     * Each call to this method add new table to list.
+     * <pre>
+     * <code class='java'>
+     * AssertDbConnection connection = ....;
+     * Changes changes = connection.changes()
+     *  .table(&quot;actor&quot;, t -> t.setColumnsToOrder(new Order[]{Order.asc("where")})
+     *  .build();
+     * </code>
+     * </pre>
+     *
+     * @param name       Table name to use to retrieve changes from DB.
+     * @param customizer Method that allow to customize the {@link Table} instance created.
+     * @return Current builder instance.
+     */
+    public Changes.Builder table(String name, Consumer<Table.Builder> customizer) {
+      Table.Builder builder = new Table.Builder(this.connectionProvider, name);
+      customizer.accept(builder);
+      this.tables.add(builder.build());
+      return this;
+    }
+
+    /**
+     * Force usage of {@link Table} list for this {@link Changes} instead load all database objects.
+     *
+     * @param tables Tables to use to retrieve changes from DB.
+     * @return Current builder instance.
+     */
+    public Changes.Builder tables(Table... tables) {
+      this.tables = Arrays.asList(tables);
+      return this;
+    }
+
+    /**
+     * Build the Changes instance.
+     *
+     * @return Changes instance to use in assertThat.
+     */
+    public Changes build() {
+      if (this.tables != null && !tables.isEmpty()) {
+        return new Changes(this.connectionProvider, tables);
+      }
+      if (this.request != null) {
+        return new Changes(this.connectionProvider, request);
+      }
+      return new Changes(this.connectionProvider);
+    }
   }
 }

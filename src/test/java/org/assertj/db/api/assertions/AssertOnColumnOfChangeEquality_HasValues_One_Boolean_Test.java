@@ -38,7 +38,7 @@ public class AssertOnColumnOfChangeEquality_HasValues_One_Boolean_Test extends A
   @Test
   @NeedReload
   public void test_have_values_equal_to() {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     update("update test set var14 = 1 where var1 = 1");
     changes.setEndPointNow();
 
@@ -54,7 +54,7 @@ public class AssertOnColumnOfChangeEquality_HasValues_One_Boolean_Test extends A
   @Test
   @NeedReload
   public void should_fail_because_value_at_start_point_is_different() {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     update("insert into test(var1, var2) values(5, true)");
     changes.setEndPointNow();
 
@@ -76,7 +76,7 @@ public class AssertOnColumnOfChangeEquality_HasValues_One_Boolean_Test extends A
   @Test
   @NeedReload
   public void should_fail_because_value_at_end_point_is_different() {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     update("delete from test where var1 = 1");
     changes.setEndPointNow();
 

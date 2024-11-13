@@ -474,9 +474,9 @@ public class DateTimeValue_Test extends AbstractTest {
    */
   @Test
   public void test_toString() {
-    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3)).toString()).isEqualTo(
+    assertThat(DateTimeValue.of(DateValue.of(2007, 12, 23), TimeValue.of(9, 1, 6, 3))).hasToString(
       "2007-12-23T09:01:06.000000003");
-    assertThat(DateTimeValue.of(DateValue.of(2007, 2, 3), TimeValue.of(9, 1, 6, 3)).toString()).isEqualTo(
+    assertThat(DateTimeValue.of(DateValue.of(2007, 2, 3), TimeValue.of(9, 1, 6, 3))).hasToString(
       "2007-02-03T09:01:06.000000003");
   }
 

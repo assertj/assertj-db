@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api.assertions;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.ChangeAssert;
 import org.assertj.db.common.AbstractTest;
@@ -20,9 +23,6 @@ import org.assertj.db.type.Changes;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
 import org.junit.Test;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link org.assertj.db.api.assertions.AssertOnDataType} class :
@@ -38,9 +38,9 @@ public class AssertOnDataType_IsOnTable_Name_Test extends AbstractTest {
    */
   @Test
   @NeedReload
-  public void test_is_on_table() throws Exception {
-    Table table = new Table(jdbcConnectionProvider, "actor");
-    Changes changes = new Changes(table).setStartPointNow();
+  public void test_is_on_table() {
+    Table table = assertDbConnection.table("actor").build();
+    Changes changes = assertDbConnection.changes().tables(table).build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -54,9 +54,9 @@ public class AssertOnDataType_IsOnTable_Name_Test extends AbstractTest {
    */
   @Test
   @NeedReload
-  public void should_fail_because_data_type_is_different() throws Exception {
-    Request request = new Request(jdbcConnectionProvider, "select * from actor");
-    Changes changes = new Changes(request).setStartPointNow();
+  public void should_fail_because_data_type_is_different() {
+    Request request = assertDbConnection.request("select * from actor").build();
+    Changes changes = assertDbConnection.changes().request(request).build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -78,9 +78,9 @@ public class AssertOnDataType_IsOnTable_Name_Test extends AbstractTest {
    */
   @Test
   @NeedReload
-  public void should_fail_because_table_name_is_different() throws Exception {
-    Table table = new Table(jdbcConnectionProvider, "actor");
-    Changes changes = new Changes(table).setStartPointNow();
+  public void should_fail_because_table_name_is_different() {
+    Table table = assertDbConnection.table("actor").build();
+    Changes changes = assertDbConnection.changes().tables(table).build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
