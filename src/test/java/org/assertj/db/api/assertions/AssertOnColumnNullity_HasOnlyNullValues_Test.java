@@ -35,7 +35,7 @@ public class AssertOnColumnNullity_HasOnlyNullValues_Test extends AbstractTest {
    */
   @Test
   public void test_has_only_null_values() {
-    Table table = new Table(jdbcConnectionProvider, "test2");
+    Table table = assertDbConnection.table("test2").build();
     TableColumnAssert tableColumnAssert = assertThat(table).column("var15");
     TableColumnAssert tableColumnAssert2 = tableColumnAssert.hasOnlyNullValues();
     Assertions.assertThat(tableColumnAssert).isSameAs(tableColumnAssert2);
@@ -45,8 +45,8 @@ public class AssertOnColumnNullity_HasOnlyNullValues_Test extends AbstractTest {
    * This method should fail because the column has a not null value.
    */
   @Test
-  public void should_fail_because_column_has_not_null_value() throws Exception {
-    Table table = new Table(jdbcConnectionProvider, "test2");
+  public void should_fail_because_column_has_not_null_value() {
+    Table table = assertDbConnection.table("test2").build();
     TableColumnAssert tableColumnAssert = assertThat(table).column("var14");
     try {
       tableColumnAssert.hasOnlyNullValues();

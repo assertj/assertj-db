@@ -34,12 +34,12 @@ public class Request_Rows_Test extends AbstractTest {
    * This method test the rows got from a {@code ConnectionProvider}.
    */
   @Test
-  public void test_rows_with_jdbc_set() {
-    Request request = new Request(jdbcConnectionProvider, "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
+  public void test_rows() {
+    Request request = assertDbConnection.request("SELECT actor.name, actor.firstname, movie.year, interpretation.character "
       + " FROM movie, actor, interpretation"
       + " WHERE movie.id = interpretation.id_movie"
       + " AND interpretation.id_actor = actor.id"
-      + " ORDER BY actor.name, movie.year");
+      + " ORDER BY actor.name, movie.year").build();
 
     assertThat(request.getRowsList()).as("Values of the request")
       .hasSize(5);
@@ -71,50 +71,15 @@ public class Request_Rows_Test extends AbstractTest {
   }
 
   /**
-   * This method test the rows got from a {@code DataSource}.
-   */
-  @Test
-  public void test_rows_with_datasource_set() {
-    Request request = new Request(dsConnectionProvider, "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
-      + " FROM movie, actor, interpretation"
-      + " WHERE movie.id = interpretation.id_movie"
-      + " AND interpretation.id_actor = actor.id"
-      + " ORDER BY actor.name, movie.year");
-
-    assertThat(request.getRowsList()).as("Values of the request")
-      .hasSize(5);
-    assertThat(request.getRow(0).getValuesList().get(0).getValue()).isEqualTo("Phoenix");
-    assertThat(request.getRow(0).getValuesList().get(1).getValue()).isEqualTo("Joaquim");
-    assertThat(request.getRow(0).getValuesList().get(2).getValue()).isEqualTo(new BigDecimal(2004));
-    assertThat(request.getRow(0).getValuesList().get(3).getValue()).isEqualTo("Lucius Hunt");
-    assertThat(request.getRow(1).getValuesList().get(0).getValue()).isEqualTo("Weaver");
-    assertThat(request.getRow(1).getValuesList().get(1).getValue()).isEqualTo("Sigourney");
-    assertThat(request.getRow(1).getValuesList().get(2).getValue()).isEqualTo(new BigDecimal(1979));
-    assertThat(request.getRow(1).getValuesList().get(3).getValue()).isEqualTo("Ellen Louise Ripley");
-    assertThat(request.getRow(2).getValuesList().get(0).getValue()).isEqualTo("Weaver");
-    assertThat(request.getRow(2).getValuesList().get(1).getValue()).isEqualTo("Sigourney");
-    assertThat(request.getRow(2).getValuesList().get(2).getValue()).isEqualTo(new BigDecimal(2004));
-    assertThat(request.getRow(2).getValuesList().get(3).getValue()).isEqualTo("Alice Hunt");
-    assertThat(request.getRow(3).getValuesList().get(0).getValue()).isEqualTo("Weaver");
-    assertThat(request.getRow(3).getValuesList().get(1).getValue()).isEqualTo("Sigourney");
-    assertThat(request.getRow(3).getValuesList().get(2).getValue()).isEqualTo(new BigDecimal(2009));
-    assertThat(request.getRow(3).getValuesList().get(3).getValue()).isEqualTo("Dr Grace Augustine");
-    assertThat(request.getRow(4).getValuesList().get(0).getValue()).isEqualTo("Worthington");
-    assertThat(request.getRow(4).getValuesList().get(1).getValue()).isEqualTo("Sam");
-    assertThat(request.getRow(4).getValuesList().get(2).getValue()).isEqualTo(new BigDecimal(2009));
-    assertThat(request.getRow(4).getValuesList().get(3).getValue()).isEqualTo("Jake Sully");
-  }
-
-  /**
    * This method should throw a {@code NullPointerException} because of calling {@code getColumnValue} with null in parameter.
    */
   @Test(expected = NullPointerException.class)
   public void should_throw_NullPointerException_because_column_name_parameter_is_null_when_calling_getColumnValue() {
-    Request request = new Request(dsConnectionProvider, "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
+    Request request = assertDbConnection.request("SELECT actor.name, actor.firstname, movie.year, interpretation.character "
       + " FROM movie, actor, interpretation"
       + " WHERE movie.id = interpretation.id_movie"
       + " AND interpretation.id_actor = actor.id"
-      + " ORDER BY actor.name, movie.year");
+      + " ORDER BY actor.name, movie.year").build();
     request.getRow(0).getColumnValue(null);
   }
 
@@ -123,11 +88,11 @@ public class Request_Rows_Test extends AbstractTest {
    */
   @Test
   public void test_that_we_get_null_when_calling_getColumnValue_and_the_column_name_dont_exist() {
-    Request request = new Request(dsConnectionProvider, "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
+    Request request = assertDbConnection.request("SELECT actor.name, actor.firstname, movie.year, interpretation.character "
       + " FROM movie, actor, interpretation"
       + " WHERE movie.id = interpretation.id_movie"
       + " AND interpretation.id_actor = actor.id"
-      + " ORDER BY actor.name, movie.year");
+      + " ORDER BY actor.name, movie.year").build();
     assertThat(request.getRow(0).getColumnValue("not_exist")).isNull();
   }
 

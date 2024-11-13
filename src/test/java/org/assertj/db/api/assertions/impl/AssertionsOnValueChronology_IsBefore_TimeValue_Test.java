@@ -12,7 +12,6 @@
  */
 package org.assertj.db.api.assertions.impl;
 
-import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 import java.sql.Time;
@@ -21,7 +20,6 @@ import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.common.AbstractTest;
-import org.assertj.db.type.Table;
 import org.assertj.db.type.TimeValue;
 import org.junit.Test;
 
@@ -39,8 +37,7 @@ public class AssertionsOnValueChronology_IsBefore_TimeValue_Test extends Abstrac
   @Test
   public void test_is_before() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     TableAssert tableAssert2 = AssertionsOnValueChronology.isBefore(tableAssert, info,
       getValue(null, Time.valueOf("09:01:05")),
       TimeValue.of(9, 1, 6));
@@ -54,8 +51,7 @@ public class AssertionsOnValueChronology_IsBefore_TimeValue_Test extends Abstrac
   public void should_fail_because_value_is_after_or_equal_to() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       AssertionsOnValueChronology.isBefore(tableAssert, info,
         getValue(null, Time.valueOf("09:01:05")),
@@ -89,8 +85,7 @@ public class AssertionsOnValueChronology_IsBefore_TimeValue_Test extends Abstrac
   public void should_fail_because_value_is_not_compatible() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       AssertionsOnValueChronology.isBefore(tableAssert, info,
         getValue(null, "test"),

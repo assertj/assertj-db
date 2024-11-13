@@ -40,8 +40,8 @@ public class AssertOnRowEquality_HasValues_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_has_values() {
-    Table table = new Table(jdbcConnectionProvider, "actor");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = assertDbConnection.table("actor").build();
+    Changes changes = assertDbConnection.changes().tables(table).build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -63,8 +63,8 @@ public class AssertOnRowEquality_HasValues_Test extends AbstractTest {
   @Test
   @NeedReload
   public void should_fail_because_values_are_different() {
-    Table table = new Table(jdbcConnectionProvider, "actor");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = assertDbConnection.table("actor").build();
+    Changes changes = assertDbConnection.changes().tables(table).build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 

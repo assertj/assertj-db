@@ -42,8 +42,8 @@ public class AssertOnNumberOfColumns_HasNumberOfColumnsGreaterThan_Test extends 
   @Test
   @NeedReload
   public void test_has_number_of_columns() {
-    Table table = new Table(jdbcConnectionProvider, "actor");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = assertDbConnection.table("actor").build();
+    Changes changes = assertDbConnection.changes().tables(table).build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -70,8 +70,8 @@ public class AssertOnNumberOfColumns_HasNumberOfColumnsGreaterThan_Test extends 
   @Test
   @NeedReload
   public void should_fail_because_number_of_columns_is_different() {
-    Request request = new Request(jdbcConnectionProvider, "select * from actor");
-    Changes changes = new Changes(request).setStartPointNow();
+    Request request = assertDbConnection.request("select * from actor").build();
+    Changes changes = assertDbConnection.changes().request(request).build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 

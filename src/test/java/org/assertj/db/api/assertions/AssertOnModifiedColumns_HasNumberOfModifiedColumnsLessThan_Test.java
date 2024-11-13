@@ -36,8 +36,8 @@ public class AssertOnModifiedColumns_HasNumberOfModifiedColumnsLessThan_Test ext
    */
   @Test
   @NeedReload
-  public void test_has_number_of_modified_columns_less_than() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+  public void test_has_number_of_modified_columns_less_than() {
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -51,8 +51,8 @@ public class AssertOnModifiedColumns_HasNumberOfModifiedColumnsLessThan_Test ext
    */
   @Test
   @NeedReload
-  public void should_fail_because_number_of_modified_columns_is_greater_or_equal() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+  public void should_fail_because_number_of_modified_columns_is_greater_or_equal() {
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 

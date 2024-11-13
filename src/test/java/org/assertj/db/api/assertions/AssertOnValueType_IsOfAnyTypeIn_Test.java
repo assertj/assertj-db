@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api.assertions;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.ChangeColumnValueAssert;
 import org.assertj.db.api.TableColumnValueAssert;
@@ -21,9 +24,6 @@ import org.assertj.db.type.Changes;
 import org.assertj.db.type.Table;
 import org.assertj.db.type.ValueType;
 import org.junit.Test;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link org.assertj.db.api.assertions.AssertOnValueType} class :
@@ -40,8 +40,8 @@ public class AssertOnValueType_IsOfAnyTypeIn_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_is_of_any_of_types() {
-    Table table = new Table(jdbcConnectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = assertDbConnection.table("test").build();
+    Changes changes = assertDbConnection.changes().tables(table).build().setStartPointNow();
     update("update test set var14 = 1 where var1 = 1");
     changes.setEndPointNow();
 
@@ -60,8 +60,8 @@ public class AssertOnValueType_IsOfAnyTypeIn_Test extends AbstractTest {
   @Test
   @NeedReload
   public void should_fail_because_value_is_not_of_any_of_types() {
-    Table table = new Table(jdbcConnectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = assertDbConnection.table("test").build();
+    Changes changes = assertDbConnection.changes().tables(table).build().setStartPointNow();
     update("update test set var14 = 1 where var1 = 1");
     changes.setEndPointNow();
 

@@ -40,8 +40,8 @@ public class AssertOnValueInequality_IsNotEqualTo_UUID_Test extends AbstractTest
   @Test
   @NeedReload
   public void test_is_not_equal_to() {
-    Table table = new Table(jdbcConnectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = assertDbConnection.table("test").build();
+    Changes changes = assertDbConnection.changes().tables(table).build().setStartPointNow();
     update("update test set var15 = 'F96EC595-CE91-47CC-9152-CCC8AC48AAD6' where var1 = 10");
     changes.setEndPointNow();
 
@@ -62,8 +62,8 @@ public class AssertOnValueInequality_IsNotEqualTo_UUID_Test extends AbstractTest
   @Test
   @NeedReload
   public void should_fail_because_value_is_equal_to() {
-    Table table = new Table(jdbcConnectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = assertDbConnection.table("test").build();
+    Changes changes = assertDbConnection.changes().tables(table).build().setStartPointNow();
     update("update test set var15 = 'F96EC595-CE91-47CC-9152-CCC8AC48AAD6' where var1 = 1");
     changes.setEndPointNow();
 

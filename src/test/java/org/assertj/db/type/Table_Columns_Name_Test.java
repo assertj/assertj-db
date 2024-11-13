@@ -30,70 +30,38 @@ import org.junit.Test;
 public class Table_Columns_Name_Test extends AbstractTest {
 
   /**
-   * This method test the columns got from a {@code ConnectionProvider}.
+   * This method test the columns got from a {@code Connection}.
    */
   @Test
-  public void test_columns_name_with_jdbc_set() {
-    Table table = new Table(jdbcConnectionProvider, "movie");
+  public void test_columns_name() {
+    Table table = assertDbConnection.table("movie").build();
 
     assertThat(table.getColumnsNameList()).as("Columns of MOVIE table").hasSize(4)
       .containsExactly("ID", "TITLE", "YEAR", "MOVIE_IMDB");
   }
 
   /**
-   * This method test the columns got from a {@code DataSource}.
+   * This method test the columns got from a {@code Connection} when the columns to check are set.
    */
   @Test
-  public void test_columns_name_with_datasource_set() {
-    Table table = new Table(dsConnectionProvider, "movie");
-
-    assertThat(table.getColumnsNameList()).as("Columns of MOVIE table").hasSize(4)
-      .containsExactly("ID", "TITLE", "YEAR", "MOVIE_IMDB");
-  }
-
-  /**
-   * This method test the columns got from a {@code ConnectionProvider} when the columns to check are set.
-   */
-  @Test
-  public void test_columns_name_to_check_with_jdbc_set() {
-    Table table = new Table(jdbcConnectionProvider, "actor", new String[]{"id", "name", "birth"}, null);
+  public void test_columns_name_to_check() {
+    Table table = assertDbConnection.table("actor").columnsToCheck(new String[]{"id", "name", "birth"}).build();
 
     assertThat(table.getColumnsNameList()).as("Columns of ACTOR table").hasSize(3)
       .containsExactly("ID", "NAME", "BIRTH");
   }
 
   /**
-   * This method test the columns got from a {@code DataSource} when the columns to check are set.
+   * This method test the columns got from a {@code Connection} when the columns to exclude are set.
    */
   @Test
-  public void test_columns_name_to_check_with_datasource_set() {
-    Table table = new Table(dsConnectionProvider, "actor", new String[]{"id", "name", "birth"}, null);
-
-    assertThat(table.getColumnsNameList()).as("Columns of ACTOR table").hasSize(3)
-      .containsExactly("ID", "NAME", "BIRTH");
-  }
-
-  /**
-   * This method test the columns got from a {@code ConnectionProvider} when the columns to exclude are set.
-   */
-  @Test
-  public void test_columns_name_to_exclude_with_jdbc_set() {
-    Table table = new Table(jdbcConnectionProvider, "interpretation", null, new String[]{"id"});
+  public void test_columns_name_to_exclude() {
+    Table table = assertDbConnection.table("interpretation").columnsToExclude(new String[]{"id"}).build();
 
     assertThat(table.getColumnsNameList()).as("Columns of INTERPRETATION table").hasSize(3)
       .containsExactly("ID_MOVIE", "ID_ACTOR", "CHARACTER");
   }
 
-  /**
-   * This method test the columns got from a {@code DataSource} when the columns to exclude are set.
-   */
-  @Test
-  public void test_columns_name_to_exclude_with_datasource_set() {
-    Table table = new Table(dsConnectionProvider, "interpretation", null, new String[]{"id"});
-
-    assertThat(table.getColumnsNameList()).as("Columns of INTERPRETATION table").hasSize(3)
-      .containsExactly("ID_MOVIE", "ID_ACTOR", "CHARACTER");
-  }
 
   /**
    * This method should throw a {@code AssertJDBException} because of a {@code SQLException} caused by a table not
@@ -101,7 +69,7 @@ public class Table_Columns_Name_Test extends AbstractTest {
    */
   @Test(expected = AssertJDBException.class)
   public void should_throw_AssertJDBException_because_SQLException_caused_by_table_not_found() {
-    Table table = new Table(dsConnectionProvider, "interpret");
+    Table table = assertDbConnection.table("interpret").build();
     table.getColumnsNameList();
   }
 }

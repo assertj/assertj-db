@@ -33,19 +33,8 @@ public class Table_PrimaryKeys_Name_Test extends AbstractTest {
    * This method test the primary keys got from a {@code ConnectionProvider}.
    */
   @Test
-  public void test_pks_name_with_jdbc_set() {
-    Table table = new Table(jdbcConnectionProvider, "movie");
-
-    assertThat(table.getPksNameList()).as("Primary Keys of MOVIE table").hasSize(1)
-      .containsExactly("ID");
-  }
-
-  /**
-   * This method test the primary keys got from a {@code DataSource}.
-   */
-  @Test
-  public void test_pks_name_with_datasource_set() {
-    Table table = new Table(dsConnectionProvider, "movie");
+  public void test_pks_name() {
+    Table table = assertDbConnection.table("movie").build();
 
     assertThat(table.getPksNameList()).as("Primary Keys of MOVIE table").hasSize(1)
       .containsExactly("ID");
@@ -55,19 +44,8 @@ public class Table_PrimaryKeys_Name_Test extends AbstractTest {
    * This method test the primary keys got from a {@code ConnectionProvider} when the columns to check are set.
    */
   @Test
-  public void test_pks_name_to_check_with_jdbc_set() {
-    Table table = new Table(jdbcConnectionProvider, "actor", new String[]{"id", "name", "birth"}, null);
-
-    assertThat(table.getPksNameList()).as("Primary Keys of ACTOR table").hasSize(1)
-      .containsExactly("ID");
-  }
-
-  /**
-   * This method test the primary keys got from a {@code DataSource} when the columns to check are set.
-   */
-  @Test
-  public void test_pks_name_to_check_with_datasource_set() {
-    Table table = new Table(dsConnectionProvider, "actor", new String[]{"id", "name", "birth"}, null);
+  public void test_pks_name_to_check() {
+    Table table = assertDbConnection.table("actor").columnsToCheck(new String[]{"id", "name", "birth"}).build();
 
     assertThat(table.getPksNameList()).as("Primary Keys of ACTOR table").hasSize(1)
       .containsExactly("ID");
@@ -77,18 +55,8 @@ public class Table_PrimaryKeys_Name_Test extends AbstractTest {
    * This method test the primary keys got from a {@code ConnectionProvider} when the columns to exclude are set.
    */
   @Test
-  public void test_pks_name_to_exclude_with_jdbc_set() {
-    Table table = new Table(jdbcConnectionProvider, "interpretation", null, new String[]{"ID"});
-
-    assertThat(table.getPksNameList()).as("Primary Keys of INTERPRETATION table").hasSize(0);
-  }
-
-  /**
-   * This method test the primary keys got from a {@code DataSource} when the columns to exclude are set.
-   */
-  @Test
-  public void test_pks_name_to_exclude_with_datasource_set() {
-    Table table = new Table(dsConnectionProvider, "interpretation", null, new String[]{"id"});
+  public void test_pks_name_to_exclude() {
+    Table table = assertDbConnection.table("interpretation").columnsToExclude(new String[]{"ID"}).build();
 
     assertThat(table.getPksNameList()).as("Primary Keys of INTERPRETATION table").hasSize(0);
   }
@@ -99,7 +67,7 @@ public class Table_PrimaryKeys_Name_Test extends AbstractTest {
    */
   @Test(expected = AssertJDBException.class)
   public void should_throw_AssertJDBException_because_SQLException_caused_by_table_not_found() {
-    Table table = new Table(dsConnectionProvider, "interpret");
+    Table table = assertDbConnection.table("interpret").build();
     table.getPksNameList();
   }
 

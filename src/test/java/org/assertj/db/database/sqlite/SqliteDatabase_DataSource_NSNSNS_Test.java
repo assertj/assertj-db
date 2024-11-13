@@ -22,8 +22,8 @@ import org.assertj.core.api.Assertions;
 import org.assertj.db.common.NeedReload;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.output.Outputs;
+import org.assertj.db.type.AssertDbConnection;
 import org.assertj.db.type.Changes;
-import org.assertj.db.type.ConnectionProvider;
 import org.assertj.db.type.Table;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,18 +36,18 @@ import org.junit.Test;
  */
 public class SqliteDatabase_DataSource_NSNSNS_Test extends AbstractSqliteTest {
 
-  private ConnectionProvider connectionProvider;
+  private AssertDbConnection connection;
 
   @Before
   public void init() {
-    connectionProvider = dsConnectionNSNSNS;
+    connection = dsConnectionNSNSNS;
   }
 
   @Test
   @NeedReload
   public void test_Outputs_output() {
-    Table table = new Table(connectionProvider, "test", null, new String[]{"var20"});
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = connection.table("test").columnsToExclude(new String[]{"var20"}).build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
     update();
     changes.setEndPointNow();
 
@@ -74,7 +74,7 @@ public class SqliteDatabase_DataSource_NSNSNS_Test extends AbstractSqliteTest {
       .column().toStream(byteArrayOutputStream9)
       .valueAtEndPoint().toStream(byteArrayOutputStream10);
 
-    Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[test table]%n"
+    Assertions.assertThat(byteArrayOutputStream0).hasToString(String.format("[test table]%n"
       + "|-----------|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
       + "|           |         | *         |           |           |           |           |            |           |           |           |           |            |            |            |            |            |            |            |                       |            |%n"
       + "|           | PRIMARY | Var1      | vAr2      | vaR3      | var4      | var5      | var6       | var7      | var8      | var9      | var10     | var11      | var12      | var13      | var14      | var15      | var16      | var17      | var18                 | var19      |%n"
@@ -83,21 +83,21 @@ public class SqliteDatabase_DataSource_NSNSNS_Test extends AbstractSqliteTest {
       + "|-----------|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
       + "| Index : 0 | 1       | 1         | 13        | 2         | 14        | 15        | 2007-12-23 | 3.3       | 4.4       | 5.5       | 6.6       | 20         | 8          | 16         | 9          | 10.1       | 11         | 09:01:00   | 2007-12-23 09:01:00.0 | 12         |%n"
       + "|-----------|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"));
-    Assertions.assertThat(byteArrayOutputStream1.toString()).isEqualTo(String.format("[Column at index 0 (column name : Var1) of test table]%n"
+    Assertions.assertThat(byteArrayOutputStream1).hasToString(String.format("[Column at index 0 (column name : Var1) of test table]%n"
       + "|-----------|----------|%n"
       + "|           | Var1     |%n"
       + "|           | (NUMBER) |%n"
       + "|-----------|----------|%n"
       + "| Index : 0 | 1        |%n"
       + "|-----------|----------|%n"));
-    Assertions.assertThat(byteArrayOutputStream2.toString()).isEqualTo(String.format("[Value at index 0 of Column at index 0 (column name : Var1) of test table]%n"
+    Assertions.assertThat(byteArrayOutputStream2).hasToString(String.format("[Value at index 0 of Column at index 0 (column name : Var1) of test table]%n"
       + "|----------|%n"
       + "| Var1     |%n"
       + "| (NUMBER) |%n"
       + "|----------|%n"
       + "| 1        |%n"
       + "|----------|%n"));
-    Assertions.assertThat(byteArrayOutputStream3.toString()).isEqualTo(String.format("[Row at index 0 of test table]%n"
+    Assertions.assertThat(byteArrayOutputStream3).hasToString(String.format("[Row at index 0 of test table]%n"
       + "|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
       + "|         | *         |           |           |           |           |            |           |           |           |           |            |            |            |            |            |            |            |                       |            |%n"
       + "| PRIMARY | Var1      | vAr2      | vaR3      | var4      | var5      | var6       | var7      | var8      | var9      | var10     | var11      | var12      | var13      | var14      | var15      | var16      | var17      | var18                 | var19      |%n"
@@ -106,14 +106,14 @@ public class SqliteDatabase_DataSource_NSNSNS_Test extends AbstractSqliteTest {
       + "|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
       + "| 1       | 1         | 13        | 2         | 14        | 15        | 2007-12-23 | 3.3       | 4.4       | 5.5       | 6.6       | 20         | 8          | 16         | 9          | 10.1       | 11         | 09:01:00   | 2007-12-23 09:01:00.0 | 12         |%n"
       + "|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"));
-    Assertions.assertThat(byteArrayOutputStream4.toString()).isEqualTo(String.format("[Value at index 0 (column name : Var1) of Row at index 0 of test table]%n"
+    Assertions.assertThat(byteArrayOutputStream4).hasToString(String.format("[Value at index 0 (column name : Var1) of Row at index 0 of test table]%n"
       + "|----------|%n"
       + "| Var1     |%n"
       + "| (NUMBER) |%n"
       + "|----------|%n"
       + "| 1        |%n"
       + "|----------|%n"));
-    Assertions.assertThat(byteArrayOutputStream5.toString()).isEqualTo(String.format("[Changes on test table of 'data source']%n"
+    Assertions.assertThat(byteArrayOutputStream5).hasToString(String.format("[Changes on test table of 'data source']%n"
       + "|-----------|--------------|-------|---------|----------------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
       + "|           |              |       |         |                | *         |           |           |           |           |            |           |           |           |           |            |            |            |            |            |            |            |                       |            |%n"
       + "|           | TYPE         | TABLE | PRIMARY |                | Var1      | vAr2      | vaR3      | var4      | var5      | var6       | var7      | var8      | var9      | var10     | var11      | var12      | var13      | var14      | var15      | var16      | var17      | var18                 | var19      |%n"
@@ -124,7 +124,7 @@ public class SqliteDatabase_DataSource_NSNSNS_Test extends AbstractSqliteTest {
       + "| Index : 0 | MODIFICATION | test  | 1       |----------------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
       + "|           |              |       |         | At end point   | 1         | 13        | 2         | 14        | 15        | 2007-12-23 | 3.3       | 4.4       | 5.5       | 6.6       | 20         | 8          | 16         | 9          | 10.1       | 11         | 09:01:00   | 2007-12-23 09:01:00.0 | 12         |%n"
       + "|-----------|--------------|-------|---------|----------------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"));
-    Assertions.assertThat(byteArrayOutputStream6.toString()).isEqualTo(String.format("[Change at index 0 (with primary key : [1]) of Changes on test table of 'data source']%n"
+    Assertions.assertThat(byteArrayOutputStream6).hasToString(String.format("[Change at index 0 (with primary key : [1]) of Changes on test table of 'data source']%n"
       + "|--------------|-------|---------|----------------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
       + "|              |       |         |                | *         |           |           |           |           |            |           |           |           |           |            |            |            |            |            |            |            |                       |            |%n"
       + "| TYPE         | TABLE | PRIMARY |                | Var1      | vAr2      | vaR3      | var4      | var5      | var6       | var7      | var8      | var9      | var10     | var11      | var12      | var13      | var14      | var15      | var16      | var17      | var18                 | var19      |%n"
@@ -135,7 +135,7 @@ public class SqliteDatabase_DataSource_NSNSNS_Test extends AbstractSqliteTest {
       + "| MODIFICATION | test  | 1       |----------------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
       + "|              |       |         | At end point   | 1         | 13        | 2         | 14        | 15        | 2007-12-23 | 3.3       | 4.4       | 5.5       | 6.6       | 20         | 8          | 16         | 9          | 10.1       | 11         | 09:01:00   | 2007-12-23 09:01:00.0 | 12         |%n"
       + "|--------------|-------|---------|----------------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"));
-    Assertions.assertThat(byteArrayOutputStream7.toString()).isEqualTo(String.format("[Row at end point of Change at index 0 (with primary key : [1]) of Changes on test table of 'data source']%n"
+    Assertions.assertThat(byteArrayOutputStream7).hasToString(String.format("[Row at end point of Change at index 0 (with primary key : [1]) of Changes on test table of 'data source']%n"
       + "|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
       + "|         | *         |           |           |           |           |            |           |           |           |           |            |            |            |            |            |            |            |                       |            |%n"
       + "| PRIMARY | Var1      | vAr2      | vaR3      | var4      | var5      | var6       | var7      | var8      | var9      | var10     | var11      | var12      | var13      | var14      | var15      | var16      | var17      | var18                 | var19      |%n"
@@ -144,14 +144,14 @@ public class SqliteDatabase_DataSource_NSNSNS_Test extends AbstractSqliteTest {
       + "|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"
       + "| 1       | 1         | 13        | 2         | 14        | 15        | 2007-12-23 | 3.3       | 4.4       | 5.5       | 6.6       | 20         | 8          | 16         | 9          | 10.1       | 11         | 09:01:00   | 2007-12-23 09:01:00.0 | 12         |%n"
       + "|---------|-----------|-----------|-----------|-----------|-----------|------------|-----------|-----------|-----------|-----------|------------|------------|------------|------------|------------|------------|------------|-----------------------|------------|%n"));
-    Assertions.assertThat(byteArrayOutputStream8.toString()).isEqualTo(String.format("[Value at index 0 (column name : Var1) of Row at end point of Change at index 0 (with primary key : [1]) of Changes on test table of 'data source']%n"
+    Assertions.assertThat(byteArrayOutputStream8).hasToString(String.format("[Value at index 0 (column name : Var1) of Row at end point of Change at index 0 (with primary key : [1]) of Changes on test table of 'data source']%n"
       + "|----------|%n"
       + "| Var1     |%n"
       + "| (NUMBER) |%n"
       + "|----------|%n"
       + "| 1        |%n"
       + "|----------|%n"));
-    Assertions.assertThat(byteArrayOutputStream9.toString()).isEqualTo(String.format("[Column at index 0 (column name : Var1) of Change at index 0 (with primary key : [1]) of Changes on test table of 'data source']%n"
+    Assertions.assertThat(byteArrayOutputStream9).hasToString(String.format("[Column at index 0 (column name : Var1) of Change at index 0 (with primary key : [1]) of Changes on test table of 'data source']%n"
       + "|----------------|----------|%n"
       + "|                | Var1     |%n"
       + "|                | (NUMBER) |%n"
@@ -160,7 +160,7 @@ public class SqliteDatabase_DataSource_NSNSNS_Test extends AbstractSqliteTest {
       + "|----------------|----------|%n"
       + "| At end point   | 1        |%n"
       + "|----------------|----------|%n"));
-    Assertions.assertThat(byteArrayOutputStream10.toString()).isEqualTo(String.format("[Value at end point of Column at index 0 (column name : Var1) of Change at index 0 (with primary key : [1]) of Changes on test table of 'data source']%n"
+    Assertions.assertThat(byteArrayOutputStream10).hasToString(String.format("[Value at end point of Column at index 0 (column name : Var1) of Change at index 0 (with primary key : [1]) of Changes on test table of 'data source']%n"
       + "|----------|%n"
       + "| Var1     |%n"
       + "| (NUMBER) |%n"
@@ -172,9 +172,9 @@ public class SqliteDatabase_DataSource_NSNSNS_Test extends AbstractSqliteTest {
   @Test
   @NeedReload
   public void should_fail_because_primary_key_is_different() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
-    Changes changes2 = new Changes(connectionProvider).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
+    Changes changes2 = connection.changes().build().setStartPointNow();
     update();
     changes.setEndPointNow();
     changes2.setEndPointNow();
@@ -205,9 +205,9 @@ public class SqliteDatabase_DataSource_NSNSNS_Test extends AbstractSqliteTest {
   @Test
   @NeedReload
   public void should_fail_because_column_name_is_different() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
-    Changes changes2 = new Changes(connectionProvider).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
+    Changes changes2 = connection.changes().build().setStartPointNow();
     update();
     changes.setEndPointNow();
     changes2.setEndPointNow();
@@ -279,9 +279,9 @@ public class SqliteDatabase_DataSource_NSNSNS_Test extends AbstractSqliteTest {
   @Test
   @NeedReload
   public void should_fail_because_column_name_is_wrong_to_navigate() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
-    Changes changes2 = new Changes(connectionProvider).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
+    Changes changes2 = connection.changes().build().setStartPointNow();
     update();
     changes.setEndPointNow();
     changes2.setEndPointNow();
@@ -341,9 +341,9 @@ public class SqliteDatabase_DataSource_NSNSNS_Test extends AbstractSqliteTest {
   @Test
   @NeedReload
   public void should_fail_because_table_name_is_different() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
-    Changes changes2 = new Changes(connectionProvider).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
+    Changes changes2 = connection.changes().build().setStartPointNow();
     update();
     changes.setEndPointNow();
     changes2.setEndPointNow();
@@ -373,9 +373,9 @@ public class SqliteDatabase_DataSource_NSNSNS_Test extends AbstractSqliteTest {
   @Test
   @NeedReload
   public void should_fail_because_table_name_is_wrong_to_navigate() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
-    Changes changes2 = new Changes(connectionProvider).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
+    Changes changes2 = connection.changes().build().setStartPointNow();
     update();
     changes.setEndPointNow();
     changes2.setEndPointNow();
@@ -422,9 +422,9 @@ public class SqliteDatabase_DataSource_NSNSNS_Test extends AbstractSqliteTest {
   @Test
   @NeedReload
   public void test_ColumnName_hasColumnName() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
-    Changes changes2 = new Changes(connectionProvider).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
+    Changes changes2 = connection.changes().build().setStartPointNow();
     update();
     changes.setEndPointNow();
     changes2.setEndPointNow();
@@ -438,9 +438,9 @@ public class SqliteDatabase_DataSource_NSNSNS_Test extends AbstractSqliteTest {
   @Test
   @NeedReload
   public void test_ColumnClass_isOfClass() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
-    Changes changes2 = new Changes(connectionProvider).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
+    Changes changes2 = connection.changes().build().setStartPointNow();
     update();
     changes.setEndPointNow();
     changes2.setEndPointNow();

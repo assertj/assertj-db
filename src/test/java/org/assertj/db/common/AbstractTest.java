@@ -33,12 +33,12 @@ import javax.sql.DataSource;
 
 import org.assertj.db.configuration.TestsConfiguration;
 import org.assertj.db.type.AbstractDbData;
+import org.assertj.db.type.AssertDbConnection;
+import org.assertj.db.type.AssertDbConnectionFactory;
 import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.Changes;
 import org.assertj.db.type.Column;
-import org.assertj.db.type.ConnectionProvider;
-import org.assertj.db.type.ConnectionProviderFactory;
 import org.assertj.db.type.DataType;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Row;
@@ -131,12 +131,11 @@ public abstract class AbstractTest {
   private static final DbSetup DB_SETUP = new DbSetup(new DriverManagerDestination("jdbc:h2:mem:test", "SA", ""),
     OPERATIONS);
   private static final DbSetupTracker DB_SETUP_TRACKER = new DbSetupTracker();
-  protected final ConnectionProvider jdbcConnectionProvider = ConnectionProviderFactory.of("jdbc:h2:mem:test", "sa", "").create();
+  protected final AssertDbConnection assertDbConnection = AssertDbConnectionFactory.of("jdbc:h2:mem:test", "sa", "").create();
   @Rule
   public TestName testNameRule = new TestName();
   @Autowired
   protected DataSource dataSource;
-  protected ConnectionProvider dsConnectionProvider;
 
   /**
    * Returns an instance of a {@code Value}.
@@ -161,9 +160,9 @@ public abstract class AbstractTest {
    * @throws Exception Exception
    */
   protected static Changes getChanges(List<Change> changesList) throws Exception {
-    Constructor<Changes> constructor = Changes.class.getDeclaredConstructor(ConnectionProvider.class);
+    Constructor<Changes> constructor = Changes.class.getDeclaredConstructor();
     constructor.setAccessible(true);
-    Changes changes = constructor.newInstance((ConnectionProvider) null);
+    Changes changes = constructor.newInstance();
     Field field = Changes.class.getDeclaredField("changesList");
     field.setAccessible(true);
     field.set(changes, changesList);
@@ -321,11 +320,6 @@ public abstract class AbstractTest {
   }
 
   @Before
-  public void initDsConnection() {
-    this.dsConnectionProvider = ConnectionProviderFactory.of(dataSource).create();
-  }
-
-  @Before
   public void initiate() {
     DB_SETUP_TRACKER.launchIfNecessary(DB_SETUP);
   }
@@ -352,7 +346,7 @@ public abstract class AbstractTest {
    * @param parameters The parameters of the request.
    */
   protected void update(String request, Object... parameters) {
-    try (Connection connection = dsConnectionProvider.getConnection()) {
+    try (Connection connection = dataSource.getConnection()) {
       try (PreparedStatement statement = connection.prepareStatement(request)) {
         for (int i = 0; i < parameters.length; i++) {
           statement.setObject(i + 1, parameters[i]);

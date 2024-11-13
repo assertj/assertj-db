@@ -38,9 +38,9 @@ public class AssertOnDataType_IsOnRequest_Test extends AbstractTest {
    */
   @Test
   @NeedReload
-  public void test_is_on_request() throws Exception {
-    Request request = new Request(jdbcConnectionProvider, "select * from actor");
-    Changes changes = new Changes(request).setStartPointNow();
+  public void test_is_on_request() {
+    Request request = assertDbConnection.request("select * from actor").build();
+    Changes changes = assertDbConnection.changes().request(request).build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -54,9 +54,9 @@ public class AssertOnDataType_IsOnRequest_Test extends AbstractTest {
    */
   @Test
   @NeedReload
-  public void should_fail_because_data_type_is_different() throws Exception {
-    Table table = new Table(jdbcConnectionProvider, "actor");
-    Changes changes = new Changes(table).setStartPointNow();
+  public void should_fail_because_data_type_is_different() {
+    Table table = assertDbConnection.table("actor").build();
+    Changes changes = assertDbConnection.changes().tables(table).build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 

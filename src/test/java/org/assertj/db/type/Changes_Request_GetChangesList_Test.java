@@ -16,7 +16,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.sql.SQLException;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -38,7 +37,7 @@ public class Changes_Request_GetChangesList_Test extends AbstractTest {
    */
   @Test
   public void test_when_there_is_no_change() {
-    Changes changes = new Changes(new Request(dsConnectionProvider, "select * from test"));
+    Changes changes = assertDbConnection.changes().request(assertDbConnection.request("select * from test").build()).build();
     changes.setStartPointNow();
     changes.setEndPointNow();
     assertThat(changes.getChangesList()).hasSize(0);
@@ -46,13 +45,11 @@ public class Changes_Request_GetChangesList_Test extends AbstractTest {
 
   /**
    * This method test when there is no change found because it is another table.
-   *
-   * @throws SQLException
    */
   @Test
   @NeedReload
-  public void test_when_there_is_no_change_found() throws SQLException {
-    Changes changes = new Changes(new Request(dsConnectionProvider, "select * from test"));
+  public void test_when_there_is_no_change_found() {
+    Changes changes = assertDbConnection.changes().request(assertDbConnection.request("select * from test").build()).build();
     changes.setStartPointNow();
     update("delete from test2 where VAR1 is null");
     changes.setEndPointNow();
@@ -61,13 +58,11 @@ public class Changes_Request_GetChangesList_Test extends AbstractTest {
 
   /**
    * This method test when there is a deletion change.
-   *
-   * @throws SQLException
    */
   @Test
   @NeedReload
-  public void test_when_there_is_deletion_change() throws SQLException {
-    Changes changes = new Changes(new Request(dsConnectionProvider, "select * from test2"));
+  public void test_when_there_is_deletion_change() {
+    Changes changes = assertDbConnection.changes().request(assertDbConnection.request("select * from test2").build()).build();
     changes.setStartPointNow();
     update("delete from test2 where VAR1 is null");
     changes.setEndPointNow();
@@ -100,13 +95,11 @@ public class Changes_Request_GetChangesList_Test extends AbstractTest {
 
   /**
    * This method test when there is a creation change.
-   *
-   * @throws SQLException
    */
   @Test
   @NeedReload
-  public void test_when_there_is_creation_change() throws SQLException {
-    Changes changes = new Changes(new Request(dsConnectionProvider, "select * from test2"));
+  public void test_when_there_is_creation_change() {
+    Changes changes = assertDbConnection.changes().request(assertDbConnection.request("select * from test2").build()).build();
     changes.setStartPointNow();
     update("insert into test2(VAR1) values(200)");
     changes.setEndPointNow();
@@ -139,13 +132,11 @@ public class Changes_Request_GetChangesList_Test extends AbstractTest {
 
   /**
    * This method test when there is a modification change without primary key.
-   *
-   * @throws SQLException
    */
   @Test
   @NeedReload
-  public void test_when_there_is_modification_change_without_primary_key() throws SQLException {
-    Changes changes = new Changes(new Request(dsConnectionProvider, "select * from test2"));
+  public void test_when_there_is_modification_change_without_primary_key() {
+    Changes changes = assertDbConnection.changes().request(assertDbConnection.request("select * from test2").build()).build();
     changes.setStartPointNow();
     update("update test2 set VAR12 = 'modification' where VAR1 = 1");
     changes.setEndPointNow();
@@ -206,13 +197,11 @@ public class Changes_Request_GetChangesList_Test extends AbstractTest {
 
   /**
    * This method test when there is a modification change with primary key.
-   *
-   * @throws SQLException
    */
   @Test
   @NeedReload
-  public void test_when_there_is_modification_change_with_primary_key() throws SQLException {
-    Changes changes = new Changes(new Request(dsConnectionProvider, "select * from interpretation").setPksName("id"));
+  public void test_when_there_is_modification_change_with_primary_key() {
+    Changes changes = assertDbConnection.changes().request(assertDbConnection.request("select * from interpretation").pksName("id").build()).build();
     changes.setStartPointNow();
     update("update interpretation set character = 'Doctor Grace Augustine' where id = 3");
     changes.setEndPointNow();
@@ -234,13 +223,11 @@ public class Changes_Request_GetChangesList_Test extends AbstractTest {
 
   /**
    * This method test when there is a creation change with primary key.
-   *
-   * @throws SQLException
    */
   @Test
   @NeedReload
-  public void test_when_there_is_creation_change_with_primary_key() throws SQLException {
-    Changes changes = new Changes(new Request(dsConnectionProvider, "select * from movie").setPksName("id"));
+  public void test_when_there_is_creation_change_with_primary_key() {
+    Changes changes = assertDbConnection.changes().request(assertDbConnection.request("select * from movie").pksName("id").build()).build();
     changes.setStartPointNow();
     update("insert into movie values(4, 'Ghostbusters', 1984, '16319617-AE95-4087-9264-D3D21BF611B6')");
     changes.setEndPointNow();
@@ -261,13 +248,11 @@ public class Changes_Request_GetChangesList_Test extends AbstractTest {
 
   /**
    * This method test when there is a deletion change with primary key.
-   *
-   * @throws SQLException
    */
   @Test
   @NeedReload
-  public void test_when_there_is_deletion_change_with_primary_key() throws SQLException {
-    Changes changes = new Changes(new Request(dsConnectionProvider, "select * from interpretation").setPksName("id"));
+  public void test_when_there_is_deletion_change_with_primary_key() {
+    Changes changes = assertDbConnection.changes().request((assertDbConnection.request("select * from interpretation").pksName("id").build())).build();
     changes.setStartPointNow();
     update("delete interpretation where id = 3");
     changes.setEndPointNow();

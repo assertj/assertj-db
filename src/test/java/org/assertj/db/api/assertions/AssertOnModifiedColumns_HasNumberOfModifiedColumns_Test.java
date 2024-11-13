@@ -36,8 +36,8 @@ public class AssertOnModifiedColumns_HasNumberOfModifiedColumns_Test extends Abs
    */
   @Test
   @NeedReload
-  public void test_has_number_of_modified_columns() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+  public void test_has_number_of_modified_columns() {
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -51,8 +51,8 @@ public class AssertOnModifiedColumns_HasNumberOfModifiedColumns_Test extends Abs
    */
   @Test
   @NeedReload
-  public void should_fail_because_number_of_modified_columns_is_different() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+  public void should_fail_because_number_of_modified_columns_is_different() {
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 

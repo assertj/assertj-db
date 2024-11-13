@@ -12,10 +12,10 @@
  */
 package org.assertj.db.type;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.assertj.db.common.AbstractTest;
 import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests on the columns of {@code Request}.
@@ -32,12 +32,12 @@ public class Request_Columns_Test extends AbstractTest {
    * This method test the columns got from a {@code ConnectionProvider}.
    */
   @Test
-  public void test_columns_with_jdbc_set() {
-    Request request = new Request(jdbcConnectionProvider, "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
+  public void test_columns() {
+    Request request = assertDbConnection.request("SELECT actor.name, actor.firstname, movie.year, interpretation.character "
       + " FROM movie, actor, interpretation"
       + " WHERE movie.id = interpretation.id_movie"
       + " AND interpretation.id_actor = actor.id"
-      + " ORDER BY actor.name, movie.year");
+      + " ORDER BY actor.name, movie.year").build();
 
     Column columnFromIndex = request.getColumn(1);
 
@@ -55,11 +55,11 @@ public class Request_Columns_Test extends AbstractTest {
    */
   @Test
   public void test_columns_with_datasource_set() {
-    Request request = new Request(dsConnectionProvider, "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
+    Request request = assertDbConnection.request("SELECT actor.name, actor.firstname, movie.year, interpretation.character "
       + " FROM movie, actor, interpretation"
       + " WHERE movie.id = interpretation.id_movie"
       + " AND interpretation.id_actor = actor.id"
-      + " ORDER BY actor.name, movie.year");
+      + " ORDER BY actor.name, movie.year").build();
 
     Column columnFromIndex = request.getColumn(1);
 

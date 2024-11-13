@@ -36,13 +36,13 @@ public class OutputterChanges_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_output() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
     output(changes).toStream(byteArrayOutputStream);
-    Assertions.assertThat(byteArrayOutputStream.toString()).isEqualTo(String.format("[Changes on tables of 'sa/jdbc:h2:mem:test']%n"
+    Assertions.assertThat(byteArrayOutputStream).hasToString(String.format("[Changes on tables of 'sa/jdbc:h2:mem:test']%n"
       + "|-----------|--------------|----------------|---------|----------------|-----------|-----------|-----------|------------|--------------------------------------|%n"
       + "|           |              |                |         |                | *         |           |           |            |                                      |%n"
       + "|           | TYPE         | TABLE          | PRIMARY |                | ID        | NAME      | FIRSTNAME | BIRTH      | ACTOR_IMDB                           |%n"

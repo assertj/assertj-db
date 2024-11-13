@@ -12,7 +12,6 @@
  */
 package org.assertj.db.api.assertions.impl;
 
-import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 import java.sql.Date;
@@ -26,7 +25,6 @@ import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.DateValue;
-import org.assertj.db.type.Table;
 import org.assertj.db.type.Value;
 import org.junit.Test;
 
@@ -44,8 +42,7 @@ public class AssertionsOnColumnEquality_HasValues_DateValue_Test extends Abstrac
   @Test
   public void test_has_values() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, Date.valueOf("2007-12-23")), getValue(
       null, Date.valueOf("2002-07-25")), getValue(null, null)));
     TableAssert tableAssert2 = AssertionsOnColumnEquality.hasValues(tableAssert, info, list, DateValue.of(2007, 12, 23),
@@ -66,8 +63,7 @@ public class AssertionsOnColumnEquality_HasValues_DateValue_Test extends Abstrac
   public void should_fail_because_values_are_different() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, Date.valueOf("2007-12-23")), getValue(null, Date.valueOf(
         "2002-07-25"))));
@@ -103,8 +99,7 @@ public class AssertionsOnColumnEquality_HasValues_DateValue_Test extends Abstrac
   public void should_fail_because_one_value_is_not_a_date() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, false), getValue(null, Date.valueOf("2002-07-25"))));
     try {
       AssertionsOnColumnEquality.hasValues(tableAssert, info, list, DateValue.of(2007, 12, 23),
@@ -128,8 +123,7 @@ public class AssertionsOnColumnEquality_HasValues_DateValue_Test extends Abstrac
   public void should_fail_because_the_number_of_values_is_different() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, Date.valueOf("2007-12-23")), getValue(null, Date.valueOf(
       "2002-07-25"))));
     try {

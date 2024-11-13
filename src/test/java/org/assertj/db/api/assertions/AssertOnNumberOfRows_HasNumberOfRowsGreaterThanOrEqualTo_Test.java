@@ -37,7 +37,7 @@ public class AssertOnNumberOfRows_HasNumberOfRowsGreaterThanOrEqualTo_Test exten
    */
   @Test
   public void test_has_number_of_rows_greater_than_or_equal_to() {
-    Table table = new Table(jdbcConnectionProvider, "actor");
+    Table table = assertDbConnection.table("actor").build();
     TableAssert tableAssert = assertThat(table);
     TableAssert tableAssert2 = tableAssert.hasNumberOfRowsGreaterThanOrEqualTo(3);
     Assertions.assertThat(tableAssert).isSameAs(tableAssert2);
@@ -51,7 +51,7 @@ public class AssertOnNumberOfRows_HasNumberOfRowsGreaterThanOrEqualTo_Test exten
    */
   @Test
   public void should_fail_because_number_of_rows_is_less() {
-    Request request = new Request(jdbcConnectionProvider, "select * from actor");
+    Request request = assertDbConnection.request("select * from actor").build();
     try {
       assertThat(request).hasNumberOfRowsGreaterThanOrEqualTo(9);
       fail("An exception must be raised");

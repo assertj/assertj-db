@@ -35,16 +35,16 @@ public class AssertOnColumnContent_ContainsValues_Bytes_Test extends AbstractTes
    * This method tests the {@code containsValues} assertion method.
    */
   @Test
-  public void test_has_values() throws Exception {
+  public void test_has_values() {
     byte[] bytesH2 = bytesContentFromClassPathOf("h2-logo-2.png");
     byte[] bytesDev = bytesContentFromClassPathOf("logo-dev.jpg");
 
-    Table table = new Table(jdbcConnectionProvider, "test");
+    Table table = assertDbConnection.table("test").build();
     TableColumnAssert tableColumnAssert = assertThat(table).column("var11");
     TableColumnAssert tableColumnAssertReturn = tableColumnAssert.containsValues(bytesH2, bytesDev, bytesDev, bytesDev);
     Assertions.assertThat(tableColumnAssert).isSameAs(tableColumnAssertReturn);
 
-    Table table2 = new Table(jdbcConnectionProvider, "test2");
+    Table table2 = assertDbConnection.table("test2").build();
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var11");
     TableColumnAssert tableColumnAssertReturn2 = tableColumnAssert2.containsValues(bytesH2, null);
     Assertions.assertThat(tableColumnAssert2).isSameAs(tableColumnAssertReturn2);
@@ -54,10 +54,10 @@ public class AssertOnColumnContent_ContainsValues_Bytes_Test extends AbstractTes
    * This method should fail because the values are different.
    */
   @Test
-  public void should_fail_because_values_are_different() throws Exception {
+  public void should_fail_because_values_are_different() {
     byte[] bytesH2 = bytesContentFromClassPathOf("h2-logo-2.png");
 
-    Table table = new Table(jdbcConnectionProvider, "test");
+    Table table = assertDbConnection.table("test").build();
     TableColumnAssert tableColumnAssert = assertThat(table).column("var11");
     try {
       tableColumnAssert.containsValues(bytesH2, bytesH2, bytesH2, bytesH2);
@@ -68,7 +68,7 @@ public class AssertOnColumnContent_ContainsValues_Bytes_Test extends AbstractTes
         + " (parameter at index 1 is not found)"));
     }
 
-    Table table2 = new Table(jdbcConnectionProvider, "test2");
+    Table table2 = assertDbConnection.table("test2").build();
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var11");
     try {
       tableColumnAssert2.containsValues(bytesH2, bytesH2);

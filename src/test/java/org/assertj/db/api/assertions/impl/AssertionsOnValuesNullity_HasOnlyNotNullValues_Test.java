@@ -12,7 +12,6 @@
  */
 package org.assertj.db.api.assertions.impl;
 
-import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
@@ -23,7 +22,6 @@ import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.common.AbstractTest;
-import org.assertj.db.type.Table;
 import org.assertj.db.type.Value;
 import org.junit.Test;
 
@@ -41,8 +39,7 @@ public class AssertionsOnValuesNullity_HasOnlyNotNullValues_Test extends Abstrac
   @Test
   public void test_has_only_not_null_values() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "test"), getValue(null, 6)));
     TableAssert tableAssert2 = AssertionsOnValuesNullity.hasOnlyNotNullValues(tableAssert, info, list);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
@@ -55,8 +52,7 @@ public class AssertionsOnValuesNullity_HasOnlyNotNullValues_Test extends Abstrac
   public void should_fail_because_column_contains_null_values() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, null), getValue(null, "test")));
     try {
       AssertionsOnValuesNullity.hasOnlyNotNullValues(tableAssert, info, list);

@@ -32,11 +32,11 @@ public class OutputterToStream_Test extends AbstractTest {
    */
   @Test
   public void test_output_to_stream() throws Exception {
-    Table table = new Table(jdbcConnectionProvider, "actor");
+    Table table = assertDbConnection.table("actor").build();
 
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     Outputs.output(table).row().value().toStream(byteArrayOutputStream0);
-    Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Value at index 0 (column name : ID) of Row at index 0 of ACTOR table]%n"
+    Assertions.assertThat(byteArrayOutputStream0).hasToString(String.format("[Value at index 0 (column name : ID) of Row at index 0 of ACTOR table]%n"
       + "|----------|%n"
       + "| ID       |%n"
       + "| (NUMBER) |%n"

@@ -44,7 +44,7 @@ public class InstantiationError_Test extends AbstractTest {
    */
   @Test
   public void should_fail_because_mistake_in_instantiation_of_column() throws Exception {
-    Table table = new Table(jdbcConnectionProvider, "actor");
+    Table table = assertDbConnection.table("actor").build();
     TableAssert tableAssert = assertThat(table);
 
     Field field = AbstractDbAssert.class.getDeclaredField("columnPosition");
@@ -71,7 +71,7 @@ public class InstantiationError_Test extends AbstractTest {
    */
   @Test
   public void should_fail_because_mistake_in_instantiation_of_row() throws Exception {
-    Table table = new Table(jdbcConnectionProvider, "actor");
+    Table table = assertDbConnection.table("actor").build();
     TableAssert tableAssert = assertThat(table);
 
     Field field = AbstractDbAssert.class.getDeclaredField("rowPosition");
@@ -98,7 +98,7 @@ public class InstantiationError_Test extends AbstractTest {
    */
   @Test
   public void should_fail_because_mistake_in_instantiation_of_value() throws Exception {
-    Table table = new Table(jdbcConnectionProvider, "actor");
+    Table table = assertDbConnection.table("actor").build();
     TableColumnAssert tableColumnAssert = assertThat(table).column();
 
     Field field = AbstractColumnAssert.class.getDeclaredField("valuePosition");
@@ -126,7 +126,7 @@ public class InstantiationError_Test extends AbstractTest {
   @Test
   @NeedReload
   public void should_fail_because_mistake_in_instantiation_of_changes() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
     ChangesAssert changesAssert = assertThat(changes);
@@ -156,7 +156,7 @@ public class InstantiationError_Test extends AbstractTest {
   @Test
   @NeedReload
   public void should_fail_because_mistake_in_instantiation_of_change() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
     ChangesAssert changesAssert = assertThat(changes);
@@ -186,7 +186,7 @@ public class InstantiationError_Test extends AbstractTest {
   @Test
   @NeedReload
   public void should_fail_because_mistake_in_instantiation_of_columnchange() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
     ChangeAssert changeAssert = assertThat(changes).change();
@@ -216,7 +216,7 @@ public class InstantiationError_Test extends AbstractTest {
   @Test
   @NeedReload
   public void should_fail_because_mistake_in_instantiation_of_rowAtStartPoint() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
     ChangeAssert changeAssert = assertThat(changes).change();

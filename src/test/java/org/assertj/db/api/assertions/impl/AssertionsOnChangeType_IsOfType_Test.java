@@ -13,7 +13,6 @@
 package org.assertj.db.api.assertions.impl;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 import org.assertj.core.api.WritableAssertionInfo;
@@ -23,7 +22,6 @@ import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.DataType;
 import org.assertj.db.type.Row;
-import org.assertj.db.type.Table;
 import org.junit.Test;
 
 /**
@@ -40,8 +38,7 @@ public class AssertionsOnChangeType_IsOfType_Test extends AbstractTest {
   @Test
   public void test_is_of_type() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     Row rowAtStartPoint = getRow(null, null, null);
     Row rowAtEndPoint = getRow(null, null, null);
     Change change = getChange(DataType.TABLE, "test", ChangeType.CREATION, rowAtStartPoint, rowAtEndPoint);
@@ -56,8 +53,7 @@ public class AssertionsOnChangeType_IsOfType_Test extends AbstractTest {
   public void should_fail_because_type_of_change_is_different() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     Row rowAtStartPoint = getRow(null, null, null);
     Row rowAtEndPoint = getRow(null, null, null);
     Change change = getChange(DataType.TABLE, "test", ChangeType.CREATION, rowAtStartPoint, rowAtEndPoint);

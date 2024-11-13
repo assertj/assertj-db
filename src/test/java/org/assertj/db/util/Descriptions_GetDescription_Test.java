@@ -17,9 +17,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.common.NeedReload;
+import org.assertj.db.type.AssertDbConnection;
+import org.assertj.db.type.AssertDbConnectionFactory;
 import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -30,13 +33,23 @@ import org.junit.Test;
  */
 public class Descriptions_GetDescription_Test extends AbstractTest {
 
+  AssertDbConnection assertDbConnectionFromDs;
+
+  @Before
+  public void initAssertDbConnectionFromDs() {
+    if (assertDbConnectionFromDs != null) {
+      return;
+    }
+    assertDbConnectionFromDs = AssertDbConnectionFactory.of(this.dataSource).create();
+  }
+
   /**
    * This method tests the {@code getDescription} method for the {@code Table}s.
    */
   @Test
   public void test_get_description_for_table() {
-    Table fromSource = new Table(jdbcConnectionProvider, "actor");
-    Table fromDataSource = new Table(dsConnectionProvider, "actor");
+    Table fromSource = assertDbConnection.table("actor").build();
+    Table fromDataSource = assertDbConnectionFromDs.table("actor").build();
 
     String descriptionFromSource = Descriptions.getDescription(fromSource);
     String descriptionFromDataSource = Descriptions.getDescription(fromDataSource);
@@ -50,10 +63,10 @@ public class Descriptions_GetDescription_Test extends AbstractTest {
    */
   @Test
   public void test_get_description_for_request() {
-    Request fromSource = new Request(jdbcConnectionProvider, "select * from actor");
-    Request fromDataSource = new Request(dsConnectionProvider, "select * from actor");
-    Request fromSourceLong = new Request(jdbcConnectionProvider, "select id, name, firstname, birth, actor_imdb from actor");
-    Request fromDataSourceLong = new Request(dsConnectionProvider, "select id, name, firstname, birth, actor_imdb from actor");
+    Request fromSource = assertDbConnection.request("select * from actor").build();
+    Request fromDataSource = assertDbConnectionFromDs.request("select * from actor").build();
+    Request fromSourceLong = assertDbConnection.request("select id, name, firstname, birth, actor_imdb from actor").build();
+    Request fromDataSourceLong = assertDbConnectionFromDs.request("select id, name, firstname, birth, actor_imdb from actor").build();
 
     String descriptionFromSource = Descriptions.getDescription(fromSource);
     String descriptionFromDataSource = Descriptions.getDescription(fromDataSource);
@@ -72,8 +85,8 @@ public class Descriptions_GetDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_get_description_for_changes() {
-    org.assertj.db.type.Changes fromSource = new org.assertj.db.type.Changes(jdbcConnectionProvider).setStartPointNow();
-    org.assertj.db.type.Changes fromDataSource = new org.assertj.db.type.Changes(dsConnectionProvider).setStartPointNow();
+    org.assertj.db.type.Changes fromSource = assertDbConnection.changes().build().setStartPointNow();
+    org.assertj.db.type.Changes fromDataSource = assertDbConnectionFromDs.changes().build().setStartPointNow();
     updateChangesForTests();
     fromSource.setEndPointNow();
     fromDataSource.setEndPointNow();
@@ -91,9 +104,9 @@ public class Descriptions_GetDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_get_description_for_changes_from_table() {
-    org.assertj.db.type.Changes fromSource = new org.assertj.db.type.Changes(new Table(jdbcConnectionProvider, "actor"))
+    org.assertj.db.type.Changes fromSource = assertDbConnection.changes().tables(assertDbConnection.table("actor").build()).build()
       .setStartPointNow();
-    org.assertj.db.type.Changes fromDataSource = new org.assertj.db.type.Changes(new Table(dsConnectionProvider, "actor"))
+    org.assertj.db.type.Changes fromDataSource = assertDbConnectionFromDs.changes().tables(assertDbConnectionFromDs.table("actor").build()).build()
       .setStartPointNow();
     updateChangesForTests();
     fromSource.setEndPointNow();
@@ -112,14 +125,19 @@ public class Descriptions_GetDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_get_description_for_changes_from_request() {
-    org.assertj.db.type.Changes fromSource = new org.assertj.db.type.Changes(new Request(jdbcConnectionProvider, "select * from actor"))
+    org.assertj.db.type.Changes fromSource = assertDbConnection.changes().request(
+        assertDbConnection.request("select * from actor").build()).build()
       .setStartPointNow();
-    org.assertj.db.type.Changes fromDataSource = new org.assertj.db.type.Changes(
-      new Request(dsConnectionProvider, "select * from actor")).setStartPointNow();
-    org.assertj.db.type.Changes fromSourceLong = new org.assertj.db.type.Changes(
-      new Request(jdbcConnectionProvider, "select id, name, firstname, birth, actor_imdb from actor")).setStartPointNow();
-    org.assertj.db.type.Changes fromDataSourceLong = new org.assertj.db.type.Changes(
-      new Request(dsConnectionProvider, "select id, name, firstname, birth, actor_imdb from actor")).setStartPointNow();
+    org.assertj.db.type.Changes fromDataSource = assertDbConnectionFromDs.changes().request(
+        assertDbConnectionFromDs.request("select * from actor").build()).build()
+      .setStartPointNow();
+    org.assertj.db.type.Changes fromSourceLong = assertDbConnection.changes().request(
+        assertDbConnection.request("select id, name, firstname, birth, actor_imdb from actor").build()).build()
+      .setStartPointNow();
+    org.assertj.db.type.Changes fromDataSourceLong = assertDbConnectionFromDs.changes().request(
+        assertDbConnectionFromDs.request("select id, name, firstname, birth, actor_imdb from actor").build())
+      .build()
+      .setStartPointNow();
     updateChangesForTests();
     fromSource.setEndPointNow();
     fromDataSource.setEndPointNow();
@@ -261,9 +279,11 @@ public class Descriptions_GetDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_get_description_for_change_from_changes_from_table() {
-    org.assertj.db.type.Changes fromSource = new org.assertj.db.type.Changes(new Table(jdbcConnectionProvider, "actor"))
+    org.assertj.db.type.Changes fromSource = assertDbConnection.changes().tables(assertDbConnection.table("actor").build())
+      .build()
       .setStartPointNow();
-    org.assertj.db.type.Changes fromDataSource = new org.assertj.db.type.Changes(new Table(dsConnectionProvider, "actor"))
+    org.assertj.db.type.Changes fromDataSource = assertDbConnectionFromDs.changes().tables(assertDbConnectionFromDs.table("actor").build())
+      .build()
       .setStartPointNow();
     updateChangesForTests();
     fromSource.setEndPointNow();
@@ -297,14 +317,22 @@ public class Descriptions_GetDescription_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_get_description_for_change_from_changes_from_request() {
-    org.assertj.db.type.Changes fromSource = new org.assertj.db.type.Changes(new Request(jdbcConnectionProvider, "select * from actor"))
+    org.assertj.db.type.Changes fromSource = assertDbConnection.changes().request(
+        assertDbConnection.request("select * from actor").build())
+      .build()
       .setStartPointNow();
-    org.assertj.db.type.Changes fromDataSource = new org.assertj.db.type.Changes(
-      new Request(dsConnectionProvider, "select * from actor")).setStartPointNow();
-    org.assertj.db.type.Changes fromSourceLong = new org.assertj.db.type.Changes(
-      new Request(jdbcConnectionProvider, "select id, name, firstname, birth, actor_imdb from actor")).setStartPointNow();
-    org.assertj.db.type.Changes fromDataSourceLong = new org.assertj.db.type.Changes(
-      new Request(dsConnectionProvider, "select id, name, firstname, birth, actor_imdb from actor")).setStartPointNow();
+    org.assertj.db.type.Changes fromDataSource = assertDbConnectionFromDs.changes().request(
+        assertDbConnectionFromDs.request("select * from actor").build())
+      .build()
+      .setStartPointNow();
+    org.assertj.db.type.Changes fromSourceLong = assertDbConnection.changes().request(
+        assertDbConnection.request("select id, name, firstname, birth, actor_imdb from actor").build())
+      .build()
+      .setStartPointNow();
+    org.assertj.db.type.Changes fromDataSourceLong = assertDbConnectionFromDs.changes().request(
+        assertDbConnectionFromDs.request("select id, name, firstname, birth, actor_imdb from actor").build())
+      .build()
+      .setStartPointNow();
     updateChangesForTests();
     fromSource.setEndPointNow();
     fromDataSource.setEndPointNow();

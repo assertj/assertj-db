@@ -33,7 +33,7 @@ public class Table_GetRowFromPksValues_Test extends AbstractTest {
    */
   @Test
   public void test_getting_row_from_primary_keys_values_without_finding() throws Exception {
-    Table table = new Table(jdbcConnectionProvider, "movie");
+    Table table = assertDbConnection.table("movie").build();
 
     assertThat(table.getRowFromPksValues()).isNull();
     assertThat(table.getRowFromPksValues(getValue(null, 1L), getValue(null, 3))).isNull();
@@ -44,7 +44,7 @@ public class Table_GetRowFromPksValues_Test extends AbstractTest {
    */
   @Test
   public void test_getting_row_from_primary_keys_values_with_finding() throws Exception {
-    Table table = new Table(jdbcConnectionProvider, "movie");
+    Table table = assertDbConnection.table("movie").build();
 
     assertThat(table.getRowFromPksValues(getValue(null, 3)).getValuesList().get(0).getValue()).isEqualTo(new BigDecimal(3));
     assertThat(table.getRowFromPksValues(getValue(null, 3)).getValuesList().get(1).getValue()).isEqualTo("Avatar");

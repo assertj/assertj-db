@@ -33,30 +33,12 @@ public class Request_Columns_Name_Test extends AbstractTest {
    * This method test the columns name got from a {@code ConnectionProvider}.
    */
   @Test
-  public void test_columns_name_with_jdbc_set() {
-    Request request = new Request(jdbcConnectionProvider,
-      "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
-        + " FROM movie, actor, interpretation"
-        + " WHERE movie.id = interpretation.id_movie"
-        + " AND interpretation.id_actor = actor.id"
-        + " ORDER BY actor.name, movie.year");
-
-    assertThat(request.getColumnsNameList()).as("Columns of the request")
-      .hasSize(4)
-      .containsExactly("NAME", "FIRSTNAME", "YEAR", "CHARACTER");
-  }
-
-  /**
-   * This method test the columns name got from a {@code DataSource}.
-   */
-  @Test
-  public void test_columns_name_with_datasource_set() {
-    Request request = new Request(dsConnectionProvider,
-      "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
-        + " FROM movie, actor, interpretation"
-        + " WHERE movie.id = interpretation.id_movie"
-        + " AND interpretation.id_actor = actor.id"
-        + " ORDER BY actor.name, movie.year");
+  public void test_columns_name() {
+    Request request = assertDbConnection.request("SELECT actor.name, actor.firstname, movie.year, interpretation.character "
+      + " FROM movie, actor, interpretation"
+      + " WHERE movie.id = interpretation.id_movie"
+      + " AND interpretation.id_actor = actor.id"
+      + " ORDER BY actor.name, movie.year").build();
 
     assertThat(request.getColumnsNameList()).as("Columns of the request")
       .hasSize(4)
@@ -67,33 +49,16 @@ public class Request_Columns_Name_Test extends AbstractTest {
    * This method test the columns name got from a {@code ConnectionProvider}.
    */
   @Test
-  public void test_columns_name_with_jdbc_and_parameters_set() {
-    Request request = new Request(jdbcConnectionProvider,
-      "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
-        + " FROM movie, actor, interpretation"
-        + " WHERE movie.id = interpretation.id_movie"
-        + " AND interpretation.id_actor = actor.id"
-        + " AND movie.year > ?"
-        + " ORDER BY actor.name, movie.year", 2000);
-
-    assertThat(request.getColumnsNameList()).as("Columns of the request")
-      .hasSize(4)
-      .containsExactly("NAME", "FIRSTNAME", "YEAR", "CHARACTER");
-  }
-
-  /**
-   * This method test the columns name got from a {@code DataSource}.
-   */
-  @Test
-  public void test_columns_name_with_datasource_and_parameters_set() {
-    Request request = new Request(dsConnectionProvider,
-      "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
-        + " FROM movie, actor, interpretation"
-        + " WHERE movie.id = interpretation.id_movie"
-        + " AND interpretation.id_actor = actor.id"
-        + " AND movie.year > ?"
-        + " ORDER BY actor.name, movie.year")
-      .setParameters(2000);
+  public void test_columns_name_with_parameters_set() {
+    Request request = assertDbConnection.request(
+        "SELECT actor.name, actor.firstname, movie.year, interpretation.character "
+          + " FROM movie, actor, interpretation"
+          + " WHERE movie.id = interpretation.id_movie"
+          + " AND interpretation.id_actor = actor.id"
+          + " AND movie.year > ?"
+          + " ORDER BY actor.name, movie.year")
+      .parameters(2000)
+      .build();
 
     assertThat(request.getColumnsNameList()).as("Columns of the request")
       .hasSize(4)
@@ -106,7 +71,7 @@ public class Request_Columns_Name_Test extends AbstractTest {
    */
   @Test(expected = AssertJDBException.class)
   public void should_throw_AssertJDBException_because_SQLException_caused_by_table_not_found() {
-    Table table = new Table(dsConnectionProvider, "select * from interpret");
+    Table table = assertDbConnection.table("select * from interpret").build();
     table.getColumnsNameList();
   }
 

@@ -39,12 +39,12 @@ public class AssertOnColumnType_IsDateTime_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_is_date_time() {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     update("update test set var14 = 1 where var1 = 1");
     update("insert into test(var1, var2, var11, var10, var9, var3, var12, var8) values(5, true, FILE_READ('classpath:h2-logo-2.png'), '2014-05-24 09:46:30', '2014-05-24', 3, 'test', '09:46:30')");
     changes.setEndPointNow();
-    Table table = new Table(jdbcConnectionProvider, "test");
-    Table table2 = new Table(jdbcConnectionProvider, "test2");
+    Table table = assertDbConnection.table("test").build();
+    Table table2 = assertDbConnection.table("test2").build();
 
     ChangeColumnAssert changeColumnAssert1 = assertThat(changes).change().column("var10");
     ChangeColumnAssert changeColumnAssertReturn1 = changeColumnAssert1.isDateTime(true);
@@ -66,12 +66,12 @@ public class AssertOnColumnType_IsDateTime_Test extends AbstractTest {
   @Test
   @NeedReload
   public void should_fail_because_value_have_different_type() {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     update("update test set var14 = 1 where var1 = 1");
     update("insert into test(var1, var2, var11, var10, var9, var3, var12, var8) values(5, true, FILE_READ('classpath:h2-logo-2.png'), '2014-05-24 09:46:30', '2014-05-24', 3, 'test', '09:46:30')");
     changes.setEndPointNow();
-    Table table = new Table(jdbcConnectionProvider, "test");
-    Table table2 = new Table(jdbcConnectionProvider, "test2");
+    Table table = assertDbConnection.table("test").build();
+    Table table2 = assertDbConnection.table("test2").build();
 
     try {
       assertThat(changes).change().column("var10").isDateTime(false);

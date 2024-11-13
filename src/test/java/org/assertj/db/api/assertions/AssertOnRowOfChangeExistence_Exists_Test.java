@@ -35,8 +35,8 @@ public class AssertOnRowOfChangeExistence_Exists_Test extends AbstractTest {
    */
   @Test
   @NeedReload
-  public void test_exists() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+  public void test_exists() {
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -50,8 +50,8 @@ public class AssertOnRowOfChangeExistence_Exists_Test extends AbstractTest {
    */
   @Test
   @NeedReload
-  public void should_fail_because_row_does_not_exist() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+  public void should_fail_because_row_does_not_exist() {
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 

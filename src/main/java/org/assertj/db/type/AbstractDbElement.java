@@ -36,35 +36,7 @@ public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implemen
   /**
    * Database connection provider.
    */
-  private ConnectionProvider connectionProvider;
-  /**
-   * Letter case of the tables.
-   *
-   * @since 1.1.0
-   */
-  private LetterCase tableLetterCase = LetterCase.TABLE_DEFAULT;
-  /**
-   * Letter case of the columns.
-   *
-   * @since 1.1.0
-   */
-  private LetterCase columnLetterCase = LetterCase.COLUMN_DEFAULT;
-  /**
-   * Letter case of the primary keys.
-   *
-   * @since 1.1.0
-   */
-  private LetterCase primaryKeyLetterCase = LetterCase.PRIMARY_KEY_DEFAULT;
-
-  /**
-   * Default constructor.
-   *
-   * @param selfType Class of this element : a sub-class of {@code AbstractDbElement}.
-   */
-  AbstractDbElement(Class<D> selfType) {
-    myself = selfType.cast(this);
-    setLetterCases();
-  }
+  private final ConnectionProvider connectionProvider;
 
   /**
    * Constructor.
@@ -73,37 +45,22 @@ public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implemen
    * @param connectionProvider The {@link ConnectionProvider} to connect to the database (must be not {@code null}).
    * @throws NullPointerException If {@code connectionProvider} is {@code null}.
    */
-  AbstractDbElement(Class<D> selfType, ConnectionProvider connectionProvider) {
-    this(selfType);
-    this.connectionProvider = connectionProvider;
-    setLetterCases();
-  }
-
-  /**
-   * Sets the letter cases from information in parameters.
-   *
-   * @param tableLetterCase      Letter case of the tables.
-   * @param columnLetterCase     Letter case of the columns.
-   * @param primaryKeyLetterCase Letter case of the primary keys.
-   * @return The actual instance.
-   */
-  D setLetterCases(LetterCase tableLetterCase, LetterCase columnLetterCase, LetterCase primaryKeyLetterCase) {
-    this.tableLetterCase = tableLetterCase;
-    this.columnLetterCase = columnLetterCase;
-    this.primaryKeyLetterCase = primaryKeyLetterCase;
-    return myself;
-  }
-
-  /**
-   * Sets the letter cases from information in {@code connectionProvider}.
-   */
-  private void setLetterCases() {
+  protected AbstractDbElement(Class<D> selfType, ConnectionProvider connectionProvider) {
+    this.myself = selfType.cast(this);
     if (connectionProvider == null) {
-      return;
+      throw new IllegalArgumentException("connectionProvider can not be null");
     }
-    tableLetterCase = connectionProvider.getTableLetterCase();
-    columnLetterCase = connectionProvider.getColumnLetterCase();
-    primaryKeyLetterCase = connectionProvider.getPrimaryKeyLetterCase();
+    this.connectionProvider = connectionProvider;
+  }
+
+  /**
+   * Only used for tests.
+   *
+   * @param selfType Class of DbElement.
+   */
+  protected AbstractDbElement(Class<D> selfType) {
+    this.myself = selfType.cast(this);
+    this.connectionProvider = null;
   }
 
   /**
@@ -111,7 +68,7 @@ public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implemen
    */
   @Override
   public LetterCase getColumnLetterCase() {
-    return columnLetterCase;
+    return this.connectionProvider.getColumnLetterCase();
   }
 
   /**
@@ -119,7 +76,7 @@ public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implemen
    */
   @Override
   public LetterCase getPrimaryKeyLetterCase() {
-    return primaryKeyLetterCase;
+    return this.connectionProvider.getPrimaryKeyLetterCase();
   }
 
   /**
@@ -127,33 +84,16 @@ public abstract class AbstractDbElement<D extends AbstractDbElement<D>> implemen
    */
   @Override
   public LetterCase getTableLetterCase() {
-    return tableLetterCase;
+    return this.connectionProvider.getTableLetterCase();
   }
 
   /**
    * Return the connectionProvider.
    *
    * @return The {@link ConnectionProvider} to connect.
-   * @see #setConnectionProvider(ConnectionProvider)
    */
   public ConnectionProvider getConnectionProvider() {
     return connectionProvider;
-  }
-
-  /**
-   * Sets the connectionProvider.
-   *
-   * @param connectionProvider {@link ConnectionProvider} to connect to the database (must be not {@code null}).
-   * @return The actual instance.
-   * @throws NullPointerException If {@code connectionProvider} is {@code null}.
-   */
-  public D setConnectionProvider(ConnectionProvider connectionProvider) {
-    if (connectionProvider == null) {
-      throw new NullPointerException("connectionProvider must be not null");
-    }
-    this.connectionProvider = connectionProvider;
-    setLetterCases();
-    return myself;
   }
 
   /**

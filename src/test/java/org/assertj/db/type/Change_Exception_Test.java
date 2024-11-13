@@ -19,7 +19,7 @@ import org.assertj.db.common.AbstractTest;
 import org.junit.Test;
 
 /**
- * Tests on the exceptions of Change
+ * Tests on the exceptions to the Change
  *
  * @author Régis Pouiller
  */

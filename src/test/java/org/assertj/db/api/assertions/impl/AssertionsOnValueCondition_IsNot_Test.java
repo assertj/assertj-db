@@ -12,7 +12,6 @@
  */
 package org.assertj.db.api.assertions.impl;
 
-import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 import org.assertj.core.api.Assertions;
@@ -20,7 +19,6 @@ import org.assertj.core.api.Condition;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.common.AbstractTest;
-import org.assertj.db.type.Table;
 import org.junit.Test;
 
 /**
@@ -44,8 +42,7 @@ public class AssertionsOnValueCondition_IsNot_Test extends AbstractTest {
   @Test
   public void test_is_not() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     TableAssert tableAssert2 = AssertionsOnValueCondition.isNot(tableAssert, info, getValue(null, 1), zero);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
@@ -57,8 +54,7 @@ public class AssertionsOnValueCondition_IsNot_Test extends AbstractTest {
   public void should_fail_because_value_not_satisfies_condition() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       AssertionsOnValueCondition.isNot(tableAssert, info, getValue(null, 0), zero);
       fail("An exception must be raised");

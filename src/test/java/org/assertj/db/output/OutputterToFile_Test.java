@@ -34,7 +34,7 @@ public class OutputterToFile_Test extends AbstractTest {
    */
   @Test
   public void test_output_to_file() throws Exception {
-    Table table = new Table(jdbcConnectionProvider, "actor");
+    Table table = assertDbConnection.table("actor").build();
 
     Outputs.output(table).row().value().toFile("target" + File.separator + "test.txt");
     try (InputStream inputStream = new FileInputStream(new File("target" + File.separator + "test.txt"))) {

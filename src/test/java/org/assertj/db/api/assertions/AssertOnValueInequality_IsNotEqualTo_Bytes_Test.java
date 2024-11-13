@@ -40,8 +40,8 @@ public class AssertOnValueInequality_IsNotEqualTo_Bytes_Test extends AbstractTes
   @Test
   @NeedReload
   public void test_is_not_equal_to() {
-    Table table = new Table(jdbcConnectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = assertDbConnection.table("test").build();
+    Changes changes = assertDbConnection.changes().tables(table).build().setStartPointNow();
     update("update test set var14 = 1 where var1 = 1");
     changes.setEndPointNow();
 
@@ -62,8 +62,8 @@ public class AssertOnValueInequality_IsNotEqualTo_Bytes_Test extends AbstractTes
   public void should_fail_because_value_is_equal_to() {
     byte[] bytesH2 = bytesContentFromClassPathOf("h2-logo-2.png");
 
-    Table table = new Table(jdbcConnectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = assertDbConnection.table("test").build();
+    Changes changes = assertDbConnection.changes().tables(table).build().setStartPointNow();
     update("update test set var14 = 1 where var1 = 1");
     changes.setEndPointNow();
 

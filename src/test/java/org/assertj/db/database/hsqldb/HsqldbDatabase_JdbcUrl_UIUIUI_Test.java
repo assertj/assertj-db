@@ -22,8 +22,8 @@ import java.sql.Timestamp;
 import java.util.Locale;
 
 import org.assertj.db.common.NeedReload;
+import org.assertj.db.type.AssertDbConnection;
 import org.assertj.db.type.Changes;
-import org.assertj.db.type.ConnectionProvider;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
 import org.assertj.db.type.Table;
@@ -40,18 +40,18 @@ import org.junit.Test;
  */
 public class HsqldbDatabase_JdbcUrl_UIUIUI_Test extends AbstractHsqldbTest {
 
-  private ConnectionProvider connectionProvider = jdbcConnectionUIUIUI;
+  private AssertDbConnection connection = jdbcConnectionUIUIUI;
 
   @Before
   public void init() {
-    connectionProvider = jdbcConnectionUIUIUI;
+    connection = jdbcConnectionUIUIUI;
   }
 
   @Test
   @NeedReload
   public void test_PrimaryKey_hasPksNames() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
     update();
     changes.setEndPointNow();
 
@@ -62,8 +62,8 @@ public class HsqldbDatabase_JdbcUrl_UIUIUI_Test extends AbstractHsqldbTest {
   @Test
   @NeedReload
   public void test_ColumnName_hasColumnName() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
     update();
     changes.setEndPointNow();
 
@@ -129,8 +129,8 @@ public class HsqldbDatabase_JdbcUrl_UIUIUI_Test extends AbstractHsqldbTest {
   @Test
   @NeedReload
   public void test_ColumnClass_isOfClass() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
     update();
     changes.setEndPointNow();
 
@@ -196,8 +196,8 @@ public class HsqldbDatabase_JdbcUrl_UIUIUI_Test extends AbstractHsqldbTest {
   @Test
   @NeedReload
   public void test_ColumnEquality_hasValues() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
     update();
     changes.setEndPointNow();
 
@@ -263,8 +263,8 @@ public class HsqldbDatabase_JdbcUrl_UIUIUI_Test extends AbstractHsqldbTest {
   @Test
   @NeedReload
   public void test_ColumnEquality_containsValues() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
     update();
     changes.setEndPointNow();
 
@@ -301,8 +301,8 @@ public class HsqldbDatabase_JdbcUrl_UIUIUI_Test extends AbstractHsqldbTest {
   @Test
   @NeedReload
   public void test_ColumnType_isOfType() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
     update();
     changes.setEndPointNow();
 
@@ -368,8 +368,8 @@ public class HsqldbDatabase_JdbcUrl_UIUIUI_Test extends AbstractHsqldbTest {
   @Test
   @NeedReload
   public void test_ColumnOfChangeEquality_hasValues() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
     update();
     changes.setEndPointNow();
 
@@ -442,8 +442,8 @@ public class HsqldbDatabase_JdbcUrl_UIUIUI_Test extends AbstractHsqldbTest {
   @Test
   @NeedReload
   public void test_RowEquality_hasValues() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
     update();
     changes.setEndPointNow();
 
@@ -509,8 +509,8 @@ public class HsqldbDatabase_JdbcUrl_UIUIUI_Test extends AbstractHsqldbTest {
   @Test
   @NeedReload
   public void test_ValueClass_isOfClass() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
     update();
     changes.setEndPointNow();
 
@@ -576,8 +576,8 @@ public class HsqldbDatabase_JdbcUrl_UIUIUI_Test extends AbstractHsqldbTest {
   @Test
   @NeedReload
   public void test_ValueEquality_isEqualTo() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
     update();
     changes.setEndPointNow();
 
@@ -643,8 +643,8 @@ public class HsqldbDatabase_JdbcUrl_UIUIUI_Test extends AbstractHsqldbTest {
   @Test
   @NeedReload
   public void test_ValueNonEquality_isNotEqualTo() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
     update();
     changes.setEndPointNow();
 
@@ -710,8 +710,8 @@ public class HsqldbDatabase_JdbcUrl_UIUIUI_Test extends AbstractHsqldbTest {
   @Test
   @NeedReload
   public void test_ValueType_isOfType() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
     update();
     changes.setEndPointNow();
 

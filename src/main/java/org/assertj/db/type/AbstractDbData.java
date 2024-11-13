@@ -64,17 +64,6 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
   private List<Column> columnsList;
 
   /**
-   * Default constructor.
-   *
-   * @param dataType The type of the data on which is the change.
-   * @param selfType Class of this element : a subclass of {@code AbstractDbData}.
-   */
-  AbstractDbData(Class<D> selfType, DataType dataType) {
-    super(selfType);
-    this.dataType = dataType;
-  }
-
-  /**
    * Constructor with a {@link JdbcUrlConnectionProvider}.
    *
    * @param dataType           The type of the data on which is the change.
@@ -82,8 +71,19 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
    * @param connectionProvider The {@link JdbcUrlConnectionProvider} to connect to the database (must be not {@code null}).
    * @throws NullPointerException If {@code connectionProvider} is {@code null}.
    */
-  AbstractDbData(Class<D> selfType, DataType dataType, ConnectionProvider connectionProvider) {
+  protected AbstractDbData(Class<D> selfType, DataType dataType, ConnectionProvider connectionProvider) {
     super(selfType, connectionProvider);
+    this.dataType = dataType;
+  }
+
+  /**
+   * Only used for tests.
+   *
+   * @param selfType Class of DbElement.
+   * @param dataType Type of DbData.
+   */
+  protected AbstractDbData(Class<D> selfType, DataType dataType) {
+    super(selfType);
     this.dataType = dataType;
   }
 

@@ -34,11 +34,11 @@ public class OutputterRequest_Test extends AbstractTest {
    */
   @Test
   public void test_output() throws Exception {
-    Request request = new Request(jdbcConnectionProvider, "select * from actor");
+    Request request = assertDbConnection.request("select * from actor").build();
 
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
     output(request).toStream(byteArrayOutputStream);
-    Assertions.assertThat(byteArrayOutputStream.toString()).isEqualTo(String.format("['select * from actor' request]%n"
+    Assertions.assertThat(byteArrayOutputStream).hasToString(String.format("['select * from actor' request]%n"
       + "|-----------|---------|-----------|-------------|-----------|------------|--------------------------------------|%n"
       + "|           |         |           |             |           |            |                                      |%n"
       + "|           | PRIMARY | ID        | NAME        | FIRSTNAME | BIRTH      | ACTOR_IMDB                           |%n"
@@ -56,7 +56,7 @@ public class OutputterRequest_Test extends AbstractTest {
    */
   @Test
   public void test_navigation() throws Exception {
-    Request request = new Request(jdbcConnectionProvider, "select * from actor");
+    Request request = assertDbConnection.request("select * from actor").build();
 
     RequestOutputter requestOutputter = output(request);
 

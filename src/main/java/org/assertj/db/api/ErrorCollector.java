@@ -34,17 +34,15 @@ public class ErrorCollector {
   private static final String INTERCEPT_METHOD_NAME = "intercept";
 
   private static final String CLASS_NAME = ErrorCollector.class.getName();
-
+  // scope : the current soft-assertion object
+  private final List<Throwable> errors = new ArrayList<>();
+  // scope : the last assertion call (might be nested)
+  private final LastResult lastResult = new LastResult();
   /**
    * Construct empty error collector.
    */
   public ErrorCollector() {
   }
-
-  // scope : the current soft-assertion object
-  private final List<Throwable> errors = new ArrayList<>();
-  // scope : the last assertion call (might be nested)
-  private final LastResult lastResult = new LastResult();
 
   private static int countErrorCollectorProxyCalls() {
     int nbCalls = 0;

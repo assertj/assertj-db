@@ -38,13 +38,13 @@ public class AssertOnColumnType_IsUUID_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_is_UUID() {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     update("update test set var15 = '0E2A1269-EFF0-4233-B87B-B53E8B6F164D' where var1 = 1");
     update(
       "insert into test(var1, var2, var11, var10, var9, var3, var12, var8, var15) values(5, true, FILE_READ('classpath:h2-logo-2.png'), '2014-05-24 09:46:30', '2014-05-24', 3, 'test', '09:46:30', '2B0D1BDD-909E-4362-BA10-C930BA82718D')");
     changes.setEndPointNow();
-    Table table = new Table(jdbcConnectionProvider, "test");
-    Table table2 = new Table(jdbcConnectionProvider, "test2");
+    Table table = assertDbConnection.table("test").build();
+    Table table2 = assertDbConnection.table("test2").build();
 
     ChangeColumnAssert changeColumnAssert1 = assertThat(changes).change().column("var15");
     ChangeColumnAssert changeColumnAssertReturn1 = changeColumnAssert1.isUUID(true);
@@ -66,13 +66,13 @@ public class AssertOnColumnType_IsUUID_Test extends AbstractTest {
   @Test
   @NeedReload
   public void should_fail_because_value_have_different_type() {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     update("update test set var15 = null where var1 = 1");
     update(
       "insert into test(var1, var2, var11, var10, var9, var3, var12, var8, var15) values(5, true, FILE_READ('classpath:h2-logo-2.png'), '2014-05-24 09:46:30', '2014-05-24', 3, 'test', '09:46:30', null)");
     changes.setEndPointNow();
-    Table table = new Table(jdbcConnectionProvider, "test");
-    Table table2 = new Table(jdbcConnectionProvider, "test2");
+    Table table = assertDbConnection.table("test").build();
+    Table table2 = assertDbConnection.table("test2").build();
 
     try {
       assertThat(changes).change().column("var15").isUUID(false);

@@ -36,11 +36,10 @@ public class Changes_GetChangesOfTable_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_getChangesOfTable() {
-    Changes changesSource = new Changes(jdbcConnectionProvider);
-    Changes changesRequest = new Changes(new Request(jdbcConnectionProvider,
-      "select interpretation.id, character, movie.title, actor.name "
-        + " from interpretation, movie, actor " + " where interpretation.id_movie = movie.id "
-        + " and interpretation.id_actor = actor.id ").setPksName("id"));
+    Changes changesSource = assertDbConnection.changes().build();
+    Changes changesRequest = assertDbConnection.changes().request(assertDbConnection.request("select interpretation.id, character, movie.title, actor.name "
+      + " from interpretation, movie, actor " + " where interpretation.id_movie = movie.id "
+      + " and interpretation.id_actor = actor.id ").pksName("id").build()).build();
 
     changesRequest.setStartPointNow();
     changesSource.setStartPointNow();

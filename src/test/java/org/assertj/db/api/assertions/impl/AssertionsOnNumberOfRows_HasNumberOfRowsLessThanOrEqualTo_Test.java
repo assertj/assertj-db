@@ -12,13 +12,11 @@
  */
 package org.assertj.db.api.assertions.impl;
 
-import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
-import org.assertj.db.type.Table;
 import org.junit.Test;
 
 /**
@@ -35,8 +33,7 @@ public class AssertionsOnNumberOfRows_HasNumberOfRowsLessThanOrEqualTo_Test {
   @Test
   public void test_has_number_of_rows_less_than_or_equal_to() {
     WritableAssertionInfo info = new WritableAssertionInfo();
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     TableAssert tableAssert2 = AssertionsOnNumberOfRows.hasNumberOfRowsLessThanOrEqualTo(tableAssert, info, 8, 8);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
@@ -48,8 +45,7 @@ public class AssertionsOnNumberOfRows_HasNumberOfRowsLessThanOrEqualTo_Test {
   public void should_fail_because_number_of_rows_is_greater() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       AssertionsOnNumberOfRows.hasNumberOfRowsLessThanOrEqualTo(tableAssert, info, 8, 7);
       fail("An exception must be raised");

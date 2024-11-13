@@ -12,6 +12,9 @@
  */
 package org.assertj.db.api.assertions;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.ChangeAssert;
 import org.assertj.db.api.ChangeColumnAssert;
@@ -19,9 +22,6 @@ import org.assertj.db.common.AbstractTest;
 import org.assertj.db.common.NeedReload;
 import org.assertj.db.type.Changes;
 import org.junit.Test;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link org.assertj.db.api.assertions.AssertOnColumnOfChangeEquality} class :
@@ -38,7 +38,7 @@ public class AssertOnColumnOfChangeEquality_HasValues_Two_Boolean_Test extends A
   @Test
   @NeedReload
   public void test_has_values() {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     update("update test set var14 = 1 where var1 = 1");
     changes.setEndPointNow();
 
@@ -54,7 +54,7 @@ public class AssertOnColumnOfChangeEquality_HasValues_Two_Boolean_Test extends A
   @Test
   @NeedReload
   public void should_fail_because_value_at_start_point_is_different() {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     update("insert into test(var1, var2) values(5, true)");
     changes.setEndPointNow();
 
@@ -76,7 +76,7 @@ public class AssertOnColumnOfChangeEquality_HasValues_Two_Boolean_Test extends A
   @Test
   @NeedReload
   public void should_fail_because_value_at_end_point_is_different() {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     update("delete from test where var1 = 1");
     changes.setEndPointNow();
 

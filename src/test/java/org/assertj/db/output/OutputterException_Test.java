@@ -39,7 +39,7 @@ public class OutputterException_Test extends AbstractTest {
    */
   @Test
   public void test_display_from_column_for_table() throws Exception {
-    Table table = new Table(jdbcConnectionProvider, "actor");
+    Table table = assertDbConnection.table("actor").build();
 
     try {
       Outputs.output(table).column(null);
@@ -63,7 +63,7 @@ public class OutputterException_Test extends AbstractTest {
    */
   @Test
   public void test_display_from_column_for_request() throws Exception {
-    Request request = new Request(jdbcConnectionProvider, "select * from actor");
+    Request request = assertDbConnection.request("select * from actor").build();
 
     try {
       Outputs.output(request).column(null);
@@ -88,7 +88,7 @@ public class OutputterException_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_output_for_row_from_change() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -119,7 +119,7 @@ public class OutputterException_Test extends AbstractTest {
    */
   @Test
   public void test_display_from_value_from_row_for_table() throws Exception {
-    Table table = new Table(jdbcConnectionProvider, "actor");
+    Table table = assertDbConnection.table("actor").build();
 
     try {
       Outputs.output(table).row().value(null);
@@ -143,7 +143,7 @@ public class OutputterException_Test extends AbstractTest {
    */
   @Test
   public void test_display_from_value_from_row_for_request() throws Exception {
-    Request request = new Request(jdbcConnectionProvider, "select * from actor");
+    Request request = assertDbConnection.request("select * from actor").build();
 
     try {
       Outputs.output(request).row().value(null);
@@ -164,7 +164,7 @@ public class OutputterException_Test extends AbstractTest {
 
   @Test
   public void test_display_to_file() {
-    Request request = new Request(jdbcConnectionProvider, "select * from actor");
+    Request request = assertDbConnection.request("select * from actor").build();
 
     try {
       Outputs.output(request).toFile("test" + File.separator + "test.txt");

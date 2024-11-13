@@ -12,23 +12,21 @@
  */
 package org.assertj.db.api.assertions.impl;
 
-import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
-import javax.sql.DataSource;
+import java.sql.SQLException;
 
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.AbstractDbAssert;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.common.AbstractTest;
-import org.assertj.db.type.JdbcUrlConnectionProvider;
-import org.assertj.db.type.Table;
+import org.assertj.db.common.DefaultConnectionProvider;
 import org.junit.Test;
 
 /**
  * Tests on {@link AssertionsOnTableExistence} class :
- * {@link AssertionsOnTableExistence#exists(AbstractDbAssert, WritableAssertionInfo, String, JdbcUrlConnectionProvider, DataSource)} method.
+ * {@link AssertionsOnTableExistence#exists(AbstractDbAssert, WritableAssertionInfo, String, org.assertj.db.type.ConnectionProvider)} method.
  *
  * @author Julien Roy
  */
@@ -38,35 +36,25 @@ public class AssertionsOnTableExistence_Exists_Test extends AbstractTest {
    * This method tests the {@code exists} assertion method.
    */
   @Test
-  public void test_exists() {
+  public void test_exists() throws SQLException {
+    DefaultConnectionProvider connectionProvider = new DefaultConnectionProvider(this.dataSource.getConnection());
     WritableAssertionInfo info = new WritableAssertionInfo();
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
-    TableAssert tableAssert2 = AssertionsOnTableExistence.exists(tableAssert, info, "TEST", jdbcConnectionProvider);
+    TableAssert tableAssert = new TableAssert(null);
+    TableAssert tableAssert2 = AssertionsOnTableExistence.exists(tableAssert, info, "TEST", connectionProvider);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
-    TableAssert tableAssert3 = AssertionsOnTableExistence.exists(tableAssert, info, "TEST", dsConnectionProvider);
-    Assertions.assertThat(tableAssert3).isSameAs(tableAssert);
   }
 
   /**
    * This method should fail because the table does not exist.
    */
   @Test
-  public void should_fail_because_table_does_not_exist() {
+  public void should_fail_because_table_does_not_exist() throws SQLException {
+    DefaultConnectionProvider connectionProvider = new DefaultConnectionProvider(this.dataSource.getConnection());
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
-      AssertionsOnTableExistence.exists(tableAssert, info, "not-exist-test", jdbcConnectionProvider);
-      fail("An exception must be raised");
-    } catch (AssertionError e) {
-      Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
-        + "Expecting exist but do not exist"));
-    }
-
-    try {
-      AssertionsOnTableExistence.exists(tableAssert, info, "not-exist-test", dsConnectionProvider);
+      AssertionsOnTableExistence.exists(tableAssert, info, "not-exist-test", connectionProvider);
       fail("An exception must be raised");
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"

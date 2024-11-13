@@ -11,7 +11,7 @@ Railscasts-like style (c) Visoft, Inc. (Damien White)
     background: #232323;
     color: #e6e1dc;
     /* added by us */
-    border-radius:8px;
+    border-radius: 8px;
 }
 
 .hljs-comment,

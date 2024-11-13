@@ -12,13 +12,11 @@
  */
 package org.assertj.db.api.assertions.impl;
 
-import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
-import org.assertj.db.type.Table;
 import org.assertj.db.type.lettercase.LetterCase;
 import org.junit.Test;
 
@@ -36,8 +34,7 @@ public class AssertionsOnColumnName_HasColumnName_Test {
   @Test
   public void test_has_column_name() {
     WritableAssertionInfo info = new WritableAssertionInfo();
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     TableAssert tableAssert2 = AssertionsOnColumnName.hasColumnName(tableAssert, info, "test", "test", LetterCase.COLUMN_DEFAULT);
     Assertions.assertThat(tableAssert2).isSameAs(tableAssert);
   }
@@ -49,8 +46,7 @@ public class AssertionsOnColumnName_HasColumnName_Test {
   public void should_fail_because_column_name_is_different() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       AssertionsOnColumnName.hasColumnName(tableAssert, info, "test1", "test", LetterCase.COLUMN_DEFAULT);
       fail("An exception must be raised");
@@ -70,8 +66,7 @@ public class AssertionsOnColumnName_HasColumnName_Test {
   public void should_fail_because_column_name_is_null() {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       AssertionsOnColumnName.hasColumnName(tableAssert, info, "test", null, LetterCase.COLUMN_DEFAULT);
       fail("An exception must be raised");

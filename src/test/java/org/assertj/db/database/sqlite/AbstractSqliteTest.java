@@ -24,8 +24,8 @@ import java.util.logging.Level;
 import javax.sql.DataSource;
 
 import org.assertj.db.database.AbstractDatabaseTest;
-import org.assertj.db.type.ConnectionProvider;
-import org.assertj.db.type.ConnectionProviderFactory;
+import org.assertj.db.type.AssertDbConnection;
+import org.assertj.db.type.AssertDbConnectionFactory;
 import org.assertj.db.type.lettercase.LetterCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -76,22 +76,22 @@ public abstract class AbstractSqliteTest extends AbstractDatabaseTest {
   private static final DbSetup DB_SETUP = new DbSetup(new DriverManagerDestination("jdbc:sqlite:target/testDerby.db", "", ""),
     OPERATIONS);
 
-  protected final ConnectionProvider jdbcConnectionDDD = ConnectionProviderFactory.of("jdbc:sqlite:target/testDerby.db", "", "").letterCase(
+  protected final AssertDbConnection jdbcConnectionDDD = AssertDbConnectionFactory.of("jdbc:sqlite:target/testDerby.db", "", "").letterCase(
     LetterCase.TABLE_DEFAULT,
     LetterCase.COLUMN_DEFAULT,
     LetterCase.PRIMARY_KEY_DEFAULT).create();
-  protected final ConnectionProvider jdbcConnectionUIUIUI = ConnectionProviderFactory.of("jdbc:sqlite:target/testDerby.db", "", "").letterCase(
+  protected final AssertDbConnection jdbcConnectionUIUIUI = AssertDbConnectionFactory.of("jdbc:sqlite:target/testDerby.db", "", "").letterCase(
     letterCaseUI,
     letterCaseUI,
     letterCaseUI).create();
-  protected final ConnectionProvider jdbcConnectionNSNSNS = ConnectionProviderFactory.of("jdbc:sqlite:target/testDerby.db", "", "").letterCase(
+  protected final AssertDbConnection jdbcConnectionNSNSNS = AssertDbConnectionFactory.of("jdbc:sqlite:target/testDerby.db", "", "").letterCase(
     letterCaseNS,
     letterCaseNS,
     letterCaseNS).create();
   protected DataSource dataSource;
-  protected ConnectionProvider dsConnectionDDD;
-  protected ConnectionProvider dsConnectionUIUIUI;
-  protected ConnectionProvider dsConnectionNSNSNS;
+  protected AssertDbConnection dsConnectionDDD;
+  protected AssertDbConnection dsConnectionUIUIUI;
+  protected AssertDbConnection dsConnectionNSNSNS;
 
   protected DbSetup getDbSetup() {
     return DB_SETUP;
@@ -104,9 +104,9 @@ public abstract class AbstractSqliteTest extends AbstractDatabaseTest {
   @Autowired
   protected void setDataSource(DataSource dataSource) {
     this.dataSource = dataSource;
-    this.dsConnectionDDD = ConnectionProviderFactory.of(dataSource).letterCase(LetterCase.TABLE_DEFAULT, LetterCase.COLUMN_DEFAULT, LetterCase.PRIMARY_KEY_DEFAULT).create();
-    this.dsConnectionUIUIUI = ConnectionProviderFactory.of(dataSource).letterCase(letterCaseUI, letterCaseUI, letterCaseUI).create();
-    this.dsConnectionNSNSNS = ConnectionProviderFactory.of(dataSource).letterCase(letterCaseNS, letterCaseNS, letterCaseNS).create();
+    this.dsConnectionDDD = AssertDbConnectionFactory.of(dataSource).letterCase(LetterCase.TABLE_DEFAULT, LetterCase.COLUMN_DEFAULT, LetterCase.PRIMARY_KEY_DEFAULT).create();
+    this.dsConnectionUIUIUI = AssertDbConnectionFactory.of(dataSource).letterCase(letterCaseUI, letterCaseUI, letterCaseUI).create();
+    this.dsConnectionNSNSNS = AssertDbConnectionFactory.of(dataSource).letterCase(letterCaseNS, letterCaseNS, letterCaseNS).create();
   }
 
   protected void update() {

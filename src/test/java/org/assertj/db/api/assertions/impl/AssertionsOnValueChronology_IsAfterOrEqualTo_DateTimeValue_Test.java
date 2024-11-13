@@ -12,7 +12,6 @@
  */
 package org.assertj.db.api.assertions.impl;
 
-import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 import java.sql.Date;
@@ -24,7 +23,6 @@ import org.assertj.db.api.TableAssert;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
-import org.assertj.db.type.Table;
 import org.assertj.db.type.TimeValue;
 import org.junit.Test;
 
@@ -42,8 +40,7 @@ public class AssertionsOnValueChronology_IsAfterOrEqualTo_DateTimeValue_Test ext
   @Test
   public void test_is_after_or_equal_to() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     TableAssert tableAssert2 = AssertionsOnValueChronology.isAfterOrEqualTo(tableAssert, info,
       getValue(null, Timestamp.valueOf(
         "2007-12-23 09:01:05")),
@@ -74,8 +71,7 @@ public class AssertionsOnValueChronology_IsAfterOrEqualTo_DateTimeValue_Test ext
   public void should_fail_because_value_is_before() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       AssertionsOnValueChronology.isAfterOrEqualTo(tableAssert, info,
         getValue(null, Timestamp.valueOf("2007-12-23 09:01:05")),
@@ -110,8 +106,7 @@ public class AssertionsOnValueChronology_IsAfterOrEqualTo_DateTimeValue_Test ext
   public void should_fail_because_value_is_not_compatible() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       AssertionsOnValueChronology.isAfterOrEqualTo(tableAssert, info,
         getValue(null, "test"),

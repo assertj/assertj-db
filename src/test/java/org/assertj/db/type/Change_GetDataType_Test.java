@@ -32,7 +32,7 @@ public class Change_GetDataType_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_getDataTypeOfTable() {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -45,7 +45,7 @@ public class Change_GetDataType_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_getDataTypeOfRequest() {
-    Changes changes = new Changes(new Request(jdbcConnectionProvider, "select * from movie")).setStartPointNow();
+    Changes changes = assertDbConnection.changes().request(assertDbConnection.request("select * from movie").build()).build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 

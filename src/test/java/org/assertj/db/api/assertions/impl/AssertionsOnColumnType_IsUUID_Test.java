@@ -12,7 +12,6 @@
  */
 package org.assertj.db.api.assertions.impl;
 
-import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
@@ -24,7 +23,6 @@ import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.common.AbstractTest;
-import org.assertj.db.type.Table;
 import org.assertj.db.type.Value;
 import org.junit.Test;
 
@@ -42,8 +40,7 @@ public class AssertionsOnColumnType_IsUUID_Test extends AbstractTest {
   @Test
   public void test_is_time() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")),
       getValue(null, UUID.fromString(
         "30B443AE-C0C9-4790-9BEC-CE1380808435"))));
@@ -66,8 +63,7 @@ public class AssertionsOnColumnType_IsUUID_Test extends AbstractTest {
   public void should_fail_because_value_is_not_a_uuid() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, "test"),
         getValue(null, UUID.fromString(
@@ -92,8 +88,7 @@ public class AssertionsOnColumnType_IsUUID_Test extends AbstractTest {
   public void should_fail_because_value_is_not_a_uuid_with_lenience() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       List<Value> list = new ArrayList<>(Arrays.asList(getValue(
         null, UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")), getValue(null, "test")));
@@ -117,8 +112,7 @@ public class AssertionsOnColumnType_IsUUID_Test extends AbstractTest {
   public void should_fail_because_value_is_a_stringbuilder() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       List<Value> list = new ArrayList<>(Arrays.asList(getValue(null, new StringBuilder("test")), getValue(null, true)));
       AssertionsOnColumnType.isUUID(tableAssert, info, list, false);

@@ -12,7 +12,6 @@
  */
 package org.assertj.db.api.assertions.impl;
 
-import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 import org.assertj.core.api.Assertions;
@@ -20,7 +19,6 @@ import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.exception.AssertJDBException;
-import org.assertj.db.type.Table;
 import org.junit.Test;
 
 /**
@@ -37,8 +35,7 @@ public class AssertionsOnColumnOfChangeClass_IsOfClass_Test extends AbstractTest
   @Test
   public void test_is_of_type() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     TableAssert tableAssert2 = AssertionsOnColumnOfChangeClass.isOfClass(tableAssert, info,
       getValue(null, "test"),
       getValue(null, "test"),
@@ -68,8 +65,7 @@ public class AssertionsOnColumnOfChangeClass_IsOfClass_Test extends AbstractTest
   public void should_fail_because_value_at_start_point_have_different_type() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       AssertionsOnColumnOfChangeClass.isOfClass(tableAssert, info,
         getValue(null, 8),
@@ -120,8 +116,7 @@ public class AssertionsOnColumnOfChangeClass_IsOfClass_Test extends AbstractTest
   public void should_fail_because_value_at_end_point_have_different_type() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       AssertionsOnColumnOfChangeClass.isOfClass(tableAssert, info,
         getValue(null, "test"),
@@ -172,8 +167,7 @@ public class AssertionsOnColumnOfChangeClass_IsOfClass_Test extends AbstractTest
   public void should_fail_because_value_at_start_point_is_a_stringbuilder() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       AssertionsOnColumnOfChangeClass.isOfClass(tableAssert, info,
         getValue(null, new StringBuilder("test")),
@@ -213,8 +207,7 @@ public class AssertionsOnColumnOfChangeClass_IsOfClass_Test extends AbstractTest
   public void should_fail_because_value_at_end_point_is_a_stringbuilder() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       AssertionsOnColumnOfChangeClass.isOfClass(tableAssert, info,
         getValue(null, "test"),
@@ -254,8 +247,7 @@ public class AssertionsOnColumnOfChangeClass_IsOfClass_Test extends AbstractTest
   public void should_fail_because_class_value_is_null() throws Exception {
     WritableAssertionInfo info = new WritableAssertionInfo();
     info.description("description");
-    Table table = new Table();
-    TableAssert tableAssert = assertThat(table);
+    TableAssert tableAssert = new TableAssert(null);
     try {
       AssertionsOnColumnOfChangeClass.isOfClass(tableAssert, info,
         getValue(null, "test"),

@@ -40,8 +40,8 @@ public class AssertOnValueChronology_IsBefore_LocalDateTime_Test extends Abstrac
   @Test
   @NeedReload
   public void test_is_before() {
-    Table table = new Table(jdbcConnectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = assertDbConnection.table("test").build();
+    Changes changes = assertDbConnection.changes().tables(table).build().setStartPointNow();
     update("update test set var14 = 1 where var1 = 1");
     changes.setEndPointNow();
 
@@ -60,8 +60,8 @@ public class AssertOnValueChronology_IsBefore_LocalDateTime_Test extends Abstrac
   @Test
   @NeedReload
   public void should_fail_because_value_is_after_or_equal_to() {
-    Table table = new Table(jdbcConnectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
+    Table table = assertDbConnection.table("test").build();
+    Changes changes = assertDbConnection.changes().tables(table).build().setStartPointNow();
     update("update test set var14 = 1 where var1 = 1");
     changes.setEndPointNow();
 

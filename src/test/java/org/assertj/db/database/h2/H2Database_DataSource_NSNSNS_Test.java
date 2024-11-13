@@ -22,11 +22,11 @@ import org.assertj.core.api.Assertions;
 import org.assertj.db.common.NeedReload;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.output.Outputs;
+import org.assertj.db.type.AssertDbConnection;
 import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.Changes;
 import org.assertj.db.type.Column;
-import org.assertj.db.type.ConnectionProvider;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Row;
 import org.assertj.db.type.Table;
@@ -44,20 +44,20 @@ import org.junit.Test;
  */
 public class H2Database_DataSource_NSNSNS_Test extends AbstractH2Test {
 
-  private ConnectionProvider connectionProvider;
+  private AssertDbConnection connection;
 
   @Before
   public void init() {
-    connectionProvider = dsConnectionNSNSNS;
+    connection = dsConnectionNSNSNS;
   }
 
   @Test
 
   @NeedReload
   public void test_Outputs_output() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
-    Changes changes2 = new Changes(connectionProvider).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
+    Changes changes2 = connection.changes().build().setStartPointNow();
     update();
     changes.setEndPointNow();
     changes2.setEndPointNow();
@@ -259,9 +259,9 @@ public class H2Database_DataSource_NSNSNS_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void should_fail_because_primary_key_is_different() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
-    Changes changes2 = new Changes(connectionProvider).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
+    Changes changes2 = connection.changes().build().setStartPointNow();
     update();
     changes.setEndPointNow();
     changes2.setEndPointNow();
@@ -292,9 +292,9 @@ public class H2Database_DataSource_NSNSNS_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void should_fail_because_column_name_is_different() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
-    Changes changes2 = new Changes(connectionProvider).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
+    Changes changes2 = connection.changes().build().setStartPointNow();
     update();
     changes.setEndPointNow();
     changes2.setEndPointNow();
@@ -366,9 +366,9 @@ public class H2Database_DataSource_NSNSNS_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void should_fail_because_column_name_is_wrong_to_navigate() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
-    Changes changes2 = new Changes(connectionProvider).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
+    Changes changes2 = connection.changes().build().setStartPointNow();
     update();
     changes.setEndPointNow();
     changes2.setEndPointNow();
@@ -428,9 +428,9 @@ public class H2Database_DataSource_NSNSNS_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void should_fail_because_table_name_is_different() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
-    Changes changes2 = new Changes(connectionProvider).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
+    Changes changes2 = connection.changes().build().setStartPointNow();
     update();
     changes.setEndPointNow();
     changes2.setEndPointNow();
@@ -460,9 +460,9 @@ public class H2Database_DataSource_NSNSNS_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void should_fail_because_table_name_is_wrong_to_navigate() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
-    Changes changes2 = new Changes(connectionProvider).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
+    Changes changes2 = connection.changes().build().setStartPointNow();
     update();
     changes.setEndPointNow();
     changes2.setEndPointNow();
@@ -509,9 +509,9 @@ public class H2Database_DataSource_NSNSNS_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void test_ColumnName_hasColumnName() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
-    Changes changes2 = new Changes(connectionProvider).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
+    Changes changes2 = connection.changes().build().setStartPointNow();
     update();
     changes.setEndPointNow();
     changes2.setEndPointNow();
@@ -525,9 +525,9 @@ public class H2Database_DataSource_NSNSNS_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void test_ColumnClass_isOfClass() {
-    Table table = new Table(connectionProvider, "test");
-    Changes changes = new Changes(table).setStartPointNow();
-    Changes changes2 = new Changes(connectionProvider).setStartPointNow();
+    Table table = connection.table("test").build();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
+    Changes changes2 = connection.changes().build().setStartPointNow();
     update();
     changes.setEndPointNow();
     changes2.setEndPointNow();
@@ -541,17 +541,15 @@ public class H2Database_DataSource_NSNSNS_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void test_getTableLetterCase() {
-    Table table = new Table(connectionProvider, "test");
+    Table table = connection.table("test").build();
 
-    Request request = new Request(connectionProvider, "select * from test");
+    Request request = connection.request("select * from test").build();
 
-    Changes changes = new Changes(table).setStartPointNow();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
     update();
     changes.setEndPointNow();
     Change change = changes.getChangesList().get(0);
 
-
-    Assertions.assertThat(connectionProvider.getTableLetterCase().getConversionName()).isSameAs(CaseConversions.NO.getConversionName());
 
     Assertions.assertThat(table.getTableLetterCase().getConversionName()).isSameAs(CaseConversions.NO.getConversionName());
 
@@ -560,8 +558,6 @@ public class H2Database_DataSource_NSNSNS_Test extends AbstractH2Test {
     Assertions.assertThat(changes.getTableLetterCase().getConversionName()).isSameAs(CaseConversions.NO.getConversionName());
     Assertions.assertThat(change.getTableLetterCase().getConversionName()).isSameAs(CaseConversions.NO.getConversionName());
 
-
-    Assertions.assertThat(connectionProvider.getTableLetterCase().getComparisonName()).isSameAs(CaseComparisons.STRICT.getComparisonName());
 
     Assertions.assertThat(table.getTableLetterCase().getComparisonName()).isSameAs(CaseComparisons.STRICT.getComparisonName());
 
@@ -574,19 +570,19 @@ public class H2Database_DataSource_NSNSNS_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void test_getColumnLetterCase() {
-    Table table = new Table(connectionProvider, "test");
+    Table table = connection.table("test").build();
     Row tableRow = table.getRow(0);
     Column tableColumn = table.getColumn(0);
     Value tableRowValue = tableRow.getColumnValue(0);
     Value tableColumnValue = tableColumn.getRowValue(0);
 
-    Request request = new Request(connectionProvider, "select * from test");
+    Request request = connection.request("select * from test").build();
     Row requestRow = request.getRow(0);
     Column requestColumn = request.getColumn(0);
     Value requestRowValue = requestRow.getColumnValue(0);
     Value requestColumnValue = requestColumn.getRowValue(0);
 
-    Changes changes = new Changes(table).setStartPointNow();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
     update();
     changes.setEndPointNow();
     Change change = changes.getChangesList().get(0);
@@ -594,9 +590,6 @@ public class H2Database_DataSource_NSNSNS_Test extends AbstractH2Test {
     Row rowAtEndPoint = change.getRowAtEndPoint();
     Value valueAtStartPoint = rowAtStartPoint.getColumnValue(0);
     Value valueAtEndPoint = rowAtEndPoint.getColumnValue(0);
-
-
-    Assertions.assertThat(connectionProvider.getColumnLetterCase().getConversionName()).isSameAs(CaseConversions.NO.getConversionName());
 
     Assertions.assertThat(table.getColumnLetterCase().getConversionName()).isSameAs(CaseConversions.NO.getConversionName());
     Assertions.assertThat(tableRow.getColumnLetterCase().getConversionName()).isSameAs(CaseConversions.NO.getConversionName());
@@ -616,9 +609,6 @@ public class H2Database_DataSource_NSNSNS_Test extends AbstractH2Test {
     Assertions.assertThat(rowAtEndPoint.getColumnLetterCase().getConversionName()).isSameAs(CaseConversions.NO.getConversionName());
     Assertions.assertThat(valueAtStartPoint.getColumnLetterCase().getConversionName()).isSameAs(CaseConversions.NO.getConversionName());
     Assertions.assertThat(valueAtEndPoint.getColumnLetterCase().getConversionName()).isSameAs(CaseConversions.NO.getConversionName());
-
-
-    Assertions.assertThat(connectionProvider.getColumnLetterCase().getComparisonName()).isSameAs(CaseComparisons.STRICT.getComparisonName());
 
     Assertions.assertThat(table.getColumnLetterCase().getComparisonName()).isSameAs(CaseComparisons.STRICT.getComparisonName());
     Assertions.assertThat(tableRow.getColumnLetterCase().getComparisonName()).isSameAs(CaseComparisons.STRICT.getComparisonName());
@@ -643,21 +633,18 @@ public class H2Database_DataSource_NSNSNS_Test extends AbstractH2Test {
   @Test
   @NeedReload
   public void test_getPrimaryKeyLetterCase() {
-    Table table = new Table(connectionProvider, "test");
+    Table table = connection.table("test").build();
     Row tableRow = table.getRow(0);
 
-    Request request = new Request(connectionProvider, "select * from test");
+    Request request = connection.request("select * from test").build();
     Row requestRow = request.getRow(0);
 
-    Changes changes = new Changes(table).setStartPointNow();
+    Changes changes = connection.changes().tables(table).build().setStartPointNow();
     update();
     changes.setEndPointNow();
     Change change = changes.getChangesList().get(0);
     Row rowAtStartPoint = changes.getChangesOfType(ChangeType.DELETION).getChangesList().get(0).getRowAtStartPoint();
     Row rowAtEndPoint = change.getRowAtEndPoint();
-
-
-    Assertions.assertThat(connectionProvider.getPrimaryKeyLetterCase().getConversionName()).isSameAs(CaseConversions.NO.getConversionName());
 
     Assertions.assertThat(table.getPrimaryKeyLetterCase().getConversionName()).isSameAs(CaseConversions.NO.getConversionName());
     Assertions.assertThat(tableRow.getPrimaryKeyLetterCase().getConversionName()).isSameAs(CaseConversions.NO.getConversionName());
@@ -669,9 +656,6 @@ public class H2Database_DataSource_NSNSNS_Test extends AbstractH2Test {
     Assertions.assertThat(change.getPrimaryKeyLetterCase().getConversionName()).isSameAs(CaseConversions.NO.getConversionName());
     Assertions.assertThat(rowAtStartPoint.getPrimaryKeyLetterCase().getConversionName()).isSameAs(CaseConversions.NO.getConversionName());
     Assertions.assertThat(rowAtEndPoint.getPrimaryKeyLetterCase().getConversionName()).isSameAs(CaseConversions.NO.getConversionName());
-
-
-    Assertions.assertThat(connectionProvider.getPrimaryKeyLetterCase().getComparisonName()).isSameAs(CaseComparisons.STRICT.getComparisonName());
 
     Assertions.assertThat(table.getPrimaryKeyLetterCase().getComparisonName()).isSameAs(CaseComparisons.STRICT.getComparisonName());
     Assertions.assertThat(tableRow.getPrimaryKeyLetterCase().getComparisonName()).isSameAs(CaseComparisons.STRICT.getComparisonName());

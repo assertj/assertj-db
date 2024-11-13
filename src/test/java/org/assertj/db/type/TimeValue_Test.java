@@ -413,7 +413,7 @@ public class TimeValue_Test extends AbstractTest {
    */
   @Test
   public void test_toString() {
-    assertThat(TimeValue.of(9, 1, 6, 3).toString()).isEqualTo("09:01:06.000000003");
+    assertThat(TimeValue.of(9, 1, 6, 3)).hasToString("09:01:06.000000003");
   }
 
   /**

@@ -49,7 +49,7 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_String_Test extends A
   @Test
   @NeedReload
   public void test_column_among_the_modified_ones_with_column_name_with_assertions() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -172,7 +172,7 @@ public class ToColumnFromChange_ColumnAmongTheModifiedOnes_String_Test extends A
   @Test
   @NeedReload
   public void test_column_among_the_modified_ones_with_column_name_with_displays() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 

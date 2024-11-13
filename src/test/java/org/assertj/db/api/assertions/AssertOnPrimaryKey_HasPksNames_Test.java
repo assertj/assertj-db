@@ -36,8 +36,8 @@ public class AssertOnPrimaryKey_HasPksNames_Test extends AbstractTest {
    */
   @Test
   @NeedReload
-  public void test_has_pks_names() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+  public void test_has_pks_names() {
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -51,8 +51,8 @@ public class AssertOnPrimaryKey_HasPksNames_Test extends AbstractTest {
    */
   @Test
   @NeedReload
-  public void should_fail_because_pks_names_are_different() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+  public void should_fail_because_pks_names_are_different() {
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -73,8 +73,8 @@ public class AssertOnPrimaryKey_HasPksNames_Test extends AbstractTest {
    */
   @Test
   @NeedReload
-  public void should_fail_because_number_of_pks_names_are_different() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+  public void should_fail_because_number_of_pks_names_are_different() {
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 

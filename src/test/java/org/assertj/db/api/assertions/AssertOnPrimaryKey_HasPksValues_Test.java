@@ -12,15 +12,15 @@
  */
 package org.assertj.db.api.assertions;
 
+import static org.assertj.db.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.db.api.ChangeAssert;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.common.NeedReload;
 import org.assertj.db.type.Changes;
 import org.junit.Test;
-
-import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
 
 /**
  * Tests on {@link org.assertj.db.api.assertions.AssertOnPrimaryKey} class :
@@ -36,8 +36,8 @@ public class AssertOnPrimaryKey_HasPksValues_Test extends AbstractTest {
    */
   @Test
   @NeedReload
-  public void test_has_pks_values() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+  public void test_has_pks_values() {
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -51,8 +51,8 @@ public class AssertOnPrimaryKey_HasPksValues_Test extends AbstractTest {
    */
   @Test
   @NeedReload
-  public void should_fail_because_pks_values_are_different() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+  public void should_fail_because_pks_values_are_different() {
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -73,8 +73,8 @@ public class AssertOnPrimaryKey_HasPksValues_Test extends AbstractTest {
    */
   @Test
   @NeedReload
-  public void should_fail_because_number_of_pks_values_are_different() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+  public void should_fail_because_number_of_pks_values_are_different() {
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 

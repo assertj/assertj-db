@@ -12,14 +12,14 @@
  */
 package org.assertj.db.util;
 
-import java.util.Arrays;
-
 import org.assertj.core.api.Assertions;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Change;
 import org.assertj.db.type.ChangeType;
 import org.assertj.db.type.DataType;
 import org.junit.Test;
+
+import java.util.Arrays;
 
 /**
  * Tests on {@code getIndexesOfModifiedColumns} method.

@@ -26,8 +26,8 @@ import org.assertj.db.type.lettercase.LetterCase;
 /**
  * A request in the database to get values.
  * <p>
- * The different information of the request are connectionProvider, the SQL request and optionally the parameters
- * of the SQL request.
+ * The different information of the request are the SQL request and optionally the parameters of the SQL request.
+ * A Request should be constructed by the fluent builder {@link Request.Builder} from a AssertDbConnection instance.
  * </p>
  * <p>
  * Examples of instantiation :
@@ -35,26 +35,25 @@ import org.assertj.db.type.lettercase.LetterCase;
  * <ul>
  * <li>
  * <p>
- * This {@link Request} point to a request without parameter in a H2 database in memory like indicated in the
- * {@link ConnectionProvider}.
+ * This {@link Request} point to a request without parameter in a H2 database in memory.
  * </p>
  *
  * <pre><code class='java'>
- * ConnectionProvider connectionProvider = ConnectionProviderFactory.of(&quot;jdbc:h2:mem:test&quot;, &quot;sa&quot;, &quot;&quot;).create();
- * Request request = new Request(connectionProvider, &quot;select title from movie;&quot;);
+ * AssertDbConnection connection = AssertDbConnectionFactory.of(&quot;jdbc:h2:mem:test&quot;, &quot;sa&quot;, &quot;&quot;).create();
+ * Request request = connection.request(&quot;select title from movie;&quot;).build();
  * </code></pre>
  *
  * </li>
  * <li>
  * <p>
  * Below the {@link Request} point to a request with {@code 2000} in parameter.<br>
- * The {@link Request} use a {@code DataSource} in the factory of {@link ConnectionProvider} like above.
+ * The {@link AssertDbConnection} use a {@code DataSource} instead of a JDBC url like above.
  * </p>
  *
  * <pre><code class='java'>
  * DataSource dataSource = ...;
- * ConnectionProvider connectionProvider = ConnectionProviderFactory.of(dataSource).create();
- * Request request = new Request(connectionProvider, "select title from movie where year &gt; ?;", 2000);
+ * AssertDbConnection connection = AssertDbConnectionFactory.of(dataSource).create();
+ * Request request = connection.request("select title from movie where year &gt; ?;").parameters(2000).build();
  * </code></pre>
  *
  * </li>
@@ -68,18 +67,11 @@ public class Request extends AbstractDbData<Request> {
   /**
    * SQL request to get the values.
    */
-  private String request;
+  private final String request;
   /**
    * Parameters of the SQL request.
    */
-  private Object[] parameters;
-
-  /**
-   * Default constructor.
-   */
-  public Request() {
-    super(Request.class, DataType.REQUEST);
-  }
+  private final Object[] parameters;
 
   /**
    * Constructor with a connection.
@@ -89,10 +81,25 @@ public class Request extends AbstractDbData<Request> {
    * @param parameters         Parameters of the SQL request.
    * @since 3.0.0
    */
-  public Request(ConnectionProvider connectionProvider, String request, Object... parameters) {
+  private Request(ConnectionProvider connectionProvider, String request, Object[] parameters, String[] pksName) {
     super(Request.class, DataType.REQUEST, connectionProvider);
-    setRequest(request);
+    if (request == null) {
+      throw new IllegalArgumentException("request can not be null");
+    }
+    if (pksName != null) {
+      super.setPksNameList(new ArrayList<>(Arrays.asList(pksName)));
+    }
+    this.request = request;
     this.parameters = parameters;
+  }
+
+  /**
+   * Only used for tests.
+   */
+  private Request() {
+    super(Request.class, DataType.REQUEST);
+    this.request = null;
+    this.parameters = null;
   }
 
   /**
@@ -105,54 +112,15 @@ public class Request extends AbstractDbData<Request> {
   }
 
   /**
-   * Sets the SQL request.
-   *
-   * @param request The SQL request.
-   * @return The SQL request.
-   * @throws NullPointerException If the {@link #request} field is {@code null}.
-   */
-  public Request setRequest(String request) {
-    if (request == null) {
-      throw new NullPointerException("request can not be null");
-    }
-
-    this.request = request;
-    return this;
-  }
-
-  /**
    * The parameters of the SQL request.
    *
    * @return The SQL request.
    */
   public Object[] getParameters() {
     if (parameters == null) {
-      return null;
+      return new Object[0];
     }
     return parameters.clone();
-  }
-
-  /**
-   * Sets the parameters of the SQL request.
-   *
-   * @param parameters The parameters of the SQL request.
-   * @return The parameters of the SQL request.
-   */
-  public Request setParameters(Object... parameters) {
-    this.parameters = parameters;
-    return this;
-  }
-
-  /**
-   * Sets the primary keys name.
-   *
-   * @param pksName The primary keys name.
-   * @return {@code this} instance.
-   */
-  public Request setPksName(String... pksName) {
-    List<String> pksNameList = new ArrayList<>(Arrays.asList(pksName));
-    super.setPksNameList(pksNameList);
-    return this;
   }
 
   /**
@@ -199,6 +167,63 @@ public class Request extends AbstractDbData<Request> {
         collectColumnsNameFromResultSet(resultSet);
         collectRowsFromResultSet(resultSet);
       }
+    }
+  }
+
+  /**
+   * Fluent {@link Request} builder.
+   * Use {@link AssertDbConnection} to construct new instance of this builder.
+   * <pre>
+   * <code class='java'>
+   * AssertDbConnection connection = ....;
+   * Request request = connection.request(&quot;select * from actor;&quot;).build();
+   * Request request = connection.request(&quot;select * from actor where id = ?;&quot;).parameters(1).build();
+   * </code>
+   * </pre>
+   *
+   * @author Julien Roy
+   * @since 3.0.0
+   */
+  public static class Builder {
+    private final ConnectionProvider connectionProvider;
+    private final String request;
+    private Object[] parameters = new Object[0];
+    private String[] pksName = null;
+
+    Builder(ConnectionProvider connectionProvider, String request) {
+      this.connectionProvider = connectionProvider;
+      this.request = request;
+    }
+
+    /**
+     * Specify parameters to use in SQL request.
+     *
+     * @param parameters List of SQL parameters.
+     * @return Current builder instance.
+     */
+    public Request.Builder parameters(Object... parameters) {
+      this.parameters = parameters;
+      return this;
+    }
+
+    /**
+     * Set the list of primary keys
+     *
+     * @param pksName List of column name to use as primary keys.
+     * @return Current builder instance.
+     */
+    public Request.Builder pksName(String... pksName) {
+      this.pksName = pksName;
+      return this;
+    }
+
+    /**
+     * Build the Request instance.
+     *
+     * @return Request instance to use in assertThat.
+     */
+    public Request build() {
+      return new Request(this.connectionProvider, this.request, this.parameters, this.pksName);
     }
   }
 }

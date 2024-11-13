@@ -37,9 +37,9 @@ public class AssertOnColumnContent_ContainsValues_DateValue_Test extends Abstrac
    */
   @Test
   @NeedReload
-  public void test_has_values() throws Exception {
+  public void test_has_values() {
     update("update test2 set var10 = '2014-05-24' where var1 = 1");
-    Table table = new Table(jdbcConnectionProvider, "test");
+    Table table = assertDbConnection.table("test").build();
     TableColumnAssert tableColumnAssert = assertThat(table).column("var9");
     TableColumnAssert tableColumnAssertReturn = tableColumnAssert.containsValues(
       DateValue.of(2014, 5, 24),
@@ -48,7 +48,7 @@ public class AssertOnColumnContent_ContainsValues_DateValue_Test extends Abstrac
       DateValue.of(2014, 5, 30));
     Assertions.assertThat(tableColumnAssert).isSameAs(tableColumnAssertReturn);
 
-    Table table2 = new Table(jdbcConnectionProvider, "test2");
+    Table table2 = assertDbConnection.table("test2").build();
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var9");
     TableColumnAssert tableColumnAssertReturn2 = tableColumnAssert2.containsValues(DateValue.of(2014, 5, 24),
       null);
@@ -63,8 +63,8 @@ public class AssertOnColumnContent_ContainsValues_DateValue_Test extends Abstrac
    * This method should fail because the values are different.
    */
   @Test
-  public void should_fail_because_values_are_different() throws Exception {
-    Table table = new Table(jdbcConnectionProvider, "test");
+  public void should_fail_because_values_are_different() {
+    Table table = assertDbConnection.table("test").build();
     TableColumnAssert tableColumnAssert = assertThat(table).column("var9");
     try {
       tableColumnAssert.containsValues(DateValue.of(2014, 5, 24),
@@ -83,7 +83,7 @@ public class AssertOnColumnContent_ContainsValues_DateValue_Test extends Abstrac
         + "  <[2014-05-24, 2014-05-29, 2014-05-30, 2014-05-30]>%n"
         + " (parameter <2014-05-29> at index 1 is not found)"));
     }
-    Table table2 = new Table(jdbcConnectionProvider, "test2");
+    Table table2 = assertDbConnection.table("test2").build();
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var9");
     try {
       tableColumnAssert2.containsValues(DateValue.of(2014, 5, 24),

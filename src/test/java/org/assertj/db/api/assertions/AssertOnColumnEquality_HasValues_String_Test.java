@@ -36,13 +36,13 @@ public class AssertOnColumnEquality_HasValues_String_Test extends AbstractTest {
    */
   @Test
   @NeedReload
-  public void test_has_values() throws Exception {
-    Table table = new Table(jdbcConnectionProvider, "test");
+  public void test_has_values() {
+    Table table = assertDbConnection.table("test").build();
     TableColumnAssert tableColumnAssert = assertThat(table).column("var3");
     TableColumnAssert tableColumnAssertReturn = tableColumnAssert.hasValues("2", "20", "25", "0");
     Assertions.assertThat(tableColumnAssert).isSameAs(tableColumnAssertReturn);
 
-    Table table2 = new Table(jdbcConnectionProvider, "test2");
+    Table table2 = assertDbConnection.table("test2").build();
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var3");
     TableColumnAssert tableColumnAssertReturn2 = tableColumnAssert2.hasValues("2", null);
     Assertions.assertThat(tableColumnAssert2).isSameAs(tableColumnAssertReturn2);
@@ -155,7 +155,7 @@ public class AssertOnColumnEquality_HasValues_String_Test extends AbstractTest {
     Assertions.assertThat(tableColumnAssert18).isSameAs(tableColumnAssertReturn18);
 
     update("update test2 set var10 = '2014-05-24' where var1 = 1");
-    table2 = new Table(jdbcConnectionProvider, "test2");
+    table2 = assertDbConnection.table("test2").build();
     TableColumnAssert tableColumnAssert19 = assertThat(table2).column("var10");
     TableColumnAssert tableColumnAssertReturn19 = tableColumnAssert19.hasValues("2014-05-24",
       null);
@@ -171,8 +171,8 @@ public class AssertOnColumnEquality_HasValues_String_Test extends AbstractTest {
    * This method should fail because the values are different.
    */
   @Test
-  public void should_fail_because_values_are_different() throws Exception {
-    Table table = new Table(jdbcConnectionProvider, "test");
+  public void should_fail_because_values_are_different() {
+    Table table = assertDbConnection.table("test").build();
     TableColumnAssert tableColumnAssert = assertThat(table).column("var3");
     try {
       tableColumnAssert.hasValues("2", "20", "35", "0");
@@ -184,7 +184,7 @@ public class AssertOnColumnEquality_HasValues_String_Test extends AbstractTest {
         + "to be equal to: %n"
         + "  <\"35\">"));
     }
-    Table table2 = new Table(jdbcConnectionProvider, "test2");
+    Table table2 = assertDbConnection.table("test2").build();
     TableColumnAssert tableColumnAssert2 = assertThat(table2).column("var3");
     try {
       tableColumnAssert2.hasValues("2", "2");

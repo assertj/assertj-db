@@ -15,8 +15,8 @@ package org.assertj.db.database.h2;
 import static org.assertj.db.api.Assertions.assertThat;
 
 import org.assertj.db.common.NeedReload;
+import org.assertj.db.type.AssertDbConnection;
 import org.assertj.db.type.Changes;
-import org.assertj.db.type.ConnectionProvider;
 import org.assertj.db.type.Table;
 import org.assertj.db.type.Table.Order;
 import org.junit.Before;
@@ -30,20 +30,20 @@ import org.junit.Test;
  */
 public class ReservedH2Database_JdbcUrl_NSNSNS_Test extends AbstractReservedH2Test {
 
-  private ConnectionProvider connectionProvider;
+  private AssertDbConnection connection;
 
   @Before
   public void init() {
-    connectionProvider = jdbcConnectionNSNSNS;
+    connection = jdbcConnectionNSNSNS;
   }
 
   @Test
   @NeedReload
   public void test_PrimaryKey_hasPksNames() {
-    Table table1 = new Table(connectionProvider, "GROUP", '`', '`');
-    Table table2 = new Table(connectionProvider, "TWO WORDS", '`', '`');
-    Changes changes1 = new Changes(table1).setStartPointNow();
-    Changes changes2 = new Changes(table2).setStartPointNow();
+    Table table1 = connection.table("GROUP").delimiters('`', '`').build();
+    Table table2 = connection.table("TWO WORDS").delimiters('`', '`').build();
+    Changes changes1 = connection.changes().tables(table1).build().setStartPointNow();
+    Changes changes2 = connection.changes().tables(table2).build().setStartPointNow();
     update();
     changes1.setEndPointNow();
     changes2.setEndPointNow();
@@ -57,10 +57,10 @@ public class ReservedH2Database_JdbcUrl_NSNSNS_Test extends AbstractReservedH2Te
   @Test
   @NeedReload
   public void test_ColumnName_hasColumnName() {
-    Table table1 = new Table(connectionProvider, "GROUP", '`', '`');
-    Table table2 = new Table(connectionProvider, "TWO WORDS", '`', '`');
-    Changes changes1 = new Changes(table1).setStartPointNow();
-    Changes changes2 = new Changes(table2).setStartPointNow();
+    Table table1 = connection.table("GROUP").delimiters('`', '`').build();
+    Table table2 = connection.table("TWO WORDS").delimiters('`', '`').build();
+    Changes changes1 = connection.changes().tables(table1).build().setStartPointNow();
+    Changes changes2 = connection.changes().tables(table2).build().setStartPointNow();
     update();
     changes1.setEndPointNow();
     changes2.setEndPointNow();
@@ -99,16 +99,18 @@ public class ReservedH2Database_JdbcUrl_NSNSNS_Test extends AbstractReservedH2Te
   @Test
   @NeedReload
   public void test_ColumnName_hasColumnName_with_columns_to_check() {
-    Table table1 = new Table(connectionProvider, "GROUP", '`', '`')
-      .setColumnsToCheck(new String[]{
+    Table table1 = connection.table("GROUP")
+      .delimiters('`', '`')
+      .columnsToCheck(new String[]{
         "READ", "BY", "SELECT", "FROM"
-      });
-    Table table2 = new Table(connectionProvider, "TWO WORDS", '`', '`')
-      .setColumnsToCheck(new String[]{
+      }).build();
+    Table table2 = connection.table("TWO WORDS")
+      .delimiters('`', '`')
+      .columnsToCheck(new String[]{
         "PRIMARY KEY", "COLUMN NAME", "TEST%TEST"
-      });
-    Changes changes1 = new Changes(table1).setStartPointNow();
-    Changes changes2 = new Changes(table2).setStartPointNow();
+      }).build();
+    Changes changes1 = connection.changes().tables(table1).build().setStartPointNow();
+    Changes changes2 = connection.changes().tables(table2).build().setStartPointNow();
     update();
     changes1.setEndPointNow();
     changes2.setEndPointNow();
@@ -143,16 +145,18 @@ public class ReservedH2Database_JdbcUrl_NSNSNS_Test extends AbstractReservedH2Te
   @Test
   @NeedReload
   public void test_ColumnName_hasColumnName_with_columns_to_exclude() {
-    Table table1 = new Table(connectionProvider, "GROUP", '`', '`')
-      .setColumnsToExclude(new String[]{
+    Table table1 = connection.table("GROUP")
+      .delimiters('`', '`')
+      .columnsToExclude(new String[]{
         "READ", "BY", "FROM"
-      });
-    Table table2 = new Table(connectionProvider, "TWO WORDS", '`', '`')
-      .setColumnsToExclude(new String[]{
+      }).build();
+    Table table2 = connection.table("TWO WORDS")
+      .delimiters('`', '`')
+      .columnsToExclude(new String[]{
         "COLUMN NAME"
-      });
-    Changes changes1 = new Changes(table1).setStartPointNow();
-    Changes changes2 = new Changes(table2).setStartPointNow();
+      }).build();
+    Changes changes1 = connection.changes().tables(table1).build().setStartPointNow();
+    Changes changes2 = connection.changes().tables(table2).build().setStartPointNow();
     update();
     changes1.setEndPointNow();
     changes2.setEndPointNow();
@@ -183,16 +187,18 @@ public class ReservedH2Database_JdbcUrl_NSNSNS_Test extends AbstractReservedH2Te
   @Test
   @NeedReload
   public void test_ColumnName_hasColumnName_with_order() {
-    Table table1 = new Table(connectionProvider, "GROUP", '`', '`')
-      .setColumnsToOrder(new Order[]{
+    Table table1 = connection.table("GROUP")
+      .delimiters('`', '`')
+      .columnsToOrder(new Order[]{
         Order.asc("WHERE")
-      });
-    Table table2 = new Table(connectionProvider, "TWO WORDS", '`', '`')
-      .setColumnsToOrder(new Order[]{
+      }).build();
+    Table table2 = connection.table("TWO WORDS")
+      .delimiters('`', '`')
+      .columnsToOrder(new Order[]{
         Order.asc("PRIMARY KEY")
-      });
-    Changes changes1 = new Changes(table1).setStartPointNow();
-    Changes changes2 = new Changes(table2).setStartPointNow();
+      }).build();
+    Changes changes1 = connection.changes().tables(table1).build().setStartPointNow();
+    Changes changes2 = connection.changes().tables(table2).build().setStartPointNow();
     update();
     changes1.setEndPointNow();
     changes2.setEndPointNow();

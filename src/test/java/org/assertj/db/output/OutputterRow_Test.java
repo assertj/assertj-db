@@ -37,7 +37,7 @@ public class OutputterRow_Test extends AbstractTest {
    */
   @Test
   public void test_output_for_table() throws Exception {
-    Table table = new Table(jdbcConnectionProvider, "actor");
+    Table table = assertDbConnection.table("actor").build();
 
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
@@ -45,7 +45,7 @@ public class OutputterRow_Test extends AbstractTest {
     Outputs.output(table).row().toStream(byteArrayOutputStream0)
       .row(1).toStream(byteArrayOutputStream1)
       .row().toStream(byteArrayOutputStream2);
-    Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Row at index 0 of ACTOR table]%n"
+    Assertions.assertThat(byteArrayOutputStream0).hasToString(String.format("[Row at index 0 of ACTOR table]%n"
       + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"
       + "|         | *         |           |           |            |                                      |%n"
       + "| PRIMARY | ID        | NAME      | FIRSTNAME | BIRTH      | ACTOR_IMDB                           |%n"
@@ -54,7 +54,7 @@ public class OutputterRow_Test extends AbstractTest {
       + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"
       + "| 1       | 1         | Weaver    | Sigourney | 1949-10-08 | 30b443ae-c0c9-4790-9bec-ce1380808435 |%n"
       + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"));
-    Assertions.assertThat(byteArrayOutputStream1.toString()).isEqualTo(String.format("[Row at index 1 of ACTOR table]%n"
+    Assertions.assertThat(byteArrayOutputStream1).hasToString(String.format("[Row at index 1 of ACTOR table]%n"
       + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"
       + "|         | *         |           |           |            |                                      |%n"
       + "| PRIMARY | ID        | NAME      | FIRSTNAME | BIRTH      | ACTOR_IMDB                           |%n"
@@ -63,7 +63,7 @@ public class OutputterRow_Test extends AbstractTest {
       + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"
       + "| 2       | 2         | Phoenix   | Joaquim   | 1974-10-28 | 16319617-ae95-4087-9264-d3d21bf611b6 |%n"
       + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"));
-    Assertions.assertThat(byteArrayOutputStream2.toString()).isEqualTo(String.format("[Row at index 2 of ACTOR table]%n"
+    Assertions.assertThat(byteArrayOutputStream2).hasToString(String.format("[Row at index 2 of ACTOR table]%n"
       + "|---------|-----------|-------------|-----------|------------|--------------------------------------|%n"
       + "|         | *         |             |           |            |                                      |%n"
       + "| PRIMARY | ID        | NAME        | FIRSTNAME | BIRTH      | ACTOR_IMDB                           |%n"
@@ -79,7 +79,7 @@ public class OutputterRow_Test extends AbstractTest {
    */
   @Test
   public void test_output_for_request() throws Exception {
-    Request request = new Request(jdbcConnectionProvider, "select * from actor");
+    Request request = assertDbConnection.request("select * from actor").build();
 
     ByteArrayOutputStream byteArrayOutputStream0 = new ByteArrayOutputStream();
     ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
@@ -87,7 +87,7 @@ public class OutputterRow_Test extends AbstractTest {
     Outputs.output(request).row().toStream(byteArrayOutputStream0)
       .row(1).toStream(byteArrayOutputStream1)
       .row().toStream(byteArrayOutputStream2);
-    Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Row at index 0 of 'select * from actor' request]%n"
+    Assertions.assertThat(byteArrayOutputStream0).hasToString(String.format("[Row at index 0 of 'select * from actor' request]%n"
       + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"
       + "|         |           |           |           |            |                                      |%n"
       + "| PRIMARY | ID        | NAME      | FIRSTNAME | BIRTH      | ACTOR_IMDB                           |%n"
@@ -96,7 +96,7 @@ public class OutputterRow_Test extends AbstractTest {
       + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"
       + "|         | 1         | Weaver    | Sigourney | 1949-10-08 | 30b443ae-c0c9-4790-9bec-ce1380808435 |%n"
       + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"));
-    Assertions.assertThat(byteArrayOutputStream1.toString()).isEqualTo(String.format("[Row at index 1 of 'select * from actor' request]%n"
+    Assertions.assertThat(byteArrayOutputStream1).hasToString(String.format("[Row at index 1 of 'select * from actor' request]%n"
       + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"
       + "|         |           |           |           |            |                                      |%n"
       + "| PRIMARY | ID        | NAME      | FIRSTNAME | BIRTH      | ACTOR_IMDB                           |%n"
@@ -105,7 +105,7 @@ public class OutputterRow_Test extends AbstractTest {
       + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"
       + "|         | 2         | Phoenix   | Joaquim   | 1974-10-28 | 16319617-ae95-4087-9264-d3d21bf611b6 |%n"
       + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"));
-    Assertions.assertThat(byteArrayOutputStream2.toString()).isEqualTo(String.format("[Row at index 2 of 'select * from actor' request]%n"
+    Assertions.assertThat(byteArrayOutputStream2).hasToString(String.format("[Row at index 2 of 'select * from actor' request]%n"
       + "|---------|-----------|-------------|-----------|------------|--------------------------------------|%n"
       + "|         |           |             |           |            |                                      |%n"
       + "| PRIMARY | ID        | NAME        | FIRSTNAME | BIRTH      | ACTOR_IMDB                           |%n"
@@ -122,7 +122,7 @@ public class OutputterRow_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_output_for_change() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -132,9 +132,9 @@ public class OutputterRow_Test extends AbstractTest {
     output(changes).change().rowAtStartPoint().toStream(byteArrayOutputStream0)
       .rowAtEndPoint().toStream(byteArrayOutputStream1)
       .changeOfModification().rowAtStartPoint().toStream(byteArrayOutputStream2);
-    Assertions.assertThat(byteArrayOutputStream0.toString()).isEqualTo(String.format("[Row at start point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test']%n"
+    Assertions.assertThat(byteArrayOutputStream0).hasToString(String.format("[Row at start point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test']%n"
       + "Row does not exist%n"));
-    Assertions.assertThat(byteArrayOutputStream1.toString()).isEqualTo(String.format("[Row at end point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test']%n"
+    Assertions.assertThat(byteArrayOutputStream1).hasToString(String.format("[Row at end point of Change at index 0 (on table : ACTOR and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test']%n"
       + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"
       + "|         | *         |           |           |            |                                      |%n"
       + "| PRIMARY | ID        | NAME      | FIRSTNAME | BIRTH      | ACTOR_IMDB                           |%n"
@@ -143,7 +143,7 @@ public class OutputterRow_Test extends AbstractTest {
       + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"
       + "| 4       | 4         | Murray    | Bill      | 1950-09-21 | 30b443ae-c0c9-4790-9bec-ce1380808435 |%n"
       + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"));
-    Assertions.assertThat(byteArrayOutputStream2.toString()).isEqualTo(String.format("[Row at start point of Change at index 0 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' (only modification changes)]%n"
+    Assertions.assertThat(byteArrayOutputStream2).hasToString(String.format("[Row at start point of Change at index 0 (on table : ACTOR and with primary key : [1]) of Changes on tables of 'sa/jdbc:h2:mem:test' (only modification changes)]%n"
       + "|---------|-----------|-----------|-----------|------------|--------------------------------------|%n"
       + "|         | *         |           |           |            |                                      |%n"
       + "| PRIMARY | ID        | NAME      | FIRSTNAME | BIRTH      | ACTOR_IMDB                           |%n"

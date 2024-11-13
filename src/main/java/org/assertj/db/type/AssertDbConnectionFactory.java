@@ -17,32 +17,32 @@ import javax.sql.DataSource;
 import org.assertj.db.type.lettercase.LetterCase;
 
 /**
- * Fluent factory to create a connectionProvider from different input ( Jdbc URL or DataSource ).
+ * Factory to create a {@link AssertDbConnection} from different database connection input ( Jdbc URL or DataSource ).
  * Allow to configure behavior of connection provider like letter case or schema metadata retrieval mode.
  * <p>
  * For create with JDBC URL :
+ * </p>
  * <pre>
  * <code class='java'>
- * ConnectionProvider connectionProvider = ConnectionProviderFactory.of(&quot;jdbc:h2:mem:test&quot;, &quot;sa&quot;, &quot;&quot;).create();
- * Table table = new Table(connectionProvider, &quot;movie&quot;);
+ * AssertDbConnection connection = AssertDbConnectionFactory.of(&quot;jdbc:h2:mem:test&quot;, &quot;sa&quot;, &quot;&quot;).create();
+ * Table table = connection.table(&quot;movie&quot;).build();
  * </code>
  * </pre>
- * <p>
  * For create with JDBC URL :
  * <pre>
  * <code class='java'>
  * DataSource dataSource = ...;
- * ConnectionProvider connectionProvider = ConnectionProviderFactory.of(dataSource).create();
- * Table table = new Table(connectionProvider, &quot;song&quot;, new String[] { &quot;number&quot;, &quot;title&quot; }, null);
+ * AssertDbConnection connection = AssertDbConnectionFactory.of(dataSource).create();
+ * Table table = connection.table(&quot;song&quot;).columnToCheck(new String[] { &quot;number&quot;, &quot;title&quot; }).build();
  * </code>
  * </pre>
  *
  * @author Julien Roy
  * @since 3.0.0
  */
-public abstract class ConnectionProviderFactory {
+public abstract class AssertDbConnectionFactory {
 
-  private ConnectionProviderFactory() {
+  private AssertDbConnectionFactory() {
     throw new UnsupportedOperationException();
   }
 
@@ -83,7 +83,7 @@ public abstract class ConnectionProviderFactory {
      * {@inheritDoc}
      */
     @Override
-    public ConnectionProvider create() {
+    public ConnectionProvider createConnectionProvider() {
       return new DataSourceConnectionProvider(dataSource, this.schemaMetaDataMode.getType(), this.tableLetterCase, this.columnLetterCase, this.primaryKeyLetterCase);
     }
   }
@@ -108,7 +108,7 @@ public abstract class ConnectionProviderFactory {
      * {@inheritDoc}
      */
     @Override
-    public ConnectionProvider create() {
+    public ConnectionProvider createConnectionProvider() {
       return new JdbcUrlConnectionProvider(url, user, password, this.schemaMetaDataMode.getType(), this.tableLetterCase, this.columnLetterCase, this.primaryKeyLetterCase);
     }
   }
@@ -170,6 +170,15 @@ public abstract class ConnectionProviderFactory {
      *
      * @return Connection provider to use for Table, Request or Changes
      */
-    public abstract ConnectionProvider create();
+    protected abstract ConnectionProvider createConnectionProvider();
+
+    /**
+     * Build the Connection Provider
+     *
+     * @return Connection provider to use for Table, Request or Changes
+     */
+    public AssertDbConnection create() {
+      return new AssertDbConnection(createConnectionProvider());
+    }
   }
 }

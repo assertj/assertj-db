@@ -48,7 +48,7 @@ public class ToChange_ChangeOnTable_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_change_on_table_with_assertions() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
@@ -123,7 +123,7 @@ public class ToChange_ChangeOnTable_Test extends AbstractTest {
   @Test
   @NeedReload
   public void test_change_on_table_with_displays() throws Exception {
-    Changes changes = new Changes(jdbcConnectionProvider).setStartPointNow();
+    Changes changes = assertDbConnection.changes().build().setStartPointNow();
     updateChangesForTests();
     changes.setEndPointNow();
 
