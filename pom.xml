@@ -61,7 +61,7 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
-      <version>5.3.39</version>
+      <version>6.1.14</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -73,7 +73,7 @@
     <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
-      <version>1.4.200</version>
+      <version>2.2.220</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -85,7 +85,7 @@
     <dependency>
       <groupId>org.xerial</groupId>
       <artifactId>sqlite-jdbc</artifactId>
-      <version>3.34.0</version>
+      <version>3.41.2.2</version>
       <scope>test</scope>
     </dependency>
     <dependency>
