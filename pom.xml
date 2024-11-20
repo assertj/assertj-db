@@ -10,7 +10,7 @@
   </parent>
 
   <artifactId>assertj-db</artifactId>
-  <version>3.0.0-SNAPSHOT</version>
+  <version>3.0.0</version>
 
   <name>AssertJ-DB - Assertions for database</name>
   <description>AssertJ-DB - Rich and fluent assertions for testing with database</description>
@@ -20,7 +20,7 @@
     <developerConnection>scm:git:ssh://git@github.com/assertj/assertj-db.git</developerConnection>
     <connection>scm:git:ssh://git@github.com/assertj/assertj-db.git</connection>
     <url>git@github.com:assertj/assertj-db</url>
-    <tag>HEAD</tag>
+    <tag>assertj-db-3.0.0</tag>
   </scm>
 
   <issueManagement>
