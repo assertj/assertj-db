@@ -1,4 +1,4 @@
-![alt tag](img/assertj-db_icon.png)
+![alt tag](src/main/docs/modules/ROOT/images/assertj-db_icon.png)
 AssertJ-DB - Assertions for database
 ==========
 

@@ -1,0 +1,885 @@
+= Navigation
+
+== With a Table or a Request as root
+
+As shown in the xref:concepts/navigation.adoc#tableorrequestasroot[concepts] (to easily understand this chapter it is important to know the concepts of assertj-db),
+the `assertThat(...)` static method is used
+to begin an assertion
+on a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.html[Table]
+or on a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Request.html[Request].
+
+The navigation from a table or from a request are similar, so in most of the examples below a table will be used :
+
+[source,java]
+----
+assertThat(tableOrRequest)...
+----
+
+If there is a difference if will be specified.
+
+All the navigation methods work from an origin point.
+That means that if the method is executed from another point,
+it is like the execution is from the point of view of the origin.
+
+There are some recurring points in the different navigation methods :
+
+*   a method without parameter which allows to navigate on the next element after the element reached on the last call
+(if it is the first call, navigate to the first element)
+*   a method with an `int` parameter (an index) which allows to navigate on the element which is
+at the corresponding index
+*   a method with an `String` parameter (a column name) which allows to navigate on the element corresponding
+at the column name
+
+=== To a Row
+
+These methods are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/navigation/ToRow.html[ToRow] interface.
+
+The `row()` method allows to navigate to the next row after the row reached on the last call.
+
+[source,java]
+----
+// If it is the first call, navigate to the first row
+assertThat(tableOrRequest).row()...
+// It is possible to chain the calls to navigate to the next row
+// after the first row (so the second row)
+assertThat(tableOrRequest).row().row()...
+----
+
+The `row(int index)` method with `index` as parameter
+allows to navigate to the row corresponding to row at the index.
+
+[source,java]
+----
+// Navigate to the row at index 2
+assertThat(tableOrRequest).row(2)...
+// It is possible to chain the calls to navigate to another row.
+// Here row at index 6
+assertThat(tableOrRequest).row(2).row(6)...
+// It is possible to combine the calls to navigate to the next row
+// after the row at index 2. Here row at index 3
+assertThat(tableOrRequest).row(2).row()...
+----
+
+This picture shows from where it is possible to navigate to a row.
+
+[ditaa, target="db-navigation-with-table-or-request-to-row", shadows=false, transparent=true]
+....
+                            +-----------+<--------+----------------------+
+                 +--------->|On a Column|         |On a Value Of a Column|
+                 |          +-----+-----+-------->+---------------------++
+                 |                |     :                               |
++----------------+------+<--------+     |                               |
+|On a Table Or a Request|        navigate to a row                      |
++----+-----------+------+<--------+     |                               |
+     :           |                |     v                               |
+     |           |          +-----+-----+<--------+-------------------+ |
+     |           +--------->|  On a Row |         |On a Value Of a Row| |
+     |                      +--+----+---+-------->+----------+--------+ |
+     |                      ^  ^    :   ^                    :          |
+     |  navigate to a row   |  |    |   |                    |          |
+     +----------------------+  +----+   +--------------------+----------+
+                         navigate to a row         navigate to a row
+....
+
+The origin point of the `row(...)` methods is the Table or the Request.
+So if the method is executed from a row, from a column or from a value
+it is like if the method was executed from the Table or the Request.
+
+When the position is on a row, it is possible to return to the origin.
+
+[source,java]
+----
+// Return to the table from a row of a table
+assertThat(table).row().returnToTable()...
+// Return to the request from a row of a request
+assertThat(request).row().returnToRequest()...
+----
+
+That also means that the two navigations below are equivalent.
+
+[source,java]
+----
+// Navigate to the first row
+// Return to the table from this row
+// Navigate to the next row
+assertThat(table).row().returnToTable().row()...
+// The same thing is done but the return to the table is implicit
+assertThat(table).row().row()...
+----
+
+=== To a Column
+
+These methods are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/navigation/ToColumn.html[ToColumn] interface.
+
+The `column()` method allows to navigate to the next column after the column reached on the last call.
+
+[source,java]
+----
+// If it is the first call, navigate to the first column
+assertThat(tableOrRequest).column()...
+// It is possible to chain the calls to navigate to the next column
+// after the first column (so the second column)
+assertThat(tableOrRequest).column().column()...
+----
+
+The `column(int index)` method with `index` as parameter
+allows to navigate to the column corresponding to column at the index.
+
+[source,java]
+----
+// Navigate to the column at index 2
+assertThat(tableOrRequest).column(2)...
+// It is possible to chain the calls to navigate to another column.
+// Here column at index 6
+assertThat(tableOrRequest).column(2).column(6)...
+// It is possible to combine the calls to navigate to the next column
+// after the column at index 2. Here column at index 3
+assertThat(tableOrRequest).column(2).column()...
+// It is possible to combine the calls with other navigation methods
+// Here first column
+assertThat(tableOrRequest).row(2).column()...
+// Here column at index 3
+assertThat(tableOrRequest).row(2).column(3)...
+// Here column at index 4 because the origin remember last navigation to a column
+assertThat(tableOrRequest).column(3).row(2).column()...
+----
+
+The `column(String columnName)` method with `columnName` as parameter
+allows to navigate to the column corresponding to the column with the column name.
+
+[source,java]
+----
+// Navigate to the column with the name "SURNAME"
+assertThat(tableOrRequest).column("surname")...
+// Like for the other methods, it is possible to chain the calls
+assertThat(tableOrRequest).column("surname").column().column(6).column("id")...
+----
+
+This picture shows from where it is possible to navigate to a column.
+
+[ditaa, target="db-navigation-with-table-or-request-to-column", shadows=false, transparent=true]
+....
+      navigate to a column  navigate to a column    navigate to a column
+     +----------------------+  +----+   +---------------------+-----------+
+     |                      |  |    |   |                     |           |
+     |                      v  v    :   v                     |           |
+     |                      +--+----+---+<--------+-----------+----------+|
+     |           +--------->|On a Column|         |On a Value Of a Column||
+     |           |          +-----+-----+-------->+---------------------++|
+     :           |                |     ^                                 |
++----+-----------+------+<--------+     |                                 |
+|On a Table Or a Request|        navigate to a column                     |
++----------------+------+<--------+     |                                 |
+                 |                |     :                                 |
+                 |          +-----+-----+<--------+-------------------+   |
+                 +--------->|  On a Row |         |On a Value Of a Row+-=-+
+                            +-----------+-------->+-------------------+
+....
+
+The origin point of the `column(...)` methods is the Table or the Request.
+So if the method is executed from a row, from a column or from a value
+it is like if the method was executed from the Table or The Request.
+
+When the position is on a column, it is possible to return to the origin.
+
+[source,java]
+----
+// Return to the table from a column of a table
+assertThat(table).column().returnToTable()...
+// Return to the request from a column of a request
+assertThat(request).column().returnToRequest()...
+----
+
+That also means that the two navigations below are equivalent.
+
+[source,java]
+----
+// Navigate to the first column
+// Return to the table from this column
+// Navigate to the next column
+assertThat(table).column().returnToTable().column()...
+// The same thing is done but the return to the table is implicit
+assertThat(table).column().column()...
+----
+
+=== To a Value
+
+These methods are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/navigation/ToValue.html[ToValue]
+and the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/navigation/ToValueFromRow.html[ToValueFromRow] interfaces.
+
+The `value()` method allows to navigate to the next value after the value reached on the last call.
+
+[source,java]
+----
+// If it is the first call, navigate to the first value
+assertThat(tableOrRequest).row().value()...
+// It is possible to chain the calls to navigate to the next value
+// after the first value (so the second value)
+assertThat(tableOrRequest).column().value().value()...
+----
+
+The `value(int index)` method with `index` as parameter
+allows to navigate to the value corresponding to value at the index.
+
+[source,java]
+----
+// Navigate to the value at index 2
+assertThat(tableOrRequest).column().value(2)...
+// It is possible to chain the calls to navigate to another value.
+// Here value at index 6
+assertThat(tableOrRequest).row(4).value(2).value(6)...
+// It is possible to combine the calls to navigate to the next value
+// after the value at index 2. Here value at index 3
+assertThat(tableOrRequest).column(4).value(2).value()...
+// Here value at index 4 because the origin remember last navigation to a column
+assertThat(tableOrRequest).column().value(3).row(2).column(0).value()...
+----
+
+The `value(String columnName)` method with `columnName` as parameter (only available from a row)
+allows to navigate to the value of the column corresponding to the column with the column name.
+
+[source,java]
+----
+// Navigate to the value of the column with the name "SURNAME"
+assertThat(tableOrRequest).row().value("surname")...
+// Like for the other methods, it is possible to chain the calls
+assertThat(tableOrRequest).row().value("surname").value().value(6).value("id")...
+----
+
+This picture shows from where it is possible to navigate to a value.
+
+[ditaa, target="db-navigation-with-table-or-request-to-value", shadows=false, transparent=true]
+....
+                           +--------------------+
+                           |navigate to a value |
+                           :                    v
+                     +-----+-----+<--+----------+-----------+=--+
+                 +-->|On a Column|   |On a Value Of a Column|   |navigate to a value
+                 |   +-----+-----+-->+----------------------+<--+
+                 |         |
++----------------+------+<-+
+|On a Table Or a Request|
++----------------+------+<-+
+                 |         |
+                 |   +-----+-----+<--+-------------------+=--+
+                 +-->|  On a Row |   |On a Value Of a Row|   |navigate to a value
+                     +-----+-----+-->+----------+--------+<--+
+                           :                    ^
+                           |navigate to a value |
+                           +--------------------+
+....
+
+The origin point of the `value(...)` methods is the Row or the Column.
+So if the method is executed from a value
+it is like if the method was executed from the Row or The Column.
+
+When the position is on a value, it is possible to return to the origin.
+
+[source,java]
+----
+// Return to the column from a value
+assertThat(table).column().value().returnToColumn()...
+// Return to the row from a value
+assertThat(request).row().value().returnToRow()...
+----
+
+That also means that the two navigations below are equivalent.
+
+[source,java]
+----
+// Navigate to the first column
+// Navigate to the first value
+// Return to the column from this value
+// Navigate to the next value
+assertThat(table).column().value().returnToColumn().value()...
+// The same thing is done but the return to the column is implicit
+assertThat(table).column().value().value()...
+----
+
+== With Changes as root
+
+=== To Changes
+
+These methods are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/navigation/ToChanges.html[ToChanges] interface.
+
+The `ofCreation()` method allows to navigate to the changes of creation.
+
+[source,java]
+----
+// Navigate to the changes of creation
+assertThat(changes).ofCreation()...
+----
+
+The `ofCreationOnTable()` method with `tableName` as parameter
+allows to navigate to the changes of creation of a table.
+
+[source,java]
+----
+// Navigate to the changes of creation on the "members" table
+assertThat(changes).ofCreationOnTable("members")...
+----
+
+The `ofCreation()` method allows to navigate to the changes of modification.
+
+[source,java]
+----
+// Navigate to the changes of modification
+assertThat(changes).ofModification()...
+----
+
+The `ofModificationOnTable()` method with `tableName` as parameter
+allows to navigate to the changes of modification of a table.
+
+[source,java]
+----
+// Navigate to the changes of modification on the "members" table
+assertThat(changes).ofModificationOnTable("members")...
+----
+
+The `ofCreation()` method allows to navigate to the changes of deletion.
+
+[source,java]
+----
+// Navigate to the changes of deletion
+assertThat(changes).ofDeletion()...
+----
+
+The `ofDeletionOnTable()` method with `tableName` as parameter
+allows to navigate to the changes of deletion of a table.
+
+[source,java]
+----
+// Navigate to the changes of deletion on the "members" table
+assertThat(changes).ofDeletionOnTable("members")...
+----
+
+The `onTable(String tableName)` method with `tableName` as parameter
+allows to navigate to the changes of a table.
+
+[source,java]
+----
+// Navigate to all the changes on the "members" table
+assertThat(changes).onTable("members")...
+----
+
+The `ofAll()` method allows to navigate to all the changes.
+
+[source,java]
+----
+// Navigate to all the changes
+assertThat(changes).ofAll()...
+// The navigation can be chained
+assertThat(changes).ofCreation().ofAll()...
+----
+
+This picture shows from where it is possible to navigate to changes.
+
+[ditaa, target="db-navigation-with-changes-to-changes", shadows=false, transparent=true]
+....
+                       +--------------------------------+----------------------+
+                       |         navigate to changes    |                      :
+                       |                          +-----+-----+<---+-----------+----------+
+                       |navigate to changes   +-->|On a Column|    |On a Value Of a Column|
+                       +------------------+   |   +-----+-----+--->+----------------------+
+                       |                  |   |         |
+ navigate to changes   v                  :   |         |
+   +------------=+-----+-----+<-----+-----+---+-+<------+
+   |             |On Changes |      |On a Change|
+   +------------>+-----+-----+----->+---------+-+<------+
+                       ^                      |         |
+                       |                      |   +-----+--+<---+-------------------+
+                       |                      +-->|On a Row|    |On a Value Of a Row|
+                       |                          +-----+--+--->+-----------+-------+
+                       |         navigate to changes    :                   |
+                       +--------------------------------+-------------------+
+....
+
+The origin point of these methods is the Changes.
+So if the method is executed from a change, a column, a row or a value
+it is like if the method was executed from the Changes.
+
+=== To a Change
+
+These methods are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/navigation/ToChange.html[ToChange] interface.
+
+The `change()` method allows to navigate to the next change after the change reached on the last call.
+
+[source,java]
+----
+// If it is the first call, navigate to the first change
+assertThat(changes).change()...
+// It is possible to chain the calls to navigate to the next change
+// after the first change (so the second change)
+assertThat(changes).change().change()...
+----
+
+The `change(int index)` method with `index` as parameter
+allows to navigate to the change corresponding to change at the index.
+
+[source,java]
+----
+// Navigate to the change at index 2
+assertThat(changes).change().change(2)...
+// It is possible to chain the calls to navigate to another change.
+// Here change at index 7
+assertThat(changes).change(6).change()...
+----
+
+The `changeOnTable(String tableName)` method with `tableName` as parameter
+allows to navigate to the next change corresponding to the table name after the change corresponding to the table name reached on the last call.
+
+[source,java]
+----
+// If it is the first call, navigate to the first change on "members" table
+assertThat(changes).changeOnTable("members")...
+// It is possible to chain the calls to navigate to the next change on the "members" table
+// after the first change on the "members" table (so the second change)
+assertThat(changes).changeOnTable("members").changeOnTable("members")...
+----
+
+The `changeOnTable(String tableName, int index)` method with `tableName` and `index` as parameters
+allows to navigate to the change corresponding to change on the table name at the index.
+
+[source,java]
+----
+// Navigate to the change at index 2 of "members" table
+assertThat(changes).changeOnTable("members").changeOnTable("members", 2)...
+// It is possible to chain the calls to navigate to another change.
+// Here change at index 7 of "members" table
+assertThat(changes).changeOnTable("members", 6).changeOnTable("members")...
+----
+
+There are 12 other methods which are derived from the 4 methods above :
+
+*   `changeOfCreation()`, `changeOfModification()` and `changeOfDeletion()`
+methods which allows to navigate to the next change of creation, modification and deletion like `change()` method
+
+[source,java]
+----
+// If it is the first call, navigate to the first change of creation
+assertThat(changes).changeOfCreation()...
+// Navigate to the first change of creation
+// and after the second change of creation
+assertThat(changes).changeOfCreation().changeOfCreation()...
+----
+
+*   `changeOfCreation(int index)`, `changeOfModification(int index)` and `changeOfDeletion(int index)`
+methods with `index` as parameter which allows to navigate to the change of creation, modification and deletion corresponding to change of creation, modification and deletion at the index like `change(int index)` method
+
+[source,java]
+----
+// Navigate to the change of modification at index 2
+assertThat(changes).changeOfModification()
+                   .changeOfModification(2)...
+// It is possible to chain the calls
+// to navigate to another change of modification.
+// Here change of modification at index 5
+assertThat(changes).changeOfModification(4)
+                   .changeOfModification()...
+----
+
+*   `changeOfCreationOnTable(String tableName)`, `changeOfModificationOnTable(String tableName)` and `changeOfDeletionOnTable(String tableName)`
+methods with `tableName` as parameter which allows to navigate to the next change of creation, modification and deletion corresponding to the table name like `changeOnTable(String tableName)` method
+
+[source,java]
+----
+// If it is the first call, navigate
+// to the first change of creation on "members" table
+assertThat(changes).changeOfCreationOnTable("members")...
+// It is possible to chain the calls to navigate
+// to the next change of creation on the "members" table
+// after the first change of creation on the "members" table
+// (so the second change of creation)
+assertThat(changes).changeOfCreationOnTable("members")
+                   .changeOfCreationOnTable("members")...
+----
+
+*   `changeOfCreationOnTable(String tableName, int index)`, `changeOfModificationOnTable(String tableName, int index)` and `changeOfDeletionOnTable(String tableName, int index)`
+methods with `tableName` and `index` as parameters which allows to navigate to the next change of creation, modification and deletion corresponding to the table name and index like `changeOnTable(String tableName, int index)` method
+
+[source,java]
+----
+// Navigate to the change of deletion at index 2 of "members" table
+assertThat(changes).changeOfDeletionOnTable("members")
+                   .changeOfDeletionOnTable("members", 2)...
+// It is possible to chain the calls
+// to navigate to another change of deletion.
+// Here change of deletion at index 7 of "members" table
+assertThat(changes).changeOfDeletionOnTable("members", 6)
+                   .changeOfDeletionOnTable("members")...
+----
+
+The `changeOnTableWithPks(String tableName, Object... pksValues)` method
+allows to navigate to the change corresponding to the table and the primary keys.
+
+[source,java]
+----
+// Navigate to the change with primary key 1 of "members" table
+assertThat(changes).changeOnTableWithPks("members", 1)...
+// It is possible to chain the calls to navigate to the next change
+// after the change with primary key 1 of "members" table
+assertThat(changes).changeOnTableWithPks("members", 1).change()...
+----
+
+This picture shows from where it is possible to navigate to a change.
+
+[ditaa, target="db-navigation-with-changes-to-change", shadows=false, transparent=true]
+....
+                                    navigate to change
+                         +-------------+----------------------+
+                         |             |                      :
+      navigate to change |       +-----+-----+<---+-----------+----------+
+      +------------------+   +-->|On a Column|    |On a Value Of a Column|
+      |                  |   |   +-----+-----+--->+----------------------+
+      :                  v   |         |
++-----+-----+<-----+-----+---+-+<------+
+|On Changes |      |On a Change|
++-----------+----->+-----+---+-+<------+
+                   |     ^   |         |
+                   |     |   |   +-----+--+<---+-------------------+
+ navigate to change|     |   +-->|On a Row|    |On a Value Of a Row|
+                   |     |       +-----+--+--->+-----------+-------+
+                   |     |             :                   |
+                   +-----+-------------+-------------------+
+                                    navigate to change
+....
+
+The origin point of the `change(...)` methods is the current Changes
+and the origin point of other methods is the Changes of origin.
+So if the method is executed from a change, a column, a row or a value
+it is like if the method was executed from these origins.
+
+That means there is an important difference.
+
+[source,java]
+----
+// Navigate to the changes of deletion
+// Navigate to the first change of this changes of deletion
+assertThat(changes).ofDeletion().change()...
+// Navigate to the changes of deletion
+// Navigate to the first change of this changes of creation
+assertThat(changes).ofDeletion().changeOfCreation()...
+// This is equivalent to
+assertThat(changes).ofDeletion().ofAll().changeOfCreation()...
+----
+
+When the position is on a change, it is possible to return to the origin.
+
+[source,java]
+----
+// Return to the change from a column
+assertThat(changes).change().returnToChanges()...
+----
+
+That also means that the two navigations below are equivalent.
+
+[source,java]
+----
+// Navigate to the first change
+// Return to the changes
+// Navigate to the next change
+assertThat(changes).change().returnToChanges().change()...
+// The same thing is done but the return to the changes is implicit
+assertThat(changes).change().change()...
+----
+
+=== To a Row
+
+These methods are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/navigation/ToRowFromChange.html[ToRowFromChange] interface.
+
+The `rowAtStartPoint()` and `rowAtEndPoint()` methods
+allows to navigate to the row at the start point and at the end point.
+
+[source,java]
+----
+// Navigate to the row at the start point
+assertThat(changes).change().rowAtStartPoint()...
+// Navigate to the row at the end point (note that the methods can be chained)
+assertThat(changes).change().rowAtStartPoint().rowAtEndPoint()...
+----
+
+This picture shows from where it is possible to navigate to a row.
+
+[ditaa, target="db-navigation-with-changes-to-row", shadows=false, transparent=true]
+....
+                             +-----------+<---+----------------------+
+                         +-->|On a Column|    |On a Value Of a Column|
+                         |   +-----+--+--+--->+--------------------+-+
+                         |         |  :                            :
++-----------+<-----+-----+-----+<--+  |                            |
+|On Changes |      |On a Change|  navigate to a row                |
++-----------+----->+-+---+-----+<--+  |                            |
+                     :   |         |  v                            |
+    navigate to a row|   |   +-----+--+<---+-------------------+   |
+                     |   +-->|On a Row|    |On a Value Of a Row|   |
+                     +------>++--+--+-+--->+-----------+-------+   |
+                              :  ^  ^                  |           |
+                              |  |  |                  |           |
+                              +--+  +------------------+-----------+
+                       navigate to a row      navigate to a row
+....
+
+The origin point of the `rowAtStartPoint()` and `rowAtEndPoint()` methods is the Change.
+So if the method is executed from a row, from a column or from a value
+it is like if the method was executed from the Change.
+
+When the position is on a row, it is possible to return to the origin.
+
+[source,java]
+----
+// Return to the change from a row
+assertThat(changes).change().rowAtStartPoint().returnToChange()...
+----
+
+That also means that the two navigations below are equivalent.
+
+[source,java]
+----
+// Navigate to the first change
+// Navigate to the row at start point
+// Return to the change from this column
+// Navigate to the row at end point
+assertThat(changes).change().rowAtStartPoint().returnToChange().rowAtEndPoint()...
+// The same thing is done but the return to the change is implicit
+assertThat(changes).change().rowAtStartPoint().rowAtEndPoint()...
+----
+
+=== To a Column
+
+These methods are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/navigation/ToColumn.html[ToColumn]
+and https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/navigation/ToColumnFromChange.html[ToColumnFromChange] interfaces.
+
+The `column()` method allows to navigate to the next column after the column reached on the last call.
+
+[source,java]
+----
+// If it is the first call, navigate to the first column
+assertThat(changes).change().column()...
+// It is possible to chain the calls to navigate to the next column
+// after the first column (so the second column)
+assertThat(changes).change().column().column()...
+----
+
+The `column(int index)` method with `index` as parameter
+allows to navigate to the column corresponding to column at the index.
+
+[source,java]
+----
+// Navigate to the column at index 2
+assertThat(changes).change().column(2)...
+// It is possible to chain the calls to navigate to another column.
+// Here column at index 6
+assertThat(changes).change().column(2).column(6)...
+// It is possible to combine the calls to navigate to the next column
+// after the column at index 2. Here column at index 3
+assertThat(changes).change().column(2).column()...
+// It is possible to combine the calls with other navigation methods
+// Here first column
+assertThat(changes).change().rowAtStartPoint().column()...
+// Here column at index 3
+assertThat(changes).change().rowAtEndPoint().column(3)...
+// Here column at index 4 because the origin remember last navigation to a column
+assertThat(changes).change().column(3).rowAtEndPoint().column()...
+----
+
+The `column(String columnName)` method with `columnName` as parameter
+allows to navigate to the column corresponding to the column with the column name.
+
+[source,java]
+----
+// Navigate to the column with the name "SURNAME"
+assertThat(changes).change().column("surname")...
+// Like for the other methods, it is possible to chain the calls
+assertThat(changes).change().column("surname").column().column(6).column("id")...
+----
+
+The `columnAmongTheModifiedOnes()` method allows to navigate to the next column with modifications after the column reached on the last call.
+
+[source,java]
+----
+// If it is the first call, navigate to the first column with modifications
+assertThat(changes).change().columnAmongTheModifiedOnes()...
+// It is possible to chain the calls to navigate to the next column
+// after the first column (so the second column with modifications)
+assertThat(changes).change().columnAmongTheModifiedOnes()
+                            .columnAmongTheModifiedOnes()...
+----
+
+The `columnAmongTheModifiedOnes(int index)` method with `index` as parameter allows to navigate to the column with modifications corresponding to column at the index.
+
+[source,java]
+----
+// Navigate to the column at index 2 (the third column with modifications)
+assertThat(changes).change().columnAmongTheModifiedOnes(2)...
+// It is possible to chain the calls to navigate to another column.
+// Here column at index 0 (the first column with modifications)
+assertThat(changes).change().columnAmongTheModifiedOnes(2)
+                            .columnAmongTheModifiedOnes(0)...
+----
+
+The `columnAmongTheModifiedOnes(String columnName)` method with `columnName` as parameter
+allows to navigate to the column with modifications corresponding to the column with the column name.
+
+[source,java]
+----
+// Navigate to the column with modifications and the name "SURNAME"
+assertThat(changes).change().columnAmongTheModifiedOnes("surname")...
+// Like for the other methods, it is possible to chain the calls
+assertThat(changes).change().column("surname").columnAmongTheModifiedOnes()
+                            .column(6).columnAmongTheModifiedOnes("id")...
+----
+
+This picture shows from where it is possible to navigate to a column.
+
+[ditaa, target="db-navigation-with-changes-to-column", shadows=false, transparent=true]
+....
+                       navigate to a column     navigate to a column
+                               +---+    +-----------------+-----------+
+                               |   |    |                 |           |
+                               :   v    v                 |           |
+                     +------>+-+---+-----+<---+-----------+----------+|
+ navigate to a column|   +-->|On a Column|    |On a Value Of a Column||
+                     |   |   +-----+-----+--->+----------------------+|
+                     :   |         |  ^                               |
++-----------+<-----+-+---+-----+<--+  |                               |
+|On Changes |      |On a Change|  navigate to a column                |
++-----------+----->+-----+-----+<--+  |                               |
+                         |         |  :                               |
+                         |   +-----+--+<---+-------------------+      |
+                         +-->|On a Row|    |On a Value Of a Row|=-----+
+                             +--------+--->+-------------------+
+....
+
+The origin point of the `column(...)` methods is the Change.
+So if the method is executed from a row, from a column or from a value
+it is like if the method was executed from the Change.
+
+When the position is on a column, it is possible to return to the origin.
+
+[source,java]
+----
+// Return to the change from a column
+assertThat(changes).change().column().returnToChange()...
+----
+
+That also means that the two navigations below are equivalent.
+
+[source,java]
+----
+// Navigate to the first change
+// Navigate to the first column
+// Return to the change from this column
+// Navigate to the next column
+assertThat(changes).change().column().returnToChange().column()...
+// The same thing is done but the return to the change is implicit
+assertThat(changes).change().column().column()...
+----
+
+=== To a Value
+
+These methods are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/navigation/ToValue.html[ToValue],
+https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/navigation/ToValueFromColumn.html[ToValueFromColumn]
+and https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/navigation/ToValueFromRow.html[ToValueFromRow] interfaces.
+
+This picture shows from where it is possible to navigate to a value.
+
+The `value()` method (only available from a row) allows to navigate to the next value after the value reached on the last call.
+
+[source,java]
+----
+// If it is the first call, navigate to the first value
+assertThat(changes).change().rowAtEndPoint().value()...
+// It is possible to chain the calls to navigate to the next value
+// after the first value (so the second value)
+assertThat(changes).change().rowAtEndPoint().value().value()...
+----
+
+The `value(int index)` method with `index` as parameter (only available from a row)
+allows to navigate to the value corresponding to value at the index.
+
+[source,java]
+----
+// Navigate to the value at index 2
+assertThat(changes).change().rowAtEndPoint().value(2)...
+// It is possible to chain the calls to navigate to another value.
+// Here value at index 6
+assertThat(changes).change().rowAtEndPoint().value(2).value(6)...
+// It is possible to combine the calls to navigate to the next value
+// after the value at index 2. Here value at index 3
+assertThat(changes).change().rowAtEndPoint().value(2).value()...
+// Here value at index 4 because the origin remember last navigation to the row
+assertThat(changes).change().rowAtEndPoint().value(3).column(2).rowAtEndPoint().value()...
+----
+
+The `value(String columnName)` method with `columnName` as parameter (only available from a row)
+allows to navigate to the value of the column corresponding to the column with the column name.
+
+[source,java]
+----
+// Navigate to the value of the column with the name "SURNAME"
+assertThat(changes).change().rowAtEndPoint().value("surname")...
+// Like for the other methods, it is possible to chain the calls
+assertThat(changes).change().rowAtEndPoint().value("surname").value().value(6).value("id")...
+----
+
+The `valueAtStartPoint()` and `valueAtEndPoint()` methods (only available from a column)
+allows to navigate to the value at the start point and at the end point.
+
+[source,java]
+----
+// Navigate to the value at the start point of the row
+assertThat(changes).change().column().valueAtStartPoint()...
+// Navigate to the value at the end point of the row (note that the methods can be chained)
+assertThat(changes).change().column().valueAtStartPoint().valueAtEndPoint()...
+----
+
+This picture shows from where it is possible to navigate to a value.
+
+[ditaa, target="db-navigation-with-changes-to-value", shadows=false, transparent=true]
+....
+                             +-------------------+
+                             |navigate to a value|
+                             :                   v
+                         +---+-------+<---+------+---------------+=-+
+                     +-->|On a Column|    |On a Value Of a Column|  |navigate to a value
+                     |   +-----+-----+--->+----------------------+<-+
+                     |         |
++-----------+<-+-----+-----+<--+
+|On Changes |  |On a Change|
++-----------+->+-----+-----+<--+
+                     |         |
+                     |   +-----+--+<---+-------------------+=-+
+                     +-->|On a Row|    |On a Value Of a Row|  |navigate to a value
+                         +---+----+--->+---------+---------+<-+
+                             :                   ^
+                             |navigate to a value|
+                             +-------------------+
+....
+
+The origin point of the `value(...)` methods is the Row or the Column.
+So if the method is executed from a value
+it is like if the method was executed from the Row or The Column.
+
+When the position is on a value, it is possible to return to the origin.
+
+[source,java]
+----
+// Return to the column from a value
+assertThat(changes).change().column().valueAtEndPoint().returnToColumn()...
+// Return to the row from a value
+assertThat(changes).change().rowAtEndPoint().value().returnToRow()...
+----
+
+That also means that the two navigations below are equivalent.
+
+[source,java]
+----
+// Navigate to the first change
+// Navigate to the row at end point
+// Navigate to the first value
+// Return to the column from this value
+// Navigate to the next value
+assertThat(changes).change().rowAtEndPoint().value().returnToRow().value()...
+// The same thing is done but the return to the row is implicit
+assertThat(changes).change().rowAtEndPoint().value().value()...
+----

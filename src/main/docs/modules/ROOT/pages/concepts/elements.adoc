@@ -1,0 +1,529 @@
+= Elements of the database
+
+Here the elements on which it is possible to make assertions.
+
+Note that, there are only 3 root elements : https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.html[Table],
+https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Request.html[Request]
+and https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Changes.html[Changes].
+
+That means that the other elements are components or sub components of a root element.
+
+A root element is an element on which the assertion start (in practice, the parameter of a `assertThat(...)` method).
+
+[[table]]
+== Table
+
+A https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.html[Table] represents
+a table in the database.
+
+A https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.html[Table] can be constructed with the builder method `table(String name)` from
+https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/AssertDbConnection.html[AssertDbConnection].
+
+[source,java]
+----
+// Prepare the connection
+AssertDbConnection connection = ...
+// Declare the "members" table by using a AssertDbConnection table builder
+Table table1 = connection.table("members").build();
+----
+
+For more information about table construction, see the
+https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.Builder.html[Table.Builder] javadoc.
+
+.Representation of "table1"
+|====
+|ID |NAME |FIRSTNAME |SURNAME |BIRTHDATE |SIZE
+
+|1 |'Hewson' |'Paul David' |'Bono' |05-10-60 |1.75
+|2 |'Evans' |'David Howell' |'The Edge' |08-08-61 |1.77
+|3 |'Clayton' |'Adam' | |03-13-60 |1.78
+|4 |'Mullen' |'Larry' | |10-31-61 |1.70
+|====
+
+For a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.html[Table],
+it is possible to choose the columns to include and to exclude in the assertions.
+
+[source,java]
+----
+// Get the data of the "id" and "name" columns of the "members" table
+Table table2 = connection.table("members").columnsToCheck(new String[] { "id", "name" }).build();
+// Get the data of the "members" table but not of the "birthdate" column
+Table table3 = connection.table("members").columnsToExclude(new String[] { "birthdate" }).build();
+// Get the data of the "name" column of the "members" table (because "id" is included and excluded)
+Table table4 = connection.table("members").columnsToCheck(new String[] { "id", "name" }).columnsToExclude(new String[] { "id" }).build();
+----
+
+.Representation of "table2"
+|====
+|ID |NAME
+
+|1 |'Hewson'
+|2 |'Evans'
+|3 |'Clayton'
+|4 |'Mullen'
+|====
+
+.Representation of "table3"
+|====
+|ID |NAME |FIRSTNAME |SURNAME |SIZE
+
+|1 |'Hewson' |'Paul David' |'Bono' |1.75
+|2 |'Evans' |'David Howell' |'The Edge' |1.77
+|3 |'Clayton' |'Adam' | |1.78
+|4 |'Mullen' |'Larry' | |1.70
+|====
+
+.Representation of "table4"
+|====
+|NAME
+
+|'Hewson'
+|'Evans'
+|'Clayton'
+|'Mullen'
+|====
+
+Since version <<assertj-db-1-2-0-release-notes,1.2.0>>, there are the possibility to indicate delimiters (start delimiter and end delimiter) and `https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.Order.html[Order]`.
+
+The delimiters are useful when the table name or column name is a reserved word or contains special characters (like space or '%').
+`https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.Order.html[Order]` allows to choose the order of the `Row`.
+
+[source,java]
+----
+// The line code below throws SQLException because "group" is SQL reserved word
+Table table5 = connection.table("group").build();
+// Get the data of the "group" table by using "`" delimiter
+// That generates a request
+Table table6 = connection.table("group").delimiters('`', '`').build();
+
+// Get the data from "members" table and order on "name" column in ascending order
+Table table7 = connection.table("members").columnsToOrder(new Order[] { Order.asc("name") }).build();
+----
+
+.Representation of "table6"
+|====
+|ID |NAME
+
+|1 |'U2'
+|2 |'Colplay'
+|====
+
+.Representation of "table7"
+|====
+|ID |NAME |FIRSTNAME |SURNAME |BIRTHDATE |SIZE
+
+|3 |'Clayton' |'Adam' | |03-13-60 |1.78
+|2 |'Evans' |'David Howell' |'The Edge' |08-08-61 |1.77
+|1 |'Hewson' |'Paul David' |'Bono' |05-10-60 |1.75
+|4 |'Mullen' |'Larry' | |10-31-61 |1.70
+|====
+
+[[request]]
+== Request
+
+A https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Request.html[Request] represents
+a SQL request on the database.
+
+Like a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.html[Table],
+a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Request.html[Request]
+can be constructed with the builder method `request(String sql)` from
+https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/AssertDbConnection.html[AssertDbConnection].
+
+[source,java]
+----
+// Prepare the connection
+AssertDbConnection connection = ...
+// Declare a request which gets the name and the firstname of the corresponding members
+Request request1 = connection.request("select name, firstname from members where id = 2 or id = 3").build();
+----
+
+For more information about request construction, see the
+https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Request.Builder.html[Request.Builder] javadoc.
+
+.Representation of "request1"
+|====
+|NAME |FIRSTNAME |SURNAME
+
+|'Evans' |'David Howell' |'The Edge'
+|'Clayton' |'Adam' |
+|====
+
+For a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Request.html[Request],
+it is possible to use a simple SQL request or a SQL request with one or many parameters.
+
+[source,java]
+----
+// Declare a request which gets the name and the firstname of the members
+// and use "%e%" as a parameter
+Request request2 = connection.request(
+                               "select name, firstname from members " +
+                               "where name like ?;")
+                               .parameters("%e%")
+                               .build();
+// Declare a request which gets the name and the firstname of the members
+// and use "%e%" and "%Paul%" as parameters
+Request request3 = connection.request(
+                               "select name, firstname from members " +
+                               "where name like ? and firstname like ?;")
+                               .parameters("%e%", "%Paul%")
+                               .build();
+----
+
+.Representation of "request2"
+|====
+|NAME |FIRSTNAME |SURNAME
+
+|'Hewson' |'Paul David' |'Bono'
+|'Evans' |'David Howell' |'The Edge'
+|'Mullen' |'Larry' |
+|====
+
+.Representation of "request3"
+|====
+|NAME |FIRSTNAME |SURNAME
+
+|'Hewson' |'Paul David' |'Bono'
+|====
+
+[[changes]]
+== Changes
+
+The https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Changes.html[Changes]
+are the differences of states in database between a `start point` and a `end point`.
+
+image::db-changes-concept.png[]
+
+Assume that there are these SQL statements between the start point and the end point.
+
+[source,java]
+----
+DELETE FROM ALBUMS WHERE ID = 15;
+INSERT INTO MEMBERS(ID, NAME, FIRSTNAME) VALUES(5, 'McGuiness', 'Paul');
+UPDATE MEMBERS SET SURNAME = 'Bono Vox' WHERE ID = 1;
+UPDATE ALBUMS SET NAME = 'Rattle & Hum', LIVE = true WHERE ID = 8;
+
+----
+
+[source,java]
+----
+// Prepare the connection
+AssertDbConnection connection = ...
+// The changes can be on a DataSource or on a Source
+Changes changes1 = connection.changes().build();
+// The changes can also be on a Table or on a Request
+Changes changes2 = connection.changes().table(table3).build();
+Changes changes3 = connection.changes().request(request2).build();
+// The names of the columns used for the primary key are found in the metadata for a table
+// but for a request it can be important to set the primary key
+Changes changes4 = connection.changes().request("select name, firstname from members", r -> r.pksName("name")).build();
+----
+
+For more information about changes construction, see the
+https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Changes.Builder.html[Changes.Builder] javadoc.
+
+The changes are ordered :
+
+*   First by the type of the change : creation, modification and after deletion
+*   After if it is a change on a table by the name of the table
+*   To finish by the values of the primary key and if there are no primary key by the values of the row (for a modification)
+
+As indicated above, the primary key is used to order the changes.
+But more important, the primary key is used to determinate which rows at the same with modifications.
+
+In Representation of "changes3" the modification of first row of the table become a creation and deletion.
+
+.Representation of "changes1"
+[cols="1,2,3,4a"]
+|====
+|Creation |"MEMBERS" table |`5` as PK |
+!====
+!!ID !NAME !FIRSTNAME !SURNAME !BIRTHDATE !SIZE
+
+!At start point !!!!!!
+!At end point !5 !'McGuiness' !'Paul' !!!
+!====
+|Modification |"ALBUMS" table |`8` as PK |
+!====
+!!ID !RELEASE !TITLE !NUMBEROFSONGS !DURATION !LIVE
+
+!At start point !8 !10-10-88 !'Rattle and Hum' !17 !72:27 !
+!At end point !8 !10-10-88 !'Rattle & Hum' !17 !72:27 !true
+!====
+|Modification |"MEMBERS" table |`1` as PK |
+!====
+!!ID !NAME !FIRSTNAME !SURNAME !BIRTHDATE !SIZE
+
+!At start point !1 !'Hewson' !'Paul David' !'Bono' !05-10-60 !1.75
+!At end point !1 !'Hewson' !'Paul David' !'Bono Vox' !05-10-60 !1.75
+!====
+|Deletion |"ALBUMS" table |`15` as PK |
+!====
+!!ID !RELEASE !TITLE !NUMBEROFSONGS !DURATION !LIVE
+
+!At start point !15 !09-09-14   !'Songs of Innocence' !11 !48:11!
+!At end point !!!!!!
+!====
+|====
+
+.Representation of "changes2"
+[cols="1,2,3,4a"]
+|====
+|Creation |"MEMBERS" table |`5` as PK |
+!====
+!!ID !NAME !FIRSTNAME !SURNAME !SIZE
+
+!At start point !!!!!
+!At end point !5 !'McGuiness' !'Paul' ! !
+!====
+|Modification |"MEMBERS" table |`1` as PK |
+!====
+!!ID !NAME !FIRSTNAME !SURNAME !SIZE
+
+!At start point !1 !'Hewson' !'Paul David' !'Bono' !1.75
+!At end point !1 !'Hewson' !'Paul David' !'Bono Vox' !1.75
+!====
+|====
+
+.Representation of "changes3"
+[cols="1,2,3,4a"]
+|====
+|Creation | |No PK |
+!====
+!!NAME !FIRSTNAME !SURNAME
+
+!At start point !!!
+!At end point !'Hewson' !'Paul David' !'Bono Vox'
+!====
+|Creation | |No PK |
+!====
+!!NAME !FIRSTNAME !SURNAME
+
+!At start point !!!
+!At end point !'McGuiness' !'Paul' !
+!====
+|Deletion | |No PK |
+!====
+!!NAME !FIRSTNAME !SURNAME
+
+!At start point !!!
+!At end point !'Hewson' !'Paul David' !'Bono Vox'
+!====
+|====
+
+.Representation of "changes4"
+[cols="1,2,3,4a"]
+|====
+|Creation | |`'McGuiness'` as PK |
+!====
+!!NAME !FIRSTNAME !SURNAME
+
+!At start point !!!
+!At end point !'McGuiness' !'Paul' !
+!====
+|Modification | |`'Hewson'` as PK |
+!====
+!!NAME !FIRSTNAME !SURNAME
+
+!At start point !'Hewson' !'Paul David' !'Bono'
+!At end point !'Hewson' !'Paul David' !'Bono Vox'
+!====
+|====
+
+[[change]]
+== Change
+
+A https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Change.html[Change]
+is an element of the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Changes.html[Changes].
+
+Below framed in red the first https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Change.html[Change]
+of "changes2".
+
+.Representation of "changes2"
+[cols="1,2,3,4a"]
+|====
+|Creation |"MEMBERS" table |`5` as PK |
+!====
+!!ID !NAME !FIRSTNAME !SURNAME !SIZE
+
+!At start point !!!!!
+!At end point !5 !'McGuiness' !'Paul' ! !
+!====
+|Modification |"MEMBERS" table |`1` as PK |
+!====
+!!ID !NAME !FIRSTNAME !SURNAME !SIZE
+
+!At start point !1 !'Hewson' !'Paul David' !'Bono' !1.75
+!At end point !1 !'Hewson' !'Paul David' !'Bono Vox' !1.75
+!====
+|====
+
+[[row]]
+== Row
+
+A https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Row.html[Row]
+can represent a row of a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.html[Table]
+, of a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Request.html[Request] or
+of a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Change.html[Change].
+
+Below framed in red the third https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Row.html[Row] of "table3".
+
+.Representation of "table3"
+|====
+|ID |NAME |FIRSTNAME |SURNAME |SIZE
+
+|1 |'Hewson' |'Paul David' |'Bono' |1.75
+|2 |'Evans' |'David Howell' |'The Edge' |1.77
+|3 |'Clayton' |'Adam' | |1.78
+|4 |'Mullen' |'Larry' | |1.70
+|====
+
+Below framed in red the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Row.html[Row] of "request2".
+
+.Representation of "request2"
+|====
+|NAME |FIRSTNAME |SURNAME
+
+|'Hewson' |'Paul David' |'Bono'
+|'Evans' |'David Howell' |'The Edge'
+|'Mullen' |'Larry' |
+|====
+
+Below framed in red the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Row.html[Row] at end point of
+the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Change.html[Change]
+of "changes3".
+
+.Representation of "changes2"
+[cols="1,2,3,4a"]
+|====
+|Creation |"MEMBERS" table |`5` as PK |
+!====
+!!ID !NAME !FIRSTNAME !SURNAME !SIZE
+
+!At start point !!!!!
+!At end point !5 !'McGuiness' !'Paul' ! !
+!====
+|Modification |"MEMBERS" table |`1` as PK |
+!====
+!!ID !NAME !FIRSTNAME !SURNAME !SIZE
+
+!At start point !1 !'Hewson' !'Paul David' !'Bono' !1.75
+!At end point !1 !'Hewson' !'Paul David' !'Bono Vox' !1.75
+!====
+|====
+
+[[column]]
+== Column
+
+A https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Column.html[Column]
+can represent a column of a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.html[Table]
+, of a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Request.html[Request] or
+of a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Change.html[Change].
+
+Below framed in red the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Column.html[Column] of "table3".
+
+.Representation of "table3"
+|====
+|ID |NAME |FIRSTNAME |SURNAME |SIZE
+
+|1 |'Hewson' |'Paul David' |'Bono' |1.75
+|2 |'Evans' |'David Howell' |'The Edge' |1.77
+|3 |'Clayton' |'Adam' | |1.78
+|4 |'Mullen' |'Larry' | |1.70
+|====
+
+Below framed in red the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Column.html[Column] of "request2".
+
+.Representation of "request2"
+|====
+|NAME |FIRSTNAME |SURNAME
+
+|'Hewson' |'Paul David' |'Bono'
+|'Evans' |'David Howell' |'The Edge'
+|'Mullen' |'Larry' |
+|====
+
+Below framed in red the fourth https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Column.html[Column] of
+the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Change.html[Change]
+of "changes3".
+
+.Representation of "changes2"
+[cols="1,2,3,4a"]
+|====
+|Creation |"MEMBERS" table |`5` as PK |
+!====
+!!ID !NAME !FIRSTNAME !SURNAME !SIZE
+
+!At start point !!!!!
+!At end point !5 !'McGuiness' !'Paul' ! !
+!====
+|Modification |"MEMBERS" table |`1` as PK |
+!====
+!!ID !NAME !FIRSTNAME !SURNAME !SIZE
+
+!At start point !1 !'Hewson' !'Paul David' !'Bono' !1.75
+!At end point !1 !'Hewson' !'Paul David' !'Bono Vox' !1.75
+!====
+|====
+
+[[value]]
+== Value
+
+A value can be in a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Row.html[Row]
+or in a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Column.html[Column].
+
+Below framed in red (depending of the path) :
+
+*   the second value of the third https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Row.html[Row] of "table3"
+*   the third value of the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Column.html[Column] of "table3"
+
+.Representation of "table3"
+|====
+|ID |NAME |FIRSTNAME |SURNAME |SIZE
+
+|1 |'Hewson' |'Paul David' |'Bono' |1.75
+|2 |'Evans' |'David Howell' |'The Edge' |1.77
+|3 |'Clayton' |'Adam' | |1.78
+|4 |'Mullen' |'Larry' | |1.70
+|====
+
+Below framed in red (depending of the path) :
+
+*   the second value of the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Row.html[Row] of "request2"
+*   the second value of the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Column.html[Column] of "request2"
+
+.Representation of "request2"
+|====
+|NAME |FIRSTNAME |SURNAME
+
+|'Hewson' |'Paul David' |'Bono'
+|'Evans' |'David Howell' |'The Edge'
+|'Mullen' |'Larry' |
+|====
+
+Below framed in red (depending of the path) :
+
+*   the fourth value of the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Row.html[Row] at end point of
+the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Change.html[Change]
+of "changes2"
+*   the value at end point of the fourth https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Column.html[Column] of
+the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Change.html[Change]
+of "changes2"
+
+.Representation of "changes2"
+[cols="1,2,3,4a"]
+|====
+|Creation |"MEMBERS" table |`5` as PK |
+!====
+!!ID !NAME !FIRSTNAME !SURNAME !SIZE
+
+!At start point !!!!!
+!At end point !5 !'McGuiness' !'Paul' ! !
+!====
+|Modification |"MEMBERS" table |`1` as PK |
+!====
+!!ID !NAME !FIRSTNAME !SURNAME !SIZE
+
+!At start point !1 !'Hewson' !'Paul David' !'Bono' !1.75
+!At end point !1 !'Hewson' !'Paul David' !'Bono Vox' !1.75
+!====
+|====

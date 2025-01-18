@@ -1,0 +1,88 @@
+= Letter Case of the database
+
+Databases have different letter cases for the name of the elements.
+For example, the name of the table can be upper case either the name is inputted in upper case or not. So this concept (and feature too) is here to manage these shades.
+
+It is possible to declare a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html[LetterCase]
+with a <<assertj-db-concepts-assertdbconnectionlettercase,AssertDbConnection with LetterCase>>.
+
+The concept of https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html[LetterCase] is composed of https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/CaseConversion.html[CaseConversion] and https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/CaseComparison.html[CaseComparison].
+
+== CaseConversion
+
+The https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/CaseConversion.html[CaseConversion] is used when getting a name with letter case from database : a table name, a column name or a primary key name.
+
+There are three conversions modes : https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/CaseConversions.html#UPPER[UPPER] which converts to upper case (`"Name"` becomes `"NAME"`), https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/CaseConversions.html#LOWER[LOWER] which converts to lower case (`"Name"` becomes `"name"`) and https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/CaseConversions.html#NO[NO] which keeps the case (`"Name"` remains `"Name"`).
+
+Each name (table, column and primary key) got from the database is converted using a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/CaseConversion.html[CaseConversion].
+
+== CaseComparison
+
+The https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/CaseComparison.html[CaseComparison] is used when comparing something with letter case from database or with a parameter.
+
+There are two comparison modes : https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/CaseComparisons.html#IGNORE[IGNORE] which compares `String`s by ignoring the case (`"Name"` is considered equal to `"NAME"`) and https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/CaseComparisons.html#STRICT[STRICT] which compares `String`s strictly (`"Name"` is considered different from `"NAME"`).
+
+During navigation (e.g. from table to column) and assertion (e.g. on column name), the name are compared using a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/CaseComparison.html[CaseComparison].
+
+== LetterCase
+
+A https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html[LetterCase] is created with the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html#getLetterCase-org.assertj.db.type.lettercase.CaseConversion-org.assertj.db.type.lettercase.CaseComparison-[getLetterCase]
+static method which has a
+https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/CaseConversion.html[CaseConversion] and a
+https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/CaseComparison.html[CaseComparison] as parameters.
+
+[source,java]
+----
+LetterCase letterCase = LetterCase.getLetterCase(CaseConversions.NO, CaseComparisons.IGNORE);
+----
+
+In AssertJ-DB, there are three different uses of a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html[LetterCase] :
+the table name, the column name and the primary key name.
+That is the reason why the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/AssertDbConnection.html[AssertDbConnection]
+have three https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html[LetterCase] parameters.
+
+The https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html[LetterCase] on the tables is used :
+
+*   to convert the table name : when a name is got from the database like for the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.html[Table]
+instantiation or for the table with changes found with https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Changes.html[Changes].
+*   to compare the table name : for the instantiation when the table is search in the database for https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.html[Table],
+for navigation (e.g. from changes to a change on a table) or for a assertion (like https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnDataType.html#isOnTable-java.lang.String-[isOnTable(String name)]).
+
+The https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html[LetterCase] on the columns is used :
+
+*   to convert the column name : when a column name is got from the database for a table or a request
+*   to compare the column name : for the navigation (e.g. from a table to a column) or for a assertion (like https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnColumnName.html#hasColumnName-java.lang.String-[hasColumnName(String columnName)]).
+
+The https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html[LetterCase] on the primary keys is used :
+
+*   to convert the primary key name : when a primary key name is got from the database for a table
+*   to compare the primary key name : for a assertion (like https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnPrimaryKey.html#hasPksNames-java.lang.String...-[hasPksNames(String... names)]).
+
+The default settings for https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html[LetterCase] in
+https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/AssertDbConnection.html[AssertDbConnection] are :
+
+*   https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/CaseConversions.html#NO[NO] conversion
+and https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/CaseComparisons.html#IGNORE[IGNORE] comparison for table names
+*   https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/CaseConversions.html#UPPER[UPPER] conversion
+and https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/CaseComparisons.html#IGNORE[IGNORE] comparison for the column and primary key name
+
+In this example, the two connections are equivalent :
+
+[source,java]
+----
+AssertDbConnection jdbcConnection = AssertDbConnectionFactory.of("jdbc:h2:mem:test", "sa", "").create();
+Table table = jdbcConnection.table("members").build();
+
+LetterCase tableLetterCase = LetterCase.getLetterCase(CaseConversions.NO, CaseComparisons.IGNORE);
+LetterCase columnLetterCase = LetterCase.getLetterCase(CaseConversions.UPPER, CaseComparisons.IGNORE);
+LetterCase pkLetterCase = LetterCase.getLetterCase(CaseConversions.UPPER, CaseComparisons.IGNORE);
+AssertDbConnection connectionWithLC = AssertDbConnectionFactory.of("jdbc:h2:mem:test", "sa", "")
+                                        .letterCase(tableLetterCase, columnLetterCase, pkLetterCase)
+                                        .create();
+Table tableWithLC = connectionWithLC.table("members").build();
+----
+
+Note that the letter case is extensible because the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html#getLetterCase-org.assertj.db.type.lettercase.CaseConversion-org.assertj.db.type.lettercase.CaseComparison-[getLetterCase]
+static method's parameters are instances of the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/CaseConversion.html[CaseConversion]
+and the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/CaseComparison.html[CaseComparison] interfaces.
+So this is not limited to the implementations in the corresponding enumerations.

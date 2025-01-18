@@ -1,0 +1,70 @@
+= Output
+
+It can be interesting to view the values on which an assertion is made (for example for debugging). The output allows that.
+
+This is a simple example :
+
+[source,java]
+----
+import static org.assertj.db.output.Outputs.output;
+
+Table table = connection.table("members");
+
+// Output the content of the table in the console
+output(table).toConsole();
+----
+
+These lines give the result below :
+
+[source,java]
+----
+[MEMBERS table]
+|-----------|---------|-----------|-----------|--------------|-----------|-----------|-----------|
+|           |         | *         |           |              |           |           |           |
+|           | PRIMARY | ID        | NAME      | FIRSTNAME    | SURNAME   | BIRTHDATE | SIZE      |
+|           | KEY     | (NUMBER)  | (TEXT)    | (TEXT)       | (TEXT)    | (DATE)    | (NUMBER)  |
+|           |         | Index : 0 | Index : 1 | Index : 2    | Index : 3 | Index : 4 | Index : 5 |
+|-----------|---------|-----------|-----------|--------------|-----------|-----------|-----------|
+| Index : 0 | 1       | 1         | Hewson    | Paul David   | Bono      | 05-10-60  | 1.75      |
+| Index : 1 | 2       | 2         | Evans     | David Howell | The Edge  | 08-08-61  | 1.77      |
+| Index : 2 | 3       | 3         | Clayton   | Adam         |           | 03-13-60  | 1.78      |
+| Index : 4 | 4       | 4         | Mullen    | Larry        |           | 10-31-61  | 1.70      |
+|-----------|---------|-----------|-----------|--------------|-----------|-----------|-----------|
+----
+
+In the example above, the output is in plain text in the console. It is possible to change the type of the output and the destination.
+
+== Type of output
+
+There are two outputs already implemented :
+
+*   https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/output/impl/OutputType.html#PLAIN[PLAIN] : shown in the example above (the default output type)
+*   https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/output/impl/OutputType.html#HTML[HTML] : which represents the result as an HTML document
+
+[source,java]
+----
+// Change the output of the table to be HTML
+output(table).withType(OutputType.HTML).....;
+----
+
+Note that the type of output is extensible because the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/output/AbstractOutputter.html#withType-org.assertj.db.output.impl.Output-[withType(Output outputType)] method's parameter is an instance of the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/output/impl/Output.html[Output] interface.
+So this is not limited to the implementations in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/output/impl/OutputType.html[OutputType] enum.
+
+== Destination
+
+The destination is the way to print the display. There are three destinations :
+
+*   the console (with the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/output/AbstractOutputter.html#toConsole--[toConsole()] method)
+*   a file (with the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/output/AbstractOutputter.html#toFile-java.lang.String-[toFile(String fileName)] method)
+*   a stream (with the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/output/AbstractOutputter.html#toStream-java.io.OutputStream-[toStream(OutputStream outputStream)] method)
+
+Note that with this last method the possibilities of destination are really flexible.
+
+These three methods are fluent. In this short example, the output is a plain text representation in the console and a html output in a file :
+
+[source,java]
+----
+// Display the content of the table with plain text in the console
+// and with HTML output in the file
+output(table).toConsole().withType(OutputType.HTML).toFile("test.html");
+----
