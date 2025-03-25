@@ -3,6 +3,7 @@ AssertJ-DB - Assertions for database
 ==========
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.assertj/assertj-db/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.assertj/assertj-db)
+[![libs.tech recommends](https://libs.tech/project/20601705/badge.svg)](https://libs.tech/project/20601705/assertj-db)
 
 AssertJ-DB provides assertions to test values in a database.
 
