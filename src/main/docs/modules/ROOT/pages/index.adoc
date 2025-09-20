@@ -1,0 +1,15 @@
+:navtitle: Overview
+= AssertJ DB
+
+image::assertj-db_icon.png[]
+
+AssertJ-DB provides assertions to test data in a database.
+It requires Java 8 or later and can be used with either JUnit or TestNG.
+
+If you need additional assertions, please create a ticket in the https://github.com/assertj/assertj-db/issues?labels=&milestone=&page=1&state=open[AssertJ-DB issue tracker].
+
+AssertJ-DB is hosted on GitHub: https://github.com/assertj/assertj-db[https://github.com/assertj/assertj-db].
+
+Big thanks to Joel Costigliola for his welcome, for his help and for having accepted to associate this project with a great project like AssertJ.
+
+_Régis Pouiller (AssertJ-DB creator)_

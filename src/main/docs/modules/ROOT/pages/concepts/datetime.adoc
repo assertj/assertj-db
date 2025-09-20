@@ -1,0 +1,84 @@
+= DateValue, TimeValue and DateTimeValue
+
+The preferred way to compare values with date, time and date/time is to use java.time.LocalDate, java.time.LocalTime, java.time.LocalDateTime directly.
+
+But for the backward compatibility, it's always possible to use AssertJ-DB DateValue utilities.
+
+So The https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/DateValue.html[DateValue],
+https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/TimeValue.html[TimeValue] and
+https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/DateTimeValue.html[DateTimeValue] classes are simpler but contains this kind of information.
+
+There is 4 kinds of static methods to instantiate these values :
+
+* `of` which receives the information as `int` parameters
+
+[source,java]
+----
+DateValue dateValue = DateValue.of(2007, 12, 23);
+
+// With hours and minutes only
+TimeValue timeValue1 = TimeValue.of(9, 1);
+// With seconds additional
+TimeValue timeValue2 = TimeValue.of(9, 1, 6);
+// With nanoseconds additional
+TimeValue timeValue3 = TimeValue.of(9, 1, 6, 3);
+
+// With date only (so hour is midnight)
+DateTimeValue dateTimeValue1 = DateTimeValue.of(dateValue);
+// With date and time
+DateTimeValue dateTimeValue2 = DateTimeValue.of(dateValue, timeValue1);
+----
+
+* `from` which receives the equivalent from `java.sql` package (`java.sql.Date`, `java.sql.Time` and      `java.sql.Timestamp`)
+or a `java.util.Calendar`
+
+[source,java]
+----
+Date date = Date.valueOf("2007-12-23");
+DateValue dateValue = DateValue.from(date);
+
+Time time = Time.valueOf("09:01:06");
+TimeValue timeValue = TimeValue.from(time);
+
+Timestamp timestamp = Timestamp.valueOf("2007-12-23 09:01:06.000000003");
+DateTimeValue dateTimeValue = DateTimeValue.from(timestamp);
+
+Calendar calendar = Calendar.getInstance();
+DateValue dateValueFromCal = DateValue.from(calendar);
+TimeValue timeValueFromCal = TimeValue.from(calendar);
+DateTimeValue dateTimeValueFromCal = DateTimeValue.from(calendar);
+----
+
+* `parse` which receives a `String` to represent the value (this method can throw a `ParseException`)
+
+[source,java]
+----
+DateValue dateValue = DateValue.parse("2007-12-23");
+
+// With hours and minutes only
+TimeValue timeValue1 = TimeValue.parse("09:01");
+// With seconds additional
+TimeValue timeValue2 = TimeValue.parse("09:01:06");
+// With nanoseconds additional
+TimeValue timeValue3 = TimeValue.parse("09:01:06.000000003");
+
+// With date only (so hour is midnight)
+DateTimeValue dateTimeValue1 = DateTimeValue.parse("2007-12-23");
+// With date and time (hours and minutes only)
+DateTimeValue dateTimeValue2 = DateTimeValue.parse("2007-12-23T09:01");
+// With date and time (seconds additional)
+DateTimeValue dateTimeValue2 = DateTimeValue.parse("2007-12-23T09:01:06");
+// With date and time (nanoseconds additional)
+DateTimeValue dateTimeValue2 = DateTimeValue.parse("2007-12-23T09:01:06.000000003");
+----
+
+*   `now` which create an instance corresponding to the current moment.
+
+[source,java]
+----
+DateValue dateValue = DateValue.now();                   // The current date
+TimeValue timeValue = TimeValue.now();                   // The current time
+DateTimeValue dateTimeValue = DateTimeValue.now();       // The current date/time
+----
+
+All these static methods (except for `now` method) have equivalent constructors.

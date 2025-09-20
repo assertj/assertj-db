@@ -1,0 +1,5 @@
+= Features
+
+Before reading this page, it is recommended to be familiar with the xref:concepts/index.adoc[concepts of AssertJ-DB].
+
+The purpose of this page is to show the different features of AssertJ-DB.
