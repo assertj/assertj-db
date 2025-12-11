@@ -14,6 +14,7 @@ package org.assertj.db.type;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.sql.Array;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -108,6 +109,9 @@ public class Value implements DbElement, WithColumnLetterCase {
     if (object instanceof java.util.UUID) {
       return ValueType.UUID;
     }
+    if (object instanceof java.sql.Array) {
+      return ValueType.ARRAY;
+    }
     if (object instanceof Byte
       || object instanceof Short
       || object instanceof Integer
@@ -190,6 +194,8 @@ public class Value implements DbElement, WithColumnLetterCase {
       return (object instanceof Number || object instanceof String);
     } else if (valueType == ValueType.UUID) {
       return (object instanceof UUID || object instanceof String);
+    } else if (valueType == ValueType.ARRAY) {
+      return (object instanceof Array);
     } else if (valueType == ValueType.NOT_IDENTIFIED) {
       if (value == null) {
         return object == null;

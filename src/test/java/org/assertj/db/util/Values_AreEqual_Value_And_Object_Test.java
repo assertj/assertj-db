@@ -17,7 +17,9 @@ import static org.assertj.db.api.Assertions.bytesContentFromClassPathOf;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.sql.Array;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -27,6 +29,7 @@ import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.assertj.db.common.AbstractTest;
+import org.assertj.db.common.SimpleArray;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.DateTimeValue;
 import org.assertj.db.type.DateValue;
@@ -544,5 +547,31 @@ public class Values_AreEqual_Value_And_Object_Test extends AbstractTest {
   @Test(expected = AssertJDBException.class)
   public void should_fail_because_string_is_not_parseable_in_datetime() throws Exception {
     Values.areEqual(getValue(null, Timestamp.valueOf("2007-12-23 09:01:06.000000003")), (Object) "***");
+  }
+
+  /**
+   * This method tests the {@code areEqual} method for {@code java.sql.Array}s.
+   */
+  @Test
+  public void test_are_equal_for_arrays() throws Exception {
+    assertThat(Values.areEqual(getValue(null, (Array) null), (Array) null)).isTrue();
+    assertThat(Values.areEqual(getValue(null, new SimpleArray(new String[]{"value1"})), (Array) null)).isFalse();
+    assertThat(Values.areEqual(getValue(null, new SimpleArray(new String[]{"value1"})), new SimpleArray(new String[]{"value2"}))).isFalse();
+    assertThat(Values.areEqual(getValue(null, new SimpleArray(new String[]{"value1"})), new SimpleArray(new String[]{"value1"}))).isTrue();
+    assertThat(Values.areEqual(getValue(null, new SimpleArray(new String[]{"value1"})), new SimpleArray(new String[]{"value1", "value2"}))).isFalse();
+  }
+
+  /**
+   * This method should fail because the object is already closed
+   */
+  @Test(expected = AssertJDBException.class)
+  public void should_fail_because_array_not_readable() throws Exception {
+    Array array = new SimpleArray(null) {
+      @Override
+      public Object getArray() throws SQLException  {
+        throw new SQLException();
+      }
+    };
+    Values.areEqual(getValue(null, (Array) array), array);
   }
 }

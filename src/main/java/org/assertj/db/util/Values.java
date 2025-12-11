@@ -14,13 +14,16 @@ package org.assertj.db.util;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.sql.Array;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.UUID;
 
 import org.assertj.db.exception.AssertJDBException;
@@ -113,6 +116,10 @@ public class Values {
         return areEqual(value, DateTimeValue.from((LocalDateTime) expected));
       } else if (expected instanceof LocalDate) {
         return areEqual(value, DateValue.from((LocalDate) expected));
+      }
+    } else if (valueType == ValueType.ARRAY) {
+      if (expected instanceof Array) {
+        return areEqual(value, (Array) expected);
       }
     } else {
       Object object = value.getValue();
@@ -1191,5 +1198,26 @@ public class Values {
       return dateTimeValue.compareTo(dateTimeValueMin) >= 0 && dateTimeValue.compareTo(dateTimeValueMax) <= 0;
     }
     return false;
+  }
+
+
+  /**
+   * Returns if the value's underlying array equals the expected's underlying array
+   * The equality check is done using {{@link Arrays#equals(Object[], Object[])}
+   *
+   * @param value    The value.
+   * @param expected The {@code Array} to compare.
+   * @return {@code true} if the value's underlying array equals the {@code Array}'s underlying array, {@code false} otherwise.
+   */
+  private static boolean areEqual(Value value, Array expected) {
+      try {
+          Array object = (Array) value.getValue();
+          if (expected == null) {
+            return object == null;
+          }
+          return Arrays.equals((Object[]) object.getArray(), (Object[]) expected.getArray());
+      } catch (SQLException e) {
+        throw new AssertJDBException(e);
+      }
   }
 }

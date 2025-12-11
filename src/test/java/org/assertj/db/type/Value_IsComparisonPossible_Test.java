@@ -23,6 +23,7 @@ import java.sql.Timestamp;
 import java.util.UUID;
 
 import org.assertj.db.common.AbstractTest;
+import org.assertj.db.common.SimpleArray;
 import org.junit.Test;
 
 /**
@@ -60,6 +61,7 @@ public class Value_IsComparisonPossible_Test extends AbstractTest {
     assertThat(getValue("", UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")).isComparisonPossible("")).isTrue();
     assertThat(getValue("", UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")).isComparisonPossible(UUID.randomUUID())).isTrue();
     assertThat(getValue("", null).isComparisonPossible(null)).isTrue();
+    assertThat(getValue("", new SimpleArray(new Object[]{})).isComparisonPossible(new SimpleArray(new Object[]{}))).isTrue();
     assertThat(getValue("", new URL("http://github.com")).isComparisonPossible(null)).isFalse();
     assertThat(getValue("", new byte[]{1}).isComparisonPossible("")).isFalse();
     assertThat(getValue("", true).isComparisonPossible("")).isFalse();
@@ -70,5 +72,6 @@ public class Value_IsComparisonPossible_Test extends AbstractTest {
     assertThat(getValue("", Timestamp.valueOf("2007-12-23 09:01:00")).isComparisonPossible(new byte[]{1})).isFalse();
     assertThat(getValue("", UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435")).isComparisonPossible(new byte[]{1})).isFalse();
     assertThat(getValue("", null).isComparisonPossible(new byte[]{1})).isFalse();
+    assertThat(getValue("", new SimpleArray(new Object[]{})).isComparisonPossible(new byte[]{1})).isFalse();
   }
 }
