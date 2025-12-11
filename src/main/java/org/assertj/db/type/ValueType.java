@@ -53,6 +53,10 @@ public enum ValueType {
    */
   UUID,
   /**
+   * Array type
+   */
+  ARRAY,
+  /**
    * Not identified type : null value for example.
    */
   NOT_IDENTIFIED;
@@ -88,6 +92,9 @@ public enum ValueType {
     }
     if (expected instanceof java.util.UUID) {
       return new ValueType[]{UUID};
+    }
+    if (expected instanceof java.sql.Array) {
+      return new ValueType[]{ARRAY};
     }
     return new ValueType[]{NOT_IDENTIFIED};
   }

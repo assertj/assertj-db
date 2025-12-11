@@ -191,6 +191,9 @@ public abstract class AbstractDbData<D extends AbstractDbData<D>> extends Abstra
           case Types.CLOB:
             object = resultSet.getString(columnName);
             break;
+          case Types.ARRAY:
+            object = resultSet.getArray(columnName);
+            break;
 
           default:
             object = resultSet.getObject(columnName);
