@@ -10,7 +10,7 @@
   </parent>
 
   <artifactId>assertj-db</artifactId>
-  <version>3.0.0</version>
+  <version>3.0.1-SNAPSHOT</version>
 
   <name>AssertJ-DB - Assertions for database</name>
   <description>AssertJ-DB - Rich and fluent assertions for testing with database</description>
