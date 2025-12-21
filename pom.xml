@@ -10,7 +10,7 @@
   </parent>
 
   <artifactId>assertj-db</artifactId>
-  <version>3.0.1-SNAPSHOT</version>
+  <version>3.0.1</version>
 
   <name>AssertJ-DB - Assertions for database</name>
   <description>AssertJ-DB - Rich and fluent assertions for testing with database</description>
@@ -20,7 +20,7 @@
     <developerConnection>scm:git:ssh://git@github.com/assertj/assertj-db.git</developerConnection>
     <connection>scm:git:ssh://git@github.com/assertj/assertj-db.git</connection>
     <url>git@github.com:assertj/assertj-db</url>
-    <tag>assertj-db-3.0.0</tag>
+    <tag>assertj-db-3.0.1</tag>
   </scm>
 
   <issueManagement>
@@ -204,6 +204,16 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.sonatype.central</groupId>
+        <artifactId>central-publishing-maven-plugin</artifactId>
+        <version>${central-publishing-maven-plugin.version}</version>
+        <extensions>true</extensions>
+        <configuration>
+          <autoPublish>false</autoPublish>
+          <waitUntil>validated</waitUntil>
+        </configuration>
       </plugin>
     </plugins>
   </build>
