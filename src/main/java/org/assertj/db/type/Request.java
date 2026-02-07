@@ -21,6 +21,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.assertj.core.api.AssertProvider;
+import org.assertj.db.api.Assertions;
+import org.assertj.db.api.RequestAssert;
 import org.assertj.db.type.lettercase.LetterCase;
 
 /**
@@ -62,7 +65,7 @@ import org.assertj.db.type.lettercase.LetterCase;
  * @author Régis Pouiller
  * @author Julien Roy
  */
-public class Request extends AbstractDbData<Request> {
+public class Request extends AbstractDbData<Request> implements AssertProvider<RequestAssert> {
 
   /**
    * SQL request to get the values.
@@ -225,5 +228,17 @@ public class Request extends AbstractDbData<Request> {
     public Request build() {
       return new Request(this.connectionProvider, this.request, this.parameters, this.pksName);
     }
+  }
+
+  /**
+   * Makes both AssertJ Core and AssertJ DB assertions able to coexist in the same class with {@link org.assertj.core.api.Assertions org.assertj.core.api.Assertions.assertThat} as the only import necessary.<br/><br/>
+   * Also works for both <code>BDDAssertions.then</code> static methods from AssertJ Core and AssertJ DB.<br/><br/>
+   * 
+   * @see org.assertj.core.api.Assertions#assertThat(AssertProvider) &lt;T&gt; org.assertj.core.api.Assertions.assertThat(AssertProvider&lt;T&gt; component) 
+   * @see org.assertj.core.api.BDDAssertions#then(AssertProvider) &lt;T&gt; org.assertj.core.api.BDDAssertions.then(AssertProvider&lt;T&gt; component)
+   */
+  @Override
+  public RequestAssert assertThat() {
+    return Assertions.assertThat(this);
   }
 }

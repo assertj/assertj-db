@@ -12,8 +12,11 @@
  */
 package org.assertj.db.type;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import java.util.List;
 
+import org.assertj.core.api.Assertions;
+import org.assertj.core.api.ListAssert;
+import org.assertj.core.api.ObjectAssert;
 import org.assertj.db.common.AbstractTest;
 import org.junit.Test;
 
@@ -192,5 +195,13 @@ public class Changes_Constructor_Test extends AbstractTest {
     assertThat(changes.getRequestAtEndPoint().getRequest()).isEqualTo("select * from test");
     assertThat(changes.getTablesAtStartPointList()).isNull();
     assertThat(changes.getTablesAtEndPointList()).isNull();
+  }
+
+  private static ObjectAssert<Object> assertThat(Object o) {
+    return Assertions.assertThat(o);
+  }
+
+  private static <T> ListAssert<Object> assertThat(List<T> list) {
+    return Assertions.assertThat(list);
   }
 }
