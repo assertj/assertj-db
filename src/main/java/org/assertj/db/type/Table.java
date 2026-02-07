@@ -22,6 +22,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.assertj.core.api.AssertProvider;
+import org.assertj.db.api.Assertions;
+import org.assertj.db.api.TableAssert;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.type.lettercase.LetterCase;
 import org.assertj.db.util.NameComparator;
@@ -73,7 +76,7 @@ import org.assertj.db.util.NameComparator;
  * @author Régis Pouiller
  * @author Julien Roy
  */
-public class Table extends AbstractDbData<Table> {
+public class Table extends AbstractDbData<Table> implements AssertProvider<TableAssert> {
 
   /**
    * The name of the table.
@@ -725,5 +728,17 @@ public class Table extends AbstractDbData<Table> {
        */
       DESC
     }
+  }
+
+  /**
+   * Makes both AssertJ Core and AssertJ DB assertions able to coexist in the same class with {@link org.assertj.core.api.Assertions org.assertj.core.api.Assertions.assertThat} as the only import necessary.<br/><br/>
+   * Also works for both <code>BDDAssertions.then</code> static methods from AssertJ Core and AssertJ DB.<br/><br/>
+   * 
+   * @see org.assertj.core.api.Assertions#assertThat(AssertProvider) &lt;T&gt; org.assertj.core.api.Assertions.assertThat(AssertProvider&lt;T&gt; component) 
+   * @see org.assertj.core.api.BDDAssertions#then(AssertProvider) &lt;T&gt; org.assertj.core.api.BDDAssertions.then(AssertProvider&lt;T&gt; component)
+   */
+  @Override
+  public TableAssert assertThat() {
+    return Assertions.assertThat(this);
   }
 }

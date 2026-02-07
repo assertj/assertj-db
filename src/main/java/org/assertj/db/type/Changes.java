@@ -24,6 +24,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import org.assertj.core.api.AssertProvider;
+import org.assertj.db.api.Assertions;
+import org.assertj.db.api.ChangesAssert;
 import org.assertj.db.exception.AssertJDBException;
 import org.assertj.db.util.ChangeComparator;
 
@@ -85,7 +88,7 @@ import org.assertj.db.util.ChangeComparator;
  * @author Régis Pouiller
  * @author Julien Roy
  */
-public class Changes extends AbstractDbElement<Changes> {
+public class Changes extends AbstractDbElement<Changes> implements AssertProvider<ChangesAssert> {
 
   /**
    * The list of the tables.
@@ -678,5 +681,17 @@ public class Changes extends AbstractDbElement<Changes> {
       }
       return new Changes(this.connectionProvider);
     }
+  }
+
+  /**
+   * Makes both AssertJ Core and AssertJ DB assertions able to coexist in the same class with {@link org.assertj.core.api.Assertions org.assertj.core.api.Assertions.assertThat} as the only import necessary.<br/><br/>
+   * Also works for both <code>BDDAssertions.then</code> static methods from AssertJ Core and AssertJ DB.<br/><br/>
+   * 
+   * @see org.assertj.core.api.Assertions#assertThat(AssertProvider) &lt;T&gt; org.assertj.core.api.Assertions.assertThat(AssertProvider&lt;T&gt; component) 
+   * @see org.assertj.core.api.BDDAssertions#then(AssertProvider) &lt;T&gt; org.assertj.core.api.BDDAssertions.then(AssertProvider&lt;T&gt; component)
+   */
+  @Override
+  public ChangesAssert assertThat() {
+    return Assertions.assertThat(this);
   }
 }
