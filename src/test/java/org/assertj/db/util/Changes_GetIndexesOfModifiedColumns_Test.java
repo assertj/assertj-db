@@ -43,17 +43,31 @@ public class Changes_GetIndexesOfModifiedColumns_Test extends AbstractTest {
 
     Change modificationChange = getChange(DataType.TABLE, "test", ChangeType.MODIFICATION,
       getRow(Arrays.asList("var1"),
-        Arrays.asList("var1", "var2", "var3", "var4"),
+        Arrays.asList("var1", "var2", "var3", "var4", "var11"),
         Arrays.asList(getValue("var1", 1),
           getValue("var2", null),
           getValue("var3", "text1"),
-          getValue("var4", null))),
+          getValue("var4", null),
+          getValue("var11", "bytes".getBytes()))),
       getRow(Arrays.asList("var1"),
-        Arrays.asList("var1", "var2", "var3", "var4"),
+        Arrays.asList("var1", "var2", "var3", "var4", "var11"),
         Arrays.asList(getValue("var1", 1),
           getValue("var2", "test"),
           getValue("var3", null),
-          getValue("var4", null))));
+          getValue("var4", null),
+          getValue("var11", "bytes".getBytes()))));
+
+    Change modificationWithActualBytesChange = getChange(DataType.TABLE, "test", ChangeType.MODIFICATION,
+      getRow(Arrays.asList("var1"),
+        Arrays.asList("var1", "var2", "var11"),
+        Arrays.asList(getValue("var1", 1),
+          getValue("var2", "value"),
+          getValue("var11", "before".getBytes()))),
+      getRow(Arrays.asList("var1"),
+        Arrays.asList("var1", "var2", "var11"),
+        Arrays.asList(getValue("var1", 1),
+          getValue("var2", "value"),
+          getValue("var11", "after".getBytes()))));
 
     Change deletionChange = getChange(DataType.TABLE, "test", ChangeType.DELETION,
       getRow(Arrays.asList("var1"),
@@ -65,10 +79,12 @@ public class Changes_GetIndexesOfModifiedColumns_Test extends AbstractTest {
 
     Integer[] creationIndexes = Changes.getIndexesOfModifiedColumns(creationChange);
     Integer[] modificationIndexes = Changes.getIndexesOfModifiedColumns(modificationChange);
+    Integer[] modificationWithActualBytesIndexes = Changes.getIndexesOfModifiedColumns(modificationWithActualBytesChange);
     Integer[] deletionIndexes = Changes.getIndexesOfModifiedColumns(deletionChange);
 
     Assertions.assertThat(creationIndexes).contains(0, 1);
-    Assertions.assertThat(modificationIndexes).contains(1, 2);
+    Assertions.assertThat(modificationIndexes).containsOnly(1, 2);
+    Assertions.assertThat(modificationWithActualBytesIndexes).containsOnly(2);
     Assertions.assertThat(deletionIndexes).contains(0, 1);
   }
 }

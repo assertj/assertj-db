@@ -51,12 +51,9 @@ public class Changes {
       int index = 0;
       for (Value valueAtStartPoint : valuesListAtStartPoint) {
         Value valueAtEndPoint = iteratorAtEndPoint.next();
-        Object objectAtStartPoint = valueAtStartPoint.getValue();
         Object objectAtEndPoint = valueAtEndPoint.getValue();
 
-        if ((objectAtStartPoint == null && objectAtEndPoint != null) ||
-          (objectAtStartPoint != null && !objectAtStartPoint.equals(objectAtEndPoint))) {
-
+        if (!Values.areEqual(valueAtStartPoint, objectAtEndPoint)) {
           indexesList.add(index);
         }
         index++;
