@@ -1,0 +1,51 @@
+= Type
+
+== Data Type
+
+As see above there are three root elements of database, but only https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.html[Table] and https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Request.html[Request] are data elements.
+All the possible types of data are contained in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/DataType.html[DataType] enumeration.
+
+The type of the data can be :
+
+*   `https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/DataType.html#TABLE[TABLE]`
+*   `https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/DataType.html#REQUEST[REQUEST]`
+
+[[change_type]]
+== Change Type
+
+The change can be a creation, a modification or a deletion.
+All the possible types of change are contained in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/ChangeType.html[ChangeType] enumeration.
+
+The type of the change depends of operation on database :
+
+*   `https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/ChangeType.html#CREATION[CREATION]` for a `insert` sql request
+*   `https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/ChangeType.html#MODIFICATION[MODIFICATION]` for a `update` sql request
+*   `https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/ChangeType.html#DELETION[DELETION]` for a `delete` sql request
+
+== Value Type
+
+The value can be a date, a boolean or a text for example.
+All the possible types of value are contained in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/ValueType.html[ValueType] enumeration.
+
+The type of the value depends of class of the object given by `java.sql` when the data are got from database :
+
+*   `https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/ValueType.html#BYTES[BYTES]` for a array of bytes (`byte[]`)
+*   `https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/ValueType.html#BOOLEAN[BOOLEAN]` for a `java.lang.Boolean`
+*   `https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/ValueType.html#TEXT[TEXT]` for a `java.lang.String`
+*   `https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/ValueType.html#DATE[DATE]` for a `java.sql.Date`
+*   `https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/ValueType.html#TIME[TIME]` for a `java.sql.Time`
+*   `https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/ValueType.html#DATE_TIME[DATE_TIME]` for a `java.sql.Timestamp`
+*   `https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/ValueType.html#UUID[UUID]` for a `java.util.UUID`
+*   `https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/ValueType.html#NUMBER[NUMBER]` for a `java.lang.Byte`,
+`java.lang.Short`,        `java.lang.Integer`,        `java.lang.Long`,        `java.lang.Double`,        `java.lang.Float` or        `java.math.BigDecimal`
+*   `https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/ValueType.html#NOT_IDENTIFIED[NOT_IDENTIFIED]` for other cases (for example when the value is `null`)
+
+== Order Type
+
+The order can be a ascending or descending.
+All the possible types of order are contained in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.Order.OrderType.html[Table.Order.OrderType] enumeration.
+
+The type of the order can be :
+
+*   `https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.Order.OrderType.html#ASC[ASC]` for an ascending order
+*   `https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.Order.OrderType.html#DESC[DESC]` for a descending order

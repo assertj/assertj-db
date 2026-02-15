@@ -1,0 +1,12 @@
+name: assertj-db
+title: AssertJ DB
+nav:
+- modules/ROOT/nav.adoc
+ext:
+  collector:
+    scan:
+      dir: src/test/java/org/example/db
+      into: modules/ROOT/examples
+asciidoc:
+  attributes:
+    project-description: 'Provide assertions for Guava types (Multimap, Optional, ...)'

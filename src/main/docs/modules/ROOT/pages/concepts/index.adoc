@@ -1,0 +1,42 @@
+= Concepts
+
+For the examples below, suppose that the database contains these three tables :
+
+.MEMBERS
+|====
+|ID |NAME |FIRSTNAME |SURNAME |BIRTHDATE |SIZE
+
+|1 |'Hewson' |'Paul David' |'Bono' |05-10-60 |1.75
+|2 |'Evans' |'David Howell' |'The Edge' |08-08-61 |1.77
+|3 |'Clayton' |'Adam' | |03-13-60 |1.78
+|4 |'Mullen' |'Larry' | |10-31-61 |1.70
+|====
+
+.ALBUMS
+|====
+|ID |RELEASE |TITLE |NUMBEROFSONGS |DURATION |LIVE
+
+|1 |10-20-80 |'Boy' |12 |42:17 |
+|2 |10-12-81 |'October' |11 |41:08 |
+|3 |02-28-83 |'War' |10 |42:07 |
+|4 |11-07-83 |'Under a Blood Red Sky' |8 |33:25 |true
+|5 |10-01-84 |'The Unforgettable Fire' |10 |42:42 |
+|6 |06-10-85 |'Wide Awake in America' |4 |20:30 |true
+|7 |03-09-87 |'The Joshua Tree' |11 |50:11 |
+|8 |10-10-88 |'Rattle and Hum' |17 |72:27 |
+|9 |11-18-91 |'Achtung Baby' |12 |55:23 |
+|10 |07-06-93 |'Zooropa' |10 |51:15 |
+|11 |03-03-97 |'Pop' |12 |60:08 |
+|12 |10-30-00 |'All That You Can't Leave Behind' |11 |49:23 |
+|13 |11-22-04 |'How to Dismantle an Atomic Bomb' |11 |49:08 |
+|14 |03-02-09 |'No Line on the Horizon' |11 |53:44 |
+|15 |09-09-14 |'Songs of Innocence' |11 |48:11 |
+|====
+
+.GROUP
+|====
+|ID |NAME
+
+|1 |'U2'
+|2 |'Coldplay'
+|====

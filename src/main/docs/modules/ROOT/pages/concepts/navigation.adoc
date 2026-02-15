@@ -1,0 +1,79 @@
+= Navigation
+
+The navigation offers the ability to chain assertions at different levels and instructions to go inside the sub-elements and return to root element.
+
+There are examples of the navigation in {assertj-examples-repo}/blob/main/assertions-examples/src/test/java/org/assertj/examples/db/NavigationExamples.java[NavigationExamples.java]
+
+[[tableorrequestasroot]]
+== With a Table or a Request as root
+
+The `assertThat(...)` static method of `org.assertj.db.api.Assertions` allows to create a root assertion on a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.html[Table].
+
+[source,java]
+----
+import static org.assertj.db.api.Assertions.assertThat;
+
+assertThat(table)...
+----
+
+or on a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Request.html[Request].
+
+[source,java]
+----
+import static org.assertj.db.api.Assertions.assertThat;
+
+assertThat(request)...
+----
+
+From these root assertions, it is possible to navigate to the sub elements and return to the root element as in the picture below.
+
+[ditaa, target="db-navigation-with-table-or-request", shadows=false, transparent=true]
+....
+                                             origin
+                 instantiate+-----------+<-----------=+----------------------+
+                 +--------->|On a Column| instantiate |On a Value Of a Column|
+                 |          +-----+-----+=----------->+----------------------+
+                 :          origin:
++----------------+------+<--------+
+|On a Table Or a Request|
++----------------+------+<--------+
+                 :          origin:       origin
+                 |          +-----+--+<-----------=+-------------------+
+                 +--------->|On a Row| instantiate |On a Value Of a Row|
+                 instantiate+--------+=----------->+-------------------+
+....
+
+More details on this concept in assertj-db-features-highlight.html#tableorrequestasroot[feature highlight].
+
+== With Changes as root
+
+The `assertThat(...)` static method of `org.assertj.db.api.Assertions`
+allows to create a root assertion on https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Changes.html[Changes].
+
+[source,java]
+----
+import static org.assertj.db.api.Assertions.assertThat;
+
+assertThat(changes)...
+----
+
+From this root assertion, it is possible to navigate to the sub elements and return to the root element as in the picture below.
+
+[ditaa, target="db-navigation-with-changes", shadows=false, transparent=true]
+....
+                                                            origin
+                                instantiate+-----------+<-----------=+----------------------+
+                                +--------->|On a Column| instantiate |On a Value Of a Column|
+                                |          +-----+-----+=----------->+----------------------+
+                 origin         :          origin:
++-----------+<=-----------+-----+-----+<---------+
+|On Changes | instantiate |On a Change|
++-----------+=----------->+-----+-----+<---------+
+                                :          origin:       origin
+                                |          +-----+--+<-----------=+-------------------+
+                                +--------->|On a Row| instantiate |On a Value Of a Row|
+                                instantiate+--------+=----------->+-------------------+
+....
+
+
+More details on this concept in <<assertj-db-features-changesasroot,feature highlight>>.
