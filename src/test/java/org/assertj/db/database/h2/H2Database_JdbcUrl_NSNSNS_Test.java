@@ -12,9 +12,9 @@
  */
 package org.assertj.db.database.h2;
 
+import static org.assertj.core.api.Assertions.fail;
 import static org.assertj.db.api.Assertions.assertThat;
 import static org.assertj.db.output.Outputs.output;
-import static org.junit.Assert.fail;
 
 import java.io.ByteArrayOutputStream;
 

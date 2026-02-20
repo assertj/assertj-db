@@ -13,7 +13,7 @@
 package org.assertj.db.api.assertions.impl;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import static org.assertj.core.api.Assertions.fail;
 
 import org.assertj.core.api.WritableAssertionInfo;
 import org.assertj.db.api.TableAssert;

@@ -12,7 +12,7 @@
  */
 package org.assertj.db.api.assertions.impl;
 
-import static org.junit.Assert.fail;
+import static org.assertj.core.api.Assertions.fail;
 
 import java.sql.Timestamp;
 

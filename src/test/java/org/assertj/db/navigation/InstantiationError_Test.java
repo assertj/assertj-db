@@ -12,8 +12,8 @@
  */
 package org.assertj.db.navigation;
 
+import static org.assertj.core.api.Assertions.fail;
 import static org.assertj.db.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
 
 import java.lang.reflect.Field;
 

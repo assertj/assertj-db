@@ -12,18 +12,16 @@
  */
 package org.assertj.db.api.assertions.impl;
 
-import static org.junit.Assert.fail;
+import static org.assertj.core.api.Assertions.fail;
 
 import java.sql.SQLException;
 import javax.sql.DataSource;
 
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.WritableAssertionInfo;
-import org.assertj.db.api.AbstractDbAssert;
 import org.assertj.db.api.TableAssert;
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.common.DefaultConnectionProvider;
-import org.assertj.db.type.JdbcUrlConnectionProvider;
 import org.junit.Test;
 
 /**

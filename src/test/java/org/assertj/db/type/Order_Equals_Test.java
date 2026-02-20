@@ -12,8 +12,7 @@
  */
 package org.assertj.db.type;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.assertj.db.common.AbstractTest;
 import org.assertj.db.type.Table.Order;
@@ -31,12 +30,12 @@ public class Order_Equals_Test extends AbstractTest {
    */
   @Test
   public void test_result_of_equals() {
-    assertTrue(Order.asc("test").equals(Order.asc("test")));
-    assertFalse(Order.asc("test").equals(Order.asc("testt")));
-    assertFalse(Order.asc("test").equals(Order.desc("test")));
-    assertTrue(Order.asc(null).equals(Order.asc(null)));
-    assertFalse(Order.asc("test").equals(Order.asc(null)));
-    assertFalse(Order.asc(null).equals(Order.asc("test")));
-    assertFalse(Order.asc("test").equals("test"));
+    assertThat(Order.asc("test").equals(Order.asc("test"))).isTrue();
+    assertThat(Order.asc("test").equals(Order.asc("testt"))).isFalse();
+    assertThat(Order.asc("test").equals(Order.desc("test"))).isFalse();
+    assertThat(Order.asc(null).equals(Order.asc(null))).isTrue();
+    assertThat(Order.asc("test").equals(Order.asc(null))).isFalse();
+    assertThat(Order.asc(null).equals(Order.asc("test"))).isFalse();
+    assertThat(Order.asc("test").equals("test")).isFalse();
   }
 }
