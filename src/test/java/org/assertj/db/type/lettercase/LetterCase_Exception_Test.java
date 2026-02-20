@@ -12,7 +12,7 @@
  */
 package org.assertj.db.type.lettercase;
 
-import static org.junit.Assert.fail;
+import static org.assertj.core.api.Assertions.fail;
 
 import org.assertj.core.api.Assertions;
 import org.assertj.db.common.AbstractTest;
