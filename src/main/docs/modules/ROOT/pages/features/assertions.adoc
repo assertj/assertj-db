@@ -1,0 +1,785 @@
+= Assertions
+
+== On the type of change
+
+These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnChangeType.html[AssertOnChangeType] interface.
+
+These assertions allow to verify the type of change (the concept of change of type is described xref::concepts/types.adoc#change_type[here]).
+
+[source,java]
+----
+// Verify that the first change is a change of creation
+assertThat(changes).change().isOfType(ChangeType.CREATION);
+----
+
+There are specific assertion methods for each type of change. For example, the assertion below is equivalent to the one above
+
+[source,java]
+----
+assertThat(changes).change().isCreation();
+----
+
+== On the equality with the values of a column
+
+These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnColumnEquality.html[AssertOnColumnEquality]
+and the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnColumnOfChangeEquality.html[AssertOnColumnOfChangeEquality] interfaces.
+
+These assertion allow to verify the values of a column (the column of a table, of a request or of a change).
+
+=== With Boolean
+
+[source,java]
+----
+// Verify that the values of the column "live" of the request
+// was equal to true, to false and after to true
+assertThat(request).column("live").hasValues(true, false, true);
+// Verify that the value of the first column of the first change
+// was false at start point and is true at end point
+assertThat(changes).change().column().hasValues(false, true);
+// Verify that the value of the third column of the first change
+// is not modified and is true
+assertThat(changes).change().column(2).hasValues(true);
+----
+
+=== With Bytes
+
+[source,java]
+----
+// Get bytes from a file and from a resource in the classpath
+byte[] bytesFromFile = Assertions.bytesContentOf(file);
+byte[] bytesFromClassPath = Assertions.bytesContentFromClassPathOf(resource);
+// Verify that the values of the second column of the request
+// was equal to the bytes from the file, to null and to bytes from the resource 
+assertThat(request).column(1).hasValues(bytesFromFile, null, bytesFromClassPath);
+// Verify that the value of the first column of the first change
+// was equal to bytes from the file at start point and to bytes from the resource at end point
+assertThat(changes).change().column().hasValues(bytesFromFile, bytesFromClassPath);
+----
+
+=== With Number
+
+[source,java]
+----
+// Verify that the values of the first column of the table
+// was equal to 5.9, 4 and 15000
+assertThat(table).column().hasValues(5.9, 4, new BigInteger("15000"));
+// Verify that the value of the first column of the first change
+// is not modified and is equal to 5
+assertThat(changes).change().column().hasValues(5);
+----
+
+=== With Date
+
+[source,java]
+----
+// Verify that the values of the first column of the table
+// was equal to December 23rd 2007 and May 19th 1975 
+assertThat(table).column()
+            .hasValues(LocalDate.of(2007, 12, 23),
+                       LocalDate.of(1975, 5, 19));
+// Verify that the value of the first column of the first change
+// was equal December 23rd 2007 at start point
+// and is equal to May 19th 1975 at end point
+assertThat(changes).change().column()
+            .hasValues(LocalDate.parse("2007-12-23"),
+                       LocalDate.parse("1975-05-19"));
+----
+
+=== With Time
+
+[source,java]
+----
+// Verify that the values of the first column of the table
+// was equal to 09:01am and 05:30:50pm 
+assertThat(table).column()
+            .hasValues(LocalTime.of(9, 1),
+                       LocalTime.of(17, 30, 50));
+// Verify that the value of the first column of the first change
+// was equal to 09:01am at start point
+// and is equal to 05:30:50pm at end point
+assertThat(changes).change().column()
+            .hasValues(LocalTime.parse("09:01"),
+                       LocalTime.parse("17:30:50"));
+----
+
+=== With Date/Time
+
+[source,java]
+----
+// Verify that the values of the first column of the table
+// was equal to December 23rd 2007 09:01am and May 19th 1975 
+assertThat(table).column()
+            .hasValues(LocalDateTime.of(LocalDate.of(2007, 12, 23),
+                                        LocalTime.parse("09:01")),
+                       LocalDateTime.of(LocalDate.of(1975, 5, 19),
+                                        LocalTime.MIDNIGHT));
+// Verify that the value of the first column of the first change
+// was equal December 23rd 2007 09:01am at start point
+// and is equal to May 19th 1975 at end point
+assertThat(changes).change().column()
+            .hasValues(LocalDateTime.parse("2007-12-23T09:01"),
+                       LocalDateTime.parse("1975-05-19T00:00"));
+----
+
+=== With String
+
+[source,java]
+----
+// Verify that values are equal to texts 
+assertThat(table).column("name")
+            .hasValues("Hewson",
+                       "Evans",
+                       "Clayton",
+                       "Mullen");
+// Verify that the value of the column "size" of the first change of modification
+// is not modified and is equal to 1.75 by parsing
+assertThat(changes).changeOfModification().column("size")
+            .hasValues("1.75");
+// Verify that values are equal to dates, times or dates/times by parsing 
+assertThat(table).column()
+            .hasValues("2007-12-23T09:01"),
+                       "1975-05-19");
+----
+
+=== With UUID
+
+[source,java]
+----
+// Verify that the values of the first column of the table
+// was equal to 30B443AE-C0C9-4790-9BEC-CE1380808435, 0E2A1269-EFF0-4233-B87B-B53E8B6F164D
+// and 2B0D1BDD-909E-4362-BA10-C930BA82718D
+assertThat(table).column().hasValues(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"), 
+                                     UUID.fromString("0E2A1269-EFF0-4233-B87B-B53E8B6F164D"), 
+                                     UUID.fromString("2B0D1BDD-909E-4362-BA10-C930BA82718D"));
+// Verify that the value of the first column of the first change
+// is not modified and is equal to 399FFFCA-7874-4225-9903-E227C4E9DCC1
+assertThat(changes).change()
+                   .column().hasValues(UUID.fromString("399FFFCA-7874-4225-9903-E227C4E9DCC1"));
+----
+
+=== With Character
+
+[source,java]
+----
+// Verify that the values of the first column of the table
+// was equal to 'T', 'e', 's' and 't' 
+assertThat(table).column().hasValues('T', 'e', 's', 't');
+// Verify that the value of the first column of the first change
+// is not modified and is equal to 'T'
+assertThat(changes).change().column().hasValues('T');
+----
+
+== On the name of a column
+
+This assertion is described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnColumnName.html[AssertOnColumnName] interface.
+
+This assertion allows to verify the name of a column (the column of a table, of a request or of a change).
+
+[source,java]
+----
+// Verify that the fifth column of the table is called "firstname"
+assertThat(table).column(4).hasColumnName("firstname");
+// Verify that the third value of the second row of the request is in a column called "name"
+assertThat(request).row(1).value(2).hasColumnName("name");
+// Verify that the first column of the first change is called "id"
+assertThat(changes).change().column().hasColumnName("id");
+----
+
+== On the nullity of the values of a column
+
+These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnColumnNullity.html[AssertOnColumnNullity] interface.
+
+These assertion allows to verify the nullity of the values of a column (the column of a table or of a request).
+
+[source,java]
+----
+// Verify that the fifth column of the table has only null values
+assertThat(table).column(4).hasOnlyNullValues();
+// Verify that the column "name" has only not null values
+assertThat(request).column("name").hasOnlyNotNullValues();
+----
+
+== On the nullity of the values of a row
+
+These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnRowNullity.html[AssertOnRowNullity] interface.
+
+These assertion allows to verify the nullity of the values of a row (the row of a table or of a request).
+
+[source,java]
+----
+// Verify that the fifth row of the table has only not null values
+assertThat(table).row(4).hasOnlyNotNullValues();
+// Verify that the first column has only not null values
+assertThat(request).row().hasOnlyNotNullValues();
+----
+
+== On the type of column
+
+These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnColumnType.html[AssertOnColumnType] interface.
+
+These assertions allow to verify the type of the values of a column (a column from a table, from a request or from a change).
+
+[source,java]
+----
+// Verify that the values of the column called "firstname"
+// of the table are a text (null values are considered as wrong)
+assertThat(table).column("firstname").isOfType(ValueType.TEXT, false);
+// The same verification (with the specific method)
+// on the third column of the request
+assertThat(request).column(2).isText(false);
+// Now the same verification again but with a lenience with null values
+// (the null values are not considered as wrong)
+assertThat(request).column(2).isText(true);
+// Verify that the values of the first column
+// of the first change is either a date or a number
+assertThat(changes).change().column()
+    .isOfAnyOfTypes(ValueType.DATE, ValueType.NUMBER);
+----
+
+== On the class of column
+
+This assertion is described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnColumnClass.html[AssertOnColumnClass] interface.
+
+This assertion allows to verify the class of the values of a column (a column from a table, from a request or from a change).
+
+[source,java]
+----
+// Verify that the values of the column called "firstname"
+// of the table are a String (null values are considered as wrong)
+assertThat(table).column("firstname").isOfClass(String.class, false);
+// Verify that the values of the first column
+// of the first change is a Locale (null values are considered as right)
+assertThat(changes).change().column().isOfClass(Locale.class, true);
+----
+
+== On the content of column
+
+These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnColumnContent.html[AssertOnColumnContent] interface.
+
+These assertions allow to verify the content of a column (a column from a table or from a request).
+
+[source,java]
+----
+// Verify that the content of the column called "name"
+assertThat(table).column("name").containsValues("Hewson",
+                                                "Evans",
+                                                "Clayton",
+                                                "Mullen");
+// This second assertion is equivalent because the order of the values is not important
+assertThat(table).column("name").containsValues("Evans",
+                                                "Clayton", 
+                                                "Hewson", 
+                                                "Mullen");
+
+----
+
+== On the type of data
+
+These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnDataType.html[AssertOnDataType] interface.
+
+These assertions allow to verify the type of the date on which is a change.
+
+[source,java]
+----
+// Verify that the change is on a table
+assertThat(changes).change().isOnDataType(DataType.TABLE);
+// The same verification (with the specific method)
+assertThat(changes).change().isOnTable();
+// Verify that the change is on the "members" table
+assertThat(changes).change().isOnTable("members");
+----
+
+== On the modified columns in a change
+
+These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnModifiedColumn.html[AssertOnModifiedColumn]
+and the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnModifiedColumns.html[AssertOnModifiedColumns] interfaces.
+
+These assertions allow to verify if a column of a change have been modified between the start point and the end point (see the xref:concepts/elements.adoc#changes[concept of changes]).
+
+[source,java]
+----
+// Verify that first column of the change is not modified
+// and the second column is modified
+assertThat(changes).change().column().isNotModified().column().isModified();
+// Verify that there are 2 modified columns in the change
+assertThat(changes).change().hasNumberOfModifiedColumns(2);
+// Verify that the modified column in change are at index 1 and 2
+assertThat(changes).change().hasModifiedColumns(1, 2);
+// Verify that the modified column in change are "name" and "firstname"
+assertThat(changes).change().hasModifiedColumns("name", "firstname");
+----
+
+Compare the number of modified columns between the start point and the end point.
+
+[source,java]
+----
+// Verify that the number of modified columns in the first change is more than 5 
+assertThat(changes).change().hasNumberOfModifiedColumnsGreaterThan(5);
+// Verify that the number of modified columns in the first change is at least 5
+assertThat(changes).change().hasNumberOfModifiedColumnsGreaterThanOrEqualTo(5);
+// Verify that the number of modified columns in the first change is less than 6
+assertThat(changes).change().hasNumberOfModifiedColumnsLessThan(6);
+// Verify that the number of modified columns in the first change is at most 6
+assertThat(changes).change().hasNumberOfModifiedColumnsLessThanOrEqualTo(6);
+----
+
+== On the number of changes
+
+This assertion is described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnNumberOfChanges.html[AssertOnNumberOfChanges] interface.
+
+This assertion allows to verify the number of changes.
+
+[source,java]
+----
+// Verify that there are 4 changes
+assertThat(changes).hasNumberOfChanges(4);
+----
+
+Compare the number of changes between the start point and the end point.
+
+[source,java]
+----
+// Verify that the number of changes is more than 5 
+assertThat(changes).hasNumberOfChangesGreaterThan(5);
+// Verify that the number of changes is at least 5
+assertThat(changes).hasNumberOfChangesGreaterThanOrEqualTo(5);
+// Verify that the number of changes is less than 6
+assertThat(changes).hasNumberOfChangesLessThan(6);
+// Verify that the number of changes is at most 6
+assertThat(changes).hasNumberOfChangesLessThanOrEqualTo(6);
+----
+
+== On the number of columns
+
+This assertion is described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnNumberOfColumns.html[AssertOnNumberOfColumns] interface.
+
+This assertion allows to verify the number of columns (columns from a table, from a request or from a change).
+
+[source,java]
+----
+// Verify that there are 6 columns in the table
+assertThat(table).hasNumberOfColumns(6);
+// Verify that there are 4 columns in the change
+assertThat(changes).change().hasNumberOfColumns(4);
+----
+
+Compare the number of columns.
+
+[source,java]
+----
+// Verify that the number of columns is more than 5 
+assertThat(table).hasNumberOfColumnsGreaterThan(5);
+// Verify that the number of columns is at least 5
+assertThat(request).hasNumberOfColumnsGreaterThanOrEqualTo(5);
+// Verify that the number of columns is less than 6
+assertThat(changes).hasNumberOfColumnsLessThan(6);
+// Verify that the number of columns is at most 6
+assertThat(changes).hasNumberOfColumnsLessThanOrEqualTo(6);
+----
+
+== On the number of rows
+
+This assertion is described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnNumberOfRows.html[AssertOnNumberOfRows] interface.
+
+This assertion allows to verify the number of rows (rows from a table or from a request).
+
+[source,java]
+----
+// Verify that there are 7 rows in the table
+assertThat(table).hasNumberOfRows(7);
+----
+
+Compare the number of rows.
+
+[source,java]
+----
+// Verify that the number of rows is more than 5 
+assertThat(table).hasNumberOfRowsGreaterThan(5);
+// Verify that the number of rows is at least 5
+assertThat(request).hasNumberOfRowsGreaterThanOrEqualTo(5);
+// Verify that the number of rows is less than 6
+assertThat(changes).hasNumberOfRowsLessThan(6);
+// Verify that the number of rows is at most 6
+assertThat(changes).hasNumberOfRowsLessThanOrEqualTo(6);
+----
+
+Verify if rows are empty (equivalent to `hasNumberOfRows(0)`).
+
+[source,java]
+----
+// Verify that the table are empty 
+assertThat(table).isEmpty();
+----
+
+== On the primary keys
+
+These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnPrimaryKey.html[AssertOnPrimaryKey] interface.
+
+These assertions allow to verify the names and the values of the columns which compose the primary keys of the rows from a change.
+
+[source,java]
+----
+// Verify that the columns of the primary keys are "id" and "name"
+assertThat(changes).change().hasPksNames("id", "name");
+// Verify that the values of the primary keys are 1 and "HEWSON"
+assertThat(changes).change().hasPksValues(1, "HEWSON");
+----
+
+== On the equality with the values of a row
+
+This assertion is described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnRowEquality.html[AssertOnRowEquality] interface.
+
+This assertion allow to verify the values of a row (the row of a table, of a request or of a change).
+
+[source,java]
+----
+// Verify the values of the row at index 1
+assertThat(table).row(1)
+                 .hasValues(2, 
+                            "Evans", 
+                            "David Howell", 
+                            "The Edge", 
+                            DateValue.of(1961, 8, 8), 
+                            1.77);
+// Verify the values of the row at end point
+assertThat(changes).change().rowAtEndPoint()
+                            .hasValues(5, 
+                                       "McGuiness", 
+                                       "Paul", 
+                                       null, 
+                                       "1951-06-17", 
+                                       null);
+----
+
+== On the existence of a row in a change
+
+These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnRowOfChangeExistence.html[AssertOnRowOfChangeExistence] interface.
+
+These assertions allow to verify that the row at start point or at end point of a change exists or not (for a creation, the row do not exist at start point and for a deletion it is the contrary : the row do not exist at end point).
+
+[source,java]
+----
+// Verify that row at start point exists
+assertThat(changes).change().rowAtStartPoint().exists();
+// Verify that the row at end point do not exist
+assertThat(changes).change().rowAtEndPoint().doesNotExist();
+----
+
+== On the chronology of a value
+
+These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnValueChronology.html[AssertOnValueChronology] interface.
+
+These assertions allow to compare a value (the value of a table, of a request or of a change) to a date, a time or a date/time.
+
+[source,java]
+----
+// Compare the value with a date
+assertThat(table).row(1).value("birthdate")
+                        .isAfter(DateValue.of(1950, 8, 8));
+// Verify the value is between two dates/times
+assertThat(changes).change().column("release").valueAtEndPoint()
+                            .isAfterOrEqualTo(DateTimeValue.parse("2014-09-08T23:30"))
+                            .isBeforeOrEqualTo(DateTimeValue.parse("2014-09-09T05:30"));
+----
+
+== On the comparison with a value
+
+These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnValueComparison.html[AssertOnValueComparison] interface.
+
+These assertions allow to compare a value (the value of a table, of a request or of a change) to a number.
+
+[source,java]
+----
+// Compare the value with a number
+assertThat(table).row(1).value("size")
+                        .isGreaterThan(1.5);
+// Verify the value is between two numbers
+assertThat(changes).change().column("size").valueAtEndPoint()
+                            .isGreaterThanOrEqualTo(1.7)
+                            .isLessThanOrEqualTo(1.8);
+----
+
+== On the closeness of a value
+
+These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnValueCloseness.html[AssertOnValueCloseness] interface.
+
+These assertions allow to verify if a value (the value of a table, of a request or of a change) is close to another.
+
+[source,java]
+----
+// Verify if the value is close to 2 with a tolerance of 0.5
+// So the values between 1.5 and 2.5 are right
+assertThat(table).row(1).value("size")
+                        .isCloseTo(2, 0.5);
+// Verify the value is close to 05-10-1960 with a tolerance of two days
+assertThat(changes).change().column("birth").valueAtEndPoint()
+                            .isCloseTo(DateValue(1960, 5, 10),
+                                       DateValue(0, 0, 2));
+----
+
+== On the equality with a value
+
+These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnValueEquality.html[AssertOnValueEquality] interface.
+
+These assertion allow to verify that a value (the value of a table, of a request or of a change) is equal to another value (in parameter).
+
+=== With Boolean
+
+[source,java]
+----
+// Verify that the value is equal to true
+assertThat(table).row(3).value("live").isEqualTo(true);
+// Do the same thing with the specific method
+assertThat(table).row(3).value("live").isTrue();
+----
+
+=== With Bytes
+
+[source,java]
+----
+// Get bytes from a file
+byte[] bytesFromFile = Assertions.bytesContentOf(file);
+// Verify that the value at end point of the first column of the first change
+// is equal to bytes from the file
+assertThat(changes).change().column().valueAtStartPoint().isEqualTo(bytesFromFile);
+----
+
+=== With Number
+
+[source,java]
+----
+// Verify that the first value is equal to 1.77,
+// the second is equal to 50 and the last is equal to zero
+assertThat(request).column("size").value().isEqualTo(1.77)
+                                  .value().isEqualTo(50)
+                                  .value().isEqualTo(0).isZero();
+----
+
+=== With Date
+
+[source,java]
+----
+// Verify that values are equal to dates
+assertThat(changes).changeOfCreation()
+                       .rowAtEndPoint()
+                           .value("birthdate")
+                               .isEqualTo(LocalDate.of(1951, 6, 17))
+                   .changeOfModification()
+                       .column("birthdate")
+                           .isEqualTo()
+                               .isNotEqualTo(LocalDate.parse("1960-05-10"))
+                           .valueAtEndPoint()
+                               .isEqualTo(LocalDate.of(1960, 5, 10));
+----
+
+=== With Time
+
+[source,java]
+----
+// Verify that the value is equal to a time
+assertThat(table).row().value("duration").isEqualTo(LocalTime.of(9, 1));
+----
+
+=== With Date/Time
+
+[source,java]
+----
+// Verify that the value is equal to a date/time
+assertThat(request).column().value()
+                   .isEqualTo(LocalDateTime.of(2007, 12, 23,9, 1, 0))
+                   .isEqualTo(LocalDateTime.parse("2007-12-23T09:01"));
+----
+
+=== With String
+
+[source,java]
+----
+// Verify that the values are equal to numbers, texts and dates
+assertThat(table).row().value().isEqualTo("1")
+                       .value().isEqualTo("Hewson")
+                       .value().isEqualTo("Paul David")
+                       .value().isEqualTo("Bono")
+                       .value().isEqualTo("1960-05-10")
+                       .value().isEqualTo("1.75");
+----
+
+=== With UUID
+
+[source,java]
+----
+// Verify that the values are equal to UUID
+assertThat(table).column().value().isEqualTo(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"))
+                          .value().isEqualTo(UUID.fromString("0E2A1269-EFF0-4233-B87B-B53E8B6F164D"))
+                          .value().isEqualTo(UUID.fromString("2B0D1BDD-909E-4362-BA10-C930BA82718D"));
+----
+
+=== With Character
+
+[source,java]
+----
+// Verify that the values are equal to Character
+assertThat(table).column().value().isEqualTo('T')
+                          .value().isEqualTo('e')
+                          .value().isEqualTo('s')
+                          .value().isEqualTo('t');
+----
+
+== On the non equality with a value
+
+These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnValueNonEquality.html[AssertOnValueNonEquality] interface.
+
+These assertion allow to verify that a value (the value of a table, of a request or of a change) is not equal to another value (in parameter).
+
+=== With Boolean
+
+[source,java]
+----
+// Verify that the values (values "live" in the row at index 3 and index 5)
+// are not equal to false
+assertThat(table).row(3).value("live").isNotEqualTo(false)
+                 .row(5).value("live").isNotEqualTo(false);
+----
+
+=== With Bytes
+
+[source,java]
+----
+// Get bytes from a resource in the classpath
+byte[] bytesFromClassPath = Assertions.bytesContentFromClassPathOf(resource);
+// Verify that the value at end point of the first column of the first change
+// is not equal to bytes from the resource
+assertThat(changes).change().column().valueAtStartPoint().isNotEqualTo(bytesFromClassPath);
+----
+
+=== With Number
+
+[source,java]
+----
+// Verify that the first value is not equal to 1.78,
+// the second is not equal to 55 and the last is not equal to 15
+assertThat(request).column("size").value().isNotEqualTo(1.78)
+                                  .value().isNotEqualTo(55)
+                                  .value().isNotEqualTo(15);
+----
+
+=== With Date
+
+[source,java]
+----
+// Verify that values are not equal to dates
+assertThat(changes).changeOfCreation()
+                       .rowAtEndPoint()
+                           .value("birthdate")
+                               .isNotEqualTo(LocalDate.of(1951, 6, 17))
+                   .changeOfModification()
+                       .column("birthdate")
+                           .valueAtStartPoint()
+                               .isNotEqualTo(LocalDate.parse("1960-05-10"))
+                           .valueAtEndPoint()
+                               .isNotEqualTo(LocalDate.of(1960, 5, 10));
+----
+
+=== With Time
+
+[source,java]
+----
+// Verify that the value is equal to a time
+assertThat(table).row().value("duration").isNotEqualTo(LocalTime.of(9, 1));
+----
+
+=== With Date/Time
+
+[source,java]
+----
+// Verify that the value is not equal to a date/time
+assertThat(request).column().value()
+                   .isNotEqualTo(LocalDateTime.of(2015, 5, 26,22, 46)))
+                   .isNotEqualTo(LocalDateTime.parse("2015-05-26T22:46"));
+----
+
+=== With String
+
+[source,java]
+----
+// Verify that the values are not equal to numbers, texts and dates
+assertThat(table).row().value().isNotEqualTo("5")
+                       .value().isNotEqualTo("McGuiness")
+                       .value().isNotEqualTo("Paul")
+                       .value("birthdate").isNotEqualTo("1951-06-17");
+----
+
+=== With UUID
+
+[source,java]
+----
+// Verify that the values are not equal to UUID
+assertThat(table).column()
+                 .value().isNotEqualTo(UUID.fromString("30B443AE-C0C9-4790-9BEC-CE1380808435"))
+                 .value().isNotEqualTo(UUID.fromString("0E2A1269-EFF0-4233-B87B-B53E8B6F164D"))
+                 .value().isNotEqualTo(UUID.fromString("2B0D1BDD-909E-4362-BA10-C930BA82718D"));
+----
+
+=== With Character
+
+[source,java]
+----
+// Verify that the values are not equal to Character
+assertThat(table).column()
+                 .value().isNotEqualTo('T')
+                 .value().isNotEqualTo('e')
+                 .value().isNotEqualTo('s')
+                 .value().isNotEqualTo('t');
+----
+
+== On the nullity of a value
+
+These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnValueNullity.html[AssertOnValueNullity] interface.
+
+These assertions allow to verify if a value (the value of a table, of a request or of a change) is null or not.
+
+[source,java]
+----
+// Verify that the value at index 1 is null and the next value is not null
+assertThat(table).column().value(1).isNull()
+                          .value().isNotNull();
+// Verify the value is not null
+assertThat(changes).change().rowAtStartPoint().value("live")
+                            .isNotNull();
+----
+
+== On the type of a value
+
+These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnValueType.html[AssertOnValueType] interface.
+
+This assertion allows to verify the type of a value (a value from a table, from a request or from changes).
+
+[source,java]
+----
+// Verify that the value of the column called "firstname"
+// of the fifth row of the table is a text
+assertThat(table).row(4).value("firstname").isOfType(ValueType.TEXT);
+// The same verification (with the specific method)
+// on the third value of the second row of the request
+assertThat(request).row(1).value(2).isText();
+// Verify that the value at start point of the first column
+// of the first change is either a date or a number
+assertThat(changes).change().column().valueAtStartPoint()
+    .isOfAnyOfTypes(ValueType.DATE, ValueType.NUMBER);
+----
+
+== On the class of a value
+
+This assertion is described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnValueClass.html[AssertOnValueClass] interface.
+
+This assertion allows to verify the class of a value (a value from a table, from a request or from changes).
+
+[source,java]
+----
+// Verify that the value of the column called "firstname"
+// of the fifth row of the table is a String
+assertThat(table).row(4).value("firstname").isOfClass(String.class);
+// Verify that the value at start point of the first column
+// of the first change is a Locale
+assertThat(changes).change().column().valueAtStartPoint()
+    .isOfClass(Locale.class);
+----

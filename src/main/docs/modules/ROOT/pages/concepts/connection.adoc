@@ -1,0 +1,69 @@
+= Connection to the database
+
+To make assertions on a database, it is necessary to connect. The concept of `AssertDbConnection` represent how
+AssertJ-DB can retrieve data and schema information from database.
+
+It's also with a `AssertDbConnection` that you can instantiate the following element : `Table`, `Request`, `Changes`.
+
+[[AssertDbConnection]]
+== AssertDbConnection
+
+A https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/AssertDbConnection.html[AssertDbConnection]
+is created with the factory https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/AssertDbConnectionFactory.html[AssertDbConnectionFactory].
+
+There are 2 way to begin the AssertDbConnectionFactory, with a http://docs.oracle.com/javase/6/docs/api/javax/sql/DataSource.html[DataSource] ( the classic Java way
+to get a http://docs.oracle.com/javase/6/docs/api/java/sql/Connection.html[Connection] to a database ) or with JDBC connection information.
+
+Below is an example of using a DataSource to connect to H2 in memory database :
+
+[source,java]
+----
+AssertDbConnection connection = AssertDbConnectionFactory.of("jdbc:h2:mem:test", "sa", "").create();
+----
+
+And using a DataSource to connect :
+
+[source,java]
+----
+AssertDbConnection connection = AssertDbConnectionFactory.of(dataSource).create();
+----
+
+== LetterCase setup
+
+https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/AssertDbConnectionFactory.html[AssertDbConnectionFactory]
+provide the capacity to indicate the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html[LetterCase]
+to use for the tables, columns and primary keys.
+
+[source,java]
+----
+AssertDbConnection connection = AssertDbConnectionFactory
+    .of(dataSource)
+    .letterCase(tableLetterCase, columnLetterCase, pkLetterCase)
+    .create();
+----
+
+For more information, see the <<assertj-db-concepts-dblettercase,paragraph on LetterCase>>.
+
+== Schema retrieval mode
+
+For many assertions, AssertJ-DB require to discover database schema metadata ( list of tables, columns, ... ).
+When the schema contains many tables this operation can slow down the tests executions.
+
+To avoid that and when the database schema is not updated during the test session, you can use the option
+https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/SchemaMetaDataMode.html[SchemaMetaDataMode] of
+https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/AssertDbConnectionFactory.html[AssertDbConnectionFactory]
+to keep in memory the schema.
+
+Available mode are :
+
+ - DYNAMIC ( default ): Retrieve schema metadata each time is required.
+ - STATIC : Retrieve schema metadata only once and keep in memory for all duration of connection.
+
+Below is an example of using the STATIC mode for a connection :
+
+[source,java]
+----
+AssertDbConnection connection = AssertDbConnectionFactory.of(dataSource)
+    .schemaMetaDataMode(SchemaMetaDataMode.STATIC)
+    .create();
+----
