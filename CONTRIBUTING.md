@@ -12,3 +12,24 @@ We appreciate your effort and to make sure that your pull request is easy to rev
 * Failing assertion unit test method name must start with : `should_fail_...`.
 * If possible, add a (fun) code example in [assertj-examples](https://github.com/joel-costigliola/assertj-examples) and use it in the javadoc. 
 
+
+Documentation
+-------------
+
+The user guide is written in AsciiDoc and built with [Antora](https://antora.org).
+Its pages are in `src/docs/antora/modules/ROOT/pages`, and the code examples they include are in `src/test/java/example`.
+
+The code examples are compiled with the test sources, so an API change that breaks them fails the build.
+They are not executed as tests, because they need a database that does not exist.
+Pages include them by tag, e.g. `include::example$java/example/db/TableAssertionExamples.java[tags=user_guide]`.
+
+To preview your changes, generate the site:
+
+```shell
+./mvnw antora
+```
+
+Then open `target/site/index.html` in a browser (the build prints the full `file://` URL at the end).
+The preview only contains the AssertJ DB guide; the complete site is assembled from all AssertJ repositories by [docs.assertj.dev](https://github.com/assertj/docs.assertj.dev).
+No Node.js installation is required: the first run downloads Node.js into `target/node` and the Antora packages into `node_modules`.
+To use a Node.js installation from your `PATH` instead, add `-Dnode.executable=node`.
