@@ -18,11 +18,7 @@ updates:
       github-actions:
         patterns:
           - "*"
-  - package-ecosystem: "maven"
-    directory: "/docs"
-    schedule:
-      interval: "weekly"
   - package-ecosystem: "npm"
-    directory: "/docs"
+    directory: "/"
     schedule:
       interval: "weekly"
