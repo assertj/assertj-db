@@ -1,4 +1,4 @@
-![alt tag](img/assertj-db_icon.png)
+![alt tag](src/docs/antora/modules/ROOT/images/assertj-db_icon.png)
 AssertJ-DB - Assertions for database
 ==========
 
