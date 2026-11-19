@@ -59,7 +59,7 @@ Example from {assertj-examples-github}/blob/main/assertions-examples/src/test/ja
 include::example$java/example/db/TableAssertionExamples.java[tags=user_guide]
 ----
 
-In this simple example you can see many `[concepts of AssertJ-DB] (the concepts are simple but I advice you to take the time to get to know them well) :
+In this simple example you can see many xref:concepts/index.adoc[concepts of AssertJ-DB] (the concepts are simple, but I advise you to take the time to get to know them well) :
 
 * xref:concepts/elements.adoc[the elements] :
 ** xref:concepts/elements.adoc#table[Table] which represents a table in the database

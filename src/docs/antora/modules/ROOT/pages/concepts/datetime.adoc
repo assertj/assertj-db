@@ -6,11 +6,11 @@ But for the backward compatibility, it's always possible to use AssertJ-DB DateV
 
 So The https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/DateValue.html[DateValue],
       https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/TimeValue.html[TimeValue] and
-      https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/DateTimeValue.html[DateTimeValue] classes are simpler but contains this kind of informations.
+      https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/DateTimeValue.html[DateTimeValue] classes are simpler but contain this kind of information.
 
 There is 4 kinds of static methods to instantiate these values :
 
-* `of` which receives the informations as `int` parameters
+* `of` which receives the information as `int` parameters
 
 [source,java]
 ----
