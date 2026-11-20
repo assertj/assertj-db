@@ -48,7 +48,7 @@ For more information, see the xref:concepts/letter-case.adoc[paragraph on Letter
 [[assertdbconnectionmetadata]]
 == Schema retrieval mode
 
-Since xref:release-notes.adoc#v1-1-0-release-notes[3.0.0]
+Since 3.0.0
 
 For many assertions, AssertJ-DB require to discover database schema metadata ( list of tables, columns, ... ).
 When the schema contains many tables this operation can slow down the tests executions.

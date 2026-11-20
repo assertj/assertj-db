@@ -37,7 +37,7 @@ The type of the value depends of class of the object given by `java.sql` when th
 *   `https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/ValueType.html#DATE[DATE]` for a `java.sql.Date`
 *   `https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/ValueType.html#TIME[TIME]` for a `java.sql.Time`
 *   `https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/ValueType.html#DATE_TIME[DATE_TIME]` for a `java.sql.Timestamp`
-*   `https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/ValueType.html#UUID[UUID]` for a `java.util.UUID` [.small]#(since xref:release-notes.adoc#v1-1-0-release-notes[1.1.0])#
+*   `https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/ValueType.html#UUID[UUID]` for a `java.util.UUID` [.small]#(since 1.1.0)#
 *   `https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/ValueType.html#NUMBER[NUMBER]` for a `java.lang.Byte`,
         `java.lang.Short`,        `java.lang.Integer`,        `java.lang.Long`,        `java.lang.Double`,        `java.lang.Float` or        `java.math.BigDecimal`
 *   `https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/ValueType.html#NOT_IDENTIFIED[NOT_IDENTIFIED]` for other cases (for example when the value is `null`)
@@ -45,7 +45,7 @@ The type of the value depends of class of the object given by `java.sql` when th
 [[ordertype]]
 == Order Type
 
-Since xref:release-notes.adoc#v1-2-0-release-notes[1.2.0]
+Since 1.2.0
 
 The order can be a ascending or descending.
 All the possible types of order are contained in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.Order.OrderType.html[Table.Order.OrderType] enumeration.

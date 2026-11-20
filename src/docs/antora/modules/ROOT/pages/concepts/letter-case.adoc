@@ -1,6 +1,6 @@
 = Letter Case of the database
 
-Since xref:release-notes.adoc#v1-1-0-release-notes[1.1.0]
+Since 1.1.0
 
 Databases have different letter cases for the name of the elements.
 For example, the name of the table can be upper case either the name is inputted in upper case or not. So this concept (and feature too) is here to manage these shades.

@@ -153,7 +153,7 @@ assertThat(table).column()
 [[oncolumnequality-uuid]]
 === With UUID
 
-Since xref:release-notes.adoc#v1-1-0-release-notes[1.1.0]
+Since 1.1.0
 
 [source,java]
 ----
@@ -172,7 +172,7 @@ assertThat(changes).change()
 [[oncolumnequality-character]]
 === With Character
 
-Since xref:release-notes.adoc#v1-2-0-release-notes[1.2.0]
+Since 1.2.0
 
 [source,java]
 ----
@@ -219,7 +219,7 @@ assertThat(request).column("name").hasOnlyNotNullValues();
 [[onrownullity]]
 == On the nullity of the values of a row
 
-Since xref:release-notes.adoc#v1-2-0-release-notes[1.2.0]
+Since 1.2.0
 
 These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnRowNullity.html[AssertOnRowNullity] interface.
 
@@ -260,7 +260,7 @@ assertThat(changes).change().column()
 [[oncolumnclass]]
 == On the class of column
 
-Since xref:release-notes.adoc#v1-1-0-release-notes[1.1.0]
+Since 1.1.0
 
 This assertion is described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnColumnClass.html[AssertOnColumnClass] interface.
 
@@ -279,7 +279,7 @@ assertThat(changes).change().column().isOfClass(Locale.class, true);
 [[oncolumncontent]]
 == On the content of column
 
-Since xref:release-notes.adoc#v1-1-0-release-notes[1.1.0]
+Since 1.1.0
 
 These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnColumnContent.html[AssertOnColumnContent] interface.
 
@@ -338,7 +338,7 @@ assertThat(changes).change().hasModifiedColumns(1, 2);
 assertThat(changes).change().hasModifiedColumns("name", "firstname");
 ----
 
-Since version xref:release-notes.adoc#v1-1-0-release-notes[1.1.0], there are new assertions which allow to compare the number of modified columns between the start point and the end point.
+Since version 1.1.0, there are new assertions which allow to compare the number of modified columns between the start point and the end point.
 
 [source,java]
 ----
@@ -365,7 +365,7 @@ This assertion allows to verify the number of changes.
 assertThat(changes).hasNumberOfChanges(4);
 ----
 
-Since version xref:release-notes.adoc#v1-1-0-release-notes[1.1.0], there are new assertions which allow to compare the number of changes between the start point and the end point.
+Since version 1.1.0, there are new assertions which allow to compare the number of changes between the start point and the end point.
 
 [source,java]
 ----
@@ -394,7 +394,7 @@ assertThat(table).hasNumberOfColumns(6);
 assertThat(changes).change().hasNumberOfColumns(4);
 ----
 
-Since version xref:release-notes.adoc#v1-1-0-release-notes[1.1.0], there are new assertions which allow to compare the number of columns.
+Since version 1.1.0, there are new assertions which allow to compare the number of columns.
 
 [source,java]
 ----
@@ -421,7 +421,7 @@ This assertion allows to verify the number of rows (rows from a table or from a 
 assertThat(table).hasNumberOfRows(7);
 ----
 
-Since version xref:release-notes.adoc#v1-1-0-release-notes[1.1.0], there are new assertions which allow to compare the number of rows.
+Since version 1.1.0, there are new assertions which allow to compare the number of rows.
 
 [source,java]
 ----
@@ -435,7 +435,7 @@ assertThat(changes).hasNumberOfRowsLessThan(6);
 assertThat(changes).hasNumberOfRowsLessThanOrEqualTo(6);
 ----
 
-Since version xref:release-notes.adoc#v1-2-0-release-notes[1.2.0], there is a new assertion which allow to verify if rows are empty (equivalent to `hasNumberOfRows(0)`).
+Since version 1.2.0, there is a new assertion which allow to verify if rows are empty (equivalent to `hasNumberOfRows(0)`).
 
 [source,java]
 ----
@@ -539,7 +539,7 @@ assertThat(changes).change().column("size").valueAtEndPoint()
 [[onvaluecloseness]]
 == On the closeness of a value
 
-Since xref:release-notes.adoc#v1-1-0-release-notes[1.1.0]
+Since 1.1.0
 
 These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnValueCloseness.html[AssertOnValueCloseness] interface.
 
@@ -654,7 +654,7 @@ assertThat(table).row().value().isEqualTo("1")
 [[onvaluequality-uuid]]
 === With UUID
 
-Since xref:release-notes.adoc#v1-1-0-release-notes[1.1.0]
+Since 1.1.0
 
 [source,java]
 ----
@@ -667,7 +667,7 @@ assertThat(table).column().value().isEqualTo(UUID.fromString("30B443AE-C0C9-4790
 [[onvaluequality-character]]
 === With Character
 
-Since xref:release-notes.adoc#v1-2-0-release-notes[1.2.0]
+Since 1.2.0
 
 [source,java]
 ----
@@ -773,7 +773,7 @@ assertThat(table).row().value().isNotEqualTo("5")
 [[onvaluenonquality-uuid]]
 === With UUID
 
-Since xref:release-notes.adoc#v1-1-0-release-notes[1.1.0]
+Since 1.1.0
 
 [source,java]
 ----
@@ -787,7 +787,7 @@ assertThat(table).column()
 [[onvaluenonquality-character]]
 === With Character
 
-Since xref:release-notes.adoc#v1-2-0-release-notes[1.2.0]
+Since 1.2.0
 
 [source,java]
 ----
@@ -840,7 +840,7 @@ assertThat(changes).change().column().valueAtStartPoint()
 [[onvalueclass]]
 == On the class of a value
 
-Since xref:release-notes.adoc#v1-1-0-release-notes[1.1.0]
+Since 1.1.0
 
 This assertion is described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnValueClass.html[AssertOnValueClass] interface.
 

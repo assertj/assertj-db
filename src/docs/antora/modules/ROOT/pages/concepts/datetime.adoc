@@ -30,7 +30,7 @@ DateTimeValue dateTimeValue2 = DateTimeValue.of(dateValue, timeValue1);
 ----
 
 * `from` which receives the equivalent from `java.sql` package (`java.sql.Date`, `java.sql.Time` and      `java.sql.Timestamp`)
-or a `java.util.Calendar` [.small]#(since xref:release-notes.adoc#v1-1-0-release-notes[1.1.0])#
+or a `java.util.Calendar` [.small]#(since 1.1.0)#
 
 [source,java]
 ----
@@ -73,7 +73,7 @@ DateTimeValue dateTimeValue2 = DateTimeValue.parse("2007-12-23T09:01:06");
 DateTimeValue dateTimeValue2 = DateTimeValue.parse("2007-12-23T09:01:06.000000003");
 ----
 
-*   `now` [.small]#(since xref:release-notes.adoc#v1-1-0-release-notes[1.1.0])# which create an instance corresponding to the current moment.
+*   `now` [.small]#(since 1.1.0)# which create an instance corresponding to the current moment.
 
 [source,java]
 ----

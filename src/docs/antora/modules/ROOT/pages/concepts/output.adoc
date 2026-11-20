@@ -1,6 +1,6 @@
 = Output
 
-Since xref:release-notes.adoc#v1-1-0-release-notes[1.1.0]
+Since 1.1.0
 
 It can be interesting to view the values on which an assertion is made (for example for debugging). The output allows that.
 
