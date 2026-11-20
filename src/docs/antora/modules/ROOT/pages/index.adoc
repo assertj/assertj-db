@@ -23,9 +23,9 @@ Some implementations examples are visible at the {assertj-examples-github}/tree/
 They show what is possible with AssertJ DB Assertions with running code.
 You can clone the repository and run its tests !
 
-== Mailing list
+== Discussions
 
-If you have any questions, please use the https://groups.google.com/forum/?fromgroups=#!forum/assertj[AssertJ google group].
+If you have any questions, please use https://github.com/orgs/assertj/discussions[GitHub Discussions].
 
 == Code and issue tracker
 
