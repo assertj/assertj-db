@@ -6,8 +6,8 @@
 As shown in the xref:concepts/navigation.adoc#tableorrequestasroot[concepts] (to easily understand this chapter it is important to know the concepts of assertj-db),
 the `assertThat(...)` static method is used
 to begin an assertion
-on a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.html[Table]
-or on a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Request.html[Request].
+on a {assertj-db-javadoc}/org/assertj/db/type/Table.html[Table]
+or on a {assertj-db-javadoc}/org/assertj/db/type/Request.html[Request].
 
 The navigation from a table or from a request are similar, so in most of the examples below a table will be used :
 
@@ -34,7 +34,7 @@ at the column name
 [[tableorrequesttorow]]
 === To a Row
 
-These methods are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/navigation/ToRow.html[ToRow] interface.
+These methods are described in the {assertj-db-javadoc}/org/assertj/db/navigation/ToRow.html[ToRow] interface.
 
 The `row()` method allows to navigate to the next row after the row reached on the last call.
 
@@ -112,7 +112,7 @@ assertThat(table).row().row()...
 [[tableorrequesttocolumn]]
 === To a Column
 
-These methods are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/navigation/ToColumn.html[ToColumn] interface.
+These methods are described in the {assertj-db-javadoc}/org/assertj/db/navigation/ToColumn.html[ToColumn] interface.
 
 The `column()` method allows to navigate to the next column after the column reached on the last call.
 
@@ -208,8 +208,8 @@ assertThat(table).column().column()...
 [[tableorrequesttovalue]]
 === To a Value
 
-These methods are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/navigation/ToValue.html[ToValue]
-and the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/navigation/ToValueFromRow.html[ToValueFromRow] interfaces.
+These methods are described in the {assertj-db-javadoc}/org/assertj/db/navigation/ToValue.html[ToValue]
+and the {assertj-db-javadoc}/org/assertj/db/navigation/ToValueFromRow.html[ToValueFromRow] interfaces.
 
 The `value()` method allows to navigate to the next value after the value reached on the last call.
 
@@ -306,7 +306,7 @@ assertThat(table).column().value().value()...
 [[changestochanges]]
 === To Changes
 
-These methods are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/navigation/ToChanges.html[ToChanges] interface.
+These methods are described in the {assertj-db-javadoc}/org/assertj/db/navigation/ToChanges.html[ToChanges] interface.
 
 The `ofCreation()` method allows to navigate to the changes of creation.
 
@@ -407,7 +407,7 @@ it is like if the method was executed from the Changes.
 [[changestochange]]
 === To a Change
 
-These methods are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/navigation/ToChange.html[ToChange] interface.
+These methods are described in the {assertj-db-javadoc}/org/assertj/db/navigation/ToChange.html[ToChange] interface.
 
 The `change()` method allows to navigate to the next change after the change reached on the last call.
 
@@ -593,7 +593,7 @@ assertThat(changes).change().change()...
 [[changestorow]]
 === To a Row
 
-These methods are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/navigation/ToRowFromChange.html[ToRowFromChange] interface.
+These methods are described in the {assertj-db-javadoc}/org/assertj/db/navigation/ToRowFromChange.html[ToRowFromChange] interface.
 
 The `rowAtStartPoint()` and `rowAtEndPoint()` methods
 allows to navigate to the row at the start point and at the end point.
@@ -655,8 +655,8 @@ assertThat(changes).change().rowAtStartPoint().rowAtEndPoint()...
 [[changestocolumn]]
 === To a Column
 
-These methods are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/navigation/ToColumn.html[ToColumn]
-and https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/navigation/ToColumnFromChange.html[ToColumnFromChange] interfaces.
+These methods are described in the {assertj-db-javadoc}/org/assertj/db/navigation/ToColumn.html[ToColumn]
+and {assertj-db-javadoc}/org/assertj/db/navigation/ToColumnFromChange.html[ToColumnFromChange] interfaces.
 
 The `column()` method allows to navigate to the next column after the column reached on the last call.
 
@@ -787,9 +787,9 @@ assertThat(changes).change().column().column()...
 [[changestovalue]]
 === To a Value
 
-These methods are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/navigation/ToValue.html[ToValue],
-      https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/navigation/ToValueFromColumn.html[ToValueFromColumn]
-and https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/navigation/ToValueFromRow.html[ToValueFromRow] interfaces.
+These methods are described in the {assertj-db-javadoc}/org/assertj/db/navigation/ToValue.html[ToValue],
+      {assertj-db-javadoc}/org/assertj/db/navigation/ToValueFromColumn.html[ToValueFromColumn]
+and {assertj-db-javadoc}/org/assertj/db/navigation/ToValueFromRow.html[ToValueFromRow] interfaces.
 
 This picture shows from where it is possible to navigate to a value.
 

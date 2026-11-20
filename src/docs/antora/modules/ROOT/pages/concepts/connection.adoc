@@ -8,8 +8,8 @@ It's also with a `AssertDbConnection` that you can instantiate the following ele
 [[assertdbconnection]]
 == AssertDbConnection
 
-A https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/AssertDbConnection.html[AssertDbConnection]
-is created with the factory https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/AssertDbConnectionFactory.html[AssertDbConnectionFactory].
+A {assertj-db-javadoc}/org/assertj/db/type/AssertDbConnection.html[AssertDbConnection]
+is created with the factory {assertj-db-javadoc}/org/assertj/db/type/AssertDbConnectionFactory.html[AssertDbConnectionFactory].
 
 There are 2 way to begin the AssertDbConnectionFactory, with a https://docs.oracle.com/javase/6/docs/api/javax/sql/DataSource.html[DataSource] ( the classic Java way
 to get a https://docs.oracle.com/javase/6/docs/api/java/sql/Connection.html[Connection] to a database ) or with JDBC connection information.
@@ -31,8 +31,8 @@ AssertDbConnection connection = AssertDbConnectionFactory.of(dataSource).create(
 [[assertdbconnectionlettercase]]
 == LetterCase setup
 
-https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/AssertDbConnectionFactory.html[AssertDbConnectionFactory]
-provide the capacity to indicate the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html[LetterCase]
+{assertj-db-javadoc}/org/assertj/db/type/AssertDbConnectionFactory.html[AssertDbConnectionFactory]
+provide the capacity to indicate the {assertj-db-javadoc}/org/assertj/db/type/lettercase/LetterCase.html[LetterCase]
 to use for the tables, columns and primary keys.
 
 [source,java]
@@ -52,8 +52,8 @@ For many assertions, AssertJ-DB require to discover database schema metadata ( l
 When the schema contains many tables this operation can slow down the tests executions.
 
 To avoid that and when the database schema is not updated during the test session, you can use the option
-https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/SchemaMetaDataMode.html[SchemaMetaDataMode] of
-https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/AssertDbConnectionFactory.html[AssertDbConnectionFactory]
+{assertj-db-javadoc}/org/assertj/db/type/SchemaMetaDataMode.html[SchemaMetaDataMode] of
+{assertj-db-javadoc}/org/assertj/db/type/AssertDbConnectionFactory.html[AssertDbConnectionFactory]
 to keep in memory the schema.
 
 Available mode are :

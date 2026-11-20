@@ -30,6 +30,7 @@ To preview your changes, generate the site:
 ```
 
 Then open `target/site/index.html` in a browser (the build prints the full `file://` URL at the end).
+The build also generates the Javadoc and attaches it to the site, which the guide links to.
 The preview only contains the AssertJ DB guide; the complete site is assembled from all AssertJ repositories by [docs.assertj.dev](https://github.com/assertj/docs.assertj.dev).
 No Node.js installation is required: the first run downloads Node.js into `target/node` and the Antora packages into `node_modules`.
 To use a Node.js installation from your `PATH` instead, add `-Dnode.executable=node`.

@@ -15,7 +15,7 @@ _Régis Pouiller (AssertJ-DB creator)_
 
 == Javadoc
 
-Latest Javadoc release: https://www.javadoc.io/doc/org.assertj/assertj-db/latest/index.html[AssertJ DB Javadoc].
+Javadoc: {assertj-db-javadoc}/index.html[AssertJ DB Javadoc].
 
 == Examples
 

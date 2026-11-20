@@ -13,3 +13,4 @@
 ** xref:features/navigation.adoc[]
 ** xref:features/assertions.adoc[]
 * https://github.com/assertj/assertj-db/releases[Release Notes]
+* {assertj-db-javadoc}/index.html[Javadoc]

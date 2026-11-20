@@ -2,9 +2,9 @@
 
 Here the elements on which it is possible to make assertions.
 
-Note that, there are only 3 root elements : https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.html[Table],
-      https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Request.html[Request]
-and https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Changes.html[Changes].
+Note that, there are only 3 root elements : {assertj-db-javadoc}/org/assertj/db/type/Table.html[Table],
+      {assertj-db-javadoc}/org/assertj/db/type/Request.html[Request]
+and {assertj-db-javadoc}/org/assertj/db/type/Changes.html[Changes].
 
 That means that the other elements are components or sub components of a root element.
 
@@ -13,11 +13,11 @@ A root element is an element on which the assertion start (in practice, the para
 [[table]]
 == Table
 
-A https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.html[Table] represents
+A {assertj-db-javadoc}/org/assertj/db/type/Table.html[Table] represents
 a table in the database.
 
-A https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.html[Table] can be constructed with the builder method `table(String name)` from
-https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/AssertDbConnection.html[AssertDbConnection].
+A {assertj-db-javadoc}/org/assertj/db/type/Table.html[Table] can be constructed with the builder method `table(String name)` from
+{assertj-db-javadoc}/org/assertj/db/type/AssertDbConnection.html[AssertDbConnection].
 
 [source,java]
 ----
@@ -28,7 +28,7 @@ Table table1 = connection.table("members").build();
 ----
 
 For more information about table construction, see the
-https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.Builder.html[Table.Builder] javadoc.
+{assertj-db-javadoc}/org/assertj/db/type/Table.Builder.html[Table.Builder] javadoc.
 
 .Representation of "table1"
 |====
@@ -40,7 +40,7 @@ https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Tab
 |4 |'Mullen' |'Larry' | |10-31-61 |1.70
 |====
 
-For a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.html[Table],
+For a {assertj-db-javadoc}/org/assertj/db/type/Table.html[Table],
 it is possible to choose the columns to include and to exclude in the assertions.
 
 [source,java]
@@ -83,10 +83,10 @@ Table table4 = connection.table("members").columnsToCheck(new String[] { "id", "
 |'Mullen'
 |====
 
-It is also possible to indicate delimiters (start delimiter and end delimiter) and `https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.Order.html[Order]`.
+It is also possible to indicate delimiters (start delimiter and end delimiter) and `{assertj-db-javadoc}/org/assertj/db/type/Table.Order.html[Order]`.
 
 The delimiters are useful when the table name or column name is a reserved word or contains special characters (like space or '%').
-      `https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.Order.html[Order]` allows to choose the order of the `Row`.
+      `{assertj-db-javadoc}/org/assertj/db/type/Table.Order.html[Order]` allows to choose the order of the `Row`.
 
 [source,java]
 ----
@@ -121,13 +121,13 @@ Table table7 = connection.table("members").columnsToOrder(new Order[] { Order.as
 [[request]]
 == Request
 
-A https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Request.html[Request] represents
+A {assertj-db-javadoc}/org/assertj/db/type/Request.html[Request] represents
 a SQL request on the database.
 
-Like a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.html[Table],
-a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Request.html[Request]
+Like a {assertj-db-javadoc}/org/assertj/db/type/Table.html[Table],
+a {assertj-db-javadoc}/org/assertj/db/type/Request.html[Request]
 can be constructed with the builder method `request(String sql)` from
-https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/AssertDbConnection.html[AssertDbConnection].
+{assertj-db-javadoc}/org/assertj/db/type/AssertDbConnection.html[AssertDbConnection].
 
 [source,java]
 ----
@@ -138,7 +138,7 @@ Request request1 = connection.request("select name, firstname from members where
 ----
 
 For more information about request construction, see the
-https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Request.Builder.html[Request.Builder] javadoc.
+{assertj-db-javadoc}/org/assertj/db/type/Request.Builder.html[Request.Builder] javadoc.
 
 .Representation of "request1"
 |====
@@ -148,7 +148,7 @@ https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Req
 |'Clayton' |'Adam' |
 |====
 
-For a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Request.html[Request],
+For a {assertj-db-javadoc}/org/assertj/db/type/Request.html[Request],
 it is possible to use a simple SQL request or a SQL request with one or many parameters.
 
 [source,java]
@@ -188,7 +188,7 @@ Request request3 = connection.request(
 [[changes]]
 == Changes
 
-The https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Changes.html[Changes]
+The {assertj-db-javadoc}/org/assertj/db/type/Changes.html[Changes]
 are the differences of states in database between a `start point` and a `end point`.
 
 image::db-changes-concept.png[]
@@ -219,7 +219,7 @@ Changes changes4 = connection.changes().request("select name, firstname from mem
 ----
 
 For more information about changes construction, see the
-https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Changes.Builder.html[Changes.Builder] javadoc.
+{assertj-db-javadoc}/org/assertj/db/type/Changes.Builder.html[Changes.Builder] javadoc.
 
 The changes are ordered :
 
@@ -332,10 +332,10 @@ In Representation of "changes3" the modification of first row of the table becom
 [[change]]
 == Change
 
-A https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Change.html[Change]
-is an element of the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Changes.html[Changes].
+A {assertj-db-javadoc}/org/assertj/db/type/Change.html[Change]
+is an element of the {assertj-db-javadoc}/org/assertj/db/type/Changes.html[Changes].
 
-Below framed in red the first https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Change.html[Change]
+Below framed in red the first {assertj-db-javadoc}/org/assertj/db/type/Change.html[Change]
 of "changes2".
 
 .Representation of "changes2"
@@ -360,12 +360,12 @@ of "changes2".
 [[row]]
 == Row
 
-A https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Row.html[Row]
-can represent a row of a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.html[Table]
-, of a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Request.html[Request] or
-of a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Change.html[Change].
+A {assertj-db-javadoc}/org/assertj/db/type/Row.html[Row]
+can represent a row of a {assertj-db-javadoc}/org/assertj/db/type/Table.html[Table]
+, of a {assertj-db-javadoc}/org/assertj/db/type/Request.html[Request] or
+of a {assertj-db-javadoc}/org/assertj/db/type/Change.html[Change].
 
-Below framed in red the third https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Row.html[Row] of "table3".
+Below framed in red the third {assertj-db-javadoc}/org/assertj/db/type/Row.html[Row] of "table3".
 
 .Representation of "table3"
 |====
@@ -377,7 +377,7 @@ Below framed in red the third https://www.javadoc.io/doc/org.assertj/assertj-db/
 |4 |'Mullen' |'Larry' | |1.70
 |====
 
-Below framed in red the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Row.html[Row] of "request2".
+Below framed in red the second {assertj-db-javadoc}/org/assertj/db/type/Row.html[Row] of "request2".
 
 .Representation of "request2"
 |====
@@ -388,8 +388,8 @@ Below framed in red the second https://www.javadoc.io/doc/org.assertj/assertj-db
 |'Mullen' |'Larry' |
 |====
 
-Below framed in red the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Row.html[Row] at end point of
-the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Change.html[Change]
+Below framed in red the {assertj-db-javadoc}/org/assertj/db/type/Row.html[Row] at end point of
+the second {assertj-db-javadoc}/org/assertj/db/type/Change.html[Change]
 of "changes3".
 
 .Representation of "changes2"
@@ -414,12 +414,12 @@ of "changes3".
 [[column]]
 == Column
 
-A https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Column.html[Column]
-can represent a column of a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.html[Table]
-, of a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Request.html[Request] or
-of a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Change.html[Change].
+A {assertj-db-javadoc}/org/assertj/db/type/Column.html[Column]
+can represent a column of a {assertj-db-javadoc}/org/assertj/db/type/Table.html[Table]
+, of a {assertj-db-javadoc}/org/assertj/db/type/Request.html[Request] or
+of a {assertj-db-javadoc}/org/assertj/db/type/Change.html[Change].
 
-Below framed in red the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Column.html[Column] of "table3".
+Below framed in red the second {assertj-db-javadoc}/org/assertj/db/type/Column.html[Column] of "table3".
 
 .Representation of "table3"
 |====
@@ -431,7 +431,7 @@ Below framed in red the second https://www.javadoc.io/doc/org.assertj/assertj-db
 |4 |'Mullen' |'Larry' | |1.70
 |====
 
-Below framed in red the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Column.html[Column] of "request2".
+Below framed in red the second {assertj-db-javadoc}/org/assertj/db/type/Column.html[Column] of "request2".
 
 .Representation of "request2"
 |====
@@ -442,8 +442,8 @@ Below framed in red the second https://www.javadoc.io/doc/org.assertj/assertj-db
 |'Mullen' |'Larry' |
 |====
 
-Below framed in red the fourth https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Column.html[Column] of
-the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Change.html[Change]
+Below framed in red the fourth {assertj-db-javadoc}/org/assertj/db/type/Column.html[Column] of
+the second {assertj-db-javadoc}/org/assertj/db/type/Change.html[Change]
 of "changes3".
 
 .Representation of "changes2"
@@ -468,13 +468,13 @@ of "changes3".
 [[value]]
 == Value
 
-A value can be in a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Row.html[Row]
-or in a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Column.html[Column].
+A value can be in a {assertj-db-javadoc}/org/assertj/db/type/Row.html[Row]
+or in a {assertj-db-javadoc}/org/assertj/db/type/Column.html[Column].
 
 Below framed in red (depending of the path) :
 
-*   the second value of the third https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Row.html[Row] of "table3"
-*   the third value of the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Column.html[Column] of "table3"
+*   the second value of the third {assertj-db-javadoc}/org/assertj/db/type/Row.html[Row] of "table3"
+*   the third value of the second {assertj-db-javadoc}/org/assertj/db/type/Column.html[Column] of "table3"
 
 .Representation of "table3"
 |====
@@ -488,8 +488,8 @@ Below framed in red (depending of the path) :
 
 Below framed in red (depending of the path) :
 
-*   the second value of the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Row.html[Row] of "request2"
-*   the second value of the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Column.html[Column] of "request2"
+*   the second value of the second {assertj-db-javadoc}/org/assertj/db/type/Row.html[Row] of "request2"
+*   the second value of the second {assertj-db-javadoc}/org/assertj/db/type/Column.html[Column] of "request2"
 
 .Representation of "request2"
 |====
@@ -502,11 +502,11 @@ Below framed in red (depending of the path) :
 
 Below framed in red (depending of the path) :
 
-*   the fourth value of the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Row.html[Row] at end point of
-the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Change.html[Change]
+*   the fourth value of the {assertj-db-javadoc}/org/assertj/db/type/Row.html[Row] at end point of
+the second {assertj-db-javadoc}/org/assertj/db/type/Change.html[Change]
 of "changes2"
-*   the value at end point of the fourth https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Column.html[Column] of
-the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Change.html[Change]
+*   the value at end point of the fourth {assertj-db-javadoc}/org/assertj/db/type/Column.html[Column] of
+the second {assertj-db-javadoc}/org/assertj/db/type/Change.html[Change]
 of "changes2"
 
 .Representation of "changes2"
