@@ -13,11 +13,7 @@
 package example.db;
 
 // tag::user_guide[]
-// From v3.0.2
 import static org.assertj.core.api.Assertions.assertThat;
-
-// For versions <= 3.0.1 :
-// import static org.assertj.db.api.Assertions.assertThat;
 
 import org.assertj.db.type.AssertDbConnection;
 import org.assertj.db.type.AssertDbConnectionFactory;

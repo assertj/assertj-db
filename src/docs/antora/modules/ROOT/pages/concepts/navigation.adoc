@@ -11,11 +11,7 @@ The `assertThat(...)` static method of `Assertions` allows to create a root asse
 
 [source,java]
 ----
-// From v3.0.2
 import static org.assertj.core.api.Assertions.assertThat;
-
-// For versions <= 3.0.1 :
-// import static org.assertj.db.api.Assertions.assertThat;
 
 assertThat(table)...
 ----
@@ -24,11 +20,7 @@ or on a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/
 
 [source,java]
 ----
-// From v3.0.2
 import static org.assertj.core.api.Assertions.assertThat;
-
-// For versions <= 3.0.1 :
-// import static org.assertj.db.api.Assertions.assertThat;
 
 assertThat(request)...
 ----
@@ -61,11 +53,7 @@ allows to create a root assertion on https://www.javadoc.io/doc/org.assertj/asse
 
 [source,java]
 ----
-// From v3.0.2
 import static org.assertj.core.api.Assertions.assertThat;
-
-// For versions <= 3.0.1 :
-// import static org.assertj.db.api.Assertions.assertThat;
 
 assertThat(changes)...
 ----

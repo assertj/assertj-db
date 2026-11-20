@@ -83,7 +83,7 @@ Table table4 = connection.table("members").columnsToCheck(new String[] { "id", "
 |'Mullen'
 |====
 
-Since version 1.2.0, there are the possibility to indicate delimiters (start delimiter and end delimiter) and `https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.Order.html[Order]`.
+It is also possible to indicate delimiters (start delimiter and end delimiter) and `https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.Order.html[Order]`.
 
 The delimiters are useful when the table name or column name is a reserved word or contains special characters (like space or '%').
       `https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.Order.html[Order]` allows to choose the order of the `Row`.

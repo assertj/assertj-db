@@ -1,7 +1,5 @@
 = Output
 
-Since 1.1.0
-
 It can be interesting to view the values on which an assertion is made (for example for debugging). The output allows that.
 
 This is a simple example :

@@ -43,12 +43,10 @@ Check this page to find the relevant https://search.maven.org/#artifactdetails|o
 
 == Statically import Assertions.assertThat
 
-[NOTE]
-====
-- From version 3.0.2 use org.assertj.**core**.api.Assertions.assertThat directly
-  - No more double import problem - see issue https://github.com/assertj/assertj-db/issues/329[329]
-- For previous versions use org.assertj.**db**.api.Assertions.assertThat
-====
+[source,java]
+----
+import static org.assertj.core.api.Assertions.assertThat;
+----
 
 \... and use your preferred IDE code completion after assertThat.
 
@@ -75,5 +73,5 @@ and after that to each value (each call of ``value()`` moves to the next value o
 (``row(1)`` moves the assertion to the row),
 from this row to the first value
 and after that to each value (``value()`` calls have similar behavior for rows and columns).
-* xref:concepts/datetime.adoc[DateValue] : Since 2.0.0, AssertJ-DB baseline is Java 8. The preferred way to compare values with date, time and date/time is to use java.time.LocalDate, java.time.LocalTime, java.time.LocalDateTime.
+* xref:concepts/datetime.adoc[DateValue] : AssertJ-DB baseline is Java 8. The preferred way to compare values with date, time and date/time is to use java.time.LocalDate, java.time.LocalTime, java.time.LocalDateTime.
 But for the backward compatibility, it's always possible to use AssertJ-DB DateValue utilities.
