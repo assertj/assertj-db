@@ -219,6 +219,8 @@
           <playbookFile>src/docs/antora/antora-playbook.yml</playbookFile>
           <options>
             <option>log-level=info</option>
+            <!-- this standalone build has no assertj-core component for the xref in antora.yml to resolve against -->
+            <option>attribute=assertj-core-javadoc=https://docs.assertj.dev/assertj-core/3.27/api</option>
           </options>
         </configuration>
       </plugin>

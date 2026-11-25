@@ -8,5 +8,5 @@ asciidoc:
     source-indent: '0'
     assertj-db-version: '${project.version}'
     assertj-db-javadoc: 'xref:attachment$api'
-    assertj-core-javadoc: 'https://docs.assertj.dev/assertj-core/current/api'
+    assertj-core-javadoc: 'xref:assertj-core::attachment$api'
     assertj-examples-github: 'https://github.com/assertj/assertj-examples'
