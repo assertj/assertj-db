@@ -2,6 +2,6 @@
   "private": true,
   "devDependencies": {
     "@antora/collector-extension": "1.0.3",
-    "antora": "3.2.2"
+    "antora": "3.2.3"
   }
 }
