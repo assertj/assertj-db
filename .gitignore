@@ -17,3 +17,5 @@ out
 /bin/
 .mvn/wrapper/maven-wrapper.jar
 dependency-reduced-pom.xml
+#Node.js
+/node_modules

@@ -1,0 +1,10 @@
+version: ${antora-component.version}
+prerelease: ${antora-component.prerelease}
+asciidoc:
+  attributes:
+    idprefix: ''
+    idseparator: '-'
+    tabsize: '3'
+    source-indent: '0'
+    assertj-db-version: '${project.version}'
+    assertj-examples-github: 'https://github.com/assertj/assertj-examples'

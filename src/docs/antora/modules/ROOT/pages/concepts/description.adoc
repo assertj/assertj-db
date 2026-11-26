@@ -1,0 +1,21 @@
+= Default description
+
+In assertj, it is possible to add a description with the methods of the https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/Descriptable.html[Descriptable] interface.
+This description is used in the error message if the assertion fails.
+
+Due to the navigation, it is more complicated in assertj-db to know on which element an error is thrown.
+So to help the tester, there are default descriptions.
+
+For example :
+
+*   `"members table"` for an assertion on a table
+*   `"'select * from actor' request"` for an assertion on a request
+*   `"'select id, name, firstname, bi...' request"` for an assertion on a request with more text
+*   `"Row at index 0 of members table"` for an assertion on a row of a table
+*   `"Column at index 0 (column name : ID) of 'select * from members' request"` for an assertion on a column of a request
+*   `"Value at index 0 of Column at index 0 (column name : ID) of 'select * from members' request"` for an assertion on a value of a column of a request
+*   `"Value at index 0 (column name : ID) of Row at index 0 of 'select * from members' request"` for an assertion on a value of a row of a request
+*   `"Value at index 0 (column name : ID) of Row at end point of Change at index 0 (on table : MEMBERS and with primary key : [4]) of Changes on tables of 'sa/jdbc:h2:mem:test' source"`
+for an assertion on a value of the row at end point of a change on a table
+
+This default description can be replaced by the choice of the tester by using the methods of https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/Descriptable.html[Descriptable].

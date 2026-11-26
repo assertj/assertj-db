@@ -1,0 +1,14 @@
+name: assertj-db
+title: AssertJ DB
+version: true
+nav:
+  - modules/ROOT/nav.adoc
+ext:
+  collector:
+    - run:
+        command: ./mvnw -q io.spring.maven.antora:antora-component-version-maven-plugin:antora-component-version resources:copy-resources@antora-resources
+        local: true
+      scan:
+        - dir: target/antora
+        - dir: src/test/java/example
+          into: modules/ROOT/examples/java/example
