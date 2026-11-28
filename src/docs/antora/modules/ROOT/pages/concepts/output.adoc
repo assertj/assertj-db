@@ -39,8 +39,8 @@ In the example above, the output is in plain text in the console. It is possible
 
 There are two outputs already implemented :
 
-*   https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/output/impl/OutputType.html#PLAIN[PLAIN] : shown in the example above (the default output type)
-*   https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/output/impl/OutputType.html#HTML[HTML] : which represents the result as an HTML document
+*   {assertj-db-javadoc}/org/assertj/db/output/impl/OutputType.html#PLAIN[PLAIN] : shown in the example above (the default output type)
+*   {assertj-db-javadoc}/org/assertj/db/output/impl/OutputType.html#HTML[HTML] : which represents the result as an HTML document
 
 [source,java]
 ----
@@ -48,17 +48,17 @@ There are two outputs already implemented :
 output(table).withType(OutputType.HTML).....;
 ----
 
-Note that the type of output is extensible because the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/output/AbstractOutputter.html#withType-org.assertj.db.output.impl.Output-[withType(Output outputType)] method's parameter is an instance of the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/output/impl/Output.html[Output] interface.
-So this is not limited to the implementations in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/output/impl/OutputType.html[OutputType] enum.
+Note that the type of output is extensible because the {assertj-db-javadoc}/org/assertj/db/output/AbstractOutputter.html#withType(org.assertj.db.output.impl.Output)[withType(Output outputType)] method's parameter is an instance of the {assertj-db-javadoc}/org/assertj/db/output/impl/Output.html[Output] interface.
+So this is not limited to the implementations in the {assertj-db-javadoc}/org/assertj/db/output/impl/OutputType.html[OutputType] enum.
 
 [[destination]]
 == Destination
 
 The destination is the way to print the display. There are three destinations :
 
-*   the console (with the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/output/AbstractOutputter.html#toConsole--[toConsole()] method)
-*   a file (with the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/output/AbstractOutputter.html#toFile-java.lang.String-[toFile(String fileName)] method)
-*   a stream (with the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/output/AbstractOutputter.html#toStream-java.io.OutputStream-[toStream(OutputStream outputStream)] method)
+*   the console (with the {assertj-db-javadoc}/org/assertj/db/output/AbstractOutputter.html#toConsole()[toConsole()] method)
+*   a file (with the {assertj-db-javadoc}/org/assertj/db/output/AbstractOutputter.html#toFile(java.lang.String)[toFile(String fileName)] method)
+*   a stream (with the {assertj-db-javadoc}/org/assertj/db/output/AbstractOutputter.html#toStream(java.io.OutputStream)[toStream(OutputStream outputStream)] method)
 
 Note that with this last method the possibilities of destination are really flexible.
 

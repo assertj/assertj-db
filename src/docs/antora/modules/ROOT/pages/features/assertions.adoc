@@ -3,7 +3,7 @@
 [[onchangetype]]
 == On the type of change
 
-These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnChangeType.html[AssertOnChangeType] interface.
+These assertions are described in the {assertj-db-javadoc}/org/assertj/db/api/assertions/AssertOnChangeType.html[AssertOnChangeType] interface.
 
 These assertions allow to verify the type of a change (the concept of change of type is described xref:concepts/types.adoc#changetype[here]).
 
@@ -23,8 +23,8 @@ assertThat(changes).change().isCreation();
 [[oncolumnequality]]
 == On the equality with the values of a column
 
-These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnColumnEquality.html[AssertOnColumnEquality]
-and the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnColumnOfChangeEquality.html[AssertOnColumnOfChangeEquality] interfaces.
+These assertions are described in the {assertj-db-javadoc}/org/assertj/db/api/assertions/AssertOnColumnEquality.html[AssertOnColumnEquality]
+and the {assertj-db-javadoc}/org/assertj/db/api/assertions/AssertOnColumnOfChangeEquality.html[AssertOnColumnOfChangeEquality] interfaces.
 
 These assertion allow to verify the values of a column (the column of a table, of a request or of a change).
 
@@ -183,7 +183,7 @@ assertThat(changes).change().column().hasValues('T');
 [[oncolumnname]]
 == On the name of a column
 
-This assertion is described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnColumnName.html[AssertOnColumnName] interface.
+This assertion is described in the {assertj-db-javadoc}/org/assertj/db/api/assertions/AssertOnColumnName.html[AssertOnColumnName] interface.
 
 This assertion allows to verify the name of a column (the column of a table, of a request or of a change).
 
@@ -200,7 +200,7 @@ assertThat(changes).change().column().hasColumnName("id");
 [[oncolumnnullity]]
 == On the nullity of the values of a column
 
-These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnColumnNullity.html[AssertOnColumnNullity] interface.
+These assertions are described in the {assertj-db-javadoc}/org/assertj/db/api/assertions/AssertOnColumnNullity.html[AssertOnColumnNullity] interface.
 
 These assertion allows to verify the nullity of the values of a column (the column of a table or of a request).
 
@@ -215,7 +215,7 @@ assertThat(request).column("name").hasOnlyNotNullValues();
 [[onrownullity]]
 == On the nullity of the values of a row
 
-These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnRowNullity.html[AssertOnRowNullity] interface.
+These assertions are described in the {assertj-db-javadoc}/org/assertj/db/api/assertions/AssertOnRowNullity.html[AssertOnRowNullity] interface.
 
 These assertion allows to verify the nullity of the values of a row (the row of a table or of a request).
 
@@ -230,7 +230,7 @@ assertThat(request).row().hasOnlyNotNullValues();
 [[oncolumntype]]
 == On the type of column
 
-These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnColumnType.html[AssertOnColumnType] interface.
+These assertions are described in the {assertj-db-javadoc}/org/assertj/db/api/assertions/AssertOnColumnType.html[AssertOnColumnType] interface.
 
 These assertions allow to verify the type of the values of a column (a column from a table, from a request or from a change).
 
@@ -254,7 +254,7 @@ assertThat(changes).change().column()
 [[oncolumnclass]]
 == On the class of column
 
-This assertion is described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnColumnClass.html[AssertOnColumnClass] interface.
+This assertion is described in the {assertj-db-javadoc}/org/assertj/db/api/assertions/AssertOnColumnClass.html[AssertOnColumnClass] interface.
 
 This assertion allows to verify the class of the values of a column (a column from a table, from a request or from a change).
 
@@ -271,7 +271,7 @@ assertThat(changes).change().column().isOfClass(Locale.class, true);
 [[oncolumncontent]]
 == On the content of column
 
-These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnColumnContent.html[AssertOnColumnContent] interface.
+These assertions are described in the {assertj-db-javadoc}/org/assertj/db/api/assertions/AssertOnColumnContent.html[AssertOnColumnContent] interface.
 
 These assertions allow to verify the content of a column (a column from a table or from a request).
 
@@ -293,7 +293,7 @@ assertThat(table).column("name").containsValues("Evans",
 [[ondatatype]]
 == On the type of data
 
-These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnDataType.html[AssertOnDataType] interface.
+These assertions are described in the {assertj-db-javadoc}/org/assertj/db/api/assertions/AssertOnDataType.html[AssertOnDataType] interface.
 
 These assertions allow to verify the type of the date on which is a change.
 
@@ -310,8 +310,8 @@ assertThat(changes).change().isOnTable("members");
 [[onmodifiedcolumns]]
 == On the modified columns in a change
 
-These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnModifiedColumn.html[AssertOnModifiedColumn]
-and the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnModifiedColumns.html[AssertOnModifiedColumns] interfaces.
+These assertions are described in the {assertj-db-javadoc}/org/assertj/db/api/assertions/AssertOnModifiedColumn.html[AssertOnModifiedColumn]
+and the {assertj-db-javadoc}/org/assertj/db/api/assertions/AssertOnModifiedColumns.html[AssertOnModifiedColumns] interfaces.
 
 These assertions allow to verify if a column of a change have been modified between the start point and the end point (see the xref:concepts/elements.adoc#changes[concept of changes]).
 
@@ -345,7 +345,7 @@ assertThat(changes).change().hasNumberOfModifiedColumnsLessThanOrEqualTo(6);
 [[onnumberchanges]]
 == On the number of changes
 
-This assertion is described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnNumberOfChanges.html[AssertOnNumberOfChanges] interface.
+This assertion is described in the {assertj-db-javadoc}/org/assertj/db/api/assertions/AssertOnNumberOfChanges.html[AssertOnNumberOfChanges] interface.
 
 This assertion allows to verify the number of changes.
 
@@ -372,7 +372,7 @@ assertThat(changes).hasNumberOfChangesLessThanOrEqualTo(6);
 [[onnumbercolumns]]
 == On the number of columns
 
-This assertion is described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnNumberOfColumns.html[AssertOnNumberOfColumns] interface.
+This assertion is described in the {assertj-db-javadoc}/org/assertj/db/api/assertions/AssertOnNumberOfColumns.html[AssertOnNumberOfColumns] interface.
 
 This assertion allows to verify the number of columns (columns from a table, from a request or from a change).
 
@@ -401,7 +401,7 @@ assertThat(changes).hasNumberOfColumnsLessThanOrEqualTo(6);
 [[onnumberrows]]
 == On the number of rows
 
-This assertion is described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnNumberOfRows.html[AssertOnNumberOfRows] interface.
+This assertion is described in the {assertj-db-javadoc}/org/assertj/db/api/assertions/AssertOnNumberOfRows.html[AssertOnNumberOfRows] interface.
 
 This assertion allows to verify the number of rows (rows from a table or from a request).
 
@@ -436,7 +436,7 @@ assertThat(table).isEmpty();
 [[onprimarykeys]]
 == On the primary keys
 
-These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnPrimaryKey.html[AssertOnPrimaryKey] interface.
+These assertions are described in the {assertj-db-javadoc}/org/assertj/db/api/assertions/AssertOnPrimaryKey.html[AssertOnPrimaryKey] interface.
 
 These assertions allow to verify the names and the values of the columns which compose the primary keys of the rows from a change.
 
@@ -451,7 +451,7 @@ assertThat(changes).change().hasPksValues(1, "HEWSON");
 [[onrowequality]]
 == On the equality with the values of a row
 
-This assertion is described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnRowEquality.html[AssertOnRowEquality] interface.
+This assertion is described in the {assertj-db-javadoc}/org/assertj/db/api/assertions/AssertOnRowEquality.html[AssertOnRowEquality] interface.
 
 This assertion allow to verify the values of a row (the row of a table, of a request or of a change).
 
@@ -478,7 +478,7 @@ assertThat(changes).change().rowAtEndPoint()
 [[onrowexistence]]
 == On the existence of a row in a change
 
-These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnRowOfChangeExistence.html[AssertOnRowOfChangeExistence] interface.
+These assertions are described in the {assertj-db-javadoc}/org/assertj/db/api/assertions/AssertOnRowOfChangeExistence.html[AssertOnRowOfChangeExistence] interface.
 
 These assertions allow to verify that the row at start point or at end point of a change exists or not (for a creation, the row do not exist at start point and for a deletion it is the contrary : the row do not exist at end point).
 
@@ -493,7 +493,7 @@ assertThat(changes).change().rowAtEndPoint().doesNotExist();
 [[onvaluechronology]]
 == On the chronology of a value
 
-These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnValueChronology.html[AssertOnValueChronology] interface.
+These assertions are described in the {assertj-db-javadoc}/org/assertj/db/api/assertions/AssertOnValueChronology.html[AssertOnValueChronology] interface.
 
 These assertions allow to compare a value (the value of a table, of a request or of a change) to a date, a time or a date/time.
 
@@ -511,7 +511,7 @@ assertThat(changes).change().column("release").valueAtEndPoint()
 [[onvaluecomparison]]
 == On the comparison with a value
 
-These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnValueComparison.html[AssertOnValueComparison] interface.
+These assertions are described in the {assertj-db-javadoc}/org/assertj/db/api/assertions/AssertOnValueComparison.html[AssertOnValueComparison] interface.
 
 These assertions allow to compare a value (the value of a table, of a request or of a change) to a number.
 
@@ -529,7 +529,7 @@ assertThat(changes).change().column("size").valueAtEndPoint()
 [[onvaluecloseness]]
 == On the closeness of a value
 
-These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnValueCloseness.html[AssertOnValueCloseness] interface.
+These assertions are described in the {assertj-db-javadoc}/org/assertj/db/api/assertions/AssertOnValueCloseness.html[AssertOnValueCloseness] interface.
 
 These assertions allow to verify if a value (the value of a table, of a request or of a change) is close to another.
 
@@ -548,7 +548,7 @@ assertThat(changes).change().column("birth").valueAtEndPoint()
 [[onvaluequality]]
 == On the equality with a value
 
-These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnValueEquality.html[AssertOnValueEquality] interface.
+These assertions are described in the {assertj-db-javadoc}/org/assertj/db/api/assertions/AssertOnValueEquality.html[AssertOnValueEquality] interface.
 
 These assertion allow to verify that a value (the value of a table, of a request or of a change) is equal to another value (in parameter).
 
@@ -665,7 +665,7 @@ assertThat(table).column().value().isEqualTo('T')
 [[onvaluenonquality]]
 == On the non equality with a value
 
-These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnValueNonEquality.html[AssertOnValueNonEquality] interface.
+These assertions are described in the {assertj-db-javadoc}/org/assertj/db/api/assertions/AssertOnValueInequality.html[AssertOnValueInequality] interface.
 
 These assertion allow to verify that a value (the value of a table, of a request or of a change) is not equal to another value (in parameter).
 
@@ -782,7 +782,7 @@ assertThat(table).column()
 [[onvaluenullity]]
 == On the nullity of a value
 
-These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnValueNullity.html[AssertOnValueNullity] interface.
+These assertions are described in the {assertj-db-javadoc}/org/assertj/db/api/assertions/AssertOnValueNullity.html[AssertOnValueNullity] interface.
 
 These assertions allow to verify if a value (the value of a table, of a request or of a change) is null or not.
 
@@ -799,7 +799,7 @@ assertThat(changes).change().rowAtStartPoint().value("live")
 [[onvaluetype]]
 == On the type of a value
 
-These assertions are described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnValueType.html[AssertOnValueType] interface.
+These assertions are described in the {assertj-db-javadoc}/org/assertj/db/api/assertions/AssertOnValueType.html[AssertOnValueType] interface.
 
 This assertion allows to verify the type of a value (a value from a table, from a request or from changes).
 
@@ -820,7 +820,7 @@ assertThat(changes).change().column().valueAtStartPoint()
 [[onvalueclass]]
 == On the class of a value
 
-This assertion is described in the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnValueClass.html[AssertOnValueClass] interface.
+This assertion is described in the {assertj-db-javadoc}/org/assertj/db/api/assertions/AssertOnValueClass.html[AssertOnValueClass] interface.
 
 This assertion allows to verify the class of a value (a value from a table, from a request or from changes).
 

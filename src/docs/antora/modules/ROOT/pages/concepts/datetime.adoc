@@ -4,9 +4,9 @@ AssertJ-DB baseline is Java 8. The preferred way to compare values with date, ti
 
 But for the backward compatibility, it's always possible to use AssertJ-DB DateValue utilities.
 
-So The https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/DateValue.html[DateValue],
-      https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/TimeValue.html[TimeValue] and
-      https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/DateTimeValue.html[DateTimeValue] classes are simpler but contain this kind of information.
+So the {assertj-db-javadoc}/org/assertj/db/type/DateValue.html[DateValue],
+      {assertj-db-javadoc}/org/assertj/db/type/TimeValue.html[TimeValue] and
+      {assertj-db-javadoc}/org/assertj/db/type/DateTimeValue.html[DateTimeValue] classes are simpler but contain this kind of information.
 
 There is 4 kinds of static methods to instantiate these values :
 

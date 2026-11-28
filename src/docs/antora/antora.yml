@@ -6,9 +6,12 @@ nav:
 ext:
   collector:
     - run:
-        command: ./mvnw -q io.spring.maven.antora:antora-component-version-maven-plugin:antora-component-version resources:copy-resources@antora-resources
+        command: ./mvnw -q io.spring.maven.antora:antora-component-version-maven-plugin:antora-component-version resources:copy-resources@antora-resources javadoc:javadoc
         local: true
       scan:
         - dir: target/antora
+        - dir: target/reports/apidocs
+          clean: true
+          into: modules/ROOT/attachments/api
         - dir: src/test/java/example
           into: modules/ROOT/examples/java/example

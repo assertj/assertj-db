@@ -29,6 +29,7 @@
   </issueManagement>
 
   <properties>
+    <assertj-core.version>3.27.7</assertj-core.version>
     <!-- SonarCloud -->
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     <sonar.organization>assertj-org</sonar.organization>
@@ -39,7 +40,7 @@
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
-      <version>3.27.7</version>
+      <version>${assertj-core.version}</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -206,6 +207,26 @@
         <version>0.0.4</version>
       </plugin>
       <plugin>
+        <!-- provides assertj-core.parsedVersion.* for the versioned AssertJ Core Javadoc URL below -->
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>3.6.1</version>
+        <executions>
+          <execution>
+            <!-- the "antora" lifecycle does not include the validate phase -->
+            <id>parse-assertj-core-version</id>
+            <phase>pre-antora</phase>
+            <goals>
+              <goal>parse-version</goal>
+            </goals>
+            <configuration>
+              <versionString>${assertj-core.version}</versionString>
+              <propertyPrefix>assertj-core.parsedVersion</propertyPrefix>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <groupId>org.antora</groupId>
         <artifactId>antora-maven-plugin</artifactId>
         <version>1.0.0-alpha.5</version>
@@ -217,6 +238,8 @@
           <playbookFile>src/docs/antora/antora-playbook.yml</playbookFile>
           <options>
             <option>log-level=info</option>
+            <!-- this standalone build has no assertj-core component for the xref in antora.yml to resolve against -->
+            <option>attribute=assertj-core-javadoc=https://docs.assertj.dev/assertj-core/${assertj-core.parsedVersion.majorVersion}.${assertj-core.parsedVersion.minorVersion}/api</option>
           </options>
         </configuration>
       </plugin>
