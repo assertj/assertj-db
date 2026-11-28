@@ -80,7 +80,7 @@ public class AssertionsOnValueType_IsTime_Test extends AbstractTest {
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
         + "Expecting:%n"
-        + "  <text>%n"
+        + "  <\"text\">%n"
         + "to be of type%n"
         + "  <TIME>%n"
         + "but was of type%n"

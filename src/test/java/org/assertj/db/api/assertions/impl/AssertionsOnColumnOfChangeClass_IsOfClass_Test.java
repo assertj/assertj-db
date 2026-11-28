@@ -180,7 +180,7 @@ public class AssertionsOnColumnOfChangeClass_IsOfClass_Test extends AbstractTest
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
         + "Expecting that the value at start point:%n"
-        + "  <test>%n"
+        + "  <\"test\">%n"
         + "to be of class%n"
         + "  <java.lang.String>%n"
         + "but was of class%n"
@@ -195,7 +195,7 @@ public class AssertionsOnColumnOfChangeClass_IsOfClass_Test extends AbstractTest
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
         + "Expecting that the value at start point:%n"
-        + "  <test>%n"
+        + "  <\"test\">%n"
         + "to be of class%n"
         + "  <java.lang.String>%n"
         + "but was of class%n"
@@ -220,7 +220,7 @@ public class AssertionsOnColumnOfChangeClass_IsOfClass_Test extends AbstractTest
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
         + "Expecting that the value at end point:%n"
-        + "  <test>%n"
+        + "  <\"test\">%n"
         + "to be of class%n"
         + "  <java.lang.String>%n"
         + "but was of class%n"
@@ -235,7 +235,7 @@ public class AssertionsOnColumnOfChangeClass_IsOfClass_Test extends AbstractTest
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
         + "Expecting that the value at end point:%n"
-        + "  <test>%n"
+        + "  <\"test\">%n"
         + "to be of class%n"
         + "  <java.lang.String>%n"
         + "but was of class%n"

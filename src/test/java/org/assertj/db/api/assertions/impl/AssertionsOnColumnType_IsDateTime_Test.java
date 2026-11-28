@@ -122,7 +122,7 @@ public class AssertionsOnColumnType_IsDateTime_Test extends AbstractTest {
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
         + "Expecting that the value at index 0:%n"
-        + "  <test>%n"
+        + "  <\"test\">%n"
         + "to be of type%n"
         + "  <DATE_TIME>%n"
         + "but was of type%n"

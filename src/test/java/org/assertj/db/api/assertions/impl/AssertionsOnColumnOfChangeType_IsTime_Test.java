@@ -118,7 +118,7 @@ public class AssertionsOnColumnOfChangeType_IsTime_Test extends AbstractTest {
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
         + "Expecting that the value at start point:%n"
-        + "  <test>%n"
+        + "  <\"test\">%n"
         + "to be of type%n"
         + "  <TIME>%n"
         + "but was of type%n"
@@ -142,7 +142,7 @@ public class AssertionsOnColumnOfChangeType_IsTime_Test extends AbstractTest {
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
         + "Expecting that the value at end point:%n"
-        + "  <test>%n"
+        + "  <\"test\">%n"
         + "to be of type%n"
         + "  <TIME>%n"
         + "but was of type%n"

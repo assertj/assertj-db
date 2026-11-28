@@ -108,7 +108,7 @@ public class AssertionsOnValueInequality_IsNotEqualTo_Object_Test extends Abstra
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
         + "Expecting:%n"
-        + "  <test1>%n"
+        + "  <\"test1\">%n"
         + "to be of class%n"
         + "  <java.lang.StringBuffer>%n"
         + "but was of class%n"

@@ -78,7 +78,7 @@ public class AssertionsOnValueType_IsText_Test extends AbstractTest {
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
         + "Expecting:%n"
-        + "  <text>%n"
+        + "  <\"text\">%n"
         + "to be of type%n"
         + "  <TEXT>%n"
         + "but was of type%n"

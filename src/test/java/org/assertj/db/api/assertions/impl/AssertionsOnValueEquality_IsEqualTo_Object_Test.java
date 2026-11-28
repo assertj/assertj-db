@@ -112,7 +112,7 @@ public class AssertionsOnValueEquality_IsEqualTo_Object_Test extends AbstractTes
     } catch (AssertionError e) {
       Assertions.assertThat(e.getMessage()).isEqualTo(String.format("[description] %n"
         + "Expecting:%n"
-        + "  <test1>%n"
+        + "  <\"test1\">%n"
         + "to be of class%n"
         + "  <java.lang.StringBuffer>%n"
         + "but was of class%n"
